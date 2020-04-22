@@ -1,9 +1,14 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SniperCripplingRound : Ability
 {
+	public enum ExplosionType
+	{
+		Shape,
+		Cone
+	}
+
 	[Header("-- Laser info ------------------------------------------")]
 	public int m_laserDamageAmount = 5;
 
@@ -26,7 +31,7 @@ public class SniperCripplingRound : Ability
 
 	public bool m_snapToTargetSquareWhenClampRange;
 
-	public SniperCripplingRound.ExplosionType m_explosionType = SniperCripplingRound.ExplosionType.Cone;
+	public ExplosionType m_explosionType = ExplosionType.Cone;
 
 	[Header("-- If using Shape")]
 	public AbilityAreaShape m_explosionShape = AbilityAreaShape.Three_x_Three;
@@ -48,9 +53,9 @@ public class SniperCripplingRound : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -59,58 +64,57 @@ public class SniperCripplingRound : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = string.Empty;
+			m_abilityName = string.Empty;
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		if (this.m_explosionType == SniperCripplingRound.ExplosionType.Cone)
+		if (m_explosionType == ExplosionType.Cone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					AbilityUtil_Targeter_LaserWithCone abilityUtil_Targeter_LaserWithCone = new AbilityUtil_Targeter_LaserWithCone(this, m_laserWidth, m_laserRange, m_laserPenetrateLos, false, m_coneWidthAngle, m_coneLength, m_coneBackwardOffset);
+					abilityUtil_Targeter_LaserWithCone.SetMaxLaserTargets(GetModdedMaxLaserTargets());
+					abilityUtil_Targeter_LaserWithCone.SetExplodeOnPathEnd(m_alwaysExplodeOnPathEnd);
+					abilityUtil_Targeter_LaserWithCone.SetExplodeOnEnvironmentHit(m_explodeOnEnvironmentHit);
+					abilityUtil_Targeter_LaserWithCone.SetClampToCursorPos(m_clampMaxRangeToCursorPos);
+					abilityUtil_Targeter_LaserWithCone.SetSnapToTargetSquareWhenClampRange(m_snapToTargetSquareWhenClampRange);
+					abilityUtil_Targeter_LaserWithCone.SetAddDirectHitActorAsPrimary(GetLaserDamage() > 0);
+					base.Targeter = abilityUtil_Targeter_LaserWithCone;
+					return;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.SetupTargeter()).MethodHandle;
-			}
-			AbilityUtil_Targeter_LaserWithCone abilityUtil_Targeter_LaserWithCone = new AbilityUtil_Targeter_LaserWithCone(this, this.m_laserWidth, this.m_laserRange, this.m_laserPenetrateLos, false, this.m_coneWidthAngle, this.m_coneLength, this.m_coneBackwardOffset);
-			abilityUtil_Targeter_LaserWithCone.SetMaxLaserTargets(this.GetModdedMaxLaserTargets());
-			abilityUtil_Targeter_LaserWithCone.SetExplodeOnPathEnd(this.m_alwaysExplodeOnPathEnd);
-			abilityUtil_Targeter_LaserWithCone.SetExplodeOnEnvironmentHit(this.m_explodeOnEnvironmentHit);
-			abilityUtil_Targeter_LaserWithCone.SetClampToCursorPos(this.m_clampMaxRangeToCursorPos);
-			abilityUtil_Targeter_LaserWithCone.SetSnapToTargetSquareWhenClampRange(this.m_snapToTargetSquareWhenClampRange);
-			abilityUtil_Targeter_LaserWithCone.SetAddDirectHitActorAsPrimary(this.GetLaserDamage() > 0);
-			base.Targeter = abilityUtil_Targeter_LaserWithCone;
 		}
-		else
-		{
-			AbilityUtil_Targeter_LaserWithShape abilityUtil_Targeter_LaserWithShape = new AbilityUtil_Targeter_LaserWithShape(this, new LaserTargetingInfo
-			{
-				maxTargets = this.GetModdedMaxLaserTargets(),
-				penetrateLos = this.m_laserPenetrateLos,
-				range = this.m_laserRange,
-				width = this.m_laserWidth
-			}, this.m_explosionShape);
-			abilityUtil_Targeter_LaserWithShape.SetExplodeOnPathEnd(this.m_alwaysExplodeOnPathEnd);
-			abilityUtil_Targeter_LaserWithShape.SetExplodeOnEnvironmentHit(this.m_explodeOnEnvironmentHit);
-			abilityUtil_Targeter_LaserWithShape.SetClampToCursorPos(this.m_clampMaxRangeToCursorPos);
-			abilityUtil_Targeter_LaserWithShape.SetSnapToTargetShapeCenterWhenClampRange(this.m_snapToTargetShapeCenterWhenClampRange);
-			abilityUtil_Targeter_LaserWithShape.SetSnapToTargetSquareWhenClampRange(this.m_snapToTargetSquareWhenClampRange);
-			abilityUtil_Targeter_LaserWithShape.SetAddDirectHitActorAsPrimary(this.GetLaserDamage() > 0);
-			base.Targeter = abilityUtil_Targeter_LaserWithShape;
-		}
+		LaserTargetingInfo laserTargetingInfo = new LaserTargetingInfo();
+		laserTargetingInfo.maxTargets = GetModdedMaxLaserTargets();
+		laserTargetingInfo.penetrateLos = m_laserPenetrateLos;
+		laserTargetingInfo.range = m_laserRange;
+		laserTargetingInfo.width = m_laserWidth;
+		AbilityUtil_Targeter_LaserWithShape abilityUtil_Targeter_LaserWithShape = new AbilityUtil_Targeter_LaserWithShape(this, laserTargetingInfo, m_explosionShape);
+		abilityUtil_Targeter_LaserWithShape.SetExplodeOnPathEnd(m_alwaysExplodeOnPathEnd);
+		abilityUtil_Targeter_LaserWithShape.SetExplodeOnEnvironmentHit(m_explodeOnEnvironmentHit);
+		abilityUtil_Targeter_LaserWithShape.SetClampToCursorPos(m_clampMaxRangeToCursorPos);
+		abilityUtil_Targeter_LaserWithShape.SetSnapToTargetShapeCenterWhenClampRange(m_snapToTargetShapeCenterWhenClampRange);
+		abilityUtil_Targeter_LaserWithShape.SetSnapToTargetSquareWhenClampRange(m_snapToTargetSquareWhenClampRange);
+		abilityUtil_Targeter_LaserWithShape.SetAddDirectHitActorAsPrimary(GetLaserDamage() > 0);
+		base.Targeter = abilityUtil_Targeter_LaserWithShape;
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -120,17 +124,17 @@ public class SniperCripplingRound : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.m_laserRange;
+		return m_laserRange;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_laserDamageAmount);
-		this.m_effectOnLaserHitTargets.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Secondary, this.m_explosionDamageAmount);
-		this.m_effectOnExplosionHitTargets.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Secondary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_laserDamageAmount);
+		m_effectOnLaserHitTargets.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_explosionDamageAmount);
+		m_effectOnExplosionHitTargets.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -141,11 +145,11 @@ public class SniperCripplingRound : Ability
 			int num = 0;
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				num += this.GetLaserDamage();
+				num += GetLaserDamage();
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -154,11 +158,11 @@ public class SniperCripplingRound : Ability
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				num += this.GetExplosionDamage();
+				num += GetExplosionDamage();
 			}
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			dictionary[AbilityTooltipSymbol.Damage] = num;
@@ -170,12 +174,11 @@ public class SniperCripplingRound : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SniperCripplingRound abilityMod_SniperCripplingRound = modAsBase as AbilityMod_SniperCripplingRound;
-		string name = "LaserDamageAmount";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_SniperCripplingRound)
+		if ((bool)abilityMod_SniperCripplingRound)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -184,60 +187,58 @@ public class SniperCripplingRound : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_SniperCripplingRound.m_laserDamageMod.GetModifiedValue(this.m_laserDamageAmount);
+			val = abilityMod_SniperCripplingRound.m_laserDamageMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
 		{
-			val = this.m_laserDamageAmount;
+			val = m_laserDamageAmount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		base.AddTokenInt(tokens, "ExplosionDamageAmount", string.Empty, (!abilityMod_SniperCripplingRound) ? this.m_explosionDamageAmount : abilityMod_SniperCripplingRound.m_explosionDamageMod.GetModifiedValue(this.m_explosionDamageAmount), false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnLaserHitTargets, "EffectOnLaserHitTargets", this.m_effectOnLaserHitTargets, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnExplosionHitTargets, "EffectOnExplosionHitTargets", this.m_effectOnExplosionHitTargets, true);
+		AddTokenInt(tokens, "LaserDamageAmount", empty, val);
+		AddTokenInt(tokens, "ExplosionDamageAmount", string.Empty, (!abilityMod_SniperCripplingRound) ? m_explosionDamageAmount : abilityMod_SniperCripplingRound.m_explosionDamageMod.GetModifiedValue(m_explosionDamageAmount));
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnLaserHitTargets, "EffectOnLaserHitTargets", m_effectOnLaserHitTargets);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnExplosionHitTargets, "EffectOnExplosionHitTargets", m_effectOnExplosionHitTargets);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SniperCripplingRound))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_abilityMod = (abilityMod as AbilityMod_SniperCripplingRound);
+					SetupTargeter();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_SniperCripplingRound);
-			this.SetupTargeter();
 		}
-		else
-		{
-			Debug.LogError("Trying to apply wrong type of ability mod");
-		}
+		Debug.LogError("Trying to apply wrong type of ability mod");
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	private int GetLaserDamage()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -246,30 +247,30 @@ public class SniperCripplingRound : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.GetLaserDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_laserDamageAmount;
+			result = m_laserDamageAmount;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_laserDamageMod.GetModifiedValue(this.m_laserDamageAmount);
+			result = m_abilityMod.m_laserDamageMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		return result;
 	}
 
 	private int GetExplosionDamage()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_explosionDamageMod.GetModifiedValue(this.m_explosionDamageAmount) : this.m_explosionDamageAmount;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_explosionDamageMod.GetModifiedValue(m_explosionDamageAmount) : m_explosionDamageAmount;
 	}
 
 	private int GetLaserEffectDuration()
 	{
-		int num = this.m_effectOnLaserHitTargets.m_effectData.m_duration;
-		if (this.m_abilityMod != null)
+		int num = m_effectOnLaserHitTargets.m_effectData.m_duration;
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -278,21 +279,21 @@ public class SniperCripplingRound : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.GetLaserEffectDuration()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = this.m_abilityMod.m_enemyHitEffectDurationMod.GetModifiedValue(num);
+			num = m_abilityMod.m_enemyHitEffectDurationMod.GetModifiedValue(num);
 		}
 		return num;
 	}
 
 	private int GetExplosionEffectDuration()
 	{
-		int num = this.m_effectOnExplosionHitTargets.m_effectData.m_duration;
-		if (this.m_abilityMod != null)
+		int num = m_effectOnExplosionHitTargets.m_effectData.m_duration;
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -301,40 +302,34 @@ public class SniperCripplingRound : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.GetExplosionEffectDuration()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = this.m_abilityMod.m_enemyHitEffectDurationMod.GetModifiedValue(num);
+			num = m_abilityMod.m_enemyHitEffectDurationMod.GetModifiedValue(num);
 		}
 		return num;
 	}
 
 	private int GetModdedMaxLaserTargets()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_abilityMod.m_maxTargetsMod.GetModifiedValue(1);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.GetModdedMaxLaserTargets()).MethodHandle;
-			}
-			return this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(1);
 		}
 		return 1;
-	}
-
-	public enum ExplosionType
-	{
-		Shape,
-		Cone
 	}
 }

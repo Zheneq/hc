@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,29 +11,29 @@ public class ClientGamePrefabInstantiator : MonoBehaviour
 
 	public static ClientGamePrefabInstantiator Get()
 	{
-		return ClientGamePrefabInstantiator.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		ClientGamePrefabInstantiator.s_instance = this;
+		s_instance = this;
 	}
 
 	private void OnDestroy()
 	{
-		ClientGamePrefabInstantiator.s_instance = null;
+		s_instance = null;
 	}
 
 	private void Start()
 	{
-		this.m_instances = new List<GameObject>();
+		m_instances = new List<GameObject>();
 	}
 
 	public void InstantiatePrefabs()
 	{
-		if (this.m_instances != null)
+		if (m_instances != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -43,13 +42,13 @@ public class ClientGamePrefabInstantiator : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientGamePrefabInstantiator.InstantiatePrefabs()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_instances.Count > 0)
+			if (m_instances.Count > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -58,28 +57,28 @@ public class ClientGamePrefabInstantiator : MonoBehaviour
 					}
 					break;
 				}
-				Log.Error(base.GetType() + " already has instantiated prefab instances when trying to spawn new instances", new object[0]);
-				this.DestroyInstantiations();
+				Log.Error(string.Concat(GetType(), " already has instantiated prefab instances when trying to spawn new instances"));
+				DestroyInstantiations();
 			}
 		}
-		Log.Info(base.GetType() + " instantiating client prefabs", new object[0]);
-		if (this.m_prefabs != null)
+		Log.Info(string.Concat(GetType(), " instantiating client prefabs"));
+		if (m_prefabs == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			for (int i = 0; i < this.m_prefabs.Length; i++)
+			for (int i = 0; i < m_prefabs.Length; i++)
 			{
-				GameObject gameObject = this.m_prefabs[i];
+				GameObject gameObject = m_prefabs[i];
 				if (gameObject != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -88,58 +87,60 @@ public class ClientGamePrefabInstantiator : MonoBehaviour
 						}
 						break;
 					}
-					GameObject gameObject2 = UnityEngine.Object.Instantiate<GameObject>(gameObject);
-					UnityEngine.Object.DontDestroyOnLoad(gameObject2);
-					this.m_instances.Add(gameObject2);
+					GameObject gameObject2 = Object.Instantiate(gameObject);
+					Object.DontDestroyOnLoad(gameObject2);
+					m_instances.Add(gameObject2);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public void DestroyInstantiations()
 	{
-		Log.Info(base.GetType() + " destroying client prefabs", new object[0]);
-		if (this.m_instances != null)
+		Log.Info(string.Concat(GetType(), " destroying client prefabs"));
+		if (m_instances == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientGamePrefabInstantiator.DestroyInstantiations()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_instances.Count > 0)
+			if (m_instances.Count > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					foreach (GameObject instance in m_instances)
+					{
+						Object.Destroy(instance);
+					}
+					m_instances.Clear();
+					return;
 				}
-				foreach (GameObject obj in this.m_instances)
-				{
-					UnityEngine.Object.Destroy(obj);
-				}
-				this.m_instances.Clear();
 			}
+			return;
 		}
 	}
 }

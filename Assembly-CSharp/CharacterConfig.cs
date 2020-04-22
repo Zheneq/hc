@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -22,6 +22,6 @@ public class CharacterConfig
 
 	public CharacterConfig Clone()
 	{
-		return (CharacterConfig)base.MemberwiseClone();
+		return (CharacterConfig)MemberwiseClone();
 	}
 }

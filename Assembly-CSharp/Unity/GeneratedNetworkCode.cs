@@ -1,4 +1,3 @@
-﻿using System;
 using System.Runtime.InteropServices;
 using UnityEngine.Networking;
 
@@ -11,22 +10,22 @@ namespace Unity
 		{
 			ushort num = reader.ReadUInt16();
 			instance.Clear();
-			for (ushort num2 = 0; num2 < num; num2 += 1)
+			for (ushort num2 = 0; num2 < num; num2 = (ushort)(num2 + 1))
 			{
 				instance.AddInternal(instance.DeserializeItem(reader));
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GeneratedNetworkCode._ReadStructSyncListSparkTetherAgeInfo_None(NetworkReader, SyncListSparkTetherAgeInfo)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 
@@ -34,22 +33,22 @@ namespace Unity
 		{
 			ushort count = value.Count;
 			writer.Write(count);
-			for (ushort num = 0; num < count; num += 1)
+			for (ushort num = 0; num < count; num = (ushort)(num + 1))
 			{
-				value.SerializeItem(writer, value.GetItem((int)num));
+				value.SerializeItem(writer, value.GetItem(num));
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GeneratedNetworkCode._WriteStructSyncListSparkTetherAgeInfo_None(NetworkWriter, SyncListSparkTetherAgeInfo)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 
@@ -57,22 +56,22 @@ namespace Unity
 		{
 			ushort num = reader.ReadUInt16();
 			instance.Clear();
-			for (ushort num2 = 0; num2 < num; num2 += 1)
+			for (ushort num2 = 0; num2 < num; num2 = (ushort)(num2 + 1))
 			{
 				instance.AddInternal(instance.DeserializeItem(reader));
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GeneratedNetworkCode._ReadStructSyncListVisionProviderInfo_None(NetworkReader, SyncListVisionProviderInfo)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 
@@ -80,22 +79,22 @@ namespace Unity
 		{
 			ushort count = value.Count;
 			writer.Write(count);
-			for (ushort num = 0; num < count; num += 1)
+			for (ushort num = 0; num < count; num = (ushort)(num + 1))
 			{
-				value.SerializeItem(writer, value.GetItem((int)num));
+				value.SerializeItem(writer, value.GetItem(num));
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GeneratedNetworkCode._WriteStructSyncListVisionProviderInfo_None(NetworkWriter, SyncListVisionProviderInfo)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 
@@ -103,22 +102,22 @@ namespace Unity
 		{
 			ushort num = reader.ReadUInt16();
 			instance.Clear();
-			for (ushort num2 = 0; num2 < num; num2 += 1)
+			for (ushort num2 = 0; num2 < num; num2 = (ushort)(num2 + 1))
 			{
 				instance.AddInternal(instance.DeserializeItem(reader));
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GeneratedNetworkCode._ReadStructSyncListTempCoverInfo_None(NetworkReader, SyncListTempCoverInfo)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 
@@ -126,25 +125,24 @@ namespace Unity
 		{
 			ushort count = value.Count;
 			writer.Write(count);
-			for (ushort num = 0; num < count; num += 1)
+			for (ushort num = 0; num < count; num = (ushort)(num + 1))
 			{
-				value.SerializeItem(writer, value.GetItem((int)num));
+				value.SerializeItem(writer, value.GetItem(num));
 			}
 		}
 
 		public static LocalizationArg_AbilityPing _ReadLocalizationArg_AbilityPing_None(NetworkReader reader)
 		{
-			return new LocalizationArg_AbilityPing
-			{
-				m_characterType = (CharacterType)reader.ReadInt32(),
-				m_abilityType = reader.ReadString(),
-				m_abilityName = reader.ReadString(),
-				m_isSelectable = reader.ReadBoolean(),
-				m_remainingCooldown = (int)reader.ReadPackedUInt32(),
-				m_isUlt = reader.ReadBoolean(),
-				m_currentTechPoints = (int)reader.ReadPackedUInt32(),
-				m_maxTechPoints = (int)reader.ReadPackedUInt32()
-			};
+			LocalizationArg_AbilityPing localizationArg_AbilityPing = new LocalizationArg_AbilityPing();
+			localizationArg_AbilityPing.m_characterType = (CharacterType)reader.ReadInt32();
+			localizationArg_AbilityPing.m_abilityType = reader.ReadString();
+			localizationArg_AbilityPing.m_abilityName = reader.ReadString();
+			localizationArg_AbilityPing.m_isSelectable = reader.ReadBoolean();
+			localizationArg_AbilityPing.m_remainingCooldown = (int)reader.ReadPackedUInt32();
+			localizationArg_AbilityPing.m_isUlt = reader.ReadBoolean();
+			localizationArg_AbilityPing.m_currentTechPoints = (int)reader.ReadPackedUInt32();
+			localizationArg_AbilityPing.m_maxTechPoints = (int)reader.ReadPackedUInt32();
+			return localizationArg_AbilityPing;
 		}
 
 		public static void _WriteLocalizationArg_AbilityPing_None(NetworkWriter writer, LocalizationArg_AbilityPing value)
@@ -161,12 +159,11 @@ namespace Unity
 
 		public static GridPosProp _ReadGridPosProp_None(NetworkReader reader)
 		{
-			return new GridPosProp
-			{
-				m_x = (int)reader.ReadPackedUInt32(),
-				m_y = (int)reader.ReadPackedUInt32(),
-				m_height = (int)reader.ReadPackedUInt32()
-			};
+			GridPosProp gridPosProp = new GridPosProp();
+			gridPosProp.m_x = (int)reader.ReadPackedUInt32();
+			gridPosProp.m_y = (int)reader.ReadPackedUInt32();
+			gridPosProp.m_height = (int)reader.ReadPackedUInt32();
+			return gridPosProp;
 		}
 
 		public static void _WriteGridPosProp_None(NetworkWriter writer, GridPosProp value)
@@ -184,26 +181,24 @@ namespace Unity
 
 		public static Replay.Message _ReadMessage_Replay(NetworkReader reader)
 		{
-			return new Replay.Message
-			{
-				timestamp = reader.ReadSingle(),
-				data = reader.ReadBytesAndSize()
-			};
+			Replay.Message result = default(Replay.Message);
+			result.timestamp = reader.ReadSingle();
+			result.data = reader.ReadBytesAndSize();
+			return result;
 		}
 
 		public static DisplayConsoleTextMessage _ReadDisplayConsoleTextMessage_None(NetworkReader reader)
 		{
-			return new DisplayConsoleTextMessage
-			{
-				Term = reader.ReadString(),
-				Context = reader.ReadString(),
-				Token = reader.ReadString(),
-				Unlocalized = reader.ReadString(),
-				MessageType = (ConsoleMessageType)reader.ReadInt32(),
-				RestrictVisibiltyToTeam = (Team)reader.ReadInt32(),
-				SenderHandle = reader.ReadString(),
-				CharacterType = (CharacterType)reader.ReadInt32()
-			};
+			DisplayConsoleTextMessage result = default(DisplayConsoleTextMessage);
+			result.Term = reader.ReadString();
+			result.Context = reader.ReadString();
+			result.Token = reader.ReadString();
+			result.Unlocalized = reader.ReadString();
+			result.MessageType = (ConsoleMessageType)reader.ReadInt32();
+			result.RestrictVisibiltyToTeam = (Team)reader.ReadInt32();
+			result.SenderHandle = reader.ReadString();
+			result.CharacterType = (CharacterType)reader.ReadInt32();
+			return result;
 		}
 
 		public static void _WriteDisplayConsoleTextMessage_None(NetworkWriter writer, DisplayConsoleTextMessage value)
@@ -220,13 +215,12 @@ namespace Unity
 
 		public static SinglePlayerScriptedChat _ReadSinglePlayerScriptedChat_None(NetworkReader reader)
 		{
-			return new SinglePlayerScriptedChat
-			{
-				m_text = reader.ReadString(),
-				m_sender = (CharacterType)reader.ReadInt32(),
-				m_displaySeconds = reader.ReadSingle(),
-				m_audioEvent = reader.ReadString()
-			};
+			SinglePlayerScriptedChat singlePlayerScriptedChat = new SinglePlayerScriptedChat();
+			singlePlayerScriptedChat.m_text = reader.ReadString();
+			singlePlayerScriptedChat.m_sender = (CharacterType)reader.ReadInt32();
+			singlePlayerScriptedChat.m_displaySeconds = reader.ReadSingle();
+			singlePlayerScriptedChat.m_audioEvent = reader.ReadString();
+			return singlePlayerScriptedChat;
 		}
 
 		public static void _WriteSinglePlayerScriptedChat_None(NetworkWriter writer, SinglePlayerScriptedChat value)

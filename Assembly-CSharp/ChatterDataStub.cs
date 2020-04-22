@@ -1,12 +1,10 @@
-﻿using System;
-
 public class ChatterDataStub : IChatterData
 {
 	private ChatterData m_data;
 
 	public ChatterDataStub(string eventName)
 	{
-		this.m_data = new ChatterData
+		m_data = new ChatterData
 		{
 			m_audioEvent = eventName
 		};
@@ -14,7 +12,7 @@ public class ChatterDataStub : IChatterData
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_data;
+		return m_data;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()

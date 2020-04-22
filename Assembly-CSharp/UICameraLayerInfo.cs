@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,160 +34,95 @@ public class UICameraLayerInfo
 
 	public int SetSceneVisible(IEnumerable<SceneType> aScenes, bool visible, SceneVisibilityParameters parameters)
 	{
-		return this.LayerManager.SetSceneVisible(aScenes, visible, parameters);
+		return LayerManager.SetSceneVisible(aScenes, visible, parameters);
 	}
 
 	public void Init()
 	{
-		if (!this.init)
+		if (init)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			init = true;
+			ActiveCameraIsForInGame = false;
+			InstantiateCamera();
+			LayerManager.Init(this);
+			for (int i = 0; i < LayerManager.CanvasLayers.Length; i++)
+			{
+				for (int j = 0; j < LayerManager.CanvasLayers[i].SceneDisplayInfos.Length; j++)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICameraLayerInfo.Init()).MethodHandle;
-			}
-			this.init = true;
-			this.ActiveCameraIsForInGame = false;
-			this.InstantiateCamera();
-			this.LayerManager.Init(this);
-			for (int i = 0; i < this.LayerManager.CanvasLayers.Length; i++)
-			{
-				for (int j = 0; j < this.LayerManager.CanvasLayers[i].SceneDisplayInfos.Length; j++)
-				{
-					this.CameraUsedInGame = (this.CameraUsedInGame || this.LayerManager.CanvasLayers[i].SceneDisplayInfos[j].m_InGame);
-					this.CameraUsedInFrontEnd = (this.CameraUsedInFrontEnd || this.LayerManager.CanvasLayers[i].SceneDisplayInfos[j].m_InFrontEnd);
+					CameraUsedInGame = (CameraUsedInGame || LayerManager.CanvasLayers[i].SceneDisplayInfos[j].m_InGame);
+					CameraUsedInFrontEnd = (CameraUsedInFrontEnd || LayerManager.CanvasLayers[i].SceneDisplayInfos[j].m_InFrontEnd);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	private void InstantiateCamera()
 	{
-		if (this.CamType != RenderMode.WorldSpace)
+		if (CamType != RenderMode.WorldSpace)
 		{
-			if (this.RenderCameraPrefab != null)
+			if (RenderCameraPrefab != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICameraLayerInfo.InstantiateCamera()).MethodHandle;
-				}
-				if (this.ActiveCamera == null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					this.ActiveCamera = UnityEngine.Object.Instantiate<Camera>(this.RenderCameraPrefab);
-					UIManager.ReparentTransform(this.ActiveCamera.transform, this.CameraLayerContainer.transform);
-					this.ActiveCamera.depth = (float)this.Priority;
-				}
-			}
-			else
-			{
-				Debug.LogError("No camera prefab!");
-			}
-		}
-		else
-		{
-			Camera camera;
-			if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				camera = this.RenderInGameCameraPrefab;
-				this.ActiveCameraIsForInGame = true;
-			}
-			else
-			{
-				camera = this.RenderCameraPrefab;
-				this.ActiveCameraIsForInGame = false;
-			}
-			if (camera != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.ActiveCamera == null)
-				{
-					for (;;)
-					{
-						switch (5)
+					default:
+						if (1 == 0)
 						{
-						case 0:
-							continue;
+							/*OpCode not supported: LdMemberToken*/;
 						}
-						break;
+						if (ActiveCamera == null)
+						{
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									break;
+								default:
+									ActiveCamera = UnityEngine.Object.Instantiate(RenderCameraPrefab);
+									UIManager.ReparentTransform(ActiveCamera.transform, CameraLayerContainer.transform);
+									ActiveCamera.depth = Priority;
+									return;
+								}
+							}
+						}
+						return;
 					}
-					this.ActiveCamera = UnityEngine.Object.Instantiate<Camera>(camera);
-					UIManager.ReparentTransform(this.ActiveCamera.transform, this.CameraLayerContainer.transform);
-					this.ActiveCamera.depth = (float)this.Priority;
 				}
 			}
-			else if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Debug.LogError("No camera prefab!");
-			}
+			Debug.LogError("No camera prefab!");
+			return;
 		}
-	}
-
-	public RuntimeSceneInfo RegisterUIScene(IUIScene scene)
-	{
-		if (this.CamType == RenderMode.WorldSpace)
+		Camera camera = null;
+		if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -196,13 +131,79 @@ public class UICameraLayerInfo
 				}
 				break;
 			}
-			if (!true)
+			camera = RenderInGameCameraPrefab;
+			ActiveCameraIsForInGame = true;
+		}
+		else
+		{
+			camera = RenderCameraPrefab;
+			ActiveCameraIsForInGame = false;
+		}
+		if (camera != null)
+		{
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICameraLayerInfo.RegisterUIScene(IUIScene)).MethodHandle;
+				switch (6)
+				{
+				case 0:
+					break;
+				default:
+					if (ActiveCamera == null)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								break;
+							default:
+								ActiveCamera = UnityEngine.Object.Instantiate(camera);
+								UIManager.ReparentTransform(ActiveCamera.transform, CameraLayerContainer.transform);
+								ActiveCamera.depth = Priority;
+								return;
+							}
+						}
+					}
+					return;
+				}
+			}
+		}
+		if (UIManager.Get().CurrentState != 0)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			Debug.LogError("No camera prefab!");
+			return;
+		}
+	}
+
+	public RuntimeSceneInfo RegisterUIScene(IUIScene scene)
+	{
+		if (CamType == RenderMode.WorldSpace)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (scene.GetSceneType() == SceneType.CharacterSelectBackground)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -211,9 +212,9 @@ public class UICameraLayerInfo
 					}
 					break;
 				}
-				if (this.LayerType == CameraLayerName.EnvironmentLayer)
+				if (LayerType == CameraLayerName.EnvironmentLayer)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -222,9 +223,9 @@ public class UICameraLayerInfo
 						}
 						break;
 					}
-					if (this.ActiveCamera != null)
+					if (ActiveCamera != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -233,41 +234,41 @@ public class UICameraLayerInfo
 							}
 							break;
 						}
-						UIManager.ReparentTransform(this.ActiveCamera.transform, FrontEndCharacterSelectBackgroundScene.Get().m_frontendEnvironmentCameraParent.transform);
+						UIManager.ReparentTransform(ActiveCamera.transform, FrontEndCharacterSelectBackgroundScene.Get().m_frontendEnvironmentCameraParent.transform);
 					}
 				}
 			}
 		}
-		return this.LayerManager.RegisterUIScene(scene);
+		return LayerManager.RegisterUIScene(scene);
 	}
 
 	public Canvas GetBatchCanvas(IUIScene theScene, CanvasBatchType type)
 	{
-		return this.LayerManager.GetBatchCanvas(theScene, type);
+		return LayerManager.GetBatchCanvas(theScene, type);
 	}
 
 	public Canvas GetDefaultCanvas(IUIScene theScene)
 	{
-		return this.LayerManager.GetDefaultCanvas(theScene);
+		return LayerManager.GetDefaultCanvas(theScene);
 	}
 
 	public Canvas GetDefaultCanvas(SceneType theScene)
 	{
-		return this.LayerManager.GetDefaultCanvas(theScene);
+		return LayerManager.GetDefaultCanvas(theScene);
 	}
 
 	public int GetNameplateCanvasLayer()
 	{
-		return this.LayerManager.GetNameplateCanvasLayer();
+		return LayerManager.GetNameplateCanvasLayer();
 	}
 
 	public List<UISceneDisplayInfo> SetGameState(UIManager.ClientState newState)
 	{
-		if (this.CamType != RenderMode.WorldSpace)
+		if (CamType != RenderMode.WorldSpace)
 		{
 			if (newState == UIManager.ClientState.InFrontEnd)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -276,13 +277,13 @@ public class UICameraLayerInfo
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICameraLayerInfo.SetGameState(UIManager.ClientState)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (this.ActiveCamera == null)
+				if (ActiveCamera == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -291,15 +292,15 @@ public class UICameraLayerInfo
 						}
 						break;
 					}
-					this.InstantiateCamera();
-					goto IL_AB;
+					InstantiateCamera();
+					goto IL_016b;
 				}
 			}
 			if (newState == UIManager.ClientState.InGame)
 			{
-				if (this.ActiveCamera != null)
+				if (ActiveCamera != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -308,9 +309,9 @@ public class UICameraLayerInfo
 						}
 						break;
 					}
-					if (!this.CameraUsedInGame)
+					if (!CameraUsedInGame)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -319,12 +320,12 @@ public class UICameraLayerInfo
 							}
 							break;
 						}
-						UnityEngine.Object.Destroy(this.ActiveCamera.gameObject);
+						UnityEngine.Object.Destroy(ActiveCamera.gameObject);
 					}
 				}
 				if (UICharacterSelectWorldObjects.Get() != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -336,13 +337,12 @@ public class UICameraLayerInfo
 					UICharacterSelectWorldObjects.Get().UnloadAllCharacters();
 				}
 			}
-			IL_AB:;
 		}
 		else
 		{
 			if (newState == UIManager.ClientState.InFrontEnd)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -351,9 +351,9 @@ public class UICameraLayerInfo
 					}
 					break;
 				}
-				if (this.ActiveCameraIsForInGame)
+				if (ActiveCameraIsForInGame)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -362,16 +362,16 @@ public class UICameraLayerInfo
 						}
 						break;
 					}
-					if (this.ActiveCamera != null)
+					if (ActiveCamera != null)
 					{
-						UnityEngine.Object.Destroy(this.ActiveCamera.gameObject);
-						this.ActiveCamera = null;
+						UnityEngine.Object.Destroy(ActiveCamera.gameObject);
+						ActiveCamera = null;
 					}
 				}
 			}
 			else if (newState == UIManager.ClientState.InGame)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -380,9 +380,9 @@ public class UICameraLayerInfo
 					}
 					break;
 				}
-				if (!this.ActiveCameraIsForInGame)
+				if (!ActiveCameraIsForInGame)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -391,9 +391,9 @@ public class UICameraLayerInfo
 						}
 						break;
 					}
-					if (this.ActiveCamera != null)
+					if (ActiveCamera != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -402,14 +402,14 @@ public class UICameraLayerInfo
 							}
 							break;
 						}
-						UnityEngine.Object.Destroy(this.ActiveCamera.gameObject);
-						this.ActiveCamera = null;
+						UnityEngine.Object.Destroy(ActiveCamera.gameObject);
+						ActiveCamera = null;
 					}
 				}
 			}
-			if (this.ActiveCamera == null)
+			if (ActiveCamera == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -418,9 +418,11 @@ public class UICameraLayerInfo
 					}
 					break;
 				}
-				this.InstantiateCamera();
+				InstantiateCamera();
 			}
 		}
-		return this.LayerManager.SetGameState(newState);
+		goto IL_016b;
+		IL_016b:
+		return LayerManager.SetGameState(newState);
 	}
 }

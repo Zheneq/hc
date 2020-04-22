@@ -1,4 +1,3 @@
-﻿using System;
 using I2.Loc;
 
 public class DebugCommand_Gibberish : DebugCommand
@@ -17,7 +16,7 @@ public class DebugCommand_Gibberish : DebugCommand
 	{
 		if (base.CheatEnabled)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -26,14 +25,14 @@ public class DebugCommand_Gibberish : DebugCommand
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_Gibberish.OnSlashCommand(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			LocalizationManager.GibberishMode = !LocalizationManager.GibberishMode;
 			if (LocalizationManager.GibberishMode)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -42,11 +41,11 @@ public class DebugCommand_Gibberish : DebugCommand
 					}
 					break;
 				}
-				TextConsole.Get().Write("Gibberish mode on", ConsoleMessageType.SystemMessage);
+				TextConsole.Get().Write("Gibberish mode on");
 			}
 			else
 			{
-				TextConsole.Get().Write("Gibberish mode off", ConsoleMessageType.SystemMessage);
+				TextConsole.Get().Write("Gibberish mode off");
 			}
 		}
 		return true;

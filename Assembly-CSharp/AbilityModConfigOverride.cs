@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class AbilityModConfigOverride
@@ -13,6 +13,6 @@ public class AbilityModConfigOverride
 
 	public AbilityModConfigOverride Clone()
 	{
-		return (AbilityModConfigOverride)base.MemberwiseClone();
+		return (AbilityModConfigOverride)MemberwiseClone();
 	}
 }

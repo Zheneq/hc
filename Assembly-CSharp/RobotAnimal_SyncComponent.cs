@@ -1,4 +1,3 @@
-﻿using System;
 using System.Runtime.InteropServices;
 using UnityEngine.Networking;
 
@@ -10,20 +9,16 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 	[SyncVar]
 	public int m_biteLastHitTurn = -1;
 
-	private void UNetVersion()
-	{
-	}
-
 	public int Networkm_biteLastCastTurn
 	{
 		get
 		{
-			return this.m_biteLastCastTurn;
+			return m_biteLastCastTurn;
 		}
 		[param: In]
 		set
 		{
-			base.SetSyncVar<int>(value, ref this.m_biteLastCastTurn, 1U);
+			SetSyncVar(value, ref m_biteLastCastTurn, 1u);
 		}
 	}
 
@@ -31,40 +26,44 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 	{
 		get
 		{
-			return this.m_biteLastHitTurn;
+			return m_biteLastHitTurn;
 		}
 		[param: In]
 		set
 		{
-			base.SetSyncVar<int>(value, ref this.m_biteLastHitTurn, 2U);
+			SetSyncVar(value, ref m_biteLastHitTurn, 2u);
 		}
+	}
+
+	private void UNetVersion()
+	{
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					writer.WritePackedUInt32((uint)m_biteLastCastTurn);
+					writer.WritePackedUInt32((uint)m_biteLastHitTurn);
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimal_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
-			writer.WritePackedUInt32((uint)this.m_biteLastCastTurn);
-			writer.WritePackedUInt32((uint)this.m_biteLastHitTurn);
-			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -75,7 +74,7 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -87,11 +86,11 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_biteLastCastTurn);
+			writer.WritePackedUInt32((uint)m_biteLastCastTurn);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -105,11 +104,11 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_biteLastHitTurn);
+			writer.WritePackedUInt32((uint)m_biteLastHitTurn);
 		}
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -127,18 +126,18 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			this.m_biteLastCastTurn = (int)reader.ReadPackedUInt32();
-			this.m_biteLastHitTurn = (int)reader.ReadPackedUInt32();
+			m_biteLastCastTurn = (int)reader.ReadPackedUInt32();
+			m_biteLastHitTurn = (int)reader.ReadPackedUInt32();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			this.m_biteLastCastTurn = (int)reader.ReadPackedUInt32();
+			m_biteLastCastTurn = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)
 		{
-			this.m_biteLastHitTurn = (int)reader.ReadPackedUInt32();
+			m_biteLastHitTurn = (int)reader.ReadPackedUInt32();
 		}
 	}
 }

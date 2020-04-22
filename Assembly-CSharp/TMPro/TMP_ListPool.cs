@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 namespace TMPro
@@ -12,12 +11,12 @@ namespace TMPro
 
 		public static List<T> Get()
 		{
-			return TMP_ListPool<T>.s_ListPool.Get();
+			return s_ListPool.Get();
 		}
 
 		public static void Release(List<T> toRelease)
 		{
-			TMP_ListPool<T>.s_ListPool.Release(toRelease);
+			s_ListPool.Release(toRelease);
 		}
 	}
 }

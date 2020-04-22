@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,7 +26,7 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 
 	public override void GenModImpl_SetTargetSelectMod(GenericAbility_TargetSelectBase targetSelect)
 	{
-		targetSelect.SetTargetSelectMod(this.m_targetSelectMod);
+		targetSelect.SetTargetSelectMod(m_targetSelectMod);
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
@@ -35,20 +35,20 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 		if (dinoMarkedAreaAttack != null)
 		{
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			AbilityMod.AddToken(tokens, this.m_delayTurnsMod, "DelayTurns", string.Empty, dinoMarkedAreaAttack.m_delayTurns, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageForSingleMarkMod, "ExtraDamageForSingleMark", string.Empty, dinoMarkedAreaAttack.m_extraDamageForSingleMark, true, false);
-			AbilityMod.AddToken(tokens, this.m_energyToAllyOnDamageHitMod, "EnergyToAllyOnDamageHit", string.Empty, dinoMarkedAreaAttack.m_energyToAllyOnDamageHit, true, false);
+			AbilityMod.AddToken(tokens, m_delayTurnsMod, "DelayTurns", string.Empty, dinoMarkedAreaAttack.m_delayTurns);
+			AbilityMod.AddToken(tokens, m_extraDamageForSingleMarkMod, "ExtraDamageForSingleMark", string.Empty, dinoMarkedAreaAttack.m_extraDamageForSingleMark);
+			AbilityMod.AddToken(tokens, m_energyToAllyOnDamageHitMod, "EnergyToAllyOnDamageHit", string.Empty, dinoMarkedAreaAttack.m_energyToAllyOnDamageHit);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		DinoMarkedAreaAttack dinoMarkedAreaAttack = base.GetTargetAbilityOnAbilityData(abilityData) as DinoMarkedAreaAttack;
+		DinoMarkedAreaAttack dinoMarkedAreaAttack = GetTargetAbilityOnAbilityData(abilityData) as DinoMarkedAreaAttack;
 		bool flag = dinoMarkedAreaAttack != null;
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (dinoMarkedAreaAttack != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -57,20 +57,18 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_DinoMarkedAreaAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, dinoMarkedAreaAttack.m_targetSelectComp, "-- Target Select Mod --");
+			text += GetTargetSelectModDesc(m_targetSelectMod, dinoMarkedAreaAttack.m_targetSelectComp);
 		}
 		string str = text;
-		AbilityModPropertyInt delayTurnsMod = this.m_delayTurnsMod;
-		string prefix = "[DelayTurns]";
-		bool showBaseVal = flag;
+		AbilityModPropertyInt delayTurnsMod = m_delayTurnsMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -85,15 +83,13 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + base.PropDesc(delayTurnsMod, prefix, showBaseVal, baseVal);
+		text = str + PropDesc(delayTurnsMod, "[DelayTurns]", flag, baseVal);
 		string str2 = text;
-		AbilityModPropertyShape shapeMod = this.m_shapeMod;
-		string prefix2 = "[Shape]";
-		bool showBaseVal2 = flag;
-		AbilityAreaShape baseVal2;
+		AbilityModPropertyShape shapeMod = m_shapeMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -102,21 +98,19 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 				}
 				break;
 			}
-			baseVal2 = dinoMarkedAreaAttack.m_shape;
+			baseVal2 = (int)dinoMarkedAreaAttack.m_shape;
 		}
 		else
 		{
-			baseVal2 = AbilityAreaShape.SingleSquare;
+			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(shapeMod, prefix2, showBaseVal2, baseVal2);
+		text = str2 + PropDesc(shapeMod, "[Shape]", flag, (AbilityAreaShape)baseVal2);
 		string str3 = text;
-		AbilityModPropertyBool delayedHitIgnoreLosMod = this.m_delayedHitIgnoreLosMod;
-		string prefix3 = "[DelayedHitIgnoreLos]";
-		bool showBaseVal3 = flag;
-		bool baseVal3;
+		AbilityModPropertyBool delayedHitIgnoreLosMod = m_delayedHitIgnoreLosMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -125,21 +119,19 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 				}
 				break;
 			}
-			baseVal3 = dinoMarkedAreaAttack.m_delayedHitIgnoreLos;
+			baseVal3 = (dinoMarkedAreaAttack.m_delayedHitIgnoreLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(delayedHitIgnoreLosMod, prefix3, showBaseVal3, baseVal3);
+		text = str3 + PropDesc(delayedHitIgnoreLosMod, "[DelayedHitIgnoreLos]", flag, (byte)baseVal3 != 0);
 		string str4 = text;
-		AbilityModPropertyInt extraDamageForSingleMarkMod = this.m_extraDamageForSingleMarkMod;
-		string prefix4 = "[ExtraDamageForSingleMark]";
-		bool showBaseVal4 = flag;
+		AbilityModPropertyInt extraDamageForSingleMarkMod = m_extraDamageForSingleMarkMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -154,15 +146,13 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(extraDamageForSingleMarkMod, prefix4, showBaseVal4, baseVal4);
+		text = str4 + PropDesc(extraDamageForSingleMarkMod, "[ExtraDamageForSingleMark]", flag, baseVal4);
 		string str5 = text;
-		AbilityModPropertyInt energyToAllyOnDamageHitMod = this.m_energyToAllyOnDamageHitMod;
-		string prefix5 = "[EnergyToAllyOnDamageHit]";
-		bool showBaseVal5 = flag;
+		AbilityModPropertyInt energyToAllyOnDamageHitMod = m_energyToAllyOnDamageHitMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -177,6 +167,6 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		return str5 + base.PropDesc(energyToAllyOnDamageHitMod, prefix5, showBaseVal5, baseVal5);
+		return str5 + PropDesc(energyToAllyOnDamageHitMod, "[EnergyToAllyOnDamageHit]", flag, baseVal5);
 	}
 }

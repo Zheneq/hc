@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UIOffscreenIndicator : UIBaseIndicator
@@ -20,110 +19,112 @@ public class UIOffscreenIndicator : UIBaseIndicator
 
 	protected override bool CalculateVisibility()
 	{
-		if (this.m_attachedToActor != null)
+		if (m_attachedToActor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIOffscreenIndicator.CalculateVisibility()).MethodHandle;
-			}
-			bool flag;
-			if (this.m_attachedToActor.\u000E() != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				flag = this.m_attachedToActor.\u000E().InChargeState();
-			}
-			else
-			{
-				flag = false;
-			}
-			bool result;
-			if (!flag)
-			{
-				for (;;)
+				default:
 				{
-					switch (7)
+					if (1 == 0)
 					{
-					case 0:
-						continue;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					break;
+					int num;
+					if (m_attachedToActor.GetActorMovement() != null)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num = (m_attachedToActor.GetActorMovement().InChargeState() ? 1 : 0);
+					}
+					else
+					{
+						num = 0;
+					}
+					int result;
+					if (num == 0)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						result = (m_attachedToActor.ShouldShowNameplate() ? 1 : 0);
+					}
+					else
+					{
+						result = 0;
+					}
+					return (byte)result != 0;
 				}
-				result = this.m_attachedToActor.\u0013();
+				}
 			}
-			else
-			{
-				result = false;
-			}
-			return result;
 		}
-		if (this.m_attachedToControlPoint != null)
+		if (m_attachedToControlPoint != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_attachedToControlPoint.CurrentControlPointState != ControlPoint.State.Disabled;
 				}
-				break;
 			}
-			return this.m_attachedToControlPoint.CurrentControlPointState != ControlPoint.State.Disabled;
 		}
-		if (this.m_attachedToFlag != null)
+		if (m_attachedToFlag != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_attachedToFlag.ShouldShowIndicator();
 				}
-				break;
 			}
-			return this.m_attachedToFlag.ShouldShowIndicator();
 		}
-		if (this.m_attachedToBoardRegion != null)
+		if (m_attachedToBoardRegion != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_attachedToBoardRegion.ShouldShowIndicator();
 				}
-				break;
 			}
-			return this.m_attachedToBoardRegion.ShouldShowIndicator();
 		}
-		if (this.m_attachedToPing != null)
+		if (m_attachedToPing != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			return true;
 		}
 		return true;
 	}
@@ -131,9 +132,9 @@ public class UIOffscreenIndicator : UIBaseIndicator
 	protected override Vector2 CalculateScreenPos()
 	{
 		Vector3 worldPos = Vector3.zero;
-		if (this.m_attachedToActor != null)
+		if (m_attachedToActor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -142,17 +143,17 @@ public class UIOffscreenIndicator : UIBaseIndicator
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIOffscreenIndicator.CalculateScreenPos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			worldPos = this.m_attachedToActor.\u000E(0f);
-			float num = (float)Board.\u000E().BaselineHeight;
+			worldPos = m_attachedToActor.GetNameplatePosition(0f);
+			float num = Board.Get().BaselineHeight;
 			worldPos.y = Mathf.Clamp(worldPos.y, num, num + 2f);
 		}
-		else if (this.m_attachedToControlPoint != null)
+		else if (m_attachedToControlPoint != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -161,19 +162,19 @@ public class UIOffscreenIndicator : UIBaseIndicator
 				}
 				break;
 			}
-			worldPos = this.m_attachedToControlPoint.m_region.\u001D();
+			worldPos = m_attachedToControlPoint.m_region.GetCenter();
 		}
-		else if (this.m_attachedToFlag != null)
+		else if (m_attachedToFlag != null)
 		{
-			worldPos = this.m_attachedToFlag.transform.position;
+			worldPos = m_attachedToFlag.transform.position;
 		}
-		else if (this.m_attachedToBoardRegion != null)
+		else if (m_attachedToBoardRegion != null)
 		{
-			worldPos = this.m_attachedToBoardRegion.\u001D();
+			worldPos = m_attachedToBoardRegion.GetCenter();
 		}
-		else if (this.m_attachedToPing != null)
+		else if (m_attachedToPing != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -182,13 +183,13 @@ public class UIOffscreenIndicator : UIBaseIndicator
 				}
 				break;
 			}
-			worldPos = this.m_attachedToPing.transform.position;
+			worldPos = m_attachedToPing.transform.position;
 		}
 		else
 		{
-			Log.Error("Offscreen Indicator is not attached to anything.", new object[0]);
+			Log.Error("Offscreen Indicator is not attached to anything.");
 		}
-		return base.ScreenPosFromWorldPos(worldPos);
+		return ScreenPosFromWorldPos(worldPos);
 	}
 
 	protected override bool IsVisibleWhenOnScreen()

@@ -1,115 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 
 public class AsyncTimer
 {
-	private AsyncDelegate m_delegate;
-
-	public AsyncTimer(Action callback, long intervalMilliseconds, bool isOneShot = false)
-	{
-		this.Initialize(delegate(object o)
-		{
-			callback();
-		}, null, callback.Method, intervalMilliseconds, isOneShot);
-	}
-
-	private void Initialize(SendOrPostCallback callback, object state, MethodBase methodInfo, long intervalMilliseconds, bool isOneShot)
-	{
-		if (intervalMilliseconds < 0xAL)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncTimer.Initialize(SendOrPostCallback, object, MethodBase, long, bool)).MethodHandle;
-			}
-			if (!isOneShot)
-			{
-				throw new ArgumentOutOfRangeException("IntervalMilliseconds");
-			}
-		}
-		if (methodInfo == null)
-		{
-			methodInfo = callback.Method;
-		}
-		this.m_delegate = new AsyncDelegate(callback, state, methodInfo);
-		this.IntervalMilliseconds = intervalMilliseconds;
-		this.IsOneShot = isOneShot;
-		this.AsyncPump = AsyncPump.Current;
-	}
-
-	public void Schedule()
-	{
-		if (this.IsScheduled)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncTimer.Schedule()).MethodHandle;
-			}
-			throw new Exception("Already scheduled");
-		}
-		this.IsScheduled = true;
-		this.AsyncPump.Schedule(this);
-	}
-
-	public void Unschedule()
-	{
-		this.IsScheduled = false;
-	}
-
-	public AsyncDelegate AsyncDelegate
-	{
-		get
-		{
-			return this.m_delegate;
-		}
-	}
-
-	public AsyncPump AsyncPump { get; set; }
-
-	public long IntervalMilliseconds { get; set; }
-
-	public long ScheduledTick
-	{
-		get
-		{
-			return this.m_delegate.ScheduledTick;
-		}
-		set
-		{
-			this.m_delegate.ScheduledTick = value;
-		}
-	}
-
-	public bool IsScheduled { get; set; }
-
-	public bool IsOneShot { get; set; }
-
 	public class ScheduledTickComparer : Comparer<AsyncTimer>
 	{
 		public override int Compare(AsyncTimer obj1, AsyncTimer obj2)
 		{
 			if (obj1 == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -118,22 +20,22 @@ public class AsyncTimer
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncTimer.ScheduledTickComparer.Compare(AsyncTimer, AsyncTimer)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (obj2 == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return 0;
 						}
-						break;
 					}
-					return 0;
 				}
 			}
 			if (obj1 == null)
@@ -146,5 +48,113 @@ public class AsyncTimer
 			}
 			return obj1.ScheduledTick.CompareTo(obj2.ScheduledTick);
 		}
+	}
+
+	private AsyncDelegate m_delegate;
+
+	public AsyncDelegate AsyncDelegate => m_delegate;
+
+	public AsyncPump AsyncPump
+	{
+		get;
+		set;
+	}
+
+	public long IntervalMilliseconds
+	{
+		get;
+		set;
+	}
+
+	public long ScheduledTick
+	{
+		get
+		{
+			return m_delegate.ScheduledTick;
+		}
+		set
+		{
+			m_delegate.ScheduledTick = value;
+		}
+	}
+
+	public bool IsScheduled
+	{
+		get;
+		set;
+	}
+
+	public bool IsOneShot
+	{
+		get;
+		set;
+	}
+
+	public AsyncTimer(Action callback, long intervalMilliseconds, bool isOneShot = false)
+	{
+		Initialize(delegate
+		{
+			callback();
+		}, null, callback.Method, intervalMilliseconds, isOneShot);
+	}
+
+	private void Initialize(SendOrPostCallback callback, object state, MethodBase methodInfo, long intervalMilliseconds, bool isOneShot)
+	{
+		if (intervalMilliseconds < 10)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!isOneShot)
+			{
+				throw new ArgumentOutOfRangeException("IntervalMilliseconds");
+			}
+		}
+		if (methodInfo == null)
+		{
+			methodInfo = callback.Method;
+		}
+		m_delegate = new AsyncDelegate(callback, state, methodInfo);
+		IntervalMilliseconds = intervalMilliseconds;
+		IsOneShot = isOneShot;
+		AsyncPump = AsyncPump.Current;
+	}
+
+	public void Schedule()
+	{
+		if (IsScheduled)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					throw new Exception("Already scheduled");
+				}
+			}
+		}
+		IsScheduled = true;
+		AsyncPump.Schedule(this);
+	}
+
+	public void Unschedule()
+	{
+		IsScheduled = false;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using WebSocketSharp;
 
 public class ConnectionClosedNotification : WebSocketMessage
@@ -11,11 +10,11 @@ public class ConnectionClosedNotification : WebSocketMessage
 	{
 		get
 		{
-			if (this.Reason.IsNullOrEmpty())
+			if (Reason.IsNullOrEmpty())
 			{
-				return string.Format("{0}", this.Code);
+				return $"{Code}";
 			}
-			return string.Format("{0}: {1}", this.Code, this.Reason);
+			return $"{Code}: {Reason}";
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -19,103 +18,107 @@ public class ActorStatus : NetworkBehaviour
 
 	public const string STATUS_DEBUG_HEADER = "<color=cyan>ActorStatus</color>: ";
 
-	private static int kListm_statusCounts = -0x6E592F;
+	private static int kListm_statusCounts;
 
 	private static int kListm_statusDurations;
 
+	public static bool DebugLog => false;
+
 	static ActorStatus()
 	{
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(ActorStatus), ActorStatus.kListm_statusCounts, new NetworkBehaviour.CmdDelegate(ActorStatus.InvokeSyncListm_statusCounts));
-		ActorStatus.kListm_statusDurations = 0x254A88B2;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(ActorStatus), ActorStatus.kListm_statusDurations, new NetworkBehaviour.CmdDelegate(ActorStatus.InvokeSyncListm_statusDurations));
+		kListm_statusCounts = -7231791;
+		NetworkBehaviour.RegisterSyncListDelegate(typeof(ActorStatus), kListm_statusCounts, InvokeSyncListm_statusCounts);
+		kListm_statusDurations = 625641650;
+		NetworkBehaviour.RegisterSyncListDelegate(typeof(ActorStatus), kListm_statusDurations, InvokeSyncListm_statusDurations);
 		NetworkCRC.RegisterBehaviour("ActorStatus", 0);
 	}
 
 	private void Awake()
 	{
-		this.m_statusCountsPrevious = new int[0x3A];
-		this.m_clientStatusCountAdjustments = new int[0x3A];
-		this.m_actorData = base.GetComponent<ActorData>();
-		this.m_statusCounts.InitializeBehaviour(this, ActorStatus.kListm_statusCounts);
-		this.m_statusDurations.InitializeBehaviour(this, ActorStatus.kListm_statusDurations);
+		m_statusCountsPrevious = new int[58];
+		m_clientStatusCountAdjustments = new int[58];
+		m_actorData = GetComponent<ActorData>();
+		m_statusCounts.InitializeBehaviour(this, kListm_statusCounts);
+		m_statusDurations.InitializeBehaviour(this, kListm_statusDurations);
 	}
 
 	public int GetDurationOfStatus(StatusType status)
 	{
-		return (int)this.m_statusDurations[(int)status];
+		return (int)m_statusDurations[(int)status];
 	}
 
 	public override void OnStartClient()
 	{
-		this.m_statusCounts.Callback = new SyncList<uint>.SyncListChanged(this.SyncListCallbackStatusCounts);
-		this.m_statusDurations.Callback = new SyncList<uint>.SyncListChanged(this.SyncListCallbackStatusDuration);
+		m_statusCounts.Callback = SyncListCallbackStatusCounts;
+		m_statusDurations.Callback = SyncListCallbackStatusDuration;
 	}
 
 	private void SyncListCallbackStatusDuration(SyncList<uint>.Operation op, int i)
 	{
-		if (NetworkClient.active)
+		if (!NetworkClient.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (i < 0)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.SyncListCallbackStatusDuration(SyncList<uint>.Operation, int)).MethodHandle;
-			}
-			if (i >= 0)
-			{
-				for (;;)
+				if (i >= 58)
 				{
-					switch (1)
+					return;
+				}
+				while (true)
+				{
+					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (i < 0x3A)
-				{
-					for (;;)
+					ActorData actorData = m_actorData;
+					if (!(HUD_UI.Get() != null) || !(actorData != null))
 					{
-						switch (5)
+						return;
+					}
+					while (true)
+					{
+						switch (3)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					ActorData actorData = this.m_actorData;
-					if (HUD_UI.Get() != null && actorData != null)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.NotifyStatusDurationChange(actorData, (StatusType)i, (int)this.m_statusDurations[i]);
+						HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.NotifyStatusDurationChange(actorData, (StatusType)i, (int)m_statusDurations[i]);
 						if (actorData == GameFlowData.Get().activeOwnedActorData)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
 								case 0:
 									continue;
 								}
-								break;
+								HUD_UI.Get().m_mainScreenPanel.m_characterProfile.UpdateStatusDisplay(true);
+								return;
 							}
-							HUD_UI.Get().m_mainScreenPanel.m_characterProfile.UpdateStatusDisplay(true);
 						}
+						return;
 					}
 				}
 			}
@@ -124,121 +127,123 @@ public class ActorStatus : NetworkBehaviour
 
 	public override void OnStartServer()
 	{
-		for (int i = 0; i < this.m_statusCountsPrevious.Length; i++)
+		for (int i = 0; i < m_statusCountsPrevious.Length; i++)
 		{
-			this.m_statusCounts.Add(0U);
-			this.m_statusDurations.Add(0U);
+			m_statusCounts.Add(0u);
+			m_statusDurations.Add(0u);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.OnStartServer()).MethodHandle;
-		}
-		if (GameplayUtils.IsPlayerControlled(this.m_actorData))
-		{
-			for (;;)
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!GameplayUtils.IsPlayerControlled(m_actorData))
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			int num = GameplayData.Get().m_recentlySpawnedDuration + 1;
-			for (int j = 0; j < num; j++)
-			{
-				this.AddStatus(StatusType.RecentlySpawned, 1);
-			}
-			for (;;)
-			{
-				switch (5)
+				int num = GameplayData.Get().m_recentlySpawnedDuration + 1;
+				for (int j = 0; j < num; j++)
 				{
-				case 0:
-					continue;
+					AddStatus(StatusType.RecentlySpawned, 1);
 				}
-				break;
+				while (true)
+				{
+					switch (5)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
 			}
 		}
 	}
 
 	private void SyncListCallbackStatusCounts(SyncList<uint>.Operation op, int i)
 	{
-		if (!NetworkServer.active && i >= 0 && i < 0x3A)
+		if (NetworkServer.active || i < 0 || i >= 58)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			int num = m_statusCountsPrevious[i];
+			num += m_clientStatusCountAdjustments[i];
+			m_clientStatusCountAdjustments[i] = 0;
+			m_statusCountsPrevious[i] = (int)m_statusCounts[i];
+			if (m_statusCounts[i] == num)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.SyncListCallbackStatusCounts(SyncList<uint>.Operation, int)).MethodHandle;
-			}
-			int num = this.m_statusCountsPrevious[i];
-			num += this.m_clientStatusCountAdjustments[i];
-			this.m_clientStatusCountAdjustments[i] = 0;
-			this.m_statusCountsPrevious[i] = (int)this.m_statusCounts[i];
-			if ((ulong)this.m_statusCounts[i] != (ulong)((long)num))
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = num > 0;
-				bool flag2 = this.HasStatus((StatusType)i, true);
+				bool flag2 = HasStatus((StatusType)i);
 				if (flag != flag2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						OnStatusChanged((StatusType)i, flag2);
+						return;
 					}
-					this.OnStatusChanged((StatusType)i, flag2);
 				}
+				return;
 			}
 		}
 	}
 
 	public void UpdateStatusDuration(StatusType status, int newDuration)
 	{
-		if ((long)newDuration > (long)((ulong)this.m_statusDurations[(int)status]))
+		if (newDuration <= m_statusDurations[(int)status])
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.UpdateStatusDuration(StatusType, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_statusDurations[(int)status] = (uint)Mathf.Max(0, newDuration);
+			m_statusDurations[(int)status] = (uint)Mathf.Max(0, newDuration);
+			return;
 		}
 	}
 
@@ -247,27 +252,27 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Server] function 'System.Void ActorStatus::AddStatus(StatusType,System.Int32)' called on client");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.AddStatus(StatusType, int)).MethodHandle;
-			}
-			Debug.LogWarning("[Server] function 'System.Void ActorStatus::AddStatus(StatusType,System.Int32)' called on client");
-			return;
 		}
-		int num = (int)this.m_statusCounts[(int)status];
-		this.m_statusCounts[(int)status] = (uint)(num + 1);
-		if ((long)duration > (long)((ulong)this.m_statusDurations[(int)status]))
+		int num = (int)m_statusCounts[(int)status];
+		m_statusCounts[(int)status] = (uint)(num + 1);
+		if (duration > m_statusDurations[(int)status])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -276,27 +281,17 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_statusDurations[(int)status] = (uint)Mathf.Max(0, duration);
+			m_statusDurations[(int)status] = (uint)Mathf.Max(0, duration);
 		}
-		num += this.m_clientStatusCountAdjustments[(int)status];
-		this.m_clientStatusCountAdjustments[(int)status] = 0;
-		if (ActorStatus.\u001D)
+		num += m_clientStatusCountAdjustments[(int)status];
+		m_clientStatusCountAdjustments[(int)status] = 0;
+		if (DebugLog)
 		{
-			Log.Warning(string.Concat(new object[]
-			{
-				"<color=cyan>ActorStatus</color>: ADD ",
-				ActorStatus.GetColoredStatusName(status, "yellow"),
-				" to ",
-				this.m_actorData.\u0012("white"),
-				", Count = ",
-				this.m_statusCounts[(int)status],
-				", PrevCount = ",
-				num
-			}), new object[0]);
+			Log.Warning("<color=cyan>ActorStatus</color>: ADD " + GetColoredStatusName(status, "yellow") + " to " + m_actorData.GetColoredDebugName("white") + ", Count = " + m_statusCounts[(int)status] + ", PrevCount = " + num);
 		}
 		if (num == 0)
 		{
-			this.OnStatusChanged(status, true);
+			OnStatusChanged(status, true);
 		}
 	}
 
@@ -305,31 +300,31 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Server] function 'System.Void ActorStatus::RemoveStatus(StatusType)' called on client");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.RemoveStatus(StatusType)).MethodHandle;
-			}
-			Debug.LogWarning("[Server] function 'System.Void ActorStatus::RemoveStatus(StatusType)' called on client");
-			return;
 		}
-		int num = (int)this.m_statusCounts[(int)status];
+		int num = (int)m_statusCounts[(int)status];
 		if (num > 0)
 		{
-			this.m_statusCounts[(int)status] = (uint)Mathf.Max(0, num - 1);
-			num += this.m_clientStatusCountAdjustments[(int)status];
-			this.m_clientStatusCountAdjustments[(int)status] = 0;
-			if (ActorStatus.\u001D)
+			m_statusCounts[(int)status] = (uint)Mathf.Max(0, num - 1);
+			num += m_clientStatusCountAdjustments[(int)status];
+			m_clientStatusCountAdjustments[(int)status] = 0;
+			if (DebugLog)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -338,36 +333,24 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				Log.Warning(string.Concat(new object[]
-				{
-					"<color=cyan>ActorStatus</color>: REMOVE ",
-					ActorStatus.GetColoredStatusName(status, "yellow"),
-					" from ",
-					this.m_actorData.\u0012("white"),
-					", Count = ",
-					this.m_statusCounts[(int)status],
-					", PrevCount: ",
-					num
-				}), new object[0]);
+				Log.Warning("<color=cyan>ActorStatus</color>: REMOVE " + GetColoredStatusName(status, "yellow") + " from " + m_actorData.GetColoredDebugName("white") + ", Count = " + m_statusCounts[(int)status] + ", PrevCount: " + num);
 			}
-			if (num == 1)
+			if (num != 1)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (4)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				this.OnStatusChanged(status, false);
+				OnStatusChanged(status, false);
+				return;
 			}
 		}
-		else
-		{
-			Log.Error(string.Format("Removing status '{0}' that was never added", status), new object[0]);
-		}
+		Log.Error($"Removing status '{status}' that was never added");
 	}
 
 	[Client]
@@ -378,11 +361,11 @@ public class ActorStatus : NetworkBehaviour
 			Debug.LogWarning("[Client] function 'System.Void ActorStatus::ClientAddStatus(StatusType)' called on server");
 			return;
 		}
-		int num = this.m_clientStatusCountAdjustments[(int)status];
-		this.m_clientStatusCountAdjustments[(int)status] = num + 1;
-		if (ActorStatus.\u001D)
+		int num = m_clientStatusCountAdjustments[(int)status];
+		m_clientStatusCountAdjustments[(int)status] = num + 1;
+		if (DebugLog)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -391,25 +374,15 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.ClientAddStatus(StatusType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Log.Warning(string.Concat(new object[]
-			{
-				"<color=cyan>ActorStatus</color>: <color=cyan>CLIENT_ADD</color> ",
-				ActorStatus.GetColoredStatusName(status, "yellow"),
-				" to ",
-				this.m_actorData.\u0012("white"),
-				", ClientAdjust = ",
-				this.m_clientStatusCountAdjustments[(int)status],
-				", SyncCount = ",
-				this.m_statusCounts[(int)status]
-			}), new object[0]);
+			Log.Warning("<color=cyan>ActorStatus</color>: <color=cyan>CLIENT_ADD</color> " + GetColoredStatusName(status, "yellow") + " to " + m_actorData.GetColoredDebugName("white") + ", ClientAdjust = " + m_clientStatusCountAdjustments[(int)status] + ", SyncCount = " + m_statusCounts[(int)status]);
 		}
-		if ((ulong)this.m_statusCounts[(int)status] + (ulong)((long)this.m_clientStatusCountAdjustments[(int)status]) == 1UL)
+		if (m_statusCounts[(int)status] + m_clientStatusCountAdjustments[(int)status] == 1)
 		{
-			this.OnStatusChanged(status, true);
+			OnStatusChanged(status, true);
 		}
 	}
 
@@ -418,27 +391,27 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Client] function 'System.Void ActorStatus::ClientRemoveStatus(StatusType)' called on server");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.ClientRemoveStatus(StatusType)).MethodHandle;
-			}
-			Debug.LogWarning("[Client] function 'System.Void ActorStatus::ClientRemoveStatus(StatusType)' called on server");
-			return;
 		}
-		int num = this.m_clientStatusCountAdjustments[(int)status];
-		this.m_clientStatusCountAdjustments[(int)status] = num - 1;
-		if (this.m_clientStatusCountAdjustments[(int)status] < 0)
+		int num = m_clientStatusCountAdjustments[(int)status];
+		m_clientStatusCountAdjustments[(int)status] = num - 1;
+		if (m_clientStatusCountAdjustments[(int)status] < 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -447,34 +420,25 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_clientStatusCountAdjustments[(int)status] = 0;
+			m_clientStatusCountAdjustments[(int)status] = 0;
 		}
-		if (ActorStatus.\u001D)
+		if (DebugLog)
 		{
-			Log.Warning(string.Concat(new object[]
-			{
-				"<color=cyan>ActorStatus</color>: <color=magenta>CLIENT_REMOVE</color> ",
-				ActorStatus.GetColoredStatusName(status, "yellow"),
-				" from ",
-				this.m_actorData.\u0012("white"),
-				", ClientAdjust = ",
-				this.m_clientStatusCountAdjustments[(int)status],
-				", SyncCount = ",
-				this.m_statusCounts[(int)status]
-			}), new object[0]);
+			Log.Warning("<color=cyan>ActorStatus</color>: <color=magenta>CLIENT_REMOVE</color> " + GetColoredStatusName(status, "yellow") + " from " + m_actorData.GetColoredDebugName("white") + ", ClientAdjust = " + m_clientStatusCountAdjustments[(int)status] + ", SyncCount = " + m_statusCounts[(int)status]);
 		}
-		if ((ulong)this.m_statusCounts[(int)status] + (ulong)((long)this.m_clientStatusCountAdjustments[(int)status]) == 0UL)
+		if (m_statusCounts[(int)status] + m_clientStatusCountAdjustments[(int)status] != 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.OnStatusChanged(status, false);
+			OnStatusChanged(status, false);
+			return;
 		}
 	}
 
@@ -483,48 +447,49 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Client] function 'System.Void ActorStatus::ClientClearAdjustments()' called on server");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.ClientClearAdjustments()).MethodHandle;
-			}
-			Debug.LogWarning("[Client] function 'System.Void ActorStatus::ClientClearAdjustments()' called on server");
-			return;
 		}
-		for (int i = 0; i < this.m_clientStatusCountAdjustments.Length; i++)
+		for (int i = 0; i < m_clientStatusCountAdjustments.Length; i++)
 		{
-			if (this.m_clientStatusCountAdjustments[i] != 0)
+			if (m_clientStatusCountAdjustments[i] != 0)
 			{
-				this.m_clientStatusCountAdjustments[i] = 0;
+				m_clientStatusCountAdjustments[i] = 0;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public bool HasStatus(StatusType status, bool includePending = true)
 	{
-		int num = (int)((status >= (StatusType)this.m_statusCounts.Count) ? 0U : this.m_statusCounts[(int)status]);
-		num += this.m_clientStatusCountAdjustments[(int)status];
+		int num = (int)(((int)status < m_statusCounts.Count) ? m_statusCounts[(int)status] : 0);
+		num += m_clientStatusCountAdjustments[(int)status];
 		bool flag = num > 0;
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -533,13 +498,13 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.HasStatus(StatusType, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (includePending)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -548,31 +513,18 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				if (this.m_passivePendingStatusSources.Count > 0)
+				if (m_passivePendingStatusSources.Count > 0)
 				{
-					int i = 0;
-					while (i < this.m_passivePendingStatusSources.Count)
+					for (int i = 0; i < m_passivePendingStatusSources.Count; i++)
 					{
-						if (flag)
+						if (!flag)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_C8;
-							}
-						}
-						else
-						{
-							Ability ability = this.m_passivePendingStatusSources[i];
-							bool flag2 = flag;
-							bool flag3;
+							Ability ability = m_passivePendingStatusSources[i];
+							bool num2 = flag;
+							int num3;
 							if (ability != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
@@ -581,23 +533,32 @@ public class ActorStatus : NetworkBehaviour
 									}
 									break;
 								}
-								flag3 = ability.HasPassivePendingStatus(status, this.m_actorData);
+								num3 = (ability.HasPassivePendingStatus(status, m_actorData) ? 1 : 0);
 							}
 							else
 							{
-								flag3 = false;
+								num3 = 0;
 							}
-							flag = (flag2 || flag3);
-							i++;
+							flag = ((byte)((num2 ? 1 : 0) | num3) != 0);
+							continue;
 						}
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						break;
 					}
 				}
 			}
 		}
-		IL_C8:
 		if (GameplayMutators.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -609,11 +570,11 @@ public class ActorStatus : NetworkBehaviour
 			int currentTurn = GameFlowData.Get().CurrentTurn;
 			if (!flag)
 			{
-				flag |= GameplayMutators.IsStatusActive(status, currentTurn, GameplayMutators.ActionPhaseCheckMode.Default);
+				flag |= GameplayMutators.IsStatusActive(status, currentTurn);
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -622,7 +583,7 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				flag = !GameplayMutators.IsStatusSuppressed(status, currentTurn, GameplayMutators.ActionPhaseCheckMode.Default);
+				flag = !GameplayMutators.IsStatusSuppressed(status, currentTurn);
 			}
 		}
 		return flag;
@@ -630,48 +591,49 @@ public class ActorStatus : NetworkBehaviour
 
 	public void AddAbilityForPassivePendingStatus(Ability ability)
 	{
-		if (ability != null)
+		if (!(ability != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.AddAbilityForPassivePendingStatus(Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_passivePendingStatusSources.Contains(ability))
+			if (!m_passivePendingStatusSources.Contains(ability))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_passivePendingStatusSources.Add(ability);
+					return;
 				}
-				this.m_passivePendingStatusSources.Add(ability);
 			}
+			return;
 		}
 	}
 
 	public void RemoveAbilityForPassivePendingStatus(Ability ability)
 	{
-		this.m_passivePendingStatusSources.Remove(ability);
+		m_passivePendingStatusSources.Remove(ability);
 	}
 
 	public bool IsKnockbackImmune(bool checkPending = true)
 	{
-		bool flag;
-		if (!this.HasStatus(StatusType.KnockbackImmune, true))
+		int num;
+		if (!HasStatus(StatusType.KnockbackImmune))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -680,20 +642,20 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.IsKnockbackImmune(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = this.HasStatus(StatusType.Unstoppable, true);
+			num = (HasStatus(StatusType.Unstoppable) ? 1 : 0);
 		}
 		else
 		{
-			flag = true;
+			num = 1;
 		}
-		bool flag2 = flag;
-		if (!flag2)
+		bool flag = (byte)num != 0;
+		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -702,9 +664,9 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			if (this.m_actorData.\u000E() != null)
+			if (m_actorData.GetAbilityData() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -715,7 +677,7 @@ public class ActorStatus : NetworkBehaviour
 				}
 				if (checkPending)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -724,19 +686,19 @@ public class ActorStatus : NetworkBehaviour
 						}
 						break;
 					}
-					flag2 = (this.m_actorData.\u000E().HasPendingStatusFromQueuedAbilities(StatusType.Unstoppable) || this.m_actorData.\u000E().HasPendingStatusFromQueuedAbilities(StatusType.KnockbackImmune));
+					flag = (m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Unstoppable) || m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.KnockbackImmune));
 				}
 			}
 		}
-		return flag2;
+		return flag;
 	}
 
 	public bool IsMovementDebuffImmune(bool checkPending = true)
 	{
-		bool flag;
-		if (!this.HasStatus(StatusType.MovementDebuffImmunity, true))
+		int num;
+		if (!HasStatus(StatusType.MovementDebuffImmunity))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -745,20 +707,20 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.IsMovementDebuffImmune(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = this.HasStatus(StatusType.Unstoppable, true);
+			num = (HasStatus(StatusType.Unstoppable) ? 1 : 0);
 		}
 		else
 		{
-			flag = true;
+			num = 1;
 		}
-		bool flag2 = flag;
-		if (!flag2)
+		bool flag = (byte)num != 0;
+		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -767,9 +729,9 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			if (this.m_actorData.\u000E() != null)
+			if (m_actorData.GetAbilityData() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -780,7 +742,7 @@ public class ActorStatus : NetworkBehaviour
 				}
 				if (checkPending)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -789,10 +751,10 @@ public class ActorStatus : NetworkBehaviour
 						}
 						break;
 					}
-					bool flag3;
-					if (!this.m_actorData.\u000E().HasPendingStatusFromQueuedAbilities(StatusType.Unstoppable))
+					int num2;
+					if (!m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Unstoppable))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -801,25 +763,25 @@ public class ActorStatus : NetworkBehaviour
 							}
 							break;
 						}
-						flag3 = this.m_actorData.\u000E().HasPendingStatusFromQueuedAbilities(StatusType.MovementDebuffImmunity);
+						num2 = (m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.MovementDebuffImmunity) ? 1 : 0);
 					}
 					else
 					{
-						flag3 = true;
+						num2 = 1;
 					}
-					flag2 = flag3;
+					flag = ((byte)num2 != 0);
 				}
 			}
 		}
-		return flag2;
+		return flag;
 	}
 
 	public bool IsEnergized(bool checkPending = true)
 	{
-		bool flag = this.HasStatus(StatusType.Energized, true);
+		bool flag = HasStatus(StatusType.Energized);
 		if (checkPending)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -828,13 +790,13 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.IsEnergized(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!flag && this.m_actorData.\u000E() != null)
+			if (!flag && m_actorData.GetAbilityData() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -843,7 +805,7 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				flag = this.m_actorData.\u000E().HasPendingStatusFromQueuedAbilities(StatusType.Energized);
+				flag = m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Energized);
 			}
 		}
 		return flag;
@@ -851,17 +813,20 @@ public class ActorStatus : NetworkBehaviour
 
 	public void OnStatusChanged(StatusType status, bool statusGained)
 	{
-		if (ActorStatus.\u001D)
+		if (DebugLog)
 		{
-			string[] array = new string[5];
-			array[0] = "<color=cyan>ActorStatus</color>: On Status Changed: <color=yellow>";
-			array[1] = status.ToString();
-			array[2] = "</color> ";
-			int num = 3;
-			string text;
+			string[] obj = new string[5]
+			{
+				"<color=cyan>ActorStatus</color>: On Status Changed: <color=yellow>",
+				status.ToString(),
+				"</color> ",
+				null,
+				null
+			};
+			object obj2;
 			if (statusGained)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -870,23 +835,23 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.OnStatusChanged(StatusType, bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				text = "<color=cyan>Gained";
+				obj2 = "<color=cyan>Gained";
 			}
 			else
 			{
-				text = "<color=magenta>Lost";
+				obj2 = "<color=magenta>Lost";
 			}
-			array[num] = text;
-			array[4] = "</color>";
-			Log.Warning(string.Concat(array), new object[0]);
+			obj[3] = (string)obj2;
+			obj[4] = "</color>";
+			Log.Warning(string.Concat(obj));
 		}
 		if (!statusGained)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -895,12 +860,12 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_statusDurations[(int)status] = 0U;
+			m_statusDurations[(int)status] = 0u;
 		}
-		ActorData actorData = this.m_actorData;
+		ActorData actorData = m_actorData;
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -921,7 +886,7 @@ public class ActorStatus : NetworkBehaviour
 		actorData.ForceUpdateIsVisibleToClientCache();
 		if (statusGained)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -930,9 +895,9 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			if (actorData.\u0018())
+			if (actorData.IsVisibleToClient())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -943,7 +908,7 @@ public class ActorStatus : NetworkBehaviour
 				}
 				if (status != StatusType.Snared)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -954,9 +919,9 @@ public class ActorStatus : NetworkBehaviour
 					}
 					if (status != StatusType.Rooted)
 					{
-						goto IL_151;
+						goto IL_0151;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -969,67 +934,36 @@ public class ActorStatus : NetworkBehaviour
 				AudioManager.PostEvent("ablty/generic/snare", actorData.gameObject);
 			}
 		}
-		IL_151:
+		goto IL_0151;
+		IL_0151:
 		switch (status)
 		{
-		case StatusType.SeeThroughBrush:
-			goto IL_310;
-		case StatusType.CantCollectPowerups:
-			goto IL_395;
-		default:
-			switch (status)
-			{
-			case StatusType.Revealed:
-			case StatusType.CantHideInBrush:
-				FogOfWar.CalculateFogOfWarForTeam(actorData.\u0012());
-				goto IL_395;
-			case StatusType.CantSprint_UnlessUnstoppable:
-			case StatusType.CantSprint_Absolute:
-			case StatusType.CrippledMovement:
-				break;
-			case StatusType.RecentlySpawned:
-			case StatusType.RecentlyRespawned:
-				goto IL_249;
-			case StatusType.KnockbackImmune:
-			case StatusType.KnockbackResistant:
-			case StatusType.DamageImmune:
-			case StatusType.HealImmune:
-			case StatusType.CantBeTargeted:
-			case StatusType.CantBeHelpedByTeam:
-			case StatusType.EffectImmune:
-				goto IL_395;
-			case StatusType.BuffImmune:
-			case StatusType.DebuffImmune:
-				goto IL_235;
-			case StatusType.IsolateVisionFromAllies:
-				goto IL_310;
-			case StatusType.LoseAllyVision:
-				goto IL_2E7;
-			case StatusType.InvisibleToEnemies:
-				goto IL_30B;
-			default:
-				goto IL_395;
-			}
-			break;
-		case StatusType.Blind:
-			goto IL_2E7;
+		case StatusType.CantSprint_UnlessUnstoppable:
+		case StatusType.CantSprint_Absolute:
+		case StatusType.CrippledMovement:
 		case StatusType.AnchoredNoMovement:
 		case StatusType.Rooted:
 		case StatusType.Snared:
 		case StatusType.KnockedBack:
+			UpdateMovementForMovementStatus(statusGained);
 			break;
-		case StatusType.MovementDebuffSuppression:
-		case StatusType.Hasted:
-			goto IL_249;
+		case StatusType.BuffImmune:
+		case StatusType.DebuffImmune:
 		case StatusType.MovementDebuffImmunity:
 		case StatusType.Unstoppable:
-			goto IL_235;
-		case StatusType.ProximityBasedInvisibility:
-			goto IL_30B;
+			HandleStatusImmunityChangeForEffects(status, statusGained);
+			UpdateMovementForMovementStatus(statusGained);
+			break;
+		case StatusType.RecentlySpawned:
+		case StatusType.RecentlyRespawned:
+		case StatusType.MovementDebuffSuppression:
+		case StatusType.Hasted:
+			UpdateMovementForMovementStatus(statusGained);
+			break;
 		case StatusType.Farsight:
 			if (statusGained)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -1038,18 +972,18 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				base.GetComponent<ActorStats>().AddStatMod(StatType.SightRange, ModType.BaseAdd, 4f);
+				GetComponent<ActorStats>().AddStatMod(StatType.SightRange, ModType.BaseAdd, 4f);
 			}
 			else
 			{
-				base.GetComponent<ActorStats>().RemoveStatMod(StatType.SightRange, ModType.BaseAdd, 4f);
+				GetComponent<ActorStats>().RemoveStatMod(StatType.SightRange, ModType.BaseAdd, 4f);
 			}
-			base.GetComponent<FogOfWar>().MarkForRecalculateVisibility();
-			goto IL_395;
+			GetComponent<FogOfWar>().MarkForRecalculateVisibility();
+			break;
 		case StatusType.Myopic:
 			if (statusGained)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1058,18 +992,30 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				base.GetComponent<ActorStats>().AddStatMod(StatType.SightRange, ModType.BaseAdd, -4f);
+				GetComponent<ActorStats>().AddStatMod(StatType.SightRange, ModType.BaseAdd, -4f);
 			}
 			else
 			{
-				base.GetComponent<ActorStats>().RemoveStatMod(StatType.SightRange, ModType.BaseAdd, -4f);
+				GetComponent<ActorStats>().RemoveStatMod(StatType.SightRange, ModType.BaseAdd, -4f);
 			}
-			base.GetComponent<FogOfWar>().MarkForRecalculateVisibility();
-			goto IL_395;
+			GetComponent<FogOfWar>().MarkForRecalculateVisibility();
+			break;
+		case StatusType.LoseAllyVision:
+		case StatusType.Blind:
+			GetComponent<FogOfWar>().MarkForRecalculateVisibility();
+			break;
+		case StatusType.Revealed:
+		case StatusType.CantHideInBrush:
+			FogOfWar.CalculateFogOfWarForTeam(actorData.GetOpposingTeam());
+			break;
+		case StatusType.IsolateVisionFromAllies:
+		case StatusType.SeeThroughBrush:
+			FogOfWar.CalculateFogOfWarForTeam(actorData.GetTeam());
+			break;
 		case StatusType.DecreasedIncomingHealing:
 			if (statusGained)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1078,17 +1024,17 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				base.GetComponent<ActorStats>().AddStatMod(StatType.IncomingHealing, ModType.Multiplier, 0.5f);
+				GetComponent<ActorStats>().AddStatMod(StatType.IncomingHealing, ModType.Multiplier, 0.5f);
 			}
 			else
 			{
-				base.GetComponent<ActorStats>().RemoveStatMod(StatType.IncomingHealing, ModType.Multiplier, 0.5f);
+				GetComponent<ActorStats>().RemoveStatMod(StatType.IncomingHealing, ModType.Multiplier, 0.5f);
 			}
-			goto IL_395;
+			break;
 		case StatusType.IncreasedIncomingHealing:
 			if (statusGained)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1097,89 +1043,76 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				base.GetComponent<ActorStats>().AddStatMod(StatType.IncomingHealing, ModType.Multiplier, 1.25f);
+				GetComponent<ActorStats>().AddStatMod(StatType.IncomingHealing, ModType.Multiplier, 1.25f);
 			}
 			else
 			{
-				base.GetComponent<ActorStats>().RemoveStatMod(StatType.IncomingHealing, ModType.Multiplier, 1.25f);
+				GetComponent<ActorStats>().RemoveStatMod(StatType.IncomingHealing, ModType.Multiplier, 1.25f);
 			}
-			goto IL_395;
+			break;
 		}
-		this.UpdateMovementForMovementStatus(statusGained);
-		goto IL_395;
-		IL_235:
-		this.HandleStatusImmunityChangeForEffects(status, statusGained);
-		this.UpdateMovementForMovementStatus(statusGained);
-		goto IL_395;
-		IL_249:
-		this.UpdateMovementForMovementStatus(statusGained);
-		goto IL_395;
-		IL_2E7:
-		base.GetComponent<FogOfWar>().MarkForRecalculateVisibility();
-		IL_30B:
-		goto IL_395;
-		IL_310:
-		FogOfWar.CalculateFogOfWarForTeam(actorData.\u000E());
-		IL_395:
-		if (Board.\u000E() != null)
+		if (!(Board.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			Board.\u000E().MarkForUpdateValidSquares(true);
+			Board.Get().MarkForUpdateValidSquares();
+			return;
 		}
 	}
 
 	private void UpdateSquaresCanMoveTo()
 	{
-		if (this.m_actorData.\u000E() != null)
+		if (!(m_actorData.GetActorMovement() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.UpdateSquaresCanMoveTo()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_actorData.\u000E().UpdateSquaresCanMoveTo();
+			m_actorData.GetActorMovement().UpdateSquaresCanMoveTo();
+			return;
 		}
 	}
 
 	private void UpdateMovementForMovementStatus(bool gained)
 	{
-		this.UpdateSquaresCanMoveTo();
-		if (NetworkClient.active && this.m_actorData != null && gained)
+		UpdateSquaresCanMoveTo();
+		if (!NetworkClient.active || !(m_actorData != null) || !gained)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.UpdateMovementForMovementStatus(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			LineData component = this.m_actorData.GetComponent<LineData>();
+			LineData component = m_actorData.GetComponent<LineData>();
 			if (component != null)
 			{
 				component.OnMovementStatusGained();
 			}
+			return;
 		}
 	}
 
@@ -1189,16 +1122,16 @@ public class ActorStatus : NetworkBehaviour
 
 	public bool IsImmuneToForcedChase()
 	{
-		return this.HasStatus(StatusType.Unstoppable, true);
+		return HasStatus(StatusType.Unstoppable);
 	}
 
 	public bool IsInvisibleToEnemies(bool includePendingStatus = true)
 	{
-		bool flag = this.HasStatus(StatusType.InvisibleToEnemies, includePendingStatus);
-		ActorData actorData = this.m_actorData;
+		bool flag = HasStatus(StatusType.InvisibleToEnemies, includePendingStatus);
+		ActorData actorData = m_actorData;
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1207,26 +1140,39 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.IsInvisibleToEnemies(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.HasStatus(StatusType.ProximityBasedInvisibility, includePendingStatus))
+			if (HasStatus(StatusType.ProximityBasedInvisibility, includePendingStatus))
 			{
 				bool flag2 = false;
-				List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(actorData.\u0012());
+				List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(actorData.GetOpposingTeam());
 				using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
 				{
-					while (enumerator.MoveNext())
+					while (true)
 					{
-						ActorData actorData2 = enumerator.Current;
-						BoardSquare boardSquare = Board.\u000E().\u000E(actorData.\u0016());
-						BoardSquare boardSquare2 = Board.\u000E().\u000E(actorData2.\u0016());
+						if (!enumerator.MoveNext())
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							break;
+						}
+						ActorData current = enumerator.Current;
+						BoardSquare boardSquare = Board.Get().GetBoardSquare(actorData.GetTravelBoardSquareWorldPosition());
+						BoardSquare boardSquare2 = Board.Get().GetBoardSquare(current.GetTravelBoardSquareWorldPosition());
 						if (!(boardSquare == null))
 						{
 							if (boardSquare2 == null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -1241,7 +1187,7 @@ public class ActorStatus : NetworkBehaviour
 								float num = boardSquare.HorizontalDistanceOnBoardTo(boardSquare2);
 								if (num <= GameplayData.Get().m_proximityBasedInvisibilityMinDistance)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (2)
 										{
@@ -1252,7 +1198,7 @@ public class ActorStatus : NetworkBehaviour
 									}
 									if (!GameplayData.Get().m_blindEnemyBreaksProximityBasedInvisibility)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (1)
 											{
@@ -1261,11 +1207,11 @@ public class ActorStatus : NetworkBehaviour
 											}
 											break;
 										}
-										if (!(actorData2.\u000E() != null) || actorData2.\u000E().HasStatus(StatusType.Blind, includePendingStatus))
+										if (!(current.GetActorStatus() != null) || current.GetActorStatus().HasStatus(StatusType.Blind, includePendingStatus))
 										{
 											continue;
 										}
-										for (;;)
+										while (true)
 										{
 											switch (5)
 											{
@@ -1276,31 +1222,22 @@ public class ActorStatus : NetworkBehaviour
 										}
 									}
 									flag2 = true;
-									goto IL_15A;
+									break;
 								}
 							}
 						}
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-				IL_15A:
 				if (!flag2)
 				{
 					flag = true;
 				}
 			}
 		}
+		int result;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1311,7 +1248,7 @@ public class ActorStatus : NetworkBehaviour
 			}
 			if (!actorData.ServerSuppressInvisibility)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1320,25 +1257,29 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				return !this.HasStatus(StatusType.SuppressInvisibility, includePendingStatus);
+				result = ((!HasStatus(StatusType.SuppressInvisibility, includePendingStatus)) ? 1 : 0);
+				goto IL_0191;
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_0191;
+		IL_0191:
+		return (byte)result != 0;
 	}
 
 	public bool IsActionSilenced(AbilityData.ActionType action, bool checkPending = false)
 	{
 		bool flag;
-		if (this.HasStatus(StatusType.SilencedAllAbilities, checkPending))
+		if (HasStatus(StatusType.SilencedAllAbilities, checkPending))
 		{
 			flag = true;
 		}
 		else
 		{
-			bool flag2;
+			int num;
 			if (action >= AbilityData.ActionType.ABILITY_0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1347,21 +1288,21 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.IsActionSilenced(AbilityData.ActionType, bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				flag2 = (action <= AbilityData.ActionType.ABILITY_6);
+				num = ((action <= AbilityData.ActionType.ABILITY_6) ? 1 : 0);
 			}
 			else
 			{
-				flag2 = false;
+				num = 0;
 			}
-			bool flag3 = flag2;
-			bool flag4;
+			bool flag2 = (byte)num != 0;
+			int num2;
 			if (action >= AbilityData.ActionType.CARD_0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1370,18 +1311,18 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				flag4 = (action <= AbilityData.ActionType.CARD_2);
+				num2 = ((action <= AbilityData.ActionType.CARD_2) ? 1 : 0);
 			}
 			else
 			{
-				flag4 = false;
+				num2 = 0;
 			}
-			bool flag5 = flag4;
-			bool flag6 = action == AbilityData.ActionType.ABILITY_0;
+			bool flag3 = (byte)num2 != 0;
+			bool flag4 = action == AbilityData.ActionType.ABILITY_0;
 			flag = false;
-			if (flag3)
+			if (flag2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1390,9 +1331,9 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				if (this.HasStatus(StatusType.SilencedPlayerAbilities, checkPending))
+				if (HasStatus(StatusType.SilencedPlayerAbilities, checkPending))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -1401,12 +1342,12 @@ public class ActorStatus : NetworkBehaviour
 						}
 						break;
 					}
-					flag = (flag || flag3);
+					flag = (flag || flag2);
 				}
 			}
-			if (flag3 && !flag6)
+			if (flag2 && !flag4)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1415,13 +1356,13 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				if (this.HasStatus(StatusType.SilencedNonbasicPlayerAbilities, checkPending))
+				if (HasStatus(StatusType.SilencedNonbasicPlayerAbilities, checkPending))
 				{
-					bool flag7 = flag;
-					bool flag8;
-					if (flag3)
+					bool num3 = flag;
+					int num4;
+					if (flag2)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -1430,18 +1371,18 @@ public class ActorStatus : NetworkBehaviour
 							}
 							break;
 						}
-						flag8 = !flag6;
+						num4 = ((!flag4) ? 1 : 0);
 					}
 					else
 					{
-						flag8 = false;
+						num4 = 0;
 					}
-					flag = (flag7 || flag8);
+					flag = ((byte)((num3 ? 1 : 0) | num4) != 0);
 				}
 			}
-			if (flag6 && this.HasStatus(StatusType.SilencedBasicPlayerAbility, checkPending))
+			if (flag4 && HasStatus(StatusType.SilencedBasicPlayerAbility, checkPending))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1450,11 +1391,11 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				flag = (flag || flag6);
+				flag = (flag || flag4);
 			}
-			if (flag5 && this.HasStatus(StatusType.SilencedCardAbilities, checkPending))
+			if (flag3 && HasStatus(StatusType.SilencedCardAbilities, checkPending))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1463,11 +1404,11 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				flag = (flag || flag5);
+				flag = (flag || flag3);
 			}
-			if (this.HasStatus(StatusType.SilencedEvasionAbilities, checkPending))
+			if (HasStatus(StatusType.SilencedEvasionAbilities, checkPending))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1476,11 +1417,11 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				Ability abilityOfActionType = base.GetComponent<AbilityData>().GetAbilityOfActionType(action);
-				bool flag9;
+				Ability abilityOfActionType = GetComponent<AbilityData>().GetAbilityOfActionType(action);
+				bool flag5;
 				if (abilityOfActionType != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -1489,12 +1430,13 @@ public class ActorStatus : NetworkBehaviour
 						}
 						break;
 					}
-					flag9 = (abilityOfActionType.RunPriority == AbilityPriority.Evasion);
-					foreach (Ability ability in abilityOfActionType.GetChainAbilities())
+					flag5 = (abilityOfActionType.RunPriority == AbilityPriority.Evasion);
+					Ability[] chainAbilities = abilityOfActionType.GetChainAbilities();
+					foreach (Ability ability in chainAbilities)
 					{
-						flag9 |= (ability.RunPriority == AbilityPriority.Evasion);
+						flag5 |= (ability.RunPriority == AbilityPriority.Evasion);
 					}
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -1506,9 +1448,9 @@ public class ActorStatus : NetworkBehaviour
 				}
 				else
 				{
-					flag9 = false;
+					flag5 = false;
 				}
-				flag = (flag || flag9);
+				flag = (flag || flag5);
 			}
 		}
 		return flag;
@@ -1516,9 +1458,10 @@ public class ActorStatus : NetworkBehaviour
 
 	public static bool IsDispellableMovementDebuff(StatusType status)
 	{
+		int result;
 		if (status != StatusType.Rooted)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1527,13 +1470,13 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.IsDispellableMovementDebuff(StatusType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (status != StatusType.Snared)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1544,7 +1487,7 @@ public class ActorStatus : NetworkBehaviour
 				}
 				if (status != StatusType.CrippledMovement)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -1553,38 +1496,27 @@ public class ActorStatus : NetworkBehaviour
 						}
 						break;
 					}
-					return status == StatusType.CantSprint_UnlessUnstoppable;
+					result = ((status == StatusType.CantSprint_UnlessUnstoppable) ? 1 : 0);
+					goto IL_003c;
 				}
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_003c;
+		IL_003c:
+		return (byte)result != 0;
 	}
 
 	public static string GetColoredStatusName(StatusType status, string color)
 	{
-		return string.Concat(new string[]
-		{
-			"<color=",
-			color,
-			">[",
-			status.ToString(),
-			"]</color>"
-		});
+		return "<color=" + color + ">[" + status.ToString() + "]</color>";
 	}
 
-	public static bool \u001D
+	public int _001D(StatusType _001D)
 	{
-		get
+		if (_001D >= StatusType.Revealed)
 		{
-			return false;
-		}
-	}
-
-	public int \u001D(StatusType \u001D)
-	{
-		if (\u001D >= StatusType.Revealed)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1593,22 +1525,22 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.\u001D(StatusType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (\u001D < (StatusType)this.m_statusCounts.Count)
+			if ((int)_001D < m_statusCounts.Count)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return (int)m_statusCounts[(int)_001D] + m_clientStatusCountAdjustments[(int)_001D];
 					}
-					break;
 				}
-				return (int)(this.m_statusCounts[(int)\u001D] + (uint)this.m_clientStatusCountAdjustments[(int)\u001D]);
 			}
 		}
 		return 0;
@@ -1623,30 +1555,32 @@ public class ActorStatus : NetworkBehaviour
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("SyncList m_statusCounts called on server.");
-			return;
 		}
-		((ActorStatus)obj).m_statusCounts.HandleMsg(reader);
+		else
+		{
+			((ActorStatus)obj).m_statusCounts.HandleMsg(reader);
+		}
 	}
 
 	protected static void InvokeSyncListm_statusDurations(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("SyncList m_statusDurations called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.InvokeSyncListm_statusDurations(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("SyncList m_statusDurations called on server.");
-			return;
 		}
 		((ActorStatus)obj).m_statusDurations.HandleMsg(reader);
 	}
@@ -1655,29 +1589,29 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					SyncListUInt.WriteInstance(writer, m_statusCounts);
+					SyncListUInt.WriteInstance(writer, m_statusDurations);
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
-			SyncListUInt.WriteInstance(writer, this.m_statusCounts);
-			SyncListUInt.WriteInstance(writer, this.m_statusDurations);
-			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -1689,11 +1623,11 @@ public class ActorStatus : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			SyncListUInt.WriteInstance(writer, this.m_statusCounts);
+			SyncListUInt.WriteInstance(writer, m_statusCounts);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1704,7 +1638,7 @@ public class ActorStatus : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1716,11 +1650,11 @@ public class ActorStatus : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			SyncListUInt.WriteInstance(writer, this.m_statusDurations);
+			SyncListUInt.WriteInstance(writer, m_statusDurations);
 		}
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1738,18 +1672,18 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			SyncListUInt.ReadReference(reader, this.m_statusCounts);
-			SyncListUInt.ReadReference(reader, this.m_statusDurations);
+			SyncListUInt.ReadReference(reader, m_statusCounts);
+			SyncListUInt.ReadReference(reader, m_statusDurations);
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			SyncListUInt.ReadReference(reader, this.m_statusCounts);
+			SyncListUInt.ReadReference(reader, m_statusCounts);
 		}
 		if ((num & 2) != 0)
 		{
-			SyncListUInt.ReadReference(reader, this.m_statusDurations);
+			SyncListUInt.ReadReference(reader, m_statusDurations);
 		}
 	}
 }

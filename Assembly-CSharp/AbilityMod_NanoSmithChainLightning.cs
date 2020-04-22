@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,49 +43,48 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		NanoSmithChainLightning nanoSmithChainLightning = targetAbility as NanoSmithChainLightning;
-		if (nanoSmithChainLightning != null)
+		if (!(nanoSmithChainLightning != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NanoSmithChainLightning.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_laserDamageMod, "LaserDamage", string.Empty, nanoSmithChainLightning.m_laserDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_laserEnemyHitEffectMod, "LaserEnemyHitEffect", nanoSmithChainLightning.m_laserEnemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "LaserRange", string.Empty, nanoSmithChainLightning.m_laserRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", string.Empty, nanoSmithChainLightning.m_laserWidth, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserMaxHitsMod, "LaserMaxHits", string.Empty, nanoSmithChainLightning.m_laserMaxHits, true, false);
-			AbilityMod.AddToken(tokens, this.m_chainRadiusMod, "ChainRadius", string.Empty, nanoSmithChainLightning.m_chainRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_chainMaxHitsMod, "ChainMaxHits", string.Empty, nanoSmithChainLightning.m_chainMaxHits, true, false);
-			AbilityMod.AddToken(tokens, this.m_chainDamageMod, "ChainDamage", string.Empty, nanoSmithChainLightning.m_chainDamage, true, false);
-			AbilityMod.AddToken(tokens, this.m_energyPerChainHitMod, "EnergyGainPerChainHit", string.Empty, nanoSmithChainLightning.m_energyGainPerChainHit, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_chainEnemyHitEffectMod, "ChainEnemyHitEffect", nanoSmithChainLightning.m_chainEnemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_extraAbsorbPerHitForVacuumBombMod, "ExtraAbsorbPerHitForVacuumBomb", string.Empty, nanoSmithChainLightning.m_extraAbsorbPerHitForVacuumBomb, true, false);
-			AbilityMod.AddToken(tokens, this.m_maxExtraAbsorbForVacuumBombMod, "MaxExtraAbsorbForVacuumBomb", string.Empty, nanoSmithChainLightning.m_maxExtraAbsorbForVacuumBomb, true, false);
+			AbilityMod.AddToken(tokens, m_laserDamageMod, "LaserDamage", string.Empty, nanoSmithChainLightning.m_laserDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_laserEnemyHitEffectMod, "LaserEnemyHitEffect", nanoSmithChainLightning.m_laserEnemyHitEffect);
+			AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, nanoSmithChainLightning.m_laserRange);
+			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, nanoSmithChainLightning.m_laserWidth);
+			AbilityMod.AddToken(tokens, m_laserMaxHitsMod, "LaserMaxHits", string.Empty, nanoSmithChainLightning.m_laserMaxHits);
+			AbilityMod.AddToken(tokens, m_chainRadiusMod, "ChainRadius", string.Empty, nanoSmithChainLightning.m_chainRadius);
+			AbilityMod.AddToken(tokens, m_chainMaxHitsMod, "ChainMaxHits", string.Empty, nanoSmithChainLightning.m_chainMaxHits);
+			AbilityMod.AddToken(tokens, m_chainDamageMod, "ChainDamage", string.Empty, nanoSmithChainLightning.m_chainDamage);
+			AbilityMod.AddToken(tokens, m_energyPerChainHitMod, "EnergyGainPerChainHit", string.Empty, nanoSmithChainLightning.m_energyGainPerChainHit);
+			AbilityMod.AddToken_EffectMod(tokens, m_chainEnemyHitEffectMod, "ChainEnemyHitEffect", nanoSmithChainLightning.m_chainEnemyHitEffect);
+			AbilityMod.AddToken(tokens, m_extraAbsorbPerHitForVacuumBombMod, "ExtraAbsorbPerHitForVacuumBomb", string.Empty, nanoSmithChainLightning.m_extraAbsorbPerHitForVacuumBomb);
+			AbilityMod.AddToken(tokens, m_maxExtraAbsorbForVacuumBombMod, "MaxExtraAbsorbForVacuumBomb", string.Empty, nanoSmithChainLightning.m_maxExtraAbsorbForVacuumBomb);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		NanoSmithChainLightning nanoSmithChainLightning = base.GetTargetAbilityOnAbilityData(abilityData) as NanoSmithChainLightning;
+		NanoSmithChainLightning nanoSmithChainLightning = GetTargetAbilityOnAbilityData(abilityData) as NanoSmithChainLightning;
 		bool flag = nanoSmithChainLightning != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt laserDamageMod = this.m_laserDamageMod;
-		string prefix = "[Laser Damage]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt laserDamageMod = m_laserDamageMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -94,9 +93,9 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NanoSmithChainLightning.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = nanoSmithChainLightning.m_laserDamage;
 		}
@@ -104,15 +103,13 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(laserDamageMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyEffectInfo laserEnemyHitEffectMod = this.m_laserEnemyHitEffectMod;
-		string prefix2 = "[LaserEnemyHitEffect]";
-		bool showBaseVal2 = flag;
-		StandardEffectInfo baseVal2;
+		empty = str + AbilityModHelper.GetModPropertyDesc(laserDamageMod, "[Laser Damage]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyEffectInfo laserEnemyHitEffectMod = m_laserEnemyHitEffectMod;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -127,15 +124,13 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		{
 			baseVal2 = null;
 		}
-		text = str2 + base.PropDesc(laserEnemyHitEffectMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyFloat laserRangeMod = this.m_laserRangeMod;
-		string prefix3 = "[LaserRange]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(laserEnemyHitEffectMod, "[LaserEnemyHitEffect]", flag, (StandardEffectInfo)baseVal2);
+		string str3 = empty;
+		AbilityModPropertyFloat laserRangeMod = m_laserRangeMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -150,15 +145,13 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(laserRangeMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyFloat laserWidthMod = this.m_laserWidthMod;
-		string prefix4 = "[LaserWidth]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(laserRangeMod, "[LaserRange]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyFloat laserWidthMod = m_laserWidthMod;
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -173,15 +166,13 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		{
 			baseVal4 = 0f;
 		}
-		text = str4 + base.PropDesc(laserWidthMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyBool penetrateLosMod = this.m_penetrateLosMod;
-		string prefix5 = "[PenetrateLos]";
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		empty = str4 + PropDesc(laserWidthMod, "[LaserWidth]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyBool penetrateLosMod = m_penetrateLosMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -190,21 +181,19 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 				}
 				break;
 			}
-			baseVal5 = nanoSmithChainLightning.m_penetrateLos;
+			baseVal5 = (nanoSmithChainLightning.m_penetrateLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(penetrateLosMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt laserMaxHitsMod = this.m_laserMaxHitsMod;
-		string prefix6 = "[LaserMaxHits]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(penetrateLosMod, "[PenetrateLos]", flag, (byte)baseVal5 != 0);
+		string str6 = empty;
+		AbilityModPropertyInt laserMaxHitsMod = m_laserMaxHitsMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -219,15 +208,13 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(laserMaxHitsMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyFloat chainRadiusMod = this.m_chainRadiusMod;
-		string prefix7 = "[Chain Radius]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(laserMaxHitsMod, "[LaserMaxHits]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyFloat chainRadiusMod = m_chainRadiusMod;
 		float baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -242,15 +229,13 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		{
 			baseVal7 = 0f;
 		}
-		text = str7 + AbilityModHelper.GetModPropertyDesc(chainRadiusMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyInt chainDamageMod = this.m_chainDamageMod;
-		string prefix8 = "[Chain Damage]";
-		bool showBaseVal8 = flag;
+		empty = str7 + AbilityModHelper.GetModPropertyDesc(chainRadiusMod, "[Chain Radius]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyInt chainDamageMod = m_chainDamageMod;
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -265,15 +250,13 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		{
 			baseVal8 = 0;
 		}
-		text = str8 + AbilityModHelper.GetModPropertyDesc(chainDamageMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyInt chainMaxHitsMod = this.m_chainMaxHitsMod;
-		string prefix9 = "[Chain Max Hits]";
-		bool showBaseVal9 = flag;
+		empty = str8 + AbilityModHelper.GetModPropertyDesc(chainDamageMod, "[Chain Damage]", flag, baseVal8);
+		string str9 = empty;
+		AbilityModPropertyInt chainMaxHitsMod = m_chainMaxHitsMod;
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -288,15 +271,13 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		{
 			baseVal9 = 0;
 		}
-		text = str9 + AbilityModHelper.GetModPropertyDesc(chainMaxHitsMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyInt energyPerChainHitMod = this.m_energyPerChainHitMod;
-		string prefix10 = "[Energy Per Chain Hit]";
-		bool showBaseVal10 = flag;
+		empty = str9 + AbilityModHelper.GetModPropertyDesc(chainMaxHitsMod, "[Chain Max Hits]", flag, baseVal9);
+		string str10 = empty;
+		AbilityModPropertyInt energyPerChainHitMod = m_energyPerChainHitMod;
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -311,15 +292,13 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		{
 			baseVal10 = 0;
 		}
-		text = str10 + AbilityModHelper.GetModPropertyDesc(energyPerChainHitMod, prefix10, showBaseVal10, baseVal10);
-		string str11 = text;
-		AbilityModPropertyEffectInfo chainEnemyHitEffectMod = this.m_chainEnemyHitEffectMod;
-		string prefix11 = "[ChainEnemyHitEffect]";
-		bool showBaseVal11 = flag;
-		StandardEffectInfo baseVal11;
+		empty = str10 + AbilityModHelper.GetModPropertyDesc(energyPerChainHitMod, "[Energy Per Chain Hit]", flag, baseVal10);
+		string str11 = empty;
+		AbilityModPropertyEffectInfo chainEnemyHitEffectMod = m_chainEnemyHitEffectMod;
+		object baseVal11;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -334,15 +313,13 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		{
 			baseVal11 = null;
 		}
-		text = str11 + base.PropDesc(chainEnemyHitEffectMod, prefix11, showBaseVal11, baseVal11);
-		string str12 = text;
-		AbilityModPropertyBool chainCanHitInvisibleActorsMod = this.m_chainCanHitInvisibleActorsMod;
-		string prefix12 = "[ChainCanHitInvisibleActors]";
-		bool showBaseVal12 = flag;
-		bool baseVal12;
+		empty = str11 + PropDesc(chainEnemyHitEffectMod, "[ChainEnemyHitEffect]", flag, (StandardEffectInfo)baseVal11);
+		string str12 = empty;
+		AbilityModPropertyBool chainCanHitInvisibleActorsMod = m_chainCanHitInvisibleActorsMod;
+		int baseVal12;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -351,21 +328,19 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 				}
 				break;
 			}
-			baseVal12 = nanoSmithChainLightning.m_chainCanHitInvisibleActors;
+			baseVal12 = (nanoSmithChainLightning.m_chainCanHitInvisibleActors ? 1 : 0);
 		}
 		else
 		{
-			baseVal12 = false;
+			baseVal12 = 0;
 		}
-		text = str12 + base.PropDesc(chainCanHitInvisibleActorsMod, prefix12, showBaseVal12, baseVal12);
-		string str13 = text;
-		AbilityModPropertyInt extraAbsorbPerHitForVacuumBombMod = this.m_extraAbsorbPerHitForVacuumBombMod;
-		string prefix13 = "[ExtraAbsorbPerHitForVacuumBomb]";
-		bool showBaseVal13 = flag;
+		empty = str12 + PropDesc(chainCanHitInvisibleActorsMod, "[ChainCanHitInvisibleActors]", flag, (byte)baseVal12 != 0);
+		string str13 = empty;
+		AbilityModPropertyInt extraAbsorbPerHitForVacuumBombMod = m_extraAbsorbPerHitForVacuumBombMod;
 		int baseVal13;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -380,15 +355,13 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		{
 			baseVal13 = 0;
 		}
-		text = str13 + base.PropDesc(extraAbsorbPerHitForVacuumBombMod, prefix13, showBaseVal13, baseVal13);
-		string str14 = text;
-		AbilityModPropertyInt maxExtraAbsorbForVacuumBombMod = this.m_maxExtraAbsorbForVacuumBombMod;
-		string prefix14 = "[MaxExtraAbsorbForVacuumBomb]";
-		bool showBaseVal14 = flag;
+		empty = str13 + PropDesc(extraAbsorbPerHitForVacuumBombMod, "[ExtraAbsorbPerHitForVacuumBomb]", flag, baseVal13);
+		string str14 = empty;
+		AbilityModPropertyInt maxExtraAbsorbForVacuumBombMod = m_maxExtraAbsorbForVacuumBombMod;
 		int baseVal14;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -403,6 +376,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		{
 			baseVal14 = 0;
 		}
-		return str14 + base.PropDesc(maxExtraAbsorbForVacuumBombMod, prefix14, showBaseVal14, baseVal14);
+		return str14 + PropDesc(maxExtraAbsorbForVacuumBombMod, "[MaxExtraAbsorbForVacuumBomb]", flag, baseVal14);
 	}
 }

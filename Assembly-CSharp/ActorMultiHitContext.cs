@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class ActorMultiHitContext
@@ -14,10 +13,10 @@ public class ActorMultiHitContext
 		int num = Mathf.Max(0, baseDamage);
 		int num2 = Mathf.Max(0, subseqDamage);
 		float coverProtectionDmgMultiplier = GameplayData.Get().m_coverProtectionDmgMultiplier;
-		int b;
+		int num3 = 0;
 		if (numHits == numFromCover)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -26,15 +25,15 @@ public class ActorMultiHitContext
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMultiHitContext.CalcDamageFromNumHits(int, int, int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			b = Mathf.RoundToInt(coverProtectionDmgMultiplier * (float)(num + (numHits - 1) * num2));
+			num3 = Mathf.RoundToInt(coverProtectionDmgMultiplier * (float)(num + (numHits - 1) * num2));
 		}
 		else if (numFromCover == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -43,12 +42,12 @@ public class ActorMultiHitContext
 				}
 				break;
 			}
-			b = num + (numHits - 1) * num2;
+			num3 = num + (numHits - 1) * num2;
 		}
 		else
 		{
-			b = num + Mathf.RoundToInt(coverProtectionDmgMultiplier * (float)(numHits - 1) * (float)num2);
+			num3 = num + Mathf.RoundToInt(coverProtectionDmgMultiplier * (float)(numHits - 1) * (float)num2);
 		}
-		return Mathf.Max(0, b);
+		return Mathf.Max(0, num3);
 	}
 }

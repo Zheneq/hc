@@ -1,15 +1,15 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace TMPro
 {
 	internal static class SetPropertyUtility
 	{
-		public unsafe static bool SetColor(ref Color currentValue, Color newValue)
+		public static bool SetColor(ref Color currentValue, Color newValue)
 		{
 			if (currentValue.r == newValue.r)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -18,13 +18,13 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SetPropertyUtility.SetColor(Color*, Color)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (currentValue.g == newValue.g)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -35,16 +35,16 @@ namespace TMPro
 					}
 					if (currentValue.b == newValue.b && currentValue.a == newValue.a)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return false;
 							}
-							break;
 						}
-						return false;
 					}
 				}
 			}
@@ -62,34 +62,34 @@ namespace TMPro
 			return true;
 		}
 
-		public unsafe static bool SetStruct<T>(ref T currentValue, T newValue) where T : struct
+		public static bool SetStruct<T>(ref T currentValue, T newValue) where T : struct
 		{
 			if (currentValue.Equals(newValue))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return false;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SetPropertyUtility.SetStruct(T*, T)).MethodHandle;
-				}
-				return false;
 			}
 			currentValue = newValue;
 			return true;
 		}
 
-		public unsafe static bool SetClass<T>(ref T currentValue, T newValue) where T : class
+		public static bool SetClass<T>(ref T currentValue, T newValue) where T : class
 		{
 			if (currentValue == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -98,15 +98,15 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SetPropertyUtility.SetClass(T*, T)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (newValue == null)
 				{
-					return false;
+					goto IL_005d;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -116,20 +116,22 @@ namespace TMPro
 					break;
 				}
 			}
-			if (currentValue == null || !currentValue.Equals(newValue))
+			if (currentValue != null && currentValue.Equals(newValue))
 			{
-				currentValue = newValue;
-				return true;
-			}
-			for (;;)
-			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
-				break;
+				goto IL_005d;
 			}
+			currentValue = newValue;
+			return true;
+			IL_005d:
 			return false;
 		}
 	}

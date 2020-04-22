@@ -1,5 +1,3 @@
-﻿using System;
-
 public struct Int2
 {
 	public int x;
@@ -8,7 +6,7 @@ public struct Int2
 
 	internal Int2(int _x, int _y)
 	{
-		this.x = _x;
-		this.y = _y;
+		x = _x;
+		y = _y;
 	}
 }

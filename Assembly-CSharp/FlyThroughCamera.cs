@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,10 +15,10 @@ public class FlyThroughCamera : MonoBehaviour
 
 	private void OnEnable()
 	{
-		bool fadeObjectsToRevealCharacters;
+		int fadeObjectsToRevealCharacters;
 		if (!(GameManager.Get() == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -28,19 +27,20 @@ public class FlyThroughCamera : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FlyThroughCamera.OnEnable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameManager.Get().GameConfig != null)
 			{
-				fadeObjectsToRevealCharacters = (GameManager.Get().GameConfig.GameType != GameType.Tutorial);
-				goto IL_51;
+				fadeObjectsToRevealCharacters = ((GameManager.Get().GameConfig.GameType != GameType.Tutorial) ? 1 : 0);
+				goto IL_0051;
 			}
 		}
-		fadeObjectsToRevealCharacters = true;
-		IL_51:
-		this.m_fadeObjectsToRevealCharacters = fadeObjectsToRevealCharacters;
+		fadeObjectsToRevealCharacters = 1;
+		goto IL_0051;
+		IL_0051:
+		m_fadeObjectsToRevealCharacters = ((byte)fadeObjectsToRevealCharacters != 0);
 	}
 
 	private void OnDisable()
@@ -49,29 +49,31 @@ public class FlyThroughCamera : MonoBehaviour
 
 	public void StopFlyThroughAnimation()
 	{
-		UnityEngine.Object.Destroy(this.m_cameraBoneInstance);
-		this.m_cameraBoneInstance = null;
-		this.m_cameraBoneTransform = null;
-		if (!this.m_fadeObjectsToRevealCharacters)
+		Object.Destroy(m_cameraBoneInstance);
+		m_cameraBoneInstance = null;
+		m_cameraBoneTransform = null;
+		if (m_fadeObjectsToRevealCharacters)
 		{
-			FadeObjectsCameraComponent component = base.GetComponent<FadeObjectsCameraComponent>();
-			if (component != null)
+			return;
+		}
+		FadeObjectsCameraComponent component = GetComponent<FadeObjectsCameraComponent>();
+		if (!(component != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FlyThroughCamera.StopFlyThroughAnimation()).MethodHandle;
-				}
-				component.enabled = true;
+			case 0:
+				continue;
 			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			component.enabled = true;
+			return;
 		}
 	}
 
@@ -79,27 +81,33 @@ public class FlyThroughCamera : MonoBehaviour
 	{
 		bool result = false;
 		AnimatorControllerParameter[] parameters = animator.parameters;
-		for (int i = 0; i < parameters.Length; i++)
+		int num = 0;
+		while (true)
 		{
-			if (parameters[i].name == paramName)
+			if (num < parameters.Length)
 			{
-				result = true;
-				return result;
-			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
+				if (parameters[num].name == paramName)
+				{
+					result = true;
+					break;
+				}
+				num++;
 				continue;
 			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
 			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FlyThroughCamera.HasAnimatorControllerParamater(Animator, string)).MethodHandle;
-			return result;
 		}
 		return result;
 	}
@@ -107,9 +115,9 @@ public class FlyThroughCamera : MonoBehaviour
 	public void StartFlyThroughAnimation()
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		if (this.m_cameraBonePrefab != null)
+		if (m_cameraBonePrefab != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -118,14 +126,14 @@ public class FlyThroughCamera : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FlyThroughCamera.StartFlyThroughAnimation()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_cameraBoneInstance = UnityEngine.Object.Instantiate<GameObject>(this.m_cameraBonePrefab);
+			m_cameraBoneInstance = Object.Instantiate(m_cameraBonePrefab);
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -134,19 +142,19 @@ public class FlyThroughCamera : MonoBehaviour
 					}
 					break;
 				}
-				this.m_cameraBoneInstance.transform.position = activeOwnedActorData.transform.position;
+				m_cameraBoneInstance.transform.position = activeOwnedActorData.transform.position;
 				Quaternion camRotation = Quaternion.Euler(new Vector3(0f, CameraManager.Get().GetIsometricCamera().GetInitialYAngle()));
-				Vector3 b = CameraManager.Get().GetIsometricCamera().CalcZoomOffsetForActiveAnimatedActor(camRotation);
-				this.m_cameraBoneInstance.transform.position += b;
+				Vector3 vector = CameraManager.Get().GetIsometricCamera().CalcZoomOffsetForActiveAnimatedActor(camRotation);
+				m_cameraBoneInstance.transform.position += vector;
 			}
 			else
 			{
-				this.m_cameraBoneInstance.transform.position = CameraManager.Get().CameraPositionBounds.center + CameraManager.Get().GetIsometricCamera().m_maxVertDist * Vector3.up;
+				m_cameraBoneInstance.transform.position = CameraManager.Get().CameraPositionBounds.center + CameraManager.Get().GetIsometricCamera().m_maxVertDist * Vector3.up;
 			}
-			Animator componentInChildren = this.m_cameraBoneInstance.GetComponentInChildren<Animator>();
-			if (this.HasAnimatorControllerParamater(componentInChildren, SceneManager.GetActiveScene().name.ToLower()))
+			Animator componentInChildren = m_cameraBoneInstance.GetComponentInChildren<Animator>();
+			if (HasAnimatorControllerParamater(componentInChildren, SceneManager.GetActiveScene().name.ToLower()))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -157,7 +165,7 @@ public class FlyThroughCamera : MonoBehaviour
 				}
 				if (activeOwnedActorData != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -166,38 +174,39 @@ public class FlyThroughCamera : MonoBehaviour
 						}
 						break;
 					}
-					componentInChildren.SetInteger("team", (int)activeOwnedActorData.\u000E());
+					componentInChildren.SetInteger("team", (int)activeOwnedActorData.GetTeam());
 				}
 				componentInChildren.SetTrigger(SceneManager.GetActiveScene().name.ToLower());
-				this.m_cameraBoneTransform = this.m_cameraBoneInstance.FindInChildren("camera0", 0).transform;
+				m_cameraBoneTransform = m_cameraBoneInstance.FindInChildren("camera0").transform;
 				componentInChildren.SetBool("tutorial", GameManager.Get().GameConfig.GameType == GameType.Tutorial);
 			}
 		}
-		this.m_needToHideLoadingScreen = true;
-		if (!this.m_fadeObjectsToRevealCharacters)
+		m_needToHideLoadingScreen = true;
+		if (m_fadeObjectsToRevealCharacters)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			FadeObjectsCameraComponent component = base.GetComponent<FadeObjectsCameraComponent>();
+			FadeObjectsCameraComponent component = GetComponent<FadeObjectsCameraComponent>();
 			if (component != null)
 			{
 				component.enabled = false;
 			}
+			return;
 		}
 	}
 
 	private void LateUpdate()
 	{
-		if (this.m_cameraBoneTransform)
+		if ((bool)m_cameraBoneTransform)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -206,55 +215,58 @@ public class FlyThroughCamera : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FlyThroughCamera.LateUpdate()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			base.transform.position = this.m_cameraBoneTransform.position;
-			base.transform.rotation = this.m_cameraBoneTransform.rotation * Quaternion.Euler(0f, 180f, 0f);
-			Camera.main.fieldOfView = this.m_cameraBoneTransform.localScale.z;
+			base.transform.position = m_cameraBoneTransform.position;
+			base.transform.rotation = m_cameraBoneTransform.rotation * Quaternion.Euler(0f, 180f, 0f);
+			Camera main = Camera.main;
+			Vector3 localScale = m_cameraBoneTransform.localScale;
+			main.fieldOfView = localScale.z;
 		}
-		if (this.m_needToHideLoadingScreen)
+		if (!m_needToHideLoadingScreen)
 		{
-			if (!(this.m_cameraBoneTransform != null))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(this.m_cameraBonePrefab == null))
-				{
-					return;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (UILoadingScreenPanel.Get() != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UILoadingScreenPanel.Get().SetVisible(false);
-			}
-			this.m_needToHideLoadingScreen = false;
+			return;
 		}
+		if (!(m_cameraBoneTransform != null))
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!(m_cameraBonePrefab == null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		if (UILoadingScreenPanel.Get() != null)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			UILoadingScreenPanel.Get().SetVisible(false);
+		}
+		m_needToHideLoadingScreen = false;
 	}
 }

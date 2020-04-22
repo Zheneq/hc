@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,87 +30,86 @@ public class NekoAoeAroundDisc : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "AoE Around Disc";
+			m_abilityName = "AoE Around Disc";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		AbilityUtil_Targeter_AoE_Smooth abilityUtil_Targeter_AoE_Smooth = new AbilityUtil_Targeter_AoE_Smooth(this, this.GetAoeRadius(), this.PenetrateLoS(), true, false, this.GetMaxTargets());
-		abilityUtil_Targeter_AoE_Smooth.m_customCenterPosDelegate = new AbilityUtil_Targeter_AoE_Smooth.CustomCenterPosDelegate(this.ClampToSquareCenter);
-		abilityUtil_Targeter_AoE_Smooth.SetupKnockbackData(this.GetKnockbackDist(), this.GetKnockbackType());
+		SetCachedFields();
+		AbilityUtil_Targeter_AoE_Smooth abilityUtil_Targeter_AoE_Smooth = new AbilityUtil_Targeter_AoE_Smooth(this, GetAoeRadius(), PenetrateLoS(), true, false, GetMaxTargets());
+		abilityUtil_Targeter_AoE_Smooth.m_customCenterPosDelegate = ClampToSquareCenter;
+		abilityUtil_Targeter_AoE_Smooth.SetupKnockbackData(GetKnockbackDist(), GetKnockbackType());
 		base.Targeters.Add(abilityUtil_Targeter_AoE_Smooth);
-		this.m_syncComp = base.GetComponent<Neko_SyncComponent>();
+		m_syncComp = GetComponent<Neko_SyncComponent>();
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedEffectOnEnemies = this.m_effectOnEnemies;
+		m_cachedEffectOnEnemies = m_effectOnEnemies;
 	}
 
 	public float GetAoeRadius()
 	{
-		return this.m_aoeRadius;
+		return m_aoeRadius;
 	}
 
 	public bool PenetrateLoS()
 	{
-		return this.m_penetrateLoS;
+		return m_penetrateLoS;
 	}
 
 	public int GetMaxTargets()
 	{
-		return this.m_maxTargets;
+		return m_maxTargets;
 	}
 
 	public int GetDamageAmount()
 	{
-		return this.m_damageAmount;
+		return m_damageAmount;
 	}
 
 	public StandardEffectInfo GetEffectOnEnemies()
 	{
-		return (this.m_cachedEffectOnEnemies == null) ? this.m_effectOnEnemies : this.m_cachedEffectOnEnemies;
+		return (m_cachedEffectOnEnemies == null) ? m_effectOnEnemies : m_cachedEffectOnEnemies;
 	}
 
 	public bool RemoveTargetDiscBeforeReturn()
 	{
-		return this.m_removeTargetDiscBeforeReturn;
+		return m_removeTargetDiscBeforeReturn;
 	}
 
 	public float GetKnockbackDist()
 	{
-		return this.m_knockbackDist;
+		return m_knockbackDist;
 	}
 
 	public KnockbackType GetKnockbackType()
 	{
-		return this.m_knockbackType;
+		return m_knockbackType;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, this.m_damageAmount, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnEnemies, "EffectOnEnemies", this.m_effectOnEnemies, true);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, m_damageAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnEnemies, "EffectOnEnemies", m_effectOnEnemies);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, this.m_damageAmount)
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_damageAmount));
+		return list;
 	}
 
 	public override bool GetCheckLoS(int targetIndex)
 	{
-		if (this.GetTargetData().IsNullOrEmpty<TargetData>())
+		if (GetTargetData().IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -120,13 +118,13 @@ public class NekoAoeAroundDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoAoeAroundDisc.GetCheckLoS(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_targetData.IsNullOrEmpty<TargetData>())
+			if (!m_targetData.IsNullOrEmpty())
 			{
-				return this.m_targetData[targetIndex].m_checkLineOfSight;
+				return m_targetData[targetIndex].m_checkLineOfSight;
 			}
 		}
 		return base.GetCheckLoS(targetIndex);
@@ -134,9 +132,9 @@ public class NekoAoeAroundDisc : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_syncComp != null && caster.\u0012() != null)
+		if (m_syncComp != null && caster.GetCurrentBoardSquare() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -145,20 +143,19 @@ public class NekoAoeAroundDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoAoeAroundDisc.CustomCanCastValidation(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
-			foreach (BoardSquare boardSquare in activeDiscSquares)
+			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
+			foreach (BoardSquare item in activeDiscSquares)
 			{
-				float minRange = this.m_targetData[0].m_minRange;
-				float range = this.m_targetData[0].m_range;
-				bool flag = caster.\u000E().IsTargetSquareInRangeOfAbilityFromSquare(boardSquare, caster.\u0012(), range, minRange);
-				bool flag2;
-				if (flag)
+				float minRange = m_targetData[0].m_minRange;
+				float range = m_targetData[0].m_range;
+				int num;
+				if (caster.GetAbilityData().IsTargetSquareInRangeOfAbilityFromSquare(item, caster.GetCurrentBoardSquare(), range, minRange))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -167,9 +164,9 @@ public class NekoAoeAroundDisc : Ability
 						}
 						break;
 					}
-					if (this.m_targetData[0].m_checkLineOfSight)
+					if (m_targetData[0].m_checkLineOfSight)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -178,44 +175,42 @@ public class NekoAoeAroundDisc : Ability
 							}
 							break;
 						}
-						flag2 = caster.\u0012().\u0013(boardSquare.x, boardSquare.y);
+						num = (caster.GetCurrentBoardSquare()._0013(item.x, item.y) ? 1 : 0);
 					}
 					else
 					{
-						flag2 = true;
+						num = 1;
 					}
 				}
 				else
 				{
-					flag2 = false;
+					num = 0;
 				}
-				flag = flag2;
-				if (flag)
+				if (num != 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return true;
 						}
-						break;
 					}
-					return true;
 				}
 			}
-			return false;
 		}
 		return false;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare item = Board.\u000E().\u000E(target.GridPos);
-		if (this.m_syncComp != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (m_syncComp != null)
 		{
-			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
-			if (activeDiscSquares.Contains(item))
+			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
+			if (activeDiscSquares.Contains(boardSquareSafe))
 			{
 				return true;
 			}
@@ -225,9 +220,9 @@ public class NekoAoeAroundDisc : Ability
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
+			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Count > 1)
 			{
 				return 1;
@@ -238,25 +233,25 @@ public class NekoAoeAroundDisc : Ability
 
 	public override TargetData[] GetTargetData()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
+			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Count > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return base.GetTargetData();
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NekoAoeAroundDisc.GetTargetData()).MethodHandle;
-				}
-				return base.GetTargetData();
 			}
 		}
 		return new TargetData[0];
@@ -265,9 +260,9 @@ public class NekoAoeAroundDisc : Ability
 	public override AbilityTarget CreateAbilityTargetForSimpleAction(ActorData caster)
 	{
 		AbilityTarget abilityTarget = base.CreateAbilityTargetForSimpleAction(caster);
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -276,14 +271,14 @@ public class NekoAoeAroundDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoAoeAroundDisc.CreateAbilityTargetForSimpleAction(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
+			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Count == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -292,7 +287,7 @@ public class NekoAoeAroundDisc : Ability
 					}
 					break;
 				}
-				abilityTarget.SetValuesFromBoardSquare(activeDiscSquares[0], activeDiscSquares[0].\u000E());
+				abilityTarget.SetValuesFromBoardSquare(activeDiscSquares[0], activeDiscSquares[0].GetWorldPositionForLoS());
 			}
 		}
 		return abilityTarget;
@@ -300,7 +295,7 @@ public class NekoAoeAroundDisc : Ability
 
 	public Vector3 ClampToSquareCenter(ActorData caster, AbilityTarget currentTarget)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		return boardSquare.\u000E();
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		return boardSquareSafe.GetWorldPositionForLoS();
 	}
 }

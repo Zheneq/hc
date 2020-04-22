@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class FactionCurrencyReward : FactionReward
@@ -8,40 +8,33 @@ public class FactionCurrencyReward : FactionReward
 	public InventoryItemTemplate GetItemTemplate()
 	{
 		InventoryItemTemplate inventoryItemTemplate = new InventoryItemTemplate();
-		inventoryItemTemplate.DisplayName = this.CurrencyReward.Amount + " ";
-		bool flag = this.CurrencyReward.Amount != 1;
-		switch (this.CurrencyReward.Type)
+		inventoryItemTemplate.DisplayName = CurrencyReward.Amount + " ";
+		bool flag = CurrencyReward.Amount != 1;
+		switch (CurrencyReward.Type)
 		{
-		case CurrencyType.ISO:
-		{
-			InventoryItemTemplate inventoryItemTemplate2 = inventoryItemTemplate;
-			inventoryItemTemplate2.DisplayName += StringUtil.TR("ISO", "Rewards");
-			goto IL_156;
-		}
 		case CurrencyType.ModToken:
-		{
-			InventoryItemTemplate inventoryItemTemplate3 = inventoryItemTemplate;
-			inventoryItemTemplate3.DisplayName += ((!flag) ? StringUtil.TR("ModToken", "Rewards") : StringUtil.TR("ModTokens", "Rewards"));
-			goto IL_156;
-		}
+			inventoryItemTemplate.DisplayName += ((!flag) ? StringUtil.TR("ModToken", "Rewards") : StringUtil.TR("ModTokens", "Rewards"));
+			break;
 		case CurrencyType.GGPack:
+			inventoryItemTemplate.DisplayName += ((!flag) ? StringUtil.TR("GGBoost", "Rewards") : StringUtil.TR("GGBoosts", "Rewards"));
+			break;
+		case CurrencyType.ISO:
+			inventoryItemTemplate.DisplayName += StringUtil.TR("ISO", "Rewards");
+			break;
+		default:
 		{
-			InventoryItemTemplate inventoryItemTemplate4 = inventoryItemTemplate;
-			inventoryItemTemplate4.DisplayName += ((!flag) ? StringUtil.TR("GGBoost", "Rewards") : StringUtil.TR("GGBoosts", "Rewards"));
-			goto IL_156;
+			string str = CurrencyReward.Type.ToString();
+			string term = str + ((!flag) ? string.Empty : "s");
+			inventoryItemTemplate.DisplayName += StringUtil.TR(term, "Rewards");
+			break;
 		}
 		}
-		string str = this.CurrencyReward.Type.ToString();
-		string term = str + ((!flag) ? string.Empty : "s");
-		InventoryItemTemplate inventoryItemTemplate5 = inventoryItemTemplate;
-		inventoryItemTemplate5.DisplayName += StringUtil.TR(term, "Rewards");
-		IL_156:
 		inventoryItemTemplate.Rarity = InventoryItemRarity.Uncommon;
 		inventoryItemTemplate.Type = InventoryItemType.Currency;
 		inventoryItemTemplate.Enabled = true;
 		inventoryItemTemplate.TypeSpecificData = new int[2];
-		inventoryItemTemplate.TypeSpecificData[0] = (int)this.CurrencyReward.Type;
-		inventoryItemTemplate.TypeSpecificData[1] = this.CurrencyReward.Amount;
+		inventoryItemTemplate.TypeSpecificData[0] = (int)CurrencyReward.Type;
+		inventoryItemTemplate.TypeSpecificData[1] = CurrencyReward.Amount;
 		return inventoryItemTemplate;
 	}
 }

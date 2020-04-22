@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 public static class LobbyTimeZoneInfo
 {
@@ -8,9 +8,9 @@ public static class LobbyTimeZoneInfo
 	{
 		get
 		{
-			if (LobbyTimeZoneInfo.m_pacificTimeZoneInfo == null)
+			if (m_pacificTimeZoneInfo == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -19,40 +19,40 @@ public static class LobbyTimeZoneInfo
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyTimeZoneInfo.get_PacificTimeZoneInfo()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				try
 				{
-					LobbyTimeZoneInfo.m_pacificTimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+					m_pacificTimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
 				}
 				catch (TimeZoneNotFoundException)
 				{
 					try
 					{
-						LobbyTimeZoneInfo.m_pacificTimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("US/Pacific");
+						m_pacificTimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("US/Pacific");
 					}
 					catch (TimeZoneNotFoundException)
 					{
-						LobbyTimeZoneInfo.m_pacificTimeZoneInfo = null;
+						m_pacificTimeZoneInfo = null;
 					}
 				}
-				if (LobbyTimeZoneInfo.m_pacificTimeZoneInfo == null)
+				if (m_pacificTimeZoneInfo == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							throw new Exception("Could not find the Pacific time zone information");
 						}
-						break;
 					}
-					throw new Exception("Could not find the Pacific time zone information");
 				}
 			}
-			return LobbyTimeZoneInfo.m_pacificTimeZoneInfo;
+			return m_pacificTimeZoneInfo;
 		}
 	}
 }

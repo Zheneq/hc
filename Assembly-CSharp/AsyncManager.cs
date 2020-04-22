@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,26 +16,25 @@ public class AsyncManager : MonoBehaviour
 
 	public static AsyncManager Get()
 	{
-		if (AsyncManager.s_instance == null)
+		if (s_instance == null)
 		{
-			Log.Error("AsyncManager component is not present on a bootstrap singleton!", new object[0]);
+			Log.Error("AsyncManager component is not present on a bootstrap singleton!");
 		}
-		return AsyncManager.s_instance;
+		return s_instance;
 	}
 
 	public void StartAsyncOperation(out int ticket, IEnumerator coroutine, float delay = 0f)
 	{
-		int num = AsyncManager.lastTicket++;
-		ticket = num;
-		Coroutine value = base.StartCoroutine(this.InternalRoutine(coroutine, num, delay));
-		this.runningCoroutines.Add(num, value);
+		int num = ticket = lastTicket++;
+		Coroutine value = StartCoroutine(InternalRoutine(coroutine, num, delay));
+		runningCoroutines.Add(num, value);
 	}
 
 	private IEnumerator InternalRoutine(IEnumerator coroutine, int ticket, float delay = 0f)
 	{
 		if (delay > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -45,100 +43,89 @@ public class AsyncManager : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncManager.<InternalRoutine>c__Iterator0.MoveNext()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			yield return new WaitForSeconds(delay);
 		}
-		while (coroutine.MoveNext())
+		if (!coroutine.MoveNext())
 		{
-			object obj = coroutine.Current;
-			yield return obj;
-			for (;;)
+			while (true)
 			{
-				switch (1)
+				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					doneTickets.Add(ticket);
+					yield break;
 				}
-				break;
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.doneTickets.Add(ticket);
-		yield break;
-		yield break;
+		yield return coroutine.Current;
+		/*Error: Unable to find new state assignment for yield return*/;
 	}
 
 	public void CancelAsyncOperation(int ticket)
 	{
-		Coroutine routine;
-		if (this.runningCoroutines.TryGetValue(ticket, out routine))
+		if (runningCoroutines.TryGetValue(ticket, out Coroutine value))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					StopCoroutine(value);
+					doneTickets.Add(ticket);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncManager.CancelAsyncOperation(int)).MethodHandle;
-			}
-			base.StopCoroutine(routine);
-			this.doneTickets.Add(ticket);
 		}
-		else
-		{
-			Log.Error("Failed to find async operation for ticket #" + ticket, new object[0]);
-		}
+		Log.Error("Failed to find async operation for ticket #" + ticket);
 	}
 
 	private void Awake()
 	{
-		AsyncManager.s_instance = this;
+		s_instance = this;
 	}
 
 	private void OnDestroy()
 	{
-		AsyncManager.s_instance = null;
+		s_instance = null;
 	}
 
 	private void Update()
 	{
-		using (List<int>.Enumerator enumerator = this.doneTickets.GetEnumerator())
+		using (List<int>.Enumerator enumerator = doneTickets.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				int key = enumerator.Current;
-				this.runningCoroutines.Remove(key);
+				int current = enumerator.Current;
+				runningCoroutines.Remove(current);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					goto end_IL_000e;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncManager.Update()).MethodHandle;
-			}
+			end_IL_000e:;
 		}
-		this.doneTickets.Clear();
+		doneTickets.Clear();
 	}
 }

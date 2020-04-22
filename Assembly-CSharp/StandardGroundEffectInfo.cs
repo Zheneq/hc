@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -8,24 +8,25 @@ public class StandardGroundEffectInfo
 
 	public GroundEffectField m_groundEffectData;
 
-	public unsafe virtual void ReportAbilityTooltipNumbers(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject enemySubject, AbilityTooltipSubject allySubject)
+	public virtual void ReportAbilityTooltipNumbers(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject enemySubject, AbilityTooltipSubject allySubject)
 	{
-		if (this.m_applyGroundEffect)
+		if (!m_applyGroundEffect)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StandardGroundEffectInfo.ReportAbilityTooltipNumbers(List<AbilityTooltipNumber>*, AbilityTooltipSubject, AbilityTooltipSubject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_groundEffectData.ReportAbilityTooltipNumbers(ref numbers, enemySubject, allySubject);
+			m_groundEffectData.ReportAbilityTooltipNumbers(ref numbers, enemySubject, allySubject);
+			return;
 		}
 	}
 }

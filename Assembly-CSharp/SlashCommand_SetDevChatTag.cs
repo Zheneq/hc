@@ -1,87 +1,90 @@
-﻿using System;
 using LobbyGameClientMessages;
 
 public class SlashCommand_SetDevChatTag : SlashCommand
 {
-	public SlashCommand_SetDevChatTag() : base("/devtag", SlashCommandType.Everywhere)
+	public SlashCommand_SetDevChatTag()
+		: base("/devtag", SlashCommandType.Everywhere)
 	{
 		base.PublicFacing = false;
 	}
 
 	public override void OnSlashCommand(string arguments)
 	{
-		if (!arguments.IsNullOrEmpty())
+		if (arguments.IsNullOrEmpty())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_SetDevChatTag.OnSlashCommand(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!(ClientGameManager.Get() == null))
+			if (ClientGameManager.Get() == null)
 			{
-				if (arguments.EqualsIgnoreCase(StringUtil.TR("on", "SlashCommand")))
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					ClientGameManager clientGameManager = ClientGameManager.Get();
-					bool active = true;
-					if (SlashCommand_SetDevChatTag.<>f__am$cache0 == null)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						SlashCommand_SetDevChatTag.<>f__am$cache0 = delegate(SetDevTagResponse response)
-						{
-							TextConsole.Get().HandleSetDevTagResponse(response);
-						};
-					}
-					clientGameManager.SendSetDevTagRequest(active, SlashCommand_SetDevChatTag.<>f__am$cache0);
-				}
-				else if (arguments.EqualsIgnoreCase(StringUtil.TR("off", "SlashCommand")))
-				{
-					ClientGameManager clientGameManager2 = ClientGameManager.Get();
-					bool active2 = false;
-					if (SlashCommand_SetDevChatTag.<>f__am$cache1 == null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						SlashCommand_SetDevChatTag.<>f__am$cache1 = delegate(SetDevTagResponse response)
-						{
-							TextConsole.Get().HandleSetDevTagResponse(response);
-						};
-					}
-					clientGameManager2.SendSetDevTagRequest(active2, SlashCommand_SetDevChatTag.<>f__am$cache1);
-				}
 				return;
 			}
+			if (arguments.EqualsIgnoreCase(StringUtil.TR("on", "SlashCommand")))
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						break;
+					default:
+					{
+						ClientGameManager clientGameManager = ClientGameManager.Get();
+						if (_003C_003Ef__am_0024cache0 == null)
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							_003C_003Ef__am_0024cache0 = delegate(SetDevTagResponse response)
+							{
+								TextConsole.Get().HandleSetDevTagResponse(response);
+							};
+						}
+						clientGameManager.SendSetDevTagRequest(true, _003C_003Ef__am_0024cache0);
+						return;
+					}
+					}
+				}
+			}
+			if (!arguments.EqualsIgnoreCase(StringUtil.TR("off", "SlashCommand")))
+			{
+				return;
+			}
+			ClientGameManager clientGameManager2 = ClientGameManager.Get();
+			if (_003C_003Ef__am_0024cache1 == null)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				_003C_003Ef__am_0024cache1 = delegate(SetDevTagResponse response)
+				{
+					TextConsole.Get().HandleSetDevTagResponse(response);
+				};
+			}
+			clientGameManager2.SendSetDevTagRequest(false, _003C_003Ef__am_0024cache1);
+			return;
 		}
 	}
 }

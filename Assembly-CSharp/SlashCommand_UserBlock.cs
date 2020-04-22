@@ -1,9 +1,9 @@
-﻿using System;
 using LobbyGameClientMessages;
 
 public class SlashCommand_UserBlock : SlashCommand
 {
-	public SlashCommand_UserBlock() : base("/block", SlashCommandType.Everywhere)
+	public SlashCommand_UserBlock()
+		: base("/block", SlashCommandType.Everywhere)
 	{
 	}
 
@@ -11,7 +11,7 @@ public class SlashCommand_UserBlock : SlashCommand
 	{
 		if (!arguments.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -20,18 +20,18 @@ public class SlashCommand_UserBlock : SlashCommand
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_UserBlock.OnSlashCommand(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!(ClientGameManager.Get() == null))
 			{
 				ClientGameManager.Get().UpdateFriend(arguments, 0L, FriendOperation.Block, string.Empty, delegate(FriendUpdateResponse r)
 				{
-					string text = string.Empty;
+					string empty = string.Empty;
 					if (r.Success)
 					{
-						text = string.Format(StringUtil.TR("SuccessfullyBlocked", "SlashCommand"), arguments);
+						empty = string.Format(StringUtil.TR("SuccessfullyBlocked", "SlashCommand"), arguments);
 					}
 					else
 					{
@@ -41,7 +41,7 @@ public class SlashCommand_UserBlock : SlashCommand
 						}
 						else if (r.ErrorMessage.IsNullOrEmpty())
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -50,23 +50,23 @@ public class SlashCommand_UserBlock : SlashCommand
 								}
 								break;
 							}
-							if (!true)
+							if (1 == 0)
 							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(SlashCommand_UserBlock.<OnSlashCommand>c__AnonStorey0.<>m__0(FriendUpdateResponse)).MethodHandle;
+								/*OpCode not supported: LdMemberToken*/;
 							}
 							r.ErrorMessage = StringUtil.TR("UnknownError", "Global");
 						}
-						text = string.Format(StringUtil.TR("FailedMessage", "Global"), r.ErrorMessage);
+						empty = string.Format(StringUtil.TR("FailedMessage", "Global"), r.ErrorMessage);
 					}
 					TextConsole.Get().Write(new TextConsole.Message
 					{
-						Text = text,
+						Text = empty,
 						MessageType = ConsoleMessageType.SystemMessage
-					}, null);
+					});
 				});
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -80,6 +80,6 @@ public class SlashCommand_UserBlock : SlashCommand
 		{
 			Text = StringUtil.TR("BlockNameError", "SlashCommand"),
 			MessageType = ConsoleMessageType.SystemMessage
-		}, null);
+		});
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,31 +41,29 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		ThiefOnTheRun thiefOnTheRun = targetAbility as ThiefOnTheRun;
 		if (thiefOnTheRun != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_minDistanceBetweenStepsMod, "MinDistanceBetweenSteps", string.Empty, thiefOnTheRun.m_minDistanceBetweenSteps, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_minDistanceBetweenAnyStepsMod, "MinDistanceBetweenAnySteps", string.Empty, thiefOnTheRun.m_minDistanceBetweenAnySteps, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxDistanceBetweenStepsMod, "MaxDistanceBetweenSteps", string.Empty, thiefOnTheRun.m_maxDistanceBetweenSteps, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_dashRadiusMod, "DashRadius", string.Empty, thiefOnTheRun.m_dashRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, thiefOnTheRun.m_damageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_subsequentDamageMod, "SubsequentDamage", string.Empty, thiefOnTheRun.m_subsequentDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", thiefOnTheRun.m_enemyHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnSelfThroughSmokeFieldMod, "EffectOnSelfThroughSmokeField", thiefOnTheRun.m_effectOnSelfThroughSmokeField, true);
-			AbilityMod.AddToken(tokens, this.m_cooldownReductionIfNoEnemyMod, "CooldownReductionIfNoEnemy", string.Empty, thiefOnTheRun.m_cooldownReductionIfNoEnemy, true, false);
+			AbilityMod.AddToken(tokens, m_minDistanceBetweenStepsMod, "MinDistanceBetweenSteps", string.Empty, thiefOnTheRun.m_minDistanceBetweenSteps);
+			AbilityMod.AddToken(tokens, m_minDistanceBetweenAnyStepsMod, "MinDistanceBetweenAnySteps", string.Empty, thiefOnTheRun.m_minDistanceBetweenAnySteps);
+			AbilityMod.AddToken(tokens, m_maxDistanceBetweenStepsMod, "MaxDistanceBetweenSteps", string.Empty, thiefOnTheRun.m_maxDistanceBetweenSteps);
+			AbilityMod.AddToken(tokens, m_dashRadiusMod, "DashRadius", string.Empty, thiefOnTheRun.m_dashRadius);
+			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, thiefOnTheRun.m_damageAmount);
+			AbilityMod.AddToken(tokens, m_subsequentDamageMod, "SubsequentDamage", string.Empty, thiefOnTheRun.m_subsequentDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", thiefOnTheRun.m_enemyHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnSelfThroughSmokeFieldMod, "EffectOnSelfThroughSmokeField", thiefOnTheRun.m_effectOnSelfThroughSmokeField);
+			AbilityMod.AddToken(tokens, m_cooldownReductionIfNoEnemyMod, "CooldownReductionIfNoEnemy", string.Empty, thiefOnTheRun.m_cooldownReductionIfNoEnemy);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ThiefOnTheRun thiefOnTheRun = base.GetTargetAbilityOnAbilityData(abilityData) as ThiefOnTheRun;
+		ThiefOnTheRun thiefOnTheRun = GetTargetAbilityOnAbilityData(abilityData) as ThiefOnTheRun;
 		bool flag = thiefOnTheRun != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat minDistanceBetweenStepsMod = this.m_minDistanceBetweenStepsMod;
-		string prefix = "[MinDistanceBetweenSteps]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat minDistanceBetweenStepsMod = m_minDistanceBetweenStepsMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -74,9 +72,9 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ThiefOnTheRun.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = thiefOnTheRun.m_minDistanceBetweenSteps;
 		}
@@ -84,15 +82,13 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(minDistanceBetweenStepsMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat minDistanceBetweenAnyStepsMod = this.m_minDistanceBetweenAnyStepsMod;
-		string prefix2 = "[MinDistanceBetweenAnySteps]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(minDistanceBetweenStepsMod, "[MinDistanceBetweenSteps]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat minDistanceBetweenAnyStepsMod = m_minDistanceBetweenAnyStepsMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -107,16 +103,14 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(minDistanceBetweenAnyStepsMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_maxDistanceBetweenStepsMod, "[MaxDistanceBetweenSteps]", flag, (!flag) ? 0f : thiefOnTheRun.m_maxDistanceBetweenSteps);
-		string str3 = text;
-		AbilityModPropertyFloat dashRadiusMod = this.m_dashRadiusMod;
-		string prefix3 = "[DashRadius]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(minDistanceBetweenAnyStepsMod, "[MinDistanceBetweenAnySteps]", flag, baseVal2);
+		empty += PropDesc(m_maxDistanceBetweenStepsMod, "[MaxDistanceBetweenSteps]", flag, (!flag) ? 0f : thiefOnTheRun.m_maxDistanceBetweenSteps);
+		string str3 = empty;
+		AbilityModPropertyFloat dashRadiusMod = m_dashRadiusMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -131,15 +125,13 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(dashRadiusMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyBool dashPenetrateLineOfSightMod = this.m_dashPenetrateLineOfSightMod;
-		string prefix4 = "[DashPenetrateLineOfSight]";
-		bool showBaseVal4 = flag;
-		bool baseVal4;
+		empty = str3 + PropDesc(dashRadiusMod, "[DashRadius]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyBool dashPenetrateLineOfSightMod = m_dashPenetrateLineOfSightMod;
+		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -148,21 +140,19 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 				}
 				break;
 			}
-			baseVal4 = thiefOnTheRun.m_dashPenetrateLineOfSight;
+			baseVal4 = (thiefOnTheRun.m_dashPenetrateLineOfSight ? 1 : 0);
 		}
 		else
 		{
-			baseVal4 = false;
+			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(dashPenetrateLineOfSightMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt damageAmountMod = this.m_damageAmountMod;
-		string prefix5 = "[DamageAmount]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(dashPenetrateLineOfSightMod, "[DashPenetrateLineOfSight]", flag, (byte)baseVal4 != 0);
+		string str5 = empty;
+		AbilityModPropertyInt damageAmountMod = m_damageAmountMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -177,15 +167,13 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(damageAmountMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt subsequentDamageMod = this.m_subsequentDamageMod;
-		string prefix6 = "[SubsequentDamage]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(damageAmountMod, "[DamageAmount]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt subsequentDamageMod = m_subsequentDamageMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -200,15 +188,13 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(subsequentDamageMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyEffectInfo enemyHitEffectMod = this.m_enemyHitEffectMod;
-		string prefix7 = "[EnemyHitEffect]";
-		bool showBaseVal7 = flag;
-		StandardEffectInfo baseVal7;
+		empty = str6 + PropDesc(subsequentDamageMod, "[SubsequentDamage]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyEffectInfo enemyHitEffectMod = m_enemyHitEffectMod;
+		object baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -223,15 +209,13 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		{
 			baseVal7 = null;
 		}
-		text = str7 + base.PropDesc(enemyHitEffectMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyEffectInfo effectOnSelfThroughSmokeFieldMod = this.m_effectOnSelfThroughSmokeFieldMod;
-		string prefix8 = "[EffectOnSelfThroughSmokeField]";
-		bool showBaseVal8 = flag;
-		StandardEffectInfo baseVal8;
+		empty = str7 + PropDesc(enemyHitEffectMod, "[EnemyHitEffect]", flag, (StandardEffectInfo)baseVal7);
+		string str8 = empty;
+		AbilityModPropertyEffectInfo effectOnSelfThroughSmokeFieldMod = m_effectOnSelfThroughSmokeFieldMod;
+		object baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -246,15 +230,13 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		{
 			baseVal8 = null;
 		}
-		text = str8 + base.PropDesc(effectOnSelfThroughSmokeFieldMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyInt cooldownReductionIfNoEnemyMod = this.m_cooldownReductionIfNoEnemyMod;
-		string prefix9 = "[CooldownReductionIfNoEnemy]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(effectOnSelfThroughSmokeFieldMod, "[EffectOnSelfThroughSmokeField]", flag, (StandardEffectInfo)baseVal8);
+		string str9 = empty;
+		AbilityModPropertyInt cooldownReductionIfNoEnemyMod = m_cooldownReductionIfNoEnemyMod;
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -269,7 +251,7 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		{
 			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(cooldownReductionIfNoEnemyMod, prefix9, showBaseVal9, baseVal9);
-		return text + base.PropDesc(this.m_spoilSpawnInfoMod, "[SpoilSpawnInfo]", flag, (!flag) ? null : thiefOnTheRun.m_spoilSpawnInfo);
+		empty = str9 + PropDesc(cooldownReductionIfNoEnemyMod, "[CooldownReductionIfNoEnemy]", flag, baseVal9);
+		return empty + PropDesc(m_spoilSpawnInfoMod, "[SpoilSpawnInfo]", flag, (!flag) ? null : thiefOnTheRun.m_spoilSpawnInfo);
 	}
 }

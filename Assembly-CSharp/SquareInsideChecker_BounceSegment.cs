@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,27 +17,27 @@ public class SquareInsideChecker_BounceSegment : ISquareInsideChecker
 
 	public SquareInsideChecker_BounceSegment(float widthInSquares)
 	{
-		this.m_widthInSquares = widthInSquares;
+		m_widthInSquares = widthInSquares;
 	}
 
 	public void UpdateBoxProperties(Vector3 startPos, Vector3 endPos, Vector3 collisionNormal, ActorData caster)
 	{
-		this.m_startPos = startPos;
-		this.m_endPos = endPos;
-		this.m_collisionNormal = collisionNormal;
-		this.m_caster = caster;
+		m_startPos = startPos;
+		m_endPos = endPos;
+		m_collisionNormal = collisionNormal;
+		m_caster = caster;
 	}
 
-	public unsafe bool IsSquareInside(BoardSquare square, out bool inLos)
+	public bool IsSquareInside(BoardSquare square, out bool inLos)
 	{
 		inLos = false;
-		bool flag = AreaEffectUtils.IsSquareInBoxByActorRadius(square, this.m_startPos, this.m_endPos, this.m_widthInSquares);
+		bool flag = AreaEffectUtils.IsSquareInBoxByActorRadius(square, m_startPos, m_endPos, m_widthInSquares);
 		if (flag)
 		{
-			inLos = AreaEffectUtils.IsSquareInLosForBox(square, this.m_startPos, this.m_endPos, this.m_widthInSquares, false, this.m_caster, this.m_additionalLosSources);
+			inLos = AreaEffectUtils.IsSquareInLosForBox(square, m_startPos, m_endPos, m_widthInSquares, false, m_caster, m_additionalLosSources);
 			if (inLos)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -47,11 +46,11 @@ public class SquareInsideChecker_BounceSegment : ISquareInsideChecker
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SquareInsideChecker_BounceSegment.IsSquareInside(BoardSquare, bool*)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				inLos = VectorUtils.SquareOnSameSideAsBounceBend(square, this.m_startPos, this.m_collisionNormal);
+				inLos = VectorUtils.SquareOnSameSideAsBounceBend(square, m_startPos, m_collisionNormal);
 			}
 		}
 		return flag;

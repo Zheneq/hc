@@ -1,4 +1,3 @@
-﻿using System;
 using LobbyGameClientMessages;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,35 +18,35 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 
 	protected override void Init()
 	{
-		if (this.m_initialized)
+		if (m_initialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsDailyContractEntry.Init()).MethodHandle;
-			}
-			return;
 		}
 		base.Init();
-		this.m_defaultSprite = this.m_contractImage.sprite;
+		m_defaultSprite = m_contractImage.sprite;
 	}
 
 	public void Setup(int questID)
 	{
-		this.Init();
-		this.questIndex = questID;
-		this.QuestTemplateRef = null;
+		Init();
+		questIndex = questID;
+		QuestTemplateRef = null;
 		if (-1 < questID - 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -56,18 +55,18 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsDailyContractEntry.Setup(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (questID - 1 < QuestWideData.Get().m_quests.Count)
 			{
-				this.QuestTemplateRef = QuestWideData.Get().m_quests[questID - 1];
+				QuestTemplateRef = QuestWideData.Get().m_quests[questID - 1];
 			}
 		}
-		if (this.QuestTemplateRef != null)
+		if (QuestTemplateRef != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -76,10 +75,10 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 				}
 				break;
 			}
-			Sprite sprite = Resources.Load<Sprite>(this.QuestTemplateRef.IconFilename);
-			if (sprite)
+			Sprite sprite = Resources.Load<Sprite>(QuestTemplateRef.IconFilename);
+			if ((bool)sprite)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -88,30 +87,30 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 					}
 					break;
 				}
-				this.m_contractImage.sprite = sprite;
+				m_contractImage.sprite = sprite;
 			}
 			else
 			{
-				this.m_contractImage.sprite = this.m_defaultSprite;
+				m_contractImage.sprite = m_defaultSprite;
 			}
 		}
-		UIBaseQuestDisplayInfo uibaseQuestDisplayInfo = new UIBaseQuestDisplayInfo();
-		uibaseQuestDisplayInfo.Setup(this.questIndex);
-		base.Setup(uibaseQuestDisplayInfo);
+		UIBaseQuestDisplayInfo uIBaseQuestDisplayInfo = new UIBaseQuestDisplayInfo();
+		uIBaseQuestDisplayInfo.Setup(questIndex);
+		Setup(uIBaseQuestDisplayInfo);
 	}
 
 	public UIBaseQuestDisplayInfo DeleteCache()
 	{
-		UIBaseQuestDisplayInfo infoReference = this.m_infoReference;
-		this.m_infoReference = null;
+		UIBaseQuestDisplayInfo infoReference = m_infoReference;
+		m_infoReference = null;
 		return infoReference;
 	}
 
 	public bool UpdateProgress(QuestProgress newProgress)
 	{
-		if (this.m_infoReference != null)
+		if (m_infoReference != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -120,18 +119,18 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsDailyContractEntry.UpdateProgress(QuestProgress)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_infoReference.QuestProgressRef.Id == newProgress.Id)
+			if (m_infoReference.QuestProgressRef.Id == newProgress.Id)
 			{
-				UIBaseQuestDisplayInfo uibaseQuestDisplayInfo = this.DeleteCache();
-				uibaseQuestDisplayInfo.QuestProgressRef = newProgress;
-				base.Setup(uibaseQuestDisplayInfo);
+				UIBaseQuestDisplayInfo uIBaseQuestDisplayInfo = DeleteCache();
+				uIBaseQuestDisplayInfo.QuestProgressRef = newProgress;
+				Setup(uIBaseQuestDisplayInfo);
 				return true;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -147,22 +146,23 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 	protected override void DoExpand(bool expanded)
 	{
 		base.DoExpand(expanded);
-		if (expanded)
+		if (!expanded)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsDailyContractEntry.DoExpand(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			QuestListPanel.Get().NotifyEntryExpanded(this);
+			return;
 		}
 	}
 
@@ -174,10 +174,10 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 			PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
 			QuestComponent questComponent = playerAccountData.QuestComponent;
 			questComponent = playerAccountData.QuestComponent;
-			int index = this.m_infoReference.QuestTemplateRef.Index;
+			int index = m_infoReference.QuestTemplateRef.Index;
 			if (questComponent != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -186,9 +186,9 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsDailyContractEntry.GetRejectedCount()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				result = questComponent.GetRejectedCount(index);
 			}
@@ -198,90 +198,93 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 
 	public void SetState(QuestItemState newState)
 	{
-		if (this.m_questItemState == newState)
+		if (m_questItemState == newState)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsDailyContractEntry.SetState(QuestItemState)).MethodHandle;
-			}
+		}
+		m_questItemState = newState;
+		UIManager.SetGameObjectActive(m_contractedRewardsContainer, m_questItemState != QuestItemState.Empty);
+		if (m_questItemState == QuestItemState.Empty)
+		{
+			UIManager.SetGameObjectActive(m_contractImage, false);
+			UIManager.SetGameObjectActive(m_progressText, false);
+			UIManager.SetGameObjectActive(m_emptyContainer, true);
+			UIManager.SetGameObjectActive(base.gameObject, true);
+			UIManager.SetGameObjectActive(m_btnHitBox.spriteController.m_defaultImage, false);
+			UIManager.SetGameObjectActive(m_btnHitBox.spriteController.m_hoverImage, false);
+			UIManager.SetGameObjectActive(m_btnHitBox.spriteController.m_pressedImage, false);
+			UIManager.SetGameObjectActive(m_btnHitBox.m_selectedContainer, false);
+			UIManager.SetGameObjectActive(m_btnHitBox.spriteController, false);
 			return;
 		}
-		this.m_questItemState = newState;
-		UIManager.SetGameObjectActive(this.m_contractedRewardsContainer, this.m_questItemState != QuestItemState.Empty, null);
-		if (this.m_questItemState == QuestItemState.Empty)
+		if (m_questItemState == QuestItemState.Filled)
 		{
-			UIManager.SetGameObjectActive(this.m_contractImage, false, null);
-			UIManager.SetGameObjectActive(this.m_progressText, false, null);
-			UIManager.SetGameObjectActive(this.m_emptyContainer, true, null);
-			UIManager.SetGameObjectActive(base.gameObject, true, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController.m_defaultImage, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController.m_hoverImage, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController.m_pressedImage, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.m_selectedContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController, false, null);
-		}
-		else if (this.m_questItemState == QuestItemState.Filled)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIManager.SetGameObjectActive(base.gameObject, true);
+					UIManager.SetGameObjectActive(m_contractImage, true);
+					UIManager.SetGameObjectActive(m_progressText, true);
+					UIManager.SetGameObjectActive(m_emptyContainer, false);
+					UIManager.SetGameObjectActive(m_btnHitBox.spriteController.m_defaultImage, true);
+					UIManager.SetGameObjectActive(m_btnHitBox.spriteController.m_hoverImage, false);
+					UIManager.SetGameObjectActive(m_btnHitBox.spriteController.m_pressedImage, false);
+					UIManager.SetGameObjectActive(m_btnHitBox.m_selectedContainer, false);
+					UIManager.SetGameObjectActive(m_btnHitBox.spriteController, true);
+					return;
 				}
-				break;
 			}
-			UIManager.SetGameObjectActive(base.gameObject, true, null);
-			UIManager.SetGameObjectActive(this.m_contractImage, true, null);
-			UIManager.SetGameObjectActive(this.m_progressText, true, null);
-			UIManager.SetGameObjectActive(this.m_emptyContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController.m_defaultImage, true, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController.m_hoverImage, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController.m_pressedImage, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.m_selectedContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController, true, null);
 		}
-		else if (this.m_questItemState == QuestItemState.Expanded)
+		if (m_questItemState == QuestItemState.Expanded)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIManager.SetGameObjectActive(base.gameObject, false);
+					UIManager.SetGameObjectActive(m_contractImage, true);
+					UIManager.SetGameObjectActive(m_progressText, true);
+					UIManager.SetGameObjectActive(m_emptyContainer, false);
+					UIManager.SetGameObjectActive(m_btnHitBox.spriteController.m_defaultImage, false);
+					UIManager.SetGameObjectActive(m_btnHitBox.spriteController.m_hoverImage, false);
+					UIManager.SetGameObjectActive(m_btnHitBox.spriteController.m_pressedImage, false);
+					UIManager.SetGameObjectActive(m_btnHitBox.m_selectedContainer, false);
+					UIManager.SetGameObjectActive(m_btnHitBox.spriteController, true);
+					return;
 				}
-				break;
 			}
-			UIManager.SetGameObjectActive(base.gameObject, false, null);
-			UIManager.SetGameObjectActive(this.m_contractImage, true, null);
-			UIManager.SetGameObjectActive(this.m_progressText, true, null);
-			UIManager.SetGameObjectActive(this.m_emptyContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController.m_defaultImage, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController.m_hoverImage, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController.m_pressedImage, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.m_selectedContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController, true, null);
 		}
-		else if (this.m_questItemState == QuestItemState.Finished)
+		if (m_questItemState == QuestItemState.Finished)
 		{
-			UIManager.SetGameObjectActive(base.gameObject, true, null);
-			UIManager.SetGameObjectActive(this.m_contractImage, true, null);
-			UIManager.SetGameObjectActive(this.m_progressText, true, null);
-			UIManager.SetGameObjectActive(this.m_emptyContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController.m_defaultImage, true, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController.m_hoverImage, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController.m_pressedImage, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.m_selectedContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_btnHitBox.spriteController, true, null);
+			UIManager.SetGameObjectActive(base.gameObject, true);
+			UIManager.SetGameObjectActive(m_contractImage, true);
+			UIManager.SetGameObjectActive(m_progressText, true);
+			UIManager.SetGameObjectActive(m_emptyContainer, false);
+			UIManager.SetGameObjectActive(m_btnHitBox.spriteController.m_defaultImage, true);
+			UIManager.SetGameObjectActive(m_btnHitBox.spriteController.m_hoverImage, false);
+			UIManager.SetGameObjectActive(m_btnHitBox.spriteController.m_pressedImage, false);
+			UIManager.SetGameObjectActive(m_btnHitBox.m_selectedContainer, false);
+			UIManager.SetGameObjectActive(m_btnHitBox.spriteController, true);
 		}
 	}
 
@@ -289,7 +292,7 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 	{
 		if (response.Success)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -298,33 +301,33 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsDailyContractEntry.AbandonDailyQuestResponseHandler(AbandonDailyQuestResponse)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			base.SetExpanded(false, false);
+			SetExpanded(false);
 		}
-		base.SetTrashSelected(false);
+		SetTrashSelected(false);
 	}
 
 	public override void AbandonQuest()
 	{
 		base.AbandonQuest();
-		ClientGameManager.Get().AbandonDailyQuest(this.questIndex, new Action<AbandonDailyQuestResponse>(this.AbandonDailyQuestResponseHandler));
+		ClientGameManager.Get().AbandonDailyQuest(questIndex, AbandonDailyQuestResponseHandler);
 	}
 
 	protected override void NotifyDoneAnimating()
 	{
-		UIManager.SetGameObjectActive(this.m_expandedGroup, this.m_expanded, null);
+		UIManager.SetGameObjectActive(m_expandedGroup, m_expanded);
 	}
 
 	protected override void PlayExpandAnimation()
 	{
-		this.m_animationController.Play("SeasonChallengeEntryExpandedIN");
+		m_animationController.Play("SeasonChallengeEntryExpandedIN");
 	}
 
 	protected override void PlayContractAnimation()
 	{
-		this.m_animationController.Play("SeasonChallengeEntryContractedIN");
+		m_animationController.Play("SeasonChallengeEntryContractedIN");
 	}
 }

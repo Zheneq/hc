@@ -1,7 +1,7 @@
-﻿using System;
+using Steamworks;
+using System;
 using System.Linq;
 using System.Text;
-using Steamworks;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -21,10 +21,10 @@ internal class SteamManager : MonoBehaviour
 	{
 		get
 		{
-			SteamManager result;
-			if ((result = SteamManager.s_instance) == null)
+			SteamManager steamManager = s_instance;
+			if ((object)steamManager == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -33,13 +33,13 @@ internal class SteamManager : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SteamManager.get_Instance()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = new GameObject("SteamManager").AddComponent<SteamManager>();
+				steamManager = new GameObject("SteamManager").AddComponent<SteamManager>();
 			}
-			return result;
+			return steamManager;
 		}
 	}
 
@@ -47,10 +47,10 @@ internal class SteamManager : MonoBehaviour
 	{
 		get
 		{
-			bool result;
-			if (SteamManager.Instance.m_usingSteam && SteamManager.s_instance != null)
+			int result;
+			if (Instance.m_usingSteam && s_instance != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -59,27 +59,21 @@ internal class SteamManager : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SteamManager.get_UsingSteam()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = SteamManager.s_instance.m_bInitialized;
+				result = (s_instance.m_bInitialized ? 1 : 0);
 			}
 			else
 			{
-				result = false;
+				result = 0;
 			}
-			return result;
+			return (byte)result != 0;
 		}
 	}
 
-	public static bool Initialized
-	{
-		get
-		{
-			return SteamManager.Instance.m_bInitialized;
-		}
-	}
+	public static bool Initialized => Instance.m_bInitialized;
 
 	private static void SteamAPIDebugTextHook(int nSeverity, StringBuilder pchDebugText)
 	{
@@ -88,32 +82,32 @@ internal class SteamManager : MonoBehaviour
 
 	private void Awake()
 	{
-		if (SteamManager.s_instance != null)
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					UnityEngine.Object.Destroy(base.gameObject);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SteamManager.Awake()).MethodHandle;
-			}
-			UnityEngine.Object.Destroy(base.gameObject);
-			return;
 		}
-		SteamManager.s_instance = this;
-		this.m_usingSteam = false;
+		s_instance = this;
+		m_usingSteam = false;
 		string[] commandLineArgs = Environment.GetCommandLineArgs();
-		for (int i = 0; i < commandLineArgs.Count<string>(); i++)
+		for (int i = 0; i < commandLineArgs.Count(); i++)
 		{
 			if (commandLineArgs[i].EqualsIgnoreCase("-Steam"))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -122,27 +116,27 @@ internal class SteamManager : MonoBehaviour
 					}
 					break;
 				}
-				this.m_usingSteam = true;
+				m_usingSteam = true;
 				break;
 			}
 		}
-		if (SteamManager.s_EverInialized)
+		if (s_EverInialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					throw new Exception("Tried to Initialize the SteamAPI twice in one session!");
 				}
-				break;
 			}
-			throw new Exception("Tried to Initialize the SteamAPI twice in one session!");
 		}
 		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
 		if (!Packsize.Test())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -155,7 +149,7 @@ internal class SteamManager : MonoBehaviour
 		}
 		if (!DllCheck.Test())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -166,118 +160,116 @@ internal class SteamManager : MonoBehaviour
 			}
 			Debug.LogError("[Steamworks.NET] DllCheck Test returned false, One or more of the Steamworks binaries seems to be the wrong version.", this);
 		}
-		if (this.m_usingSteam)
+		if (!m_usingSteam)
 		{
-			try
-			{
-				this.m_bInitialized = SteamAPI.Init();
-			}
-			catch (DllNotFoundException arg)
-			{
-				Debug.LogError("[Steamworks.NET] Could not load [lib]steam_api.dll/so/dylib. It's likely not in the correct location. Refer to the README for more details.\n" + arg, this);
-			}
-			if (!this.m_bInitialized)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Debug.LogError("[Steamworks.NET] SteamAPI_Init() failed. Refer to Valve's documentation or the comment above this line for more information.", this);
-				return;
-			}
-			SteamManager.s_EverInialized = true;
+			return;
 		}
+		try
+		{
+			m_bInitialized = SteamAPI.Init();
+		}
+		catch (DllNotFoundException arg)
+		{
+			Debug.LogError("[Steamworks.NET] Could not load [lib]steam_api.dll/so/dylib. It's likely not in the correct location. Refer to the README for more details.\n" + arg, this);
+		}
+		if (!m_bInitialized)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					Debug.LogError("[Steamworks.NET] SteamAPI_Init() failed. Refer to Valve's documentation or the comment above this line for more information.", this);
+					return;
+				}
+			}
+		}
+		s_EverInialized = true;
 	}
 
 	private void OnEnable()
 	{
-		if (SteamManager.s_instance == null)
+		if (s_instance == null)
 		{
-			SteamManager.s_instance = this;
+			s_instance = this;
 		}
-		if (!this.m_bInitialized)
+		if (!m_bInitialized || m_SteamAPIWarningMessageHook != null)
 		{
 			return;
 		}
-		if (this.m_SteamAPIWarningMessageHook == null)
+		while (true)
 		{
-			for (;;)
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SteamManager.OnEnable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_SteamAPIWarningMessageHook = new SteamAPIWarningMessageHook_t(SteamManager.SteamAPIDebugTextHook);
-			SteamClient.SetWarningMessageHook(this.m_SteamAPIWarningMessageHook);
+			m_SteamAPIWarningMessageHook = SteamAPIDebugTextHook;
+			SteamClient.SetWarningMessageHook(m_SteamAPIWarningMessageHook);
+			return;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		if (SteamManager.s_instance != this)
+		if (s_instance != this)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SteamManager.OnDestroy()).MethodHandle;
-			}
-			return;
 		}
-		SteamManager.s_instance = null;
-		if (!this.m_bInitialized)
+		s_instance = null;
+		if (!m_bInitialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-			return;
 		}
 		SteamAPI.Shutdown();
 	}
 
 	private void Update()
 	{
-		if (!this.m_bInitialized)
+		if (!m_bInitialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SteamManager.Update()).MethodHandle;
-			}
-			return;
 		}
 		SteamAPI.RunCallbacks();
 	}

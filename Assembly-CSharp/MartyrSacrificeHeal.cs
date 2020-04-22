@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,11 +15,11 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 	public bool m_freeTargetPosition;
 
 	[Header("-- Damage & Healing & Crystal Bonuses")]
-	public int m_baseHealingToAlly = 0x14;
+	public int m_baseHealingToAlly = 20;
 
-	public int m_baseDamageToEnemy = 0x14;
+	public int m_baseDamageToEnemy = 20;
 
-	public int m_baseDamageToSelf = 0x14;
+	public int m_baseDamageToSelf = 20;
 
 	public int m_healingToAllyPerCrystalSpent = 5;
 
@@ -43,9 +42,9 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -54,55 +53,56 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Martyr Sacrifice Heal";
+			m_abilityName = "Martyr Sacrifice Heal";
 		}
-		this.m_syncComponent = base.GetComponent<Martyr_SyncComponent>();
-		this.SetupTargeter();
-		base.ResetTooltipAndTargetingNumbers();
+		m_syncComponent = GetComponent<Martyr_SyncComponent>();
+		SetupTargeter();
+		ResetTooltipAndTargetingNumbers();
 	}
 
 	protected override Martyr_SyncComponent GetSyncComponent()
 	{
-		return this.m_syncComponent;
+		return m_syncComponent;
 	}
 
 	protected override List<MartyrLaserThreshold> GetThresholdBasedCrystalBonusList()
 	{
 		List<MartyrLaserThreshold> list = new List<MartyrLaserThreshold>();
-		using (List<MartyrSacrificeThreshold>.Enumerator enumerator = this.m_thresholdBasedCrystalBonuses.GetEnumerator())
+		using (List<MartyrSacrificeThreshold>.Enumerator enumerator = m_thresholdBasedCrystalBonuses.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				MartyrSacrificeThreshold item = enumerator.Current;
-				list.Add(item);
+				MartyrSacrificeThreshold current = enumerator.Current;
+				list.Add(current);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (true)
+					{
+						return list;
+					}
+					/*OpCode not supported: LdMemberToken*/;
+					return list;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.GetThresholdBasedCrystalBonusList()).MethodHandle;
 			}
 		}
-		return list;
 	}
 
 	protected void SetupTargeter()
 	{
 		AbilityUtil_Targeter.AffectsActor affectsBestTarget = AbilityUtil_Targeter.AffectsActor.Always;
-		if (this.m_freeTargetPosition)
+		if (m_freeTargetPosition)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -111,16 +111,16 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.SetupTargeter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			affectsBestTarget = AbilityUtil_Targeter.AffectsActor.Never;
 		}
-		AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = new AbilityUtil_Targeter_Shape(this, this.m_targetShape, this.GetPenetratesLoS(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, this.m_affectsEnemies, this.m_affectsAllies, AbilityUtil_Targeter.AffectsActor.Possible, affectsBestTarget);
+		AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = new AbilityUtil_Targeter_Shape(this, m_targetShape, GetPenetratesLoS(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, m_affectsEnemies, m_affectsAllies, AbilityUtil_Targeter.AffectsActor.Possible, affectsBestTarget);
 		abilityUtil_Targeter_Shape.m_affectCasterDelegate = delegate(ActorData caster, List<ActorData> actorsSoFar, bool casterInShape)
 		{
-			int currentDamageForSelf = this.GetCurrentDamageForSelf(caster);
+			int currentDamageForSelf = GetCurrentDamageForSelf(caster);
 			return currentDamageForSelf != 0;
 		};
 		abilityUtil_Targeter_Shape.SetTooltipSubjectTypes(AbilityTooltipSubject.Primary, AbilityTooltipSubject.Ally, AbilityTooltipSubject.Self);
@@ -129,46 +129,46 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 
 	public AbilityAreaShape GetShape()
 	{
-		return this.m_targetShape;
+		return m_targetShape;
 	}
 
 	public int GetBaseDamageOnSelfAmount()
 	{
-		return this.m_baseDamageToSelf;
+		return m_baseDamageToSelf;
 	}
 
 	public int GetBaseDamageAmount()
 	{
-		return this.m_baseDamageToEnemy;
+		return m_baseDamageToEnemy;
 	}
 
 	public int GetBaseHealAmount()
 	{
-		return this.m_baseHealingToAlly;
+		return m_baseHealingToAlly;
 	}
 
 	public int GetDamageOnSelfAmountPerCrystalSpent()
 	{
-		return this.m_damageToSelfPerCrystalSpent;
+		return m_damageToSelfPerCrystalSpent;
 	}
 
 	public int GetDamageAmountPerCrystalSpent()
 	{
-		return this.m_damageToEnemyPerCrystalSpent;
+		return m_damageToEnemyPerCrystalSpent;
 	}
 
 	public int GetHealAmountPerCrystalSpent()
 	{
-		return this.m_healingToAllyPerCrystalSpent;
+		return m_healingToAllyPerCrystalSpent;
 	}
 
 	public int GetCurrentDamageForSelf(ActorData caster)
 	{
-		MartyrSacrificeThreshold martyrSacrificeThreshold = base.GetCurrentPowerEntry(caster) as MartyrSacrificeThreshold;
+		MartyrSacrificeThreshold martyrSacrificeThreshold = GetCurrentPowerEntry(caster) as MartyrSacrificeThreshold;
 		int num;
 		if (martyrSacrificeThreshold != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -177,9 +177,9 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.GetCurrentDamageForSelf(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = martyrSacrificeThreshold.m_additionalDamageToSelf;
 		}
@@ -188,16 +188,16 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 			num = 0;
 		}
 		int num2 = num;
-		return this.GetBaseDamageOnSelfAmount() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetDamageOnSelfAmountPerCrystalSpent() + num2;
+		return GetBaseDamageOnSelfAmount() + m_syncComponent.SpentDamageCrystals(caster) * GetDamageOnSelfAmountPerCrystalSpent() + num2;
 	}
 
 	public int GetCurrentDamageForEnemy(ActorData caster)
 	{
-		MartyrSacrificeThreshold martyrSacrificeThreshold = base.GetCurrentPowerEntry(caster) as MartyrSacrificeThreshold;
+		MartyrSacrificeThreshold martyrSacrificeThreshold = GetCurrentPowerEntry(caster) as MartyrSacrificeThreshold;
 		int num;
 		if (martyrSacrificeThreshold != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -206,9 +206,9 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.GetCurrentDamageForEnemy(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = martyrSacrificeThreshold.m_additionalDamageToEnemy;
 		}
@@ -217,16 +217,16 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 			num = 0;
 		}
 		int num2 = num;
-		return this.GetBaseDamageAmount() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetDamageAmountPerCrystalSpent() + num2;
+		return GetBaseDamageAmount() + m_syncComponent.SpentDamageCrystals(caster) * GetDamageAmountPerCrystalSpent() + num2;
 	}
 
 	public int GetCurrentHealingForAlly(ActorData caster)
 	{
-		MartyrSacrificeThreshold martyrSacrificeThreshold = base.GetCurrentPowerEntry(caster) as MartyrSacrificeThreshold;
+		MartyrSacrificeThreshold martyrSacrificeThreshold = GetCurrentPowerEntry(caster) as MartyrSacrificeThreshold;
 		int num;
 		if (martyrSacrificeThreshold != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -235,9 +235,9 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.GetCurrentHealingForAlly(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = martyrSacrificeThreshold.m_additionalHealToAlly;
 		}
@@ -246,45 +246,45 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 			num = 0;
 		}
 		int num2 = num;
-		return this.GetBaseHealAmount() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetHealAmountPerCrystalSpent() + num2;
+		return GetBaseHealAmount() + m_syncComponent.SpentDamageCrystals(caster) * GetHealAmountPerCrystalSpent() + num2;
 	}
 
 	public bool GetPenetratesLoS()
 	{
-		return this.m_penetratesLoS;
+		return m_penetratesLoS;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		tokens.Add(new TooltipTokenInt("BaseHealing", "Healing on allies with no crystal bonus", this.GetBaseHealAmount()));
-		tokens.Add(new TooltipTokenInt("BaseDamage", "Damage on enemies with no crystal bonus", this.GetBaseDamageAmount()));
-		tokens.Add(new TooltipTokenInt("BaseDamageOnSelf", "Damage on self with no crystal bonus", this.GetBaseDamageOnSelfAmount()));
-		tokens.Add(new TooltipTokenInt("HealingOnAllyPerCrystal", "Healing on targeted ally added per crystal spent", this.GetHealAmountPerCrystalSpent()));
-		tokens.Add(new TooltipTokenInt("DamageOnEnemyPerCrystal", "Damage on targeted enemy added per crystal spent", this.GetDamageAmountPerCrystalSpent()));
-		tokens.Add(new TooltipTokenInt("DamageOnSelfPerCrystal", "Damage on self added per crystal spent", this.GetDamageOnSelfAmountPerCrystalSpent()));
+		tokens.Add(new TooltipTokenInt("BaseHealing", "Healing on allies with no crystal bonus", GetBaseHealAmount()));
+		tokens.Add(new TooltipTokenInt("BaseDamage", "Damage on enemies with no crystal bonus", GetBaseDamageAmount()));
+		tokens.Add(new TooltipTokenInt("BaseDamageOnSelf", "Damage on self with no crystal bonus", GetBaseDamageOnSelfAmount()));
+		tokens.Add(new TooltipTokenInt("HealingOnAllyPerCrystal", "Healing on targeted ally added per crystal spent", GetHealAmountPerCrystalSpent()));
+		tokens.Add(new TooltipTokenInt("DamageOnEnemyPerCrystal", "Damage on targeted enemy added per crystal spent", GetDamageAmountPerCrystalSpent()));
+		tokens.Add(new TooltipTokenInt("DamageOnSelfPerCrystal", "Damage on self added per crystal spent", GetDamageOnSelfAmountPerCrystalSpent()));
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = base.CalculateNameplateTargetingNumbers();
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, this.GetBaseHealAmount());
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetBaseDamageAmount());
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Self, this.GetBaseDamageOnSelfAmount());
-		return result;
+		List<AbilityTooltipNumber> number = base.CalculateNameplateTargetingNumbers();
+		AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Ally, GetBaseHealAmount());
+		AbilityTooltipHelper.ReportDamage(ref number, AbilityTooltipSubject.Primary, GetBaseDamageAmount());
+		AbilityTooltipHelper.ReportDamage(ref number, AbilityTooltipSubject.Self, GetBaseDamageOnSelfAmount());
+		return number;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		if (targetActor == base.ActorData)
 		{
-			int currentDamageForSelf = this.GetCurrentDamageForSelf(base.ActorData);
-			Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, currentDamageForSelf, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Self);
+			int currentDamageForSelf = GetCurrentDamageForSelf(base.ActorData);
+			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, currentDamageForSelf, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Self);
 		}
-		else if (targetActor.\u000E() == base.ActorData.\u000E())
+		else if (targetActor.GetTeam() == base.ActorData.GetTeam())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -293,27 +293,27 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			int currentHealingForAlly = this.GetCurrentHealingForAlly(base.ActorData);
-			Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, currentHealingForAlly, AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally);
+			int currentHealingForAlly = GetCurrentHealingForAlly(base.ActorData);
+			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, currentHealingForAlly, AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally);
 		}
 		else
 		{
-			int currentDamageForEnemy = this.GetCurrentDamageForEnemy(base.ActorData);
-			Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, currentDamageForEnemy, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy);
+			int currentDamageForEnemy = GetCurrentDamageForEnemy(base.ActorData);
+			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, currentDamageForEnemy, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy);
 		}
-		return result;
+		return symbolToValue;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
 		bool result = true;
-		if (!this.m_freeTargetPosition)
+		if (!m_freeTargetPosition)
 		{
-			result = base.HasTargetableActorsInDecision(caster, this.m_affectsEnemies, this.m_affectsAllies, false, Ability.ValidateCheckPath.Ignore, !this.GetPenetratesLoS(), false, false);
+			result = HasTargetableActorsInDecision(caster, m_affectsEnemies, m_affectsAllies, false, ValidateCheckPath.Ignore, !GetPenetratesLoS(), false);
 		}
 		return result;
 	}
@@ -321,9 +321,9 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		bool result = true;
-		if (!this.m_freeTargetPosition)
+		if (!m_freeTargetPosition)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -332,12 +332,12 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-			result = base.CanTargetActorInDecision(caster, currentBestActorTarget, this.m_affectsEnemies, this.m_affectsAllies, false, Ability.ValidateCheckPath.Ignore, !this.GetPenetratesLoS(), false, false);
+			result = CanTargetActorInDecision(caster, currentBestActorTarget, m_affectsEnemies, m_affectsAllies, false, ValidateCheckPath.Ignore, !GetPenetratesLoS(), false);
 		}
 		return result;
 	}

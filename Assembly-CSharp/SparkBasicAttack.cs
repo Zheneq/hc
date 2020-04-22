@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,9 +56,9 @@ public class SparkBasicAttack : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -68,24 +67,24 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Spark Damage Beam";
+			m_abilityName = "Spark Damage Beam";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	public void Setup()
 	{
-		this.SetCachedFields();
-		if (this.m_energizedAbility == null)
+		SetCachedFields();
+		if (m_energizedAbility == null)
 		{
-			AbilityData component = base.GetComponent<AbilityData>();
+			AbilityData component = GetComponent<AbilityData>();
 			if (component != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -94,25 +93,22 @@ public class SparkBasicAttack : Ability
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.Setup()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_energizedAbility = (component.GetAbilityOfType(typeof(SparkEnergized)) as SparkEnergized);
+				m_energizedAbility = (component.GetAbilityOfType(typeof(SparkEnergized)) as SparkEnergized);
 			}
 		}
 		if (base.Targeter != null)
 		{
 			base.Targeter.ResetTargeter(true);
 		}
-		AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = new AbilityUtil_Targeter_Laser(this, this.GetLaserInfo());
-		AbilityUtil_Targeter abilityUtil_Targeter = abilityUtil_Targeter_Laser;
-		bool affectsEnemies = true;
-		bool affectsAllies = false;
-		bool affectsCaster;
-		if (this.m_healCasterOnIniialAttach)
+		AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = new AbilityUtil_Targeter_Laser(this, GetLaserInfo());
+		int affectsCaster;
+		if (m_healCasterOnIniialAttach)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -121,17 +117,16 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			affectsCaster = (this.GetHealOnCasterPerTurn() > 0);
+			affectsCaster = ((GetHealOnCasterPerTurn() > 0) ? 1 : 0);
 		}
 		else
 		{
-			affectsCaster = false;
+			affectsCaster = 0;
 		}
-		abilityUtil_Targeter.SetAffectedGroups(affectsEnemies, affectsAllies, affectsCaster);
-		AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser2 = abilityUtil_Targeter_Laser;
-		if (SparkBasicAttack.<>f__am$cache0 == null)
+		abilityUtil_Targeter_Laser.SetAffectedGroups(true, false, (byte)affectsCaster != 0);
+		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -140,9 +135,9 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			SparkBasicAttack.<>f__am$cache0 = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
+			_003C_003Ef__am_0024cache0 = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
 		}
-		abilityUtil_Targeter_Laser2.m_affectCasterDelegate = SparkBasicAttack.<>f__am$cache0;
+		abilityUtil_Targeter_Laser.m_affectCasterDelegate = _003C_003Ef__am_0024cache0;
 		base.Targeter = abilityUtil_Targeter_Laser;
 	}
 
@@ -153,15 +148,15 @@ public class SparkBasicAttack : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetLaserInfo().range;
+		return GetLaserInfo().range;
 	}
 
 	public int GetInitialDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -170,35 +165,35 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetInitialDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_initialDamageMod.GetModifiedValue(this.m_laserDamageAmount);
+			result = m_abilityMod.m_initialDamageMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
 		{
-			result = this.m_laserDamageAmount;
+			result = m_laserDamageAmount;
 		}
 		return result;
 	}
 
 	public int GetPerTurnDamage()
 	{
-		return this.GetEnemyTetherEffectData().m_damagePerTurn;
+		return GetEnemyTetherEffectData().m_damagePerTurn;
 	}
 
 	public int GetAdditionalDamageOnRadiated()
 	{
-		return (!this.m_abilityMod) ? this.m_additionalEnergizedDamage : this.m_abilityMod.m_additionalDamageOnRadiatedMod.GetModifiedValue(this.m_additionalEnergizedDamage);
+		return (!m_abilityMod) ? m_additionalEnergizedDamage : m_abilityMod.m_additionalDamageOnRadiatedMod.GetModifiedValue(m_additionalEnergizedDamage);
 	}
 
 	public int GetEnergyOnCasterPerTurn()
 	{
 		int num;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -207,20 +202,20 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetEnergyOnCasterPerTurn()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = this.m_abilityMod.m_energyOnCasterPerTurnMod.GetModifiedValue(this.m_energyOnCasterPerTurn);
+			num = m_abilityMod.m_energyOnCasterPerTurnMod.GetModifiedValue(m_energyOnCasterPerTurn);
 		}
 		else
 		{
-			num = this.m_energyOnCasterPerTurn;
+			num = m_energyOnCasterPerTurn;
 		}
 		int num2 = num;
-		if (this.m_energizedAbility != null)
+		if (m_energizedAbility != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -229,17 +224,17 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			num2 = this.m_energizedAbility.CalcEnergyOnSelfPerTurn(num2);
+			num2 = m_energizedAbility.CalcEnergyOnSelfPerTurn(num2);
 		}
 		return num2;
 	}
 
 	public int GetHealOnCasterPerTurn()
 	{
-		int num = (!this.m_abilityMod) ? this.m_healOnCasterOnTick : this.m_abilityMod.m_healOnCasterOnTickMod.GetModifiedValue(this.m_healOnCasterOnTick);
-		if (this.m_energizedAbility != null)
+		int num = (!m_abilityMod) ? m_healOnCasterOnTick : m_abilityMod.m_healOnCasterOnTickMod.GetModifiedValue(m_healOnCasterOnTick);
+		if (m_energizedAbility != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -248,11 +243,11 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetHealOnCasterPerTurn()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = this.m_energizedAbility.CalcHealOnSelfPerTurn(num);
+			num = m_energizedAbility.CalcHealOnSelfPerTurn(num);
 		}
 		return num;
 	}
@@ -260,9 +255,9 @@ public class SparkBasicAttack : Ability
 	public float GetTetherDistance()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -271,15 +266,15 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetTetherDistance()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_tetherDistanceMod.GetModifiedValue(this.m_tetherDistance);
+			result = m_abilityMod.m_tetherDistanceMod.GetModifiedValue(m_tetherDistance);
 		}
 		else
 		{
-			result = this.m_tetherDistance;
+			result = m_tetherDistance;
 		}
 		return result;
 	}
@@ -287,9 +282,9 @@ public class SparkBasicAttack : Ability
 	public int GetTetherDuration()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -298,25 +293,25 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetTetherDuration()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_tetherDurationMod.GetModifiedValue(this.m_tetherDuration);
+			result = m_abilityMod.m_tetherDurationMod.GetModifiedValue(m_tetherDuration);
 		}
 		else
 		{
-			result = this.m_tetherDuration;
+			result = m_tetherDuration;
 		}
 		return result;
 	}
 
 	public bool UseBonusDamageOverTime()
 	{
-		bool result;
-		if (this.m_abilityMod)
+		int result;
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -325,30 +320,30 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.UseBonusDamageOverTime()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_useBonusDamageOverTime;
+			result = (m_abilityMod.m_useBonusDamageOverTime ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public int GetBonusDamageGrowRate()
 	{
-		return (!this.m_abilityMod) ? 0 : this.m_abilityMod.m_bonusDamageIncreaseRateMod.GetModifiedValue(0);
+		return m_abilityMod ? m_abilityMod.m_bonusDamageIncreaseRateMod.GetModifiedValue(0) : 0;
 	}
 
 	public int GetMaxBonusDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -357,11 +352,11 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetMaxBonusDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_maxBonusDamageAmountMod.GetModifiedValue(0);
+			result = m_abilityMod.m_maxBonusDamageAmountMod.GetModifiedValue(0);
 		}
 		else
 		{
@@ -373,9 +368,9 @@ public class SparkBasicAttack : Ability
 	public int GetBonusDamageFromTetherAge(int age)
 	{
 		int num = 0;
-		if (this.UseBonusDamageOverTime())
+		if (UseBonusDamageOverTime())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -384,15 +379,15 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetBonusDamageFromTetherAge(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			int maxBonusDamage = this.GetMaxBonusDamage();
-			int bonusDamageGrowRate = this.GetBonusDamageGrowRate();
+			int maxBonusDamage = GetMaxBonusDamage();
+			int bonusDamageGrowRate = GetBonusDamageGrowRate();
 			if (bonusDamageGrowRate > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -405,7 +400,7 @@ public class SparkBasicAttack : Ability
 			}
 			if (maxBonusDamage > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -423,9 +418,9 @@ public class SparkBasicAttack : Ability
 	public int GetEnergyGainCyclePeriod()
 	{
 		int num;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -434,11 +429,11 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetEnergyGainCyclePeriod()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = this.m_abilityMod.m_energyGainCyclePeriod.GetModifiedValue(0);
+			num = m_abilityMod.m_energyGainCyclePeriod.GetModifiedValue(0);
 		}
 		else
 		{
@@ -450,15 +445,15 @@ public class SparkBasicAttack : Ability
 
 	public int GetEnergyGainPerCycle()
 	{
-		return (!this.m_abilityMod) ? 0 : this.m_abilityMod.m_energyGainPerCycle.GetModifiedValue(0);
+		return m_abilityMod ? m_abilityMod.m_energyGainPerCycle.GetModifiedValue(0) : 0;
 	}
 
 	public int GetMaxBonusEnergyFromGrowingGain()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -467,15 +462,15 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetMaxBonusEnergyFromGrowingGain()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_maxBonusEnergyFromGrowingGainMod.GetModifiedValue(this.m_maxBonusEnergyFromGrowingGain);
+			result = m_abilityMod.m_maxBonusEnergyFromGrowingGainMod.GetModifiedValue(m_maxBonusEnergyFromGrowingGain);
 		}
 		else
 		{
-			result = this.m_maxBonusEnergyFromGrowingGain;
+			result = m_maxBonusEnergyFromGrowingGain;
 		}
 		return result;
 	}
@@ -483,9 +478,9 @@ public class SparkBasicAttack : Ability
 	public int GetBonusEnergyGrowthRate()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -494,26 +489,26 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetBonusEnergyGrowthRate()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_bonusEnergyGrowthRateMod.GetModifiedValue(this.m_bonusEnergyGrowthRate);
+			result = m_abilityMod.m_bonusEnergyGrowthRateMod.GetModifiedValue(m_bonusEnergyGrowthRate);
 		}
 		else
 		{
-			result = this.m_bonusEnergyGrowthRate;
+			result = m_bonusEnergyGrowthRate;
 		}
 		return result;
 	}
 
 	private void SetCachedFields()
 	{
-		LaserTargetingInfo laserInfo = this.m_laserInfo;
-		AbilityModPropertyLaserInfo mod;
-		if (this.m_abilityMod)
+		LaserTargetingInfo laserInfo = m_laserInfo;
+		object mod;
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -522,21 +517,21 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			mod = this.m_abilityMod.m_laserInfoMod;
+			mod = m_abilityMod.m_laserInfoMod;
 		}
 		else
 		{
 			mod = null;
 		}
-		this.m_cachedLaserInfo = laserInfo.GetModifiedCopy(mod);
+		m_cachedLaserInfo = laserInfo.GetModifiedCopy((AbilityModPropertyLaserInfo)mod);
 		StandardEffectInfo standardEffectInfo;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -545,27 +540,27 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			standardEffectInfo = this.m_abilityMod.m_tetherBaseEffectOverride.GetModifiedValue(this.m_laserHitEffect);
+			standardEffectInfo = m_abilityMod.m_tetherBaseEffectOverride.GetModifiedValue(m_laserHitEffect);
 		}
 		else
 		{
-			standardEffectInfo = this.m_laserHitEffect.GetShallowCopy();
+			standardEffectInfo = m_laserHitEffect.GetShallowCopy();
 		}
 		StandardEffectInfo standardEffectInfo2 = standardEffectInfo;
-		this.m_cachedEffectData = standardEffectInfo2.m_effectData;
-		this.m_cachedEffectData.m_sequencePrefabs = new GameObject[]
+		m_cachedEffectData = standardEffectInfo2.m_effectData;
+		m_cachedEffectData.m_sequencePrefabs = new GameObject[2]
 		{
-			this.m_targetPersistentSequence,
-			this.m_beamSequence
+			m_targetPersistentSequence,
+			m_beamSequence
 		};
 	}
 
 	public StandardActorEffectData GetEnemyTetherEffectData()
 	{
 		StandardActorEffectData result;
-		if (this.m_cachedEffectData != null)
+		if (m_cachedEffectData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -574,15 +569,15 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetEnemyTetherEffectData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEffectData;
+			result = m_cachedEffectData;
 		}
 		else
 		{
-			result = this.m_laserHitEffect.m_effectData;
+			result = m_laserHitEffect.m_effectData;
 		}
 		return result;
 	}
@@ -590,9 +585,9 @@ public class SparkBasicAttack : Ability
 	public LaserTargetingInfo GetLaserInfo()
 	{
 		LaserTargetingInfo result;
-		if (this.m_cachedLaserInfo != null)
+		if (m_cachedLaserInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -601,37 +596,37 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetLaserInfo()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedLaserInfo;
+			result = m_cachedLaserInfo;
 		}
 		else
 		{
-			result = this.m_laserInfo;
+			result = m_laserInfo;
 		}
 		return result;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "Damage_FirstTurn", "damage on initial attach", this.m_laserDamageAmount, false);
-		base.AddTokenInt(tokens, "Damage_PerTurnAfterFirst", "damage on subsequent turns", this.m_laserHitEffect.m_effectData.m_damagePerTurn, false);
-		base.AddTokenInt(tokens, "Damage_AdditionalOnRadiated", "additional damage on radiated", this.m_additionalEnergizedDamage, false);
-		base.AddTokenInt(tokens, "Heal_OnCasterPerTurn", "heal on caster per turn", this.m_healOnCasterOnTick, false);
-		base.AddTokenInt(tokens, "EnergyOnCasterPerTurn", string.Empty, this.m_energyOnCasterPerTurn, false);
-		base.AddTokenInt(tokens, "MaxBonusEnergyFromGrowingGain", string.Empty, this.m_maxBonusEnergyFromGrowingGain, false);
-		base.AddTokenInt(tokens, "BonusEnergyGrowthRate", string.Empty, this.m_bonusEnergyGrowthRate, false);
-		base.AddTokenInt(tokens, "TetherDuration", string.Empty, this.m_tetherDuration, false);
+		AddTokenInt(tokens, "Damage_FirstTurn", "damage on initial attach", m_laserDamageAmount);
+		AddTokenInt(tokens, "Damage_PerTurnAfterFirst", "damage on subsequent turns", m_laserHitEffect.m_effectData.m_damagePerTurn);
+		AddTokenInt(tokens, "Damage_AdditionalOnRadiated", "additional damage on radiated", m_additionalEnergizedDamage);
+		AddTokenInt(tokens, "Heal_OnCasterPerTurn", "heal on caster per turn", m_healOnCasterOnTick);
+		AddTokenInt(tokens, "EnergyOnCasterPerTurn", string.Empty, m_energyOnCasterPerTurn);
+		AddTokenInt(tokens, "MaxBonusEnergyFromGrowingGain", string.Empty, m_maxBonusEnergyFromGrowingGain);
+		AddTokenInt(tokens, "BonusEnergyGrowthRate", string.Empty, m_bonusEnergyGrowthRate);
+		AddTokenInt(tokens, "TetherDuration", string.Empty, m_tetherDuration);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		if (this.GetInitialDamage() > 0)
+		List<AbilityTooltipNumber> number = new List<AbilityTooltipNumber>();
+		if (GetInitialDamage() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -640,16 +635,16 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.CalculateAbilityTooltipNumbers()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetInitialDamage());
+			AbilityTooltipHelper.ReportDamage(ref number, AbilityTooltipSubject.Primary, GetInitialDamage());
 		}
-		this.GetEnemyTetherEffectData().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		if (this.m_healCasterOnIniialAttach)
+		GetEnemyTetherEffectData().ReportAbilityTooltipNumbers(ref number, AbilityTooltipSubject.Primary);
+		if (m_healCasterOnIniialAttach)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -658,9 +653,9 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (this.GetHealOnCasterPerTurn() > 0)
+			if (GetHealOnCasterPerTurn() > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -669,10 +664,10 @@ public class SparkBasicAttack : Ability
 					}
 					break;
 				}
-				AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, this.GetHealOnCasterPerTurn());
+				AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Self, GetHealOnCasterPerTurn());
 			}
 		}
-		return result;
+		return number;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
@@ -681,7 +676,7 @@ public class SparkBasicAttack : Ability
 		int result;
 		if (visibleActorsCountByTooltipSubject > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -690,11 +685,11 @@ public class SparkBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.GetEnergyOnCasterPerTurn();
+			result = GetEnergyOnCasterPerTurn();
 		}
 		else
 		{
@@ -703,38 +698,39 @@ public class SparkBasicAttack : Ability
 		return result;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> _001D()
 	{
-		List<int> list = base.\u001D();
-		list.Add(this.m_laserHitEffect.m_effectData.m_damagePerTurn);
+		List<int> list = base._001D();
+		list.Add(m_laserHitEffect.m_effectData.m_damagePerTurn);
 		return list;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_SparkBasicAttack))
+		if (abilityMod.GetType() != typeof(AbilityMod_SparkBasicAttack))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_SparkBasicAttack);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_SparkBasicAttack);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

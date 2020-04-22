@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,13 +5,13 @@ namespace I2
 {
 	public class CoroutineManager : MonoBehaviour
 	{
-		private static CoroutineManager \u001D;
+		private static CoroutineManager _001D;
 
-		public static Coroutine \u000E(IEnumerator \u001D)
+		public static Coroutine _000E(IEnumerator _001D)
 		{
-			if (CoroutineManager.\u001D == null)
+			if (CoroutineManager._001D == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -21,16 +20,16 @@ namespace I2
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CoroutineManager.\u000E(IEnumerator)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				GameObject gameObject = new GameObject("_Coroutiner");
 				gameObject.hideFlags |= HideFlags.HideAndDontSave;
-				CoroutineManager.\u001D = gameObject.AddComponent<CoroutineManager>();
+				CoroutineManager._001D = gameObject.AddComponent<CoroutineManager>();
 				if (Application.isPlaying)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -39,10 +38,10 @@ namespace I2
 						}
 						break;
 					}
-					UnityEngine.Object.DontDestroyOnLoad(gameObject);
+					Object.DontDestroyOnLoad(gameObject);
 				}
 			}
-			return CoroutineManager.\u001D.StartCoroutine(\u001D);
+			return CoroutineManager._001D.StartCoroutine(_001D);
 		}
 	}
 }

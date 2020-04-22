@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,42 +5,42 @@ public static class KnockbackUtils
 {
 	public static Vector2 GetKnockbackDeltaForType(KnockbackHitData hitData)
 	{
-		return KnockbackUtils.GetKnockbackDeltaForType(hitData.m_target, hitData.m_type, hitData.m_aimDir, hitData.m_sourcePos, hitData.m_distance);
+		return GetKnockbackDeltaForType(hitData.m_target, hitData.m_type, hitData.m_aimDir, hitData.m_sourcePos, hitData.m_distance);
 	}
 
 	public static Vector2 GetKnockbackDeltaForType(ActorData target, KnockbackType type, Vector3 aimDir, Vector3 sourcePos, float distance)
 	{
 		aimDir.Normalize();
-		Vector3 a = target.\u0016();
-		Vector3 lhs = a - sourcePos;
+		Vector3 travelBoardSquareWorldPosition = target.GetTravelBoardSquareWorldPosition();
+		Vector3 lhs = travelBoardSquareWorldPosition - sourcePos;
 		Vector3 b = sourcePos + Vector3.Dot(lhs, aimDir) * aimDir;
-		Vector3 vector = a - b;
-		float squareSize = Board.\u000E().squareSize;
-		Vector2 vector2;
+		Vector3 vector = travelBoardSquareWorldPosition - b;
+		float squareSize = Board.Get().squareSize;
+		Vector2 result;
 		switch (type)
 		{
 		case KnockbackType.ForwardAlongAimDir:
-			vector2 = new Vector2(aimDir.x, aimDir.z);
-			vector2.Normalize();
-			vector2 *= distance;
+			result = new Vector2(aimDir.x, aimDir.z);
+			result.Normalize();
+			result *= distance;
 			break;
 		case KnockbackType.BackwardAgainstAimDir:
-			vector2 = new Vector2(aimDir.x, aimDir.z);
-			vector2 = -vector2;
-			vector2.Normalize();
-			vector2 *= distance;
+			result = new Vector2(aimDir.x, aimDir.z);
+			result = -result;
+			result.Normalize();
+			result *= distance;
 			break;
 		case KnockbackType.PerpendicularAwayFromAimDir:
-			vector2 = new Vector2(vector.x, vector.z);
-			vector2.Normalize();
-			vector2 *= distance;
+			result = new Vector2(vector.x, vector.z);
+			result.Normalize();
+			result *= distance;
 			break;
 		case KnockbackType.PerpendicularPullToAimDir:
-			vector2 = new Vector2(vector.x, vector.z);
-			vector2 = -vector2;
-			if (distance > 0f && vector2.magnitude > distance)
+			result = new Vector2(vector.x, vector.z);
+			result = -result;
+			if (distance > 0f && result.magnitude > distance)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -50,24 +49,24 @@ public static class KnockbackUtils
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.GetKnockbackDeltaForType(ActorData, KnockbackType, Vector3, Vector3, float)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				vector2.Normalize();
-				vector2 *= distance;
+				result.Normalize();
+				result *= distance;
 			}
 			break;
 		case KnockbackType.AwayFromSource:
-			vector2 = new Vector2(a.x - sourcePos.x, a.z - sourcePos.z);
-			vector2.Normalize();
-			vector2 *= distance;
+			result = new Vector2(travelBoardSquareWorldPosition.x - sourcePos.x, travelBoardSquareWorldPosition.z - sourcePos.z);
+			result.Normalize();
+			result *= distance;
 			break;
 		case KnockbackType.PullToSource:
-			vector2 = new Vector2((sourcePos.x - a.x) / squareSize, (sourcePos.z - a.z) / squareSize);
-			if (distance > 0f && vector2.magnitude > distance)
+			result = new Vector2((sourcePos.x - travelBoardSquareWorldPosition.x) / squareSize, (sourcePos.z - travelBoardSquareWorldPosition.z) / squareSize);
+			if (distance > 0f && result.magnitude > distance)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -76,28 +75,28 @@ public static class KnockbackUtils
 					}
 					break;
 				}
-				vector2.Normalize();
-				vector2 *= distance;
+				result.Normalize();
+				result *= distance;
 			}
 			break;
 		case KnockbackType.PullToSourceOverShoot:
 		{
-			vector2 = new Vector2((sourcePos.x - a.x) / squareSize, (sourcePos.z - a.z) / squareSize);
-			float num = vector2.magnitude + 0.9f;
-			float d = (distance <= 0f) ? num : Mathf.Min(distance, num);
-			vector2.Normalize();
-			vector2 *= d;
+			result = new Vector2((sourcePos.x - travelBoardSquareWorldPosition.x) / squareSize, (sourcePos.z - travelBoardSquareWorldPosition.z) / squareSize);
+			float num2 = result.magnitude + 0.9f;
+			float num3 = (!(distance > 0f)) ? num2 : Mathf.Min(distance, num2);
+			result.Normalize();
+			result *= num3;
 			break;
 		}
 		case KnockbackType.PullToSourceActor:
 		{
-			vector2 = new Vector2((sourcePos.x - a.x) / squareSize, (sourcePos.z - a.z) / squareSize);
-			float num2 = vector2.magnitude;
-			num2 = Mathf.Max(0f, num2 - 0.71f);
-			float d2 = num2;
+			result = new Vector2((sourcePos.x - travelBoardSquareWorldPosition.x) / squareSize, (sourcePos.z - travelBoardSquareWorldPosition.z) / squareSize);
+			float magnitude = result.magnitude;
+			magnitude = Mathf.Max(0f, magnitude - 0.71f);
+			float num = magnitude;
 			if (distance > 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -106,9 +105,9 @@ public static class KnockbackUtils
 					}
 					break;
 				}
-				if (num2 > distance)
+				if (magnitude > distance)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -117,47 +116,47 @@ public static class KnockbackUtils
 						}
 						break;
 					}
-					d2 = distance;
+					num = distance;
 				}
 			}
-			vector2.Normalize();
-			vector2 *= d2;
+			result.Normalize();
+			result *= num;
 			break;
 		}
 		default:
-			vector2 = Vector2.zero;
+			result = Vector2.zero;
 			break;
 		}
-		return vector2;
+		return result;
 	}
 
 	public static BoardSquarePathInfo BuildKnockbackPath(ActorData target, KnockbackType type, Vector3 aimDir, Vector3 sourcePos, float distance)
 	{
-		Vector2 knockbackDeltaForType = KnockbackUtils.GetKnockbackDeltaForType(target, type, aimDir, sourcePos, distance);
-		return KnockbackUtils.BuildKnockbackPathFromVector(target, knockbackDeltaForType);
+		Vector2 knockbackDeltaForType = GetKnockbackDeltaForType(target, type, aimDir, sourcePos, distance);
+		return BuildKnockbackPathFromVector(target, knockbackDeltaForType);
 	}
 
 	public static BoardSquarePathInfo BuildKnockbackPathFromVector(ActorData target, Vector2 idealMoveDir)
 	{
-		BoardSquare boardSquare = target.\u0012();
+		BoardSquare currentBoardSquare = target.GetCurrentBoardSquare();
 		BoardSquarePathInfo boardSquarePathInfo = new BoardSquarePathInfo();
-		boardSquarePathInfo.square = boardSquare;
+		boardSquarePathInfo.square = currentBoardSquare;
 		BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo;
-		Vector2 destination = new Vector2((float)boardSquare.x + idealMoveDir.x, (float)boardSquare.y + idealMoveDir.y);
-		BoardSquare currentSquare = boardSquare;
-		BoardSquare boardSquare2 = KnockbackUtils.GetClosestAdjacentSquareTo(currentSquare, boardSquare, destination, false);
-		bool flag = target.GetComponent<ActorStatus>().HasStatus(StatusType.KnockbackResistant, true);
-		while (boardSquare2 != null)
+		Vector2 destination = new Vector2((float)currentBoardSquare.x + idealMoveDir.x, (float)currentBoardSquare.y + idealMoveDir.y);
+		BoardSquare currentSquare = currentBoardSquare;
+		BoardSquare boardSquare = GetClosestAdjacentSquareTo(currentSquare, currentBoardSquare, destination, false);
+		bool flag = target.GetComponent<ActorStatus>().HasStatus(StatusType.KnockbackResistant);
+		while (boardSquare != null)
 		{
 			BoardSquarePathInfo boardSquarePathInfo3 = new BoardSquarePathInfo();
-			boardSquarePathInfo3.square = boardSquare2;
+			boardSquarePathInfo3.square = boardSquare;
 			boardSquarePathInfo3.prev = boardSquarePathInfo2;
 			boardSquarePathInfo2.next = boardSquarePathInfo3;
 			boardSquarePathInfo2 = boardSquarePathInfo3;
-			currentSquare = boardSquare2;
+			currentSquare = boardSquare;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -166,80 +165,79 @@ public static class KnockbackUtils
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.BuildKnockbackPathFromVector(ActorData, Vector2)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				boardSquare2 = null;
+				boardSquare = null;
 			}
 			else
 			{
-				boardSquare2 = KnockbackUtils.GetClosestAdjacentSquareTo(currentSquare, boardSquare, destination, false);
+				boardSquare = GetClosestAdjacentSquareTo(currentSquare, currentBoardSquare, destination, false);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		bool flag2;
-		if (boardSquarePathInfo2.square != null)
-		{
-			for (;;)
+			int num;
+			if (boardSquarePathInfo2.square != null)
 			{
-				switch (3)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag2 = boardSquarePathInfo2.square.\u0016();
-		}
-		else
-		{
-			flag2 = false;
-		}
-		bool flag3 = flag2;
-		while (!flag3)
-		{
-			if (boardSquarePathInfo2.prev == null)
-			{
-				for (;;)
-				{
-					switch (4)
+					switch (3)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				flag3 = true;
+				num = (boardSquarePathInfo2.square.IsBaselineHeight() ? 1 : 0);
 			}
 			else
 			{
-				boardSquarePathInfo2.square = null;
-				boardSquarePathInfo2.prev.next = null;
-				boardSquarePathInfo2 = boardSquarePathInfo2.prev;
-				flag3 = (boardSquarePathInfo2.square != null && boardSquarePathInfo2.square.\u0016());
+				num = 0;
 			}
+			bool flag2 = (byte)num != 0;
+			while (!flag2)
+			{
+				if (boardSquarePathInfo2.prev == null)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					flag2 = true;
+				}
+				else
+				{
+					boardSquarePathInfo2.square = null;
+					boardSquarePathInfo2.prev.next = null;
+					boardSquarePathInfo2 = boardSquarePathInfo2.prev;
+					flag2 = (boardSquarePathInfo2.square != null && boardSquarePathInfo2.square.IsBaselineHeight());
+				}
+			}
+			boardSquarePathInfo.CalcAndSetMoveCostToEnd();
+			return boardSquarePathInfo;
 		}
-		boardSquarePathInfo.CalcAndSetMoveCostToEnd();
-		return boardSquarePathInfo;
 	}
 
-	public static BoardSquare GetLastValidBoardSquareInLine(Vector3 start, Vector3 end, bool passThroughInvalidSquares = false, bool considerHalfHeightWallValid = false, float maxDistance = 3.40282347E+38f)
+	public static BoardSquare GetLastValidBoardSquareInLine(Vector3 start, Vector3 end, bool passThroughInvalidSquares = false, bool considerHalfHeightWallValid = false, float maxDistance = float.MaxValue)
 	{
 		BoardSquare result = null;
-		BoardSquare boardSquare = Board.\u000E().\u000E(end);
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(end);
 		bool flag = false;
 		if (boardSquare != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -248,13 +246,13 @@ public static class KnockbackUtils
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.GetLastValidBoardSquareInLine(Vector3, Vector3, bool, bool, float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (considerHalfHeightWallValid)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -263,16 +261,16 @@ public static class KnockbackUtils
 					}
 					break;
 				}
-				flag = boardSquare.\u0015();
+				flag = boardSquare._0015();
 			}
 			else
 			{
-				flag = boardSquare.\u0016();
+				flag = boardSquare.IsBaselineHeight();
 			}
 		}
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -281,9 +279,9 @@ public static class KnockbackUtils
 				}
 				break;
 			}
-			if (maxDistance >= 3.40282347E+38f)
+			if (maxDistance >= float.MaxValue)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -292,60 +290,67 @@ public static class KnockbackUtils
 					}
 					break;
 				}
-				return boardSquare;
+				result = boardSquare;
+				goto IL_0136;
 			}
 		}
-		BoardSquare boardSquare2 = Board.\u000E().\u000E(start);
+		BoardSquare boardSquare2 = Board.Get().GetBoardSquare(start);
 		if (boardSquare2 != null)
 		{
 			result = boardSquare2;
 			GridPos gridPos = GridPos.FromVector3(end);
-			BoardSquare boardSquare3 = boardSquare2;
-			Vector2 destination = new Vector2((float)gridPos.x, (float)gridPos.y);
-			BoardSquare closestAdjacentSquareTo = KnockbackUtils.GetClosestAdjacentSquareTo(boardSquare3, boardSquare2, destination, passThroughInvalidSquares);
-			while (closestAdjacentSquareTo != null)
+			BoardSquare currentSquare = boardSquare2;
+			Vector2 destination = new Vector2(gridPos.x, gridPos.y);
+			BoardSquare closestAdjacentSquareTo = GetClosestAdjacentSquareTo(currentSquare, boardSquare2, destination, passThroughInvalidSquares);
+			while (true)
 			{
-				float num = boardSquare2.HorizontalDistanceInWorldTo(closestAdjacentSquareTo);
-				if (num > maxDistance)
+				if (closestAdjacentSquareTo != null)
 				{
-					for (;;)
+					float num = boardSquare2.HorizontalDistanceInWorldTo(closestAdjacentSquareTo);
+					if (num > maxDistance)
 					{
-						switch (7)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
 						break;
 					}
-					return result;
-				}
-				boardSquare3 = closestAdjacentSquareTo;
-				bool flag2 = (!considerHalfHeightWallValid) ? boardSquare3.\u0016() : boardSquare3.\u0015();
-				if (flag2)
-				{
-					for (;;)
+					currentSquare = closestAdjacentSquareTo;
+					if ((!considerHalfHeightWallValid) ? currentSquare.IsBaselineHeight() : currentSquare._0015())
 					{
-						switch (5)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
-						break;
+						result = currentSquare;
 					}
-					result = boardSquare3;
-				}
-				closestAdjacentSquareTo = KnockbackUtils.GetClosestAdjacentSquareTo(boardSquare3, boardSquare2, destination, passThroughInvalidSquares);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
+					closestAdjacentSquareTo = GetClosestAdjacentSquareTo(currentSquare, boardSquare2, destination, passThroughInvalidSquares);
 					continue;
+				}
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
 				break;
 			}
 		}
+		goto IL_0136;
+		IL_0136:
 		return result;
 	}
 
@@ -355,27 +360,26 @@ public static class KnockbackUtils
 		boardSquarePathInfo.square = startSquare;
 		if (destination == startSquare)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				boardSquarePathInfo.next = new BoardSquarePathInfo();
+				boardSquarePathInfo.next.prev = boardSquarePathInfo;
+				boardSquarePathInfo.next.square = destination;
+				return boardSquarePathInfo;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.BuildStraightLineChargePath(ActorData, BoardSquare, BoardSquare, bool)).MethodHandle;
-			}
-			boardSquarePathInfo.next = new BoardSquarePathInfo();
-			boardSquarePathInfo.next.prev = boardSquarePathInfo;
-			boardSquarePathInfo.next.square = destination;
-			return boardSquarePathInfo;
 		}
 		if (!(destination == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -386,7 +390,7 @@ public static class KnockbackUtils
 			}
 			if (!passThroughInvalidSquares)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -395,14 +399,14 @@ public static class KnockbackUtils
 					}
 					break;
 				}
-				if (!destination.\u0015())
+				if (!destination._0015())
 				{
-					goto IL_7A;
+					goto IL_007a;
 				}
 			}
 			BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo;
 			BoardSquare boardSquare = startSquare;
-			BoardSquare closestAdjacentSquareTo = KnockbackUtils.GetClosestAdjacentSquareTo(boardSquare, startSquare, destination, passThroughInvalidSquares);
+			BoardSquare closestAdjacentSquareTo = GetClosestAdjacentSquareTo(boardSquare, startSquare, destination, passThroughInvalidSquares);
 			while (closestAdjacentSquareTo != null)
 			{
 				BoardSquarePathInfo boardSquarePathInfo3 = new BoardSquarePathInfo();
@@ -411,60 +415,61 @@ public static class KnockbackUtils
 				boardSquarePathInfo2.next = boardSquarePathInfo3;
 				boardSquarePathInfo2 = boardSquarePathInfo3;
 				boardSquare = closestAdjacentSquareTo;
-				closestAdjacentSquareTo = KnockbackUtils.GetClosestAdjacentSquareTo(boardSquare, startSquare, destination, passThroughInvalidSquares);
+				closestAdjacentSquareTo = GetClosestAdjacentSquareTo(boardSquare, startSquare, destination, passThroughInvalidSquares);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (boardSquare != null)
-			{
-				for (;;)
+				if (boardSquare != null)
 				{
-					switch (4)
+					while (true)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (boardSquare == destination)
-				{
-					for (;;)
-					{
-						switch (1)
+						switch (4)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					return boardSquarePathInfo;
+					if (boardSquare == destination)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								break;
+							default:
+								return boardSquarePathInfo;
+							}
+						}
+					}
 				}
+				return null;
 			}
-			return null;
 		}
-		IL_7A:
+		goto IL_007a;
+		IL_007a:
 		return null;
 	}
 
 	public static BoardSquarePathInfo BuildStraightLineChargePath(ActorData mover, BoardSquare destination)
 	{
-		return KnockbackUtils.BuildStraightLineChargePath(mover, destination, mover.\u0012(), false);
+		return BuildStraightLineChargePath(mover, destination, mover.GetCurrentBoardSquare(), false);
 	}
 
-	public unsafe static bool CanBuildStraightLineChargePath(ActorData mover, BoardSquare destination, BoardSquare startSquare, bool passThroughInvalidSquares, out int numSquaresInPath)
+	public static bool CanBuildStraightLineChargePath(ActorData mover, BoardSquare destination, BoardSquare startSquare, bool passThroughInvalidSquares, out int numSquaresInPath)
 	{
+		bool flag = false;
 		int num = 1;
 		numSquaresInPath = 0;
 		if (!(destination == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -473,16 +478,15 @@ public static class KnockbackUtils
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.CanBuildStraightLineChargePath(ActorData, BoardSquare, BoardSquare, bool, int*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!(startSquare == null))
 			{
-				bool result;
 				if (destination == startSquare)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -491,14 +495,14 @@ public static class KnockbackUtils
 						}
 						break;
 					}
-					result = true;
+					flag = true;
 					num = 2;
 				}
 				else
 				{
 					if (!(destination == null))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -507,17 +511,17 @@ public static class KnockbackUtils
 							}
 							break;
 						}
-						if (passThroughInvalidSquares || destination.\u0015())
+						if (passThroughInvalidSquares || destination._0015())
 						{
 							BoardSquare boardSquare = startSquare;
-							BoardSquare closestAdjacentSquareTo = KnockbackUtils.GetClosestAdjacentSquareTo(boardSquare, startSquare, destination, passThroughInvalidSquares);
+							BoardSquare closestAdjacentSquareTo = GetClosestAdjacentSquareTo(boardSquare, startSquare, destination, passThroughInvalidSquares);
 							while (closestAdjacentSquareTo != null)
 							{
 								num++;
 								boardSquare = closestAdjacentSquareTo;
-								closestAdjacentSquareTo = KnockbackUtils.GetClosestAdjacentSquareTo(boardSquare, startSquare, destination, passThroughInvalidSquares);
+								closestAdjacentSquareTo = GetClosestAdjacentSquareTo(boardSquare, startSquare, destination, passThroughInvalidSquares);
 							}
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -528,7 +532,7 @@ public static class KnockbackUtils
 							}
 							if (boardSquare != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -539,7 +543,7 @@ public static class KnockbackUtils
 								}
 								if (boardSquare == destination)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (6)
 										{
@@ -548,51 +552,52 @@ public static class KnockbackUtils
 										}
 										break;
 									}
-									result = true;
-									goto IL_DE;
+									flag = true;
+									goto IL_00de;
 								}
 							}
-							result = false;
-							goto IL_DE;
+							flag = false;
+							goto IL_00de;
 						}
 					}
-					result = false;
+					flag = false;
 				}
-				IL_DE:
-				numSquaresInPath = num;
-				return result;
+				goto IL_00de;
 			}
 		}
 		return false;
+		IL_00de:
+		numSquaresInPath = num;
+		return flag;
 	}
 
 	private static BoardSquare GetClosestAdjacentSquareTo(BoardSquare currentSquare, BoardSquare originalSquare, BoardSquare destinationSquare, bool passThroughInvalidSquares)
 	{
 		if (destinationSquare == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.GetClosestAdjacentSquareTo(BoardSquare, BoardSquare, BoardSquare, bool)).MethodHandle;
-			}
-			return null;
 		}
-		Vector2 destination = new Vector2((float)destinationSquare.x, (float)destinationSquare.y);
-		return KnockbackUtils.GetClosestAdjacentSquareTo(currentSquare, originalSquare, destination, passThroughInvalidSquares);
+		Vector2 destination = new Vector2(destinationSquare.x, destinationSquare.y);
+		return GetClosestAdjacentSquareTo(currentSquare, originalSquare, destination, passThroughInvalidSquares);
 	}
 
 	public static BoardSquare GetClosestAdjacentSquareTo(BoardSquare currentSquare, BoardSquare originalSquare, Vector2 destination, bool passThroughInvalidSquares)
 	{
-		Vector2 vector = new Vector2((float)originalSquare.x, (float)originalSquare.y);
-		Vector2 b = new Vector2((float)currentSquare.x, (float)currentSquare.y);
+		Vector2 vector = new Vector2(originalSquare.x, originalSquare.y);
+		Vector2 b = new Vector2(currentSquare.x, currentSquare.y);
 		float magnitude = (destination - b).magnitude;
 		Vector2 normalized = (destination - vector).normalized;
 		float num = 1E+08f;
@@ -600,44 +605,38 @@ public static class KnockbackUtils
 		BoardSquare boardSquare = null;
 		for (int i = -1; i <= 1; i++)
 		{
-			int j = -1;
-			while (j <= 1)
+			for (int j = -1; j <= 1; j++)
 			{
-				if (i != 0)
+				if (i == 0)
 				{
-					goto IL_97;
-				}
-				for (;;)
-				{
-					switch (7)
+					while (true)
 					{
-					case 0:
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (j == 0)
+					{
 						continue;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.GetClosestAdjacentSquareTo(BoardSquare, BoardSquare, Vector2, bool)).MethodHandle;
-				}
-				if (j != 0)
-				{
-					goto IL_97;
-				}
-				IL_1A3:
-				j++;
-				continue;
-				IL_97:
-				BoardSquare boardSquare2 = Board.\u000E().\u0016(currentSquare.x + i, currentSquare.y + j);
+				BoardSquare boardSquare2 = Board.Get().GetBoardSquare(currentSquare.x + i, currentSquare.y + j);
 				if (boardSquare2 == null)
 				{
-					goto IL_1A3;
+					continue;
 				}
-				Vector2 vector2 = new Vector2((float)boardSquare2.x, (float)boardSquare2.y);
+				Vector2 vector2 = new Vector2(boardSquare2.x, boardSquare2.y);
 				float magnitude2 = (destination - vector2).magnitude;
 				if (magnitude2 + 0.2f >= magnitude)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -646,7 +645,7 @@ public static class KnockbackUtils
 						}
 						break;
 					}
-					goto IL_1A3;
+					continue;
 				}
 				Vector2 vector3 = vector2 - vector;
 				float d = Vector2.Dot(vector3, normalized);
@@ -660,11 +659,10 @@ public static class KnockbackUtils
 						num2 = num3;
 						boardSquare = boardSquare2;
 					}
-					goto IL_1A3;
 				}
-				if (magnitude3 < num)
+				else if (magnitude3 < num)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -677,23 +675,25 @@ public static class KnockbackUtils
 					num = magnitude3;
 					num2 = num4;
 					boardSquare = boardSquare2;
-					goto IL_1A3;
 				}
-				goto IL_1A3;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_01b1;
 				}
+				continue;
+				end_IL_01b1:
 				break;
 			}
 		}
 		if (boardSquare != null && !passThroughInvalidSquares)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -702,9 +702,9 @@ public static class KnockbackUtils
 				}
 				break;
 			}
-			if (!KnockbackUtils.CanForceMoveToAdjacentSquare(currentSquare, boardSquare))
+			if (!CanForceMoveToAdjacentSquare(currentSquare, boardSquare))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -721,36 +721,35 @@ public static class KnockbackUtils
 
 	private static bool CanForceMoveToAdjacentSquare(BoardSquare src, BoardSquare dest)
 	{
-		if (!dest.\u0015())
+		if (!dest._0015())
 		{
 			return false;
 		}
-		if (!Board.\u000E().\u000E(src, dest))
+		if (!Board.Get()._000E(src, dest))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return false;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.CanForceMoveToAdjacentSquare(BoardSquare, BoardSquare)).MethodHandle;
-			}
-			return false;
 		}
 		bool flag = true;
 		bool flag2 = true;
-		if (Board.\u000E().\u0015(src, dest))
+		if (Board.Get()._0015(src, dest))
 		{
-			BoardSquare boardSquare = Board.\u000E().\u0016(src.x, dest.y);
-			BoardSquare boardSquare2 = Board.\u000E().\u0016(dest.x, src.y);
-			if (KnockbackUtils.CanForceMoveToAdjacentSquare(src, boardSquare))
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(src.x, dest.y);
+			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(dest.x, src.y);
+			if (CanForceMoveToAdjacentSquare(src, boardSquare))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -759,9 +758,9 @@ public static class KnockbackUtils
 					}
 					break;
 				}
-				if (KnockbackUtils.CanForceMoveToAdjacentSquare(boardSquare, dest))
+				if (CanForceMoveToAdjacentSquare(boardSquare, dest))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -771,12 +770,12 @@ public static class KnockbackUtils
 						break;
 					}
 					flag = true;
-					goto IL_E3;
+					goto IL_00f7;
 				}
 			}
-			if (KnockbackUtils.CanForceMoveToAdjacentSquare(src, boardSquare2))
+			if (CanForceMoveToAdjacentSquare(src, boardSquare2))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -785,9 +784,9 @@ public static class KnockbackUtils
 					}
 					break;
 				}
-				if (KnockbackUtils.CanForceMoveToAdjacentSquare(boardSquare2, dest))
+				if (CanForceMoveToAdjacentSquare(boardSquare2, dest))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -797,41 +796,42 @@ public static class KnockbackUtils
 						break;
 					}
 					flag = true;
-					goto IL_E3;
+					goto IL_00f7;
 				}
 			}
 			flag = false;
-			IL_E3:;
 		}
-		else if (src.\u001D(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
+		else if (src.GetCoverInDirection(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
 		{
 			flag2 = false;
 		}
+		goto IL_00f7;
+		IL_00f7:
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
 		if (!flag2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
 		return true;
 	}
@@ -841,7 +841,7 @@ public static class KnockbackUtils
 		List<Vector3> list = new List<Vector3>();
 		if (path == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -850,15 +850,15 @@ public static class KnockbackUtils
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.BuildDrawablePath(BoardSquarePathInfo, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Debug.LogError("Calling BuildDrawablePath with a null path.");
 		}
 		else if (path.square == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -869,9 +869,9 @@ public static class KnockbackUtils
 			}
 			Debug.LogError("Calling BuildDrawablePath, but its first square is null.");
 		}
-		else if (Board.\u000E() == null)
+		else if (Board.Get() == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -884,14 +884,14 @@ public static class KnockbackUtils
 		}
 		else
 		{
-			Board board = Board.\u000E();
-			GridPos gridPos = path.square.\u001D();
+			Board board = Board.Get();
+			GridPos gridPos = path.square.GetGridPos();
 			float y = (float)board.BaselineHeight + 0.1f;
 			Vector3 item = new Vector3(gridPos.worldX, y, gridPos.worldY);
 			list.Add(item);
 			while (path.next != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -900,24 +900,12 @@ public static class KnockbackUtils
 					}
 					break;
 				}
-				if (!(path.next.square != null))
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						return list;
-					}
-				}
-				else
+				if (path.next.square != null)
 				{
 					path = path.next;
 					if (directLine)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -930,7 +918,7 @@ public static class KnockbackUtils
 						{
 							continue;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -940,10 +928,21 @@ public static class KnockbackUtils
 							break;
 						}
 					}
-					GridPos gridPos2 = path.square.\u001D();
+					GridPos gridPos2 = path.square.GetGridPos();
 					Vector3 item2 = new Vector3(gridPos2.worldX, y, gridPos2.worldY);
 					list.Add(item2);
+					continue;
 				}
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				break;
 			}
 		}
 		return list;
@@ -952,8 +951,8 @@ public static class KnockbackUtils
 	public static List<GridPos> BuildGridPosPath(BoardSquarePathInfo path, bool directLine)
 	{
 		List<GridPos> list = new List<GridPos>();
-		GridPos item = path.square.\u001D();
-		list.Add(item);
+		GridPos gridPos = path.square.GetGridPos();
+		list.Add(gridPos);
 		while (path.next != null)
 		{
 			path = path.next;
@@ -963,7 +962,7 @@ public static class KnockbackUtils
 				{
 					continue;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -972,23 +971,22 @@ public static class KnockbackUtils
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.BuildGridPosPath(BoardSquarePathInfo, bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 			}
-			GridPos item2 = path.square.\u001D();
-			list.Add(item2);
+			GridPos gridPos2 = path.square.GetGridPos();
+			list.Add(gridPos2);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return list;
 		}
-		return list;
 	}
 }

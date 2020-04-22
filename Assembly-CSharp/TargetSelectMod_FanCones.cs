@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -37,16 +37,16 @@ public class TargetSelectMod_FanCones : TargetSelectModBase
 		TargetSelect_FanCones targetSelect_FanCones = targetSelectBase as TargetSelect_FanCones;
 		if (targetSelect_FanCones != null)
 		{
-			text += AbilityModHelper.GetModPropertyDesc(this.m_coneInfoMod, "[ConeInfo]", true, targetSelect_FanCones.m_coneInfo);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_coneCountMod, "[ConeCount]", true, targetSelect_FanCones.m_coneCount);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_coneStartOffsetInAimDirMod, "[ConeStartOffsetInAimDir]", true, targetSelect_FanCones.m_coneStartOffsetInAimDir);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_coneStartOffsetToSidesMod, "[ConeStartOffsetToSides]", true, targetSelect_FanCones.m_coneStartOffsetToSides);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_coneStartOffsetInConeDirMod, "[ConeStartOffsetInConeDir]", true, targetSelect_FanCones.m_coneStartOffsetInConeDir);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_angleInBetweenMod, "[AngleInBetween]", true, targetSelect_FanCones.m_angleInBetween);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_changeAngleByCursorDistanceMod, "[ChangeAngleByCursorDistance]", true, targetSelect_FanCones.m_changeAngleByCursorDistance);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_targeterMinAngleMod, "[TargeterMinAngle]", true, targetSelect_FanCones.m_targeterMinAngle);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_targeterMaxAngleMod, "[TargeterMaxAngle]", true, targetSelect_FanCones.m_targeterMaxAngle);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_startAngleOffsetMod, "[StartAngleOffset]", true, targetSelect_FanCones.m_startAngleOffset);
+			text += AbilityModHelper.GetModPropertyDesc(m_coneInfoMod, "[ConeInfo]", true, targetSelect_FanCones.m_coneInfo);
+			text += AbilityModHelper.GetModPropertyDesc(m_coneCountMod, "[ConeCount]", true, targetSelect_FanCones.m_coneCount);
+			text += AbilityModHelper.GetModPropertyDesc(m_coneStartOffsetInAimDirMod, "[ConeStartOffsetInAimDir]", true, targetSelect_FanCones.m_coneStartOffsetInAimDir);
+			text += AbilityModHelper.GetModPropertyDesc(m_coneStartOffsetToSidesMod, "[ConeStartOffsetToSides]", true, targetSelect_FanCones.m_coneStartOffsetToSides);
+			text += AbilityModHelper.GetModPropertyDesc(m_coneStartOffsetInConeDirMod, "[ConeStartOffsetInConeDir]", true, targetSelect_FanCones.m_coneStartOffsetInConeDir);
+			text += AbilityModHelper.GetModPropertyDesc(m_angleInBetweenMod, "[AngleInBetween]", true, targetSelect_FanCones.m_angleInBetween);
+			text += AbilityModHelper.GetModPropertyDesc(m_changeAngleByCursorDistanceMod, "[ChangeAngleByCursorDistance]", true, targetSelect_FanCones.m_changeAngleByCursorDistance);
+			text += AbilityModHelper.GetModPropertyDesc(m_targeterMinAngleMod, "[TargeterMinAngle]", true, targetSelect_FanCones.m_targeterMinAngle);
+			text += AbilityModHelper.GetModPropertyDesc(m_targeterMaxAngleMod, "[TargeterMaxAngle]", true, targetSelect_FanCones.m_targeterMaxAngle);
+			text += AbilityModHelper.GetModPropertyDesc(m_startAngleOffsetMod, "[StartAngleOffset]", true, targetSelect_FanCones.m_startAngleOffset);
 		}
 		return text;
 	}

@@ -1,15 +1,14 @@
-﻿using System;
 using UnityEngine;
 
 public class OffsetVFXTowardsCamera : MonoBehaviour
 {
 	public static Vector3 ProcessOffset(Vector3 position)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(position);
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(position);
 		Camera main = Camera.main;
-		if (main)
+		if ((bool)main)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -18,13 +17,13 @@ public class OffsetVFXTowardsCamera : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OffsetVFXTowardsCamera.ProcessOffset(Vector3)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (boardSquare)
+			if ((bool)boardSquare)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -33,24 +32,27 @@ public class OffsetVFXTowardsCamera : MonoBehaviour
 					}
 					break;
 				}
-				if (boardSquare.occupant)
+				if ((bool)boardSquare.occupant)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+						{
+							Vector3 direction = main.WorldToRay(position).direction;
+							float num = 0f;
+							Renderer[] componentsInChildren = boardSquare.occupant.GetComponentsInChildren<Renderer>();
+							foreach (Renderer renderer in componentsInChildren)
+							{
+								num = Mathf.Max(num, Vector3.Dot(renderer.bounds.extents, MathUtil.Vector3Abs(renderer.transform.rotation * direction)) / 2f);
+							}
+							return position - direction * num;
 						}
-						break;
+						}
 					}
-					Vector3 direction = main.WorldToRay(position).direction;
-					float num = 0f;
-					foreach (Renderer renderer in boardSquare.occupant.GetComponentsInChildren<Renderer>())
-					{
-						num = Mathf.Max(num, Vector3.Dot(renderer.bounds.extents, MathUtil.Vector3Abs(renderer.transform.rotation * direction)) / 2f);
-					}
-					return position - direction * num;
 				}
 			}
 		}

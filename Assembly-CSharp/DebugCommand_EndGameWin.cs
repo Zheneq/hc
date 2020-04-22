@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class DebugCommand_EndGameWin : DebugCommand
@@ -17,7 +16,7 @@ public class DebugCommand_EndGameWin : DebugCommand
 	{
 		PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
 		Team team = localPlayerData.LookupDetails().m_team;
-		localPlayerData.CallCmdDebugEndGame((team != Team.TeamA) ? GameResult.TeamBWon : GameResult.TeamAWon, 0, 0, false, false, true);
+		localPlayerData.CallCmdDebugEndGame((team != 0) ? GameResult.TeamBWon : GameResult.TeamAWon, 0, 0, false, false, true);
 	}
 
 	public override string GetSlashCommand()
@@ -29,21 +28,21 @@ public class DebugCommand_EndGameWin : DebugCommand
 	{
 		if (arguments.EqualsIgnoreCase("win"))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					OnIncreaseClick();
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_EndGameWin.OnSlashCommand(string)).MethodHandle;
-			}
-			this.OnIncreaseClick();
-			return true;
 		}
 		return false;
 	}
@@ -52,38 +51,40 @@ public class DebugCommand_EndGameWin : DebugCommand
 	{
 		if (Application.platform == RuntimePlatform.XboxOne)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_EndGameWin.CheckGameControllerTrigger()).MethodHandle;
-			}
-			bool result;
-			if (ControlpadGameplay.Get().GetButtonDown(ControlpadInputValue.Button_leftShoulder))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					int result;
+					if (ControlpadGameplay.Get().GetButtonDown(ControlpadInputValue.Button_leftShoulder))
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						result = (ControlpadGameplay.Get().GetButtonDown(ControlpadInputValue.Button_rightShoulder) ? 1 : 0);
+					}
+					else
+					{
+						result = 0;
+					}
+					return (byte)result != 0;
 				}
-				result = ControlpadGameplay.Get().GetButtonDown(ControlpadInputValue.Button_rightShoulder);
+				}
 			}
-			else
-			{
-				result = false;
-			}
-			return result;
 		}
 		return false;
 	}

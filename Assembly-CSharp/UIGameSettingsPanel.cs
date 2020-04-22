@@ -1,15 +1,21 @@
-﻿using System;
+using LobbyGameClientMessages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIGameSettingsPanel : UIScene
 {
+	public class MapSelectButton
+	{
+		public _ToggleSwap ToggleBtn;
+
+		public GameMapConfig MapConfig;
+	}
+
 	public _ButtonSwapSprite m_cancelButton;
 
 	public _ButtonSwapSprite m_updateButton;
@@ -38,7 +44,7 @@ public class UIGameSettingsPanel : UIScene
 
 	public GridLayoutGroup m_mapListContainer;
 
-	public List<UIGameSettingsPanel.MapSelectButton> m_theMapList = new List<UIGameSettingsPanel.MapSelectButton>();
+	public List<MapSelectButton> m_theMapList = new List<MapSelectButton>();
 
 	public UITeamMemberEntry[] m_teamAMemberEntries;
 
@@ -73,7 +79,7 @@ public class UIGameSettingsPanel : UIScene
 
 	public static UIGameSettingsPanel Get()
 	{
-		return UIGameSettingsPanel.s_instance;
+		return s_instance;
 	}
 
 	public override SceneType GetSceneType()
@@ -83,16 +89,16 @@ public class UIGameSettingsPanel : UIScene
 
 	public override void Awake()
 	{
-		UIGameSettingsPanel.s_instance = this;
-		this.m_cancelButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CancelClicked);
-		this.m_updateButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.UpdateClicked);
-		this.m_balanceTeams.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BalanceTeamsClicked);
-		this.m_updateButton.m_soundToPlay = FrontEndButtonSounds.Generic;
-		this.m_gameNameInputField.onValueChanged.AddListener(new UnityAction<string>(this.EditGameName));
-		this.m_roundTime.onValueChanged.AddListener(new UnityAction<string>(this.EditRoundTime));
-		if (this.m_maxRoundTime != null)
+		s_instance = this;
+		m_cancelButton.callback = CancelClicked;
+		m_updateButton.callback = UpdateClicked;
+		m_balanceTeams.callback = BalanceTeamsClicked;
+		m_updateButton.m_soundToPlay = FrontEndButtonSounds.Generic;
+		m_gameNameInputField.onValueChanged.AddListener(EditGameName);
+		m_roundTime.onValueChanged.AddListener(EditRoundTime);
+		if (m_maxRoundTime != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -101,17 +107,17 @@ public class UIGameSettingsPanel : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_maxRoundTime.transform.parent != null)
+			if (m_maxRoundTime.transform.parent != null)
 			{
-				UIManager.SetGameObjectActive(this.m_maxRoundTime.transform.parent, false, null);
+				UIManager.SetGameObjectActive(m_maxRoundTime.transform.parent, false);
 			}
 		}
-		_ToggleSwap[] componentsInChildren = this.m_mapListContainer.transform.GetComponentsInChildren<_ToggleSwap>(true);
-		ScrollRect scrollRect = this.m_mapListContainer.GetComponentInParent<ScrollRect>();
+		_ToggleSwap[] componentsInChildren = m_mapListContainer.transform.GetComponentsInChildren<_ToggleSwap>(true);
+		ScrollRect scrollRect = m_mapListContainer.GetComponentInParent<ScrollRect>();
 		foreach (_ToggleSwap toggleSwap in componentsInChildren)
 		{
 			if (scrollRect != null)
@@ -125,168 +131,166 @@ public class UIGameSettingsPanel : UIScene
 					scrollRect.OnScroll((PointerEventData)data);
 				});
 			}
-			toggleSwap.transform.SetParent(this.m_mapListContainer.transform);
+			toggleSwap.transform.SetParent(m_mapListContainer.transform);
 			toggleSwap.transform.localPosition = Vector3.zero;
 			toggleSwap.transform.localScale = Vector3.one;
-			toggleSwap.changedNotify = new _ToggleSwap.NotifyChanged(this.MapClicked);
-			this.m_theMapList.Add(new UIGameSettingsPanel.MapSelectButton
+			toggleSwap.changedNotify = MapClicked;
+			m_theMapList.Add(new MapSelectButton
 			{
 				MapConfig = null,
 				ToggleBtn = toggleSwap
 			});
 		}
-		for (int j = 0; j < this.m_teamAPlayersButtons.Length; j++)
+		for (int j = 0; j < m_teamAPlayersButtons.Length; j++)
 		{
-			this.m_teamAPlayersButtons[j].SetChecked(false);
-			this.m_teamAPlayersButtons[j].SetTeam(0);
-			this.m_teamAPlayersButtons[j].SetIndex(j);
-			this.m_teamAPlayersButtons[j].m_callback = new UITeamSizeButton.NotifyClickDelegate(this.TeamSizeButtonClicked);
+			m_teamAPlayersButtons[j].SetChecked(false);
+			m_teamAPlayersButtons[j].SetTeam(0);
+			m_teamAPlayersButtons[j].SetIndex(j);
+			m_teamAPlayersButtons[j].m_callback = TeamSizeButtonClicked;
 		}
-		for (int k = 0; k < this.m_teamBPlayersButtons.Length; k++)
+		for (int k = 0; k < m_teamBPlayersButtons.Length; k++)
 		{
-			this.m_teamBPlayersButtons[k].SetChecked(false);
-			this.m_teamBPlayersButtons[k].SetTeam(1);
-			this.m_teamBPlayersButtons[k].SetIndex(k);
-			this.m_teamBPlayersButtons[k].m_callback = new UITeamSizeButton.NotifyClickDelegate(this.TeamSizeButtonClicked);
+			m_teamBPlayersButtons[k].SetChecked(false);
+			m_teamBPlayersButtons[k].SetTeam(1);
+			m_teamBPlayersButtons[k].SetIndex(k);
+			m_teamBPlayersButtons[k].m_callback = TeamSizeButtonClicked;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		for (int l = 0; l < this.m_spectatorButtons.Length; l++)
-		{
-			this.m_spectatorButtons[l].SetChecked(false);
-			this.m_spectatorButtons[l].SetTeam(2);
-			this.m_spectatorButtons[l].SetIndex(l);
-			this.m_spectatorButtons[l].m_callback = new UITeamSizeButton.NotifyClickDelegate(this.TeamSizeButtonClicked);
-		}
-		for (;;)
-		{
-			switch (1)
+			for (int l = 0; l < m_spectatorButtons.Length; l++)
 			{
-			case 0:
-				continue;
+				m_spectatorButtons[l].SetChecked(false);
+				m_spectatorButtons[l].SetTeam(2);
+				m_spectatorButtons[l].SetIndex(l);
+				m_spectatorButtons[l].m_callback = TeamSizeButtonClicked;
 			}
-			break;
-		}
-		for (int m = 0; m < this.m_teamAMemberEntries.Length; m++)
-		{
-			this.m_teamAMemberEntries[m].SetTeamId(Team.TeamA);
-		}
-		for (;;)
-		{
-			switch (7)
+			while (true)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		for (int n = 0; n < this.m_teamBMemberEntries.Length; n++)
-		{
-			this.m_teamBMemberEntries[n].SetTeamId(Team.TeamB);
-		}
-		for (int num = 0; num < this.m_spectatorMemberEntries.Length; num++)
-		{
-			this.m_spectatorMemberEntries[num].SetTeamId(Team.Spectator);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		UIManager.SetGameObjectActive(this.m_teamBPlayersButtons[0], false, null);
-		UIManager.SetGameObjectActive(this.m_teamAPlayersButtons[0], false, null);
-		this.SetVisible(false);
-		base.Awake();
-	}
-
-	private void EditGameName(string name)
-	{
-		if (this.m_gameNameInputField.text.Length > UICreateGameScreen.MAX_GAMENAME_SIZE)
-		{
-			for (;;)
-			{
-				switch (6)
+				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				for (int m = 0; m < m_teamAMemberEntries.Length; m++)
+				{
+					m_teamAMemberEntries[m].SetTeamId(Team.TeamA);
+				}
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					for (int n = 0; n < m_teamBMemberEntries.Length; n++)
+					{
+						m_teamBMemberEntries[n].SetTeamId(Team.TeamB);
+					}
+					for (int num = 0; num < m_spectatorMemberEntries.Length; num++)
+					{
+						m_spectatorMemberEntries[num].SetTeamId(Team.Spectator);
+					}
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						UIManager.SetGameObjectActive(m_teamBPlayersButtons[0], false);
+						UIManager.SetGameObjectActive(m_teamAPlayersButtons[0], false);
+						SetVisible(false);
+						base.Awake();
+						return;
+					}
+				}
 			}
-			if (!true)
+		}
+	}
+
+	private void EditGameName(string name)
+	{
+		if (m_gameNameInputField.text.Length <= UICreateGameScreen.MAX_GAMENAME_SIZE)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.EditGameName(string)).MethodHandle;
+			case 0:
+				continue;
 			}
-			this.m_gameNameInputField.text = this.m_gameNameInputField.text.Substring(0, UICreateGameScreen.MAX_GAMENAME_SIZE);
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_gameNameInputField.text = m_gameNameInputField.text.Substring(0, UICreateGameScreen.MAX_GAMENAME_SIZE);
+			return;
 		}
 	}
 
 	private void EditRoundTime(string name)
 	{
-		if (this.m_roundTime.text.IsNullOrEmpty())
+		if (m_roundTime.text.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.EditRoundTime(string)).MethodHandle;
-			}
-			return;
 		}
 		try
 		{
-			string text = Mathf.FloorToInt((float)GameSubType.ConformTurnTimeSpanFromSeconds(double.Parse(this.m_roundTime.text)).TotalSeconds).ToString();
-			this.m_roundTime.text = text;
+			string text = Mathf.FloorToInt((float)GameSubType.ConformTurnTimeSpanFromSeconds(double.Parse(m_roundTime.text)).TotalSeconds).ToString();
+			m_roundTime.text = text;
 		}
 		catch (FormatException)
 		{
-			this.m_roundTime.text = GameManager.Get().GameConfig.TurnTime.ToString();
+			m_roundTime.text = GameManager.Get().GameConfig.TurnTime.ToString();
 		}
 	}
 
 	private void EditMaxRoundTime(string name)
 	{
-		if (this.m_maxRoundTime.text.IsNullOrEmpty())
+		if (m_maxRoundTime.text.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.EditMaxRoundTime(string)).MethodHandle;
-			}
-			return;
 		}
 		try
 		{
-			this.m_maxRoundTime.text = int.Parse(this.m_maxRoundTime.text).ToString();
+			m_maxRoundTime.text = int.Parse(m_maxRoundTime.text).ToString();
 		}
 		catch (FormatException)
 		{
-			this.m_maxRoundTime.text = string.Empty;
+			m_maxRoundTime.text = string.Empty;
 		}
 	}
 
@@ -294,262 +298,103 @@ public class UIGameSettingsPanel : UIScene
 	{
 		if (GameSubtype.HasMod(GameSubType.SubTypeMods.RankedFreelancerSelection))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SetupOptionRestrictions(GameSubType)).MethodHandle;
-			}
-			for (int i = 0; i < this.m_teamAPlayersButtons.Length; i++)
-			{
-				this.m_teamAPlayersButtons[i].SetChecked(i == 4);
-				this.m_teamAPlayersButtons[i].Clickable = false;
-			}
-			for (;;)
-			{
-				switch (3)
+					break;
+				default:
 				{
-				case 0:
-					continue;
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					for (int i = 0; i < m_teamAPlayersButtons.Length; i++)
+					{
+						m_teamAPlayersButtons[i].SetChecked(i == 4);
+						m_teamAPlayersButtons[i].Clickable = false;
+					}
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							break;
+						default:
+						{
+							for (int j = 0; j < m_teamBPlayersButtons.Length; j++)
+							{
+								m_teamBPlayersButtons[j].SetChecked(j == 4);
+								m_teamBPlayersButtons[j].Clickable = false;
+							}
+							return;
+						}
+						}
+					}
 				}
-				break;
-			}
-			for (int j = 0; j < this.m_teamBPlayersButtons.Length; j++)
-			{
-				this.m_teamBPlayersButtons[j].SetChecked(j == 4);
-				this.m_teamBPlayersButtons[j].Clickable = false;
+				}
 			}
 		}
-		else
+		for (int k = 0; k < m_teamAPlayersButtons.Length; k++)
 		{
-			for (int k = 0; k < this.m_teamAPlayersButtons.Length; k++)
+			m_teamAPlayersButtons[k].Clickable = true;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				this.m_teamAPlayersButtons[k].Clickable = true;
+			case 0:
+				continue;
 			}
-			for (;;)
+			for (int l = 0; l < m_teamBPlayersButtons.Length; l++)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_teamBPlayersButtons[l].Clickable = true;
 			}
-			for (int l = 0; l < this.m_teamBPlayersButtons.Length; l++)
-			{
-				this.m_teamBPlayersButtons[l].Clickable = true;
-			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public void SetVisible(bool visible)
 	{
-		this.m_lastVisible = visible;
+		m_lastVisible = visible;
 		if (visible)
 		{
 			ClientGameManager clientGameManager = ClientGameManager.Get();
-			this.SetupOptionRestrictions(GameManager.Get().GameConfig.InstanceSubType);
-			if (!this.m_theMapList.IsNullOrEmpty<UIGameSettingsPanel.MapSelectButton>())
+			SetupOptionRestrictions(GameManager.Get().GameConfig.InstanceSubType);
+			if (!m_theMapList.IsNullOrEmpty())
 			{
-				for (int i = 0; i < this.m_theMapList.Count; i++)
+				for (int i = 0; i < m_theMapList.Count; i++)
 				{
-					if (this.m_theMapList[i].MapConfig != null)
+					if (m_theMapList[i].MapConfig == null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SetVisible(bool)).MethodHandle;
-						}
-						bool flag;
-						if (clientGameManager.IsMapInGameType(GameType.Custom, this.m_theMapList[i].MapConfig.Map, out flag))
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!flag)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.m_theMapList[i].ToggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle |= FontStyles.Strikethrough;
-								goto IL_10C;
-							}
-						}
-						this.m_theMapList[i].ToggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle &= (FontStyles)(-0x41);
-					}
-					IL_10C:;
-				}
-			}
-		}
-		this.m_cancelButton.ResetMouseState();
-		this.m_updateButton.ResetMouseState();
-		for (int j = 0; j < this.m_containers.Length; j++)
-		{
-			UIManager.SetGameObjectActive(this.m_containers[j], visible, null);
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (UICharacterSelectScreenController.Get() != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (visible)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
 						continue;
 					}
-					break;
-				}
-				UICharacterSelectScreenController.Get().UpdateReadyCancelButtonStates();
-				if (UICharacterSelectScreenController.Get().m_changeFreelancerBtn.gameObject.activeSelf)
-				{
-					UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_changeFreelancerBtn, false, null);
-				}
-				UICharacterSelectScreenController.Get().SetCharacterSelectVisible(false);
-				UICharacterSelectScreenController.Get().m_charSettingsPanel.SetVisible(false, UICharacterSelectCharacterSettingsPanel.TabPanel.None);
-				if (UIPlayerProgressPanel.Get().IsVisible())
-				{
-					for (;;)
+					while (true)
 					{
-						switch (6)
+						switch (4)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					UIPlayerProgressPanel.Get().SetVisible(false, true);
-				}
-			}
-			else
-			{
-				if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
-				{
-					for (;;)
+					if (1 == 0)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (!UICharacterSelectScreenController.Get().m_changeFreelancerBtn.gameObject.activeSelf)
+					if (clientGameManager.IsMapInGameType(GameType.Custom, m_theMapList[i].MapConfig.Map, out bool isActive))
 					{
-						UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_changeFreelancerBtn, true, null);
-					}
-				}
-				UICharacterSelectScreenController.Get().UpdateReadyCancelButtonStates();
-			}
-		}
-		if (UICharacterScreen.Get() != null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UICharacterScreen.Get().DoRefreshFunctions(1);
-		}
-	}
-
-	private void SetupMapButtons(LobbyGameConfig gameConfig)
-	{
-		GameSubType instanceSubType = gameConfig.InstanceSubType;
-		ScrollRect scrollRect = this.m_mapListContainer.GetComponentInParent<ScrollRect>();
-		int num = 0;
-		for (int i = 0; i < instanceSubType.GameMapConfigs.Count; i++)
-		{
-			GameMapConfig gameMapConfig = instanceSubType.GameMapConfigs[i];
-			if (gameMapConfig.IsActive)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SetupMapButtons(LobbyGameConfig)).MethodHandle;
-				}
-				GameWideData.Get().GetMapDisplayName(gameMapConfig.Map);
-				if (num >= this.m_theMapList.Count)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					_ToggleSwap toggleSwap = UnityEngine.Object.Instantiate<_ToggleSwap>(this.m_mapItemPrefab);
-					if (scrollRect != null)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -558,34 +403,52 @@ public class UIGameSettingsPanel : UIScene
 							}
 							break;
 						}
-						_MouseEventPasser mouseEventPasser = toggleSwap.m_onButton.gameObject.AddComponent<_MouseEventPasser>();
-						mouseEventPasser.AddNewHandler(scrollRect);
-						_MouseEventPasser mouseEventPasser2 = toggleSwap.m_offButton.gameObject.AddComponent<_MouseEventPasser>();
-						mouseEventPasser2.AddNewHandler(scrollRect);
-						UIEventTriggerUtils.AddListener(toggleSwap.gameObject, EventTriggerType.Scroll, delegate(BaseEventData data)
+						if (!isActive)
 						{
-							scrollRect.OnScroll((PointerEventData)data);
-						});
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							m_theMapList[i].ToggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle |= FontStyles.Strikethrough;
+							continue;
+						}
 					}
-					toggleSwap.transform.SetParent(this.m_mapListContainer.transform);
-					toggleSwap.transform.localPosition = Vector3.zero;
-					toggleSwap.transform.localScale = Vector3.one;
-					toggleSwap.changedNotify = new _ToggleSwap.NotifyChanged(this.MapClicked);
-					this.m_theMapList.Add(new UIGameSettingsPanel.MapSelectButton
-					{
-						MapConfig = gameMapConfig,
-						ToggleBtn = toggleSwap
-					});
+					m_theMapList[i].ToggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle &= (FontStyles)(-65);
 				}
-				_ToggleSwap toggleBtn = this.m_theMapList[num].ToggleBtn;
-				this.m_theMapList[num].MapConfig = gameMapConfig;
-				toggleBtn.SetOn(gameConfig.Map == gameMapConfig.Map, false);
-				UIManager.SetGameObjectActive(toggleBtn, true, null);
-				toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().text = GameWideData.Get().GetMapDisplayName(gameMapConfig.Map);
-				bool flag;
-				if (ClientGameManager.Get().IsMapInGameType(GameType.Custom, gameMapConfig.Map, out flag))
+			}
+		}
+		m_cancelButton.ResetMouseState();
+		m_updateButton.ResetMouseState();
+		for (int j = 0; j < m_containers.Length; j++)
+		{
+			UIManager.SetGameObjectActive(m_containers[j], visible);
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (UICharacterSelectScreenController.Get() != null)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (visible)
+				{
+					while (true)
 					{
 						switch (2)
 						{
@@ -594,68 +457,217 @@ public class UIGameSettingsPanel : UIScene
 						}
 						break;
 					}
-					if (!flag)
+					UICharacterSelectScreenController.Get().UpdateReadyCancelButtonStates();
+					if (UICharacterSelectScreenController.Get().m_changeFreelancerBtn.gameObject.activeSelf)
 					{
-						for (;;)
+						UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_changeFreelancerBtn, false);
+					}
+					UICharacterSelectScreenController.Get().SetCharacterSelectVisible(false);
+					UICharacterSelectScreenController.Get().m_charSettingsPanel.SetVisible(false);
+					if (UIPlayerProgressPanel.Get().IsVisible())
+					{
+						while (true)
 						{
-							switch (5)
+							switch (6)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle |= FontStyles.Strikethrough;
+						UIPlayerProgressPanel.Get().SetVisible(false);
 					}
 				}
-				num++;
+				else
+				{
+					if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!UICharacterSelectScreenController.Get().m_changeFreelancerBtn.gameObject.activeSelf)
+						{
+							UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_changeFreelancerBtn, true);
+						}
+					}
+					UICharacterSelectScreenController.Get().UpdateReadyCancelButtonStates();
+				}
 			}
+			if (UICharacterScreen.Get() != null)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					UICharacterScreen.Get().DoRefreshFunctions(1);
+					return;
+				}
+			}
+			return;
 		}
-		for (;;)
+	}
+
+	private void SetupMapButtons(LobbyGameConfig gameConfig)
+	{
+		GameSubType instanceSubType = gameConfig.InstanceSubType;
+		ScrollRect scrollRect = m_mapListContainer.GetComponentInParent<ScrollRect>();
+		int num = 0;
+		for (int i = 0; i < instanceSubType.GameMapConfigs.Count; i++)
+		{
+			GameMapConfig gameMapConfig = instanceSubType.GameMapConfigs[i];
+			if (!gameMapConfig.IsActive)
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			GameWideData.Get().GetMapDisplayName(gameMapConfig.Map);
+			if (num >= m_theMapList.Count)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				_ToggleSwap toggleSwap = UnityEngine.Object.Instantiate(m_mapItemPrefab);
+				if (scrollRect != null)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					_MouseEventPasser mouseEventPasser = toggleSwap.m_onButton.gameObject.AddComponent<_MouseEventPasser>();
+					mouseEventPasser.AddNewHandler(scrollRect);
+					_MouseEventPasser mouseEventPasser2 = toggleSwap.m_offButton.gameObject.AddComponent<_MouseEventPasser>();
+					mouseEventPasser2.AddNewHandler(scrollRect);
+					UIEventTriggerUtils.AddListener(toggleSwap.gameObject, EventTriggerType.Scroll, delegate(BaseEventData data)
+					{
+						scrollRect.OnScroll((PointerEventData)data);
+					});
+				}
+				toggleSwap.transform.SetParent(m_mapListContainer.transform);
+				toggleSwap.transform.localPosition = Vector3.zero;
+				toggleSwap.transform.localScale = Vector3.one;
+				toggleSwap.changedNotify = MapClicked;
+				m_theMapList.Add(new MapSelectButton
+				{
+					MapConfig = gameMapConfig,
+					ToggleBtn = toggleSwap
+				});
+			}
+			_ToggleSwap toggleBtn = m_theMapList[num].ToggleBtn;
+			m_theMapList[num].MapConfig = gameMapConfig;
+			toggleBtn.SetOn(gameConfig.Map == gameMapConfig.Map);
+			UIManager.SetGameObjectActive(toggleBtn, true);
+			toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().text = GameWideData.Get().GetMapDisplayName(gameMapConfig.Map);
+			if (ClientGameManager.Get().IsMapInGameType(GameType.Custom, gameMapConfig.Map, out bool isActive))
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!isActive)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle |= FontStyles.Strikethrough;
+				}
+			}
+			num++;
+		}
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		int count = instanceSubType.GameMapConfigs.Count;
-		float y = (this.m_mapListContainer.cellSize.y + this.m_mapListContainer.spacing.y) * (float)count * -1f;
-		(this.m_mapListContainer.gameObject.transform as RectTransform).offsetMin = new Vector2((this.m_mapListContainer.gameObject.transform as RectTransform).offsetMin.x, y);
-		(this.m_mapListContainer.gameObject.transform as RectTransform).offsetMax = new Vector2((this.m_mapListContainer.gameObject.transform as RectTransform).offsetMax.x, 0f);
-		for (int j = count; j < this.m_theMapList.Count; j++)
-		{
-			UIManager.SetGameObjectActive(this.m_theMapList[j].ToggleBtn, false, null);
-			this.m_theMapList[j].MapConfig = null;
-		}
-		for (;;)
-		{
-			switch (1)
+			int count = instanceSubType.GameMapConfigs.Count;
+			Vector2 cellSize = m_mapListContainer.cellSize;
+			float y = cellSize.y;
+			Vector2 spacing = m_mapListContainer.spacing;
+			float y2 = (y + spacing.y) * (float)count * -1f;
+			RectTransform obj = m_mapListContainer.gameObject.transform as RectTransform;
+			Vector2 offsetMin = (m_mapListContainer.gameObject.transform as RectTransform).offsetMin;
+			obj.offsetMin = new Vector2(offsetMin.x, y2);
+			RectTransform obj2 = m_mapListContainer.gameObject.transform as RectTransform;
+			Vector2 offsetMax = (m_mapListContainer.gameObject.transform as RectTransform).offsetMax;
+			obj2.offsetMax = new Vector2(offsetMax.x, 0f);
+			for (int j = count; j < m_theMapList.Count; j++)
 			{
-			case 0:
-				continue;
+				UIManager.SetGameObjectActive(m_theMapList[j].ToggleBtn, false);
+				m_theMapList[j].MapConfig = null;
 			}
-			break;
+			while (true)
+			{
+				switch (1)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
 		}
 	}
 
 	public void Setup(LobbyGameConfig gameConfig, LobbyTeamInfo teamInfo, LobbyPlayerInfo playerInfo)
 	{
-		this.isSetup = false;
-		this.m_teamInfo = teamInfo;
-		this.m_playerInfo = playerInfo;
-		this.SetChecked(this.m_teamAPlayersButtons, gameConfig.TeamAPlayers);
-		this.SetChecked(this.m_teamBPlayersButtons, gameConfig.TeamBPlayers);
-		this.SetChecked(this.m_spectatorButtons, gameConfig.Spectators);
-		this.PopulateTeam(gameConfig.TeamAPlayers, teamInfo.TeamAPlayerInfo, this.m_teamAMemberEntries);
-		this.PopulateTeam(gameConfig.TeamBPlayers, teamInfo.TeamBPlayerInfo, this.m_teamBMemberEntries);
-		this.PopulateTeam(gameConfig.Spectators, teamInfo.SpectatorInfo, this.m_spectatorMemberEntries);
-		InputField gameNameInputField = this.m_gameNameInputField;
-		string text;
-		if ((text = gameConfig.RoomName) == null)
+		isSetup = false;
+		m_teamInfo = teamInfo;
+		m_playerInfo = playerInfo;
+		SetChecked(m_teamAPlayersButtons, gameConfig.TeamAPlayers);
+		SetChecked(m_teamBPlayersButtons, gameConfig.TeamBPlayers);
+		SetChecked(m_spectatorButtons, gameConfig.Spectators);
+		PopulateTeam(gameConfig.TeamAPlayers, teamInfo.TeamAPlayerInfo, m_teamAMemberEntries);
+		PopulateTeam(gameConfig.TeamBPlayers, teamInfo.TeamBPlayerInfo, m_teamBMemberEntries);
+		PopulateTeam(gameConfig.Spectators, teamInfo.SpectatorInfo, m_spectatorMemberEntries);
+		InputField gameNameInputField = m_gameNameInputField;
+		string text = gameConfig.RoomName;
+		if (text == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -664,20 +676,20 @@ public class UIGameSettingsPanel : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.Setup(LobbyGameConfig, LobbyTeamInfo, LobbyPlayerInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			text = string.Empty;
 		}
 		gameNameInputField.text = text;
-		this.m_roundTime.text = gameConfig.TurnTime.ToString();
-		this.m_allowDuplicateCharacters.isOn = gameConfig.HasGameOption(GameOptionFlag.AllowDuplicateCharacters);
-		this.m_allowPausing.isOn = gameConfig.HasGameOption(GameOptionFlag.AllowPausing);
+		m_roundTime.text = gameConfig.TurnTime.ToString();
+		m_allowDuplicateCharacters.isOn = gameConfig.HasGameOption(GameOptionFlag.AllowDuplicateCharacters);
+		m_allowPausing.isOn = gameConfig.HasGameOption(GameOptionFlag.AllowPausing);
 		bool isOn = true;
 		if (gameConfig.InstanceSubType.GameOverrides != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -687,9 +699,9 @@ public class UIGameSettingsPanel : UIScene
 				break;
 			}
 			int? initialTimeBankConsumables = gameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables;
-			if (initialTimeBankConsumables != null)
+			if (initialTimeBankConsumables.HasValue)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -698,9 +710,10 @@ public class UIGameSettingsPanel : UIScene
 					}
 					break;
 				}
-				if (gameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables <= 0)
+				int? initialTimeBankConsumables2 = gameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables;
+				if (initialTimeBankConsumables2.HasValue && initialTimeBankConsumables2.GetValueOrDefault() <= 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -713,77 +726,78 @@ public class UIGameSettingsPanel : UIScene
 				}
 			}
 		}
-		this.m_useTimeBank.isOn = isOn;
-		this.SetupMapButtons(gameConfig);
-		this.SetInteractable(this.m_playerInfo.IsGameOwner);
-		this.isSetup = true;
+		m_useTimeBank.isOn = isOn;
+		SetupMapButtons(gameConfig);
+		SetInteractable(m_playerInfo.IsGameOwner);
+		isSetup = true;
 	}
 
 	public void UpdateCharacterList(LobbyPlayerInfo playerInfo, LobbyTeamInfo teamInfo, LobbyGameInfo gameInfo)
 	{
-		this.m_teamInfo = teamInfo;
-		this.m_playerInfo = playerInfo;
-		int @checked = this.GetChecked(this.m_teamAPlayersButtons);
-		int checked2 = this.GetChecked(this.m_teamBPlayersButtons);
-		int checked3 = this.GetChecked(this.m_spectatorButtons);
-		this.PopulateTeam(@checked, teamInfo.TeamAPlayerInfo, this.m_teamAMemberEntries);
-		this.PopulateTeam(checked2, teamInfo.TeamBPlayerInfo, this.m_teamBMemberEntries);
-		this.PopulateTeam(checked3, teamInfo.SpectatorInfo, this.m_spectatorMemberEntries);
+		m_teamInfo = teamInfo;
+		m_playerInfo = playerInfo;
+		int @checked = GetChecked(m_teamAPlayersButtons);
+		int checked2 = GetChecked(m_teamBPlayersButtons);
+		int checked3 = GetChecked(m_spectatorButtons);
+		PopulateTeam(@checked, teamInfo.TeamAPlayerInfo, m_teamAMemberEntries);
+		PopulateTeam(checked2, teamInfo.TeamBPlayerInfo, m_teamBMemberEntries);
+		PopulateTeam(checked3, teamInfo.SpectatorInfo, m_spectatorMemberEntries);
 	}
 
 	public void MapClicked(_ToggleSwap btn)
 	{
-		for (int i = 0; i < this.m_theMapList.Count; i++)
+		for (int i = 0; i < m_theMapList.Count; i++)
 		{
-			if (this.m_theMapList[i].ToggleBtn == btn)
+			if (!(m_theMapList[i].ToggleBtn == btn))
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (1)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!ClientGameManager.Get().IsMapInGameType(GameType.Custom, m_theMapList[i].MapConfig.Map, out bool isActive))
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.MapClicked(_ToggleSwap)).MethodHandle;
+				case 0:
+					continue;
 				}
-				bool flag;
-				if (ClientGameManager.Get().IsMapInGameType(GameType.Custom, this.m_theMapList[i].MapConfig.Map, out flag))
+				break;
+			}
+			if (isActive)
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (2)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!flag)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_theMapList[i].ToggleBtn.SetOn(false, false);
-						UIFrontEnd.PlaySound(FrontEndButtonSounds.NotifyWarning);
-						return;
-					}
+				case 0:
+					continue;
 				}
+				m_theMapList[i].ToggleBtn.SetOn(false);
+				UIFrontEnd.PlaySound(FrontEndButtonSounds.NotifyWarning);
+				return;
 			}
 		}
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
-		for (int j = 0; j < this.m_theMapList.Count; j++)
+		for (int j = 0; j < m_theMapList.Count; j++)
 		{
-			this.m_theMapList[j].ToggleBtn.SetOn(this.m_theMapList[j].ToggleBtn == btn, false);
+			m_theMapList[j].ToggleBtn.SetOn(m_theMapList[j].ToggleBtn == btn);
 		}
 	}
 
@@ -791,206 +805,145 @@ public class UIGameSettingsPanel : UIScene
 	{
 		LobbyGameConfig lobbyGameConfig = new LobbyGameConfig();
 		string map = string.Empty;
-		int count = this.m_theMapList.Count;
-		for (int i = 0; i < count; i++)
+		int count = m_theMapList.Count;
+		int num = 0;
+		while (true)
 		{
-			if (this.m_theMapList[i].ToggleBtn.IsChecked())
+			if (num < count)
 			{
-				map = this.m_theMapList[i].MapConfig.Map;
-				IL_6E:
-				lobbyGameConfig.Map = map;
-				int @checked = this.GetChecked(this.m_teamAPlayersButtons);
-				int checked2 = this.GetChecked(this.m_teamBPlayersButtons);
-				int checked3 = this.GetChecked(this.m_spectatorButtons);
-				lobbyGameConfig.RoomName = this.m_gameNameInputField.text;
-				lobbyGameConfig.TeamAPlayers = @checked;
-				lobbyGameConfig.TeamBPlayers = checked2;
-				lobbyGameConfig.Spectators = checked3;
-				lobbyGameConfig.GameType = GameType.Custom;
-				lobbyGameConfig.SubTypes = new List<GameSubType>();
-				lobbyGameConfig.SubTypes.Add(GameManager.Get().GameConfig.InstanceSubType);
-				lobbyGameConfig.InstanceSubTypeBit = GameManager.Get().GameConfig.InstanceSubTypeBit;
-				if (lobbyGameConfig.InstanceSubType.GameOverrides == null)
+				if (m_theMapList[num].ToggleBtn.IsChecked())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					lobbyGameConfig.InstanceSubType.GameOverrides = new GameValueOverrides();
-				}
-				try
-				{
-					lobbyGameConfig.InstanceSubType.GameOverrides.SetTimeSpanOverride(GameValueOverrides.OverrideAbleGameValue.TurnTimeSpan, new TimeSpan?(GameSubType.ConformTurnTimeSpanFromSeconds(double.Parse(this.m_roundTime.text))));
-				}
-				catch (Exception exception)
-				{
-					Log.Exception(exception);
-				}
-				if (this.m_allowDuplicateCharacters.isOn)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					lobbyGameConfig.GameOptionFlags = lobbyGameConfig.GameOptionFlags.WithGameOption(GameOptionFlag.AllowDuplicateCharacters);
-				}
-				if (this.m_allowPausing.isOn)
-				{
-					lobbyGameConfig.GameOptionFlags = lobbyGameConfig.GameOptionFlags.WithGameOption(GameOptionFlag.AllowPausing);
-				}
-				try
-				{
-					if (this.m_useTimeBank.isOn)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						lobbyGameConfig.InstanceSubType.GameOverrides.SetIntOverride(GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables, null);
-					}
-					else
-					{
-						lobbyGameConfig.InstanceSubType.GameOverrides.SetIntOverride(GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables, new int?(0));
-					}
-				}
-				catch (Exception exception2)
-				{
-					Log.Exception(exception2);
-				}
-				this.m_teamInfo.TeamPlayerInfo.Clear();
-				int num = 1;
-				foreach (UITeamMemberEntry uiteamMemberEntry in this.m_teamAMemberEntries)
-				{
-					LobbyPlayerInfo playerInfo = uiteamMemberEntry.GetPlayerInfo();
-					if (playerInfo != null)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						playerInfo.CustomGameVisualSlot = num;
-						this.m_teamInfo.TeamPlayerInfo.Add(playerInfo);
-					}
-					num++;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
+					map = m_theMapList[num].MapConfig.Map;
 					break;
 				}
-				num = 1;
-				foreach (UITeamMemberEntry uiteamMemberEntry2 in this.m_teamBMemberEntries)
-				{
-					LobbyPlayerInfo playerInfo2 = uiteamMemberEntry2.GetPlayerInfo();
-					if (playerInfo2 != null)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						playerInfo2.CustomGameVisualSlot = num;
-						this.m_teamInfo.TeamPlayerInfo.Add(playerInfo2);
-					}
-					num++;
-				}
-				num = 1;
-				foreach (UITeamMemberEntry uiteamMemberEntry3 in this.m_spectatorMemberEntries)
-				{
-					LobbyPlayerInfo playerInfo3 = uiteamMemberEntry3.GetPlayerInfo();
-					if (playerInfo3 != null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						playerInfo3.CustomGameVisualSlot = num;
-						this.m_teamInfo.TeamPlayerInfo.Add(playerInfo3);
-					}
-					num++;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				AppState_CharacterSelect.Get().OnUpdateGameSettingsClicked(lobbyGameConfig, this.m_teamInfo, closeSettingsWindow);
-				return;
+				num++;
+				continue;
 			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			break;
 		}
-		for (;;)
+		lobbyGameConfig.Map = map;
+		int @checked = GetChecked(m_teamAPlayersButtons);
+		int checked2 = GetChecked(m_teamBPlayersButtons);
+		int checked3 = GetChecked(m_spectatorButtons);
+		lobbyGameConfig.RoomName = m_gameNameInputField.text;
+		lobbyGameConfig.TeamAPlayers = @checked;
+		lobbyGameConfig.TeamBPlayers = checked2;
+		lobbyGameConfig.Spectators = checked3;
+		lobbyGameConfig.GameType = GameType.Custom;
+		lobbyGameConfig.SubTypes = new List<GameSubType>();
+		lobbyGameConfig.SubTypes.Add(GameManager.Get().GameConfig.InstanceSubType);
+		lobbyGameConfig.InstanceSubTypeBit = GameManager.Get().GameConfig.InstanceSubTypeBit;
+		if (lobbyGameConfig.InstanceSubType.GameOverrides == null)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			lobbyGameConfig.InstanceSubType.GameOverrides = new GameValueOverrides();
+		}
+		try
+		{
+			lobbyGameConfig.InstanceSubType.GameOverrides.SetTimeSpanOverride(GameValueOverrides.OverrideAbleGameValue.TurnTimeSpan, GameSubType.ConformTurnTimeSpanFromSeconds(double.Parse(m_roundTime.text)));
+		}
+		catch (Exception exception)
+		{
+			Log.Exception(exception);
+		}
+		if (m_allowDuplicateCharacters.isOn)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			lobbyGameConfig.GameOptionFlags = lobbyGameConfig.GameOptionFlags.WithGameOption(GameOptionFlag.AllowDuplicateCharacters);
+		}
+		if (m_allowPausing.isOn)
+		{
+			lobbyGameConfig.GameOptionFlags = lobbyGameConfig.GameOptionFlags.WithGameOption(GameOptionFlag.AllowPausing);
+		}
+		try
+		{
+			if (m_useTimeBank.isOn)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						break;
+					default:
+						lobbyGameConfig.InstanceSubType.GameOverrides.SetIntOverride(GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables, null);
+						goto end_IL_01ce;
+					}
+				}
+			}
+			lobbyGameConfig.InstanceSubType.GameOverrides.SetIntOverride(GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables, 0);
+			end_IL_01ce:;
+		}
+		catch (Exception exception2)
+		{
+			Log.Exception(exception2);
+		}
+		m_teamInfo.TeamPlayerInfo.Clear();
+		int num2 = 1;
+		UITeamMemberEntry[] teamAMemberEntries = m_teamAMemberEntries;
+		foreach (UITeamMemberEntry uITeamMemberEntry in teamAMemberEntries)
+		{
+			LobbyPlayerInfo playerInfo = uITeamMemberEntry.GetPlayerInfo();
+			if (playerInfo != null)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				playerInfo.CustomGameVisualSlot = num2;
+				m_teamInfo.TeamPlayerInfo.Add(playerInfo);
+			}
+			num2++;
+		}
+		while (true)
 		{
 			switch (1)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.UpdateClickedHelper(bool)).MethodHandle;
-			goto IL_6E;
-		}
-		goto IL_6E;
-	}
-
-	public void UpdateClicked(BaseEventData data)
-	{
-		this.UpdateClickedHelper(true);
-	}
-
-	public void BalanceTeamsClicked(BaseEventData data)
-	{
-		BalancedTeamRequest request = new BalancedTeamRequest();
-		request.Slots = new List<BalanceTeamSlot>();
-		IEnumerator<UITeamMemberEntry> enumerator = this.m_teamAMemberEntries.Union(this.m_teamBMemberEntries).GetEnumerator();
-		try
-		{
-			while (enumerator.MoveNext())
+			num2 = 1;
+			UITeamMemberEntry[] teamBMemberEntries = m_teamBMemberEntries;
+			foreach (UITeamMemberEntry uITeamMemberEntry2 in teamBMemberEntries)
 			{
-				UITeamMemberEntry uiteamMemberEntry = enumerator.Current;
-				LobbyPlayerInfo playerInfo = uiteamMemberEntry.GetPlayerInfo();
-				if (playerInfo != null)
+				LobbyPlayerInfo playerInfo2 = uITeamMemberEntry2.GetPlayerInfo();
+				if (playerInfo2 != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -999,13 +952,79 @@ public class UIGameSettingsPanel : UIScene
 						}
 						break;
 					}
-					if (!true)
+					playerInfo2.CustomGameVisualSlot = num2;
+					m_teamInfo.TeamPlayerInfo.Add(playerInfo2);
+				}
+				num2++;
+			}
+			num2 = 1;
+			UITeamMemberEntry[] spectatorMemberEntries = m_spectatorMemberEntries;
+			foreach (UITeamMemberEntry uITeamMemberEntry3 in spectatorMemberEntries)
+			{
+				LobbyPlayerInfo playerInfo3 = uITeamMemberEntry3.GetPlayerInfo();
+				if (playerInfo3 != null)
+				{
+					while (true)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.BalanceTeamsClicked(BaseEventData)).MethodHandle;
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					playerInfo3.CustomGameVisualSlot = num2;
+					m_teamInfo.TeamPlayerInfo.Add(playerInfo3);
+				}
+				num2++;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				AppState_CharacterSelect.Get().OnUpdateGameSettingsClicked(lobbyGameConfig, m_teamInfo, closeSettingsWindow);
+				return;
+			}
+		}
+	}
+
+	public void UpdateClicked(BaseEventData data)
+	{
+		UpdateClickedHelper();
+	}
+
+	public void BalanceTeamsClicked(BaseEventData data)
+	{
+		BalancedTeamRequest request = new BalancedTeamRequest();
+		request.Slots = new List<BalanceTeamSlot>();
+		IEnumerator<UITeamMemberEntry> enumerator = m_teamAMemberEntries.Union(m_teamBMemberEntries).GetEnumerator();
+		try
+		{
+			while (enumerator.MoveNext())
+			{
+				UITeamMemberEntry current = enumerator.Current;
+				LobbyPlayerInfo playerInfo = current.GetPlayerInfo();
+				if (playerInfo != null)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					if (!playerInfo.IsSpectator)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -1016,7 +1035,7 @@ public class UIGameSettingsPanel : UIScene
 						}
 						request.Slots.Add(new BalanceTeamSlot
 						{
-							Team = uiteamMemberEntry.GetTeamId(),
+							Team = current.GetTeamId(),
 							PlayerId = playerInfo.PlayerId,
 							AccountId = playerInfo.AccountId,
 							SelectedCharacter = playerInfo.CharacterType,
@@ -1025,7 +1044,7 @@ public class UIGameSettingsPanel : UIScene
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1039,111 +1058,41 @@ public class UIGameSettingsPanel : UIScene
 		{
 			if (enumerator != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						enumerator.Dispose();
+						goto end_IL_00fb;
 					}
-					break;
 				}
-				enumerator.Dispose();
 			}
+			end_IL_00fb:;
 		}
 		ClientGameManager.Get().LobbyInterface.RequestBalancedTeam(request, delegate(BalancedTeamResponse response)
 		{
 			if (!response.Success)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameSettingsPanel.<BalanceTeamsClicked>c__AnonStorey2.<>m__0(BalancedTeamResponse)).MethodHandle;
-				}
-				UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsCancel);
-				string text;
-				if (response.LocalizedFailure != null)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					text = response.LocalizedFailure.ToString();
-				}
-				else
-				{
-					text = response.ErrorMessage;
-				}
-				string text2 = text;
-				TextConsole.Get().Write(new TextConsole.Message
-				{
-					Text = text2,
-					MessageType = ConsoleMessageType.SystemMessage
-				}, null);
-				return;
-			}
-			UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsOK);
-			List<LobbyPlayerInfo> list = new List<LobbyPlayerInfo>();
-			List<LobbyPlayerInfo> list2 = new List<LobbyPlayerInfo>();
-			using (List<BalanceTeamSlot>.Enumerator enumerator2 = response.Slots.GetEnumerator())
-			{
-				while (enumerator2.MoveNext())
-				{
-					BalanceTeamSlot slot = enumerator2.Current;
-					if (request.Slots.Exists((BalanceTeamSlot p) => p.PlayerId == slot.PlayerId && p.Team != slot.Team))
+					default:
 					{
-						for (;;)
+						if (1 == 0)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							/*OpCode not supported: LdMemberToken*/;
 						}
-						IEnumerable<UITeamMemberEntry> source = this.m_teamAMemberEntries.Union(this.m_teamBMemberEntries);
-						UITeamMemberEntry uiteamMemberEntry2 = source.FirstOrDefault(delegate(UITeamMemberEntry p)
+						UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsCancel);
+						string text;
+						if (response.LocalizedFailure != null)
 						{
-							bool result;
-							if (p.GetPlayerInfo() != null)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!true)
-								{
-									RuntimeMethodHandle runtimeMethodHandle3 = methodof(UIGameSettingsPanel.<BalanceTeamsClicked>c__AnonStorey2.<BalanceTeamsClicked>c__AnonStorey3.<>m__1(UITeamMemberEntry)).MethodHandle;
-								}
-								result = (p.GetPlayerInfo().PlayerId == slot.PlayerId);
-							}
-							else
-							{
-								result = false;
-							}
-							return result;
-						});
-						if (uiteamMemberEntry2 != null)
-						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -1152,10 +1101,85 @@ public class UIGameSettingsPanel : UIScene
 								}
 								break;
 							}
-							LobbyPlayerInfo playerInfo2 = uiteamMemberEntry2.GetPlayerInfo();
+							text = response.LocalizedFailure.ToString();
+						}
+						else
+						{
+							text = response.ErrorMessage;
+						}
+						string text2 = text;
+						TextConsole.Get().Write(new TextConsole.Message
+						{
+							Text = text2,
+							MessageType = ConsoleMessageType.SystemMessage
+						});
+						return;
+					}
+					}
+				}
+			}
+			UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsOK);
+			List<LobbyPlayerInfo> list = new List<LobbyPlayerInfo>();
+			List<LobbyPlayerInfo> list2 = new List<LobbyPlayerInfo>();
+			using (List<BalanceTeamSlot>.Enumerator enumerator2 = response.Slots.GetEnumerator())
+			{
+				BalanceTeamSlot slot = default(BalanceTeamSlot);
+				while (enumerator2.MoveNext())
+				{
+					slot = enumerator2.Current;
+					if (request.Slots.Exists((BalanceTeamSlot p) => p.PlayerId == slot.PlayerId && p.Team != slot.Team))
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						IEnumerable<UITeamMemberEntry> source = m_teamAMemberEntries.Union(m_teamBMemberEntries);
+						UITeamMemberEntry uITeamMemberEntry = source.FirstOrDefault(delegate(UITeamMemberEntry p)
+						{
+							int result;
+							if (p.GetPlayerInfo() != null)
+							{
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (1 == 0)
+								{
+									/*OpCode not supported: LdMemberToken*/;
+								}
+								result = ((p.GetPlayerInfo().PlayerId == slot.PlayerId) ? 1 : 0);
+							}
+							else
+							{
+								result = 0;
+							}
+							return (byte)result != 0;
+						});
+						if (uITeamMemberEntry != null)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							LobbyPlayerInfo playerInfo2 = uITeamMemberEntry.GetPlayerInfo();
 							if (playerInfo2 != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (4)
 									{
@@ -1164,7 +1188,7 @@ public class UIGameSettingsPanel : UIScene
 									}
 									break;
 								}
-								this.RemovePlayer(playerInfo2);
+								RemovePlayer(playerInfo2);
 								if (slot.Team == Team.TeamA)
 								{
 									list.Add(playerInfo2);
@@ -1177,7 +1201,7 @@ public class UIGameSettingsPanel : UIScene
 						}
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1187,17 +1211,17 @@ public class UIGameSettingsPanel : UIScene
 					break;
 				}
 			}
-			foreach (LobbyPlayerInfo lobbyPlayerInfo in list)
+			foreach (LobbyPlayerInfo item in list)
 			{
-				lobbyPlayerInfo.TeamId = Team.TeamA;
-				this.AddPlayer(lobbyPlayerInfo);
+				item.TeamId = Team.TeamA;
+				AddPlayer(item);
 			}
-			foreach (LobbyPlayerInfo lobbyPlayerInfo2 in list2)
+			foreach (LobbyPlayerInfo item2 in list2)
 			{
-				lobbyPlayerInfo2.TeamId = Team.TeamB;
-				this.AddPlayer(lobbyPlayerInfo2);
+				item2.TeamId = Team.TeamB;
+				AddPlayer(item2);
 			}
-			this.UpdateClickedHelper(false);
+			UpdateClickedHelper(false);
 		});
 	}
 
@@ -1211,37 +1235,39 @@ public class UIGameSettingsPanel : UIScene
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
 		if (btnClicked.GetTeam() == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					UpdateTeamSize(m_teamAMemberEntries, m_teamAPlayersButtons, btnClicked);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.TeamSizeButtonClicked(UITeamSizeButton)).MethodHandle;
-			}
-			this.UpdateTeamSize(this.m_teamAMemberEntries, this.m_teamAPlayersButtons, btnClicked);
 		}
-		else if (btnClicked.GetTeam() == 1)
+		if (btnClicked.GetTeam() == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UpdateTeamSize(m_teamBMemberEntries, m_teamBPlayersButtons, btnClicked);
+					return;
 				}
-				break;
 			}
-			this.UpdateTeamSize(this.m_teamBMemberEntries, this.m_teamBPlayersButtons, btnClicked);
 		}
-		else if (btnClicked.GetTeam() == 2)
+		if (btnClicked.GetTeam() == 2)
 		{
-			this.UpdateTeamSize(this.m_spectatorMemberEntries, this.m_spectatorButtons, btnClicked);
+			UpdateTeamSize(m_spectatorMemberEntries, m_spectatorButtons, btnClicked);
 		}
 	}
 
@@ -1251,18 +1277,18 @@ public class UIGameSettingsPanel : UIScene
 		{
 			buttons[i].SetChecked(i == index);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SetChecked(UITeamSizeButton[], int)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
@@ -1270,41 +1296,40 @@ public class UIGameSettingsPanel : UIScene
 	{
 		for (int i = 0; i < buttons.Length; i++)
 		{
-			if (buttons[i].IsChecked())
+			if (!buttons[i].IsChecked())
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (5)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.GetChecked(UITeamSizeButton[])).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				return i;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return 0;
 		}
-		return 0;
 	}
 
 	public void PopulateTeam(int teamSize, IEnumerable<LobbyPlayerInfo> teamPlayerInfo, UITeamMemberEntry[] teamMemberEntries)
 	{
 		if (teamSize > teamMemberEntries.Length)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1313,16 +1338,16 @@ public class UIGameSettingsPanel : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.PopulateTeam(int, IEnumerable<LobbyPlayerInfo>, UITeamMemberEntry[])).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			teamSize = teamMemberEntries.Length;
 		}
 		bool[] array = new bool[teamSize];
 		if (teamPlayerInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1334,15 +1359,28 @@ public class UIGameSettingsPanel : UIScene
 			IEnumerator<LobbyPlayerInfo> enumerator = teamPlayerInfo.GetEnumerator();
 			try
 			{
-				while (enumerator.MoveNext())
+				while (true)
 				{
-					LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
+					if (!enumerator.MoveNext())
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						break;
+					}
+					LobbyPlayerInfo current = enumerator.Current;
 					int num = teamSize;
 					for (int i = 0; i < array.Length; i++)
 					{
 						if (!array[i])
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -1357,7 +1395,7 @@ public class UIGameSettingsPanel : UIScene
 					}
 					if (num < teamSize)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -1366,11 +1404,11 @@ public class UIGameSettingsPanel : UIScene
 							}
 							break;
 						}
-						if (lobbyPlayerInfo.IsGameOwner)
+						if (current.IsGameOwner)
 						{
-							if (lobbyPlayerInfo.CustomGameVisualSlot != 0)
+							if (current.CustomGameVisualSlot != 0)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (1)
 									{
@@ -1379,9 +1417,9 @@ public class UIGameSettingsPanel : UIScene
 									}
 									break;
 								}
-								if (0 < lobbyPlayerInfo.CustomGameVisualSlot)
+								if (0 < current.CustomGameVisualSlot)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (2)
 										{
@@ -1390,9 +1428,9 @@ public class UIGameSettingsPanel : UIScene
 										}
 										break;
 									}
-									if (lobbyPlayerInfo.CustomGameVisualSlot < array.Length + 1)
+									if (current.CustomGameVisualSlot < array.Length + 1)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (1)
 											{
@@ -1401,61 +1439,52 @@ public class UIGameSettingsPanel : UIScene
 											}
 											break;
 										}
-										if (!array[lobbyPlayerInfo.CustomGameVisualSlot - 1])
+										if (!array[current.CustomGameVisualSlot - 1])
 										{
-											num = lobbyPlayerInfo.CustomGameVisualSlot - 1;
+											num = current.CustomGameVisualSlot - 1;
 										}
 									}
 								}
 							}
-							teamMemberEntries[num].SetTeamPlayerInfo(lobbyPlayerInfo);
-							UIManager.SetGameObjectActive(teamMemberEntries[num], true, null);
+							teamMemberEntries[num].SetTeamPlayerInfo(current);
+							UIManager.SetGameObjectActive(teamMemberEntries[num], true);
 							array[num] = true;
-							goto IL_127;
+							break;
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			finally
 			{
 				if (enumerator != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							enumerator.Dispose();
+							goto end_IL_0113;
 						}
-						break;
 					}
-					enumerator.Dispose();
 				}
+				end_IL_0113:;
 			}
-			IL_127:
 			IEnumerator<LobbyPlayerInfo> enumerator2 = teamPlayerInfo.GetEnumerator();
 			try
 			{
-				IL_226:
 				while (enumerator2.MoveNext())
 				{
-					LobbyPlayerInfo lobbyPlayerInfo2 = enumerator2.Current;
+					LobbyPlayerInfo current2 = enumerator2.Current;
 					int num2 = teamSize;
-					int j = 0;
-					while (j < array.Length)
+					int num3 = 0;
+					while (true)
 					{
-						if (!array[j])
+						if (num3 >= array.Length)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -1464,13 +1493,11 @@ public class UIGameSettingsPanel : UIScene
 								}
 								break;
 							}
-							num2 = j;
-							IL_176:
-							if (num2 >= teamSize)
-							{
-								goto IL_226;
-							}
-							for (;;)
+							break;
+						}
+						if (!array[num3])
+						{
+							while (true)
 							{
 								switch (7)
 								{
@@ -1479,11 +1506,25 @@ public class UIGameSettingsPanel : UIScene
 								}
 								break;
 							}
-							if (lobbyPlayerInfo2.IsNPCBot)
+							num2 = num3;
+							break;
+						}
+						num3++;
+					}
+					if (num2 < teamSize)
+					{
+						while (true)
+						{
+							switch (7)
 							{
-								goto IL_226;
+							case 0:
+								continue;
 							}
-							for (;;)
+							break;
+						}
+						if (!current2.IsNPCBot)
+						{
+							while (true)
 							{
 								switch (7)
 								{
@@ -1492,9 +1533,9 @@ public class UIGameSettingsPanel : UIScene
 								}
 								break;
 							}
-							if (!lobbyPlayerInfo2.IsGameOwner)
+							if (!current2.IsGameOwner)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
@@ -1503,9 +1544,9 @@ public class UIGameSettingsPanel : UIScene
 									}
 									break;
 								}
-								if (lobbyPlayerInfo2.CustomGameVisualSlot != 0)
+								if (current2.CustomGameVisualSlot != 0)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (7)
 										{
@@ -1514,9 +1555,9 @@ public class UIGameSettingsPanel : UIScene
 										}
 										break;
 									}
-									if (0 < lobbyPlayerInfo2.CustomGameVisualSlot)
+									if (0 < current2.CustomGameVisualSlot)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (7)
 											{
@@ -1525,9 +1566,9 @@ public class UIGameSettingsPanel : UIScene
 											}
 											break;
 										}
-										if (lobbyPlayerInfo2.CustomGameVisualSlot < array.Length + 1 && !array[lobbyPlayerInfo2.CustomGameVisualSlot - 1])
+										if (current2.CustomGameVisualSlot < array.Length + 1 && !array[current2.CustomGameVisualSlot - 1])
 										{
-											for (;;)
+											while (true)
 											{
 												switch (3)
 												{
@@ -1536,33 +1577,18 @@ public class UIGameSettingsPanel : UIScene
 												}
 												break;
 											}
-											num2 = lobbyPlayerInfo2.CustomGameVisualSlot - 1;
+											num2 = current2.CustomGameVisualSlot - 1;
 										}
 									}
 								}
-								teamMemberEntries[num2].SetTeamPlayerInfo(lobbyPlayerInfo2);
-								UIManager.SetGameObjectActive(teamMemberEntries[num2], true, null);
+								teamMemberEntries[num2].SetTeamPlayerInfo(current2);
+								UIManager.SetGameObjectActive(teamMemberEntries[num2], true);
 								array[num2] = true;
-								goto IL_226;
 							}
-							goto IL_226;
 						}
-						else
-						{
-							j++;
-						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_176;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1576,32 +1602,46 @@ public class UIGameSettingsPanel : UIScene
 			{
 				if (enumerator2 != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							enumerator2.Dispose();
+							goto end_IL_0240;
 						}
-						break;
 					}
-					enumerator2.Dispose();
 				}
+				end_IL_0240:;
 			}
 			IEnumerator<LobbyPlayerInfo> enumerator3 = teamPlayerInfo.GetEnumerator();
 			try
 			{
-				IL_33F:
 				while (enumerator3.MoveNext())
 				{
-					LobbyPlayerInfo lobbyPlayerInfo3 = enumerator3.Current;
-					int num3 = teamSize;
-					int k = 0;
-					while (k < array.Length)
+					LobbyPlayerInfo current3 = enumerator3.Current;
+					int num4 = teamSize;
+					int num5 = 0;
+					while (true)
 					{
-						if (!array[k])
+						if (num5 >= array.Length)
 						{
-							for (;;)
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							break;
+						}
+						if (!array[num5])
+						{
+							while (true)
 							{
 								switch (3)
 								{
@@ -1610,26 +1650,38 @@ public class UIGameSettingsPanel : UIScene
 								}
 								break;
 							}
-							num3 = k;
-							IL_2A5:
-							if (num3 >= teamSize)
+							num4 = num5;
+							break;
+						}
+						num5++;
+					}
+					if (num4 < teamSize)
+					{
+						while (true)
+						{
+							switch (7)
 							{
-								goto IL_33F;
+							case 0:
+								continue;
 							}
-							for (;;)
+							break;
+						}
+						if (current3.IsNPCBot)
+						{
+							if (current3.CustomGameVisualSlot != 0)
 							{
-								switch (7)
+								while (true)
 								{
-								case 0:
-									continue;
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									break;
 								}
-								break;
-							}
-							if (lobbyPlayerInfo3.IsNPCBot)
-							{
-								if (lobbyPlayerInfo3.CustomGameVisualSlot != 0)
+								if (0 < current3.CustomGameVisualSlot)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (2)
 										{
@@ -1638,9 +1690,9 @@ public class UIGameSettingsPanel : UIScene
 										}
 										break;
 									}
-									if (0 < lobbyPlayerInfo3.CustomGameVisualSlot)
+									if (current3.CustomGameVisualSlot < array.Length + 1)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (2)
 											{
@@ -1649,9 +1701,9 @@ public class UIGameSettingsPanel : UIScene
 											}
 											break;
 										}
-										if (lobbyPlayerInfo3.CustomGameVisualSlot < array.Length + 1)
+										if (!array[current3.CustomGameVisualSlot - 1])
 										{
-											for (;;)
+											while (true)
 											{
 												switch (2)
 												{
@@ -1660,45 +1712,18 @@ public class UIGameSettingsPanel : UIScene
 												}
 												break;
 											}
-											if (!array[lobbyPlayerInfo3.CustomGameVisualSlot - 1])
-											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												num3 = lobbyPlayerInfo3.CustomGameVisualSlot - 1;
-											}
+											num4 = current3.CustomGameVisualSlot - 1;
 										}
 									}
 								}
-								teamMemberEntries[num3].SetTeamPlayerInfo(lobbyPlayerInfo3);
-								UIManager.SetGameObjectActive(teamMemberEntries[num3], true, null);
-								array[num3] = true;
-								goto IL_33F;
 							}
-							goto IL_33F;
+							teamMemberEntries[num4].SetTeamPlayerInfo(current3);
+							UIManager.SetGameObjectActive(teamMemberEntries[num4], true);
+							array[num4] = true;
 						}
-						else
-						{
-							k++;
-						}
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_2A5;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -1712,24 +1737,26 @@ public class UIGameSettingsPanel : UIScene
 			{
 				if (enumerator3 != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							enumerator3.Dispose();
+							goto end_IL_0357;
 						}
-						break;
 					}
-					enumerator3.Dispose();
 				}
+				end_IL_0357:;
 			}
 		}
-		for (int l = 0; l < teamMemberEntries.Length; l++)
+		for (int j = 0; j < teamMemberEntries.Length; j++)
 		{
-			if (l < teamSize)
+			if (j < teamSize)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1738,9 +1765,9 @@ public class UIGameSettingsPanel : UIScene
 					}
 					break;
 				}
-				if (!array[l])
+				if (!array[j])
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -1749,85 +1776,84 @@ public class UIGameSettingsPanel : UIScene
 						}
 						break;
 					}
-					teamMemberEntries[l].SetTeamPlayerInfo(null);
+					teamMemberEntries[j].SetTeamPlayerInfo(null);
 				}
-				UIManager.SetGameObjectActive(teamMemberEntries[l], true, null);
+				UIManager.SetGameObjectActive(teamMemberEntries[j], true);
 			}
 			else
 			{
-				teamMemberEntries[l].SetEmptyPlayerInfo();
-				UIManager.SetGameObjectActive(teamMemberEntries[l], false, null);
+				teamMemberEntries[j].SetEmptyPlayerInfo();
+				UIManager.SetGameObjectActive(teamMemberEntries[j], false);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public void SetInteractable(bool interactable)
 	{
-		for (int i = 0; i < this.m_theMapList.Count; i++)
+		for (int i = 0; i < m_theMapList.Count; i++)
 		{
-			this.m_theMapList[i].ToggleBtn.SetClickable(interactable);
+			m_theMapList[i].ToggleBtn.SetClickable(interactable);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SetInteractable(bool)).MethodHandle;
-		}
-		for (int j = 0; j < this.m_teamAPlayersButtons.Length; j++)
-		{
-			this.m_teamAPlayersButtons[j].m_btnHitBox.interactable = interactable;
-		}
-		for (;;)
-		{
-			switch (2)
+			if (1 == 0)
 			{
-			case 0:
-				continue;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			break;
-		}
-		for (int k = 0; k < this.m_teamBPlayersButtons.Length; k++)
-		{
-			this.m_teamBPlayersButtons[k].m_btnHitBox.interactable = interactable;
-		}
-		for (;;)
-		{
-			switch (4)
+			for (int j = 0; j < m_teamAPlayersButtons.Length; j++)
 			{
-			case 0:
-				continue;
+				m_teamAPlayersButtons[j].m_btnHitBox.interactable = interactable;
 			}
-			break;
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				for (int k = 0; k < m_teamBPlayersButtons.Length; k++)
+				{
+					m_teamBPlayersButtons[k].m_btnHitBox.interactable = interactable;
+				}
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					for (int l = 0; l < m_spectatorButtons.Length; l++)
+					{
+						m_spectatorButtons[l].m_btnHitBox.interactable = interactable;
+					}
+					m_roundTime.interactable = interactable;
+					m_maxRoundTime.interactable = interactable;
+					return;
+				}
+			}
 		}
-		for (int l = 0; l < this.m_spectatorButtons.Length; l++)
-		{
-			this.m_spectatorButtons[l].m_btnHitBox.interactable = interactable;
-		}
-		this.m_roundTime.interactable = interactable;
-		this.m_maxRoundTime.interactable = interactable;
 	}
 
 	public void AddBot(UITeamMemberEntry teamMemberEntry, CharacterType characterType = CharacterType.None)
 	{
 		if (characterType == CharacterType.None)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1836,11 +1862,11 @@ public class UIGameSettingsPanel : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.AddBot(UITeamMemberEntry, CharacterType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			characterType = this.GetUnusedBotCharacter(teamMemberEntry.GetTeamId());
+			characterType = GetUnusedBotCharacter(teamMemberEntry.GetTeamId());
 		}
 		LobbyPlayerInfo lobbyPlayerInfo = new LobbyPlayerInfo();
 		lobbyPlayerInfo.IsNPCBot = true;
@@ -1850,20 +1876,20 @@ public class UIGameSettingsPanel : UIScene
 		CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(lobbyPlayerInfo.CharacterType);
 		lobbyPlayerInfo.Handle = characterResourceLink.GetDisplayName();
 		teamMemberEntry.SetTeamPlayerInfo(lobbyPlayerInfo);
-		this.UpdateClickedHelper(false);
+		UpdateClickedHelper(false);
 	}
 
 	public void RemoveBot(UITeamMemberEntry teamMemberEntry)
 	{
-		this.RemovePlayer(teamMemberEntry.GetPlayerInfo());
-		this.UpdateClickedHelper(false);
+		RemovePlayer(teamMemberEntry.GetPlayerInfo());
+		UpdateClickedHelper(false);
 	}
 
 	public void SetControllingPlayerInfo(UITeamMemberEntry teamMemberEntry, LobbyPlayerInfo controllingPlayerInfo)
 	{
 		if (teamMemberEntry.m_playerInfo.IsRemoteControlled)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1872,44 +1898,44 @@ public class UIGameSettingsPanel : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SetControllingPlayerInfo(UITeamMemberEntry, LobbyPlayerInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			teamMemberEntry.m_playerInfo.ControllingPlayerId = 0;
 			teamMemberEntry.m_playerInfo.IsNPCBot = true;
 		}
 		if (controllingPlayerInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					LobbyPlayerInfo lobbyPlayerInfo = controllingPlayerInfo.Clone();
+					lobbyPlayerInfo.IsGameOwner = false;
+					lobbyPlayerInfo.Handle = $"{controllingPlayerInfo.GetHandle()}";
+					lobbyPlayerInfo.PlayerId = 0;
+					lobbyPlayerInfo.CharacterInfo = teamMemberEntry.m_playerInfo.CharacterInfo.Clone();
+					lobbyPlayerInfo.ControllingPlayerId = controllingPlayerInfo.PlayerId;
+					lobbyPlayerInfo.TeamId = teamMemberEntry.GetTeamId();
+					teamMemberEntry.SetTeamPlayerInfo(lobbyPlayerInfo);
+					UpdateClickedHelper(false);
+					return;
 				}
-				break;
+				}
 			}
-			LobbyPlayerInfo lobbyPlayerInfo = controllingPlayerInfo.Clone();
-			lobbyPlayerInfo.IsGameOwner = false;
-			lobbyPlayerInfo.Handle = string.Format("{0}", controllingPlayerInfo.GetHandle());
-			lobbyPlayerInfo.PlayerId = 0;
-			lobbyPlayerInfo.CharacterInfo = teamMemberEntry.m_playerInfo.CharacterInfo.Clone();
-			lobbyPlayerInfo.ControllingPlayerId = controllingPlayerInfo.PlayerId;
-			lobbyPlayerInfo.TeamId = teamMemberEntry.GetTeamId();
-			teamMemberEntry.SetTeamPlayerInfo(lobbyPlayerInfo);
-			this.UpdateClickedHelper(false);
 		}
-		else
-		{
-			this.AddBot(teamMemberEntry, teamMemberEntry.m_playerInfo.CharacterType);
-		}
+		AddBot(teamMemberEntry, teamMemberEntry.m_playerInfo.CharacterType);
 	}
 
 	public void KickPlayer(UITeamMemberEntry teamMemberEntry)
 	{
-		this.RemovePlayer(teamMemberEntry.GetPlayerInfo());
-		this.UpdateClickedHelper(false);
+		RemovePlayer(teamMemberEntry.GetPlayerInfo());
+		UpdateClickedHelper(false);
 	}
 
 	public void RemovePlayer(LobbyPlayerInfo playerInfo)
@@ -1918,13 +1944,13 @@ public class UIGameSettingsPanel : UIScene
 		{
 			return;
 		}
-		UITeamMemberEntry[] teamMemberEntries = this.GetTeamMemberEntries(playerInfo.TeamId);
+		UITeamMemberEntry[] teamMemberEntries = GetTeamMemberEntries(playerInfo.TeamId);
 		bool flag = false;
 		for (int i = 0; i < teamMemberEntries.Length; i++)
 		{
 			if (teamMemberEntries[i].GetPlayerInfo() == playerInfo)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1933,42 +1959,44 @@ public class UIGameSettingsPanel : UIScene
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.RemovePlayer(LobbyPlayerInfo)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				flag = true;
 			}
-			if (flag)
+			if (!flag)
 			{
-				if (i + 1 < teamMemberEntries.Length)
+				continue;
+			}
+			if (i + 1 < teamMemberEntries.Length)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (6)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					teamMemberEntries[i].SetTeamPlayerInfo(teamMemberEntries[i + 1].GetPlayerInfo());
-					teamMemberEntries[i + 1].SetTeamPlayerInfo(null);
+					break;
 				}
-				else
-				{
-					teamMemberEntries[i].SetTeamPlayerInfo(null);
-				}
+				teamMemberEntries[i].SetTeamPlayerInfo(teamMemberEntries[i + 1].GetPlayerInfo());
+				teamMemberEntries[i + 1].SetTeamPlayerInfo(null);
+			}
+			else
+			{
+				teamMemberEntries[i].SetTeamPlayerInfo(null);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
@@ -1976,37 +2004,37 @@ public class UIGameSettingsPanel : UIScene
 	{
 		if (team == Team.TeamA)
 		{
-			return this.m_teamAMemberEntries;
+			return m_teamAMemberEntries;
 		}
 		if (team == Team.TeamB)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_teamBMemberEntries;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.GetTeamMemberEntries(Team)).MethodHandle;
-			}
-			return this.m_teamBMemberEntries;
 		}
 		if (team == Team.Spectator)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_spectatorMemberEntries;
 				}
-				break;
 			}
-			return this.m_spectatorMemberEntries;
 		}
 		throw new Exception("unrecognized team");
 	}
@@ -2014,11 +2042,12 @@ public class UIGameSettingsPanel : UIScene
 	private int GetNumValidTeamMemberEntries(Team team)
 	{
 		int num = 0;
-		foreach (UITeamMemberEntry uiteamMemberEntry in this.GetTeamMemberEntries(team))
+		UITeamMemberEntry[] teamMemberEntries = GetTeamMemberEntries(team);
+		foreach (UITeamMemberEntry uITeamMemberEntry in teamMemberEntries)
 		{
-			if (uiteamMemberEntry.m_playerInfo != null)
+			if (uITeamMemberEntry.m_playerInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -2027,9 +2056,9 @@ public class UIGameSettingsPanel : UIScene
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.GetNumValidTeamMemberEntries(Team)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				num++;
 			}
@@ -2041,47 +2070,48 @@ public class UIGameSettingsPanel : UIScene
 	{
 		if (playerInfo == null)
 		{
-			for (;;)
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
+				}
+			}
+		}
+		UITeamMemberEntry[] teamMemberEntries = GetTeamMemberEntries(playerInfo.TeamId);
+		for (int i = 0; i < teamMemberEntries.Length; i++)
+		{
+			if (teamMemberEntries[i].GetPlayerInfo() != null)
+			{
+				continue;
+			}
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.AddPlayer(LobbyPlayerInfo)).MethodHandle;
-			}
-			return;
-		}
-		UITeamMemberEntry[] teamMemberEntries = this.GetTeamMemberEntries(playerInfo.TeamId);
-		for (int i = 0; i < teamMemberEntries.Length; i++)
-		{
-			if (teamMemberEntries[i].GetPlayerInfo() == null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				teamMemberEntries[i].SetTeamPlayerInfo(playerInfo);
 				return;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			return;
 		}
 	}
 
@@ -2092,10 +2122,10 @@ public class UIGameSettingsPanel : UIScene
 		{
 			return;
 		}
-		Team team;
+		int num;
 		if (playerInfo.TeamId == Team.TeamA)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -2104,22 +2134,22 @@ public class UIGameSettingsPanel : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SwapTeam(UITeamMemberEntry)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			team = Team.TeamB;
+			num = 1;
 		}
 		else
 		{
-			team = Team.TeamA;
+			num = 0;
 		}
-		Team team2 = team;
-		int numValidTeamMemberEntries = this.GetNumValidTeamMemberEntries(team2);
+		Team team = (Team)num;
+		int numValidTeamMemberEntries = GetNumValidTeamMemberEntries(team);
 		int @checked;
-		if (team2 == Team.TeamA)
+		if (team == Team.TeamA)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -2128,21 +2158,20 @@ public class UIGameSettingsPanel : UIScene
 				}
 				break;
 			}
-			@checked = this.GetChecked(this.m_teamAPlayersButtons);
+			@checked = GetChecked(m_teamAPlayersButtons);
 		}
 		else
 		{
-			@checked = this.GetChecked(this.m_teamBPlayersButtons);
+			@checked = GetChecked(m_teamBPlayersButtons);
 		}
-		int num = @checked;
-		if (numValidTeamMemberEntries >= num)
+		int num2 = @checked;
+		if (numValidTeamMemberEntries < num2)
 		{
-			return;
+			RemovePlayer(playerInfo);
+			playerInfo.TeamId = team;
+			AddPlayer(playerInfo);
+			UpdateClickedHelper(false);
 		}
-		this.RemovePlayer(playerInfo);
-		playerInfo.TeamId = team2;
-		this.AddPlayer(playerInfo);
-		this.UpdateClickedHelper(false);
 	}
 
 	public void SwapSpectator(UITeamMemberEntry teamMemberEntry)
@@ -2150,150 +2179,29 @@ public class UIGameSettingsPanel : UIScene
 		LobbyPlayerInfo playerInfo = teamMemberEntry.GetPlayerInfo();
 		if (playerInfo == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SwapSpectator(UITeamMemberEntry)).MethodHandle;
-			}
-			return;
-		}
-		for (int i = 0; i < this.m_teamAMemberEntries.Length; i++)
-		{
-			LobbyPlayerInfo playerInfo2 = this.m_teamAMemberEntries[i].GetPlayerInfo();
-			if (playerInfo2 != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (playerInfo2.IsRemoteControlled)
-				{
-					for (;;)
+				default:
+					if (1 == 0)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (playerInfo2.ControllingPlayerId == playerInfo.PlayerId)
-					{
-						return;
-					}
-				}
-			}
-		}
-		for (int j = 0; j < this.m_teamBMemberEntries.Length; j++)
-		{
-			LobbyPlayerInfo playerInfo3 = this.m_teamBMemberEntries[j].GetPlayerInfo();
-			if (playerInfo3 != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (playerInfo3.IsRemoteControlled)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (playerInfo3.ControllingPlayerId == playerInfo.PlayerId)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						return;
-					}
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		int numValidTeamMemberEntries = this.GetNumValidTeamMemberEntries(Team.TeamA);
-		int numValidTeamMemberEntries2 = this.GetNumValidTeamMemberEntries(Team.TeamB);
-		int numValidTeamMemberEntries3 = this.GetNumValidTeamMemberEntries(Team.Spectator);
-		int @checked = this.GetChecked(this.m_teamAPlayersButtons);
-		int checked2 = this.GetChecked(this.m_teamBPlayersButtons);
-		int checked3 = this.GetChecked(this.m_spectatorButtons);
-		Team teamId = playerInfo.TeamId;
-		if (playerInfo.TeamId == Team.Spectator)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (numValidTeamMemberEntries < @checked)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				teamId = Team.TeamA;
-			}
-			else
-			{
-				if (numValidTeamMemberEntries2 >= checked2)
-				{
 					return;
 				}
-				teamId = Team.TeamB;
 			}
 		}
-		else
+		for (int i = 0; i < m_teamAMemberEntries.Length; i++)
 		{
-			if (numValidTeamMemberEntries3 >= checked3)
+			LobbyPlayerInfo playerInfo2 = m_teamAMemberEntries[i].GetPlayerInfo();
+			if (playerInfo2 == null)
 			{
-				return;
+				continue;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2302,25 +2210,94 @@ public class UIGameSettingsPanel : UIScene
 				}
 				break;
 			}
-			teamId = Team.Spectator;
-		}
-		this.RemovePlayer(playerInfo);
-		playerInfo.TeamId = teamId;
-		this.AddPlayer(playerInfo);
-		this.UpdateClickedHelper(false);
-	}
-
-	public void UpdateTeamSize(UITeamMemberEntry[] teamMemberEntries, UITeamSizeButton[] teamPlayersButtons, UITeamSizeButton btnClicked)
-	{
-		bool flag = true;
-		while (flag)
-		{
-			flag = false;
-			for (int i = teamMemberEntries.Length - 1; i > 0; i--)
+			if (playerInfo2.IsRemoteControlled)
 			{
-				if (teamMemberEntries[i].GetPlayerInfo() != null && teamMemberEntries[i - 1].GetPlayerInfo() == null)
+				while (true)
 				{
-					for (;;)
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (playerInfo2.ControllingPlayerId == playerInfo.PlayerId)
+				{
+					return;
+				}
+			}
+		}
+		for (int j = 0; j < m_teamBMemberEntries.Length; j++)
+		{
+			LobbyPlayerInfo playerInfo3 = m_teamBMemberEntries[j].GetPlayerInfo();
+			if (playerInfo3 == null)
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!playerInfo3.IsRemoteControlled)
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (playerInfo3.ControllingPlayerId == playerInfo.PlayerId)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
+			}
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			int numValidTeamMemberEntries = GetNumValidTeamMemberEntries(Team.TeamA);
+			int numValidTeamMemberEntries2 = GetNumValidTeamMemberEntries(Team.TeamB);
+			int numValidTeamMemberEntries3 = GetNumValidTeamMemberEntries(Team.Spectator);
+			int @checked = GetChecked(m_teamAPlayersButtons);
+			int checked2 = GetChecked(m_teamBPlayersButtons);
+			int checked3 = GetChecked(m_spectatorButtons);
+			Team teamId = playerInfo.TeamId;
+			if (playerInfo.TeamId == Team.Spectator)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (numValidTeamMemberEntries < @checked)
+				{
+					while (true)
 					{
 						switch (3)
 						{
@@ -2329,57 +2306,24 @@ public class UIGameSettingsPanel : UIScene
 						}
 						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.UpdateTeamSize(UITeamMemberEntry[], UITeamSizeButton[], UITeamSizeButton)).MethodHandle;
-					}
-					teamMemberEntries[i - 1].SetTeamPlayerInfo(teamMemberEntries[i].GetPlayerInfo());
-					teamMemberEntries[i].SetTeamPlayerInfo(null);
-					flag = true;
+					teamId = Team.TeamA;
 				}
-			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		int num = 0;
-		for (int j = 0; j < teamMemberEntries.Length; j++)
-		{
-			if (teamMemberEntries[j].GetPlayerInfo() != null)
-			{
-				for (;;)
+				else
 				{
-					switch (5)
+					if (numValidTeamMemberEntries2 >= checked2)
 					{
-					case 0:
-						continue;
+						return;
 					}
-					break;
+					teamId = Team.TeamB;
 				}
-				num++;
 			}
-		}
-		for (;;)
-		{
-			switch (5)
+			else
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		int num2 = Mathf.Max(btnClicked.GetIndex(), num);
-		for (int k = 0; k < teamMemberEntries.Length; k++)
-		{
-			if (k < num2)
-			{
-				for (;;)
+				if (numValidTeamMemberEntries3 >= checked3)
+				{
+					return;
+				}
+				while (true)
 				{
 					switch (4)
 					{
@@ -2388,81 +2332,82 @@ public class UIGameSettingsPanel : UIScene
 					}
 					break;
 				}
-				if (!teamMemberEntries[k].gameObject.activeInHierarchy)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					teamMemberEntries[k].SetTeamPlayerInfo(null);
-				}
-				UIManager.SetGameObjectActive(teamMemberEntries[k], true, null);
+				teamId = Team.Spectator;
 			}
-			else if (teamMemberEntries[k].GetPlayerInfo() == null)
-			{
-				UIManager.SetGameObjectActive(teamMemberEntries[k], false, null);
-			}
+			RemovePlayer(playerInfo);
+			playerInfo.TeamId = teamId;
+			AddPlayer(playerInfo);
+			UpdateClickedHelper(false);
+			return;
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		for (int l = 0; l < teamPlayersButtons.Length; l++)
-		{
-			teamPlayersButtons[l].SetChecked(l == num2);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.UpdateClickedHelper(false);
 	}
 
-	public CharacterType GetUnusedBotCharacter(Team team)
+	public void UpdateTeamSize(UITeamMemberEntry[] teamMemberEntries, UITeamSizeButton[] teamPlayersButtons, UITeamSizeButton btnClicked)
 	{
-		GameManager gameManager = GameManager.Get();
-		GameType gameType = GameType.Custom;
-		List<CharacterType> list = gameManager.GameplayOverrides.GetCharacterTypes().ToList<CharacterType>();
-		list.Shuffle(this.m_random);
-		using (List<CharacterType>.Enumerator enumerator = list.GetEnumerator())
+		bool flag = true;
+		while (flag)
 		{
-			while (enumerator.MoveNext())
+			flag = false;
+			for (int num = teamMemberEntries.Length - 1; num > 0; num--)
 			{
-				CharacterType characterType = enumerator.Current;
-				CharacterConfig characterConfig = gameManager.GameplayOverrides.GetCharacterConfig(characterType);
-				if (gameManager.GameplayOverrides.IsCharacterAllowedForBots(characterConfig.CharacterType) && gameManager.GameplayOverrides.IsCharacterAllowedForGameType(characterConfig.CharacterType, gameType, null, null))
+				if (teamMemberEntries[num].GetPlayerInfo() != null && teamMemberEntries[num - 1].GetPlayerInfo() == null)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (1)
+						switch (3)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.GetUnusedBotCharacter(Team)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (!this.IsCharacterTaken(team, characterConfig.CharacterType))
+					teamMemberEntries[num - 1].SetTeamPlayerInfo(teamMemberEntries[num].GetPlayerInfo());
+					teamMemberEntries[num].SetTeamPlayerInfo(null);
+					flag = true;
+				}
+			}
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			int num2 = 0;
+			for (int i = 0; i < teamMemberEntries.Length; i++)
+			{
+				if (teamMemberEntries[i].GetPlayerInfo() != null)
+				{
+					while (true)
 					{
-						for (;;)
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num2++;
+				}
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				int num3 = Mathf.Max(btnClicked.GetIndex(), num2);
+				for (int j = 0; j < teamMemberEntries.Length; j++)
+				{
+					if (j < num3)
+					{
+						while (true)
 						{
 							switch (4)
 							{
@@ -2471,11 +2416,95 @@ public class UIGameSettingsPanel : UIScene
 							}
 							break;
 						}
-						return characterConfig.CharacterType;
+						if (!teamMemberEntries[j].gameObject.activeInHierarchy)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							teamMemberEntries[j].SetTeamPlayerInfo(null);
+						}
+						UIManager.SetGameObjectActive(teamMemberEntries[j], true);
+					}
+					else if (teamMemberEntries[j].GetPlayerInfo() == null)
+					{
+						UIManager.SetGameObjectActive(teamMemberEntries[j], false);
+					}
+				}
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					for (int k = 0; k < teamPlayersButtons.Length; k++)
+					{
+						teamPlayersButtons[k].SetChecked(k == num3);
+					}
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						UpdateClickedHelper(false);
+						return;
 					}
 				}
 			}
-			for (;;)
+		}
+	}
+
+	public CharacterType GetUnusedBotCharacter(Team team)
+	{
+		GameManager gameManager = GameManager.Get();
+		GameType gameType = GameType.Custom;
+		List<CharacterType> list = gameManager.GameplayOverrides.GetCharacterTypes().ToList();
+		list.Shuffle(m_random);
+		using (List<CharacterType>.Enumerator enumerator = list.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
+			{
+				CharacterType current = enumerator.Current;
+				CharacterConfig characterConfig = gameManager.GameplayOverrides.GetCharacterConfig(current);
+				if (gameManager.GameplayOverrides.IsCharacterAllowedForBots(characterConfig.CharacterType) && gameManager.GameplayOverrides.IsCharacterAllowedForGameType(characterConfig.CharacterType, gameType, null, null))
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (!IsCharacterTaken(team, characterConfig.CharacterType))
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								break;
+							default:
+								return characterConfig.CharacterType;
+							}
+						}
+					}
+				}
+			}
+			while (true)
 			{
 				switch (3)
 				{
@@ -2490,12 +2519,13 @@ public class UIGameSettingsPanel : UIScene
 
 	public bool IsCharacterTaken(Team team, CharacterType character)
 	{
-		UITeamMemberEntry[] teamMemberEntries = this.GetTeamMemberEntries(team);
-		foreach (UITeamMemberEntry uiteamMemberEntry in teamMemberEntries)
+		UITeamMemberEntry[] teamMemberEntries = GetTeamMemberEntries(team);
+		UITeamMemberEntry[] array = teamMemberEntries;
+		foreach (UITeamMemberEntry uITeamMemberEntry in array)
 		{
-			if (uiteamMemberEntry.GetPlayerInfo() != null)
+			if (uITeamMemberEntry.GetPlayerInfo() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -2504,32 +2534,24 @@ public class UIGameSettingsPanel : UIScene
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.IsCharacterTaken(Team, CharacterType)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (uiteamMemberEntry.GetPlayerInfo().CharacterType == character)
+				if (uITeamMemberEntry.GetPlayerInfo().CharacterType == character)
 				{
 					return true;
 				}
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return false;
 		}
-		return false;
-	}
-
-	public class MapSelectButton
-	{
-		public _ToggleSwap ToggleBtn;
-
-		public GameMapConfig MapConfig;
 	}
 }

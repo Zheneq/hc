@@ -1,11 +1,9 @@
-﻿using System;
-
 namespace LobbyGameClientMessages
 {
 	public enum DiscordJoinType
 	{
-		\u001D,
-		\u000E,
-		\u0012
+		_001D,
+		_000E,
+		_0012
 	}
 }

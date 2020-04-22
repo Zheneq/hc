@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,16 +13,16 @@ public class DinoPowerLevelAttachedSequence : SimpleAttachedVFXSequence
 		base.FinishSetup();
 		if (base.Caster != null)
 		{
-			this.m_syncComp = base.Caster.GetComponent<Dino_SyncComponent>();
+			m_syncComp = base.Caster.GetComponent<Dino_SyncComponent>();
 		}
 	}
 
 	protected override GameObject GetFxPrefab()
 	{
 		GameObject result = base.GetFxPrefab();
-		if (this.m_syncComp != null && this.m_fxPrefabForPowerLevels.Count > 0)
+		if (m_syncComp != null && m_fxPrefabForPowerLevels.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -32,14 +31,14 @@ public class DinoPowerLevelAttachedSequence : SimpleAttachedVFXSequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoPowerLevelAttachedSequence.GetFxPrefab()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			int num = (int)this.m_syncComp.m_layerConePowerLevel;
-			num = (int)this.m_syncComp.m_layerConePowerLevel;
-			num = Mathf.Min(num, this.m_fxPrefabForPowerLevels.Count - 1);
-			result = this.m_fxPrefabForPowerLevels[num];
+			int layerConePowerLevel = m_syncComp.m_layerConePowerLevel;
+			layerConePowerLevel = m_syncComp.m_layerConePowerLevel;
+			layerConePowerLevel = Mathf.Min(layerConePowerLevel, m_fxPrefabForPowerLevels.Count - 1);
+			result = m_fxPrefabForPowerLevels[layerConePowerLevel];
 		}
 		return result;
 	}

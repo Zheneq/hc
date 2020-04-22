@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -31,46 +30,47 @@ public class OverconsPanel : MonoBehaviour
 
 	private void Awake()
 	{
-		this.overconButtons = new List<OverconSelectBtn>();
-		this.m_panelOpenBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.IconBtnClicked);
-		this.Init();
-		this.DoPanelOpen(false);
-		ClientGameManager.Get().OnAccountDataUpdated += this.HandleAccountDataUpdated;
+		overconButtons = new List<OverconSelectBtn>();
+		m_panelOpenBtn.spriteController.callback = IconBtnClicked;
+		Init();
+		DoPanelOpen(false);
+		ClientGameManager.Get().OnAccountDataUpdated += HandleAccountDataUpdated;
 	}
 
 	private void OnDestroy()
 	{
-		if (ClientGameManager.Get() != null)
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ClientGameManager.Get().OnAccountDataUpdated -= this.HandleAccountDataUpdated;
+			ClientGameManager.Get().OnAccountDataUpdated -= HandleAccountDataUpdated;
+			return;
 		}
 	}
 
 	private void Init()
 	{
-		if (this.m_initialized)
+		if (m_initialized)
 		{
 			return;
 		}
-		this.m_initialized = true;
-		this.m_scrollRect = base.GetComponentInChildren<ScrollRect>();
-		bool flag;
+		m_initialized = true;
+		m_scrollRect = GetComponentInChildren<ScrollRect>();
+		int num;
 		if (GameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -79,24 +79,24 @@ public class OverconsPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.Init()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = GameManager.Get().GameplayOverrides.EnableHiddenCharacters;
+			num = (GameManager.Get().GameplayOverrides.EnableHiddenCharacters ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
-		foreach (UIOverconData.NameToOverconEntry nameToOverconEntry in UIOverconData.Get().m_nameToOverconEntry)
+		bool flag = (byte)num != 0;
+		foreach (UIOverconData.NameToOverconEntry item in UIOverconData.Get().m_nameToOverconEntry)
 		{
-			bool flag3 = nameToOverconEntry.m_isHidden || !GameBalanceVarsExtensions.MeetsVisibilityConditions(nameToOverconEntry.CreateUnlockDataEntry());
-			bool flag4 = ClientGameManager.Get().IsOverconUnlocked(nameToOverconEntry.m_overconId);
-			if (!flag2)
+			bool flag2 = item.m_isHidden || !GameBalanceVarsExtensions.MeetsVisibilityConditions(item.CreateUnlockDataEntry());
+			bool flag3 = ClientGameManager.Get().IsOverconUnlocked(item.m_overconId);
+			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -105,9 +105,9 @@ public class OverconsPanel : MonoBehaviour
 					}
 					break;
 				}
-				if (flag3)
+				if (flag2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -116,35 +116,35 @@ public class OverconsPanel : MonoBehaviour
 						}
 						break;
 					}
-					if (!flag4)
+					if (!flag3)
 					{
 						continue;
 					}
 				}
 			}
-			this.overconButtons.Add(this.CreateNewOverconBtn(nameToOverconEntry, flag4));
+			overconButtons.Add(CreateNewOverconBtn(item, flag3));
 		}
-		this.SortDisplayList();
+		SortDisplayList();
 	}
 
 	public void UpdateGameState()
 	{
 		bool doActive = UIManager.Get().CurrentState == UIManager.ClientState.InGame;
-		UIManager.SetGameObjectActive(base.gameObject, doActive, null);
-		this.DoPanelOpen(false);
+		UIManager.SetGameObjectActive(base.gameObject, doActive);
+		DoPanelOpen(false);
 	}
 
 	private OverconSelectBtn CreateNewOverconBtn(UIOverconData.NameToOverconEntry overcon, bool unlocked)
 	{
-		OverconSelectBtn overconSelectBtn = UnityEngine.Object.Instantiate<OverconSelectBtn>(this.m_overconPrefab);
-		overconSelectBtn.transform.SetParent(this.m_overconsGridlayout.transform);
+		OverconSelectBtn overconSelectBtn = Object.Instantiate(m_overconPrefab);
+		overconSelectBtn.transform.SetParent(m_overconsGridlayout.transform);
 		overconSelectBtn.transform.localPosition = Vector3.zero;
 		overconSelectBtn.transform.localEulerAngles = Vector3.zero;
 		overconSelectBtn.transform.localScale = Vector3.one;
 		overconSelectBtn.Setup(overcon, unlocked);
-		if (this.m_scrollRect != null)
+		if (m_scrollRect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -153,27 +153,27 @@ public class OverconsPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.CreateNewOverconBtn(UIOverconData.NameToOverconEntry, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			overconSelectBtn.m_selectableBtn.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
+			overconSelectBtn.m_selectableBtn.spriteController.RegisterScrollListener(OnScroll);
 		}
 		return overconSelectBtn;
 	}
 
 	private void OnScroll(BaseEventData data)
 	{
-		this.m_scrollRect.OnScroll((PointerEventData)data);
+		m_scrollRect.OnScroll((PointerEventData)data);
 	}
 
 	private void HandleAccountDataUpdated(PersistedAccountData accountData)
 	{
-		this.Init();
-		bool flag;
+		Init();
+		int num;
 		if (GameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -182,26 +182,26 @@ public class OverconsPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.HandleAccountDataUpdated(PersistedAccountData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = GameManager.Get().GameplayOverrides.EnableHiddenCharacters;
+			num = (GameManager.Get().GameplayOverrides.EnableHiddenCharacters ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
+		bool flag = (byte)num != 0;
 		using (List<UIOverconData.NameToOverconEntry>.Enumerator enumerator = UIOverconData.Get().m_nameToOverconEntry.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				UIOverconData.NameToOverconEntry nameToOverconEntry = enumerator.Current;
-				bool flag3;
-				if (!nameToOverconEntry.m_isHidden)
+				UIOverconData.NameToOverconEntry current = enumerator.Current;
+				int num2;
+				if (!current.m_isHidden)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -210,17 +210,17 @@ public class OverconsPanel : MonoBehaviour
 						}
 						break;
 					}
-					flag3 = !GameBalanceVarsExtensions.MeetsVisibilityConditions(nameToOverconEntry.CreateUnlockDataEntry());
+					num2 = ((!GameBalanceVarsExtensions.MeetsVisibilityConditions(current.CreateUnlockDataEntry())) ? 1 : 0);
 				}
 				else
 				{
-					flag3 = true;
+					num2 = 1;
 				}
-				bool flag4 = flag3;
-				bool flag5 = ClientGameManager.Get().IsOverconUnlocked(nameToOverconEntry.m_overconId);
-				if (!flag2)
+				bool flag2 = (byte)num2 != 0;
+				bool flag3 = ClientGameManager.Get().IsOverconUnlocked(current.m_overconId);
+				if (!flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -229,9 +229,9 @@ public class OverconsPanel : MonoBehaviour
 						}
 						break;
 					}
-					if (flag4)
+					if (flag2)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -240,11 +240,11 @@ public class OverconsPanel : MonoBehaviour
 							}
 							break;
 						}
-						if (!flag5)
+						if (!flag3)
 						{
 							continue;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -255,12 +255,12 @@ public class OverconsPanel : MonoBehaviour
 						}
 					}
 				}
-				bool flag6 = false;
-				for (int i = 0; i < this.overconButtons.Count; i++)
+				bool flag4 = false;
+				for (int i = 0; i < overconButtons.Count; i++)
 				{
-					if (this.overconButtons[i].GetOvercon() == nameToOverconEntry)
+					if (overconButtons[i].GetOvercon() == current)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -269,11 +269,11 @@ public class OverconsPanel : MonoBehaviour
 							}
 							break;
 						}
-						flag6 = true;
-						this.overconButtons[i].Setup(nameToOverconEntry, flag5);
+						flag4 = true;
+						overconButtons[i].Setup(current, flag3);
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -282,12 +282,12 @@ public class OverconsPanel : MonoBehaviour
 					}
 					break;
 				}
-				if (!flag6)
+				if (!flag4)
 				{
-					this.overconButtons.Add(this.CreateNewOverconBtn(nameToOverconEntry, flag5));
+					overconButtons.Add(CreateNewOverconBtn(current, flag3));
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -297,32 +297,32 @@ public class OverconsPanel : MonoBehaviour
 				break;
 			}
 		}
-		this.SortDisplayList();
+		SortDisplayList();
 	}
 
 	private void SortDisplayList()
 	{
-		this.overconButtons.Sort(new Comparison<OverconSelectBtn>(this.CompareOverconButton));
-		for (int i = 0; i < this.overconButtons.Count; i++)
+		overconButtons.Sort(CompareOverconButton);
+		for (int i = 0; i < overconButtons.Count; i++)
 		{
-			OverconSelectBtn overconSelectBtn = this.overconButtons[i];
+			OverconSelectBtn overconSelectBtn = overconButtons[i];
 			if (overconSelectBtn.transform.GetSiblingIndex() != i)
 			{
 				overconSelectBtn.transform.SetSiblingIndex(i);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.SortDisplayList()).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
@@ -330,20 +330,20 @@ public class OverconsPanel : MonoBehaviour
 	{
 		if (first == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return -1;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.CompareOverconButton(OverconSelectBtn, OverconSelectBtn)).MethodHandle;
-			}
-			return -1;
 		}
 		if (second == null)
 		{
@@ -359,7 +359,7 @@ public class OverconsPanel : MonoBehaviour
 		}
 		if (!first.IsUnlocked)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -370,45 +370,45 @@ public class OverconsPanel : MonoBehaviour
 			}
 			if (second.IsUnlocked)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return 1;
 					}
-					break;
 				}
-				return 1;
 			}
 		}
 		UIOverconData.NameToOverconEntry overcon = first.GetOvercon();
 		UIOverconData.NameToOverconEntry overcon2 = second.GetOvercon();
 		if (overcon.m_sortOrder == -1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return -1;
 				}
-				break;
 			}
-			return -1;
 		}
 		if (overcon2.m_sortOrder == -1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 1;
 				}
-				break;
 			}
-			return 1;
 		}
 		if (overcon.m_sortOrder < overcon2.m_sortOrder)
 		{
@@ -423,40 +423,41 @@ public class OverconsPanel : MonoBehaviour
 
 	public void IconBtnClicked(BaseEventData data)
 	{
-		this.SetPanelOpen(!this.m_panelOpen);
+		SetPanelOpen(!m_panelOpen);
 	}
 
 	public void SetPanelOpen(bool open)
 	{
-		if (this.m_panelOpen != open)
+		if (m_panelOpen == open)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.SetPanelOpen(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.DoPanelOpen(open);
+			DoPanelOpen(open);
+			return;
 		}
 	}
 
 	private void DoPanelOpen(bool open)
 	{
-		this.m_panelOpen = open;
-		this.m_panelOpenBtn.SetSelected(this.m_panelOpen, false, string.Empty, string.Empty);
-		UIManager.SetGameObjectActive(this.m_panelContainer, true, null);
-		this.m_panelCanvasGroup.interactable = this.m_panelOpen;
-		this.m_panelCanvasGroup.blocksRaycasts = this.m_panelOpen;
-		if (!this.m_panelOpen)
+		m_panelOpen = open;
+		m_panelOpenBtn.SetSelected(m_panelOpen, false, string.Empty, string.Empty);
+		UIManager.SetGameObjectActive(m_panelContainer, true);
+		m_panelCanvasGroup.interactable = m_panelOpen;
+		m_panelCanvasGroup.blocksRaycasts = m_panelOpen;
+		if (!m_panelOpen)
 		{
-			this.m_panelAnimController.Play("EmoticonPanelDefaultOUT");
+			m_panelAnimController.Play("EmoticonPanelDefaultOUT");
 		}
 	}
 
@@ -464,7 +465,7 @@ public class OverconsPanel : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -473,14 +474,14 @@ public class OverconsPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool flag = true;
 			if (EventSystem.current != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -494,7 +495,7 @@ public class OverconsPanel : MonoBehaviour
 					StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 					if (component != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -505,7 +506,7 @@ public class OverconsPanel : MonoBehaviour
 						}
 						if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -517,7 +518,7 @@ public class OverconsPanel : MonoBehaviour
 							OverconsPanel componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<OverconsPanel>();
 							if (componentInParent != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (1)
 									{
@@ -534,7 +535,7 @@ public class OverconsPanel : MonoBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -543,15 +544,15 @@ public class OverconsPanel : MonoBehaviour
 					}
 					break;
 				}
-				this.SetPanelOpen(false);
+				SetPanelOpen(false);
 			}
 		}
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		GameManager gameManager = GameManager.Get();
-		bool flag2;
+		int num;
 		if (clientGameManager != null && clientGameManager.PlayerInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -562,10 +563,10 @@ public class OverconsPanel : MonoBehaviour
 			}
 			if (clientGameManager.PlayerInfo.TeamId == Team.Spectator)
 			{
-				flag2 = true;
-				goto IL_15E;
+				num = 1;
+				goto IL_015e;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -577,7 +578,7 @@ public class OverconsPanel : MonoBehaviour
 		}
 		if (gameManager != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -588,7 +589,7 @@ public class OverconsPanel : MonoBehaviour
 			}
 			if (gameManager.PlayerInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -597,18 +598,18 @@ public class OverconsPanel : MonoBehaviour
 					}
 					break;
 				}
-				flag2 = (gameManager.PlayerInfo.TeamId == Team.Spectator);
-				goto IL_15B;
+				num = ((gameManager.PlayerInfo.TeamId == Team.Spectator) ? 1 : 0);
+				goto IL_015e;
 			}
 		}
-		flag2 = false;
-		IL_15B:
-		IL_15E:
-		bool flag3 = flag2;
-		bool flag4;
+		num = 0;
+		goto IL_015e;
+		IL_015e:
+		bool flag2 = (byte)num != 0;
+		int num2;
 		if (gameManager != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -619,7 +620,7 @@ public class OverconsPanel : MonoBehaviour
 			}
 			if (gameManager.GameConfig != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -628,16 +629,17 @@ public class OverconsPanel : MonoBehaviour
 					}
 					break;
 				}
-				flag4 = (gameManager.GameConfig.GameType == GameType.Tutorial);
-				goto IL_19B;
+				num2 = ((gameManager.GameConfig.GameType == GameType.Tutorial) ? 1 : 0);
+				goto IL_019b;
 			}
 		}
-		flag4 = false;
-		IL_19B:
-		bool flag5 = flag4;
-		if (!flag3)
+		num2 = 0;
+		goto IL_019b;
+		IL_019b:
+		bool flag3 = (byte)num2 != 0;
+		if (!flag2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -646,11 +648,11 @@ public class OverconsPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!flag5)
+			if (!flag3)
 			{
 				return;
 			}
 		}
-		UIManager.SetGameObjectActive(base.gameObject, false, null);
+		UIManager.SetGameObjectActive(base.gameObject, false);
 	}
 }

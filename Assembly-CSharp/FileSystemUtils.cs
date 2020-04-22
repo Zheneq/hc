@@ -1,45 +1,45 @@
-﻿using System;
+using System;
 using System.IO;
 
 public static class FileSystemUtils
 {
-	public unsafe static bool TryRead(string path, out string errorMessage)
+	public static bool TryRead(string path, out string errorMessage)
 	{
 		errorMessage = null;
-		bool result;
 		try
 		{
 			FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read);
 			try
 			{
-				result = true;
+				return true;
 			}
 			finally
 			{
 				if (fileStream != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							((IDisposable)fileStream).Dispose();
+							goto end_IL_0010;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FileSystemUtils.TryRead(string, string*)).MethodHandle;
-					}
-					((IDisposable)fileStream).Dispose();
 				}
+				end_IL_0010:;
 			}
 		}
 		catch (Exception ex)
 		{
 			errorMessage = ex.Message;
-			result = false;
+			return false;
 		}
-		return result;
 	}
 }

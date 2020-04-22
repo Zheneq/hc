@@ -1,12 +1,11 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AnimEventToVfxContainer
 {
-	public UnityEngine.Object m_persistentVfxStartEvent;
+	public Object m_persistentVfxStartEvent;
 
-	public UnityEngine.Object m_persistentVfxStopEvent;
+	public Object m_persistentVfxStopEvent;
 
 	public List<AttachedActorVFXInfo> m_vfxInstances;
 
@@ -14,17 +13,17 @@ public class AnimEventToVfxContainer
 
 	public bool m_turnOffOnTurnStart = true;
 
-	public AnimEventToVfxContainer(UnityEngine.Object startEvent, UnityEngine.Object stopEvent, List<AdditionalAttachedActorVfx.JointToVfx> vfxPrefabList, GameObject attachToObj)
+	public AnimEventToVfxContainer(Object startEvent, Object stopEvent, List<AdditionalAttachedActorVfx.JointToVfx> vfxPrefabList, GameObject attachToObj)
 	{
-		this.m_persistentVfxStartEvent = startEvent;
-		this.m_persistentVfxStopEvent = stopEvent;
-		this.m_vfxInstances = new List<AttachedActorVFXInfo>();
+		m_persistentVfxStartEvent = startEvent;
+		m_persistentVfxStopEvent = stopEvent;
+		m_vfxInstances = new List<AttachedActorVFXInfo>();
 		for (int i = 0; i < vfxPrefabList.Count; i++)
 		{
 			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(vfxPrefabList[i].m_vfxCommonPrefab, attachToObj, vfxPrefabList[i].m_joint, vfxPrefabList[i].m_alignToRootOrientation, "AttachedVfx_" + vfxPrefabList[i].m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -33,21 +32,21 @@ public class AnimEventToVfxContainer
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AnimEventToVfxContainer..ctor(UnityEngine.Object, UnityEngine.Object, List<AdditionalAttachedActorVfx.JointToVfx>, GameObject)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_vfxInstances.Add(attachedActorVFXInfo);
+				m_vfxInstances.Add(attachedActorVFXInfo);
 			}
 		}
 	}
 
 	public void UpdateVisibilityForSpawnedVfx(bool actorVisible, bool sameTeam)
 	{
-		bool flag;
+		int num;
 		if (actorVisible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -56,37 +55,38 @@ public class AnimEventToVfxContainer
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnimEventToVfxContainer.UpdateVisibilityForSpawnedVfx(bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = this.m_shouldShowPersistentVfx;
+			num = (m_shouldShowPersistentVfx ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool actorVisible2 = flag;
-		for (int i = 0; i < this.m_vfxInstances.Count; i++)
+		bool actorVisible2 = (byte)num != 0;
+		for (int i = 0; i < m_vfxInstances.Count; i++)
 		{
-			this.m_vfxInstances[i].UpdateVisibility(actorVisible2, sameTeam);
+			m_vfxInstances[i].UpdateVisibility(actorVisible2, sameTeam);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
-	public void HandleAnimEvent(UnityEngine.Object eventObj, GameObject sourceObj)
+	public void HandleAnimEvent(Object eventObj, GameObject sourceObj)
 	{
-		if (this.m_persistentVfxStartEvent != null)
+		if (m_persistentVfxStartEvent != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -95,64 +95,65 @@ public class AnimEventToVfxContainer
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnimEventToVfxContainer.HandleAnimEvent(UnityEngine.Object, GameObject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (eventObj == this.m_persistentVfxStartEvent)
+			if (eventObj == m_persistentVfxStartEvent)
 			{
-				if (GameFlowData.Get() != null)
+				if (!(GameFlowData.Get() != null))
 				{
-					for (;;)
+					return;
+				}
+				while (true)
+				{
+					switch (3)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
 					if (GameFlowData.Get().gameState != GameState.BothTeams_Decision)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
 							case 0:
 								continue;
 							}
-							break;
+							m_shouldShowPersistentVfx = true;
+							return;
 						}
-						this.m_shouldShowPersistentVfx = true;
 					}
+					return;
 				}
-				return;
 			}
 		}
-		if (this.m_persistentVfxStopEvent != null)
+		if (!(m_persistentVfxStopEvent != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (eventObj == this.m_persistentVfxStopEvent)
+			if (eventObj == m_persistentVfxStopEvent)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_shouldShowPersistentVfx = false;
+					return;
 				}
-				this.m_shouldShowPersistentVfx = false;
 			}
+			return;
 		}
 	}
 }

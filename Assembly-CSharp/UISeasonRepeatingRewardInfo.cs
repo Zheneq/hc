@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class UISeasonRepeatingRewardInfo : IEquatable<UISeasonRepeatingRewardInfo>, IComparable<UISeasonRepeatingRewardInfo>
@@ -11,21 +11,21 @@ public class UISeasonRepeatingRewardInfo : IEquatable<UISeasonRepeatingRewardInf
 
 	public UISeasonRepeatingRewardInfo(SeasonReward reward)
 	{
-		this.SeasonRewardRef = reward;
-		this.StartLevel = reward.level;
-		this.RepeatEveryXLevels = reward.repeatEveryXLevels;
+		SeasonRewardRef = reward;
+		StartLevel = reward.level;
+		RepeatEveryXLevels = reward.repeatEveryXLevels;
 	}
 
 	public SeasonReward GetSeasonRewardReference()
 	{
-		return this.SeasonRewardRef;
+		return SeasonRewardRef;
 	}
 
 	public Sprite GetDisplaySprite()
 	{
-		if (this.SeasonRewardRef is SeasonItemReward)
+		if (SeasonRewardRef is SeasonItemReward)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -34,43 +34,42 @@ public class UISeasonRepeatingRewardInfo : IEquatable<UISeasonRepeatingRewardInf
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonRepeatingRewardInfo.GetDisplaySprite()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate((this.SeasonRewardRef as SeasonItemReward).ItemReward.ItemTemplateId);
+			InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate((SeasonRewardRef as SeasonItemReward).ItemReward.ItemTemplateId);
 			if (itemTemplate != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return Resources.Load(itemTemplate.IconPath, typeof(Sprite)) as Sprite;
 					}
-					break;
 				}
-				return Resources.Load(itemTemplate.IconPath, typeof(Sprite)) as Sprite;
 			}
 		}
 		else
 		{
-			if (this.SeasonRewardRef is SeasonUnlockReward)
+			if (SeasonRewardRef is SeasonUnlockReward)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					return Resources.Load((SeasonRewardRef as SeasonUnlockReward).UnlockReward.resourceString, typeof(Sprite)) as Sprite;
 				}
-				return Resources.Load((this.SeasonRewardRef as SeasonUnlockReward).UnlockReward.resourceString, typeof(Sprite)) as Sprite;
 			}
-			if (this.SeasonRewardRef is SeasonCurrencyReward)
+			if (SeasonRewardRef is SeasonCurrencyReward)
 			{
-				string spritePath = InventoryWideData.GetSpritePath((this.SeasonRewardRef as SeasonCurrencyReward).GetItemTemplate());
+				string spritePath = InventoryWideData.GetSpritePath((SeasonRewardRef as SeasonCurrencyReward).GetItemTemplate());
 				return Resources.Load(spritePath, typeof(Sprite)) as Sprite;
 			}
 		}
@@ -79,42 +78,46 @@ public class UISeasonRepeatingRewardInfo : IEquatable<UISeasonRepeatingRewardInf
 
 	public bool Equals(UISeasonRepeatingRewardInfo other)
 	{
-		return other != null && this.GetSeasonRewardReference() == other.GetSeasonRewardReference();
+		if (other == null)
+		{
+			return false;
+		}
+		return GetSeasonRewardReference() == other.GetSeasonRewardReference();
 	}
 
 	public int CompareTo(UISeasonRepeatingRewardInfo other)
 	{
 		if (other == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return -1;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonRepeatingRewardInfo.CompareTo(UISeasonRepeatingRewardInfo)).MethodHandle;
-			}
-			return -1;
 		}
-		if (other.RepeatEveryXLevels > this.RepeatEveryXLevels)
+		if (other.RepeatEveryXLevels > RepeatEveryXLevels)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return -1;
 				}
-				break;
 			}
-			return -1;
 		}
-		if (other.RepeatEveryXLevels < this.RepeatEveryXLevels)
+		if (other.RepeatEveryXLevels < RepeatEveryXLevels)
 		{
 			return 1;
 		}

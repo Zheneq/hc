@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,62 +21,17 @@ public class HUD_UI : UIScene
 
 	private Camera HUDCam;
 
-	public UITextConsole m_textConsole
-	{
-		get
-		{
-			return UIChatBox.GetChatBox(UIManager.ClientState.InGame);
-		}
-	}
-
-	internal static HUD_UI Get()
-	{
-		return HUD_UI.s_instance;
-	}
-
-	private void OnDestroy()
-	{
-		if (HighlightUtils.Get() != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UI.OnDestroy()).MethodHandle;
-			}
-			if (HighlightUtils.Get().SprintMouseOverCursor != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UnityEngine.Object.Destroy(HighlightUtils.Get().SprintMouseOverCursor);
-			}
-		}
-		HUD_UI.s_instance = null;
-	}
+	public UITextConsole m_textConsole => UIChatBox.GetChatBox(UIManager.ClientState.InGame);
 
 	public Canvas m_mainCanvas
 	{
 		get
 		{
-			if (this.theCanvas == null)
+			if (theCanvas == null)
 			{
-				this.theCanvas = UIManager.Get().GetBatchCanvas(this, CanvasBatchType.Static);
+				theCanvas = UIManager.Get().GetBatchCanvas(this, CanvasBatchType.Static);
 			}
-			return this.theCanvas;
+			return theCanvas;
 		}
 	}
 
@@ -85,9 +39,9 @@ public class HUD_UI : UIScene
 	{
 		get
 		{
-			if (this.HUDCam == null)
+			if (HUDCam == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -96,22 +50,61 @@ public class HUD_UI : UIScene
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UI.get_m_hudCam()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.HUDCam = UIManager.Get().GetCamera(CameraLayerName.MainScreenLayer);
+				HUDCam = UIManager.Get().GetCamera(CameraLayerName.MainScreenLayer);
 			}
-			return this.HUDCam;
+			return HUDCam;
 		}
+	}
+
+	internal static HUD_UI Get()
+	{
+		return s_instance;
+	}
+
+	private void OnDestroy()
+	{
+		if (HighlightUtils.Get() != null)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (HighlightUtils.Get().SprintMouseOverCursor != null)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				Object.Destroy(HighlightUtils.Get().SprintMouseOverCursor);
+			}
+		}
+		s_instance = null;
 	}
 
 	public override void Awake()
 	{
-		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
-		HUD_UI.s_instance = this;
-		UIManager.SetGameObjectActive(this.m_mainScreenPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_mainScreenPanel.m_nameplatePanel, false, null);
+		Object.DontDestroyOnLoad(base.gameObject);
+		s_instance = this;
+		UIManager.SetGameObjectActive(m_mainScreenPanel, false);
+		UIManager.SetGameObjectActive(m_mainScreenPanel.m_nameplatePanel, false);
 		base.Awake();
 	}
 
@@ -122,9 +115,9 @@ public class HUD_UI : UIScene
 
 	private void Start()
 	{
-		if (this.m_tutorialFullscreenPanel != null)
+		if (m_tutorialFullscreenPanel != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -133,21 +126,21 @@ public class HUD_UI : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UI.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_tutorialFullscreenPanel, true, null);
+			UIManager.SetGameObjectActive(m_tutorialFullscreenPanel, true);
 		}
-		UIManager.SetGameObjectActive(this.m_mainScreenPanel, true, null);
-		this.SetTauntBannerVisibility(false);
+		UIManager.SetGameObjectActive(m_mainScreenPanel, true);
+		SetTauntBannerVisibility(false);
 	}
 
 	public void SetMainElementsVisible(bool visible, bool hideChat = false)
 	{
 		if (!visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -156,17 +149,17 @@ public class HUD_UI : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UI.SetMainElementsVisible(bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (int i = 0; i < this.m_mainHUDElementContainers.Length; i++)
+			for (int i = 0; i < m_mainHUDElementContainers.Length; i++)
 			{
-				this.m_mainHUDElementContainers[i].alpha = 0f;
-				this.m_mainHUDElementContainers[i].blocksRaycasts = false;
-				this.m_mainHUDElementContainers[i].interactable = false;
+				m_mainHUDElementContainers[i].alpha = 0f;
+				m_mainHUDElementContainers[i].blocksRaycasts = false;
+				m_mainHUDElementContainers[i].interactable = false;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -183,7 +176,7 @@ public class HUD_UI : UIScene
 			UICharacterMovementPanel.Get().GetComponent<CanvasGroup>().alpha = 0f;
 			if (hideChat)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -192,7 +185,7 @@ public class HUD_UI : UIScene
 					}
 					break;
 				}
-				CanvasGroup component = this.m_textConsole.GetComponent<CanvasGroup>();
+				CanvasGroup component = m_textConsole.GetComponent<CanvasGroup>();
 				component.alpha = 0f;
 				component.blocksRaycasts = false;
 				component.interactable = false;
@@ -200,13 +193,13 @@ public class HUD_UI : UIScene
 		}
 		else
 		{
-			for (int j = 0; j < this.m_mainHUDElementContainers.Length; j++)
+			for (int j = 0; j < m_mainHUDElementContainers.Length; j++)
 			{
-				this.m_mainHUDElementContainers[j].alpha = 1f;
-				this.m_mainHUDElementContainers[j].blocksRaycasts = true;
-				this.m_mainHUDElementContainers[j].interactable = true;
+				m_mainHUDElementContainers[j].alpha = 1f;
+				m_mainHUDElementContainers[j].blocksRaycasts = true;
+				m_mainHUDElementContainers[j].interactable = true;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -218,7 +211,7 @@ public class HUD_UI : UIScene
 			UISystemMenuPanel.Get().GetComponent<CanvasGroup>().alpha = 1f;
 			if (UISystemEscapeMenu.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -232,7 +225,7 @@ public class HUD_UI : UIScene
 			UICharacterMovementPanel.Get().GetComponent<CanvasGroup>().alpha = 1f;
 			if (hideChat)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -241,25 +234,25 @@ public class HUD_UI : UIScene
 					}
 					break;
 				}
-				CanvasGroup component2 = this.m_textConsole.GetComponent<CanvasGroup>();
+				CanvasGroup component2 = m_textConsole.GetComponent<CanvasGroup>();
 				component2.alpha = 1f;
 				component2.blocksRaycasts = true;
 				component2.interactable = true;
 			}
 		}
-		UIManager.SetGameObjectActive(UIChatBox.Get().m_overconsPanel, visible, null);
+		UIManager.SetGameObjectActive(UIChatBox.Get().m_overconsPanel, visible);
 		UIChatBox.Get().m_overconsPanel.SetPanelOpen(false);
-		this.m_mainHudElementsVisible = visible;
+		m_mainHudElementsVisible = visible;
 	}
 
 	public bool MainHUDElementsVisible()
 	{
-		return this.m_mainHudElementsVisible;
+		return m_mainHudElementsVisible;
 	}
 
 	public void SetHUDVisibility(bool visible, bool nameplateVisible)
 	{
-		UIScreenManager.Get().SetHUDHide(visible, nameplateVisible, false, false);
+		UIScreenManager.Get().SetHUDHide(visible, nameplateVisible);
 	}
 
 	public void SetupTauntBanner(ActorData actorData)
@@ -267,249 +260,255 @@ public class HUD_UI : UIScene
 		PlayerData playerData = actorData.PlayerData;
 		if (playerData == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UI.SetupTauntBanner(ActorData)).MethodHandle;
-			}
+		}
+		if (m_tauntPlayerBanner == null)
+		{
 			return;
 		}
-		if (!(this.m_tauntPlayerBanner == null))
+		while (true)
 		{
-			for (;;)
+			switch (4)
 			{
-				switch (4)
+			case 0:
+				continue;
+			}
+			if (m_tauntPlayerBanner.m_playerName == null)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!(this.m_tauntPlayerBanner.m_playerName == null))
-			{
-				for (;;)
+				if (m_tauntPlayerBanner.m_playerLevel == null)
+				{
+					return;
+				}
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (!(this.m_tauntPlayerBanner.m_playerLevel == null))
-				{
-					for (;;)
+					if (m_tauntPlayerBanner.m_playerLevel.gameObject == null || m_tauntPlayerBanner.m_playerTitle == null)
 					{
-						switch (6)
+						return;
+					}
+					if (m_tauntPlayerBanner.m_bannerRibbon == null)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							default:
+								return;
+							case 0:
+								break;
+							}
+						}
+					}
+					if (GameFlow.Get() == null)
+					{
+						return;
+					}
+					if (GameFlow.Get().playerDetails == null)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							default:
+								return;
+							case 0:
+								break;
+							}
+						}
+					}
+					if (GameManager.Get() == null)
+					{
+						return;
+					}
+					while (true)
+					{
+						switch (7)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					if (!(this.m_tauntPlayerBanner.m_playerLevel.gameObject == null) && !(this.m_tauntPlayerBanner.m_playerTitle == null))
-					{
-						if (!(this.m_tauntPlayerBanner.m_bannerRibbon == null))
+						if (GameManager.Get().TeamInfo == null)
 						{
-							if (!(GameFlow.Get() == null))
-							{
-								if (GameFlow.Get().playerDetails != null)
-								{
-									if (!(GameManager.Get() == null))
-									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (GameManager.Get().TeamInfo != null)
-										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											if (GameManager.Get().PlayerInfo != null)
-											{
-												if (!(GameWideData.Get() == null))
-												{
-													for (;;)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
-													if (GameWideData.Get().m_gameBalanceVars != null)
-													{
-														this.m_tauntPlayerBanner.m_playerName.text = actorData.\u000E();
-														PlayerDetails playerDetails = GameFlow.Get().playerDetails[playerData.GetPlayer()];
-														if (playerDetails == null)
-														{
-															for (;;)
-															{
-																switch (6)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
-															return;
-														}
-														List<LobbyPlayerInfo> list = new List<LobbyPlayerInfo>();
-														list.AddRange(GameManager.Get().TeamInfo.TeamAPlayerInfo);
-														list.AddRange(GameManager.Get().TeamInfo.TeamBPlayerInfo);
-														for (int i = 0; i < list.Count; i++)
-														{
-															if (playerDetails.m_lobbyPlayerInfoId == list[i].PlayerId)
-															{
-																for (;;)
-																{
-																	switch (2)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
-																UIManager.SetGameObjectActive(this.m_tauntPlayerBanner.m_playerLevel, false, null);
-																string path = "Banners/Background/02_blue";
-																GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(list[i].BannerID);
-																if (banner != null)
-																{
-																	path = banner.m_resourceString;
-																}
-																this.m_tauntPlayerBanner.m_bannerBG.sprite = (Sprite)Resources.Load(path, typeof(Sprite));
-																string path2 = "Banners/Background/02_blue";
-																GameBalanceVars.PlayerBanner banner2 = GameWideData.Get().m_gameBalanceVars.GetBanner(list[i].EmblemID);
-																if (banner2 != null)
-																{
-																	for (;;)
-																	{
-																		switch (7)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
-																	path2 = banner2.m_resourceString;
-																}
-																this.m_tauntPlayerBanner.m_bannerFG.sprite = (Sprite)Resources.Load(path2, typeof(Sprite));
-																this.m_tauntPlayerBanner.m_playerTitle.text = GameWideData.Get().m_gameBalanceVars.GetTitle(list[i].TitleID, string.Empty, list[i].TitleLevel);
-																GameBalanceVars.PlayerRibbon ribbon = GameWideData.Get().m_gameBalanceVars.GetRibbon(list[i].RibbonID);
-																if (ribbon != null)
-																{
-																	for (;;)
-																	{
-																		switch (3)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
-																	if (!ribbon.m_resourceString.IsNullOrEmpty())
-																	{
-																		this.m_tauntPlayerBanner.m_bannerRibbon.sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
-																		UIManager.SetGameObjectActive(this.m_tauntPlayerBanner.m_bannerRibbon, true, null);
-																		goto IL_3B2;
-																	}
-																}
-																UIManager.SetGameObjectActive(this.m_tauntPlayerBanner.m_bannerRibbon, false, null);
-																IL_3B2:
-																if (GameManager.Get().PlayerInfo.PlayerId == list[i].PlayerId)
-																{
-																	for (;;)
-																	{
-																		switch (4)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
-																	this.m_tauntPlayerBanner.m_teamIndicator.color = HUD_UIResources.Get().m_selfIndicatorBar;
-																	this.m_tauntPlayerBanner.m_teamIndicatorGlow.color = HUD_UIResources.Get().m_selfIndicatorBarGlow;
-																}
-																else if (GameManager.Get().PlayerInfo.TeamId == list[i].TeamId)
-																{
-																	this.m_tauntPlayerBanner.m_teamIndicator.color = HUD_UIResources.Get().m_allyIndicatorBar;
-																	this.m_tauntPlayerBanner.m_teamIndicatorGlow.color = HUD_UIResources.Get().m_allyIndicatorBarGlow;
-																}
-																else
-																{
-																	this.m_tauntPlayerBanner.m_teamIndicator.color = HUD_UIResources.Get().m_enemyIndicatorBar;
-																	this.m_tauntPlayerBanner.m_teamIndicatorGlow.color = HUD_UIResources.Get().m_enemyIndicatorBarGlow;
-																}
-																return;
-															}
-														}
-														for (;;)
-														{
-															switch (3)
-															{
-															case 0:
-																continue;
-															}
-															return;
-														}
-													}
-												}
-												return;
-											}
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-										}
-									}
-									return;
-								}
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
 							return;
 						}
-						for (;;)
+						while (true)
 						{
-							switch (5)
+							switch (4)
 							{
 							case 0:
 								continue;
 							}
-							break;
+							if (GameManager.Get().PlayerInfo == null)
+							{
+								while (true)
+								{
+									switch (5)
+									{
+									default:
+										return;
+									case 0:
+										break;
+									}
+								}
+							}
+							if (GameWideData.Get() == null)
+							{
+								return;
+							}
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								if (GameWideData.Get().m_gameBalanceVars == null)
+								{
+									return;
+								}
+								m_tauntPlayerBanner.m_playerName.text = actorData.GetFancyDisplayName();
+								PlayerDetails playerDetails = GameFlow.Get().playerDetails[playerData.GetPlayer()];
+								if (playerDetails == null)
+								{
+									while (true)
+									{
+										switch (6)
+										{
+										default:
+											return;
+										case 0:
+											break;
+										}
+									}
+								}
+								List<LobbyPlayerInfo> list = new List<LobbyPlayerInfo>();
+								list.AddRange(GameManager.Get().TeamInfo.TeamAPlayerInfo);
+								list.AddRange(GameManager.Get().TeamInfo.TeamBPlayerInfo);
+								for (int i = 0; i < list.Count; i++)
+								{
+									if (playerDetails.m_lobbyPlayerInfoId != list[i].PlayerId)
+									{
+										continue;
+									}
+									while (true)
+									{
+										switch (2)
+										{
+										case 0:
+											continue;
+										}
+										UIManager.SetGameObjectActive(m_tauntPlayerBanner.m_playerLevel, false);
+										string path = "Banners/Background/02_blue";
+										GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(list[i].BannerID);
+										if (banner != null)
+										{
+											path = banner.m_resourceString;
+										}
+										m_tauntPlayerBanner.m_bannerBG.sprite = (Sprite)Resources.Load(path, typeof(Sprite));
+										string path2 = "Banners/Background/02_blue";
+										GameBalanceVars.PlayerBanner banner2 = GameWideData.Get().m_gameBalanceVars.GetBanner(list[i].EmblemID);
+										if (banner2 != null)
+										{
+											while (true)
+											{
+												switch (7)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											path2 = banner2.m_resourceString;
+										}
+										m_tauntPlayerBanner.m_bannerFG.sprite = (Sprite)Resources.Load(path2, typeof(Sprite));
+										m_tauntPlayerBanner.m_playerTitle.text = GameWideData.Get().m_gameBalanceVars.GetTitle(list[i].TitleID, string.Empty, list[i].TitleLevel);
+										GameBalanceVars.PlayerRibbon ribbon = GameWideData.Get().m_gameBalanceVars.GetRibbon(list[i].RibbonID);
+										if (ribbon != null)
+										{
+											while (true)
+											{
+												switch (3)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											if (!ribbon.m_resourceString.IsNullOrEmpty())
+											{
+												m_tauntPlayerBanner.m_bannerRibbon.sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
+												UIManager.SetGameObjectActive(m_tauntPlayerBanner.m_bannerRibbon, true);
+												goto IL_03b2;
+											}
+										}
+										UIManager.SetGameObjectActive(m_tauntPlayerBanner.m_bannerRibbon, false);
+										goto IL_03b2;
+										IL_03b2:
+										if (GameManager.Get().PlayerInfo.PlayerId == list[i].PlayerId)
+										{
+											while (true)
+											{
+												switch (4)
+												{
+												case 0:
+													break;
+												default:
+													m_tauntPlayerBanner.m_teamIndicator.color = HUD_UIResources.Get().m_selfIndicatorBar;
+													m_tauntPlayerBanner.m_teamIndicatorGlow.color = HUD_UIResources.Get().m_selfIndicatorBarGlow;
+													return;
+												}
+											}
+										}
+										if (GameManager.Get().PlayerInfo.TeamId == list[i].TeamId)
+										{
+											m_tauntPlayerBanner.m_teamIndicator.color = HUD_UIResources.Get().m_allyIndicatorBar;
+											m_tauntPlayerBanner.m_teamIndicatorGlow.color = HUD_UIResources.Get().m_allyIndicatorBarGlow;
+										}
+										else
+										{
+											m_tauntPlayerBanner.m_teamIndicator.color = HUD_UIResources.Get().m_enemyIndicatorBar;
+											m_tauntPlayerBanner.m_teamIndicatorGlow.color = HUD_UIResources.Get().m_enemyIndicatorBarGlow;
+										}
+										return;
+									}
+								}
+								while (true)
+								{
+									switch (3)
+									{
+									default:
+										return;
+									case 0:
+										break;
+									}
+								}
+							}
 						}
 					}
 				}
@@ -519,11 +518,11 @@ public class HUD_UI : UIScene
 
 	public void SetTauntBannerVisibility(bool isVisible)
 	{
-		Component tauntPlayerBanner = this.m_tauntPlayerBanner;
-		bool doActive;
+		UITauntPlayerBanner tauntPlayerBanner = m_tauntPlayerBanner;
+		int doActive;
 		if (isVisible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -532,27 +531,27 @@ public class HUD_UI : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UI.SetTauntBannerVisibility(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			doActive = !UIScreenManager.Get().GetHideHUDCompletely();
+			doActive = ((!UIScreenManager.Get().GetHideHUDCompletely()) ? 1 : 0);
 		}
 		else
 		{
-			doActive = false;
+			doActive = 0;
 		}
-		UIManager.SetGameObjectActive(tauntPlayerBanner, doActive, null);
+		UIManager.SetGameObjectActive(tauntPlayerBanner, (byte)doActive != 0);
 	}
 
 	public Canvas GetTopLevelCanvas()
 	{
-		return this.m_mainCanvas;
+		return m_mainCanvas;
 	}
 
 	public void GameTeardown()
 	{
-		this.m_mainScreenPanel.m_sideNotificationsPanel.RemoveHandleMessage();
-		UnityEngine.Object.Destroy(base.gameObject);
+		m_mainScreenPanel.m_sideNotificationsPanel.RemoveHandleMessage();
+		Object.Destroy(base.gameObject);
 	}
 }

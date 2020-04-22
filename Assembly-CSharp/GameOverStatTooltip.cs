@@ -1,13 +1,63 @@
-﻿using System;
+using I2.Loc;
 using System.Collections.Generic;
 using System.Globalization;
-using I2.Loc;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameOverStatTooltip : UITooltipBase
 {
+	public interface IGameOverStatTooltipDataProvider
+	{
+		CharacterRole? CharacterRole
+		{
+			get;
+		}
+
+		CharacterType? CharacterType
+		{
+			get;
+		}
+
+		string GetStatName();
+
+		string GetStatDescription();
+
+		float? GetPersonalAverage();
+
+		float? GetPreviousSeasonAverage();
+
+		float? GetFriendsAverage();
+
+		float? GetFreelancerMedian();
+
+		float? GetPeerMedian();
+
+		float? GetRoleMedian();
+
+		float? GetWorldMedian();
+
+		int? GetAgainstAllPercentile();
+
+		int? GetAgainstFreelancerPercentile();
+
+		int? GetAgainstPeersPercentile();
+
+		int? GetAgainstRolePercentile();
+
+		bool? IsStatLowerBetter();
+
+		float? GetCurrentGameValue();
+
+		GameResultBadgeData.StatDescription.StatUnitType? GetStatUnitType();
+
+		UIGameOverStatWidget.StatDisplayType GetStatDisplayType();
+
+		int? GetNumTurns();
+
+		int? GetNumLives();
+	}
+
 	public TextMeshProUGUI m_StatName;
 
 	public TextMeshProUGUI m_StatDescription;
@@ -26,7 +76,7 @@ public class GameOverStatTooltip : UITooltipBase
 
 	public string m_BelowAverageColorHex = "00AA00";
 
-	private List<GameOverStatTooltip.IGameOverStatTooltipDataProvider> m_DataProviders = new List<GameOverStatTooltip.IGameOverStatTooltipDataProvider>();
+	private List<IGameOverStatTooltipDataProvider> m_DataProviders = new List<IGameOverStatTooltipDataProvider>();
 
 	private List<GameOverStatTooltipInfoLine> m_DisplayedStatComparers = new List<GameOverStatTooltipInfoLine>();
 
@@ -66,34 +116,34 @@ public class GameOverStatTooltip : UITooltipBase
 
 	private void Awake()
 	{
-		this.m_DisplayedStatComparers.Add(this.m_StatComparisonPrefab);
+		m_DisplayedStatComparers.Add(m_StatComparisonPrefab);
 	}
 
 	public void ClearDataProviders()
 	{
-		this.m_DataProviders.Clear();
+		m_DataProviders.Clear();
 	}
 
-	public void AddNewDataProvider(GameOverStatTooltip.IGameOverStatTooltipDataProvider provider)
+	public void AddNewDataProvider(IGameOverStatTooltipDataProvider provider)
 	{
-		if (provider != null)
+		if (provider == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverStatTooltip.AddNewDataProvider(GameOverStatTooltip.IGameOverStatTooltipDataProvider)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_DataProviders.Contains(provider))
+			if (!m_DataProviders.Contains(provider))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -102,68 +152,70 @@ public class GameOverStatTooltip : UITooltipBase
 					}
 					break;
 				}
-				this.m_DataProviders.Add(provider);
+				m_DataProviders.Add(provider);
 			}
-			this.Refresh();
+			Refresh();
+			return;
 		}
 	}
 
 	private int DisplayPercentile(int? percentile, int displayIndex, string localizedString)
 	{
-		if (percentile != null)
+		if (percentile.HasValue)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverStatTooltip.DisplayPercentile(int?, int, string)).MethodHandle;
-			}
-			while (displayIndex >= this.m_DisplayedStatComparers.Count)
-			{
-				GameOverStatTooltipInfoLine gameOverStatTooltipInfoLine = UnityEngine.Object.Instantiate<GameOverStatTooltipInfoLine>(this.m_StatComparisonPrefab);
-				UIManager.ReparentTransform(gameOverStatTooltipInfoLine.transform, base.gameObject.transform);
-				this.m_DisplayedStatComparers.Add(gameOverStatTooltipInfoLine);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_DisplayedStatComparers[displayIndex], true, null);
-			TMP_Text statDisplay = this.m_DisplayedStatComparers[displayIndex].m_StatDisplay;
-			string format = "{2}: <color=#{0}>{1}%</color>";
-			object arg;
-			if (percentile.Value > 0x42)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					while (displayIndex >= m_DisplayedStatComparers.Count)
+					{
+						GameOverStatTooltipInfoLine gameOverStatTooltipInfoLine = Object.Instantiate(m_StatComparisonPrefab);
+						UIManager.ReparentTransform(gameOverStatTooltipInfoLine.transform, base.gameObject.transform);
+						m_DisplayedStatComparers.Add(gameOverStatTooltipInfoLine);
+					}
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							break;
+						default:
+						{
+							UIManager.SetGameObjectActive(m_DisplayedStatComparers[displayIndex], true);
+							TextMeshProUGUI statDisplay = m_DisplayedStatComparers[displayIndex].m_StatDisplay;
+							object arg;
+							if (percentile.Value <= 66)
+							{
+								arg = ((percentile.Value >= 34) ? m_AverageColorHex : m_BelowAverageColorHex);
+							}
+							else
+							{
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								arg = m_AboveAverageColorHex;
+							}
+							statDisplay.text = string.Format("{2}: <color=#{0}>{1}%</color>", arg, percentile.Value.ToString("g", CultureInfo.CurrentCulture), localizedString);
+							UIManager.SetGameObjectActive(m_DisplayedStatComparers[displayIndex].m_Percentile, false);
+							return displayIndex + 1;
+						}
+						}
+					}
 				}
-				arg = this.m_AboveAverageColorHex;
 			}
-			else
-			{
-				arg = ((percentile.Value >= 0x22) ? this.m_AverageColorHex : this.m_BelowAverageColorHex);
-			}
-			statDisplay.text = string.Format(format, arg, percentile.Value.ToString("g", CultureInfo.CurrentCulture), localizedString);
-			UIManager.SetGameObjectActive(this.m_DisplayedStatComparers[displayIndex].m_Percentile, false, null);
-			return displayIndex + 1;
 		}
 		return displayIndex;
 	}
@@ -172,154 +224,151 @@ public class GameOverStatTooltip : UITooltipBase
 	{
 		if (AverageValue == CurrentValue)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_AverageColorHex;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverStatTooltip.GetColorHex(float, float, bool)).MethodHandle;
-			}
-			return this.m_AverageColorHex;
 		}
 		if (LowerIsBetter)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (CurrentValue > AverageValue)
-			{
-				return this.m_BelowAverageColorHex;
-			}
-			return this.m_AboveAverageColorHex;
-		}
-		else
-		{
-			if (CurrentValue > AverageValue)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (CurrentValue > AverageValue)
+					{
+						return m_BelowAverageColorHex;
+					}
+					return m_AboveAverageColorHex;
 				}
-				return this.m_AboveAverageColorHex;
 			}
-			return this.m_BelowAverageColorHex;
 		}
+		if (CurrentValue > AverageValue)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					return m_AboveAverageColorHex;
+				}
+			}
+		}
+		return m_BelowAverageColorHex;
 	}
 
 	private string GetNumberEnding(int percentile)
 	{
-		if (!(LocalizationManager.CurrentLanguageCode == "en"))
+		if (LocalizationManager.CurrentLanguageCode == "en")
 		{
-			return string.Empty;
-		}
-		int num = percentile % 0xA;
-		if (num == 1)
-		{
-			for (;;)
+			int num = percentile % 10;
+			if (num == 1)
 			{
-				switch (7)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (7)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return "st";
+					}
 				}
-				break;
 			}
-			if (!true)
+			if (num == 2)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverStatTooltip.GetNumberEnding(int)).MethodHandle;
-			}
-			return "st";
-		}
-		if (num == 2)
-		{
-			for (;;)
-			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (5)
+					{
+					case 0:
+						break;
+					default:
+						return "nd";
+					}
 				}
-				break;
 			}
-			return "nd";
-		}
-		if (num == 3)
-		{
-			for (;;)
+			if (num == 3)
 			{
-				switch (1)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (1)
+					{
+					case 0:
+						break;
+					default:
+						return "rd";
+					}
 				}
-				break;
 			}
-			return "rd";
+			return "th";
 		}
-		return "th";
+		return string.Empty;
 	}
 
 	private int DisplayCompareAverage(float? Average, int? Percentile, int displayIndex, string localizedString, bool LowerIsBetter)
 	{
-		if (Average != null)
+		if (Average.HasValue)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					while (displayIndex >= m_DisplayedStatComparers.Count)
+					{
+						GameOverStatTooltipInfoLine gameOverStatTooltipInfoLine = Object.Instantiate(m_StatComparisonPrefab);
+						UIManager.ReparentTransform(gameOverStatTooltipInfoLine.transform, base.gameObject.transform);
+						m_DisplayedStatComparers.Add(gameOverStatTooltipInfoLine);
+					}
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							break;
+						default:
+							UIManager.SetGameObjectActive(m_DisplayedStatComparers[displayIndex], true);
+							m_DisplayedStatComparers[displayIndex].m_StatDisplay.text = string.Format("{1}: {0}", StringUtil.GetLocalizedFloat(Average.Value, "0.###"), localizedString);
+							if (Percentile.HasValue)
+							{
+								UIManager.SetGameObjectActive(m_DisplayedStatComparers[displayIndex].m_Percentile, true);
+								m_DisplayedStatComparers[displayIndex].m_Percentile.text = string.Format(StringUtil.TR("PercentileTooltip", "Global"), Percentile.Value, GetNumberEnding(Percentile.Value));
+							}
+							else
+							{
+								UIManager.SetGameObjectActive(m_DisplayedStatComparers[displayIndex].m_Percentile, false);
+							}
+							return displayIndex + 1;
+						}
+					}
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverStatTooltip.DisplayCompareAverage(float?, int?, int, string, bool)).MethodHandle;
-			}
-			while (displayIndex >= this.m_DisplayedStatComparers.Count)
-			{
-				GameOverStatTooltipInfoLine gameOverStatTooltipInfoLine = UnityEngine.Object.Instantiate<GameOverStatTooltipInfoLine>(this.m_StatComparisonPrefab);
-				UIManager.ReparentTransform(gameOverStatTooltipInfoLine.transform, base.gameObject.transform);
-				this.m_DisplayedStatComparers.Add(gameOverStatTooltipInfoLine);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_DisplayedStatComparers[displayIndex], true, null);
-			this.m_DisplayedStatComparers[displayIndex].m_StatDisplay.text = string.Format("{1}: {0}", StringUtil.GetLocalizedFloat(Average.Value, "0.###"), localizedString);
-			if (Percentile != null)
-			{
-				UIManager.SetGameObjectActive(this.m_DisplayedStatComparers[displayIndex].m_Percentile, true, null);
-				this.m_DisplayedStatComparers[displayIndex].m_Percentile.text = string.Format(StringUtil.TR("PercentileTooltip", "Global"), Percentile.Value, this.GetNumberEnding(Percentile.Value));
-			}
-			else
-			{
-				UIManager.SetGameObjectActive(this.m_DisplayedStatComparers[displayIndex].m_Percentile, false, null);
-			}
-			return displayIndex + 1;
 		}
 		return displayIndex;
 	}
@@ -328,30 +377,29 @@ public class GameOverStatTooltip : UITooltipBase
 	{
 		if (!errorDisplay.IsNullOrEmpty())
 		{
-			while (displayIndex >= this.m_DisplayedStatComparers.Count)
+			while (displayIndex >= m_DisplayedStatComparers.Count)
 			{
-				GameOverStatTooltipInfoLine gameOverStatTooltipInfoLine = UnityEngine.Object.Instantiate<GameOverStatTooltipInfoLine>(this.m_StatComparisonPrefab);
+				GameOverStatTooltipInfoLine gameOverStatTooltipInfoLine = Object.Instantiate(m_StatComparisonPrefab);
 				UIManager.ReparentTransform(gameOverStatTooltipInfoLine.transform, base.gameObject.transform);
-				this.m_DisplayedStatComparers.Add(gameOverStatTooltipInfoLine);
+				m_DisplayedStatComparers.Add(gameOverStatTooltipInfoLine);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				UIManager.SetGameObjectActive(m_DisplayedStatComparers[displayIndex], true);
+				UIManager.SetGameObjectActive(m_DisplayedStatComparers[displayIndex].m_Percentile, false);
+				m_DisplayedStatComparers[displayIndex].m_StatDisplay.text = errorDisplay;
+				m_DisplayedStatComparers[displayIndex].GetComponent<LayoutElement>().preferredHeight = m_DisplayedStatComparers[displayIndex].m_StatDisplay.preferredHeight;
+				return displayIndex + 1;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverStatTooltip.DisplayNoStatsAvailable(string, int)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_DisplayedStatComparers[displayIndex], true, null);
-			UIManager.SetGameObjectActive(this.m_DisplayedStatComparers[displayIndex].m_Percentile, false, null);
-			this.m_DisplayedStatComparers[displayIndex].m_StatDisplay.text = errorDisplay;
-			this.m_DisplayedStatComparers[displayIndex].GetComponent<LayoutElement>().preferredHeight = this.m_DisplayedStatComparers[displayIndex].m_StatDisplay.preferredHeight;
-			return displayIndex + 1;
 		}
 		return displayIndex;
 	}
@@ -359,29 +407,29 @@ public class GameOverStatTooltip : UITooltipBase
 	public void Refresh()
 	{
 		bool flag = false;
-		this.PersonalAverage = 0f;
-		this.PreviousSeasonAverage = null;
-		this.FriendsAverage = null;
-		this.SimilarMMRMedian = null;
-		this.WorldMedian = null;
-		this.FreelancerMedian = null;
-		this.RoleMedian = null;
-		this.AgainstAllPercentile = null;
-		this.AgainstFreelancerPercentile = null;
-		this.AgainstPeersPercentile = null;
-		this.AgainstRolePercentile = null;
-		this.LowerIsBetter = false;
-		this.m_characterRole = CharacterRole.None;
-		this.m_characterType = CharacterType.None;
+		PersonalAverage = 0f;
+		PreviousSeasonAverage = null;
+		FriendsAverage = null;
+		SimilarMMRMedian = null;
+		WorldMedian = null;
+		FreelancerMedian = null;
+		RoleMedian = null;
+		AgainstAllPercentile = null;
+		AgainstFreelancerPercentile = null;
+		AgainstPeersPercentile = null;
+		AgainstRolePercentile = null;
+		LowerIsBetter = false;
+		m_characterRole = CharacterRole.None;
+		m_characterType = CharacterType.None;
 		float? num = null;
 		GameResultBadgeData.StatDescription.StatUnitType? statUnitType = null;
 		int? num2 = null;
 		int? num3 = null;
-		for (int i = 0; i < this.m_DataProviders.Count; i++)
+		for (int i = 0; i < m_DataProviders.Count; i++)
 		{
-			if (this.m_DataProviders[i] == null)
+			if (m_DataProviders[i] == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -390,249 +438,30 @@ public class GameOverStatTooltip : UITooltipBase
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverStatTooltip.Refresh()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_DataProviders.RemoveAt(i);
+				m_DataProviders.RemoveAt(i);
 				i--;
-			}
-			else
-			{
-				if (!this.m_DataProviders[i].GetStatName().IsNullOrEmpty())
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.StatName = this.m_DataProviders[i].GetStatName();
-				}
-				if (!this.m_DataProviders[i].GetStatDescription().IsNullOrEmpty())
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.StatDescription = this.m_DataProviders[i].GetStatDescription();
-				}
-				if (this.m_DataProviders[i].GetPersonalAverage() != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.PersonalAverage = this.m_DataProviders[i].GetPersonalAverage().Value;
-					flag = true;
-				}
-				if (this.m_DataProviders[i].GetPreviousSeasonAverage() != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.PreviousSeasonAverage = new float?(this.m_DataProviders[i].GetPreviousSeasonAverage().Value);
-				}
-				if (this.m_DataProviders[i].GetFriendsAverage() != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.FriendsAverage = new float?(this.m_DataProviders[i].GetFriendsAverage().Value);
-				}
-				if (this.m_DataProviders[i].GetPeerMedian() != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.SimilarMMRMedian = new float?(this.m_DataProviders[i].GetPeerMedian().Value);
-				}
-				if (this.m_DataProviders[i].GetFreelancerMedian() != null)
-				{
-					this.FreelancerMedian = new float?(this.m_DataProviders[i].GetFreelancerMedian().Value);
-				}
-				if (this.m_DataProviders[i].GetRoleMedian() != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.RoleMedian = new float?(this.m_DataProviders[i].GetRoleMedian().Value);
-				}
-				if (this.m_DataProviders[i].GetWorldMedian() != null)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.WorldMedian = new float?(this.m_DataProviders[i].GetWorldMedian().Value);
-				}
-				if (this.m_DataProviders[i].GetAgainstAllPercentile() != null)
-				{
-					this.AgainstAllPercentile = new int?(this.m_DataProviders[i].GetAgainstAllPercentile().Value);
-				}
-				if (this.m_DataProviders[i].GetAgainstFreelancerPercentile() != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.AgainstFreelancerPercentile = new int?(this.m_DataProviders[i].GetAgainstFreelancerPercentile().Value);
-				}
-				if (this.m_DataProviders[i].GetAgainstPeersPercentile() != null)
-				{
-					this.AgainstPeersPercentile = new int?(this.m_DataProviders[i].GetAgainstPeersPercentile().Value);
-				}
-				if (this.m_DataProviders[i].GetAgainstRolePercentile() != null)
-				{
-					this.AgainstRolePercentile = new int?(this.m_DataProviders[i].GetAgainstRolePercentile().Value);
-				}
-				if (this.m_DataProviders[i].IsStatLowerBetter() != null)
-				{
-					this.LowerIsBetter = this.m_DataProviders[i].IsStatLowerBetter().Value;
-				}
-				if (this.m_DataProviders[i].CharacterRole != null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_characterRole = this.m_DataProviders[i].CharacterRole.Value;
-				}
-				if (this.m_DataProviders[i].CharacterType != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_characterType = this.m_DataProviders[i].CharacterType.Value;
-				}
-				if (this.m_DataProviders[i].GetCurrentGameValue() != null)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num = new float?(this.m_DataProviders[i].GetCurrentGameValue().Value);
-				}
-				if (this.m_DataProviders[i].GetStatUnitType() != null)
-				{
-					statUnitType = new GameResultBadgeData.StatDescription.StatUnitType?(this.m_DataProviders[i].GetStatUnitType().Value);
-				}
-				if (this.m_DataProviders[i].GetNumTurns() != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num2 = new int?(this.m_DataProviders[i].GetNumTurns().Value);
-				}
-				if (this.m_DataProviders[i].GetNumLives() != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num3 = new int?(this.m_DataProviders[i].GetNumLives().Value);
-				}
-				this.StatDisplayType = this.m_DataProviders[i].GetStatDisplayType();
-			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-		bool doActive = false;
-		if (statUnitType != null)
-		{
-			for (;;)
+			if (!m_DataProviders[i].GetStatName().IsNullOrEmpty())
 			{
-				switch (7)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
-				break;
+				StatName = m_DataProviders[i].GetStatName();
 			}
-			if (num != null)
+			if (!m_DataProviders[i].GetStatDescription().IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -641,29 +470,233 @@ public class GameOverStatTooltip : UITooltipBase
 					}
 					break;
 				}
-				if (statUnitType.Value == GameResultBadgeData.StatDescription.StatUnitType.PerTurn)
+				StatDescription = m_DataProviders[i].GetStatDescription();
+			}
+			if (m_DataProviders[i].GetPersonalAverage().HasValue)
+			{
+				while (true)
 				{
-					if (num2 != null)
+					switch (2)
 					{
-						doActive = true;
-						this.m_StatSum.text = string.Format(StringUtil.TR("TotalSum", "Global"), num.Value * (float)num2.Value);
-						this.m_StatNumDividedBy.text = string.Format(StringUtil.TR("NumberOfTurns", "Global"), num2.Value);
+					case 0:
+						continue;
 					}
+					break;
 				}
-				else if (statUnitType.Value == GameResultBadgeData.StatDescription.StatUnitType.PerLife)
+				PersonalAverage = m_DataProviders[i].GetPersonalAverage().Value;
+				flag = true;
+			}
+			if (m_DataProviders[i].GetPreviousSeasonAverage().HasValue)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (2)
 					{
-						switch (3)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				PreviousSeasonAverage = m_DataProviders[i].GetPreviousSeasonAverage().Value;
+			}
+			if (m_DataProviders[i].GetFriendsAverage().HasValue)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				FriendsAverage = m_DataProviders[i].GetFriendsAverage().Value;
+			}
+			if (m_DataProviders[i].GetPeerMedian().HasValue)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				SimilarMMRMedian = m_DataProviders[i].GetPeerMedian().Value;
+			}
+			if (m_DataProviders[i].GetFreelancerMedian().HasValue)
+			{
+				FreelancerMedian = m_DataProviders[i].GetFreelancerMedian().Value;
+			}
+			if (m_DataProviders[i].GetRoleMedian().HasValue)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				RoleMedian = m_DataProviders[i].GetRoleMedian().Value;
+			}
+			if (m_DataProviders[i].GetWorldMedian().HasValue)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				WorldMedian = m_DataProviders[i].GetWorldMedian().Value;
+			}
+			if (m_DataProviders[i].GetAgainstAllPercentile().HasValue)
+			{
+				AgainstAllPercentile = m_DataProviders[i].GetAgainstAllPercentile().Value;
+			}
+			if (m_DataProviders[i].GetAgainstFreelancerPercentile().HasValue)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				AgainstFreelancerPercentile = m_DataProviders[i].GetAgainstFreelancerPercentile().Value;
+			}
+			if (m_DataProviders[i].GetAgainstPeersPercentile().HasValue)
+			{
+				AgainstPeersPercentile = m_DataProviders[i].GetAgainstPeersPercentile().Value;
+			}
+			if (m_DataProviders[i].GetAgainstRolePercentile().HasValue)
+			{
+				AgainstRolePercentile = m_DataProviders[i].GetAgainstRolePercentile().Value;
+			}
+			if (m_DataProviders[i].IsStatLowerBetter().HasValue)
+			{
+				LowerIsBetter = m_DataProviders[i].IsStatLowerBetter().Value;
+			}
+			if (m_DataProviders[i].CharacterRole.HasValue)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_characterRole = m_DataProviders[i].CharacterRole.Value;
+			}
+			if (m_DataProviders[i].CharacterType.HasValue)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_characterType = m_DataProviders[i].CharacterType.Value;
+			}
+			if (m_DataProviders[i].GetCurrentGameValue().HasValue)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num = m_DataProviders[i].GetCurrentGameValue().Value;
+			}
+			if (m_DataProviders[i].GetStatUnitType().HasValue)
+			{
+				statUnitType = m_DataProviders[i].GetStatUnitType().Value;
+			}
+			if (m_DataProviders[i].GetNumTurns().HasValue)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num2 = m_DataProviders[i].GetNumTurns().Value;
+			}
+			if (m_DataProviders[i].GetNumLives().HasValue)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num3 = m_DataProviders[i].GetNumLives().Value;
+			}
+			StatDisplayType = m_DataProviders[i].GetStatDisplayType();
+		}
+		while (true)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			bool doActive = false;
+			if (statUnitType.HasValue)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (num.HasValue)
+				{
+					while (true)
+					{
+						switch (6)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (num3 != null)
+					if (statUnitType.Value == GameResultBadgeData.StatDescription.StatUnitType.PerTurn)
 					{
-						for (;;)
+						if (num2.HasValue)
+						{
+							doActive = true;
+							m_StatSum.text = string.Format(StringUtil.TR("TotalSum", "Global"), num.Value * (float)num2.Value);
+							m_StatNumDividedBy.text = string.Format(StringUtil.TR("NumberOfTurns", "Global"), num2.Value);
+						}
+					}
+					else if (statUnitType.Value == GameResultBadgeData.StatDescription.StatUnitType.PerLife)
+					{
+						while (true)
 						{
 							switch (3)
 							{
@@ -672,86 +705,30 @@ public class GameOverStatTooltip : UITooltipBase
 							}
 							break;
 						}
-						doActive = true;
-						this.m_StatSum.text = string.Format(StringUtil.TR("TotalSum", "Global"), num.Value * (float)num3.Value);
-						this.m_StatNumDividedBy.text = string.Format(StringUtil.TR("NumberOfLives", "Global"), num3.Value);
+						if (num3.HasValue)
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							doActive = true;
+							m_StatSum.text = string.Format(StringUtil.TR("TotalSum", "Global"), num.Value * (float)num3.Value);
+							m_StatNumDividedBy.text = string.Format(StringUtil.TR("NumberOfLives", "Global"), num3.Value);
+						}
 					}
 				}
 			}
-		}
-		UIManager.SetGameObjectActive(this.m_StatSum, doActive, null);
-		TMP_Text statName = this.m_StatName;
-		string text;
-		if (this.StatName.IsNullOrEmpty())
-		{
-			for (;;)
+			UIManager.SetGameObjectActive(m_StatSum, doActive);
+			TextMeshProUGUI statName = m_StatName;
+			object text;
+			if (StatName.IsNullOrEmpty())
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text = "Needs to be authored";
-		}
-		else
-		{
-			text = this.StatName;
-		}
-		statName.text = text;
-		this.m_StatDescription.text = ((!this.StatDescription.IsNullOrEmpty()) ? this.StatDescription : "Needs to be authored");
-		int j = 0;
-		while (j >= this.m_DisplayedStatComparers.Count)
-		{
-			GameOverStatTooltipInfoLine gameOverStatTooltipInfoLine = UnityEngine.Object.Instantiate<GameOverStatTooltipInfoLine>(this.m_StatComparisonPrefab);
-			UIManager.ReparentTransform(gameOverStatTooltipInfoLine.transform, base.gameObject.transform);
-			this.m_DisplayedStatComparers.Add(gameOverStatTooltipInfoLine);
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (flag)
-		{
-			UIManager.SetGameObjectActive(this.m_DisplayedStatComparers[j], true, null);
-			this.m_DisplayedStatComparers[j].m_StatDisplay.text = string.Format("{2}: <color=#{0}>{1}</color>", this.m_AverageColorHex, StringUtil.GetLocalizedFloat(this.PersonalAverage, "0.###"), StringUtil.TR("PersonalAverage", "Stats"));
-			UIManager.SetGameObjectActive(this.m_DisplayedStatComparers[j].m_Percentile, false, null);
-			j++;
-		}
-		LocalizationArg_Freelancer localizationArg_Freelancer = LocalizationArg_Freelancer.Create(this.m_characterType);
-		LocalizationArg_LocalizationPayload localizationArg_LocalizationPayload = LocalizationArg_LocalizationPayload.Create(this.m_characterRole.GetLocalizedPayload());
-		j = this.DisplayCompareAverage(this.WorldMedian, this.AgainstAllPercentile, j, StringUtil.TR("WorldAverage", "Stats"), this.LowerIsBetter);
-		j = this.DisplayCompareAverage(this.RoleMedian, this.AgainstRolePercentile, j, LocalizationPayload.Create("RoleMedian", "Stats", new LocalizationArg[]
-		{
-			localizationArg_LocalizationPayload
-		}).ToString(), this.LowerIsBetter);
-		j = this.DisplayCompareAverage(this.FreelancerMedian, this.AgainstFreelancerPercentile, j, LocalizationPayload.Create("FreelancerMedian", "Stats", new LocalizationArg[]
-		{
-			localizationArg_Freelancer
-		}).ToString(), this.LowerIsBetter);
-		j = this.DisplayCompareAverage(this.SimilarMMRMedian, this.AgainstPeersPercentile, j, StringUtil.TR("SimilarMMRAverage", "Stats"), this.LowerIsBetter);
-		j = this.DisplayCompareAverage(this.PreviousSeasonAverage, null, j, StringUtil.TR("PreviousSeasonAverage", "Stats"), this.LowerIsBetter);
-		j = this.DisplayCompareAverage(this.FriendsAverage, null, j, StringUtil.TR("FriendAverage", "Stats"), this.LowerIsBetter);
-		if (UIPlayerProgressPanel.Get() != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.StatDisplayType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -760,112 +737,131 @@ public class GameOverStatTooltip : UITooltipBase
 					}
 					break;
 				}
-				if (!UIPlayerProgressPanel.Get().m_statsPanel.HasGlobalStatsToCompareTo)
+				text = "Needs to be authored";
+			}
+			else
+			{
+				text = StatName;
+			}
+			statName.text = (string)text;
+			m_StatDescription.text = ((!StatDescription.IsNullOrEmpty()) ? StatDescription : "Needs to be authored");
+			int num4 = 0;
+			while (num4 >= m_DisplayedStatComparers.Count)
+			{
+				GameOverStatTooltipInfoLine gameOverStatTooltipInfoLine = Object.Instantiate(m_StatComparisonPrefab);
+				UIManager.ReparentTransform(gameOverStatTooltipInfoLine.transform, base.gameObject.transform);
+				m_DisplayedStatComparers.Add(gameOverStatTooltipInfoLine);
+			}
+			while (true)
+			{
+				switch (6)
 				{
-					for (;;)
+				case 0:
+					continue;
+				}
+				if (flag)
+				{
+					UIManager.SetGameObjectActive(m_DisplayedStatComparers[num4], true);
+					m_DisplayedStatComparers[num4].m_StatDisplay.text = string.Format("{2}: <color=#{0}>{1}</color>", m_AverageColorHex, StringUtil.GetLocalizedFloat(PersonalAverage, "0.###"), StringUtil.TR("PersonalAverage", "Stats"));
+					UIManager.SetGameObjectActive(m_DisplayedStatComparers[num4].m_Percentile, false);
+					num4++;
+				}
+				LocalizationArg_Freelancer localizationArg_Freelancer = LocalizationArg_Freelancer.Create(m_characterType);
+				LocalizationArg_LocalizationPayload localizationArg_LocalizationPayload = LocalizationArg_LocalizationPayload.Create(m_characterRole.GetLocalizedPayload());
+				num4 = DisplayCompareAverage(WorldMedian, AgainstAllPercentile, num4, StringUtil.TR("WorldAverage", "Stats"), LowerIsBetter);
+				num4 = DisplayCompareAverage(RoleMedian, AgainstRolePercentile, num4, LocalizationPayload.Create("RoleMedian", "Stats", localizationArg_LocalizationPayload).ToString(), LowerIsBetter);
+				num4 = DisplayCompareAverage(FreelancerMedian, AgainstFreelancerPercentile, num4, LocalizationPayload.Create("FreelancerMedian", "Stats", localizationArg_Freelancer).ToString(), LowerIsBetter);
+				num4 = DisplayCompareAverage(SimilarMMRMedian, AgainstPeersPercentile, num4, StringUtil.TR("SimilarMMRAverage", "Stats"), LowerIsBetter);
+				num4 = DisplayCompareAverage(PreviousSeasonAverage, null, num4, StringUtil.TR("PreviousSeasonAverage", "Stats"), LowerIsBetter);
+				num4 = DisplayCompareAverage(FriendsAverage, null, num4, StringUtil.TR("FriendAverage", "Stats"), LowerIsBetter);
+				if (UIPlayerProgressPanel.Get() != null)
+				{
+					while (true)
 					{
-						switch (4)
+						switch (5)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					j = this.DisplayNoStatsAvailable(UIPlayerProgressPanel.Get().m_statsPanel.StatCompareFailure, j);
-					goto IL_C3D;
+					if (StatDisplayType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!UIPlayerProgressPanel.Get().m_statsPanel.HasGlobalStatsToCompareTo)
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num4 = DisplayNoStatsAvailable(UIPlayerProgressPanel.Get().m_statsPanel.StatCompareFailure, num4);
+							goto IL_0c3d;
+						}
+					}
+					if (StatDisplayType == UIGameOverStatWidget.StatDisplayType.FreelancerStat)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!UIPlayerProgressPanel.Get().m_statsPanel.HasFreelancerStatsToCompareTo)
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num4 = DisplayNoStatsAvailable(UIPlayerProgressPanel.Get().m_statsPanel.StatCompareFailure, num4);
+						}
+					}
 				}
-			}
-			if (this.StatDisplayType == UIGameOverStatWidget.StatDisplayType.FreelancerStat)
-			{
-				for (;;)
+				goto IL_0c3d;
+				IL_0c3d:
+				for (int j = num4; j < m_DisplayedStatComparers.Count; j++)
 				{
-					switch (4)
+					UIManager.SetGameObjectActive(m_DisplayedStatComparers[j], false);
+				}
+				float num5 = 12f;
+				LayoutElement[] componentsInChildren = base.gameObject.GetComponentsInChildren<LayoutElement>();
+				for (int k = 0; k < componentsInChildren.Length; k++)
+				{
+					num5 += componentsInChildren[k].preferredHeight;
+				}
+				while (true)
+				{
+					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (!UIPlayerProgressPanel.Get().m_statsPanel.HasFreelancerStatsToCompareTo)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					j = this.DisplayNoStatsAvailable(UIPlayerProgressPanel.Get().m_statsPanel.StatCompareFailure, j);
+					RectTransform obj = base.gameObject.transform as RectTransform;
+					Vector2 sizeDelta = (base.gameObject.transform as RectTransform).sizeDelta;
+					obj.sizeDelta = new Vector2(sizeDelta.x, num5);
+					return;
 				}
 			}
 		}
-		IL_C3D:
-		for (int k = j; k < this.m_DisplayedStatComparers.Count; k++)
-		{
-			UIManager.SetGameObjectActive(this.m_DisplayedStatComparers[k], false, null);
-		}
-		float num4 = 12f;
-		LayoutElement[] componentsInChildren = base.gameObject.GetComponentsInChildren<LayoutElement>();
-		for (int l = 0; l < componentsInChildren.Length; l++)
-		{
-			num4 += componentsInChildren[l].preferredHeight;
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		(base.gameObject.transform as RectTransform).sizeDelta = new Vector2((base.gameObject.transform as RectTransform).sizeDelta.x, num4);
-	}
-
-	public interface IGameOverStatTooltipDataProvider
-	{
-		string GetStatName();
-
-		string GetStatDescription();
-
-		CharacterRole? CharacterRole { get; }
-
-		CharacterType? CharacterType { get; }
-
-		float? GetPersonalAverage();
-
-		float? GetPreviousSeasonAverage();
-
-		float? GetFriendsAverage();
-
-		float? GetFreelancerMedian();
-
-		float? GetPeerMedian();
-
-		float? GetRoleMedian();
-
-		float? GetWorldMedian();
-
-		int? GetAgainstAllPercentile();
-
-		int? GetAgainstFreelancerPercentile();
-
-		int? GetAgainstPeersPercentile();
-
-		int? GetAgainstRolePercentile();
-
-		bool? IsStatLowerBetter();
-
-		float? GetCurrentGameValue();
-
-		GameResultBadgeData.StatDescription.StatUnitType? GetStatUnitType();
-
-		UIGameOverStatWidget.StatDisplayType GetStatDisplayType();
-
-		int? GetNumTurns();
-
-		int? GetNumLives();
 	}
 }

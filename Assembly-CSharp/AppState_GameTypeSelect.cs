@@ -1,7 +1,6 @@
-﻿using System;
+using LobbyGameClientMessages;
 using System.Collections.Generic;
 using System.Linq;
-using LobbyGameClientMessages;
 using UnityEngine;
 
 public class AppState_GameTypeSelect : AppState
@@ -22,7 +21,7 @@ public class AppState_GameTypeSelect : AppState
 
 	public static AppState_GameTypeSelect Get()
 	{
-		return AppState_GameTypeSelect.s_instance;
+		return s_instance;
 	}
 
 	public static void Create()
@@ -32,21 +31,21 @@ public class AppState_GameTypeSelect : AppState
 
 	private void Awake()
 	{
-		AppState_GameTypeSelect.s_instance = this;
-		this.m_autoCreateGameType = GameType.None;
-		this.m_autoCreateGameSubType = 0;
+		s_instance = this;
+		m_autoCreateGameType = GameType.None;
+		m_autoCreateGameSubType = 0;
 	}
 
 	public void Enter(AutoLaunchGameConfig autoCreateGameConfig)
 	{
-		this.m_autoCreateGameType = autoCreateGameConfig.GameConfig.GameType;
-		this.m_autoCreateMapName = autoCreateGameConfig.GameConfig.Map;
-		this.m_autoCreateGameConfig = autoCreateGameConfig;
-		this.m_autoCreateGameAtTime = Time.unscaledTime;
-		Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(this.m_autoCreateGameType);
-		if (!gameTypeSubTypes.IsNullOrEmpty<KeyValuePair<ushort, GameSubType>>())
+		m_autoCreateGameType = autoCreateGameConfig.GameConfig.GameType;
+		m_autoCreateMapName = autoCreateGameConfig.GameConfig.Map;
+		m_autoCreateGameConfig = autoCreateGameConfig;
+		m_autoCreateGameAtTime = Time.unscaledTime;
+		Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(m_autoCreateGameType);
+		if (!gameTypeSubTypes.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -55,15 +54,15 @@ public class AppState_GameTypeSelect : AppState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.Enter(AutoLaunchGameConfig)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_autoCreateGameSubType = gameTypeSubTypes.Keys.First<ushort>();
-			this.m_autoCreateGameConfig.GameConfig.SubTypes = gameTypeSubTypes.Values.ToList<GameSubType>();
-			if (gameTypeSubTypes.Count<KeyValuePair<ushort, GameSubType>>() > 1)
+			m_autoCreateGameSubType = gameTypeSubTypes.Keys.First();
+			m_autoCreateGameConfig.GameConfig.SubTypes = gameTypeSubTypes.Values.ToList();
+			if (gameTypeSubTypes.Count() > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -72,29 +71,25 @@ public class AppState_GameTypeSelect : AppState
 					}
 					break;
 				}
-				Log.Error("More than one sub-type available for {0}, selecting 0x{1:X4} by default", new object[]
-				{
-					this.m_autoCreateGameType,
-					this.m_autoCreateGameSubType
-				});
+				Log.Error("More than one sub-type available for {0}, selecting 0x{1:X4} by default", m_autoCreateGameType, m_autoCreateGameSubType);
 			}
 		}
-		this.m_autoCreateGameConfig.GameConfig.SetGameOption(GameOptionFlag.AutoLaunch, true);
+		m_autoCreateGameConfig.GameConfig.SetGameOption(GameOptionFlag.AutoLaunch, true);
 		base.Enter();
 	}
 
 	public void Enter(GameType autoCreateGameType, string autoCreateMapName = null)
 	{
-		this.m_autoCreateGameType = autoCreateGameType;
-		this.m_autoCreateMapName = autoCreateMapName;
-		this.m_autoCreateGameAtTime = Time.unscaledTime;
+		m_autoCreateGameType = autoCreateGameType;
+		m_autoCreateMapName = autoCreateMapName;
+		m_autoCreateGameAtTime = Time.unscaledTime;
 		Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(autoCreateGameType);
-		if (!gameTypeSubTypes.IsNullOrEmpty<KeyValuePair<ushort, GameSubType>>())
+		if (!gameTypeSubTypes.IsNullOrEmpty())
 		{
-			this.m_autoCreateGameSubType = gameTypeSubTypes.Keys.First<ushort>();
-			if (gameTypeSubTypes.Count<KeyValuePair<ushort, GameSubType>>() > 1)
+			m_autoCreateGameSubType = gameTypeSubTypes.Keys.First();
+			if (gameTypeSubTypes.Count() > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -103,15 +98,11 @@ public class AppState_GameTypeSelect : AppState
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.Enter(GameType, string)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				Log.Error("More than one sub-type available for {0}, selecting 0x{1:X4} by default", new object[]
-				{
-					autoCreateGameType,
-					this.m_autoCreateGameSubType
-				});
+				Log.Error("More than one sub-type available for {0}, selecting 0x{1:X4} by default", autoCreateGameType, m_autoCreateGameSubType);
 			}
 		}
 		base.Enter();
@@ -120,33 +111,34 @@ public class AppState_GameTypeSelect : AppState
 	protected override void OnEnter()
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		clientGameManager.OnDisconnectedFromLobbyServer += this.HandleDisconnectedFromLobbyServer;
-		clientGameManager.OnGameInfoNotification += this.HandleGameInfoNotification;
-		if (this.m_autoCreateGameType == GameType.None)
+		clientGameManager.OnDisconnectedFromLobbyServer += HandleDisconnectedFromLobbyServer;
+		clientGameManager.OnGameInfoNotification += HandleGameInfoNotification;
+		if (m_autoCreateGameType != GameType.None)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.OnEnter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIFrontEnd.Get().ShowScreen(FrontEndScreenState.GameTypeSelect, false);
+			UIFrontEnd.Get().ShowScreen(FrontEndScreenState.GameTypeSelect);
+			return;
 		}
 	}
 
 	protected override void OnLeave()
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (this.m_messageBox != null)
+		if (m_messageBox != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -155,243 +147,257 @@ public class AppState_GameTypeSelect : AppState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.OnLeave()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_messageBox.Close();
-			this.m_messageBox = null;
+			m_messageBox.Close();
+			m_messageBox = null;
 		}
-		clientGameManager.OnDisconnectedFromLobbyServer -= this.HandleDisconnectedFromLobbyServer;
-		clientGameManager.OnGameInfoNotification -= this.HandleGameInfoNotification;
-		if (UIFrontEnd.Get() != null)
+		clientGameManager.OnDisconnectedFromLobbyServer -= HandleDisconnectedFromLobbyServer;
+		clientGameManager.OnGameInfoNotification -= HandleGameInfoNotification;
+		if (!(UIFrontEnd.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			UIFrontEnd.Get().ShowScreen(FrontEndScreenState.None, false);
+			UIFrontEnd.Get().ShowScreen(FrontEndScreenState.None);
+			return;
 		}
 	}
 
 	protected void Update()
 	{
-		if (this.m_autoCreateGameType != GameType.None)
+		if (m_autoCreateGameType == GameType.None)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_autoCreateGameAtTime <= Time.unscaledTime)
+			if (!(m_autoCreateGameAtTime <= Time.unscaledTime))
 			{
-				if (this.m_autoCreateGameConfig != null)
+				return;
+			}
+			if (m_autoCreateGameConfig != null)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (3)
 					{
-						switch (3)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (m_autoCreateGameConfig.GameConfig != null)
+				{
+					while (true)
+					{
+						switch (1)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (this.m_autoCreateGameConfig.GameConfig != null)
+					if (m_autoCreateGameConfig.TeamInfo != null)
 					{
-						for (;;)
+						IEnumerable<LobbyPlayerInfo> teamAPlayerInfo = m_autoCreateGameConfig.TeamInfo.TeamAPlayerInfo;
+						if (ClientGameManager.Get() != null)
 						{
-							switch (1)
+							IEnumerator<LobbyPlayerInfo> enumerator = teamAPlayerInfo.GetEnumerator();
+							try
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_autoCreateGameConfig.TeamInfo != null)
-						{
-							IEnumerable<LobbyPlayerInfo> teamAPlayerInfo = this.m_autoCreateGameConfig.TeamInfo.TeamAPlayerInfo;
-							if (ClientGameManager.Get() != null)
-							{
-								IEnumerator<LobbyPlayerInfo> enumerator = teamAPlayerInfo.GetEnumerator();
-								try
+								while (true)
 								{
-									while (enumerator.MoveNext())
+									if (!enumerator.MoveNext())
 									{
-										LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
-										if (lobbyPlayerInfo.IsGameOwner)
+										while (true)
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											if (lobbyPlayerInfo.CharacterType.IsValidForHumanGameplay())
-											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												ClientGameManager.Get().UpdateSelectedSkin(lobbyPlayerInfo.CharacterInfo.CharacterSkin, 0);
-												ClientGameManager.Get().UpdateSelectedCharacter(lobbyPlayerInfo.CharacterType, 0);
-												goto IL_12D;
-											}
-										}
-									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-								}
-								finally
-								{
-									if (enumerator != null)
-									{
-										for (;;)
-										{
-											switch (3)
+											switch (5)
 											{
 											case 0:
 												continue;
 											}
 											break;
 										}
-										enumerator.Dispose();
+										break;
 									}
-								}
-							}
-							IL_12D:
-							if (ClientGameManager.Get().GameTypeAvailabilies.ContainsKey(GameType.Custom))
-							{
-								for (;;)
-								{
-									switch (4)
+									LobbyPlayerInfo current = enumerator.Current;
+									if (current.IsGameOwner)
 									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								GameTypeAvailability gameTypeAvailability = ClientGameManager.Get().GameTypeAvailabilies[GameType.Custom];
-								ushort num = 1;
-								using (List<GameSubType>.Enumerator enumerator2 = gameTypeAvailability.SubTypes.GetEnumerator())
-								{
-									while (enumerator2.MoveNext())
-									{
-										GameSubType gameSubType = enumerator2.Current;
-										if (gameSubType.GameMapConfigs.Exists(delegate(GameMapConfig i)
+										while (true)
 										{
-											bool result;
-											if (i.IsActive)
+											switch (5)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												if (!true)
-												{
-													RuntimeMethodHandle runtimeMethodHandle2 = methodof(AppState_GameTypeSelect.<Update>m__0(GameMapConfig)).MethodHandle;
-												}
-												result = (i.Map == this.m_autoCreateGameConfig.GameConfig.Map);
+											case 0:
+												continue;
 											}
-											else
-											{
-												result = false;
-											}
-											return result;
-										}))
+											break;
+										}
+										if (current.CharacterType.IsValidForHumanGameplay())
 										{
-											for (;;)
+											while (true)
 											{
 												switch (6)
+												{
+												case 0:
+													break;
+												default:
+													ClientGameManager.Get().UpdateSelectedSkin(current.CharacterInfo.CharacterSkin);
+													ClientGameManager.Get().UpdateSelectedCharacter(current.CharacterType);
+													goto end_IL_009e;
+												}
+											}
+										}
+									}
+								}
+								end_IL_009e:;
+							}
+							finally
+							{
+								if (enumerator != null)
+								{
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											break;
+										default:
+											enumerator.Dispose();
+											goto end_IL_0119;
+										}
+									}
+								}
+								end_IL_0119:;
+							}
+						}
+						if (ClientGameManager.Get().GameTypeAvailabilies.ContainsKey(GameType.Custom))
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							GameTypeAvailability gameTypeAvailability = ClientGameManager.Get().GameTypeAvailabilies[GameType.Custom];
+							ushort num = 1;
+							using (List<GameSubType>.Enumerator enumerator2 = gameTypeAvailability.SubTypes.GetEnumerator())
+							{
+								while (true)
+								{
+									if (!enumerator2.MoveNext())
+									{
+										while (true)
+										{
+											switch (1)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										break;
+									}
+									GameSubType current2 = enumerator2.Current;
+									if (current2.GameMapConfigs.Exists(delegate(GameMapConfig i)
+									{
+										int result;
+										if (i.IsActive)
+										{
+											while (true)
+											{
+												switch (2)
 												{
 												case 0:
 													continue;
 												}
 												break;
 											}
-											this.m_autoCreateGameConfig.GameConfig.InstanceSubTypeBit = num;
-											goto IL_1E4;
+											if (1 == 0)
+											{
+												/*OpCode not supported: LdMemberToken*/;
+											}
+											result = ((i.Map == m_autoCreateGameConfig.GameConfig.Map) ? 1 : 0);
 										}
-										num = (ushort)(num << 1);
-									}
-									for (;;)
-									{
-										switch (1)
+										else
 										{
-										case 0:
-											continue;
+											result = 0;
 										}
-										break;
-									}
-								}
-							}
-							IL_1E4:
-							if (this.m_autoCreateGameConfig.GameConfig.InstanceSubTypeBit == 0)
-							{
-								for (;;)
-								{
-									switch (2)
+										return (byte)result != 0;
+									}))
 									{
-									case 0:
-										continue;
+										while (true)
+										{
+											switch (6)
+											{
+											case 0:
+												break;
+											default:
+												m_autoCreateGameConfig.GameConfig.InstanceSubTypeBit = num;
+												goto end_IL_0171;
+											}
+										}
 									}
-									break;
+									num = (ushort)(num << 1);
 								}
-								this.m_autoCreateGameConfig.GameConfig.InstanceSubTypeBit = 1;
+								end_IL_0171:;
 							}
-							this.CreateGame(this.m_autoCreateGameConfig.GameConfig, this.m_autoCreateGameConfig.TeamInfo);
-							goto IL_247;
 						}
+						if (m_autoCreateGameConfig.GameConfig.InstanceSubTypeBit == 0)
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							m_autoCreateGameConfig.GameConfig.InstanceSubTypeBit = 1;
+						}
+						CreateGame(m_autoCreateGameConfig.GameConfig, m_autoCreateGameConfig.TeamInfo);
+						goto IL_0247;
 					}
 				}
-				this.CreateGame(this.m_autoCreateGameType, this.m_autoCreateGameSubType, this.m_autoCreateMapName);
-				IL_247:
-				this.m_autoCreateGameType = GameType.None;
-				this.m_autoCreateGameSubType = 0;
-				this.m_autoCreateMapName = null;
-				this.m_autoCreateGameAtTime = 0f;
 			}
+			CreateGame(m_autoCreateGameType, m_autoCreateGameSubType, m_autoCreateMapName);
+			goto IL_0247;
+			IL_0247:
+			m_autoCreateGameType = GameType.None;
+			m_autoCreateGameSubType = 0;
+			m_autoCreateMapName = null;
+			m_autoCreateGameAtTime = 0f;
+			return;
 		}
 	}
 
 	public void OnSoloClicked()
 	{
 		Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(GameType.Coop);
-		if (!gameTypeSubTypes.IsNullOrEmpty<KeyValuePair<ushort, GameSubType>>())
+		if (!gameTypeSubTypes.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -400,31 +406,31 @@ public class AppState_GameTypeSelect : AppState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.OnSoloClicked()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			using (Dictionary<ushort, GameSubType>.Enumerator enumerator = gameTypeSubTypes.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					KeyValuePair<ushort, GameSubType> keyValuePair = enumerator.Current;
-					if (keyValuePair.Value.HasMod(GameSubType.SubTypeMods.AntiSocial))
+					KeyValuePair<ushort, GameSubType> current = enumerator.Current;
+					if (current.Value.HasMod(GameSubType.SubTypeMods.AntiSocial))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								CreateGame(GameType.Coop, current.Key);
+								return;
 							}
-							break;
 						}
-						this.CreateGame(GameType.Coop, keyValuePair.Key, null);
-						return;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -435,27 +441,27 @@ public class AppState_GameTypeSelect : AppState
 				}
 			}
 		}
-		this.CreateGame(GameType.Solo, 1, null);
+		CreateGame(GameType.Solo, 1);
 	}
 
 	public void OnCoopClicked()
 	{
-		this.JoinQueue(GameType.Coop);
+		JoinQueue(GameType.Coop);
 	}
 
 	public void OnPvPClicked()
 	{
-		this.JoinQueue(GameType.PvP);
+		JoinQueue(GameType.PvP);
 	}
 
 	public void OnPracticeClicked()
 	{
-		this.CreateGame(GameType.Practice, 1, null);
+		CreateGame(GameType.Practice, 1);
 	}
 
 	public void OnTutorialClicked()
 	{
-		this.CreateGame(GameType.Tutorial, 1, null);
+		CreateGame(GameType.Tutorial, 1);
 	}
 
 	public void OnCustomClicked()
@@ -471,14 +477,11 @@ public class AppState_GameTypeSelect : AppState
 	public void JoinQueue(GameType gameType)
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		BotDifficulty? botDifficulty = new BotDifficulty?((BotDifficulty)UICharacterScreen.GetCurrentSpecificState().AllyBotDifficultyToDisplay);
-		BotDifficulty? botDifficulty2 = new BotDifficulty?((BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay);
-		ClientGameManager clientGameManager2 = clientGameManager;
-		BotDifficulty? allyDifficulty = botDifficulty;
-		BotDifficulty? enemyDifficulty = botDifficulty2;
-		if (AppState_GameTypeSelect.<>f__am$cache0 == null)
+		BotDifficulty? allyDifficulty = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().AllyBotDifficultyToDisplay;
+		BotDifficulty? enemyDifficulty = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay;
+		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -487,11 +490,11 @@ public class AppState_GameTypeSelect : AppState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.JoinQueue(GameType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AppState_GameTypeSelect.<>f__am$cache0 = delegate(JoinMatchmakingQueueResponse response)
+			_003C_003Ef__am_0024cache0 = delegate(JoinMatchmakingQueueResponse response)
 			{
 				if (response.Success)
 				{
@@ -502,7 +505,7 @@ public class AppState_GameTypeSelect : AppState
 					string description;
 					if (response.LocalizedFailure != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -511,15 +514,15 @@ public class AppState_GameTypeSelect : AppState
 							}
 							break;
 						}
-						if (!true)
+						if (1 == 0)
 						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(AppState_GameTypeSelect.<JoinQueue>m__1(JoinMatchmakingQueueResponse)).MethodHandle;
+							/*OpCode not supported: LdMemberToken*/;
 						}
 						description = response.LocalizedFailure.ToString();
 					}
 					else if (response.ErrorMessage.IsNullOrEmpty())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -532,13 +535,13 @@ public class AppState_GameTypeSelect : AppState
 					}
 					else
 					{
-						description = string.Format("{0}#NeedsLocalization", response.ErrorMessage);
+						description = $"{response.ErrorMessage}#NeedsLocalization";
 					}
-					UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"), null, -1, false);
+					UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"));
 				}
 			};
 		}
-		clientGameManager2.JoinQueue(gameType, allyDifficulty, enemyDifficulty, AppState_GameTypeSelect.<>f__am$cache0);
+		clientGameManager.JoinQueue(gameType, allyDifficulty, enemyDifficulty, _003C_003Ef__am_0024cache0);
 	}
 
 	public void CreateGame(LobbyGameConfig gameConfig, LobbyTeamInfo teamInfo = null)
@@ -551,7 +554,7 @@ public class AppState_GameTypeSelect : AppState
 		BotDifficulty selectedBotSkillTeamB = BotDifficulty.Easy;
 		if (gameType == GameType.NewPlayerSolo)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -560,23 +563,22 @@ public class AppState_GameTypeSelect : AppState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.CreateGame(LobbyGameConfig, LobbyTeamInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			selectedBotSkillTeamA = BotDifficulty.Hard;
 			selectedBotSkillTeamB = BotDifficulty.Tutorial;
 		}
 		else
 		{
-			bool flag = gameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial);
-			if (flag)
+			if (gameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 			{
 				selectedBotSkillTeamA = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().AllyBotDifficultyToDisplay;
 			}
 			if (gameType != GameType.Solo)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -587,9 +589,9 @@ public class AppState_GameTypeSelect : AppState
 				}
 				if (gameType != GameType.Coop)
 				{
-					goto IL_C1;
+					goto IL_00c1;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -601,68 +603,71 @@ public class AppState_GameTypeSelect : AppState
 			}
 			selectedBotSkillTeamB = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay;
 		}
-		IL_C1:
+		goto IL_00c1;
+		IL_00c1:
 		clientGameManager.CreateGame(gameConfig, ReadyState.Accepted, selectedBotSkillTeamA, selectedBotSkillTeamB, delegate(CreateGameResponse response)
 		{
 			if (response.Success)
 			{
 				if (GameManager.Get().GameConfig.GameType != GameType.Tutorial && GameManager.Get().GameConfig.GameType != GameType.NewPlayerSolo)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(AppState_GameTypeSelect.<CreateGame>c__AnonStorey0.<>m__0(CreateGameResponse)).MethodHandle;
-					}
-					AppState_CharacterSelect.Get().Enter();
-					bool flag2 = GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.AutoLaunch);
-					if (flag2)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							AppState_CharacterSelect.Get().Enter();
+							if (GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.AutoLaunch))
+							{
+								while (true)
+								{
+									switch (2)
+									{
+									case 0:
+										break;
+									default:
+										ClientGameManager.Get().UpdateGameInfo(GameManager.Get().GameConfig, teamInfo);
+										AppState_CharacterSelect.Get().UpdateReadyState(true, null, null);
+										return;
+									}
+								}
+							}
+							return;
 						}
-						ClientGameManager.Get().UpdateGameInfo(GameManager.Get().GameConfig, teamInfo);
-						AppState_CharacterSelect.Get().UpdateReadyState(true, null, null);
 					}
 				}
-			}
-			else if (response.AllowRetry)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_autoCreateGameType = gameType;
-				this.m_autoCreateMapName = mapName;
-				this.m_autoCreateGameAtTime = Time.unscaledTime + 5f;
-				this.m_autoCreateGameSubType = subTypeBit;
-				UIFrontendLoadingScreen.Get().StartDisplayLoading(response.LocalizedFailure.ToString());
 			}
 			else
 			{
+				if (response.AllowRetry)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							break;
+						default:
+							m_autoCreateGameType = gameType;
+							m_autoCreateMapName = mapName;
+							m_autoCreateGameAtTime = Time.unscaledTime + 5f;
+							m_autoCreateGameSubType = subTypeBit;
+							UIFrontendLoadingScreen.Get().StartDisplayLoading(response.LocalizedFailure.ToString());
+							return;
+						}
+					}
+				}
 				UIFrontendLoadingScreen.Get().SetVisible(false);
 				string description;
 				if (response.LocalizedFailure != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -673,9 +678,13 @@ public class AppState_GameTypeSelect : AppState
 					}
 					description = response.LocalizedFailure.ToString();
 				}
-				else if (gameType == GameType.Tutorial)
+				else if (gameType != GameType.Tutorial)
 				{
-					for (;;)
+					description = (response.ErrorMessage.IsNullOrEmpty() ? StringUtil.TR("UnknownErrorTryAgain", "Frontend") : $"{response.ErrorMessage}#NeedsLocalization");
+				}
+				else
+				{
+					while (true)
 					{
 						switch (5)
 						{
@@ -686,27 +695,20 @@ public class AppState_GameTypeSelect : AppState
 					}
 					description = StringUtil.TR("UnableToLoadTutorial", "Frontend");
 				}
-				else if (!response.ErrorMessage.IsNullOrEmpty())
-				{
-					description = string.Format("{0}#NeedsLocalization", response.ErrorMessage);
-				}
-				else
-				{
-					description = StringUtil.TR("UnknownErrorTryAgain", "Frontend");
-				}
-				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"), null, -1, false);
+				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"));
 				if (gameType == GameType.Tutorial)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							AppState_LandingPage.Get().Enter();
+							return;
 						}
-						break;
 					}
-					AppState_LandingPage.Get().Enter();
 				}
 			}
 		});
@@ -715,13 +717,12 @@ public class AppState_GameTypeSelect : AppState
 	public void CreateGame(GameType gameType, ushort subTypeBit, string mapName = null)
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		this.CreateGame(new LobbyGameConfig
-		{
-			GameType = gameType,
-			Map = mapName,
-			InstanceSubTypeBit = subTypeBit,
-			SubTypes = clientGameManager.GetGameTypeSubTypes(gameType).Values.ToList<GameSubType>()
-		}, null);
+		LobbyGameConfig lobbyGameConfig = new LobbyGameConfig();
+		lobbyGameConfig.GameType = gameType;
+		lobbyGameConfig.Map = mapName;
+		lobbyGameConfig.InstanceSubTypeBit = subTypeBit;
+		lobbyGameConfig.SubTypes = clientGameManager.GetGameTypeSubTypes(gameType).Values.ToList();
+		CreateGame(lobbyGameConfig);
 	}
 
 	private void HandleGameInfoNotification(GameInfoNotification notification)
@@ -732,7 +733,7 @@ public class AppState_GameTypeSelect : AppState
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -741,31 +742,32 @@ public class AppState_GameTypeSelect : AppState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.HandleGameInfoNotification(GameInfoNotification)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
-		if (GameManager.Get().PlayerInfo != null && GameManager.Get().GameInfo != null)
+		if (GameManager.Get().PlayerInfo == null || GameManager.Get().GameInfo == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			if (GameManager.Get().TeamInfo != null)
 			{
 				AppState_GameLoading.Get().Enter(GameManager.Get().GameConfig.GameType);
 			}
+			return;
 		}
 	}
 
 	private void HandleDisconnectedFromLobbyServer(string lastLobbyErrorMessage)
 	{
-		AppState_LandingPage.Get().Enter(lastLobbyErrorMessage, false);
+		AppState_LandingPage.Get().Enter(lastLobbyErrorMessage);
 	}
 }

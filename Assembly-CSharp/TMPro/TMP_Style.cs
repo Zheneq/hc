@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace TMPro
@@ -28,26 +28,27 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_Name;
+				return m_Name;
 			}
 			set
 			{
-				if (value != this.m_Name)
+				if (!(value != m_Name))
 				{
-					for (;;)
+					return;
+				}
+				while (true)
+				{
+					switch (1)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Style.set_name(string)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					this.m_Name = value;
+					m_Name = value;
+					return;
 				}
 			}
 		}
@@ -56,87 +57,64 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_HashCode;
+				return m_HashCode;
 			}
 			set
 			{
-				if (value != this.m_HashCode)
+				if (value == m_HashCode)
 				{
-					for (;;)
+					return;
+				}
+				while (true)
+				{
+					switch (4)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Style.set_hashCode(int)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					this.m_HashCode = value;
+					m_HashCode = value;
+					return;
 				}
 			}
 		}
 
-		public string styleOpeningDefinition
-		{
-			get
-			{
-				return this.m_OpeningDefinition;
-			}
-		}
+		public string styleOpeningDefinition => m_OpeningDefinition;
 
-		public string styleClosingDefinition
-		{
-			get
-			{
-				return this.m_ClosingDefinition;
-			}
-		}
+		public string styleClosingDefinition => m_ClosingDefinition;
 
-		public int[] styleOpeningTagArray
-		{
-			get
-			{
-				return this.m_OpeningTagArray;
-			}
-		}
+		public int[] styleOpeningTagArray => m_OpeningTagArray;
 
-		public int[] styleClosingTagArray
-		{
-			get
-			{
-				return this.m_ClosingTagArray;
-			}
-		}
+		public int[] styleClosingTagArray => m_ClosingTagArray;
 
 		public void RefreshStyle()
 		{
-			this.m_HashCode = TMP_TextUtilities.GetSimpleHashCode(this.m_Name);
-			this.m_OpeningTagArray = new int[this.m_OpeningDefinition.Length];
-			for (int i = 0; i < this.m_OpeningDefinition.Length; i++)
+			m_HashCode = TMP_TextUtilities.GetSimpleHashCode(m_Name);
+			m_OpeningTagArray = new int[m_OpeningDefinition.Length];
+			for (int i = 0; i < m_OpeningDefinition.Length; i++)
 			{
-				this.m_OpeningTagArray[i] = (int)this.m_OpeningDefinition[i];
+				m_OpeningTagArray[i] = m_OpeningDefinition[i];
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Style.RefreshStyle()).MethodHandle;
-			}
-			this.m_ClosingTagArray = new int[this.m_ClosingDefinition.Length];
-			for (int j = 0; j < this.m_ClosingDefinition.Length; j++)
-			{
-				this.m_ClosingTagArray[j] = (int)this.m_ClosingDefinition[j];
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				m_ClosingTagArray = new int[m_ClosingDefinition.Length];
+				for (int j = 0; j < m_ClosingDefinition.Length; j++)
+				{
+					m_ClosingTagArray[j] = m_ClosingDefinition[j];
+				}
+				return;
 			}
 		}
 	}

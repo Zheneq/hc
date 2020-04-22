@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,62 +13,63 @@ public class AbilityUtil_Targeter_GrydBomb : AbilityUtil_Targeter_Shape
 
 	private GrydPlaceOrMoveBomb m_bombAbility;
 
-	public AbilityUtil_Targeter_GrydBomb(Ability ability, float moveRange) : base(ability, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible)
+	public AbilityUtil_Targeter_GrydBomb(Ability ability, float moveRange)
+		: base(ability, AbilityAreaShape.SingleSquare, false)
 	{
-		this.m_bombMoveRange = moveRange;
-		this.m_bombAbility = (ability as GrydPlaceOrMoveBomb);
+		m_bombMoveRange = moveRange;
+		m_bombAbility = (ability as GrydPlaceOrMoveBomb);
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		if (this.m_bombAbility != null && this.m_bombAbility.HasPlacedBomb())
+		if (m_bombAbility != null && m_bombAbility.HasPlacedBomb())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_GrydBomb.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
-			base.ClearActorsInRange();
-			base.SetShowArcToShape(false);
-			Vector3 vector = Board.\u000E().\u000E(this.m_bombAbility.GetPlacedBomb()).\u000E();
-			Vector3 vector2 = currentTarget.FreePos - vector;
-			if (this.m_lockToCardinalDirs)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					ClearActorsInRange();
+					SetShowArcToShape(false);
+					Vector3 worldPositionForLoS = Board.Get().GetBoardSquareSafe(m_bombAbility.GetPlacedBomb()).GetWorldPositionForLoS();
+					Vector3 vector = currentTarget.FreePos - worldPositionForLoS;
+					if (m_lockToCardinalDirs)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						vector = VectorUtils.HorizontalAngleToClosestCardinalDirection(Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(vector)));
+					}
+					if (m_highlights != null && m_highlights.Count < 1)
+					{
+						m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(Board.Get().squareSize * 0.75f, m_bombMoveRange * Board.Get().squareSize));
+					}
+					Vector3 position = worldPositionForLoS;
+					position.y = HighlightUtils.GetHighlightHeight();
+					m_highlights[0].transform.position = position;
+					m_highlights[0].transform.rotation = Quaternion.LookRotation(vector);
+					Vector3 laserEndPos;
+					List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(worldPositionForLoS, vector, m_bombMoveRange, 0.75f, targetingActor, targetingActor.GetOpposingTeams(), false, 1, false, false, out laserEndPos, null);
+					AddActorsInRange(actorsInLaser, worldPositionForLoS, targetingActor);
+					return;
 				}
-				vector2 = VectorUtils.HorizontalAngleToClosestCardinalDirection(Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(vector2)));
+				}
 			}
-			if (this.m_highlights != null && this.m_highlights.Count < 1)
-			{
-				this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(Board.\u000E().squareSize * 0.75f, this.m_bombMoveRange * Board.\u000E().squareSize, null));
-			}
-			Vector3 position = vector;
-			position.y = HighlightUtils.GetHighlightHeight();
-			this.m_highlights[0].transform.position = position;
-			this.m_highlights[0].transform.rotation = Quaternion.LookRotation(vector2);
-			Vector3 vector3;
-			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(vector, vector2, this.m_bombMoveRange, 0.75f, targetingActor, targetingActor.\u0015(), false, 1, false, false, out vector3, null, null, false, true);
-			base.AddActorsInRange(actorsInLaser, vector, targetingActor, AbilityTooltipSubject.Primary, false);
 		}
-		else
-		{
-			base.SetShowArcToShape(true);
-			base.UpdateTargeting(currentTarget, targetingActor);
-		}
+		SetShowArcToShape(true);
+		base.UpdateTargeting(currentTarget, targetingActor);
 	}
 }

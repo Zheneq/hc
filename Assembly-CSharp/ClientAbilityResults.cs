@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,12 +27,16 @@ public class ClientAbilityResults
 
 	public static string s_clientHitResultHeader = "<color=yellow>ClientHitResults: </color>";
 
+	public static bool LogMissingSequences => false;
+
+	public static bool _000E => false;
+
 	public ClientAbilityResults(int casterActorIndex, int abilityAction, List<ServerClientUtils.SequenceStartData> seqStartDataList, Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> posToHitResults)
 	{
-		this.m_casterActor = GameFlowData.Get().FindActorByActorIndex(casterActorIndex);
-		if (this.m_casterActor == null)
+		m_casterActor = GameFlowData.Get().FindActorByActorIndex(casterActorIndex);
+		if (m_casterActor == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -42,74 +45,74 @@ public class ClientAbilityResults
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientAbilityResults..ctor(int, int, List<ServerClientUtils.SequenceStartData>, Dictionary<ActorData, ClientActorHitResults>, Dictionary<Vector3, ClientPositionHitResults>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Debug.LogError("ClientAbilityResults error: Actor with index " + casterActorIndex + " is null.");
-			this.m_castedAbility = null;
-			this.m_actionType = AbilityData.ActionType.INVALID_ACTION;
+			m_castedAbility = null;
+			m_actionType = AbilityData.ActionType.INVALID_ACTION;
 		}
 		else
 		{
-			this.m_castedAbility = this.m_casterActor.\u000E().GetAbilityOfActionType((AbilityData.ActionType)abilityAction);
-			this.m_actionType = (AbilityData.ActionType)abilityAction;
+			m_castedAbility = m_casterActor.GetAbilityData().GetAbilityOfActionType((AbilityData.ActionType)abilityAction);
+			m_actionType = (AbilityData.ActionType)abilityAction;
 		}
-		this.m_seqStartDataList = seqStartDataList;
-		this.m_actorToHitResults = actorToHitResults;
-		this.m_posToHitResults = posToHitResults;
+		m_seqStartDataList = seqStartDataList;
+		m_actorToHitResults = actorToHitResults;
+		m_posToHitResults = posToHitResults;
 	}
 
 	public ActorData GetCaster()
 	{
-		return this.m_casterActor;
+		return m_casterActor;
 	}
 
 	public AbilityData.ActionType GetSourceActionType()
 	{
-		return this.m_actionType;
+		return m_actionType;
 	}
 
 	public bool HasSequencesToStart()
 	{
-		if (this.m_seqStartDataList == null)
+		if (m_seqStartDataList == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientAbilityResults.HasSequencesToStart()).MethodHandle;
-			}
-			return false;
 		}
-		if (this.m_seqStartDataList.Count == 0)
+		if (m_seqStartDataList.Count == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
-		using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = this.m_seqStartDataList.GetEnumerator())
+		using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = m_seqStartDataList.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ServerClientUtils.SequenceStartData sequenceStartData = enumerator.Current;
-				if (sequenceStartData != null)
+				ServerClientUtils.SequenceStartData current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -118,22 +121,22 @@ public class ClientAbilityResults
 						}
 						break;
 					}
-					if (sequenceStartData.HasSequencePrefab())
+					if (current.HasSequencePrefab())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -148,10 +151,10 @@ public class ClientAbilityResults
 
 	public bool ContainsSequenceSource(SequenceSource sequenceSource)
 	{
-		bool result;
+		int result;
 		if (sequenceSource != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -160,25 +163,25 @@ public class ClientAbilityResults
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientAbilityResults.ContainsSequenceSource(SequenceSource)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.ContainsSequenceSourceID(sequenceSource.RootID);
+			result = (ContainsSequenceSourceID(sequenceSource.RootID) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool ContainsSequenceSourceID(uint id)
 	{
 		bool result = false;
-		if (this.m_seqStartDataList != null)
+		if (m_seqStartDataList != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -187,15 +190,15 @@ public class ClientAbilityResults
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientAbilityResults.ContainsSequenceSourceID(uint)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (int i = 0; i < this.m_seqStartDataList.Count; i++)
+			for (int i = 0; i < m_seqStartDataList.Count; i++)
 			{
-				if (this.m_seqStartDataList[i].ContainsSequenceSourceID(id))
+				if (m_seqStartDataList[i].ContainsSequenceSourceID(id))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -214,187 +217,184 @@ public class ClientAbilityResults
 
 	public bool HasReactionByCaster(ActorData caster)
 	{
-		return ClientResolutionAction.HasReactionHitByCaster(caster, this.m_actorToHitResults);
+		return ClientResolutionAction.HasReactionHitByCaster(caster, m_actorToHitResults);
 	}
 
 	public void GetReactionHitResultsByCaster(ActorData caster, out Dictionary<ActorData, ClientActorHitResults> reactionActorHits, out Dictionary<Vector3, ClientPositionHitResults> reactionPosHits)
 	{
-		ClientResolutionAction.GetReactionHitResultsByCaster(caster, this.m_actorToHitResults, out reactionActorHits, out reactionPosHits);
+		ClientResolutionAction.GetReactionHitResultsByCaster(caster, m_actorToHitResults, out reactionActorHits, out reactionPosHits);
 	}
 
 	public Dictionary<ActorData, ClientActorHitResults> GetActorHitResults()
 	{
-		return this.m_actorToHitResults;
+		return m_actorToHitResults;
 	}
 
 	public Dictionary<Vector3, ClientPositionHitResults> GetPosHitResults()
 	{
-		return this.m_posToHitResults;
+		return m_posToHitResults;
 	}
 
 	public void StartSequences()
 	{
-		if (this.HasSequencesToStart())
+		if (HasSequencesToStart())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientAbilityResults.StartSequences()).MethodHandle;
-			}
-			foreach (ServerClientUtils.SequenceStartData sequenceStartData in this.m_seqStartDataList)
-			{
-				sequenceStartData.CreateSequencesFromData(new SequenceSource.ActorDelegate(this.OnAbilityHitActor), new SequenceSource.Vector3Delegate(this.OnAbilityHitPosition));
-			}
-		}
-		else
-		{
-			if (ClientAbilityResults.\u001D)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					foreach (ServerClientUtils.SequenceStartData seqStartData in m_seqStartDataList)
+					{
+						seqStartData.CreateSequencesFromData(OnAbilityHitActor, OnAbilityHitPosition);
+					}
+					return;
 				}
-				Log.Warning(ClientAbilityResults.s_clientHitResultHeader + this.GetDebugDescription() + ": no Sequence to start, executing results directly", new object[0]);
 			}
-			this.RunClientAbilityHits();
 		}
-	}
-
-	public void RunClientAbilityHits()
-	{
-		foreach (KeyValuePair<ActorData, ClientActorHitResults> keyValuePair in this.m_actorToHitResults)
+		if (LogMissingSequences)
 		{
-			this.OnAbilityHitActor(keyValuePair.Key);
-		}
-		using (Dictionary<Vector3, ClientPositionHitResults>.Enumerator enumerator2 = this.m_posToHitResults.GetEnumerator())
-		{
-			while (enumerator2.MoveNext())
+			while (true)
 			{
-				KeyValuePair<Vector3, ClientPositionHitResults> keyValuePair2 = enumerator2.Current;
-				this.OnAbilityHitPosition(keyValuePair2.Key);
-			}
-			for (;;)
-			{
-				switch (6)
+				switch (2)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			Log.Warning(s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
+		}
+		RunClientAbilityHits();
+	}
+
+	public void RunClientAbilityHits()
+	{
+		foreach (KeyValuePair<ActorData, ClientActorHitResults> actorToHitResult in m_actorToHitResults)
+		{
+			OnAbilityHitActor(actorToHitResult.Key);
+		}
+		using (Dictionary<Vector3, ClientPositionHitResults>.Enumerator enumerator2 = m_posToHitResults.GetEnumerator())
+		{
+			while (enumerator2.MoveNext())
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientAbilityResults.RunClientAbilityHits()).MethodHandle;
+				OnAbilityHitPosition(enumerator2.Current.Key);
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
+				}
 			}
 		}
 	}
 
 	internal void OnAbilityHitActor(ActorData target)
 	{
-		if (this.m_actorToHitResults.ContainsKey(target))
+		if (m_actorToHitResults.ContainsKey(target))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_actorToHitResults[target].ExecuteActorHit(target, m_casterActor);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientAbilityResults.OnAbilityHitActor(ActorData)).MethodHandle;
-			}
-			this.m_actorToHitResults[target].ExecuteActorHit(target, this.m_casterActor);
 		}
-		else
-		{
-			Debug.LogError("ClientAbilityResults error-- Sequence hitting actor " + target.\u0018() + ", but that actor isn't in our hit results.");
-		}
+		Debug.LogError("ClientAbilityResults error-- Sequence hitting actor " + target.GetDebugName() + ", but that actor isn't in our hit results.");
 	}
 
 	internal void OnAbilityHitPosition(Vector3 position)
 	{
-		if (this.m_posToHitResults.ContainsKey(position))
+		if (m_posToHitResults.ContainsKey(position))
 		{
-			this.m_posToHitResults[position].ExecutePositionHit();
+			m_posToHitResults[position].ExecutePositionHit();
 		}
 	}
 
 	internal bool DoneHitting()
 	{
-		return ClientResolutionAction.DoneHitting(this.m_actorToHitResults, this.m_posToHitResults);
+		return ClientResolutionAction.DoneHitting(m_actorToHitResults, m_posToHitResults);
 	}
 
 	internal bool HasUnexecutedHitOnActor(ActorData targetActor)
 	{
-		return ClientResolutionAction.HasUnexecutedHitOnActor(targetActor, this.m_actorToHitResults);
+		return ClientResolutionAction.HasUnexecutedHitOnActor(targetActor, m_actorToHitResults);
 	}
 
 	internal void ExecuteUnexecutedClientHits()
 	{
-		ClientResolutionAction.ExecuteUnexecutedHits(this.m_actorToHitResults, this.m_posToHitResults, this.m_casterActor);
+		ClientResolutionAction.ExecuteUnexecutedHits(m_actorToHitResults, m_posToHitResults, m_casterActor);
 	}
 
 	internal void ExecuteReactionHitsWithExtraFlagsOnActor(ActorData targetActor, ActorData caster, bool hasDamage, bool hasHealing)
 	{
-		ClientResolutionAction.ExecuteReactionHitsWithExtraFlagsOnActorAux(this.m_actorToHitResults, targetActor, caster, hasDamage, hasHealing);
+		ClientResolutionAction.ExecuteReactionHitsWithExtraFlagsOnActorAux(m_actorToHitResults, targetActor, caster, hasDamage, hasHealing);
 	}
 
 	public void MarkActorHitsAsMovementHits()
 	{
-		using (Dictionary<ActorData, ClientActorHitResults>.ValueCollection.Enumerator enumerator = this.m_actorToHitResults.Values.GetEnumerator())
+		using (Dictionary<ActorData, ClientActorHitResults>.ValueCollection.Enumerator enumerator = m_actorToHitResults.Values.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ClientActorHitResults clientActorHitResults = enumerator.Current;
-				clientActorHitResults.IsMovementHit = true;
+				ClientActorHitResults current = enumerator.Current;
+				current.IsMovementHit = true;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientAbilityResults.MarkActorHitsAsMovementHits()).MethodHandle;
 			}
 		}
 	}
 
 	internal string UnexecutedHitsDebugStr()
 	{
-		return ClientResolutionAction.AssembleUnexecutedHitsDebugStr(this.m_actorToHitResults, this.m_posToHitResults);
+		return ClientResolutionAction.AssembleUnexecutedHitsDebugStr(m_actorToHitResults, m_posToHitResults);
 	}
 
 	internal string GetSequenceStartDataDebugStr()
 	{
 		string text = string.Empty;
-		if (this.m_seqStartDataList != null)
+		if (m_seqStartDataList != null)
 		{
-			foreach (ServerClientUtils.SequenceStartData sequenceStartData in this.m_seqStartDataList)
+			foreach (ServerClientUtils.SequenceStartData seqStartData in m_seqStartDataList)
 			{
-				if (sequenceStartData != null)
+				if (seqStartData != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -403,35 +403,28 @@ public class ClientAbilityResults
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientAbilityResults.GetSequenceStartDataDebugStr()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					string text2 = text;
-					text = string.Concat(new object[]
-					{
-						text2,
-						"SeqStartData Actors with prefab ID ",
-						sequenceStartData.GetSequencePrefabId(),
-						": ",
-						sequenceStartData.GetTargetActorsString(),
-						"\n"
-					});
+					text = text2 + "SeqStartData Actors with prefab ID " + seqStartData.GetSequencePrefabId() + ": " + seqStartData.GetTargetActorsString() + "\n";
 				}
 			}
+			return text;
 		}
 		return text;
 	}
 
-	public unsafe void AdjustKnockbackCounts_ClientAbilityResults(ref Dictionary<ActorData, int> outgoingKnockbacks, ref Dictionary<ActorData, int> incomingKnockbacks)
+	public void AdjustKnockbackCounts_ClientAbilityResults(ref Dictionary<ActorData, int> outgoingKnockbacks, ref Dictionary<ActorData, int> incomingKnockbacks)
 	{
-		using (Dictionary<ActorData, ClientActorHitResults>.Enumerator enumerator = this.m_actorToHitResults.GetEnumerator())
+		using (Dictionary<ActorData, ClientActorHitResults>.Enumerator enumerator = m_actorToHitResults.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<ActorData, ClientActorHitResults> keyValuePair = enumerator.Current;
-				ActorData key = keyValuePair.Key;
-				ClientActorHitResults value = keyValuePair.Value;
+				KeyValuePair<ActorData, ClientActorHitResults> current = enumerator.Current;
+				ActorData key = current.Key;
+				ClientActorHitResults value = current.Value;
 				if (value.HasKnockback)
 				{
 					if (!incomingKnockbacks.ContainsKey(key))
@@ -440,9 +433,7 @@ public class ClientAbilityResults
 					}
 					else
 					{
-						Dictionary<ActorData, int> dictionary;
-						ActorData key2;
-						(dictionary = incomingKnockbacks)[key2 = key] = dictionary[key2] + 1;
+						incomingKnockbacks[key]++;
 					}
 					if (value.KnockbackSourceActor != null)
 					{
@@ -452,35 +443,34 @@ public class ClientAbilityResults
 						}
 						else
 						{
-							Dictionary<ActorData, int> dictionary;
-							ActorData knockbackSourceActor;
-							(dictionary = outgoingKnockbacks)[knockbackSourceActor = value.KnockbackSourceActor] = dictionary[knockbackSourceActor] + 1;
+							outgoingKnockbacks[value.KnockbackSourceActor]++;
 						}
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientAbilityResults.AdjustKnockbackCounts_ClientAbilityResults(Dictionary<ActorData, int>*, Dictionary<ActorData, int>*)).MethodHandle;
 			}
 		}
 	}
 
 	public string GetDebugDescription()
 	{
-		string text;
-		if (this.m_casterActor != null)
+		object obj;
+		if (m_casterActor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -489,21 +479,21 @@ public class ClientAbilityResults
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientAbilityResults.GetDebugDescription()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text = this.m_casterActor.\u0018();
+			obj = m_casterActor.GetDebugName();
 		}
 		else
 		{
-			text = "(null actor)";
+			obj = "(null actor)";
 		}
-		string str = text;
-		string text2;
-		if (this.m_castedAbility != null)
+		string str = (string)obj;
+		object obj2;
+		if (m_castedAbility != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -512,29 +502,13 @@ public class ClientAbilityResults
 				}
 				break;
 			}
-			text2 = this.m_castedAbility.m_abilityName;
+			obj2 = m_castedAbility.m_abilityName;
 		}
 		else
 		{
-			text2 = "(null ability)";
+			obj2 = "(null ability)";
 		}
-		string str2 = text2;
+		string str2 = (string)obj2;
 		return str + "'s " + str2;
-	}
-
-	public static bool \u001D
-	{
-		get
-		{
-			return false;
-		}
-	}
-
-	public static bool \u000E
-	{
-		get
-		{
-			return false;
-		}
 	}
 }

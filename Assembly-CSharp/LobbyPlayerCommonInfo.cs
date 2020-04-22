@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -48,30 +48,18 @@ public class LobbyPlayerCommonInfo
 
 	public PlayerGameOptionFlag GameOptionFlags;
 
-	public bool IsRemoteControlled
-	{
-		get
-		{
-			return this.ControllingPlayerInfo != null;
-		}
-	}
+	public bool IsRemoteControlled => ControllingPlayerInfo != null;
 
-	public bool IsSpectator
-	{
-		get
-		{
-			return this.TeamId == Team.Spectator;
-		}
-	}
+	public bool IsSpectator => TeamId == Team.Spectator;
 
 	public CharacterType CharacterType
 	{
 		get
 		{
-			CharacterType result;
-			if (this.CharacterInfo == null)
+			int result;
+			if (CharacterInfo == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -80,17 +68,17 @@ public class LobbyPlayerCommonInfo
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerCommonInfo.get_CharacterType()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = CharacterType.None;
+				result = 0;
 			}
 			else
 			{
-				result = this.CharacterInfo.CharacterType;
+				result = (int)CharacterInfo.CharacterType;
 			}
-			return result;
+			return (CharacterType)result;
 		}
 	}
 
@@ -98,9 +86,10 @@ public class LobbyPlayerCommonInfo
 	{
 		get
 		{
-			if (this.ReadyState != ReadyState.Ready)
+			int result;
+			if (ReadyState != ReadyState.Ready)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -109,13 +98,13 @@ public class LobbyPlayerCommonInfo
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerCommonInfo.get_IsReady()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (!this.IsAIControlled)
+				if (!IsAIControlled)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -124,22 +113,31 @@ public class LobbyPlayerCommonInfo
 						}
 						break;
 					}
-					return this.IsRemoteControlled;
+					result = (IsRemoteControlled ? 1 : 0);
+					goto IL_003b;
 				}
 			}
-			return true;
+			result = 1;
+			goto IL_003b;
+			IL_003b:
+			return (byte)result != 0;
 		}
 	}
 
-	public bool ReplacedWithBots { get; set; }
+	public bool ReplacedWithBots
+	{
+		get;
+		set;
+	}
 
 	public bool IsAIControlled
 	{
 		get
 		{
-			if (!this.IsNPCBot)
+			int result;
+			if (!IsNPCBot)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -148,13 +146,13 @@ public class LobbyPlayerCommonInfo
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerCommonInfo.get_IsAIControlled()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (!this.IsLoadTestBot)
+				if (!IsLoadTestBot)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -163,45 +161,44 @@ public class LobbyPlayerCommonInfo
 						}
 						break;
 					}
-					return this.ReplacedWithBots;
+					result = (ReplacedWithBots ? 1 : 0);
+					goto IL_003a;
 				}
 			}
-			return true;
+			result = 1;
+			goto IL_003a;
+			IL_003a:
+			return (byte)result != 0;
 		}
 	}
 
-	public bool IsHumanControlled
-	{
-		get
-		{
-			return !this.IsAIControlled;
-		}
-	}
+	public bool IsHumanControlled => !IsAIControlled;
 
 	public bool IsNPCBot
 	{
 		get
 		{
-			return this.GameAccountType == PlayerGameAccountType.None;
+			return GameAccountType == PlayerGameAccountType.None;
 		}
 		set
 		{
-			if (value)
+			if (!value)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerCommonInfo.set_IsNPCBot(bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.GameAccountType = PlayerGameAccountType.None;
+				GameAccountType = PlayerGameAccountType.None;
+				return;
 			}
 		}
 	}
@@ -210,64 +207,64 @@ public class LobbyPlayerCommonInfo
 	{
 		get
 		{
-			return this.GameAccountType == PlayerGameAccountType.LoadTest;
+			return GameAccountType == PlayerGameAccountType.LoadTest;
 		}
 		set
 		{
 			if (value)
 			{
-				this.GameAccountType = PlayerGameAccountType.LoadTest;
+				GameAccountType = PlayerGameAccountType.LoadTest;
 			}
 		}
 	}
 
 	public void SetGameOption(LobbyGameplayOverrides gameplayOverrides)
 	{
-		if (this.IsLoadTestBot)
+		if (!IsLoadTestBot)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerCommonInfo.SetGameOption(LobbyGameplayOverrides)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (gameplayOverrides.UseFakeGameServersForLoadTests)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						GameConnectionType = PlayerGameConnectionType.None;
+						return;
 					}
-					break;
 				}
-				this.GameConnectionType = PlayerGameConnectionType.None;
 			}
-			else if (gameplayOverrides.UseFakeClientConnectionsForLoadTests)
+			if (gameplayOverrides.UseFakeClientConnectionsForLoadTests)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						GameConnectionType = PlayerGameConnectionType.None;
+						return;
 					}
-					break;
 				}
-				this.GameConnectionType = PlayerGameConnectionType.None;
 			}
-			else
-			{
-				this.GameConnectionType = PlayerGameConnectionType.RawSocket;
-			}
+			GameConnectionType = PlayerGameConnectionType.RawSocket;
+			return;
 		}
 	}
 
@@ -275,11 +272,11 @@ public class LobbyPlayerCommonInfo
 	{
 		if (on)
 		{
-			this.GameOptionFlags = this.GameOptionFlags.WithGameOption(flag);
+			GameOptionFlags = GameOptionFlags.WithGameOption(flag);
 		}
 		else
 		{
-			this.GameOptionFlags = this.GameOptionFlags.WithoutGameOption(flag);
+			GameOptionFlags = GameOptionFlags.WithoutGameOption(flag);
 		}
 	}
 }

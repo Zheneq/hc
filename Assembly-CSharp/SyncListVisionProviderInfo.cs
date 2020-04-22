@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine.Networking;
 
 public class SyncListVisionProviderInfo : SyncListStruct<VisionProviderInfo>
@@ -19,18 +18,17 @@ public class SyncListVisionProviderInfo : SyncListStruct<VisionProviderInfo>
 
 	public override VisionProviderInfo DeserializeItem(NetworkReader reader)
 	{
-		return new VisionProviderInfo
-		{
-			m_actorIndex = (int)reader.ReadPackedUInt32(),
-			m_satelliteIndex = (int)reader.ReadPackedUInt32(),
-			m_boardX = (int)reader.ReadPackedUInt32(),
-			m_boardY = (int)reader.ReadPackedUInt32(),
-			m_radius = reader.ReadSingle(),
-			m_radiusAsStraightLineDist = reader.ReadBoolean(),
-			m_flag = (BoardSquare.VisibilityFlags)reader.ReadInt32(),
-			m_brushRevealType = (VisionProviderInfo.BrushRevealType)reader.ReadInt32(),
-			m_ignoreLos = reader.ReadBoolean(),
-			m_canFunctionInGlobalBlind = reader.ReadBoolean()
-		};
+		VisionProviderInfo result = default(VisionProviderInfo);
+		result.m_actorIndex = (int)reader.ReadPackedUInt32();
+		result.m_satelliteIndex = (int)reader.ReadPackedUInt32();
+		result.m_boardX = (int)reader.ReadPackedUInt32();
+		result.m_boardY = (int)reader.ReadPackedUInt32();
+		result.m_radius = reader.ReadSingle();
+		result.m_radiusAsStraightLineDist = reader.ReadBoolean();
+		result.m_flag = (BoardSquare.VisibilityFlags)reader.ReadInt32();
+		result.m_brushRevealType = (VisionProviderInfo.BrushRevealType)reader.ReadInt32();
+		result.m_ignoreLos = reader.ReadBoolean();
+		result.m_canFunctionInGlobalBlind = reader.ReadBoolean();
+		return result;
 	}
 }

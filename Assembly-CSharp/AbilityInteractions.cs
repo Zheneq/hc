@@ -1,5 +1,3 @@
-﻿using System;
-
 public class AbilityInteractions
 {
 	public int m_numDamaged;

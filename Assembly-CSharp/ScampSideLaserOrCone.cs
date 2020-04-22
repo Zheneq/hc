@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class ScampSideLaserOrCone : GenericAbility_Container
@@ -13,15 +12,15 @@ public class ScampSideLaserOrCone : GenericAbility_Container
 
 	public override string GetOnHitDataDesc()
 	{
-		return base.GetOnHitDataDesc() + "\n-- On Hit Data when shields are down --\n" + this.m_shieldDownOnHitData.GetInEditorDesc();
+		return base.GetOnHitDataDesc() + "\n-- On Hit Data when shields are down --\n" + m_shieldDownOnHitData.GetInEditorDesc();
 	}
 
 	public override List<GenericAbility_TargetSelectBase> GetRelevantTargetSelectCompForEditor()
 	{
 		List<GenericAbility_TargetSelectBase> relevantTargetSelectCompForEditor = base.GetRelevantTargetSelectCompForEditor();
-		if (this.m_shieldDownTargetSelect != null)
+		if (m_shieldDownTargetSelect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -30,28 +29,28 @@ public class ScampSideLaserOrCone : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSideLaserOrCone.GetRelevantTargetSelectCompForEditor()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			relevantTargetSelectCompForEditor.Add(this.m_shieldDownTargetSelect);
+			relevantTargetSelectCompForEditor.Add(m_shieldDownTargetSelect);
 		}
 		return relevantTargetSelectCompForEditor;
 	}
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Scamp_SyncComponent>();
+		m_syncComp = GetComponent<Scamp_SyncComponent>();
 		base.SetupTargetersAndCachedVars();
 	}
 
 	public void ResetTargetersForShielding(bool hasShield)
 	{
-		base.ClearTargeters();
+		ClearTargeters();
 		List<AbilityUtil_Targeter> collection;
 		if (!hasShield)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -60,16 +59,16 @@ public class ScampSideLaserOrCone : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSideLaserOrCone.ResetTargetersForShielding(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!(this.m_shieldDownTargetSelect == null))
+			if (!(m_shieldDownTargetSelect == null))
 			{
-				collection = this.m_shieldDownTargetSelect.CreateTargeters(this);
-				goto IL_56;
+				collection = m_shieldDownTargetSelect.CreateTargeters(this);
+				goto IL_0056;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -79,16 +78,17 @@ public class ScampSideLaserOrCone : GenericAbility_Container
 				break;
 			}
 		}
-		collection = this.m_targetSelectComp.CreateTargeters(this);
-		IL_56:
+		collection = m_targetSelectComp.CreateTargeters(this);
+		goto IL_0056;
+		IL_0056:
 		base.Targeters.AddRange(collection);
 	}
 
 	public override OnHitAuthoredData GetOnHitAuthoredData()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -97,32 +97,32 @@ public class ScampSideLaserOrCone : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSideLaserOrCone.GetOnHitAuthoredData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComp.m_suitWasActiveOnTurnStart)
+			if (m_syncComp.m_suitWasActiveOnTurnStart)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_onHitData;
 					}
-					break;
 				}
-				return this.m_onHitData;
 			}
 		}
-		return this.m_shieldDownOnHitData;
+		return m_shieldDownOnHitData;
 	}
 
 	public override GenericAbility_TargetSelectBase GetTargetSelectComp()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -131,15 +131,15 @@ public class ScampSideLaserOrCone : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSideLaserOrCone.GetTargetSelectComp()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComp.m_suitWasActiveOnTurnStart)
+			if (m_syncComp.m_suitWasActiveOnTurnStart)
 			{
-				goto IL_54;
+				goto IL_0054;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -149,20 +149,21 @@ public class ScampSideLaserOrCone : GenericAbility_Container
 				break;
 			}
 		}
-		if (!(this.m_shieldDownTargetSelect == null))
+		if (m_shieldDownTargetSelect == null)
 		{
-			return this.m_shieldDownTargetSelect;
-		}
-		for (;;)
-		{
-			switch (1)
+			while (true)
 			{
-			case 0:
-				continue;
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
 			}
-			break;
+			goto IL_0054;
 		}
-		IL_54:
-		return this.m_targetSelectComp;
+		return m_shieldDownTargetSelect;
+		IL_0054:
+		return m_targetSelectComp;
 	}
 }

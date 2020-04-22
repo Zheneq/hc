@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public static class JsonUtil
 {
@@ -10,116 +10,122 @@ public static class JsonUtil
 	{
 		if (node.Type == JTokenType.Object)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(JsonUtil.TraverseNode(JToken, Action<JProperty>)).MethodHandle;
-			}
-			IEnumerator<JProperty> enumerator = node.Children<JProperty>().GetEnumerator();
-			try
-			{
-				while (enumerator.MoveNext())
-				{
-					JProperty jproperty = enumerator.Current;
-					if (propertyAction != null)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						propertyAction(jproperty);
-					}
-					JsonUtil.TraverseNode(jproperty.Value, propertyAction);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-			}
-			finally
-			{
-				if (enumerator != null)
+				default:
 				{
-					for (;;)
+					if (1 == 0)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					enumerator.Dispose();
+					IEnumerator<JProperty> enumerator = node.Children<JProperty>().GetEnumerator();
+					try
+					{
+						while (enumerator.MoveNext())
+						{
+							JProperty current = enumerator.Current;
+							if (propertyAction != null)
+							{
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								propertyAction(current);
+							}
+							TraverseNode(current.Value, propertyAction);
+						}
+						while (true)
+						{
+							switch (2)
+							{
+							default:
+								return;
+							case 0:
+								break;
+							}
+						}
+					}
+					finally
+					{
+						if (enumerator != null)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									break;
+								default:
+									enumerator.Dispose();
+									goto end_IL_0075;
+								}
+							}
+						}
+						end_IL_0075:;
+					}
+				}
 				}
 			}
 		}
-		else if (node.Type == JTokenType.Array)
+		if (node.Type != JTokenType.Array)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			IEnumerator<JToken> enumerator2 = node.Children().GetEnumerator();
 			try
 			{
 				while (enumerator2.MoveNext())
 				{
-					JToken node2 = enumerator2.Current;
-					JsonUtil.TraverseNode(node2, propertyAction);
+					JToken current2 = enumerator2.Current;
+					TraverseNode(current2, propertyAction);
 				}
 			}
 			finally
 			{
 				if (enumerator2 != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							enumerator2.Dispose();
+							goto end_IL_00d3;
 						}
-						break;
 					}
-					enumerator2.Dispose();
 				}
+				end_IL_00d3:;
 			}
+			return;
 		}
 	}
 
-	public unsafe static bool IsValidJson(this string s, out string formatError)
+	public static bool IsValidJson(this string s, out string formatError)
 	{
-		bool result;
 		try
 		{
-			JToken jtoken = JToken.Parse(s);
-			JToken node = jtoken;
-			if (JsonUtil.<>f__am$cache0 == null)
+			JToken node = JToken.Parse(s);
+			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -128,84 +134,83 @@ public static class JsonUtil
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(string.IsValidJson(string*)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				JsonUtil.<>f__am$cache0 = delegate(JProperty prop)
+				_003C_003Ef__am_0024cache0 = delegate(JProperty prop)
 				{
 					if (prop.Value.Type == JTokenType.String)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
 							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(JsonUtil.<IsValidJson>m__0(JProperty)).MethodHandle;
-						}
-						string s2 = prop.Value.ToString();
-						if (s2.IsTimeSpanFormat())
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
 								break;
-							}
-							try
+							default:
 							{
-								TimeSpan timeSpan = TimeSpan.Parse(s2);
+								if (1 == 0)
+								{
+									/*OpCode not supported: LdMemberToken*/;
+								}
+								string s2 = prop.Value.ToString();
+								if (s2.IsTimeSpanFormat())
+								{
+									while (true)
+									{
+										switch (6)
+										{
+										case 0:
+											break;
+										default:
+											try
+											{
+												TimeSpan timeSpan = TimeSpan.Parse(s2);
+											}
+											catch (Exception arg)
+											{
+												throw new Exception($"{prop.Name} {prop.Value} | {arg}");
+											}
+											return;
+										}
+									}
+								}
+								return;
 							}
-							catch (Exception arg)
-							{
-								throw new Exception(string.Format("{0} {1} | {2}", prop.Name, prop.Value, arg));
 							}
 						}
 					}
 				};
 			}
-			JsonUtil.TraverseNode(node, JsonUtil.<>f__am$cache0);
+			TraverseNode(node, _003C_003Ef__am_0024cache0);
 			formatError = null;
-			result = true;
+			return true;
 		}
 		catch (Exception ex)
 		{
 			formatError = ex.Message;
-			result = false;
+			return false;
 		}
-		return result;
 	}
 
 	public static List<string> CompareJson(string jsonString1, string jsonString2)
 	{
 		List<string> list = new List<string>();
-		List<JProperty> jsonProps1 = JObject.Parse(jsonString1).Properties().ToList<JProperty>();
-		List<JProperty> jsonProps2 = JObject.Parse(jsonString2).Properties().ToList<JProperty>();
-		List<JProperty> list2 = (from x in jsonProps1
-		where jsonProps2.Count((JProperty y) => x.Name == y.Name && JToken.DeepEquals(x, y)) == 0
-		select x).ToList<JProperty>();
-		List<JProperty> list3 = (from x in jsonProps2
-		where jsonProps1.Count((JProperty y) => x.Name == y.Name) == 0
-		select x).ToList<JProperty>();
+		List<JProperty> jsonProps1 = JObject.Parse(jsonString1).Properties().ToList();
+		List<JProperty> jsonProps2 = JObject.Parse(jsonString2).Properties().ToList();
+		List<JProperty> list2 = jsonProps1.Where((JProperty x) => jsonProps2.Count((JProperty y) => x.Name == y.Name && JToken.DeepEquals(x, y)) == 0).ToList();
+		List<JProperty> list3 = jsonProps2.Where((JProperty x) => jsonProps1.Count((JProperty y) => x.Name == y.Name) == 0).ToList();
 		using (List<JProperty>.Enumerator enumerator = list2.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				JProperty p1 = enumerator.Current;
-				JProperty jproperty = jsonProps2.SingleOrDefault((JProperty p) => p.Name == p1.Name);
+				JProperty p2 = enumerator.Current;
+				JProperty jProperty = jsonProps2.SingleOrDefault((JProperty p) => p.Name == p2.Name);
 				string item;
-				if (jproperty != null)
+				if (jProperty != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -214,19 +219,19 @@ public static class JsonUtil
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JsonUtil.CompareJson(string, string)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					item = string.Format("(UPDATED) {0} -> {1}", p1.ToString(), jproperty.ToString());
+					item = $"(UPDATED) {p2.ToString()} -> {jProperty.ToString()}";
 				}
 				else
 				{
-					item = string.Format("(DELETED) {0}", p1.ToString());
+					item = $"(DELETED) {p2.ToString()}";
 				}
 				list.Add(item);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -240,21 +245,21 @@ public static class JsonUtil
 		{
 			while (enumerator2.MoveNext())
 			{
-				JProperty jproperty2 = enumerator2.Current;
-				string item2 = string.Format("(ADDED) {0}", jproperty2.ToString());
+				JProperty current = enumerator2.Current;
+				string item2 = $"(ADDED) {current.ToString()}";
 				list.Add(item2);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return list;
 				}
-				break;
 			}
 		}
-		return list;
 	}
 
 	public static T DeepClone<T>(this object obj)

@@ -1,8 +1,6 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UITutorialSeasonInterstitial : UIScene
@@ -43,7 +41,7 @@ public class UITutorialSeasonInterstitial : UIScene
 
 	public static UITutorialSeasonInterstitial Get()
 	{
-		return UITutorialSeasonInterstitial.s_instance;
+		return s_instance;
 	}
 
 	public override SceneType GetSceneType()
@@ -53,16 +51,16 @@ public class UITutorialSeasonInterstitial : UIScene
 
 	public override void Awake()
 	{
-		this.m_normalBars = new List<UITutorialSeasonLevelBar>();
-		this.m_normalBars.AddRange(this.m_barLayout.GetComponentsInChildren<UITutorialSeasonLevelBar>(true));
-		this.m_normalBars.Remove(this.m_seasonEndBar);
-		this.m_unanimated = new Queue<UITutorialSeasonLevelBar>();
-		this.m_btnClose.spriteController.callback = delegate(BaseEventData baseEventData)
+		m_normalBars = new List<UITutorialSeasonLevelBar>();
+		m_normalBars.AddRange(m_barLayout.GetComponentsInChildren<UITutorialSeasonLevelBar>(true));
+		m_normalBars.Remove(m_seasonEndBar);
+		m_unanimated = new Queue<UITutorialSeasonLevelBar>();
+		m_btnClose.spriteController.callback = delegate
 		{
-			this.SetVisible(false);
+			SetVisible(false);
 			if (UIGameOverScreen.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -71,49 +69,50 @@ public class UITutorialSeasonInterstitial : UIScene
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialSeasonInterstitial.<Awake>m__0(BaseEventData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				UIGameOverScreen.Get().NotifySeasonTutorialScreenClosed();
 			}
 			UINewUserFlowManager.HighlightQueued();
 		};
-		UITutorialSeasonInterstitial.s_instance = this;
+		s_instance = this;
 		base.Awake();
 	}
 
 	private void OnDestroy()
 	{
-		UITutorialSeasonInterstitial.s_instance = null;
+		s_instance = null;
 	}
 
 	public void SetVisible(bool visible)
 	{
-		this.m_isVisible = visible;
-		UIManager.SetGameObjectActive(this.m_container, visible, null);
-		if (visible)
+		m_isVisible = visible;
+		UIManager.SetGameObjectActive(m_container, visible);
+		if (!visible)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialSeasonInterstitial.SetVisible(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UITutorialSeasonInterstitial.m_hasBeenViewed = true;
+			m_hasBeenViewed = true;
+			return;
 		}
 	}
 
 	public bool IsVisible()
 	{
-		return this.m_isVisible;
+		return m_isVisible;
 	}
 
 	public void Setup(SeasonTemplate season, int currentLevel, bool isMatchEnd)
@@ -122,7 +121,7 @@ public class UITutorialSeasonInterstitial : UIScene
 		int num = endLevel - currentLevel;
 		if (isMatchEnd)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -131,15 +130,15 @@ public class UITutorialSeasonInterstitial : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialSeasonInterstitial.Setup(SeasonTemplate, int, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num--;
 		}
 		if (num == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -148,20 +147,20 @@ public class UITutorialSeasonInterstitial : UIScene
 				}
 				break;
 			}
-			this.m_playXMoreGamesText.text = string.Empty;
+			m_playXMoreGamesText.text = string.Empty;
 		}
 		else
 		{
-			this.m_playXMoreGamesText.text = string.Format(StringUtil.TR("PlayXMoreGames", "OverlayScreensScene"), num);
+			m_playXMoreGamesText.text = string.Format(StringUtil.TR("PlayXMoreGames", "OverlayScreensScene"), num);
 		}
-		Queue<RewardUtils.RewardData> queue = new Queue<RewardUtils.RewardData>(RewardUtils.GetSeasonLevelRewards(-1));
+		Queue<RewardUtils.RewardData> queue = new Queue<RewardUtils.RewardData>(RewardUtils.GetSeasonLevelRewards());
 		for (int i = 1; i < endLevel - 1; i++)
 		{
 			int num2 = i - 1;
-			UITutorialSeasonLevelBar uitutorialSeasonLevelBar;
-			if (num2 < this.m_normalBars.Count)
+			UITutorialSeasonLevelBar uITutorialSeasonLevelBar;
+			if (num2 < m_normalBars.Count)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -170,20 +169,20 @@ public class UITutorialSeasonInterstitial : UIScene
 					}
 					break;
 				}
-				uitutorialSeasonLevelBar = this.m_normalBars[num2];
+				uITutorialSeasonLevelBar = m_normalBars[num2];
 			}
 			else
 			{
-				uitutorialSeasonLevelBar = UnityEngine.Object.Instantiate<UITutorialSeasonLevelBar>(this.m_normalBarPrefab);
-				uitutorialSeasonLevelBar.transform.SetParent(this.m_barLayout.transform);
-				uitutorialSeasonLevelBar.transform.localPosition = Vector3.zero;
-				uitutorialSeasonLevelBar.transform.localScale = Vector3.one;
-				this.m_normalBars.Add(uitutorialSeasonLevelBar);
+				uITutorialSeasonLevelBar = Object.Instantiate(m_normalBarPrefab);
+				uITutorialSeasonLevelBar.transform.SetParent(m_barLayout.transform);
+				uITutorialSeasonLevelBar.transform.localPosition = Vector3.zero;
+				uITutorialSeasonLevelBar.transform.localScale = Vector3.one;
+				m_normalBars.Add(uITutorialSeasonLevelBar);
 			}
 			RewardUtils.RewardData rewardData = null;
 			while (queue.Count > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -192,24 +191,12 @@ public class UITutorialSeasonInterstitial : UIScene
 					}
 					break;
 				}
-				if (rewardData != null)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_185;
-					}
-				}
-				else
+				if (rewardData == null)
 				{
 					int num3 = queue.Peek().Level - 1;
 					if (num3 < i)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -219,36 +206,57 @@ public class UITutorialSeasonInterstitial : UIScene
 							break;
 						}
 						queue.Dequeue();
+						continue;
 					}
-					else
+					if (num3 > i)
 					{
-						if (num3 > i)
+						while (true)
 						{
-							for (;;)
+							switch (3)
 							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
+							case 0:
+								continue;
 							}
 							break;
 						}
-						rewardData = queue.Dequeue();
+						break;
 					}
+					rewardData = queue.Dequeue();
+					continue;
 				}
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				break;
 			}
-			IL_185:
-			UIManager.SetGameObjectActive(uitutorialSeasonLevelBar, true, null);
-			uitutorialSeasonLevelBar.SetReward(i, rewardData);
-			if (!uitutorialSeasonLevelBar.SetFilled(currentLevel > i))
+			UIManager.SetGameObjectActive(uITutorialSeasonLevelBar, true);
+			uITutorialSeasonLevelBar.SetReward(i, rewardData);
+			if (!uITutorialSeasonLevelBar.SetFilled(currentLevel > i))
 			{
-				this.m_unanimated.Enqueue(uitutorialSeasonLevelBar);
+				m_unanimated.Enqueue(uITutorialSeasonLevelBar);
 			}
-			if (isMatchEnd)
+			if (!isMatchEnd)
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (currentLevel == i)
+			{
+				while (true)
 				{
 					switch (2)
 					{
@@ -257,36 +265,24 @@ public class UITutorialSeasonInterstitial : UIScene
 					}
 					break;
 				}
-				if (currentLevel == i)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_toLevel = uitutorialSeasonLevelBar;
-					this.m_toLevelReward = rewardData;
-					this.m_timeToLevel = Time.time + 1f;
-					this.m_isFinal = false;
-				}
+				m_toLevel = uITutorialSeasonLevelBar;
+				m_toLevelReward = rewardData;
+				m_timeToLevel = Time.time + 1f;
+				m_isFinal = false;
 			}
 		}
-		for (int j = endLevel - 2; j < this.m_normalBars.Count; j++)
+		for (int j = endLevel - 2; j < m_normalBars.Count; j++)
 		{
-			UIManager.SetGameObjectActive(this.m_normalBars[j], false, null);
+			UIManager.SetGameObjectActive(m_normalBars[j], false);
 		}
-		this.m_seasonEndBar.transform.SetAsLastSibling();
+		m_seasonEndBar.transform.SetAsLastSibling();
 		List<RewardUtils.RewardData> availableSeasonEndRewards = RewardUtils.GetAvailableSeasonEndRewards(season);
-		UITutorialSeasonLevelBar seasonEndBar = this.m_seasonEndBar;
+		UITutorialSeasonLevelBar seasonEndBar = m_seasonEndBar;
 		int level = endLevel - 1;
-		RewardUtils.RewardData reward;
+		object reward;
 		if (availableSeasonEndRewards.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -301,10 +297,10 @@ public class UITutorialSeasonInterstitial : UIScene
 		{
 			reward = null;
 		}
-		seasonEndBar.SetReward(level, reward);
-		if (!this.m_seasonEndBar.SetFilled(currentLevel >= endLevel))
+		seasonEndBar.SetReward(level, (RewardUtils.RewardData)reward);
+		if (!m_seasonEndBar.SetFilled(currentLevel >= endLevel))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -313,11 +309,11 @@ public class UITutorialSeasonInterstitial : UIScene
 				}
 				break;
 			}
-			this.m_unanimated.Enqueue(this.m_seasonEndBar);
+			m_unanimated.Enqueue(m_seasonEndBar);
 		}
 		if (isMatchEnd)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -328,7 +324,7 @@ public class UITutorialSeasonInterstitial : UIScene
 			}
 			if (currentLevel + 1 == endLevel)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -337,11 +333,11 @@ public class UITutorialSeasonInterstitial : UIScene
 					}
 					break;
 				}
-				this.m_toLevel = this.m_seasonEndBar;
-				RewardUtils.RewardData toLevelReward;
+				m_toLevel = m_seasonEndBar;
+				object toLevelReward;
 				if (availableSeasonEndRewards.Count > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -356,93 +352,96 @@ public class UITutorialSeasonInterstitial : UIScene
 				{
 					toLevelReward = null;
 				}
-				this.m_toLevelReward = toLevelReward;
-				this.m_timeToLevel = Time.time + 1f;
-				this.m_isFinal = true;
+				m_toLevelReward = (RewardUtils.RewardData)toLevelReward;
+				m_timeToLevel = Time.time + 1f;
+				m_isFinal = true;
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_earnFreelancerTokenText, !ClientGameManager.Get().HasPurchasedGame, null);
+		UIManager.SetGameObjectActive(m_earnFreelancerTokenText, !ClientGameManager.Get().HasPurchasedGame);
 	}
 
 	public bool HasBeenViewed()
 	{
-		return UITutorialSeasonInterstitial.m_hasBeenViewed;
+		return m_hasBeenViewed;
 	}
 
 	private void Update()
 	{
-		while (!this.m_unanimated.IsNullOrEmpty<UITutorialSeasonLevelBar>())
+		while (true)
 		{
-			UITutorialSeasonLevelBar uitutorialSeasonLevelBar = this.m_unanimated.Dequeue();
-			if (!uitutorialSeasonLevelBar.AnimateFill())
+			if (!m_unanimated.IsNullOrEmpty())
 			{
-				this.m_unanimated.Enqueue(uitutorialSeasonLevelBar);
-				IL_46:
-				if (this.m_toLevel != null)
+				UITutorialSeasonLevelBar uITutorialSeasonLevelBar = m_unanimated.Dequeue();
+				if (!uITutorialSeasonLevelBar.AnimateFill())
 				{
-					for (;;)
+					m_unanimated.Enqueue(uITutorialSeasonLevelBar);
+					break;
+				}
+				continue;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			break;
+		}
+		if (!(m_toLevel != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (!(m_timeToLevel < Time.time))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				m_toLevel.SetFilled(true);
+				m_toLevel = null;
+				if (m_toLevelReward != null)
+				{
+					while (true)
 					{
-						switch (7)
+						switch (6)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (this.m_timeToLevel < Time.time)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_toLevel.SetFilled(true);
-						this.m_toLevel = null;
-						if (this.m_toLevelReward != null)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							UINewReward.Get().NotifyNewRewardReceived(this.m_toLevelReward, CharacterType.None, -1, -1);
-							this.m_toLevelReward = null;
-						}
-						if (this.m_isFinal)
-						{
-							UIFrontEnd.PlaySound(FrontEndButtonSounds.FirstTenGamesPregressComplete);
-						}
-						else
-						{
-							UIFrontEnd.PlaySound(FrontEndButtonSounds.FirstTenGamesProgressIncrement);
-						}
-					}
+					UINewReward.Get().NotifyNewRewardReceived(m_toLevelReward);
+					m_toLevelReward = null;
+				}
+				if (m_isFinal)
+				{
+					UIFrontEnd.PlaySound(FrontEndButtonSounds.FirstTenGamesPregressComplete);
+				}
+				else
+				{
+					UIFrontEnd.PlaySound(FrontEndButtonSounds.FirstTenGamesProgressIncrement);
 				}
 				return;
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialSeasonInterstitial.Update()).MethodHandle;
-			goto IL_46;
-		}
-		goto IL_46;
 	}
 }

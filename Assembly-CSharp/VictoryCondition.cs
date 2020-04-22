@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class VictoryCondition
@@ -16,76 +16,92 @@ public class VictoryCondition
 	public bool ArePointConditionsMet(int allyPoints, int enemyPoints, bool bTimeLimitExpired, Team team)
 	{
 		bool flag;
-		if (this.m_conditions_anyMet.Length == 0)
+		if (m_conditions_anyMet.Length == 0)
 		{
 			flag = true;
 		}
 		else
 		{
 			flag = false;
-			foreach (PointCondition pointCondition in this.m_conditions_anyMet)
+			PointCondition[] conditions_anyMet = m_conditions_anyMet;
+			int num = 0;
+			while (true)
 			{
-				if (pointCondition.IsConditionMet(allyPoints, enemyPoints, bTimeLimitExpired, team))
+				if (num < conditions_anyMet.Length)
 				{
-					flag = true;
-					goto IL_4F;
-				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
+					PointCondition pointCondition = conditions_anyMet[num];
+					if (pointCondition.IsConditionMet(allyPoints, enemyPoints, bTimeLimitExpired, team))
+					{
+						flag = true;
+						break;
+					}
+					num++;
 					continue;
+				}
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VictoryCondition.ArePointConditionsMet(int, int, bool, Team)).MethodHandle;
-			}
 		}
-		IL_4F:
 		bool flag2;
-		if (this.m_conditions_allRequired.Length == 0)
+		if (m_conditions_allRequired.Length == 0)
 		{
 			flag2 = true;
 		}
 		else
 		{
 			flag2 = true;
-			foreach (PointCondition pointCondition2 in this.m_conditions_allRequired)
+			PointCondition[] conditions_allRequired = m_conditions_allRequired;
+			int num2 = 0;
+			while (true)
 			{
-				if (!pointCondition2.IsConditionMet(allyPoints, enemyPoints, bTimeLimitExpired, team))
+				if (num2 < conditions_allRequired.Length)
 				{
-					for (;;)
+					PointCondition pointCondition2 = conditions_allRequired[num2];
+					if (!pointCondition2.IsConditionMet(allyPoints, enemyPoints, bTimeLimitExpired, team))
 					{
-						switch (3)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
+						flag2 = false;
 						break;
 					}
-					flag2 = false;
-					goto IL_AA;
-				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
+					num2++;
 					continue;
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
 				break;
 			}
 		}
-		IL_AA:
 		bool flag3;
-		if (this.m_conditions_noneAllowed.Length == 0)
+		if (m_conditions_noneAllowed.Length == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -99,38 +115,46 @@ public class VictoryCondition
 		else
 		{
 			flag3 = true;
-			foreach (PointCondition pointCondition3 in this.m_conditions_noneAllowed)
+			PointCondition[] conditions_noneAllowed = m_conditions_noneAllowed;
+			int num3 = 0;
+			while (true)
 			{
-				if (pointCondition3.IsConditionMet(allyPoints, enemyPoints, bTimeLimitExpired, team))
+				if (num3 < conditions_noneAllowed.Length)
 				{
-					for (;;)
+					PointCondition pointCondition3 = conditions_noneAllowed[num3];
+					if (pointCondition3.IsConditionMet(allyPoints, enemyPoints, bTimeLimitExpired, team))
 					{
-						switch (3)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
+						flag3 = false;
 						break;
 					}
-					flag3 = false;
-					goto IL_10F;
-				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
+					num3++;
 					continue;
+				}
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
 				break;
 			}
 		}
-		IL_10F:
-		bool result;
+		int result;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -139,78 +163,89 @@ public class VictoryCondition
 				}
 				break;
 			}
-			result = (flag2 && flag3);
+			result = ((flag2 && flag3) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	internal string GetVictoryLogString(int allyPoints, int enemyPoints, bool bTimeLimitExpired, Team team)
 	{
 		string text = string.Empty;
-		foreach (PointCondition pointCondition in this.m_conditions_allRequired)
+		PointCondition[] conditions_allRequired = m_conditions_allRequired;
+		foreach (PointCondition pointCondition in conditions_allRequired)
 		{
-			if (pointCondition != null)
+			if (pointCondition == null)
 			{
-				if (text.Length > 0)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(VictoryCondition.GetVictoryLogString(int, int, bool, Team)).MethodHandle;
-					}
-					text += " and ";
-				}
-				text += pointCondition.GetVictoryLogString(allyPoints, enemyPoints, bTimeLimitExpired);
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-		foreach (PointCondition pointCondition2 in this.m_conditions_anyMet)
-		{
-			if (pointCondition2 != null && pointCondition2.IsConditionMet(allyPoints, enemyPoints, bTimeLimitExpired, team))
+			if (text.Length > 0)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (5)
+					switch (1)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (text.Length > 0)
+				if (1 == 0)
 				{
-					text += " and ";
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				text += pointCondition2.GetVictoryLogString(allyPoints, enemyPoints, bTimeLimitExpired);
-				return text;
+				text += " and ";
 			}
+			text += pointCondition.GetVictoryLogString(allyPoints, enemyPoints, bTimeLimitExpired);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
+			switch (7)
 			{
 			case 0:
 				continue;
+			}
+			PointCondition[] conditions_anyMet = m_conditions_anyMet;
+			int num = 0;
+			while (true)
+			{
+				if (num < conditions_anyMet.Length)
+				{
+					PointCondition pointCondition2 = conditions_anyMet[num];
+					if (pointCondition2 != null && pointCondition2.IsConditionMet(allyPoints, enemyPoints, bTimeLimitExpired, team))
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (text.Length > 0)
+						{
+							text += " and ";
+						}
+						text += pointCondition2.GetVictoryLogString(allyPoints, enemyPoints, bTimeLimitExpired);
+						break;
+					}
+					num++;
+					continue;
+				}
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				break;
 			}
 			return text;
 		}

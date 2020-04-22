@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,43 +43,42 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		MantaCreateBarriers mantaCreateBarriers = targetAbility as MantaCreateBarriers;
-		if (mantaCreateBarriers != null)
+		if (!(mantaCreateBarriers != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MantaCreateBarriers.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_prisonSidesMod, "PrisonSides", string.Empty, mantaCreateBarriers.m_prisonSides, true, false);
-			AbilityMod.AddToken(tokens, this.m_prisonRadiusMod, "PrisonRadius", string.Empty, mantaCreateBarriers.m_prisonRadius, true, false, false);
-			AbilityMod.AddToken_BarrierMod(tokens, this.m_prisonBarrierDataMod, "PrisonBarrierData", mantaCreateBarriers.m_prisonBarrierData);
-			AbilityMod.AddToken(tokens, this.m_damageOnCastMod, "DamageOnCast", string.Empty, mantaCreateBarriers.m_damageOnCast, true, false);
-			AbilityMod.AddToken(tokens, this.m_allyHealOnCastMod, "AllyHealOnCast", string.Empty, mantaCreateBarriers.m_allyHealOnCast, true, false);
-			AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnAlliesOnCastMod.effectInfo, "EffectOnAlliesOnCast", mantaCreateBarriers.m_effectOnAlliesOnCast, true);
+			AbilityMod.AddToken(tokens, m_prisonSidesMod, "PrisonSides", string.Empty, mantaCreateBarriers.m_prisonSides);
+			AbilityMod.AddToken(tokens, m_prisonRadiusMod, "PrisonRadius", string.Empty, mantaCreateBarriers.m_prisonRadius);
+			AbilityMod.AddToken_BarrierMod(tokens, m_prisonBarrierDataMod, "PrisonBarrierData", mantaCreateBarriers.m_prisonBarrierData);
+			AbilityMod.AddToken(tokens, m_damageOnCastMod, "DamageOnCast", string.Empty, mantaCreateBarriers.m_damageOnCast);
+			AbilityMod.AddToken(tokens, m_allyHealOnCastMod, "AllyHealOnCast", string.Empty, mantaCreateBarriers.m_allyHealOnCast);
+			AbilityMod.AddToken_EffectInfo(tokens, m_effectOnAlliesOnCastMod.effectInfo, "EffectOnAlliesOnCast", mantaCreateBarriers.m_effectOnAlliesOnCast);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		MantaCreateBarriers mantaCreateBarriers = base.GetTargetAbilityOnAbilityData(abilityData) as MantaCreateBarriers;
+		MantaCreateBarriers mantaCreateBarriers = GetTargetAbilityOnAbilityData(abilityData) as MantaCreateBarriers;
 		bool flag = mantaCreateBarriers != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyBool requireCasterInShapeMod = this.m_requireCasterInShapeMod;
-		string prefix = "[RequireCasterInShape]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyBool requireCasterInShapeMod = m_requireCasterInShapeMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -88,27 +87,25 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MantaCreateBarriers.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			baseVal = mantaCreateBarriers.m_requireCasterInShape;
+			baseVal = (mantaCreateBarriers.m_requireCasterInShape ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(requireCasterInShapeMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_targetAreaShapeMod, "[TargetAreaShape]", flag, (!flag) ? AbilityAreaShape.SingleSquare : mantaCreateBarriers.m_targetAreaShape);
-		text += base.PropDesc(this.m_delayBarriersUntilStartOfNextTurnMod, "[DelayBarriersUntilStartOfNextTurn]", flag, flag && mantaCreateBarriers.m_delayBarriersUntilStartOfNextTurn);
-		string str2 = text;
-		AbilityModPropertyInt prisonSidesMod = this.m_prisonSidesMod;
-		string prefix2 = "[PrisonSides]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(requireCasterInShapeMod, "[RequireCasterInShape]", flag, (byte)baseVal != 0);
+		empty += PropDesc(m_targetAreaShapeMod, "[TargetAreaShape]", flag, flag ? mantaCreateBarriers.m_targetAreaShape : AbilityAreaShape.SingleSquare);
+		empty += PropDesc(m_delayBarriersUntilStartOfNextTurnMod, "[DelayBarriersUntilStartOfNextTurn]", flag, flag && mantaCreateBarriers.m_delayBarriersUntilStartOfNextTurn);
+		string str2 = empty;
+		AbilityModPropertyInt prisonSidesMod = m_prisonSidesMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -123,15 +120,13 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(prisonSidesMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyFloat prisonRadiusMod = this.m_prisonRadiusMod;
-		string prefix3 = "[PrisonRadius]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(prisonSidesMod, "[PrisonSides]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyFloat prisonRadiusMod = m_prisonRadiusMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -146,16 +141,14 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(prisonRadiusMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDescBarrierMod(this.m_prisonBarrierDataMod, "{ PrisonBarrierData }", mantaCreateBarriers.m_prisonBarrierData);
-		string str4 = text;
-		AbilityModPropertyShape shapeForTargeterMod = this.m_shapeForTargeterMod;
-		string prefix4 = "[ShapeForTargeter]";
-		bool showBaseVal4 = flag;
-		AbilityAreaShape baseVal4;
+		empty = str3 + PropDesc(prisonRadiusMod, "[PrisonRadius]", flag, baseVal3);
+		empty += PropDescBarrierMod(m_prisonBarrierDataMod, "{ PrisonBarrierData }", mantaCreateBarriers.m_prisonBarrierData);
+		string str4 = empty;
+		AbilityModPropertyShape shapeForTargeterMod = m_shapeForTargeterMod;
+		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -164,21 +157,19 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 				}
 				break;
 			}
-			baseVal4 = mantaCreateBarriers.m_shapeForTargeter;
+			baseVal4 = (int)mantaCreateBarriers.m_shapeForTargeter;
 		}
 		else
 		{
-			baseVal4 = AbilityAreaShape.SingleSquare;
+			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(shapeForTargeterMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyBool createBarriersImmediatelyMod = this.m_createBarriersImmediatelyMod;
-		string prefix5 = "[CreateBarriersImmediately]";
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		empty = str4 + PropDesc(shapeForTargeterMod, "[ShapeForTargeter]", flag, (AbilityAreaShape)baseVal4);
+		string str5 = empty;
+		AbilityModPropertyBool createBarriersImmediatelyMod = m_createBarriersImmediatelyMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -187,21 +178,19 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 				}
 				break;
 			}
-			baseVal5 = mantaCreateBarriers.m_createBarriersImmediately;
+			baseVal5 = (mantaCreateBarriers.m_createBarriersImmediately ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(createBarriersImmediatelyMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt damageOnCastMod = this.m_damageOnCastMod;
-		string prefix6 = "[DamageOnCast]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(createBarriersImmediatelyMod, "[CreateBarriersImmediately]", flag, (byte)baseVal5 != 0);
+		string str6 = empty;
+		AbilityModPropertyInt damageOnCastMod = m_damageOnCastMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -216,16 +205,14 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(damageOnCastMod, prefix6, showBaseVal6, baseVal6);
-		text += base.PropDesc(this.m_allyHealOnCastMod, "[AllyHealOnCast]", flag, (!flag) ? 0 : mantaCreateBarriers.m_allyHealOnCast);
-		string str7 = text;
-		AbilityModPropertyEffectInfo effectOnAlliesOnCastMod = this.m_effectOnAlliesOnCastMod;
-		string prefix7 = "[EffectOnAlliesOnCast]";
-		bool showBaseVal7 = flag;
-		StandardEffectInfo baseVal7;
+		empty = str6 + PropDesc(damageOnCastMod, "[DamageOnCast]", flag, baseVal6);
+		empty += PropDesc(m_allyHealOnCastMod, "[AllyHealOnCast]", flag, flag ? mantaCreateBarriers.m_allyHealOnCast : 0);
+		string str7 = empty;
+		AbilityModPropertyEffectInfo effectOnAlliesOnCastMod = m_effectOnAlliesOnCastMod;
+		object baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -240,7 +227,7 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 		{
 			baseVal7 = null;
 		}
-		text = str7 + base.PropDesc(effectOnAlliesOnCastMod, prefix7, showBaseVal7, baseVal7);
-		return text + base.PropDesc(this.m_addVisionProviderInsideBarriers, "[AddVisionProviderInsideBarriers]", flag, false);
+		empty = str7 + PropDesc(effectOnAlliesOnCastMod, "[EffectOnAlliesOnCast]", flag, (StandardEffectInfo)baseVal7);
+		return empty + PropDesc(m_addVisionProviderInsideBarriers, "[AddVisionProviderInsideBarriers]", flag);
 	}
 }

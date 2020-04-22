@@ -1,24 +1,19 @@
-﻿using System;
+using System;
 
 public class SceneStateParameters
 {
 	public UIManager.ClientState? NewClientGameState;
 
-	public static bool IsHUDHidden
-	{
-		get
-		{
-			return UIScreenManager.Get().GetHideHUDCompletely();
-		}
-	}
+	public static bool IsHUDHidden => UIScreenManager.Get().GetHideHUDCompletely();
 
 	public static bool IsGroupLeader
 	{
 		get
 		{
+			int result;
 			if (ClientGameManager.Get().GroupInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -27,13 +22,13 @@ public class SceneStateParameters
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SceneStateParameters.get_IsGroupLeader()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (ClientGameManager.Get().GroupInfo.InAGroup)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -42,10 +37,14 @@ public class SceneStateParameters
 						}
 						break;
 					}
-					return ClientGameManager.Get().GroupInfo.IsLeader;
+					result = (ClientGameManager.Get().GroupInfo.IsLeader ? 1 : 0);
+					goto IL_0055;
 				}
 			}
-			return false;
+			result = 0;
+			goto IL_0055;
+			IL_0055:
+			return (byte)result != 0;
 		}
 	}
 
@@ -53,9 +52,10 @@ public class SceneStateParameters
 	{
 		get
 		{
+			int result;
 			if (ClientGameManager.Get().GroupInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -64,13 +64,13 @@ public class SceneStateParameters
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SceneStateParameters.get_IsGroupSubordinate()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (ClientGameManager.Get().GroupInfo.InAGroup)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -79,20 +79,18 @@ public class SceneStateParameters
 						}
 						break;
 					}
-					return !ClientGameManager.Get().GroupInfo.IsLeader;
+					result = ((!ClientGameManager.Get().GroupInfo.IsLeader) ? 1 : 0);
+					goto IL_0059;
 				}
 			}
-			return false;
+			result = 0;
+			goto IL_0059;
+			IL_0059:
+			return (byte)result != 0;
 		}
 	}
 
-	public static bool IsInQueue
-	{
-		get
-		{
-			return GameManager.Get().QueueInfo != null;
-		}
-	}
+	public static bool IsInQueue => GameManager.Get().QueueInfo != null;
 
 	public static bool IsWaitingForGroup
 	{
@@ -100,7 +98,7 @@ public class SceneStateParameters
 		{
 			if (GameManager.Get().QueueInfo == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -109,13 +107,13 @@ public class SceneStateParameters
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SceneStateParameters.get_IsWaitingForGroup()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (GameManager.Get().GameStatus != GameStatus.LoadoutSelecting && GameManager.Get().GameStatus != GameStatus.FreelancerSelecting)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -126,7 +124,7 @@ public class SceneStateParameters
 					}
 					if (ClientGameManager.Get().GroupInfo != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -137,7 +135,7 @@ public class SceneStateParameters
 						}
 						if (ClientGameManager.Get().GroupInfo.InAGroup)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -148,61 +146,63 @@ public class SceneStateParameters
 							}
 							for (int i = 0; i < ClientGameManager.Get().GroupInfo.Members.Count; i++)
 							{
-								if (ClientGameManager.Get().GroupInfo.Members[i].AccountID == ClientGameManager.Get().GetPlayerAccountData().AccountId)
+								if (ClientGameManager.Get().GroupInfo.Members[i].AccountID != ClientGameManager.Get().GetPlayerAccountData().AccountId)
 								{
-									for (;;)
+									continue;
+								}
+								while (true)
+								{
+									switch (6)
 									{
-										switch (6)
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent())
+								{
+									while (true)
+									{
+										switch (1)
 										{
 										case 0:
 											continue;
 										}
 										break;
 									}
-									if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent())
+									if (AppState_GroupCharacterSelect.Get().IsReady())
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (AppState_GroupCharacterSelect.Get().IsReady())
-										{
-											return true;
-										}
-									}
-									if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
-									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (AppState_CharacterSelect.IsReady())
-										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											return true;
-										}
+										return true;
 									}
 								}
+								if (!(AppState_CharacterSelect.Get() == AppState.GetCurrent()))
+								{
+									continue;
+								}
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (!AppState_CharacterSelect.IsReady())
+								{
+									continue;
+								}
+								while (true)
+								{
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									return true;
+								}
 							}
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -223,9 +223,10 @@ public class SceneStateParameters
 	{
 		get
 		{
+			int result;
 			if (GameManager.Get().GameInfo != null && GameManager.Get().PlayerInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -234,13 +235,13 @@ public class SceneStateParameters
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SceneStateParameters.get_IsInGameLobby()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -249,10 +250,14 @@ public class SceneStateParameters
 						}
 						break;
 					}
-					return GameManager.Get().GameStatus != GameStatus.None;
+					result = ((GameManager.Get().GameStatus != GameStatus.None) ? 1 : 0);
+					goto IL_0065;
 				}
 			}
-			return false;
+			result = 0;
+			goto IL_0065;
+			IL_0065:
+			return (byte)result != 0;
 		}
 	}
 
@@ -260,9 +265,10 @@ public class SceneStateParameters
 	{
 		get
 		{
+			int result;
 			if (GameManager.Get().GameInfo != null && GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -271,13 +277,13 @@ public class SceneStateParameters
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SceneStateParameters.get_IsInCustomGame()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (GameManager.Get().GameInfo.GameConfig != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -286,10 +292,14 @@ public class SceneStateParameters
 						}
 						break;
 					}
-					return GameManager.Get().GameInfo.GameConfig.GameType == GameType.Custom;
+					result = ((GameManager.Get().GameInfo.GameConfig.GameType == GameType.Custom) ? 1 : 0);
+					goto IL_0073;
 				}
 			}
-			return false;
+			result = 0;
+			goto IL_0073;
+			IL_0073:
+			return (byte)result != 0;
 		}
 	}
 
@@ -297,9 +307,10 @@ public class SceneStateParameters
 	{
 		get
 		{
-			if (!SceneStateParameters.IsInGameLobby)
+			int result;
+			if (!IsInGameLobby)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -308,13 +319,13 @@ public class SceneStateParameters
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SceneStateParameters.get_PracticeGameTypeSelectedForQueue()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (ClientGameManager.Get().GroupInfo != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -323,20 +334,18 @@ public class SceneStateParameters
 						}
 						break;
 					}
-					return ClientGameManager.Get().GroupInfo.SelectedQueueType == GameType.Practice;
+					result = ((ClientGameManager.Get().GroupInfo.SelectedQueueType == GameType.Practice) ? 1 : 0);
+					goto IL_004d;
 				}
 			}
-			return false;
+			result = 0;
+			goto IL_004d;
+			IL_004d:
+			return (byte)result != 0;
 		}
 	}
 
-	public static TimeSpan TimeInQueue
-	{
-		get
-		{
-			return (!(ClientGameManager.Get().QueueEntryTime == DateTime.MinValue)) ? (DateTime.UtcNow - ClientGameManager.Get().QueueEntryTime) : TimeSpan.FromMinutes(0.0);
-		}
-	}
+	public static TimeSpan TimeInQueue => (!(ClientGameManager.Get().QueueEntryTime == DateTime.MinValue)) ? (DateTime.UtcNow - ClientGameManager.Get().QueueEntryTime) : TimeSpan.FromMinutes(0.0);
 
 	public static CharacterType SelectedCharacterInGroup
 	{
@@ -344,20 +353,20 @@ public class SceneStateParameters
 		{
 			if (ClientGameManager.Get().GroupInfo != null && ClientGameManager.Get().GroupInfo.InAGroup)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return ClientGameManager.Get().GroupInfo.ChararacterInfo.CharacterType;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SceneStateParameters.get_SelectedCharacterInGroup()).MethodHandle;
-				}
-				return ClientGameManager.Get().GroupInfo.ChararacterInfo.CharacterType;
 			}
 			return CharacterType.None;
 		}
@@ -369,20 +378,20 @@ public class SceneStateParameters
 		{
 			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return ClientGameManager.Get().GetPlayerAccountData().AccountComponent.LastCharacter;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SceneStateParameters.get_SelectedCharacterFromPlayerData()).MethodHandle;
-				}
-				return ClientGameManager.Get().GetPlayerAccountData().AccountComponent.LastCharacter;
 			}
 			return CharacterType.None;
 		}
@@ -394,7 +403,7 @@ public class SceneStateParameters
 		{
 			if (GameManager.Get().GameInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -403,13 +412,13 @@ public class SceneStateParameters
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SceneStateParameters.get_SelectedCharacterFromGameInfo()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{

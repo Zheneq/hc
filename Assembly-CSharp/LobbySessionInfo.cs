@@ -1,5 +1,5 @@
-﻿using System;
 using Newtonsoft.Json;
+using System;
 
 [Serializable]
 public class LobbySessionInfo
@@ -37,39 +37,39 @@ public class LobbySessionInfo
 	{
 		get
 		{
-			if (!this.Handle.IsNullOrEmpty())
+			if (!Handle.IsNullOrEmpty())
 			{
-				return string.Format("{0} [{1} {2:x}]", this.Handle, this.AccountId, this.SessionToken);
+				return $"{Handle} [{AccountId} {SessionToken:x}]";
 			}
-			if (this.SessionToken != 0L)
+			if (SessionToken != 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return $"[{AccountId} {SessionToken:x}]";
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbySessionInfo.get_Name()).MethodHandle;
-				}
-				return string.Format("[{0} {1:x}]", this.AccountId, this.SessionToken);
 			}
-			if (!this.ProcessCode.IsNullOrEmpty())
+			if (!ProcessCode.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return ProcessCode;
 					}
-					break;
 				}
-				return this.ProcessCode;
 			}
 			return "unknown";
 		}
@@ -80,42 +80,44 @@ public class LobbySessionInfo
 	{
 		get
 		{
-			if (this.Handle != null)
+			if (Handle != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbySessionInfo.get_HandleWithoutNumber()).MethodHandle;
-				}
-				string handle = this.Handle;
-				int num = handle.LastIndexOf('#');
-				string result;
-				if (num == -1)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						string handle = Handle;
+						int num = handle.LastIndexOf('#');
+						string result;
+						if (num == -1)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							result = handle;
+						}
+						else
+						{
+							result = handle.Remove(num);
+						}
+						return result;
 					}
-					result = handle;
+					}
 				}
-				else
-				{
-					result = handle.Remove(num);
-				}
-				return result;
 			}
 			return null;
 		}
@@ -123,6 +125,6 @@ public class LobbySessionInfo
 
 	public override string ToString()
 	{
-		return this.Name;
+		return Name;
 	}
 }

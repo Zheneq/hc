@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -87,37 +87,37 @@ public class UISeasonsBaseContract : MonoBehaviour
 
 	public bool IsExpanded()
 	{
-		return this.m_expanded;
+		return m_expanded;
 	}
 
 	public void Awake()
 	{
-		this.Init();
+		Init();
 	}
 
 	protected virtual void Init()
 	{
-		if (this.m_initialized)
+		if (m_initialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsBaseContract.Init()).MethodHandle;
-			}
-			return;
 		}
-		this.m_initialized = true;
+		m_initialized = true;
 		if (UISeasonsPanel.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -128,7 +128,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 			}
 			if (base.transform.IsChildOf(UISeasonsPanel.Get().m_QuestChallengeScrollList.transform))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -137,41 +137,41 @@ public class UISeasonsBaseContract : MonoBehaviour
 					}
 					break;
 				}
-				_MouseEventPasser mouseEventPasser = this.m_btnHitBox.spriteController.gameObject.AddComponent<_MouseEventPasser>();
+				_MouseEventPasser mouseEventPasser = m_btnHitBox.spriteController.gameObject.AddComponent<_MouseEventPasser>();
 				mouseEventPasser.AddNewHandler(UISeasonsPanel.Get().m_QuestChallengeScrollList);
 			}
 		}
-		this.m_btnHitBox.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ContractClicked);
-		this.m_TrashBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.TrashClicked);
-		this.m_acceptTrashBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.AcceptTrashClicked);
-		this.m_declineTrashBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.DeclineTrashClicked);
-		UIManager.SetGameObjectActive(this.m_acceptTrashBtn, false, null);
-		UIManager.SetGameObjectActive(this.m_declineTrashBtn, false, null);
-		this.m_currentHeight = this.m_layoutElement.minHeight;
-		this.m_contractedHeight = this.m_layoutElement.minHeight;
-		this.m_progessFilled.fillAmount = 0f;
-		UIManager.SetGameObjectActive(this.m_contractedRewardsContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_expandedGroup, true, null);
-		this.m_headerElement.flexibleHeight = 0f;
-		this.m_detailsElement.flexibleHeight = 0f;
-		this.m_rewardsElement.flexibleHeight = 0f;
-		this.m_abandonElement.flexibleHeight = 0f;
-		this.m_btnHitBox.spriteController.AddSubButton(this.m_TrashBtn.spriteController);
-		this.m_btnHitBox.spriteController.AddSubButton(this.m_acceptTrashBtn.spriteController);
-		this.m_btnHitBox.spriteController.AddSubButton(this.m_declineTrashBtn.spriteController);
-		this.m_btnHitBox.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-		for (int i = 0; i < this.m_Rewards.Length; i++)
+		m_btnHitBox.spriteController.callback = ContractClicked;
+		m_TrashBtn.spriteController.callback = TrashClicked;
+		m_acceptTrashBtn.spriteController.callback = AcceptTrashClicked;
+		m_declineTrashBtn.spriteController.callback = DeclineTrashClicked;
+		UIManager.SetGameObjectActive(m_acceptTrashBtn, false);
+		UIManager.SetGameObjectActive(m_declineTrashBtn, false);
+		m_currentHeight = m_layoutElement.minHeight;
+		m_contractedHeight = m_layoutElement.minHeight;
+		m_progessFilled.fillAmount = 0f;
+		UIManager.SetGameObjectActive(m_contractedRewardsContainer, false);
+		UIManager.SetGameObjectActive(m_expandedGroup, true);
+		m_headerElement.flexibleHeight = 0f;
+		m_detailsElement.flexibleHeight = 0f;
+		m_rewardsElement.flexibleHeight = 0f;
+		m_abandonElement.flexibleHeight = 0f;
+		m_btnHitBox.spriteController.AddSubButton(m_TrashBtn.spriteController);
+		m_btnHitBox.spriteController.AddSubButton(m_acceptTrashBtn.spriteController);
+		m_btnHitBox.spriteController.AddSubButton(m_declineTrashBtn.spriteController);
+		m_btnHitBox.spriteController.RegisterScrollListener(OnScroll);
+		for (int i = 0; i < m_Rewards.Length; i++)
 		{
-			_SelectableBtn component = this.m_Rewards[i].GetComponent<_SelectableBtn>();
+			_SelectableBtn component = m_Rewards[i].GetComponent<_SelectableBtn>();
 			if (component != null)
 			{
-				this.m_btnHitBox.spriteController.AddSubButton(component.spriteController);
-				component.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ContractClicked);
+				m_btnHitBox.spriteController.AddSubButton(component.spriteController);
+				component.spriteController.callback = ContractClicked;
 			}
 		}
-		if (this.m_singleReward != null)
+		if (m_singleReward != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -180,10 +180,10 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			_SelectableBtn component2 = this.m_singleReward.GetComponent<_SelectableBtn>();
+			_SelectableBtn component2 = m_singleReward.GetComponent<_SelectableBtn>();
 			if (component2 != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -192,12 +192,12 @@ public class UISeasonsBaseContract : MonoBehaviour
 					}
 					break;
 				}
-				component2.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ContractClicked);
+				component2.spriteController.callback = ContractClicked;
 			}
 		}
-		if (this.m_twoReward != null)
+		if (m_twoReward != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -206,12 +206,12 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			for (int j = 0; j < this.m_twoReward.Length; j++)
+			for (int j = 0; j < m_twoReward.Length; j++)
 			{
-				_SelectableBtn component3 = this.m_twoReward[j].GetComponent<_SelectableBtn>();
+				_SelectableBtn component3 = m_twoReward[j].GetComponent<_SelectableBtn>();
 				if (component3 != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -220,10 +220,10 @@ public class UISeasonsBaseContract : MonoBehaviour
 						}
 						break;
 					}
-					component3.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ContractClicked);
+					component3.spriteController.callback = ContractClicked;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -233,9 +233,9 @@ public class UISeasonsBaseContract : MonoBehaviour
 				break;
 			}
 		}
-		if (this.m_threeReward != null)
+		if (m_threeReward != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -244,15 +244,15 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			for (int k = 0; k < this.m_threeReward.Length; k++)
+			for (int k = 0; k < m_threeReward.Length; k++)
 			{
-				_SelectableBtn component4 = this.m_threeReward[k].GetComponent<_SelectableBtn>();
+				_SelectableBtn component4 = m_threeReward[k].GetComponent<_SelectableBtn>();
 				if (component4 != null)
 				{
-					component4.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ContractClicked);
+					component4.spriteController.callback = ContractClicked;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -262,11 +262,11 @@ public class UISeasonsBaseContract : MonoBehaviour
 				break;
 			}
 		}
-		this.m_acceptTrashBtn.SetSelected(false, false, string.Empty, string.Empty);
-		this.m_declineTrashBtn.SetSelected(false, false, string.Empty, string.Empty);
-		if (this.m_remainingTime != null)
+		m_acceptTrashBtn.SetSelected(false, false, string.Empty, string.Empty);
+		m_declineTrashBtn.SetSelected(false, false, string.Empty, string.Empty);
+		if (m_remainingTime != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -275,14 +275,14 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_remainingTime, false, null);
+			UIManager.SetGameObjectActive(m_remainingTime, false);
 		}
-		Graphic[] componentsInChildren = this.m_expandedGroup.GetComponentsInChildren<Graphic>(true);
+		Graphic[] componentsInChildren = m_expandedGroup.GetComponentsInChildren<Graphic>(true);
 		for (int l = 0; l < componentsInChildren.Length; l++)
 		{
 			if (componentsInChildren[l].GetComponent<_ButtonSwapSprite>() == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -299,14 +299,15 @@ public class UISeasonsBaseContract : MonoBehaviour
 		{
 			componentsInChildren2[m].raycastTarget = false;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
@@ -322,24 +323,24 @@ public class UISeasonsBaseContract : MonoBehaviour
 	{
 		Canvas.ForceUpdateCanvases();
 		float num = 15f;
-		num += (this.m_headerElement.transform as RectTransform).rect.height;
-		num += (this.m_detailsElement.transform as RectTransform).rect.height + 12f;
-		num += (this.m_rewardsElement.transform as RectTransform).rect.height;
-		return num + (this.m_abandonElement.transform as RectTransform).rect.height;
+		num += (m_headerElement.transform as RectTransform).rect.height;
+		num += (m_detailsElement.transform as RectTransform).rect.height + 12f;
+		num += (m_rewardsElement.transform as RectTransform).rect.height;
+		return num + (m_abandonElement.transform as RectTransform).rect.height;
 	}
 
 	public void SetMouseEventScroll(IScrollHandler handler)
 	{
-		_MouseEventPasser mouseEventPasser = this.m_singleReward.GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<_MouseEventPasser>();
-		if (mouseEventPasser == null)
+		_MouseEventPasser component = m_singleReward.GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<_MouseEventPasser>();
+		if (component == null)
 		{
-			mouseEventPasser = this.m_singleReward.GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<_MouseEventPasser>();
-			mouseEventPasser.AddNewHandler(handler);
+			component = m_singleReward.GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<_MouseEventPasser>();
+			component.AddNewHandler(handler);
 		}
-		mouseEventPasser = this.m_twoReward[0].GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<_MouseEventPasser>();
-		if (mouseEventPasser == null)
+		component = m_twoReward[0].GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<_MouseEventPasser>();
+		if (component == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -348,17 +349,17 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsBaseContract.SetMouseEventScroll(IScrollHandler)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			mouseEventPasser = this.m_twoReward[0].GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<_MouseEventPasser>();
-			mouseEventPasser.AddNewHandler(handler);
+			component = m_twoReward[0].GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<_MouseEventPasser>();
+			component.AddNewHandler(handler);
 		}
-		mouseEventPasser = this.m_twoReward[1].GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<_MouseEventPasser>();
-		if (mouseEventPasser == null)
+		component = m_twoReward[1].GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<_MouseEventPasser>();
+		if (component == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -367,13 +368,13 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			mouseEventPasser = this.m_twoReward[1].GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<_MouseEventPasser>();
-			mouseEventPasser.AddNewHandler(handler);
+			component = m_twoReward[1].GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<_MouseEventPasser>();
+			component.AddNewHandler(handler);
 		}
-		mouseEventPasser = this.m_threeReward[0].GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<_MouseEventPasser>();
-		if (mouseEventPasser == null)
+		component = m_threeReward[0].GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<_MouseEventPasser>();
+		if (component == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -382,13 +383,13 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			mouseEventPasser = this.m_threeReward[0].GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<_MouseEventPasser>();
-			mouseEventPasser.AddNewHandler(handler);
+			component = m_threeReward[0].GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<_MouseEventPasser>();
+			component.AddNewHandler(handler);
 		}
-		mouseEventPasser = this.m_threeReward[1].GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<_MouseEventPasser>();
-		if (mouseEventPasser == null)
+		component = m_threeReward[1].GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<_MouseEventPasser>();
+		if (component == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -397,40 +398,41 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			mouseEventPasser = this.m_threeReward[1].GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<_MouseEventPasser>();
-			mouseEventPasser.AddNewHandler(handler);
+			component = m_threeReward[1].GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<_MouseEventPasser>();
+			component.AddNewHandler(handler);
 		}
-		mouseEventPasser = this.m_threeReward[2].GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<_MouseEventPasser>();
-		if (mouseEventPasser == null)
+		component = m_threeReward[2].GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<_MouseEventPasser>();
+		if (component == null)
 		{
-			mouseEventPasser = this.m_threeReward[2].GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<_MouseEventPasser>();
-			mouseEventPasser.AddNewHandler(handler);
+			component = m_threeReward[2].GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<_MouseEventPasser>();
+			component.AddNewHandler(handler);
 		}
-		for (int i = 0; i < this.m_Rewards.Length; i++)
+		for (int i = 0; i < m_Rewards.Length; i++)
 		{
-			mouseEventPasser = this.m_Rewards[i].GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<_MouseEventPasser>();
-			if (mouseEventPasser == null)
+			component = m_Rewards[i].GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<_MouseEventPasser>();
+			if (component == null)
 			{
-				mouseEventPasser = this.m_Rewards[i].GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<_MouseEventPasser>();
-				mouseEventPasser.AddNewHandler(handler);
+				component = m_Rewards[i].GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<_MouseEventPasser>();
+				component.AddNewHandler(handler);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void OnScroll(BaseEventData data)
 	{
-		if (!this.m_scrollRectInit)
+		if (!m_scrollRectInit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -439,14 +441,14 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsBaseContract.OnScroll(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Transform transform = base.transform;
-			while (this.m_scrollRect == null)
+			while (m_scrollRect == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -459,31 +461,33 @@ public class UISeasonsBaseContract : MonoBehaviour
 				{
 					break;
 				}
-				this.m_scrollRect = transform.GetComponent<ScrollRect>();
+				m_scrollRect = transform.GetComponent<ScrollRect>();
 				transform = transform.parent;
 			}
-			this.m_scrollRectInit = true;
+			m_scrollRectInit = true;
 		}
-		if (this.m_scrollRect != null)
+		if (!(m_scrollRect != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_scrollRect.OnScroll((PointerEventData)data);
+			m_scrollRect.OnScroll((PointerEventData)data);
+			return;
 		}
 	}
 
 	public bool IsAnimating()
 	{
-		if (this.m_isExpandingOrContracting <= 0)
+		int result;
+		if (m_isExpandingOrContracting <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -492,13 +496,13 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsBaseContract.IsAnimating()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!(HitchDetector.Get() == null))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -507,10 +511,14 @@ public class UISeasonsBaseContract : MonoBehaviour
 					}
 					break;
 				}
-				return HitchDetector.Get().IsObjectStaggeringOn(base.gameObject);
+				result = (HitchDetector.Get().IsObjectStaggeringOn(base.gameObject) ? 1 : 0);
+				goto IL_004c;
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_004c;
+		IL_004c:
+		return (byte)result != 0;
 	}
 
 	protected virtual void DoExpand(bool expanded)
@@ -519,10 +527,10 @@ public class UISeasonsBaseContract : MonoBehaviour
 
 	public void SetExpanded(bool expanded, bool force = false)
 	{
-		this.Init();
-		if (this.m_expanded == expanded)
+		Init();
+		if (m_expanded == expanded)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -531,32 +539,32 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsBaseContract.SetExpanded(bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!force)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
-				return;
 			}
 		}
-		this.UpdateDetailsTextHeight();
-		this.DoExpand(expanded);
-		this.m_expanded = expanded;
-		this.m_isExpandingOrContracting = 2;
-		this.m_timeStartChange = Time.time;
-		if (this.m_expanded)
+		UpdateDetailsTextHeight();
+		DoExpand(expanded);
+		m_expanded = expanded;
+		m_isExpandingOrContracting = 2;
+		m_timeStartChange = Time.time;
+		if (m_expanded)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -565,210 +573,211 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			this.m_startLocation = this.m_currentHeight;
-			this.m_endLocation = this.GetExpandedHeight();
-			this.PlayExpandAnimation();
+			m_startLocation = m_currentHeight;
+			m_endLocation = GetExpandedHeight();
+			PlayExpandAnimation();
 		}
 		else
 		{
-			this.m_startLocation = this.m_currentHeight;
-			this.m_endLocation = this.m_contractedHeight;
-			this.SetTrashSelected(false);
-			this.PlayContractAnimation();
+			m_startLocation = m_currentHeight;
+			m_endLocation = m_contractedHeight;
+			SetTrashSelected(false);
+			PlayContractAnimation();
 		}
-		for (int i = 0; i < this.m_downArrows.Length; i++)
+		for (int i = 0; i < m_downArrows.Length; i++)
 		{
-			this.m_downArrows[i].transform.localScale = new Vector3(1f, (!this.m_expanded) ? 1f : -1f, 1f);
+			m_downArrows[i].transform.localScale = new Vector3(1f, (!m_expanded) ? 1f : (-1f), 1f);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			m_singleReward.SetSelectable(!m_expanded);
+			m_twoReward[0].SetSelectable(!m_expanded);
+			m_twoReward[1].SetSelectable(!m_expanded);
+			m_threeReward[0].SetSelectable(!m_expanded);
+			m_threeReward[1].SetSelectable(!m_expanded);
+			m_threeReward[2].SetSelectable(!m_expanded);
+			return;
 		}
-		this.m_singleReward.SetSelectable(!this.m_expanded);
-		this.m_twoReward[0].SetSelectable(!this.m_expanded);
-		this.m_twoReward[1].SetSelectable(!this.m_expanded);
-		this.m_threeReward[0].SetSelectable(!this.m_expanded);
-		this.m_threeReward[1].SetSelectable(!this.m_expanded);
-		this.m_threeReward[2].SetSelectable(!this.m_expanded);
 	}
 
 	public void ContractClicked(BaseEventData data)
 	{
-		if (this.m_isExpandingOrContracting > 0)
+		if (m_isExpandingOrContracting <= 0)
 		{
-			return;
+			UIFrontEnd.PlaySound(FrontEndButtonSounds.SeasonsChallengeClickExpand);
+			SetExpanded(!m_expanded);
 		}
-		UIFrontEnd.PlaySound(FrontEndButtonSounds.SeasonsChallengeClickExpand);
-		this.SetExpanded(!this.m_expanded, false);
 	}
 
 	public void TrashClicked(BaseEventData data)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.SeasonsChallengeTrashcanClick);
-		bool trashSelected = !this.m_TrashBtn.IsSelected();
-		this.SetTrashSelected(trashSelected);
+		bool trashSelected = !m_TrashBtn.IsSelected();
+		SetTrashSelected(trashSelected);
 	}
 
 	public virtual void AbandonQuest()
 	{
-		this.m_infoReference = null;
-		if (this.m_remainingTime != null)
+		m_infoReference = null;
+		if (!(m_remainingTime != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsBaseContract.AbandonQuest()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_remainingTime.text = string.Empty;
+			m_remainingTime.text = string.Empty;
+			return;
 		}
 	}
 
 	public void AcceptTrashClicked(BaseEventData data)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.SeasonsChallengeTrashcanYes);
-		this.AbandonQuest();
+		AbandonQuest();
 	}
 
 	public void DeclineTrashClicked(BaseEventData data)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.SeasonsChallengeTrashcanNo);
-		this.SetTrashSelected(false);
+		SetTrashSelected(false);
 	}
 
 	protected void SetTrashSelected(bool selected)
 	{
-		this.m_TrashBtn.SetSelected(selected, false, string.Empty, string.Empty);
-		UIManager.SetGameObjectActive(this.m_acceptTrashBtn, selected, null);
-		UIManager.SetGameObjectActive(this.m_declineTrashBtn, selected, null);
+		m_TrashBtn.SetSelected(selected, false, string.Empty, string.Empty);
+		UIManager.SetGameObjectActive(m_acceptTrashBtn, selected);
+		UIManager.SetGameObjectActive(m_declineTrashBtn, selected);
 	}
 
 	private void SetupRewardImages(int numRewards, QuestRewards rewards, int rejectedCount)
 	{
 		if (numRewards == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (rewards.ItemRewards.Count > 0)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(rewards.ItemRewards[0].ItemTemplateId);
+						m_singleReward.SetupHack(itemTemplate, itemTemplate.IconPath, rewards.ItemRewards[0].Amount);
+						m_Rewards[0].SetupHack(itemTemplate, itemTemplate.IconPath, rewards.ItemRewards[0].Amount);
+					}
+					if (rewards.CurrencyRewards.Count > 0)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								break;
+							default:
+								m_singleReward.Setup(rewards.CurrencyRewards[0], rejectedCount);
+								m_Rewards[0].Setup(rewards.CurrencyRewards[0], rejectedCount);
+								return;
+							}
+						}
+					}
+					return;
+				}
+			}
+		}
+		switch (numRewards)
+		{
+		case 2:
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsBaseContract.SetupRewardImages(int, QuestRewards, int)).MethodHandle;
-			}
-			if (rewards.ItemRewards.Count > 0)
-			{
-				for (;;)
+				int num2 = 0;
+				for (int k = 0; k < rewards.ItemRewards.Count; k++)
+				{
+					if (num2 < numRewards)
+					{
+						InventoryItemTemplate itemTemplate3 = InventoryWideData.Get().GetItemTemplate(rewards.ItemRewards[k].ItemTemplateId);
+						m_twoReward[num2].SetupHack(itemTemplate3, itemTemplate3.IconPath, rewards.ItemRewards[k].Amount);
+						m_Rewards[num2].SetupHack(itemTemplate3, itemTemplate3.IconPath, rewards.ItemRewards[k].Amount);
+						num2++;
+					}
+				}
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(rewards.ItemRewards[0].ItemTemplateId);
-				this.m_singleReward.SetupHack(itemTemplate, itemTemplate.IconPath, rewards.ItemRewards[0].Amount);
-				this.m_Rewards[0].SetupHack(itemTemplate, itemTemplate.IconPath, rewards.ItemRewards[0].Amount);
-			}
-			if (rewards.CurrencyRewards.Count > 0)
-			{
-				for (;;)
-				{
-					switch (1)
+					for (int l = 0; l < rewards.CurrencyRewards.Count; l++)
 					{
-					case 0:
-						continue;
+						if (num2 < numRewards)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							m_twoReward[num2].Setup(rewards.CurrencyRewards[l], rejectedCount);
+							m_Rewards[num2].Setup(rewards.CurrencyRewards[l], rejectedCount);
+							num2++;
+						}
 					}
-					break;
+					while (true)
+					{
+						switch (5)
+						{
+						default:
+							return;
+						case 0:
+							break;
+						}
+					}
 				}
-				this.m_singleReward.Setup(rewards.CurrencyRewards[0], rejectedCount);
-				this.m_Rewards[0].Setup(rewards.CurrencyRewards[0], rejectedCount);
 			}
-		}
-		else if (numRewards == 2)
+		case 3:
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num = 0;
 			for (int i = 0; i < rewards.ItemRewards.Count; i++)
 			{
 				if (num < numRewards)
 				{
-					InventoryItemTemplate itemTemplate2 = InventoryWideData.Get().GetItemTemplate(rewards.ItemRewards[i].ItemTemplateId);
-					this.m_twoReward[num].SetupHack(itemTemplate2, itemTemplate2.IconPath, rewards.ItemRewards[i].Amount);
-					this.m_Rewards[num].SetupHack(itemTemplate2, itemTemplate2.IconPath, rewards.ItemRewards[i].Amount);
-					num++;
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			for (int j = 0; j < rewards.CurrencyRewards.Count; j++)
-			{
-				if (num < numRewards)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_twoReward[num].Setup(rewards.CurrencyRewards[j], rejectedCount);
-					this.m_Rewards[num].Setup(rewards.CurrencyRewards[j], rejectedCount);
-					num++;
-				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		else if (numRewards == 3)
-		{
-			int num2 = 0;
-			for (int k = 0; k < rewards.ItemRewards.Count; k++)
-			{
-				if (num2 < numRewards)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -777,57 +786,58 @@ public class UISeasonsBaseContract : MonoBehaviour
 						}
 						break;
 					}
-					InventoryItemTemplate itemTemplate3 = InventoryWideData.Get().GetItemTemplate(rewards.ItemRewards[k].ItemTemplateId);
-					this.m_threeReward[num2].SetupHack(itemTemplate3, itemTemplate3.IconPath, rewards.ItemRewards[k].Amount);
-					this.m_Rewards[num2].SetupHack(itemTemplate3, itemTemplate3.IconPath, rewards.ItemRewards[k].Amount);
-					num2++;
+					InventoryItemTemplate itemTemplate2 = InventoryWideData.Get().GetItemTemplate(rewards.ItemRewards[i].ItemTemplateId);
+					m_threeReward[num].SetupHack(itemTemplate2, itemTemplate2.IconPath, rewards.ItemRewards[i].Amount);
+					m_Rewards[num].SetupHack(itemTemplate2, itemTemplate2.IconPath, rewards.ItemRewards[i].Amount);
+					num++;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			for (int l = 0; l < rewards.CurrencyRewards.Count; l++)
-			{
-				if (num2 < numRewards)
+				for (int j = 0; j < rewards.CurrencyRewards.Count; j++)
 				{
-					for (;;)
+					if (num < numRewards)
 					{
-						switch (7)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
+						m_threeReward[num].Setup(rewards.CurrencyRewards[j], rejectedCount);
+						m_Rewards[num].Setup(rewards.CurrencyRewards[j], rejectedCount);
+						num++;
+					}
+				}
+				while (true)
+				{
+					switch (4)
+					{
+					default:
+						return;
+					case 0:
 						break;
 					}
-					this.m_threeReward[num2].Setup(rewards.CurrencyRewards[l], rejectedCount);
-					this.m_Rewards[num2].Setup(rewards.CurrencyRewards[l], rejectedCount);
-					num2++;
 				}
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+		}
 		}
 	}
 
 	private void UpdateDetailsTextHeight()
 	{
 		float num = 0f;
-		if (!this.m_DetailText.text.IsNullOrEmpty())
+		if (!m_DetailText.text.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -836,15 +846,15 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsBaseContract.UpdateDetailsTextHeight()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = 7f;
 		}
-		Vector2 preferredValues = this.m_DetailText.GetPreferredValues();
-		this.m_detailsElement.minHeight = preferredValues.y + num;
-		this.m_detailsElement.preferredHeight = preferredValues.y + num;
+		Vector2 preferredValues = m_DetailText.GetPreferredValues();
+		m_detailsElement.minHeight = preferredValues.y + num;
+		m_detailsElement.preferredHeight = preferredValues.y + num;
 	}
 
 	protected virtual int GetRejectedCount()
@@ -854,9 +864,9 @@ public class UISeasonsBaseContract : MonoBehaviour
 
 	protected void Setup(UIBaseQuestDisplayInfo baseInfo)
 	{
-		if (this.m_infoReference != null)
+		if (m_infoReference != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -865,29 +875,29 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsBaseContract.Setup(UIBaseQuestDisplayInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_infoReference.Equals(baseInfo))
+			if (m_infoReference.Equals(baseInfo))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
-				return;
 			}
 		}
-		this.Init();
+		Init();
 		QuestComponent questComponent = null;
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -899,10 +909,10 @@ public class UISeasonsBaseContract : MonoBehaviour
 			PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
 			questComponent = playerAccountData.QuestComponent;
 		}
-		this.m_infoReference = baseInfo;
-		if (this.m_remainingTime != null)
+		m_infoReference = baseInfo;
+		if (m_remainingTime != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -911,68 +921,78 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			this.m_remainingTime.text = string.Empty;
-			UIManager.SetGameObjectActive(this.m_remainingTime, baseInfo.QuestAbandonDate != DateTime.MinValue, null);
+			m_remainingTime.text = string.Empty;
+			UIManager.SetGameObjectActive(m_remainingTime, baseInfo.QuestAbandonDate != DateTime.MinValue);
 		}
 		int index = baseInfo.QuestTemplateRef.Index;
 		string text = StringUtil.TR_QuestDescription(index);
-		this.m_QuestDescription.text = text;
-		this.m_ContractText.text = text;
+		m_QuestDescription.text = text;
+		m_ContractText.text = text;
 		string text2 = StringUtil.TR_QuestLongDescription(index);
 		int num = 0;
 		using (List<QuestObjective>.Enumerator enumerator = baseInfo.QuestTemplateRef.Objectives.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				QuestObjective questObjective = enumerator.Current;
-				if (!questObjective.SuperHidden)
+				QuestObjective current = enumerator.Current;
+				if (current.SuperHidden)
 				{
-					int maxCount = questObjective.MaxCount;
-					int num2 = 0;
-					if (questComponent.Progress.ContainsKey(index))
+					while (true)
 					{
-						for (;;)
+						switch (7)
 						{
-							switch (2)
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num++;
+					continue;
+				}
+				int maxCount = current.MaxCount;
+				int num2 = 0;
+				if (questComponent.Progress.ContainsKey(index))
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (questComponent.Progress[index].ObjectiveProgress.ContainsKey(num))
+					{
+						while (true)
+						{
+							switch (6)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						if (questComponent.Progress[index].ObjectiveProgress.ContainsKey(num))
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							num2 = questComponent.Progress[index].ObjectiveProgress[num];
-						}
+						num2 = questComponent.Progress[index].ObjectiveProgress[num];
 					}
-					else if (questComponent.GetCompletedCount(index) > 0)
+				}
+				else if (questComponent.GetCompletedCount(index) > 0)
+				{
+					while (true)
 					{
-						for (;;)
+						switch (4)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
+						case 0:
+							continue;
 						}
-						num2 = maxCount;
+						break;
 					}
-					string text3 = StringUtil.TR_QuestObjective(index, num + 1);
-					if (num2 != 0)
-					{
-						goto IL_1F2;
-					}
-					for (;;)
+					num2 = maxCount;
+				}
+				string text3 = StringUtil.TR_QuestObjective(index, num + 1);
+				if (num2 == 0)
+				{
+					while (true)
 					{
 						switch (3)
 						{
@@ -981,101 +1001,83 @@ public class UISeasonsBaseContract : MonoBehaviour
 						}
 						break;
 					}
-					if (!questObjective.Hidden)
+					if (current.Hidden)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_1F2;
-						}
+						goto IL_02d4;
 					}
-					IL_2D4:
-					num++;
-					continue;
-					IL_1F2:
-					if (text3 == string.Empty)
+					while (true)
 					{
-						for (;;)
+						switch (5)
 						{
-							switch (4)
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+				if (text3 == string.Empty)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+				else
+				{
+					if (!text2.IsNullOrEmpty())
+					{
+						while (true)
+						{
+							switch (3)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
+						text2 += "\n";
+					}
+					if (maxCount == 1)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						text2 = ((num2 != 1) ? (text2 + $"    {text3}") : (text2 + $"    <color=white>{text3}</color>"));
+					}
+					else if (num2 == maxCount)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						text2 += $"    <color=white>{text3} ({num2}/{maxCount})</color>";
 					}
 					else
 					{
-						if (!text2.IsNullOrEmpty())
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							text2 += "\n";
-						}
-						if (maxCount == 1)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (num2 == 1)
-							{
-								text2 += string.Format("    <color=white>{0}</color>", text3);
-							}
-							else
-							{
-								text2 += string.Format("    {0}", text3);
-							}
-						}
-						else if (num2 == maxCount)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							text2 += string.Format("    <color=white>{0} ({1}/{2})</color>", text3, num2, maxCount);
-						}
-						else
-						{
-							text2 += string.Format("    {0} ({1}/{2})", text3, num2, maxCount);
-						}
+						text2 += $"    {text3} ({num2}/{maxCount})";
 					}
-					goto IL_2D4;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				goto IL_02d4;
+				IL_02d4:
 				num++;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1087,7 +1089,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 		}
 		if (!questComponent.Progress.ContainsKey(index))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1098,7 +1100,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 			}
 			if (questComponent.GetCompletedCount(index) > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1113,7 +1115,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 		string text4 = StringUtil.TR_QuestFlavorText(index);
 		if (!text4.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1124,7 +1126,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 			}
 			if (!text2.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1137,12 +1139,12 @@ public class UISeasonsBaseContract : MonoBehaviour
 			}
 			text2 = text2 + "<i>" + text4 + "</i>";
 		}
-		this.m_DetailText.text = text2;
-		this.UpdateDetailsTextHeight();
+		m_DetailText.text = text2;
+		UpdateDetailsTextHeight();
 		int num3 = baseInfo.QuestRewardsRef.CurrencyRewards.Count + baseInfo.QuestRewardsRef.ItemRewards.Count + baseInfo.QuestRewardsRef.UnlockRewards.Count;
 		if (num3 > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1151,14 +1153,14 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			int rejectedCount = this.GetRejectedCount();
-			num3 = Mathf.Clamp(num3, 0, this.m_rewardsContainer.Length);
-			this.SetupRewardImages(num3, baseInfo.QuestRewardsRef, rejectedCount);
-			for (int i = 0; i < this.m_rewardsContainer.Length; i++)
+			int rejectedCount = GetRejectedCount();
+			num3 = Mathf.Clamp(num3, 0, m_rewardsContainer.Length);
+			SetupRewardImages(num3, baseInfo.QuestRewardsRef, rejectedCount);
+			for (int i = 0; i < m_rewardsContainer.Length; i++)
 			{
-				UIManager.SetGameObjectActive(this.m_rewardsContainer[i], i == num3 - 1, null);
+				UIManager.SetGameObjectActive(m_rewardsContainer[i], i == num3 - 1);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1167,11 +1169,11 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			for (int j = 0; j < this.m_Rewards.Length; j++)
+			for (int j = 0; j < m_Rewards.Length; j++)
 			{
 				if (j < num3)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1180,14 +1182,14 @@ public class UISeasonsBaseContract : MonoBehaviour
 						}
 						break;
 					}
-					UIManager.SetGameObjectActive(this.m_Rewards[j], true, null);
+					UIManager.SetGameObjectActive(m_Rewards[j], true);
 				}
 				else
 				{
-					UIManager.SetGameObjectActive(this.m_Rewards[j], false, null);
+					UIManager.SetGameObjectActive(m_Rewards[j], false);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1196,20 +1198,20 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_contractedRewardsContainer, true, null);
-			this.m_rewardsElement.minHeight = this.m_rewardsHeight;
-			this.m_rewardsElement.preferredHeight = this.m_rewardsHeight;
+			UIManager.SetGameObjectActive(m_contractedRewardsContainer, true);
+			m_rewardsElement.minHeight = m_rewardsHeight;
+			m_rewardsElement.preferredHeight = m_rewardsHeight;
 		}
 		else
 		{
-			this.m_rewardsElement.minHeight = 30f;
-			this.m_rewardsElement.preferredHeight = 30f;
-			UIManager.SetGameObjectActive(this.m_contractedRewardsContainer, false, null);
-			for (int k = 0; k < this.m_Rewards.Length; k++)
+			m_rewardsElement.minHeight = 30f;
+			m_rewardsElement.preferredHeight = 30f;
+			UIManager.SetGameObjectActive(m_contractedRewardsContainer, false);
+			for (int k = 0; k < m_Rewards.Length; k++)
 			{
-				UIManager.SetGameObjectActive(this.m_Rewards[k], false, null);
+				UIManager.SetGameObjectActive(m_Rewards[k], false);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1223,7 +1225,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 		int num5 = 0;
 		if (baseInfo.QuestTemplateRef.ObjectiveCountType == RequiredObjectiveCountType.SumObjectiveProgress)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1235,7 +1237,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 			num5 = QuestItem.GetRequiredObjectiveCount(baseInfo.QuestTemplateRef);
 			if (questComponent != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1246,7 +1248,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				if (questComponent.Progress.ContainsKey(index))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -1260,12 +1262,12 @@ public class UISeasonsBaseContract : MonoBehaviour
 					{
 						while (enumerator2.MoveNext())
 						{
-							KeyValuePair<int, int> keyValuePair = enumerator2.Current;
-							int value = keyValuePair.Value;
-							int key = keyValuePair.Key;
+							KeyValuePair<int, int> current2 = enumerator2.Current;
+							int value = current2.Value;
+							int key = current2.Key;
 							if (baseInfo.QuestTemplateRef.Objectives.Count <= key)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (1)
 									{
@@ -1277,7 +1279,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 							}
 							else if (baseInfo.QuestTemplateRef.Objectives[key].SuperHidden)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
@@ -1292,7 +1294,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 								num4 += value;
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -1307,7 +1309,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 		}
 		else if (baseInfo.QuestTemplateRef.Objectives.Count == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1319,7 +1321,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 			num5 = baseInfo.QuestTemplateRef.Objectives[0].MaxCount;
 			if (questComponent != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1330,7 +1332,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				if (questComponent.Progress.ContainsKey(index))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -1342,7 +1344,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 					QuestProgress questProgress2 = questComponent.Progress[index];
 					if (questProgress2.ObjectiveProgress.ContainsKey(0) && !baseInfo.QuestTemplateRef.Objectives[0].SuperHidden)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -1361,7 +1363,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 			num5 = QuestItem.GetRequiredObjectiveCount(baseInfo.QuestTemplateRef);
 			if (questComponent != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1372,7 +1374,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				if (questComponent.Progress.ContainsKey(index))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1386,13 +1388,13 @@ public class UISeasonsBaseContract : MonoBehaviour
 					{
 						while (enumerator3.MoveNext())
 						{
-							KeyValuePair<int, int> keyValuePair2 = enumerator3.Current;
-							int key2 = keyValuePair2.Key;
+							KeyValuePair<int, int> current3 = enumerator3.Current;
+							int key2 = current3.Key;
 							if (baseInfo.QuestTemplateRef.Objectives.Count > key2)
 							{
 								if (baseInfo.QuestTemplateRef.Objectives[key2].SuperHidden)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (6)
 										{
@@ -1402,9 +1404,9 @@ public class UISeasonsBaseContract : MonoBehaviour
 										break;
 									}
 								}
-								else if (baseInfo.QuestTemplateRef.Objectives[keyValuePair2.Key].MaxCount <= keyValuePair2.Value)
+								else if (baseInfo.QuestTemplateRef.Objectives[current3.Key].MaxCount <= current3.Value)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (5)
 										{
@@ -1417,7 +1419,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 								}
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -1431,14 +1433,14 @@ public class UISeasonsBaseContract : MonoBehaviour
 			}
 		}
 		num4 = Mathf.Min(num4, num5);
-		num4 = this.UpdateCurrentProgressValue(num4, num5, questComponent, index);
-		this.SetProgress(num4, num5, questComponent, index);
+		num4 = UpdateCurrentProgressValue(num4, num5, questComponent, index);
+		SetProgress(num4, num5, questComponent, index);
 		QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(index);
-		Component trashBtn = this.m_TrashBtn;
-		bool doActive;
+		_SelectableBtn trashBtn = m_TrashBtn;
+		int doActive;
 		if (questTemplate != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1447,13 +1449,13 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			doActive = !questTemplate.CantManuallyAbandon;
+			doActive = ((!questTemplate.CantManuallyAbandon) ? 1 : 0);
 		}
 		else
 		{
-			doActive = false;
+			doActive = 0;
 		}
-		UIManager.SetGameObjectActive(trashBtn, doActive, null);
+		UIManager.SetGameObjectActive(trashBtn, (byte)doActive != 0);
 	}
 
 	protected virtual int UpdateCurrentProgressValue(int currentProgress, int maxProgress, QuestComponent questComponent, int questID)
@@ -1466,7 +1468,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 		int num = currentProgress;
 		if (currentProgress == maxProgress)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1475,17 +1477,17 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsBaseContract.SetProgress(int, int, QuestComponent, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_progessFilled, false, null);
-			this.m_progessFilled.fillAmount = 1f;
+			UIManager.SetGameObjectActive(m_progessFilled, false);
+			m_progessFilled.fillAmount = 1f;
 			num = maxProgress;
 		}
 		else if (maxProgress > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1494,15 +1496,15 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_progessFilled, true, null);
-			this.m_progessFilled.fillAmount = (float)currentProgress / (float)maxProgress;
+			UIManager.SetGameObjectActive(m_progessFilled, true);
+			m_progessFilled.fillAmount = (float)currentProgress / (float)maxProgress;
 		}
 		else
 		{
-			this.m_progessFilled.fillAmount = 0f;
+			m_progessFilled.fillAmount = 0f;
 		}
-		string text = string.Format("{0}/{1}", num, maxProgress);
-		this.m_progressText.text = text;
+		string text = $"{num}/{maxProgress}";
+		m_progressText.text = text;
 	}
 
 	protected virtual void NotifyDoneAnimating()
@@ -1511,9 +1513,9 @@ public class UISeasonsBaseContract : MonoBehaviour
 
 	private void Update()
 	{
-		if (this.IsAnimating())
+		if (IsAnimating())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1522,13 +1524,13 @@ public class UISeasonsBaseContract : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsBaseContract.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_timeStartChange == 0f)
+			if (m_timeStartChange == 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1537,16 +1539,16 @@ public class UISeasonsBaseContract : MonoBehaviour
 					}
 					break;
 				}
-				this.SetExpanded(this.m_expanded, true);
+				SetExpanded(m_expanded, true);
 			}
-			float num = Time.time - this.m_timeStartChange;
-			float num2 = num / this.m_timeToChangeHeight;
-			this.m_currentHeight = Mathf.Lerp(this.m_startLocation, this.m_endLocation, num2);
-			this.m_layoutElement.minHeight = this.m_currentHeight;
-			this.m_layoutElement.preferredHeight = this.m_currentHeight;
+			float num = Time.time - m_timeStartChange;
+			float num2 = num / m_timeToChangeHeight;
+			m_currentHeight = Mathf.Lerp(m_startLocation, m_endLocation, num2);
+			m_layoutElement.minHeight = m_currentHeight;
+			m_layoutElement.preferredHeight = m_currentHeight;
 			if (num2 >= 1f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1555,10 +1557,10 @@ public class UISeasonsBaseContract : MonoBehaviour
 					}
 					break;
 				}
-				this.m_isExpandingOrContracting--;
-				if (this.m_isExpandingOrContracting <= 0)
+				m_isExpandingOrContracting--;
+				if (m_isExpandingOrContracting <= 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -1567,63 +1569,65 @@ public class UISeasonsBaseContract : MonoBehaviour
 						}
 						break;
 					}
-					this.NotifyDoneAnimating();
+					NotifyDoneAnimating();
 				}
 			}
 		}
-		else if (this.m_layoutElement.minHeight != this.m_currentHeight)
+		else if (m_layoutElement.minHeight != m_currentHeight)
 		{
-			this.m_layoutElement.minHeight = this.m_currentHeight;
-			this.m_layoutElement.preferredHeight = this.m_currentHeight;
+			m_layoutElement.minHeight = m_currentHeight;
+			m_layoutElement.preferredHeight = m_currentHeight;
 		}
-		if (this.m_remainingTime != null)
+		if (!(m_remainingTime != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.m_infoReference != null && this.m_infoReference.QuestAbandonDate != DateTime.MinValue)
+			if (m_infoReference == null || !(m_infoReference.QuestAbandonDate != DateTime.MinValue))
 			{
-				TimeSpan timeSpan = this.m_infoReference.QuestAbandonDate.Subtract(ClientGameManager.Get().PacificNow());
-				int num3 = (int)timeSpan.TotalDays;
-				string arg;
-				if (num3 > 1)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					arg = string.Format(StringUtil.TR("Days", "TimeSpan"), num3);
-				}
-				else if (num3 == 1)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					arg = StringUtil.TR("Day", "TimeSpan");
-				}
-				else
-				{
-					arg = string.Format("{0:D2}:{1:D2}", (int)timeSpan.TotalHours, timeSpan.Minutes);
-				}
-				this.m_remainingTime.text = string.Format(StringUtil.TR("QuestRemainingTime", "Global"), arg);
+				return;
 			}
+			TimeSpan timeSpan = m_infoReference.QuestAbandonDate.Subtract(ClientGameManager.Get().PacificNow());
+			int num3 = (int)timeSpan.TotalDays;
+			string arg;
+			if (num3 > 1)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				arg = string.Format(StringUtil.TR("Days", "TimeSpan"), num3);
+			}
+			else if (num3 == 1)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				arg = StringUtil.TR("Day", "TimeSpan");
+			}
+			else
+			{
+				arg = $"{(int)timeSpan.TotalHours:D2}:{timeSpan.Minutes:D2}";
+			}
+			m_remainingTime.text = string.Format(StringUtil.TR("QuestRemainingTime", "Global"), arg);
+			return;
 		}
 	}
 }

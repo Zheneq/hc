@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class GameplayRewardForTeam
@@ -21,35 +21,36 @@ public class GameplayRewardForTeam
 
 	public void ClientApplyRewardTo(Team team)
 	{
-		if (this.m_objectivePointAdjust != 0)
+		if (m_objectivePointAdjust == 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayRewardForTeam.ClientApplyRewardTo(Team)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			ObjectivePoints objectivePoints = ObjectivePoints.Get();
 			if (objectivePoints != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					objectivePoints.AdjustUnresolvedPoints(m_objectivePointAdjust, team);
+					return;
 				}
-				objectivePoints.AdjustUnresolvedPoints(this.m_objectivePointAdjust, team);
 			}
+			return;
 		}
 	}
 }

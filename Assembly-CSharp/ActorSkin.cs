@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -12,7 +11,7 @@ public class ActorSkin : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
+		bool result = default(bool);
 		return result;
 	}
 

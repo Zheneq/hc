@@ -1,10 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 {
+	public delegate BoardSquare CenterSquareDelegate(AbilityTarget currentTarget, ActorData caster);
+
+	public delegate bool IsMovingShapeDelegate(ActorData caster);
+
+	public delegate BoardSquare GetMoveStartSquareDelegate(AbilityTarget currentTarget, ActorData caster);
+
+	public delegate Vector3 GetMoveStartFreePosDelegate(AbilityTarget currentTarget, ActorData caster);
+
 	[Separator("Targeting Properties", true)]
 	public AbilityAreaShape m_shape = AbilityAreaShape.Three_x_Three;
 
@@ -32,13 +39,13 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 	[Separator("Sequences", true)]
 	public GameObject m_castSequencePrefab;
 
-	public TargetSelect_Shape.CenterSquareDelegate m_centerSquareDelegate;
+	public CenterSquareDelegate m_centerSquareDelegate;
 
-	public TargetSelect_Shape.IsMovingShapeDelegate m_isMovingShapeDelegate;
+	public IsMovingShapeDelegate m_isMovingShapeDelegate;
 
-	public TargetSelect_Shape.GetMoveStartSquareDelegate m_moveStartSquareDelegate;
+	public GetMoveStartSquareDelegate m_moveStartSquareDelegate;
 
-	public TargetSelect_Shape.GetMoveStartFreePosDelegate m_moveStartFreePosDelegate;
+	public GetMoveStartFreePosDelegate m_moveStartFreePosDelegate;
 
 	private const string c_shapeLayer = "ShapeLayer";
 
@@ -50,7 +57,7 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr("ShapeLayer", "on every hit actor, smallest shape index that actor is hit in (0-based). Shapes are sorted from smallest to largest", true);
+		return GetContextUsageStr("ShapeLayer", "on every hit actor, smallest shape index that actor is hit in (0-based). Shapes are sorted from smallest to largest");
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
@@ -60,17 +67,17 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 
 	public override void Initialize()
 	{
-		this.InitShapesList();
+		InitShapesList();
 	}
 
 	private void InitShapesList()
 	{
-		this.m_shapesList = new List<AbilityAreaShape>();
-		this.m_shapesList.Add(this.GetShape());
-		List<AbilityAreaShape> collection = this.m_additionalShapes;
-		if (this.m_targetSelMod != null)
+		m_shapesList = new List<AbilityAreaShape>();
+		m_shapesList.Add(GetShape());
+		List<AbilityAreaShape> collection = m_additionalShapes;
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -79,13 +86,13 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Shape.InitShapesList()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_useTargetDataOverride)
+			if (m_useTargetDataOverride)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -94,19 +101,19 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 					}
 					break;
 				}
-				collection = this.m_targetSelMod.m_additionalShapesOverrides;
+				collection = m_targetSelMod.m_additionalShapesOverrides;
 			}
 		}
-		this.m_shapesList.AddRange(collection);
-		this.m_shapesList.Sort();
+		m_shapesList.AddRange(collection);
+		m_shapesList.Sort();
 	}
 
 	public bool RequireTargetingOnActor()
 	{
 		bool result;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -115,30 +122,30 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Shape.RequireTargetingOnActor()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetSelMod.m_requireTargetingOnActorMod.GetModifiedValue(this.m_requireTargetingOnActor);
+			result = m_targetSelMod.m_requireTargetingOnActorMod.GetModifiedValue(m_requireTargetingOnActor);
 		}
 		else
 		{
-			result = this.m_requireTargetingOnActor;
+			result = m_requireTargetingOnActor;
 		}
 		return result;
 	}
 
 	public bool CanTargetOnEnemies()
 	{
-		return (this.m_targetSelMod == null) ? this.m_canTargetOnEnemies : this.m_targetSelMod.m_canTargetOnEnemiesMod.GetModifiedValue(this.m_canTargetOnEnemies);
+		return (m_targetSelMod == null) ? m_canTargetOnEnemies : m_targetSelMod.m_canTargetOnEnemiesMod.GetModifiedValue(m_canTargetOnEnemies);
 	}
 
 	public bool CanTargetOnAllies()
 	{
 		bool result;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -147,15 +154,15 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Shape.CanTargetOnAllies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetSelMod.m_canTargetOnAlliesMod.GetModifiedValue(this.m_canTargetOnAllies);
+			result = m_targetSelMod.m_canTargetOnAlliesMod.GetModifiedValue(m_canTargetOnAllies);
 		}
 		else
 		{
-			result = this.m_canTargetOnAllies;
+			result = m_canTargetOnAllies;
 		}
 		return result;
 	}
@@ -163,9 +170,9 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 	public bool CanTargetOnSelf()
 	{
 		bool result;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -174,15 +181,15 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Shape.CanTargetOnSelf()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetSelMod.m_canTargetOnSelfMod.GetModifiedValue(this.m_canTargetOnSelf);
+			result = m_targetSelMod.m_canTargetOnSelfMod.GetModifiedValue(m_canTargetOnSelf);
 		}
 		else
 		{
-			result = this.m_canTargetOnSelf;
+			result = m_canTargetOnSelf;
 		}
 		return result;
 	}
@@ -190,9 +197,9 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 	public bool IgnoreLosToTargetActor()
 	{
 		bool result;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -201,15 +208,15 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Shape.IgnoreLosToTargetActor()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetSelMod.m_ignoreLosToTargetActorMod.GetModifiedValue(this.m_ignoreLosToTargetActor);
+			result = m_targetSelMod.m_ignoreLosToTargetActorMod.GetModifiedValue(m_ignoreLosToTargetActor);
 		}
 		else
 		{
-			result = this.m_ignoreLosToTargetActor;
+			result = m_ignoreLosToTargetActor;
 		}
 		return result;
 	}
@@ -217,9 +224,9 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 	public float GetMoveLineWidth()
 	{
 		float result;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -228,54 +235,55 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Shape.GetMoveLineWidth()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetSelMod.m_moveLineWidthMod.GetModifiedValue(this.m_moveLineWidth);
+			result = m_targetSelMod.m_moveLineWidthMod.GetModifiedValue(m_moveLineWidth);
 		}
 		else
 		{
-			result = this.m_moveLineWidth;
+			result = m_moveLineWidth;
 		}
 		return result;
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)
 	{
-		if (!this.m_useMoveShapeTargeter)
+		List<AbilityUtil_Targeter> list2;
+		if (!m_useMoveShapeTargeter)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					List<AbilityTooltipSubject> list = new List<AbilityTooltipSubject>();
+					list.Add(AbilityTooltipSubject.Primary);
+					List<AbilityTooltipSubject> subjects = list;
+					AbilityUtil_Targeter_MultipleShapes abilityUtil_Targeter_MultipleShapes = new AbilityUtil_Targeter_MultipleShapes(ability, m_shapesList, subjects, IgnoreLos(), IncludeEnemies(), IncludeAllies(), IncludeCaster());
+					abilityUtil_Targeter_MultipleShapes.SetAffectedGroups(IncludeEnemies(), IncludeAllies(), IncludeCaster());
+					abilityUtil_Targeter_MultipleShapes.m_alwaysIncludeShapeCenterActor = RequireTargetingOnActor();
+					abilityUtil_Targeter_MultipleShapes.SetShowArcToShape(m_showTargeterArc);
+					list2 = new List<AbilityUtil_Targeter>();
+					list2.Add(abilityUtil_Targeter_MultipleShapes);
+					return list2;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Shape.CreateTargeters(Ability)).MethodHandle;
-			}
-			List<AbilityTooltipSubject> subjects = new List<AbilityTooltipSubject>
-			{
-				AbilityTooltipSubject.Primary
-			};
-			AbilityUtil_Targeter_MultipleShapes abilityUtil_Targeter_MultipleShapes = new AbilityUtil_Targeter_MultipleShapes(ability, this.m_shapesList, subjects, base.IgnoreLos(), base.IncludeEnemies(), base.IncludeAllies(), base.IncludeCaster());
-			abilityUtil_Targeter_MultipleShapes.SetAffectedGroups(base.IncludeEnemies(), base.IncludeAllies(), base.IncludeCaster());
-			abilityUtil_Targeter_MultipleShapes.m_alwaysIncludeShapeCenterActor = this.RequireTargetingOnActor();
-			abilityUtil_Targeter_MultipleShapes.SetShowArcToShape(this.m_showTargeterArc);
-			return new List<AbilityUtil_Targeter>
-			{
-				abilityUtil_Targeter_MultipleShapes
-			};
 		}
-		AbilityUtil_Targeter_MovingShape abilityUtil_Targeter_MovingShape = new AbilityUtil_Targeter_MovingShape(ability, this.GetShape(), base.IgnoreLos(), this.GetMoveLineWidth());
-		abilityUtil_Targeter_MovingShape.SetAffectedGroups(base.IncludeEnemies(), base.IncludeAllies(), base.IncludeCaster());
-		if (!base.IncludeAllies())
+		AbilityUtil_Targeter_MovingShape abilityUtil_Targeter_MovingShape = new AbilityUtil_Targeter_MovingShape(ability, GetShape(), IgnoreLos(), GetMoveLineWidth());
+		abilityUtil_Targeter_MovingShape.SetAffectedGroups(IncludeEnemies(), IncludeAllies(), IncludeCaster());
+		if (!IncludeAllies())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -284,9 +292,9 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!base.IncludeCaster())
+			if (!IncludeCaster())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -298,28 +306,31 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				abilityUtil_Targeter_MovingShape.m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
 			}
 		}
-		abilityUtil_Targeter_MovingShape.SetShowArcToShape(this.m_showTargeterArc);
-		return new List<AbilityUtil_Targeter>
-		{
-			abilityUtil_Targeter_MovingShape
-		};
+		abilityUtil_Targeter_MovingShape.SetShowArcToShape(m_showTargeterArc);
+		list2 = new List<AbilityUtil_Targeter>();
+		list2.Add(abilityUtil_Targeter_MovingShape);
+		return list2;
 	}
 
 	public override bool HandleCanCastValidation(Ability ability, ActorData caster)
 	{
-		return !this.RequireTargetingOnActor() || ability.HasTargetableActorsInDecision(caster, this.CanTargetOnEnemies(), this.CanTargetOnAllies(), this.CanTargetOnSelf(), Ability.ValidateCheckPath.Ignore, !this.IgnoreLosToTargetActor(), false, true);
+		if (RequireTargetingOnActor())
+		{
+			return ability.HasTargetableActorsInDecision(caster, CanTargetOnEnemies(), CanTargetOnAllies(), CanTargetOnSelf(), Ability.ValidateCheckPath.Ignore, !IgnoreLosToTargetActor(), false, true);
+		}
+		return true;
 	}
 
 	public override bool HandleCustomTargetValidation(Ability ability, ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		if (this.RequireTargetingOnActor())
+		if (RequireTargetingOnActor())
 		{
 			bool result = false;
-			BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-			ActorData actorData;
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			object obj;
+			if (boardSquareSafe != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -328,20 +339,20 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Shape.HandleCustomTargetValidation(Ability, ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				actorData = boardSquare.OccupantActor;
+				obj = boardSquareSafe.OccupantActor;
 			}
 			else
 			{
-				actorData = null;
+				obj = null;
 			}
-			ActorData actorData2 = actorData;
-			if (actorData2 != null)
+			ActorData actorData = (ActorData)obj;
+			if (actorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -350,10 +361,9 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 					}
 					break;
 				}
-				bool flag = ability.CanTargetActorInDecision(caster, actorData2, this.CanTargetOnEnemies(), this.CanTargetOnAllies(), this.CanTargetOnSelf(), Ability.ValidateCheckPath.Ignore, !this.IgnoreLosToTargetActor(), false, true);
-				if (flag)
+				if (ability.CanTargetActorInDecision(caster, actorData, CanTargetOnEnemies(), CanTargetOnAllies(), CanTargetOnSelf(), Ability.ValidateCheckPath.Ignore, !IgnoreLosToTargetActor(), false, true))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -372,112 +382,104 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 
 	protected override void OnTargetSelModApplied(TargetSelectModBase modBase)
 	{
-		this.m_targetSelMod = (modBase as TargetSelectMod_Shape);
+		m_targetSelMod = (modBase as TargetSelectMod_Shape);
 	}
 
 	protected override void OnTargetSelModRemoved()
 	{
-		this.m_targetSelMod = null;
+		m_targetSelMod = null;
 	}
 
 	public AbilityAreaShape GetShape()
 	{
-		return (this.m_targetSelMod == null) ? this.m_shape : this.m_targetSelMod.m_shapeMod.GetModifiedValue(this.m_shape);
+		return (m_targetSelMod == null) ? m_shape : m_targetSelMod.m_shapeMod.GetModifiedValue(m_shape);
 	}
 
 	public BoardSquare GetShapeCenterSquare(AbilityTarget target, ActorData caster)
 	{
-		if (this.m_centerSquareDelegate != null)
+		if (m_centerSquareDelegate != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_centerSquareDelegate(target, caster);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Shape.GetShapeCenterSquare(AbilityTarget, ActorData)).MethodHandle;
-			}
-			return this.m_centerSquareDelegate(target, caster);
 		}
-		return Board.\u000E().\u000E(target.GridPos);
+		return Board.Get().GetBoardSquareSafe(target.GridPos);
 	}
 
 	public bool IsMovingShape(ActorData caster)
 	{
-		if (this.m_isMovingShapeDelegate != null)
+		if (m_isMovingShapeDelegate != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_isMovingShapeDelegate(caster);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Shape.IsMovingShape(ActorData)).MethodHandle;
-			}
-			return this.m_isMovingShapeDelegate(caster);
 		}
 		return false;
 	}
 
 	public BoardSquare GetMoveStartSquare(AbilityTarget target, ActorData caster)
 	{
-		if (this.m_moveStartSquareDelegate != null)
+		if (m_moveStartSquareDelegate != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_moveStartSquareDelegate(target, caster);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Shape.GetMoveStartSquare(AbilityTarget, ActorData)).MethodHandle;
-			}
-			return this.m_moveStartSquareDelegate(target, caster);
 		}
-		return caster.\u0012();
+		return caster.GetCurrentBoardSquare();
 	}
 
 	public Vector3 GetMoveStartFreePos(AbilityTarget target, ActorData caster)
 	{
-		if (this.m_moveStartFreePosDelegate != null)
+		if (m_moveStartFreePosDelegate != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_moveStartFreePosDelegate(target, caster);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Shape.GetMoveStartFreePos(AbilityTarget, ActorData)).MethodHandle;
-			}
-			return this.m_moveStartFreePosDelegate(target, caster);
 		}
-		return caster.\u0016();
+		return caster.GetTravelBoardSquareWorldPosition();
 	}
-
-	public delegate BoardSquare CenterSquareDelegate(AbilityTarget currentTarget, ActorData caster);
-
-	public delegate bool IsMovingShapeDelegate(ActorData caster);
-
-	public delegate BoardSquare GetMoveStartSquareDelegate(AbilityTarget currentTarget, ActorData caster);
-
-	public delegate Vector3 GetMoveStartFreePosDelegate(AbilityTarget currentTarget, ActorData caster);
 }

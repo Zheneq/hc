@@ -1,5 +1,3 @@
-﻿using System;
-
 public struct ReplayTimestamp
 {
 	public int turn;
@@ -24,25 +22,24 @@ public struct ReplayTimestamp
 	public ReplayTimestamp Increment()
 	{
 		ReplayTimestamp result = this;
-		AbilityPriority abilityPriority = result.phase;
-		switch (abilityPriority + 1)
+		switch (result.phase)
 		{
-		case AbilityPriority.Prep_Defense:
+		case AbilityPriority.INVALID:
 			result.phase = AbilityPriority.Prep_Defense;
 			break;
+		case AbilityPriority.Prep_Defense:
 		case AbilityPriority.Prep_Offense:
-		case AbilityPriority.Evasion:
 			result.phase = AbilityPriority.Evasion;
 			break;
-		case AbilityPriority.Combat_Damage:
+		case AbilityPriority.Evasion:
 			result.phase = AbilityPriority.Combat_Damage;
 			break;
+		case AbilityPriority.Combat_Damage:
 		case AbilityPriority.DEPRICATED_Combat_Charge:
 		case AbilityPriority.Combat_Knockback:
-		case AbilityPriority.Combat_Final:
 			result.phase = AbilityPriority.Combat_Final;
 			break;
-		case AbilityPriority.NumAbilityPriorities:
+		case AbilityPriority.Combat_Final:
 			result.turn++;
 			result.phase = AbilityPriority.INVALID;
 			break;
@@ -52,15 +49,15 @@ public struct ReplayTimestamp
 
 	public override string ToString()
 	{
-		return string.Format("{0}/{1}", this.turn, this.phase);
+		return $"{turn}/{phase}";
 	}
 
 	public override bool Equals(object obj)
 	{
-		bool result;
+		int result;
 		if (obj is ReplayTimestamp)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -69,22 +66,22 @@ public struct ReplayTimestamp
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplayTimestamp.Equals(object)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (this == (ReplayTimestamp)obj);
+			result = ((this == (ReplayTimestamp)obj) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public override int GetHashCode()
 	{
-		return this.turn.GetHashCode() * this.phase.GetHashCode();
+		return turn.GetHashCode() * phase.GetHashCode();
 	}
 
 	public static bool operator ==(ReplayTimestamp lhs, ReplayTimestamp rhs)
@@ -94,10 +91,10 @@ public struct ReplayTimestamp
 
 	public static bool operator !=(ReplayTimestamp lhs, ReplayTimestamp rhs)
 	{
-		bool result;
+		int result;
 		if (lhs.turn == rhs.turn)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -106,17 +103,17 @@ public struct ReplayTimestamp
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplayTimestamp != ReplayTimestamp).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (lhs.phase != rhs.phase);
+			result = ((lhs.phase != rhs.phase) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public static bool operator <(ReplayTimestamp lhs, ReplayTimestamp rhs)
@@ -130,10 +127,10 @@ public struct ReplayTimestamp
 
 	public static bool operator <=(ReplayTimestamp lhs, ReplayTimestamp rhs)
 	{
-		bool result;
+		int result;
 		if (!(lhs < rhs))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -142,17 +139,17 @@ public struct ReplayTimestamp
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplayTimestamp <= ReplayTimestamp).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (lhs == rhs);
+			result = ((lhs == rhs) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public static bool operator >(ReplayTimestamp lhs, ReplayTimestamp rhs)

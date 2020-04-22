@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,43 +11,34 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 
 	private bool m_allowChargeThroughInvalidSquares = true;
 
-	public AbilityUtil_Targeter_BattleMonkUltimate(Ability ability, AbilityAreaShape allyShape, bool allyShapePenetratesLoS, AbilityAreaShape enemyShape, bool enemyShapePenetratesLoS, bool groundBasedMovement) : base(ability, allyShape, allyShapePenetratesLoS, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, true, AbilityUtil_Targeter.AffectsActor.Always, AbilityUtil_Targeter.AffectsActor.Possible)
-	{
-		this.m_enemyShape = enemyShape;
-		this.m_enemyShapePenetratesLoS = enemyShapePenetratesLoS;
-		this.m_groundBasedMovement = groundBasedMovement;
-		base.SetAffectedGroups(true, true, true);
-		this.m_showArcToShape = false;
-	}
-
 	private GameObject EnemyHighlight
 	{
 		get
 		{
-			if (this.m_highlights != null && this.m_highlights.Count > 1)
+			if (m_highlights != null && m_highlights.Count > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return m_highlights[1];
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BattleMonkUltimate.get_EnemyHighlight()).MethodHandle;
-				}
-				return this.m_highlights[1];
 			}
 			return null;
 		}
 		set
 		{
-			if (this.m_highlights == null)
+			if (m_highlights == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -57,49 +47,59 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BattleMonkUltimate.set_EnemyHighlight(GameObject)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_highlights = new List<GameObject>();
+				m_highlights = new List<GameObject>();
 			}
-			while (this.m_highlights.Count <= 1)
+			while (m_highlights.Count <= 1)
 			{
-				this.m_highlights.Add(null);
+				m_highlights.Add(null);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (this.m_highlights[1] != null)
-			{
-				for (;;)
+				if (m_highlights[1] != null)
 				{
-					switch (2)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
-					break;
+					DestroyObjectAndMaterials(m_highlights[1]);
+					m_highlights[1] = null;
 				}
-				base.DestroyObjectAndMaterials(this.m_highlights[1]);
-				this.m_highlights[1] = null;
+				m_highlights[1] = value;
+				return;
 			}
-			this.m_highlights[1] = value;
 		}
+	}
+
+	public AbilityUtil_Targeter_BattleMonkUltimate(Ability ability, AbilityAreaShape allyShape, bool allyShapePenetratesLoS, AbilityAreaShape enemyShape, bool enemyShapePenetratesLoS, bool groundBasedMovement)
+		: base(ability, allyShape, allyShapePenetratesLoS, DamageOriginType.CenterOfShape, true, true, AffectsActor.Always)
+	{
+		m_enemyShape = enemyShape;
+		m_enemyShapePenetratesLoS = enemyShapePenetratesLoS;
+		m_groundBasedMovement = groundBasedMovement;
+		SetAffectedGroups(true, true, true);
+		m_showArcToShape = false;
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		if (this.m_affectsEnemies)
+		if (m_affectsEnemies)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -108,20 +108,20 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BattleMonkUltimate.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.EnemyHighlight == null)
+			if (EnemyHighlight == null)
 			{
-				this.EnemyHighlight = HighlightUtils.Get().CreateShapeCursor(this.m_enemyShape, targetingActor == GameFlowData.Get().activeOwnedActorData);
+				EnemyHighlight = HighlightUtils.Get().CreateShapeCursor(m_enemyShape, targetingActor == GameFlowData.Get().activeOwnedActorData);
 			}
-			this.EnemyHighlight.transform.position = base.Highlight.transform.position;
-			this.EnemyHighlight.SetActive(true);
-			BoardSquare gameplayRefSquare = base.GetGameplayRefSquare(currentTarget, targetingActor);
+			EnemyHighlight.transform.position = base.Highlight.transform.position;
+			EnemyHighlight.SetActive(true);
+			BoardSquare gameplayRefSquare = GetGameplayRefSquare(currentTarget, targetingActor);
 			if (gameplayRefSquare != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -130,14 +130,14 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 					}
 					break;
 				}
-				List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_enemyShape, currentTarget.FreePos, gameplayRefSquare, this.m_enemyShapePenetratesLoS, targetingActor, targetingActor.\u0012(), null);
-				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
-				Vector3 highlightGoalPos = base.GetHighlightGoalPos(currentTarget, targetingActor);
-				foreach (ActorData actorData in actorsInShape)
+				List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_enemyShape, currentTarget.FreePos, gameplayRefSquare, m_enemyShapePenetratesLoS, targetingActor, targetingActor.GetOpposingTeam(), null);
+				TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+				Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
+				foreach (ActorData item in actors)
 				{
-					if (!(actorData != targetingActor))
+					if (!(item != targetingActor))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -146,11 +146,11 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 							}
 							break;
 						}
-						if (this.m_affectsCaster != AbilityUtil_Targeter.AffectsActor.Possible)
+						if (m_affectsCaster != AffectsActor.Possible)
 						{
 							continue;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -160,31 +160,35 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 							break;
 						}
 					}
-					base.AddActorInRange(actorData, highlightGoalPos, targetingActor, AbilityTooltipSubject.Primary, false);
+					AddActorInRange(item, highlightGoalPos, targetingActor);
 				}
 			}
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		BoardSquare boardSquare2 = targetingActor.\u0012();
-		BoardSquarePathInfo boardSquarePathInfo;
-		if (this.m_groundBasedMovement)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare currentBoardSquare = targetingActor.GetCurrentBoardSquare();
+		BoardSquarePathInfo boardSquarePathInfo = null;
+		if (m_groundBasedMovement)
 		{
-			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, boardSquare2, this.m_allowChargeThroughInvalidSquares);
+			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe, currentBoardSquare, m_allowChargeThroughInvalidSquares);
 		}
 		else
 		{
 			boardSquarePathInfo = new BoardSquarePathInfo();
-			boardSquarePathInfo.square = boardSquare2;
+			boardSquarePathInfo.square = currentBoardSquare;
 			BoardSquarePathInfo boardSquarePathInfo2 = new BoardSquarePathInfo();
-			boardSquarePathInfo2.square = boardSquare;
+			boardSquarePathInfo2.square = boardSquareSafe;
 			boardSquarePathInfo.next = boardSquarePathInfo2;
 			boardSquarePathInfo2.prev = boardSquarePathInfo;
 		}
-		base.AddMovementArrowWithPrevious(targetingActor, boardSquarePathInfo, AbilityUtil_Targeter.TargeterMovementType.Movement, 0, false);
+		AddMovementArrowWithPrevious(targetingActor, boardSquarePathInfo, TargeterMovementType.Movement, 0);
 	}
 
 	protected override bool HandleAddActorInShape(ActorData potentialTarget, ActorData targetingActor, AbilityTarget currentTarget, Vector3 damageOrigin, ActorData bestTarget)
 	{
-		return potentialTarget.\u000E() == targetingActor.\u000E() && base.HandleAddActorInShape(potentialTarget, targetingActor, currentTarget, damageOrigin, bestTarget);
+		if (potentialTarget.GetTeam() != targetingActor.GetTeam())
+		{
+			return false;
+		}
+		return base.HandleAddActorInShape(potentialTarget, targetingActor, currentTarget, damageOrigin, bestTarget);
 	}
 }

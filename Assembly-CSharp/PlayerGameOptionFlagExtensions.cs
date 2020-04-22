@@ -1,5 +1,3 @@
-﻿using System;
-
 public static class PlayerGameOptionFlagExtensions
 {
 	public static bool HasGameOption(this PlayerGameOptionFlag thisFlags, PlayerGameOptionFlag gameOptionFlag)

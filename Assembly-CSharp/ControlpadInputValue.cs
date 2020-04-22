@@ -1,5 +1,3 @@
-﻿using System;
-
 public enum ControlpadInputValue
 {
 	INVALID = -1,

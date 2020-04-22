@@ -1,68 +1,120 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class ServerMessageOverrides
 {
-	public ServerMessage MOTDText { get; set; }
+	public ServerMessage MOTDText
+	{
+		get;
+		set;
+	}
 
-	public ServerMessage MOTDPopUpText { get; set; }
+	public ServerMessage MOTDPopUpText
+	{
+		get;
+		set;
+	}
 
-	public ServerMessage ReleaseNotesText { get; set; }
+	public ServerMessage ReleaseNotesText
+	{
+		get;
+		set;
+	}
 
-	public ServerMessage ReleaseNotesHeader { get; set; }
+	public ServerMessage ReleaseNotesHeader
+	{
+		get;
+		set;
+	}
 
-	public ServerMessage ReleaseNotesDescription { get; set; }
+	public ServerMessage ReleaseNotesDescription
+	{
+		get;
+		set;
+	}
 
-	public ServerMessage WhatsNewText { get; set; }
+	public ServerMessage WhatsNewText
+	{
+		get;
+		set;
+	}
 
-	public ServerMessage WhatsNewHeader { get; set; }
+	public ServerMessage WhatsNewHeader
+	{
+		get;
+		set;
+	}
 
-	public ServerMessage WhatsNewDescription { get; set; }
+	public ServerMessage WhatsNewDescription
+	{
+		get;
+		set;
+	}
 
-	public ServerMessage LockScreenText { get; set; }
+	public ServerMessage LockScreenText
+	{
+		get;
+		set;
+	}
 
-	public ServerMessage LockScreenButtonText { get; set; }
+	public ServerMessage LockScreenButtonText
+	{
+		get;
+		set;
+	}
 
-	public string FreeUpsellExternalBrowserUrl { get; set; }
+	public string FreeUpsellExternalBrowserUrl
+	{
+		get;
+		set;
+	}
 
-	public string FreeUpsellExternalBrowserSteamUrl { get; set; }
+	public string FreeUpsellExternalBrowserSteamUrl
+	{
+		get;
+		set;
+	}
 
-	public ServerMessage FacebookOAuthRedirectUriContent { get; set; }
+	public ServerMessage FacebookOAuthRedirectUriContent
+	{
+		get;
+		set;
+	}
 
 	public void SetValue(ServerMessageType type, ServerMessage value)
 	{
-		base.GetType().GetProperty(type.ToString()).SetValue(this, value, null);
+		GetType().GetProperty(type.ToString()).SetValue(this, value, null);
 	}
 
 	public string GetValue(ServerMessageType type, string language)
 	{
-		ServerMessage serverMessage = (ServerMessage)base.GetType().GetProperty(type.ToString()).GetValue(this, null);
+		ServerMessage serverMessage = (ServerMessage)GetType().GetProperty(type.ToString()).GetValue(this, null);
 		if (serverMessage == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerMessageOverrides.GetValue(ServerMessageType, string)).MethodHandle;
-			}
-			return null;
 		}
 		return serverMessage.GetValue(language);
 	}
 
 	public string GetValueOrDefault(ServerMessageType type, string language)
 	{
-		string value = this.GetValue(type, language);
+		string value = GetValue(type, language);
 		if (value.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -71,44 +123,44 @@ public class ServerMessageOverrides
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerMessageOverrides.GetValueOrDefault(ServerMessageType, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			value = this.GetValue(type, ServerMessageLanguage.EN);
+			value = GetValue(type, ServerMessageLanguage.EN);
 		}
 		return value;
 	}
 
 	public string GetValue(ServerMessageType type, ServerMessageLanguage language)
 	{
-		ServerMessage serverMessage = (ServerMessage)base.GetType().GetProperty(type.ToString()).GetValue(this, null);
+		ServerMessage serverMessage = (ServerMessage)GetType().GetProperty(type.ToString()).GetValue(this, null);
 		if (serverMessage == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerMessageOverrides.GetValue(ServerMessageType, ServerMessageLanguage)).MethodHandle;
-			}
-			return null;
 		}
 		return serverMessage.GetValue(language);
 	}
 
 	public string GetValueOrDefault(ServerMessageType type, ServerMessageLanguage language)
 	{
-		string value = this.GetValue(type, language);
+		string value = GetValue(type, language);
 		if (value.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -117,11 +169,11 @@ public class ServerMessageOverrides
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerMessageOverrides.GetValueOrDefault(ServerMessageType, ServerMessageLanguage)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			value = this.GetValue(type, ServerMessageLanguage.EN);
+			value = GetValue(type, ServerMessageLanguage.EN);
 		}
 		return value;
 	}

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,26 +18,26 @@ public class UIActorDebugLabel : MonoBehaviour
 
 	public void Setup(ActorData actorData)
 	{
-		this.m_actorData = actorData;
+		m_actorData = actorData;
 	}
 
 	public void SetEntry(string key, string displayStr)
 	{
-		this.m_entries[key] = displayStr;
-		this.m_shouldKeep.Add(key);
+		m_entries[key] = displayStr;
+		m_shouldKeep.Add(key);
 	}
 
 	private void Update()
 	{
 		string text = string.Empty;
-		using (Dictionary<string, string>.Enumerator enumerator = this.m_entries.GetEnumerator())
+		using (Dictionary<string, string>.Enumerator enumerator = m_entries.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<string, string> keyValuePair = enumerator.Current;
-				if (this.m_shouldKeep.Contains(keyValuePair.Key))
+				KeyValuePair<string, string> current = enumerator.Current;
+				if (m_shouldKeep.Contains(current.Key))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -47,14 +46,14 @@ public class UIActorDebugLabel : MonoBehaviour
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIActorDebugLabel.Update()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					text = text + keyValuePair.Value + "\n\n";
+					text = text + current.Value + "\n\n";
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -64,13 +63,22 @@ public class UIActorDebugLabel : MonoBehaviour
 				break;
 			}
 		}
-		this.m_label.text = text;
-		Canvas componentInParent = base.GetComponentInParent<Canvas>();
+		m_label.text = text;
+		Canvas componentInParent = GetComponentInParent<Canvas>();
 		RectTransform rectTransform = componentInParent.transform as RectTransform;
-		Vector3 position = this.m_actorData.\u000E(-10f);
-		Vector2 vector = Camera.main.WorldToViewportPoint(position);
-		Vector2 anchoredPosition = new Vector2(vector.x * rectTransform.sizeDelta.x - rectTransform.sizeDelta.x * 0.5f, vector.y * rectTransform.sizeDelta.y - rectTransform.sizeDelta.y * 0.5f);
+		Vector3 nameplatePosition = m_actorData.GetNameplatePosition(-10f);
+		Vector2 vector = Camera.main.WorldToViewportPoint(nameplatePosition);
+		float x = vector.x;
+		Vector2 sizeDelta = rectTransform.sizeDelta;
+		float num = x * sizeDelta.x;
+		Vector2 sizeDelta2 = rectTransform.sizeDelta;
+		float x2 = num - sizeDelta2.x * 0.5f;
+		float y = vector.y;
+		Vector2 sizeDelta3 = rectTransform.sizeDelta;
+		float num2 = y * sizeDelta3.y;
+		Vector2 sizeDelta4 = rectTransform.sizeDelta;
+		Vector2 anchoredPosition = new Vector2(x2, num2 - sizeDelta4.y * 0.5f);
 		(base.gameObject.transform as RectTransform).anchoredPosition = anchoredPosition;
-		this.m_shouldKeep.Clear();
+		m_shouldKeep.Clear();
 	}
 }

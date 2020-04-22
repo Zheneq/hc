@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,27 +39,28 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 
 	private bool m_splitLaserAffectsAllies;
 
-	public AbilityUtil_Targeter_SplittingLaser(Ability ability, float minAngle, float maxAngle, float angleInterpMinDistance, float angleInterpMaxDistance, int numSplitLaserPairs, bool alwaysSplit, float primaryLaserLengthInSquare, float primaryLaserWidthInSquares, bool primaryLaserPenetratesLoS, int primaryLaserMaxTargets, bool primaryLaserAffectsEnemies, bool primaryLaserAffectsAllies, float splitLaserLengthInSquare, float splitLaserWidthInSquares, bool splitLaserPenetratesLoS, int splitLaserMaxTargets, bool splitLaserAffectsEnemies, bool splitLaserAffectsAllies) : base(ability)
+	public AbilityUtil_Targeter_SplittingLaser(Ability ability, float minAngle, float maxAngle, float angleInterpMinDistance, float angleInterpMaxDistance, int numSplitLaserPairs, bool alwaysSplit, float primaryLaserLengthInSquare, float primaryLaserWidthInSquares, bool primaryLaserPenetratesLoS, int primaryLaserMaxTargets, bool primaryLaserAffectsEnemies, bool primaryLaserAffectsAllies, float splitLaserLengthInSquare, float splitLaserWidthInSquares, bool splitLaserPenetratesLoS, int splitLaserMaxTargets, bool splitLaserAffectsEnemies, bool splitLaserAffectsAllies)
+		: base(ability)
 	{
-		this.m_minAngle = Mathf.Max(0f, minAngle);
-		this.m_maxAngle = maxAngle;
-		this.m_interpMinDistanceInSquares = angleInterpMinDistance;
-		this.m_interpMaxDistanceInSquares = angleInterpMaxDistance;
-		this.m_numSplitLaserPairs = numSplitLaserPairs;
-		this.m_alwaysSplit = alwaysSplit;
-		this.m_primaryLaserLengthInSquares = primaryLaserLengthInSquare;
-		this.m_primaryLaserWidthInSquares = primaryLaserWidthInSquares;
-		this.m_primaryLaserPenetratesLoS = primaryLaserPenetratesLoS;
-		this.m_primaryLaserMaxTargets = primaryLaserMaxTargets;
-		this.m_primaryLaserAffectsEnemies = primaryLaserAffectsEnemies;
-		this.m_primaryLaserAffectsAllies = primaryLaserAffectsAllies;
-		this.m_splitLaserLengthInSquares = splitLaserLengthInSquare;
-		this.m_splitLaserWidthInSquares = splitLaserWidthInSquares;
-		this.m_splitLaserPenetratesLoS = splitLaserPenetratesLoS;
-		this.m_splitLaserMaxTargets = splitLaserMaxTargets;
-		this.m_splitLaserAffectsEnemies = splitLaserAffectsEnemies;
-		this.m_splitLaserAffectsAllies = splitLaserAffectsAllies;
-		this.m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser();
+		m_minAngle = Mathf.Max(0f, minAngle);
+		m_maxAngle = maxAngle;
+		m_interpMinDistanceInSquares = angleInterpMinDistance;
+		m_interpMaxDistanceInSquares = angleInterpMaxDistance;
+		m_numSplitLaserPairs = numSplitLaserPairs;
+		m_alwaysSplit = alwaysSplit;
+		m_primaryLaserLengthInSquares = primaryLaserLengthInSquare;
+		m_primaryLaserWidthInSquares = primaryLaserWidthInSquares;
+		m_primaryLaserPenetratesLoS = primaryLaserPenetratesLoS;
+		m_primaryLaserMaxTargets = primaryLaserMaxTargets;
+		m_primaryLaserAffectsEnemies = primaryLaserAffectsEnemies;
+		m_primaryLaserAffectsAllies = primaryLaserAffectsAllies;
+		m_splitLaserLengthInSquares = splitLaserLengthInSquare;
+		m_splitLaserWidthInSquares = splitLaserWidthInSquares;
+		m_splitLaserPenetratesLoS = splitLaserPenetratesLoS;
+		m_splitLaserMaxTargets = splitLaserMaxTargets;
+		m_splitLaserAffectsEnemies = splitLaserAffectsEnemies;
+		m_splitLaserAffectsAllies = splitLaserAffectsAllies;
+		m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser();
 	}
 
 	public List<Team> GetPrimaryLaserAffectedTeams(ActorData caster)
@@ -68,9 +68,9 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		List<Team> list = new List<Team>();
 		if (caster != null)
 		{
-			if (this.m_primaryLaserAffectsEnemies)
+			if (m_primaryLaserAffectsEnemies)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -79,15 +79,15 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SplittingLaser.GetPrimaryLaserAffectedTeams(ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				list.Add(caster.\u0012());
+				list.Add(caster.GetOpposingTeam());
 			}
-			if (this.m_primaryLaserAffectsAllies)
+			if (m_primaryLaserAffectsAllies)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -96,7 +96,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 					}
 					break;
 				}
-				list.Add(caster.\u000E());
+				list.Add(caster.GetTeam());
 			}
 		}
 		return list;
@@ -107,7 +107,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		List<Team> list = new List<Team>();
 		if (caster != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -116,13 +116,13 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SplittingLaser.GetSplitLaserAffectedTeams(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_splitLaserAffectsEnemies)
+			if (m_splitLaserAffectsEnemies)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -131,11 +131,11 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 					}
 					break;
 				}
-				list.Add(caster.\u0012());
+				list.Add(caster.GetOpposingTeam());
 			}
-			if (this.m_splitLaserAffectsAllies)
+			if (m_splitLaserAffectsAllies)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -144,7 +144,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 					}
 					break;
 				}
-				list.Add(caster.\u000E());
+				list.Add(caster.GetTeam());
 			}
 		}
 		return list;
@@ -152,15 +152,15 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		base.ClearActorsInRange();
-		VectorUtils.LaserCoords laserCoords;
-		laserCoords.start = targetingActor.\u0015();
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, this.m_primaryLaserLengthInSquares, this.m_primaryLaserWidthInSquares, targetingActor, this.GetPrimaryLaserAffectedTeams(targetingActor), this.m_primaryLaserPenetratesLoS, this.m_primaryLaserMaxTargets, false, false, out laserCoords.end, null, null, false, true);
+		ClearActorsInRange();
+		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
+		laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, m_primaryLaserLengthInSquares, m_primaryLaserWidthInSquares, targetingActor, GetPrimaryLaserAffectedTeams(targetingActor), m_primaryLaserPenetratesLoS, m_primaryLaserMaxTargets, false, false, out laserCoords.end, null);
 		List<ActorData> list = new List<ActorData>();
 		List<ActorData> list2 = new List<ActorData>();
 		for (int i = 0; i < actorsInLaser.Count; i++)
 		{
-			if (actorsInLaser[i].\u000E() == targetingActor.\u000E())
+			if (actorsInLaser[i].GetTeam() == targetingActor.GetTeam())
 			{
 				list2.Add(actorsInLaser[i]);
 			}
@@ -169,12 +169,12 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 				list.Add(actorsInLaser[i]);
 			}
 		}
-		base.AddActorsInRange(list, laserCoords.start, targetingActor, AbilityTooltipSubject.Primary, false);
-		base.AddActorsInRange(list2, laserCoords.start, targetingActor, AbilityTooltipSubject.Tertiary, false);
-		this.SetupLaserHighlight(laserCoords, 0, true);
-		if (!this.m_alwaysSplit)
+		AddActorsInRange(list, laserCoords.start, targetingActor);
+		AddActorsInRange(list2, laserCoords.start, targetingActor, AbilityTooltipSubject.Tertiary);
+		SetupLaserHighlight(laserCoords, 0);
+		if (!m_alwaysSplit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -183,60 +183,59 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SplittingLaser.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (actorsInLaser.Count > 0)
+			if (actorsInLaser.Count <= 0)
 			{
-				for (;;)
+				for (int j = 1; j < m_highlights.Count; j++)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					DisableLaserHighlight(j);
 				}
-			}
-			else
-			{
-				for (int j = 1; j < this.m_highlights.Count; j++)
-				{
-					this.DisableLaserHighlight(j);
-				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					return;
 				}
 			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
 		}
-		float num = this.CalculateSplitAngleDegrees(currentTarget, targetingActor);
+		float num = CalculateSplitAngleDegrees(currentTarget, targetingActor);
 		float num2 = VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection);
-		for (int k = 0; k < this.m_numSplitLaserPairs; k++)
+		int num3 = 0;
+		VectorUtils.LaserCoords laserCoords2 = default(VectorUtils.LaserCoords);
+		VectorUtils.LaserCoords laserCoords3 = default(VectorUtils.LaserCoords);
+		while (num3 < m_numSplitLaserPairs)
 		{
-			float angle = num2 + num * (float)(k + 1);
-			float angle2 = num2 - num * (float)(k + 1);
+			float angle = num2 + num * (float)(num3 + 1);
+			float angle2 = num2 - num * (float)(num3 + 1);
 			Vector3 dir = VectorUtils.AngleDegreesToVector(angle);
 			Vector3 dir2 = VectorUtils.AngleDegreesToVector(angle2);
-			VectorUtils.LaserCoords laserCoords2;
 			laserCoords2.start = laserCoords.end;
-			VectorUtils.LaserCoords laserCoords3;
 			laserCoords3.start = laserCoords.end;
-			List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(laserCoords2.start, dir, this.m_splitLaserLengthInSquares, this.m_splitLaserWidthInSquares, targetingActor, this.GetSplitLaserAffectedTeams(targetingActor), this.m_splitLaserPenetratesLoS, this.m_splitLaserMaxTargets, false, false, out laserCoords2.end, null, actorsInLaser, false, true);
-			List<ActorData> actorsInLaser3 = AreaEffectUtils.GetActorsInLaser(laserCoords3.start, dir2, this.m_splitLaserLengthInSquares, this.m_splitLaserWidthInSquares, targetingActor, this.GetSplitLaserAffectedTeams(targetingActor), this.m_splitLaserPenetratesLoS, this.m_splitLaserMaxTargets, false, false, out laserCoords3.end, null, actorsInLaser, false, true);
+			List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(laserCoords2.start, dir, m_splitLaserLengthInSquares, m_splitLaserWidthInSquares, targetingActor, GetSplitLaserAffectedTeams(targetingActor), m_splitLaserPenetratesLoS, m_splitLaserMaxTargets, false, false, out laserCoords2.end, null, actorsInLaser);
+			List<ActorData> actorsInLaser3 = AreaEffectUtils.GetActorsInLaser(laserCoords3.start, dir2, m_splitLaserLengthInSquares, m_splitLaserWidthInSquares, targetingActor, GetSplitLaserAffectedTeams(targetingActor), m_splitLaserPenetratesLoS, m_splitLaserMaxTargets, false, false, out laserCoords3.end, null, actorsInLaser);
 			List<ActorData> list3 = new List<ActorData>();
 			List<ActorData> list4 = new List<ActorData>();
-			for (int l = 0; l < actorsInLaser2.Count; l++)
+			for (int k = 0; k < actorsInLaser2.Count; k++)
 			{
-				if (actorsInLaser2[l].\u000E() == targetingActor.\u000E())
+				if (actorsInLaser2[k].GetTeam() == targetingActor.GetTeam())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -245,68 +244,75 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 						}
 						break;
 					}
-					list4.Add(actorsInLaser2[l]);
+					list4.Add(actorsInLaser2[k]);
 				}
 				else
 				{
-					list3.Add(actorsInLaser2[l]);
+					list3.Add(actorsInLaser2[k]);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			List<ActorData> list5 = new List<ActorData>();
-			List<ActorData> list6 = new List<ActorData>();
-			for (int m = 0; m < actorsInLaser3.Count; m++)
-			{
-				if (actorsInLaser3[m].\u000E() == targetingActor.\u000E())
+				List<ActorData> list5 = new List<ActorData>();
+				List<ActorData> list6 = new List<ActorData>();
+				for (int l = 0; l < actorsInLaser3.Count; l++)
 				{
-					for (;;)
+					if (actorsInLaser3[l].GetTeam() == targetingActor.GetTeam())
 					{
-						switch (3)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
-						break;
+						list6.Add(actorsInLaser3[l]);
 					}
-					list6.Add(actorsInLaser3[m]);
+					else
+					{
+						list5.Add(actorsInLaser3[l]);
+					}
 				}
-				else
+				while (true)
 				{
-					list5.Add(actorsInLaser3[m]);
-				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
+					switch (3)
+					{
+					case 0:
+						break;
+					default:
+						goto end_IL_02e8;
+					}
 					continue;
+					end_IL_02e8:
+					break;
 				}
-				break;
+				AddActorsInRange(list3, laserCoords2.start, targetingActor, AbilityTooltipSubject.Secondary);
+				AddActorsInRange(list5, laserCoords3.start, targetingActor, AbilityTooltipSubject.Secondary);
+				AddActorsInRange(list4, laserCoords2.start, targetingActor, AbilityTooltipSubject.Quaternary);
+				AddActorsInRange(list6, laserCoords3.start, targetingActor, AbilityTooltipSubject.Quaternary);
+				SetupLaserHighlight(laserCoords2, 1 + num3 * 2, false);
+				SetupLaserHighlight(laserCoords3, 2 + num3 * 2, false);
+				num3++;
+				goto IL_035e;
 			}
-			base.AddActorsInRange(list3, laserCoords2.start, targetingActor, AbilityTooltipSubject.Secondary, false);
-			base.AddActorsInRange(list5, laserCoords3.start, targetingActor, AbilityTooltipSubject.Secondary, false);
-			base.AddActorsInRange(list4, laserCoords2.start, targetingActor, AbilityTooltipSubject.Quaternary, false);
-			base.AddActorsInRange(list6, laserCoords3.start, targetingActor, AbilityTooltipSubject.Quaternary, false);
-			this.SetupLaserHighlight(laserCoords2, 1 + k * 2, false);
-			this.SetupLaserHighlight(laserCoords3, 2 + k * 2, false);
+			IL_035e:;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
@@ -317,7 +323,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		float num;
 		if (primary)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -326,84 +332,84 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SplittingLaser.SetupLaserHighlight(VectorUtils.LaserCoords, int, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = this.m_primaryLaserWidthInSquares;
+			num = m_primaryLaserWidthInSquares;
 		}
 		else
 		{
-			num = this.m_splitLaserWidthInSquares;
+			num = m_splitLaserWidthInSquares;
 		}
-		float widthInWorld = num * Board.\u000E().squareSize;
+		float widthInWorld = num * Board.Get().squareSize;
 		Vector3 normalized = (laserCoords.end - laserCoords.start).normalized;
-		while (this.m_highlights.Count <= highlightIndex)
+		while (m_highlights.Count <= highlightIndex)
 		{
-			this.m_highlights.Add(null);
+			m_highlights.Add(null);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (this.m_highlights[highlightIndex] == null)
-		{
-			for (;;)
+			if (m_highlights[highlightIndex] == null)
 			{
-				switch (3)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
-				break;
+				m_highlights[highlightIndex] = HighlightUtils.Get().CreateRectangularCursor(widthInWorld, magnitude);
 			}
-			this.m_highlights[highlightIndex] = HighlightUtils.Get().CreateRectangularCursor(widthInWorld, magnitude, null);
+			GameObject gameObject = m_highlights[highlightIndex];
+			gameObject.SetActive(true);
+			HighlightUtils.Get().ResizeRectangularCursor(widthInWorld, magnitude, gameObject);
+			gameObject.transform.position = laserCoords.start + new Vector3(0f, y, 0f);
+			gameObject.transform.rotation = Quaternion.LookRotation(normalized);
+			return;
 		}
-		GameObject gameObject = this.m_highlights[highlightIndex];
-		gameObject.SetActive(true);
-		HighlightUtils.Get().ResizeRectangularCursor(widthInWorld, magnitude, gameObject);
-		gameObject.transform.position = laserCoords.start + new Vector3(0f, y, 0f);
-		gameObject.transform.rotation = Quaternion.LookRotation(normalized);
 	}
 
 	private void DisableLaserHighlight(int highlightIndex)
 	{
-		if (this.m_highlights != null && this.m_highlights.Count > highlightIndex && this.m_highlights[highlightIndex] != null)
+		if (m_highlights != null && m_highlights.Count > highlightIndex && m_highlights[highlightIndex] != null)
 		{
-			this.m_highlights[highlightIndex].SetActive(false);
+			m_highlights[highlightIndex].SetActive(false);
 		}
 	}
 
 	private float CalculateSplitAngleDegrees(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		float num = this.m_interpMaxDistanceInSquares - this.m_interpMinDistanceInSquares;
+		float num = m_interpMaxDistanceInSquares - m_interpMinDistanceInSquares;
 		if (num <= 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_minAngle;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SplittingLaser.CalculateSplitAngleDegrees(AbilityTarget, ActorData)).MethodHandle;
-			}
-			return this.m_minAngle;
 		}
-		float value = (currentTarget.FreePos - targetingActor.\u0016()).magnitude / Board.\u000E().squareSize;
-		float num2 = Mathf.Clamp(value, this.m_interpMinDistanceInSquares, this.m_interpMaxDistanceInSquares) - this.m_interpMinDistanceInSquares;
+		float value = (currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude / Board.Get().squareSize;
+		float num2 = Mathf.Clamp(value, m_interpMinDistanceInSquares, m_interpMaxDistanceInSquares) - m_interpMinDistanceInSquares;
 		float num3 = num2 / num;
 		float num4 = 1f - num3;
-		float num5 = this.m_maxAngle - this.m_minAngle;
-		return this.m_minAngle + num5 * num4;
+		float num5 = m_maxAngle - m_minAngle;
+		return m_minAngle + num5 * num4;
 	}
 }

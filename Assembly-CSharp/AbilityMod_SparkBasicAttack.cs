@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -55,40 +55,38 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		SparkBasicAttack sparkBasicAttack = targetAbility as SparkBasicAttack;
 		if (sparkBasicAttack != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_initialDamageMod, "Damage_FirstTurn", "damage on first turn", sparkBasicAttack.m_laserDamageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_damagePerTurnMod, "Damage_PerTurnAfterFirst", "damage per turn after first turn", sparkBasicAttack.m_laserHitEffect.m_effectData.m_damagePerTurn, true, false);
-			AbilityMod.AddToken(tokens, this.m_additionalDamageOnRadiatedMod, "Damage_AdditionalOnRadiated", "additional damage on Radiated", sparkBasicAttack.m_additionalEnergizedDamage, true, false);
-			if (this.m_useBonusDamageOverTime)
+			AbilityMod.AddToken(tokens, m_initialDamageMod, "Damage_FirstTurn", "damage on first turn", sparkBasicAttack.m_laserDamageAmount);
+			AbilityMod.AddToken(tokens, m_damagePerTurnMod, "Damage_PerTurnAfterFirst", "damage per turn after first turn", sparkBasicAttack.m_laserHitEffect.m_effectData.m_damagePerTurn);
+			AbilityMod.AddToken(tokens, m_additionalDamageOnRadiatedMod, "Damage_AdditionalOnRadiated", "additional damage on Radiated", sparkBasicAttack.m_additionalEnergizedDamage);
+			if (m_useBonusDamageOverTime)
 			{
-				AbilityMod.AddToken(tokens, this.m_bonusDamageIncreaseRateMod, "BonusDamageGrowthRate", string.Empty, 0, false, false);
-				AbilityMod.AddToken(tokens, this.m_maxBonusDamageAmountMod, "MaxBonusDamageFromGrowth", string.Empty, 0, false, false);
+				AbilityMod.AddToken(tokens, m_bonusDamageIncreaseRateMod, "BonusDamageGrowthRate", string.Empty, 0, false);
+				AbilityMod.AddToken(tokens, m_maxBonusDamageAmountMod, "MaxBonusDamageFromGrowth", string.Empty, 0, false);
 			}
-			AbilityMod.AddToken(tokens, this.m_healOnCasterOnTickMod, "Heal_OnCasterPerTurn", "heal on caster per turn", sparkBasicAttack.m_healOnCasterOnTick, true, false);
-			AbilityMod.AddToken(tokens, this.m_energyOnCasterPerTurnMod, "EnergyOnCasterPerTurn", string.Empty, sparkBasicAttack.m_energyOnCasterPerTurn, true, false);
-			AbilityMod.AddToken(tokens, this.m_maxBonusEnergyFromGrowingGainMod, "MaxBonusEnergyFromGrowingGain", string.Empty, sparkBasicAttack.m_maxBonusEnergyFromGrowingGain, true, false);
-			AbilityMod.AddToken(tokens, this.m_bonusEnergyGrowthRateMod, "BonusEnergyGrowthRate", string.Empty, sparkBasicAttack.m_bonusEnergyGrowthRate, true, false);
-			AbilityMod.AddToken(tokens, this.m_tetherDistanceMod, "TetherDistance", "tether distance before breaking", sparkBasicAttack.m_tetherDistance, true, false, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_tetherBaseEffectOverride, "TetherEffect", sparkBasicAttack.m_laserHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_tetherDurationMod, "TetherDuration", string.Empty, sparkBasicAttack.m_tetherDuration, true, false);
-			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "Laser", sparkBasicAttack.m_laserInfo, true);
-			AbilityMod.AddToken(tokens, this.m_energyGainCyclePeriod, "Energy_CyclePeriod", "energy gain once every X turns", 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_energyGainPerCycle, "Energy_AmountPerCycle", "energy gain amount", 0, true, false);
+			AbilityMod.AddToken(tokens, m_healOnCasterOnTickMod, "Heal_OnCasterPerTurn", "heal on caster per turn", sparkBasicAttack.m_healOnCasterOnTick);
+			AbilityMod.AddToken(tokens, m_energyOnCasterPerTurnMod, "EnergyOnCasterPerTurn", string.Empty, sparkBasicAttack.m_energyOnCasterPerTurn);
+			AbilityMod.AddToken(tokens, m_maxBonusEnergyFromGrowingGainMod, "MaxBonusEnergyFromGrowingGain", string.Empty, sparkBasicAttack.m_maxBonusEnergyFromGrowingGain);
+			AbilityMod.AddToken(tokens, m_bonusEnergyGrowthRateMod, "BonusEnergyGrowthRate", string.Empty, sparkBasicAttack.m_bonusEnergyGrowthRate);
+			AbilityMod.AddToken(tokens, m_tetherDistanceMod, "TetherDistance", "tether distance before breaking", sparkBasicAttack.m_tetherDistance);
+			AbilityMod.AddToken_EffectMod(tokens, m_tetherBaseEffectOverride, "TetherEffect", sparkBasicAttack.m_laserHitEffect);
+			AbilityMod.AddToken(tokens, m_tetherDurationMod, "TetherDuration", string.Empty, sparkBasicAttack.m_tetherDuration);
+			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "Laser", sparkBasicAttack.m_laserInfo);
+			AbilityMod.AddToken(tokens, m_energyGainCyclePeriod, "Energy_CyclePeriod", "energy gain once every X turns", 0);
+			AbilityMod.AddToken(tokens, m_energyGainPerCycle, "Energy_AmountPerCycle", "energy gain amount", 0);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SparkBasicAttack sparkBasicAttack = base.GetTargetAbilityOnAbilityData(abilityData) as SparkBasicAttack;
+		SparkBasicAttack sparkBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as SparkBasicAttack;
 		bool flag = sparkBasicAttack != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt initialDamageMod = this.m_initialDamageMod;
-		string prefix = "[Initial Damage On Attach]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt initialDamageMod = m_initialDamageMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -97,9 +95,9 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = sparkBasicAttack.m_laserDamageAmount;
 		}
@@ -107,15 +105,13 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(initialDamageMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt damagePerTurnMod = this.m_damagePerTurnMod;
-		string prefix2 = "[Damage per Turn]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(initialDamageMod, "[Initial Damage On Attach]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyInt damagePerTurnMod = m_damagePerTurnMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -130,15 +126,13 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(damagePerTurnMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt additionalDamageOnRadiatedMod = this.m_additionalDamageOnRadiatedMod;
-		string prefix3 = "[Additional Damage on Radiated]";
-		bool showBaseVal3 = flag;
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(damagePerTurnMod, "[Damage per Turn]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyInt additionalDamageOnRadiatedMod = m_additionalDamageOnRadiatedMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -153,10 +147,10 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + AbilityModHelper.GetModPropertyDesc(additionalDamageOnRadiatedMod, prefix3, showBaseVal3, baseVal3);
-		if (this.m_useBonusDamageOverTime)
+		empty = str3 + AbilityModHelper.GetModPropertyDesc(additionalDamageOnRadiatedMod, "[Additional Damage on Radiated]", flag, baseVal3);
+		if (m_useBonusDamageOverTime)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -165,18 +159,16 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 				}
 				break;
 			}
-			text += "Using Bonus Damage Over Time (please remember to put in a max cap)\n";
-			text += base.PropDesc(this.m_bonusDamageIncreaseRateMod, "[Bonus Damage Increase Per Turn]", flag, 0);
-			text += base.PropDesc(this.m_maxBonusDamageAmountMod, "[Max Bonus Damage]", flag, 0);
+			empty += "Using Bonus Damage Over Time (please remember to put in a max cap)\n";
+			empty += PropDesc(m_bonusDamageIncreaseRateMod, "[Bonus Damage Increase Per Turn]", flag);
+			empty += PropDesc(m_maxBonusDamageAmountMod, "[Max Bonus Damage]", flag);
 		}
-		string str4 = text;
-		AbilityModPropertyInt healOnCasterOnTickMod = this.m_healOnCasterOnTickMod;
-		string prefix4 = "[Heal on Caster per Turn]";
-		bool showBaseVal4 = flag;
+		string str4 = empty;
+		AbilityModPropertyInt healOnCasterOnTickMod = m_healOnCasterOnTickMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -191,15 +183,13 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + AbilityModHelper.GetModPropertyDesc(healOnCasterOnTickMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt energyOnCasterPerTurnMod = this.m_energyOnCasterPerTurnMod;
-		string prefix5 = "[EnergyOnCasterPerTurn]";
-		bool showBaseVal5 = flag;
+		empty = str4 + AbilityModHelper.GetModPropertyDesc(healOnCasterOnTickMod, "[Heal on Caster per Turn]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyInt energyOnCasterPerTurnMod = m_energyOnCasterPerTurnMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -214,16 +204,14 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(energyOnCasterPerTurnMod, prefix5, showBaseVal5, baseVal5);
-		text += base.PropDesc(this.m_maxBonusEnergyFromGrowingGainMod, "[MaxBonusEnergyFromGrowingGain]", flag, (!flag) ? 0 : sparkBasicAttack.m_maxBonusEnergyFromGrowingGain);
-		string str6 = text;
-		AbilityModPropertyInt bonusEnergyGrowthRateMod = this.m_bonusEnergyGrowthRateMod;
-		string prefix6 = "[BonusEnergyGrowthRate]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(energyOnCasterPerTurnMod, "[EnergyOnCasterPerTurn]", flag, baseVal5);
+		empty += PropDesc(m_maxBonusEnergyFromGrowingGainMod, "[MaxBonusEnergyFromGrowingGain]", flag, flag ? sparkBasicAttack.m_maxBonusEnergyFromGrowingGain : 0);
+		string str6 = empty;
+		AbilityModPropertyInt bonusEnergyGrowthRateMod = m_bonusEnergyGrowthRateMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -238,15 +226,13 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(bonusEnergyGrowthRateMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyFloat tetherDistanceMod = this.m_tetherDistanceMod;
-		string prefix7 = "[Tether Distance]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(bonusEnergyGrowthRateMod, "[BonusEnergyGrowthRate]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyFloat tetherDistanceMod = m_tetherDistanceMod;
 		float baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -261,15 +247,13 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		{
 			baseVal7 = 0f;
 		}
-		text = str7 + AbilityModHelper.GetModPropertyDesc(tetherDistanceMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyEffectInfo tetherBaseEffectOverride = this.m_tetherBaseEffectOverride;
-		string prefix8 = "{ Tether Base Effect Override }";
-		bool showBaseVal8 = flag;
-		StandardEffectInfo baseVal8;
+		empty = str7 + AbilityModHelper.GetModPropertyDesc(tetherDistanceMod, "[Tether Distance]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyEffectInfo tetherBaseEffectOverride = m_tetherBaseEffectOverride;
+		object baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -284,15 +268,13 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		{
 			baseVal8 = null;
 		}
-		text = str8 + AbilityModHelper.GetModPropertyDesc(tetherBaseEffectOverride, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyInt tetherDurationMod = this.m_tetherDurationMod;
-		string prefix9 = "[TetherDuration]";
-		bool showBaseVal9 = flag;
+		empty = str8 + AbilityModHelper.GetModPropertyDesc(tetherBaseEffectOverride, "{ Tether Base Effect Override }", flag, (StandardEffectInfo)baseVal8);
+		string str9 = empty;
+		AbilityModPropertyInt tetherDurationMod = m_tetherDurationMod;
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -307,15 +289,13 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		{
 			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(tetherDurationMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyLaserInfo laserInfoMod = this.m_laserInfoMod;
-		string prefix10 = "LaserInfo";
-		bool showBaseVal10 = flag;
-		LaserTargetingInfo baseLaserInfo;
+		empty = str9 + PropDesc(tetherDurationMod, "[TetherDuration]", flag, baseVal9);
+		string str10 = empty;
+		AbilityModPropertyLaserInfo laserInfoMod = m_laserInfoMod;
+		object baseLaserInfo;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -330,8 +310,8 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		{
 			baseLaserInfo = null;
 		}
-		text = str10 + AbilityModHelper.GetModPropertyDesc(laserInfoMod, prefix10, showBaseVal10, baseLaserInfo);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_energyGainCyclePeriod, "Energy Gain Every X Turns", flag, 0);
-		return text + AbilityModHelper.GetModPropertyDesc(this.m_energyGainPerCycle, "Energy Gain Per Cycle", flag, 0);
+		empty = str10 + AbilityModHelper.GetModPropertyDesc(laserInfoMod, "LaserInfo", flag, (LaserTargetingInfo)baseLaserInfo);
+		empty += AbilityModHelper.GetModPropertyDesc(m_energyGainCyclePeriod, "Energy Gain Every X Turns", flag);
+		return empty + AbilityModHelper.GetModPropertyDesc(m_energyGainPerCycle, "Energy Gain Per Cycle", flag);
 	}
 }

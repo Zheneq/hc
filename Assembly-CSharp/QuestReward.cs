@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -46,94 +45,97 @@ public class QuestReward : MonoBehaviour
 
 	public _SelectableBtn GetButton()
 	{
-		return this.m_theBtn;
+		return m_theBtn;
 	}
 
 	private void Awake()
 	{
-		this.Initialize();
+		Initialize();
 	}
 
 	private void Initialize()
 	{
-		if (this.m_initialized)
+		if (m_initialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestReward.Initialize()).MethodHandle;
-			}
+		}
+		m_initialized = true;
+		m_theBtn = base.gameObject.GetComponent<_SelectableBtn>();
+		if (!(m_theBtn != null))
+		{
 			return;
 		}
-		this.m_initialized = true;
-		this.m_theBtn = base.gameObject.GetComponent<_SelectableBtn>();
-		if (this.m_theBtn != null)
+		while (true)
 		{
-			for (;;)
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_tooltipHoverObj = this.m_theBtn.spriteController.GetComponent<UITooltipHoverObject>();
+			m_tooltipHoverObj = m_theBtn.spriteController.GetComponent<UITooltipHoverObject>();
+			return;
 		}
 	}
 
 	public void Update()
 	{
-		if (this.m_shineContainer != null)
+		if (!(m_shineContainer != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestReward.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool doActive = false;
 			if (UIGameOverPanel.Get() != null)
 			{
 				doActive = (UIGameOverPanel.Get().XPStage == UIGameOverPanel.UpdateXPStage.Quest);
 			}
-			UIManager.SetGameObjectActive(this.m_shineContainer, doActive, null);
+			UIManager.SetGameObjectActive(m_shineContainer, doActive);
+			return;
 		}
 	}
 
 	public void SetSelectable(bool selectable)
 	{
-		if (this.m_theBtn != null)
+		if (!(m_theBtn != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestReward.SetSelectable(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_theBtn.spriteController, selectable, null);
+			UIManager.SetGameObjectActive(m_theBtn.spriteController, selectable);
+			return;
 		}
 	}
 
@@ -141,28 +143,28 @@ public class QuestReward : MonoBehaviour
 	{
 		if (tooltip is UIInventoryItemTooltip)
 		{
-			if (this.m_itemTemplate != null)
+			if (m_itemTemplate != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						(tooltip as UIInventoryItemTooltip).Setup(m_itemTemplate);
+						return true;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestReward.SetupTooltip(UITooltipBase)).MethodHandle;
-				}
-				(tooltip as UIInventoryItemTooltip).Setup(this.m_itemTemplate);
-				return true;
 			}
 		}
 		else if (tooltip is UISimpleTooltip)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -171,9 +173,9 @@ public class QuestReward : MonoBehaviour
 				}
 				break;
 			}
-			if (this.m_currencyReward != null)
+			if (m_currencyReward != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -182,38 +184,40 @@ public class QuestReward : MonoBehaviour
 					}
 					break;
 				}
-				if (this.m_currencyReward.Type == CurrencyType.UnlockFreelancerToken)
+				if (m_currencyReward.Type == CurrencyType.UnlockFreelancerToken)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					string text;
-					if (this.m_currencyReward.Amount == 1)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+						{
+							string text;
+							if (m_currencyReward.Amount == 1)
+							{
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								text = StringUtil.TR("FreeFreelancerUnlocked", "Global");
+							}
+							else
+							{
+								text = string.Format(StringUtil.TR("FreeFreelancerUnlocks", "Global"), m_currencyReward.Amount);
+							}
+							string text2 = text;
+							(tooltip as UISimpleTooltip).Setup(text2);
+							return true;
 						}
-						text = StringUtil.TR("FreeFreelancerUnlocked", "Global");
+						}
 					}
-					else
-					{
-						text = string.Format(StringUtil.TR("FreeFreelancerUnlocks", "Global"), this.m_currencyReward.Amount);
-					}
-					string text2 = text;
-					(tooltip as UISimpleTooltip).Setup(text2);
-					return true;
 				}
 			}
 		}
@@ -224,32 +228,88 @@ public class QuestReward : MonoBehaviour
 	{
 		for (int i = 0; i < indicators.Length; i++)
 		{
-			UIManager.SetGameObjectActive(indicators[i], isVisible, null);
+			UIManager.SetGameObjectActive(indicators[i], isVisible);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(QuestReward.SetIndicatorVisibility(bool, Image[])).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	public void Setup(QuestCurrencyReward currencyReward, int rejectedCount)
 	{
-		this.Initialize();
-		this.m_itemTemplate = null;
-		this.m_currencyReward = currencyReward;
+		Initialize();
+		m_itemTemplate = null;
+		m_currencyReward = currencyReward;
 		float num = 1f;
-		if (rejectedCount > 0)
+		if (rejectedCount <= 0)
 		{
-			for (;;)
+			goto IL_012a;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			break;
+		}
+		if (1 == 0)
+		{
+			/*OpCode not supported: LdMemberToken*/;
+		}
+		if (currencyReward.Type != 0)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (currencyReward.Type != CurrencyType.Experience)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (currencyReward.Type != CurrencyType.FreelancerCurrency)
+				{
+					goto IL_012a;
+				}
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+		}
+		int questBonusPerRejection = QuestWideData.Get().m_questBonusPerRejection;
+		int questMaxRejectPercentage = QuestWideData.Get().m_questMaxRejectPercentage;
+		if (m_bonusText != null)
+		{
+			while (true)
 			{
 				switch (3)
 				{
@@ -258,52 +318,10 @@ public class QuestReward : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			UIManager.SetGameObjectActive(m_bonusText, true);
+			if (rejectedCount >= questMaxRejectPercentage / questBonusPerRejection)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestReward.Setup(QuestCurrencyReward, int)).MethodHandle;
-			}
-			if (currencyReward.Type != CurrencyType.ISO)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (currencyReward.Type != CurrencyType.Experience)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (currencyReward.Type != CurrencyType.FreelancerCurrency)
-					{
-						goto IL_12A;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-			}
-			int questBonusPerRejection = QuestWideData.Get().m_questBonusPerRejection;
-			int questMaxRejectPercentage = QuestWideData.Get().m_questMaxRejectPercentage;
-			if (this.m_bonusText != null)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -312,32 +330,49 @@ public class QuestReward : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_bonusText, true, null);
-				if (rejectedCount >= questMaxRejectPercentage / questBonusPerRejection)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_bonusText.text = StringUtil.TR("MaxBonusReward", "Quests");
-				}
-				else
-				{
-					this.m_bonusText.text = string.Format(StringUtil.TR("BonusReward", "Quests"), Mathf.Min(questMaxRejectPercentage, rejectedCount * questBonusPerRejection));
-				}
+				m_bonusText.text = StringUtil.TR("MaxBonusReward", "Quests");
 			}
-			num = 1f + (float)Mathf.Min(questMaxRejectPercentage, rejectedCount * questBonusPerRejection) / 100f;
-			goto IL_151;
+			else
+			{
+				m_bonusText.text = string.Format(StringUtil.TR("BonusReward", "Quests"), Mathf.Min(questMaxRejectPercentage, rejectedCount * questBonusPerRejection));
+			}
 		}
-		IL_12A:
-		if (this.m_bonusText != null)
+		num = 1f + (float)Mathf.Min(questMaxRejectPercentage, rejectedCount * questBonusPerRejection) / 100f;
+		goto IL_0151;
+		IL_0293:
+		if (m_popoutContainer != null)
 		{
-			for (;;)
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			UIManager.SetGameObjectActive(m_popoutContainer, false);
+		}
+		CheckEXPReward();
+		if (!(m_tooltipHoverObj != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			m_tooltipHoverObj.Setup(TooltipType.Simple, SetupTooltip);
+			m_tooltipHoverObj.Refresh();
+			return;
+		}
+		IL_012a:
+		if (m_bonusText != null)
+		{
+			while (true)
 			{
 				switch (6)
 				{
@@ -346,17 +381,18 @@ public class QuestReward : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_bonusText, false, null);
+			UIManager.SetGameObjectActive(m_bonusText, false);
 		}
-		IL_151:
-		if (this.m_rewardText != null)
+		goto IL_0151;
+		IL_0151:
+		if (m_rewardText != null)
 		{
 			int num2 = (int)Mathf.Floor((float)currencyReward.Amount * num);
-			TMP_Text rewardText = this.m_rewardText;
+			TextMeshProUGUI rewardText = m_rewardText;
 			string text;
 			if (num2 > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -375,7 +411,7 @@ public class QuestReward : MonoBehaviour
 		}
 		if (currencyReward.Type != CurrencyType.FreelancerCurrency)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -386,7 +422,7 @@ public class QuestReward : MonoBehaviour
 			}
 			if (currencyReward.Type != CurrencyType.GGPack)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -395,17 +431,16 @@ public class QuestReward : MonoBehaviour
 					}
 					break;
 				}
-				if (currencyReward.Type != CurrencyType.ISO && currencyReward.Type != CurrencyType.ModToken)
+				if (currencyReward.Type != 0 && currencyReward.Type != CurrencyType.ModToken)
 				{
 					if (currencyReward.Type == CurrencyType.Experience)
 					{
 						string path = "Localization/" + StringUtil.TR("EXP", "TEXTURE");
-						this.m_rewardImage.sprite = (Resources.Load(path, typeof(Sprite)) as Sprite);
-						goto IL_293;
+						m_rewardImage.sprite = (Resources.Load(path, typeof(Sprite)) as Sprite);
 					}
-					if (currencyReward.Type == CurrencyType.UnlockFreelancerToken)
+					else if (currencyReward.Type == CurrencyType.UnlockFreelancerToken)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -415,59 +450,33 @@ public class QuestReward : MonoBehaviour
 							break;
 						}
 						string path2 = "QuestRewards/FreelancerCoin";
-						this.m_rewardImage.sprite = (Resources.Load(path2, typeof(Sprite)) as Sprite);
-						goto IL_293;
+						m_rewardImage.sprite = (Resources.Load(path2, typeof(Sprite)) as Sprite);
 					}
-					this.m_rewardImage.sprite = this.m_lockwoodSkinImage;
-					goto IL_293;
+					else
+					{
+						m_rewardImage.sprite = m_lockwoodSkinImage;
+					}
+					goto IL_0293;
 				}
 			}
 		}
-		this.m_rewardImage.sprite = Resources.Load<Sprite>(RewardUtils.GetCurrencyIconPath(currencyReward.Type));
-		IL_293:
-		if (this.m_popoutContainer != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_popoutContainer, false, null);
-		}
-		this.CheckEXPReward();
-		if (this.m_tooltipHoverObj != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_tooltipHoverObj.Setup(TooltipType.Simple, new TooltipPopulateCall(this.SetupTooltip), null);
-			this.m_tooltipHoverObj.Refresh();
-		}
+		m_rewardImage.sprite = Resources.Load<Sprite>(RewardUtils.GetCurrencyIconPath(currencyReward.Type));
+		goto IL_0293;
 	}
 
 	public void SetupHack(string imageOverride, int amount = 0)
 	{
-		this.SetupHack(null, imageOverride, amount);
+		SetupHack(null, imageOverride, amount);
 	}
 
 	public void SetupHack(InventoryItemTemplate itemTemplate, string imageOverride, int amount = 0)
 	{
-		this.Initialize();
-		this.m_itemTemplate = itemTemplate;
-		this.m_currencyReward = null;
+		Initialize();
+		m_itemTemplate = itemTemplate;
+		m_currencyReward = null;
 		if (imageOverride == string.Empty)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -476,16 +485,16 @@ public class QuestReward : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestReward.SetupHack(InventoryItemTemplate, string, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			imageOverride = InventoryWideData.GetSpritePath(itemTemplate);
 		}
 		Sprite sprite = (Sprite)Resources.Load(imageOverride, typeof(Sprite));
-		if (sprite)
+		if ((bool)sprite)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -494,15 +503,15 @@ public class QuestReward : MonoBehaviour
 				}
 				break;
 			}
-			this.m_rewardImage.sprite = sprite;
+			m_rewardImage.sprite = sprite;
 		}
 		else
 		{
-			this.m_rewardImage.sprite = this.m_lockwoodSkinImage;
+			m_rewardImage.sprite = m_lockwoodSkinImage;
 		}
-		if (this.m_popoutContainer != null)
+		if (m_popoutContainer != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -511,17 +520,17 @@ public class QuestReward : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_popoutContainer, true, null);
-			this.m_hoverIcon.sprite = this.m_rewardImage.sprite;
-			this.SetIndicatorVisibility(itemTemplate.Rarity == InventoryItemRarity.Common, this.m_commonIndicators);
-			this.SetIndicatorVisibility(itemTemplate.Rarity == InventoryItemRarity.Uncommon, this.m_uncommonIndicators);
-			this.SetIndicatorVisibility(itemTemplate.Rarity == InventoryItemRarity.Rare, this.m_rareIndicators);
-			this.SetIndicatorVisibility(itemTemplate.Rarity == InventoryItemRarity.Epic, this.m_epicIndicators);
-			this.SetIndicatorVisibility(itemTemplate.Rarity == InventoryItemRarity.Legendary, this.m_legendaryIndicators);
+			UIManager.SetGameObjectActive(m_popoutContainer, true);
+			m_hoverIcon.sprite = m_rewardImage.sprite;
+			SetIndicatorVisibility(itemTemplate.Rarity == InventoryItemRarity.Common, m_commonIndicators);
+			SetIndicatorVisibility(itemTemplate.Rarity == InventoryItemRarity.Uncommon, m_uncommonIndicators);
+			SetIndicatorVisibility(itemTemplate.Rarity == InventoryItemRarity.Rare, m_rareIndicators);
+			SetIndicatorVisibility(itemTemplate.Rarity == InventoryItemRarity.Epic, m_epicIndicators);
+			SetIndicatorVisibility(itemTemplate.Rarity == InventoryItemRarity.Legendary, m_legendaryIndicators);
 		}
-		if (this.m_rewardText != null)
+		if (m_rewardText != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -532,7 +541,7 @@ public class QuestReward : MonoBehaviour
 			}
 			if (amount > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -541,16 +550,16 @@ public class QuestReward : MonoBehaviour
 					}
 					break;
 				}
-				this.m_rewardText.text = UIStorePanel.FormatIntToString(amount, true);
+				m_rewardText.text = UIStorePanel.FormatIntToString(amount, true);
 			}
 			else
 			{
-				this.m_rewardText.text = string.Empty;
+				m_rewardText.text = string.Empty;
 			}
 		}
-		if (this.m_bonusText != null)
+		if (m_bonusText != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -559,46 +568,48 @@ public class QuestReward : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_bonusText, false, null);
+			UIManager.SetGameObjectActive(m_bonusText, false);
 		}
-		this.CheckEXPReward();
-		if (this.m_tooltipHoverObj != null)
+		CheckEXPReward();
+		if (!(m_tooltipHoverObj != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_tooltipHoverObj.Setup(TooltipType.InventoryItem, new TooltipPopulateCall(this.SetupTooltip), null);
-			this.m_tooltipHoverObj.Refresh();
+			m_tooltipHoverObj.Setup(TooltipType.InventoryItem, SetupTooltip);
+			m_tooltipHoverObj.Refresh();
+			return;
 		}
 	}
 
 	private void CheckEXPReward()
 	{
-		if (UIFrontEnd.Get() != null)
+		if (!(UIFrontEnd.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestReward.CheckEXPReward()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_ExpUPAnim != null)
+			if (m_ExpUPAnim != null)
 			{
-				UIManager.SetGameObjectActive(this.m_ExpUPAnim, true, null);
+				UIManager.SetGameObjectActive(m_ExpUPAnim, true);
 			}
+			return;
 		}
 	}
 }

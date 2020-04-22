@@ -1,14 +1,12 @@
-﻿using System;
 using UnityEngine;
 
 public class SpawnLookAtPoint : MonoBehaviour
 {
 	private void OnDrawGizmos()
 	{
-		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
+		if (CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			return;
+			Gizmos.DrawIcon(base.transform.position, "icon_SpawnLocation.png");
 		}
-		Gizmos.DrawIcon(base.transform.position, "icon_SpawnLocation.png");
 	}
 }

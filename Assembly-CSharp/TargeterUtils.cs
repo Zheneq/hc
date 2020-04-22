@@ -1,9 +1,23 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public static class TargeterUtils
 {
+	public enum VariableType
+	{
+		MechanicPoints,
+		Energy,
+		HitPoints
+	}
+
+	public enum HeightAdjustType
+	{
+		DontAdjustHeight,
+		FromCasterLoS,
+		FromPathArrow,
+		FromBoardSquare
+	}
+
 	private static float s_nearAcceleratingMinSpeed = 20f;
 
 	private static float s_farAcceleratingMinSpeed = 10f;
@@ -26,96 +40,91 @@ public static class TargeterUtils
 
 	private static float s_farDistance = 6f;
 
-	public static GameObject CreateLaserBoxHighlight(Vector3 start, Vector3 end, float widthInSquares, TargeterUtils.HeightAdjustType adjustType)
+	public static GameObject CreateLaserBoxHighlight(Vector3 start, Vector3 end, float widthInSquares, HeightAdjustType adjustType)
 	{
-		float widthInWorld = widthInSquares * Board.\u000E().squareSize;
+		float widthInWorld = widthInSquares * Board.Get().squareSize;
 		float magnitude = (start - end).magnitude;
-		GameObject gameObject = HighlightUtils.Get().CreateRectangularCursor(widthInWorld, magnitude, null);
-		TargeterUtils.RefreshLaserBoxHighlight(gameObject, start, end, widthInSquares, adjustType);
+		GameObject gameObject = HighlightUtils.Get().CreateRectangularCursor(widthInWorld, magnitude);
+		RefreshLaserBoxHighlight(gameObject, start, end, widthInSquares, adjustType);
 		return gameObject;
 	}
 
-	public static void RefreshLaserBoxHighlight(GameObject boxHighlight, Vector3 start, Vector3 end, float widthInSquares, TargeterUtils.HeightAdjustType adjustType)
+	public static void RefreshLaserBoxHighlight(GameObject boxHighlight, Vector3 start, Vector3 end, float widthInSquares, HeightAdjustType adjustType)
 	{
-		float widthInWorld = widthInSquares * Board.\u000E().squareSize;
+		float widthInWorld = widthInSquares * Board.Get().squareSize;
 		float magnitude = (start - end).magnitude;
 		HighlightUtils.Get().ResizeRectangularCursor(widthInWorld, magnitude, boxHighlight);
-		float heightAdjustDelta = TargeterUtils.GetHeightAdjustDelta(adjustType);
+		float heightAdjustDelta = GetHeightAdjustDelta(adjustType);
 		boxHighlight.transform.position = start + new Vector3(0f, heightAdjustDelta, 0f);
 		Vector3 normalized = (end - start).normalized;
 		boxHighlight.transform.rotation = Quaternion.LookRotation(normalized);
 	}
 
-	public static GameObject CreateCircleHighlight(Vector3 pos, float radiusInSquares, TargeterUtils.HeightAdjustType adjustType, bool isForLocalPlayer)
+	public static GameObject CreateCircleHighlight(Vector3 pos, float radiusInSquares, HeightAdjustType adjustType, bool isForLocalPlayer)
 	{
-		float radiusInWorld = radiusInSquares * Board.\u000E().squareSize;
+		float radiusInWorld = radiusInSquares * Board.Get().squareSize;
 		GameObject gameObject = HighlightUtils.Get().CreateAoECursor(radiusInWorld, isForLocalPlayer);
-		TargeterUtils.RefreshCircleHighlight(gameObject, pos, adjustType);
+		RefreshCircleHighlight(gameObject, pos, adjustType);
 		return gameObject;
 	}
 
-	public static void RefreshCircleHighlight(GameObject circleHighlight, Vector3 pos, TargeterUtils.HeightAdjustType adjustType)
+	public static void RefreshCircleHighlight(GameObject circleHighlight, Vector3 pos, HeightAdjustType adjustType)
 	{
-		float heightAdjustDelta = TargeterUtils.GetHeightAdjustDelta(adjustType);
+		float heightAdjustDelta = GetHeightAdjustDelta(adjustType);
 		circleHighlight.transform.position = pos + new Vector3(0f, heightAdjustDelta, 0f);
 	}
 
-	private static float GetHeightAdjustDelta(TargeterUtils.HeightAdjustType adjustType)
+	private static float GetHeightAdjustDelta(HeightAdjustType adjustType)
 	{
-		float result;
-		if (adjustType == TargeterUtils.HeightAdjustType.DontAdjustHeight)
+		if (adjustType == HeightAdjustType.DontAdjustHeight)
 		{
-			result = 0f;
+			return 0f;
 		}
-		else if (adjustType == TargeterUtils.HeightAdjustType.FromCasterLoS)
+		if (adjustType == HeightAdjustType.FromCasterLoS)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return 0.1f - BoardSquare.s_LoSHeightOffset;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.GetHeightAdjustDelta(TargeterUtils.HeightAdjustType)).MethodHandle;
-			}
-			result = 0.1f - BoardSquare.s_LoSHeightOffset;
 		}
-		else if (adjustType == TargeterUtils.HeightAdjustType.FromPathArrow)
+		if (adjustType == HeightAdjustType.FromPathArrow)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = 0f;
-		}
-		else if (adjustType == TargeterUtils.HeightAdjustType.FromBoardSquare)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 0f;
 				}
-				break;
 			}
-			result = 0.1f;
 		}
-		else
+		if (adjustType == HeightAdjustType.FromBoardSquare)
 		{
-			Log.Error("Trying to adjust the height of a laser box with an invalid HeightAdjustType: " + adjustType.ToString(), new object[0]);
-			result = 0f;
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					break;
+				default:
+					return 0.1f;
+				}
+			}
 		}
-		return result;
+		Log.Error("Trying to adjust the height of a laser box with an invalid HeightAdjustType: " + adjustType);
+		return 0f;
 	}
 
 	public static void SortActorsByDistanceToPos(ref List<ActorData> actors, Vector3 pos)
@@ -124,52 +133,52 @@ public static class TargeterUtils
 		{
 			if (x == y)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return 0;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.<SortActorsByDistanceToPos>c__AnonStorey0.<>m__0(ActorData, ActorData)).MethodHandle;
-				}
-				return 0;
 			}
 			if (x == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return -1;
 					}
-					break;
 				}
-				return -1;
 			}
 			if (y == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return 1;
 					}
-					break;
 				}
-				return 1;
 			}
-			float sqrMagnitude = (x.\u0016() - pos).sqrMagnitude;
-			float sqrMagnitude2 = (y.\u0016() - pos).sqrMagnitude;
+			float sqrMagnitude = (x.GetTravelBoardSquareWorldPosition() - pos).sqrMagnitude;
+			float sqrMagnitude2 = (y.GetTravelBoardSquareWorldPosition() - pos).sqrMagnitude;
 			if (sqrMagnitude == sqrMagnitude2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -178,33 +187,33 @@ public static class TargeterUtils
 					}
 					break;
 				}
-				GridPos gridPos = x.\u000E();
-				GridPos gridPos2 = y.\u000E();
-				if (gridPos.x != gridPos2.x)
+				GridPos gridPosWithIncrementedHeight = x.GetGridPosWithIncrementedHeight();
+				GridPos gridPosWithIncrementedHeight2 = y.GetGridPosWithIncrementedHeight();
+				if (gridPosWithIncrementedHeight.x != gridPosWithIncrementedHeight2.x)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return gridPosWithIncrementedHeight.x.CompareTo(gridPosWithIncrementedHeight2.x);
 						}
-						break;
 					}
-					return gridPos.x.CompareTo(gridPos2.x);
 				}
-				if (gridPos.y != gridPos2.y)
+				if (gridPosWithIncrementedHeight.y != gridPosWithIncrementedHeight2.y)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return gridPosWithIncrementedHeight.y.CompareTo(gridPosWithIncrementedHeight2.y);
 						}
-						break;
 					}
-					return gridPos.y.CompareTo(gridPos2.y);
 				}
 			}
 			return sqrMagnitude.CompareTo(sqrMagnitude2);
@@ -217,20 +226,20 @@ public static class TargeterUtils
 		{
 			if (x == y)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return 0;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.<SortActorsByDistanceToPos>c__AnonStorey1.<>m__0(ActorData, ActorData)).MethodHandle;
-				}
-				return 0;
 			}
 			if (x == null)
 			{
@@ -238,35 +247,37 @@ public static class TargeterUtils
 			}
 			if (y == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return 1;
 					}
-					break;
 				}
-				return 1;
 			}
-			Vector3 to = x.\u0016() - pos;
-			Vector3 to2 = y.\u0016() - pos;
+			Vector3 to = x.GetTravelBoardSquareWorldPosition() - pos;
+			Vector3 to2 = y.GetTravelBoardSquareWorldPosition() - pos;
 			float sqrMagnitude = to.sqrMagnitude;
 			float sqrMagnitude2 = to2.sqrMagnitude;
 			if (sqrMagnitude == sqrMagnitude2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						float num = Vector3.Angle(preferredDir, to);
+						float value = Vector3.Angle(preferredDir, to2);
+						return num.CompareTo(value);
 					}
-					break;
+					}
 				}
-				float num = Vector3.Angle(preferredDir, to);
-				float value = Vector3.Angle(preferredDir, to2);
-				return num.CompareTo(value);
 			}
 			return sqrMagnitude.CompareTo(sqrMagnitude2);
 		});
@@ -277,7 +288,7 @@ public static class TargeterUtils
 		Vector3 start = coords.start;
 		Vector3 laserDir = coords.end - coords.start;
 		laserDir.Normalize();
-		TargeterUtils.SortActorsByDistanceAlongLaser(ref actors, start, laserDir);
+		SortActorsByDistanceAlongLaser(ref actors, start, laserDir);
 	}
 
 	public static void SortActorsByDistanceAlongLaser(ref List<ActorData> actors, Vector3 laserStart, Vector3 laserDir)
@@ -286,20 +297,20 @@ public static class TargeterUtils
 		{
 			if (a == b)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return 0;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.<SortActorsByDistanceAlongLaser>c__AnonStorey2.<>m__0(ActorData, ActorData)).MethodHandle;
-				}
-				return 0;
 			}
 			if (a == null)
 			{
@@ -307,36 +318,39 @@ public static class TargeterUtils
 			}
 			if (b == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return 1;
 					}
-					break;
 				}
-				return 1;
 			}
-			float signedDistanceAlongLaser = TargeterUtils.GetSignedDistanceAlongLaser(a, laserStart, laserDir);
-			float signedDistanceAlongLaser2 = TargeterUtils.GetSignedDistanceAlongLaser(b, laserStart, laserDir);
+			float signedDistanceAlongLaser = GetSignedDistanceAlongLaser(a, laserStart, laserDir);
+			float signedDistanceAlongLaser2 = GetSignedDistanceAlongLaser(b, laserStart, laserDir);
 			return signedDistanceAlongLaser.CompareTo(signedDistanceAlongLaser2);
 		});
 	}
 
 	public static float GetSignedDistanceAlongLaser(ActorData actor, Vector3 laserStart, Vector3 laserDir)
 	{
-		Vector3 lhs = new Vector3(actor.\u0016().x - laserStart.x, 0f, actor.\u0016().z - laserStart.z);
+		Vector3 travelBoardSquareWorldPosition = actor.GetTravelBoardSquareWorldPosition();
+		float x = travelBoardSquareWorldPosition.x - laserStart.x;
+		Vector3 travelBoardSquareWorldPosition2 = actor.GetTravelBoardSquareWorldPosition();
+		Vector3 lhs = new Vector3(x, 0f, travelBoardSquareWorldPosition2.z - laserStart.z);
 		return Vector3.Dot(lhs, laserDir);
 	}
 
-	public unsafe static void RemoveActorsInvisibleToClient(ref List<ActorData> actors)
+	public static void RemoveActorsInvisibleToClient(ref List<ActorData> actors)
 	{
-		for (int i = actors.Count - 1; i >= 0; i--)
+		for (int num = actors.Count - 1; num >= 0; num--)
 		{
-			if (!actors[i].\u0018())
+			if (!actors[num].IsVisibleToClient())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -345,105 +359,107 @@ public static class TargeterUtils
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.RemoveActorsInvisibleToClient(List<ActorData>*)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				actors.RemoveAt(i);
+				actors.RemoveAt(num);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
+			{
+			default:
+				return;
+			case 0:
+				break;
+			}
+		}
+	}
+
+	public static void RemoveActorsInvisibleToActor(ref List<ActorData> actors, ActorData observer)
+	{
+		if (actors == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-	}
-
-	public unsafe static void RemoveActorsInvisibleToActor(ref List<ActorData> actors, ActorData observer)
-	{
-		if (actors != null)
-		{
-			for (;;)
+			if (1 == 0)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!true)
+			for (int num = actors.Count - 1; num >= 0; num--)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.RemoveActorsInvisibleToActor(List<ActorData>*, ActorData)).MethodHandle;
-			}
-			for (int i = actors.Count - 1; i >= 0; i--)
-			{
-				if (!actors[i].\u000E(observer, false))
+				if (!actors[num].IsActorVisibleToActor(observer))
 				{
-					actors.RemoveAt(i);
+					actors.RemoveAt(num);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
-	public unsafe static void RemoveActorsWithoutLosToSquare(ref List<ActorData> actors, BoardSquare sourceSquare, ActorData caster)
+	public static void RemoveActorsWithoutLosToSquare(ref List<ActorData> actors, BoardSquare sourceSquare, ActorData caster)
 	{
-		if (sourceSquare != null)
+		if (!(sourceSquare != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (actors == null)
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.RemoveActorsWithoutLosToSquare(List<ActorData>*, BoardSquare, ActorData)).MethodHandle;
-			}
-			if (actors != null)
-			{
-				for (;;)
+				if (!(caster != null))
 				{
-					switch (6)
+					return;
+				}
+				while (true)
+				{
+					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (caster != null)
-				{
-					for (;;)
+					for (int num = actors.Count - 1; num >= 0; num--)
 					{
-						switch (4)
+						BoardSquare currentBoardSquare = actors[num].GetCurrentBoardSquare();
+						if (currentBoardSquare != null && !AreaEffectUtils.SquaresHaveLoSForAbilities(sourceSquare, currentBoardSquare, caster))
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					for (int i = actors.Count - 1; i >= 0; i--)
-					{
-						BoardSquare boardSquare = actors[i].\u0012();
-						if (boardSquare != null && !AreaEffectUtils.SquaresHaveLoSForAbilities(sourceSquare, boardSquare, caster, true, null))
-						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -452,54 +468,56 @@ public static class TargeterUtils
 								}
 								break;
 							}
-							actors.RemoveAt(i);
+							actors.RemoveAt(num);
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
+						default:
+							return;
 						case 0:
-							continue;
+							break;
 						}
-						break;
 					}
 				}
 			}
 		}
 	}
 
-	public unsafe static void LimitActorsToMaxNumber(ref List<ActorData> actors, int max)
+	public static void LimitActorsToMaxNumber(ref List<ActorData> actors, int max)
 	{
-		if (actors.Count > max)
+		if (actors.Count <= max)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.LimitActorsToMaxNumber(List<ActorData>*, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (max > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					int count = actors.Count - max;
+					actors.RemoveRange(max, count);
+					return;
 				}
-				int count = actors.Count - max;
-				actors.RemoveRange(max, count);
 			}
+			return;
 		}
 	}
 
@@ -510,12 +528,12 @@ public static class TargeterUtils
 		Vector3 start = coords.start;
 		Vector3 vector = coords.end - coords.start;
 		vector.Normalize();
-		foreach (ActorData actor in targets)
+		foreach (ActorData target in targets)
 		{
-			float signedDistanceAlongLaser = TargeterUtils.GetSignedDistanceAlongLaser(actor, start, vector);
+			float signedDistanceAlongLaser = GetSignedDistanceAlongLaser(target, start, vector);
 			if (signedDistanceAlongLaser > num)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -524,27 +542,26 @@ public static class TargeterUtils
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.GetLaserCoordsToFarthestTarget(VectorUtils.LaserCoords, List<ActorData>)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				num = signedDistanceAlongLaser;
 				end = start + vector * num;
 			}
 		}
-		return new VectorUtils.LaserCoords
-		{
-			start = coords.start,
-			end = end
-		};
+		VectorUtils.LaserCoords result = default(VectorUtils.LaserCoords);
+		result.start = coords.start;
+		result.end = end;
+		return result;
 	}
 
-	public unsafe static VectorUtils.LaserCoords TrimTargetsAndGetLaserCoordsToFarthestTarget(ref List<ActorData> actorsInRange, int maxTargets, VectorUtils.LaserCoords coords)
+	public static VectorUtils.LaserCoords TrimTargetsAndGetLaserCoordsToFarthestTarget(ref List<ActorData> actorsInRange, int maxTargets, VectorUtils.LaserCoords coords)
 	{
 		VectorUtils.LaserCoords result = coords;
 		if (actorsInRange.Count > maxTargets)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -553,13 +570,13 @@ public static class TargeterUtils
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.TrimTargetsAndGetLaserCoordsToFarthestTarget(List<ActorData>*, int, VectorUtils.LaserCoords)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (maxTargets > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -568,14 +585,15 @@ public static class TargeterUtils
 					}
 					break;
 				}
-				TargeterUtils.SortActorsByDistanceAlongLaser(ref actorsInRange, coords);
-				TargeterUtils.LimitActorsToMaxNumber(ref actorsInRange, maxTargets);
-				return TargeterUtils.GetLaserCoordsToFarthestTarget(coords, actorsInRange);
+				SortActorsByDistanceAlongLaser(ref actorsInRange, coords);
+				LimitActorsToMaxNumber(ref actorsInRange, maxTargets);
+				result = GetLaserCoordsToFarthestTarget(coords, actorsInRange);
+				goto IL_0077;
 			}
 		}
 		if (actorsInRange.Count == maxTargets)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -586,7 +604,7 @@ public static class TargeterUtils
 			}
 			if (maxTargets > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -595,9 +613,11 @@ public static class TargeterUtils
 					}
 					break;
 				}
-				result = TargeterUtils.GetLaserCoordsToFarthestTarget(coords, actorsInRange);
+				result = GetLaserCoordsToFarthestTarget(coords, actorsInRange);
 			}
 		}
+		goto IL_0077;
+		IL_0077:
 		return result;
 	}
 
@@ -606,33 +626,32 @@ public static class TargeterUtils
 		endPos.y = startPos.y;
 		if (startPos == endPos)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return startPos;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.GetEndPointAndLimitToFurthestSquare(Vector3, Vector3, float, float, bool, ActorData, float)).MethodHandle;
-			}
-			return startPos;
 		}
-		float squareSize = Board.\u000E().squareSize;
+		float squareSize = Board.Get().squareSize;
 		Vector3 normalized = (endPos - startPos).normalized;
-		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(startPos, normalized, maxDistanceInSquares * squareSize, penetrateLos, targetingActor, null, true);
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(startPos, normalized, maxDistanceInSquares * squareSize, penetrateLos, targetingActor);
 		Vector3 result = laserEndPoint;
-		List<BoardSquare> squaresInBox = AreaEffectUtils.GetSquaresInBox(startPos, laserEndPoint, widthInSquares / 2f, penetrateLos, targetingActor);
-		AreaEffectUtils.SortSquaresByDistanceToPos(ref squaresInBox, startPos);
+		List<BoardSquare> squares = AreaEffectUtils.GetSquaresInBox(startPos, laserEndPoint, widthInSquares / 2f, penetrateLos, targetingActor);
+		AreaEffectUtils.SortSquaresByDistanceToPos(ref squares, startPos);
 		bool flag = false;
-		for (int i = squaresInBox.Count - 1; i >= 0; i--)
+		for (int num = squares.Count - 1; num >= 0; squares.RemoveAt(num), num--)
 		{
-			if (squaresInBox[i].\u0016())
+			if (squares[num].IsBaselineHeight())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -643,53 +662,24 @@ public static class TargeterUtils
 				}
 				break;
 			}
-			if (i > 0)
+			if (num <= 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (squaresInBox[i - 1].\u0016())
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (squaresInBox[i].x != squaresInBox[i - 1].x)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (squaresInBox[i].y != squaresInBox[i - 1].y)
-						{
-							goto IL_148;
-						}
-					}
-					flag = true;
-				}
+				continue;
 			}
-			IL_148:
-			squaresInBox.RemoveAt(i);
-		}
-		if (squaresInBox.Count > 0)
-		{
-			for (;;)
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!squares[num - 1].IsBaselineHeight())
+			{
+				continue;
+			}
+			while (true)
 			{
 				switch (7)
 				{
@@ -698,18 +688,52 @@ public static class TargeterUtils
 				}
 				break;
 			}
-			float magnitude = (laserEndPoint - startPos).magnitude;
-			float num = 0.5f * squareSize;
-			bool flag2 = widthInSquares <= 1f;
-			BoardSquare boardSquare = squaresInBox[squaresInBox.Count - 1];
-			Vector3 vector = boardSquare.ToVector3();
+			if (squares[num].x != squares[num - 1].x)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (squares[num].y != squares[num - 1].y)
+				{
+					continue;
+				}
+			}
+			flag = true;
+		}
+		float magnitude;
+		bool flag2;
+		BoardSquare boardSquare;
+		Vector3 vector;
+		float num3;
+		float num4;
+		if (squares.Count > 0)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			magnitude = (laserEndPoint - startPos).magnitude;
+			float num2 = 0.5f * squareSize;
+			flag2 = (widthInSquares <= 1f);
+			boardSquare = squares[squares.Count - 1];
+			vector = boardSquare.ToVector3();
 			vector.y = startPos.y;
 			Vector3 lhs = vector - startPos;
-			float num2 = Vector3.Dot(lhs, normalized);
-			float num3;
+			num3 = Vector3.Dot(lhs, normalized);
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -720,10 +744,10 @@ public static class TargeterUtils
 				}
 				if (flag2)
 				{
-					num3 = squareSize;
-					goto IL_208;
+					num4 = squareSize;
+					goto IL_0208;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -733,45 +757,90 @@ public static class TargeterUtils
 					break;
 				}
 			}
-			num3 = num;
-			IL_208:
-			float num4 = num3;
-			float num5 = Mathf.Min(magnitude, num2 + num4);
-			if (flag2 && squaresInBox.Count > 1)
+			num4 = num2;
+			goto IL_0208;
+		}
+		goto IL_0420;
+		IL_03ae:
+		Vector3 pointOnSecond;
+		Vector3 right;
+		bool intersecting;
+		Vector3 a = VectorUtils.GetLineLineIntersection(startPos, normalized, pointOnSecond, right, out intersecting);
+		goto IL_03bd;
+		IL_03ed:
+		float num5;
+		Vector3 vector2 = startPos + num5 * normalized;
+		float magnitude2 = (laserEndPoint - vector2).magnitude;
+		if (magnitude2 > thresholdInSquares * squareSize)
+		{
+			result = vector2;
+		}
+		goto IL_0420;
+		IL_0310:
+		Vector3 pointOnSecond2;
+		Vector3 forward;
+		a = VectorUtils.GetLineLineIntersection(startPos, normalized, pointOnSecond2, forward, out intersecting);
+		goto IL_03bd;
+		IL_03bd:
+		float a2;
+		if (intersecting)
+		{
+			float b = Vector3.Dot(a - startPos, normalized);
+			num5 = Mathf.Min(num5, b);
+			num5 = Mathf.Max(a2, num5);
+		}
+		goto IL_03ed;
+		IL_0420:
+		return result;
+		IL_0208:
+		float num6 = num4;
+		num5 = Mathf.Min(magnitude, num3 + num6);
+		if (flag2 && squares.Count > 1)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (4)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				float d = 0.5f * squareSize;
-				float a = Mathf.Min(magnitude, num2);
-				BoardSquare boardSquare2 = squaresInBox[squaresInBox.Count - 2];
-				if (boardSquare2.\u0016())
+				break;
+			}
+			float d = 0.5f * squareSize;
+			a2 = Mathf.Min(magnitude, num3);
+			BoardSquare boardSquare2 = squares[squares.Count - 2];
+			if (boardSquare2.IsBaselineHeight())
+			{
+				intersecting = false;
+				a = Vector3.zero;
+				float num7 = VectorUtils.HorizontalAngle_Deg(normalized);
+				if (boardSquare2.x == boardSquare.x)
 				{
-					bool flag3 = false;
-					Vector3 a2 = Vector3.zero;
-					float num6 = VectorUtils.HorizontalAngle_Deg(normalized);
-					if (boardSquare2.x == boardSquare.x)
+					while (true)
 					{
-						for (;;)
+						switch (2)
 						{
-							switch (2)
+						case 0:
+							continue;
+						}
+						break;
+					}
+					forward = Vector3.forward;
+					pointOnSecond2 = vector;
+					if (num7 >= 90f)
+					{
+						while (true)
+						{
+							switch (6)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						Vector3 forward = Vector3.forward;
-						Vector3 vector2 = vector;
-						if (num6 >= 90f)
+						if (num7 <= 270f)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -780,171 +849,138 @@ public static class TargeterUtils
 								}
 								break;
 							}
-							if (num6 <= 270f)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								vector2 -= d * Vector3.right;
-								goto IL_310;
-							}
+							pointOnSecond2 -= d * Vector3.right;
+							goto IL_0310;
 						}
-						vector2 += d * Vector3.right;
-						IL_310:
-						a2 = VectorUtils.GetLineLineIntersection(startPos, normalized, vector2, forward, out flag3);
 					}
-					else if (boardSquare2.y == boardSquare.y)
+					pointOnSecond2 += d * Vector3.right;
+					goto IL_0310;
+				}
+				if (boardSquare2.y == boardSquare.y)
+				{
+					while (true)
 					{
-						for (;;)
+						switch (7)
 						{
-							switch (7)
+						case 0:
+							continue;
+						}
+						break;
+					}
+					right = Vector3.right;
+					pointOnSecond = vector;
+					if (num7 >= 0f)
+					{
+						while (true)
+						{
+							switch (5)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						Vector3 right = Vector3.right;
-						Vector3 vector3 = vector;
-						if (num6 >= 0f)
+						if (num7 <= 180f)
 						{
-							for (;;)
+							while (true)
 							{
-								switch (5)
+								switch (2)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							if (num6 <= 180f)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								vector3 += d * Vector3.forward;
-								goto IL_3AE;
-							}
+							pointOnSecond += d * Vector3.forward;
+							goto IL_03ae;
 						}
-						vector3 -= d * Vector3.forward;
-						IL_3AE:
-						a2 = VectorUtils.GetLineLineIntersection(startPos, normalized, vector3, right, out flag3);
 					}
-					if (flag3)
-					{
-						float b = Vector3.Dot(a2 - startPos, normalized);
-						num5 = Mathf.Min(num5, b);
-						num5 = Mathf.Max(a, num5);
-					}
+					pointOnSecond -= d * Vector3.forward;
+					goto IL_03ae;
 				}
-			}
-			Vector3 vector4 = startPos + num5 * normalized;
-			float magnitude2 = (laserEndPoint - vector4).magnitude;
-			if (magnitude2 > thresholdInSquares * squareSize)
-			{
-				result = vector4;
+				goto IL_03bd;
 			}
 		}
-		return result;
+		goto IL_03ed;
 	}
 
-	public unsafe static Vector3 MoveHighlightTowards(Vector3 goalPos, GameObject highlight, ref float currentSpeed)
+	public static Vector3 MoveHighlightTowards(Vector3 goalPos, GameObject highlight, ref float currentSpeed)
 	{
 		Vector3 position = highlight.transform.position;
-		Vector3 result;
 		if (position == goalPos)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					currentSpeed = s_nearAcceleratingMinSpeed;
+					return goalPos;
+				}
+			}
+		}
+		float deltaTime = Time.deltaTime;
+		float sqrMagnitude = (goalPos - position).sqrMagnitude;
+		bool flag = sqrMagnitude >= s_farDistance;
+		bool flag2 = sqrMagnitude <= s_brakeDistance;
+		float num;
+		float min;
+		float max;
+		if (flag)
+		{
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.MoveHighlightTowards(Vector3, GameObject, float*)).MethodHandle;
-			}
-			currentSpeed = TargeterUtils.s_nearAcceleratingMinSpeed;
-			result = goalPos;
+			num = s_farAcceleration;
+			min = s_farAcceleratingMinSpeed;
+			max = s_farAcceleratingMaxSpeed;
+		}
+		else if (!flag2)
+		{
+			num = s_nearAcceleration;
+			min = s_nearAcceleratingMinSpeed;
+			max = s_nearAcceleratingMaxSpeed;
 		}
 		else
 		{
-			float deltaTime = Time.deltaTime;
-			float sqrMagnitude = (goalPos - position).sqrMagnitude;
-			bool flag = sqrMagnitude >= TargeterUtils.s_farDistance;
-			bool flag2 = sqrMagnitude <= TargeterUtils.s_brakeDistance;
-			float num;
-			float min;
-			float max;
-			if (flag)
+			num = 0f - s_brakeAcceleration;
+			min = s_brakeMinSpeed;
+			max = s_brakeMaxSpeed;
+		}
+		float value = currentSpeed + num * deltaTime;
+		value = Mathf.Clamp(value, min, max);
+		float num2 = value * deltaTime;
+		Vector3 a = goalPos - position;
+		float magnitude = a.magnitude;
+		if (num2 >= magnitude)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (6)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
+				case 0:
 					break;
+				default:
+					currentSpeed = s_nearAcceleratingMinSpeed;
+					return goalPos;
 				}
-				num = TargeterUtils.s_farAcceleration;
-				min = TargeterUtils.s_farAcceleratingMinSpeed;
-				max = TargeterUtils.s_farAcceleratingMaxSpeed;
-			}
-			else if (!flag2)
-			{
-				num = TargeterUtils.s_nearAcceleration;
-				min = TargeterUtils.s_nearAcceleratingMinSpeed;
-				max = TargeterUtils.s_nearAcceleratingMaxSpeed;
-			}
-			else
-			{
-				num = -TargeterUtils.s_brakeAcceleration;
-				min = TargeterUtils.s_brakeMinSpeed;
-				max = TargeterUtils.s_brakeMaxSpeed;
-			}
-			float num2 = currentSpeed + num * deltaTime;
-			num2 = Mathf.Clamp(num2, min, max);
-			float num3 = num2 * deltaTime;
-			Vector3 a = goalPos - position;
-			float magnitude = a.magnitude;
-			if (num3 >= magnitude)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				currentSpeed = TargeterUtils.s_nearAcceleratingMinSpeed;
-				result = goalPos;
-			}
-			else
-			{
-				a.Normalize();
-				currentSpeed = num2;
-				result = position + a * num3;
 			}
 		}
-		return result;
+		a.Normalize();
+		currentSpeed = value;
+		return position + a * num2;
 	}
 
 	public static List<Team> GetRelevantTeams(ActorData allyActor, bool includeAllies, bool includeEnemies)
@@ -952,7 +988,7 @@ public static class TargeterUtils
 		List<Team> list = new List<Team>();
 		if (includeAllies)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -961,15 +997,15 @@ public static class TargeterUtils
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.GetRelevantTeams(ActorData, bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			list.Add(allyActor.\u000E());
+			list.Add(allyActor.GetTeam());
 		}
 		if (includeEnemies)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -978,7 +1014,7 @@ public static class TargeterUtils
 				}
 				break;
 			}
-			list.Add(allyActor.\u0012());
+			list.Add(allyActor.GetOpposingTeam());
 		}
 		return list;
 	}
@@ -989,46 +1025,46 @@ public static class TargeterUtils
 		{
 			if (x == y)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return 0;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.<SortPowerupsByDistanceToPos>c__AnonStorey3.<>m__0(PowerUp, PowerUp)).MethodHandle;
-				}
-				return 0;
 			}
 			if (x == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return -1;
 					}
-					break;
 				}
-				return -1;
 			}
 			if (y == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return 1;
 					}
-					break;
 				}
-				return 1;
 			}
 			Vector3 a = x.boardSquare.ToVector3();
 			a.y = pos.y;
@@ -1042,8 +1078,8 @@ public static class TargeterUtils
 
 	public static void DrawGizmo_LaserBox(Vector3 startPos, Vector3 endPos, float widthInWorld, Color color)
 	{
-		startPos.y = (float)Board.\u000E().BaselineHeight;
-		endPos.y = (float)Board.\u000E().BaselineHeight;
+		startPos.y = Board.Get().BaselineHeight;
+		endPos.y = Board.Get().BaselineHeight;
 		Vector3 vector = endPos - startPos;
 		float magnitude = vector.magnitude;
 		vector.Normalize();
@@ -1061,20 +1097,5 @@ public static class TargeterUtils
 		Gizmos.DrawLine(vector5, vector4);
 		Gizmos.DrawLine(vector4, vector2);
 		Gizmos.DrawLine(a2 - b2, a2 + b2);
-	}
-
-	public enum VariableType
-	{
-		MechanicPoints,
-		Energy,
-		HitPoints
-	}
-
-	public enum HeightAdjustType
-	{
-		DontAdjustHeight,
-		FromCasterLoS,
-		FromPathArrow,
-		FromBoardSquare
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -10,20 +9,20 @@ public class UISystemMenuPanel : UIScene
 
 	public static UISystemMenuPanel Get()
 	{
-		return UISystemMenuPanel.s_instance;
+		return s_instance;
 	}
 
 	public override SceneType GetSceneType()
 	{
-		return SceneType.\u001D;
+		return SceneType._001D;
 	}
 
 	public override void Awake()
 	{
-		UISystemMenuPanel.s_instance = this;
-		if (this.m_debugButton != null)
+		s_instance = this;
+		if (m_debugButton != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -32,80 +31,80 @@ public class UISystemMenuPanel : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISystemMenuPanel.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIEventTriggerUtils.AddListener(this.m_debugButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnDebugClick));
+			UIEventTriggerUtils.AddListener(m_debugButton.gameObject, EventTriggerType.PointerClick, OnDebugClick);
 		}
 		base.Awake();
 	}
 
 	private void OnDestroy()
 	{
-		UISystemMenuPanel.s_instance = null;
+		s_instance = null;
 	}
 
 	private void OnDebugClick(BaseEventData data)
 	{
-		if (UIDebugMenu.Get() != null)
+		if (!(UIDebugMenu.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISystemMenuPanel.OnDebugClick(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool flag = !UIDebugMenu.Get().m_container.gameObject.activeSelf;
 			if (flag)
 			{
 				UIDebugMenu.Get().ResetIfNeeded();
 			}
-			UIManager.SetGameObjectActive(UIDebugMenu.Get().m_container, flag, null);
+			UIManager.SetGameObjectActive(UIDebugMenu.Get().m_container, flag);
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_debugButton != null)
+		if (!(m_debugButton != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISystemMenuPanel.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (HydrogenConfig.Get().DevMode)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						m_debugButton.gameObject.SetActive(true);
+						return;
 					}
-					break;
 				}
-				this.m_debugButton.gameObject.SetActive(true);
 			}
-			else
-			{
-				this.m_debugButton.gameObject.SetActive(false);
-			}
+			m_debugButton.gameObject.SetActive(false);
+			return;
 		}
 	}
 }

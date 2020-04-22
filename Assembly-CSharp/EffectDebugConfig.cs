@@ -1,5 +1,3 @@
-﻿using System;
-
 public static class EffectDebugConfig
 {
 	public static bool m_traceAddAndRemove;

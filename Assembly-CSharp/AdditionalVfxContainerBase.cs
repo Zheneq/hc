@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class AdditionalVfxContainerBase : MonoBehaviour
@@ -15,113 +14,118 @@ public class AdditionalVfxContainerBase : MonoBehaviour
 
 	public void SpawnFX(Vector3 position, Quaternion orientation, Sequence parentSequence)
 	{
-		if (this.m_fx == null && this.m_fxPrefab != null)
+		if (!(m_fx == null) || !(m_fxPrefab != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AdditionalVfxContainerBase.SpawnFX(Vector3, Quaternion, Sequence)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_fx = UnityEngine.Object.Instantiate<GameObject>(this.m_fxPrefab, position, orientation, parentSequence.transform);
-			if (this.m_fx != null)
+			m_fx = Object.Instantiate(m_fxPrefab, position, orientation, parentSequence.transform);
+			if (m_fx != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_fofSelector = m_fx.GetComponent<FriendlyEnemyVFXSelector>();
+					return;
 				}
-				this.m_fofSelector = this.m_fx.GetComponent<FriendlyEnemyVFXSelector>();
 			}
+			return;
 		}
 	}
 
 	public void SetAsInactive()
 	{
-		if (this.m_fx != null)
+		if (!(m_fx != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AdditionalVfxContainerBase.SetAsInactive()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_fx.SetActive(false);
+			m_fx.SetActive(false);
+			return;
 		}
 	}
 
 	public void DestroyFX()
 	{
-		if (this.m_fx != null)
+		if (!(m_fx != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AdditionalVfxContainerBase.DestroyFX()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.Destroy(this.m_fx);
-			this.m_fx = null;
+			Object.Destroy(m_fx);
+			m_fx = null;
+			return;
 		}
 	}
 
 	public void OnUpdate(bool parentSeqVisible, ActorData caster)
 	{
-		if (this.m_fx != null)
+		if (!(m_fx != null))
 		{
-			if (this.CanBeVisible(parentSeqVisible))
+			return;
+		}
+		if (CanBeVisible(parentSeqVisible))
+		{
+			m_fx.SetActive(true);
+		}
+		else
+		{
+			m_fx.SetActive(false);
+		}
+		if (!(m_fofSelector != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				this.m_fx.SetActive(true);
+			case 0:
+				continue;
 			}
-			else
+			if (1 == 0)
 			{
-				this.m_fx.SetActive(false);
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_fofSelector != null)
+			if (caster != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AdditionalVfxContainerBase.OnUpdate(bool, ActorData)).MethodHandle;
-				}
-				if (caster != null)
-				{
-					this.m_fofSelector.Setup(caster.\u000E());
-				}
+				m_fofSelector.Setup(caster.GetTeam());
 			}
+			return;
 		}
 	}
 

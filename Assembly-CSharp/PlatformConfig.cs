@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Security.Cryptography;
 
@@ -56,17 +56,17 @@ public class PlatformConfig
 
 	public PlatformConfig()
 	{
-		this.ChannelId = 0x96;
-		this.ChannelName = "REACTOR";
-		this.AllowFakeTickets = false;
-		this.AllowRequestTickets = false;
-		this.RequiredAdminEntitlement = "ADMIN_ACCESS";
-		this.RequiredAgentEntitlement = "AGENT_ACCESS";
-		this.RequiredLoadTestEntitlement = "LOADTEST_ACCESS";
-		this.RequiredVIPEntitlement = "VIP_ACCESS";
-		this.RequiredTrionEntitlement = "TRION_ACCESS";
-		this.RequiredGamePurchaseEntitlement = "GAME_OWNERSHIP";
-		this.AccessEntitlements = new string[]
+		ChannelId = 150;
+		ChannelName = "REACTOR";
+		AllowFakeTickets = false;
+		AllowRequestTickets = false;
+		RequiredAdminEntitlement = "ADMIN_ACCESS";
+		RequiredAgentEntitlement = "AGENT_ACCESS";
+		RequiredLoadTestEntitlement = "LOADTEST_ACCESS";
+		RequiredVIPEntitlement = "VIP_ACCESS";
+		RequiredTrionEntitlement = "TRION_ACCESS";
+		RequiredGamePurchaseEntitlement = "GAME_OWNERSHIP";
+		AccessEntitlements = new string[7]
 		{
 			"*",
 			"TRION_ACCESS",
@@ -76,9 +76,9 @@ public class PlatformConfig
 			"GAME_ACCESS",
 			"VIP_ACCESS"
 		};
-		this.FullAccessEntitlements = new string[0];
-		this.Played10GamesProductCode = "AR_PLAYED_10_GAMES_CONVEYANCE";
-		this.Played10GamesEntitlement = "AR_PLAYED_10_GAMES";
+		FullAccessEntitlements = new string[0];
+		Played10GamesProductCode = "AR_PLAYED_10_GAMES_CONVEYANCE";
+		Played10GamesEntitlement = "AR_PLAYED_10_GAMES";
 	}
 
 	private static int GetHexVal(char hex)
@@ -86,7 +86,7 @@ public class PlatformConfig
 		int num;
 		if (hex < ':')
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -95,15 +95,15 @@ public class PlatformConfig
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlatformConfig.GetHexVal(char)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = 0x30;
+			num = 48;
 		}
 		else if (hex < 'a')
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -112,68 +112,67 @@ public class PlatformConfig
 				}
 				break;
 			}
-			num = 0x37;
+			num = 55;
 		}
 		else
 		{
-			num = 0x57;
+			num = 87;
 		}
-		return (int)hex - num;
+		return hex - num;
 	}
 
 	private static byte[] StringToByteArray(string hex)
 	{
 		if (hex.Length % 2 == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					throw new Exception("The binary key cannot have an odd number of digits");
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlatformConfig.StringToByteArray(string)).MethodHandle;
-			}
-			throw new Exception("The binary key cannot have an odd number of digits");
 		}
 		byte[] array = new byte[hex.Length >> 1];
 		for (int i = 0; i < hex.Length >> 1; i++)
 		{
-			array[i] = (byte)((PlatformConfig.GetHexVal(hex[i << 1]) << 4) + PlatformConfig.GetHexVal(hex[(i << 1) + 1]));
+			array[i] = (byte)((GetHexVal(hex[i << 1]) << 4) + GetHexVal(hex[(i << 1) + 1]));
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return array;
 		}
-		return array;
 	}
 
 	public byte[] Encrypt(byte[] plainText)
 	{
-		byte[] iv = new byte[0x10];
-		return this.Encrypt(plainText, this.GameDataServerKey, iv);
+		byte[] iv = new byte[16];
+		return Encrypt(plainText, GameDataServerKey, iv);
 	}
 
 	public byte[] Encrypt(byte[] plainText, string encryptionKey, byte[] iv)
 	{
-		byte[] result = null;
+		byte[] array = null;
 		RijndaelManaged rijndaelManaged = new RijndaelManaged();
 		try
 		{
-			rijndaelManaged.KeySize = 0x100;
-			rijndaelManaged.BlockSize = 0x80;
+			rijndaelManaged.KeySize = 256;
+			rijndaelManaged.BlockSize = 128;
 			rijndaelManaged.Mode = CipherMode.CBC;
 			rijndaelManaged.Padding = PaddingMode.PKCS7;
-			rijndaelManaged.Key = PlatformConfig.StringToByteArray(encryptionKey);
+			rijndaelManaged.Key = StringToByteArray(encryptionKey);
 			rijndaelManaged.IV = iv;
 			ICryptoTransform transform = rijndaelManaged.CreateEncryptor(rijndaelManaged.Key, rijndaelManaged.IV);
 			MemoryStream memoryStream = new MemoryStream();
@@ -191,74 +190,81 @@ public class PlatformConfig
 					{
 						if (binaryWriter != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									if (1 == 0)
+									{
+										/*OpCode not supported: LdMemberToken*/;
+									}
+									((IDisposable)binaryWriter).Dispose();
+									goto end_IL_007d;
 								}
-								break;
 							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(PlatformConfig.Encrypt(byte[], string, byte[])).MethodHandle;
-							}
-							((IDisposable)binaryWriter).Dispose();
 						}
+						end_IL_007d:;
 					}
-					result = memoryStream.ToArray();
+					return memoryStream.ToArray();
 				}
 				finally
 				{
 					if (cryptoStream != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								((IDisposable)cryptoStream).Dispose();
+								goto end_IL_00a7;
 							}
-							break;
 						}
-						((IDisposable)cryptoStream).Dispose();
 					}
+					end_IL_00a7:;
 				}
 			}
 			finally
 			{
 				if (memoryStream != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							((IDisposable)memoryStream).Dispose();
+							goto end_IL_00bf;
 						}
-						break;
 					}
-					((IDisposable)memoryStream).Dispose();
 				}
+				end_IL_00bf:;
 			}
 		}
 		finally
 		{
 			if (rijndaelManaged != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						((IDisposable)rijndaelManaged).Dispose();
+						goto end_IL_00d5;
 					}
-					break;
 				}
-				((IDisposable)rijndaelManaged).Dispose();
 			}
+			end_IL_00d5:;
 		}
-		return result;
 	}
 }

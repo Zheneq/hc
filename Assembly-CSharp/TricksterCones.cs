@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -79,9 +78,9 @@ public class TricksterCones : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -90,36 +89,34 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Trickster Cones";
+			m_abilityName = "Trickster Cones";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.m_afterImageSyncComp = base.GetComponent<TricksterAfterImageNetworkBehaviour>();
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_TricksterCones(this, this.GetConeInfo(), 3, new AbilityUtil_Targeter_TricksterCones.GetCurrentNumberOfConesDelegate(this.GetNumCones), new AbilityUtil_Targeter_TricksterCones.GetConeInfoDelegate(this.GetConeOrigins), new AbilityUtil_Targeter_TricksterCones.GetConeInfoDelegate(this.GetConeDirections), new AbilityUtil_Targeter_TricksterCones.GetClampedTargetPosDelegate(this.GetFreePosForAim), true, false);
+		m_afterImageSyncComp = GetComponent<TricksterAfterImageNetworkBehaviour>();
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_TricksterCones(this, GetConeInfo(), 3, GetNumCones, GetConeOrigins, GetConeDirections, GetFreePosForAim, true, false);
 	}
 
 	public int GetNumCones()
 	{
-		return this.m_afterImageSyncComp.GetValidAfterImages(true).Count + 1;
+		return m_afterImageSyncComp.GetValidAfterImages().Count + 1;
 	}
 
 	public Vector3 GetFreePosForAim(AbilityTarget currentTarget, ActorData caster)
 	{
 		List<ActorData> list = new List<ActorData>();
 		list.Add(caster);
-		list.AddRange(this.m_afterImageSyncComp.GetValidAfterImages(true));
-		Vector3 vector;
-		Vector3 result;
-		this.m_afterImageSyncComp.CalcTargetingCenterAndAimAtPos(currentTarget.FreePos, caster, list, false, out vector, out result);
-		return result;
+		list.AddRange(m_afterImageSyncComp.GetValidAfterImages());
+		m_afterImageSyncComp.CalcTargetingCenterAndAimAtPos(currentTarget.FreePos, caster, list, false, out Vector3 _, out Vector3 freePosForAim);
+		return freePosForAim;
 	}
 
 	public List<Vector3> GetConeOrigins(AbilityTarget currentTarget, Vector3 targeterFreePos, ActorData caster)
@@ -127,10 +124,10 @@ public class TricksterCones : Ability
 		List<Vector3> list = new List<Vector3>();
 		List<ActorData> list2 = new List<ActorData>();
 		list2.Add(caster);
-		list2.AddRange(this.m_afterImageSyncComp.GetValidAfterImages(true));
-		foreach (ActorData actorData in list2)
+		list2.AddRange(m_afterImageSyncComp.GetValidAfterImages());
+		foreach (ActorData item in list2)
 		{
-			list.Add(actorData.\u0015());
+			list.Add(item.GetTravelBoardSquareWorldPositionForLos());
 		}
 		return list;
 	}
@@ -140,29 +137,30 @@ public class TricksterCones : Ability
 		List<Vector3> list = new List<Vector3>();
 		List<ActorData> list2 = new List<ActorData>();
 		list2.Add(caster);
-		list2.AddRange(this.m_afterImageSyncComp.GetValidAfterImages(true));
+		list2.AddRange(m_afterImageSyncComp.GetValidAfterImages());
 		using (List<ActorData>.Enumerator enumerator = list2.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				list.Add(targeterFreePos - actorData.\u0016());
+				ActorData current = enumerator.Current;
+				list.Add(targeterFreePos - current.GetTravelBoardSquareWorldPosition());
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (true)
+					{
+						return list;
+					}
+					/*OpCode not supported: LdMemberToken*/;
+					return list;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetConeDirections(AbilityTarget, Vector3, ActorData)).MethodHandle;
 			}
 		}
-		return list;
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -172,21 +170,21 @@ public class TricksterCones : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetConeInfo().m_radiusInSquares;
+		return GetConeInfo().m_radiusInSquares;
 	}
 
-	public override Ability.TargetingParadigm GetControlpadTargetingParadigm(int targetIndex)
+	public override TargetingParadigm GetControlpadTargetingParadigm(int targetIndex)
 	{
-		return Ability.TargetingParadigm.Position;
+		return TargetingParadigm.Position;
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedConeInfo = ((!this.m_abilityMod) ? this.m_coneInfo : this.m_abilityMod.m_coneInfoMod.GetModifiedValue(this.m_coneInfo));
+		m_cachedConeInfo = ((!m_abilityMod) ? m_coneInfo : m_abilityMod.m_coneInfoMod.GetModifiedValue(m_coneInfo));
 		StandardEffectInfo cachedEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -195,21 +193,21 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			cachedEnemyHitEffect = this.m_enemyHitEffect;
+			cachedEnemyHitEffect = m_enemyHitEffect;
 		}
-		this.m_cachedEnemyHitEffect = cachedEnemyHitEffect;
+		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
 		StandardEffectInfo cachedEnemyMultipleHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -218,17 +216,17 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			cachedEnemyMultipleHitEffect = this.m_abilityMod.m_enemyMultipleHitEffectMod.GetModifiedValue(this.m_enemyMultipleHitEffect);
+			cachedEnemyMultipleHitEffect = m_abilityMod.m_enemyMultipleHitEffectMod.GetModifiedValue(m_enemyMultipleHitEffect);
 		}
 		else
 		{
-			cachedEnemyMultipleHitEffect = this.m_enemyMultipleHitEffect;
+			cachedEnemyMultipleHitEffect = m_enemyMultipleHitEffect;
 		}
-		this.m_cachedEnemyMultipleHitEffect = cachedEnemyMultipleHitEffect;
+		m_cachedEnemyMultipleHitEffect = cachedEnemyMultipleHitEffect;
 		StandardEffectInfo cachedAllyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -237,17 +235,17 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			cachedAllyHitEffect = this.m_abilityMod.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
+			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
 		{
-			cachedAllyHitEffect = this.m_allyHitEffect;
+			cachedAllyHitEffect = m_allyHitEffect;
 		}
-		this.m_cachedAllyHitEffect = cachedAllyHitEffect;
+		m_cachedAllyHitEffect = cachedAllyHitEffect;
 		StandardEffectInfo cachedAllyMultipleHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -256,17 +254,17 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			cachedAllyMultipleHitEffect = this.m_abilityMod.m_allyMultipleHitEffectMod.GetModifiedValue(this.m_allyMultipleHitEffect);
+			cachedAllyMultipleHitEffect = m_abilityMod.m_allyMultipleHitEffectMod.GetModifiedValue(m_allyMultipleHitEffect);
 		}
 		else
 		{
-			cachedAllyMultipleHitEffect = this.m_allyMultipleHitEffect;
+			cachedAllyMultipleHitEffect = m_allyMultipleHitEffect;
 		}
-		this.m_cachedAllyMultipleHitEffect = cachedAllyMultipleHitEffect;
+		m_cachedAllyMultipleHitEffect = cachedAllyMultipleHitEffect;
 		StandardEffectInfo cachedSelfHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -275,17 +273,17 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			cachedSelfHitEffect = this.m_abilityMod.m_selfHitEffectMod.GetModifiedValue(this.m_selfHitEffect);
+			cachedSelfHitEffect = m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect);
 		}
 		else
 		{
-			cachedSelfHitEffect = this.m_selfHitEffect;
+			cachedSelfHitEffect = m_selfHitEffect;
 		}
-		this.m_cachedSelfHitEffect = cachedSelfHitEffect;
+		m_cachedSelfHitEffect = cachedSelfHitEffect;
 		StandardEffectInfo cachedSelfEffectForMultiHit;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -294,17 +292,17 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			cachedSelfEffectForMultiHit = this.m_abilityMod.m_selfEffectForMultiHitMod.GetModifiedValue(this.m_selfEffectForMultiHit);
+			cachedSelfEffectForMultiHit = m_abilityMod.m_selfEffectForMultiHitMod.GetModifiedValue(m_selfEffectForMultiHit);
 		}
 		else
 		{
-			cachedSelfEffectForMultiHit = this.m_selfEffectForMultiHit;
+			cachedSelfEffectForMultiHit = m_selfEffectForMultiHit;
 		}
-		this.m_cachedSelfEffectForMultiHit = cachedSelfEffectForMultiHit;
+		m_cachedSelfEffectForMultiHit = cachedSelfEffectForMultiHit;
 		SpoilsSpawnData cachedSpoilSpawnInfo;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -313,21 +311,21 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			cachedSpoilSpawnInfo = this.m_abilityMod.m_spoilSpawnInfoMod.GetModifiedValue(this.m_spoilSpawnInfo);
+			cachedSpoilSpawnInfo = m_abilityMod.m_spoilSpawnInfoMod.GetModifiedValue(m_spoilSpawnInfo);
 		}
 		else
 		{
-			cachedSpoilSpawnInfo = this.m_spoilSpawnInfo;
+			cachedSpoilSpawnInfo = m_spoilSpawnInfo;
 		}
-		this.m_cachedSpoilSpawnInfo = cachedSpoilSpawnInfo;
+		m_cachedSpoilSpawnInfo = cachedSpoilSpawnInfo;
 	}
 
 	public ConeTargetingInfo GetConeInfo()
 	{
 		ConeTargetingInfo result;
-		if (this.m_cachedConeInfo != null)
+		if (m_cachedConeInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -336,15 +334,15 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetConeInfo()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedConeInfo;
+			result = m_cachedConeInfo;
 		}
 		else
 		{
-			result = this.m_coneInfo;
+			result = m_coneInfo;
 		}
 		return result;
 	}
@@ -352,9 +350,9 @@ public class TricksterCones : Ability
 	public int GetDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -363,15 +361,15 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetDamageAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
 		{
-			result = this.m_damageAmount;
+			result = m_damageAmount;
 		}
 		return result;
 	}
@@ -379,9 +377,9 @@ public class TricksterCones : Ability
 	public int GetSubsequentDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -390,15 +388,15 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetSubsequentDamageAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_subsequentDamageAmountMod.GetModifiedValue(this.m_subsequentDamageAmount);
+			result = m_abilityMod.m_subsequentDamageAmountMod.GetModifiedValue(m_subsequentDamageAmount);
 		}
 		else
 		{
-			result = this.m_subsequentDamageAmount;
+			result = m_subsequentDamageAmount;
 		}
 		return result;
 	}
@@ -406,9 +404,9 @@ public class TricksterCones : Ability
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyHitEffect != null)
+		if (m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -417,15 +415,15 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemyHitEffect;
+			result = m_cachedEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyHitEffect;
+			result = m_enemyHitEffect;
 		}
 		return result;
 	}
@@ -433,9 +431,9 @@ public class TricksterCones : Ability
 	public bool UseEnemyMultiHitEffect()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -444,15 +442,15 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.UseEnemyMultiHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_useEnemyMultiHitEffectMod.GetModifiedValue(this.m_useEnemyMultiHitEffect);
+			result = m_abilityMod.m_useEnemyMultiHitEffectMod.GetModifiedValue(m_useEnemyMultiHitEffect);
 		}
 		else
 		{
-			result = this.m_useEnemyMultiHitEffect;
+			result = m_useEnemyMultiHitEffect;
 		}
 		return result;
 	}
@@ -460,9 +458,9 @@ public class TricksterCones : Ability
 	public StandardEffectInfo GetEnemyMultipleHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyMultipleHitEffect != null)
+		if (m_cachedEnemyMultipleHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -471,15 +469,15 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetEnemyMultipleHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemyMultipleHitEffect;
+			result = m_cachedEnemyMultipleHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyMultipleHitEffect;
+			result = m_enemyMultipleHitEffect;
 		}
 		return result;
 	}
@@ -487,9 +485,9 @@ public class TricksterCones : Ability
 	public int GetAllyHealAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -498,30 +496,30 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetAllyHealAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_allyHealAmountMod.GetModifiedValue(this.m_allyHealAmount);
+			result = m_abilityMod.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount);
 		}
 		else
 		{
-			result = this.m_allyHealAmount;
+			result = m_allyHealAmount;
 		}
 		return result;
 	}
 
 	public int GetAllySubsequentHealAmount()
 	{
-		return (!this.m_abilityMod) ? this.m_allySubsequentHealAmount : this.m_abilityMod.m_allySubsequentHealAmountMod.GetModifiedValue(this.m_allySubsequentHealAmount);
+		return (!m_abilityMod) ? m_allySubsequentHealAmount : m_abilityMod.m_allySubsequentHealAmountMod.GetModifiedValue(m_allySubsequentHealAmount);
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAllyHitEffect != null)
+		if (m_cachedAllyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -530,15 +528,15 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetAllyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedAllyHitEffect;
+			result = m_cachedAllyHitEffect;
 		}
 		else
 		{
-			result = this.m_allyHitEffect;
+			result = m_allyHitEffect;
 		}
 		return result;
 	}
@@ -546,9 +544,9 @@ public class TricksterCones : Ability
 	public bool UseAllyMultiHitEffect()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -557,15 +555,15 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.UseAllyMultiHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_useAllyMultiHitEffectMod.GetModifiedValue(this.m_useAllyMultiHitEffect);
+			result = m_abilityMod.m_useAllyMultiHitEffectMod.GetModifiedValue(m_useAllyMultiHitEffect);
 		}
 		else
 		{
-			result = this.m_useAllyMultiHitEffect;
+			result = m_useAllyMultiHitEffect;
 		}
 		return result;
 	}
@@ -573,9 +571,9 @@ public class TricksterCones : Ability
 	public StandardEffectInfo GetAllyMultipleHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAllyMultipleHitEffect != null)
+		if (m_cachedAllyMultipleHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -584,15 +582,15 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetAllyMultipleHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedAllyMultipleHitEffect;
+			result = m_cachedAllyMultipleHitEffect;
 		}
 		else
 		{
-			result = this.m_allyMultipleHitEffect;
+			result = m_allyMultipleHitEffect;
 		}
 		return result;
 	}
@@ -600,9 +598,9 @@ public class TricksterCones : Ability
 	public int GetSelfHealAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -611,15 +609,15 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetSelfHealAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_selfHealAmountMod.GetModifiedValue(this.m_selfHealAmount);
+			result = m_abilityMod.m_selfHealAmountMod.GetModifiedValue(m_selfHealAmount);
 		}
 		else
 		{
-			result = this.m_selfHealAmount;
+			result = m_selfHealAmount;
 		}
 		return result;
 	}
@@ -627,9 +625,9 @@ public class TricksterCones : Ability
 	public StandardEffectInfo GetSelfHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedSelfHitEffect != null)
+		if (m_cachedSelfHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -638,15 +636,15 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetSelfHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedSelfHitEffect;
+			result = m_cachedSelfHitEffect;
 		}
 		else
 		{
-			result = this.m_selfHitEffect;
+			result = m_selfHitEffect;
 		}
 		return result;
 	}
@@ -654,9 +652,9 @@ public class TricksterCones : Ability
 	public StandardEffectInfo GetSelfEffectForMultiHit()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedSelfEffectForMultiHit != null)
+		if (m_cachedSelfEffectForMultiHit != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -665,15 +663,15 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetSelfEffectForMultiHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedSelfEffectForMultiHit;
+			result = m_cachedSelfEffectForMultiHit;
 		}
 		else
 		{
-			result = this.m_selfEffectForMultiHit;
+			result = m_selfEffectForMultiHit;
 		}
 		return result;
 	}
@@ -681,9 +679,9 @@ public class TricksterCones : Ability
 	public int GetCooldownReductionPerHitByClone()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -692,35 +690,35 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetCooldownReductionPerHitByClone()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_cooldownReductionPerHitByCloneMod.GetModifiedValue(this.m_cooldownReductionPerHitByClone);
+			result = m_abilityMod.m_cooldownReductionPerHitByCloneMod.GetModifiedValue(m_cooldownReductionPerHitByClone);
 		}
 		else
 		{
-			result = this.m_cooldownReductionPerHitByClone;
+			result = m_cooldownReductionPerHitByClone;
 		}
 		return result;
 	}
 
 	public bool SpawnSpoilForEnemyHit()
 	{
-		return (!this.m_abilityMod) ? this.m_spawnSpoilForEnemyHit : this.m_abilityMod.m_spawnSpoilForEnemyHitMod.GetModifiedValue(this.m_spawnSpoilForEnemyHit);
+		return (!m_abilityMod) ? m_spawnSpoilForEnemyHit : m_abilityMod.m_spawnSpoilForEnemyHitMod.GetModifiedValue(m_spawnSpoilForEnemyHit);
 	}
 
 	public bool SpawnSpoilForAllyHit()
 	{
-		return (!this.m_abilityMod) ? this.m_spawnSpoilForAllyHit : this.m_abilityMod.m_spawnSpoilForAllyHitMod.GetModifiedValue(this.m_spawnSpoilForAllyHit);
+		return (!m_abilityMod) ? m_spawnSpoilForAllyHit : m_abilityMod.m_spawnSpoilForAllyHitMod.GetModifiedValue(m_spawnSpoilForAllyHit);
 	}
 
 	public SpoilsSpawnData GetSpoilSpawnInfo()
 	{
 		SpoilsSpawnData result;
-		if (this.m_cachedSpoilSpawnInfo != null)
+		if (m_cachedSpoilSpawnInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -729,15 +727,15 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetSpoilSpawnInfo()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedSpoilSpawnInfo;
+			result = m_cachedSpoilSpawnInfo;
 		}
 		else
 		{
-			result = this.m_spoilSpawnInfo;
+			result = m_spoilSpawnInfo;
 		}
 		return result;
 	}
@@ -745,9 +743,9 @@ public class TricksterCones : Ability
 	public bool OnlySpawnSpoilOnMultiHit()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -756,41 +754,41 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.OnlySpawnSpoilOnMultiHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_onlySpawnSpoilOnMultiHitMod.GetModifiedValue(this.m_onlySpawnSpoilOnMultiHit);
+			result = m_abilityMod.m_onlySpawnSpoilOnMultiHitMod.GetModifiedValue(m_onlySpawnSpoilOnMultiHit);
 		}
 		else
 		{
-			result = this.m_onlySpawnSpoilOnMultiHit;
+			result = m_onlySpawnSpoilOnMultiHit;
 		}
 		return result;
 	}
 
 	private int CalcDamageFromNumHits(int numHits, int numFromCover)
 	{
-		return ActorMultiHitContext.CalcDamageFromNumHits(numHits, numFromCover, this.GetDamageAmount(), this.GetSubsequentDamageAmount());
+		return ActorMultiHitContext.CalcDamageFromNumHits(numHits, numFromCover, GetDamageAmount(), GetSubsequentDamageAmount());
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetDamageAmount());
-		this.GetEnemyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, this.GetAllyHealAmount());
-		this.GetAllyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, this.GetSelfHealAmount());
-		this.GetSelfHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetDamageAmount());
+		GetEnemyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, GetAllyHealAmount());
+		GetAllyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, GetSelfHealAmount());
+		GetSelfHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		return numbers;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> _001D()
 	{
-		List<int> list = base.\u001D();
-		list.Add(this.m_subsequentDamageAmount);
-		list.Add(this.m_allySubsequentHealAmount);
+		List<int> list = base._001D();
+		list.Add(m_subsequentDamageAmount);
+		list.Add(m_allySubsequentHealAmount);
 		return list;
 	}
 
@@ -801,7 +799,7 @@ public class TricksterCones : Ability
 		ActorData actorData = base.ActorData;
 		if (abilityUtil_Targeter_TricksterCones != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -810,13 +808,13 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (actorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -829,15 +827,13 @@ public class TricksterCones : Ability
 				{
 					int num = abilityUtil_Targeter_TricksterCones.m_actorToHitCount[targetActor];
 					int numFromCover = abilityUtil_Targeter_TricksterCones.m_actorToCoverCount[targetActor];
-					if (actorData.\u000E() != targetActor.\u000E())
+					if (actorData.GetTeam() != targetActor.GetTeam())
 					{
-						int value = this.CalcDamageFromNumHits(num, numFromCover);
-						dictionary[AbilityTooltipSymbol.Damage] = value;
+						int num3 = dictionary[AbilityTooltipSymbol.Damage] = CalcDamageFromNumHits(num, numFromCover);
 					}
 					else if (actorData != targetActor)
 					{
-						int value2 = this.GetAllyHealAmount() + (num - 1) * this.GetAllySubsequentHealAmount();
-						dictionary[AbilityTooltipSymbol.Healing] = value2;
+						int num5 = dictionary[AbilityTooltipSymbol.Healing] = GetAllyHealAmount() + (num - 1) * GetAllySubsequentHealAmount();
 					}
 				}
 			}
@@ -848,12 +844,11 @@ public class TricksterCones : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_TricksterCones abilityMod_TricksterCones = modAsBase as AbilityMod_TricksterCones;
-		string name = "DamageAmount";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_TricksterCones)
+		if ((bool)abilityMod_TricksterCones)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -862,23 +857,22 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_TricksterCones.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+			val = abilityMod_TricksterCones.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
 		{
-			val = this.m_damageAmount;
+			val = m_damageAmount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "SubsequentDamageAmount";
+		AddTokenInt(tokens, "DamageAmount", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_TricksterCones)
+		if ((bool)abilityMod_TricksterCones)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -887,17 +881,17 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_TricksterCones.m_subsequentDamageAmountMod.GetModifiedValue(this.m_subsequentDamageAmount);
+			val2 = abilityMod_TricksterCones.m_subsequentDamageAmountMod.GetModifiedValue(m_subsequentDamageAmount);
 		}
 		else
 		{
-			val2 = this.m_subsequentDamageAmount;
+			val2 = m_subsequentDamageAmount;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
+		AddTokenInt(tokens, "SubsequentDamageAmount", empty2, val2);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_TricksterCones)
+		if ((bool)abilityMod_TricksterCones)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -906,17 +900,17 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			effectInfo = abilityMod_TricksterCones.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			effectInfo = abilityMod_TricksterCones.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_enemyHitEffect;
+			effectInfo = m_enemyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", this.m_enemyHitEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", m_enemyHitEffect);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_TricksterCones)
+		if ((bool)abilityMod_TricksterCones)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -925,19 +919,18 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			effectInfo2 = abilityMod_TricksterCones.m_enemyMultipleHitEffectMod.GetModifiedValue(this.m_enemyMultipleHitEffect);
+			effectInfo2 = abilityMod_TricksterCones.m_enemyMultipleHitEffectMod.GetModifiedValue(m_enemyMultipleHitEffect);
 		}
 		else
 		{
-			effectInfo2 = this.m_enemyMultipleHitEffect;
+			effectInfo2 = m_enemyMultipleHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EnemyMultipleHitEffect", this.m_enemyMultipleHitEffect, true);
-		string name3 = "AllyHealAmount";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EnemyMultipleHitEffect", m_enemyMultipleHitEffect);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_TricksterCones)
+		if ((bool)abilityMod_TricksterCones)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -946,18 +939,18 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			val3 = abilityMod_TricksterCones.m_allyHealAmountMod.GetModifiedValue(this.m_allyHealAmount);
+			val3 = abilityMod_TricksterCones.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount);
 		}
 		else
 		{
-			val3 = this.m_allyHealAmount;
+			val3 = m_allyHealAmount;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
-		base.AddTokenInt(tokens, "AllySubsequentHealAmount", string.Empty, (!abilityMod_TricksterCones) ? this.m_allySubsequentHealAmount : abilityMod_TricksterCones.m_allySubsequentHealAmountMod.GetModifiedValue(this.m_allySubsequentHealAmount), false);
+		AddTokenInt(tokens, "AllyHealAmount", empty3, val3);
+		AddTokenInt(tokens, "AllySubsequentHealAmount", string.Empty, (!abilityMod_TricksterCones) ? m_allySubsequentHealAmount : abilityMod_TricksterCones.m_allySubsequentHealAmountMod.GetModifiedValue(m_allySubsequentHealAmount));
 		StandardEffectInfo effectInfo3;
-		if (abilityMod_TricksterCones)
+		if ((bool)abilityMod_TricksterCones)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -966,17 +959,17 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			effectInfo3 = abilityMod_TricksterCones.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
+			effectInfo3 = abilityMod_TricksterCones.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
 		{
-			effectInfo3 = this.m_allyHitEffect;
+			effectInfo3 = m_allyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "AllyHitEffect", this.m_allyHitEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "AllyHitEffect", m_allyHitEffect);
 		StandardEffectInfo effectInfo4;
-		if (abilityMod_TricksterCones)
+		if ((bool)abilityMod_TricksterCones)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -985,19 +978,18 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			effectInfo4 = abilityMod_TricksterCones.m_allyMultipleHitEffectMod.GetModifiedValue(this.m_allyMultipleHitEffect);
+			effectInfo4 = abilityMod_TricksterCones.m_allyMultipleHitEffectMod.GetModifiedValue(m_allyMultipleHitEffect);
 		}
 		else
 		{
-			effectInfo4 = this.m_allyMultipleHitEffect;
+			effectInfo4 = m_allyMultipleHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo4, "AllyMultipleHitEffect", this.m_allyMultipleHitEffect, true);
-		string name4 = "SelfHealAmount";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo4, "AllyMultipleHitEffect", m_allyMultipleHitEffect);
 		string empty4 = string.Empty;
 		int val4;
-		if (abilityMod_TricksterCones)
+		if ((bool)abilityMod_TricksterCones)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1006,21 +998,20 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			val4 = abilityMod_TricksterCones.m_selfHealAmountMod.GetModifiedValue(this.m_selfHealAmount);
+			val4 = abilityMod_TricksterCones.m_selfHealAmountMod.GetModifiedValue(m_selfHealAmount);
 		}
 		else
 		{
-			val4 = this.m_selfHealAmount;
+			val4 = m_selfHealAmount;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_TricksterCones) ? this.m_selfHitEffect : abilityMod_TricksterCones.m_selfHitEffectMod.GetModifiedValue(this.m_selfHitEffect), "SelfHitEffect", this.m_selfHitEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_TricksterCones) ? this.m_selfEffectForMultiHit : abilityMod_TricksterCones.m_selfEffectForMultiHitMod.GetModifiedValue(this.m_selfEffectForMultiHit), "SelfEffectForMultiHit", this.m_selfEffectForMultiHit, true);
-		string name5 = "CooldownReductionPerHitByClone";
+		AddTokenInt(tokens, "SelfHealAmount", empty4, val4);
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_TricksterCones) ? m_selfHitEffect : abilityMod_TricksterCones.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect), "SelfHitEffect", m_selfHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_TricksterCones) ? m_selfEffectForMultiHit : abilityMod_TricksterCones.m_selfEffectForMultiHitMod.GetModifiedValue(m_selfEffectForMultiHit), "SelfEffectForMultiHit", m_selfEffectForMultiHit);
 		string empty5 = string.Empty;
 		int val5;
-		if (abilityMod_TricksterCones)
+		if ((bool)abilityMod_TricksterCones)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1029,54 +1020,55 @@ public class TricksterCones : Ability
 				}
 				break;
 			}
-			val5 = abilityMod_TricksterCones.m_cooldownReductionPerHitByCloneMod.GetModifiedValue(this.m_cooldownReductionPerHitByClone);
+			val5 = abilityMod_TricksterCones.m_cooldownReductionPerHitByCloneMod.GetModifiedValue(m_cooldownReductionPerHitByClone);
 		}
 		else
 		{
-			val5 = this.m_cooldownReductionPerHitByClone;
+			val5 = m_cooldownReductionPerHitByClone;
 		}
-		base.AddTokenInt(tokens, name5, empty5, val5, false);
+		AddTokenInt(tokens, "CooldownReductionPerHitByClone", empty5, val5);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_TricksterCones))
+		if (abilityMod.GetType() != typeof(AbilityMod_TricksterCones))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_TricksterCones);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_TricksterCones);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (actorData != null)
+				ActorData current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -1085,13 +1077,13 @@ public class TricksterCones : Ability
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (!actorData.\u000E())
+					if (!current.IsDead())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -1100,34 +1092,35 @@ public class TricksterCones : Ability
 							}
 							break;
 						}
-						this.m_afterImageSyncComp.TurnToPosition(actorData, targetPos);
-						Animator animator = actorData.\u000E();
-						animator.SetInteger("Attack", animationIndex);
-						animator.SetBool("CinematicCam", cinecam);
-						animator.SetTrigger("StartAttack");
+						m_afterImageSyncComp.TurnToPosition(current, targetPos);
+						Animator modelAnimator = current.GetModelAnimator();
+						modelAnimator.SetInteger("Attack", animationIndex);
+						modelAnimator.SetBool("CinematicCam", cinecam);
+						modelAnimator.SetTrigger("StartAttack");
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public override void OnAbilityAnimationRequestProcessed(ActorData caster)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
-		foreach (ActorData actorData in validAfterImages)
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
+		foreach (ActorData item in validAfterImages)
 		{
-			if (actorData != null)
+			if (item != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -1136,13 +1129,13 @@ public class TricksterCones : Ability
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (!actorData.\u000E())
+				if (!item.IsDead())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -1151,9 +1144,9 @@ public class TricksterCones : Ability
 						}
 						break;
 					}
-					Animator animator = actorData.\u000E();
-					animator.SetInteger("Attack", 0);
-					animator.SetBool("CinematicCam", false);
+					Animator modelAnimator = item.GetModelAnimator();
+					modelAnimator.SetInteger("Attack", 0);
+					modelAnimator.SetBool("CinematicCam", false);
 				}
 			}
 		}

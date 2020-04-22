@@ -1,9 +1,14 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NanoSmithVacuumBomb : Ability
 {
+	public enum KnockbackCenterType
+	{
+		FromTargetSquare,
+		FromTargetActor
+	}
+
 	[Header("-- Bomb Hit")]
 	public int m_bombDamageAmount;
 
@@ -17,7 +22,7 @@ public class NanoSmithVacuumBomb : Ability
 	public StandardEffectInfo m_onCenterActorEffect;
 
 	[Header("-- Knockback")]
-	public NanoSmithVacuumBomb.KnockbackCenterType m_knockbackCenterType;
+	public KnockbackCenterType m_knockbackCenterType;
 
 	public int m_knockbackDelay;
 
@@ -45,9 +50,9 @@ public class NanoSmithVacuumBomb : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -56,28 +61,28 @@ public class NanoSmithVacuumBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithVacuumBomb.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Vacuum Bomb";
+			m_abilityName = "Vacuum Bomb";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.m_syncComp = base.GetComponent<NanoSmith_SyncComponent>();
-		this.SetCachedFields();
-		float knockbackDistance = (this.m_knockbackDelay > 0) ? 0f : this.m_knockbackDistance;
+		m_syncComp = GetComponent<NanoSmith_SyncComponent>();
+		SetCachedFields();
+		float knockbackDistance = (m_knockbackDelay > 0) ? 0f : m_knockbackDistance;
 		AbilityUtil_Targeter.AffectsActor affectsTargetOnGridposSquare = AbilityUtil_Targeter.AffectsActor.Never;
-		if (base.GetModdedEffectForAllies() != null)
+		if (GetModdedEffectForAllies() != null)
 		{
-			if (base.GetModdedEffectForAllies().m_applyEffect)
+			if (GetModdedEffectForAllies().m_applyEffect)
 			{
-				goto IL_6E;
+				goto IL_006e;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -86,28 +91,30 @@ public class NanoSmithVacuumBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithVacuumBomb.SetupTargeter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
-		if (!this.GetCenterActorEffect().m_applyEffect)
+		if (GetCenterActorEffect().m_applyEffect)
 		{
-			goto IL_70;
-		}
-		for (;;)
-		{
-			switch (6)
+			while (true)
 			{
-			case 0:
-				continue;
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
 			}
-			break;
+			goto IL_006e;
 		}
-		IL_6E:
+		goto IL_0070;
+		IL_006e:
 		affectsTargetOnGridposSquare = AbilityUtil_Targeter.AffectsActor.Always;
-		IL_70:
-		base.Targeter = new AbilityUtil_Targeter_KnockbackRingAoE(this, this.m_bombShape, this.m_bombPenetrateLineOfSight, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Never, affectsTargetOnGridposSquare, this.m_bombShape, knockbackDistance, this.m_knockbackType, this.m_knockbackAdjacentActorsIfPull, true);
+		goto IL_0070;
+		IL_0070:
+		base.Targeter = new AbilityUtil_Targeter_KnockbackRingAoE(this, m_bombShape, m_bombPenetrateLineOfSight, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Never, affectsTargetOnGridposSquare, m_bombShape, knockbackDistance, m_knockbackType, m_knockbackAdjacentActorsIfPull, true);
 	}
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
@@ -117,13 +124,13 @@ public class NanoSmithVacuumBomb : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		base.AppendTooltipNumbersFromBaseModEffects(ref result, AbilityTooltipSubject.Enemy, AbilityTooltipSubject.Ally, AbilityTooltipSubject.Self);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetDamageAmount());
-		StandardEffectInfo centerActorEffect = this.GetCenterActorEffect();
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AppendTooltipNumbersFromBaseModEffects(ref numbers, AbilityTooltipSubject.Enemy);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetDamageAmount());
+		StandardEffectInfo centerActorEffect = GetCenterActorEffect();
 		if (centerActorEffect.m_applyEffect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -132,21 +139,21 @@ public class NanoSmithVacuumBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithVacuumBomb.CalculateNameplateTargetingNumbers()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			centerActorEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
-			centerActorEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
+			centerActorEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
+			centerActorEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		}
-		return result;
+		return numbers;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		if (this.m_syncComp != null && this.m_syncComp.m_extraAbsorbOnVacuumBomb > 0)
+		if (m_syncComp != null && m_syncComp.m_extraAbsorbOnVacuumBomb > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -155,26 +162,27 @@ public class NanoSmithVacuumBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithVacuumBomb.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) == 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						StandardEffectInfo centerActorEffect = GetCenterActorEffect();
+						int absorbAmount = centerActorEffect.m_effectData.m_absorbAmount;
+						absorbAmount = (results.m_absorb = absorbAmount + m_syncComp.m_extraAbsorbOnVacuumBomb);
+						return true;
 					}
-					break;
+					}
 				}
-				StandardEffectInfo centerActorEffect = this.GetCenterActorEffect();
-				int num = centerActorEffect.m_effectData.m_absorbAmount;
-				num += this.m_syncComp.m_extraAbsorbOnVacuumBomb;
-				results.m_absorb = num;
-				return true;
 			}
 		}
 		return false;
@@ -183,18 +191,17 @@ public class NanoSmithVacuumBomb : Ability
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-		return base.CanTargetActorInDecision(caster, currentBestActorTarget, false, true, true, Ability.ValidateCheckPath.Ignore, true, true, false);
+		return CanTargetActorInDecision(caster, currentBestActorTarget, false, true, true, ValidateCheckPath.Ignore, true, true);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_NanoSmithVacuumBomb abilityMod_NanoSmithVacuumBomb = modAsBase as AbilityMod_NanoSmithVacuumBomb;
-		string name = "BombDamageAmount";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_NanoSmithVacuumBomb)
+		if ((bool)abilityMod_NanoSmithVacuumBomb)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -203,21 +210,21 @@ public class NanoSmithVacuumBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithVacuumBomb.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_NanoSmithVacuumBomb.m_damageMod.GetModifiedValue(this.m_bombDamageAmount);
+			val = abilityMod_NanoSmithVacuumBomb.m_damageMod.GetModifiedValue(m_bombDamageAmount);
 		}
 		else
 		{
-			val = this.m_bombDamageAmount;
+			val = m_bombDamageAmount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
+		AddTokenInt(tokens, "BombDamageAmount", empty, val);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_NanoSmithVacuumBomb)
+		if ((bool)abilityMod_NanoSmithVacuumBomb)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -226,17 +233,17 @@ public class NanoSmithVacuumBomb : Ability
 				}
 				break;
 			}
-			effectInfo = abilityMod_NanoSmithVacuumBomb.m_enemyHitEffectOverride.GetModifiedValue(this.m_enemyHitEffect);
+			effectInfo = abilityMod_NanoSmithVacuumBomb.m_enemyHitEffectOverride.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_enemyHitEffect;
+			effectInfo = m_enemyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", this.m_enemyHitEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", m_enemyHitEffect);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_NanoSmithVacuumBomb)
+		if ((bool)abilityMod_NanoSmithVacuumBomb)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -245,36 +252,36 @@ public class NanoSmithVacuumBomb : Ability
 				}
 				break;
 			}
-			effectInfo2 = abilityMod_NanoSmithVacuumBomb.m_onCenterActorEffectOverride.GetModifiedValue(this.m_onCenterActorEffect);
+			effectInfo2 = abilityMod_NanoSmithVacuumBomb.m_onCenterActorEffectOverride.GetModifiedValue(m_onCenterActorEffect);
 		}
 		else
 		{
-			effectInfo2 = this.m_onCenterActorEffect;
+			effectInfo2 = m_onCenterActorEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "OnCenterActorEffect", this.m_onCenterActorEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "OnCenterActorEffect", m_onCenterActorEffect);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_NanoSmithVacuumBomb))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_NanoSmithVacuumBomb);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_NanoSmithVacuumBomb);
+			SetupTargeter();
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedOnCenterActorEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -283,21 +290,21 @@ public class NanoSmithVacuumBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithVacuumBomb.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedOnCenterActorEffect = this.m_abilityMod.m_onCenterActorEffectOverride.GetModifiedValue(this.m_onCenterActorEffect);
+			cachedOnCenterActorEffect = m_abilityMod.m_onCenterActorEffectOverride.GetModifiedValue(m_onCenterActorEffect);
 		}
 		else
 		{
-			cachedOnCenterActorEffect = this.m_onCenterActorEffect;
+			cachedOnCenterActorEffect = m_onCenterActorEffect;
 		}
-		this.m_cachedOnCenterActorEffect = cachedOnCenterActorEffect;
+		m_cachedOnCenterActorEffect = cachedOnCenterActorEffect;
 		StandardEffectInfo cachedEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -306,21 +313,21 @@ public class NanoSmithVacuumBomb : Ability
 				}
 				break;
 			}
-			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectOverride.GetModifiedValue(this.m_enemyHitEffect);
+			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectOverride.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			cachedEnemyHitEffect = this.m_enemyHitEffect;
+			cachedEnemyHitEffect = m_enemyHitEffect;
 		}
-		this.m_cachedEnemyHitEffect = cachedEnemyHitEffect;
+		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
 	}
 
 	private int GetDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -329,15 +336,15 @@ public class NanoSmithVacuumBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithVacuumBomb.GetDamageAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_bombDamageAmount;
+			result = m_bombDamageAmount;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_bombDamageAmount);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(m_bombDamageAmount);
 		}
 		return result;
 	}
@@ -345,9 +352,9 @@ public class NanoSmithVacuumBomb : Ability
 	private int GetCooldownChangePerHit()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -356,15 +363,15 @@ public class NanoSmithVacuumBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithVacuumBomb.GetCooldownChangePerHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = 0;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_cooldownChangePerHitMod.GetModifiedValue(0);
+			result = m_abilityMod.m_cooldownChangePerHitMod.GetModifiedValue(0);
 		}
 		return result;
 	}
@@ -372,9 +379,9 @@ public class NanoSmithVacuumBomb : Ability
 	private StandardEffectInfo GetCenterActorEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedOnCenterActorEffect != null)
+		if (m_cachedOnCenterActorEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -383,49 +390,43 @@ public class NanoSmithVacuumBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithVacuumBomb.GetCenterActorEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedOnCenterActorEffect;
+			result = m_cachedOnCenterActorEffect;
 		}
 		else
 		{
-			result = this.m_onCenterActorEffect;
+			result = m_onCenterActorEffect;
 		}
 		return result;
 	}
 
 	private StandardEffectInfo GetEnemyHitEffect()
 	{
-		return (this.m_cachedEnemyHitEffect == null) ? this.m_enemyHitEffect : this.m_cachedEnemyHitEffect;
+		return (m_cachedEnemyHitEffect == null) ? m_enemyHitEffect : m_cachedEnemyHitEffect;
 	}
 
 	public int GetExtraAbsorb()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_syncComp.m_extraAbsorbOnVacuumBomb;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithVacuumBomb.GetExtraAbsorb()).MethodHandle;
-			}
-			return this.m_syncComp.m_extraAbsorbOnVacuumBomb;
 		}
 		return 0;
-	}
-
-	public enum KnockbackCenterType
-	{
-		FromTargetSquare,
-		FromTargetActor
 	}
 }

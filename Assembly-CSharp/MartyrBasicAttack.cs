@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +13,9 @@ public class MartyrBasicAttack : MartyrLaserBase
 	public float m_additionalRadiusPerCrystalSpent = 0.25f;
 
 	[Header("-- Damage & Crystal Bonuses")]
-	public int m_baseLaserDamage = 0x14;
+	public int m_baseLaserDamage = 20;
 
-	public int m_baseExplosionDamage = 0xF;
+	public int m_baseExplosionDamage = 15;
 
 	public int m_additionalDamagePerCrystalSpent;
 
@@ -29,7 +28,7 @@ public class MartyrBasicAttack : MartyrLaserBase
 	public float m_innerRingExtraRadiusPerCrystal;
 
 	[Space(5f)]
-	public int m_innerRingDamage = 0x14;
+	public int m_innerRingDamage = 20;
 
 	public int m_innerRingDamagePerCrystal;
 
@@ -48,9 +47,9 @@ public class MartyrBasicAttack : MartyrLaserBase
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -59,33 +58,32 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Martyr Hit";
+			m_abilityName = "Martyr Hit";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	protected override Martyr_SyncComponent GetSyncComponent()
 	{
-		return this.m_syncComponent;
+		return m_syncComponent;
 	}
 
 	protected void Setup()
 	{
-		this.SetCachedFields();
-		this.m_syncComponent = base.GetComponent<Martyr_SyncComponent>();
-		base.Targeter = new AbilityUtil_Targeter_MartyrLaser(this, base.GetCurrentLaserWidth(), base.GetCurrentLaserRange(), base.GetCurrentLaserPenetrateLoS(), base.GetCurrentLaserMaxTargets(), true, false, false, true, false, this.GetCurrentExplosionRadius(), this.GetCurrentInnerExplosionRadius(), false, true, false)
-		{
-			m_delegateLaserWidth = new AbilityUtil_Targeter_MartyrLaser.CustomFloatValueDelegate(base.GetCurrentLaserWidth),
-			m_delegateLaserRange = new AbilityUtil_Targeter_MartyrLaser.CustomFloatValueDelegate(base.GetCurrentLaserRange),
-			m_delegatePenetrateLos = new AbilityUtil_Targeter_MartyrLaser.CustomBoolValueDelegate(base.GetCurrentLaserPenetrateLoS),
-			m_delegateMaxTargets = new AbilityUtil_Targeter_MartyrLaser.CustomIntValueDelegate(base.GetCurrentLaserMaxTargets),
-			m_delegateConeRadius = new AbilityUtil_Targeter_MartyrLaser.CustomFloatValueDelegate(this.GetCurrentExplosionRadius),
-			m_delegateInnerConeRadius = new AbilityUtil_Targeter_MartyrLaser.CustomFloatValueDelegate(this.GetCurrentInnerExplosionRadius)
-		};
+		SetCachedFields();
+		m_syncComponent = GetComponent<Martyr_SyncComponent>();
+		AbilityUtil_Targeter_MartyrLaser abilityUtil_Targeter_MartyrLaser = new AbilityUtil_Targeter_MartyrLaser(this, GetCurrentLaserWidth(), GetCurrentLaserRange(), GetCurrentLaserPenetrateLoS(), GetCurrentLaserMaxTargets(), true, false, false, true, false, GetCurrentExplosionRadius(), GetCurrentInnerExplosionRadius(), false, true, false);
+		abilityUtil_Targeter_MartyrLaser.m_delegateLaserWidth = base.GetCurrentLaserWidth;
+		abilityUtil_Targeter_MartyrLaser.m_delegateLaserRange = base.GetCurrentLaserRange;
+		abilityUtil_Targeter_MartyrLaser.m_delegatePenetrateLos = base.GetCurrentLaserPenetrateLoS;
+		abilityUtil_Targeter_MartyrLaser.m_delegateMaxTargets = base.GetCurrentLaserMaxTargets;
+		abilityUtil_Targeter_MartyrLaser.m_delegateConeRadius = GetCurrentExplosionRadius;
+		abilityUtil_Targeter_MartyrLaser.m_delegateInnerConeRadius = GetCurrentInnerExplosionRadius;
+		base.Targeter = abilityUtil_Targeter_MartyrLaser;
 		base.Targeter.SetShowArcToShape(true);
 	}
 
@@ -96,15 +94,15 @@ public class MartyrBasicAttack : MartyrLaserBase
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return base.GetCurrentLaserRange() + this.GetCurrentExplosionRadius();
+		return GetCurrentLaserRange() + GetCurrentExplosionRadius();
 	}
 
 	private void SetCachedFields()
 	{
 		LaserTargetingInfo cachedLaserInfo;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -113,21 +111,21 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedLaserInfo = this.m_abilityMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
+			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
 		{
-			cachedLaserInfo = this.m_laserInfo;
+			cachedLaserInfo = m_laserInfo;
 		}
-		this.m_cachedLaserInfo = cachedLaserInfo;
+		m_cachedLaserInfo = cachedLaserInfo;
 		StandardEffectInfo cachedLaserHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -136,21 +134,21 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			cachedLaserHitEffect = this.m_abilityMod.m_laserHitEffectMod.GetModifiedValue(this.m_laserHitEffect);
+			cachedLaserHitEffect = m_abilityMod.m_laserHitEffectMod.GetModifiedValue(m_laserHitEffect);
 		}
 		else
 		{
-			cachedLaserHitEffect = this.m_laserHitEffect;
+			cachedLaserHitEffect = m_laserHitEffect;
 		}
-		this.m_cachedLaserHitEffect = cachedLaserHitEffect;
+		m_cachedLaserHitEffect = cachedLaserHitEffect;
 	}
 
 	public override LaserTargetingInfo GetLaserInfo()
 	{
 		LaserTargetingInfo result;
-		if (this.m_cachedLaserInfo != null)
+		if (m_cachedLaserInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -159,30 +157,30 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetLaserInfo()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedLaserInfo;
+			result = m_cachedLaserInfo;
 		}
 		else
 		{
-			result = this.m_laserInfo;
+			result = m_laserInfo;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetLaserHitEffect()
 	{
-		return (this.m_cachedLaserHitEffect == null) ? this.m_laserHitEffect : this.m_cachedLaserHitEffect;
+		return (m_cachedLaserHitEffect == null) ? m_laserHitEffect : m_cachedLaserHitEffect;
 	}
 
 	public float GetExplosionRadius()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -191,15 +189,15 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetExplosionRadius()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_explosionRadiusMod.GetModifiedValue(this.m_explosionRadius);
+			result = m_abilityMod.m_explosionRadiusMod.GetModifiedValue(m_explosionRadius);
 		}
 		else
 		{
-			result = this.m_explosionRadius;
+			result = m_explosionRadius;
 		}
 		return result;
 	}
@@ -207,9 +205,9 @@ public class MartyrBasicAttack : MartyrLaserBase
 	public int GetBaseLaserDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -218,40 +216,40 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetBaseLaserDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_baseLaserDamageMod.GetModifiedValue(this.m_baseLaserDamage);
+			result = m_abilityMod.m_baseLaserDamageMod.GetModifiedValue(m_baseLaserDamage);
 		}
 		else
 		{
-			result = this.m_baseLaserDamage;
+			result = m_baseLaserDamage;
 		}
 		return result;
 	}
 
 	public int GetBaseExplosionDamage()
 	{
-		return (!this.m_abilityMod) ? this.m_baseExplosionDamage : this.m_abilityMod.m_baseExplosionDamageMod.GetModifiedValue(this.m_baseExplosionDamage);
+		return (!m_abilityMod) ? m_baseExplosionDamage : m_abilityMod.m_baseExplosionDamageMod.GetModifiedValue(m_baseExplosionDamage);
 	}
 
 	public int GetAdditionalDamagePerCrystalSpent()
 	{
-		return (!this.m_abilityMod) ? this.m_additionalDamagePerCrystalSpent : this.m_abilityMod.m_additionalDamagePerCrystalSpentMod.GetModifiedValue(this.m_additionalDamagePerCrystalSpent);
+		return (!m_abilityMod) ? m_additionalDamagePerCrystalSpent : m_abilityMod.m_additionalDamagePerCrystalSpentMod.GetModifiedValue(m_additionalDamagePerCrystalSpent);
 	}
 
 	public float GetAdditionalRadiusPerCrystalSpent()
 	{
-		return (!this.m_abilityMod) ? this.m_additionalRadiusPerCrystalSpent : this.m_abilityMod.m_additionalRadiusPerCrystalSpentMod.GetModifiedValue(this.m_additionalRadiusPerCrystalSpent);
+		return (!m_abilityMod) ? m_additionalRadiusPerCrystalSpent : m_abilityMod.m_additionalRadiusPerCrystalSpentMod.GetModifiedValue(m_additionalRadiusPerCrystalSpent);
 	}
 
 	public int GetExtraDamageIfSingleHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -260,15 +258,15 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetExtraDamageIfSingleHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageIfSingleHitMod.GetModifiedValue(this.m_extraDamageIfSingleHit);
+			result = m_abilityMod.m_extraDamageIfSingleHitMod.GetModifiedValue(m_extraDamageIfSingleHit);
 		}
 		else
 		{
-			result = this.m_extraDamageIfSingleHit;
+			result = m_extraDamageIfSingleHit;
 		}
 		return result;
 	}
@@ -276,9 +274,9 @@ public class MartyrBasicAttack : MartyrLaserBase
 	public float GetInnerRingRadius()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -287,35 +285,35 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetInnerRingRadius()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_innerRingRadiusMod.GetModifiedValue(this.m_innerRingRadius);
+			result = m_abilityMod.m_innerRingRadiusMod.GetModifiedValue(m_innerRingRadius);
 		}
 		else
 		{
-			result = this.m_innerRingRadius;
+			result = m_innerRingRadius;
 		}
 		return result;
 	}
 
 	public float GetInnerRingExtraRadiusPerCrystal()
 	{
-		return (!this.m_abilityMod) ? this.m_innerRingExtraRadiusPerCrystal : this.m_abilityMod.m_innerRingExtraRadiusPerCrystalMod.GetModifiedValue(this.m_innerRingExtraRadiusPerCrystal);
+		return (!m_abilityMod) ? m_innerRingExtraRadiusPerCrystal : m_abilityMod.m_innerRingExtraRadiusPerCrystalMod.GetModifiedValue(m_innerRingExtraRadiusPerCrystal);
 	}
 
 	public int GetInnerRingDamage()
 	{
-		return (!this.m_abilityMod) ? this.m_innerRingDamage : this.m_abilityMod.m_innerRingDamageMod.GetModifiedValue(this.m_innerRingDamage);
+		return (!m_abilityMod) ? m_innerRingDamage : m_abilityMod.m_innerRingDamageMod.GetModifiedValue(m_innerRingDamage);
 	}
 
 	public int GetInnerRingDamagePerCrystal()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -324,15 +322,15 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetInnerRingDamagePerCrystal()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_innerRingDamagePerCrystalMod.GetModifiedValue(this.m_innerRingDamagePerCrystal);
+			result = m_abilityMod.m_innerRingDamagePerCrystalMod.GetModifiedValue(m_innerRingDamagePerCrystal);
 		}
 		else
 		{
-			result = this.m_innerRingDamagePerCrystal;
+			result = m_innerRingDamagePerCrystal;
 		}
 		return result;
 	}
@@ -342,9 +340,9 @@ public class MartyrBasicAttack : MartyrLaserBase
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
 		AbilityMod_MartyrBasicAttack abilityMod_MartyrBasicAttack = modAsBase as AbilityMod_MartyrBasicAttack;
 		StandardEffectInfo effectInfo;
-		if (abilityMod_MartyrBasicAttack)
+		if ((bool)abilityMod_MartyrBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -353,25 +351,24 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			effectInfo = abilityMod_MartyrBasicAttack.m_laserHitEffectMod.GetModifiedValue(this.m_laserHitEffect);
+			effectInfo = abilityMod_MartyrBasicAttack.m_laserHitEffectMod.GetModifiedValue(m_laserHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_laserHitEffect;
+			effectInfo = m_laserHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "LaserHitEffect", this.m_laserHitEffect, true);
-		base.AddTokenInt(tokens, "BaseLaserDamage", string.Empty, (!abilityMod_MartyrBasicAttack) ? this.m_baseLaserDamage : abilityMod_MartyrBasicAttack.m_baseLaserDamageMod.GetModifiedValue(this.m_baseLaserDamage), false);
-		base.AddTokenInt(tokens, "BaseExplosionDamage", string.Empty, (!abilityMod_MartyrBasicAttack) ? this.m_baseExplosionDamage : abilityMod_MartyrBasicAttack.m_baseExplosionDamageMod.GetModifiedValue(this.m_baseExplosionDamage), false);
-		string name = "AdditionalDamagePerCrystalSpent";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "LaserHitEffect", m_laserHitEffect);
+		AddTokenInt(tokens, "BaseLaserDamage", string.Empty, (!abilityMod_MartyrBasicAttack) ? m_baseLaserDamage : abilityMod_MartyrBasicAttack.m_baseLaserDamageMod.GetModifiedValue(m_baseLaserDamage));
+		AddTokenInt(tokens, "BaseExplosionDamage", string.Empty, (!abilityMod_MartyrBasicAttack) ? m_baseExplosionDamage : abilityMod_MartyrBasicAttack.m_baseExplosionDamageMod.GetModifiedValue(m_baseExplosionDamage));
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_MartyrBasicAttack)
+		if ((bool)abilityMod_MartyrBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -380,19 +377,18 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			val = abilityMod_MartyrBasicAttack.m_additionalDamagePerCrystalSpentMod.GetModifiedValue(this.m_additionalDamagePerCrystalSpent);
+			val = abilityMod_MartyrBasicAttack.m_additionalDamagePerCrystalSpentMod.GetModifiedValue(m_additionalDamagePerCrystalSpent);
 		}
 		else
 		{
-			val = this.m_additionalDamagePerCrystalSpent;
+			val = m_additionalDamagePerCrystalSpent;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "AdditionalRadiusPerCrystalSpent";
+		AddTokenInt(tokens, "AdditionalDamagePerCrystalSpent", empty, val);
 		string empty2 = string.Empty;
 		float val2;
-		if (abilityMod_MartyrBasicAttack)
+		if ((bool)abilityMod_MartyrBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -401,19 +397,18 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			val2 = abilityMod_MartyrBasicAttack.m_additionalRadiusPerCrystalSpentMod.GetModifiedValue(this.m_additionalRadiusPerCrystalSpent);
+			val2 = abilityMod_MartyrBasicAttack.m_additionalRadiusPerCrystalSpentMod.GetModifiedValue(m_additionalRadiusPerCrystalSpent);
 		}
 		else
 		{
-			val2 = this.m_additionalRadiusPerCrystalSpent;
+			val2 = m_additionalRadiusPerCrystalSpent;
 		}
-		base.AddTokenFloat(tokens, name2, empty2, val2, false);
-		string name3 = "ExtraDamageIfSingleHit";
+		AddTokenFloat(tokens, "AdditionalRadiusPerCrystalSpent", empty2, val2);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_MartyrBasicAttack)
+		if ((bool)abilityMod_MartyrBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -422,20 +417,19 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			val3 = abilityMod_MartyrBasicAttack.m_extraDamageIfSingleHitMod.GetModifiedValue(this.m_extraDamageIfSingleHit);
+			val3 = abilityMod_MartyrBasicAttack.m_extraDamageIfSingleHitMod.GetModifiedValue(m_extraDamageIfSingleHit);
 		}
 		else
 		{
-			val3 = this.m_extraDamageIfSingleHit;
+			val3 = m_extraDamageIfSingleHit;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
-		base.AddTokenInt(tokens, "InnerRingDamage", string.Empty, (!abilityMod_MartyrBasicAttack) ? this.m_innerRingDamage : abilityMod_MartyrBasicAttack.m_innerRingDamageMod.GetModifiedValue(this.m_innerRingDamage), false);
-		string name4 = "InnerRingDamagePerCrystal";
+		AddTokenInt(tokens, "ExtraDamageIfSingleHit", empty3, val3);
+		AddTokenInt(tokens, "InnerRingDamage", string.Empty, (!abilityMod_MartyrBasicAttack) ? m_innerRingDamage : abilityMod_MartyrBasicAttack.m_innerRingDamageMod.GetModifiedValue(m_innerRingDamage));
 		string empty4 = string.Empty;
 		int val4;
-		if (abilityMod_MartyrBasicAttack)
+		if ((bool)abilityMod_MartyrBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -444,49 +438,50 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			val4 = abilityMod_MartyrBasicAttack.m_innerRingDamagePerCrystalMod.GetModifiedValue(this.m_innerRingDamagePerCrystal);
+			val4 = abilityMod_MartyrBasicAttack.m_innerRingDamagePerCrystalMod.GetModifiedValue(m_innerRingDamagePerCrystal);
 		}
 		else
 		{
-			val4 = this.m_innerRingDamagePerCrystal;
+			val4 = m_innerRingDamagePerCrystal;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
+		AddTokenInt(tokens, "InnerRingDamagePerCrystal", empty4, val4);
 	}
 
 	protected override List<MartyrLaserThreshold> GetThresholdBasedCrystalBonusList()
 	{
 		List<MartyrLaserThreshold> list = new List<MartyrLaserThreshold>();
-		using (List<MartyrBasicAttackThreshold>.Enumerator enumerator = this.m_thresholdBasedCrystalBonuses.GetEnumerator())
+		using (List<MartyrBasicAttackThreshold>.Enumerator enumerator = m_thresholdBasedCrystalBonuses.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				MartyrBasicAttackThreshold item = enumerator.Current;
-				list.Add(item);
+				MartyrBasicAttackThreshold current = enumerator.Current;
+				list.Add(current);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (true)
+					{
+						return list;
+					}
+					/*OpCode not supported: LdMemberToken*/;
+					return list;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetThresholdBasedCrystalBonusList()).MethodHandle;
 			}
 		}
-		return list;
 	}
 
 	private int GetCurrentLaserDamage(ActorData caster)
 	{
-		MartyrBasicAttackThreshold martyrBasicAttackThreshold = base.GetCurrentPowerEntry(caster) as MartyrBasicAttackThreshold;
+		MartyrBasicAttackThreshold martyrBasicAttackThreshold = GetCurrentPowerEntry(caster) as MartyrBasicAttackThreshold;
 		int num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -495,9 +490,9 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetCurrentLaserDamage(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = martyrBasicAttackThreshold.m_additionalDamage;
 		}
@@ -506,16 +501,16 @@ public class MartyrBasicAttack : MartyrLaserBase
 			num = 0;
 		}
 		int num2 = num;
-		return this.GetBaseLaserDamage() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetAdditionalDamagePerCrystalSpent() + num2;
+		return GetBaseLaserDamage() + m_syncComponent.SpentDamageCrystals(caster) * GetAdditionalDamagePerCrystalSpent() + num2;
 	}
 
 	private int GetCurrentExplosionDamage(ActorData caster)
 	{
-		MartyrBasicAttackThreshold martyrBasicAttackThreshold = base.GetCurrentPowerEntry(caster) as MartyrBasicAttackThreshold;
+		MartyrBasicAttackThreshold martyrBasicAttackThreshold = GetCurrentPowerEntry(caster) as MartyrBasicAttackThreshold;
 		int num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -524,9 +519,9 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetCurrentExplosionDamage(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = martyrBasicAttackThreshold.m_additionalDamage;
 		}
@@ -535,16 +530,16 @@ public class MartyrBasicAttack : MartyrLaserBase
 			num = 0;
 		}
 		int num2 = num;
-		return this.GetBaseExplosionDamage() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetAdditionalDamagePerCrystalSpent() + num2;
+		return GetBaseExplosionDamage() + m_syncComponent.SpentDamageCrystals(caster) * GetAdditionalDamagePerCrystalSpent() + num2;
 	}
 
 	public override float GetCurrentExplosionRadius()
 	{
-		MartyrBasicAttackThreshold martyrBasicAttackThreshold = base.GetCurrentPowerEntry(base.ActorData) as MartyrBasicAttackThreshold;
+		MartyrBasicAttackThreshold martyrBasicAttackThreshold = GetCurrentPowerEntry(base.ActorData) as MartyrBasicAttackThreshold;
 		float num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -553,9 +548,9 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetCurrentExplosionRadius()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = martyrBasicAttackThreshold.m_additionalRadius;
 		}
@@ -564,35 +559,35 @@ public class MartyrBasicAttack : MartyrLaserBase
 			num = 0f;
 		}
 		float num2 = num;
-		return this.GetExplosionRadius() + (float)this.m_syncComponent.SpentDamageCrystals(base.ActorData) * this.GetAdditionalRadiusPerCrystalSpent() + num2;
+		return GetExplosionRadius() + (float)m_syncComponent.SpentDamageCrystals(base.ActorData) * GetAdditionalRadiusPerCrystalSpent() + num2;
 	}
 
 	public int GetCurrentInnerExplosionDamage(ActorData caster)
 	{
-		return this.GetInnerRingDamage() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetInnerRingDamagePerCrystal();
+		return GetInnerRingDamage() + m_syncComponent.SpentDamageCrystals(caster) * GetInnerRingDamagePerCrystal();
 	}
 
 	public override float GetCurrentInnerExplosionRadius()
 	{
-		return this.GetInnerRingRadius() + (float)this.m_syncComponent.SpentDamageCrystals(base.ActorData) * this.GetInnerRingExtraRadiusPerCrystal();
+		return GetInnerRingRadius() + (float)m_syncComponent.SpentDamageCrystals(base.ActorData) * GetInnerRingExtraRadiusPerCrystal();
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetBaseLaserDamage());
-		this.m_laserHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Secondary, this.GetBaseExplosionDamage());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetBaseLaserDamage());
+		m_laserHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, GetBaseExplosionDamage());
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		int num = 0;
-		if (this.GetExtraDamageIfSingleHit() > 0)
+		if (GetExtraDamageIfSingleHit() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -601,14 +596,14 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 			if (visibleActorsCountByTooltipSubject == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -617,15 +612,15 @@ public class MartyrBasicAttack : MartyrLaserBase
 					}
 					break;
 				}
-				num = this.GetExtraDamageIfSingleHit();
+				num = GetExtraDamageIfSingleHit();
 			}
 		}
-		Ability.AddNameplateValueForSingleHit(ref dictionary, base.Targeter, targetActor, this.GetCurrentLaserDamage(base.ActorData) + num, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
+		Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, GetCurrentLaserDamage(base.ActorData) + num);
 		ActorData actorData = base.ActorData;
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -635,10 +630,10 @@ public class MartyrBasicAttack : MartyrLaserBase
 				break;
 			}
 			bool flag = false;
-			float currentInnerExplosionRadius = this.GetCurrentInnerExplosionRadius();
+			float currentInnerExplosionRadius = GetCurrentInnerExplosionRadius();
 			if (currentInnerExplosionRadius > 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -649,7 +644,7 @@ public class MartyrBasicAttack : MartyrLaserBase
 				}
 				if (base.Targeter is AbilityUtil_Targeter_MartyrLaser)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -659,40 +654,32 @@ public class MartyrBasicAttack : MartyrLaserBase
 						break;
 					}
 					AbilityUtil_Targeter_MartyrLaser abilityUtil_Targeter_MartyrLaser = base.Targeter as AbilityUtil_Targeter_MartyrLaser;
-					flag = AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.\u0012(), abilityUtil_Targeter_MartyrLaser.m_lastLaserEndPos, 0f, 360f, currentInnerExplosionRadius, 0f, true, actorData, false, default(Vector3));
+					flag = AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.GetCurrentBoardSquare(), abilityUtil_Targeter_MartyrLaser.m_lastLaserEndPos, 0f, 360f, currentInnerExplosionRadius, 0f, true, actorData);
 				}
 			}
-			int num2;
-			if (flag)
-			{
-				num2 = this.GetCurrentInnerExplosionDamage(actorData);
-			}
-			else
-			{
-				num2 = this.GetCurrentExplosionDamage(actorData);
-			}
-			dictionary[AbilityTooltipSymbol.Damage] = num2 + num;
+			int num2 = (!flag) ? GetCurrentExplosionDamage(actorData) : GetCurrentInnerExplosionDamage(actorData);
+			symbolToValue[AbilityTooltipSymbol.Damage] = num2 + num;
 		}
-		return dictionary;
+		return symbolToValue;
 	}
 
-	public override Ability.TargetingParadigm GetControlpadTargetingParadigm(int targetIndex)
+	public override TargetingParadigm GetControlpadTargetingParadigm(int targetIndex)
 	{
-		return Ability.TargetingParadigm.Position;
+		return TargetingParadigm.Position;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_MartyrBasicAttack))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_MartyrBasicAttack);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_MartyrBasicAttack);
+			Setup();
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

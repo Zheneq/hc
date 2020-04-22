@@ -1,19 +1,24 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CardManagerData : MonoBehaviour
 {
-	private const int c_defaultDeckSize = 0xF;
+	public enum CardConsumeMode
+	{
+		OneUse,
+		ByCooldown
+	}
+
+	private const int c_defaultDeckSize = 15;
 
 	[Header("-- List cards used in game here --")]
-	public GameObject[] m_cardIndex = new GameObject[0xF];
+	public GameObject[] m_cardIndex = new GameObject[15];
 
 	[Header("-- cooldown on card when added to hand --")]
 	public int m_cooldownOnAddToHand;
 
 	[Space(10f)]
-	public CardManagerData.CardConsumeMode m_cardConsumeMode;
+	public CardConsumeMode m_cardConsumeMode;
 
 	[Header("-- Default Cards --")]
 	public CardType m_defaultPrepCardType = CardType.RadiationInjection;
@@ -28,16 +33,16 @@ public class CardManagerData : MonoBehaviour
 
 	internal static CardManagerData Get()
 	{
-		return CardManagerData.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		CardManagerData.s_instance = this;
-		GameObject cardPrefab = this.GetCardPrefab(this.m_defaultPrepCardType);
+		s_instance = this;
+		GameObject cardPrefab = GetCardPrefab(m_defaultPrepCardType);
 		if (!(cardPrefab == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -46,15 +51,15 @@ public class CardManagerData : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CardManagerData.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (cardPrefab.GetComponent<Card>().GetAbilityRunPhase() == AbilityRunPhase.Prep)
 			{
-				goto IL_57;
+				goto IL_0057;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -65,15 +70,61 @@ public class CardManagerData : MonoBehaviour
 			}
 		}
 		Debug.LogError("Did not find default Prep card or is in the wrong phase. Please check CardManagerData prefab");
-		IL_57:
-		GameObject cardPrefab2 = this.GetCardPrefab(this.m_defaultDashCardType);
+		goto IL_0057;
+		IL_00d3:
+		m_phaseToCards.Add(AbilityRunPhase.Prep, new HashSet<CardType>());
+		m_phaseToCards.Add(AbilityRunPhase.Dash, new HashSet<CardType>());
+		m_phaseToCards.Add(AbilityRunPhase.Combat, new HashSet<CardType>());
+		for (int i = 0; i < m_cardIndex.Length; i++)
+		{
+			GameObject gameObject = m_cardIndex[i];
+			if (!(gameObject != null))
+			{
+				continue;
+			}
+			Card component = gameObject.GetComponent<Card>();
+			if (!(component != null))
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (component.m_isHidden)
+			{
+				continue;
+			}
+			AbilityRunPhase abilityRunPhase = component.GetAbilityRunPhase();
+			if (m_phaseToCards.ContainsKey(abilityRunPhase))
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_phaseToCards[abilityRunPhase].Add(component.m_cardType);
+			}
+		}
+		return;
+		IL_0057:
+		GameObject cardPrefab2 = GetCardPrefab(m_defaultDashCardType);
 		if (!(cardPrefab2 == null))
 		{
 			if (cardPrefab2.GetComponent<Card>().GetAbilityRunPhase() == AbilityRunPhase.Dash)
 			{
-				goto IL_97;
+				goto IL_0097;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -84,15 +135,16 @@ public class CardManagerData : MonoBehaviour
 			}
 		}
 		Debug.LogError("Did not find default Dash card or is in the wrong phase. Please check CardManagerData prefab");
-		IL_97:
-		GameObject cardPrefab3 = this.GetCardPrefab(this.m_defaultCombatCardType);
+		goto IL_0097;
+		IL_0097:
+		GameObject cardPrefab3 = GetCardPrefab(m_defaultCombatCardType);
 		if (!(cardPrefab3 == null))
 		{
 			if (cardPrefab3.GetComponent<Card>().GetAbilityRunPhase() == AbilityRunPhase.Combat)
 			{
-				goto IL_D3;
+				goto IL_00d3;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -103,350 +155,51 @@ public class CardManagerData : MonoBehaviour
 			}
 		}
 		Debug.LogError("Did not find default Combat card or is in the wrong phase. Please check CardManagerData prefab");
-		IL_D3:
-		this.m_phaseToCards.Add(AbilityRunPhase.Prep, new HashSet<CardType>());
-		this.m_phaseToCards.Add(AbilityRunPhase.Dash, new HashSet<CardType>());
-		this.m_phaseToCards.Add(AbilityRunPhase.Combat, new HashSet<CardType>());
-		for (int i = 0; i < this.m_cardIndex.Length; i++)
-		{
-			GameObject gameObject = this.m_cardIndex[i];
-			if (gameObject != null)
-			{
-				Card component = gameObject.GetComponent<Card>();
-				if (component != null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!component.m_isHidden)
-					{
-						AbilityRunPhase abilityRunPhase = component.GetAbilityRunPhase();
-						if (this.m_phaseToCards.ContainsKey(abilityRunPhase))
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_phaseToCards[abilityRunPhase].Add(component.m_cardType);
-						}
-					}
-				}
-			}
-		}
+		goto IL_00d3;
 	}
 
 	private void OnDestroy()
 	{
-		CardManagerData.s_instance = null;
+		s_instance = null;
 	}
 
 	internal GameObject[] GetCardIndex()
 	{
-		return this.m_cardIndex;
+		return m_cardIndex;
 	}
 
 	internal List<Card> GetUsableCardsByPhase(AbilityRunPhase cardAbilityPhase, bool ignoreHidden = true)
 	{
 		List<Card> list = new List<Card>();
-		CardType defaultCardType = this.GetDefaultCardType(cardAbilityPhase);
-		list.Add(this.GetCardByType(defaultCardType));
-		GameObject[] cardIndex = CardManagerData.Get().GetCardIndex();
-		foreach (GameObject gameObject in cardIndex)
+		CardType defaultCardType = GetDefaultCardType(cardAbilityPhase);
+		list.Add(GetCardByType(defaultCardType));
+		GameObject[] cardIndex = Get().GetCardIndex();
+		GameObject[] array = cardIndex;
+		foreach (GameObject gameObject in array)
 		{
-			if (gameObject != null)
+			if (!(gameObject != null))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CardManagerData.GetUsableCardsByPhase(AbilityRunPhase, bool)).MethodHandle;
-				}
-				Card component = gameObject.GetComponent<Card>();
-				if (component != null && component.GetAbilityRunPhase() == cardAbilityPhase)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (ignoreHidden)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (component.m_isHidden)
-						{
-							goto IL_BA;
-						}
-					}
-					if (component.m_cardType != defaultCardType)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						list.Add(component);
-					}
-				}
-			}
-			IL_BA:;
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-		return list;
-	}
-
-	public Card GetCardByType(CardType cardType)
-	{
-		return this.GetCardByTypeInt((int)cardType);
-	}
-
-	public Card GetCardByTypeInt(int cardTypeInt)
-	{
-		foreach (GameObject gameObject in this.m_cardIndex)
-		{
-			if (gameObject != null)
+			while (true)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CardManagerData.GetCardByTypeInt(int)).MethodHandle;
-				}
-				Card component = gameObject.GetComponent<Card>();
-				if (component != null)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (component.m_cardType == (CardType)cardTypeInt)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						return component;
-					}
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		return null;
-	}
-
-	public GameObject GetCardPrefab(CardType cardType)
-	{
-		foreach (GameObject gameObject in this.m_cardIndex)
-		{
-			if (gameObject != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CardManagerData.GetCardPrefab(CardType)).MethodHandle;
-				}
-				Card component = gameObject.GetComponent<Card>();
-				if (component.m_cardType == cardType)
-				{
-					return gameObject;
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		return null;
-	}
-
-	public List<GameObject> GetCardPrefabs(CharacterCardInfo cardInfo)
-	{
-		List<GameObject> list = new List<GameObject>();
-		if (cardInfo.PrepCard != CardType.None)
-		{
-			for (;;)
-			{
-				switch (2)
+				switch (5)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CardManagerData.GetCardPrefabs(CharacterCardInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			list.Add(this.GetCardPrefab(cardInfo.PrepCard));
-		}
-		if (cardInfo.CombatCard != CardType.None)
-		{
-			list.Add(this.GetCardPrefab(cardInfo.CombatCard));
-		}
-		if (cardInfo.DashCard != CardType.None)
-		{
-			for (;;)
+			Card component = gameObject.GetComponent<Card>();
+			if (!(component != null) || component.GetAbilityRunPhase() != cardAbilityPhase)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			list.Add(this.GetCardPrefab(cardInfo.DashCard));
-		}
-		return list;
-	}
-
-	public CardType GetDefaultPrepCardType()
-	{
-		return this.m_defaultPrepCardType;
-	}
-
-	public CardType GetDefaultDashCardType()
-	{
-		return this.m_defaultDashCardType;
-	}
-
-	public CardType GetDefaultCombatCardType()
-	{
-		return this.m_defaultCombatCardType;
-	}
-
-	public CardType GetDefaultCardType(AbilityRunPhase phase)
-	{
-		if (phase == AbilityRunPhase.Prep)
-		{
-			return this.GetDefaultPrepCardType();
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(CardManagerData.GetDefaultCardType(AbilityRunPhase)).MethodHandle;
-		}
-		if (phase == AbilityRunPhase.Dash)
-		{
-			return this.GetDefaultDashCardType();
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (phase != AbilityRunPhase.Combat)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return CardType.None;
-		}
-		return this.GetDefaultCombatCardType();
-	}
-
-	public bool IsCardTypePossibleInGame(CardType cardType, AbilityRunPhase cardPhase)
-	{
-		bool result = false;
-		if (this.m_phaseToCards.ContainsKey(cardPhase))
-		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -455,18 +208,274 @@ public class CardManagerData : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (ignoreHidden)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CardManagerData.IsCardTypePossibleInGame(CardType, AbilityRunPhase)).MethodHandle;
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (component.m_isHidden)
+				{
+					continue;
+				}
 			}
-			result = this.m_phaseToCards[cardPhase].Contains(cardType);
+			if (component.m_cardType != defaultCardType)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				list.Add(component);
+			}
 		}
-		return result;
+		while (true)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			return list;
+		}
 	}
 
-	public enum CardConsumeMode
+	public Card GetCardByType(CardType cardType)
 	{
-		OneUse,
-		ByCooldown
+		return GetCardByTypeInt((int)cardType);
+	}
+
+	public Card GetCardByTypeInt(int cardTypeInt)
+	{
+		GameObject[] cardIndex = m_cardIndex;
+		foreach (GameObject gameObject in cardIndex)
+		{
+			if (!(gameObject != null))
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			Card component = gameObject.GetComponent<Card>();
+			if (!(component != null))
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (component.m_cardType != (CardType)cardTypeInt)
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				return component;
+			}
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			return null;
+		}
+	}
+
+	public GameObject GetCardPrefab(CardType cardType)
+	{
+		GameObject[] cardIndex = m_cardIndex;
+		foreach (GameObject gameObject in cardIndex)
+		{
+			if (gameObject != null)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				Card component = gameObject.GetComponent<Card>();
+				if (component.m_cardType == cardType)
+				{
+					return gameObject;
+				}
+			}
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			return null;
+		}
+	}
+
+	public List<GameObject> GetCardPrefabs(CharacterCardInfo cardInfo)
+	{
+		List<GameObject> list = new List<GameObject>();
+		if (cardInfo.PrepCard != CardType.None)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			list.Add(GetCardPrefab(cardInfo.PrepCard));
+		}
+		if (cardInfo.CombatCard != CardType.None)
+		{
+			list.Add(GetCardPrefab(cardInfo.CombatCard));
+		}
+		if (cardInfo.DashCard != CardType.None)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			list.Add(GetCardPrefab(cardInfo.DashCard));
+		}
+		return list;
+	}
+
+	public CardType GetDefaultPrepCardType()
+	{
+		return m_defaultPrepCardType;
+	}
+
+	public CardType GetDefaultDashCardType()
+	{
+		return m_defaultDashCardType;
+	}
+
+	public CardType GetDefaultCombatCardType()
+	{
+		return m_defaultCombatCardType;
+	}
+
+	public CardType GetDefaultCardType(AbilityRunPhase phase)
+	{
+		if (phase != AbilityRunPhase.Prep)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (phase != AbilityRunPhase.Dash)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								break;
+							default:
+								if (phase != AbilityRunPhase.Combat)
+								{
+									while (true)
+									{
+										switch (7)
+										{
+										case 0:
+											break;
+										default:
+											return CardType.None;
+										}
+									}
+								}
+								return GetDefaultCombatCardType();
+							}
+						}
+					}
+					return GetDefaultDashCardType();
+				}
+			}
+		}
+		return GetDefaultPrepCardType();
+	}
+
+	public bool IsCardTypePossibleInGame(CardType cardType, AbilityRunPhase cardPhase)
+	{
+		bool result = false;
+		if (m_phaseToCards.ContainsKey(cardPhase))
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			result = m_phaseToCards[cardPhase].Contains(cardType);
+		}
+		return result;
 	}
 }

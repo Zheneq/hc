@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FireborgDash : GenericAbility_Container
@@ -42,33 +41,33 @@ public class FireborgDash : GenericAbility_Container
 	public override List<string> GetContextNamesForEditor()
 	{
 		List<string> contextNamesForEditor = base.GetContextNamesForEditor();
-		contextNamesForEditor.Add(Fireborg_SyncComponent.s_cvarSuperheated.\u0012());
+		contextNamesForEditor.Add(Fireborg_SyncComponent.s_cvarSuperheated.GetName());
 		return contextNamesForEditor;
 	}
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Fireborg_SyncComponent>();
+		m_syncComp = GetComponent<Fireborg_SyncComponent>();
 		base.SetupTargetersAndCachedVars();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		base.AddTokenInt(tokens, "GroundFireDuration", string.Empty, this.m_groundFireDuration, false);
-		base.AddTokenInt(tokens, "GroundFireDurationIfSuperheated", string.Empty, this.m_groundFireDurationIfSuperheated, false);
-		base.AddTokenInt(tokens, "ShieldPerEnemyHit", string.Empty, this.m_shieldPerEnemyHit, false);
-		base.AddTokenInt(tokens, "ShieldDuration", string.Empty, this.m_shieldDuration, false);
-		base.AddTokenInt(tokens, "CdrPerTurnIfLowHealth", string.Empty, this.m_cdrPerTurnIfLowHealth, false);
-		base.AddTokenInt(tokens, "LowHealthThresh", string.Empty, this.m_lowHealthThresh, false);
+		AddTokenInt(tokens, "GroundFireDuration", string.Empty, m_groundFireDuration);
+		AddTokenInt(tokens, "GroundFireDurationIfSuperheated", string.Empty, m_groundFireDurationIfSuperheated);
+		AddTokenInt(tokens, "ShieldPerEnemyHit", string.Empty, m_shieldPerEnemyHit);
+		AddTokenInt(tokens, "ShieldDuration", string.Empty, m_shieldDuration);
+		AddTokenInt(tokens, "CdrPerTurnIfLowHealth", string.Empty, m_cdrPerTurnIfLowHealth);
+		AddTokenInt(tokens, "LowHealthThresh", string.Empty, m_lowHealthThresh);
 	}
 
 	public bool AddGroundFire()
 	{
 		bool result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -77,15 +76,15 @@ public class FireborgDash : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDash.AddGroundFire()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_addGroundFireMod.GetModifiedValue(this.m_addGroundFire);
+			result = m_abilityMod.m_addGroundFireMod.GetModifiedValue(m_addGroundFire);
 		}
 		else
 		{
-			result = this.m_addGroundFire;
+			result = m_addGroundFire;
 		}
 		return result;
 	}
@@ -93,9 +92,9 @@ public class FireborgDash : GenericAbility_Container
 	public int GetGroundFireDuration()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -104,15 +103,15 @@ public class FireborgDash : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDash.GetGroundFireDuration()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_groundFireDurationMod.GetModifiedValue(this.m_groundFireDuration);
+			result = m_abilityMod.m_groundFireDurationMod.GetModifiedValue(m_groundFireDuration);
 		}
 		else
 		{
-			result = this.m_groundFireDuration;
+			result = m_groundFireDuration;
 		}
 		return result;
 	}
@@ -120,9 +119,9 @@ public class FireborgDash : GenericAbility_Container
 	public int GetGroundFireDurationIfSuperheated()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -131,30 +130,30 @@ public class FireborgDash : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDash.GetGroundFireDurationIfSuperheated()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_groundFireDurationIfSuperheatedMod.GetModifiedValue(this.m_groundFireDurationIfSuperheated);
+			result = m_abilityMod.m_groundFireDurationIfSuperheatedMod.GetModifiedValue(m_groundFireDurationIfSuperheated);
 		}
 		else
 		{
-			result = this.m_groundFireDurationIfSuperheated;
+			result = m_groundFireDurationIfSuperheated;
 		}
 		return result;
 	}
 
 	public bool IgniteIfNormal()
 	{
-		return (!(this.m_abilityMod != null)) ? this.m_igniteIfNormal : this.m_abilityMod.m_igniteIfNormalMod.GetModifiedValue(this.m_igniteIfNormal);
+		return (!(m_abilityMod != null)) ? m_igniteIfNormal : m_abilityMod.m_igniteIfNormalMod.GetModifiedValue(m_igniteIfNormal);
 	}
 
 	public bool IgniteIfSuperheated()
 	{
 		bool result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -163,15 +162,15 @@ public class FireborgDash : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDash.IgniteIfSuperheated()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_igniteIfSuperheatedMod.GetModifiedValue(this.m_igniteIfSuperheated);
+			result = m_abilityMod.m_igniteIfSuperheatedMod.GetModifiedValue(m_igniteIfSuperheated);
 		}
 		else
 		{
-			result = this.m_igniteIfSuperheated;
+			result = m_igniteIfSuperheated;
 		}
 		return result;
 	}
@@ -179,9 +178,9 @@ public class FireborgDash : GenericAbility_Container
 	public int GetShieldPerEnemyHit()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -190,15 +189,15 @@ public class FireborgDash : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDash.GetShieldPerEnemyHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(this.m_shieldPerEnemyHit);
+			result = m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(m_shieldPerEnemyHit);
 		}
 		else
 		{
-			result = this.m_shieldPerEnemyHit;
+			result = m_shieldPerEnemyHit;
 		}
 		return result;
 	}
@@ -206,9 +205,9 @@ public class FireborgDash : GenericAbility_Container
 	public int GetShieldDuration()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -217,44 +216,44 @@ public class FireborgDash : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDash.GetShieldDuration()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_shieldDurationMod.GetModifiedValue(this.m_shieldDuration);
+			result = m_abilityMod.m_shieldDurationMod.GetModifiedValue(m_shieldDuration);
 		}
 		else
 		{
-			result = this.m_shieldDuration;
+			result = m_shieldDuration;
 		}
 		return result;
 	}
 
 	public int GetCdrPerTurnIfLowHealth()
 	{
-		return (!(this.m_abilityMod != null)) ? this.m_cdrPerTurnIfLowHealth : this.m_abilityMod.m_cdrPerTurnIfLowHealthMod.GetModifiedValue(this.m_cdrPerTurnIfLowHealth);
+		return (!(m_abilityMod != null)) ? m_cdrPerTurnIfLowHealth : m_abilityMod.m_cdrPerTurnIfLowHealthMod.GetModifiedValue(m_cdrPerTurnIfLowHealth);
 	}
 
 	public int GetLowHealthThresh()
 	{
-		return (!(this.m_abilityMod != null)) ? this.m_lowHealthThresh : this.m_abilityMod.m_lowHealthThreshMod.GetModifiedValue(this.m_lowHealthThresh);
+		return (!(m_abilityMod != null)) ? m_lowHealthThresh : m_abilityMod.m_lowHealthThreshMod.GetModifiedValue(m_lowHealthThresh);
 	}
 
 	public override void PreProcessTargetingNumbers(ActorData targetActor, int currentTargetIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext)
 	{
-		this.m_syncComp.SetSuperheatedContextVar(abilityContext);
+		m_syncComp.SetSuperheatedContextVar(abilityContext);
 	}
 
 	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
 	{
-		IceborgConeOrLaser.SetShieldPerEnemyHitTargetingNumbers(targetActor, caster, this.GetShieldPerEnemyHit(), actorHitContext, results);
+		IceborgConeOrLaser.SetShieldPerEnemyHitTargetingNumbers(targetActor, caster, GetShieldPerEnemyHit(), actorHitContext, results);
 	}
 
 	public override string GetAccessoryTargeterNumberString(ActorData targetActor, AbilityTooltipSymbol symbolType, int baseValue)
 	{
-		if (this.AddGroundFire())
+		if (AddGroundFire())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -263,22 +262,22 @@ public class FireborgDash : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDash.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_syncComp.m_actorsInGroundFireOnTurnStart.Contains((uint)targetActor.ActorIndex))
+			if (!m_syncComp.m_actorsInGroundFireOnTurnStart.Contains((uint)targetActor.ActorIndex))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 					}
-					break;
 				}
-				return this.m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 			}
 		}
 		return null;
@@ -286,11 +285,11 @@ public class FireborgDash : GenericAbility_Container
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		this.m_abilityMod = (abilityMod as AbilityMod_FireborgDash);
+		m_abilityMod = (abilityMod as AbilityMod_FireborgDash);
 	}
 
 	protected override void GenModImpl_ClearModRef()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 }

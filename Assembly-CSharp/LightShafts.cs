@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Light))]
@@ -33,7 +33,7 @@ public class LightShafts : MonoBehaviour
 
 	public float m_MinDistFromCamera;
 
-	public int m_ShadowmapRes = 0x400;
+	public int m_ShadowmapRes = 1024;
 
 	private Camera m_ShadowmapCamera;
 
@@ -49,9 +49,9 @@ public class LightShafts : MonoBehaviour
 
 	public float m_ColorBalance = 1f;
 
-	public int m_EpipolarLines = 0x100;
+	public int m_EpipolarLines = 256;
 
-	public int m_EpipolarSamples = 0x200;
+	public int m_EpipolarSamples = 512;
 
 	private RenderTexture m_CoordEpi;
 
@@ -95,7 +95,7 @@ public class LightShafts : MonoBehaviour
 
 	public float m_DepthThreshold = 0.5f;
 
-	public int m_InterpolationStep = 0x20;
+	public int m_InterpolationStep = 32;
 
 	public bool m_ShowSamples;
 
@@ -127,157 +127,168 @@ public class LightShafts : MonoBehaviour
 
 	private float m_SpotMeshRange = -1f;
 
+	public bool directional => m_LightType == LightType.Directional;
+
+	public bool spot => m_LightType == LightType.Spot;
+
 	private void InitLUTs()
 	{
-		if (this.m_AttenuationCurveTex)
+		if ((bool)m_AttenuationCurveTex)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
+			}
+		}
+		m_AttenuationCurveTex = new Texture2D(256, 1, TextureFormat.ARGB32, false, true);
+		m_AttenuationCurveTex.wrapMode = TextureWrapMode.Clamp;
+		m_AttenuationCurveTex.hideFlags = HideFlags.HideAndDontSave;
+		if (m_AttenuationCurve != null)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
 				break;
 			}
-			if (!true)
+			if (m_AttenuationCurve.length != 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.InitLUTs()).MethodHandle;
+				goto IL_00c2;
 			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		m_AttenuationCurve = new AnimationCurve(new Keyframe(0f, 1f), new Keyframe(1f, 1f));
+		goto IL_00c2;
+		IL_00c2:
+		if (!m_AttenuationCurveTex)
+		{
 			return;
 		}
-		this.m_AttenuationCurveTex = new Texture2D(0x100, 1, TextureFormat.ARGB32, false, true);
-		this.m_AttenuationCurveTex.wrapMode = TextureWrapMode.Clamp;
-		this.m_AttenuationCurveTex.hideFlags = HideFlags.HideAndDontSave;
-		if (this.m_AttenuationCurve != null)
+		while (true)
 		{
-			for (;;)
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.m_AttenuationCurve.length != 0)
-			{
-				goto IL_C2;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		this.m_AttenuationCurve = new AnimationCurve(new Keyframe[]
-		{
-			new Keyframe(0f, 1f),
-			new Keyframe(1f, 1f)
-		});
-		IL_C2:
-		if (this.m_AttenuationCurveTex)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.UpdateLUTs();
+			UpdateLUTs();
+			return;
 		}
 	}
 
 	public void UpdateLUTs()
 	{
-		this.InitLUTs();
-		if (this.m_AttenuationCurve == null)
+		InitLUTs();
+		if (m_AttenuationCurve == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.UpdateLUTs()).MethodHandle;
-			}
-			return;
 		}
-		for (int i = 0; i < 0x100; i++)
+		for (int i = 0; i < 256; i++)
 		{
-			float num = Mathf.Clamp(this.m_AttenuationCurve.Evaluate((float)i / 255f), 0f, 1f);
-			this.m_AttenuationCurveTex.SetPixel(i, 0, new Color(num, num, num, num));
+			float num = Mathf.Clamp(m_AttenuationCurve.Evaluate((float)i / 255f), 0f, 1f);
+			m_AttenuationCurveTex.SetPixel(i, 0, new Color(num, num, num, num));
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			m_AttenuationCurveTex.Apply();
+			return;
 		}
-		this.m_AttenuationCurveTex.Apply();
 	}
 
-	private unsafe void InitRenderTexture(ref RenderTexture rt, int width, int height, int depth, RenderTextureFormat format, bool temp = true)
+	private void InitRenderTexture(ref RenderTexture rt, int width, int height, int depth, RenderTextureFormat format, bool temp = true)
 	{
 		if (temp)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					rt = RenderTexture.GetTemporary(width, height, depth, format);
+					return;
+				}
+			}
+		}
+		if (rt != null)
+		{
+			while (true)
+			{
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (rt.width == width)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.InitRenderTexture(RenderTexture*, int, int, int, RenderTextureFormat, bool)).MethodHandle;
-			}
-			rt = RenderTexture.GetTemporary(width, height, depth, format);
-		}
-		else
-		{
-			if (rt != null)
-			{
-				for (;;)
+				while (true)
 				{
-					switch (4)
+					switch (3)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (rt.width == width)
+				if (rt.height == height)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (3)
+						switch (2)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (rt.height == height)
+					if (rt.depth == depth)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -286,38 +297,26 @@ public class LightShafts : MonoBehaviour
 							}
 							break;
 						}
-						if (rt.depth == depth)
+						if (rt.format == format)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (rt.format == format)
-							{
-								return;
-							}
+							return;
 						}
 					}
 				}
-				rt.Release();
-				UnityEngine.Object.DestroyImmediate(rt);
 			}
-			rt = new RenderTexture(width, height, depth, format);
-			rt.hideFlags = HideFlags.HideAndDontSave;
+			rt.Release();
+			UnityEngine.Object.DestroyImmediate(rt);
 		}
+		rt = new RenderTexture(width, height, depth, format);
+		rt.hideFlags = HideFlags.HideAndDontSave;
 	}
 
 	private void InitShadowmap()
 	{
-		bool flag = this.m_ShadowmapMode == LightShaftsShadowmapMode.Dynamic;
-		if (flag && this.m_ShadowmapMode != this.m_ShadowmapModeOld)
+		bool flag = m_ShadowmapMode == LightShaftsShadowmapMode.Dynamic;
+		if (flag && m_ShadowmapMode != m_ShadowmapModeOld)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -326,13 +325,13 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.InitShadowmap()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_Shadowmap)
+			if ((bool)m_Shadowmap)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -341,11 +340,11 @@ public class LightShafts : MonoBehaviour
 					}
 					break;
 				}
-				this.m_Shadowmap.Release();
+				m_Shadowmap.Release();
 			}
-			if (this.m_ColorFilter)
+			if ((bool)m_ColorFilter)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -354,15 +353,15 @@ public class LightShafts : MonoBehaviour
 					}
 					break;
 				}
-				this.m_ColorFilter.Release();
+				m_ColorFilter.Release();
 			}
 		}
-		this.InitRenderTexture(ref this.m_Shadowmap, this.m_ShadowmapRes, this.m_ShadowmapRes, 0x18, RenderTextureFormat.RFloat, flag);
-		this.m_Shadowmap.filterMode = FilterMode.Point;
-		this.m_Shadowmap.wrapMode = TextureWrapMode.Clamp;
-		if (this.m_Colored)
+		InitRenderTexture(ref m_Shadowmap, m_ShadowmapRes, m_ShadowmapRes, 24, RenderTextureFormat.RFloat, flag);
+		m_Shadowmap.filterMode = FilterMode.Point;
+		m_Shadowmap.wrapMode = TextureWrapMode.Clamp;
+		if (m_Colored)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -371,49 +370,49 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			this.InitRenderTexture(ref this.m_ColorFilter, this.m_ShadowmapRes, this.m_ShadowmapRes, 0, RenderTextureFormat.ARGB32, flag);
+			InitRenderTexture(ref m_ColorFilter, m_ShadowmapRes, m_ShadowmapRes, 0, RenderTextureFormat.ARGB32, flag);
 		}
-		this.m_ShadowmapModeOld = this.m_ShadowmapMode;
+		m_ShadowmapModeOld = m_ShadowmapMode;
 	}
 
 	private void ReleaseShadowmap()
 	{
-		if (this.m_ShadowmapMode == LightShaftsShadowmapMode.Static)
+		if (m_ShadowmapMode == LightShaftsShadowmapMode.Static)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.ReleaseShadowmap()).MethodHandle;
-			}
-			return;
 		}
-		RenderTexture.ReleaseTemporary(this.m_Shadowmap);
-		RenderTexture.ReleaseTemporary(this.m_ColorFilter);
+		RenderTexture.ReleaseTemporary(m_Shadowmap);
+		RenderTexture.ReleaseTemporary(m_ColorFilter);
 	}
 
 	private void InitEpipolarTextures()
 	{
-		this.m_EpipolarLines = ((this.m_EpipolarLines >= 8) ? this.m_EpipolarLines : 8);
-		this.m_EpipolarSamples = ((this.m_EpipolarSamples >= 4) ? this.m_EpipolarSamples : 4);
-		this.InitRenderTexture(ref this.m_CoordEpi, this.m_EpipolarSamples, this.m_EpipolarLines, 0, RenderTextureFormat.RGFloat, true);
-		this.m_CoordEpi.filterMode = FilterMode.Point;
-		this.InitRenderTexture(ref this.m_DepthEpi, this.m_EpipolarSamples, this.m_EpipolarLines, 0, RenderTextureFormat.RFloat, true);
-		this.m_DepthEpi.filterMode = FilterMode.Point;
-		int epipolarSamples = this.m_EpipolarSamples;
-		int epipolarLines = this.m_EpipolarLines;
-		int depth = 0;
-		RenderTextureFormat format;
-		if (this.m_DX11Support)
+		m_EpipolarLines = ((m_EpipolarLines >= 8) ? m_EpipolarLines : 8);
+		m_EpipolarSamples = ((m_EpipolarSamples >= 4) ? m_EpipolarSamples : 4);
+		InitRenderTexture(ref m_CoordEpi, m_EpipolarSamples, m_EpipolarLines, 0, RenderTextureFormat.RGFloat);
+		m_CoordEpi.filterMode = FilterMode.Point;
+		InitRenderTexture(ref m_DepthEpi, m_EpipolarSamples, m_EpipolarLines, 0, RenderTextureFormat.RFloat);
+		m_DepthEpi.filterMode = FilterMode.Point;
+		ref RenderTexture interpolationEpi = ref m_InterpolationEpi;
+		int epipolarSamples = m_EpipolarSamples;
+		int epipolarLines = m_EpipolarLines;
+		int format;
+		if (m_DX11Support)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -422,65 +421,65 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.InitEpipolarTextures()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			format = RenderTextureFormat.RGInt;
+			format = 18;
 		}
 		else
 		{
-			format = RenderTextureFormat.RGFloat;
+			format = 12;
 		}
-		this.InitRenderTexture(ref this.m_InterpolationEpi, epipolarSamples, epipolarLines, depth, format, true);
-		this.m_InterpolationEpi.filterMode = FilterMode.Point;
-		this.InitRenderTexture(ref this.m_RaymarchedLightEpi, this.m_EpipolarSamples, this.m_EpipolarLines, 0x18, RenderTextureFormat.ARGBFloat, true);
-		this.m_RaymarchedLightEpi.filterMode = FilterMode.Point;
-		this.InitRenderTexture(ref this.m_InterpolateAlongRaysEpi, this.m_EpipolarSamples, this.m_EpipolarLines, 0, RenderTextureFormat.ARGBFloat, true);
-		this.m_InterpolateAlongRaysEpi.filterMode = FilterMode.Point;
+		InitRenderTexture(ref interpolationEpi, epipolarSamples, epipolarLines, 0, (RenderTextureFormat)format);
+		m_InterpolationEpi.filterMode = FilterMode.Point;
+		InitRenderTexture(ref m_RaymarchedLightEpi, m_EpipolarSamples, m_EpipolarLines, 24, RenderTextureFormat.ARGBFloat);
+		m_RaymarchedLightEpi.filterMode = FilterMode.Point;
+		InitRenderTexture(ref m_InterpolateAlongRaysEpi, m_EpipolarSamples, m_EpipolarLines, 0, RenderTextureFormat.ARGBFloat);
+		m_InterpolateAlongRaysEpi.filterMode = FilterMode.Point;
 	}
 
-	private unsafe void InitMaterial(ref Material material, Shader shader)
+	private void InitMaterial(ref Material material, Shader shader)
 	{
-		if (!material)
+		if ((bool)material)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.InitMaterial(Material*, Shader)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (shader)
+			if ((bool)shader)
 			{
 				material = new Material(shader);
 				material.hideFlags = HideFlags.HideAndDontSave;
-				return;
 			}
+			return;
 		}
 	}
 
 	private void InitMaterials()
 	{
-		this.InitMaterial(ref this.m_FinalInterpolationMaterial, this.m_FinalInterpolationShader);
-		this.InitMaterial(ref this.m_CoordMaterial, this.m_CoordShader);
-		this.InitMaterial(ref this.m_SamplePositionsMaterial, this.m_SamplePositionsShader);
-		this.InitMaterial(ref this.m_RaymarchMaterial, this.m_RaymarchShader);
-		this.InitMaterial(ref this.m_DepthBreaksMaterial, this.m_DepthBreaksShader);
-		this.InitMaterial(ref this.m_InterpolateAlongRaysMaterial, this.m_InterpolateAlongRaysShader);
+		InitMaterial(ref m_FinalInterpolationMaterial, m_FinalInterpolationShader);
+		InitMaterial(ref m_CoordMaterial, m_CoordShader);
+		InitMaterial(ref m_SamplePositionsMaterial, m_SamplePositionsShader);
+		InitMaterial(ref m_RaymarchMaterial, m_RaymarchShader);
+		InitMaterial(ref m_DepthBreaksMaterial, m_DepthBreaksShader);
+		InitMaterial(ref m_InterpolateAlongRaysMaterial, m_InterpolateAlongRaysShader);
 	}
 
 	private void InitSpotFrustumMesh()
 	{
-		if (!this.m_SpotMesh)
+		if (!m_SpotMesh)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -489,17 +488,17 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.InitSpotFrustumMesh()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_SpotMesh = new Mesh();
-			this.m_SpotMesh.hideFlags = HideFlags.HideAndDontSave;
+			m_SpotMesh = new Mesh();
+			m_SpotMesh.hideFlags = HideFlags.HideAndDontSave;
 		}
-		Light light = this.m_Light;
-		if (this.m_SpotMeshNear == this.m_SpotNear && this.m_SpotMeshFar == this.m_SpotFar && this.m_SpotMeshAngle == light.spotAngle)
+		Light light = m_Light;
+		if (m_SpotMeshNear == m_SpotNear && m_SpotMeshFar == m_SpotFar && m_SpotMeshAngle == light.spotAngle)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -508,11 +507,11 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			if (this.m_SpotMeshRange == light.range)
+			if (m_SpotMeshRange == light.range)
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -522,15 +521,15 @@ public class LightShafts : MonoBehaviour
 				break;
 			}
 		}
-		float num = light.range * this.m_SpotFar;
-		float num2 = light.range * this.m_SpotNear;
-		float num3 = Mathf.Tan(light.spotAngle * 0.0174532924f * 0.5f);
+		float num = light.range * m_SpotFar;
+		float num2 = light.range * m_SpotNear;
+		float num3 = Mathf.Tan(light.spotAngle * ((float)Math.PI / 180f) * 0.5f);
 		float num4 = num * num3;
 		float num5 = num2 * num3;
 		Vector3[] array;
-		if (this.m_SpotMesh.vertices != null)
+		if (m_SpotMesh.vertices != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -539,31 +538,38 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			if (this.m_SpotMesh.vertices.Length == 8)
+			if (m_SpotMesh.vertices.Length == 8)
 			{
-				array = this.m_SpotMesh.vertices;
-				goto IL_110;
+				array = m_SpotMesh.vertices;
+				goto IL_0110;
 			}
 		}
 		array = new Vector3[8];
-		IL_110:
+		goto IL_0110;
+		IL_023a:
+		m_SpotMeshNear = m_SpotNear;
+		m_SpotMeshFar = m_SpotFar;
+		m_SpotMeshAngle = light.spotAngle;
+		m_SpotMeshRange = light.range;
+		return;
+		IL_0110:
 		Vector3[] array2 = array;
-		array2[0] = new Vector3(-num4, -num4, num);
-		array2[1] = new Vector3(num4, -num4, num);
+		array2[0] = new Vector3(0f - num4, 0f - num4, num);
+		array2[1] = new Vector3(num4, 0f - num4, num);
 		array2[2] = new Vector3(num4, num4, num);
-		array2[3] = new Vector3(-num4, num4, num);
-		array2[4] = new Vector3(-num5, -num5, num2);
-		array2[5] = new Vector3(num5, -num5, num2);
+		array2[3] = new Vector3(0f - num4, num4, num);
+		array2[4] = new Vector3(0f - num5, 0f - num5, num2);
+		array2[5] = new Vector3(num5, 0f - num5, num2);
 		array2[6] = new Vector3(num5, num5, num2);
-		array2[7] = new Vector3(-num5, num5, num2);
-		this.m_SpotMesh.vertices = array2;
-		if (this.m_SpotMesh.GetTopology(0) == MeshTopology.Triangles && this.m_SpotMesh.triangles != null)
+		array2[7] = new Vector3(0f - num5, num5, num2);
+		m_SpotMesh.vertices = array2;
+		if (m_SpotMesh.GetTopology(0) == MeshTopology.Triangles && m_SpotMesh.triangles != null)
 		{
-			if (this.m_SpotMesh.triangles.Length == 0x24)
+			if (m_SpotMesh.triangles.Length == 36)
 			{
-				goto IL_23A;
+				goto IL_023a;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -573,7 +579,7 @@ public class LightShafts : MonoBehaviour
 				break;
 			}
 		}
-		int[] triangles = new int[]
+		int[] triangles = new int[36]
 		{
 			0,
 			1,
@@ -612,19 +618,15 @@ public class LightShafts : MonoBehaviour
 			0,
 			4
 		};
-		this.m_SpotMesh.triangles = triangles;
-		IL_23A:
-		this.m_SpotMeshNear = this.m_SpotNear;
-		this.m_SpotMeshFar = this.m_SpotFar;
-		this.m_SpotMeshAngle = light.spotAngle;
-		this.m_SpotMeshRange = light.range;
+		m_SpotMesh.triangles = triangles;
+		goto IL_023a;
 	}
 
 	public void UpdateLightType()
 	{
-		if (this.m_Light == null)
+		if (m_Light == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -633,13 +635,13 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.UpdateLightType()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_Light = base.GetComponent<Light>();
+			m_Light = GetComponent<Light>();
 		}
-		this.m_LightType = this.m_Light.type;
+		m_LightType = m_Light.type;
 	}
 
 	private bool ShaderCompiles(Shader shader)
@@ -654,13 +656,13 @@ public class LightShafts : MonoBehaviour
 
 	public bool CheckMinRequirements()
 	{
-		this.m_DX11Support = (SystemInfo.graphicsShaderLevel >= 0x32);
-		this.m_MinRequirements = (SystemInfo.graphicsShaderLevel >= 0x1E);
-		this.m_MinRequirements &= SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.RGFloat);
-		this.m_MinRequirements &= SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.RFloat);
-		if (!this.m_MinRequirements)
+		m_DX11Support = (SystemInfo.graphicsShaderLevel >= 50);
+		m_MinRequirements = (SystemInfo.graphicsShaderLevel >= 30);
+		m_MinRequirements &= SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.RGFloat);
+		m_MinRequirements &= SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.RFloat);
+		if (!m_MinRequirements)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -669,16 +671,16 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.CheckMinRequirements()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Debug.LogError("LightShafts require Shader Model 3.0 and render textures (including the RGFloat and RFloat) formats. Disabling.");
 		}
-		bool flag;
-		if (this.ShaderCompiles(this.m_DepthShader))
+		int num;
+		if (ShaderCompiles(m_DepthShader))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -687,9 +689,9 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			if (this.ShaderCompiles(this.m_ColorFilterShader))
+			if (ShaderCompiles(m_ColorFilterShader))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -698,9 +700,9 @@ public class LightShafts : MonoBehaviour
 					}
 					break;
 				}
-				if (this.ShaderCompiles(this.m_CoordShader) && this.ShaderCompiles(this.m_DepthBreaksShader))
+				if (ShaderCompiles(m_CoordShader) && ShaderCompiles(m_DepthBreaksShader))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -709,9 +711,9 @@ public class LightShafts : MonoBehaviour
 						}
 						break;
 					}
-					if (this.ShaderCompiles(this.m_RaymarchShader) && this.ShaderCompiles(this.m_InterpolateAlongRaysShader))
+					if (ShaderCompiles(m_RaymarchShader) && ShaderCompiles(m_InterpolateAlongRaysShader))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -720,18 +722,19 @@ public class LightShafts : MonoBehaviour
 							}
 							break;
 						}
-						flag = this.ShaderCompiles(this.m_FinalInterpolationShader);
-						goto IL_10B;
+						num = (ShaderCompiles(m_FinalInterpolationShader) ? 1 : 0);
+						goto IL_010b;
 					}
 				}
 			}
 		}
-		flag = false;
-		IL_10B:
-		bool flag2 = flag;
-		if (!flag2)
+		num = 0;
+		goto IL_010b;
+		IL_010b:
+		bool flag = (byte)num != 0;
+		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -742,136 +745,124 @@ public class LightShafts : MonoBehaviour
 			}
 			Debug.LogError("LightShafts require above shaders. Disabling.");
 		}
-		this.m_MinRequirements = (this.m_MinRequirements && flag2);
-		this.m_SamplePositionsShaderCompiles = this.m_SamplePositionsShader.isSupported;
-		return this.m_MinRequirements;
+		m_MinRequirements &= flag;
+		m_SamplePositionsShaderCompiles = m_SamplePositionsShader.isSupported;
+		return m_MinRequirements;
 	}
 
 	private void InitResources()
 	{
-		this.UpdateLightType();
-		this.InitMaterials();
-		this.InitEpipolarTextures();
-		this.InitLUTs();
-		this.InitSpotFrustumMesh();
+		UpdateLightType();
+		InitMaterials();
+		InitEpipolarTextures();
+		InitLUTs();
+		InitSpotFrustumMesh();
 	}
 
 	private void ReleaseResources()
 	{
-		this.ReleaseShadowmap();
-		RenderTexture.ReleaseTemporary(this.m_CoordEpi);
-		RenderTexture.ReleaseTemporary(this.m_DepthEpi);
-		RenderTexture.ReleaseTemporary(this.m_InterpolationEpi);
-		RenderTexture.ReleaseTemporary(this.m_RaymarchedLightEpi);
-		RenderTexture.ReleaseTemporary(this.m_InterpolateAlongRaysEpi);
-	}
-
-	public bool directional
-	{
-		get
-		{
-			return this.m_LightType == LightType.Directional;
-		}
-	}
-
-	public bool spot
-	{
-		get
-		{
-			return this.m_LightType == LightType.Spot;
-		}
+		ReleaseShadowmap();
+		RenderTexture.ReleaseTemporary(m_CoordEpi);
+		RenderTexture.ReleaseTemporary(m_DepthEpi);
+		RenderTexture.ReleaseTemporary(m_InterpolationEpi);
+		RenderTexture.ReleaseTemporary(m_RaymarchedLightEpi);
+		RenderTexture.ReleaseTemporary(m_InterpolateAlongRaysEpi);
 	}
 
 	private Bounds GetBoundsLocal()
 	{
-		if (this.directional)
+		if (directional)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return new Bounds(new Vector3(0f, 0f, m_Size.z * 0.5f), m_Size);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.GetBoundsLocal()).MethodHandle;
-			}
-			return new Bounds(new Vector3(0f, 0f, this.m_Size.z * 0.5f), this.m_Size);
 		}
-		Light light = this.m_Light;
-		Vector3 center = new Vector3(0f, 0f, light.range * (this.m_SpotFar + this.m_SpotNear) * 0.5f);
-		float z = (this.m_SpotFar - this.m_SpotNear) * light.range;
-		float num = Mathf.Tan(light.spotAngle * 0.0174532924f * 0.5f) * this.m_SpotFar * light.range * 2f;
+		Light light = m_Light;
+		Vector3 center = new Vector3(0f, 0f, light.range * (m_SpotFar + m_SpotNear) * 0.5f);
+		float z = (m_SpotFar - m_SpotNear) * light.range;
+		float num = Mathf.Tan(light.spotAngle * ((float)Math.PI / 180f) * 0.5f) * m_SpotFar * light.range * 2f;
 		return new Bounds(center, new Vector3(num, num, z));
 	}
 
 	private Matrix4x4 GetBoundsMatrix()
 	{
-		Bounds boundsLocal = this.GetBoundsLocal();
+		Bounds boundsLocal = GetBoundsLocal();
 		Transform transform = base.transform;
-		return Matrix4x4.TRS(transform.position + transform.forward * boundsLocal.center.z, transform.rotation, boundsLocal.size);
+		Vector3 position = transform.position;
+		Vector3 forward = transform.forward;
+		Vector3 center = boundsLocal.center;
+		return Matrix4x4.TRS(position + forward * center.z, transform.rotation, boundsLocal.size);
 	}
 
 	private float GetFrustumApex()
 	{
-		return -this.m_SpotNear / (this.m_SpotFar - this.m_SpotNear) - 0.5f;
+		return (0f - m_SpotNear) / (m_SpotFar - m_SpotNear) - 0.5f;
 	}
 
 	private void OnDrawGizmosSelected()
 	{
-		this.UpdateLightType();
+		UpdateLightType();
 		Gizmos.color = Color.yellow;
-		if (this.directional)
+		if (directional)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Gizmos.matrix = GetBoundsMatrix();
+					Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.OnDrawGizmosSelected()).MethodHandle;
-			}
-			Gizmos.matrix = this.GetBoundsMatrix();
-			Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
 		}
-		else if (this.spot)
+		if (!spot)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			Transform transform = base.transform;
-			Light light = this.m_Light;
+			Light light = m_Light;
 			Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
-			Gizmos.DrawFrustum(transform.position, light.spotAngle, light.range * this.m_SpotFar, light.range * this.m_SpotNear, 1f);
+			Gizmos.DrawFrustum(transform.position, light.spotAngle, light.range * m_SpotFar, light.range * m_SpotNear, 1f);
+			return;
 		}
 	}
 
 	private void RenderQuadSections(Vector4 lightPos)
 	{
-		int i = 0;
-		while (i < 4)
+		for (int i = 0; i < 4; i++)
 		{
-			if (i != 0)
+			if (i == 0)
 			{
-				goto IL_2E;
-			}
-			if (lightPos.y <= 1f)
-			{
-				for (;;)
+				if (lightPos.y > 1f)
+				{
+					continue;
+				}
+				while (true)
 				{
 					switch (3)
 					{
@@ -880,22 +871,14 @@ public class LightShafts : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.RenderQuadSections(Vector4)).MethodHandle;
-					goto IL_2E;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				goto IL_2E;
 			}
-			IL_104:
-			i++;
-			continue;
-			IL_A0:
-			goto IL_104;
-			IL_2E:
 			if (i == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -906,9 +889,9 @@ public class LightShafts : MonoBehaviour
 				}
 				if (lightPos.x > 1f)
 				{
-					goto IL_A0;
+					continue;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -920,7 +903,7 @@ public class LightShafts : MonoBehaviour
 			}
 			if (i == 2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -931,9 +914,9 @@ public class LightShafts : MonoBehaviour
 				}
 				if (lightPos.y < -1f)
 				{
-					goto IL_A0;
+					continue;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -945,7 +928,7 @@ public class LightShafts : MonoBehaviour
 			}
 			if (i == 3)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -956,15 +939,16 @@ public class LightShafts : MonoBehaviour
 				}
 				if (lightPos.x < -1f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
 							continue;
 						}
-						goto IL_A0;
+						break;
 					}
+					continue;
 				}
 			}
 			float num = (float)i / 2f - 1f;
@@ -975,16 +959,16 @@ public class LightShafts : MonoBehaviour
 			GL.Vertex3(1f, y, 0f);
 			GL.Vertex3(-1f, y, 0f);
 			GL.End();
-			goto IL_104;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
@@ -1004,15 +988,15 @@ public class LightShafts : MonoBehaviour
 
 	private void RenderSpotFrustum()
 	{
-		Graphics.DrawMeshNow(this.m_SpotMesh, base.transform.position, base.transform.rotation);
+		Graphics.DrawMeshNow(m_SpotMesh, base.transform.position, base.transform.rotation);
 	}
 
 	private Vector4 GetLightViewportPos()
 	{
 		Vector3 position = base.transform.position;
-		if (this.directional)
+		if (directional)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1021,58 +1005,58 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.GetLightViewportPos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			position = this.m_CurrentCamera.transform.position + base.transform.forward;
+			position = m_CurrentCamera.transform.position + base.transform.forward;
 		}
-		Vector3 vector = this.m_CurrentCamera.WorldToViewportPoint(position);
+		Vector3 vector = m_CurrentCamera.WorldToViewportPoint(position);
 		return new Vector4(vector.x * 2f - 1f, vector.y * 2f - 1f, 0f, 0f);
 	}
 
 	private bool IsVisible()
 	{
-		Matrix4x4 worldToProjectionMatrix = this.m_CurrentCamera.projectionMatrix * this.m_CurrentCamera.worldToCameraMatrix * base.transform.localToWorldMatrix;
-		return GeometryUtility.TestPlanesAABB(GeometryUtility.CalculateFrustumPlanes(worldToProjectionMatrix), this.GetBoundsLocal());
+		Matrix4x4 worldToProjectionMatrix = m_CurrentCamera.projectionMatrix * m_CurrentCamera.worldToCameraMatrix * base.transform.localToWorldMatrix;
+		return GeometryUtility.TestPlanesAABB(GeometryUtility.CalculateFrustumPlanes(worldToProjectionMatrix), GetBoundsLocal());
 	}
 
 	private bool IntersectsNearPlane()
 	{
-		Vector3[] vertices = this.m_SpotMesh.vertices;
-		float num = this.m_CurrentCamera.nearClipPlane - 0.001f;
+		Vector3[] vertices = m_SpotMesh.vertices;
+		float num = m_CurrentCamera.nearClipPlane - 0.001f;
 		Transform transform = base.transform;
 		for (int i = 0; i < vertices.Length; i++)
 		{
-			float z = this.m_CurrentCamera.WorldToViewportPoint(transform.TransformPoint(vertices[i])).z;
-			if (z < num)
+			Vector3 vector = m_CurrentCamera.WorldToViewportPoint(transform.TransformPoint(vertices[i]));
+			float z = vector.z;
+			if (!(z < num))
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.IntersectsNearPlane()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				return true;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return false;
 		}
-		return false;
 	}
 
 	private void SetKeyword(bool firstOn, string firstKeyword, string secondKeyword)
@@ -1081,7 +1065,7 @@ public class LightShafts : MonoBehaviour
 		string keyword;
 		if (firstOn)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1090,9 +1074,9 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.SetKeyword(bool, string, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			keyword = secondKeyword;
 		}
@@ -1105,15 +1089,15 @@ public class LightShafts : MonoBehaviour
 
 	public void SetShadowmapDirty()
 	{
-		this.m_ShadowmapDirty = true;
+		m_ShadowmapDirty = true;
 	}
 
-	private unsafe void GetFrustumRays(out Matrix4x4 frustumRays, out Vector3 cameraPosLocal)
+	private void GetFrustumRays(out Matrix4x4 frustumRays, out Vector3 cameraPosLocal)
 	{
-		float farClipPlane = this.m_CurrentCamera.farClipPlane;
-		Vector3 position = this.m_CurrentCamera.transform.position;
-		Matrix4x4 inverse = this.GetBoundsMatrix().inverse;
-		Vector2[] array = new Vector2[]
+		float farClipPlane = m_CurrentCamera.farClipPlane;
+		Vector3 position = m_CurrentCamera.transform.position;
+		Matrix4x4 inverse = GetBoundsMatrix().inverse;
+		Vector2[] array = new Vector2[4]
 		{
 			new Vector2(0f, 0f),
 			new Vector2(1f, 0f),
@@ -1123,131 +1107,131 @@ public class LightShafts : MonoBehaviour
 		frustumRays = default(Matrix4x4);
 		for (int i = 0; i < 4; i++)
 		{
-			Vector3 v = this.m_CurrentCamera.ViewportToWorldPoint(new Vector3(array[i].x, array[i].y, farClipPlane)) - position;
+			Vector3 v = m_CurrentCamera.ViewportToWorldPoint(new Vector3(array[i].x, array[i].y, farClipPlane)) - position;
 			v = inverse.MultiplyVector(v);
 			frustumRays.SetRow(i, v);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			cameraPosLocal = inverse.MultiplyPoint3x4(position);
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.GetFrustumRays(Matrix4x4*, Vector3*)).MethodHandle;
-		}
-		cameraPosLocal = inverse.MultiplyPoint3x4(position);
 	}
 
 	private void SetFrustumRays(Material material)
 	{
-		Matrix4x4 value;
-		Vector3 v;
-		this.GetFrustumRays(out value, out v);
-		material.SetVector("_CameraPosLocal", v);
-		material.SetMatrix("_FrustumRays", value);
-		material.SetFloat("_FrustumApex", this.GetFrustumApex());
+		GetFrustumRays(out Matrix4x4 frustumRays, out Vector3 cameraPosLocal);
+		material.SetVector("_CameraPosLocal", cameraPosLocal);
+		material.SetMatrix("_FrustumRays", frustumRays);
+		material.SetFloat("_FrustumApex", GetFrustumApex());
 	}
 
 	private float GetDepthThresholdAdjusted()
 	{
-		return this.m_DepthThreshold / this.m_CurrentCamera.farClipPlane;
+		return m_DepthThreshold / m_CurrentCamera.farClipPlane;
 	}
 
 	private bool CheckCamera()
 	{
-		if (this.m_Cameras == null)
+		if (m_Cameras == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.CheckCamera()).MethodHandle;
-			}
-			return false;
-		}
-		foreach (Camera x in this.m_Cameras)
-		{
-			if (x == this.m_CurrentCamera)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				return true;
 			}
 		}
-		for (;;)
+		Camera[] cameras = m_Cameras;
+		foreach (Camera x in cameras)
 		{
-			switch (3)
+			if (!(x == m_CurrentCamera))
 			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-		return false;
-	}
-
-	public void UpdateCameraDepthMode()
-	{
-		if (this.m_Cameras == null)
-		{
-			for (;;)
+			while (true)
 			{
-				switch (3)
+				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.UpdateCameraDepthMode()).MethodHandle;
-			}
-			return;
-		}
-		foreach (Camera camera in this.m_Cameras)
-		{
-			if (camera)
-			{
-				camera.depthTextureMode |= DepthTextureMode.Depth;
+				return true;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return false;
+		}
+	}
+
+	public void UpdateCameraDepthMode()
+	{
+		if (m_Cameras == null)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
+				}
+			}
+		}
+		Camera[] cameras = m_Cameras;
+		foreach (Camera camera in cameras)
+		{
+			if ((bool)camera)
+			{
+				camera.depthTextureMode |= DepthTextureMode.Depth;
+			}
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			default:
+				return;
+			case 0:
+				break;
+			}
 		}
 	}
 
 	public void Start()
 	{
-		this.CheckMinRequirements();
-		if (this.m_Cameras != null)
+		CheckMinRequirements();
+		if (m_Cameras != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1256,15 +1240,15 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_Cameras.Length != 0)
+			if (m_Cameras.Length != 0)
 			{
-				goto IL_4E;
+				goto IL_004e;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1274,19 +1258,20 @@ public class LightShafts : MonoBehaviour
 				break;
 			}
 		}
-		this.m_Cameras = new Camera[]
+		m_Cameras = new Camera[1]
 		{
 			Camera.main
 		};
-		IL_4E:
-		this.UpdateCameraDepthMode();
+		goto IL_004e;
+		IL_004e:
+		UpdateCameraDepthMode();
 	}
 
 	private void UpdateShadowmap()
 	{
-		if (this.m_ShadowmapMode == LightShaftsShadowmapMode.Static)
+		if (m_ShadowmapMode == LightShaftsShadowmapMode.Static)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1295,52 +1280,52 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.UpdateShadowmap()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_ShadowmapDirty)
+			if (!m_ShadowmapDirty)
 			{
 				return;
 			}
 		}
-		this.InitShadowmap();
-		if (this.m_ShadowmapCamera == null)
+		InitShadowmap();
+		if (m_ShadowmapCamera == null)
 		{
 			GameObject gameObject = new GameObject("Depth Camera");
 			gameObject.AddComponent(typeof(Camera));
-			this.m_ShadowmapCamera = gameObject.GetComponent<Camera>();
+			m_ShadowmapCamera = gameObject.GetComponent<Camera>();
 			gameObject.hideFlags = HideFlags.HideAndDontSave;
-			this.m_ShadowmapCamera.enabled = false;
-			this.m_ShadowmapCamera.clearFlags = CameraClearFlags.Color;
+			m_ShadowmapCamera.enabled = false;
+			m_ShadowmapCamera.clearFlags = CameraClearFlags.Color;
 		}
-		Transform transform = this.m_ShadowmapCamera.transform;
+		Transform transform = m_ShadowmapCamera.transform;
 		transform.position = base.transform.position;
 		transform.rotation = base.transform.rotation;
-		if (this.directional)
+		if (directional)
 		{
-			this.m_ShadowmapCamera.orthographic = true;
-			this.m_ShadowmapCamera.nearClipPlane = 0f;
-			this.m_ShadowmapCamera.farClipPlane = this.m_Size.z;
-			this.m_ShadowmapCamera.orthographicSize = this.m_Size.y * 0.5f;
-			this.m_ShadowmapCamera.aspect = this.m_Size.x / this.m_Size.y;
+			m_ShadowmapCamera.orthographic = true;
+			m_ShadowmapCamera.nearClipPlane = 0f;
+			m_ShadowmapCamera.farClipPlane = m_Size.z;
+			m_ShadowmapCamera.orthographicSize = m_Size.y * 0.5f;
+			m_ShadowmapCamera.aspect = m_Size.x / m_Size.y;
 		}
 		else
 		{
-			this.m_ShadowmapCamera.orthographic = false;
-			this.m_ShadowmapCamera.nearClipPlane = this.m_SpotNear * this.m_Light.range;
-			this.m_ShadowmapCamera.farClipPlane = this.m_SpotFar * this.m_Light.range;
-			this.m_ShadowmapCamera.fieldOfView = this.m_Light.spotAngle;
-			this.m_ShadowmapCamera.aspect = 1f;
+			m_ShadowmapCamera.orthographic = false;
+			m_ShadowmapCamera.nearClipPlane = m_SpotNear * m_Light.range;
+			m_ShadowmapCamera.farClipPlane = m_SpotFar * m_Light.range;
+			m_ShadowmapCamera.fieldOfView = m_Light.spotAngle;
+			m_ShadowmapCamera.aspect = 1f;
 		}
-		this.m_ShadowmapCamera.renderingPath = RenderingPath.Forward;
-		this.m_ShadowmapCamera.targetTexture = this.m_Shadowmap;
-		this.m_ShadowmapCamera.cullingMask = this.m_CullingMask;
-		this.m_ShadowmapCamera.backgroundColor = Color.white;
-		this.m_ShadowmapCamera.RenderWithShader(this.m_DepthShader, "RenderType");
-		if (this.m_Colored)
+		m_ShadowmapCamera.renderingPath = RenderingPath.Forward;
+		m_ShadowmapCamera.targetTexture = m_Shadowmap;
+		m_ShadowmapCamera.cullingMask = m_CullingMask;
+		m_ShadowmapCamera.backgroundColor = Color.white;
+		m_ShadowmapCamera.RenderWithShader(m_DepthShader, "RenderType");
+		if (m_Colored)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1349,36 +1334,53 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			this.m_ShadowmapCamera.targetTexture = this.m_ColorFilter;
-			this.m_ShadowmapCamera.cullingMask = this.m_ColorFilterMask;
-			this.m_ShadowmapCamera.backgroundColor = new Color(this.m_ColorBalance, this.m_ColorBalance, this.m_ColorBalance);
-			this.m_ShadowmapCamera.RenderWithShader(this.m_ColorFilterShader, string.Empty);
+			m_ShadowmapCamera.targetTexture = m_ColorFilter;
+			m_ShadowmapCamera.cullingMask = m_ColorFilterMask;
+			m_ShadowmapCamera.backgroundColor = new Color(m_ColorBalance, m_ColorBalance, m_ColorBalance);
+			m_ShadowmapCamera.RenderWithShader(m_ColorFilterShader, string.Empty);
 		}
-		this.m_ShadowmapDirty = false;
+		m_ShadowmapDirty = false;
 	}
 
 	private void RenderCoords(int width, int height, Vector4 lightPos)
 	{
-		this.SetFrustumRays(this.m_CoordMaterial);
-		RenderBuffer[] colorBuffers = new RenderBuffer[]
+		SetFrustumRays(m_CoordMaterial);
+		RenderBuffer[] colorBuffers = new RenderBuffer[2]
 		{
-			this.m_CoordEpi.colorBuffer,
-			this.m_DepthEpi.colorBuffer
+			m_CoordEpi.colorBuffer,
+			m_DepthEpi.colorBuffer
 		};
-		Graphics.SetRenderTarget(colorBuffers, this.m_DepthEpi.depthBuffer);
-		this.m_CoordMaterial.SetVector("_LightPos", lightPos);
-		this.m_CoordMaterial.SetVector("_CoordTexDim", new Vector4((float)this.m_CoordEpi.width, (float)this.m_CoordEpi.height, 1f / (float)this.m_CoordEpi.width, 1f / (float)this.m_CoordEpi.height));
-		this.m_CoordMaterial.SetVector("_ScreenTexDim", new Vector4((float)width, (float)height, 1f / (float)width, 1f / (float)height));
-		this.m_CoordMaterial.SetPass(0);
-		this.RenderQuad();
+		Graphics.SetRenderTarget(colorBuffers, m_DepthEpi.depthBuffer);
+		m_CoordMaterial.SetVector("_LightPos", lightPos);
+		m_CoordMaterial.SetVector("_CoordTexDim", new Vector4(m_CoordEpi.width, m_CoordEpi.height, 1f / (float)m_CoordEpi.width, 1f / (float)m_CoordEpi.height));
+		m_CoordMaterial.SetVector("_ScreenTexDim", new Vector4(width, height, 1f / (float)width, 1f / (float)height));
+		m_CoordMaterial.SetPass(0);
+		RenderQuad();
 	}
 
 	private void RenderInterpolationTexture(Vector4 lightPos)
 	{
-		Graphics.SetRenderTarget(this.m_InterpolationEpi.colorBuffer, this.m_RaymarchedLightEpi.depthBuffer);
-		if (!this.m_DX11Support)
+		Graphics.SetRenderTarget(m_InterpolationEpi.colorBuffer, m_RaymarchedLightEpi.depthBuffer);
+		if (m_DX11Support)
 		{
-			for (;;)
+			goto IL_0075;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			break;
+		}
+		if (1 == 0)
+		{
+			/*OpCode not supported: LdMemberToken*/;
+		}
+		if (Application.platform != RuntimePlatform.WindowsEditor)
+		{
+			while (true)
 			{
 				switch (6)
 				{
@@ -1387,95 +1389,80 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (Application.platform != RuntimePlatform.WindowsPlayer)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.RenderInterpolationTexture(Vector4)).MethodHandle;
+				goto IL_0075;
 			}
-			if (Application.platform != RuntimePlatform.WindowsEditor)
+			while (true)
 			{
-				for (;;)
+				switch (1)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (Application.platform != RuntimePlatform.WindowsPlayer)
-				{
-					goto IL_75;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				break;
 			}
-			this.m_DepthBreaksMaterial.SetPass(1);
-			this.RenderQuad();
-			goto IL_95;
 		}
-		IL_75:
+		m_DepthBreaksMaterial.SetPass(1);
+		RenderQuad();
+		goto IL_0095;
+		IL_0075:
 		GL.Clear(true, true, new Color(0f, 0f, 0f, 1f));
-		IL_95:
-		this.m_DepthBreaksMaterial.SetFloat("_InterpolationStep", (float)this.m_InterpolationStep);
-		this.m_DepthBreaksMaterial.SetFloat("_DepthThreshold", this.GetDepthThresholdAdjusted());
-		this.m_DepthBreaksMaterial.SetTexture("_DepthEpi", this.m_DepthEpi);
-		this.m_DepthBreaksMaterial.SetVector("_DepthEpiTexDim", new Vector4((float)this.m_DepthEpi.width, (float)this.m_DepthEpi.height, 1f / (float)this.m_DepthEpi.width, 1f / (float)this.m_DepthEpi.height));
-		this.m_DepthBreaksMaterial.SetPass(0);
-		this.RenderQuadSections(lightPos);
+		goto IL_0095;
+		IL_0095:
+		m_DepthBreaksMaterial.SetFloat("_InterpolationStep", m_InterpolationStep);
+		m_DepthBreaksMaterial.SetFloat("_DepthThreshold", GetDepthThresholdAdjusted());
+		m_DepthBreaksMaterial.SetTexture("_DepthEpi", m_DepthEpi);
+		m_DepthBreaksMaterial.SetVector("_DepthEpiTexDim", new Vector4(m_DepthEpi.width, m_DepthEpi.height, 1f / (float)m_DepthEpi.width, 1f / (float)m_DepthEpi.height));
+		m_DepthBreaksMaterial.SetPass(0);
+		RenderQuadSections(lightPos);
 	}
 
 	private void InterpolateAlongRays(Vector4 lightPos)
 	{
-		Graphics.SetRenderTarget(this.m_InterpolateAlongRaysEpi);
-		this.m_InterpolateAlongRaysMaterial.SetFloat("_InterpolationStep", (float)this.m_InterpolationStep);
-		this.m_InterpolateAlongRaysMaterial.SetTexture("_InterpolationEpi", this.m_InterpolationEpi);
-		this.m_InterpolateAlongRaysMaterial.SetTexture("_RaymarchedLightEpi", this.m_RaymarchedLightEpi);
-		this.m_InterpolateAlongRaysMaterial.SetVector("_RaymarchedLightEpiTexDim", new Vector4((float)this.m_RaymarchedLightEpi.width, (float)this.m_RaymarchedLightEpi.height, 1f / (float)this.m_RaymarchedLightEpi.width, 1f / (float)this.m_RaymarchedLightEpi.height));
-		this.m_InterpolateAlongRaysMaterial.SetPass(0);
-		this.RenderQuadSections(lightPos);
+		Graphics.SetRenderTarget(m_InterpolateAlongRaysEpi);
+		m_InterpolateAlongRaysMaterial.SetFloat("_InterpolationStep", m_InterpolationStep);
+		m_InterpolateAlongRaysMaterial.SetTexture("_InterpolationEpi", m_InterpolationEpi);
+		m_InterpolateAlongRaysMaterial.SetTexture("_RaymarchedLightEpi", m_RaymarchedLightEpi);
+		m_InterpolateAlongRaysMaterial.SetVector("_RaymarchedLightEpiTexDim", new Vector4(m_RaymarchedLightEpi.width, m_RaymarchedLightEpi.height, 1f / (float)m_RaymarchedLightEpi.width, 1f / (float)m_RaymarchedLightEpi.height));
+		m_InterpolateAlongRaysMaterial.SetPass(0);
+		RenderQuadSections(lightPos);
 	}
 
 	private void RenderSamplePositions(int width, int height, Vector4 lightPos)
 	{
-		this.InitRenderTexture(ref this.m_SamplePositions, width, height, 0, RenderTextureFormat.ARGB32, false);
-		this.m_SamplePositions.enableRandomWrite = true;
-		this.m_SamplePositions.filterMode = FilterMode.Point;
-		Graphics.SetRenderTarget(this.m_SamplePositions);
+		InitRenderTexture(ref m_SamplePositions, width, height, 0, RenderTextureFormat.ARGB32, false);
+		m_SamplePositions.enableRandomWrite = true;
+		m_SamplePositions.filterMode = FilterMode.Point;
+		Graphics.SetRenderTarget(m_SamplePositions);
 		GL.Clear(false, true, new Color(0f, 0f, 0f, 1f));
 		Graphics.ClearRandomWriteTargets();
-		Graphics.SetRandomWriteTarget(1, this.m_SamplePositions);
-		Graphics.SetRenderTarget(this.m_RaymarchedLightEpi);
-		this.m_SamplePositionsMaterial.SetVector("_OutputTexDim", new Vector4((float)(width - 1), (float)(height - 1), 0f, 0f));
-		this.m_SamplePositionsMaterial.SetVector("_CoordTexDim", new Vector4((float)this.m_CoordEpi.width, (float)this.m_CoordEpi.height, 0f, 0f));
-		this.m_SamplePositionsMaterial.SetTexture("_Coord", this.m_CoordEpi);
-		this.m_SamplePositionsMaterial.SetTexture("_InterpolationEpi", this.m_InterpolationEpi);
-		if (this.m_ShowInterpolatedSamples)
+		Graphics.SetRandomWriteTarget(1, m_SamplePositions);
+		Graphics.SetRenderTarget(m_RaymarchedLightEpi);
+		m_SamplePositionsMaterial.SetVector("_OutputTexDim", new Vector4(width - 1, height - 1, 0f, 0f));
+		m_SamplePositionsMaterial.SetVector("_CoordTexDim", new Vector4(m_CoordEpi.width, m_CoordEpi.height, 0f, 0f));
+		m_SamplePositionsMaterial.SetTexture("_Coord", m_CoordEpi);
+		m_SamplePositionsMaterial.SetTexture("_InterpolationEpi", m_InterpolationEpi);
+		if (m_ShowInterpolatedSamples)
 		{
-			this.m_SamplePositionsMaterial.SetFloat("_SampleType", 1f);
-			this.m_SamplePositionsMaterial.SetVector("_Color", new Vector4(0.4f, 0.4f, 0f, 0f));
-			this.m_SamplePositionsMaterial.SetPass(0);
-			this.RenderQuad();
+			m_SamplePositionsMaterial.SetFloat("_SampleType", 1f);
+			m_SamplePositionsMaterial.SetVector("_Color", new Vector4(0.4f, 0.4f, 0f, 0f));
+			m_SamplePositionsMaterial.SetPass(0);
+			RenderQuad();
 		}
-		this.m_SamplePositionsMaterial.SetFloat("_SampleType", 0f);
-		this.m_SamplePositionsMaterial.SetVector("_Color", new Vector4(1f, 0f, 0f, 0f));
-		this.m_SamplePositionsMaterial.SetPass(0);
-		this.RenderQuadSections(lightPos);
+		m_SamplePositionsMaterial.SetFloat("_SampleType", 0f);
+		m_SamplePositionsMaterial.SetVector("_Color", new Vector4(1f, 0f, 0f, 0f));
+		m_SamplePositionsMaterial.SetPass(0);
+		RenderQuadSections(lightPos);
 		Graphics.ClearRandomWriteTargets();
 	}
 
 	private void ShowSamples(int width, int height, Vector4 lightPos)
 	{
-		bool flag;
-		if (this.m_ShowSamples && this.m_DX11Support)
+		int num;
+		if (m_ShowSamples && m_DX11Support)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1484,21 +1471,21 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.ShowSamples(int, int, Vector4)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = this.m_SamplePositionsShaderCompiles;
+			num = (m_SamplePositionsShaderCompiles ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
-		this.SetKeyword(flag2, "SHOW_SAMPLES_ON", "SHOW_SAMPLES_OFF");
-		if (flag2)
+		bool flag = (byte)num != 0;
+		SetKeyword(flag, "SHOW_SAMPLES_ON", "SHOW_SAMPLES_OFF");
+		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1507,184 +1494,86 @@ public class LightShafts : MonoBehaviour
 				}
 				break;
 			}
-			this.RenderSamplePositions(width, height, lightPos);
+			RenderSamplePositions(width, height, lightPos);
 		}
-		this.m_FinalInterpolationMaterial.SetFloat("_ShowSamplesBackgroundFade", this.m_ShowSamplesBackgroundFade);
+		m_FinalInterpolationMaterial.SetFloat("_ShowSamplesBackgroundFade", m_ShowSamplesBackgroundFade);
 	}
 
 	private void Raymarch(int width, int height, Vector4 lightPos)
 	{
-		this.SetFrustumRays(this.m_RaymarchMaterial);
-		int width2 = this.m_Shadowmap.width;
-		int height2 = this.m_Shadowmap.height;
-		Graphics.SetRenderTarget(this.m_RaymarchedLightEpi.colorBuffer, this.m_RaymarchedLightEpi.depthBuffer);
+		SetFrustumRays(m_RaymarchMaterial);
+		int width2 = m_Shadowmap.width;
+		int height2 = m_Shadowmap.height;
+		Graphics.SetRenderTarget(m_RaymarchedLightEpi.colorBuffer, m_RaymarchedLightEpi.depthBuffer);
 		GL.Clear(false, true, new Color(0f, 0f, 0f, 1f));
-		this.m_RaymarchMaterial.SetTexture("_Coord", this.m_CoordEpi);
-		this.m_RaymarchMaterial.SetTexture("_InterpolationEpi", this.m_InterpolationEpi);
-		this.m_RaymarchMaterial.SetTexture("_Shadowmap", this.m_Shadowmap);
-		float num = (!this.m_Colored) ? this.m_Brightness : (this.m_BrightnessColored / this.m_ColorBalance);
-		num *= this.m_Light.intensity;
-		this.m_RaymarchMaterial.SetFloat("_Brightness", num);
-		this.m_RaymarchMaterial.SetFloat("_Extinction", -this.m_Extinction);
-		this.m_RaymarchMaterial.SetVector("_ShadowmapDim", new Vector4((float)width2, (float)height2, 1f / (float)width2, 1f / (float)height2));
-		this.m_RaymarchMaterial.SetVector("_ScreenTexDim", new Vector4((float)width, (float)height, 1f / (float)width, 1f / (float)height));
-		this.m_RaymarchMaterial.SetVector("_LightColor", this.m_Light.color.linear);
-		this.m_RaymarchMaterial.SetFloat("_MinDistFromCamera", this.m_MinDistFromCamera);
-		this.SetKeyword(this.m_Colored, "COLORED_ON", "COLORED_OFF");
-		this.m_RaymarchMaterial.SetTexture("_ColorFilter", this.m_ColorFilter);
-		this.SetKeyword(this.m_AttenuationCurveOn, "ATTENUATION_CURVE_ON", "ATTENUATION_CURVE_OFF");
-		this.m_RaymarchMaterial.SetTexture("_AttenuationCurveTex", this.m_AttenuationCurveTex);
-		Texture cookie = this.m_Light.cookie;
-		this.SetKeyword(cookie != null, "COOKIE_TEX_ON", "COOKIE_TEX_OFF");
+		m_RaymarchMaterial.SetTexture("_Coord", m_CoordEpi);
+		m_RaymarchMaterial.SetTexture("_InterpolationEpi", m_InterpolationEpi);
+		m_RaymarchMaterial.SetTexture("_Shadowmap", m_Shadowmap);
+		float num = (!m_Colored) ? m_Brightness : (m_BrightnessColored / m_ColorBalance);
+		num *= m_Light.intensity;
+		m_RaymarchMaterial.SetFloat("_Brightness", num);
+		m_RaymarchMaterial.SetFloat("_Extinction", 0f - m_Extinction);
+		m_RaymarchMaterial.SetVector("_ShadowmapDim", new Vector4(width2, height2, 1f / (float)width2, 1f / (float)height2));
+		m_RaymarchMaterial.SetVector("_ScreenTexDim", new Vector4(width, height, 1f / (float)width, 1f / (float)height));
+		m_RaymarchMaterial.SetVector("_LightColor", m_Light.color.linear);
+		m_RaymarchMaterial.SetFloat("_MinDistFromCamera", m_MinDistFromCamera);
+		SetKeyword(m_Colored, "COLORED_ON", "COLORED_OFF");
+		m_RaymarchMaterial.SetTexture("_ColorFilter", m_ColorFilter);
+		SetKeyword(m_AttenuationCurveOn, "ATTENUATION_CURVE_ON", "ATTENUATION_CURVE_OFF");
+		m_RaymarchMaterial.SetTexture("_AttenuationCurveTex", m_AttenuationCurveTex);
+		Texture cookie = m_Light.cookie;
+		SetKeyword(cookie != null, "COOKIE_TEX_ON", "COOKIE_TEX_OFF");
 		if (cookie != null)
 		{
-			this.m_RaymarchMaterial.SetTexture("_Cookie", cookie);
+			m_RaymarchMaterial.SetTexture("_Cookie", cookie);
 		}
-		this.m_RaymarchMaterial.SetPass(0);
-		this.RenderQuadSections(lightPos);
+		m_RaymarchMaterial.SetPass(0);
+		RenderQuadSections(lightPos);
 	}
 
 	public void OnRenderObject()
 	{
-		this.m_CurrentCamera = Camera.current;
-		if (this.m_MinRequirements)
+		m_CurrentCamera = Camera.current;
+		if (!m_MinRequirements)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.OnRenderObject()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.CheckCamera())
+			if (!CheckCamera())
 			{
-				if (this.IsVisible())
+				return;
+			}
+			if (!IsVisible())
+			{
+				while (true)
 				{
-					RenderBuffer activeDepthBuffer = Graphics.activeDepthBuffer;
-					RenderBuffer activeColorBuffer = Graphics.activeColorBuffer;
-					this.InitResources();
-					Vector4 lightViewportPos = this.GetLightViewportPos();
-					bool flag;
-					if (lightViewportPos.x >= -1f && lightViewportPos.x <= 1f)
+					switch (4)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (lightViewportPos.y >= -1f)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							flag = (lightViewportPos.y <= 1f);
-							goto IL_B8;
-						}
+					default:
+						return;
+					case 0:
+						break;
 					}
-					flag = false;
-					IL_B8:
-					bool firstOn = flag;
-					this.SetKeyword(firstOn, "LIGHT_ON_SCREEN", "LIGHT_OFF_SCREEN");
-					int width = Screen.width;
-					int height = Screen.height;
-					this.UpdateShadowmap();
-					this.SetKeyword(this.directional, "DIRECTIONAL_SHAFTS", "SPOT_SHAFTS");
-					this.RenderCoords(width, height, lightViewportPos);
-					this.RenderInterpolationTexture(lightViewportPos);
-					this.Raymarch(width, height, lightViewportPos);
-					this.InterpolateAlongRays(lightViewportPos);
-					this.ShowSamples(width, height, lightViewportPos);
-					this.SetFrustumRays(this.m_FinalInterpolationMaterial);
-					this.m_FinalInterpolationMaterial.SetTexture("_InterpolationEpi", this.m_InterpolationEpi);
-					this.m_FinalInterpolationMaterial.SetTexture("_DepthEpi", this.m_DepthEpi);
-					this.m_FinalInterpolationMaterial.SetTexture("_Shadowmap", this.m_Shadowmap);
-					this.m_FinalInterpolationMaterial.SetTexture("_Coord", this.m_CoordEpi);
-					this.m_FinalInterpolationMaterial.SetTexture("_SamplePositions", this.m_SamplePositions);
-					this.m_FinalInterpolationMaterial.SetTexture("_RaymarchedLight", this.m_InterpolateAlongRaysEpi);
-					this.m_FinalInterpolationMaterial.SetVector("_CoordTexDim", new Vector4((float)this.m_CoordEpi.width, (float)this.m_CoordEpi.height, 1f / (float)this.m_CoordEpi.width, 1f / (float)this.m_CoordEpi.height));
-					this.m_FinalInterpolationMaterial.SetVector("_ScreenTexDim", new Vector4((float)width, (float)height, 1f / (float)width, 1f / (float)height));
-					this.m_FinalInterpolationMaterial.SetVector("_LightPos", lightViewportPos);
-					this.m_FinalInterpolationMaterial.SetFloat("_DepthThreshold", this.GetDepthThresholdAdjusted());
-					bool flag2;
-					if (!this.directional)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag2 = this.IntersectsNearPlane();
-					}
-					else
-					{
-						flag2 = true;
-					}
-					bool flag3 = flag2;
-					Material finalInterpolationMaterial = this.m_FinalInterpolationMaterial;
-					string name = "_ZTest";
-					float num;
-					if (flag3)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num = (float)8;
-					}
-					else
-					{
-						num = (float)2;
-					}
-					finalInterpolationMaterial.SetFloat(name, num);
-					this.SetKeyword(flag3, "QUAD_SHAFTS", "FRUSTUM_SHAFTS");
-					Graphics.SetRenderTarget(activeColorBuffer, activeDepthBuffer);
-					this.m_FinalInterpolationMaterial.SetPass(0);
-					if (flag3)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.RenderQuad();
-					}
-					else
-					{
-						this.RenderSpotFrustum();
-					}
-					this.ReleaseResources();
-					return;
 				}
-				for (;;)
+			}
+			RenderBuffer activeDepthBuffer = Graphics.activeDepthBuffer;
+			RenderBuffer activeColorBuffer = Graphics.activeColorBuffer;
+			InitResources();
+			Vector4 lightViewportPos = GetLightViewportPos();
+			int num;
+			if (lightViewportPos.x >= -1f && lightViewportPos.x <= 1f)
+			{
+				while (true)
 				{
 					switch (4)
 					{
@@ -1693,7 +1582,107 @@ public class LightShafts : MonoBehaviour
 					}
 					break;
 				}
+				if (lightViewportPos.y >= -1f)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num = ((lightViewportPos.y <= 1f) ? 1 : 0);
+					goto IL_00b8;
+				}
 			}
+			num = 0;
+			goto IL_00b8;
+			IL_00b8:
+			bool firstOn = (byte)num != 0;
+			SetKeyword(firstOn, "LIGHT_ON_SCREEN", "LIGHT_OFF_SCREEN");
+			int width = Screen.width;
+			int height = Screen.height;
+			UpdateShadowmap();
+			SetKeyword(directional, "DIRECTIONAL_SHAFTS", "SPOT_SHAFTS");
+			RenderCoords(width, height, lightViewportPos);
+			RenderInterpolationTexture(lightViewportPos);
+			Raymarch(width, height, lightViewportPos);
+			InterpolateAlongRays(lightViewportPos);
+			ShowSamples(width, height, lightViewportPos);
+			SetFrustumRays(m_FinalInterpolationMaterial);
+			m_FinalInterpolationMaterial.SetTexture("_InterpolationEpi", m_InterpolationEpi);
+			m_FinalInterpolationMaterial.SetTexture("_DepthEpi", m_DepthEpi);
+			m_FinalInterpolationMaterial.SetTexture("_Shadowmap", m_Shadowmap);
+			m_FinalInterpolationMaterial.SetTexture("_Coord", m_CoordEpi);
+			m_FinalInterpolationMaterial.SetTexture("_SamplePositions", m_SamplePositions);
+			m_FinalInterpolationMaterial.SetTexture("_RaymarchedLight", m_InterpolateAlongRaysEpi);
+			m_FinalInterpolationMaterial.SetVector("_CoordTexDim", new Vector4(m_CoordEpi.width, m_CoordEpi.height, 1f / (float)m_CoordEpi.width, 1f / (float)m_CoordEpi.height));
+			m_FinalInterpolationMaterial.SetVector("_ScreenTexDim", new Vector4(width, height, 1f / (float)width, 1f / (float)height));
+			m_FinalInterpolationMaterial.SetVector("_LightPos", lightViewportPos);
+			m_FinalInterpolationMaterial.SetFloat("_DepthThreshold", GetDepthThresholdAdjusted());
+			int num2;
+			if (!directional)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num2 = (IntersectsNearPlane() ? 1 : 0);
+			}
+			else
+			{
+				num2 = 1;
+			}
+			bool flag = (byte)num2 != 0;
+			Material finalInterpolationMaterial = m_FinalInterpolationMaterial;
+			int num3;
+			if (flag)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num3 = 8;
+			}
+			else
+			{
+				num3 = 2;
+			}
+			finalInterpolationMaterial.SetFloat("_ZTest", num3);
+			SetKeyword(flag, "QUAD_SHAFTS", "FRUSTUM_SHAFTS");
+			Graphics.SetRenderTarget(activeColorBuffer, activeDepthBuffer);
+			m_FinalInterpolationMaterial.SetPass(0);
+			if (flag)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				RenderQuad();
+			}
+			else
+			{
+				RenderSpotFrustum();
+			}
+			ReleaseResources();
+			return;
 		}
 	}
 }

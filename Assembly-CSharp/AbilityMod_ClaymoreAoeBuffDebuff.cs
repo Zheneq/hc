@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,57 +43,56 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ClaymoreAoeBuffDebuff claymoreAoeBuffDebuff = targetAbility as ClaymoreAoeBuffDebuff;
-		if (claymoreAoeBuffDebuff != null)
+		if (!(claymoreAoeBuffDebuff != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClaymoreAoeBuffDebuff.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_baseSelfHealMod, "BaseSelfHeal", string.Empty, claymoreAoeBuffDebuff.m_baseSelfHeal, true, false);
-			AbilityMod.AddToken(tokens, this.m_selfHealAmountPerHitMod, "SelfHealAmountPerHit", string.Empty, claymoreAoeBuffDebuff.m_selfHealAmountPerHit, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_selfHitEffectMod, "SelfHitEffect", claymoreAoeBuffDebuff.m_selfHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_allyHitEffectMod, "AllyHitEffect", claymoreAoeBuffDebuff.m_allyHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", claymoreAoeBuffDebuff.m_enemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_allyEnergyGainMod, "AllyEnergyGain", string.Empty, claymoreAoeBuffDebuff.m_allyEnergyGain, true, false);
-			AbilityMod.AddToken(tokens, this.m_enemyEnergyLossMod, "EnemyEnergyLoss", string.Empty, claymoreAoeBuffDebuff.m_enemyEnergyLoss, true, false);
-			if (this.m_cooldownReductionWhenOnlyHittingSelf != null)
+			AbilityMod.AddToken(tokens, m_baseSelfHealMod, "BaseSelfHeal", string.Empty, claymoreAoeBuffDebuff.m_baseSelfHeal);
+			AbilityMod.AddToken(tokens, m_selfHealAmountPerHitMod, "SelfHealAmountPerHit", string.Empty, claymoreAoeBuffDebuff.m_selfHealAmountPerHit);
+			AbilityMod.AddToken_EffectMod(tokens, m_selfHitEffectMod, "SelfHitEffect", claymoreAoeBuffDebuff.m_selfHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_allyHitEffectMod, "AllyHitEffect", claymoreAoeBuffDebuff.m_allyHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", claymoreAoeBuffDebuff.m_enemyHitEffect);
+			AbilityMod.AddToken(tokens, m_allyEnergyGainMod, "AllyEnergyGain", string.Empty, claymoreAoeBuffDebuff.m_allyEnergyGain);
+			AbilityMod.AddToken(tokens, m_enemyEnergyLossMod, "EnemyEnergyLoss", string.Empty, claymoreAoeBuffDebuff.m_enemyEnergyLoss);
+			if (m_cooldownReductionWhenOnlyHittingSelf != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_cooldownReductionWhenOnlyHittingSelf.AddTooltipTokens(tokens, "OnOnlyHitSelf");
+					return;
 				}
-				this.m_cooldownReductionWhenOnlyHittingSelf.AddTooltipTokens(tokens, "OnOnlyHitSelf");
 			}
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ClaymoreAoeBuffDebuff claymoreAoeBuffDebuff = base.GetTargetAbilityOnAbilityData(abilityData) as ClaymoreAoeBuffDebuff;
+		ClaymoreAoeBuffDebuff claymoreAoeBuffDebuff = GetTargetAbilityOnAbilityData(abilityData) as ClaymoreAoeBuffDebuff;
 		bool flag = claymoreAoeBuffDebuff != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyShape shapeMod = this.m_shapeMod;
-		string prefix = "[Shape]";
-		bool showBaseVal = flag;
-		AbilityAreaShape baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyShape shapeMod = m_shapeMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -102,26 +101,24 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClaymoreAoeBuffDebuff.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			baseVal = claymoreAoeBuffDebuff.m_shape;
+			baseVal = (int)claymoreAoeBuffDebuff.m_shape;
 		}
 		else
 		{
-			baseVal = AbilityAreaShape.SingleSquare;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(shapeMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_penetrateLosMod, "[PenetrateLos]", flag, flag && claymoreAoeBuffDebuff.m_penetrateLos);
-		string str2 = text;
-		AbilityModPropertyInt baseSelfHealMod = this.m_baseSelfHealMod;
-		string prefix2 = "[BaseSelfHeal]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(shapeMod, "[Shape]", flag, (AbilityAreaShape)baseVal);
+		empty += PropDesc(m_penetrateLosMod, "[PenetrateLos]", flag, flag && claymoreAoeBuffDebuff.m_penetrateLos);
+		string str2 = empty;
+		AbilityModPropertyInt baseSelfHealMod = m_baseSelfHealMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -136,15 +133,13 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(baseSelfHealMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt selfHealAmountPerHitMod = this.m_selfHealAmountPerHitMod;
-		string prefix3 = "[SelfHealAmountPerHit]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(baseSelfHealMod, "[BaseSelfHeal]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyInt selfHealAmountPerHitMod = m_selfHealAmountPerHitMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -159,15 +154,13 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(selfHealAmountPerHitMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyBool selfHealCountEnemyHitMod = this.m_selfHealCountEnemyHitMod;
-		string prefix4 = "[SelfHealCountEnemyHit]";
-		bool showBaseVal4 = flag;
-		bool baseVal4;
+		empty = str3 + PropDesc(selfHealAmountPerHitMod, "[SelfHealAmountPerHit]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyBool selfHealCountEnemyHitMod = m_selfHealCountEnemyHitMod;
+		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -176,21 +169,19 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 				}
 				break;
 			}
-			baseVal4 = claymoreAoeBuffDebuff.m_selfHealCountEnemyHit;
+			baseVal4 = (claymoreAoeBuffDebuff.m_selfHealCountEnemyHit ? 1 : 0);
 		}
 		else
 		{
-			baseVal4 = false;
+			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(selfHealCountEnemyHitMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyBool selfHealCountAllyHitMod = this.m_selfHealCountAllyHitMod;
-		string prefix5 = "[SelfHealCountAllyHit]";
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		empty = str4 + PropDesc(selfHealCountEnemyHitMod, "[SelfHealCountEnemyHit]", flag, (byte)baseVal4 != 0);
+		string str5 = empty;
+		AbilityModPropertyBool selfHealCountAllyHitMod = m_selfHealCountAllyHitMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -199,21 +190,19 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 				}
 				break;
 			}
-			baseVal5 = claymoreAoeBuffDebuff.m_selfHealCountAllyHit;
+			baseVal5 = (claymoreAoeBuffDebuff.m_selfHealCountAllyHit ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(selfHealCountAllyHitMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyEffectInfo selfHitEffectMod = this.m_selfHitEffectMod;
-		string prefix6 = "[SelfHitEffect]";
-		bool showBaseVal6 = flag;
-		StandardEffectInfo baseVal6;
+		empty = str5 + PropDesc(selfHealCountAllyHitMod, "[SelfHealCountAllyHit]", flag, (byte)baseVal5 != 0);
+		string str6 = empty;
+		AbilityModPropertyEffectInfo selfHitEffectMod = m_selfHitEffectMod;
+		object baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -228,15 +217,13 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		{
 			baseVal6 = null;
 		}
-		text = str6 + base.PropDesc(selfHitEffectMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyEffectInfo allyHitEffectMod = this.m_allyHitEffectMod;
-		string prefix7 = "[AllyHitEffect]";
-		bool showBaseVal7 = flag;
-		StandardEffectInfo baseVal7;
+		empty = str6 + PropDesc(selfHitEffectMod, "[SelfHitEffect]", flag, (StandardEffectInfo)baseVal6);
+		string str7 = empty;
+		AbilityModPropertyEffectInfo allyHitEffectMod = m_allyHitEffectMod;
+		object baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -251,15 +238,13 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		{
 			baseVal7 = null;
 		}
-		text = str7 + base.PropDesc(allyHitEffectMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyEffectInfo enemyHitEffectMod = this.m_enemyHitEffectMod;
-		string prefix8 = "[EnemyHitEffect]";
-		bool showBaseVal8 = flag;
-		StandardEffectInfo baseVal8;
+		empty = str7 + PropDesc(allyHitEffectMod, "[AllyHitEffect]", flag, (StandardEffectInfo)baseVal7);
+		string str8 = empty;
+		AbilityModPropertyEffectInfo enemyHitEffectMod = m_enemyHitEffectMod;
+		object baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -274,16 +259,14 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		{
 			baseVal8 = null;
 		}
-		text = str8 + base.PropDesc(enemyHitEffectMod, prefix8, showBaseVal8, baseVal8);
-		text += base.PropDesc(this.m_allyEnergyGainMod, "[AllyEnergyGain]", flag, (!flag) ? 0 : claymoreAoeBuffDebuff.m_allyEnergyGain);
-		string str9 = text;
-		AbilityModPropertyInt enemyEnergyLossMod = this.m_enemyEnergyLossMod;
-		string prefix9 = "[EnemyEnergyLoss]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(enemyHitEffectMod, "[EnemyHitEffect]", flag, (StandardEffectInfo)baseVal8);
+		empty += PropDesc(m_allyEnergyGainMod, "[AllyEnergyGain]", flag, flag ? claymoreAoeBuffDebuff.m_allyEnergyGain : 0);
+		string str9 = empty;
+		AbilityModPropertyInt enemyEnergyLossMod = m_enemyEnergyLossMod;
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -298,15 +281,13 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		{
 			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(enemyEnergyLossMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyBool energyChangeOnlyIfHasAdjacentMod = this.m_energyChangeOnlyIfHasAdjacentMod;
-		string prefix10 = "[EnergyChangeOnlyIfHasAdjacent]";
-		bool showBaseVal10 = flag;
-		bool baseVal10;
+		empty = str9 + PropDesc(enemyEnergyLossMod, "[EnemyEnergyLoss]", flag, baseVal9);
+		string str10 = empty;
+		AbilityModPropertyBool energyChangeOnlyIfHasAdjacentMod = m_energyChangeOnlyIfHasAdjacentMod;
+		int baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -315,17 +296,17 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 				}
 				break;
 			}
-			baseVal10 = claymoreAoeBuffDebuff.m_energyChangeOnlyIfHasAdjacent;
+			baseVal10 = (claymoreAoeBuffDebuff.m_energyChangeOnlyIfHasAdjacent ? 1 : 0);
 		}
 		else
 		{
-			baseVal10 = false;
+			baseVal10 = 0;
 		}
-		text = str10 + base.PropDesc(energyChangeOnlyIfHasAdjacentMod, prefix10, showBaseVal10, baseVal10);
-		if (this.m_cooldownReductionWhenOnlyHittingSelf.HasCooldownReduction())
+		empty = str10 + PropDesc(energyChangeOnlyIfHasAdjacentMod, "[EnergyChangeOnlyIfHasAdjacent]", flag, (byte)baseVal10 != 0);
+		if (m_cooldownReductionWhenOnlyHittingSelf.HasCooldownReduction())
 		{
-			text += this.m_cooldownReductionWhenOnlyHittingSelf.GetDescription(abilityData);
+			empty += m_cooldownReductionWhenOnlyHittingSelf.GetDescription(abilityData);
 		}
-		return text;
+		return empty;
 	}
 }

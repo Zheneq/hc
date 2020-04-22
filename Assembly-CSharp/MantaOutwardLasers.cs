@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
@@ -21,9 +20,9 @@ public class MantaOutwardLasers : Ability
 	public int m_maxTargetsHit = 1;
 
 	[Header("-- Damage")]
-	public int m_damageAmount = 0x14;
+	public int m_damageAmount = 20;
 
-	public int m_damageAmountForAdditionalHits = 0xA;
+	public int m_damageAmountForAdditionalHits = 10;
 
 	public int m_bonusDamagePerBounce;
 
@@ -47,61 +46,61 @@ public class MantaOutwardLasers : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Fissure Nova";
+			m_abilityName = "Fissure Nova";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedEffectData = this.m_effectOnEnemy;
-		this.m_cachedMultiHitEffectData = this.m_effectForMultiHitsOnEnemy;
-		this.m_cachedAdditionalMultiHitEffectData = this.m_additionalEffectForMultiHitsOnEnemy;
+		m_cachedEffectData = m_effectOnEnemy;
+		m_cachedMultiHitEffectData = m_effectForMultiHitsOnEnemy;
+		m_cachedAdditionalMultiHitEffectData = m_additionalEffectForMultiHitsOnEnemy;
 	}
 
 	public float GetFanAngle()
 	{
-		return this.m_totalAngleForLaserFan;
+		return m_totalAngleForLaserFan;
 	}
 
 	public int GetLaserCount()
 	{
-		return this.m_numLasers;
+		return m_numLasers;
 	}
 
 	public int GetMaxBounces()
 	{
-		return this.m_maxBounces;
+		return m_maxBounces;
 	}
 
 	public int GetMaxTargetHits()
 	{
-		return this.m_maxTargetsHit;
+		return m_maxTargetsHit;
 	}
 
 	public float GetLaserWidth()
 	{
-		return this.m_width;
+		return m_width;
 	}
 
 	public float GetDistancePerBounce()
 	{
-		return this.m_maxDistancePerBounce;
+		return m_maxDistancePerBounce;
 	}
 
 	public float GetMaxTotalDistance()
 	{
-		return this.m_maxTotalDistance;
+		return m_maxTotalDistance;
 	}
 
 	private StandardEffectInfo GetEnemyEffectData()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectData == null)
+		if (m_cachedEffectData == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -110,15 +109,15 @@ public class MantaOutwardLasers : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaOutwardLasers.GetEnemyEffectData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_effectOnEnemy;
+			result = m_effectOnEnemy;
 		}
 		else
 		{
-			result = this.m_cachedEffectData;
+			result = m_cachedEffectData;
 		}
 		return result;
 	}
@@ -126,9 +125,9 @@ public class MantaOutwardLasers : Ability
 	private StandardEffectInfo GetMultiHitEnemyEffectData()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedMultiHitEffectData == null)
+		if (m_cachedMultiHitEffectData == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -137,50 +136,50 @@ public class MantaOutwardLasers : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaOutwardLasers.GetMultiHitEnemyEffectData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_effectForMultiHitsOnEnemy;
+			result = m_effectForMultiHitsOnEnemy;
 		}
 		else
 		{
-			result = this.m_cachedMultiHitEffectData;
+			result = m_cachedMultiHitEffectData;
 		}
 		return result;
 	}
 
 	private StandardEffectInfo GetAdditionalMultiHitEnemyEffectData()
 	{
-		return (this.m_cachedAdditionalMultiHitEffectData != null) ? this.m_cachedAdditionalMultiHitEffectData : this.m_additionalEffectForMultiHitsOnEnemy;
+		return (m_cachedAdditionalMultiHitEffectData != null) ? m_cachedAdditionalMultiHitEffectData : m_additionalEffectForMultiHitsOnEnemy;
 	}
 
 	public int GetBaseDamage()
 	{
-		return this.m_damageAmount;
+		return m_damageAmount;
 	}
 
 	public int GetDamageForAdditionalHit()
 	{
-		return this.m_damageAmountForAdditionalHits;
+		return m_damageAmountForAdditionalHits;
 	}
 
 	public int GetBonusDamagePerBounce()
 	{
-		return this.m_bonusDamagePerBounce;
+		return m_bonusDamagePerBounce;
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_FanOfBouncingLasers(this, this.GetFanAngle(), this.GetDistancePerBounce(), this.GetMaxTotalDistance(), this.GetLaserWidth(), this.GetMaxBounces(), this.GetMaxTargetHits(), this.GetLaserCount());
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_FanOfBouncingLasers(this, GetFanAngle(), GetDistancePerBounce(), GetMaxTotalDistance(), GetLaserWidth(), GetMaxBounces(), GetMaxTargetHits(), GetLaserCount());
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetBaseDamage());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetBaseDamage());
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -189,61 +188,12 @@ public class MantaOutwardLasers : Ability
 		ReadOnlyCollection<AbilityUtil_Targeter_FanOfBouncingLasers.HitActorContext> hitActorContext = (base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_FanOfBouncingLasers).GetHitActorContext();
 		for (int i = 0; i < hitActorContext.Count; i++)
 		{
-			if (hitActorContext[i].actor == targetActor)
+			AbilityUtil_Targeter_FanOfBouncingLasers.HitActorContext hitActorContext2 = hitActorContext[i];
+			if (!(hitActorContext2.actor == targetActor))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MantaOutwardLasers.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-				}
-				int num = this.GetBonusDamagePerBounce() * hitActorContext[i].segmentIndex;
-				int value = this.GetBaseDamage() + num;
-				int num2 = this.GetDamageForAdditionalHit() + num;
-				if (dictionary.ContainsKey(AbilityTooltipSymbol.Damage))
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Dictionary<AbilityTooltipSymbol, int> dictionary2;
-					(dictionary2 = dictionary)[AbilityTooltipSymbol.Damage] = dictionary2[AbilityTooltipSymbol.Damage] + num2;
-				}
-				else
-				{
-					dictionary[AbilityTooltipSymbol.Damage] = value;
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-		return dictionary;
-	}
-
-	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
-	{
-		if (this.m_techPointGainPerLaserHit > 0)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -252,24 +202,76 @@ public class MantaOutwardLasers : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaOutwardLasers.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			int tooltipSubjectCountTotalWithDuplicates = base.Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject.Primary);
-			return this.m_techPointGainPerLaserHit * tooltipSubjectCountTotalWithDuplicates;
+			int bonusDamagePerBounce = GetBonusDamagePerBounce();
+			AbilityUtil_Targeter_FanOfBouncingLasers.HitActorContext hitActorContext3 = hitActorContext[i];
+			int num = bonusDamagePerBounce * hitActorContext3.segmentIndex;
+			int value = GetBaseDamage() + num;
+			int num2 = GetDamageForAdditionalHit() + num;
+			if (dictionary.ContainsKey(AbilityTooltipSymbol.Damage))
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				dictionary[AbilityTooltipSymbol.Damage] += num2;
+			}
+			else
+			{
+				dictionary[AbilityTooltipSymbol.Damage] = value;
+			}
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			return dictionary;
+		}
+	}
+
+	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
+	{
+		if (m_techPointGainPerLaserHit > 0)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					int tooltipSubjectCountTotalWithDuplicates = base.Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject.Primary);
+					return m_techPointGainPerLaserHit * tooltipSubjectCountTotalWithDuplicates;
+				}
+				}
+			}
 		}
 		return 0;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		string name = "DamageAmount";
 		string empty = string.Empty;
 		int val;
-		if (modAsBase)
+		if ((bool)modAsBase)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -278,23 +280,22 @@ public class MantaOutwardLasers : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaOutwardLasers.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			val = 0;
 		}
 		else
 		{
-			val = this.m_damageAmount;
+			val = m_damageAmount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "DamageAdditionalHit";
+		AddTokenInt(tokens, "DamageAmount", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (modAsBase)
+		if ((bool)modAsBase)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -307,15 +308,14 @@ public class MantaOutwardLasers : Ability
 		}
 		else
 		{
-			val2 = this.m_damageAmountForAdditionalHits;
+			val2 = m_damageAmountForAdditionalHits;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		string name3 = "BonusDamagePerBounce";
+		AddTokenInt(tokens, "DamageAdditionalHit", empty2, val2);
 		string empty3 = string.Empty;
 		int val3;
-		if (modAsBase)
+		if ((bool)modAsBase)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -328,15 +328,14 @@ public class MantaOutwardLasers : Ability
 		}
 		else
 		{
-			val3 = this.m_bonusDamagePerBounce;
+			val3 = m_bonusDamagePerBounce;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
-		string name4 = "NumLasers";
+		AddTokenInt(tokens, "BonusDamagePerBounce", empty3, val3);
 		string empty4 = string.Empty;
 		int val4;
-		if (modAsBase)
+		if ((bool)modAsBase)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -349,15 +348,14 @@ public class MantaOutwardLasers : Ability
 		}
 		else
 		{
-			val4 = this.m_numLasers;
+			val4 = m_numLasers;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
-		string name5 = "MaxBounces";
+		AddTokenInt(tokens, "NumLasers", empty4, val4);
 		string empty5 = string.Empty;
 		int val5;
-		if (modAsBase)
+		if ((bool)modAsBase)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -370,15 +368,14 @@ public class MantaOutwardLasers : Ability
 		}
 		else
 		{
-			val5 = this.m_maxBounces;
+			val5 = m_maxBounces;
 		}
-		base.AddTokenInt(tokens, name5, empty5, val5, false);
-		string name6 = "MaxTargetsHit";
+		AddTokenInt(tokens, "MaxBounces", empty5, val5);
 		string empty6 = string.Empty;
 		int val6;
-		if (modAsBase)
+		if ((bool)modAsBase)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -391,8 +388,8 @@ public class MantaOutwardLasers : Ability
 		}
 		else
 		{
-			val6 = this.m_maxTargetsHit;
+			val6 = m_maxTargetsHit;
 		}
-		base.AddTokenInt(tokens, name6, empty6, val6, false);
+		AddTokenInt(tokens, "MaxTargetsHit", empty6, val6);
 	}
 }

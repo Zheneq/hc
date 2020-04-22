@@ -1,12 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
 using Fabric;
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UITutorialPanel : MonoBehaviour
 {
+	public enum SubtitleLocation
+	{
+		BottomLeft,
+		BottomRight
+	}
+
+	public class QueuedTutorialElement
+	{
+		public int Index;
+
+		public string Subtitle;
+
+		public SubtitleLocation DisplayLocation;
+
+		public float TimeToDisplay;
+
+		public CharacterType CharacterType;
+
+		public float DisplayStartTime;
+
+		public string AudioEvent;
+
+		public Action Action;
+	}
+
+	[Serializable]
+	public struct SubtitleDisplayObjects
+	{
+		public RectTransform Container;
+
+		public TextMeshProUGUI ChatText;
+
+		public TextMeshProUGUI CharacterText;
+
+		public Image CharacterImage;
+
+		public GameObject CharacterImageContainer;
+	}
+
 	public GameObject m_tutorialRightClickPanel;
 
 	public TextMeshProUGUI m_tutorialRightClickText;
@@ -45,29 +84,29 @@ public class UITutorialPanel : MonoBehaviour
 
 	public GameObject m_tutorialPassedStamp;
 
-	public UITutorialPanel.SubtitleDisplayObjects BottomLeftDisplay;
+	public SubtitleDisplayObjects BottomLeftDisplay;
 
-	public UITutorialPanel.SubtitleDisplayObjects BottomRightDisplay;
+	public SubtitleDisplayObjects BottomRightDisplay;
 
 	private static UITutorialPanel s_instance;
 
 	private bool m_tutorialCleanUpNeeded;
 
-	private List<UITutorialPanel.QueuedTutorialElement> QueuedTutorialElements = new List<UITutorialPanel.QueuedTutorialElement>();
+	private List<QueuedTutorialElement> QueuedTutorialElements = new List<QueuedTutorialElement>();
 
 	private int m_nextIndex;
 
 	public static UITutorialPanel Get()
 	{
-		return UITutorialPanel.s_instance;
+		return s_instance;
 	}
 
 	public int QueueDialogue(string subtitleText, string audioEvent, float timeToDisplay, CharacterType characterType)
 	{
-		UITutorialPanel.SubtitleLocation subtitleLocation;
+		int num;
 		if (characterType == CharacterType.Scoundrel)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -76,20 +115,20 @@ public class UITutorialPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialPanel.QueueDialogue(string, string, float, CharacterType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			subtitleLocation = UITutorialPanel.SubtitleLocation.BottomLeft;
+			num = 0;
 		}
 		else
 		{
-			subtitleLocation = UITutorialPanel.SubtitleLocation.BottomRight;
+			num = 1;
 		}
-		UITutorialPanel.SubtitleLocation displayLocation = subtitleLocation;
+		SubtitleLocation displayLocation = (SubtitleLocation)num;
 		if (subtitleText.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -100,21 +139,21 @@ public class UITutorialPanel : MonoBehaviour
 			}
 			if (audioEvent.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return -1;
 					}
-					break;
 				}
-				return -1;
 			}
 		}
 		if (audioEvent.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -125,7 +164,7 @@ public class UITutorialPanel : MonoBehaviour
 			}
 			if (timeToDisplay == 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -137,13 +176,12 @@ public class UITutorialPanel : MonoBehaviour
 				timeToDisplay = 3f;
 			}
 		}
-		UITutorialPanel.QueuedTutorialElement queuedTutorialElement = new UITutorialPanel.QueuedTutorialElement();
-		queuedTutorialElement.Index = this.m_nextIndex++;
-		UITutorialPanel.QueuedTutorialElement queuedTutorialElement2 = queuedTutorialElement;
+		QueuedTutorialElement queuedTutorialElement = new QueuedTutorialElement();
+		queuedTutorialElement.Index = m_nextIndex++;
 		string subtitle;
 		if (subtitleText.Contains("@"))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -158,119 +196,121 @@ public class UITutorialPanel : MonoBehaviour
 		{
 			subtitle = subtitleText;
 		}
-		queuedTutorialElement2.Subtitle = subtitle;
+		queuedTutorialElement.Subtitle = subtitle;
 		queuedTutorialElement.AudioEvent = audioEvent;
 		queuedTutorialElement.TimeToDisplay = timeToDisplay;
 		queuedTutorialElement.CharacterType = characterType;
 		queuedTutorialElement.DisplayStartTime = -1f;
 		queuedTutorialElement.DisplayLocation = displayLocation;
-		this.QueuedTutorialElements.Add(queuedTutorialElement);
+		QueuedTutorialElements.Add(queuedTutorialElement);
 		return queuedTutorialElement.Index;
 	}
 
 	public void QueueAction(Action handler)
 	{
-		UITutorialPanel.QueuedTutorialElement queuedTutorialElement = new UITutorialPanel.QueuedTutorialElement();
-		queuedTutorialElement.Index = this.m_nextIndex++;
+		QueuedTutorialElement queuedTutorialElement = new QueuedTutorialElement();
+		queuedTutorialElement.Index = m_nextIndex++;
 		queuedTutorialElement.Action = handler;
 		queuedTutorialElement.DisplayStartTime = -1f;
-		this.QueuedTutorialElements.Add(queuedTutorialElement);
+		QueuedTutorialElements.Add(queuedTutorialElement);
 	}
 
 	public bool HasQueuedElements()
 	{
-		return this.QueuedTutorialElements.Count > 0;
+		return QueuedTutorialElements.Count > 0;
 	}
 
 	public void ClearAll()
 	{
-		this.QueuedTutorialElements.Clear();
-		this.RebuildSubtitles();
-		if (SinglePlayerManager.Get() != null)
+		QueuedTutorialElements.Clear();
+		RebuildSubtitles();
+		if (!(SinglePlayerManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialPanel.ClearAll()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			SinglePlayerManager.Get().OnTutorialQueueEmpty();
+			return;
 		}
 	}
 
 	public void HideTutorialPassedStamp()
 	{
-		UIManager.SetGameObjectActive(this.m_tutorialPassedStamp, false, null);
+		UIManager.SetGameObjectActive(m_tutorialPassedStamp, false);
 	}
 
 	public void ShowTutorialPassedStamp()
 	{
-		UIManager.SetGameObjectActive(this.m_tutorialPassedStamp, true, null);
+		UIManager.SetGameObjectActive(m_tutorialPassedStamp, true);
 	}
 
 	public void RemoveQueuedElement(int index)
 	{
-		if (this.QueuedTutorialElements.Count > 0 && this.QueuedTutorialElements[0] != null)
+		if (QueuedTutorialElements.Count <= 0 || QueuedTutorialElements[0] == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (QueuedTutorialElements[0].Index != index)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialPanel.RemoveQueuedElement(int)).MethodHandle;
-			}
-			if (this.QueuedTutorialElements[0].Index == index)
-			{
-				for (;;)
+				QueuedTutorialElements.RemoveAt(0);
+				UIManager.SetGameObjectActive(BottomLeftDisplay.Container, false);
+				UIManager.SetGameObjectActive(BottomRightDisplay.Container, false);
+				RebuildSubtitles();
+				if (QueuedTutorialElements.Count != 0)
 				{
-					switch (7)
+					return;
+				}
+				while (true)
+				{
+					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				this.QueuedTutorialElements.RemoveAt(0);
-				UIManager.SetGameObjectActive(this.BottomLeftDisplay.Container, false, null);
-				UIManager.SetGameObjectActive(this.BottomRightDisplay.Container, false, null);
-				this.RebuildSubtitles();
-				if (this.QueuedTutorialElements.Count == 0)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (SinglePlayerManager.Get() != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
 							case 0:
 								continue;
 							}
-							break;
+							SinglePlayerManager.Get().OnTutorialQueueEmpty();
+							return;
 						}
-						SinglePlayerManager.Get().OnTutorialQueueEmpty();
 					}
+					return;
 				}
 			}
 		}
@@ -278,54 +318,54 @@ public class UITutorialPanel : MonoBehaviour
 
 	private void RebuildSubtitles()
 	{
-		if (this.QueuedTutorialElements.Count == 0)
+		if (QueuedTutorialElements.Count == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					UIManager.SetGameObjectActive(BottomLeftDisplay.Container, false);
+					UIManager.SetGameObjectActive(BottomRightDisplay.Container, false);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialPanel.RebuildSubtitles()).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.BottomLeftDisplay.Container, false, null);
-			UIManager.SetGameObjectActive(this.BottomRightDisplay.Container, false, null);
-			return;
 		}
-		UITutorialPanel.QueuedTutorialElement queuedElement = this.QueuedTutorialElements[0];
+		QueuedTutorialElement queuedElement = QueuedTutorialElements[0];
 		if (queuedElement.DisplayStartTime >= 0f && queuedElement.TimeToDisplay > 0f && Time.realtimeSinceStartup - queuedElement.DisplayStartTime >= queuedElement.TimeToDisplay)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					RemoveQueuedElement(queuedElement.Index);
+					return;
 				}
-				break;
 			}
-			this.RemoveQueuedElement(queuedElement.Index);
+		}
+		if (queuedElement.DisplayStartTime != -1f)
+		{
 			return;
 		}
-		if (queuedElement.DisplayStartTime == -1f)
+		while (true)
 		{
-			for (;;)
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			if (Time.timeScale > 1f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -337,7 +377,7 @@ public class UITutorialPanel : MonoBehaviour
 				queuedElement.AudioEvent = null;
 				if (queuedElement.TimeToDisplay == 0f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -353,10 +393,10 @@ public class UITutorialPanel : MonoBehaviour
 					queuedElement.TimeToDisplay /= Time.timeScale;
 				}
 			}
-			UITutorialPanel.SubtitleDisplayObjects subtitleDisplayObjects;
-			if (queuedElement.DisplayLocation == UITutorialPanel.SubtitleLocation.BottomLeft)
+			SubtitleDisplayObjects subtitleDisplayObjects;
+			if (queuedElement.DisplayLocation == SubtitleLocation.BottomLeft)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -365,16 +405,16 @@ public class UITutorialPanel : MonoBehaviour
 					}
 					break;
 				}
-				subtitleDisplayObjects = this.BottomLeftDisplay;
+				subtitleDisplayObjects = BottomLeftDisplay;
 			}
 			else
 			{
-				subtitleDisplayObjects = this.BottomRightDisplay;
+				subtitleDisplayObjects = BottomRightDisplay;
 			}
-			UITutorialPanel.SubtitleDisplayObjects subtitleDisplayObjects2 = subtitleDisplayObjects;
+			SubtitleDisplayObjects subtitleDisplayObjects2 = subtitleDisplayObjects;
 			if (!queuedElement.Subtitle.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -383,14 +423,14 @@ public class UITutorialPanel : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(subtitleDisplayObjects2.Container, true, null);
+				UIManager.SetGameObjectActive(subtitleDisplayObjects2.Container, true);
 				subtitleDisplayObjects2.CharacterText.text = GameWideData.Get().GetCharacterDisplayName(queuedElement.CharacterType);
 				subtitleDisplayObjects2.CharacterImage.sprite = GameWideData.Get().GetCharacterResourceLink(queuedElement.CharacterType).GetCharacterSelectIcon();
 				subtitleDisplayObjects2.ChatText.text = queuedElement.Subtitle;
-				bool flag;
+				int num;
 				if (HUD_UI.Get().MainHUDElementsVisible())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -399,23 +439,23 @@ public class UITutorialPanel : MonoBehaviour
 						}
 						break;
 					}
-					flag = UIGameOverScreen.Get().IsVisible;
+					num = (UIGameOverScreen.Get().IsVisible ? 1 : 0);
 				}
 				else
 				{
-					flag = true;
+					num = 1;
 				}
-				bool doActive = flag;
-				UIManager.SetGameObjectActive(this.BottomLeftDisplay.CharacterImageContainer, doActive, null);
+				bool doActive = (byte)num != 0;
+				UIManager.SetGameObjectActive(BottomLeftDisplay.CharacterImageContainer, doActive);
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(subtitleDisplayObjects2.Container, false, null);
+				UIManager.SetGameObjectActive(subtitleDisplayObjects2.Container, false);
 			}
 			queuedElement.DisplayStartTime = Time.realtimeSinceStartup;
 			if (!queuedElement.AudioEvent.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -428,25 +468,26 @@ public class UITutorialPanel : MonoBehaviour
 				{
 					if (queuedElement.TimeToDisplay == 0f && eventType == EventNotificationType.OnFinished)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								if (1 == 0)
+								{
+									/*OpCode not supported: LdMemberToken*/;
+								}
+								queuedElement.TimeToDisplay = Time.realtimeSinceStartup - queuedElement.DisplayStartTime + 0.25f;
+								return;
 							}
-							break;
 						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(UITutorialPanel.<RebuildSubtitles>c__AnonStorey0.<>m__0(EventNotificationType, string, object, GameObject)).MethodHandle;
-						}
-						queuedElement.TimeToDisplay = Time.realtimeSinceStartup - queuedElement.DisplayStartTime + 0.25f;
 					}
 				};
-				if (!AudioManager.PostEventNotify(queuedElement.AudioEvent, notifyCallback, null))
+				if (!AudioManager.PostEventNotify(queuedElement.AudioEvent, notifyCallback))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -455,118 +496,82 @@ public class UITutorialPanel : MonoBehaviour
 						}
 						break;
 					}
-					this.RemoveQueuedElement(queuedElement.Index);
+					RemoveQueuedElement(queuedElement.Index);
 				}
 			}
 			if (queuedElement.Action != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					queuedElement.Action();
+					RemoveQueuedElement(queuedElement.Index);
+					return;
 				}
-				queuedElement.Action();
-				this.RemoveQueuedElement(queuedElement.Index);
 			}
+			return;
 		}
 	}
 
 	private void Awake()
 	{
-		UIManager.SetGameObjectActive(this.BottomLeftDisplay.Container, false, null);
-		UIManager.SetGameObjectActive(this.BottomRightDisplay.Container, false, null);
-		UITutorialPanel.s_instance = this;
+		UIManager.SetGameObjectActive(BottomLeftDisplay.Container, false);
+		UIManager.SetGameObjectActive(BottomRightDisplay.Container, false);
+		s_instance = this;
 	}
 
 	public void Update()
 	{
-		this.RebuildSubtitles();
+		RebuildSubtitles();
 	}
 
 	public void LateUpdate()
 	{
 		if (SinglePlayerManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					SinglePlayerManager.Get().UpdateRightAndLeftClickElements(m_tutorialRightClickPanel, m_tutorialRightClickText, m_tutorialLeftClickPanel, m_tutorialLeftClickText, m_tutorialShiftRightClickPanel, m_tutorialShiftRightClickText);
+					SinglePlayerManager.Get().UpdateTutorialTextElements(m_tutorialTextPanel, m_tutorialText, m_tutorialTextPanel2, m_tutorialText2, m_tutorialTextPanel3, m_tutorialText3, m_tutorialCameraMovementPanel, m_tutorialCameraMovementText, m_tutorialCameraRotationPanel, m_tutorialCameraRotationText);
+					SinglePlayerManager.Get().UpdateTutorialError(m_tutorialErrorPanel, m_tutorialErrorText);
+					m_tutorialCleanUpNeeded = true;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialPanel.LateUpdate()).MethodHandle;
-			}
-			SinglePlayerManager.Get().UpdateRightAndLeftClickElements(this.m_tutorialRightClickPanel, this.m_tutorialRightClickText, this.m_tutorialLeftClickPanel, this.m_tutorialLeftClickText, this.m_tutorialShiftRightClickPanel, this.m_tutorialShiftRightClickText);
-			SinglePlayerManager.Get().UpdateTutorialTextElements(this.m_tutorialTextPanel, this.m_tutorialText, this.m_tutorialTextPanel2, this.m_tutorialText2, this.m_tutorialTextPanel3, this.m_tutorialText3, this.m_tutorialCameraMovementPanel, this.m_tutorialCameraMovementText, this.m_tutorialCameraRotationPanel, this.m_tutorialCameraRotationText);
-			SinglePlayerManager.Get().UpdateTutorialError(this.m_tutorialErrorPanel, this.m_tutorialErrorText);
-			this.m_tutorialCleanUpNeeded = true;
 		}
-		else if (this.m_tutorialCleanUpNeeded)
+		if (!m_tutorialCleanUpNeeded)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_tutorialLeftClickPanel, false, null);
-			UIManager.SetGameObjectActive(this.m_tutorialRightClickPanel, false, null);
-			UIManager.SetGameObjectActive(this.m_tutorialTextPanel, false, null);
-			UIManager.SetGameObjectActive(this.m_tutorialTextPanel2, false, null);
-			UIManager.SetGameObjectActive(this.m_tutorialTextPanel3, false, null);
-			UIManager.SetGameObjectActive(this.m_tutorialCameraMovementPanel, false, null);
-			UIManager.SetGameObjectActive(this.m_tutorialCameraRotationPanel, false, null);
-			this.m_tutorialCleanUpNeeded = false;
+			return;
 		}
-	}
-
-	public enum SubtitleLocation
-	{
-		BottomLeft,
-		BottomRight
-	}
-
-	public class QueuedTutorialElement
-	{
-		public int Index;
-
-		public string Subtitle;
-
-		public UITutorialPanel.SubtitleLocation DisplayLocation;
-
-		public float TimeToDisplay;
-
-		public CharacterType CharacterType;
-
-		public float DisplayStartTime;
-
-		public string AudioEvent;
-
-		public Action Action;
-	}
-
-	[Serializable]
-	public struct SubtitleDisplayObjects
-	{
-		public RectTransform Container;
-
-		public TextMeshProUGUI ChatText;
-
-		public TextMeshProUGUI CharacterText;
-
-		public Image CharacterImage;
-
-		public GameObject CharacterImageContainer;
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			UIManager.SetGameObjectActive(m_tutorialLeftClickPanel, false);
+			UIManager.SetGameObjectActive(m_tutorialRightClickPanel, false);
+			UIManager.SetGameObjectActive(m_tutorialTextPanel, false);
+			UIManager.SetGameObjectActive(m_tutorialTextPanel2, false);
+			UIManager.SetGameObjectActive(m_tutorialTextPanel3, false);
+			UIManager.SetGameObjectActive(m_tutorialCameraMovementPanel, false);
+			UIManager.SetGameObjectActive(m_tutorialCameraRotationPanel, false);
+			m_tutorialCleanUpNeeded = false;
+			return;
+		}
 	}
 }

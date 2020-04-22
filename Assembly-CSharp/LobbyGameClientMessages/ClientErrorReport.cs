@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace LobbyGameClientMessages
 {
@@ -13,9 +13,9 @@ namespace LobbyGameClientMessages
 
 		public float Time;
 
-		public int \u001D()
+		public int _001D()
 		{
-			return this.LogString.Length + this.StackTrace.Length + 4 + 4;
+			return LogString.Length + StackTrace.Length + 4 + 4;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public struct CharacterAbilityVfxSwapInfo
@@ -17,11 +17,11 @@ public struct CharacterAbilityVfxSwapInfo
 
 	public void Reset()
 	{
-		this.VfxSwapForAbility0 = 0;
-		this.VfxSwapForAbility1 = 0;
-		this.VfxSwapForAbility2 = 0;
-		this.VfxSwapForAbility3 = 0;
-		this.VfxSwapForAbility4 = 0;
+		VfxSwapForAbility0 = 0;
+		VfxSwapForAbility1 = 0;
+		VfxSwapForAbility2 = 0;
+		VfxSwapForAbility3 = 0;
+		VfxSwapForAbility4 = 0;
 	}
 
 	public int GetAbilityVfxSwapIdForAbility(int abilityIndex)
@@ -29,15 +29,15 @@ public struct CharacterAbilityVfxSwapInfo
 		switch (abilityIndex)
 		{
 		case 0:
-			return this.VfxSwapForAbility0;
+			return VfxSwapForAbility0;
 		case 1:
-			return this.VfxSwapForAbility1;
+			return VfxSwapForAbility1;
 		case 2:
-			return this.VfxSwapForAbility2;
+			return VfxSwapForAbility2;
 		case 3:
-			return this.VfxSwapForAbility3;
+			return VfxSwapForAbility3;
 		case 4:
-			return this.VfxSwapForAbility4;
+			return VfxSwapForAbility4;
 		default:
 			return -1;
 		}
@@ -48,58 +48,51 @@ public struct CharacterAbilityVfxSwapInfo
 		switch (abilityIndex)
 		{
 		case 0:
-			this.VfxSwapForAbility0 = vfxSwapUniqueId;
+			VfxSwapForAbility0 = vfxSwapUniqueId;
 			break;
 		case 1:
-			this.VfxSwapForAbility1 = vfxSwapUniqueId;
+			VfxSwapForAbility1 = vfxSwapUniqueId;
 			break;
 		case 2:
-			this.VfxSwapForAbility2 = vfxSwapUniqueId;
+			VfxSwapForAbility2 = vfxSwapUniqueId;
 			break;
 		case 3:
-			this.VfxSwapForAbility3 = vfxSwapUniqueId;
+			VfxSwapForAbility3 = vfxSwapUniqueId;
 			break;
 		case 4:
-			this.VfxSwapForAbility4 = vfxSwapUniqueId;
+			VfxSwapForAbility4 = vfxSwapUniqueId;
 			break;
 		}
 	}
 
 	public string ToIdString()
 	{
-		return string.Format("{0}/{1}/{2}/{3}/{4}", new object[]
-		{
-			this.VfxSwapForAbility0.ToString(),
-			this.VfxSwapForAbility1.ToString(),
-			this.VfxSwapForAbility2.ToString(),
-			this.VfxSwapForAbility3.ToString(),
-			this.VfxSwapForAbility4.ToString()
-		});
+		return $"{VfxSwapForAbility0.ToString()}/{VfxSwapForAbility1.ToString()}/{VfxSwapForAbility2.ToString()}/{VfxSwapForAbility3.ToString()}/{VfxSwapForAbility4.ToString()}";
 	}
 
 	public override bool Equals(object obj)
 	{
 		if (!(obj is CharacterAbilityVfxSwapInfo))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return false;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterAbilityVfxSwapInfo.Equals(object)).MethodHandle;
-			}
-			return false;
 		}
 		CharacterAbilityVfxSwapInfo characterAbilityVfxSwapInfo = (CharacterAbilityVfxSwapInfo)obj;
-		if (this.VfxSwapForAbility0 == characterAbilityVfxSwapInfo.VfxSwapForAbility0)
+		int result;
+		if (VfxSwapForAbility0 == characterAbilityVfxSwapInfo.VfxSwapForAbility0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -108,9 +101,9 @@ public struct CharacterAbilityVfxSwapInfo
 				}
 				break;
 			}
-			if (this.VfxSwapForAbility1 == characterAbilityVfxSwapInfo.VfxSwapForAbility1 && this.VfxSwapForAbility2 == characterAbilityVfxSwapInfo.VfxSwapForAbility2)
+			if (VfxSwapForAbility1 == characterAbilityVfxSwapInfo.VfxSwapForAbility1 && VfxSwapForAbility2 == characterAbilityVfxSwapInfo.VfxSwapForAbility2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -119,9 +112,9 @@ public struct CharacterAbilityVfxSwapInfo
 					}
 					break;
 				}
-				if (this.VfxSwapForAbility3 == characterAbilityVfxSwapInfo.VfxSwapForAbility3)
+				if (VfxSwapForAbility3 == characterAbilityVfxSwapInfo.VfxSwapForAbility3)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -130,15 +123,19 @@ public struct CharacterAbilityVfxSwapInfo
 						}
 						break;
 					}
-					return this.VfxSwapForAbility4 == characterAbilityVfxSwapInfo.VfxSwapForAbility4;
+					result = ((VfxSwapForAbility4 == characterAbilityVfxSwapInfo.VfxSwapForAbility4) ? 1 : 0);
+					goto IL_0090;
 				}
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_0090;
+		IL_0090:
+		return (byte)result != 0;
 	}
 
 	public override int GetHashCode()
 	{
-		return this.VfxSwapForAbility0.GetHashCode() ^ this.VfxSwapForAbility1.GetHashCode() ^ this.VfxSwapForAbility2.GetHashCode() ^ this.VfxSwapForAbility3.GetHashCode() ^ this.VfxSwapForAbility4.GetHashCode();
+		return VfxSwapForAbility0.GetHashCode() ^ VfxSwapForAbility1.GetHashCode() ^ VfxSwapForAbility2.GetHashCode() ^ VfxSwapForAbility3.GetHashCode() ^ VfxSwapForAbility4.GetHashCode();
 	}
 }

@@ -1,5 +1,3 @@
-﻿using System;
-
 public interface IMessagePublisher
 {
 	void Subscribe<TMessageType>(WebSocket subscriber);

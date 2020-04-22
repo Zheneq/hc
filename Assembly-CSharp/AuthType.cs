@@ -1,5 +1,3 @@
-﻿using System;
-
 public enum AuthType
 {
 	Unknown,

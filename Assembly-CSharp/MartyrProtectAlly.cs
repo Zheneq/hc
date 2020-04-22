@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -73,9 +72,9 @@ public class MartyrProtectAlly : MartyrLaserBase
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -84,29 +83,29 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Martyr Protect Ally";
+			m_abilityName = "Martyr Protect Ally";
 		}
-		this.Setup();
-		base.ResetTooltipAndTargetingNumbers();
+		Setup();
+		ResetTooltipAndTargetingNumbers();
 	}
 
 	protected override Martyr_SyncComponent GetSyncComponent()
 	{
-		return this.m_syncComponent;
+		return m_syncComponent;
 	}
 
 	protected void Setup()
 	{
-		this.m_syncComponent = base.GetComponent<Martyr_SyncComponent>();
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, this.PenetratesLoS(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, this.AffectsEnemies(), this.AffectsAllies(), AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Always);
+		m_syncComponent = GetComponent<Martyr_SyncComponent>();
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, PenetratesLoS(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, AffectsEnemies(), AffectsAllies(), AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Always);
 		(base.Targeter as AbilityUtil_Targeter_Shape).m_affectCasterDelegate = delegate(ActorData caster, List<ActorData> actorsSoFar, bool casterInShape)
 		{
-			int currentAbsorb = this.GetCurrentAbsorb(caster);
+			int currentAbsorb = GetCurrentAbsorb(caster);
 			return currentAbsorb > 0;
 		};
 	}
@@ -119,9 +118,9 @@ public class MartyrProtectAlly : MartyrLaserBase
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedLaserHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -130,21 +129,21 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedLaserHitEffect = this.m_abilityMod.m_laserHitEffectMod.GetModifiedValue(this.m_laserHitEffect);
+			cachedLaserHitEffect = m_abilityMod.m_laserHitEffectMod.GetModifiedValue(m_laserHitEffect);
 		}
 		else
 		{
-			cachedLaserHitEffect = this.m_laserHitEffect;
+			cachedLaserHitEffect = m_laserHitEffect;
 		}
-		this.m_cachedLaserHitEffect = cachedLaserHitEffect;
+		m_cachedLaserHitEffect = cachedLaserHitEffect;
 		StandardEffectInfo cachedThornsEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -153,18 +152,18 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			cachedThornsEffect = this.m_abilityMod.m_thornsEffectMod.GetModifiedValue(this.m_thornsEffect);
+			cachedThornsEffect = m_abilityMod.m_thornsEffectMod.GetModifiedValue(m_thornsEffect);
 		}
 		else
 		{
-			cachedThornsEffect = this.m_thornsEffect;
+			cachedThornsEffect = m_thornsEffect;
 		}
-		this.m_cachedThornsEffect = cachedThornsEffect;
-		this.m_cachedReturnEffectOnEnemy = ((!this.m_abilityMod) ? this.m_returnEffectOnEnemy : this.m_abilityMod.m_returnEffectOnEnemyMod.GetModifiedValue(this.m_returnEffectOnEnemy));
+		m_cachedThornsEffect = cachedThornsEffect;
+		m_cachedReturnEffectOnEnemy = ((!m_abilityMod) ? m_returnEffectOnEnemy : m_abilityMod.m_returnEffectOnEnemyMod.GetModifiedValue(m_returnEffectOnEnemy));
 		StandardEffectInfo cachedEffectOnSelf;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -173,31 +172,31 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			cachedEffectOnSelf = this.m_abilityMod.m_effectOnSelfMod.GetModifiedValue(this.m_effectOnSelf);
+			cachedEffectOnSelf = m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
 		}
 		else
 		{
-			cachedEffectOnSelf = this.m_effectOnSelf;
+			cachedEffectOnSelf = m_effectOnSelf;
 		}
-		this.m_cachedEffectOnSelf = cachedEffectOnSelf;
+		m_cachedEffectOnSelf = cachedEffectOnSelf;
 	}
 
 	public float GetDamageReductionOnTarget()
 	{
-		return (!this.m_abilityMod) ? this.m_damageReductionOnTarget : this.m_abilityMod.m_damageReductionOnTargetMod.GetModifiedValue(this.m_damageReductionOnTarget);
+		return (!m_abilityMod) ? m_damageReductionOnTarget : m_abilityMod.m_damageReductionOnTargetMod.GetModifiedValue(m_damageReductionOnTarget);
 	}
 
 	public float GetDamageRedirectToCaster()
 	{
-		return (!this.m_abilityMod) ? this.m_damageRedirectToCaster : this.m_abilityMod.m_damageRedirectToCasterMod.GetModifiedValue(this.m_damageRedirectToCaster);
+		return (!m_abilityMod) ? m_damageRedirectToCaster : m_abilityMod.m_damageRedirectToCasterMod.GetModifiedValue(m_damageRedirectToCaster);
 	}
 
 	public int GetTechPointGainPerRedirect()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -206,15 +205,15 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetTechPointGainPerRedirect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_techPointGainPerRedirectMod.GetModifiedValue(this.m_techPointGainPerRedirect);
+			result = m_abilityMod.m_techPointGainPerRedirectMod.GetModifiedValue(m_techPointGainPerRedirect);
 		}
 		else
 		{
-			result = this.m_techPointGainPerRedirect;
+			result = m_techPointGainPerRedirect;
 		}
 		return result;
 	}
@@ -222,9 +221,9 @@ public class MartyrProtectAlly : MartyrLaserBase
 	public StandardEffectInfo GetLaserHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedLaserHitEffect != null)
+		if (m_cachedLaserHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -233,15 +232,15 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetLaserHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedLaserHitEffect;
+			result = m_cachedLaserHitEffect;
 		}
 		else
 		{
-			result = this.m_laserHitEffect;
+			result = m_laserHitEffect;
 		}
 		return result;
 	}
@@ -249,9 +248,9 @@ public class MartyrProtectAlly : MartyrLaserBase
 	public bool AffectsEnemies()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -260,15 +259,15 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.AffectsEnemies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_affectsEnemiesMod.GetModifiedValue(this.m_affectsEnemies);
+			result = m_abilityMod.m_affectsEnemiesMod.GetModifiedValue(m_affectsEnemies);
 		}
 		else
 		{
-			result = this.m_affectsEnemies;
+			result = m_affectsEnemies;
 		}
 		return result;
 	}
@@ -276,9 +275,9 @@ public class MartyrProtectAlly : MartyrLaserBase
 	public bool AffectsAllies()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -287,30 +286,30 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.AffectsAllies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_affectsAlliesMod.GetModifiedValue(this.m_affectsAllies);
+			result = m_abilityMod.m_affectsAlliesMod.GetModifiedValue(m_affectsAllies);
 		}
 		else
 		{
-			result = this.m_affectsAllies;
+			result = m_affectsAllies;
 		}
 		return result;
 	}
 
 	public bool PenetratesLoS()
 	{
-		return (!this.m_abilityMod) ? this.m_penetratesLoS : this.m_abilityMod.m_penetratesLoSMod.GetModifiedValue(this.m_penetratesLoS);
+		return (!m_abilityMod) ? m_penetratesLoS : m_abilityMod.m_penetratesLoSMod.GetModifiedValue(m_penetratesLoS);
 	}
 
 	public StandardEffectInfo GetThornsEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedThornsEffect != null)
+		if (m_cachedThornsEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -319,15 +318,15 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetThornsEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedThornsEffect;
+			result = m_cachedThornsEffect;
 		}
 		else
 		{
-			result = this.m_thornsEffect;
+			result = m_thornsEffect;
 		}
 		return result;
 	}
@@ -335,9 +334,9 @@ public class MartyrProtectAlly : MartyrLaserBase
 	public StandardEffectInfo GetReturnEffectOnEnemy()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedReturnEffectOnEnemy != null)
+		if (m_cachedReturnEffectOnEnemy != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -346,15 +345,15 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetReturnEffectOnEnemy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedReturnEffectOnEnemy;
+			result = m_cachedReturnEffectOnEnemy;
 		}
 		else
 		{
-			result = this.m_returnEffectOnEnemy;
+			result = m_returnEffectOnEnemy;
 		}
 		return result;
 	}
@@ -362,9 +361,9 @@ public class MartyrProtectAlly : MartyrLaserBase
 	public int GetThornsDamagePerHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -373,15 +372,15 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetThornsDamagePerHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_thornsDamagePerHitMod.GetModifiedValue(this.m_thornsDamagePerHit);
+			result = m_abilityMod.m_thornsDamagePerHitMod.GetModifiedValue(m_thornsDamagePerHit);
 		}
 		else
 		{
-			result = this.m_thornsDamagePerHit;
+			result = m_thornsDamagePerHit;
 		}
 		return result;
 	}
@@ -389,9 +388,9 @@ public class MartyrProtectAlly : MartyrLaserBase
 	public StandardEffectInfo GetEffectOnSelf()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectOnSelf != null)
+		if (m_cachedEffectOnSelf != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -400,15 +399,15 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetEffectOnSelf()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEffectOnSelf;
+			result = m_cachedEffectOnSelf;
 		}
 		else
 		{
-			result = this.m_effectOnSelf;
+			result = m_effectOnSelf;
 		}
 		return result;
 	}
@@ -416,9 +415,9 @@ public class MartyrProtectAlly : MartyrLaserBase
 	public int GetBaseAbsorb()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -427,30 +426,30 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetBaseAbsorb()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_baseAbsorbMod.GetModifiedValue(this.m_baseAbsorb);
+			result = m_abilityMod.m_baseAbsorbMod.GetModifiedValue(m_baseAbsorb);
 		}
 		else
 		{
-			result = this.m_baseAbsorb;
+			result = m_baseAbsorb;
 		}
 		return result;
 	}
 
 	public int GetAbsorbPerCrystalSpent()
 	{
-		return (!this.m_abilityMod) ? this.m_absorbPerCrystalSpent : this.m_abilityMod.m_absorbPerCrystalSpentMod.GetModifiedValue(this.m_absorbPerCrystalSpent);
+		return (!m_abilityMod) ? m_absorbPerCrystalSpent : m_abilityMod.m_absorbPerCrystalSpentMod.GetModifiedValue(m_absorbPerCrystalSpent);
 	}
 
 	public int GetBaseAbsorbOnAlly()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -459,30 +458,30 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetBaseAbsorbOnAlly()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_baseAbsorbOnAllyMod.GetModifiedValue(this.m_baseAbsorbOnAlly);
+			result = m_abilityMod.m_baseAbsorbOnAllyMod.GetModifiedValue(m_baseAbsorbOnAlly);
 		}
 		else
 		{
-			result = this.m_baseAbsorbOnAlly;
+			result = m_baseAbsorbOnAlly;
 		}
 		return result;
 	}
 
 	public int GetAbsorbOnAllyPerCrystalSpent()
 	{
-		return (!this.m_abilityMod) ? this.m_absorbOnAllyPerCrystalSpent : this.m_abilityMod.m_absorbOnAllyPerCrystalSpentMod.GetModifiedValue(this.m_absorbOnAllyPerCrystalSpent);
+		return (!m_abilityMod) ? m_absorbOnAllyPerCrystalSpent : m_abilityMod.m_absorbOnAllyPerCrystalSpentMod.GetModifiedValue(m_absorbOnAllyPerCrystalSpent);
 	}
 
 	public float GetExtraEnergyPerRedirectDamage()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -491,31 +490,31 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetExtraEnergyPerRedirectDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraEnergyPerRedirectDamageMod.GetModifiedValue(this.m_extraEnergyPerRedirectDamage);
+			result = m_abilityMod.m_extraEnergyPerRedirectDamageMod.GetModifiedValue(m_extraEnergyPerRedirectDamage);
 		}
 		else
 		{
-			result = this.m_extraEnergyPerRedirectDamage;
+			result = m_extraEnergyPerRedirectDamage;
 		}
 		return result;
 	}
 
 	public float GetHealOnTurnStartPerRedirectDamage()
 	{
-		return (!this.m_abilityMod) ? this.m_healOnTurnStartPerRedirectDamage : this.m_abilityMod.m_healOnTurnStartPerRedirectDamageMod.GetModifiedValue(this.m_healOnTurnStartPerRedirectDamage);
+		return (!m_abilityMod) ? m_healOnTurnStartPerRedirectDamage : m_abilityMod.m_healOnTurnStartPerRedirectDamageMod.GetModifiedValue(m_healOnTurnStartPerRedirectDamage);
 	}
 
 	private int GetCurrentAbsorb(ActorData caster)
 	{
-		MartyrProtectAllyThreshold martyrProtectAllyThreshold = base.GetCurrentPowerEntry(caster) as MartyrProtectAllyThreshold;
+		MartyrProtectAllyThreshold martyrProtectAllyThreshold = GetCurrentPowerEntry(caster) as MartyrProtectAllyThreshold;
 		int num;
 		if (martyrProtectAllyThreshold != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -524,9 +523,9 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetCurrentAbsorb(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = martyrProtectAllyThreshold.m_additionalAbsorb;
 		}
@@ -535,16 +534,16 @@ public class MartyrProtectAlly : MartyrLaserBase
 			num = 0;
 		}
 		int num2 = num;
-		return this.GetBaseAbsorb() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetAbsorbPerCrystalSpent() + num2;
+		return GetBaseAbsorb() + m_syncComponent.SpentDamageCrystals(caster) * GetAbsorbPerCrystalSpent() + num2;
 	}
 
 	private int GetCurrentAbsorbForAlly(ActorData caster)
 	{
-		MartyrProtectAllyThreshold martyrProtectAllyThreshold = base.GetCurrentPowerEntry(caster) as MartyrProtectAllyThreshold;
+		MartyrProtectAllyThreshold martyrProtectAllyThreshold = GetCurrentPowerEntry(caster) as MartyrProtectAllyThreshold;
 		int num;
 		if (martyrProtectAllyThreshold != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -553,9 +552,9 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetCurrentAbsorbForAlly(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = martyrProtectAllyThreshold.m_additionalAbsorbOnAlly;
 		}
@@ -564,19 +563,18 @@ public class MartyrProtectAlly : MartyrLaserBase
 			num = 0;
 		}
 		int num2 = num;
-		return this.GetBaseAbsorbOnAlly() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetAbsorbOnAllyPerCrystalSpent() + num2;
+		return GetBaseAbsorbOnAlly() + m_syncComponent.SpentDamageCrystals(caster) * GetAbsorbOnAllyPerCrystalSpent() + num2;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
 		AbilityMod_MartyrProtectAlly abilityMod_MartyrProtectAlly = modAsBase as AbilityMod_MartyrProtectAlly;
-		string name = "DamageReductionOnTarget_Pct";
 		string empty = string.Empty;
 		float val;
-		if (abilityMod_MartyrProtectAlly)
+		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -585,23 +583,22 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_MartyrProtectAlly.m_damageReductionOnTargetMod.GetModifiedValue(this.m_damageReductionOnTarget);
+			val = abilityMod_MartyrProtectAlly.m_damageReductionOnTargetMod.GetModifiedValue(m_damageReductionOnTarget);
 		}
 		else
 		{
-			val = this.m_damageReductionOnTarget;
+			val = m_damageReductionOnTarget;
 		}
-		base.AddTokenFloatAsPct(tokens, name, empty, val, false);
-		string name2 = "DamageRedirectToCaster_Pct";
+		AddTokenFloatAsPct(tokens, "DamageReductionOnTarget_Pct", empty, val);
 		string empty2 = string.Empty;
 		float val2;
-		if (abilityMod_MartyrProtectAlly)
+		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -610,19 +607,18 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			val2 = abilityMod_MartyrProtectAlly.m_damageRedirectToCasterMod.GetModifiedValue(this.m_damageRedirectToCaster);
+			val2 = abilityMod_MartyrProtectAlly.m_damageRedirectToCasterMod.GetModifiedValue(m_damageRedirectToCaster);
 		}
 		else
 		{
-			val2 = this.m_damageRedirectToCaster;
+			val2 = m_damageRedirectToCaster;
 		}
-		base.AddTokenFloatAsPct(tokens, name2, empty2, val2, false);
-		string name3 = "TechPointGainPerRedirect";
+		AddTokenFloatAsPct(tokens, "DamageRedirectToCaster_Pct", empty2, val2);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_MartyrProtectAlly)
+		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -631,19 +627,19 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			val3 = abilityMod_MartyrProtectAlly.m_techPointGainPerRedirectMod.GetModifiedValue(this.m_techPointGainPerRedirect);
+			val3 = abilityMod_MartyrProtectAlly.m_techPointGainPerRedirectMod.GetModifiedValue(m_techPointGainPerRedirect);
 		}
 		else
 		{
-			val3 = this.m_techPointGainPerRedirect;
+			val3 = m_techPointGainPerRedirect;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_MartyrProtectAlly) ? this.m_laserHitEffect : abilityMod_MartyrProtectAlly.m_laserHitEffectMod.GetModifiedValue(this.m_laserHitEffect), "LaserHitEffect", this.m_laserHitEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_MartyrProtectAlly) ? this.m_thornsEffect : abilityMod_MartyrProtectAlly.m_thornsEffectMod.GetModifiedValue(this.m_thornsEffect), "ThornsEffect", this.m_thornsEffect, true);
+		AddTokenInt(tokens, "TechPointGainPerRedirect", empty3, val3);
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_MartyrProtectAlly) ? m_laserHitEffect : abilityMod_MartyrProtectAlly.m_laserHitEffectMod.GetModifiedValue(m_laserHitEffect), "LaserHitEffect", m_laserHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_MartyrProtectAlly) ? m_thornsEffect : abilityMod_MartyrProtectAlly.m_thornsEffectMod.GetModifiedValue(m_thornsEffect), "ThornsEffect", m_thornsEffect);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_MartyrProtectAlly)
+		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -652,19 +648,18 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			effectInfo = abilityMod_MartyrProtectAlly.m_returnEffectOnEnemyMod.GetModifiedValue(this.m_returnEffectOnEnemy);
+			effectInfo = abilityMod_MartyrProtectAlly.m_returnEffectOnEnemyMod.GetModifiedValue(m_returnEffectOnEnemy);
 		}
 		else
 		{
-			effectInfo = this.m_returnEffectOnEnemy;
+			effectInfo = m_returnEffectOnEnemy;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "ReturnEffectOnEnemy", this.m_returnEffectOnEnemy, true);
-		string name4 = "ThornsDamagePerHit";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "ReturnEffectOnEnemy", m_returnEffectOnEnemy);
 		string empty4 = string.Empty;
 		int val4;
-		if (abilityMod_MartyrProtectAlly)
+		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -673,17 +668,17 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			val4 = abilityMod_MartyrProtectAlly.m_thornsDamagePerHitMod.GetModifiedValue(this.m_thornsDamagePerHit);
+			val4 = abilityMod_MartyrProtectAlly.m_thornsDamagePerHitMod.GetModifiedValue(m_thornsDamagePerHit);
 		}
 		else
 		{
-			val4 = this.m_thornsDamagePerHit;
+			val4 = m_thornsDamagePerHit;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
+		AddTokenInt(tokens, "ThornsDamagePerHit", empty4, val4);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_MartyrProtectAlly)
+		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -692,19 +687,18 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			effectInfo2 = abilityMod_MartyrProtectAlly.m_effectOnSelfMod.GetModifiedValue(this.m_effectOnSelf);
+			effectInfo2 = abilityMod_MartyrProtectAlly.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
 		}
 		else
 		{
-			effectInfo2 = this.m_effectOnSelf;
+			effectInfo2 = m_effectOnSelf;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EffectOnSelf", this.m_effectOnSelf, true);
-		string name5 = "BaseAbsorb";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EffectOnSelf", m_effectOnSelf);
 		string empty5 = string.Empty;
 		int val5;
-		if (abilityMod_MartyrProtectAlly)
+		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -713,20 +707,19 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			val5 = abilityMod_MartyrProtectAlly.m_baseAbsorbMod.GetModifiedValue(this.m_baseAbsorb);
+			val5 = abilityMod_MartyrProtectAlly.m_baseAbsorbMod.GetModifiedValue(m_baseAbsorb);
 		}
 		else
 		{
-			val5 = this.m_baseAbsorb;
+			val5 = m_baseAbsorb;
 		}
-		base.AddTokenInt(tokens, name5, empty5, val5, false);
-		base.AddTokenInt(tokens, "AbsorbPerCrystalSpent", string.Empty, (!abilityMod_MartyrProtectAlly) ? this.m_absorbPerCrystalSpent : abilityMod_MartyrProtectAlly.m_absorbPerCrystalSpentMod.GetModifiedValue(this.m_absorbPerCrystalSpent), false);
-		string name6 = "BaseAbsorbOnAlly";
+		AddTokenInt(tokens, "BaseAbsorb", empty5, val5);
+		AddTokenInt(tokens, "AbsorbPerCrystalSpent", string.Empty, (!abilityMod_MartyrProtectAlly) ? m_absorbPerCrystalSpent : abilityMod_MartyrProtectAlly.m_absorbPerCrystalSpentMod.GetModifiedValue(m_absorbPerCrystalSpent));
 		string empty6 = string.Empty;
 		int val6;
-		if (abilityMod_MartyrProtectAlly)
+		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -735,19 +728,18 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			val6 = abilityMod_MartyrProtectAlly.m_baseAbsorbOnAllyMod.GetModifiedValue(this.m_baseAbsorbOnAlly);
+			val6 = abilityMod_MartyrProtectAlly.m_baseAbsorbOnAllyMod.GetModifiedValue(m_baseAbsorbOnAlly);
 		}
 		else
 		{
-			val6 = this.m_baseAbsorbOnAlly;
+			val6 = m_baseAbsorbOnAlly;
 		}
-		base.AddTokenInt(tokens, name6, empty6, val6, false);
-		string name7 = "AbsorbOnAllyPerCrystalSpent";
+		AddTokenInt(tokens, "BaseAbsorbOnAlly", empty6, val6);
 		string empty7 = string.Empty;
 		int val7;
-		if (abilityMod_MartyrProtectAlly)
+		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -756,39 +748,39 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			val7 = abilityMod_MartyrProtectAlly.m_absorbOnAllyPerCrystalSpentMod.GetModifiedValue(this.m_absorbOnAllyPerCrystalSpent);
+			val7 = abilityMod_MartyrProtectAlly.m_absorbOnAllyPerCrystalSpentMod.GetModifiedValue(m_absorbOnAllyPerCrystalSpent);
 		}
 		else
 		{
-			val7 = this.m_absorbOnAllyPerCrystalSpent;
+			val7 = m_absorbOnAllyPerCrystalSpent;
 		}
-		base.AddTokenInt(tokens, name7, empty7, val7, false);
+		AddTokenInt(tokens, "AbsorbOnAllyPerCrystalSpent", empty7, val7);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.GetLaserHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
-		this.GetEffectOnSelf().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		GetLaserHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
+		GetEffectOnSelf().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		return numbers;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = base.CalculateNameplateTargetingNumbers();
-		this.GetLaserHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
-		AbilityTooltipHelper.ReportAbsorb(ref result, AbilityTooltipSubject.Ally, 1);
-		this.GetEffectOnSelf().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		AbilityTooltipHelper.ReportAbsorb(ref result, AbilityTooltipSubject.Self, 1);
-		return result;
+		List<AbilityTooltipNumber> numbers = base.CalculateNameplateTargetingNumbers();
+		GetLaserHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
+		AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Ally, 1);
+		GetEffectOnSelf().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, 1);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		if (targetActor == base.ActorData)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -797,84 +789,87 @@ public class MartyrProtectAlly : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			int currentAbsorb = this.GetCurrentAbsorb(base.ActorData);
-			Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, currentAbsorb, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Self);
+			int currentAbsorb = GetCurrentAbsorb(base.ActorData);
+			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, currentAbsorb, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Self);
 		}
 		else
 		{
-			int currentAbsorbForAlly = this.GetCurrentAbsorbForAlly(base.ActorData);
-			Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, currentAbsorbForAlly, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Ally);
+			int currentAbsorbForAlly = GetCurrentAbsorbForAlly(base.ActorData);
+			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, currentAbsorbForAlly, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Ally);
 		}
-		return result;
+		return symbolToValue;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return base.HasTargetableActorsInDecision(caster, this.AffectsEnemies(), this.AffectsAllies(), false, Ability.ValidateCheckPath.Ignore, !this.PenetratesLoS(), false, false);
+		return HasTargetableActorsInDecision(caster, AffectsEnemies(), AffectsAllies(), false, ValidateCheckPath.Ignore, !PenetratesLoS(), false);
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
+		bool flag = false;
 		ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-		return base.CanTargetActorInDecision(caster, currentBestActorTarget, this.AffectsEnemies(), this.AffectsAllies(), false, Ability.ValidateCheckPath.Ignore, !this.PenetratesLoS(), false, false);
+		return CanTargetActorInDecision(caster, currentBestActorTarget, AffectsEnemies(), AffectsAllies(), false, ValidateCheckPath.Ignore, !PenetratesLoS(), false);
 	}
 
 	protected override List<MartyrLaserThreshold> GetThresholdBasedCrystalBonusList()
 	{
 		List<MartyrLaserThreshold> list = new List<MartyrLaserThreshold>();
-		using (List<MartyrProtectAllyThreshold>.Enumerator enumerator = this.m_thresholdBasedCrystalBonuses.GetEnumerator())
+		using (List<MartyrProtectAllyThreshold>.Enumerator enumerator = m_thresholdBasedCrystalBonuses.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				MartyrProtectAllyThreshold item = enumerator.Current;
-				list.Add(item);
+				MartyrProtectAllyThreshold current = enumerator.Current;
+				list.Add(current);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (true)
+					{
+						return list;
+					}
+					/*OpCode not supported: LdMemberToken*/;
+					return list;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetThresholdBasedCrystalBonusList()).MethodHandle;
 			}
 		}
-		return list;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_MartyrProtectAlly))
+		if (abilityMod.GetType() != typeof(AbilityMod_MartyrProtectAlly))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_MartyrProtectAlly);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_MartyrProtectAlly);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

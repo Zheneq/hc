@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
 public class AbilitySetupNotes
 {
-	[TextArea(1, 0x14)]
+	[TextArea(1, 20)]
 	public string m_notes;
 }

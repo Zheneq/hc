@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class BarrierSerializeInfo
@@ -33,11 +32,11 @@ public class BarrierSerializeInfo
 
 	public bool m_clientSequenceStartAttempted;
 
-	public unsafe static void SerializeBarrierInfo(IBitStream stream, ref BarrierSerializeInfo info)
+	public static void SerializeBarrierInfo(IBitStream stream, ref BarrierSerializeInfo info)
 	{
 		if (info == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -46,14 +45,14 @@ public class BarrierSerializeInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BarrierSerializeInfo.SerializeBarrierInfo(IBitStream, BarrierSerializeInfo*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			info = new BarrierSerializeInfo();
 			if (stream.isWriting)
 			{
-				Log.Error("Trying to serialize null barrier start info", new object[0]);
+				Log.Error("Trying to serialize null barrier start info");
 			}
 		}
 		stream.Serialize(ref info.m_guid);

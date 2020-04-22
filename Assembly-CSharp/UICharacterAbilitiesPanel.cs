@@ -1,7 +1,7 @@
-﻿using System;
+using LobbyGameClientMessages;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -88,20 +88,20 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 
 	private void Awake()
 	{
-		this.InitModButtonListIfNeeded();
+		InitModButtonListIfNeeded();
 	}
 
 	private void Start()
 	{
-		for (int i = 0; i < this.m_abilityButtons.Length; i++)
+		for (int i = 0; i < m_abilityButtons.Length; i++)
 		{
-			this.m_abilityButtons[i].SetCallback(new _ButtonSwapSprite.ButtonClickCallback(this.AbilityButtonSelected));
+			m_abilityButtons[i].SetCallback(AbilityButtonSelected);
 		}
-		this.m_clearModButton.SetCallback(new _ButtonSwapSprite.ButtonClickCallback(this.ModButtonSelected));
-		this.AddMouseEventPasser(this.m_clearModButton);
-		if (this.m_resetAllMods != null)
+		m_clearModButton.SetCallback(ModButtonSelected);
+		AddMouseEventPasser(m_clearModButton);
+		if (m_resetAllMods != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -110,17 +110,17 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_resetAllMods.spriteController.callback = delegate(BaseEventData x)
+			m_resetAllMods.spriteController.callback = delegate
 			{
 				ClientGameManager clientGameManager = ClientGameManager.Get();
 				AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.HasResetMods;
 				if (clientGameManager.IsPlayerAccountDataAvailable())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -129,13 +129,13 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(UICharacterAbilitiesPanel.<Start>m__0(BaseEventData)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					if (clientGameManager.GetPlayerAccountData().AccountComponent.GetUIState(uiState) > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -144,20 +144,21 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 							}
 							break;
 						}
-						this.ResetAllMods(null);
-						goto IL_B6;
+						ResetAllMods(null);
+						goto IL_00b6;
 					}
 				}
 				ClientGameManager.Get().RequestUpdateUIState(uiState, 1, null);
-				UIDialogPopupManager.OpenTwoButtonDialog(StringUtil.TR("ResetMods", "Global"), StringUtil.TR("ResetModsConfirm", "Global"), StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), new UIDialogBox.DialogButtonCallback(this.ResetAllMods), null, false, false);
-				IL_B6:
-				this.m_resetAllMods.spriteController.ResetMouseState();
+				UIDialogPopupManager.OpenTwoButtonDialog(StringUtil.TR("ResetMods", "Global"), StringUtil.TR("ResetModsConfirm", "Global"), StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), ResetAllMods);
+				goto IL_00b6;
+				IL_00b6:
+				m_resetAllMods.spriteController.ResetMouseState();
 			};
 		}
-		UIManager.SetGameObjectActive(this.m_purchaseModTokenBtn, false, null);
+		UIManager.SetGameObjectActive(m_purchaseModTokenBtn, false);
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -166,16 +167,16 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 				}
 				break;
 			}
-			ClientGameManager.Get().OnModUnlocked += this.UICharacterSelectAbilitiesPanel_OnModUnlocked;
-			ClientGameManager.Get().OnBankBalanceChange += this.UICharacterSelectAbilitiesPanel_OnBankBalanceChange;
-			ClientGameManager.Get().OnCharacterDataUpdated += this.OnCharacterDataUpdated;
-			ClientGameManager.Get().OnLobbyGameplayOverridesChange += this.OnLobbyGameplayOverridesUpdated;
+			ClientGameManager.Get().OnModUnlocked += UICharacterSelectAbilitiesPanel_OnModUnlocked;
+			ClientGameManager.Get().OnBankBalanceChange += UICharacterSelectAbilitiesPanel_OnBankBalanceChange;
+			ClientGameManager.Get().OnCharacterDataUpdated += OnCharacterDataUpdated;
+			ClientGameManager.Get().OnLobbyGameplayOverridesChange += OnLobbyGameplayOverridesUpdated;
 		}
-		this.ResetLockIcons();
+		ResetLockIcons();
 		bool flag = false;
 		if (GameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -186,7 +187,7 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 			}
 			if (GameManager.Get().GameplayOverrides != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -198,68 +199,69 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 				flag = GameManager.Get().GameplayOverrides.EnableMods;
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_modTokenCountText, false, null);
-		if (this.m_modTokenLabel != null)
+		UIManager.SetGameObjectActive(m_modTokenCountText, false);
+		if (m_modTokenLabel != null)
 		{
-			UIManager.SetGameObjectActive(this.m_modTokenLabel, false, null);
+			UIManager.SetGameObjectActive(m_modTokenLabel, false);
 		}
-		UIManager.SetGameObjectActive(this.m_purchasePanel, false, null);
-		this.m_purchasePanel.m_freelancerCurrencyButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PurchaseMod);
-		if (this.m_disabledLabel != null)
+		UIManager.SetGameObjectActive(m_purchasePanel, false);
+		m_purchasePanel.m_freelancerCurrencyButton.spriteController.callback = PurchaseMod;
+		if (!(m_disabledLabel != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			UIManager.SetGameObjectActive(this.m_disabledLabel, !flag, null);
+			UIManager.SetGameObjectActive(m_disabledLabel, !flag);
+			return;
 		}
 	}
 
 	private void InitModButtonListIfNeeded()
 	{
-		if (this.m_cachedModButtonList.Count == 0)
+		if (m_cachedModButtonList.Count != 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.InitModButtonListIfNeeded()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			IEnumerator enumerator = this.m_modLayoutGroup.transform.GetEnumerator();
+			IEnumerator enumerator = m_modLayoutGroup.transform.GetEnumerator();
 			try
 			{
 				while (enumerator.MoveNext())
 				{
-					object obj = enumerator.Current;
-					Transform transform = (Transform)obj;
+					Transform transform = (Transform)enumerator.Current;
 					UIModSelectButton component = transform.GetComponent<UIModSelectButton>();
-					if (component != null && component.gameObject != this.m_clearModButton.gameObject)
+					if (component != null && component.gameObject != m_clearModButton.gameObject)
 					{
-						component.SetCallback(new _ButtonSwapSprite.ButtonClickCallback(this.ModButtonSelected));
-						this.AddMouseEventPasser(component);
-						this.m_cachedModButtonList.Add(component);
+						component.SetCallback(ModButtonSelected);
+						AddMouseEventPasser(component);
+						m_cachedModButtonList.Add(component);
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 			finally
@@ -267,26 +269,28 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 				IDisposable disposable;
 				if ((disposable = (enumerator as IDisposable)) != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							disposable.Dispose();
+							goto end_IL_00b5;
 						}
-						break;
 					}
-					disposable.Dispose();
 				}
+				end_IL_00b5:;
 			}
 		}
 	}
 
 	public void NotifyLoadoutUpdate(PlayerInfoUpdateResponse response)
 	{
-		if (this.m_modloadouts != null)
+		if (m_modloadouts != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -295,24 +299,25 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.NotifyLoadoutUpdate(PlayerInfoUpdateResponse)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_modloadouts.NotifyLoadoutUpdate(response);
+			m_modloadouts.NotifyLoadoutUpdate(response);
 		}
-		if (response.CharacterInfo != null)
+		if (response.CharacterInfo == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.Setup(GameWideData.Get().GetCharacterResourceLink(response.CharacterInfo.CharacterType), true);
+			Setup(GameWideData.Get().GetCharacterResourceLink(response.CharacterInfo.CharacterType), true);
+			return;
 		}
 	}
 
@@ -320,72 +325,73 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			ClientGameManager.Get().OnModUnlocked -= this.UICharacterSelectAbilitiesPanel_OnModUnlocked;
-			ClientGameManager.Get().OnBankBalanceChange -= this.UICharacterSelectAbilitiesPanel_OnBankBalanceChange;
-			ClientGameManager.Get().OnCharacterDataUpdated -= this.OnCharacterDataUpdated;
-			ClientGameManager.Get().OnLobbyGameplayOverridesChange -= this.OnLobbyGameplayOverridesUpdated;
+			ClientGameManager.Get().OnModUnlocked -= UICharacterSelectAbilitiesPanel_OnModUnlocked;
+			ClientGameManager.Get().OnBankBalanceChange -= UICharacterSelectAbilitiesPanel_OnBankBalanceChange;
+			ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterDataUpdated;
+			ClientGameManager.Get().OnLobbyGameplayOverridesChange -= OnLobbyGameplayOverridesUpdated;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_purchasePanel != null)
+		if (m_purchasePanel != null)
 		{
-			UIManager.SetGameObjectActive(this.m_purchasePanel, false, null);
+			UIManager.SetGameObjectActive(m_purchasePanel, false);
 		}
 	}
 
 	public void RemoveHandleMessage()
 	{
-		ClientGameManager.Get().OnModUnlocked -= this.UICharacterSelectAbilitiesPanel_OnModUnlocked;
-		ClientGameManager.Get().OnBankBalanceChange -= this.UICharacterSelectAbilitiesPanel_OnBankBalanceChange;
+		ClientGameManager.Get().OnModUnlocked -= UICharacterSelectAbilitiesPanel_OnModUnlocked;
+		ClientGameManager.Get().OnBankBalanceChange -= UICharacterSelectAbilitiesPanel_OnBankBalanceChange;
 	}
 
 	private void UICharacterSelectAbilitiesPanel_OnBankBalanceChange(CurrencyData newBalance)
 	{
-		this.ResetLockIcons();
-		if (newBalance.Type == CurrencyType.FreelancerCurrency)
+		ResetLockIcons();
+		if (newBalance.Type != CurrencyType.FreelancerCurrency)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.UICharacterSelectAbilitiesPanel_OnBankBalanceChange(CurrencyData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.UpdatePurchaseModTokenButtonState();
+			UpdatePurchaseModTokenButtonState();
+			return;
 		}
 	}
 
 	private void UICharacterSelectAbilitiesPanel_OnModUnlocked(CharacterType character, PlayerModData unlockData)
 	{
-		if (character == this.m_selectedCharacter)
+		if (character != m_selectedCharacter)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.UICharacterSelectAbilitiesPanel_OnModUnlocked(CharacterType, PlayerModData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			foreach (UIModSelectButton uimodSelectButton in this.m_cachedModButtonList)
+			foreach (UIModSelectButton cachedModButton in m_cachedModButtonList)
 			{
-				uimodSelectButton.SetLockIcons();
-				if (ClientGameManager.Get().PurchasingMod && uimodSelectButton.GetMod() != null && uimodSelectButton.GetMod().m_abilityScopeId == ClientGameManager.Get().ModAttemptingToPurchase)
+				cachedModButton.SetLockIcons();
+				if (ClientGameManager.Get().PurchasingMod && cachedModButton.GetMod() != null && cachedModButton.GetMod().m_abilityScopeId == ClientGameManager.Get().ModAttemptingToPurchase)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -394,259 +400,259 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 						}
 						break;
 					}
-					this.DoModButtonSelected(uimodSelectButton.m_buttonHitBox.gameObject);
+					DoModButtonSelected(cachedModButton.m_buttonHitBox.gameObject);
 				}
 			}
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModUnlocked);
+			return;
 		}
 	}
 
 	public void OnCharacterDataUpdated(PersistedCharacterData data)
 	{
-		this.ResetLockIcons();
+		ResetLockIcons();
 	}
 
 	public void ResetLockIcons()
 	{
-		foreach (UIModSelectButton uimodSelectButton in this.m_cachedModButtonList)
+		foreach (UIModSelectButton cachedModButton in m_cachedModButtonList)
 		{
-			uimodSelectButton.SetLockIcons();
+			cachedModButton.SetLockIcons();
 		}
 	}
 
 	private void ResetAllMods(UIDialogBox boxReference)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModClear);
-		for (int i = 0; i < this.m_abilityButtons.Length; i++)
+		for (int i = 0; i < m_abilityButtons.Length; i++)
 		{
-			this.m_abilityButtons[i].SetSelectedMod(null);
-			this.m_abilityButtons[i].SetSelectedModIndex(-1);
-			this.m_modInfo.SetModForAbility(i, -1);
+			m_abilityButtons[i].SetSelectedMod(null);
+			m_abilityButtons[i].SetSelectedModIndex(-1);
+			m_modInfo.SetModForAbility(i, -1);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.ResetAllMods(UIDialogBox)).MethodHandle;
-		}
-		using (List<UIModSelectButton>.Enumerator enumerator = this.m_cachedModButtonList.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
+			if (1 == 0)
 			{
-				UIModSelectButton uimodSelectButton = enumerator.Current;
-				uimodSelectButton.SetSelected(false, false);
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (;;)
+			using (List<UIModSelectButton>.Enumerator enumerator = m_cachedModButtonList.GetEnumerator())
 			{
-				switch (7)
+				while (enumerator.MoveNext())
 				{
-				case 0:
-					continue;
+					UIModSelectButton current = enumerator.Current;
+					current.SetSelected(false);
 				}
-				break;
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
 			}
+			m_clearModButton.SetSelected(true);
+			AppState_CharacterSelect.Get().UpdateSelectedMods(m_modInfo);
+			UpdateModCounter();
+			UpdateModEquipPointsLeft();
+			return;
 		}
-		this.m_clearModButton.SetSelected(true, false);
-		AppState_CharacterSelect.Get().UpdateSelectedMods(this.m_modInfo);
-		this.UpdateModCounter();
-		this.UpdateModEquipPointsLeft(null);
 	}
 
 	internal void ShowOutOfModEquipPointsDialog()
 	{
-		UIManager.SetGameObjectActive(this.m_NotEnoughPointsNotificationAC, true, null);
+		UIManager.SetGameObjectActive(m_NotEnoughPointsNotificationAC, true);
 	}
 
-	public void \u001D(BaseEventData \u001D)
+	public void _001D(BaseEventData _001D)
 	{
-		AbilityData.AbilityEntry abilityEntry = this.m_abilityButtons[this.m_selectedAbilityIndex].GetAbilityEntry();
-		UIDialogPopupManager.OpenDebugModSelectionDialog(abilityEntry, this.m_selectedAbilityIndex, this, null);
+		AbilityData.AbilityEntry abilityEntry = m_abilityButtons[m_selectedAbilityIndex].GetAbilityEntry();
+		UIDialogPopupManager.OpenDebugModSelectionDialog(abilityEntry, m_selectedAbilityIndex, this);
 	}
 
 	public void PurchaseModToken(BaseEventData data)
 	{
-		if (GameBalanceVars.Get() != null && GameBalanceVars.Get().FreelancerCurrencyPerModToken > 0)
+		if (GameBalanceVars.Get() == null || GameBalanceVars.Get().FreelancerCurrencyPerModToken <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.PurchaseModToken(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			int numToPurchase = 1;
 			int freelancerCurrencyPerModToken = GameBalanceVars.Get().FreelancerCurrencyPerModToken;
 			int currentAmount = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.FreelancerCurrency);
 			if (currentAmount >= freelancerCurrencyPerModToken)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						Log.Info(Log.Category.UI, "Sending mod token purchase request");
+						ClientGameManager.Get().PurchaseModToken(numToPurchase);
+						return;
 					}
-					break;
 				}
-				Log.Info(Log.Category.UI, "Sending mod token purchase request", new object[0]);
-				ClientGameManager.Get().PurchaseModToken(numToPurchase);
 			}
-			else
-			{
-				string description = string.Format(StringUtil.TR("InsufficientCurrencyModToken", "Global"), StringUtil.TR("FreelancerCurrency", "Global"), UIStorePanel.FormatIntToString(freelancerCurrencyPerModToken, true), UIStorePanel.FormatIntToString(currentAmount, true));
-				UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("InsufficientCredits", "Global"), description, StringUtil.TR("Ok", "Global"), null, -1, false);
-			}
+			string description = string.Format(StringUtil.TR("InsufficientCurrencyModToken", "Global"), StringUtil.TR("FreelancerCurrency", "Global"), UIStorePanel.FormatIntToString(freelancerCurrencyPerModToken, true), UIStorePanel.FormatIntToString(currentAmount, true));
+			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("InsufficientCredits", "Global"), description, StringUtil.TR("Ok", "Global"));
+			return;
 		}
 	}
 
 	private void UpdatePurchaseModTokenButtonState()
 	{
-		UIManager.SetGameObjectActive(this.m_purchaseModTokenBtn, false, null);
+		UIManager.SetGameObjectActive(m_purchaseModTokenBtn, false);
 	}
 
 	public void RefreshSelectedMods()
 	{
-		if (!(ClientGameManager.Get() == null) && ClientGameManager.Get().GroupInfo != null)
+		if (ClientGameManager.Get() == null || ClientGameManager.Get().GroupInfo == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_selectedCharacter == CharacterType.None)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.RefreshSelectedMods()).MethodHandle;
-			}
-			if (this.m_selectedCharacter != CharacterType.None)
-			{
-				for (;;)
+				if (m_selectedCharacter.IsWillFill())
 				{
-					switch (5)
+					return;
+				}
+				while (true)
+				{
+					switch (6)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (!this.m_selectedCharacter.IsWillFill())
-				{
-					for (;;)
+					if (m_selectedCharacter == CharacterType.PunchingDummy)
 					{
-						switch (6)
+						return;
+					}
+					while (true)
+					{
+						switch (3)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					if (this.m_selectedCharacter != CharacterType.PunchingDummy)
-					{
-						for (;;)
+						if (m_selectedCharacter == CharacterType.Last)
 						{
-							switch (3)
+							while (true)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_selectedCharacter != CharacterType.Last)
-						{
-							bool flag = AbilityMod.GetRequiredModStrictnessForGameSubType() == ModStrictness.Ranked;
-							CharacterModInfo characterModInfo;
-							if (flag)
-							{
-								for (;;)
+								switch (6)
 								{
-									switch (7)
+								default:
+									return;
+								case 0:
+									break;
+								}
+							}
+						}
+						CharacterModInfo characterModInfo;
+						if (AbilityMod.GetRequiredModStrictnessForGameSubType() == ModStrictness.Ranked)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							characterModInfo = ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter).CharacterComponent.LastRankedMods;
+						}
+						else
+						{
+							characterModInfo = ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter).CharacterComponent.LastMods;
+						}
+						for (int i = 0; i < m_abilityButtons.Length; i++)
+						{
+							if (i < m_abilities.Length)
+							{
+								while (true)
+								{
+									switch (6)
 									{
 									case 0:
 										continue;
 									}
 									break;
 								}
-								characterModInfo = ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter).CharacterComponent.LastRankedMods;
-							}
-							else
-							{
-								characterModInfo = ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter).CharacterComponent.LastMods;
-							}
-							for (int i = 0; i < this.m_abilityButtons.Length; i++)
-							{
-								if (i < this.m_abilities.Length)
+								AbilityData.AbilityEntry abilityEntry = m_abilities[i];
+								Ability ability = abilityEntry.ability;
+								int num = characterModInfo.GetModForAbility(i);
+								if (!AbilityModHelper.IsModAllowed(m_characterLink.m_characterType, i, num))
 								{
-									for (;;)
+									while (true)
 									{
-										switch (6)
+										switch (5)
 										{
 										case 0:
 											continue;
 										}
 										break;
 									}
-									AbilityData.AbilityEntry abilityEntry = this.m_abilities[i];
-									Ability ability = abilityEntry.ability;
-									int num = characterModInfo.GetModForAbility(i);
-									if (!AbilityModHelper.IsModAllowed(this.m_characterLink.m_characterType, i, num))
-									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										num = -1;
-									}
-									AbilityMod abilityMod = AbilityModHelper.GetModForAbility(ability, num);
-									if (abilityMod != null && !abilityMod.EquippableForGameType())
-									{
-										abilityMod = null;
-										num = -1;
-										characterModInfo.SetModForAbility(i, -1);
-									}
-									this.m_abilityButtons[i].SetSelectedMod(abilityMod);
-									this.m_abilityButtons[i].SetSelectedModIndex(num);
+									num = -1;
 								}
-								else
+								AbilityMod abilityMod = AbilityModHelper.GetModForAbility(ability, num);
+								if (abilityMod != null && !abilityMod.EquippableForGameType())
 								{
-									this.m_abilityButtons[i].SetSelectedMod(null);
-									this.m_abilityButtons[i].SetSelectedModIndex(-1);
+									abilityMod = null;
+									num = -1;
+									characterModInfo.SetModForAbility(i, -1);
 								}
-								this.m_abilityButtons[i].SetSelected(this.m_selectedAbilityButton == this.m_abilityButtons[i], false);
+								m_abilityButtons[i].SetSelectedMod(abilityMod);
+								m_abilityButtons[i].SetSelectedModIndex(num);
 							}
-							this.UpdateModCounter();
-							this.UpdateModEquipPointsLeft(null);
-							return;
-						}
-						for (;;)
-						{
-							switch (6)
+							else
 							{
-							case 0:
-								continue;
+								m_abilityButtons[i].SetSelectedMod(null);
+								m_abilityButtons[i].SetSelectedModIndex(-1);
 							}
-							break;
+							m_abilityButtons[i].SetSelected(m_selectedAbilityButton == m_abilityButtons[i]);
 						}
+						UpdateModCounter();
+						UpdateModEquipPointsLeft();
+						return;
 					}
 				}
 			}
@@ -655,32 +661,32 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 
 	internal void UpdateModCounter()
 	{
-		if (!this.m_canSelectMods)
+		if (!m_canSelectMods)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.UpdateModCounter()).MethodHandle;
-			}
-			return;
 		}
-		UICharacterScreen.Get().UpdateModIcons(this.m_abilityButtons, this.m_prepColor, this.m_dashColor, this.m_combatColor);
+		UICharacterScreen.Get().UpdateModIcons(m_abilityButtons, m_prepColor, m_dashColor, m_combatColor);
 	}
 
 	public void DoModButtonSelected(GameObject gameObject)
 	{
-		UIManager.SetGameObjectActive(this.m_purchasePanel, false, null);
+		UIManager.SetGameObjectActive(m_purchasePanel, false);
 		if (GameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -689,13 +695,13 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.DoModButtonSelected(GameObject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameManager.Get().GameplayOverrides != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -717,60 +723,62 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 		UIModSelectButton component = gameObject.transform.parent.gameObject.GetComponent<UIModSelectButton>();
 		if (component.AvailableForPurchase())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					component.m_buttonHitBox.ForceSetPointerEntered(false);
+					m_currentlyPurchasingModButton = component;
+					GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
+					int freelancerCurrencyToUnlockMod = gameBalanceVars.FreelancerCurrencyToUnlockMod;
+					int currentAmount = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.FreelancerCurrency);
+					m_purchasePanel.Setup(0, freelancerCurrencyToUnlockMod, 0f, true);
+					UIManager.SetGameObjectActive(m_purchasePanel, true);
+					m_purchasePanel.SetDisabled(freelancerCurrencyToUnlockMod > currentAmount);
+					return;
 				}
-				break;
+				}
 			}
-			component.m_buttonHitBox.ForceSetPointerEntered(false);
-			this.m_currentlyPurchasingModButton = component;
-			GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
-			int freelancerCurrencyToUnlockMod = gameBalanceVars.FreelancerCurrencyToUnlockMod;
-			int currentAmount = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.FreelancerCurrency);
-			this.m_purchasePanel.Setup(0, freelancerCurrencyToUnlockMod, 0f, true);
-			UIManager.SetGameObjectActive(this.m_purchasePanel, true, null);
-			this.m_purchasePanel.SetDisabled(freelancerCurrencyToUnlockMod > currentAmount);
-			return;
 		}
-		if (!this.m_canSelectMods)
+		if (!m_canSelectMods)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-			return;
 		}
-		if (!this.UnderTotalModEquipCost(component.GetMod()))
+		if (!UnderTotalModEquipCost(component.GetMod()))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					ShowOutOfModEquipPointsDialog();
+					return;
 				}
-				break;
 			}
-			this.ShowOutOfModEquipPointsDialog();
-			return;
 		}
-		UIModSelectButton uimodSelectButton = null;
+		UIModSelectButton uIModSelectButton = null;
 		int selectedModIndex = -1;
-		for (int i = 0; i < this.m_cachedModButtonList.Count; i++)
+		for (int i = 0; i < m_cachedModButtonList.Count; i++)
 		{
-			UIModSelectButton uimodSelectButton2 = this.m_cachedModButtonList[i];
-			if (uimodSelectButton2.m_buttonHitBox.gameObject == gameObject)
+			UIModSelectButton uIModSelectButton2 = m_cachedModButtonList[i];
+			if (uIModSelectButton2.m_buttonHitBox.gameObject == gameObject)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -779,121 +787,45 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 					}
 					break;
 				}
-				uimodSelectButton2.SetSelected(true, false);
-				uimodSelectButton = uimodSelectButton2;
+				uIModSelectButton2.SetSelected(true);
+				uIModSelectButton = uIModSelectButton2;
 				selectedModIndex = i;
 			}
 			else
 			{
-				uimodSelectButton2.SetSelected(false, false);
+				uIModSelectButton2.SetSelected(false);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (this.m_clearModButton.m_buttonHitBox.gameObject == gameObject)
-		{
-			for (;;)
+			if (m_clearModButton.m_buttonHitBox.gameObject == gameObject)
 			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_clearModButton.SetSelected(true, false);
-			uimodSelectButton = null;
-		}
-		else
-		{
-			this.m_clearModButton.SetSelected(false, false);
-		}
-		if (this.m_selectedAbilityButton != null)
-		{
-			if (uimodSelectButton != null)
-			{
-				for (;;)
-				{
-					switch (7)
+					switch (5)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (uimodSelectButton.GetMod() != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_selectedAbilityButton.SetSelectedMod(uimodSelectButton.GetMod());
-					this.m_selectedAbilityButton.SetSelectedModIndex(selectedModIndex);
-					this.m_modInfo.SetModForAbility(this.m_selectedAbilityIndex, uimodSelectButton.GetMod().m_abilityScopeId);
-					UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModAdd);
-					GameEventManager.Get().FireEvent(GameEventManager.EventType.FrontEndEquipMod, null);
-					goto IL_2C3;
-				}
+				m_clearModButton.SetSelected(true);
+				uIModSelectButton = null;
 			}
-			this.m_selectedAbilityButton.SetSelectedMod(null);
-			this.m_selectedAbilityButton.SetSelectedModIndex(-1);
-			this.m_modInfo.SetModForAbility(this.m_selectedAbilityIndex, -1);
-			UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModClear);
-			IL_2C3:
-			ClientGameManager.Get().UpdateSelectedMods(this.m_modInfo, 0);
-		}
-		this.UpdateModCounter();
-		this.UpdateModEquipPointsLeft(null);
-	}
-
-	public void ModButtonSelected(BaseEventData data)
-	{
-		this.DoModButtonSelected(data.selectedObject);
-	}
-
-	public void RefreshSelectedVfxSwaps()
-	{
-		if (!(ClientGameManager.Get() == null))
-		{
-			for (;;)
+			else
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_clearModButton.SetSelected(false);
 			}
-			if (!true)
+			if (m_selectedAbilityButton != null)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.RefreshSelectedVfxSwaps()).MethodHandle;
-			}
-			if (ClientGameManager.Get().GroupInfo != null)
-			{
-				for (;;)
+				if (uIModSelectButton != null)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_selectedCharacter != CharacterType.None)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -902,91 +834,172 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 						}
 						break;
 					}
-					if (!this.m_selectedCharacter.IsWillFill() && this.m_selectedCharacter != CharacterType.PunchingDummy)
+					if (uIModSelectButton.GetMod() != null)
 					{
-						if (this.m_selectedCharacter != CharacterType.Last)
+						while (true)
 						{
-							CharacterResourceLink displayedCharacter = this.GetDisplayedCharacter();
-							PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter);
-							CharacterAbilityVfxSwapInfo lastAbilityVfxSwaps = playerCharacterData.CharacterComponent.LastAbilityVfxSwaps;
-							for (int i = 0; i < this.m_abilityButtons.Length; i++)
+							switch (2)
 							{
-								if (i < this.m_abilities.Length)
+							case 0:
+								continue;
+							}
+							break;
+						}
+						m_selectedAbilityButton.SetSelectedMod(uIModSelectButton.GetMod());
+						m_selectedAbilityButton.SetSelectedModIndex(selectedModIndex);
+						m_modInfo.SetModForAbility(m_selectedAbilityIndex, uIModSelectButton.GetMod().m_abilityScopeId);
+						UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModAdd);
+						GameEventManager.Get().FireEvent(GameEventManager.EventType.FrontEndEquipMod, null);
+						goto IL_02c3;
+					}
+				}
+				m_selectedAbilityButton.SetSelectedMod(null);
+				m_selectedAbilityButton.SetSelectedModIndex(-1);
+				m_modInfo.SetModForAbility(m_selectedAbilityIndex, -1);
+				UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModClear);
+				goto IL_02c3;
+			}
+			goto IL_02d6;
+			IL_02d6:
+			UpdateModCounter();
+			UpdateModEquipPointsLeft();
+			return;
+			IL_02c3:
+			ClientGameManager.Get().UpdateSelectedMods(m_modInfo);
+			goto IL_02d6;
+		}
+	}
+
+	public void ModButtonSelected(BaseEventData data)
+	{
+		DoModButtonSelected(data.selectedObject);
+	}
+
+	public void RefreshSelectedVfxSwaps()
+	{
+		if (ClientGameManager.Get() == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (ClientGameManager.Get().GroupInfo == null)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				if (m_selectedCharacter == CharacterType.None)
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					if (m_selectedCharacter.IsWillFill() || m_selectedCharacter == CharacterType.PunchingDummy)
+					{
+						return;
+					}
+					if (m_selectedCharacter == CharacterType.Last)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							default:
+								return;
+							case 0:
+								break;
+							}
+						}
+					}
+					CharacterResourceLink displayedCharacter = GetDisplayedCharacter();
+					PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter);
+					CharacterAbilityVfxSwapInfo lastAbilityVfxSwaps = playerCharacterData.CharacterComponent.LastAbilityVfxSwaps;
+					for (int i = 0; i < m_abilityButtons.Length; i++)
+					{
+						if (i < m_abilities.Length)
+						{
+							int abilityVfxSwapIdForAbility = lastAbilityVfxSwaps.GetAbilityVfxSwapIdForAbility(i);
+							int selectedVfxSwapIndex = 0;
+							CharacterAbilityVfxSwap selectedVfxSwap = null;
+							if (abilityVfxSwapIdForAbility != 0)
+							{
+								while (true)
 								{
-									int abilityVfxSwapIdForAbility = lastAbilityVfxSwaps.GetAbilityVfxSwapIdForAbility(i);
-									int selectedVfxSwapIndex = 0;
-									CharacterAbilityVfxSwap selectedVfxSwap = null;
-									if (abilityVfxSwapIdForAbility != 0)
+									switch (6)
 									{
-										for (;;)
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (playerCharacterData.CharacterComponent.IsAbilityVfxSwapUnlocked(i, abilityVfxSwapIdForAbility))
+								{
+									List<CharacterAbilityVfxSwap> availableVfxSwapsForAbilityIndex = displayedCharacter.GetAvailableVfxSwapsForAbilityIndex(i);
+									for (int j = 0; j < availableVfxSwapsForAbilityIndex.Count; j++)
+									{
+										CharacterAbilityVfxSwap characterAbilityVfxSwap = availableVfxSwapsForAbilityIndex[j];
+										if (characterAbilityVfxSwap.m_uniqueID == abilityVfxSwapIdForAbility)
 										{
-											switch (6)
+											while (true)
 											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										bool flag = playerCharacterData.CharacterComponent.IsAbilityVfxSwapUnlocked(i, abilityVfxSwapIdForAbility);
-										if (flag)
-										{
-											List<CharacterAbilityVfxSwap> availableVfxSwapsForAbilityIndex = displayedCharacter.GetAvailableVfxSwapsForAbilityIndex(i);
-											for (int j = 0; j < availableVfxSwapsForAbilityIndex.Count; j++)
-											{
-												CharacterAbilityVfxSwap characterAbilityVfxSwap = availableVfxSwapsForAbilityIndex[j];
-												if (characterAbilityVfxSwap.m_uniqueID == abilityVfxSwapIdForAbility)
-												{
-													for (;;)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
-													selectedVfxSwapIndex = j + 1;
-													selectedVfxSwap = characterAbilityVfxSwap;
-												}
-											}
-											for (;;)
-											{
-												switch (5)
+												switch (3)
 												{
 												case 0:
 													continue;
 												}
 												break;
 											}
+											selectedVfxSwapIndex = j + 1;
+											selectedVfxSwap = characterAbilityVfxSwap;
 										}
 									}
-									this.m_abilityButtons[i].SetSelectedVfxSwap(selectedVfxSwap);
-									this.m_abilityButtons[i].SetSelectedVfxSwapIndex(selectedVfxSwapIndex);
-								}
-								else
-								{
-									this.m_abilityButtons[i].SetSelectedVfxSwap(null);
-									this.m_abilityButtons[i].SetSelectedVfxSwapIndex(0);
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
 								}
 							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							return;
+							m_abilityButtons[i].SetSelectedVfxSwap(selectedVfxSwap);
+							m_abilityButtons[i].SetSelectedVfxSwapIndex(selectedVfxSwapIndex);
 						}
-						for (;;)
+						else
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
+							m_abilityButtons[i].SetSelectedVfxSwap(null);
+							m_abilityButtons[i].SetSelectedVfxSwapIndex(0);
+						}
+					}
+					while (true)
+					{
+						switch (6)
+						{
+						default:
+							return;
+						case 0:
 							break;
 						}
 					}
@@ -997,16 +1010,16 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 
 	private void CreateVfxButtonsIfNeeded(int totalButtons)
 	{
-		for (int i = this.m_vfxSwapButtons.Count; i < totalButtons; i++)
+		for (int i = m_vfxSwapButtons.Count; i < totalButtons; i++)
 		{
-			UIVfxSwapSelectButton newButton = UnityEngine.Object.Instantiate<UIVfxSwapSelectButton>(this.m_vfxButtonPrefab);
-			newButton.SetCallback(new _ButtonSwapSprite.ButtonClickCallback(this.VfxSwapButtonSelected));
+			UIVfxSwapSelectButton newButton = UnityEngine.Object.Instantiate(m_vfxButtonPrefab);
+			newButton.SetCallback(VfxSwapButtonSelected);
 			newButton.m_buttonHitBox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.TauntPreview, delegate(UITooltipBase tooltip)
 			{
 				CharacterAbilityVfxSwap swap = newButton.GetSwap();
 				if (swap != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -1015,9 +1028,9 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.<CreateVfxButtonsIfNeeded>c__AnonStorey0.<>m__0(UITooltipBase)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					if (!swap.m_swapVideoPath.IsNullOrEmpty())
 					{
@@ -1026,9 +1039,9 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 					}
 				}
 				return false;
-			}, null);
-			this.m_vfxSwapButtons.Add(newButton);
-			newButton.transform.SetParent(this.m_vfxButtonContainer.transform);
+			});
+			m_vfxSwapButtons.Add(newButton);
+			newButton.transform.SetParent(m_vfxButtonContainer.transform);
 			newButton.transform.localScale = Vector3.one;
 			newButton.transform.localPosition = Vector3.zero;
 		}
@@ -1040,257 +1053,67 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 		{
 			return;
 		}
-		CharacterResourceLink displayedCharacter = this.GetDisplayedCharacter();
+		CharacterResourceLink displayedCharacter = GetDisplayedCharacter();
 		PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(displayedCharacter.m_characterType);
-		UIVfxSwapSelectButton uivfxSwapSelectButton = null;
+		UIVfxSwapSelectButton uIVfxSwapSelectButton = null;
 		int num = -1;
-		for (int i = 0; i < this.m_vfxSwapButtons.Count; i++)
+		int num2 = 0;
+		while (true)
 		{
-			if (this.m_vfxSwapButtons[i].m_buttonHitBox.gameObject == data.selectedObject)
+			if (num2 < m_vfxSwapButtons.Count)
 			{
-				for (;;)
+				if (m_vfxSwapButtons[num2].m_buttonHitBox.gameObject == data.selectedObject)
 				{
-					switch (2)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (num2 == 0 || playerCharacterData.CharacterComponent.IsAbilityVfxSwapUnlocked(m_selectedAbilityIndex, m_vfxSwapButtons[num2].GetSwap().m_uniqueID))
+					{
+						uIVfxSwapSelectButton = m_vfxSwapButtons[num2];
+						num = num2;
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.VfxSwapButtonSelected(BaseEventData)).MethodHandle;
-				}
-				bool flag = i == 0 || playerCharacterData.CharacterComponent.IsAbilityVfxSwapUnlocked(this.m_selectedAbilityIndex, this.m_vfxSwapButtons[i].GetSwap().m_uniqueID);
-				if (flag)
-				{
-					uivfxSwapSelectButton = this.m_vfxSwapButtons[i];
-					num = i;
-				}
-				IL_EC:
-				bool flag2 = num != -1;
-				if (flag2)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					for (int j = 0; j < this.m_vfxSwapButtons.Count; j++)
-					{
-						if (j == num)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_vfxSwapButtons[j].SetSelected(true, false);
-						}
-						else
-						{
-							this.m_vfxSwapButtons[j].SetSelected(false, false);
-						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_selectedAbilityButton != null)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (uivfxSwapSelectButton != null)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (uivfxSwapSelectButton.GetSwap() != null)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.m_selectedAbilityButton.SetSelectedVfxSwap(uivfxSwapSelectButton.GetSwap());
-								this.m_selectedAbilityButton.SetSelectedVfxSwapIndex(num);
-								this.m_abilityVfxSwapInfo.SetAbilityVfxSwapIdForAbility(this.m_selectedAbilityIndex, uivfxSwapSelectButton.GetSwap().m_uniqueID);
-								UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModAdd);
-								goto IL_226;
-							}
-						}
-						this.m_selectedAbilityButton.SetSelectedVfxSwap(null);
-						this.m_selectedAbilityButton.SetSelectedVfxSwapIndex(-1);
-						this.m_abilityVfxSwapInfo.SetAbilityVfxSwapIdForAbility(this.m_selectedAbilityIndex, 0);
-						UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModClear);
-						IL_226:
-						ClientGameManager.Get().UpdateSelectedAbilityVfxSwaps(this.m_abilityVfxSwapInfo, 0);
-					}
-				}
-				return;
+				num2++;
+				continue;
 			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			break;
 		}
-		for (;;)
+		if (num == -1)
+		{
+			return;
+		}
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			goto IL_EC;
-		}
-	}
-
-	internal void UpdateModEquipPointsLeft(Text optionalAdditionaUpdate = null)
-	{
-		if (!this.m_canSelectMods)
-		{
-			return;
-		}
-		int num = this.CalculateTotalModEquipCost();
-		int num2 = num;
-		int num3 = 0xA;
-		if (this.m_modEquipPointsLeftNotches.Length == num3)
-		{
-			for (;;)
+			for (int i = 0; i < m_vfxSwapButtons.Count; i++)
 			{
-				switch (4)
+				if (i == num)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.UpdateModEquipPointsLeft(Text)).MethodHandle;
-			}
-			for (int i = 0; i < this.m_modEquipPointsLeftNotches.Length; i++)
-			{
-				UIManager.SetGameObjectActive(this.m_modEquipPointsLeftNotches[i], i < num2, null);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (optionalAdditionaUpdate != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				optionalAdditionaUpdate.text = string.Format("{0}/{1}", num2, num3);
-			}
-		}
-	}
-
-	internal bool UnderTotalModEquipCost(AbilityMod testAbilityMod)
-	{
-		int num = 0;
-		for (int i = 0; i < this.m_abilityButtons.Length; i++)
-		{
-			if (this.m_selectedAbilityButton != this.m_abilityButtons[i])
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.UnderTotalModEquipCost(AbilityMod)).MethodHandle;
-				}
-				AbilityMod modForAbility = AbilityModHelper.GetModForAbility(this.m_abilityButtons[i].GetAbilityEntry().ability, this.m_modInfo.GetModForAbility(i));
-				if (modForAbility)
-				{
-					num += modForAbility.m_equipCost;
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (testAbilityMod != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			num += testAbilityMod.m_equipCost;
-		}
-		return num <= 0xA;
-	}
-
-	public int CalculateTotalModEquipCost()
-	{
-		int num = 0;
-		for (int i = 0; i < this.m_abilityButtons.Length; i++)
-		{
-			UIAbilityButtonModPanel uiabilityButtonModPanel = this.m_abilityButtons[i];
-			AbilityData.AbilityEntry abilityEntry = uiabilityButtonModPanel.GetAbilityEntry();
-			if (abilityEntry != null)
-			{
-				Ability ability = abilityEntry.ability;
-				int modForAbility = this.m_modInfo.GetModForAbility(i);
-				AbilityMod modForAbility2 = AbilityModHelper.GetModForAbility(ability, modForAbility);
-				if (modForAbility2)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -1299,42 +1122,238 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 						}
 						break;
 					}
-					if (!true)
+					m_vfxSwapButtons[i].SetSelected(true);
+				}
+				else
+				{
+					m_vfxSwapButtons[i].SetSelected(false);
+				}
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				if (!(m_selectedAbilityButton != null))
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (4)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.CalculateTotalModEquipCost()).MethodHandle;
+					case 0:
+						continue;
 					}
-					num += modForAbility2.m_equipCost;
+					if (uIVfxSwapSelectButton != null)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (uIVfxSwapSelectButton.GetSwap() != null)
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							m_selectedAbilityButton.SetSelectedVfxSwap(uIVfxSwapSelectButton.GetSwap());
+							m_selectedAbilityButton.SetSelectedVfxSwapIndex(num);
+							m_abilityVfxSwapInfo.SetAbilityVfxSwapIdForAbility(m_selectedAbilityIndex, uIVfxSwapSelectButton.GetSwap().m_uniqueID);
+							UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModAdd);
+							goto IL_0226;
+						}
+					}
+					m_selectedAbilityButton.SetSelectedVfxSwap(null);
+					m_selectedAbilityButton.SetSelectedVfxSwapIndex(-1);
+					m_abilityVfxSwapInfo.SetAbilityVfxSwapIdForAbility(m_selectedAbilityIndex, 0);
+					UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModClear);
+					goto IL_0226;
+					IL_0226:
+					ClientGameManager.Get().UpdateSelectedAbilityVfxSwaps(m_abilityVfxSwapInfo);
+					return;
 				}
 			}
 		}
-		for (;;)
+	}
+
+	internal void UpdateModEquipPointsLeft(Text optionalAdditionaUpdate = null)
+	{
+		if (!m_canSelectMods)
+		{
+			return;
+		}
+		int num = CalculateTotalModEquipCost();
+		int num2 = 0;
+		int num3 = 0;
+		num2 = num;
+		num3 = 10;
+		if (m_modEquipPointsLeftNotches.Length != num3)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			for (int i = 0; i < m_modEquipPointsLeftNotches.Length; i++)
+			{
+				UIManager.SetGameObjectActive(m_modEquipPointsLeftNotches[i], i < num2);
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				if (optionalAdditionaUpdate != null)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						optionalAdditionaUpdate.text = $"{num2}/{num3}";
+						return;
+					}
+				}
+				return;
+			}
+		}
+	}
+
+	internal bool UnderTotalModEquipCost(AbilityMod testAbilityMod)
+	{
+		int num = 0;
+		for (int i = 0; i < m_abilityButtons.Length; i++)
+		{
+			if (m_selectedAbilityButton != m_abilityButtons[i])
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				AbilityMod modForAbility = AbilityModHelper.GetModForAbility(m_abilityButtons[i].GetAbilityEntry().ability, m_modInfo.GetModForAbility(i));
+				if ((bool)modForAbility)
+				{
+					num += modForAbility.m_equipCost;
+				}
+			}
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (testAbilityMod != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num += testAbilityMod.m_equipCost;
+			}
+			return num <= 10;
+		}
+	}
+
+	public int CalculateTotalModEquipCost()
+	{
+		int num = 0;
+		for (int i = 0; i < m_abilityButtons.Length; i++)
+		{
+			UIAbilityButtonModPanel uIAbilityButtonModPanel = m_abilityButtons[i];
+			AbilityData.AbilityEntry abilityEntry = uIAbilityButtonModPanel.GetAbilityEntry();
+			if (abilityEntry == null)
+			{
+				continue;
+			}
+			Ability ability = abilityEntry.ability;
+			int modForAbility = m_modInfo.GetModForAbility(i);
+			AbilityMod modForAbility2 = AbilityModHelper.GetModForAbility(ability, modForAbility);
+			if ((bool)modForAbility2)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				num += modForAbility2.m_equipCost;
+			}
+		}
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return num;
 		}
-		return num;
 	}
 
 	public void OnLobbyGameplayOverridesUpdated(LobbyGameplayOverrides overrides)
 	{
-		this.AbilityButtonSelected(this.m_selectedAbilityIndex, false);
-		this.UpdateModEquipPointsLeft(null);
+		AbilityButtonSelected(m_selectedAbilityIndex, false);
+		UpdateModEquipPointsLeft();
 	}
 
 	private void AbilityButtonSelectedHelper(GameObject selectedButton, bool forceAnimation)
 	{
-		this.InitModButtonListIfNeeded();
+		InitModButtonListIfNeeded();
 		bool flag = GameManager.Get() != null && GameManager.Get().GameplayOverrides.EnableHiddenCharacters;
-		UIManager.SetGameObjectActive(this.m_purchasePanel, false, null);
-		for (int i = 0; i < this.m_abilityButtons.Length; i++)
+		UIManager.SetGameObjectActive(m_purchasePanel, false);
+		for (int i = 0; i < m_abilityButtons.Length; i++)
 		{
-			if (this.m_abilityButtons[i].m_buttonHitBox.gameObject == selectedButton)
+			if (m_abilityButtons[i].m_buttonHitBox.gameObject == selectedButton)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1343,19 +1362,19 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.AbilityButtonSelectedHelper(GameObject, bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_abilityButtons[i].SetSelected(true, forceAnimation);
-				this.m_selectedAbilityButton = this.m_abilityButtons[i];
-				this.m_selectedAbilityIndex = i;
-				if (this.m_vfxButtonContainer != null)
+				m_abilityButtons[i].SetSelected(true, forceAnimation);
+				m_selectedAbilityButton = m_abilityButtons[i];
+				m_selectedAbilityIndex = i;
+				if (m_vfxButtonContainer != null)
 				{
-					CharacterResourceLink displayedCharacter = this.GetDisplayedCharacter();
+					CharacterResourceLink displayedCharacter = GetDisplayedCharacter();
 					if (displayedCharacter != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -1364,126 +1383,119 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 							}
 							break;
 						}
-						List<CharacterAbilityVfxSwap> availableVfxSwapsForAbilityIndex = displayedCharacter.GetAvailableVfxSwapsForAbilityIndex(this.m_selectedAbilityIndex);
+						List<CharacterAbilityVfxSwap> availableVfxSwapsForAbilityIndex = displayedCharacter.GetAvailableVfxSwapsForAbilityIndex(m_selectedAbilityIndex);
 						PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(displayedCharacter.m_characterType);
 						GameBalanceVars.CharacterUnlockData characterUnlockData = GameBalanceVars.Get().GetCharacterUnlockData(displayedCharacter.m_characterType);
-						this.CreateVfxButtonsIfNeeded(availableVfxSwapsForAbilityIndex.Count + 1);
-						int j = 0;
-						this.m_vfxSwapButtons[0].SetVfxSwap(null, 1);
-						UIManager.SetGameObjectActive(this.m_vfxSwapButtons[0], true, null);
-						this.m_vfxSwapButtons[0].SetLocked(false);
-						if (this.m_abilityButtons[i].GetSelectedVfxSwap() == this.m_vfxSwapButtons[0].GetSwap())
+						CreateVfxButtonsIfNeeded(availableVfxSwapsForAbilityIndex.Count + 1);
+						int num = 0;
+						m_vfxSwapButtons[0].SetVfxSwap(null, 1);
+						UIManager.SetGameObjectActive(m_vfxSwapButtons[0], true);
+						m_vfxSwapButtons[0].SetLocked(false);
+						if (m_abilityButtons[i].GetSelectedVfxSwap() == m_vfxSwapButtons[0].GetSwap())
 						{
-							this.m_vfxSwapButtons[j].SetSelected(true, forceAnimation);
+							m_vfxSwapButtons[num].SetSelected(true, forceAnimation);
 						}
 						else
 						{
-							this.m_vfxSwapButtons[j].SetSelected(false, forceAnimation);
+							m_vfxSwapButtons[num].SetSelected(false, forceAnimation);
 						}
-						j++;
-						using (List<CharacterAbilityVfxSwap>.Enumerator enumerator = availableVfxSwapsForAbilityIndex.GetEnumerator())
+						num++;
+						foreach (CharacterAbilityVfxSwap item in availableVfxSwapsForAbilityIndex)
 						{
-							IL_338:
-							while (enumerator.MoveNext())
+							if (num >= m_vfxSwapButtons.Count)
 							{
-								CharacterAbilityVfxSwap characterAbilityVfxSwap = enumerator.Current;
-								if (j >= this.m_vfxSwapButtons.Count)
+								while (true)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.CreateVfxButtonsIfNeeded(j + 1);
-								}
-								if (characterAbilityVfxSwap.m_isHidden)
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!flag)
-									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										continue;
-									}
-								}
-								GameBalanceVars.AbilityVfxUnlockData abilityVfxUnlockData = null;
-								int k = 0;
-								while (k < characterUnlockData.abilityVfxUnlockData.Length)
-								{
-									if (characterUnlockData.abilityVfxUnlockData[k].ID == characterAbilityVfxSwap.m_uniqueID)
-									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										abilityVfxUnlockData = characterUnlockData.abilityVfxUnlockData[k];
-										IL_261:
-										if (abilityVfxUnlockData == null || !GameBalanceVarsExtensions.MeetsVisibilityConditions(abilityVfxUnlockData))
-										{
-											goto IL_338;
-										}
-										this.m_vfxSwapButtons[j].SetVfxSwap(characterAbilityVfxSwap, j + 1);
-										UIManager.SetGameObjectActive(this.m_vfxSwapButtons[j], true, null);
-										bool flag2 = playerCharacterData.CharacterComponent.IsAbilityVfxSwapUnlocked(this.m_selectedAbilityIndex, characterAbilityVfxSwap.m_uniqueID);
-										this.m_vfxSwapButtons[j].SetLocked(!flag2);
-										if (this.m_abilityButtons[i].GetSelectedVfxSwap() == this.m_vfxSwapButtons[j].GetSwap())
-										{
-											this.m_vfxSwapButtons[j].SetSelected(true, forceAnimation);
-										}
-										else
-										{
-											this.m_vfxSwapButtons[j].SetSelected(false, forceAnimation);
-										}
-										j++;
-										goto IL_338;
-									}
-									else
-									{
-										k++;
-									}
-								}
-								for (;;)
-								{
-									switch (2)
+									switch (7)
 									{
 									case 0:
 										continue;
 									}
-									goto IL_261;
+									break;
+								}
+								CreateVfxButtonsIfNeeded(num + 1);
+							}
+							if (item.m_isHidden)
+							{
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (!flag)
+								{
+									while (true)
+									{
+										switch (1)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									continue;
 								}
 							}
+							GameBalanceVars.AbilityVfxUnlockData abilityVfxUnlockData = null;
+							int num2 = 0;
+							while (true)
+							{
+								if (num2 >= characterUnlockData.abilityVfxUnlockData.Length)
+								{
+									while (true)
+									{
+										switch (2)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									break;
+								}
+								if (characterUnlockData.abilityVfxUnlockData[num2].ID == item.m_uniqueID)
+								{
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									abilityVfxUnlockData = characterUnlockData.abilityVfxUnlockData[num2];
+									break;
+								}
+								num2++;
+							}
+							if (abilityVfxUnlockData != null && GameBalanceVarsExtensions.MeetsVisibilityConditions(abilityVfxUnlockData))
+							{
+								m_vfxSwapButtons[num].SetVfxSwap(item, num + 1);
+								UIManager.SetGameObjectActive(m_vfxSwapButtons[num], true);
+								bool flag2 = playerCharacterData.CharacterComponent.IsAbilityVfxSwapUnlocked(m_selectedAbilityIndex, item.m_uniqueID);
+								m_vfxSwapButtons[num].SetLocked(!flag2);
+								if (m_abilityButtons[i].GetSelectedVfxSwap() == m_vfxSwapButtons[num].GetSwap())
+								{
+									m_vfxSwapButtons[num].SetSelected(true, forceAnimation);
+								}
+								else
+								{
+									m_vfxSwapButtons[num].SetSelected(false, forceAnimation);
+								}
+								num++;
+							}
 						}
-						while (j < this.m_vfxSwapButtons.Count)
+						for (; num < m_vfxSwapButtons.Count; num++)
 						{
-							this.m_vfxSwapButtons[j].SetSelected(false, forceAnimation);
-							UIManager.SetGameObjectActive(this.m_vfxSwapButtons[j], false, null);
-							j++;
+							m_vfxSwapButtons[num].SetSelected(false, forceAnimation);
+							UIManager.SetGameObjectActive(m_vfxSwapButtons[num], false);
 						}
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -1494,113 +1506,78 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 						}
 					}
 				}
-				if (this.m_abilityButtons[i].GetAbilityEntry() != null)
+				if (m_abilityButtons[i].GetAbilityEntry() == null)
 				{
-					if (this.m_modScrollView != null)
+					continue;
+				}
+				if (m_modScrollView != null)
+				{
+					while (true)
 					{
-						for (;;)
+						switch (2)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
+						case 0:
+							continue;
 						}
-						this.m_modScrollView.verticalScrollbar.value = 1f;
+						break;
 					}
-					List<AbilityMod> availableModsForAbility = AbilityModHelper.GetAvailableModsForAbility(this.m_abilityButtons[i].GetAbilityEntry().ability);
-					int l = 0;
-					bool flag3 = false;
-					AbilityData.AbilityEntry abilityEntry = this.m_abilityButtons[i].GetAbilityEntry();
-					using (List<AbilityMod>.Enumerator enumerator2 = availableModsForAbility.GetEnumerator())
+					m_modScrollView.verticalScrollbar.value = 1f;
+				}
+				List<AbilityMod> availableModsForAbility = AbilityModHelper.GetAvailableModsForAbility(m_abilityButtons[i].GetAbilityEntry().ability);
+				int j = 0;
+				bool flag3 = false;
+				AbilityData.AbilityEntry abilityEntry = m_abilityButtons[i].GetAbilityEntry();
+				using (List<AbilityMod>.Enumerator enumerator2 = availableModsForAbility.GetEnumerator())
+				{
+					while (enumerator2.MoveNext())
 					{
-						while (enumerator2.MoveNext())
+						AbilityMod current2 = enumerator2.Current;
+						if (j >= m_cachedModButtonList.Count)
 						{
-							AbilityMod abilityMod = enumerator2.Current;
-							if (l >= this.m_cachedModButtonList.Count)
+							while (true)
 							{
-								for (;;)
+								switch (2)
 								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
+								case 0:
+									continue;
 								}
-								this.AllocateNewModButton();
+								break;
 							}
-							UIModSelectButton uimodSelectButton = this.m_cachedModButtonList[l];
-							bool flag4 = AbilityModHelper.IsModAllowed(this.m_selectedCharacter, i, abilityMod.m_abilityScopeId);
-							if (flag4)
+							AllocateNewModButton();
+						}
+						UIModSelectButton uIModSelectButton = m_cachedModButtonList[j];
+						bool flag4 = AbilityModHelper.IsModAllowed(m_selectedCharacter, i, current2.m_abilityScopeId);
+						if (flag4)
+						{
+							while (true)
 							{
-								for (;;)
+								switch (2)
 								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
+								case 0:
+									continue;
 								}
-								flag4 = abilityMod.EquippableForGameType();
-								if (!flag4)
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									UIManager.SetGameObjectActive(uimodSelectButton, false, null);
-								}
+								break;
 							}
-							if (flag4)
+							flag4 = current2.EquippableForGameType();
+							if (!flag4)
 							{
-								for (;;)
+								while (true)
 								{
-									switch (2)
+									switch (7)
 									{
 									case 0:
 										continue;
 									}
 									break;
 								}
-								uimodSelectButton.SetMod(abilityMod, abilityEntry.ability, i, this.m_selectedCharacter);
-								UIManager.SetGameObjectActive(uimodSelectButton, true, null);
-								if (!this.m_canSelectMods)
-								{
-									goto IL_51C;
-								}
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!(this.m_abilityButtons[i].GetSelectedMod() == uimodSelectButton.GetMod()))
-								{
-									goto IL_51C;
-								}
-								uimodSelectButton.SetSelected(true, forceAnimation);
-								flag3 = true;
-								IL_525:
-								l++;
-								continue;
-								IL_51C:
-								uimodSelectButton.SetSelected(false, forceAnimation);
-								goto IL_525;
+								UIManager.SetGameObjectActive(uIModSelectButton, false);
 							}
-							if (this.m_abilityButtons[i].GetSelectedMod() == abilityMod)
+						}
+						if (!flag4)
+						{
+							if (m_abilityButtons[i].GetSelectedMod() == current2)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
@@ -1609,95 +1586,128 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 									}
 									break;
 								}
-								this.DoModButtonSelected(this.m_clearModButton.m_buttonHitBox.gameObject);
+								DoModButtonSelected(m_clearModButton.m_buttonHitBox.gameObject);
 							}
+							continue;
 						}
-						for (;;)
+						while (true)
 						{
-							switch (6)
+							switch (2)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-					}
-					while (l < this.m_cachedModButtonList.Count)
-					{
-						this.m_cachedModButtonList[l].SetSelected(false, forceAnimation);
-						UIManager.SetGameObjectActive(this.m_cachedModButtonList[l], false, null);
-						l++;
-					}
-					UIManager.SetGameObjectActive(this.m_clearModButton, true, null);
-					UIModSelectButton clearModButton = this.m_clearModButton;
-					bool selected;
-					if (this.m_canSelectMods)
-					{
-						for (;;)
+						uIModSelectButton.SetMod(current2, abilityEntry.ability, i, m_selectedCharacter);
+						UIManager.SetGameObjectActive(uIModSelectButton, true);
+						if (m_canSelectMods)
 						{
-							switch (4)
+							while (true)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						selected = !flag3;
-					}
-					else
-					{
-						selected = false;
-					}
-					clearModButton.SetSelected(selected, forceAnimation);
-					if (this.m_abilityPreviewPanel)
-					{
-						if (abilityEntry != null)
-						{
-							for (;;)
-							{
-								switch (5)
+								switch (4)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							if (abilityEntry.ability != null)
+							if (m_abilityButtons[i].GetSelectedMod() == uIModSelectButton.GetMod())
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (abilityEntry.ability.m_previewVideo != null)
-								{
-									this.m_abilityPreviewPanel.Play("Video/AbilityPreviews/" + abilityEntry.ability.m_previewVideo);
-									goto IL_679;
-								}
+								uIModSelectButton.SetSelected(true, forceAnimation);
+								flag3 = true;
+								goto IL_0525;
 							}
 						}
-						this.m_abilityPreviewPanel.Stop();
+						uIModSelectButton.SetSelected(false, forceAnimation);
+						goto IL_0525;
+						IL_0525:
+						j++;
+					}
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
 				}
-				IL_679:;
+				for (; j < m_cachedModButtonList.Count; j++)
+				{
+					m_cachedModButtonList[j].SetSelected(false, forceAnimation);
+					UIManager.SetGameObjectActive(m_cachedModButtonList[j], false);
+				}
+				UIManager.SetGameObjectActive(m_clearModButton, true);
+				UIModSelectButton clearModButton = m_clearModButton;
+				int selected;
+				if (m_canSelectMods)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					selected = ((!flag3) ? 1 : 0);
+				}
+				else
+				{
+					selected = 0;
+				}
+				clearModButton.SetSelected((byte)selected != 0, forceAnimation);
+				if (!m_abilityPreviewPanel)
+				{
+					continue;
+				}
+				if (abilityEntry != null)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (abilityEntry.ability != null)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (abilityEntry.ability.m_previewVideo != null)
+						{
+							m_abilityPreviewPanel.Play("Video/AbilityPreviews/" + abilityEntry.ability.m_previewVideo);
+							continue;
+						}
+					}
+				}
+				m_abilityPreviewPanel.Stop();
 			}
 			else
 			{
-				this.m_abilityButtons[i].SetSelected(false, forceAnimation);
+				m_abilityButtons[i].SetSelected(false, forceAnimation);
 			}
 		}
 	}
 
 	private void AllocateNewModButton()
 	{
-		UIModSelectButton uimodSelectButton = UnityEngine.Object.Instantiate<UIModSelectButton>(this.m_modButtonPrefab);
-		if (uimodSelectButton == null)
+		UIModSelectButton uIModSelectButton = UnityEngine.Object.Instantiate(m_modButtonPrefab);
+		if (uIModSelectButton == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1706,72 +1716,73 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.AllocateNewModButton()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Debug.LogError("Failed to allocate new mod button");
 		}
-		uimodSelectButton.transform.SetParent(this.m_modLayoutGroup.transform, false);
-		uimodSelectButton.transform.localPosition = Vector3.zero;
-		uimodSelectButton.transform.localScale = Vector3.one;
-		uimodSelectButton.SetCallback(new _ButtonSwapSprite.ButtonClickCallback(this.ModButtonSelected));
-		this.AddMouseEventPasser(uimodSelectButton);
-		this.m_cachedModButtonList.Add(uimodSelectButton);
+		uIModSelectButton.transform.SetParent(m_modLayoutGroup.transform, false);
+		uIModSelectButton.transform.localPosition = Vector3.zero;
+		uIModSelectButton.transform.localScale = Vector3.one;
+		uIModSelectButton.SetCallback(ModButtonSelected);
+		AddMouseEventPasser(uIModSelectButton);
+		m_cachedModButtonList.Add(uIModSelectButton);
 	}
 
 	private void AddMouseEventPasser(UIModSelectButton modComp)
 	{
-		if (this.m_modScrollView != null)
+		if (!(m_modScrollView != null))
 		{
-			_MouseEventPasser mouseEventPasser = modComp.m_buttonHitBox.gameObject.GetComponent<_MouseEventPasser>();
-			if (mouseEventPasser == null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.AddMouseEventPasser(UIModSelectButton)).MethodHandle;
-				}
-				mouseEventPasser = modComp.m_buttonHitBox.gameObject.AddComponent<_MouseEventPasser>();
-			}
-			mouseEventPasser.AddNewHandler(this.m_modScrollView);
+			return;
 		}
-	}
-
-	public void AbilityButtonSelected(int i, bool playsound = true)
-	{
-		if (i >= 0)
+		_MouseEventPasser mouseEventPasser = modComp.m_buttonHitBox.gameObject.GetComponent<_MouseEventPasser>();
+		if (mouseEventPasser == null)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (5)
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.AbilityButtonSelected(int, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_abilityButtons.Length > i)
+			mouseEventPasser = modComp.m_buttonHitBox.gameObject.AddComponent<_MouseEventPasser>();
+		}
+		mouseEventPasser.AddNewHandler(m_modScrollView);
+	}
+
+	public void AbilityButtonSelected(int i, bool playsound = true)
+	{
+		if (i < 0)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				this.AbilityButtonSelectedHelper(this.m_abilityButtons[i].m_buttonHitBox.gameObject, false);
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_abilityButtons.Length > i)
+			{
+				AbilityButtonSelectedHelper(m_abilityButtons[i].m_buttonHitBox.gameObject, false);
 				if (playsound)
 				{
 					UIFrontEnd.PlaySound(FrontEndButtonSounds.MenuChoice);
 				}
-				return;
 			}
+			return;
 		}
 	}
 
@@ -1779,22 +1790,22 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 	{
 		if (abilityBtn == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.AbilityButtonSelected(UIAbilityButtonModPanel)).MethodHandle;
-			}
-			return;
 		}
-		this.AbilityButtonSelectedHelper(abilityBtn.m_buttonHitBox.gameObject, false);
+		AbilityButtonSelectedHelper(abilityBtn.m_buttonHitBox.gameObject, false);
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.MenuChoice);
 	}
 
@@ -1802,42 +1813,42 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 	{
 		if (data.selectedObject == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.AbilityButtonSelected(BaseEventData)).MethodHandle;
-			}
-			return;
 		}
-		this.AbilityButtonSelectedHelper(data.selectedObject, false);
+		AbilityButtonSelectedHelper(data.selectedObject, false);
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.MenuChoice);
 	}
 
 	public void Setup(CharacterType characterType)
 	{
-		this.Setup(GameWideData.Get().GetCharacterResourceLink(characterType), false);
+		Setup(GameWideData.Get().GetCharacterResourceLink(characterType));
 	}
 
 	public CharacterResourceLink GetDisplayedCharacter()
 	{
-		return this.m_characterLink;
+		return m_characterLink;
 	}
 
 	public void Setup(CharacterResourceLink characterLink, bool sameCharacter = false)
 	{
-		this.m_characterLink = characterLink;
-		PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_characterLink.m_characterType);
+		m_characterLink = characterLink;
+		PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_characterLink.m_characterType);
 		if (playerCharacterData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1846,13 +1857,13 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.Setup(CharacterResourceLink, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_canSelectMods)
+			if (m_canSelectMods)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1865,7 +1876,7 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 				CharacterModInfo characterModInfo;
 				if (flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1881,13 +1892,13 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 					characterModInfo = playerCharacterData.CharacterComponent.LastMods;
 				}
 				CharacterAbilityVfxSwapInfo lastAbilityVfxSwaps = playerCharacterData.CharacterComponent.LastAbilityVfxSwaps;
-				if (this.m_modloadouts != null)
+				if (m_modloadouts != null)
 				{
-					this.m_modloadouts.Setup(characterLink);
+					m_modloadouts.Setup(characterLink);
 				}
 				if (sameCharacter)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -1896,9 +1907,9 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 						}
 						break;
 					}
-					if (this.m_modInfo.Equals(characterModInfo))
+					if (m_modInfo.Equals(characterModInfo))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -1907,30 +1918,28 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 							}
 							break;
 						}
-						if (this.m_showingRankedMods == flag)
+						if (m_showingRankedMods == flag)
 						{
 							return;
 						}
 					}
 				}
-				if (ClientGameManager.Get().WaitingForModSelectResponse == -1)
+				if (ClientGameManager.Get().WaitingForModSelectResponse != -1)
 				{
-					this.m_modInfo = characterModInfo;
-					this.m_abilityVfxSwapInfo = lastAbilityVfxSwaps;
-					this.m_showingRankedMods = flag;
-					goto IL_10F;
+					return;
 				}
-				return;
+				m_modInfo = characterModInfo;
+				m_abilityVfxSwapInfo = lastAbilityVfxSwaps;
+				m_showingRankedMods = flag;
 			}
 		}
-		IL_10F:
-		AbilityData component = this.m_characterLink.ActorDataPrefab.GetComponent<AbilityData>();
-		this.SetupAbilityArray(component);
-		for (int i = 0; i < this.m_abilityButtons.Length; i++)
+		AbilityData component = m_characterLink.ActorDataPrefab.GetComponent<AbilityData>();
+		SetupAbilityArray(component);
+		for (int i = 0; i < m_abilityButtons.Length; i++)
 		{
-			if (i < this.m_abilities.Length)
+			if (i < m_abilities.Length)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1939,11 +1948,11 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 					}
 					break;
 				}
-				AbilityData.AbilityEntry abilityEntry = this.m_abilities[i];
-				this.m_abilityButtons[i].Setup(abilityEntry);
-				if (this.m_canSelectMods)
+				AbilityData.AbilityEntry abilityEntry = m_abilities[i];
+				m_abilityButtons[i].Setup(abilityEntry);
+				if (m_canSelectMods)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -1953,10 +1962,10 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 						break;
 					}
 					Ability ability = abilityEntry.ability;
-					int num = this.m_modInfo.GetModForAbility(i);
-					if (!AbilityModHelper.IsModAllowed(this.m_characterLink.m_characterType, i, num))
+					int num = m_modInfo.GetModForAbility(i);
+					if (!AbilityModHelper.IsModAllowed(m_characterLink.m_characterType, i, num))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -1970,7 +1979,7 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 					AbilityMod abilityMod = AbilityModHelper.GetModForAbility(ability, num);
 					if (abilityMod != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -1983,116 +1992,114 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 						{
 							abilityMod = null;
 							num = -1;
-							this.m_modInfo.SetModForAbility(i, -1);
+							m_modInfo.SetModForAbility(i, -1);
 						}
 					}
-					this.m_abilityButtons[i].SetSelectedMod(abilityMod);
-					this.m_abilityButtons[i].SetSelectedModIndex(num);
+					m_abilityButtons[i].SetSelectedMod(abilityMod);
+					m_abilityButtons[i].SetSelectedModIndex(num);
 				}
 				else
 				{
-					this.m_abilityButtons[i].SetSelectedMod(null);
-					this.m_abilityButtons[i].SetSelectedModIndex(-1);
+					m_abilityButtons[i].SetSelectedMod(null);
+					m_abilityButtons[i].SetSelectedModIndex(-1);
 				}
 			}
 			else
 			{
-				this.m_abilityButtons[i].SetSelectedMod(null);
-				this.m_abilityButtons[i].SetSelectedModIndex(-1);
+				m_abilityButtons[i].SetSelectedMod(null);
+				m_abilityButtons[i].SetSelectedModIndex(-1);
 			}
-			this.m_abilityButtons[i].SetSelected(false, false);
+			m_abilityButtons[i].SetSelected(false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		for (int j = 0; j < this.m_cachedModButtonList.Count; j++)
-		{
-			this.m_cachedModButtonList[j].SetMod(null, null, 0, this.m_characterLink.m_characterType);
-		}
-		for (;;)
-		{
-			switch (7)
+			for (int j = 0; j < m_cachedModButtonList.Count; j++)
 			{
-			case 0:
-				continue;
+				m_cachedModButtonList[j].SetMod(null, null, 0, m_characterLink.m_characterType);
 			}
-			break;
-		}
-		for (int k = 0; k < this.m_vfxSwapButtons.Count; k++)
-		{
-			this.m_vfxSwapButtons[k].SetVfxSwap(null, 0);
-		}
-		for (;;)
-		{
-			switch (7)
+			while (true)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (this.m_selectedCharacter != this.m_characterLink.m_characterType)
-		{
-			for (;;)
-			{
-				switch (3)
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			this.m_selectedAbilityButton = null;
-			this.m_selectedAbilityIndex = -1;
-		}
-		UIAbilityButtonModPanel uiabilityButtonModPanel = this.m_abilityButtons[0];
-		if (this.m_selectedAbilityButton != null)
-		{
-			for (;;)
-			{
-				switch (6)
+				for (int k = 0; k < m_vfxSwapButtons.Count; k++)
 				{
-				case 0:
-					continue;
+					m_vfxSwapButtons[k].SetVfxSwap(null, 0);
 				}
-				break;
-			}
-			uiabilityButtonModPanel = this.m_selectedAbilityButton;
-		}
-		this.m_selectedCharacter = this.m_characterLink.m_characterType;
-		this.m_clearModButton.SetMod(null, null, 0, CharacterType.None);
-		this.UpdateModCounter();
-		if (this.CalculateTotalModEquipCost() > 0xA)
-		{
-			for (;;)
-			{
-				switch (1)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					if (m_selectedCharacter != m_characterLink.m_characterType)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						m_selectedAbilityButton = null;
+						m_selectedAbilityIndex = -1;
+					}
+					UIAbilityButtonModPanel uIAbilityButtonModPanel = m_abilityButtons[0];
+					if (m_selectedAbilityButton != null)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						uIAbilityButtonModPanel = m_selectedAbilityButton;
+					}
+					m_selectedCharacter = m_characterLink.m_characterType;
+					m_clearModButton.SetMod(null, null, 0, CharacterType.None);
+					UpdateModCounter();
+					if (CalculateTotalModEquipCost() > 10)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						ResetAllMods(null);
+					}
+					UpdateModEquipPointsLeft();
+					RefreshSelectedVfxSwaps();
+					AbilityButtonSelectedHelper(uIAbilityButtonModPanel.m_buttonHitBox.gameObject, true);
+					return;
 				}
-				break;
 			}
-			this.ResetAllMods(null);
 		}
-		this.UpdateModEquipPointsLeft(null);
-		this.RefreshSelectedVfxSwaps();
-		this.AbilityButtonSelectedHelper(uiabilityButtonModPanel.m_buttonHitBox.gameObject, true);
 	}
 
 	public void RefreshKeyBindings()
 	{
-		for (int i = 0; i < this.m_abilityButtons.Length; i++)
+		for (int i = 0; i < m_abilityButtons.Length; i++)
 		{
-			if (i < this.m_abilities.Length)
+			if (i < m_abilities.Length)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -2101,158 +2108,165 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.RefreshKeyBindings()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_abilityButtons[i].RefreshHotkey();
+				m_abilityButtons[i].RefreshHotkey();
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void SetupAbilityArray(AbilityData theAbility)
 	{
-		this.m_abilities = new AbilityData.AbilityEntry[0xE];
-		for (int i = 0; i < this.m_abilities.Length; i++)
+		m_abilities = new AbilityData.AbilityEntry[14];
+		for (int i = 0; i < m_abilities.Length; i++)
 		{
-			this.m_abilities[i] = new AbilityData.AbilityEntry();
+			m_abilities[i] = new AbilityData.AbilityEntry();
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.SetupAbilityArray(AbilityData)).MethodHandle;
-		}
-		this.m_abilities[0].Setup(theAbility.m_ability0, KeyPreference.Ability1);
-		if (theAbility.m_ability0 != null)
-		{
-			theAbility.m_ability0.sprite = theAbility.m_sprite0;
-		}
-		this.m_abilities[1].Setup(theAbility.m_ability1, KeyPreference.Ability2);
-		if (theAbility.m_ability1 != null)
-		{
-			for (;;)
+			if (1 == 0)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			theAbility.m_ability1.sprite = theAbility.m_sprite1;
-		}
-		this.m_abilities[2].Setup(theAbility.m_ability2, KeyPreference.Ability3);
-		if (theAbility.m_ability2 != null)
-		{
-			for (;;)
+			m_abilities[0].Setup(theAbility.m_ability0, KeyPreference.Ability1);
+			if (theAbility.m_ability0 != null)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				theAbility.m_ability0.sprite = theAbility.m_sprite0;
 			}
-			theAbility.m_ability2.sprite = theAbility.m_sprite2;
-		}
-		this.m_abilities[3].Setup(theAbility.m_ability3, KeyPreference.Ability4);
-		if (theAbility.m_ability3 != null)
-		{
-			for (;;)
+			m_abilities[1].Setup(theAbility.m_ability1, KeyPreference.Ability2);
+			if (theAbility.m_ability1 != null)
 			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
-				break;
+				theAbility.m_ability1.sprite = theAbility.m_sprite1;
 			}
-			theAbility.m_ability3.sprite = theAbility.m_sprite3;
-		}
-		this.m_abilities[4].Setup(theAbility.m_ability4, KeyPreference.Ability5);
-		if (theAbility.m_ability4 != null)
-		{
-			for (;;)
+			m_abilities[2].Setup(theAbility.m_ability2, KeyPreference.Ability3);
+			if (theAbility.m_ability2 != null)
 			{
-				switch (4)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
-				break;
+				theAbility.m_ability2.sprite = theAbility.m_sprite2;
 			}
-			theAbility.m_ability4.sprite = theAbility.m_sprite4;
-		}
-		this.m_abilities[5].Setup(theAbility.m_ability5, KeyPreference.Ability6);
-		if (theAbility.m_ability5 != null)
-		{
-			for (;;)
+			m_abilities[3].Setup(theAbility.m_ability3, KeyPreference.Ability4);
+			if (theAbility.m_ability3 != null)
 			{
-				switch (6)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
-				break;
+				theAbility.m_ability3.sprite = theAbility.m_sprite3;
 			}
-			theAbility.m_ability5.sprite = theAbility.m_sprite5;
-		}
-		this.m_abilities[6].Setup(theAbility.m_ability6, KeyPreference.Ability7);
-		if (theAbility.m_ability6 != null)
-		{
-			theAbility.m_ability6.sprite = theAbility.m_sprite6;
+			m_abilities[4].Setup(theAbility.m_ability4, KeyPreference.Ability5);
+			if (theAbility.m_ability4 != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				theAbility.m_ability4.sprite = theAbility.m_sprite4;
+			}
+			m_abilities[5].Setup(theAbility.m_ability5, KeyPreference.Ability6);
+			if (theAbility.m_ability5 != null)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				theAbility.m_ability5.sprite = theAbility.m_sprite5;
+			}
+			m_abilities[6].Setup(theAbility.m_ability6, KeyPreference.Ability7);
+			if (theAbility.m_ability6 != null)
+			{
+				theAbility.m_ability6.sprite = theAbility.m_sprite6;
+			}
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_setZtoZero)
+		if (!m_setZtoZero)
 		{
-			RectTransform[] componentsInChildren = base.GetComponentsInChildren<RectTransform>();
-			for (int i = 0; i < componentsInChildren.Length; i++)
+			return;
+		}
+		RectTransform[] componentsInChildren = GetComponentsInChildren<RectTransform>();
+		for (int i = 0; i < componentsInChildren.Length; i++)
+		{
+			if (componentsInChildren[i] != base.transform)
 			{
-				if (componentsInChildren[i] != base.transform)
+				while (true)
 				{
-					for (;;)
+					switch (4)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.Update()).MethodHandle;
-					}
-					componentsInChildren[i].localPosition = new Vector3(componentsInChildren[i].localPosition.x, componentsInChildren[i].localPosition.y, 0f);
+					break;
 				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				RectTransform obj = componentsInChildren[i];
+				Vector3 localPosition = componentsInChildren[i].localPosition;
+				float x = localPosition.x;
+				Vector3 localPosition2 = componentsInChildren[i].localPosition;
+				obj.localPosition = new Vector3(x, localPosition2.y, 0f);
 			}
-			for (;;)
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
@@ -2260,9 +2274,9 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 
 	private void PurchaseMod(BaseEventData data)
 	{
-		if (this.m_currentlyPurchasingModButton != null)
+		if (m_currentlyPurchasingModButton != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -2271,14 +2285,14 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanel.PurchaseMod(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_currentlyPurchasingModButton.RequestPurchaseMod();
+			m_currentlyPurchasingModButton.RequestPurchaseMod();
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModUnlocked);
 		}
-		this.m_purchasePanel.m_freelancerCurrencyButton.spriteController.ResetMouseState();
-		UIManager.SetGameObjectActive(this.m_purchasePanel, false, null);
+		m_purchasePanel.m_freelancerCurrencyButton.spriteController.ResetMouseState();
+		UIManager.SetGameObjectActive(m_purchasePanel, false);
 	}
 }

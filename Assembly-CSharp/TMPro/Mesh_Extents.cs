@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace TMPro
@@ -18,18 +18,7 @@ namespace TMPro
 
 		public override string ToString()
 		{
-			return string.Concat(new string[]
-			{
-				"Min (",
-				this.min.x.ToString("f2"),
-				", ",
-				this.min.y.ToString("f2"),
-				")   Max (",
-				this.max.x.ToString("f2"),
-				", ",
-				this.max.y.ToString("f2"),
-				")"
-			});
+			return "Min (" + min.x.ToString("f2") + ", " + min.y.ToString("f2") + ")   Max (" + max.x.ToString("f2") + ", " + max.y.ToString("f2") + ")";
 		}
 	}
 }

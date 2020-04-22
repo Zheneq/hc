@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,9 +20,9 @@ public class ThiefHiddenTrap : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -32,29 +31,29 @@ public class ThiefHiddenTrap : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefHiddenTrap.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Hidden Trap";
+			m_abilityName = "Hidden Trap";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		GroundEffectField trapFieldInfo = this.GetTrapFieldInfo();
-		AbilityUtil_Targeter.AffectsActor affectsCaster = (!trapFieldInfo.IncludeAllies()) ? AbilityUtil_Targeter.AffectsActor.Never : AbilityUtil_Targeter.AffectsActor.Possible;
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, trapFieldInfo.shape, trapFieldInfo.penetrateLos, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, trapFieldInfo.IncludeEnemies(), trapFieldInfo.IncludeAllies(), affectsCaster, AbilityUtil_Targeter.AffectsActor.Possible);
+		SetCachedFields();
+		GroundEffectField trapFieldInfo = GetTrapFieldInfo();
+		AbilityUtil_Targeter.AffectsActor affectsCaster = trapFieldInfo.IncludeAllies() ? AbilityUtil_Targeter.AffectsActor.Possible : AbilityUtil_Targeter.AffectsActor.Never;
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, trapFieldInfo.shape, trapFieldInfo.penetrateLos, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, trapFieldInfo.IncludeEnemies(), trapFieldInfo.IncludeAllies(), affectsCaster);
 	}
 
 	private void SetCachedFields()
 	{
 		GroundEffectField cachedTrapFieldInfo;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -63,25 +62,25 @@ public class ThiefHiddenTrap : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefHiddenTrap.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedTrapFieldInfo = this.m_abilityMod.m_trapFieldInfoMod.GetModifiedValue(this.m_trapFieldInfo);
+			cachedTrapFieldInfo = m_abilityMod.m_trapFieldInfoMod.GetModifiedValue(m_trapFieldInfo);
 		}
 		else
 		{
-			cachedTrapFieldInfo = this.m_trapFieldInfo;
+			cachedTrapFieldInfo = m_trapFieldInfo;
 		}
-		this.m_cachedTrapFieldInfo = cachedTrapFieldInfo;
+		m_cachedTrapFieldInfo = cachedTrapFieldInfo;
 	}
 
 	public GroundEffectField GetTrapFieldInfo()
 	{
 		GroundEffectField result;
-		if (this.m_cachedTrapFieldInfo != null)
+		if (m_cachedTrapFieldInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -90,30 +89,30 @@ public class ThiefHiddenTrap : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefHiddenTrap.GetTrapFieldInfo()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedTrapFieldInfo;
+			result = m_cachedTrapFieldInfo;
 		}
 		else
 		{
-			result = this.m_trapFieldInfo;
+			result = m_trapFieldInfo;
 		}
 		return result;
 	}
 
 	public int GetExtraDamagePerTurn()
 	{
-		return (!this.m_abilityMod) ? this.m_extraDamagePerTurn : this.m_abilityMod.m_extraDamagePerTurnMod.GetModifiedValue(this.m_extraDamagePerTurn);
+		return (!m_abilityMod) ? m_extraDamagePerTurn : m_abilityMod.m_extraDamagePerTurnMod.GetModifiedValue(m_extraDamagePerTurn);
 	}
 
 	public int GetMaxExtraDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -122,37 +121,36 @@ public class ThiefHiddenTrap : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefHiddenTrap.GetMaxExtraDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_maxExtraDamageMod.GetModifiedValue(this.m_maxExtraDamage);
+			result = m_abilityMod.m_maxExtraDamageMod.GetModifiedValue(m_maxExtraDamage);
 		}
 		else
 		{
-			result = this.m_maxExtraDamage;
+			result = m_maxExtraDamage;
 		}
 		return result;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		int damageAmount = this.GetTrapFieldInfo().damageAmount;
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, damageAmount);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		int damageAmount = GetTrapFieldInfo().damageAmount;
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, damageAmount);
+		return numbers;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_ThiefHiddenTrap abilityMod_ThiefHiddenTrap = modAsBase as AbilityMod_ThiefHiddenTrap;
-		this.m_trapFieldInfo.AddTooltipTokens(tokens, "GroundEffect", false, null);
-		string name = "ExtraDamagePerTurn";
+		m_trapFieldInfo.AddTooltipTokens(tokens, "GroundEffect");
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_ThiefHiddenTrap)
+		if ((bool)abilityMod_ThiefHiddenTrap)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -161,23 +159,22 @@ public class ThiefHiddenTrap : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefHiddenTrap.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_ThiefHiddenTrap.m_extraDamagePerTurnMod.GetModifiedValue(this.m_extraDamagePerTurn);
+			val = abilityMod_ThiefHiddenTrap.m_extraDamagePerTurnMod.GetModifiedValue(m_extraDamagePerTurn);
 		}
 		else
 		{
-			val = this.m_extraDamagePerTurn;
+			val = m_extraDamagePerTurn;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "MaxExtraDamage";
+		AddTokenInt(tokens, "ExtraDamagePerTurn", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_ThiefHiddenTrap)
+		if ((bool)abilityMod_ThiefHiddenTrap)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -186,27 +183,27 @@ public class ThiefHiddenTrap : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_ThiefHiddenTrap.m_maxExtraDamageMod.GetModifiedValue(this.m_maxExtraDamage);
+			val2 = abilityMod_ThiefHiddenTrap.m_maxExtraDamageMod.GetModifiedValue(m_maxExtraDamage);
 		}
 		else
 		{
-			val2 = this.m_maxExtraDamage;
+			val2 = m_maxExtraDamage;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
+		AddTokenInt(tokens, "MaxExtraDamage", empty2, val2);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ThiefHiddenTrap))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_ThiefHiddenTrap);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_ThiefHiddenTrap);
+			Setup();
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

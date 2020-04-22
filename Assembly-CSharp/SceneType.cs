@@ -1,5 +1,3 @@
-﻿using System;
-
 public enum SceneType
 {
 	CharacterSelectBackground,
@@ -49,7 +47,7 @@ public enum SceneType
 	GameLoadingScreen,
 	FullScreenMovie,
 	SystemMessage,
-	\u001D,
+	_001D,
 	TestScene,
 	StoreViewHero,
 	GameOverResultEnvironment,

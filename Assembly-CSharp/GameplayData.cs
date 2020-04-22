@@ -1,15 +1,32 @@
-﻿using System;
 using UnityEngine;
 
 public class GameplayData : MonoBehaviour
 {
+	public enum DiagonalMovement
+	{
+		Disabled,
+		Enabled
+	}
+
+	public enum MovementMaximumType
+	{
+		CannotExceedMax,
+		StopAfterExceeding
+	}
+
+	public enum AbilityRangeType
+	{
+		WorldDistToFreePos,
+		BoardDistToBestSquare
+	}
+
 	private static GameplayData s_instance;
 
-	public GameplayData.DiagonalMovement m_diagonalMovement;
+	public DiagonalMovement m_diagonalMovement;
 
-	public GameplayData.MovementMaximumType m_movementMaximumType;
+	public MovementMaximumType m_movementMaximumType;
 
-	public GameplayData.AbilityRangeType m_abilityRangeType = GameplayData.AbilityRangeType.BoardDistToBestSquare;
+	public AbilityRangeType m_abilityRangeType = AbilityRangeType.BoardDistToBestSquare;
 
 	public bool m_showTextForPowerUps;
 
@@ -36,11 +53,11 @@ public class GameplayData : MonoBehaviour
 	[Header("-- ITEMS and CREDITS --")]
 	public int m_itemSlots = 6;
 
-	public int m_creditsPerTurn = 0xA;
+	public int m_creditsPerTurn = 10;
 
-	public int m_startingCredits = 0x32;
+	public int m_startingCredits = 50;
 
-	public int m_creditsPerPlayerKill = 0x3C;
+	public int m_creditsPerPlayerKill = 60;
 
 	public float m_creditBonusFractionPerExtraPlayer = 0.5f;
 
@@ -53,7 +70,7 @@ public class GameplayData : MonoBehaviour
 	public bool m_participationlessBountiesGoToTeam = true;
 
 	[Space(10f)]
-	public int m_capturePointsPerTurn = 0xA;
+	public int m_capturePointsPerTurn = 10;
 
 	[Header("-- BRUSH and INVISIBILITY--")]
 	public float m_distanceCanSeeIntoBrush;
@@ -111,34 +128,16 @@ public class GameplayData : MonoBehaviour
 
 	private void Awake()
 	{
-		GameplayData.s_instance = this;
+		s_instance = this;
 	}
 
 	private void OnDestroy()
 	{
-		GameplayData.s_instance = null;
+		s_instance = null;
 	}
 
 	public static GameplayData Get()
 	{
-		return GameplayData.s_instance;
-	}
-
-	public enum DiagonalMovement
-	{
-		Disabled,
-		Enabled
-	}
-
-	public enum MovementMaximumType
-	{
-		CannotExceedMax,
-		StopAfterExceeding
-	}
-
-	public enum AbilityRangeType
-	{
-		WorldDistToFreePos,
-		BoardDistToBestSquare
+		return s_instance;
 	}
 }

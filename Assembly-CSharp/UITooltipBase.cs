@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public abstract class UITooltipBase : MonoBehaviour
@@ -7,6 +6,6 @@ public abstract class UITooltipBase : MonoBehaviour
 
 	public void SetVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(base.gameObject, visible, null);
+		UIManager.SetGameObjectActive(base.gameObject, visible);
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -8,7 +8,7 @@ public class OnKillingBlowChatter : ScriptableObject, IChatterData
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_baseData;
+		return m_baseData;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()
@@ -20,25 +20,25 @@ public class OnKillingBlowChatter : ScriptableObject, IChatterData
 	{
 		if (!ChatterData.ShouldPlayChatter(this, eventType, args, component))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnKillingBlowChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
-			return false;
 		}
 		GameEventManager.CharacterRagdollHitEventArgs characterRagdollHitEventArgs = args as GameEventManager.CharacterRagdollHitEventArgs;
 		if (characterRagdollHitEventArgs != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -51,7 +51,7 @@ public class OnKillingBlowChatter : ScriptableObject, IChatterData
 			{
 				return true;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{

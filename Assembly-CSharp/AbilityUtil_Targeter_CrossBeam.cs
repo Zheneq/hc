@@ -1,9 +1,15 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 {
+	public struct HitActorContext
+	{
+		public ActorData actor;
+
+		public int totalTargetsInLaser;
+	}
+
 	public float m_distanceInSquares;
 
 	private float m_widthInSquares;
@@ -18,52 +24,53 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 
 	private float m_knockbackThresholdDistance = -1f;
 
-	private List<AbilityUtil_Targeter_CrossBeam.HitActorContext> m_hitActorContext = new List<AbilityUtil_Targeter_CrossBeam.HitActorContext>();
+	private List<HitActorContext> m_hitActorContext = new List<HitActorContext>();
 
 	private OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
 
 	private List<ISquareInsideChecker> m_squarePosCheckerList = new List<ISquareInsideChecker>();
 
-	public AbilityUtil_Targeter_CrossBeam(Ability ability, int numLasers, float distanceInSquares, float widthInSquares, bool penetrateLoS, bool includeAllies = false, bool affectsCaster = false) : base(ability)
+	public AbilityUtil_Targeter_CrossBeam(Ability ability, int numLasers, float distanceInSquares, float widthInSquares, bool penetrateLoS, bool includeAllies = false, bool affectsCaster = false)
+		: base(ability)
 	{
-		this.m_numLasers = numLasers;
-		this.m_distanceInSquares = distanceInSquares;
-		this.m_widthInSquares = widthInSquares;
-		this.m_penetrateLoS = penetrateLoS;
-		this.m_affectsAllies = includeAllies;
-		this.m_affectsTargetingActor = affectsCaster;
-		this.m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
+		m_numLasers = numLasers;
+		m_distanceInSquares = distanceInSquares;
+		m_widthInSquares = widthInSquares;
+		m_penetrateLoS = penetrateLoS;
+		m_affectsAllies = includeAllies;
+		m_affectsTargetingActor = affectsCaster;
+		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
 		for (int i = 0; i < numLasers; i++)
 		{
-			this.m_squarePosCheckerList.Add(new SquareInsideChecker_Box(widthInSquares));
+			m_squarePosCheckerList.Add(new SquareInsideChecker_Box(widthInSquares));
 		}
-		this.m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser();
+		m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser();
 	}
 
-	public List<AbilityUtil_Targeter_CrossBeam.HitActorContext> GetHitActorContext()
+	public List<HitActorContext> GetHitActorContext()
 	{
-		return this.m_hitActorContext;
+		return m_hitActorContext;
 	}
 
 	public void SetKnockbackParams(float knockbackDistance, KnockbackType knockbackType, float knockbackThresholdDistance)
 	{
-		this.m_knockbackDistance = knockbackDistance;
-		this.m_knockbackType = knockbackType;
-		this.m_knockbackThresholdDistance = knockbackThresholdDistance;
+		m_knockbackDistance = knockbackDistance;
+		m_knockbackType = knockbackType;
+		m_knockbackThresholdDistance = knockbackThresholdDistance;
 	}
 
 	private int GetNumLasers()
 	{
-		return Mathf.Max(1, this.m_numLasers);
+		return Mathf.Max(1, m_numLasers);
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		base.ClearActorsInRange();
-		this.m_hitActorContext.Clear();
-		if (this.m_highlights.Count != this.GetNumLasers())
+		ClearActorsInRange();
+		m_hitActorContext.Clear();
+		if (m_highlights.Count != GetNumLasers())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -72,19 +79,19 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_CrossBeam.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.ClearHighlightCursors(true);
-			float squareSize = Board.\u000E().squareSize;
-			float lengthInWorld = this.m_distanceInSquares * squareSize;
-			float widthInWorld = this.m_widthInSquares * squareSize;
-			for (int i = 0; i < this.GetNumLasers(); i++)
+			ClearHighlightCursors();
+			float squareSize = Board.Get().squareSize;
+			float lengthInWorld = m_distanceInSquares * squareSize;
+			float widthInWorld = m_widthInSquares * squareSize;
+			for (int i = 0; i < GetNumLasers(); i++)
 			{
-				this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(widthInWorld, lengthInWorld, null));
+				m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(widthInWorld, lengthInWorld));
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -94,220 +101,113 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 				break;
 			}
 		}
-		List<Vector3> laserEndPoints = this.GetLaserEndPoints(currentTarget, targetingActor);
-		Vector3 vector = targetingActor.\u0015();
-		Vector3 a = targetingActor.\u0016();
-		Vector3 position = a + new Vector3(0f, 0.1f, 0f);
+		List<Vector3> laserEndPoints = GetLaserEndPoints(currentTarget, targetingActor);
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 position = travelBoardSquareWorldPosition + new Vector3(0f, 0.1f, 0f);
 		for (int j = 0; j < laserEndPoints.Count; j++)
 		{
-			this.m_highlights[j].transform.position = position;
-			this.m_highlights[j].transform.rotation = Quaternion.LookRotation(laserEndPoints[j] - vector);
+			m_highlights[j].transform.position = position;
+			m_highlights[j].transform.rotation = Quaternion.LookRotation(laserEndPoints[j] - travelBoardSquareWorldPositionForLos);
 		}
-		for (;;)
+		HitActorContext item = default(HitActorContext);
+		while (true)
 		{
 			switch (1)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		HashSet<ActorData> hashSet = new HashSet<ActorData>();
-		for (int k = 0; k < laserEndPoints.Count; k++)
-		{
-			Vector3 vector2 = laserEndPoints[k];
-			Vector3 a2 = vector2 - vector;
-			a2.y = 0f;
-			a2.Normalize();
-			Vector3 startPos = vector + Board.\u000E().squareSize * a2;
-			List<ActorData> actorsInBoxByActorRadius = AreaEffectUtils.GetActorsInBoxByActorRadius(startPos, vector2, this.m_widthInSquares, this.m_penetrateLoS, targetingActor, base.GetAffectedTeams(), null, null);
-			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInBoxByActorRadius);
-			List<ActorData> list = new List<ActorData>();
-			using (List<ActorData>.Enumerator enumerator = actorsInBoxByActorRadius.GetEnumerator())
+			HashSet<ActorData> hashSet = new HashSet<ActorData>();
+			for (int k = 0; k < laserEndPoints.Count; k++)
 			{
-				while (enumerator.MoveNext())
+				Vector3 vector = laserEndPoints[k];
+				Vector3 a = vector - travelBoardSquareWorldPositionForLos;
+				a.y = 0f;
+				a.Normalize();
+				Vector3 startPos = travelBoardSquareWorldPositionForLos + Board.Get().squareSize * a;
+				List<ActorData> actors = AreaEffectUtils.GetActorsInBoxByActorRadius(startPos, vector, m_widthInSquares, m_penetrateLoS, targetingActor, GetAffectedTeams());
+				TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+				List<ActorData> list = new List<ActorData>();
+				using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 				{
-					ActorData actorData = enumerator.Current;
-					if (actorData != targetingActor)
+					while (enumerator.MoveNext())
 					{
-						for (;;)
+						ActorData current = enumerator.Current;
+						if (current != targetingActor)
 						{
-							switch (4)
+							while (true)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						bool affectsTarget = base.GetAffectsTarget(actorData, targetingActor);
-						if (affectsTarget)
-						{
-							for (;;)
-							{
-								switch (6)
+								switch (4)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							list.Add(actorData);
-						}
-					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			using (List<ActorData>.Enumerator enumerator2 = list.GetEnumerator())
-			{
-				while (enumerator2.MoveNext())
-				{
-					ActorData actorData2 = enumerator2.Current;
-					if (!hashSet.Contains(actorData2))
-					{
-						for (;;)
-						{
-							switch (1)
+							if (GetAffectsTarget(current, targetingActor))
 							{
-							case 0:
-								continue;
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								list.Add(current);
 							}
-							break;
 						}
-						base.AddActorInRange(actorData2, vector, targetingActor, AbilityTooltipSubject.Primary, false);
-						AbilityUtil_Targeter_CrossBeam.HitActorContext item;
-						item.actor = actorData2;
-						item.totalTargetsInLaser = list.Count;
-						this.m_hitActorContext.Add(item);
-						hashSet.Add(actorData2);
+					}
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
 				}
-				for (;;)
+				using (List<ActorData>.Enumerator enumerator2 = list.GetEnumerator())
 				{
-					switch (2)
+					while (enumerator2.MoveNext())
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			this.UpdateLaserEndPointsForHiddenSquares(startPos, vector2, k, targetingActor);
-		}
-		if (this.m_affectsTargetingActor)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			base.AddActorInRange(targetingActor, targetingActor.\u0015(), targetingActor, AbilityTooltipSubject.Primary, false);
-		}
-		if (this.m_knockbackDistance > 0f)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			int num = 0;
-			base.EnableAllMovementArrows();
-			List<ActorData> visibleActorsInRange = this.GetVisibleActorsInRange();
-			using (List<ActorData>.Enumerator enumerator3 = visibleActorsInRange.GetEnumerator())
-			{
-				while (enumerator3.MoveNext())
-				{
-					ActorData actorData3 = enumerator3.Current;
-					if (actorData3.\u000E() != targetingActor.\u000E())
-					{
-						for (;;)
+						ActorData current2 = enumerator2.Current;
+						if (!hashSet.Contains(current2))
 						{
-							switch (4)
+							while (true)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.ActorMeetKnockbackConditions(actorData3, targetingActor))
-						{
-							for (;;)
-							{
-								switch (5)
+								switch (1)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData3, this.m_knockbackType, currentTarget.AimDirection, targetingActor.\u0016(), this.m_knockbackDistance);
-							num = base.AddMovementArrowWithPrevious(actorData3, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
+							AddActorInRange(current2, travelBoardSquareWorldPositionForLos, targetingActor);
+							item.actor = current2;
+							item.totalTargetsInLaser = list.Count;
+							m_hitActorContext.Add(item);
+							hashSet.Add(current2);
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (1)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
-					break;
 				}
+				UpdateLaserEndPointsForHiddenSquares(startPos, vector, k, targetingActor);
 			}
-			base.SetMovementArrowEnabledFromIndex(num, false);
-		}
-		if (GameFlowData.Get().activeOwnedActorData == targetingActor)
-		{
-			for (;;)
+			if (m_affectsTargetingActor)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.HandleShowSquareIndicators(targetingActor);
-		}
-	}
-
-	private bool ActorMeetKnockbackConditions(ActorData target, ActorData caster)
-	{
-		if (this.m_knockbackDistance > 0f)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_CrossBeam.ActorMeetKnockbackConditions(ActorData, ActorData)).MethodHandle;
-			}
-			bool result;
-			if (this.m_knockbackThresholdDistance > 0f)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -316,13 +216,121 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 					}
 					break;
 				}
-				result = (VectorUtils.HorizontalPlaneDistInSquares(target.\u0016(), caster.\u0016()) < this.m_knockbackThresholdDistance);
+				AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor);
 			}
-			else
+			if (m_knockbackDistance > 0f)
 			{
-				result = true;
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				int num = 0;
+				EnableAllMovementArrows();
+				List<ActorData> visibleActorsInRange = GetVisibleActorsInRange();
+				using (List<ActorData>.Enumerator enumerator3 = visibleActorsInRange.GetEnumerator())
+				{
+					while (enumerator3.MoveNext())
+					{
+						ActorData current3 = enumerator3.Current;
+						if (current3.GetTeam() != targetingActor.GetTeam())
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (ActorMeetKnockbackConditions(current3, targetingActor))
+							{
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current3, m_knockbackType, currentTarget.AimDirection, targetingActor.GetTravelBoardSquareWorldPosition(), m_knockbackDistance);
+								num = AddMovementArrowWithPrevious(current3, path, TargeterMovementType.Knockback, num);
+							}
+						}
+					}
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+				SetMovementArrowEnabledFromIndex(num, false);
 			}
-			return result;
+			if (GameFlowData.Get().activeOwnedActorData == targetingActor)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					HandleShowSquareIndicators(targetingActor);
+					return;
+				}
+			}
+			return;
+		}
+	}
+
+	private bool ActorMeetKnockbackConditions(ActorData target, ActorData caster)
+	{
+		if (m_knockbackDistance > 0f)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					int result;
+					if (!(m_knockbackThresholdDistance <= 0f))
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						result = ((VectorUtils.HorizontalPlaneDistInSquares(target.GetTravelBoardSquareWorldPosition(), caster.GetTravelBoardSquareWorldPosition()) < m_knockbackThresholdDistance) ? 1 : 0);
+					}
+					else
+					{
+						result = 1;
+					}
+					return (byte)result != 0;
+				}
+				}
+			}
 		}
 		return false;
 	}
@@ -331,94 +339,87 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 	{
 		List<Vector3> list = new List<Vector3>();
 		float num = VectorUtils.HorizontalAngle_Deg(target.AimDirection);
-		int numLasers = this.GetNumLasers();
+		int numLasers = GetNumLasers();
 		float num2 = 360f / (float)numLasers;
 		for (int i = 0; i < numLasers; i++)
 		{
 			Vector3 item = VectorUtils.AngleDegreesToVector(num + (float)i * num2);
 			list.Add(item);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return list;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_CrossBeam.GetLaserDirections(AbilityTarget, ActorData)).MethodHandle;
-		}
-		return list;
 	}
 
 	private List<Vector3> GetLaserEndPoints(AbilityTarget target, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		Vector3 startPos = caster.\u0015();
-		float maxDistanceInWorld = this.m_distanceInSquares * Board.\u000E().squareSize;
-		List<Vector3> laserDirections = this.GetLaserDirections(target, caster);
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		float maxDistanceInWorld = m_distanceInSquares * Board.Get().squareSize;
+		List<Vector3> laserDirections = GetLaserDirections(target, caster);
 		using (List<Vector3>.Enumerator enumerator = laserDirections.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				Vector3 dir = enumerator.Current;
-				Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(startPos, dir, maxDistanceInWorld, this.m_penetrateLoS, caster, null, true);
+				Vector3 current = enumerator.Current;
+				Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, current, maxDistanceInWorld, m_penetrateLoS, caster);
 				list.Add(laserEndPoint);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (true)
+					{
+						return list;
+					}
+					/*OpCode not supported: LdMemberToken*/;
+					return list;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_CrossBeam.GetLaserEndPoints(AbilityTarget, ActorData)).MethodHandle;
 			}
 		}
-		return list;
 	}
 
 	private void UpdateLaserEndPointsForHiddenSquares(Vector3 startPos, Vector3 endPos, int index, ActorData targetingActor)
 	{
-		SquareInsideChecker_Box squareInsideChecker_Box = this.m_squarePosCheckerList[index] as SquareInsideChecker_Box;
+		SquareInsideChecker_Box squareInsideChecker_Box = m_squarePosCheckerList[index] as SquareInsideChecker_Box;
 		squareInsideChecker_Box.UpdateBoxProperties(startPos, endPos, targetingActor);
 	}
 
 	private void HandleShowSquareIndicators(ActorData targetingActor)
 	{
-		base.ResetSquareIndicatorIndexToUse();
-		for (int i = 0; i < this.m_squarePosCheckerList.Count; i++)
+		ResetSquareIndicatorIndexToUse();
+		for (int i = 0; i < m_squarePosCheckerList.Count; i++)
 		{
-			SquareInsideChecker_Box squareInsideChecker_Box = this.m_squarePosCheckerList[i] as SquareInsideChecker_Box;
-			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(this.m_indicatorHandler, squareInsideChecker_Box.GetStartPos(), squareInsideChecker_Box.GetEndPos(), this.m_widthInSquares, targetingActor, this.m_penetrateLoS, null, this.m_squarePosCheckerList, false);
+			SquareInsideChecker_Box squareInsideChecker_Box = m_squarePosCheckerList[i] as SquareInsideChecker_Box;
+			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(m_indicatorHandler, squareInsideChecker_Box.GetStartPos(), squareInsideChecker_Box.GetEndPos(), m_widthInSquares, targetingActor, m_penetrateLoS, null, m_squarePosCheckerList, false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			HideUnusedSquareIndicators();
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_CrossBeam.HandleShowSquareIndicators(ActorData)).MethodHandle;
-		}
-		base.HideUnusedSquareIndicators();
-	}
-
-	public struct HitActorContext
-	{
-		public ActorData actor;
-
-		public int totalTargetsInLaser;
 	}
 }

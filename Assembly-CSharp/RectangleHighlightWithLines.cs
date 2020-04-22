@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class RectangleHighlightWithLines
@@ -20,31 +19,31 @@ public class RectangleHighlightWithLines
 	public RectangleHighlightWithLines()
 	{
 		float num = 0.5f * Board.SquareSizeStatic;
-		this.m_highlightParent = new GameObject("LineRectangleHighlight");
-		this.m_highlightParent.transform.localPosition = Vector3.zero;
+		m_highlightParent = new GameObject("LineRectangleHighlight");
+		m_highlightParent.transform.localPosition = Vector3.zero;
 		float widthInWorld = 0.5f;
 		Color cyan = Color.cyan;
-		this.m_left = HighlightUtils.Get().CreateDynamicLineSegmentMesh(1f, widthInWorld, false, cyan);
-		this.m_right = HighlightUtils.Get().CreateDynamicLineSegmentMesh(1f, widthInWorld, false, cyan);
-		this.m_left.transform.parent = this.m_highlightParent.transform;
-		this.m_left.transform.localPosition = new Vector3(-num, 0f, -num);
-		this.m_right.transform.parent = this.m_highlightParent.transform;
-		this.m_right.transform.localPosition = new Vector3(num, 0f, -num);
-		this.m_top = HighlightUtils.Get().CreateDynamicLineSegmentMesh(1f, widthInWorld, false, cyan);
-		this.m_bottom = HighlightUtils.Get().CreateDynamicLineSegmentMesh(1f, widthInWorld, false, cyan);
-		this.m_top.transform.parent = this.m_highlightParent.transform;
-		this.m_top.transform.localPosition = new Vector3(num, 0f, num);
-		this.m_top.transform.Rotate(Vector3.up, -90f);
-		this.m_bottom.transform.parent = this.m_highlightParent.transform;
-		this.m_bottom.transform.localPosition = new Vector3(num, 0f, -num);
-		this.m_bottom.transform.Rotate(Vector3.up, -90f);
+		m_left = HighlightUtils.Get().CreateDynamicLineSegmentMesh(1f, widthInWorld, false, cyan);
+		m_right = HighlightUtils.Get().CreateDynamicLineSegmentMesh(1f, widthInWorld, false, cyan);
+		m_left.transform.parent = m_highlightParent.transform;
+		m_left.transform.localPosition = new Vector3(0f - num, 0f, 0f - num);
+		m_right.transform.parent = m_highlightParent.transform;
+		m_right.transform.localPosition = new Vector3(num, 0f, 0f - num);
+		m_top = HighlightUtils.Get().CreateDynamicLineSegmentMesh(1f, widthInWorld, false, cyan);
+		m_bottom = HighlightUtils.Get().CreateDynamicLineSegmentMesh(1f, widthInWorld, false, cyan);
+		m_top.transform.parent = m_highlightParent.transform;
+		m_top.transform.localPosition = new Vector3(num, 0f, num);
+		m_top.transform.Rotate(Vector3.up, -90f);
+		m_bottom.transform.parent = m_highlightParent.transform;
+		m_bottom.transform.localPosition = new Vector3(num, 0f, 0f - num);
+		m_bottom.transform.Rotate(Vector3.up, -90f);
 	}
 
 	public void AdjustSize(float heightInSquares, float widthInSquares)
 	{
-		if (this.m_currentHeightInSquares == heightInSquares)
+		if (m_currentHeightInSquares == heightInSquares)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -53,15 +52,15 @@ public class RectangleHighlightWithLines
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RectangleHighlightWithLines.AdjustSize(float, float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_currentWidthInSquares == widthInSquares)
+			if (m_currentWidthInSquares == widthInSquares)
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -71,18 +70,18 @@ public class RectangleHighlightWithLines
 				break;
 			}
 		}
-		this.m_currentHeightInSquares = heightInSquares;
-		this.m_currentWidthInSquares = widthInSquares;
+		m_currentHeightInSquares = heightInSquares;
+		m_currentWidthInSquares = widthInSquares;
 		float num = 0.5f * heightInSquares * Board.SquareSizeStatic;
 		float num2 = 0.5f * widthInSquares * Board.SquareSizeStatic;
-		if (this.m_left != null)
+		if (m_left != null)
 		{
-			HighlightUtils.Get().AdjustDynamicLineSegmentLength(this.m_left, heightInSquares);
-			this.m_left.transform.localPosition = new Vector3(-num2, 0f, -num);
+			HighlightUtils.Get().AdjustDynamicLineSegmentLength(m_left, heightInSquares);
+			m_left.transform.localPosition = new Vector3(0f - num2, 0f, 0f - num);
 		}
-		if (this.m_right != null)
+		if (m_right != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -91,12 +90,12 @@ public class RectangleHighlightWithLines
 				}
 				break;
 			}
-			HighlightUtils.Get().AdjustDynamicLineSegmentLength(this.m_right, heightInSquares);
-			this.m_right.transform.localPosition = new Vector3(num2, 0f, -num);
+			HighlightUtils.Get().AdjustDynamicLineSegmentLength(m_right, heightInSquares);
+			m_right.transform.localPosition = new Vector3(num2, 0f, 0f - num);
 		}
-		if (this.m_top != null)
+		if (m_top != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -105,13 +104,13 @@ public class RectangleHighlightWithLines
 				}
 				break;
 			}
-			HighlightUtils.Get().AdjustDynamicLineSegmentLength(this.m_top, widthInSquares);
-			this.m_top.transform.localPosition = new Vector3(num2, 0f, num);
+			HighlightUtils.Get().AdjustDynamicLineSegmentLength(m_top, widthInSquares);
+			m_top.transform.localPosition = new Vector3(num2, 0f, num);
 		}
-		if (this.m_bottom != null)
+		if (m_bottom != null)
 		{
-			HighlightUtils.Get().AdjustDynamicLineSegmentLength(this.m_bottom, widthInSquares);
-			this.m_bottom.transform.localPosition = new Vector3(num2, 0f, -num);
+			HighlightUtils.Get().AdjustDynamicLineSegmentLength(m_bottom, widthInSquares);
+			m_bottom.transform.localPosition = new Vector3(num2, 0f, 0f - num);
 		}
 	}
 }

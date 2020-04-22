@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,58 +11,126 @@ public class ClientActionBuffer : MonoBehaviour
 
 	private bool m_ignoreOldAbilityPhase;
 
-	public static ClientActionBuffer Get()
-	{
-		return ClientActionBuffer.s_instance;
-	}
-
-	private void Awake()
-	{
-		ClientActionBuffer.s_instance = this;
-		this.m_ignoreOldAbilityPhase = true;
-		this.m_actionPhase = ActionBufferPhase.Done;
-	}
-
-	private void OnDestroy()
-	{
-		ClientActionBuffer.s_instance = null;
-	}
-
 	public ActionBufferPhase CurrentActionPhase
 	{
 		get
 		{
-			return this.m_actionPhase;
+			return m_actionPhase;
 		}
 		private set
 		{
-			if (this.m_actionPhase != value)
+			if (m_actionPhase == value)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (7)
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				SetActionPhase(value);
+				return;
+			}
+		}
+	}
+
+	public AbilityPriority AbilityPhase
+	{
+		get
+		{
+			return m_abilityPhase;
+		}
+		private set
+		{
+			if (m_abilityPhase == value)
+			{
+				return;
+			}
+			SetAbilityPhase(value);
+			SequenceManager.Get().OnAbilityPhaseStart(m_abilityPhase);
+			ClientResolutionManager.Get().OnAbilityPhaseStart(m_abilityPhase);
+			List<ActorData> actors = GameFlowData.Get().GetActors();
+			using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
+			{
+				while (enumerator.MoveNext())
+				{
+					ActorData current = enumerator.Current;
+					if (current != null)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						current.CurrentlyVisibleForAbilityCast = false;
+						current.MovedForEvade = false;
+					}
+				}
+				while (true)
+				{
+					switch (1)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
+			}
+			if (!ClientAbilityResults.LogMissingSequences)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActionBuffer.set_CurrentActionPhase(ActionBufferPhase)).MethodHandle;
+				case 0:
+					continue;
 				}
-				this.SetActionPhase(value);
+				Log.Warning("On Ability Phase Start: <color=magenta>" + m_abilityPhase.ToString() + "</color>\n@time = " + Time.time);
+				return;
 			}
 		}
 	}
 
+	public static ClientActionBuffer Get()
+	{
+		return s_instance;
+	}
+
+	private void Awake()
+	{
+		s_instance = this;
+		m_ignoreOldAbilityPhase = true;
+		m_actionPhase = ActionBufferPhase.Done;
+	}
+
+	private void OnDestroy()
+	{
+		s_instance = null;
+	}
+
 	private void SetActionPhase(ActionBufferPhase value)
 	{
-		ActionBufferPhase actionPhase = this.m_actionPhase;
-		this.m_actionPhase = value;
-		if (actionPhase != ActionBufferPhase.Abilities)
+		ActionBufferPhase actionPhase = m_actionPhase;
+		m_actionPhase = value;
+		if (actionPhase != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -72,13 +139,13 @@ public class ClientActionBuffer : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActionBuffer.SetActionPhase(ActionBufferPhase)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (actionPhase != ActionBufferPhase.AbilitiesWait)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -89,9 +156,9 @@ public class ClientActionBuffer : MonoBehaviour
 				}
 				if (actionPhase != ActionBufferPhase.Done)
 				{
-					goto IL_76;
+					goto IL_0076;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -102,17 +169,18 @@ public class ClientActionBuffer : MonoBehaviour
 				}
 			}
 		}
-		if (value == ActionBufferPhase.Movement || value == ActionBufferPhase.MovementChase || value == ActionBufferPhase.MovementWait)
+		if (value != ActionBufferPhase.Movement && value != ActionBufferPhase.MovementChase && value != ActionBufferPhase.MovementWait)
 		{
-			GameEventManager.Get().FireEvent(GameEventManager.EventType.UIPhaseStartedMovement, null);
-			AnnouncerSounds.GetAnnouncerSounds().PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.MovementPhase);
-			this.m_ignoreOldAbilityPhase = true;
-			goto IL_E3;
+			goto IL_0076;
 		}
-		IL_76:
+		GameEventManager.Get().FireEvent(GameEventManager.EventType.UIPhaseStartedMovement, null);
+		AnnouncerSounds.GetAnnouncerSounds().PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.MovementPhase);
+		m_ignoreOldAbilityPhase = true;
+		goto IL_00e3;
+		IL_0076:
 		if (actionPhase != ActionBufferPhase.Done)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -123,7 +191,7 @@ public class ClientActionBuffer : MonoBehaviour
 			}
 			if (value == ActionBufferPhase.Done)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -133,13 +201,13 @@ public class ClientActionBuffer : MonoBehaviour
 					break;
 				}
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.UIPhaseStartedDecision, null);
-				this.m_ignoreOldAbilityPhase = true;
-				goto IL_E3;
+				m_ignoreOldAbilityPhase = true;
+				goto IL_00e3;
 			}
 		}
-		if (value != ActionBufferPhase.Abilities)
+		if (value != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -150,12 +218,12 @@ public class ClientActionBuffer : MonoBehaviour
 			}
 			if (value != ActionBufferPhase.AbilitiesWait)
 			{
-				goto IL_E3;
+				goto IL_00e3;
 			}
 		}
 		if (actionPhase != ActionBufferPhase.AbilitiesWait)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -164,9 +232,9 @@ public class ClientActionBuffer : MonoBehaviour
 				}
 				break;
 			}
-			if (actionPhase != ActionBufferPhase.Abilities)
+			if (actionPhase != 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -175,116 +243,14 @@ public class ClientActionBuffer : MonoBehaviour
 					}
 					break;
 				}
-				this.SetAbilityPhase(this.m_abilityPhase);
+				SetAbilityPhase(m_abilityPhase);
 			}
 		}
-		IL_E3:
-		if (actionPhase != ActionBufferPhase.Abilities)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (actionPhase != ActionBufferPhase.AbilitiesWait)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (actionPhase != ActionBufferPhase.MovementWait)
-				{
-					goto IL_13D;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-		}
-		if (value == ActionBufferPhase.Done && TheatricsManager.Get() != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			TheatricsManager.Get().SetAnimatorParamOnAllActors("DecisionPhase", true);
-		}
-		IL_13D:
+		goto IL_00e3;
+		IL_0188:
 		if (value != ActionBufferPhase.AbilitiesWait)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (value != ActionBufferPhase.Movement)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (value != ActionBufferPhase.MovementChase)
-				{
-					goto IL_188;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-		}
-		if (actionPhase == ActionBufferPhase.Abilities)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			CameraManager.Get().SetTargetForMovementIfNeeded();
-		}
-		CameraManager.Get().SwitchCameraForMovement();
-		IL_188:
-		if (value != ActionBufferPhase.AbilitiesWait)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -297,7 +263,7 @@ public class ClientActionBuffer : MonoBehaviour
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -307,20 +273,99 @@ public class ClientActionBuffer : MonoBehaviour
 				break;
 			}
 		}
-		if (GameplayMutators.Get() != null && GameFlowData.Get().HasPotentialGameMutatorVisibilityChanges(false))
+		if (!(GameplayMutators.Get() != null) || !GameFlowData.Get().HasPotentialGameMutatorVisibilityChanges(false))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
+			case 0:
+				continue;
+			}
+			if (FogOfWar.GetClientFog() != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					FogOfWar.GetClientFog().UpdateVisibilityOfSquares();
+					return;
+				}
+			}
+			return;
+		}
+		IL_00e3:
+		if (actionPhase != 0)
+		{
+			while (true)
+			{
+				switch (1)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (FogOfWar.GetClientFog() != null)
+			if (actionPhase != ActionBufferPhase.AbilitiesWait)
 			{
-				for (;;)
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (actionPhase != ActionBufferPhase.MovementWait)
+				{
+					goto IL_013d;
+				}
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+		}
+		if (value == ActionBufferPhase.Done && TheatricsManager.Get() != null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			TheatricsManager.Get().SetAnimatorParamOnAllActors("DecisionPhase", true);
+		}
+		goto IL_013d;
+		IL_013d:
+		if (value != ActionBufferPhase.AbilitiesWait)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (value != ActionBufferPhase.Movement)
+			{
+				while (true)
 				{
 					switch (4)
 					{
@@ -329,104 +374,60 @@ public class ClientActionBuffer : MonoBehaviour
 					}
 					break;
 				}
-				FogOfWar.GetClientFog().UpdateVisibilityOfSquares(true);
-			}
-		}
-	}
-
-	public AbilityPriority AbilityPhase
-	{
-		get
-		{
-			return this.m_abilityPhase;
-		}
-		private set
-		{
-			if (this.m_abilityPhase != value)
-			{
-				this.SetAbilityPhase(value);
-				SequenceManager.Get().OnAbilityPhaseStart(this.m_abilityPhase);
-				ClientResolutionManager.Get().OnAbilityPhaseStart(this.m_abilityPhase);
-				List<ActorData> actors = GameFlowData.Get().GetActors();
-				using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
+				if (value != ActionBufferPhase.MovementChase)
 				{
-					while (enumerator.MoveNext())
-					{
-						ActorData actorData = enumerator.Current;
-						if (actorData != null)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActionBuffer.set_AbilityPhase(AbilityPriority)).MethodHandle;
-							}
-							actorData.CurrentlyVisibleForAbilityCast = false;
-							actorData.MovedForEvade = false;
-						}
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					goto IL_0188;
 				}
-				if (ClientAbilityResults.\u001D)
+				while (true)
 				{
-					for (;;)
+					switch (3)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					Log.Warning(string.Concat(new object[]
-					{
-						"On Ability Phase Start: <color=magenta>",
-						this.m_abilityPhase.ToString(),
-						"</color>\n@time = ",
-						Time.time
-					}), new object[0]);
+					break;
 				}
 			}
 		}
-	}
-
-	private void SetAbilityPhase(AbilityPriority value)
-	{
-		AbilityPriority abilityPhase = this.m_abilityPhase;
-		this.m_abilityPhase = value;
-		if (this.m_actionPhase == ActionBufferPhase.Abilities)
+		if (actionPhase == ActionBufferPhase.Abilities)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (7)
+				switch (1)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			CameraManager.Get().SetTargetForMovementIfNeeded();
+		}
+		CameraManager.Get().SwitchCameraForMovement();
+		goto IL_0188;
+	}
+
+	private void SetAbilityPhase(AbilityPriority value)
+	{
+		AbilityPriority abilityPhase = m_abilityPhase;
+		m_abilityPhase = value;
+		if (m_actionPhase != 0)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActionBuffer.SetAbilityPhase(AbilityPriority)).MethodHandle;
+			case 0:
+				continue;
 			}
-			if (value != AbilityPriority.Prep_Defense)
+			if (1 == 0)
 			{
-				for (;;)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (value != 0)
+			{
+				while (true)
 				{
 					switch (7)
 					{
@@ -437,25 +438,25 @@ public class ClientActionBuffer : MonoBehaviour
 				}
 				if (value != AbilityPriority.Prep_Offense)
 				{
-					goto IL_DB;
+					goto IL_00db;
 				}
 			}
-			if (!this.m_ignoreOldAbilityPhase)
+			if (m_ignoreOldAbilityPhase)
 			{
-				for (;;)
+				goto IL_00af;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (abilityPhase == AbilityPriority.Prep_Defense || abilityPhase == AbilityPriority.Prep_Offense)
-				{
-					goto IL_DB;
-				}
-				for (;;)
+				break;
+			}
+			if (abilityPhase != 0 && abilityPhase != AbilityPriority.Prep_Offense)
+			{
+				while (true)
 				{
 					switch (1)
 					{
@@ -464,80 +465,73 @@ public class ClientActionBuffer : MonoBehaviour
 					}
 					break;
 				}
-				if (abilityPhase == AbilityPriority.Evasion)
+				if (abilityPhase != AbilityPriority.Evasion)
 				{
-					goto IL_DB;
-				}
-				for (;;)
-				{
-					switch (2)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
-					break;
-				}
-				if (abilityPhase == AbilityPriority.DEPRICATED_Combat_Charge)
-				{
-					goto IL_DB;
-				}
-				for (;;)
-				{
-					switch (7)
+					if (abilityPhase != AbilityPriority.DEPRICATED_Combat_Charge)
 					{
-					case 0:
-						continue;
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (abilityPhase != AbilityPriority.Combat_Damage)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (abilityPhase != AbilityPriority.Combat_Final)
+							{
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (abilityPhase != AbilityPriority.Combat_Knockback)
+								{
+									while (true)
+									{
+										switch (7)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									goto IL_00af;
+								}
+							}
+						}
 					}
-					break;
-				}
-				if (abilityPhase == AbilityPriority.Combat_Damage)
-				{
-					goto IL_DB;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (abilityPhase == AbilityPriority.Combat_Final)
-				{
-					goto IL_DB;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (abilityPhase == AbilityPriority.Combat_Knockback)
-				{
-					goto IL_DB;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
-			this.m_ignoreOldAbilityPhase = false;
-			GameEventManager.Get().FireEvent(GameEventManager.EventType.UIPhaseStartedPrep, null);
-			AnnouncerSounds.GetAnnouncerSounds().PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.PrepPhase);
-			return;
-			IL_DB:
+			goto IL_00db;
+			IL_00db:
 			if (value == AbilityPriority.Evasion)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -546,9 +540,9 @@ public class ClientActionBuffer : MonoBehaviour
 					}
 					break;
 				}
-				if (!this.m_ignoreOldAbilityPhase)
+				if (!m_ignoreOldAbilityPhase)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -559,9 +553,9 @@ public class ClientActionBuffer : MonoBehaviour
 					}
 					if (abilityPhase == AbilityPriority.Evasion)
 					{
-						goto IL_135;
+						goto IL_0135;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -571,15 +565,16 @@ public class ClientActionBuffer : MonoBehaviour
 						break;
 					}
 				}
-				this.m_ignoreOldAbilityPhase = false;
+				m_ignoreOldAbilityPhase = false;
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.UIPhaseStartedEvasion, null);
 				AnnouncerSounds.GetAnnouncerSounds().PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.DashPhase);
 				return;
 			}
-			IL_135:
+			goto IL_0135;
+			IL_0135:
 			if (value != AbilityPriority.DEPRICATED_Combat_Charge)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -590,7 +585,7 @@ public class ClientActionBuffer : MonoBehaviour
 				}
 				if (value != AbilityPriority.Combat_Damage)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -601,7 +596,7 @@ public class ClientActionBuffer : MonoBehaviour
 					}
 					if (value != AbilityPriority.Combat_Final)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -614,7 +609,7 @@ public class ClientActionBuffer : MonoBehaviour
 						{
 							return;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -626,9 +621,9 @@ public class ClientActionBuffer : MonoBehaviour
 					}
 				}
 			}
-			if (!this.m_ignoreOldAbilityPhase)
+			if (!m_ignoreOldAbilityPhase)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -641,7 +636,7 @@ public class ClientActionBuffer : MonoBehaviour
 				{
 					return;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -654,7 +649,7 @@ public class ClientActionBuffer : MonoBehaviour
 				{
 					return;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -667,7 +662,7 @@ public class ClientActionBuffer : MonoBehaviour
 				{
 					return;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -677,15 +672,21 @@ public class ClientActionBuffer : MonoBehaviour
 					break;
 				}
 			}
-			this.m_ignoreOldAbilityPhase = false;
+			m_ignoreOldAbilityPhase = false;
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.UIPhaseStartedCombat, null);
 			AnnouncerSounds.GetAnnouncerSounds().PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.BlastPhase);
+			return;
+			IL_00af:
+			m_ignoreOldAbilityPhase = false;
+			GameEventManager.Get().FireEvent(GameEventManager.EventType.UIPhaseStartedPrep, null);
+			AnnouncerSounds.GetAnnouncerSounds().PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.PrepPhase);
+			return;
 		}
 	}
 
 	public void SetDataFromShared(ActionBufferPhase actionPhase, AbilityPriority abilityPhase)
 	{
-		this.CurrentActionPhase = actionPhase;
-		this.AbilityPhase = abilityPhase;
+		CurrentActionPhase = actionPhase;
+		AbilityPhase = abilityPhase;
 	}
 }

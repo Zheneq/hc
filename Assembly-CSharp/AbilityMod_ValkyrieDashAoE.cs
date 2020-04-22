@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,50 +52,49 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ValkyrieDashAoE valkyrieDashAoE = targetAbility as ValkyrieDashAoE;
-		if (valkyrieDashAoE != null)
+		if (!(valkyrieDashAoE != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ValkyrieDashAoE.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken_EffectMod(tokens, this.m_shieldEffectInfoMod, "ShieldEffectInfo", valkyrieDashAoE.m_shieldEffectInfo, true);
-			AbilityMod.AddToken(tokens, this.m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, valkyrieDashAoE.m_coneWidthAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneRadiusMod, "ConeRadius", string.Empty, valkyrieDashAoE.m_coneRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, valkyrieDashAoE.m_damage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyDebuffMod, "EnemyDebuff", valkyrieDashAoE.m_enemyDebuff, true);
-			AbilityMod.AddToken(tokens, this.m_absorbMod, "Absorb", string.Empty, valkyrieDashAoE.m_absorb, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_allyBuffMod, "AllyBuff", valkyrieDashAoE.m_allyBuff, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_selfBuffMod, "SelfBuff", valkyrieDashAoE.m_selfBuff, true);
-			AbilityMod.AddToken(tokens, this.m_techPointGainPerCoveredHitMod, "TechPointGainPerCoveredHit", string.Empty, valkyrieDashAoE.m_techPointGainPerCoveredHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_techPointGainPerTooCloseForCoverHitMod, "TechPointGainPerTooCloseForCoverHit", string.Empty, valkyrieDashAoE.m_techPointGainPerTooCloseForCoverHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_cooldownReductionIfDamagedThisTurnMod, "CooldownReductionIfDamagedThisTurn", string.Empty, valkyrieDashAoE.m_cooldownReductionIfDamagedThisTurn.cooldownAddAmount, true, false);
-			AbilityMod.AddToken_IntDiff(tokens, "CoverDuration_Final", string.Empty, this.m_coverDurationMod.GetModifiedValue(valkyrieDashAoE.m_coverDuration) - 1, false, 0);
-			AbilityMod.AddToken(tokens, this.m_coverDurationMod, "CoverDuration_Alt", string.Empty, valkyrieDashAoE.m_coverDuration, true, false);
+			AbilityMod.AddToken_EffectMod(tokens, m_shieldEffectInfoMod, "ShieldEffectInfo", valkyrieDashAoE.m_shieldEffectInfo);
+			AbilityMod.AddToken(tokens, m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, valkyrieDashAoE.m_coneWidthAngle);
+			AbilityMod.AddToken(tokens, m_coneRadiusMod, "ConeRadius", string.Empty, valkyrieDashAoE.m_coneRadius);
+			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, valkyrieDashAoE.m_damage);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyDebuffMod, "EnemyDebuff", valkyrieDashAoE.m_enemyDebuff);
+			AbilityMod.AddToken(tokens, m_absorbMod, "Absorb", string.Empty, valkyrieDashAoE.m_absorb);
+			AbilityMod.AddToken_EffectMod(tokens, m_allyBuffMod, "AllyBuff", valkyrieDashAoE.m_allyBuff);
+			AbilityMod.AddToken_EffectMod(tokens, m_selfBuffMod, "SelfBuff", valkyrieDashAoE.m_selfBuff);
+			AbilityMod.AddToken(tokens, m_techPointGainPerCoveredHitMod, "TechPointGainPerCoveredHit", string.Empty, valkyrieDashAoE.m_techPointGainPerCoveredHit);
+			AbilityMod.AddToken(tokens, m_techPointGainPerTooCloseForCoverHitMod, "TechPointGainPerTooCloseForCoverHit", string.Empty, valkyrieDashAoE.m_techPointGainPerTooCloseForCoverHit);
+			AbilityMod.AddToken(tokens, m_cooldownReductionIfDamagedThisTurnMod, "CooldownReductionIfDamagedThisTurn", string.Empty, valkyrieDashAoE.m_cooldownReductionIfDamagedThisTurn.cooldownAddAmount);
+			AbilityMod.AddToken_IntDiff(tokens, "CoverDuration_Final", string.Empty, m_coverDurationMod.GetModifiedValue(valkyrieDashAoE.m_coverDuration) - 1, false, 0);
+			AbilityMod.AddToken(tokens, m_coverDurationMod, "CoverDuration_Alt", string.Empty, valkyrieDashAoE.m_coverDuration);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ValkyrieDashAoE valkyrieDashAoE = base.GetTargetAbilityOnAbilityData(abilityData) as ValkyrieDashAoE;
+		ValkyrieDashAoE valkyrieDashAoE = GetTargetAbilityOnAbilityData(abilityData) as ValkyrieDashAoE;
 		bool flag = valkyrieDashAoE != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyEffectInfo shieldEffectInfoMod = this.m_shieldEffectInfoMod;
-		string prefix = "[ShieldEffectInfo]";
-		bool showBaseVal = flag;
-		StandardEffectInfo baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyEffectInfo shieldEffectInfoMod = m_shieldEffectInfoMod;
+		object baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -104,9 +103,9 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ValkyrieDashAoE.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = valkyrieDashAoE.m_shieldEffectInfo;
 		}
@@ -114,15 +113,13 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		{
 			baseVal = null;
 		}
-		text = str + base.PropDesc(shieldEffectInfoMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyShape aoeShapeMod = this.m_aoeShapeMod;
-		string prefix2 = "[AoeShape]";
-		bool showBaseVal2 = flag;
-		AbilityAreaShape baseVal2;
+		empty = str + PropDesc(shieldEffectInfoMod, "[ShieldEffectInfo]", flag, (StandardEffectInfo)baseVal);
+		string str2 = empty;
+		AbilityModPropertyShape aoeShapeMod = m_aoeShapeMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -131,22 +128,20 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 				}
 				break;
 			}
-			baseVal2 = valkyrieDashAoE.m_aoeShape;
+			baseVal2 = (int)valkyrieDashAoE.m_aoeShape;
 		}
 		else
 		{
-			baseVal2 = AbilityAreaShape.SingleSquare;
+			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(aoeShapeMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_aoePenetratesLoSMod, "[AoePenetratesLoS]", flag, flag && valkyrieDashAoE.m_aoePenetratesLoS);
-		string str3 = text;
-		AbilityModPropertyFloat coneWidthAngleMod = this.m_coneWidthAngleMod;
-		string prefix3 = "[ConeWidthAngle]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(aoeShapeMod, "[AoeShape]", flag, (AbilityAreaShape)baseVal2);
+		empty += PropDesc(m_aoePenetratesLoSMod, "[AoePenetratesLoS]", flag, flag && valkyrieDashAoE.m_aoePenetratesLoS);
+		string str3 = empty;
+		AbilityModPropertyFloat coneWidthAngleMod = m_coneWidthAngleMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -161,15 +156,13 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(coneWidthAngleMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyFloat coneRadiusMod = this.m_coneRadiusMod;
-		string prefix4 = "[ConeRadius]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(coneWidthAngleMod, "[ConeWidthAngle]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyFloat coneRadiusMod = m_coneRadiusMod;
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -184,15 +177,13 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		{
 			baseVal4 = 0f;
 		}
-		text = str4 + base.PropDesc(coneRadiusMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyBool triggerCooldownOnGuardAbiityMod = this.m_triggerCooldownOnGuardAbiityMod;
-		string prefix5 = "[TriggerCooldownOnGuardAbiity]";
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		empty = str4 + PropDesc(coneRadiusMod, "[ConeRadius]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyBool triggerCooldownOnGuardAbiityMod = m_triggerCooldownOnGuardAbiityMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -201,21 +192,19 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 				}
 				break;
 			}
-			baseVal5 = valkyrieDashAoE.m_triggerCooldownOnGuardAbiity;
+			baseVal5 = (valkyrieDashAoE.m_triggerCooldownOnGuardAbiity ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(triggerCooldownOnGuardAbiityMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix6 = "[Damage]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(triggerCooldownOnGuardAbiityMod, "[TriggerCooldownOnGuardAbiity]", flag, (byte)baseVal5 != 0);
+		string str6 = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -230,17 +219,15 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(damageMod, prefix6, showBaseVal6, baseVal6);
-		text += base.PropDesc(this.m_enemyDebuffMod, "[EnemyDebuff]", flag, (!flag) ? null : valkyrieDashAoE.m_enemyDebuff);
-		text += base.PropDesc(this.m_absorbMod, "[Absorb]", flag, (!flag) ? 0 : valkyrieDashAoE.m_absorb);
-		string str7 = text;
-		AbilityModPropertyEffectInfo allyBuffMod = this.m_allyBuffMod;
-		string prefix7 = "[AllyBuff]";
-		bool showBaseVal7 = flag;
-		StandardEffectInfo baseVal7;
+		empty = str6 + PropDesc(damageMod, "[Damage]", flag, baseVal6);
+		empty += PropDesc(m_enemyDebuffMod, "[EnemyDebuff]", flag, (!flag) ? null : valkyrieDashAoE.m_enemyDebuff);
+		empty += PropDesc(m_absorbMod, "[Absorb]", flag, flag ? valkyrieDashAoE.m_absorb : 0);
+		string str7 = empty;
+		AbilityModPropertyEffectInfo allyBuffMod = m_allyBuffMod;
+		object baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -255,16 +242,14 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		{
 			baseVal7 = null;
 		}
-		text = str7 + base.PropDesc(allyBuffMod, prefix7, showBaseVal7, baseVal7);
-		text += base.PropDesc(this.m_selfBuffMod, "[SelfBuff]", flag, (!flag) ? null : valkyrieDashAoE.m_selfBuff);
-		string str8 = text;
-		AbilityModPropertyInt techPointGainPerCoveredHitMod = this.m_techPointGainPerCoveredHitMod;
-		string prefix8 = "[TechPointGainPerCoveredHit]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(allyBuffMod, "[AllyBuff]", flag, (StandardEffectInfo)baseVal7);
+		empty += PropDesc(m_selfBuffMod, "[SelfBuff]", flag, (!flag) ? null : valkyrieDashAoE.m_selfBuff);
+		string str8 = empty;
+		AbilityModPropertyInt techPointGainPerCoveredHitMod = m_techPointGainPerCoveredHitMod;
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -279,17 +264,15 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		{
 			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(techPointGainPerCoveredHitMod, prefix8, showBaseVal8, baseVal8);
-		text += base.PropDesc(this.m_techPointGainPerTooCloseForCoverHitMod, "[TechPointGainPerTooCloseForCoverHit]", flag, (!flag) ? 0 : valkyrieDashAoE.m_techPointGainPerTooCloseForCoverHit);
-		text += base.PropDesc(this.m_cooldownReductionIfDamagedThisTurnMod, "[CooldownReductionIfDamagedThisTurn]", flag, (!flag) ? 0 : valkyrieDashAoE.m_cooldownReductionIfDamagedThisTurn.cooldownAddAmount);
-		string str9 = text;
-		AbilityModPropertyInt coverDurationMod = this.m_coverDurationMod;
-		string prefix9 = "[CoverDuration]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(techPointGainPerCoveredHitMod, "[TechPointGainPerCoveredHit]", flag, baseVal8);
+		empty += PropDesc(m_techPointGainPerTooCloseForCoverHitMod, "[TechPointGainPerTooCloseForCoverHit]", flag, flag ? valkyrieDashAoE.m_techPointGainPerTooCloseForCoverHit : 0);
+		empty += PropDesc(m_cooldownReductionIfDamagedThisTurnMod, "[CooldownReductionIfDamagedThisTurn]", flag, flag ? valkyrieDashAoE.m_cooldownReductionIfDamagedThisTurn.cooldownAddAmount : 0);
+		string str9 = empty;
+		AbilityModPropertyInt coverDurationMod = m_coverDurationMod;
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -304,15 +287,13 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		{
 			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(coverDurationMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyBool coverIgnoreMinDistMod = this.m_coverIgnoreMinDistMod;
-		string prefix10 = "[CoverIgnoreMinDist]";
-		bool showBaseVal10 = flag;
-		bool baseVal10;
+		empty = str9 + PropDesc(coverDurationMod, "[CoverDuration]", flag, baseVal9);
+		string str10 = empty;
+		AbilityModPropertyBool coverIgnoreMinDistMod = m_coverIgnoreMinDistMod;
+		int baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -321,12 +302,12 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 				}
 				break;
 			}
-			baseVal10 = valkyrieDashAoE.m_coverIgnoreMinDist;
+			baseVal10 = (valkyrieDashAoE.m_coverIgnoreMinDist ? 1 : 0);
 		}
 		else
 		{
-			baseVal10 = false;
+			baseVal10 = 0;
 		}
-		return str10 + base.PropDesc(coverIgnoreMinDistMod, prefix10, showBaseVal10, baseVal10);
+		return str10 + PropDesc(coverIgnoreMinDistMod, "[CoverIgnoreMinDist]", flag, (byte)baseVal10 != 0);
 	}
 }

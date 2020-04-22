@@ -1,9 +1,51 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class VisionPowerupInRangeMarkerSequence : Sequence
 {
+	public class IntervalTimer
+	{
+		private float m_duration;
+
+		private float m_timeTillEnd;
+
+		public IntervalTimer(float duration, float initialDuration)
+		{
+			m_duration = duration;
+			m_timeTillEnd = initialDuration;
+		}
+
+		public void ClearTimeTillEnd()
+		{
+			m_timeTillEnd = 0f;
+		}
+
+		public bool TickTimer(float dt)
+		{
+			bool result = false;
+			m_timeTillEnd -= dt;
+			if (m_timeTillEnd <= 0f)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				m_timeTillEnd = m_duration;
+				result = true;
+			}
+			return result;
+		}
+	}
+
 	[Separator("Main Ping VFX originating form center", true)]
 	public GameObject m_largePingFxPrefab;
 
@@ -50,16 +92,16 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 
 	private bool m_playedMarkerSfxThisTurn;
 
-	private VisionPowerupInRangeMarkerSequence.IntervalTimer m_largePingTimer;
+	private IntervalTimer m_largePingTimer;
 
-	private VisionPowerupInRangeMarkerSequence.IntervalTimer m_markerPingTimer;
+	private IntervalTimer m_markerPingTimer;
 
 	public override void FinishSetup()
 	{
 		base.FinishSetup();
 		if (base.Caster != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -68,17 +110,17 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VisionPowerupInRangeMarkerSequence.FinishSetup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			List<ActorData> actors = GameFlowData.Get().GetActors();
 			for (int i = 0; i < actors.Count; i++)
 			{
 				ActorData actorData = actors[i];
-				if (actorData.\u000E() != base.Caster.\u000E())
+				if (actorData.GetTeam() != base.Caster.GetTeam())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -87,11 +129,11 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 						}
 						break;
 					}
-					this.m_actorToMarkerVfx[actorData] = null;
-					this.m_actorsToProcess.Add(actorData);
+					m_actorToMarkerVfx[actorData] = null;
+					m_actorsToProcess.Add(actorData);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -100,9 +142,9 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 				}
 				break;
 			}
-			if (this.m_largePingFxPrefab != null)
+			if (m_largePingFxPrefab != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -111,15 +153,15 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 					}
 					break;
 				}
-				this.m_markerFxJoint.Initialize(base.Caster.gameObject);
-				this.m_largePingFxInst = base.InstantiateFX(this.m_largePingFxPrefab);
-				this.m_largePingFxInst.transform.parent = this.m_markerFxJoint.m_jointObject.transform;
-				this.m_largePingFxInst.transform.localPosition = Vector3.zero;
-				this.m_largePingFxInst.transform.localRotation = Quaternion.identity;
-				this.m_largePingFoFSelector = this.m_largePingFxInst.GetComponent<FriendlyEnemyVFXSelector>();
-				if (this.m_largePingFoFSelector != null)
+				m_markerFxJoint.Initialize(base.Caster.gameObject);
+				m_largePingFxInst = InstantiateFX(m_largePingFxPrefab);
+				m_largePingFxInst.transform.parent = m_markerFxJoint.m_jointObject.transform;
+				m_largePingFxInst.transform.localPosition = Vector3.zero;
+				m_largePingFxInst.transform.localRotation = Quaternion.identity;
+				m_largePingFoFSelector = m_largePingFxInst.GetComponent<FriendlyEnemyVFXSelector>();
+				if (m_largePingFoFSelector != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -128,24 +170,24 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 						}
 						break;
 					}
-					this.m_largePingFoFSelector.Setup(base.Caster.\u000E());
+					m_largePingFoFSelector.Setup(base.Caster.GetTeam());
 				}
 			}
 		}
-		this.m_largePingTimer = new VisionPowerupInRangeMarkerSequence.IntervalTimer(this.m_largePingDuration, 0f);
-		this.m_markerPingTimer = new VisionPowerupInRangeMarkerSequence.IntervalTimer(this.m_markerPingDuration, 0f);
-		this.m_updatingTurn = GameFlowData.Get().CurrentTurn;
+		m_largePingTimer = new IntervalTimer(m_largePingDuration, 0f);
+		m_markerPingTimer = new IntervalTimer(m_markerPingDuration, 0f);
+		m_updatingTurn = GameFlowData.Get().CurrentTurn;
 	}
 
 	private void OnDisable()
 	{
-		for (int i = 0; i < this.m_actorsToProcess.Count; i++)
+		for (int i = 0; i < m_actorsToProcess.Count; i++)
 		{
-			ActorData key = this.m_actorsToProcess[i];
-			AttachedActorVFXInfo attachedActorVFXInfo = this.m_actorToMarkerVfx[key];
+			ActorData key = m_actorsToProcess[i];
+			AttachedActorVFXInfo attachedActorVFXInfo = m_actorToMarkerVfx[key];
 			if (attachedActorVFXInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -154,259 +196,94 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(VisionPowerupInRangeMarkerSequence.OnDisable()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				attachedActorVFXInfo.DestroyVfx();
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			m_actorsToProcess.Clear();
+			m_actorToMarkerVfx.Clear();
+			return;
 		}
-		this.m_actorsToProcess.Clear();
-		this.m_actorToMarkerVfx.Clear();
 	}
 
 	internal override void OnTurnStart(int currentTurn)
 	{
 		base.OnTurnStart(currentTurn);
-		this.m_updatingTurn = GameFlowData.Get().CurrentTurn;
-		this.m_emittedLargePingThisTurn = false;
-		this.m_playedMarkerSfxThisTurn = false;
-		this.m_largePingTimer.ClearTimeTillEnd();
-		this.m_markerPingTimer.ClearTimeTillEnd();
+		m_updatingTurn = GameFlowData.Get().CurrentTurn;
+		m_emittedLargePingThisTurn = false;
+		m_playedMarkerSfxThisTurn = false;
+		m_largePingTimer.ClearTimeTillEnd();
+		m_markerPingTimer.ClearTimeTillEnd();
 	}
 
 	private void Update()
 	{
-		if (!(this.m_markerFxPrefab == null))
+		if (m_markerFxPrefab == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VisionPowerupInRangeMarkerSequence.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!(GameFlowData.Get() == null))
+			if (GameFlowData.Get() == null)
 			{
-				bool flag;
-				if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
+				return;
+			}
+			int num;
+			if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (6)
 					{
-						switch (6)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (base.Caster != null)
+				{
+					while (true)
+					{
+						switch (5)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (base.Caster != null)
+					if (!base.Caster.IsDead())
 					{
-						for (;;)
+						while (true)
 						{
-							switch (5)
+							switch (2)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						if (!base.Caster.\u000E())
+						if (base.Caster.GetCurrentBoardSquare() != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (base.Caster.\u0012() != null)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								flag = (GameFlowData.Get().CurrentTurn == this.m_updatingTurn);
-								goto IL_C4;
-							}
-						}
-					}
-				}
-				flag = false;
-				IL_C4:
-				bool flag2 = flag;
-				if (flag2)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					bool flag3 = false;
-					if (GameFlowData.Get().activeOwnedActorData != null)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (GameFlowData.Get().activeOwnedActorData.\u000E() == base.Caster.\u000E())
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							flag3 = true;
-						}
-					}
-					float num = base.Caster.\u0015();
-					ActorAdditionalVisionProviders actorAdditionalVisionProviders = base.Caster.\u000E();
-					if (actorAdditionalVisionProviders != null)
-					{
-						SyncListVisionProviderInfo visionProviders = actorAdditionalVisionProviders.GetVisionProviders();
-						for (int i = 0; i < (int)visionProviders.Count; i++)
-						{
-							if (visionProviders[i].m_actorIndex == base.Caster.ActorIndex)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (visionProviders[i].m_satelliteIndex < 0)
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (visionProviders[i].m_radius > num)
-									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										num = visionProviders[i].m_radius;
-									}
-								}
-							}
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					bool flag4 = this.m_largePingTimer.TickTimer(GameTime.deltaTime);
-					bool flag5 = this.m_markerPingTimer.TickTimer(GameTime.deltaTime);
-					bool flag6 = false;
-					int j = 0;
-					while (j < this.m_actorsToProcess.Count)
-					{
-						ActorData actorData = this.m_actorsToProcess[j];
-						BoardSquare boardSquare = actorData.\u0012();
-						if (actorData.\u000E() || !(boardSquare != null))
-						{
-							goto IL_293;
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (actorData.\u0012())
-						{
-							goto IL_293;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						bool flag7 = actorData.\u0018();
-						IL_294:
-						bool flag8 = flag7;
-						if (flag8)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							float num2 = base.Caster.\u0012().HorizontalDistanceOnBoardTo(boardSquare);
-							if (num2 > num)
-							{
-								flag8 = false;
-							}
-						}
-						AttachedActorVFXInfo attachedActorVFXInfo = this.m_actorToMarkerVfx[actorData];
-						if (flag8)
-						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -415,189 +292,200 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 								}
 								break;
 							}
-							if (attachedActorVFXInfo == null)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								attachedActorVFXInfo = new AttachedActorVFXInfo(this.m_markerFxPrefab, actorData, this.m_markerFxJoint, false, "VisionMarker", AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
-								attachedActorVFXInfo.SetCasterTeam(base.Caster.\u000E());
-								this.m_actorToMarkerVfx[actorData] = attachedActorVFXInfo;
-							}
-							attachedActorVFXInfo.UpdateVisibility(flag8, !flag3);
-							if (flag5)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								attachedActorVFXInfo.RestartEffects();
-							}
-							flag6 = true;
+							num = ((GameFlowData.Get().CurrentTurn == m_updatingTurn) ? 1 : 0);
+							goto IL_00c4;
 						}
-						else if (attachedActorVFXInfo != null)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							attachedActorVFXInfo.UpdateVisibility(false, false);
-						}
-						j++;
-						continue;
-						IL_293:
-						flag7 = false;
-						goto IL_294;
 					}
-					for (;;)
+				}
+			}
+			num = 0;
+			goto IL_00c4;
+			IL_00c4:
+			bool flag = (byte)num != 0;
+			if (flag)
+			{
+				while (true)
+				{
+					switch (3)
 					{
-						switch (3)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				bool flag2 = false;
+				if (GameFlowData.Get().activeOwnedActorData != null)
+				{
+					while (true)
+					{
+						switch (5)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (this.m_largePingFxInst != null)
+					if (GameFlowData.Get().activeOwnedActorData.GetTeam() == base.Caster.GetTeam())
 					{
-						for (;;)
+						while (true)
 						{
-							switch (2)
+							switch (1)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						this.m_largePingFxInst.SetActiveIfNeeded(true);
-						if (base.IsActorConsideredVisible(base.Caster))
+						flag2 = true;
+					}
+				}
+				float num2 = base.Caster.GetActualSightRange();
+				ActorAdditionalVisionProviders actorAdditionalVisionProviders = base.Caster.GetActorAdditionalVisionProviders();
+				if (actorAdditionalVisionProviders != null)
+				{
+					SyncListVisionProviderInfo visionProviders = actorAdditionalVisionProviders.GetVisionProviders();
+					for (int i = 0; i < visionProviders.Count; i++)
+					{
+						VisionProviderInfo visionProviderInfo = visionProviders[i];
+						if (visionProviderInfo.m_actorIndex != base.Caster.ActorIndex)
 						{
-							for (;;)
+							continue;
+						}
+						while (true)
+						{
+							switch (5)
 							{
-								switch (1)
+							case 0:
+								continue;
+							}
+							break;
+						}
+						VisionProviderInfo visionProviderInfo2 = visionProviders[i];
+						if (visionProviderInfo2.m_satelliteIndex >= 0)
+						{
+							continue;
+						}
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						VisionProviderInfo visionProviderInfo3 = visionProviders[i];
+						if (visionProviderInfo3.m_radius > num2)
+						{
+							while (true)
+							{
+								switch (7)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							if (this.m_largePingFoFSelector != null)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.m_largePingFoFSelector.Setup(base.Caster.\u000E());
-							}
-							if (flag4)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								foreach (PKFxFX pkfxFX in this.m_largePingFxInst.GetComponentsInChildren<PKFxFX>())
-								{
-									pkfxFX.TerminateEffect();
-									pkfxFX.StartEffect();
-									if (flag3)
-									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										this.PlayAudioEvent((!this.m_emittedLargePingThisTurn) ? this.m_audioEventFriendlyPing : this.m_audioEventFriendlyPingSubsequent, base.Caster.gameObject);
-									}
-									else
-									{
-										string audioEvent;
-										if (this.m_emittedLargePingThisTurn)
-										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											audioEvent = this.m_audioEventEnemyPingSubsequent;
-										}
-										else
-										{
-											audioEvent = this.m_audioEventEnemyPing;
-										}
-										this.PlayAudioEvent(audioEvent, base.Caster.gameObject);
-									}
-								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.m_emittedLargePingThisTurn = true;
-							}
+							VisionProviderInfo visionProviderInfo4 = visionProviders[i];
+							num2 = visionProviderInfo4.m_radius;
 						}
 					}
-					if (flag6 && !this.m_playedMarkerSfxThisTurn)
+					while (true)
 					{
-						this.m_playedMarkerSfxThisTurn = true;
-						this.PlayAudioEvent(this.m_audioEventTargetReveal, base.Caster.gameObject);
-					}
-				}
-				else if (this.m_canBeVisibleLastUpdate)
-				{
-					for (;;)
-					{
-						switch (2)
+						switch (5)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					for (int l = 0; l < this.m_actorsToProcess.Count; l++)
+				}
+				bool flag3 = m_largePingTimer.TickTimer(GameTime.deltaTime);
+				bool flag4 = m_markerPingTimer.TickTimer(GameTime.deltaTime);
+				bool flag5 = false;
+				for (int num3 = 0; num3 < m_actorsToProcess.Count; num3++)
+				{
+					ActorData actorData = m_actorsToProcess[num3];
+					BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
+					int num4;
+					if (!actorData.IsDead() && currentBoardSquare != null)
 					{
-						ActorData key = this.m_actorsToProcess[l];
-						AttachedActorVFXInfo attachedActorVFXInfo2 = this.m_actorToMarkerVfx[key];
-						if (attachedActorVFXInfo2 != null)
+						while (true)
 						{
-							for (;;)
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!actorData.IsModelAnimatorDisabled())
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num4 = (actorData.IsVisibleToClient() ? 1 : 0);
+							goto IL_0294;
+						}
+					}
+					num4 = 0;
+					goto IL_0294;
+					IL_0294:
+					bool flag6 = (byte)num4 != 0;
+					if (flag6)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						float num5 = base.Caster.GetCurrentBoardSquare().HorizontalDistanceOnBoardTo(currentBoardSquare);
+						if (num5 > num2)
+						{
+							flag6 = false;
+						}
+					}
+					AttachedActorVFXInfo attachedActorVFXInfo = m_actorToMarkerVfx[actorData];
+					if (flag6)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (attachedActorVFXInfo == null)
+						{
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							attachedActorVFXInfo = new AttachedActorVFXInfo(m_markerFxPrefab, actorData, m_markerFxJoint, false, "VisionMarker", AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
+							attachedActorVFXInfo.SetCasterTeam(base.Caster.GetTeam());
+							m_actorToMarkerVfx[actorData] = attachedActorVFXInfo;
+						}
+						attachedActorVFXInfo.UpdateVisibility(flag6, !flag2);
+						if (flag4)
+						{
+							while (true)
 							{
 								switch (2)
 								{
@@ -606,12 +494,156 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 								}
 								break;
 							}
-							attachedActorVFXInfo2.UpdateVisibility(false, false);
+							attachedActorVFXInfo.RestartEffects();
+						}
+						flag5 = true;
+					}
+					else if (attachedActorVFXInfo != null)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						attachedActorVFXInfo.UpdateVisibility(false, false);
+					}
+				}
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (m_largePingFxInst != null)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_largePingFxInst.SetActiveIfNeeded(true);
+					if (IsActorConsideredVisible(base.Caster))
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (m_largePingFoFSelector != null)
+						{
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							m_largePingFoFSelector.Setup(base.Caster.GetTeam());
+						}
+						if (flag3)
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							PKFxFX[] componentsInChildren = m_largePingFxInst.GetComponentsInChildren<PKFxFX>();
+							foreach (PKFxFX pKFxFX in componentsInChildren)
+							{
+								pKFxFX.TerminateEffect();
+								pKFxFX.StartEffect();
+								if (flag2)
+								{
+									while (true)
+									{
+										switch (1)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									PlayAudioEvent((!m_emittedLargePingThisTurn) ? m_audioEventFriendlyPing : m_audioEventFriendlyPingSubsequent, base.Caster.gameObject);
+									continue;
+								}
+								string audioEvent;
+								if (m_emittedLargePingThisTurn)
+								{
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									audioEvent = m_audioEventEnemyPingSubsequent;
+								}
+								else
+								{
+									audioEvent = m_audioEventEnemyPing;
+								}
+								PlayAudioEvent(audioEvent, base.Caster.gameObject);
+							}
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							m_emittedLargePingThisTurn = true;
 						}
 					}
-					if (this.m_largePingFxInst != null)
+				}
+				if (flag5 && !m_playedMarkerSfxThisTurn)
+				{
+					m_playedMarkerSfxThisTurn = true;
+					PlayAudioEvent(m_audioEventTargetReveal, base.Caster.gameObject);
+				}
+			}
+			else if (m_canBeVisibleLastUpdate)
+			{
+				while (true)
+				{
+					switch (2)
 					{
-						for (;;)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				for (int k = 0; k < m_actorsToProcess.Count; k++)
+				{
+					ActorData key = m_actorsToProcess[k];
+					AttachedActorVFXInfo attachedActorVFXInfo2 = m_actorToMarkerVfx[key];
+					if (attachedActorVFXInfo2 != null)
+					{
+						while (true)
 						{
 							switch (2)
 							{
@@ -620,76 +652,47 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 							}
 							break;
 						}
-						this.m_largePingFxInst.SetActiveIfNeeded(false);
+						attachedActorVFXInfo2.UpdateVisibility(false, false);
 					}
 				}
-				this.m_canBeVisibleLastUpdate = flag2;
-				return;
+				if (m_largePingFxInst != null)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_largePingFxInst.SetActiveIfNeeded(false);
+				}
 			}
+			m_canBeVisibleLastUpdate = flag;
+			return;
 		}
 	}
 
 	private void PlayAudioEvent(string audioEvent, GameObject sourceObj)
 	{
-		if (!audioEvent.IsNullOrEmpty())
+		if (audioEvent.IsNullOrEmpty())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VisionPowerupInRangeMarkerSequence.PlayAudioEvent(string, GameObject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			AudioManager.PostEvent(audioEvent, sourceObj);
-		}
-	}
-
-	public class IntervalTimer
-	{
-		private float m_duration;
-
-		private float m_timeTillEnd;
-
-		public IntervalTimer(float duration, float initialDuration)
-		{
-			this.m_duration = duration;
-			this.m_timeTillEnd = initialDuration;
-		}
-
-		public void ClearTimeTillEnd()
-		{
-			this.m_timeTillEnd = 0f;
-		}
-
-		public bool TickTimer(float dt)
-		{
-			bool result = false;
-			this.m_timeTillEnd -= dt;
-			if (this.m_timeTillEnd <= 0f)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(VisionPowerupInRangeMarkerSequence.IntervalTimer.TickTimer(float)).MethodHandle;
-				}
-				this.m_timeTillEnd = this.m_duration;
-				result = true;
-			}
-			return result;
+			return;
 		}
 	}
 }

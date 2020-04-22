@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
 using LobbyGameClientMessages;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -53,59 +51,39 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 
 	public void Awake()
 	{
-		this.Init();
+		Init();
 	}
 
 	private void Init()
 	{
-		if (!this.m_initialized)
+		if (m_initialized)
 		{
-			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
+			return;
+		}
+		if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
+		{
+			while (true)
 			{
-				this.m_initialized = true;
-				this.SetListVisible(false);
-				UIManager.SetGameObjectActive(this.m_acceptDeclineBtnContainer, false, null);
-				UIManager.SetGameObjectActive(this.m_renameButton, false, null);
-				if (this.m_saveButton != null)
+				switch (3)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_saveButton.SetDisabled(true);
-					this.m_saveButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.SaveBtnClicked);
-				}
-				UIManager.SetGameObjectActive(this.m_inputfieldContainer, false, null);
-				this.m_loadoutListToggleBtn.SetSelected(false, true, string.Empty, string.Empty);
-				this.m_pendingLoadingNewLoadout = false;
-				this.m_loadoutListToggleBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.LoadoutToggleBtnClicked);
-				this.m_renameButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.RenameButtonClicked);
-				this.m_acceptButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.AcceptButtonClicked);
-				this.m_declineButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.DeclineButtonClicked);
-				this.m_buyNewLoadoutBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BuyLoadoutSlotClicked);
-				this.m_buyNewLoadoutBtn.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnListScroll));
-				for (int i = 0; i < this.m_buyLoadoutSlotTexts.Length; i++)
-				{
-					this.m_buyLoadoutSlotTexts[i].text = string.Format(StringUtil.TR("BuyLoadoutSlotFor", "SceneGlobal"), "<sprite name=credit>" + GameBalanceVars.Get().FreelancerLoadoutSlotFluxCost);
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
+				case 0:
 					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				this.m_inputfield.onValueChanged.AddListener(new UnityAction<string>(this.OnTypeInput));
-				return;
 			}
-			for (;;)
+		}
+		m_initialized = true;
+		SetListVisible(false);
+		UIManager.SetGameObjectActive(m_acceptDeclineBtnContainer, false);
+		UIManager.SetGameObjectActive(m_renameButton, false);
+		if (m_saveButton != null)
+		{
+			while (true)
 			{
 				switch (3)
 				{
@@ -114,64 +92,86 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			m_saveButton.SetDisabled(true);
+			m_saveButton.spriteController.callback = SaveBtnClicked;
+		}
+		UIManager.SetGameObjectActive(m_inputfieldContainer, false);
+		m_loadoutListToggleBtn.SetSelected(false, true, string.Empty, string.Empty);
+		m_pendingLoadingNewLoadout = false;
+		m_loadoutListToggleBtn.spriteController.callback = LoadoutToggleBtnClicked;
+		m_renameButton.spriteController.callback = RenameButtonClicked;
+		m_acceptButton.spriteController.callback = AcceptButtonClicked;
+		m_declineButton.spriteController.callback = DeclineButtonClicked;
+		m_buyNewLoadoutBtn.spriteController.callback = BuyLoadoutSlotClicked;
+		m_buyNewLoadoutBtn.spriteController.RegisterScrollListener(OnListScroll);
+		for (int i = 0; i < m_buyLoadoutSlotTexts.Length; i++)
+		{
+			m_buyLoadoutSlotTexts[i].text = string.Format(StringUtil.TR("BuyLoadoutSlotFor", "SceneGlobal"), "<sprite name=credit>" + GameBalanceVars.Get().FreelancerLoadoutSlotFluxCost);
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.Init()).MethodHandle;
+			case 0:
+				continue;
 			}
+			m_inputfield.onValueChanged.AddListener(OnTypeInput);
+			return;
 		}
 	}
 
 	private void Start()
 	{
-		ClientGameManager.Get().OnCharacterDataUpdated += this.OnCharacterDataUpdated;
+		ClientGameManager.Get().OnCharacterDataUpdated += OnCharacterDataUpdated;
 	}
 
 	private void OnDestroy()
 	{
-		if (ClientGameManager.Get() != null)
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ClientGameManager.Get().OnCharacterDataUpdated -= this.OnCharacterDataUpdated;
+			ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterDataUpdated;
+			return;
 		}
 	}
 
 	private void OnListScroll(BaseEventData data)
 	{
-		this.m_listScrollRect.OnScroll((PointerEventData)data);
+		m_listScrollRect.OnScroll((PointerEventData)data);
 	}
 
 	public void OnTypeInput(string textString)
 	{
-		if (this.m_inputfield.text.Length > 0x10)
+		if (m_inputfield.text.Length > 16)
 		{
-			this.m_inputfield.text = this.m_inputfield.text.Substring(0, 0x10);
+			m_inputfield.text = m_inputfield.text.Substring(0, 16);
 		}
 	}
 
 	public void LoadoutToggleBtnClicked(BaseEventData data)
 	{
-		this.SetListVisible(!this.m_listIsOpen);
+		SetListVisible(!m_listIsOpen);
 	}
 
 	public void RenameButtonClicked(BaseEventData data)
 	{
-		PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter);
+		PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter);
 		int num = playerCharacterData.CharacterComponent.LastSelectedLoadout;
-		if (this.UseRankedLoadouts())
+		if (UseRankedLoadouts())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -180,44 +180,44 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.RenameButtonClicked(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = playerCharacterData.CharacterComponent.LastSelectedRankedLoadout;
 		}
-		if (-1 < num && num < this.m_loadouts.Count)
+		if (-1 < num && num < m_loadouts.Count)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					CharacterLoadout characterLoadout = m_loadouts[num];
+					m_isRenamingLoadout = true;
+					UIManager.SetGameObjectActive(m_inputfieldContainer, true);
+					UIManager.SetGameObjectActive(m_renameButton, false);
+					UIManager.SetGameObjectActive(m_acceptDeclineBtnContainer, true);
+					UIManager.SetGameObjectActive(m_dropdownMenuContainer, false);
+					m_inputfield.text = StringUtil.TR_GetLoadoutName(characterLoadout.LoadoutName);
+					m_inputfield.Select();
+					return;
 				}
-				break;
+				}
 			}
-			CharacterLoadout characterLoadout = this.m_loadouts[num];
-			this.m_isRenamingLoadout = true;
-			UIManager.SetGameObjectActive(this.m_inputfieldContainer, true, null);
-			UIManager.SetGameObjectActive(this.m_renameButton, false, null);
-			UIManager.SetGameObjectActive(this.m_acceptDeclineBtnContainer, true, null);
-			UIManager.SetGameObjectActive(this.m_dropdownMenuContainer, false, null);
-			this.m_inputfield.text = StringUtil.TR_GetLoadoutName(characterLoadout.LoadoutName);
-			this.m_inputfield.Select();
 		}
-		else
-		{
-			Log.Error("Last selected loadout index is out of range of loadouts", new object[0]);
-		}
+		Log.Error("Last selected loadout index is out of range of loadouts");
 	}
 
 	private void CloseRename()
 	{
-		this.m_isRenamingLoadout = false;
-		UIManager.SetGameObjectActive(this.m_inputfieldContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_renameButton, true, null);
-		UIManager.SetGameObjectActive(this.m_acceptDeclineBtnContainer, false, null);
+		m_isRenamingLoadout = false;
+		UIManager.SetGameObjectActive(m_inputfieldContainer, false);
+		UIManager.SetGameObjectActive(m_renameButton, true);
+		UIManager.SetGameObjectActive(m_acceptDeclineBtnContainer, false);
 	}
 
 	private bool UseRankedLoadouts()
@@ -229,10 +229,10 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 	public void SaveBtnClicked(BaseEventData data)
 	{
 		List<CharacterLoadout> list = new List<CharacterLoadout>();
-		PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter);
+		PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter);
 		int num = playerCharacterData.CharacterComponent.LastSelectedLoadout;
-		List<CharacterLoadout> list2;
-		if (this.UseRankedLoadouts())
+		List<CharacterLoadout> list2 = null;
+		if (UseRankedLoadouts())
 		{
 			num = playerCharacterData.CharacterComponent.LastSelectedRankedLoadout;
 			list2 = playerCharacterData.CharacterComponent.CharacterLoadoutsRanked;
@@ -245,7 +245,7 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		{
 			if (i == num)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -254,17 +254,17 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.SaveBtnClicked(BaseEventData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				CharacterModInfo modInfo = (!this.UseRankedLoadouts()) ? playerCharacterData.CharacterComponent.LastMods : playerCharacterData.CharacterComponent.LastRankedMods;
+				CharacterModInfo modInfo = (!UseRankedLoadouts()) ? playerCharacterData.CharacterComponent.LastMods : playerCharacterData.CharacterComponent.LastRankedMods;
 				CharacterAbilityVfxSwapInfo lastAbilityVfxSwaps = playerCharacterData.CharacterComponent.LastAbilityVfxSwaps;
 				string loadoutName = list2[i].LoadoutName;
-				ModStrictness strictness;
-				if (this.UseRankedLoadouts())
+				int strictness;
+				if (UseRankedLoadouts())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -273,13 +273,13 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 						}
 						break;
 					}
-					strictness = ModStrictness.Ranked;
+					strictness = 1;
 				}
 				else
 				{
-					strictness = ModStrictness.AllModes;
+					strictness = 0;
 				}
-				CharacterLoadout item = new CharacterLoadout(modInfo, lastAbilityVfxSwaps, loadoutName, strictness);
+				CharacterLoadout item = new CharacterLoadout(modInfo, lastAbilityVfxSwaps, loadoutName, (ModStrictness)strictness);
 				list.Add(item);
 			}
 			else
@@ -288,41 +288,41 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				list.Add(item2);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			ClientGameManager.Get().UpdateLoadouts(list);
+			return;
 		}
-		ClientGameManager.Get().UpdateLoadouts(list, 0);
 	}
 
 	public void AcceptButtonClicked(BaseEventData data)
 	{
-		if (this.m_isRenamingLoadout)
+		if (!m_isRenamingLoadout)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.AcceptButtonClicked(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			CharacterLoadout characterLoadout = null;
-			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter);
+			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter);
 			int num = playerCharacterData.CharacterComponent.LastSelectedLoadout;
-			if (this.UseRankedLoadouts())
+			if (UseRankedLoadouts())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -333,9 +333,9 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				num = playerCharacterData.CharacterComponent.LastSelectedRankedLoadout;
 			}
-			if (-1 < num && num < this.m_loadouts.Count)
+			if (-1 < num && num < m_loadouts.Count)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -344,26 +344,26 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 					}
 					break;
 				}
-				characterLoadout = this.m_loadouts[num];
+				characterLoadout = m_loadouts[num];
 			}
-			if (characterLoadout != null)
+			if (characterLoadout == null)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (5)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
 				List<CharacterLoadout> list = new List<CharacterLoadout>();
-				for (int i = 0; i < this.m_loadouts.Count; i++)
+				for (int i = 0; i < m_loadouts.Count; i++)
 				{
-					CharacterLoadout characterLoadout2 = new CharacterLoadout(this.m_loadouts[i].ModSet, this.m_loadouts[i].VFXSet, this.m_loadouts[i].LoadoutName, this.m_loadouts[i].Strictness);
-					if (this.m_loadouts[i] == characterLoadout)
+					CharacterLoadout characterLoadout2 = new CharacterLoadout(m_loadouts[i].ModSet, m_loadouts[i].VFXSet, m_loadouts[i].LoadoutName, m_loadouts[i].Strictness);
+					if (m_loadouts[i] == characterLoadout)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -372,20 +372,20 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 							}
 							break;
 						}
-						characterLoadout2.LoadoutName = this.m_inputfield.text;
+						characterLoadout2.LoadoutName = m_inputfield.text;
 					}
 					list.Add(characterLoadout2);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					ClientGameManager.Get().UpdateLoadouts(list);
+					return;
 				}
-				ClientGameManager.Get().UpdateLoadouts(list, 0);
 			}
 		}
 	}
@@ -394,7 +394,7 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 	{
 		if (response == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -403,15 +403,15 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.NotifyLoadoutUpdate(PlayerInfoUpdateResponse)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Log.Error("Response is null somehow...", new object[0]);
+			Log.Error("Response is null somehow...");
 		}
 		if (response.CharacterInfo == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -420,11 +420,11 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				break;
 			}
-			Log.Error("Character info in response is null", new object[0]);
+			Log.Error("Character info in response is null");
 		}
 		if (!response.Success)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -433,11 +433,11 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				break;
 			}
-			Log.Error("Failed to update loadouts: " + response.ErrorMessage, new object[0]);
+			Log.Error("Failed to update loadouts: " + response.ErrorMessage);
 		}
 		if (ClientGameManager.Get() == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -446,11 +446,11 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				break;
 			}
-			Log.Error("Client Game Manager is somehow null...", new object[0]);
+			Log.Error("Client Game Manager is somehow null...");
 		}
-		if (ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter) == null)
+		if (ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter) == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -459,11 +459,11 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				break;
 			}
-			Log.Error("Failed to get character data", new object[0]);
+			Log.Error("Failed to get character data");
 		}
-		if (ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter).CharacterComponent == null)
+		if (ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter).CharacterComponent == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -472,121 +472,127 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				break;
 			}
-			Log.Error("Character Componenent is null", new object[0]);
+			Log.Error("Character Componenent is null");
 		}
-		int numCharacterLoadouts = ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter).CharacterComponent.NumCharacterLoadouts;
-		this.UpdateLoadouts(response.CharacterInfo.CharacterLoadouts, numCharacterLoadouts);
-		this.CloseRename();
+		int numCharacterLoadouts = ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter).CharacterComponent.NumCharacterLoadouts;
+		UpdateLoadouts(response.CharacterInfo.CharacterLoadouts, numCharacterLoadouts);
+		CloseRename();
 	}
 
 	public void DeclineButtonClicked(BaseEventData data)
 	{
-		if (this.m_isRenamingLoadout)
+		if (m_isRenamingLoadout)
 		{
-			this.CloseRename();
+			CloseRename();
 		}
 	}
 
 	public void BuyLoadoutSlotClicked(BaseEventData data)
 	{
-		this.SetListVisible(false);
-		if (this.m_selectedCharacter == CharacterType.None)
+		SetListVisible(false);
+		if (m_selectedCharacter != 0)
 		{
-			return;
+			m_pendingLoadingNewLoadout = true;
+			ClientGameManager.Get().PurchaseLoadoutSlot(m_selectedCharacter);
 		}
-		this.m_pendingLoadingNewLoadout = true;
-		ClientGameManager.Get().PurchaseLoadoutSlot(this.m_selectedCharacter, null);
 	}
 
 	private void OnCharacterDataUpdated(PersistedCharacterData charData)
 	{
-		if (charData.CharacterType == this.m_selectedCharacter)
+		if (charData.CharacterType != m_selectedCharacter)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.OnCharacterDataUpdated(PersistedCharacterData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.UseRankedLoadouts())
+			if (UseRankedLoadouts())
 			{
-				this.UpdateLoadouts(charData.CharacterComponent.CharacterLoadoutsRanked, charData.CharacterComponent.NumCharacterLoadouts);
+				UpdateLoadouts(charData.CharacterComponent.CharacterLoadoutsRanked, charData.CharacterComponent.NumCharacterLoadouts);
 			}
 			else
 			{
-				this.UpdateLoadouts(charData.CharacterComponent.CharacterLoadouts, charData.CharacterComponent.NumCharacterLoadouts);
+				UpdateLoadouts(charData.CharacterComponent.CharacterLoadouts, charData.CharacterComponent.NumCharacterLoadouts);
 			}
-			if (this.m_pendingLoadingNewLoadout)
+			if (m_pendingLoadingNewLoadout)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_pendingLoadingNewLoadout = false;
+					NotifyModLoadoutClicked(m_modListItems[m_modListItems.Count - 1]);
+					return;
 				}
-				this.m_pendingLoadingNewLoadout = false;
-				this.NotifyModLoadoutClicked(this.m_modListItems[this.m_modListItems.Count - 1]);
 			}
+			return;
 		}
 	}
 
 	public void NotifyModLoadoutClicked(UICharacterAbilitiesPanelModItem item)
 	{
 		int loadoutIndex = -1;
-		for (int i = 0; i < this.m_modListItems.Count; i++)
+		int num = 0;
+		while (true)
 		{
-			if (this.m_modListItems[i] == item)
+			if (num < m_modListItems.Count)
 			{
-				for (;;)
+				if (m_modListItems[num] == item)
 				{
-					switch (5)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					loadoutIndex = num;
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.NotifyModLoadoutClicked(UICharacterAbilitiesPanelModItem)).MethodHandle;
-				}
-				loadoutIndex = i;
-				IL_51:
-				ClientGameManager.Get().SendUIActionNotification("CLICK (UILoadout): Load Request");
-				ClientGameManager.Get().RequestToSelectLoadout(item.LoadoutRef, loadoutIndex);
-				this.SetListVisible(false);
-				return;
-			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
+				num++;
 				continue;
 			}
-			goto IL_51;
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			break;
 		}
+		ClientGameManager.Get().SendUIActionNotification("CLICK (UILoadout): Load Request");
+		ClientGameManager.Get().RequestToSelectLoadout(item.LoadoutRef, loadoutIndex);
+		SetListVisible(false);
 	}
 
 	public void NotifySaveModLoadoutClicked(UICharacterAbilitiesPanelModItem item)
 	{
 		List<CharacterLoadout> list = new List<CharacterLoadout>();
-		for (int i = 0; i < this.m_modListItems.Count; i++)
+		for (int i = 0; i < m_modListItems.Count; i++)
 		{
-			if (this.m_modListItems[i] == item)
+			if (m_modListItems[i] == item)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -595,15 +601,15 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.NotifySaveModLoadoutClicked(UICharacterAbilitiesPanelModItem)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter);
+				PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter);
 				CharacterModInfo modInfo;
-				if (this.UseRankedLoadouts())
+				if (UseRankedLoadouts())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -619,11 +625,11 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 					modInfo = playerCharacterData.CharacterComponent.LastMods;
 				}
 				CharacterAbilityVfxSwapInfo lastAbilityVfxSwaps = playerCharacterData.CharacterComponent.LastAbilityVfxSwaps;
-				string loadoutName = this.m_loadouts[i].LoadoutName;
-				ModStrictness strictness;
-				if (this.UseRankedLoadouts())
+				string loadoutName = m_loadouts[i].LoadoutName;
+				int strictness;
+				if (UseRankedLoadouts())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -632,138 +638,138 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 						}
 						break;
 					}
-					strictness = ModStrictness.Ranked;
+					strictness = 1;
 				}
 				else
 				{
-					strictness = ModStrictness.AllModes;
+					strictness = 0;
 				}
-				CharacterLoadout item2 = new CharacterLoadout(modInfo, lastAbilityVfxSwaps, loadoutName, strictness);
+				CharacterLoadout item2 = new CharacterLoadout(modInfo, lastAbilityVfxSwaps, loadoutName, (ModStrictness)strictness);
 				list.Add(item2);
 			}
 			else
 			{
-				CharacterLoadout item3 = new CharacterLoadout(this.m_loadouts[i].ModSet, this.m_loadouts[i].VFXSet, this.m_loadouts[i].LoadoutName, this.m_loadouts[i].Strictness);
+				CharacterLoadout item3 = new CharacterLoadout(m_loadouts[i].ModSet, m_loadouts[i].VFXSet, m_loadouts[i].LoadoutName, m_loadouts[i].Strictness);
 				list.Add(item3);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			ClientGameManager.Get().SendUIActionNotification("CLICK (UILoadout): Save Request");
+			ClientGameManager.Get().UpdateLoadouts(list);
+			SetListVisible(false);
+			return;
 		}
-		ClientGameManager.Get().SendUIActionNotification("CLICK (UILoadout): Save Request");
-		ClientGameManager.Get().UpdateLoadouts(list, 0);
-		this.SetListVisible(false);
 	}
 
 	private void SetToggleButtonLabels(string text)
 	{
-		TextMeshProUGUI[] componentsInChildren = this.m_loadoutListToggleBtn.GetComponentsInChildren<TextMeshProUGUI>(true);
+		TextMeshProUGUI[] componentsInChildren = m_loadoutListToggleBtn.GetComponentsInChildren<TextMeshProUGUI>(true);
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
 			componentsInChildren[i].text = text;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.SetToggleButtonLabels(string)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	private void SetListVisible(bool visible)
 	{
-		this.m_listIsOpen = visible;
-		UIManager.SetGameObjectActive(this.m_dropdownMenuContainer, visible, null);
-		if (!visible)
+		m_listIsOpen = visible;
+		UIManager.SetGameObjectActive(m_dropdownMenuContainer, visible);
+		if (visible)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.SetListVisible(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (int i = 0; i < this.m_modListItems.Count; i++)
+			for (int i = 0; i < m_modListItems.Count; i++)
 			{
-				this.m_modListItems[i].m_btn.spriteController.ResetMouseState();
+				m_modListItems[i].m_btn.spriteController.ResetMouseState();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public void Setup(CharacterResourceLink charLink)
 	{
-		this.Init();
-		this.m_selectedCharacter = charLink.m_characterType;
-		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
+		Init();
+		m_selectedCharacter = charLink.m_characterType;
+		if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.Setup(CharacterResourceLink)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(charLink.m_characterType);
-			if (this.UseRankedLoadouts())
+			if (UseRankedLoadouts())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						UpdateLoadouts(playerCharacterData.CharacterComponent.CharacterLoadoutsRanked, playerCharacterData.CharacterComponent.NumCharacterLoadouts);
+						return;
 					}
-					break;
 				}
-				this.UpdateLoadouts(playerCharacterData.CharacterComponent.CharacterLoadoutsRanked, playerCharacterData.CharacterComponent.NumCharacterLoadouts);
 			}
-			else
-			{
-				this.UpdateLoadouts(playerCharacterData.CharacterComponent.CharacterLoadouts, playerCharacterData.CharacterComponent.NumCharacterLoadouts);
-			}
+			UpdateLoadouts(playerCharacterData.CharacterComponent.CharacterLoadouts, playerCharacterData.CharacterComponent.NumCharacterLoadouts);
+			return;
 		}
 	}
 
 	public void UpdateLoadouts(List<CharacterLoadout> loadouts, int NumCharacterLoadouts)
 	{
-		this.Init();
-		if (!this.m_loadoutList.Equals(loadouts))
+		Init();
+		if (!m_loadoutList.Equals(loadouts))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -772,16 +778,16 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.UpdateLoadouts(List<CharacterLoadout>, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_loadouts = loadouts;
-			for (int i = 0; i < this.m_loadouts.Count; i++)
+			m_loadouts = loadouts;
+			for (int i = 0; i < m_loadouts.Count; i++)
 			{
-				if (i >= this.m_modListItems.Count)
+				if (i >= m_modListItems.Count)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -790,9 +796,9 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 						}
 						break;
 					}
-					if (this.m_modItemPrfab != null)
+					if (m_modItemPrfab != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -801,22 +807,22 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 							}
 							break;
 						}
-						UICharacterAbilitiesPanelModItem uicharacterAbilitiesPanelModItem = UnityEngine.Object.Instantiate<UICharacterAbilitiesPanelModItem>(this.m_modItemPrfab);
-						uicharacterAbilitiesPanelModItem.transform.SetParent(this.m_loadoutList.transform);
-						uicharacterAbilitiesPanelModItem.transform.localEulerAngles = Vector3.zero;
-						uicharacterAbilitiesPanelModItem.transform.localPosition = Vector3.zero;
-						uicharacterAbilitiesPanelModItem.transform.localScale = Vector3.one;
-						uicharacterAbilitiesPanelModItem.m_btn.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnListScroll));
-						this.m_modListItems.Add(uicharacterAbilitiesPanelModItem);
+						UICharacterAbilitiesPanelModItem uICharacterAbilitiesPanelModItem = Object.Instantiate(m_modItemPrfab);
+						uICharacterAbilitiesPanelModItem.transform.SetParent(m_loadoutList.transform);
+						uICharacterAbilitiesPanelModItem.transform.localEulerAngles = Vector3.zero;
+						uICharacterAbilitiesPanelModItem.transform.localPosition = Vector3.zero;
+						uICharacterAbilitiesPanelModItem.transform.localScale = Vector3.one;
+						uICharacterAbilitiesPanelModItem.m_btn.spriteController.RegisterScrollListener(OnListScroll);
+						m_modListItems.Add(uICharacterAbilitiesPanelModItem);
 					}
 					else
 					{
 						Debug.LogError(base.name + " field Mod Item Prefab reference is null, please set it in scene");
 					}
 				}
-				if (i < this.m_modListItems.Count)
+				if (i < m_modListItems.Count)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -825,11 +831,11 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 						}
 						break;
 					}
-					this.m_modListItems[i].Setup(this.m_loadouts[i]);
-					UIManager.SetGameObjectActive(this.m_modListItems[i], true, null);
+					m_modListItems[i].Setup(m_loadouts[i]);
+					UIManager.SetGameObjectActive(m_modListItems[i], true);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -838,11 +844,11 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				break;
 			}
-			for (int j = this.m_modListItems.Count - 1; j >= this.m_loadouts.Count; j--)
+			for (int num = m_modListItems.Count - 1; num >= m_loadouts.Count; num--)
 			{
-				UIManager.SetGameObjectActive(this.m_modListItems[j], false, null);
+				UIManager.SetGameObjectActive(m_modListItems[num], false);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -851,36 +857,36 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				break;
 			}
-			this.CheckCurrentModSelection();
+			CheckCurrentModSelection();
 		}
-		this.m_buyNewLoadoutBtn.transform.SetAsLastSibling();
-		UIManager.SetGameObjectActive(this.m_buyNewLoadoutBtn, NumCharacterLoadouts < GameBalanceVars.Get().MaxNumberOfFreelancerLoadoutSlots, null);
+		m_buyNewLoadoutBtn.transform.SetAsLastSibling();
+		UIManager.SetGameObjectActive(m_buyNewLoadoutBtn, NumCharacterLoadouts < GameBalanceVars.Get().MaxNumberOfFreelancerLoadoutSlots);
 	}
 
 	private void CheckCurrentModSelection()
 	{
-		if (this.m_selectedCharacter != CharacterType.None)
+		if (m_selectedCharacter == CharacterType.None)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.CheckCurrentModSelection()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			string toggleButtonLabels = StringUtil.TR("SelectLoadout", "Global");
-			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter);
+			string text = StringUtil.TR("SelectLoadout", "Global");
+			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter);
 			int num = playerCharacterData.CharacterComponent.LastSelectedLoadout;
 			CharacterModInfo characterModInfo = playerCharacterData.CharacterComponent.LastMods;
-			if (this.UseRankedLoadouts())
+			if (UseRankedLoadouts())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -894,7 +900,7 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 			}
 			if (-1 < num)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -903,15 +909,15 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 					}
 					break;
 				}
-				if (num < this.m_loadouts.Count)
+				if (num < m_loadouts.Count)
 				{
-					CharacterLoadout characterLoadout = this.m_loadouts[num];
-					toggleButtonLabels = StringUtil.TR_GetLoadoutName(characterLoadout.LoadoutName);
+					CharacterLoadout characterLoadout = m_loadouts[num];
+					text = StringUtil.TR_GetLoadoutName(characterLoadout.LoadoutName);
 					if (characterLoadout.ModSet.Equals(characterModInfo))
 					{
-						if (this.m_saveButton != null)
+						if (m_saveButton != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -920,19 +926,19 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 								}
 								break;
 							}
-							this.m_saveButton.SetDisabled(true);
+							m_saveButton.SetDisabled(true);
 						}
 					}
-					else if (this.m_saveButton != null)
+					else if (m_saveButton != null)
 					{
-						this.m_saveButton.SetDisabled(false);
+						m_saveButton.SetDisabled(false);
 					}
-					UIManager.SetGameObjectActive(this.m_renameButton, true, null);
-					this.m_loadoutListToggleBtn.SetSelected(true, true, string.Empty, string.Empty);
-					this.SetToggleButtonLabels(toggleButtonLabels);
+					UIManager.SetGameObjectActive(m_renameButton, true);
+					m_loadoutListToggleBtn.SetSelected(true, true, string.Empty, string.Empty);
+					SetToggleButtonLabels(text);
 					return;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -942,32 +948,32 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 					break;
 				}
 			}
-			Log.Error("Last selected loadout index is out of range of loadouts", new object[0]);
+			Log.Error("Last selected loadout index is out of range of loadouts");
 			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (Input.GetMouseButtonDown(0))
+		if (!Input.GetMouseButtonDown(0))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool flag = true;
 			if (EventSystem.current != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -978,7 +984,7 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				if (EventSystem.current.IsPointerOverGameObject(-1))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -990,7 +996,7 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 					StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 					if (component != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -1004,7 +1010,7 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 							RectTransform rectTransform = component.GetLastPointerEventDataPublic(-1).pointerEnter.transform as RectTransform;
 							if (rectTransform != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (6)
 									{
@@ -1013,12 +1019,12 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 									}
 									break;
 								}
-								RectTransform[] componentsInChildren = this.m_loadoutListToggleBtn.GetComponentsInChildren<RectTransform>(true);
+								RectTransform[] componentsInChildren = m_loadoutListToggleBtn.GetComponentsInChildren<RectTransform>(true);
 								for (int i = 0; i < componentsInChildren.Length; i++)
 								{
 									if (componentsInChildren[i].gameObject.transform == rectTransform)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (6)
 											{
@@ -1033,7 +1039,7 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 								}
 								if (flag)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (6)
 										{
@@ -1042,30 +1048,37 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 										}
 										break;
 									}
-									componentsInChildren = this.m_dropdownMenuContainer.GetComponentsInChildren<RectTransform>(true);
-									for (int j = 0; j < componentsInChildren.Length; j++)
+									componentsInChildren = m_dropdownMenuContainer.GetComponentsInChildren<RectTransform>(true);
+									int num = 0;
+									while (true)
 									{
-										if (componentsInChildren[j].gameObject.transform == rectTransform)
+										if (num < componentsInChildren.Length)
 										{
-											for (;;)
+											if (componentsInChildren[num].gameObject.transform == rectTransform)
 											{
-												switch (6)
+												while (true)
 												{
-												case 0:
-													continue;
+													switch (6)
+													{
+													case 0:
+														continue;
+													}
+													break;
 												}
+												flag = false;
 												break;
 											}
-											flag = false;
-											goto IL_17F;
-										}
-									}
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
+											num++;
 											continue;
+										}
+										while (true)
+										{
+											switch (2)
+											{
+											case 0:
+												continue;
+											}
+											break;
 										}
 										break;
 									}
@@ -1075,20 +1088,20 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 					}
 				}
 			}
-			IL_17F:
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					SetListVisible(false);
+					return;
 				}
-				this.SetListVisible(false);
 			}
+			return;
 		}
 	}
 }

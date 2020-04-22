@@ -1,38 +1,40 @@
-﻿using System;
 using UnityEngine;
 
 public abstract class UIDialogBox : MonoBehaviour
 {
+	public delegate void DialogButtonCallback(UIDialogBox boxReference);
+
 	protected DialogBoxType m_BoxType;
 
 	public virtual void Awake()
 	{
 		_ButtonSwapSprite[] componentsInChildren = base.gameObject.GetComponentsInChildren<_ButtonSwapSprite>(true);
-		if (componentsInChildren != null)
+		if (componentsInChildren == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogBox.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			for (int i = 0; i < componentsInChildren.Length; i++)
 			{
 				componentsInChildren[i].m_ignoreDialogboxes = true;
 			}
+			return;
 		}
 	}
 
 	public DialogBoxType GetBoxType()
 	{
-		return this.m_BoxType;
+		return m_BoxType;
 	}
 
 	public abstract void ClearCallback();
@@ -41,13 +43,11 @@ public abstract class UIDialogBox : MonoBehaviour
 
 	public void DoCloseCallback()
 	{
-		this.CloseCallback();
+		CloseCallback();
 	}
 
 	public virtual void Close()
 	{
 		UIDialogPopupManager.Get().CloseDialog(this);
 	}
-
-	public delegate void DialogButtonCallback(UIDialogBox boxReference);
 }

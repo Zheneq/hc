@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,93 +9,90 @@ public class UISounds : MonoBehaviour
 
 	public static UISounds GetUISounds()
 	{
-		return UISounds.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		if (UISounds.s_instance == null)
+		if (s_instance == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					s_instance = this;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISounds.Awake()).MethodHandle;
-			}
-			UISounds.s_instance = this;
 		}
-		else
-		{
-			Log.Warning("Please remove UISounds component from scene: {0}.unity", new object[]
-			{
-				SceneManager.GetActiveScene().name
-			});
-		}
+		Log.Warning("Please remove UISounds component from scene: {0}.unity", SceneManager.GetActiveScene().name);
 	}
 
 	private void OnDestroy()
 	{
-		if (UISounds.s_instance != null)
+		if (!(s_instance != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISounds.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (UISounds.s_instance == this)
+			if (s_instance == this)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					s_instance = null;
+					return;
 				}
-				UISounds.s_instance = null;
 			}
+			return;
 		}
 	}
 
 	public void Play(string eventName)
 	{
-		if (this.m_enableSounds)
+		if (!m_enableSounds)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISounds.Play(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AudioManager.PostEvent(eventName, null);
+			AudioManager.PostEvent(eventName);
+			return;
 		}
 	}
 
 	public void Stop(string eventName)
 	{
-		AudioManager.PostEvent(eventName, AudioManager.EventAction.StopSound, null, null);
+		AudioManager.PostEvent(eventName, AudioManager.EventAction.StopSound);
 	}
 }

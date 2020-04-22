@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -13,7 +13,7 @@ public class TargetSelectMod_ChargeSingleStep : TargetSelectModBase
 		TargetSelect_ChargeSingleStep targetSelect_ChargeSingleStep = targetSelectBase as TargetSelect_ChargeSingleStep;
 		if (targetSelect_ChargeSingleStep != null)
 		{
-			text += AbilityModHelper.GetModPropertyDesc(this.m_destShapeMod, "[DestShape]", true, targetSelect_ChargeSingleStep.m_destShape);
+			text += AbilityModHelper.GetModPropertyDesc(m_destShapeMod, "[DestShape]", true, targetSelect_ChargeSingleStep.m_destShape);
 		}
 		return text;
 	}

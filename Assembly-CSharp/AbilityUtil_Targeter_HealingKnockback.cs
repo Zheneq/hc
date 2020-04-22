@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,24 +9,25 @@ public class AbilityUtil_Targeter_HealingKnockback : AbilityUtil_Targeter_Shape
 
 	public float m_heightOffset = 0.1f;
 
-	public AbilityUtil_Targeter_HealingKnockback(Ability ability, AbilityAreaShape shape, bool penetrateLoS, AbilityUtil_Targeter_Shape.DamageOriginType damageOriginType, bool affectsEnemies, bool affectsAllies, AbilityUtil_Targeter.AffectsActor affectsCaster, AbilityUtil_Targeter.AffectsActor affectsBestTarget, float knockbackDistance, KnockbackType knockbackType) : base(ability, shape, penetrateLoS, damageOriginType, affectsEnemies, affectsAllies, affectsCaster, AbilityUtil_Targeter.AffectsActor.Possible)
+	public AbilityUtil_Targeter_HealingKnockback(Ability ability, AbilityAreaShape shape, bool penetrateLoS, DamageOriginType damageOriginType, bool affectsEnemies, bool affectsAllies, AffectsActor affectsCaster, AffectsActor affectsBestTarget, float knockbackDistance, KnockbackType knockbackType)
+		: base(ability, shape, penetrateLoS, damageOriginType, affectsEnemies, affectsAllies, affectsCaster)
 	{
-		this.m_knockbackDistance = knockbackDistance;
-		this.m_knockbackType = knockbackType;
+		m_knockbackDistance = knockbackDistance;
+		m_knockbackType = knockbackType;
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, currentTarget);
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
 		int num = 0;
-		base.EnableAllMovementArrows();
-		List<ActorData> visibleActorsInRange = this.GetVisibleActorsInRange();
-		foreach (ActorData actorData in visibleActorsInRange)
+		EnableAllMovementArrows();
+		List<ActorData> visibleActorsInRange = GetVisibleActorsInRange();
+		foreach (ActorData item in visibleActorsInRange)
 		{
-			if (actorData.\u000E() != targetingActor.\u000E())
+			if (item.GetTeam() != targetingActor.GetTeam())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -36,23 +36,23 @@ public class AbilityUtil_Targeter_HealingKnockback : AbilityUtil_Targeter_Shape
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_HealingKnockback.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, centerOfShape, this.m_knockbackDistance);
-				num = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
+				BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(item, m_knockbackType, currentTarget.AimDirection, centerOfShape, m_knockbackDistance);
+				num = AddMovementArrowWithPrevious(item, path, TargeterMovementType.Knockback, num);
 			}
 		}
-		base.SetMovementArrowEnabledFromIndex(num, false);
+		SetMovementArrowEnabledFromIndex(num, false);
 	}
 
 	protected override bool HandleAddActorInShape(ActorData potentialTarget, ActorData targetingActor, AbilityTarget currentTarget, Vector3 damageOrigin, ActorData bestTarget)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		if (boardSquareSafe != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -61,44 +61,48 @@ public class AbilityUtil_Targeter_HealingKnockback : AbilityUtil_Targeter_Shape
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_HealingKnockback.HandleAddActorInShape(ActorData, ActorData, AbilityTarget, Vector3, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (boardSquare.occupant != null)
+			if (boardSquareSafe.occupant != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				bool flag = potentialTarget.\u000E() == targetingActor.\u000E();
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					if (boardSquare.occupant == potentialTarget.gameObject)
-					{
-						base.AddActorInRange(potentialTarget, damageOrigin, targetingActor, AbilityTooltipSubject.Primary, false);
+					default:
+						{
+							bool flag = potentialTarget.GetTeam() == targetingActor.GetTeam();
+							if (flag)
+							{
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (boardSquareSafe.occupant == potentialTarget.gameObject)
+								{
+									AddActorInRange(potentialTarget, damageOrigin, targetingActor);
+									goto IL_00a4;
+								}
+							}
+							if (!flag)
+							{
+								AddActorInRange(potentialTarget, damageOrigin, targetingActor, AbilityTooltipSubject.Enemy);
+							}
+							goto IL_00a4;
+						}
+						IL_00a4:
 						return true;
 					}
 				}
-				if (!flag)
-				{
-					base.AddActorInRange(potentialTarget, damageOrigin, targetingActor, AbilityTooltipSubject.Enemy, false);
-				}
-				return true;
 			}
 		}
 		return false;

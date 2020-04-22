@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections;
 using UnityEngine;
 
@@ -14,29 +13,29 @@ namespace TMPro
 		{
 			if (!tweenInfo.ValidTarget())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						yield break;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TweenRunner.<Start>c__Iterator0.MoveNext()).MethodHandle;
-				}
-				yield break;
 			}
-			float elapsedTime = 0f;
-			while (elapsedTime < tweenInfo.duration)
+			float elapsedTime2 = 0f;
+			if (elapsedTime2 < tweenInfo.duration)
 			{
-				float num = elapsedTime;
+				float num = elapsedTime2;
 				float num2;
 				if (tweenInfo.ignoreTimeScale)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -51,96 +50,88 @@ namespace TMPro
 				{
 					num2 = Time.deltaTime;
 				}
-				elapsedTime = num + num2;
-				float percentage = Mathf.Clamp01(elapsedTime / tweenInfo.duration);
+				elapsedTime2 = num + num2;
+				float percentage = Mathf.Clamp01(elapsedTime2 / tweenInfo.duration);
 				tweenInfo.TweenValue(percentage);
 				yield return null;
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				/*Error: Unable to find new state assignment for yield return*/;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				tweenInfo.TweenValue(1f);
+				yield break;
 			}
-			tweenInfo.TweenValue(1f);
-			yield break;
 		}
 
 		public void Init(MonoBehaviour coroutineContainer)
 		{
-			this.m_CoroutineContainer = coroutineContainer;
+			m_CoroutineContainer = coroutineContainer;
 		}
 
 		public void StartTween(T info)
 		{
-			if (this.m_CoroutineContainer == null)
+			if (m_CoroutineContainer == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						Debug.LogWarning("Coroutine container not configured... did you forget to call Init?");
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TweenRunner.StartTween(T)).MethodHandle;
-				}
-				Debug.LogWarning("Coroutine container not configured... did you forget to call Init?");
-				return;
 			}
-			this.StopTween();
-			if (!this.m_CoroutineContainer.gameObject.activeInHierarchy)
+			StopTween();
+			if (!m_CoroutineContainer.gameObject.activeInHierarchy)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						info.TweenValue(1f);
+						return;
 					}
-					break;
 				}
-				info.TweenValue(1f);
-				return;
 			}
-			this.m_Tween = TweenRunner<T>.Start(info);
-			this.m_CoroutineContainer.StartCoroutine(this.m_Tween);
+			m_Tween = Start(info);
+			m_CoroutineContainer.StartCoroutine(m_Tween);
 		}
 
 		public void StopTween()
 		{
-			if (this.m_Tween != null)
+			if (m_Tween == null)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (1)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TweenRunner.StopTween()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_CoroutineContainer.StopCoroutine(this.m_Tween);
-				this.m_Tween = null;
+				m_CoroutineContainer.StopCoroutine(m_Tween);
+				m_Tween = null;
+				return;
 			}
 		}
 	}

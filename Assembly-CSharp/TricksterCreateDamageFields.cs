@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,9 +44,9 @@ public class TricksterCreateDamageFields : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -56,27 +55,27 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Ground Fields";
+			m_abilityName = "Ground Fields";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		if (this.m_afterImageSyncComp == null)
+		if (m_afterImageSyncComp == null)
 		{
-			this.m_afterImageSyncComp = base.GetComponent<TricksterAfterImageNetworkBehaviour>();
+			m_afterImageSyncComp = GetComponent<TricksterAfterImageNetworkBehaviour>();
 		}
-		this.SetCachedFields();
-		GroundEffectField groundFieldInfo = this.GetGroundFieldInfo();
-		AbilityAreaShape abilityAreaShape;
-		if (this.UseInitialShapeOverride())
+		SetCachedFields();
+		GroundEffectField groundFieldInfo = GetGroundFieldInfo();
+		AbilityAreaShape num;
+		if (UseInitialShapeOverride())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -85,26 +84,26 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.Setup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			abilityAreaShape = this.GetInitialShapeOverride();
+			num = GetInitialShapeOverride();
 		}
 		else
 		{
-			abilityAreaShape = groundFieldInfo.shape;
+			num = groundFieldInfo.shape;
 		}
-		AbilityAreaShape shape = abilityAreaShape;
-		base.Targeter = new AbilityUtil_Targeter_TricksterFlare(this, this.m_afterImageSyncComp, shape, groundFieldInfo.penetrateLos, groundFieldInfo.IncludeEnemies(), groundFieldInfo.IncludeAllies(), this.AddFieldAroundSelf());
+		AbilityAreaShape shape = num;
+		base.Targeter = new AbilityUtil_Targeter_TricksterFlare(this, m_afterImageSyncComp, shape, groundFieldInfo.penetrateLos, groundFieldInfo.IncludeEnemies(), groundFieldInfo.IncludeAllies(), AddFieldAroundSelf());
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedSelfEffectForMultiHit;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -113,26 +112,26 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedSelfEffectForMultiHit = this.m_abilityMod.m_selfEffectForMultiHitMod.GetModifiedValue(this.m_selfEffectForMultiHit);
+			cachedSelfEffectForMultiHit = m_abilityMod.m_selfEffectForMultiHitMod.GetModifiedValue(m_selfEffectForMultiHit);
 		}
 		else
 		{
-			cachedSelfEffectForMultiHit = this.m_selfEffectForMultiHit;
+			cachedSelfEffectForMultiHit = m_selfEffectForMultiHit;
 		}
-		this.m_cachedSelfEffectForMultiHit = cachedSelfEffectForMultiHit;
-		this.m_cachedExtraEnemyEffectOnCast = ((!this.m_abilityMod) ? this.m_extraEnemyEffectOnCast : this.m_abilityMod.m_extraEnemyEffectOnCastMod.GetModifiedValue(this.m_extraEnemyEffectOnCast));
+		m_cachedSelfEffectForMultiHit = cachedSelfEffectForMultiHit;
+		m_cachedExtraEnemyEffectOnCast = ((!m_abilityMod) ? m_extraEnemyEffectOnCast : m_abilityMod.m_extraEnemyEffectOnCastMod.GetModifiedValue(m_extraEnemyEffectOnCast));
 	}
 
 	public bool AddFieldAroundSelf()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -141,15 +140,15 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.AddFieldAroundSelf()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_addFieldAroundSelfMod.GetModifiedValue(this.m_addFieldAroundSelf);
+			result = m_abilityMod.m_addFieldAroundSelfMod.GetModifiedValue(m_addFieldAroundSelf);
 		}
 		else
 		{
-			result = this.m_addFieldAroundSelf;
+			result = m_addFieldAroundSelf;
 		}
 		return result;
 	}
@@ -157,9 +156,9 @@ public class TricksterCreateDamageFields : Ability
 	public bool UseInitialShapeOverride()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -168,15 +167,15 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.UseInitialShapeOverride()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_useInitialShapeOverrideMod.GetModifiedValue(this.m_useInitialShapeOverride);
+			result = m_abilityMod.m_useInitialShapeOverrideMod.GetModifiedValue(m_useInitialShapeOverride);
 		}
 		else
 		{
-			result = this.m_useInitialShapeOverride;
+			result = m_useInitialShapeOverride;
 		}
 		return result;
 	}
@@ -184,9 +183,9 @@ public class TricksterCreateDamageFields : Ability
 	public AbilityAreaShape GetInitialShapeOverride()
 	{
 		AbilityAreaShape result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -195,15 +194,15 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.GetInitialShapeOverride()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_initialShapeOverrideMod.GetModifiedValue(this.m_initialShapeOverride);
+			result = m_abilityMod.m_initialShapeOverrideMod.GetModifiedValue(m_initialShapeOverride);
 		}
 		else
 		{
-			result = this.m_initialShapeOverride;
+			result = m_initialShapeOverride;
 		}
 		return result;
 	}
@@ -211,9 +210,9 @@ public class TricksterCreateDamageFields : Ability
 	public GroundEffectField GetGroundFieldInfo()
 	{
 		GroundEffectField result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -222,15 +221,15 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.GetGroundFieldInfo()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_groundFieldInfoMod.GetModifiedValue(this.m_groundFieldInfo);
+			result = m_abilityMod.m_groundFieldInfoMod.GetModifiedValue(m_groundFieldInfo);
 		}
 		else
 		{
-			result = this.m_groundFieldInfo;
+			result = m_groundFieldInfo;
 		}
 		return result;
 	}
@@ -238,9 +237,9 @@ public class TricksterCreateDamageFields : Ability
 	public StandardEffectInfo GetSelfEffectForMultiHit()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedSelfEffectForMultiHit != null)
+		if (m_cachedSelfEffectForMultiHit != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -249,35 +248,35 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.GetSelfEffectForMultiHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedSelfEffectForMultiHit;
+			result = m_cachedSelfEffectForMultiHit;
 		}
 		else
 		{
-			result = this.m_selfEffectForMultiHit;
+			result = m_selfEffectForMultiHit;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetExtraEnemyEffectOnCast()
 	{
-		return (this.m_cachedExtraEnemyEffectOnCast == null) ? this.m_extraEnemyEffectOnCast : this.m_cachedExtraEnemyEffectOnCast;
+		return (m_cachedExtraEnemyEffectOnCast == null) ? m_extraEnemyEffectOnCast : m_cachedExtraEnemyEffectOnCast;
 	}
 
 	public bool SpawnSpoilForEnemyHit()
 	{
-		return (!this.m_abilityMod) ? this.m_spawnSpoilForEnemyHit : this.m_abilityMod.m_spawnSpoilForEnemyHitMod.GetModifiedValue(this.m_spawnSpoilForEnemyHit);
+		return (!m_abilityMod) ? m_spawnSpoilForEnemyHit : m_abilityMod.m_spawnSpoilForEnemyHitMod.GetModifiedValue(m_spawnSpoilForEnemyHit);
 	}
 
 	public bool SpawnSpoilForAllyHit()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -286,15 +285,15 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.SpawnSpoilForAllyHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_spawnSpoilForAllyHitMod.GetModifiedValue(this.m_spawnSpoilForAllyHit);
+			result = m_abilityMod.m_spawnSpoilForAllyHitMod.GetModifiedValue(m_spawnSpoilForAllyHit);
 		}
 		else
 		{
-			result = this.m_spawnSpoilForAllyHit;
+			result = m_spawnSpoilForAllyHit;
 		}
 		return result;
 	}
@@ -302,9 +301,9 @@ public class TricksterCreateDamageFields : Ability
 	public bool OnlySpawnSpoilOnMultiHit()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -313,34 +312,34 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.OnlySpawnSpoilOnMultiHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_onlySpawnSpoilOnMultiHitMod.GetModifiedValue(this.m_onlySpawnSpoilOnMultiHit);
+			result = m_abilityMod.m_onlySpawnSpoilOnMultiHitMod.GetModifiedValue(m_onlySpawnSpoilOnMultiHit);
 		}
 		else
 		{
-			result = this.m_onlySpawnSpoilOnMultiHit;
+			result = m_onlySpawnSpoilOnMultiHit;
 		}
 		return result;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		GroundEffectField groundFieldInfo = this.GetGroundFieldInfo();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, groundFieldInfo.damageAmount);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Secondary, groundFieldInfo.healAmount);
-		AbilityTooltipHelper.ReportEnergy(ref result, AbilityTooltipSubject.Secondary, groundFieldInfo.energyGain);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		GroundEffectField groundFieldInfo = GetGroundFieldInfo();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, groundFieldInfo.damageAmount);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Secondary, groundFieldInfo.healAmount);
+		AbilityTooltipHelper.ReportEnergy(ref numbers, AbilityTooltipSubject.Secondary, groundFieldInfo.energyGain);
+		return numbers;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (!this.AddFieldAroundSelf())
+		if (!AddFieldAroundSelf())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -349,13 +348,13 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.CustomCanCastValidation(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_afterImageSyncComp != null)
+			if (m_afterImageSyncComp != null)
 			{
-				return this.m_afterImageSyncComp.HasVaidAfterImages();
+				return m_afterImageSyncComp.HasVaidAfterImages();
 			}
 		}
 		return true;
@@ -363,11 +362,11 @@ public class TricksterCreateDamageFields : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
-		GroundEffectField groundFieldInfo = this.GetGroundFieldInfo();
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
+		GroundEffectField groundFieldInfo = GetGroundFieldInfo();
 		if (groundFieldInfo.IncludeEnemies())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -376,15 +375,15 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Ability.AddNameplateValueForOverlap(ref result, base.Targeter, targetActor, currentTargeterIndex, groundFieldInfo.damageAmount, groundFieldInfo.subsequentDamageAmount, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
+			Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeter, targetActor, currentTargeterIndex, groundFieldInfo.damageAmount, groundFieldInfo.subsequentDamageAmount);
 		}
 		if (groundFieldInfo.IncludeAllies())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -393,20 +392,20 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			Ability.AddNameplateValueForOverlap(ref result, base.Targeter, targetActor, currentTargeterIndex, groundFieldInfo.healAmount, groundFieldInfo.subsequentHealAmount, AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Secondary);
-			Ability.AddNameplateValueForOverlap(ref result, base.Targeter, targetActor, currentTargeterIndex, groundFieldInfo.energyGain, groundFieldInfo.subsequentEnergyGain, AbilityTooltipSymbol.Energy, AbilityTooltipSubject.Secondary);
+			Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeter, targetActor, currentTargeterIndex, groundFieldInfo.healAmount, groundFieldInfo.subsequentHealAmount, AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Secondary);
+			Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeter, targetActor, currentTargeterIndex, groundFieldInfo.energyGain, groundFieldInfo.subsequentEnergyGain, AbilityTooltipSymbol.Energy, AbilityTooltipSubject.Secondary);
 		}
-		return result;
+		return symbolToValue;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_TricksterCreateDamageFields abilityMod_TricksterCreateDamageFields = modAsBase as AbilityMod_TricksterCreateDamageFields;
-		this.m_groundFieldInfo.AddTooltipTokens(tokens, "GroundEffect", false, null);
+		m_groundFieldInfo.AddTooltipTokens(tokens, "GroundEffect");
 		StandardEffectInfo effectInfo;
-		if (abilityMod_TricksterCreateDamageFields)
+		if ((bool)abilityMod_TricksterCreateDamageFields)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -415,21 +414,21 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			effectInfo = abilityMod_TricksterCreateDamageFields.m_selfEffectForMultiHitMod.GetModifiedValue(this.m_selfEffectForMultiHit);
+			effectInfo = abilityMod_TricksterCreateDamageFields.m_selfEffectForMultiHitMod.GetModifiedValue(m_selfEffectForMultiHit);
 		}
 		else
 		{
-			effectInfo = this.m_selfEffectForMultiHit;
+			effectInfo = m_selfEffectForMultiHit;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "SelfEffectForMultiHit", this.m_selfEffectForMultiHit, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "SelfEffectForMultiHit", m_selfEffectForMultiHit);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_TricksterCreateDamageFields)
+		if ((bool)abilityMod_TricksterCreateDamageFields)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -438,26 +437,26 @@ public class TricksterCreateDamageFields : Ability
 				}
 				break;
 			}
-			effectInfo2 = abilityMod_TricksterCreateDamageFields.m_extraEnemyEffectOnCastMod.GetModifiedValue(this.m_extraEnemyEffectOnCast);
+			effectInfo2 = abilityMod_TricksterCreateDamageFields.m_extraEnemyEffectOnCastMod.GetModifiedValue(m_extraEnemyEffectOnCast);
 		}
 		else
 		{
-			effectInfo2 = this.m_extraEnemyEffectOnCast;
+			effectInfo2 = m_extraEnemyEffectOnCast;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "ExtraEnemyEffectOnCast", this.m_extraEnemyEffectOnCast, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "ExtraEnemyEffectOnCast", m_extraEnemyEffectOnCast);
 	}
 
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (actorData != null)
+				ActorData current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -466,13 +465,13 @@ public class TricksterCreateDamageFields : Ability
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (!actorData.\u000E())
+					if (!current.IsDead())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -481,34 +480,35 @@ public class TricksterCreateDamageFields : Ability
 							}
 							break;
 						}
-						this.m_afterImageSyncComp.TurnToPosition(actorData, targetPos);
-						Animator animator = actorData.\u000E();
-						animator.SetInteger("Attack", animationIndex);
-						animator.SetBool("CinematicCam", cinecam);
-						animator.SetTrigger("StartAttack");
+						m_afterImageSyncComp.TurnToPosition(current, targetPos);
+						Animator modelAnimator = current.GetModelAnimator();
+						modelAnimator.SetInteger("Attack", animationIndex);
+						modelAnimator.SetBool("CinematicCam", cinecam);
+						modelAnimator.SetTrigger("StartAttack");
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public override void OnAbilityAnimationRequestProcessed(ActorData caster)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
-		foreach (ActorData actorData in validAfterImages)
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
+		foreach (ActorData item in validAfterImages)
 		{
-			if (actorData != null)
+			if (item != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -517,13 +517,13 @@ public class TricksterCreateDamageFields : Ability
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (!actorData.\u000E())
+				if (!item.IsDead())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -532,9 +532,9 @@ public class TricksterCreateDamageFields : Ability
 						}
 						break;
 					}
-					Animator animator = actorData.\u000E();
-					animator.SetInteger("Attack", 0);
-					animator.SetBool("CinematicCam", false);
+					Animator modelAnimator = item.GetModelAnimator();
+					modelAnimator.SetInteger("Attack", 0);
+					modelAnimator.SetBool("CinematicCam", false);
 				}
 			}
 		}
@@ -542,29 +542,30 @@ public class TricksterCreateDamageFields : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_TricksterCreateDamageFields))
+		if (abilityMod.GetType() != typeof(AbilityMod_TricksterCreateDamageFields))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_TricksterCreateDamageFields);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_TricksterCreateDamageFields);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

@@ -1,8 +1,7 @@
-﻿using System;
-
 public class SlashCommand_Help : SlashCommand
 {
-	public SlashCommand_Help() : base("/help", SlashCommandType.Everywhere)
+	public SlashCommand_Help()
+		: base("/help", SlashCommandType.Everywhere)
 	{
 	}
 
@@ -16,7 +15,7 @@ public class SlashCommand_Help : SlashCommand
 				{
 					Text = slashCommand.Description,
 					MessageType = ConsoleMessageType.SystemMessage
-				}, null);
+				});
 			}
 		}
 	}

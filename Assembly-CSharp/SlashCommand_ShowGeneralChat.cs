@@ -1,8 +1,7 @@
-﻿using System;
-
 public class SlashCommand_ShowGeneralChat : SlashCommand
 {
-	public SlashCommand_ShowGeneralChat() : base("/showgeneralchat", SlashCommandType.InFrontEnd)
+	public SlashCommand_ShowGeneralChat()
+		: base("/showgeneralchat", SlashCommandType.InFrontEnd)
 	{
 	}
 
@@ -18,26 +17,30 @@ public class SlashCommand_ShowGeneralChat : SlashCommand
 		{
 			Options_UI.Get().SetShowGlobalChat(true);
 			message.Text = StringUtil.TR("GlobalChatDisplayed", "SlashCommand");
-			TextConsole.Get().Write(message, null);
+			TextConsole.Get().Write(message);
 		}
-		else if (arguments.EqualsIgnoreCase(StringUtil.TR("off", "SlashCommand")))
+		else
 		{
-			for (;;)
+			if (!arguments.EqualsIgnoreCase(StringUtil.TR("off", "SlashCommand")))
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				Options_UI.Get().SetShowGlobalChat(false);
+				message.Text = StringUtil.TR("GlobalChatHidden", "SlashCommand");
+				TextConsole.Get().Write(message);
+				return;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_ShowGeneralChat.OnSlashCommand(string)).MethodHandle;
-			}
-			Options_UI.Get().SetShowGlobalChat(false);
-			message.Text = StringUtil.TR("GlobalChatHidden", "SlashCommand");
-			TextConsole.Get().Write(message, null);
 		}
 	}
 }

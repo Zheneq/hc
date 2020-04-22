@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,68 +37,67 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ScoundrelEvasionRoll scoundrelEvasionRoll = targetAbility as ScoundrelEvasionRoll;
-		if (scoundrelEvasionRoll != null)
+		if (!(scoundrelEvasionRoll != null))
 		{
-			AbilityMod.AddToken(tokens, this.m_extraEnergyPerStepMod, "ExtraEnergyPerStep", string.Empty, scoundrelEvasionRoll.m_extraEnergyPerStep, true, false);
-			if (this.m_dropTrapWireOnStart)
+			return;
+		}
+		AbilityMod.AddToken(tokens, m_extraEnergyPerStepMod, "ExtraEnergyPerStep", string.Empty, scoundrelEvasionRoll.m_extraEnergyPerStep);
+		if (m_dropTrapWireOnStart)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (3)
 				{
-					switch (3)
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_trapWireBarrierData != null)
+			{
+				while (true)
+				{
+					switch (1)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
+				if (m_trapwirePattern != 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScoundrelEvasionRoll.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-				}
-				if (this.m_trapWireBarrierData != null)
-				{
-					for (;;)
+					while (true)
 					{
-						switch (1)
+						switch (4)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (this.m_trapwirePattern != AbilityGridPattern.NoPattern)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_trapWireBarrierData.AddTooltipTokens(tokens, "TrapBarrier", false, null);
-					}
+					m_trapWireBarrierData.AddTooltipTokens(tokens, "TrapBarrier");
 				}
 			}
-			AbilityMod.AddToken_EffectInfo(tokens, this.m_additionalEffectOnStart, "AdditionalEffectOnStart", null, false);
-			AbilityMod.AddToken_EffectInfo(tokens, this.m_effectToSelfForLandingInBrush, "EffectOnSelfIfLandInBrush", null, false);
 		}
+		AbilityMod.AddToken_EffectInfo(tokens, m_additionalEffectOnStart, "AdditionalEffectOnStart", null, false);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectToSelfForLandingInBrush, "EffectOnSelfIfLandInBrush", null, false);
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ScoundrelEvasionRoll scoundrelEvasionRoll = base.GetTargetAbilityOnAbilityData(abilityData) as ScoundrelEvasionRoll;
+		ScoundrelEvasionRoll scoundrelEvasionRoll = GetTargetAbilityOnAbilityData(abilityData) as ScoundrelEvasionRoll;
 		bool flag = scoundrelEvasionRoll != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt extraEnergyPerStepMod = this.m_extraEnergyPerStepMod;
-		string prefix = "[ExtraEnergyPerStep]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt extraEnergyPerStepMod = m_extraEnergyPerStepMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -107,9 +106,9 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScoundrelEvasionRoll.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = scoundrelEvasionRoll.m_extraEnergyPerStep;
 		}
@@ -117,10 +116,10 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + base.PropDesc(extraEnergyPerStepMod, prefix, showBaseVal, baseVal);
-		if (this.m_dropTrapWireOnStart && this.m_trapWireBarrierData != null)
+		empty = str + PropDesc(extraEnergyPerStepMod, "[ExtraEnergyPerStep]", flag, baseVal);
+		if (m_dropTrapWireOnStart && m_trapWireBarrierData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -129,9 +128,9 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 				}
 				break;
 			}
-			if (this.m_trapwirePattern != AbilityGridPattern.NoPattern)
+			if (m_trapwirePattern != 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -140,14 +139,14 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 					}
 					break;
 				}
-				text = text + "Drops TrapWire with Pattern[ " + this.m_trapwirePattern.ToString() + " ]\n";
-				text += this.m_trapWireBarrierData.GetInEditorDescription("{ Barrier Data }", string.Empty, flag, null);
+				empty = empty + "Drops TrapWire with Pattern[ " + m_trapwirePattern.ToString() + " ]\n";
+				empty += m_trapWireBarrierData.GetInEditorDescription("{ Barrier Data }", string.Empty, flag);
 			}
 		}
-		text += AbilityModHelper.GetModEffectInfoDesc(this.m_additionalEffectOnStart, "{ Additional Effect On Start (can have Absorb/Heal) }", string.Empty, flag, null);
-		if (this.m_techPointGainPerAdjacentAlly > 0)
+		empty += AbilityModHelper.GetModEffectInfoDesc(m_additionalEffectOnStart, "{ Additional Effect On Start (can have Absorb/Heal) }", string.Empty, flag);
+		if (m_techPointGainPerAdjacentAlly > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -156,18 +155,12 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 				}
 				break;
 			}
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"[Tech Point Gain Per Adjacent Ally] = ",
-				this.m_techPointGainPerAdjacentAlly,
-				"\n"
-			});
+			string text = empty;
+			empty = text + "[Tech Point Gain Per Adjacent Ally] = " + m_techPointGainPerAdjacentAlly + "\n";
 		}
-		if (this.m_techPointGrantedToAdjacentAllies > 0)
+		if (m_techPointGrantedToAdjacentAllies > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -176,15 +169,9 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 				}
 				break;
 			}
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"[Tech Point Granted To Adjacent Allies] = ",
-				this.m_techPointGrantedToAdjacentAllies,
-				"\n"
-			});
+			string text = empty;
+			empty = text + "[Tech Point Granted To Adjacent Allies] = " + m_techPointGrantedToAdjacentAllies + "\n";
 		}
-		return text + AbilityModHelper.GetModEffectInfoDesc(this.m_effectToSelfForLandingInBrush, "{ Effect On Self If You Land In Brush }", string.Empty, flag, null);
+		return empty + AbilityModHelper.GetModEffectInfoDesc(m_effectToSelfForLandingInBrush, "{ Effect On Self If You Land In Brush }", string.Empty, flag);
 	}
 }

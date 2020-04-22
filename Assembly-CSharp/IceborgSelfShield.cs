@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class IceborgSelfShield : GenericAbility_Container
@@ -21,45 +20,45 @@ public class IceborgSelfShield : GenericAbility_Container
 	public override List<string> GetContextNamesForEditor()
 	{
 		List<string> contextNamesForEditor = base.GetContextNamesForEditor();
-		contextNamesForEditor.Add(ContextKeys.\u0012.\u0012());
+		contextNamesForEditor.Add(ContextKeys._0012.GetName());
 		return contextNamesForEditor;
 	}
 
 	public override string GetUsageForEditor()
 	{
 		string usageForEditor = base.GetUsageForEditor();
-		return usageForEditor + ContextVars.\u0015(ContextKeys.\u0012.\u0012(), "set to 1 if caster is low health, 0 otherwise", false);
+		return usageForEditor + ContextVars.GetDebugString(ContextKeys._0012.GetName(), "set to 1 if caster is low health, 0 otherwise", false);
 	}
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
+		m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		base.SetupTargetersAndCachedVars();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		base.AddTokenInt(tokens, "LowHealthThresh", string.Empty, this.m_lowHealthThresh, false);
-		base.AddTokenInt(tokens, "ShieldOnNextTurnIfDepleted", string.Empty, this.m_shieldOnNextTurnIfDepleted, false);
+		AddTokenInt(tokens, "LowHealthThresh", string.Empty, m_lowHealthThresh);
+		AddTokenInt(tokens, "ShieldOnNextTurnIfDepleted", string.Empty, m_shieldOnNextTurnIfDepleted);
 	}
 
 	public int GetLowHealthThresh()
 	{
-		return (!(this.m_abilityMod != null)) ? this.m_lowHealthThresh : this.m_abilityMod.m_lowHealthThreshMod.GetModifiedValue(this.m_lowHealthThresh);
+		return (!(m_abilityMod != null)) ? m_lowHealthThresh : m_abilityMod.m_lowHealthThreshMod.GetModifiedValue(m_lowHealthThresh);
 	}
 
 	public int GetShieldOnNextTurnIfDepleted()
 	{
-		return (!(this.m_abilityMod != null)) ? this.m_shieldOnNextTurnIfDepleted : this.m_abilityMod.m_shieldOnNextTurnIfDepletedMod.GetModifiedValue(this.m_shieldOnNextTurnIfDepleted);
+		return (!(m_abilityMod != null)) ? m_shieldOnNextTurnIfDepleted : m_abilityMod.m_shieldOnNextTurnIfDepletedMod.GetModifiedValue(m_shieldOnNextTurnIfDepleted);
 	}
 
 	public bool IsCasterLowHealth(ActorData caster)
 	{
 		bool result = false;
-		if (this.GetLowHealthThresh() > 0)
+		if (GetLowHealthThresh() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -68,13 +67,13 @@ public class IceborgSelfShield : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgSelfShield.IsCasterLowHealth(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (caster.HitPoints < this.GetLowHealthThresh())
+			if (caster.HitPoints < GetLowHealthThresh())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -91,9 +90,9 @@ public class IceborgSelfShield : GenericAbility_Container
 
 	public override List<StatusType> GetStatusToApplyWhenRequested()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -102,13 +101,13 @@ public class IceborgSelfShield : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgSelfShield.GetStatusToApplyWhenRequested()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComp != null)
+			if (m_syncComp != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -117,18 +116,18 @@ public class IceborgSelfShield : GenericAbility_Container
 					}
 					break;
 				}
-				if (this.m_syncComp.m_selfShieldLowHealthOnTurnStart)
+				if (m_syncComp.m_selfShieldLowHealthOnTurnStart)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return m_abilityMod.m_lowHealthStatusWhenRequested;
 						}
-						break;
 					}
-					return this.m_abilityMod.m_lowHealthStatusWhenRequested;
 				}
 			}
 		}
@@ -137,11 +136,11 @@ public class IceborgSelfShield : GenericAbility_Container
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		this.m_abilityMod = (abilityMod as AbilityMod_IceborgSelfShield);
+		m_abilityMod = (abilityMod as AbilityMod_IceborgSelfShield);
 	}
 
 	protected override void GenModImpl_ClearModRef()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 }

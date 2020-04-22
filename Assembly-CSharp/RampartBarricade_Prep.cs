@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ public class RampartBarricade_Prep : Ability
 	public bool m_allowAimAtDiagonals;
 
 	[Header("-- Knockback Hit Damage and Effect")]
-	public int m_damageAmount = 0xA;
+	public int m_damageAmount = 10;
 
 	public StandardEffectInfo m_enemyHitEffect;
 
@@ -38,22 +37,22 @@ public class RampartBarricade_Prep : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Barricade";
+			m_abilityName = "Barricade";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		if (this.m_passive == null)
+		if (m_passive == null)
 		{
-			this.m_passive = (base.GetComponent<PassiveData>().GetPassiveOfType(typeof(Passive_Rampart)) as Passive_Rampart);
+			m_passive = (GetComponent<PassiveData>().GetPassiveOfType(typeof(Passive_Rampart)) as Passive_Rampart);
 		}
-		if (this.m_passive != null)
+		if (m_passive != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -62,15 +61,15 @@ public class RampartBarricade_Prep : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.Setup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Passive_Rampart passive = this.m_passive;
-			AbilityModPropertyBarrierDataV2 cachedShieldBarrierData;
-			if (this.m_abilityMod != null)
+			Passive_Rampart passive = m_passive;
+			object cachedShieldBarrierData;
+			if (m_abilityMod != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -79,29 +78,29 @@ public class RampartBarricade_Prep : Ability
 					}
 					break;
 				}
-				cachedShieldBarrierData = this.m_abilityMod.m_shieldBarrierDataMod;
+				cachedShieldBarrierData = m_abilityMod.m_shieldBarrierDataMod;
 			}
 			else
 			{
 				cachedShieldBarrierData = null;
 			}
-			passive.SetCachedShieldBarrierData(cachedShieldBarrierData);
+			passive.SetCachedShieldBarrierData((AbilityModPropertyBarrierDataV2)cachedShieldBarrierData);
 		}
 		else
 		{
-			Log.Error(base.GetDebugIdentifier(string.Empty) + " did not find passive component Passive_Rampart", new object[0]);
+			Log.Error(GetDebugIdentifier(string.Empty) + " did not find passive component Passive_Rampart");
 		}
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_RampartKnockbackBarrier(this, this.GetLaserWidth(), this.GetLaserRange(), this.LaserLengthIgnoreLos(), this.GetKnockbackDistance(), this.m_knockbackType, this.PenetrateLos(), this.m_snapToGrid, this.AllowAimAtDiagonals());
-		base.Targeter.SetAffectedGroups(true, false, this.AffectCaster());
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_RampartKnockbackBarrier(this, GetLaserWidth(), GetLaserRange(), LaserLengthIgnoreLos(), GetKnockbackDistance(), m_knockbackType, PenetrateLos(), m_snapToGrid, AllowAimAtDiagonals());
+		base.Targeter.SetAffectedGroups(true, false, AffectCaster());
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -110,25 +109,25 @@ public class RampartBarricade_Prep : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			cachedEnemyHitEffect = this.m_enemyHitEffect;
+			cachedEnemyHitEffect = m_enemyHitEffect;
 		}
-		this.m_cachedEnemyHitEffect = cachedEnemyHitEffect;
+		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
 	}
 
 	public bool AllowAimAtDiagonals()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -137,30 +136,30 @@ public class RampartBarricade_Prep : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.AllowAimAtDiagonals()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_allowAimAtDiagonalsMod.GetModifiedValue(this.m_allowAimAtDiagonals);
+			result = m_abilityMod.m_allowAimAtDiagonalsMod.GetModifiedValue(m_allowAimAtDiagonals);
 		}
 		else
 		{
-			result = this.m_allowAimAtDiagonals;
+			result = m_allowAimAtDiagonals;
 		}
 		return result;
 	}
 
 	public int GetDamageAmount()
 	{
-		return (!this.m_abilityMod) ? this.m_damageAmount : this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+		return (!m_abilityMod) ? m_damageAmount : m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyHitEffect != null)
+		if (m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -169,30 +168,30 @@ public class RampartBarricade_Prep : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.GetEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemyHitEffect;
+			result = m_cachedEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyHitEffect;
+			result = m_enemyHitEffect;
 		}
 		return result;
 	}
 
 	public float GetLaserRange()
 	{
-		return (!this.m_abilityMod) ? this.m_laserRange : this.m_abilityMod.m_laserRangeMod.GetModifiedValue(this.m_laserRange);
+		return (!m_abilityMod) ? m_laserRange : m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange);
 	}
 
 	public bool LaserLengthIgnoreLos()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -201,30 +200,30 @@ public class RampartBarricade_Prep : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.LaserLengthIgnoreLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_laserLengthIgnoreLosMod.GetModifiedValue(this.m_laserLengthIgnoreLos);
+			result = m_abilityMod.m_laserLengthIgnoreLosMod.GetModifiedValue(m_laserLengthIgnoreLos);
 		}
 		else
 		{
-			result = this.m_laserLengthIgnoreLos;
+			result = m_laserLengthIgnoreLos;
 		}
 		return result;
 	}
 
 	public bool PenetrateLos()
 	{
-		return (!this.m_abilityMod) ? this.m_penetrateLos : this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
+		return (!m_abilityMod) ? m_penetrateLos : m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 	}
 
 	public float GetKnockbackDistance()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -233,35 +232,35 @@ public class RampartBarricade_Prep : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.GetKnockbackDistance()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(this.m_knockbackDistance);
+			result = m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
 		}
 		else
 		{
-			result = this.m_knockbackDistance;
+			result = m_knockbackDistance;
 		}
 		return result;
 	}
 
 	public float GetLaserWidth()
 	{
-		return this.m_passive.GetShieldBarrierData().m_width;
+		return m_passive.GetShieldBarrierData().m_width;
 	}
 
 	public KnockbackType GetKnockbackType()
 	{
-		return this.m_knockbackType;
+		return m_knockbackType;
 	}
 
 	public bool AffectCaster()
 	{
-		bool result;
-		if (this.m_abilityMod != null)
+		int result;
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -270,33 +269,33 @@ public class RampartBarricade_Prep : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.AffectCaster()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_effectToSelfOnCast.m_applyEffect;
+			result = (m_abilityMod.m_effectToSelfOnCast.m_applyEffect ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetDamageAmount());
-		this.m_enemyHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		base.AppendTooltipNumbersFromBaseModEffects(ref result, AbilityTooltipSubject.Primary, AbilityTooltipSubject.Ally, AbilityTooltipSubject.Self);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetDamageAmount());
+		m_enemyHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		AppendTooltipNumbersFromBaseModEffects(ref numbers);
+		return numbers;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RampartBarricade_Prep))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -305,31 +304,30 @@ public class RampartBarricade_Prep : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_RampartBarricade_Prep);
+			m_abilityMod = (abilityMod as AbilityMod_RampartBarricade_Prep);
 		}
-		this.Setup();
+		Setup();
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
 		AbilityMod_RampartBarricade_Prep abilityMod_RampartBarricade_Prep = modAsBase as AbilityMod_RampartBarricade_Prep;
-		string name = "DamageAmount";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_RampartBarricade_Prep)
+		if ((bool)abilityMod_RampartBarricade_Prep)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -338,21 +336,21 @@ public class RampartBarricade_Prep : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_RampartBarricade_Prep.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+			val = abilityMod_RampartBarricade_Prep.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
 		{
-			val = this.m_damageAmount;
+			val = m_damageAmount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
+		AddTokenInt(tokens, "DamageAmount", empty, val);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_RampartBarricade_Prep)
+		if ((bool)abilityMod_RampartBarricade_Prep)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -361,61 +359,59 @@ public class RampartBarricade_Prep : Ability
 				}
 				break;
 			}
-			effectInfo = abilityMod_RampartBarricade_Prep.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			effectInfo = abilityMod_RampartBarricade_Prep.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_enemyHitEffect;
+			effectInfo = m_enemyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", this.m_enemyHitEffect, true);
-		Passive_Rampart component = base.GetComponent<Passive_Rampart>();
-		if (component != null)
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", m_enemyHitEffect);
+		Passive_Rampart component = GetComponent<Passive_Rampart>();
+		if (!(component != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			if (component.m_normalShieldBarrierData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					component.m_normalShieldBarrierData.AddTooltipTokens(tokens, "ShieldBarrier");
+					return;
 				}
-				component.m_normalShieldBarrierData.AddTooltipTokens(tokens, "ShieldBarrier", false, null);
 			}
+			return;
 		}
 	}
 
 	public override Vector3 GetRotateToTargetPos(List<AbilityTarget> targets, ActorData caster)
 	{
-		Vector3 a;
-		Vector3 b;
-		this.GetBarrierPositionAndFacing(targets, out a, out b);
-		return a + b;
+		GetBarrierPositionAndFacing(targets, out Vector3 position, out Vector3 facing);
+		return position + facing;
 	}
 
 	public void GetBarrierPositionAndFacing(List<AbilityTarget> targets, out Vector3 position, out Vector3 facing)
 	{
 		facing = targets[0].AimDirection;
 		position = targets[0].FreePos;
-		if (this.m_snapToGrid)
+		if (m_snapToGrid)
 		{
-			BoardSquare boardSquare = Board.\u000E().\u000E(targets[0].GridPos);
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+			if (boardSquareSafe != null)
 			{
-				Vector3 b;
-				facing = VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquare, targets[0].FreePos, this.AllowAimAtDiagonals(), out b);
-				position = boardSquare.ToVector3() + b;
+				facing = VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquareSafe, targets[0].FreePos, AllowAimAtDiagonals(), out Vector3 offset);
+				position = boardSquareSafe.ToVector3() + offset;
 			}
 		}
 	}

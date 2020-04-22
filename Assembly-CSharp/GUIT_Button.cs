@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 [RequireComponent(typeof(GUITexture))]
@@ -24,145 +23,147 @@ public class GUIT_Button : MonoBehaviour
 
 	private void Awake()
 	{
-		base.GetComponentInChildren<GUIText>().material.color = this.labelColor;
-		this.UpdateImage();
+		GetComponentInChildren<GUIText>().material.color = labelColor;
+		UpdateImage();
 	}
 
 	private void Update()
 	{
-		if (base.GetComponent<GUITexture>().GetScreenRect().Contains(Input.mousePosition))
+		if (GetComponent<GUITexture>().GetScreenRect().Contains(Input.mousePosition))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GUIT_Button.Update()).MethodHandle;
-			}
-			if (!this.over)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (!over)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						OnOver();
+					}
+					if (Input.GetMouseButtonDown(0))
+					{
+						OnClick();
+					}
+					return;
 				}
-				this.OnOver();
-			}
-			if (Input.GetMouseButtonDown(0))
-			{
-				this.OnClick();
 			}
 		}
-		else if (this.over)
+		if (!over)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.OnOut();
+			OnOut();
+			return;
 		}
 	}
 
 	private void OnClick()
 	{
-		this.on = !this.on;
-		this.callbackObject.SendMessage(this.callback);
-		this.UpdateImage();
+		on = !on;
+		callbackObject.SendMessage(callback);
+		UpdateImage();
 	}
 
 	private void OnOver()
 	{
-		this.over = true;
-		this.UpdateImage();
+		over = true;
+		UpdateImage();
 	}
 
 	private void OnOut()
 	{
-		this.over = false;
-		this.UpdateImage();
+		over = false;
+		UpdateImage();
 	}
 
 	private void UpdateImage()
 	{
-		if (this.over)
+		if (over)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
+				{
+				case 0:
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					GUITexture component = GetComponent<GUITexture>();
+					Texture texture;
+					if (on)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						texture = t_on_over;
+					}
+					else
+					{
+						texture = t_off_over;
+					}
+					component.texture = texture;
+					return;
+				}
+				}
+			}
+		}
+		GUITexture component2 = GetComponent<GUITexture>();
+		Texture texture2;
+		if (on)
+		{
+			while (true)
+			{
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GUIT_Button.UpdateImage()).MethodHandle;
-			}
-			GUITexture component = base.GetComponent<GUITexture>();
-			Texture texture;
-			if (this.on)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				texture = this.t_on_over;
-			}
-			else
-			{
-				texture = this.t_off_over;
-			}
-			component.texture = texture;
+			texture2 = t_on;
 		}
 		else
 		{
-			GUITexture component2 = base.GetComponent<GUITexture>();
-			Texture texture2;
-			if (this.on)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				texture2 = this.t_on;
-			}
-			else
-			{
-				texture2 = this.t_off;
-			}
-			component2.texture = texture2;
+			texture2 = t_off;
 		}
+		component2.texture = texture2;
 	}
 
 	public void UpdateState(bool b)
 	{
-		this.on = b;
-		this.UpdateImage();
+		on = b;
+		UpdateImage();
 	}
 }

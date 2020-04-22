@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class LobbyGameInfo
@@ -63,24 +63,14 @@ public class LobbyGameInfo
 
 	public LobbyGameConfig GameConfig;
 
-	public LobbyGameInfo()
-	{
-		this.ggPackUsedAccountIDs = new Dictionary<long, int>();
-	}
-
-	public LobbyGameInfo Clone()
-	{
-		return (LobbyGameInfo)base.MemberwiseClone();
-	}
-
 	[JsonIgnore]
 	public string Name
 	{
 		get
 		{
-			if (!this.GameServerProcessCode.IsNullOrEmpty())
+			if (!GameServerProcessCode.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -89,51 +79,35 @@ public class LobbyGameInfo
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameInfo.get_Name()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (this.GameConfig == null)
+				if (GameConfig != null)
 				{
-					for (;;)
+					if (!GameConfig.HasSelectedSubType)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
-				{
-					if (!this.GameConfig.HasSelectedSubType)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return $"{GameServerProcessCode} ({GameServerAddress}) [{GameConfig.Map} {GameConfig.GameType}]";
 							}
-							break;
 						}
-						return string.Format("{0} ({1}) [{2} {3}]", new object[]
-						{
-							this.GameServerProcessCode,
-							this.GameServerAddress,
-							this.GameConfig.Map,
-							this.GameConfig.GameType
-						});
 					}
-					return string.Format("{0} ({1}) [{2} {3} {4}]", new object[]
+					return $"{GameServerProcessCode} ({GameServerAddress}) [{GameConfig.Map} {GameConfig.GameType} {GameConfig.InstanceSubType.GetNameAsPayload().Term}]";
+				}
+				while (true)
+				{
+					switch (2)
 					{
-						this.GameServerProcessCode,
-						this.GameServerAddress,
-						this.GameConfig.Map,
-						this.GameConfig.GameType,
-						this.GameConfig.InstanceSubType.GetNameAsPayload().Term
-					});
+					case 0:
+						continue;
+					}
+					break;
 				}
 			}
 			return "unknown";
@@ -141,23 +115,17 @@ public class LobbyGameInfo
 	}
 
 	[JsonIgnore]
-	public bool IsCustomGame
-	{
-		get
-		{
-			return this.GameConfig != null && this.GameConfig.GameType == GameType.Custom;
-		}
-	}
+	public bool IsCustomGame => GameConfig != null && GameConfig.GameType == GameType.Custom;
 
 	[JsonIgnore]
 	public bool IsQueuedGame
 	{
 		get
 		{
-			bool result;
-			if (this.GameConfig != null)
+			int result;
+			if (GameConfig != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -166,22 +134,32 @@ public class LobbyGameInfo
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameInfo.get_IsQueuedGame()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = this.GameConfig.GameType.IsQueueable();
+				result = (GameConfig.GameType.IsQueueable() ? 1 : 0);
 			}
 			else
 			{
-				result = false;
+				result = 0;
 			}
-			return result;
+			return (byte)result != 0;
 		}
+	}
+
+	public LobbyGameInfo()
+	{
+		ggPackUsedAccountIDs = new Dictionary<long, int>();
+	}
+
+	public LobbyGameInfo Clone()
+	{
+		return (LobbyGameInfo)MemberwiseClone();
 	}
 
 	public override string ToString()
 	{
-		return string.Format("{0} (gameStatus {1}, gameResult {2})", this.Name, this.GameStatus, this.GameResult);
+		return $"{Name} (gameStatus {GameStatus}, gameResult {GameResult})";
 	}
 }

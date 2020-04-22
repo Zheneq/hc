@@ -1,115 +1,52 @@
-﻿using System;
+using AOT;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
-using AOT;
 using UnityEngine;
 
 public class PKFxSoundManager : MonoBehaviour
 {
-	private static PKFxSoundManager.StartSoundDelegate m_onStartSoundDelegate = null;
+	private delegate void VoidFPtr(IntPtr ptr);
+
+	public delegate void StartSoundDelegate(PKFxManager.SoundDescriptor soundDesc);
+
+	private static StartSoundDelegate m_onStartSoundDelegate = null;
 
 	private static List<AudioSource> m_spawnedSound = new List<AudioSource>();
 
 	private void OnDestroy()
 	{
-		PKFxSoundManager.m_spawnedSound.Clear();
+		m_spawnedSound.Clear();
 	}
 
 	private void Update()
 	{
-		if (PKFxSoundManager.m_onStartSoundDelegate == null)
+		if (m_onStartSoundDelegate != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxSoundManager.Update()).MethodHandle;
-			}
-			if (PKFxSoundManager.m_spawnedSound != null)
-			{
-				for (int i = PKFxSoundManager.m_spawnedSound.Count - 1; i >= 0; i--)
-				{
-					AudioSource audioSource = PKFxSoundManager.m_spawnedSound[i];
-					if (!audioSource.isPlaying)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UnityEngine.Object.Destroy(audioSource.gameObject);
-						PKFxSoundManager.m_spawnedSound.RemoveAt(i);
-					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-		}
-	}
-
-	[MonoPInvokeCallback(typeof(PKFxSoundManager.VoidFPtr))]
-	public static void OnStartSound(IntPtr actionFactorySound)
-	{
-		PKFxManager.S_SoundDescriptor desc = (PKFxManager.S_SoundDescriptor)Marshal.PtrToStructure(actionFactorySound, typeof(PKFxManager.S_SoundDescriptor));
-		PKFxManager.SoundDescriptor soundDescriptor = new PKFxManager.SoundDescriptor(desc);
-		if (PKFxSoundManager.m_onStartSoundDelegate != null)
-		{
-			PKFxSoundManager.m_onStartSoundDelegate(soundDescriptor);
 			return;
 		}
-		string text = "PKFxSounds/" + Path.ChangeExtension(soundDescriptor.Path, null);
-		AudioClip audioClip = Resources.Load(text) as AudioClip;
-		if (audioClip != null)
+		while (true)
 		{
-			for (;;)
+			switch (6)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxSoundManager.OnStartSound(IntPtr)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			GameObject gameObject = new GameObject("FxSound");
-			if (gameObject != null)
+			if (m_spawnedSound == null)
 			{
-				for (;;)
+				return;
+			}
+			for (int num = m_spawnedSound.Count - 1; num >= 0; num--)
+			{
+				AudioSource audioSource = m_spawnedSound[num];
+				if (!audioSource.isPlaying)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				gameObject.transform.position = soundDescriptor.WorldPosition;
-				AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-				if (audioSource != null)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -118,43 +55,110 @@ public class PKFxSoundManager : MonoBehaviour
 						}
 						break;
 					}
-					audioSource.clip = audioClip;
-					audioSource.Play();
-					audioSource.volume = soundDescriptor.Volume;
-					audioSource.time = soundDescriptor.StartTimeOffsetInSeconds;
-					audioSource.spatialBlend = 1f;
-					if (soundDescriptor.PlayTimeInSeconds != 0f)
+					UnityEngine.Object.Destroy(audioSource.gameObject);
+					m_spawnedSound.RemoveAt(num);
+				}
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
+		}
+	}
+
+	[MonoPInvokeCallback(typeof(VoidFPtr))]
+	public static void OnStartSound(IntPtr actionFactorySound)
+	{
+		PKFxManager.S_SoundDescriptor desc = (PKFxManager.S_SoundDescriptor)Marshal.PtrToStructure(actionFactorySound, typeof(PKFxManager.S_SoundDescriptor));
+		PKFxManager.SoundDescriptor soundDescriptor = new PKFxManager.SoundDescriptor(desc);
+		if (m_onStartSoundDelegate != null)
+		{
+			m_onStartSoundDelegate(soundDescriptor);
+			return;
+		}
+		string text = "PKFxSounds/" + Path.ChangeExtension(soundDescriptor.Path, null);
+		AudioClip audioClip = Resources.Load(text) as AudioClip;
+		if (audioClip != null)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					break;
+				default:
+				{
+					if (1 == 0)
 					{
-						for (;;)
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					GameObject gameObject = new GameObject("FxSound");
+					if (gameObject != null)
+					{
+						while (true)
 						{
 							switch (2)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+							{
+								gameObject.transform.position = soundDescriptor.WorldPosition;
+								AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+								if (audioSource != null)
+								{
+									while (true)
+									{
+										switch (4)
+										{
+										case 0:
+											break;
+										default:
+											audioSource.clip = audioClip;
+											audioSource.Play();
+											audioSource.volume = soundDescriptor.Volume;
+											audioSource.time = soundDescriptor.StartTimeOffsetInSeconds;
+											audioSource.spatialBlend = 1f;
+											if (soundDescriptor.PlayTimeInSeconds != 0f)
+											{
+												while (true)
+												{
+													switch (2)
+													{
+													case 0:
+														break;
+													default:
+														UnityEngine.Object.Destroy(audioSource, soundDescriptor.PlayTimeInSeconds);
+														return;
+													}
+												}
+											}
+											m_spawnedSound.Add(audioSource);
+											return;
+										}
+									}
+								}
+								return;
 							}
-							break;
+							}
 						}
-						UnityEngine.Object.Destroy(audioSource, soundDescriptor.PlayTimeInSeconds);
 					}
-					else
-					{
-						PKFxSoundManager.m_spawnedSound.Add(audioSource);
-					}
+					return;
+				}
 				}
 			}
 		}
-		else
-		{
-			Debug.LogError("[PKFX] Could not load sound layer " + text);
-		}
+		Debug.LogError("[PKFX] Could not load sound layer " + text);
 	}
 
-	public static void RegisterCustomHandler(PKFxSoundManager.StartSoundDelegate customDelegate)
+	public static void RegisterCustomHandler(StartSoundDelegate customDelegate)
 	{
-		PKFxSoundManager.m_onStartSoundDelegate = customDelegate;
+		m_onStartSoundDelegate = customDelegate;
 	}
-
-	private delegate void VoidFPtr(IntPtr ptr);
-
-	public delegate void StartSoundDelegate(PKFxManager.SoundDescriptor soundDesc);
 }

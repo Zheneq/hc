@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,14 +12,15 @@ public class UIPlayerProgressMostPlayedItem : MonoBehaviour
 
 	public void Setup(PersistedCharacterData charData)
 	{
-		UIManager.SetGameObjectActive(base.gameObject, true, null);
+		UIManager.SetGameObjectActive(base.gameObject, true);
 		if (charData != null)
 		{
 			CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(charData.CharacterType);
-			int num = charData.CharacterComponent.LastSkin.skinIndex;
+			CharacterVisualInfo lastSkin = charData.CharacterComponent.LastSkin;
+			int num = lastSkin.skinIndex;
 			if (num >= characterResourceLink.m_skins.Count)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -29,25 +29,25 @@ public class UIPlayerProgressMostPlayedItem : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressMostPlayedItem.Setup(PersistedCharacterData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				num = 0;
 			}
 			string skinSelectionIconPath = characterResourceLink.m_skins[num].m_skinSelectionIconPath;
-			this.m_heroImage.sprite = (Sprite)Resources.Load(skinSelectionIconPath, typeof(Sprite));
-			this.m_name.text = characterResourceLink.GetDisplayName();
-			this.m_matchesPlayed.text = string.Format(StringUtil.TR("MatchesPlayed", "Global"), charData.ExperienceComponent.Matches.ToString());
-			UIManager.SetGameObjectActive(this.m_heroImage, true, null);
-			UIManager.SetGameObjectActive(this.m_matchesPlayed, true, null);
-			UIManager.SetGameObjectActive(this.m_name, true, null);
+			m_heroImage.sprite = (Sprite)Resources.Load(skinSelectionIconPath, typeof(Sprite));
+			m_name.text = characterResourceLink.GetDisplayName();
+			m_matchesPlayed.text = string.Format(StringUtil.TR("MatchesPlayed", "Global"), charData.ExperienceComponent.Matches.ToString());
+			UIManager.SetGameObjectActive(m_heroImage, true);
+			UIManager.SetGameObjectActive(m_matchesPlayed, true);
+			UIManager.SetGameObjectActive(m_name, true);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_heroImage, false, null);
-			UIManager.SetGameObjectActive(this.m_matchesPlayed, false, null);
-			UIManager.SetGameObjectActive(this.m_name, false, null);
+			UIManager.SetGameObjectActive(m_heroImage, false);
+			UIManager.SetGameObjectActive(m_matchesPlayed, false);
+			UIManager.SetGameObjectActive(m_name, false);
 		}
 	}
 }

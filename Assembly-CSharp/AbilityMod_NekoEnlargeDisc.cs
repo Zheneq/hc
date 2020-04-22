@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class AbilityMod_NekoEnlargeDisc : AbilityMod
@@ -36,48 +36,47 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		NekoEnlargeDisc nekoEnlargeDisc = targetAbility as NekoEnlargeDisc;
-		if (nekoEnlargeDisc != null)
+		if (!(nekoEnlargeDisc != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NekoEnlargeDisc.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_laserWidthOverrideMod, "LaserWidthOverride", string.Empty, nekoEnlargeDisc.m_laserWidthOverride, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_aoeRadiusOverrideMod, "AoeRadiusOverride", string.Empty, nekoEnlargeDisc.m_aoeRadiusOverride, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_returnEndRadiusOverrideMod, "ReturnEndRadiusOverride", string.Empty, nekoEnlargeDisc.m_returnEndRadiusOverride, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_additionalDamageAmountMod, "AdditionalDamageAmount", string.Empty, nekoEnlargeDisc.m_additionalDamageAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnEnemiesMod, "EffectOnEnemies", nekoEnlargeDisc.m_effectOnEnemies, true);
-			AbilityMod.AddToken(tokens, this.m_allyHealMod, "AllyHeal", string.Empty, nekoEnlargeDisc.m_allyHeal, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_allyHitEffectMod, "AllyHitEffect", nekoEnlargeDisc.m_allyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_shieldPerTargetHitOnReturnMod, "ShieldPerTargetHitOnThrow", string.Empty, nekoEnlargeDisc.m_shieldPerTargetHitOnReturn, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_shieldEffectDataMod, "ShieldEffectData", nekoEnlargeDisc.m_shieldEffectData, true);
-			AbilityMod.AddToken(tokens, this.m_cdrIfHitNoOneMod, "CdrIfHitNoOne", string.Empty, nekoEnlargeDisc.m_cdrIfHitNoOne, true, false);
+			AbilityMod.AddToken(tokens, m_laserWidthOverrideMod, "LaserWidthOverride", string.Empty, nekoEnlargeDisc.m_laserWidthOverride);
+			AbilityMod.AddToken(tokens, m_aoeRadiusOverrideMod, "AoeRadiusOverride", string.Empty, nekoEnlargeDisc.m_aoeRadiusOverride);
+			AbilityMod.AddToken(tokens, m_returnEndRadiusOverrideMod, "ReturnEndRadiusOverride", string.Empty, nekoEnlargeDisc.m_returnEndRadiusOverride);
+			AbilityMod.AddToken(tokens, m_additionalDamageAmountMod, "AdditionalDamageAmount", string.Empty, nekoEnlargeDisc.m_additionalDamageAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemiesMod, "EffectOnEnemies", nekoEnlargeDisc.m_effectOnEnemies);
+			AbilityMod.AddToken(tokens, m_allyHealMod, "AllyHeal", string.Empty, nekoEnlargeDisc.m_allyHeal);
+			AbilityMod.AddToken_EffectMod(tokens, m_allyHitEffectMod, "AllyHitEffect", nekoEnlargeDisc.m_allyHitEffect);
+			AbilityMod.AddToken(tokens, m_shieldPerTargetHitOnReturnMod, "ShieldPerTargetHitOnThrow", string.Empty, nekoEnlargeDisc.m_shieldPerTargetHitOnReturn);
+			AbilityMod.AddToken_EffectMod(tokens, m_shieldEffectDataMod, "ShieldEffectData", nekoEnlargeDisc.m_shieldEffectData);
+			AbilityMod.AddToken(tokens, m_cdrIfHitNoOneMod, "CdrIfHitNoOne", string.Empty, nekoEnlargeDisc.m_cdrIfHitNoOne);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		NekoEnlargeDisc nekoEnlargeDisc = base.GetTargetAbilityOnAbilityData(abilityData) as NekoEnlargeDisc;
+		NekoEnlargeDisc nekoEnlargeDisc = GetTargetAbilityOnAbilityData(abilityData) as NekoEnlargeDisc;
 		bool flag = nekoEnlargeDisc != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_laserWidthOverrideMod, "[LaserWidthOverride]", flag, (!flag) ? 0f : nekoEnlargeDisc.m_laserWidthOverride);
-		string str = text;
-		AbilityModPropertyFloat aoeRadiusOverrideMod = this.m_aoeRadiusOverrideMod;
-		string prefix = "[AoeRadiusOverride]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += PropDesc(m_laserWidthOverrideMod, "[LaserWidthOverride]", flag, (!flag) ? 0f : nekoEnlargeDisc.m_laserWidthOverride);
+		string str = empty;
+		AbilityModPropertyFloat aoeRadiusOverrideMod = m_aoeRadiusOverrideMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -86,9 +85,9 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NekoEnlargeDisc.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = nekoEnlargeDisc.m_aoeRadiusOverride;
 		}
@@ -96,15 +95,13 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(aoeRadiusOverrideMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat returnEndRadiusOverrideMod = this.m_returnEndRadiusOverrideMod;
-		string prefix2 = "[ReturnEndRadiusOverride]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(aoeRadiusOverrideMod, "[AoeRadiusOverride]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat returnEndRadiusOverrideMod = m_returnEndRadiusOverrideMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -119,16 +116,14 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(returnEndRadiusOverrideMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_additionalDamageAmountMod, "[AdditionalDamageAmount]", flag, (!flag) ? 0 : nekoEnlargeDisc.m_additionalDamageAmount);
-		string str3 = text;
-		AbilityModPropertyEffectInfo effectOnEnemiesMod = this.m_effectOnEnemiesMod;
-		string prefix3 = "[EffectOnEnemies]";
-		bool showBaseVal3 = flag;
-		StandardEffectInfo baseVal3;
+		empty = str2 + PropDesc(returnEndRadiusOverrideMod, "[ReturnEndRadiusOverride]", flag, baseVal2);
+		empty += PropDesc(m_additionalDamageAmountMod, "[AdditionalDamageAmount]", flag, flag ? nekoEnlargeDisc.m_additionalDamageAmount : 0);
+		string str3 = empty;
+		AbilityModPropertyEffectInfo effectOnEnemiesMod = m_effectOnEnemiesMod;
+		object baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -143,15 +138,13 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		{
 			baseVal3 = null;
 		}
-		text = str3 + base.PropDesc(effectOnEnemiesMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt allyHealMod = this.m_allyHealMod;
-		string prefix4 = "[AllyHeal]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(effectOnEnemiesMod, "[EffectOnEnemies]", flag, (StandardEffectInfo)baseVal3);
+		string str4 = empty;
+		AbilityModPropertyInt allyHealMod = m_allyHealMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -166,15 +159,13 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(allyHealMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyEffectInfo allyHitEffectMod = this.m_allyHitEffectMod;
-		string prefix5 = "[AllyHitEffect]";
-		bool showBaseVal5 = flag;
-		StandardEffectInfo baseVal5;
+		empty = str4 + PropDesc(allyHealMod, "[AllyHeal]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyEffectInfo allyHitEffectMod = m_allyHitEffectMod;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -189,15 +180,13 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		{
 			baseVal5 = null;
 		}
-		text = str5 + base.PropDesc(allyHitEffectMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt shieldPerTargetHitOnReturnMod = this.m_shieldPerTargetHitOnReturnMod;
-		string prefix6 = "[ShieldPerTargetHitOnThrow]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(allyHitEffectMod, "[AllyHitEffect]", flag, (StandardEffectInfo)baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt shieldPerTargetHitOnReturnMod = m_shieldPerTargetHitOnReturnMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -212,15 +201,13 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(shieldPerTargetHitOnReturnMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyEffectData shieldEffectDataMod = this.m_shieldEffectDataMod;
-		string prefix7 = "[ShieldEffectData]";
-		bool showBaseVal7 = flag;
-		StandardActorEffectData baseVal7;
+		empty = str6 + PropDesc(shieldPerTargetHitOnReturnMod, "[ShieldPerTargetHitOnThrow]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyEffectData shieldEffectDataMod = m_shieldEffectDataMod;
+		object baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -235,15 +222,13 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		{
 			baseVal7 = null;
 		}
-		text = str7 + base.PropDesc(shieldEffectDataMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyInt cdrIfHitNoOneMod = this.m_cdrIfHitNoOneMod;
-		string prefix8 = "[CdrIfHitNoOne]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(shieldEffectDataMod, "[ShieldEffectData]", flag, (StandardActorEffectData)baseVal7);
+		string str8 = empty;
+		AbilityModPropertyInt cdrIfHitNoOneMod = m_cdrIfHitNoOneMod;
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -258,6 +243,6 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		{
 			baseVal8 = 0;
 		}
-		return str8 + base.PropDesc(cdrIfHitNoOneMod, prefix8, showBaseVal8, baseVal8);
+		return str8 + PropDesc(cdrIfHitNoOneMod, "[CdrIfHitNoOne]", flag, baseVal8);
 	}
 }

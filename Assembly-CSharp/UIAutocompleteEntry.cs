@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -12,12 +11,12 @@ public class UIAutocompleteEntry : MonoBehaviour
 
 	public void Setup(string labelText, string textValue)
 	{
-		this.m_label.text = labelText;
-		this.m_textValue = textValue;
+		m_label.text = labelText;
+		m_textValue = textValue;
 	}
 
 	public string GetTextValue()
 	{
-		return this.m_textValue;
+		return m_textValue;
 	}
 }

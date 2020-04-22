@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,31 +11,31 @@ public class Loot
 
 	public Loot()
 	{
-		this.Karmas = new Dictionary<int, Karma>();
-		this.Items = new List<InventoryItem>();
+		Karmas = new Dictionary<int, Karma>();
+		Items = new List<InventoryItem>();
 	}
 
 	public void AddItem(InventoryItem item)
 	{
-		this.Items.Add(item);
+		Items.Add(item);
 	}
 
 	public void AddItems(List<InventoryItem> items)
 	{
-		this.Items.AddRange(items);
+		Items.AddRange(items);
 	}
 
 	public bool HasItem(int itemTemplateId)
 	{
-		return this.Items.Exists((InventoryItem i) => i.TemplateId == itemTemplateId);
+		return Items.Exists((InventoryItem i) => i.TemplateId == itemTemplateId);
 	}
 
 	public IEnumerable<int> GetItemTemplateIds()
 	{
-		IEnumerable<InventoryItem> items = this.Items;
-		if (Loot.<>f__am$cache0 == null)
+		List<InventoryItem> items = Items;
+		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -44,58 +44,55 @@ public class Loot
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Loot.GetItemTemplateIds()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Loot.<>f__am$cache0 = ((InventoryItem i) => i.TemplateId);
+			_003C_003Ef__am_0024cache0 = ((InventoryItem i) => i.TemplateId);
 		}
-		return items.Select(Loot.<>f__am$cache0);
+		return items.Select(_003C_003Ef__am_0024cache0);
 	}
 
 	public void AddKarma(Karma karma)
 	{
-		if (this.Karmas.ContainsKey(karma.TemplateId))
+		if (Karmas.ContainsKey(karma.TemplateId))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Karmas[karma.TemplateId].Quantity += karma.Quantity;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Loot.AddKarma(Karma)).MethodHandle;
-			}
-			this.Karmas[karma.TemplateId].Quantity += karma.Quantity;
 		}
-		else
+		Karmas[karma.TemplateId] = new Karma
 		{
-			this.Karmas[karma.TemplateId] = new Karma
-			{
-				TemplateId = karma.TemplateId,
-				Quantity = karma.Quantity
-			};
-		}
+			TemplateId = karma.TemplateId,
+			Quantity = karma.Quantity
+		};
 	}
 
 	public Karma GetKarma(int karmaTemplateId)
 	{
-		Karma result;
-		this.Karmas.TryGetValue(karmaTemplateId, out result);
-		return result;
+		Karmas.TryGetValue(karmaTemplateId, out Karma value);
+		return value;
 	}
 
 	public int GetKarmaQuantity(int karmaTemplateId)
 	{
 		int result = 0;
-		Karma karma = this.GetKarma(karmaTemplateId);
+		Karma karma = GetKarma(karmaTemplateId);
 		if (karma != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -104,9 +101,9 @@ public class Loot
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Loot.GetKarmaQuantity(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = karma.Quantity;
 		}
@@ -115,6 +112,6 @@ public class Loot
 
 	public void MergeItems(Loot loot)
 	{
-		this.AddItems(loot.Items);
+		AddItems(loot.Items);
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -73,14 +72,14 @@ public class MixSnapshots : MonoBehaviour
 
 	private void Start()
 	{
-		this.previousMixState = this.snapshot_match_intro;
+		previousMixState = snapshot_match_intro;
 	}
 
 	public void SetMix_DecisionCam()
 	{
-		if (this.previousMixState == this.snapshot_match_intro)
+		if (previousMixState == snapshot_match_intro)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -89,25 +88,25 @@ public class MixSnapshots : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MixSnapshots.SetMix_DecisionCam()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.snapshot_game.TransitionToOnRealMixer(this.transitionTime_match_intro_to_match_start);
+			snapshot_game.TransitionToOnRealMixer(transitionTime_match_intro_to_match_start);
 		}
-		else if (this.previousMixState == this.snapshot_taunt)
+		else if (previousMixState == snapshot_taunt)
 		{
-			this.snapshot_resolve.TransitionToOnRealMixer(this.transitionTime_resolve_from_taunt);
+			snapshot_resolve.TransitionToOnRealMixer(transitionTime_resolve_from_taunt);
 		}
 		else
 		{
-			if (this.previousMixState == this.snapshot_resolve)
+			if (previousMixState == snapshot_resolve)
 			{
-				this.snapshot_resolve.TransitionToOnRealMixer(this.transitionTime_decision_from_action);
+				snapshot_resolve.TransitionToOnRealMixer(transitionTime_decision_from_action);
 			}
-			if (!(this.previousMixState != this.snapshot_taunt))
+			if (!(previousMixState != snapshot_taunt))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -116,11 +115,11 @@ public class MixSnapshots : MonoBehaviour
 					}
 					break;
 				}
-				if (!(this.previousMixState != this.snapshot_resolve))
+				if (!(previousMixState != snapshot_resolve))
 				{
-					goto IL_D7;
+					goto IL_00d7;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -130,23 +129,24 @@ public class MixSnapshots : MonoBehaviour
 					break;
 				}
 			}
-			this.snapshot_game.TransitionToOnRealMixer(this.transitionTime_game);
+			snapshot_game.TransitionToOnRealMixer(transitionTime_game);
 		}
-		IL_D7:
-		this.previousMixState = this.snapshot_game;
+		goto IL_00d7;
+		IL_00d7:
+		previousMixState = snapshot_game;
 	}
 
 	public void SetMix_TauntCam()
 	{
-		this.snapshot_taunt.TransitionToOnRealMixer(this.transitionTime_taunt);
-		this.previousMixState = this.snapshot_taunt;
+		snapshot_taunt.TransitionToOnRealMixer(transitionTime_taunt);
+		previousMixState = snapshot_taunt;
 	}
 
 	public void SetMix_ResolveCam()
 	{
-		if (this.previousMixState == this.snapshot_taunt)
+		if (previousMixState == snapshot_taunt)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -155,49 +155,49 @@ public class MixSnapshots : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MixSnapshots.SetMix_ResolveCam()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.snapshot_resolve.TransitionToOnRealMixer(this.transitionTime_resolve_from_taunt);
+			snapshot_resolve.TransitionToOnRealMixer(transitionTime_resolve_from_taunt);
 		}
 		else
 		{
-			this.snapshot_resolve.TransitionToOnRealMixer(this.transitionTime_resolve);
+			snapshot_resolve.TransitionToOnRealMixer(transitionTime_resolve);
 		}
-		this.previousMixState = this.snapshot_resolve;
+		previousMixState = snapshot_resolve;
 	}
 
 	public void SetMix_Menu()
 	{
-		this.snapshot_menu.TransitionToOnRealMixer(this.transitionTime_menu);
-		this.previousMixState = this.snapshot_menu;
+		snapshot_menu.TransitionToOnRealMixer(transitionTime_menu);
+		previousMixState = snapshot_menu;
 	}
 
 	public void SetMix_LoadingScreen()
 	{
-		this.snapshot_loading.TransitionToOnRealMixer(this.transitionTime_loading_screen);
-		this.previousMixState = this.snapshot_loading;
+		snapshot_loading.TransitionToOnRealMixer(transitionTime_loading_screen);
+		previousMixState = snapshot_loading;
 	}
 
 	public void SetMix_GameOver()
 	{
-		this.snapshot_game_over.TransitionToOnRealMixer(this.transitionTime_snapshot_game_over);
+		snapshot_game_over.TransitionToOnRealMixer(transitionTime_snapshot_game_over);
 	}
 
 	public void SetMix_StartVideoPlayback()
 	{
-		this.snapshot_video.TransitionToOnRealMixer(this.transitionTime_video_playback);
+		snapshot_video.TransitionToOnRealMixer(transitionTime_video_playback);
 	}
 
 	public void SetMix_StopVideoPlayback()
 	{
-		this.previousMixState.TransitionToOnRealMixer(this.transitionTime_video_playback);
+		previousMixState.TransitionToOnRealMixer(transitionTime_video_playback);
 	}
 
 	public void SetMix_MatchIntro()
 	{
-		this.snapshot_match_intro.TransitionToOnRealMixer(this.transitionTime_match_intro_from_menu);
-		this.previousMixState = this.snapshot_match_intro;
+		snapshot_match_intro.TransitionToOnRealMixer(transitionTime_match_intro_from_menu);
+		previousMixState = snapshot_match_intro;
 	}
 }

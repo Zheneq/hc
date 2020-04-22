@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,83 +18,81 @@ public class FSMSystem : IGameEventListener
 
 	private StateID startingState;
 
-	public FSMSystem(NPCBrain _brainInstance)
-	{
-		this.states = new List<FSMState>();
-		this.associatedBrain = _brainInstance;
-		this.pendingTransition = Transition.NullTransition;
-		this.IsTakingTurn = false;
-	}
-
 	public StateID StartingStateID
 	{
 		get
 		{
-			return this.startingState;
+			return startingState;
 		}
 		set
 		{
-			this.startingState = value;
-			if (value != StateID.NullStateID && null == this.states.Find((FSMState x) => x.StateID == this.StartingStateID))
+			startingState = value;
+			if (value == StateID.NullStateID || !(null == states.Find((FSMState x) => x.StateID == StartingStateID)))
 			{
-				object[] array = new object[5];
-				array[0] = "Error: Character '";
-				int num = 1;
-				object obj;
-				if (this.associatedBrain)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.set_StartingStateID(StateID)).MethodHandle;
-					}
-					obj = this.associatedBrain.ToString();
-				}
-				else
-				{
-					obj = "Unknown";
-				}
-				array[num] = obj;
-				array[2] = "' does not have starting state: ";
-				array[3] = this.StartingStateID;
-				array[4] = " in their StateTable. Please add it!";
-				Log.Error(string.Concat(array), new object[0]);
-				this.startingState = StateID.NullStateID;
+				return;
 			}
+			object[] obj = new object[5]
+			{
+				"Error: Character '",
+				null,
+				null,
+				null,
+				null
+			};
+			object obj2;
+			if ((bool)associatedBrain)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				obj2 = associatedBrain.ToString();
+			}
+			else
+			{
+				obj2 = "Unknown";
+			}
+			obj[1] = obj2;
+			obj[2] = "' does not have starting state: ";
+			obj[3] = StartingStateID;
+			obj[4] = " in their StateTable. Please add it!";
+			Log.Error(string.Concat(obj));
+			startingState = StateID.NullStateID;
 		}
 	}
 
-	public StateID CurrentStateID
+	public StateID CurrentStateID => currentStateID;
+
+	public FSMState CurrentState => currentState;
+
+	public bool IsTakingTurn
 	{
-		get
-		{
-			return this.currentStateID;
-		}
+		get;
+		private set;
 	}
 
-	public FSMState CurrentState
+	public FSMSystem(NPCBrain _brainInstance)
 	{
-		get
-		{
-			return this.currentState;
-		}
+		states = new List<FSMState>();
+		associatedBrain = _brainInstance;
+		pendingTransition = Transition.NullTransition;
+		IsTakingTurn = false;
 	}
-
-	public bool IsTakingTurn { get; private set; }
 
 	internal void Initialize()
 	{
-		if (!(this.currentState == null))
+		if (!(currentState == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -103,15 +101,15 @@ public class FSMSystem : IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.Initialize()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.currentState.StateID != StateID.NullStateID)
+			if (currentState.StateID != 0)
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -121,10 +119,10 @@ public class FSMSystem : IGameEventListener
 				break;
 			}
 		}
-		StateID stateID;
-		if (this.StartingStateID == StateID.NullStateID)
+		StateID num;
+		if (StartingStateID == StateID.NullStateID)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -133,15 +131,15 @@ public class FSMSystem : IGameEventListener
 				}
 				break;
 			}
-			stateID = this.states[0].StateID;
+			num = states[0].StateID;
 		}
 		else
 		{
-			stateID = this.StartingStateID;
+			num = StartingStateID;
 		}
-		this.currentStateID = stateID;
-		this.currentState = this.states.Find((FSMState x) => x.StateID == this.currentStateID);
-		this.currentState.OnEnter(this.currentState.MyBrain, StateID.NullStateID);
+		currentStateID = num;
+		currentState = states.Find((FSMState x) => x.StateID == currentStateID);
+		currentState.OnEnter(currentState.MyBrain, StateID.NullStateID);
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
@@ -149,7 +147,7 @@ public class FSMSystem : IGameEventListener
 		bool flag = true;
 		if (eventType != GameEventManager.EventType.ActorDamaged_Server)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -158,13 +156,13 @@ public class FSMSystem : IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (eventType != GameEventManager.EventType.CharacterHealedOrBuffed)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -177,9 +175,9 @@ public class FSMSystem : IGameEventListener
 			else
 			{
 				GameEventManager.CharacterHealBuffArgs characterHealBuffArgs = args as GameEventManager.CharacterHealBuffArgs;
-				if (characterHealBuffArgs.targetCharacter == this.currentState.MyActorData)
+				if (characterHealBuffArgs.targetCharacter == currentState.MyActorData)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -188,11 +186,11 @@ public class FSMSystem : IGameEventListener
 						}
 						break;
 					}
-					FSMState fsmstate = this.currentState;
-					Transition transition;
+					FSMState fSMState = currentState;
+					int num;
 					if (characterHealBuffArgs.healed)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -201,13 +199,13 @@ public class FSMSystem : IGameEventListener
 							}
 							break;
 						}
-						transition = Transition.Healed;
+						num = 4;
 					}
 					else
 					{
-						transition = Transition.Buffed;
+						num = 5;
 					}
-					fsmstate.SetPendingTransition(transition);
+					fSMState.SetPendingTransition((Transition)num);
 					flag = false;
 				}
 			}
@@ -215,9 +213,9 @@ public class FSMSystem : IGameEventListener
 		else
 		{
 			GameEventManager.ActorHitHealthChangeArgs actorHitHealthChangeArgs = args as GameEventManager.ActorHitHealthChangeArgs;
-			if (actorHitHealthChangeArgs.m_target == this.currentState.MyActorData)
+			if (actorHitHealthChangeArgs.m_target == currentState.MyActorData)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -226,17 +224,17 @@ public class FSMSystem : IGameEventListener
 					}
 					break;
 				}
-				this.currentState.SetPendingTransition(Transition.TookDamage);
+				currentState.SetPendingTransition(Transition.TookDamage);
 				flag = false;
 			}
 		}
 		if (!flag)
 		{
-			if (!true)
+			if (1 == 0)
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -246,14 +244,14 @@ public class FSMSystem : IGameEventListener
 				break;
 			}
 		}
-		this.CurrentState.OnGameEvent(eventType, args);
+		CurrentState.OnGameEvent(eventType, args);
 	}
 
 	public void AddState(FSMState s)
 	{
 		if (s == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -262,61 +260,61 @@ public class FSMSystem : IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.AddState(FSMState)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Debug.LogError("FSM ERROR: Null reference is not allowed when adding a state");
 		}
-		if (this.states.Find((FSMState x) => x.StateID == s.StateID) != null)
+		if (states.Find((FSMState x) => x.StateID == s.StateID) != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Debug.LogError("FSM ERROR: Impossible to add state " + s.StateID.ToString() + " because state has already been added");
+					return;
 				}
-				break;
 			}
-			Debug.LogError("FSM ERROR: Impossible to add state " + s.StateID.ToString() + " because state has already been added");
-			return;
 		}
-		this.states.Add(s);
+		states.Add(s);
 	}
 
 	public void DeleteState(StateID id)
 	{
 		if (id == StateID.NullStateID)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.DeleteState(StateID)).MethodHandle;
-			}
-			Debug.LogError("FSM ERROR: NullStateID is not allowed for a real state");
-			return;
-		}
-		using (List<FSMState>.Enumerator enumerator = this.states.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				FSMState fsmstate = enumerator.Current;
-				if (fsmstate.StateID == id)
-				{
-					this.states.Remove(fsmstate);
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("FSM ERROR: NullStateID is not allowed for a real state");
 					return;
 				}
 			}
-			for (;;)
+		}
+		using (List<FSMState>.Enumerator enumerator = states.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
+			{
+				FSMState current = enumerator.Current;
+				if (current.StateID == id)
+				{
+					states.Remove(current);
+					return;
+				}
+			}
+			while (true)
 			{
 				switch (2)
 				{
@@ -331,12 +329,12 @@ public class FSMSystem : IGameEventListener
 
 	public void DestroyAllStates()
 	{
-		for (int i = 0; i < this.states.Count; i++)
+		for (int i = 0; i < states.Count; i++)
 		{
-			FSMState fsmstate = this.states[i];
-			if (fsmstate != null)
+			FSMState fSMState = states[i];
+			if (fSMState != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -345,33 +343,33 @@ public class FSMSystem : IGameEventListener
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.DestroyAllStates()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				UnityEngine.Object.Destroy(fsmstate.gameObject);
+				UnityEngine.Object.Destroy(fSMState.gameObject);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			states.Clear();
+			return;
 		}
-		this.states.Clear();
 	}
 
 	public bool CanTransistion(Transition trans)
 	{
-		bool result;
-		if (this.currentState)
+		int result;
+		if ((bool)currentState)
 		{
-			if (this.currentState.GetOutputState(trans) == StateID.NullStateID)
+			if (currentState.GetOutputState(trans) == StateID.NullStateID)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -380,15 +378,15 @@ public class FSMSystem : IGameEventListener
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.CanTransistion(Transition)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (!this.currentState.GetOutputBrain(trans))
+				if (!currentState.GetOutputBrain(trans))
 				{
-					if (this.currentState.GetPopBrain(trans) != null)
+					if (currentState.GetPopBrain(trans).HasValue)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -397,100 +395,127 @@ public class FSMSystem : IGameEventListener
 							}
 							break;
 						}
-						result = this.currentState.GetPopBrain(trans).Value;
+						result = (currentState.GetPopBrain(trans).Value ? 1 : 0);
 					}
 					else
 					{
-						result = false;
+						result = 0;
 					}
-					goto IL_8C;
+					goto IL_008f;
 				}
 			}
-			result = true;
-			IL_8C:;
+			result = 1;
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		goto IL_008f;
+		IL_008f:
+		return (byte)result != 0;
 	}
 
 	public void SetPendingTransition(Transition trans)
 	{
-		this.pendingTransition = trans;
+		pendingTransition = trans;
 	}
 
 	public Transition GetPendingTransition()
 	{
-		return this.pendingTransition;
+		return pendingTransition;
 	}
 
 	public void PerformTransition(Transition trans, NPCBrain onWho)
 	{
 		if (trans == Transition.NullTransition)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("FSM ERROR: NullTransition is not allowed for a real transition");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.PerformTransition(Transition, NPCBrain)).MethodHandle;
-			}
-			Debug.LogError("FSM ERROR: NullTransition is not allowed for a real transition");
-			return;
 		}
-		StateID outputState = this.currentState.GetOutputState(trans);
-		NPCBrain outputBrain = this.currentState.GetOutputBrain(trans);
+		StateID outputState = currentState.GetOutputState(trans);
+		NPCBrain outputBrain = currentState.GetOutputBrain(trans);
 		if (outputState == StateID.NullStateID && outputBrain != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-			return;
 		}
 		if (outputState == StateID.NullStateID)
 		{
-			Debug.LogError("FSM ERROR: State " + this.currentStateID.ToString() + " does not have a target state/brain  for transition " + trans.ToString());
+			Debug.LogError("FSM ERROR: State " + currentStateID.ToString() + " does not have a target state/brain  for transition " + trans);
 			return;
 		}
-		this.currentStateID = outputState;
-		using (List<FSMState>.Enumerator enumerator = this.states.GetEnumerator())
+		currentStateID = outputState;
+		using (List<FSMState>.Enumerator enumerator = states.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				FSMState fsmstate = enumerator.Current;
-				if (fsmstate.StateID == this.currentStateID)
+				FSMState current = enumerator.Current;
+				if (current.StateID == currentStateID)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+						{
+							StateID previousState = currentStateID;
+							currentState.OnExit(onWho, current.StateID);
+							currentState = current;
+							currentState.OnEnter(onWho, previousState);
+							return;
 						}
-						break;
+						}
 					}
-					StateID previousState = this.currentStateID;
-					this.currentState.OnExit(onWho, fsmstate.StateID);
-					this.currentState = fsmstate;
-					this.currentState.OnEnter(onWho, previousState);
-					return;
 				}
 			}
-			for (;;)
+			while (true)
+			{
+				switch (4)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
+		}
+	}
+
+	internal IEnumerator TakeTurn()
+	{
+		while (pendingTransition != 0)
+		{
+			Transition transition = pendingTransition;
+			pendingTransition = Transition.NullTransition;
+			PerformTransition(transition, associatedBrain);
+			if (pendingTransition == transition)
+			{
+				continue;
+			}
+			while (true)
 			{
 				switch (4)
 				{
@@ -499,64 +524,35 @@ public class FSMSystem : IGameEventListener
 				}
 				break;
 			}
-		}
-	}
-
-	internal IEnumerator TakeTurn()
-	{
-		while (this.pendingTransition != Transition.NullTransition)
-		{
-			Transition transition = this.pendingTransition;
-			this.pendingTransition = Transition.NullTransition;
-			this.PerformTransition(transition, this.associatedBrain);
-			if (this.pendingTransition != transition)
+			if (1 == 0)
 			{
-				for (;;)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (pendingTransition != 0)
+			{
+				while (true)
 				{
-					switch (4)
+					switch (1)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.TakeTurn()).MethodHandle;
-				}
-				if (this.pendingTransition != Transition.NullTransition)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Log.Warning(string.Concat(new object[]
-					{
-						"Hmm, a transition caused a transition (",
-						this.pendingTransition,
-						"). Not sure if this is good. FSM: ",
-						this.ToString()
-					}), new object[0]);
-				}
+				Log.Warning(string.Concat("Hmm, a transition caused a transition (", pendingTransition, "). Not sure if this is good. FSM: ", ToString()));
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			IsTakingTurn = true;
+			IEnumerator result = CurrentState.OnTurn(associatedBrain);
+			IsTakingTurn = false;
+			return result;
 		}
-		this.IsTakingTurn = true;
-		IEnumerator result = this.CurrentState.OnTurn(this.associatedBrain);
-		this.IsTakingTurn = false;
-		return result;
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,7 +43,7 @@ public class CharacterColor
 		string result = string.Empty;
 		if (type == StyleLevelType.Advanced)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -52,15 +52,15 @@ public class CharacterColor
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterColor.GetIconResourceStringForStyleLevelType(StyleLevelType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = "skin_advancedIcon";
 		}
 		else if (type == StyleLevelType.Expert)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -73,7 +73,7 @@ public class CharacterColor
 		}
 		else if (type == StyleLevelType.Mastery)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -87,12 +87,12 @@ public class CharacterColor
 		return result;
 	}
 
-	public int \u001D()
+	public int _001D()
 	{
 		int result = 0;
-		if (this.m_colorUnlockData != null && this.m_colorUnlockData.m_unlockData != null)
+		if (m_colorUnlockData != null && m_colorUnlockData.m_unlockData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -101,13 +101,13 @@ public class CharacterColor
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterColor.\u001D()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_colorUnlockData.m_unlockData.UnlockConditions != null)
+			if (m_colorUnlockData.m_unlockData.UnlockConditions != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -116,14 +116,15 @@ public class CharacterColor
 					}
 					break;
 				}
-				foreach (GameBalanceVars.UnlockCondition unlockCondition in this.m_colorUnlockData.m_unlockData.UnlockConditions)
+				GameBalanceVars.UnlockCondition[] unlockConditions = m_colorUnlockData.m_unlockData.UnlockConditions;
+				foreach (GameBalanceVars.UnlockCondition unlockCondition in unlockConditions)
 				{
 					if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.Purchase)
 					{
 						return unlockCondition.typeSpecificData2;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{

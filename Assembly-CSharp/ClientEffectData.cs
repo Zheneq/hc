@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 internal class ClientEffectData
@@ -11,8 +10,8 @@ internal class ClientEffectData
 
 	public ClientEffectData(List<Sequence> sequences, ActorData target, List<StatusType> statuses)
 	{
-		this.m_sequences = sequences;
-		this.m_target = target;
-		this.m_statuses = statuses;
+		m_sequences = sequences;
+		m_target = target;
+		m_statuses = statuses;
 	}
 }

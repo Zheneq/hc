@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,20 +7,21 @@ public class AbilityUtil_Targeter_Line : AbilityUtil_Targeter
 
 	public bool m_linePenetrateLos;
 
-	public AbilityUtil_Targeter_Line(Ability ability, float range, bool penetrateLos) : base(ability)
+	public AbilityUtil_Targeter_Line(Ability ability, float range, bool penetrateLos)
+		: base(ability)
 	{
-		this.m_lineRange = range;
-		this.m_linePenetrateLos = penetrateLos;
+		m_lineRange = range;
+		m_linePenetrateLos = penetrateLos;
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		float maxDistanceInWorld = this.m_lineRange * Board.\u000E().squareSize;
-		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(targetingActor.\u0015(), currentTarget.AimDirection, maxDistanceInWorld, this.m_linePenetrateLos, targetingActor, null, true);
-		if (this.m_highlights != null)
+		float maxDistanceInWorld = m_lineRange * Board.Get().squareSize;
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(targetingActor.GetTravelBoardSquareWorldPositionForLos(), currentTarget.AimDirection, maxDistanceInWorld, m_linePenetrateLos, targetingActor);
+		if (m_highlights != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -30,15 +30,15 @@ public class AbilityUtil_Targeter_Line : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Line.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_highlights.Count != 0)
+			if (m_highlights.Count != 0)
 			{
-				goto IL_B9;
+				goto IL_00b9;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -48,29 +48,31 @@ public class AbilityUtil_Targeter_Line : AbilityUtil_Targeter
 				break;
 			}
 		}
-		this.m_highlights = new List<GameObject>();
-		this.m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(1f, false, false));
-		this.m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(1f, false, true));
-		IL_B9:
-		float magnitude = (laserEndPoint - targetingActor.\u0016()).magnitude;
-		Vector3 position = targetingActor.\u0016() + new Vector3(0f, 0.1f, 0f);
-		using (List<GameObject>.Enumerator enumerator = this.m_highlights.GetEnumerator())
+		m_highlights = new List<GameObject>();
+		m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(1f, false, false));
+		m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(1f, false, true));
+		goto IL_00b9;
+		IL_00b9:
+		float magnitude = (laserEndPoint - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude;
+		Vector3 position = targetingActor.GetTravelBoardSquareWorldPosition() + new Vector3(0f, 0.1f, 0f);
+		using (List<GameObject>.Enumerator enumerator = m_highlights.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				GameObject gameObject = enumerator.Current;
-				HighlightUtils.Get().ResizeBoundaryLine(magnitude / Board.\u000E().squareSize, gameObject);
-				gameObject.transform.position = position;
-				gameObject.transform.rotation = Quaternion.LookRotation(-currentTarget.AimDirection);
+				GameObject current = enumerator.Current;
+				HighlightUtils.Get().ResizeBoundaryLine(magnitude / Board.Get().squareSize, current);
+				current.transform.position = position;
+				current.transform.rotation = Quaternion.LookRotation(-currentTarget.AimDirection);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}

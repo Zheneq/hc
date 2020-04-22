@@ -1,4 +1,3 @@
-﻿using System;
 using LobbyGameClientMessages;
 
 public class AppState_CreateGame : AppState
@@ -7,7 +6,7 @@ public class AppState_CreateGame : AppState
 
 	public static AppState_CreateGame Get()
 	{
-		return AppState_CreateGame.s_instance;
+		return s_instance;
 	}
 
 	public static void Create()
@@ -17,21 +16,21 @@ public class AppState_CreateGame : AppState
 
 	private void Awake()
 	{
-		AppState_CreateGame.s_instance = this;
+		s_instance = this;
 	}
 
 	protected override void OnEnter()
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		clientGameManager.OnDisconnectedFromLobbyServer += this.HandleDisconnectedFromLobbyServer;
-		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.CreateGame, false);
+		clientGameManager.OnDisconnectedFromLobbyServer += HandleDisconnectedFromLobbyServer;
+		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.CreateGame);
 		UIFrontEnd.Get().m_createGameScreen.Setup();
 	}
 
 	protected override void OnLeave()
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		clientGameManager.OnDisconnectedFromLobbyServer -= this.HandleDisconnectedFromLobbyServer;
+		clientGameManager.OnDisconnectedFromLobbyServer -= HandleDisconnectedFromLobbyServer;
 	}
 
 	public void OnCreateClicked(LobbyGameConfig gameConfig)
@@ -40,7 +39,7 @@ public class AppState_CreateGame : AppState
 		BotDifficulty botDifficulty2 = BotDifficulty.Easy;
 		if (gameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -49,15 +48,15 @@ public class AppState_CreateGame : AppState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_CreateGame.OnCreateClicked(LobbyGameConfig)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			botDifficulty = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().AllyBotDifficultyToDisplay;
 		}
 		if (gameConfig.GameType != GameType.Solo)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -68,14 +67,15 @@ public class AppState_CreateGame : AppState
 			}
 			if (gameConfig.GameType != GameType.Coop)
 			{
-				goto IL_5F;
+				goto IL_005f;
 			}
 		}
 		botDifficulty2 = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay;
-		IL_5F:
+		goto IL_005f;
+		IL_005f:
 		if (!ClientGameManager.Get().IsCharacterAvailable(ClientGameManager.Get().GetPlayerAccountData().AccountComponent.LastCharacter, gameConfig.GameType))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -85,62 +85,62 @@ public class AppState_CreateGame : AppState
 				break;
 			}
 			CharacterResourceLink[] characterResourceLinks = GameWideData.Get().m_characterResourceLinks;
-			int i = 0;
-			while (i < characterResourceLinks.Length)
+			int num = 0;
+			while (true)
 			{
-				CharacterResourceLink characterResourceLink = characterResourceLinks[i];
-				if (characterResourceLink.m_characterType != CharacterType.None)
+				if (num < characterResourceLinks.Length)
 				{
-					for (;;)
+					CharacterResourceLink characterResourceLink = characterResourceLinks[num];
+					if (characterResourceLink.m_characterType != 0)
 					{
-						switch (3)
+						while (true)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (characterResourceLink.m_isHidden)
-					{
-						for (;;)
-						{
-							switch (4)
+							switch (3)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
+						if (characterResourceLink.m_isHidden)
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+						else if (ClientGameManager.Get().IsCharacterAvailable(characterResourceLink.m_characterType, gameConfig.GameType))
+						{
+							ClientGameManager.Get().UpdateSelectedCharacter(characterResourceLink.m_characterType);
+							break;
+						}
 					}
-					else if (ClientGameManager.Get().IsCharacterAvailable(characterResourceLink.m_characterType, gameConfig.GameType))
-					{
-						ClientGameManager.Get().UpdateSelectedCharacter(characterResourceLink.m_characterType, 0);
-						goto IL_11F;
-					}
-				}
-				IL_108:
-				i++;
-				continue;
-				goto IL_108;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
+					num++;
 					continue;
+				}
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
 				break;
 			}
 		}
-		IL_11F:
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		ReadyState readyState = ReadyState.Accepted;
 		BotDifficulty selectedBotSkillTeamA = botDifficulty;
 		BotDifficulty selectedBotSkillTeamB = botDifficulty2;
-		if (AppState_CreateGame.<>f__am$cache0 == null)
+		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -149,51 +149,49 @@ public class AppState_CreateGame : AppState
 				}
 				break;
 			}
-			AppState_CreateGame.<>f__am$cache0 = delegate(CreateGameResponse response)
+			_003C_003Ef__am_0024cache0 = delegate(CreateGameResponse response)
 			{
 				if (response.Success)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
+						{
+						case 0:
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							AppState_CharacterSelect.Get().Enter();
+							return;
+						}
+					}
+				}
+				object obj;
+				if (response.LocalizedFailure == null)
+				{
+					obj = (response.ErrorMessage.IsNullOrEmpty() ? StringUtil.TR("UnknownErrorTryAgain", "Frontend") : $"{response.ErrorMessage}#NeedsLocalization");
+				}
+				else
+				{
+					while (true)
+					{
+						switch (2)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(AppState_CreateGame.<OnCreateClicked>m__0(CreateGameResponse)).MethodHandle;
-					}
-					AppState_CharacterSelect.Get().Enter();
+					obj = response.LocalizedFailure.ToString();
 				}
-				else
-				{
-					string text;
-					if (response.LocalizedFailure != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						text = response.LocalizedFailure.ToString();
-					}
-					else
-					{
-						text = (response.ErrorMessage.IsNullOrEmpty() ? StringUtil.TR("UnknownErrorTryAgain", "Frontend") : string.Format("{0}#NeedsLocalization", response.ErrorMessage));
-					}
-					string description = text;
-					UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"), null, -1, false);
-				}
+				string description = (string)obj;
+				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"));
 			};
 		}
-		clientGameManager.CreateGame(gameConfig, readyState, selectedBotSkillTeamA, selectedBotSkillTeamB, AppState_CreateGame.<>f__am$cache0);
+		clientGameManager.CreateGame(gameConfig, ReadyState.Accepted, selectedBotSkillTeamA, selectedBotSkillTeamB, _003C_003Ef__am_0024cache0);
 	}
 
 	public void OnCancelClicked()
@@ -203,6 +201,6 @@ public class AppState_CreateGame : AppState
 
 	private void HandleDisconnectedFromLobbyServer(string lastLobbyErrorMessage)
 	{
-		AppState_LandingPage.Get().Enter(lastLobbyErrorMessage, false);
+		AppState_LandingPage.Get().Enter(lastLobbyErrorMessage);
 	}
 }

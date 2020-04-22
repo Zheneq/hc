@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
@@ -9,53 +9,54 @@ public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
 	protected new void Start()
 	{
 		base.Start();
-		ClientGameManager.Get().OnLoadingScreenBackgroundToggled += this.OnLoadingScreenBackgroundToggled;
-		UITooltipHoverObject component = this.m_ownedToggle.GetComponent<UITooltipHoverObject>();
+		ClientGameManager.Get().OnLoadingScreenBackgroundToggled += OnLoadingScreenBackgroundToggled;
+		UITooltipHoverObject component = m_ownedToggle.GetComponent<UITooltipHoverObject>();
 		component.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
 		{
-			UISimpleTooltip uisimpleTooltip = (UISimpleTooltip)tooltip;
-			uisimpleTooltip.Setup(StringUtil.TR("Owned", "Store"));
+			UISimpleTooltip uISimpleTooltip = (UISimpleTooltip)tooltip;
+			uISimpleTooltip.Setup(StringUtil.TR("Owned", "Store"));
 			return true;
-		}, null);
+		});
 	}
 
 	private void OnLoadingScreenBackgroundToggled(int id, bool isActive)
 	{
-		base.RefreshPage();
+		RefreshPage();
 	}
 
 	protected new void OnDestroy()
 	{
 		base.OnDestroy();
-		if (ClientGameManager.Get() != null)
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountLoadingScreenPanel.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ClientGameManager.Get().OnLoadingScreenBackgroundToggled -= this.OnLoadingScreenBackgroundToggled;
+			ClientGameManager.Get().OnLoadingScreenBackgroundToggled -= OnLoadingScreenBackgroundToggled;
+			return;
 		}
 	}
 
 	protected override GameBalanceVars.PlayerUnlockable[] GetRawItemsList()
 	{
-		return base.SortItems(new List<GameBalanceVars.PlayerUnlockable>(GameBalanceVars.Get().LoadingScreenBackgrounds)).ToArray();
+		return SortItems(new List<GameBalanceVars.PlayerUnlockable>(GameBalanceVars.Get().LoadingScreenBackgrounds)).ToArray();
 	}
 
 	protected override Toggle[] GetFilters()
 	{
-		return new Toggle[]
+		return new Toggle[1]
 		{
-			this.m_ownedToggle
+			m_ownedToggle
 		};
 	}
 
@@ -63,56 +64,63 @@ public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
 	{
 		if (item is GameBalanceVars.LoadingScreenBackground)
 		{
-			for (;;)
+			while (true)
 			{
+				int result;
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountLoadingScreenPanel.ShouldCheckmark(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
-			if (ClientGameManager.Get() != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
-				{
-					for (;;)
+				default:
 					{
-						switch (4)
+						if (1 == 0)
 						{
-						case 0:
-							continue;
+							/*OpCode not supported: LdMemberToken*/;
 						}
-						break;
+						if (ClientGameManager.Get() != null)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
+							{
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								result = (ClientGameManager.Get().GetPlayerAccountData().AccountComponent.IsLoadingScreenBackgroundActive(item.ID) ? 1 : 0);
+								goto IL_0071;
+							}
+						}
+						result = 0;
+						goto IL_0071;
 					}
-					return ClientGameManager.Get().GetPlayerAccountData().AccountComponent.IsLoadingScreenBackgroundActive(item.ID);
+					IL_0071:
+					return (byte)result != 0;
 				}
 			}
-			return false;
 		}
 		return false;
 	}
 
 	protected override bool ShouldFilter(GameBalanceVars.PlayerUnlockable item)
 	{
-		if (this.m_ownedToggle.isOn)
+		if (m_ownedToggle.isOn)
 		{
 			if (!(ClientGameManager.Get() == null))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -121,82 +129,78 @@ public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountLoadingScreenPanel.ShouldFilter(GameBalanceVars.PlayerUnlockable)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
+				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
 					if (!ClientGameManager.Get().GetPlayerAccountData().AccountComponent.IsLoadingScreenBackgroundUnlocked(item.ID))
 					{
 						return true;
 					}
-					return false;
+					goto IL_0073;
+				}
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
 			}
 			return true;
 		}
+		goto IL_0073;
+		IL_0073:
 		return false;
 	}
 
 	public override TooltipType? GetItemTooltipType()
 	{
-		return new TooltipType?(TooltipType.Titled);
+		return TooltipType.Titled;
 	}
 
 	public override bool ItemTooltipPopulate(UITooltipBase tooltip, UIStoreItemBtn slot, GameBalanceVars.PlayerUnlockable item)
 	{
 		GameBalanceVars.LoadingScreenBackground loadingScreenBackground = item as GameBalanceVars.LoadingScreenBackground;
 		string tooltipText = loadingScreenBackground.GetObtainedDescription() + Environment.NewLine + loadingScreenBackground.GetPurchaseDescription();
-		UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-		uititledTooltip.Setup(loadingScreenBackground.GetLoadingScreenBackgroundName(), tooltipText, string.Empty);
+		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+		uITitledTooltip.Setup(loadingScreenBackground.GetLoadingScreenBackgroundName(), tooltipText, string.Empty);
 		return true;
 	}
 
 	protected override void ItemClicked(GameBalanceVars.PlayerUnlockable item)
 	{
-		if (!item.IsOwned())
+		if (!item.IsOwned() || !(item is GameBalanceVars.LoadingScreenBackground))
 		{
 			return;
 		}
-		if (item is GameBalanceVars.LoadingScreenBackground)
+		while (true)
 		{
-			for (;;)
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountLoadingScreenPanel.ItemClicked(GameBalanceVars.PlayerUnlockable)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool flag = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.IsLoadingScreenBackgroundActive(item.ID);
 			ClientGameManager.Get().RequestLoadingScreenBackgroundToggle(item.ID, !flag, null);
+			return;
 		}
 	}
 
 	protected override void PurchaseItem(GameBalanceVars.PlayerUnlockable item, CurrencyType type)
 	{
-		UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
-		uipurchaseableItem.m_itemType = PurchaseItemType.LoadingScreenBackground;
-		uipurchaseableItem.m_loadingScreenBackgroundId = item.ID;
-		uipurchaseableItem.m_currencyType = type;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+		uIPurchaseableItem.m_itemType = PurchaseItemType.LoadingScreenBackground;
+		uIPurchaseableItem.m_loadingScreenBackgroundId = item.ID;
+		uIPurchaseableItem.m_currencyType = type;
+		UIStorePanel.Get().OpenPurchaseDialog(uIPurchaseableItem);
 	}
 }

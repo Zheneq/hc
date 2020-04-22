@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,7 +13,7 @@ public class UITakeoverManager : UIScene
 
 	public static UITakeoverManager Get()
 	{
-		return UITakeoverManager.s_instance;
+		return s_instance;
 	}
 
 	public override SceneType GetSceneType()
@@ -24,83 +23,84 @@ public class UITakeoverManager : UIScene
 
 	public override void Awake()
 	{
-		this.m_purchaseGameCloseButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ClosePurchaseGameClicked);
-		UITakeoverManager.s_instance = this;
-		UIManager.SetGameObjectActive(this.m_purchaseGameContainer, false, null);
+		m_purchaseGameCloseButton.callback = ClosePurchaseGameClicked;
+		s_instance = this;
+		UIManager.SetGameObjectActive(m_purchaseGameContainer, false);
 		base.Awake();
 	}
 
 	private void Start()
 	{
-		ClientGameManager.Get().OnLobbyServerClientAccessLevelChange += this.HandleAccessLevelChange;
+		ClientGameManager.Get().OnLobbyServerClientAccessLevelChange += HandleAccessLevelChange;
 	}
 
 	private void OnDestroy()
 	{
-		UITakeoverManager.s_instance = null;
-		if (ClientGameManager.Get() != null)
+		s_instance = null;
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITakeoverManager.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ClientGameManager.Get().OnLobbyServerClientAccessLevelChange -= this.HandleAccessLevelChange;
+			ClientGameManager.Get().OnLobbyServerClientAccessLevelChange -= HandleAccessLevelChange;
+			return;
 		}
 	}
 
 	public void ShowPurchaseGameTakeover()
 	{
-		UIManager.SetGameObjectActive(this.m_purchaseGameCloseButton.selectableButton, ClientGameManager.Get().ClientAccessLevel > ClientAccessLevel.Free, null);
-		UIManager.SetGameObjectActive(this.m_purchaseGameContainer, true, null);
-		this.TakeOverTimeStart = Time.time + 10f;
+		UIManager.SetGameObjectActive(m_purchaseGameCloseButton.selectableButton, ClientGameManager.Get().ClientAccessLevel > ClientAccessLevel.Free);
+		UIManager.SetGameObjectActive(m_purchaseGameContainer, true);
+		TakeOverTimeStart = Time.time + 10f;
 	}
 
 	public void ClosePurchaseGameClicked(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_purchaseGameContainer, false, null);
+		UIManager.SetGameObjectActive(m_purchaseGameContainer, false);
 	}
 
 	private void HandleAccessLevelChange(ClientAccessLevel oldLevel, ClientAccessLevel newLevel)
 	{
 		if (newLevel > ClientAccessLevel.Free)
 		{
-			UIManager.SetGameObjectActive(this.m_purchaseGameCloseButton.selectableButton, true, null);
+			UIManager.SetGameObjectActive(m_purchaseGameCloseButton.selectableButton, true);
 		}
 	}
 
 	private void Update()
 	{
-		if (this.TakeOverTimeStart > 0f)
+		if (!(TakeOverTimeStart > 0f))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITakeoverManager.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (Time.time < this.TakeOverTimeStart)
+			if (!(Time.time >= TakeOverTimeStart))
 			{
 				if (ClientGameManager.Get().ClientAccessLevel <= ClientAccessLevel.Free)
 				{
 					return;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -110,8 +110,9 @@ public class UITakeoverManager : UIScene
 					break;
 				}
 			}
-			this.TakeOverTimeStart = -1f;
-			UIManager.SetGameObjectActive(this.m_purchaseGameCloseButton.selectableButton, true, null);
+			TakeOverTimeStart = -1f;
+			UIManager.SetGameObjectActive(m_purchaseGameCloseButton.selectableButton, true);
+			return;
 		}
 	}
 }

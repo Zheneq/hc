@@ -1,9 +1,15 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class AbilityModPropertyEffectInfo
 {
-	public AbilityModPropertyEffectInfo.ModOp operation;
+	public enum ModOp
+	{
+		Ignore,
+		Override
+	}
+
+	public ModOp operation;
 
 	public bool useSequencesFromSource = true;
 
@@ -11,12 +17,12 @@ public class AbilityModPropertyEffectInfo
 
 	public StandardEffectInfo GetModifiedValue(StandardEffectInfo input)
 	{
-		if (this.operation == AbilityModPropertyEffectInfo.ModOp.Override)
+		if (operation == ModOp.Override)
 		{
-			StandardEffectInfo result = this.effectInfo;
-			if (this.useSequencesFromSource && input != null)
+			StandardEffectInfo result = effectInfo;
+			if (useSequencesFromSource && input != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -25,11 +31,11 @@ public class AbilityModPropertyEffectInfo
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyEffectInfo.GetModifiedValue(StandardEffectInfo)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				StandardEffectInfo shallowCopy = this.effectInfo.GetShallowCopy();
+				StandardEffectInfo shallowCopy = effectInfo.GetShallowCopy();
 				shallowCopy.m_effectData.m_sequencePrefabs = input.m_effectData.m_sequencePrefabs;
 				shallowCopy.m_effectData.m_tickSequencePrefab = input.m_effectData.m_tickSequencePrefab;
 				result = shallowCopy;
@@ -37,11 +43,5 @@ public class AbilityModPropertyEffectInfo
 			return result;
 		}
 		return input;
-	}
-
-	public enum ModOp
-	{
-		Ignore,
-		Override
 	}
 }

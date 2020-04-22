@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -20,41 +20,41 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 
 	internal static ReplayPlayManager Get()
 	{
-		return ReplayPlayManager.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		ReplayPlayManager.s_instance = this;
-		this.ResetState();
+		s_instance = this;
+		ResetState();
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.AppStateChanged);
 	}
 
 	private void ResetState()
 	{
-		this.m_seekTarget = default(ReplayTimestamp);
+		m_seekTarget = default(ReplayTimestamp);
 	}
 
 	private void Update()
 	{
-		if (this.m_playingReplay != null)
+		if (m_playingReplay == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplayPlayManager.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -63,312 +63,307 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (ReplayTimestamp.Current() < this.m_seekTarget)
+				if (ReplayTimestamp.Current() < m_seekTarget)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							Log.Info("Fastforwarding replay to {0} . . .", m_seekTarget);
+							FastForward(m_seekTarget);
+							return;
 						}
-						break;
 					}
-					Log.Info("Fastforwarding replay to {0} . . .", new object[]
-					{
-						this.m_seekTarget
-					});
-					this.FastForward(this.m_seekTarget);
-					return;
 				}
 			}
-			this.m_playingReplay.PlaybackUpdate();
+			m_playingReplay.PlaybackUpdate();
+			return;
 		}
 	}
 
 	private void OnDestroy()
 	{
 		GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.AppStateChanged);
-		ReplayPlayManager.s_instance = null;
+		s_instance = null;
 	}
 
 	public void StartReplay(string filename)
 	{
 		if (AppState.IsInGame())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					TextConsole.Get().Write("Failed to start replay: already ingame");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplayPlayManager.StartReplay(string)).MethodHandle;
-			}
-			TextConsole.Get().Write("Failed to start replay: already ingame", ConsoleMessageType.SystemMessage);
-			return;
 		}
-		this.ResetState();
+		ResetState();
 		try
 		{
-			this.m_prospectiveReplay = JsonUtility.FromJson<Replay>(File.ReadAllText(filename));
+			m_prospectiveReplay = JsonUtility.FromJson<Replay>(File.ReadAllText(filename));
 		}
 		catch (Exception ex)
 		{
-			Debug.LogFormat("Failed; {0}", new object[]
-			{
-				ex
-			});
+			Debug.LogFormat("Failed; {0}", ex);
 			try
 			{
-				this.m_prospectiveReplay = JsonUtility.FromJson<Replay>(File.ReadAllText(filename + ".arr"));
+				m_prospectiveReplay = JsonUtility.FromJson<Replay>(File.ReadAllText(filename + ".arr"));
 			}
 			catch (Exception ex2)
 			{
-				Debug.LogFormat("Failed; {0}", new object[]
-				{
-					ex2
-				});
-				TextConsole.Get().Write("Failed to start replay: file could not be read", ConsoleMessageType.SystemMessage);
+				Debug.LogFormat("Failed; {0}", ex2);
+				TextConsole.Get().Write("Failed to start replay: file could not be read");
 			}
 		}
-		if (this.m_prospectiveReplay == null)
+		if (m_prospectiveReplay == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("ReplayIssue", "FrontEnd"), StringUtil.TR("InvalidReplay", "FrontEnd"), StringUtil.TR("Ok", "Global"));
+					return;
 				}
-				break;
 			}
-			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("ReplayIssue", "FrontEnd"), StringUtil.TR("InvalidReplay", "FrontEnd"), StringUtil.TR("Ok", "Global"), null, -1, false);
 		}
-		else if (this.m_prospectiveReplay.m_versionMini != BuildVersion.MiniVersionString)
+		if (m_prospectiveReplay.m_versionMini != BuildVersion.MiniVersionString)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("ReplayIssue", "FrontEnd"), StringUtil.TR("ObsoleteReplay", "FrontEnd"), StringUtil.TR("Ok", "Global"));
+					return;
 				}
-				break;
 			}
-			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("ReplayIssue", "FrontEnd"), StringUtil.TR("ObsoleteReplay", "FrontEnd"), StringUtil.TR("Ok", "Global"), null, -1, false);
 		}
-		else if (this.m_prospectiveReplay.m_versionFull != BuildVersion.FullVersionString)
+		if (m_prospectiveReplay.m_versionFull != BuildVersion.FullVersionString)
 		{
-			UIDialogPopupManager.OpenTwoButtonDialog(StringUtil.TR("ReplayIssue", "FrontEnd"), StringUtil.TR("OldReplay", "FrontEnd"), StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), delegate(UIDialogBox _)
+			UIDialogPopupManager.OpenTwoButtonDialog(StringUtil.TR("ReplayIssue", "FrontEnd"), StringUtil.TR("OldReplay", "FrontEnd"), StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), delegate
 			{
-				this.m_playingReplay = this.m_prospectiveReplay;
-				this.m_prospectiveReplay = null;
-				this.m_appStateLoadingPassed = false;
-				this.m_playingReplay.StartPlayback();
-			}, null, false, false);
+				m_playingReplay = m_prospectiveReplay;
+				m_prospectiveReplay = null;
+				m_appStateLoadingPassed = false;
+				m_playingReplay.StartPlayback();
+			});
+			return;
 		}
-		else
-		{
-			this.m_playingReplay = this.m_prospectiveReplay;
-			this.m_prospectiveReplay = null;
-			this.m_appStateLoadingPassed = false;
-			this.m_playingReplay.StartPlayback();
-		}
+		m_playingReplay = m_prospectiveReplay;
+		m_prospectiveReplay = null;
+		m_appStateLoadingPassed = false;
+		m_playingReplay.StartPlayback();
 	}
 
 	public bool IsPlayback()
 	{
-		return this.m_playingReplay != null;
+		return m_playingReplay != null;
 	}
 
 	public PersistedCharacterMatchData GetPlaybackMatchData()
 	{
-		if (this.m_playingReplay != null)
+		if (m_playingReplay != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_playingReplay.GetMatchData();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplayPlayManager.GetPlaybackMatchData()).MethodHandle;
-			}
-			return this.m_playingReplay.GetMatchData();
 		}
 		return null;
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType == GameEventManager.EventType.AppStateChanged)
+		if (eventType != GameEventManager.EventType.AppStateChanged)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplayPlayManager.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_appStateLoadingPassed)
+			if (m_appStateLoadingPassed)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_playingReplay != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					if (!AppState.IsInGame())
-					{
-						for (;;)
+					default:
+						if (m_playingReplay != null)
 						{
-							switch (2)
+							while (true)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (AppState.GetCurrent() != AppState_GameLoading.Get())
-						{
-							for (;;)
-							{
-								switch (6)
+								switch (3)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									if (!AppState.IsInGame())
+									{
+										while (true)
+										{
+											switch (2)
+											{
+											case 0:
+												break;
+											default:
+												if (AppState.GetCurrent() != AppState_GameLoading.Get())
+												{
+													while (true)
+													{
+														switch (6)
+														{
+														case 0:
+															break;
+														default:
+															m_playingReplay.FinishPlayback();
+															m_playingReplay = null;
+															return;
+														}
+													}
+												}
+												return;
+											}
+										}
+									}
+									return;
 								}
-								break;
 							}
-							this.m_playingReplay.FinishPlayback();
-							this.m_playingReplay = null;
 						}
+						return;
 					}
 				}
 			}
-			else if (AppState.GetCurrent() == AppState_GameLoading.Get())
+			if (AppState.GetCurrent() == AppState_GameLoading.Get())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_appStateLoadingPassed = true;
+					return;
 				}
-				this.m_appStateLoadingPassed = true;
 			}
+			return;
 		}
 	}
 
 	private void FastForward(ReplayTimestamp target)
 	{
-		if (this.m_playingReplay != null)
+		if (m_playingReplay == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_fastForward = true;
+			try
+			{
+				m_playingReplay.PlaybackFastForward(target);
+			}
+			finally
+			{
+				m_fastForward = false;
+			}
+			Log.Info("{0}: Fastforwarded", Time.unscaledTime);
+			if (!(GameFlowData.Get() != null))
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplayPlayManager.FastForward(ReplayTimestamp)).MethodHandle;
-			}
-			this.m_fastForward = true;
-			try
-			{
-				this.m_playingReplay.PlaybackFastForward(target);
-			}
-			finally
-			{
-				this.m_fastForward = false;
-			}
-			Log.Info("{0}: Fastforwarded", new object[]
-			{
-				Time.unscaledTime
-			});
-			if (GameFlowData.Get() != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ReplayTimestamp.Current() >= target)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						GameEventManager.Get().FireEvent(GameEventManager.EventType.ReplaySeekFinished, null);
+						return;
 					}
-					GameEventManager.Get().FireEvent(GameEventManager.EventType.ReplaySeekFinished, null);
 				}
+				return;
 			}
 		}
 	}
 
 	public void Restart()
 	{
-		if (this.m_playingReplay != null)
+		if (m_playingReplay == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplayPlayManager.Restart()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (GameFlowData.Get())
+			if ((bool)GameFlowData.Get())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -381,10 +376,10 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 				{
 					while (enumerator.MoveNext())
 					{
-						ActorData actorData = enumerator.Current;
-						actorData.OnReplayRestart();
+						ActorData current = enumerator.Current;
+						current.OnReplayRestart();
 					}
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -395,11 +390,12 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 					}
 				}
 			}
-			foreach (NetworkIdentity networkIdentity in UnityEngine.Object.FindObjectsOfType<NetworkIdentity>())
+			NetworkIdentity[] array = UnityEngine.Object.FindObjectsOfType<NetworkIdentity>();
+			foreach (NetworkIdentity networkIdentity in array)
 			{
 				if (networkIdentity.sceneId.IsEmpty())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -414,9 +410,9 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 					}
 				}
 			}
-			if (SequenceManager.Get())
+			if ((bool)SequenceManager.Get())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -428,21 +424,18 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 				SequenceManager.Get().ClearAllSequences();
 			}
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.ReplayRestart, null);
-			this.m_playingReplay.PlaybackRestart();
+			m_playingReplay.PlaybackRestart();
+			return;
 		}
 	}
 
 	public void Seek(ReplayTimestamp target)
 	{
-		Log.Info("{0}: Setting replay seek to {1} . . .", new object[]
-		{
-			Time.unscaledTime,
-			target
-		});
-		this.m_seekTarget = target;
+		Log.Info("{0}: Setting replay seek to {1} . . .", Time.unscaledTime, target);
+		m_seekTarget = target;
 		if (target <= ReplayTimestamp.Current())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -451,18 +444,18 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplayPlayManager.Seek(ReplayTimestamp)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.Restart();
+			Restart();
 		}
-		this.Update();
+		Update();
 	}
 
 	public bool IsFastForward()
 	{
-		return this.m_fastForward;
+		return m_fastForward;
 	}
 
 	public void Pause()

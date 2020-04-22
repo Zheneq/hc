@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,7 +6,7 @@ public class ScrollTexture : MonoBehaviour
 {
 	public Vector2 m_scrollSpeed = new Vector2(0.03f, 0f);
 
-	public string[] m_textureNames = new string[]
+	public string[] m_textureNames = new string[2]
 	{
 		"_MainTex",
 		"_EmissionMap"
@@ -17,29 +16,29 @@ public class ScrollTexture : MonoBehaviour
 
 	private void Start()
 	{
-		Renderer[] components = base.GetComponents<Renderer>();
-		if (components != null)
+		Renderer[] components = GetComponents<Renderer>();
+		if (components == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScrollTexture.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			foreach (Renderer renderer in components)
 			{
 				for (int j = 0; j < renderer.sharedMaterials.Length; j++)
 				{
-					if (!this.m_sharedMatToMatCopy.ContainsKey(renderer.sharedMaterials[j]))
+					if (!m_sharedMatToMatCopy.ContainsKey(renderer.sharedMaterials[j]))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -48,170 +47,183 @@ public class ScrollTexture : MonoBehaviour
 							}
 							break;
 						}
-						this.m_sharedMatToMatCopy[renderer.sharedMaterials[j]] = renderer.materials[j];
+						m_sharedMatToMatCopy[renderer.sharedMaterials[j]] = renderer.materials[j];
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						goto end_IL_007d;
 					}
+					continue;
+					end_IL_007d:
 					break;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			foreach (Renderer renderer2 in (Renderer[])UnityEngine.Object.FindObjectsOfType(typeof(Renderer)))
-			{
-				List<int> list = new List<int>();
-				for (int l = 0; l < renderer2.sharedMaterials.Length; l++)
+				Renderer[] array = (Renderer[])Object.FindObjectsOfType(typeof(Renderer));
+				int num = 0;
+				while (num < array.Length)
 				{
-					if (renderer2.sharedMaterials[l] != null)
+					Renderer renderer2 = array[num];
+					List<int> list = new List<int>();
+					for (int k = 0; k < renderer2.sharedMaterials.Length; k++)
 					{
-						for (;;)
+						if (renderer2.sharedMaterials[k] != null)
 						{
-							switch (2)
+							while (true)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_sharedMatToMatCopy.ContainsKey(renderer2.sharedMaterials[l]))
-						{
-							list.Add(l);
-						}
-					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (list.Count > 0)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Material[] array2 = new Material[renderer2.sharedMaterials.Length];
-					for (int m = 0; m < array2.Length; m++)
-					{
-						if (list.Contains(m))
-						{
-							for (;;)
-							{
-								switch (3)
+								switch (2)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							array2[m] = this.m_sharedMatToMatCopy[renderer2.sharedMaterials[m]];
-						}
-						else
-						{
-							array2[m] = renderer2.sharedMaterials[m];
+							if (m_sharedMatToMatCopy.ContainsKey(renderer2.sharedMaterials[k]))
+							{
+								list.Add(k);
+							}
 						}
 					}
-					for (;;)
+					while (true)
 					{
-						switch (2)
+						switch (7)
 						{
 						case 0:
 							continue;
 						}
+						if (list.Count > 0)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							Material[] array2 = new Material[renderer2.sharedMaterials.Length];
+							for (int l = 0; l < array2.Length; l++)
+							{
+								if (list.Contains(l))
+								{
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									array2[l] = m_sharedMatToMatCopy[renderer2.sharedMaterials[l]];
+								}
+								else
+								{
+									array2[l] = renderer2.sharedMaterials[l];
+								}
+							}
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							renderer2.sharedMaterials = array2;
+							if (m_sharedMatToMatCopy.ContainsKey(renderer2.sharedMaterial))
+							{
+								while (true)
+								{
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								renderer2.sharedMaterial = m_sharedMatToMatCopy[renderer2.sharedMaterial];
+							}
+						}
+						num++;
+						goto IL_020b;
+					}
+					IL_020b:;
+				}
+				while (true)
+				{
+					switch (3)
+					{
+					default:
+						return;
+					case 0:
 						break;
 					}
-					renderer2.sharedMaterials = array2;
-					if (this.m_sharedMatToMatCopy.ContainsKey(renderer2.sharedMaterial))
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						renderer2.sharedMaterial = this.m_sharedMatToMatCopy[renderer2.sharedMaterial];
-					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
 
 	private void Update()
 	{
-		Vector2 textureOffset = new Vector2(Mathf.Repeat(Time.time * this.m_scrollSpeed.x, 1f), Mathf.Repeat(Time.time * this.m_scrollSpeed.y, 1f));
-		this.SetTextureOffset(textureOffset);
+		Vector2 textureOffset = new Vector2(Mathf.Repeat(Time.time * m_scrollSpeed.x, 1f), Mathf.Repeat(Time.time * m_scrollSpeed.y, 1f));
+		SetTextureOffset(textureOffset);
 	}
 
 	private void OnDisable()
 	{
-		this.SetTextureOffset(Vector2.zero);
+		SetTextureOffset(Vector2.zero);
 	}
 
 	private void SetTextureOffset(Vector2 offset)
 	{
-		for (int i = 0; i < this.m_sharedMatToMatCopy.Count; i++)
+		int num = 0;
+		while (num < m_sharedMatToMatCopy.Count)
 		{
-			Material material = this.m_sharedMatToMatCopy.Values.ElementAt(i);
-			for (int j = 0; j < this.m_textureNames.Length; j++)
+			Material material = m_sharedMatToMatCopy.Values.ElementAt(num);
+			for (int i = 0; i < m_textureNames.Length; i++)
 			{
-				material.SetTextureOffset(this.m_textureNames[j], offset);
+				material.SetTextureOffset(m_textureNames[i], offset);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				num++;
+				goto IL_0053;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScrollTexture.SetTextureOffset(Vector2)).MethodHandle;
-			}
+			IL_0053:;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 }

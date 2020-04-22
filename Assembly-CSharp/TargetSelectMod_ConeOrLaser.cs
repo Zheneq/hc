@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -19,7 +19,7 @@ public class TargetSelectMod_ConeOrLaser : TargetSelectModBase
 		TargetSelect_ConeOrLaser targetSelect_ConeOrLaser = targetSelectBase as TargetSelect_ConeOrLaser;
 		if (targetSelect_ConeOrLaser != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -28,13 +28,13 @@ public class TargetSelectMod_ConeOrLaser : TargetSelectModBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelectMod_ConeOrLaser.GetModSpecificInEditorDesc(GenericAbility_TargetSelectBase, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text += AbilityModHelper.GetModPropertyDesc(this.m_coneDistThresholdMod, "[ConeDistThreshold]", true, targetSelect_ConeOrLaser.m_coneDistThreshold);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_coneInfoMod, "[ConeInfo]", true, targetSelect_ConeOrLaser.m_coneInfo);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_laserInfoMod, "[LaserInfo]", true, targetSelect_ConeOrLaser.m_laserInfo);
+			text += AbilityModHelper.GetModPropertyDesc(m_coneDistThresholdMod, "[ConeDistThreshold]", true, targetSelect_ConeOrLaser.m_coneDistThreshold);
+			text += AbilityModHelper.GetModPropertyDesc(m_coneInfoMod, "[ConeInfo]", true, targetSelect_ConeOrLaser.m_coneInfo);
+			text += AbilityModHelper.GetModPropertyDesc(m_laserInfoMod, "[LaserInfo]", true, targetSelect_ConeOrLaser.m_laserInfo);
 		}
 		return text;
 	}

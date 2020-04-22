@@ -1,9 +1,68 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BlasterStretchConeSequence : Sequence
 {
+	public enum ProjectileDistanceMode
+	{
+		AlwaysMaxDistance,
+		AlwaysRandDistance,
+		HalfMaxDist_HalfRandDist,
+		RandomChoice_MaxVsRandDist
+	}
+
+	public class ExtraParams : IExtraSequenceParams
+	{
+		public float angleInDegrees;
+
+		public float lengthInSquares;
+
+		public float forwardAngle;
+
+		public bool useStartPosOverride;
+
+		public Vector3 startPosOverride = Vector3.zero;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			stream.Serialize(ref angleInDegrees);
+			stream.Serialize(ref lengthInSquares);
+			stream.Serialize(ref forwardAngle);
+			stream.Serialize(ref useStartPosOverride);
+			if (useStartPosOverride)
+			{
+				stream.Serialize(ref startPosOverride);
+			}
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			stream.Serialize(ref angleInDegrees);
+			stream.Serialize(ref lengthInSquares);
+			stream.Serialize(ref forwardAngle);
+			stream.Serialize(ref useStartPosOverride);
+			if (!useStartPosOverride)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				stream.Serialize(ref startPosOverride);
+				return;
+			}
+		}
+	}
+
 	[Separator("Muzzle flash / cone-covering FX prefab, scales by angle and length.", true)]
 	public GameObject m_blastFxPrefab;
 
@@ -16,7 +75,7 @@ public class BlasterStretchConeSequence : Sequence
 	[Separator("Impact FX", true)]
 	public GameObject m_impactFxPrefab;
 
-	public Sequence.HitVFXSpawnTeam m_hitVfxSpawnTeamMode = Sequence.HitVFXSpawnTeam.AllExcludeCaster;
+	public HitVFXSpawnTeam m_hitVfxSpawnTeamMode = HitVFXSpawnTeam.AllExcludeCaster;
 
 	[JointPopup("hit FX attach joint (or start position for projectiles).")]
 	public JointPopupProperty m_impactFxJoint;
@@ -38,7 +97,7 @@ public class BlasterStretchConeSequence : Sequence
 	[Separator("Projectile Properties", true)]
 	public int m_numProjectilesToSpawn;
 
-	public BlasterStretchConeSequence.ProjectileDistanceMode m_projectileDistanceMode = BlasterStretchConeSequence.ProjectileDistanceMode.RandomChoice_MaxVsRandDist;
+	public ProjectileDistanceMode m_projectileDistanceMode = ProjectileDistanceMode.RandomChoice_MaxVsRandDist;
 
 	public bool m_projectilesCauseHitReacts;
 
@@ -97,14 +156,14 @@ public class BlasterStretchConeSequence : Sequence
 
 	private const string c_lengthControl = "lengthControl";
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			BlasterStretchConeSequence.ExtraParams extraParams2 = extraSequenceParams as BlasterStretchConeSequence.ExtraParams;
+			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2 != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -113,34 +172,35 @@ public class BlasterStretchConeSequence : Sequence
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_maxDistInWorld = extraParams2.lengthInSquares * Board.\u000E().squareSize;
-				this.m_angleRangeDegrees = extraParams2.angleInDegrees;
-				this.m_aimForwardDir = VectorUtils.AngleDegreesToVector(extraParams2.forwardAngle);
-				this.m_useStartPosOverride = extraParams2.useStartPosOverride;
-				this.m_startPosOverride = extraParams2.startPosOverride;
-				this.m_didSetValuesFromExtraParams = true;
+				m_maxDistInWorld = extraParams2.lengthInSquares * Board.Get().squareSize;
+				m_angleRangeDegrees = extraParams2.angleInDegrees;
+				m_aimForwardDir = VectorUtils.AngleDegreesToVector(extraParams2.forwardAngle);
+				m_useStartPosOverride = extraParams2.useStartPosOverride;
+				m_startPosOverride = extraParams2.startPosOverride;
+				m_didSetValuesFromExtraParams = true;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public override void FinishSetup()
 	{
-		if (this.m_staggeredRateOfFire <= 0f)
+		if (m_staggeredRateOfFire <= 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -149,18 +209,18 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.FinishSetup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_staggeredRateOfFire = 0.5f;
+			m_staggeredRateOfFire = 0.5f;
 		}
-		this.m_projectileFxInstances = new List<GameObject>();
-		this.m_impactFxInstances = new List<GameObject>();
-		this.m_projectileActorImpacts = new Dictionary<ActorData, float>();
-		if (this.m_startEvent == null)
+		m_projectileFxInstances = new List<GameObject>();
+		m_impactFxInstances = new List<GameObject>();
+		m_projectileActorImpacts = new Dictionary<ActorData, float>();
+		if (m_startEvent == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -169,49 +229,48 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				break;
 			}
-			this.SpawnFX();
+			SpawnFX();
 		}
-		if (this.m_hitReactEvent == null)
+		if (!(m_hitReactEvent == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.m_lastHitReactEvent == null)
+			if (m_lastHitReactEvent == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					SpawnImpactFX(true, null);
+					return;
 				}
-				this.SpawnImpactFX(true, null);
 			}
+			return;
 		}
 	}
 
 	private float GetProjectileDistanceWithActorCollisions(Vector3 start, Vector3 forward, float maxDist, int projectileNum)
 	{
 		Vector3 vector = start;
-		vector.y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+		vector.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 		Vector3 startPos = vector;
-		float laserRangeInSquares = maxDist / Board.\u000E().squareSize;
-		float laserWidthInSquares = 0.1f;
+		float laserRangeInSquares = maxDist / Board.Get().squareSize;
 		ActorData caster = base.Caster;
-		List<Team> validTeams = base.Caster.\u0015();
-		bool penetrateLos = false;
+		List<Team> opposingTeams = base.Caster.GetOpposingTeams();
 		int maxTargets;
-		if (this.m_projectilesStopOnEnemy)
+		if (m_projectilesStopOnEnemy)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -220,9 +279,9 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.GetProjectileDistanceWithActorCollisions(Vector3, Vector3, float, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			maxTargets = 1;
 		}
@@ -230,33 +289,32 @@ public class BlasterStretchConeSequence : Sequence
 		{
 			maxTargets = 4;
 		}
-		Vector3 b;
-		AreaEffectUtils.GetActorsInLaser(startPos, forward, laserRangeInSquares, laserWidthInSquares, caster, validTeams, penetrateLos, maxTargets, false, true, out b, null, null, false, true);
-		return (vector - b).magnitude;
+		AreaEffectUtils.GetActorsInLaser(startPos, forward, laserRangeInSquares, 0.1f, caster, opposingTeams, false, maxTargets, false, true, out Vector3 laserEndPos, null);
+		return (vector - laserEndPos).magnitude;
 	}
 
 	private float GetProjectileDistance(Vector3 start, Vector3 forward, float maxDist, int projectileNum)
 	{
 		Vector3 vector = start;
-		vector.y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
-		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector, forward, maxDist, false, base.Caster, null, true);
+		vector.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector, forward, maxDist, false, base.Caster);
 		float magnitude = (vector - laserEndPoint).magnitude;
 		bool flag;
-		if (this.m_projectileDistanceMode == BlasterStretchConeSequence.ProjectileDistanceMode.AlwaysMaxDistance)
+		if (m_projectileDistanceMode == ProjectileDistanceMode.AlwaysMaxDistance)
 		{
 			flag = false;
 		}
-		else if (this.m_projectileDistanceMode == BlasterStretchConeSequence.ProjectileDistanceMode.AlwaysRandDistance)
+		else if (m_projectileDistanceMode == ProjectileDistanceMode.AlwaysRandDistance)
 		{
 			flag = true;
 		}
-		else if (this.m_projectileDistanceMode == BlasterStretchConeSequence.ProjectileDistanceMode.HalfMaxDist_HalfRandDist)
+		else if (m_projectileDistanceMode == ProjectileDistanceMode.HalfMaxDist_HalfRandDist)
 		{
 			flag = (projectileNum % 2 == 1);
 		}
-		else if (this.m_projectileDistanceMode == BlasterStretchConeSequence.ProjectileDistanceMode.RandomChoice_MaxVsRandDist)
+		else if (m_projectileDistanceMode == ProjectileDistanceMode.RandomChoice_MaxVsRandDist)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -265,9 +323,9 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.GetProjectileDistance(Vector3, Vector3, float, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			flag = (UnityEngine.Random.value >= 0.5f);
 		}
@@ -275,55 +333,50 @@ public class BlasterStretchConeSequence : Sequence
 		{
 			flag = false;
 		}
-		float result;
 		if (flag)
 		{
 			float a = UnityEngine.Random.Range(0f, maxDist);
-			result = Mathf.Min(a, magnitude);
+			return Mathf.Min(a, magnitude);
 		}
-		else
-		{
-			result = magnitude;
-		}
-		return result;
+		return magnitude;
 	}
 
 	private Vector3 GetConeStartPos()
 	{
-		if (this.m_useStartPosOverride)
+		if (m_useStartPosOverride)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_startPosOverride;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.GetConeStartPos()).MethodHandle;
-			}
-			return this.m_startPosOverride;
 		}
-		if (this.m_fxJoint.IsInitialized())
+		if (m_fxJoint.IsInitialized())
 		{
-			return this.m_fxJoint.m_jointObject.transform.position;
+			return m_fxJoint.m_jointObject.transform.position;
 		}
-		return base.Caster.\u0016();
+		return base.Caster.GetTravelBoardSquareWorldPosition();
 	}
 
 	private void SpawnFX()
 	{
-		if (!this.m_fxJoint.IsInitialized())
+		if (!m_fxJoint.IsInitialized())
 		{
-			this.m_fxJoint.Initialize(base.Caster.gameObject);
+			m_fxJoint.Initialize(base.Caster.gameObject);
 		}
 		Vector3 vector;
-		if (this.m_setBlastFxRotationToGamplayAim)
+		if (m_setBlastFxRotationToGamplayAim)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -332,13 +385,13 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.SpawnFX()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_didSetValuesFromExtraParams)
+			if (m_didSetValuesFromExtraParams)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -347,17 +400,18 @@ public class BlasterStretchConeSequence : Sequence
 					}
 					break;
 				}
-				vector = this.m_aimForwardDir;
-				goto IL_85;
+				vector = m_aimForwardDir;
+				goto IL_0085;
 			}
 		}
-		vector = this.m_fxJoint.m_jointObject.transform.forward;
+		vector = m_fxJoint.m_jointObject.transform.forward;
 		vector.y = 0f;
-		IL_85:
-		float value = this.m_angleRangeDegrees / 2f * 0.0174532924f;
-		if (this.m_blastFxPrefab != null)
+		goto IL_0085;
+		IL_0085:
+		float value = m_angleRangeDegrees / 2f * ((float)Math.PI / 180f);
+		if (m_blastFxPrefab != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -366,11 +420,11 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				break;
 			}
-			this.m_blastFxInstance = base.InstantiateFX(this.m_blastFxPrefab, this.GetConeStartPos(), Quaternion.LookRotation(vector), true, true);
-			FriendlyEnemyVFXSelector component = this.m_blastFxInstance.GetComponent<FriendlyEnemyVFXSelector>();
+			m_blastFxInstance = InstantiateFX(m_blastFxPrefab, GetConeStartPos(), Quaternion.LookRotation(vector));
+			FriendlyEnemyVFXSelector component = m_blastFxInstance.GetComponent<FriendlyEnemyVFXSelector>();
 			if (component != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -379,24 +433,24 @@ public class BlasterStretchConeSequence : Sequence
 					}
 					break;
 				}
-				component.Setup(base.Caster.\u000E());
+				component.Setup(base.Caster.GetTeam());
 				component.SetAttribute("angleControl", value);
-				component.SetAttribute("lengthControl", this.m_maxDistInWorld / Board.\u000E().squareSize);
+				component.SetAttribute("lengthControl", m_maxDistInWorld / Board.Get().squareSize);
 			}
 			else
 			{
-				Sequence.SetAttribute(this.m_blastFxInstance, "angleControl", value);
-				Sequence.SetAttribute(this.m_blastFxInstance, "lengthControl", this.m_maxDistInWorld / Board.\u000E().squareSize);
+				Sequence.SetAttribute(m_blastFxInstance, "angleControl", value);
+				Sequence.SetAttribute(m_blastFxInstance, "lengthControl", m_maxDistInWorld / Board.Get().squareSize);
 			}
 		}
-		if (this.m_staggerProjectiles)
+		if (m_staggerProjectiles)
 		{
-			this.m_projectileAngleOrder.Clear();
-			float num = -0.5f * this.m_angleRangeDegrees;
+			m_projectileAngleOrder.Clear();
+			float num = -0.5f * m_angleRangeDegrees;
 			float num2;
-			if (this.m_numProjectilesToSpawn < 2)
+			if (m_numProjectilesToSpawn < 2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -409,14 +463,14 @@ public class BlasterStretchConeSequence : Sequence
 			}
 			else
 			{
-				num2 = this.m_angleRangeDegrees / (float)(this.m_numProjectilesToSpawn - 1);
+				num2 = m_angleRangeDegrees / (float)(m_numProjectilesToSpawn - 1);
 			}
 			float num3 = num2;
-			for (int i = 0; i < this.m_numProjectilesToSpawn; i++)
+			for (int i = 0; i < m_numProjectilesToSpawn; i++)
 			{
-				this.m_projectileAngleOrder.Add(num + num3 * (float)i);
+				m_projectileAngleOrder.Add(num + num3 * (float)i);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -425,21 +479,21 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				break;
 			}
-			this.m_projectileAngleOrder.Shuffle(new System.Random());
-			this.m_forwardDirForProjectileSpawns = vector;
-			this.CreateProjectile(vector, 0, false);
-			this.m_timeForNextStaggeredProjectile = GameTime.time + 1f / this.m_staggeredRateOfFire;
+			m_projectileAngleOrder.Shuffle(new System.Random());
+			m_forwardDirForProjectileSpawns = vector;
+			CreateProjectile(vector, 0, false);
+			m_timeForNextStaggeredProjectile = GameTime.time + 1f / m_staggeredRateOfFire;
 		}
 		else
 		{
-			for (int j = 0; j < this.m_numProjectilesToSpawn; j++)
+			for (int j = 0; j < m_numProjectilesToSpawn; j++)
 			{
-				this.CreateProjectile(vector, j, true);
+				CreateProjectile(vector, j, true);
 			}
 		}
-		if (this.m_projectilesCauseHitReacts)
+		if (m_projectilesCauseHitReacts)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -449,40 +503,33 @@ public class BlasterStretchConeSequence : Sequence
 				break;
 			}
 			ActorData[] targets = base.Targets;
-			int k = 0;
-			while (k < targets.Length)
+			foreach (ActorData actorData in targets)
 			{
-				ActorData actorData = targets[k];
-				float num4 = (actorData.\u0015() - base.Caster.\u0015()).magnitude;
+				float num4 = (actorData.GetTravelBoardSquareWorldPositionForLos() - base.Caster.GetTravelBoardSquareWorldPositionForLos()).magnitude;
 				if (GameWideData.Get().UseActorRadiusForCone())
 				{
-					num4 += GameWideData.Get().m_actorTargetingRadiusInSquares * Board.\u000E().squareSize;
+					num4 += GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 				}
-				float num5 = GameTime.time + num4 / this.m_projectileSpeed;
-				if (!this.m_projectileActorImpacts.ContainsKey(actorData))
+				float num5 = GameTime.time + num4 / m_projectileSpeed;
+				if (m_projectileActorImpacts.ContainsKey(actorData))
 				{
-					goto IL_316;
-				}
-				if (num5 < this.m_projectileActorImpacts[actorData])
-				{
-					for (;;)
+					if (!(num5 < m_projectileActorImpacts[actorData]))
+					{
+						continue;
+					}
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
 							continue;
 						}
-						goto IL_316;
+						break;
 					}
 				}
-				IL_325:
-				k++;
-				continue;
-				IL_316:
-				this.m_projectileActorImpacts[actorData] = num5;
-				goto IL_325;
+				m_projectileActorImpacts[actorData] = num5;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -492,18 +539,19 @@ public class BlasterStretchConeSequence : Sequence
 				break;
 			}
 		}
-		if (!string.IsNullOrEmpty(this.m_audioEvent))
+		if (string.IsNullOrEmpty(m_audioEvent))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
+			AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
+			return;
 		}
 	}
 
@@ -512,7 +560,7 @@ public class BlasterStretchConeSequence : Sequence
 		Quaternion rotation;
 		if (randomAngle)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -521,34 +569,34 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.CreateProjectile(Vector3, int, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			rotation = Quaternion.AngleAxis(UnityEngine.Random.Range(-this.m_angleRangeDegrees, this.m_angleRangeDegrees), Vector3.up);
+			rotation = Quaternion.AngleAxis(UnityEngine.Random.Range(0f - m_angleRangeDegrees, m_angleRangeDegrees), Vector3.up);
 		}
 		else
 		{
-			rotation = Quaternion.AngleAxis(this.m_projectileAngleOrder[projectileIndex], Vector3.up);
+			rotation = Quaternion.AngleAxis(m_projectileAngleOrder[projectileIndex], Vector3.up);
 		}
 		Vector3 vector = rotation * forward;
-		if (this.m_projectileFxPrefab != null)
+		if (!(m_projectileFxPrefab != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			Vector3 coneStartPos = this.GetConeStartPos();
-			GameObject gameObject = base.InstantiateFX(this.m_projectileFxPrefab, coneStartPos, Quaternion.LookRotation(vector), true, true);
+			Vector3 coneStartPos = GetConeStartPos();
+			GameObject gameObject = InstantiateFX(m_projectileFxPrefab, coneStartPos, Quaternion.LookRotation(vector));
 			float value;
-			if (this.m_projectilesCauseHitReacts)
+			if (m_projectilesCauseHitReacts)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -557,16 +605,17 @@ public class BlasterStretchConeSequence : Sequence
 					}
 					break;
 				}
-				Vector3 lhs = this.m_fxJoint.m_jointObject.transform.position - base.Caster.\u0015();
+				Vector3 lhs = m_fxJoint.m_jointObject.transform.position - base.Caster.GetTravelBoardSquareWorldPositionForLos();
 				lhs = Vector3.Dot(lhs, vector) * vector.normalized;
-				value = this.GetProjectileDistanceWithActorCollisions(coneStartPos, vector, this.m_maxDistInWorld - lhs.magnitude, projectileIndex);
+				value = GetProjectileDistanceWithActorCollisions(coneStartPos, vector, m_maxDistInWorld - lhs.magnitude, projectileIndex);
 			}
 			else
 			{
-				value = this.GetProjectileDistance(base.Caster.transform.position, vector, this.m_maxDistInWorld, projectileIndex);
+				value = GetProjectileDistance(base.Caster.transform.position, vector, m_maxDistInWorld, projectileIndex);
 			}
 			Sequence.SetAttribute(gameObject, "projectileDistance", value);
-			this.m_projectileFxInstances.Add(gameObject);
+			m_projectileFxInstances.Add(gameObject);
+			return;
 		}
 	}
 
@@ -574,7 +623,7 @@ public class BlasterStretchConeSequence : Sequence
 	{
 		if (base.Targets != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -583,50 +632,45 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.SpawnImpactFX(bool, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			int i = 0;
-			while (i < base.Targets.Length)
+			for (int i = 0; i < base.Targets.Length; i++)
 			{
-				if (specificTarget == null)
+				if (!(specificTarget == null))
 				{
-					goto IL_5B;
-				}
-				for (;;)
-				{
-					switch (7)
+					while (true)
 					{
-					case 0:
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (!(base.Targets[i] == specificTarget))
+					{
 						continue;
 					}
-					break;
-				}
-				if (base.Targets[i] == specificTarget)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
 							continue;
 						}
-						goto IL_5B;
+						break;
 					}
 				}
-				IL_1D0:
-				i++;
-				continue;
-				IL_5B:
-				Vector3 targetHitPosition = base.GetTargetHitPosition(i, this.m_impactFxJoint);
+				Vector3 targetHitPosition = GetTargetHitPosition(i, m_impactFxJoint);
 				Vector3 vector = targetHitPosition - base.Caster.transform.position;
 				vector.y = 0f;
 				vector.Normalize();
 				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, vector);
-				if (this.m_impactFxPrefab != null)
+				if (m_impactFxPrefab != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -635,9 +679,9 @@ public class BlasterStretchConeSequence : Sequence
 						}
 						break;
 					}
-					if (base.IsHitFXVisibleWrtTeamFilter(base.Targets[i], this.m_hitVfxSpawnTeamMode))
+					if (IsHitFXVisibleWrtTeamFilter(base.Targets[i], m_hitVfxSpawnTeamMode))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -647,9 +691,9 @@ public class BlasterStretchConeSequence : Sequence
 							break;
 						}
 						Quaternion rotation;
-						if (this.m_setBlastFxRotationToGamplayAim)
+						if (m_setBlastFxRotationToGamplayAim)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -664,11 +708,11 @@ public class BlasterStretchConeSequence : Sequence
 						{
 							rotation = Quaternion.identity;
 						}
-						GameObject gameObject = base.InstantiateFX(this.m_impactFxPrefab, targetHitPosition, rotation, true, true);
+						GameObject gameObject = InstantiateFX(m_impactFxPrefab, targetHitPosition, rotation);
 						FriendlyEnemyVFXSelector component = gameObject.GetComponent<FriendlyEnemyVFXSelector>();
 						if (component != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -677,14 +721,14 @@ public class BlasterStretchConeSequence : Sequence
 								}
 								break;
 							}
-							component.Setup(base.Caster.\u000E());
+							component.Setup(base.Caster.GetTeam());
 						}
-						this.m_impactFxInstances.Add(gameObject);
+						m_impactFxInstances.Add(gameObject);
 					}
 				}
-				if (!string.IsNullOrEmpty(this.m_impactAudioEvent))
+				if (!string.IsNullOrEmpty(m_impactAudioEvent))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -693,37 +737,35 @@ public class BlasterStretchConeSequence : Sequence
 						}
 						break;
 					}
-					AudioManager.PostEvent(this.m_impactAudioEvent, base.Targets[i].gameObject);
+					AudioManager.PostEvent(m_impactAudioEvent, base.Targets[i].gameObject);
 				}
-				if (base.Targets[i] != null)
+				if (!(base.Targets[i] != null))
 				{
-					SequenceSource source = base.Source;
-					ActorData target = base.Targets[i];
-					ActorModelData.ImpulseInfo impulseInfo2 = impulseInfo;
-					ActorModelData.RagdollActivation ragdollActivation;
-					if (lastHit)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						ragdollActivation = ActorModelData.RagdollActivation.HealthBased;
-					}
-					else
-					{
-						ragdollActivation = ActorModelData.RagdollActivation.None;
-					}
-					source.OnSequenceHit(this, target, impulseInfo2, ragdollActivation, true);
-					goto IL_1D0;
+					continue;
 				}
-				goto IL_1D0;
+				SequenceSource source = base.Source;
+				ActorData target = base.Targets[i];
+				int ragdollActivation;
+				if (lastHit)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					ragdollActivation = 1;
+				}
+				else
+				{
+					ragdollActivation = 0;
+				}
+				source.OnSequenceHit(this, target, impulseInfo, (ActorModelData.RagdollActivation)ragdollActivation);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -733,14 +775,14 @@ public class BlasterStretchConeSequence : Sequence
 				break;
 			}
 		}
-		base.Source.OnSequenceHit(this, base.TargetPos, null);
+		base.Source.OnSequenceHit(this, base.TargetPos);
 	}
 
 	private void StopFX()
 	{
-		if (this.m_blastFxInstance != null)
+		if (m_blastFxInstance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -749,28 +791,28 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.StopFX()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_blastFxInstance.SetActive(false);
+			m_blastFxInstance.SetActive(false);
 		}
-		if (this.m_projectileFxInstances != null)
+		if (m_projectileFxInstances == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			for (int i = 0; i < this.m_projectileFxInstances.Count; i++)
+			for (int i = 0; i < m_projectileFxInstances.Count; i++)
 			{
-				if (this.m_projectileFxInstances[i] != null)
+				if (m_projectileFxInstances[i] != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -779,193 +821,118 @@ public class BlasterStretchConeSequence : Sequence
 						}
 						break;
 					}
-					this.m_projectileFxInstances[i].SetActive(false);
+					m_projectileFxInstances[i].SetActive(false);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	private void CheckProjectileImpacts()
 	{
-		if (this.m_projectilesCauseHitReacts)
+		if (!m_projectilesCauseHitReacts)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.CheckProjectileImpacts()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_projectileFxInstances.Count > 0)
+			if (m_projectileFxInstances.Count > 0)
 			{
-				using (Dictionary<ActorData, float>.Enumerator enumerator = this.m_projectileActorImpacts.GetEnumerator())
+				using (Dictionary<ActorData, float>.Enumerator enumerator = m_projectileActorImpacts.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						KeyValuePair<ActorData, float> keyValuePair = enumerator.Current;
-						if (keyValuePair.Value >= GameTime.time)
+						KeyValuePair<ActorData, float> current = enumerator.Current;
+						if (current.Value >= GameTime.time)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									SpawnImpactFX(false, current.Key);
+									m_projectileActorImpacts.Remove(current.Key);
+									return;
 								}
-								break;
 							}
-							this.SpawnImpactFX(false, keyValuePair.Key);
-							this.m_projectileActorImpacts.Remove(keyValuePair.Key);
-							return;
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
+						default:
+							return;
 						case 0:
-							continue;
+							break;
 						}
-						break;
 					}
 				}
 			}
+			return;
 		}
 	}
 
 	private bool ImpactsFinished()
 	{
 		bool result = true;
-		using (List<GameObject>.Enumerator enumerator = this.m_impactFxInstances.GetEnumerator())
+		using (List<GameObject>.Enumerator enumerator = m_impactFxInstances.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				GameObject gameObject = enumerator.Current;
-				if (gameObject.activeSelf)
+				GameObject current = enumerator.Current;
+				if (current.activeSelf)
 				{
 					return false;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (true)
+					{
+						return result;
+					}
+					/*OpCode not supported: LdMemberToken*/;
+					return result;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.ImpactsFinished()).MethodHandle;
 			}
 		}
-		return result;
 	}
 
 	private void Update()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			if (this.m_staggerProjectiles)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.Update()).MethodHandle;
-				}
-				if (this.m_timeForNextStaggeredProjectile > 0f)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_projectileFxInstances.Count < this.m_numProjectilesToSpawn)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (GameTime.time >= this.m_timeForNextStaggeredProjectile)
-						{
-							this.CreateProjectile(this.m_forwardDirForProjectileSpawns, this.m_projectileFxInstances.Count, false);
-							this.m_timeForNextStaggeredProjectile = GameTime.time + 1f / this.m_staggeredRateOfFire;
-						}
-					}
-				}
-			}
-			this.CheckProjectileImpacts();
+			return;
 		}
-	}
-
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
-	{
-		if (parameter == this.m_startEvent)
+		if (m_staggerProjectiles)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
-			this.SpawnFX();
-		}
-		if (parameter == this.m_hitReactEvent)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.SpawnImpactFX(this.m_lastHitReactEvent == null, null);
-		}
-		else if (parameter == this.m_lastHitReactEvent)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -974,28 +941,109 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				break;
 			}
-			this.SpawnImpactFX(true, null);
-		}
-		if (parameter == this.m_stopEvent)
-		{
-			for (;;)
+			if (1 == 0)
 			{
-				switch (1)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_timeForNextStaggeredProjectile > 0f)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (m_projectileFxInstances.Count < m_numProjectilesToSpawn)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (GameTime.time >= m_timeForNextStaggeredProjectile)
+					{
+						CreateProjectile(m_forwardDirForProjectileSpawns, m_projectileFxInstances.Count, false);
+						m_timeForNextStaggeredProjectile = GameTime.time + 1f / m_staggeredRateOfFire;
+					}
+				}
+			}
+		}
+		CheckProjectileImpacts();
+	}
+
+	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	{
+		if (parameter == m_startEvent)
+		{
+			while (true)
+			{
+				switch (2)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			this.StopFX();
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			SpawnFX();
+		}
+		if (parameter == m_hitReactEvent)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			SpawnImpactFX(m_lastHitReactEvent == null, null);
+		}
+		else if (parameter == m_lastHitReactEvent)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			SpawnImpactFX(true, null);
+		}
+		if (!(parameter == m_stopEvent))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			StopFX();
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_blastFxInstance != null)
+		if (m_blastFxInstance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1004,16 +1052,16 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.OnDisable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.Destroy(this.m_blastFxInstance.gameObject);
-			this.m_blastFxInstance = null;
+			UnityEngine.Object.Destroy(m_blastFxInstance.gameObject);
+			m_blastFxInstance = null;
 		}
-		if (this.m_projectileFxInstances != null)
+		if (m_projectileFxInstances != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1022,14 +1070,14 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				break;
 			}
-			using (List<GameObject>.Enumerator enumerator = this.m_projectileFxInstances.GetEnumerator())
+			using (List<GameObject>.Enumerator enumerator = m_projectileFxInstances.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					GameObject gameObject = enumerator.Current;
-					UnityEngine.Object.Destroy(gameObject.gameObject);
+					GameObject current = enumerator.Current;
+					UnityEngine.Object.Destroy(current.gameObject);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1039,18 +1087,18 @@ public class BlasterStretchConeSequence : Sequence
 					break;
 				}
 			}
-			this.m_projectileFxInstances = null;
+			m_projectileFxInstances = null;
 		}
-		if (this.m_impactFxInstances != null)
+		if (m_impactFxInstances != null)
 		{
-			using (List<GameObject>.Enumerator enumerator2 = this.m_impactFxInstances.GetEnumerator())
+			using (List<GameObject>.Enumerator enumerator2 = m_impactFxInstances.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
 				{
-					GameObject gameObject2 = enumerator2.Current;
-					UnityEngine.Object.Destroy(gameObject2.gameObject);
+					GameObject current2 = enumerator2.Current;
+					UnityEngine.Object.Destroy(current2.gameObject);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -1060,66 +1108,8 @@ public class BlasterStretchConeSequence : Sequence
 					break;
 				}
 			}
-			this.m_impactFxInstances = null;
+			m_impactFxInstances = null;
 		}
-		this.m_initialized = false;
-	}
-
-	public enum ProjectileDistanceMode
-	{
-		AlwaysMaxDistance,
-		AlwaysRandDistance,
-		HalfMaxDist_HalfRandDist,
-		RandomChoice_MaxVsRandDist
-	}
-
-	public class ExtraParams : Sequence.IExtraSequenceParams
-	{
-		public float angleInDegrees;
-
-		public float lengthInSquares;
-
-		public float forwardAngle;
-
-		public bool useStartPosOverride;
-
-		public Vector3 startPosOverride = Vector3.zero;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.angleInDegrees);
-			stream.Serialize(ref this.lengthInSquares);
-			stream.Serialize(ref this.forwardAngle);
-			stream.Serialize(ref this.useStartPosOverride);
-			if (this.useStartPosOverride)
-			{
-				stream.Serialize(ref this.startPosOverride);
-			}
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.angleInDegrees);
-			stream.Serialize(ref this.lengthInSquares);
-			stream.Serialize(ref this.forwardAngle);
-			stream.Serialize(ref this.useStartPosOverride);
-			if (this.useStartPosOverride)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.ExtraParams.XSP_DeserializeFromStream(IBitStream)).MethodHandle;
-				}
-				stream.Serialize(ref this.startPosOverride);
-			}
-		}
+		m_initialized = false;
 	}
 }

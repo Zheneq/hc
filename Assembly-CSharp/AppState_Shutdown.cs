@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class AppState_Shutdown : AppState
@@ -7,7 +6,7 @@ public class AppState_Shutdown : AppState
 
 	public static AppState_Shutdown Get()
 	{
-		return AppState_Shutdown.s_instance;
+		return s_instance;
 	}
 
 	public static void Create()
@@ -17,12 +16,12 @@ public class AppState_Shutdown : AppState
 
 	private void Awake()
 	{
-		AppState_Shutdown.s_instance = this;
+		s_instance = this;
 	}
 
 	protected override void OnEnter()
 	{
-		Log.Info("Shutting down", new object[0]);
+		Log.Info("Shutting down");
 		Application.Quit();
 	}
 

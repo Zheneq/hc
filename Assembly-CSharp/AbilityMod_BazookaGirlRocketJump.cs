@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,23 +20,21 @@ public class AbilityMod_BazookaGirlRocketJump : AbilityMod
 		BazookaGirlRocketJump bazookaGirlRocketJump = targetAbility as BazookaGirlRocketJump;
 		if (bazookaGirlRocketJump != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_damageMod, "DamageAmount", string.Empty, bazookaGirlRocketJump.m_damageAmount, true, false);
+			AbilityMod.AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, bazookaGirlRocketJump.m_damageAmount);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		BazookaGirlRocketJump bazookaGirlRocketJump = base.GetTargetAbilityOnAbilityData(abilityData) as BazookaGirlRocketJump;
+		BazookaGirlRocketJump bazookaGirlRocketJump = GetTargetAbilityOnAbilityData(abilityData) as BazookaGirlRocketJump;
 		bool flag = bazookaGirlRocketJump != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix = "[Damage]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -45,9 +43,9 @@ public class AbilityMod_BazookaGirlRocketJump : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlRocketJump.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = bazookaGirlRocketJump.m_damageAmount;
 		}
@@ -55,10 +53,10 @@ public class AbilityMod_BazookaGirlRocketJump : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(damageMod, prefix, showBaseVal, baseVal);
-		if (this.m_resetCooldownOnKill)
+		empty = str + AbilityModHelper.GetModPropertyDesc(damageMod, "[Damage]", flag, baseVal);
+		if (m_resetCooldownOnKill)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -67,8 +65,8 @@ public class AbilityMod_BazookaGirlRocketJump : AbilityMod
 				}
 				break;
 			}
-			text += "Resets Cooldown on Kill (on beginning of next turn)\n";
+			empty += "Resets Cooldown on Kill (on beginning of next turn)\n";
 		}
-		return text;
+		return empty;
 	}
 }

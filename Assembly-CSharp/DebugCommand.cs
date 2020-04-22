@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +5,41 @@ public class DebugCommand
 {
 	private List<string> m_slashCommands;
 
-	public virtual KeyCode \u001D()
+	public bool CheatEnabled
+	{
+		get
+		{
+			ClientGameManager clientGameManager = ClientGameManager.Get();
+			int result;
+			if (clientGameManager != null)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (clientGameManager.IsReady)
+				{
+					result = ((clientGameManager.EnvironmentType != EnvironmentType.External || clientGameManager.ClientAccessLevel == ClientAccessLevel.Admin) ? 1 : 0);
+					goto IL_004b;
+				}
+			}
+			result = 0;
+			goto IL_004b;
+			IL_004b:
+			return (byte)result != 0;
+		}
+	}
+
+	public virtual KeyCode _001D()
 	{
 		return KeyCode.None;
 	}
@@ -16,17 +49,17 @@ public class DebugCommand
 		return false;
 	}
 
-	public virtual bool \u000E()
+	public virtual bool _000E()
 	{
 		return false;
 	}
 
-	public virtual bool \u0012()
+	public virtual bool _0012()
 	{
 		return false;
 	}
 
-	public virtual bool \u0015()
+	public virtual bool _0015()
 	{
 		return false;
 	}
@@ -54,7 +87,7 @@ public class DebugCommand
 	{
 	}
 
-	public virtual bool \u0016()
+	public virtual bool _0016()
 	{
 		return true;
 	}
@@ -69,7 +102,7 @@ public class DebugCommand
 		return "+";
 	}
 
-	public virtual string \u0013()
+	public virtual string _0013()
 	{
 		return "-";
 	}
@@ -84,11 +117,11 @@ public class DebugCommand
 		return string.Empty;
 	}
 
-	public virtual List<string> \u0018()
+	public virtual List<string> _0018()
 	{
-		if (this.m_slashCommands == null)
+		if (m_slashCommands == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -97,15 +130,15 @@ public class DebugCommand
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand.\u0018()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_slashCommands = new List<string>();
-			string slashCommand = this.GetSlashCommand();
+			m_slashCommands = new List<string>();
+			string slashCommand = GetSlashCommand();
 			if (!string.IsNullOrEmpty(slashCommand))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -114,43 +147,14 @@ public class DebugCommand
 					}
 					break;
 				}
-				this.m_slashCommands.Add(slashCommand.ToLower());
+				m_slashCommands.Add(slashCommand.ToLower());
 			}
 		}
-		return this.m_slashCommands;
+		return m_slashCommands;
 	}
 
 	public virtual bool OnSlashCommand(string arguments)
 	{
 		return false;
-	}
-
-	public bool CheatEnabled
-	{
-		get
-		{
-			ClientGameManager clientGameManager = ClientGameManager.Get();
-			if (clientGameManager != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand.get_CheatEnabled()).MethodHandle;
-				}
-				if (clientGameManager.IsReady)
-				{
-					return clientGameManager.EnvironmentType != EnvironmentType.External || clientGameManager.ClientAccessLevel == ClientAccessLevel.Admin;
-				}
-			}
-			return false;
-		}
 	}
 }

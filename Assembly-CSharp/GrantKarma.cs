@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class GrantKarma
@@ -11,6 +11,6 @@ public class GrantKarma
 
 	public override string ToString()
 	{
-		return string.Format("KarmaIndex {0}, ({1} - {2})", this.KarmaTemplateId, this.MinValue, this.MaxValue);
+		return $"KarmaIndex {KarmaTemplateId}, ({MinValue} - {MaxValue})";
 	}
 }

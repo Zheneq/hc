@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +13,9 @@ public class Card_ExtendBuffDuration_Ability : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -25,18 +24,18 @@ public class Card_ExtendBuffDuration_Ability : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card_ExtendBuffDuration_Ability.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Buff Enhancer";
+			m_abilityName = "Buff Enhancer";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false);
 		base.Targeter.ShowArcToShape = false;
 	}
 
@@ -47,6 +46,6 @@ public class Card_ExtendBuffDuration_Ability : Ability
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "ExtendAmount", string.Empty, this.m_extendAmount, false);
+		AddTokenInt(tokens, "ExtendAmount", string.Empty, m_extendAmount);
 	}
 }

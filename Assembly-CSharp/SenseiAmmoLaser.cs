@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +9,11 @@ public class SenseiAmmoLaser : Ability
 	public int m_maxOrbsPerCast = 3;
 
 	[Header("-- On Hit --")]
-	public int m_damage = 0xA;
+	public int m_damage = 10;
 
 	public StandardEffectInfo m_enemyHitEffect;
 
-	public int m_healOnAlly = 0xA;
+	public int m_healOnAlly = 10;
 
 	public StandardEffectInfo m_allyHitEffect;
 
@@ -29,29 +28,29 @@ public class SenseiAmmoLaser : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "SenseiAmmoLaser";
+			m_abilityName = "SenseiAmmoLaser";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.m_syncComp = base.GetComponent<Sensei_SyncComponent>();
-		AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = new AbilityUtil_Targeter_Laser(this, this.m_laserTargetingInfo);
-		abilityUtil_Targeter_Laser.SetAffectedGroups(this.m_laserTargetingInfo.affectsEnemies, this.m_laserTargetingInfo.affectsAllies, this.m_healOnSelfPerHit > 0);
-		abilityUtil_Targeter_Laser.m_customMaxTargetsDelegate = new AbilityUtil_Targeter_Laser.MaxTargetsDelegate(this.GetMaxTargetsForTargeter);
-		abilityUtil_Targeter_Laser.m_affectCasterDelegate = new AbilityUtil_Targeter_Laser.IsAffectingCasterDelegate(this.TargeterIncludeCaster);
+		m_syncComp = GetComponent<Sensei_SyncComponent>();
+		AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = new AbilityUtil_Targeter_Laser(this, m_laserTargetingInfo);
+		abilityUtil_Targeter_Laser.SetAffectedGroups(m_laserTargetingInfo.affectsEnemies, m_laserTargetingInfo.affectsAllies, m_healOnSelfPerHit > 0);
+		abilityUtil_Targeter_Laser.m_customMaxTargetsDelegate = GetMaxTargetsForTargeter;
+		abilityUtil_Targeter_Laser.m_affectCasterDelegate = TargeterIncludeCaster;
 		base.Targeter = abilityUtil_Targeter_Laser;
 	}
 
 	private bool TargeterIncludeCaster(ActorData caster, List<ActorData> actorsSoFar)
 	{
-		bool result;
-		if (this.m_healOnSelfPerHit > 0)
+		int result;
+		if (m_healOnSelfPerHit > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -60,30 +59,30 @@ public class SenseiAmmoLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAmmoLaser.TargeterIncludeCaster(ActorData, List<ActorData>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (actorsSoFar.Count > 0);
+			result = ((actorsSoFar.Count > 0) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private int GetMaxTargetsForTargeter(ActorData caster)
 	{
-		return this.GetCurrentMaxTargets();
+		return GetCurrentMaxTargets();
 	}
 
 	public int GetCurrentMaxTargets()
 	{
-		int num = this.m_laserTargetingInfo.maxTargets;
-		if (this.m_syncComp != null)
+		int num = m_laserTargetingInfo.maxTargets;
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -92,14 +91,14 @@ public class SenseiAmmoLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAmmoLaser.GetCurrentMaxTargets()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = (int)this.m_syncComp.m_syncCurrentNumOrbs;
-			if (this.m_maxOrbsPerCast > 0)
+			num = m_syncComp.m_syncCurrentNumOrbs;
+			if (m_maxOrbsPerCast > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -108,9 +107,9 @@ public class SenseiAmmoLaser : Ability
 					}
 					break;
 				}
-				if (num > this.m_maxOrbsPerCast)
+				if (num > m_maxOrbsPerCast)
 				{
-					num = this.m_maxOrbsPerCast;
+					num = m_maxOrbsPerCast;
 				}
 			}
 		}
@@ -119,23 +118,23 @@ public class SenseiAmmoLaser : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return this.GetCurrentMaxTargets() > 0;
+		return GetCurrentMaxTargets() > 0;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.m_damage);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, this.m_healOnAlly);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, this.m_healOnSelfPerHit);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, m_damage);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, m_healOnAlly);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, m_healOnSelfPerHit);
+		return numbers;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		if (this.m_healOnSelfPerHit > 0)
+		if (m_healOnSelfPerHit > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -144,16 +143,15 @@ public class SenseiAmmoLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAmmoLaser.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
 			{
 				int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
 				int visibleActorsCountByTooltipSubject2 = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-				int healing = this.m_healOnSelfPerHit * (visibleActorsCountByTooltipSubject + visibleActorsCountByTooltipSubject2);
-				results.m_healing = healing;
+				int num = results.m_healing = m_healOnSelfPerHit * (visibleActorsCountByTooltipSubject + visibleActorsCountByTooltipSubject2);
 			}
 		}
 		return true;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,43 +28,42 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		RageBeastSelfHeal rageBeastSelfHeal = targetAbility as RageBeastSelfHeal;
-		if (rageBeastSelfHeal != null)
+		if (!(rageBeastSelfHeal != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RageBeastSelfHeal.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken_EffectMod(tokens, this.m_standardActorEffectDataMod, "StandardActorEffectData", rageBeastSelfHeal.m_standardActorEffectData, true);
-			AbilityMod.AddToken(tokens, this.m_lowHealthHealOnCastMod, "HealingOnCastIfUnder", string.Empty, rageBeastSelfHeal.m_healingOnCastIfUnder, true, false);
-			AbilityMod.AddToken(tokens, this.m_lowHealthHealOnTickMod, "HealingOnTickIfUnder", string.Empty, rageBeastSelfHeal.m_healingOnTickIfUnder, true, false);
-			AbilityMod.AddToken(tokens, this.m_highHealthOnCastMod, "HealingOnCastIfOver", string.Empty, rageBeastSelfHeal.m_healingOnCastIfOver, true, false);
-			AbilityMod.AddToken(tokens, this.m_highHealthOnTickMod, "HealingOnTickIfOver", string.Empty, rageBeastSelfHeal.m_healingOnTickIfOver, true, false);
-			AbilityMod.AddToken(tokens, this.m_healthThresholdMod, "HealthThreshold", string.Empty, rageBeastSelfHeal.m_healthThreshold, true, false);
+			AbilityMod.AddToken_EffectMod(tokens, m_standardActorEffectDataMod, "StandardActorEffectData", rageBeastSelfHeal.m_standardActorEffectData);
+			AbilityMod.AddToken(tokens, m_lowHealthHealOnCastMod, "HealingOnCastIfUnder", string.Empty, rageBeastSelfHeal.m_healingOnCastIfUnder);
+			AbilityMod.AddToken(tokens, m_lowHealthHealOnTickMod, "HealingOnTickIfUnder", string.Empty, rageBeastSelfHeal.m_healingOnTickIfUnder);
+			AbilityMod.AddToken(tokens, m_highHealthOnCastMod, "HealingOnCastIfOver", string.Empty, rageBeastSelfHeal.m_healingOnCastIfOver);
+			AbilityMod.AddToken(tokens, m_highHealthOnTickMod, "HealingOnTickIfOver", string.Empty, rageBeastSelfHeal.m_healingOnTickIfOver);
+			AbilityMod.AddToken(tokens, m_healthThresholdMod, "HealthThreshold", string.Empty, rageBeastSelfHeal.m_healthThreshold);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		RageBeastSelfHeal rageBeastSelfHeal = base.GetTargetAbilityOnAbilityData(abilityData) as RageBeastSelfHeal;
+		RageBeastSelfHeal rageBeastSelfHeal = GetTargetAbilityOnAbilityData(abilityData) as RageBeastSelfHeal;
 		bool flag = rageBeastSelfHeal != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyEffectData standardActorEffectDataMod = this.m_standardActorEffectDataMod;
-		string prefix = "[Base Effect on Self]";
-		bool showBaseVal = flag;
-		StandardActorEffectData baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyEffectData standardActorEffectDataMod = m_standardActorEffectDataMod;
+		object baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -73,9 +72,9 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RageBeastSelfHeal.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = rageBeastSelfHeal.m_standardActorEffectData;
 		}
@@ -83,15 +82,13 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		{
 			baseVal = null;
 		}
-		text = str + base.PropDesc(standardActorEffectDataMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyBool healOverTimeMod = this.m_healOverTimeMod;
-		string prefix2 = "[Should Heal Over-Time?]";
-		bool showBaseVal2 = flag;
-		bool baseVal2;
+		empty = str + PropDesc(standardActorEffectDataMod, "[Base Effect on Self]", flag, (StandardActorEffectData)baseVal);
+		string str2 = empty;
+		AbilityModPropertyBool healOverTimeMod = m_healOverTimeMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -100,21 +97,19 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 				}
 				break;
 			}
-			baseVal2 = rageBeastSelfHeal.m_healOverTime;
+			baseVal2 = (rageBeastSelfHeal.m_healOverTime ? 1 : 0);
 		}
 		else
 		{
-			baseVal2 = false;
+			baseVal2 = 0;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(healOverTimeMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt healthThresholdMod = this.m_healthThresholdMod;
-		string prefix3 = "[Health Threshold]";
-		bool showBaseVal3 = flag;
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(healOverTimeMod, "[Should Heal Over-Time?]", flag, (byte)baseVal2 != 0);
+		string str3 = empty;
+		AbilityModPropertyInt healthThresholdMod = m_healthThresholdMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -129,15 +124,13 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + AbilityModHelper.GetModPropertyDesc(healthThresholdMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt lowHealthHealOnCastMod = this.m_lowHealthHealOnCastMod;
-		string prefix4 = "[Low Health, Heal on Cast]";
-		bool showBaseVal4 = flag;
+		empty = str3 + AbilityModHelper.GetModPropertyDesc(healthThresholdMod, "[Health Threshold]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyInt lowHealthHealOnCastMod = m_lowHealthHealOnCastMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -152,15 +145,13 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + AbilityModHelper.GetModPropertyDesc(lowHealthHealOnCastMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt lowHealthHealOnTickMod = this.m_lowHealthHealOnTickMod;
-		string prefix5 = "[Low Health, Heal on Tick]";
-		bool showBaseVal5 = flag;
+		empty = str4 + AbilityModHelper.GetModPropertyDesc(lowHealthHealOnCastMod, "[Low Health, Heal on Cast]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyInt lowHealthHealOnTickMod = m_lowHealthHealOnTickMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -175,15 +166,13 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + AbilityModHelper.GetModPropertyDesc(lowHealthHealOnTickMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt highHealthOnCastMod = this.m_highHealthOnCastMod;
-		string prefix6 = "[High Health, Heal on Cast]";
-		bool showBaseVal6 = flag;
+		empty = str5 + AbilityModHelper.GetModPropertyDesc(lowHealthHealOnTickMod, "[Low Health, Heal on Tick]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt highHealthOnCastMod = m_highHealthOnCastMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -198,15 +187,13 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + AbilityModHelper.GetModPropertyDesc(highHealthOnCastMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyInt highHealthOnTickMod = this.m_highHealthOnTickMod;
-		string prefix7 = "[High Health, Heal on Tick]";
-		bool showBaseVal7 = flag;
+		empty = str6 + AbilityModHelper.GetModPropertyDesc(highHealthOnCastMod, "[High Health, Heal on Cast]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyInt highHealthOnTickMod = m_highHealthOnTickMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -221,6 +208,6 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		{
 			baseVal7 = 0;
 		}
-		return str7 + AbilityModHelper.GetModPropertyDesc(highHealthOnTickMod, prefix7, showBaseVal7, baseVal7);
+		return str7 + AbilityModHelper.GetModPropertyDesc(highHealthOnTickMod, "[High Health, Heal on Tick]", flag, baseVal7);
 	}
 }

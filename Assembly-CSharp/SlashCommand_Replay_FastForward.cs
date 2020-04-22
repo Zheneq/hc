@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 
 public class SlashCommand_Replay_FastForward : SlashCommand
 {
-	public SlashCommand_Replay_FastForward() : base("/replay_ff", SlashCommandType.InGame)
+	public SlashCommand_Replay_FastForward()
+		: base("/replay_ff", SlashCommandType.InGame)
 	{
 		base.PublicFacing = false;
 	}
@@ -13,7 +14,7 @@ public class SlashCommand_Replay_FastForward : SlashCommand
 		string text = "/replay_ff command requires following format\n\t/replay_ff [turnId]";
 		if (!array[0].IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -22,16 +23,16 @@ public class SlashCommand_Replay_FastForward : SlashCommand
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_Replay_FastForward.OnSlashCommand(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!array[0].EqualsIgnoreCase("help"))
 			{
 				ReplayPlayManager replayPlayManager = ReplayPlayManager.Get();
 				if (replayPlayManager != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -42,28 +43,28 @@ public class SlashCommand_Replay_FastForward : SlashCommand
 					}
 					if (replayPlayManager.IsPlayback())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								replayPlayManager.Seek(new ReplayTimestamp
+								{
+									turn = Convert.ToInt32(array[0]),
+									phase = AbilityPriority.INVALID
+								});
+								TextConsole.Get().Write($"Fastforwarded to turn {array[0]}.");
+								return;
 							}
-							break;
 						}
-						replayPlayManager.Seek(new ReplayTimestamp
-						{
-							turn = Convert.ToInt32(array[0]),
-							phase = AbilityPriority.INVALID
-						});
-						TextConsole.Get().Write(string.Format("Fastforwarded to turn {0}.", array[0]), ConsoleMessageType.SystemMessage);
-						return;
 					}
 				}
-				TextConsole.Get().Write("Not currently playing a replay.", ConsoleMessageType.SystemMessage);
+				TextConsole.Get().Write("Not currently playing a replay.");
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -73,6 +74,6 @@ public class SlashCommand_Replay_FastForward : SlashCommand
 				break;
 			}
 		}
-		TextConsole.Get().Write(text, ConsoleMessageType.SystemMessage);
+		TextConsole.Get().Write(text);
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -8,7 +8,7 @@ public class OnFrontEndEquipCatalystChatter : ScriptableObject, IChatterData
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_baseData;
+		return m_baseData;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()
@@ -20,24 +20,24 @@ public class OnFrontEndEquipCatalystChatter : ScriptableObject, IChatterData
 	{
 		if (!ChatterData.ShouldPlayChatter(this, eventType, args, component))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnFrontEndEquipCatalystChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
-			return false;
 		}
 		if (!(UIFrontEnd.GetVisibleCharacters() == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -50,7 +50,7 @@ public class OnFrontEndEquipCatalystChatter : ScriptableObject, IChatterData
 			{
 				return true;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{

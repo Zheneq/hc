@@ -1,11 +1,16 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SparkAoeBuffDebuff : Ability
 {
+	public enum TargetingType
+	{
+		UseShape,
+		UseRadius
+	}
+
 	[Header("-- Targeting")]
-	public SparkAoeBuffDebuff.TargetingType m_TargetingType;
+	public TargetingType m_TargetingType;
 
 	public bool m_penetrateLos;
 
@@ -18,7 +23,7 @@ public class SparkAoeBuffDebuff : Ability
 	[Header("-- Damage and Healing")]
 	public int m_damageAmount;
 
-	public int m_allyHealAmount = 0xA;
+	public int m_allyHealAmount = 10;
 
 	[Header("-- Self Heal Per Hit")]
 	public int m_baseSelfHeal;
@@ -53,9 +58,9 @@ public class SparkAoeBuffDebuff : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -64,21 +69,21 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Spark Aoe Buff Debuff";
+			m_abilityName = "Spark Aoe Buff Debuff";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	public float GetTargetingRadius()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -87,30 +92,30 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.GetTargetingRadius()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_radiusMod.GetModifiedValue(this.m_radius);
+			result = m_abilityMod.m_radiusMod.GetModifiedValue(m_radius);
 		}
 		else
 		{
-			result = this.m_radius;
+			result = m_radius;
 		}
 		return result;
 	}
 
 	public AbilityAreaShape GetHitShape()
 	{
-		return this.m_shape;
+		return m_shape;
 	}
 
 	public bool ShouldIgnoreLos()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -119,30 +124,30 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.ShouldIgnoreLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_ignoreLosMod.GetModifiedValue(this.m_penetrateLos);
+			result = m_abilityMod.m_ignoreLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
 		{
-			result = this.m_penetrateLos;
+			result = m_penetrateLos;
 		}
 		return result;
 	}
 
 	public int GetAllyHeal(AbilityMod_SparkAoeBuffDebuff mod)
 	{
-		return (!mod) ? this.m_allyHealAmount : mod.m_allyHealMod.GetModifiedValue(this.m_allyHealAmount);
+		return (!mod) ? m_allyHealAmount : mod.m_allyHealMod.GetModifiedValue(m_allyHealAmount);
 	}
 
 	public int GetBaseSelfHeal(AbilityMod_SparkAoeBuffDebuff mod)
 	{
 		int result;
-		if (mod)
+		if ((bool)mod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -151,35 +156,35 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.GetBaseSelfHeal(AbilityMod_SparkAoeBuffDebuff)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = mod.m_baseSelfHealMod.GetModifiedValue(this.m_baseSelfHeal);
+			result = mod.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal);
 		}
 		else
 		{
-			result = this.m_baseSelfHeal;
+			result = m_baseSelfHeal;
 		}
 		return result;
 	}
 
 	public int GetSelfHealPerHit(AbilityMod_SparkAoeBuffDebuff mod)
 	{
-		return (!mod) ? this.m_selfHealAmountPerHit : mod.m_selfHealPerHitMod.GetModifiedValue(this.m_selfHealAmountPerHit);
+		return (!mod) ? m_selfHealAmountPerHit : mod.m_selfHealPerHitMod.GetModifiedValue(m_selfHealAmountPerHit);
 	}
 
 	public bool SelfHealCountAllyHit()
 	{
-		return (!this.m_abilityMod) ? this.m_selfHealCountAllyHit : this.m_abilityMod.m_selfHealHitCountAlly.GetModifiedValue(this.m_selfHealCountAllyHit);
+		return (!m_abilityMod) ? m_selfHealCountAllyHit : m_abilityMod.m_selfHealHitCountAlly.GetModifiedValue(m_selfHealCountAllyHit);
 	}
 
 	public bool SelfHealCountEnemyHit()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -188,15 +193,15 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.SelfHealCountEnemyHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_selfHealHitCountEnemy.GetModifiedValue(this.m_selfHealCountEnemyHit);
+			result = m_abilityMod.m_selfHealHitCountEnemy.GetModifiedValue(m_selfHealCountEnemyHit);
 		}
 		else
 		{
-			result = this.m_selfHealCountEnemyHit;
+			result = m_selfHealCountEnemyHit;
 		}
 		return result;
 	}
@@ -204,9 +209,9 @@ public class SparkAoeBuffDebuff : Ability
 	public int GetShieldOnSelfPerAllyHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -215,11 +220,11 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.GetShieldOnSelfPerAllyHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_shieldOnSelfPerAllyHitMod.GetModifiedValue(0);
+			result = m_abilityMod.m_shieldOnSelfPerAllyHitMod.GetModifiedValue(0);
 		}
 		else
 		{
@@ -231,9 +236,9 @@ public class SparkAoeBuffDebuff : Ability
 	public int GetShieldOnSelfDuration()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -242,11 +247,11 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.GetShieldOnSelfDuration()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_shieldOnSelfDuration;
+			result = m_abilityMod.m_shieldOnSelfDuration;
 		}
 		else
 		{
@@ -257,9 +262,10 @@ public class SparkAoeBuffDebuff : Ability
 
 	public bool IncludeCaster()
 	{
-		if (!this.GetSelfHitEffect().m_applyEffect)
+		int result;
+		if (!GetSelfHitEffect().m_applyEffect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -268,13 +274,13 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.IncludeCaster()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.GetSelfHealPerHit(this.m_abilityMod) <= 0)
+			if (GetSelfHealPerHit(m_abilityMod) <= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -283,9 +289,9 @@ public class SparkAoeBuffDebuff : Ability
 					}
 					break;
 				}
-				if (this.GetBaseSelfHeal(this.m_abilityMod) <= 0)
+				if (GetBaseSelfHeal(m_abilityMod) <= 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -294,19 +300,23 @@ public class SparkAoeBuffDebuff : Ability
 						}
 						break;
 					}
-					return this.GetShieldOnSelfPerAllyHit() > 0;
+					result = ((GetShieldOnSelfPerAllyHit() > 0) ? 1 : 0);
+					goto IL_0064;
 				}
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_0064;
+		IL_0064:
+		return (byte)result != 0;
 	}
 
 	public bool IncludeAllies()
 	{
-		bool result;
-		if (!this.GetAllyHitEffect().m_applyEffect)
+		int result;
+		if (!GetAllyHitEffect().m_applyEffect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -315,25 +325,25 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.IncludeAllies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (this.GetAllyHeal(this.m_abilityMod) > 0);
+			result = ((GetAllyHeal(m_abilityMod) > 0) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool IncludeEnemies()
 	{
-		bool result;
-		if (!this.GetEnemyHitEffect().m_applyEffect)
+		int result;
+		if (!GetEnemyHitEffect().m_applyEffect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -342,25 +352,25 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.IncludeEnemies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (this.m_damageAmount > 0);
+			result = ((m_damageAmount > 0) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public StandardEffectInfo GetSelfHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedSelfHitEffect != null)
+		if (m_cachedSelfHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -369,30 +379,30 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.GetSelfHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedSelfHitEffect;
+			result = m_cachedSelfHitEffect;
 		}
 		else
 		{
-			result = this.m_selfHitEffect;
+			result = m_selfHitEffect;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
-		return (this.m_cachedAllyHitEffect == null) ? this.m_allyHitEffect : this.m_cachedAllyHitEffect;
+		return (m_cachedAllyHitEffect == null) ? m_allyHitEffect : m_cachedAllyHitEffect;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyHitEffect != null)
+		if (m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -401,26 +411,26 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.GetEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemyHitEffect;
+			result = m_cachedEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyHitEffect;
+			result = m_enemyHitEffect;
 		}
 		return result;
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedSelfHitEffect = ((!this.m_abilityMod) ? this.m_selfHitEffect : this.m_abilityMod.m_selfHitEffectMod.GetModifiedValue(this.m_selfHitEffect));
+		m_cachedSelfHitEffect = ((!m_abilityMod) ? m_selfHitEffect : m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect));
 		StandardEffectInfo cachedAllyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -429,21 +439,21 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedAllyHitEffect = this.m_abilityMod.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
+			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
 		{
-			cachedAllyHitEffect = this.m_allyHitEffect;
+			cachedAllyHitEffect = m_allyHitEffect;
 		}
-		this.m_cachedAllyHitEffect = cachedAllyHitEffect;
+		m_cachedAllyHitEffect = cachedAllyHitEffect;
 		StandardEffectInfo cachedEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -452,65 +462,65 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			cachedEnemyHitEffect = this.m_enemyHitEffect;
+			cachedEnemyHitEffect = m_enemyHitEffect;
 		}
-		this.m_cachedEnemyHitEffect = cachedEnemyHitEffect;
+		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		if (this.m_TargetingType == SparkAoeBuffDebuff.TargetingType.UseShape)
+		SetCachedFields();
+		if (m_TargetingType == TargetingType.UseShape)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.SetupTargeter()).MethodHandle;
-			}
-			AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
-			if (!this.IncludeCaster())
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
+					if (!IncludeCaster())
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
+					}
+					base.Targeter = new AbilityUtil_Targeter_Shape(this, GetHitShape(), ShouldIgnoreLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, IncludeEnemies(), IncludeAllies(), affectsCaster);
+					return;
 				}
-				affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
+				}
 			}
-			base.Targeter = new AbilityUtil_Targeter_Shape(this, this.GetHitShape(), this.ShouldIgnoreLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, this.IncludeEnemies(), this.IncludeAllies(), affectsCaster, AbilityUtil_Targeter.AffectsActor.Possible);
 		}
-		else
-		{
-			base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, this.GetTargetingRadius(), this.ShouldIgnoreLos(), this.IncludeEnemies(), this.IncludeAllies(), -1);
-		}
+		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, GetTargetingRadius(), ShouldIgnoreLos(), IncludeEnemies(), IncludeAllies());
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SparkAoeBuffDebuff abilityMod_SparkAoeBuffDebuff = modAsBase as AbilityMod_SparkAoeBuffDebuff;
-		base.AddTokenInt(tokens, "Heal_OnAlly", "heal on ally", this.GetAllyHeal(abilityMod_SparkAoeBuffDebuff), false);
-		base.AddTokenInt(tokens, "Heal_OnSelfBase", "heal on self, base amount", this.GetBaseSelfHeal(abilityMod_SparkAoeBuffDebuff), false);
-		base.AddTokenInt(tokens, "Heal_OnSelfPerHit", "heal on self, per hit", this.GetSelfHealPerHit(abilityMod_SparkAoeBuffDebuff), false);
+		AddTokenInt(tokens, "Heal_OnAlly", "heal on ally", GetAllyHeal(abilityMod_SparkAoeBuffDebuff));
+		AddTokenInt(tokens, "Heal_OnSelfBase", "heal on self, base amount", GetBaseSelfHeal(abilityMod_SparkAoeBuffDebuff));
+		AddTokenInt(tokens, "Heal_OnSelfPerHit", "heal on self, per hit", GetSelfHealPerHit(abilityMod_SparkAoeBuffDebuff));
 		StandardEffectInfo effectInfo;
-		if (abilityMod_SparkAoeBuffDebuff)
+		if ((bool)abilityMod_SparkAoeBuffDebuff)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -519,39 +529,39 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			effectInfo = abilityMod_SparkAoeBuffDebuff.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
+			effectInfo = abilityMod_SparkAoeBuffDebuff.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_allyHitEffect;
+			effectInfo = m_allyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnAlly", this.m_allyHitEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_SparkAoeBuffDebuff) ? this.m_selfHitEffect : abilityMod_SparkAoeBuffDebuff.m_selfHitEffectMod.GetModifiedValue(this.m_selfHitEffect), "EffectOnSelf", this.m_selfHitEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_SparkAoeBuffDebuff) ? this.m_enemyHitEffect : abilityMod_SparkAoeBuffDebuff.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect), "EffectOnEnemy", this.m_enemyHitEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnAlly", m_allyHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_SparkAoeBuffDebuff) ? m_selfHitEffect : abilityMod_SparkAoeBuffDebuff.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect), "EffectOnSelf", m_selfHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_SparkAoeBuffDebuff) ? m_enemyHitEffect : abilityMod_SparkAoeBuffDebuff.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect), "EffectOnEnemy", m_enemyHitEffect);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.GetSelfHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		this.GetAllyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
-		this.GetEnemyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, this.GetBaseSelfHeal(this.m_abilityMod) + this.GetSelfHealPerHit(this.m_abilityMod));
-		AbilityTooltipHelper.ReportAbsorb(ref result, AbilityTooltipSubject.Self, this.GetShieldOnSelfPerAllyHit());
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, this.GetAllyHeal(this.m_abilityMod));
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.m_damageAmount);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		GetSelfHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		GetAllyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
+		GetEnemyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, GetBaseSelfHeal(m_abilityMod) + GetSelfHealPerHit(m_abilityMod));
+		AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, GetShieldOnSelfPerAllyHit());
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, GetAllyHeal(m_abilityMod));
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, m_damageAmount);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		if (this.GetSelfHealPerHit(this.m_abilityMod) <= 0)
+		if (GetSelfHealPerHit(m_abilityMod) <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -560,29 +570,29 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.GetBaseSelfHeal(this.m_abilityMod) <= 0 && this.GetShieldOnSelfPerAllyHit() <= 0)
+			if (GetBaseSelfHeal(m_abilityMod) <= 0 && GetShieldOnSelfPerAllyHit() <= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return null;
 					}
-					break;
 				}
-				return null;
 			}
 		}
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -593,7 +603,7 @@ public class SparkAoeBuffDebuff : Ability
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -607,13 +617,13 @@ public class SparkAoeBuffDebuff : Ability
 				int num2 = 0;
 				for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
 				{
-					if (visibleActorsInRangeByTooltipSubject[i].\u000E() != targetActor.\u000E())
+					if (visibleActorsInRangeByTooltipSubject[i].GetTeam() != targetActor.GetTeam())
 					{
 						num++;
 					}
 					else if (visibleActorsInRangeByTooltipSubject[i] != targetActor)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -625,7 +635,7 @@ public class SparkAoeBuffDebuff : Ability
 						num2++;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -634,15 +644,14 @@ public class SparkAoeBuffDebuff : Ability
 					}
 					break;
 				}
-				int value = this.CalcSelfHealAmountFromHits(num2, num);
-				dictionary[AbilityTooltipSymbol.Healing] = value;
-				if (this.GetShieldOnSelfPerAllyHit() > 0)
+				int num4 = dictionary[AbilityTooltipSymbol.Healing] = CalcSelfHealAmountFromHits(num2, num);
+				if (GetShieldOnSelfPerAllyHit() > 0)
 				{
-					int num3 = 0;
-					StandardEffectInfo selfHitEffect = this.GetSelfHitEffect();
+					int num5 = 0;
+					StandardEffectInfo selfHitEffect = GetSelfHitEffect();
 					if (selfHitEffect.m_applyEffect && selfHitEffect.m_effectData.m_absorbAmount > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -651,9 +660,9 @@ public class SparkAoeBuffDebuff : Ability
 							}
 							break;
 						}
-						num3 = selfHitEffect.m_effectData.m_absorbAmount;
+						num5 = selfHitEffect.m_effectData.m_absorbAmount;
 					}
-					dictionary[AbilityTooltipSymbol.Absorb] = num3 + num2 * this.GetShieldOnSelfPerAllyHit();
+					dictionary[AbilityTooltipSymbol.Absorb] = num5 + num2 * GetShieldOnSelfPerAllyHit();
 				}
 			}
 		}
@@ -663,9 +672,9 @@ public class SparkAoeBuffDebuff : Ability
 	private int CalcSelfHealAmountFromHits(int allyHits, int enemyHits)
 	{
 		int result = 0;
-		if (this.GetSelfHealPerHit(this.m_abilityMod) <= 0)
+		if (GetSelfHealPerHit(m_abilityMod) <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -674,15 +683,15 @@ public class SparkAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.CalcSelfHealAmountFromHits(int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.GetBaseSelfHeal(this.m_abilityMod) <= 0)
+			if (GetBaseSelfHeal(m_abilityMod) <= 0)
 			{
-				return result;
+				goto IL_0093;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -693,9 +702,9 @@ public class SparkAoeBuffDebuff : Ability
 			}
 		}
 		int num = 0;
-		if (this.SelfHealCountAllyHit())
+		if (SelfHealCountAllyHit())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -706,9 +715,9 @@ public class SparkAoeBuffDebuff : Ability
 			}
 			num += allyHits;
 		}
-		if (this.SelfHealCountEnemyHit())
+		if (SelfHealCountEnemyHit())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -719,41 +728,38 @@ public class SparkAoeBuffDebuff : Ability
 			}
 			num += enemyHits;
 		}
-		result = this.GetBaseSelfHeal(this.m_abilityMod) + num * this.GetSelfHealPerHit(this.m_abilityMod);
+		result = GetBaseSelfHeal(m_abilityMod) + num * GetSelfHealPerHit(m_abilityMod);
+		goto IL_0093;
+		IL_0093:
 		return result;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_SparkAoeBuffDebuff))
+		if (abilityMod.GetType() != typeof(AbilityMod_SparkAoeBuffDebuff))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_SparkAoeBuffDebuff);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_SparkAoeBuffDebuff);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
-	}
-
-	public enum TargetingType
-	{
-		UseShape,
-		UseRadius
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 }

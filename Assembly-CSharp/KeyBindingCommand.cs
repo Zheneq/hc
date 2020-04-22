@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class KeyBindingCommand
@@ -13,6 +13,6 @@ public class KeyBindingCommand
 
 	public string GetDisplayName()
 	{
-		return StringUtil.TR_KeyBindCommand(this.Name);
+		return StringUtil.TR_KeyBindCommand(Name);
 	}
 }

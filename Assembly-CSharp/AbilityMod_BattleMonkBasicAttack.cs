@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,42 +27,41 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		BattleMonkBasicAttack battleMonkBasicAttack = targetAbility as BattleMonkBasicAttack;
-		if (battleMonkBasicAttack != null)
+		if (!(battleMonkBasicAttack != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkBasicAttack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_coneAngleMod, "ConeWidthAngle", string.Empty, battleMonkBasicAttack.m_coneWidthAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneLengthMod, "ConeLength", string.Empty, battleMonkBasicAttack.m_coneLength, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneDamageMod, "DamageAmount", string.Empty, battleMonkBasicAttack.m_damageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_healPerTargetHitMod, "HealAmountPerTargetHit", string.Empty, battleMonkBasicAttack.m_healAmountPerTargetHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamagePerTarget, "ExtraDamagePerTarget", string.Empty, 0, true, false);
+			AbilityMod.AddToken(tokens, m_coneAngleMod, "ConeWidthAngle", string.Empty, battleMonkBasicAttack.m_coneWidthAngle);
+			AbilityMod.AddToken(tokens, m_coneLengthMod, "ConeLength", string.Empty, battleMonkBasicAttack.m_coneLength);
+			AbilityMod.AddToken(tokens, m_coneDamageMod, "DamageAmount", string.Empty, battleMonkBasicAttack.m_damageAmount);
+			AbilityMod.AddToken(tokens, m_healPerTargetHitMod, "HealAmountPerTargetHit", string.Empty, battleMonkBasicAttack.m_healAmountPerTargetHit);
+			AbilityMod.AddToken(tokens, m_extraDamagePerTarget, "ExtraDamagePerTarget", string.Empty, 0);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		string text = string.Empty;
-		BattleMonkBasicAttack battleMonkBasicAttack = base.GetTargetAbilityOnAbilityData(abilityData) as BattleMonkBasicAttack;
+		string empty = string.Empty;
+		BattleMonkBasicAttack battleMonkBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as BattleMonkBasicAttack;
 		bool flag = battleMonkBasicAttack != null;
-		string str = text;
-		AbilityModPropertyFloat coneAngleMod = this.m_coneAngleMod;
-		string prefix = "[Cone Angle]";
-		bool showBaseVal = flag;
+		string str = empty;
+		AbilityModPropertyFloat coneAngleMod = m_coneAngleMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -71,9 +70,9 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = battleMonkBasicAttack.m_coneWidthAngle;
 		}
@@ -81,15 +80,13 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(coneAngleMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat coneLengthMod = this.m_coneLengthMod;
-		string prefix2 = "[Cone Length]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(coneAngleMod, "[Cone Angle]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat coneLengthMod = m_coneLengthMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -104,16 +101,14 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(coneLengthMod, prefix2, showBaseVal2, baseVal2);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_coneDamageMod, "[Cone Damage]", flag, (!flag) ? 0 : battleMonkBasicAttack.m_damageAmount);
-		string str3 = text;
-		AbilityModPropertyInt healPerTargetHitMod = this.m_healPerTargetHitMod;
-		string prefix3 = "[Heal Per Target Hit]";
-		bool showBaseVal3 = flag;
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(coneLengthMod, "[Cone Length]", flag, baseVal2);
+		empty += AbilityModHelper.GetModPropertyDesc(m_coneDamageMod, "[Cone Damage]", flag, flag ? battleMonkBasicAttack.m_damageAmount : 0);
+		string str3 = empty;
+		AbilityModPropertyInt healPerTargetHitMod = m_healPerTargetHitMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -128,8 +123,8 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + AbilityModHelper.GetModPropertyDesc(healPerTargetHitMod, prefix3, showBaseVal3, baseVal3);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_extraDamagePerTarget, "[Extra Damage Per Target Hit]", flag, 0);
-		return text + AbilityModHelper.GetModEffectInfoDesc(this.m_enemyHitEffect, "{ Enemy Hit Effect }", string.Empty, flag, null);
+		empty = str3 + AbilityModHelper.GetModPropertyDesc(healPerTargetHitMod, "[Heal Per Target Hit]", flag, baseVal3);
+		empty += AbilityModHelper.GetModPropertyDesc(m_extraDamagePerTarget, "[Extra Damage Per Target Hit]", flag);
+		return empty + AbilityModHelper.GetModEffectInfoDesc(m_enemyHitEffect, "{ Enemy Hit Effect }", string.Empty, flag);
 	}
 }

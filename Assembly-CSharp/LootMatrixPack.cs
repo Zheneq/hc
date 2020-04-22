@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -38,20 +38,20 @@ public class LootMatrixPack
 
 	public string GetEventText()
 	{
-		return StringUtil.TR_GetMatrixPackEventText(this.Index);
+		return StringUtil.TR_GetMatrixPackEventText(Index);
 	}
 
 	public string GetDescription()
 	{
-		return StringUtil.TR_GetMatrixPackDescription(this.Index);
+		return StringUtil.TR_GetMatrixPackDescription(Index);
 	}
 
 	public bool IsInEvent()
 	{
 		bool result = false;
-		if (!this.EventEndPacific.IsNullOrEmpty())
+		if (!EventEndPacific.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -60,13 +60,13 @@ public class LootMatrixPack
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LootMatrixPack.IsInEvent()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.EventStartPacific.IsNullOrEmpty())
+			if (!EventStartPacific.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -76,12 +76,12 @@ public class LootMatrixPack
 					break;
 				}
 				DateTime lastPacificTimePriceRequestWithServerTimeOffset = CommerceClient.Get().LastPacificTimePriceRequestWithServerTimeOffset;
-				DateTime t = Convert.ToDateTime(this.EventStartPacific);
-				DateTime t2 = Convert.ToDateTime(this.EventEndPacific);
-				bool flag;
+				DateTime t = Convert.ToDateTime(EventStartPacific);
+				DateTime t2 = Convert.ToDateTime(EventEndPacific);
+				int num;
 				if (lastPacificTimePriceRequestWithServerTimeOffset >= t)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -90,13 +90,13 @@ public class LootMatrixPack
 						}
 						break;
 					}
-					flag = (lastPacificTimePriceRequestWithServerTimeOffset < t2);
+					num = ((lastPacificTimePriceRequestWithServerTimeOffset < t2) ? 1 : 0);
 				}
 				else
 				{
-					flag = false;
+					num = 0;
 				}
-				result = flag;
+				result = ((byte)num != 0);
 			}
 		}
 		return result;

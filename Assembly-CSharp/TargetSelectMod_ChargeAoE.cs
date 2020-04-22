@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class TargetSelectMod_ChargeAoE : TargetSelectModBase
@@ -18,7 +18,7 @@ public class TargetSelectMod_ChargeAoE : TargetSelectModBase
 		TargetSelect_ChargeAoE targetSelect_ChargeAoE = targetSelectBase as TargetSelect_ChargeAoE;
 		if (targetSelect_ChargeAoE != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -27,14 +27,14 @@ public class TargetSelectMod_ChargeAoE : TargetSelectModBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelectMod_ChargeAoE.GetModSpecificInEditorDesc(GenericAbility_TargetSelectBase, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text += AbilityModHelper.GetModPropertyDesc(this.m_radiusAroundStartMod, "[RadiusAroundStart]", true, targetSelect_ChargeAoE.m_radiusAroundStart);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_radiusAroundEndMod, "[RadiusAroundEnd]", true, targetSelect_ChargeAoE.m_radiusAroundEnd);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_rangeFromLineMod, "[RangeFromLine]", true, targetSelect_ChargeAoE.m_rangeFromLine);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_trimPathOnTargetHitMod, "[TrimPathOnTargetHit]", true, targetSelect_ChargeAoE.m_trimPathOnTargetHit);
+			text += AbilityModHelper.GetModPropertyDesc(m_radiusAroundStartMod, "[RadiusAroundStart]", true, targetSelect_ChargeAoE.m_radiusAroundStart);
+			text += AbilityModHelper.GetModPropertyDesc(m_radiusAroundEndMod, "[RadiusAroundEnd]", true, targetSelect_ChargeAoE.m_radiusAroundEnd);
+			text += AbilityModHelper.GetModPropertyDesc(m_rangeFromLineMod, "[RangeFromLine]", true, targetSelect_ChargeAoE.m_rangeFromLine);
+			text += AbilityModHelper.GetModPropertyDesc(m_trimPathOnTargetHitMod, "[TrimPathOnTargetHit]", true, targetSelect_ChargeAoE.m_trimPathOnTargetHit);
 		}
 		return text;
 	}

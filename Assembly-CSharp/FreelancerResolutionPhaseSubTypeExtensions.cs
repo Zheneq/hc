@@ -1,13 +1,11 @@
-﻿using System;
-
 public static class FreelancerResolutionPhaseSubTypeExtensions
 {
 	public static bool IsPickBanSubPhase(this FreelancerResolutionPhaseSubType subtype)
 	{
-		bool result;
+		int result;
 		if (subtype != FreelancerResolutionPhaseSubType.PICK_BANS1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -16,17 +14,17 @@ public static class FreelancerResolutionPhaseSubTypeExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerResolutionPhaseSubType.IsPickBanSubPhase()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (subtype == FreelancerResolutionPhaseSubType.PICK_BANS2);
+			result = ((subtype == FreelancerResolutionPhaseSubType.PICK_BANS2) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public static bool IsPickFreelancerSubPhase(this FreelancerResolutionPhaseSubType subtype)

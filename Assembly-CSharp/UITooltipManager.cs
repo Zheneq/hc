@@ -1,10 +1,74 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UITooltipManager : UIScene
 {
+	private class PositioningData
+	{
+		public RectTransform Transform
+		{
+			get;
+			private set;
+		}
+
+		public Canvas Canvas
+		{
+			get;
+			private set;
+		}
+
+		public PositioningData(Transform transform)
+		{
+			Transform = (transform as RectTransform);
+			Canvas = transform.GetComponentInParent<Canvas>();
+		}
+
+		public void GetCornerBoundsInViewport(out float left, out float width, out float bottom, out float height)
+		{
+			Vector3[] array = new Vector3[4];
+			Transform.GetWorldCorners(array);
+			Vector3 vector = Canvas.worldCamera.WorldToViewportPoint(array[0]);
+			Vector3 vector2 = Canvas.worldCamera.WorldToViewportPoint(array[2]);
+			left = vector.x;
+			width = vector2.x - left;
+			bottom = vector.y;
+			height = vector2.y - bottom;
+		}
+
+		public Vector2[] GetViewportAnchors(Vector2[] anchors, float left, float width, float bottom, float height)
+		{
+			Vector2[] array = new Vector2[anchors.Length];
+			for (int i = 0; i < anchors.Length; i++)
+			{
+				array[i].x = left + anchors[i].x * width;
+				array[i].y = bottom + anchors[i].y * height;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return array;
+			}
+		}
+
+		public void UpdatePosFromViewportPoint(Vector2 newViewportPos)
+		{
+			Vector3 position = Canvas.worldCamera.ViewportToWorldPoint(newViewportPos);
+			Vector3 position2 = Transform.position;
+			position.z = position2.z;
+			Transform.position = position;
+		}
+	}
+
 	public UITooltipBase[] m_tooltipPrefabs;
 
 	private static UITooltipManager s_instance;
@@ -21,7 +85,7 @@ public class UITooltipManager : UIScene
 
 	private StandaloneInputModuleWithEventDataAccess m_inputModule;
 
-	private Vector2[] m_defaultAnchorPoints = new Vector2[]
+	private Vector2[] m_defaultAnchorPoints = new Vector2[4]
 	{
 		new Vector2(0f, 0f),
 		new Vector2(0f, 1f),
@@ -31,7 +95,7 @@ public class UITooltipManager : UIScene
 
 	public static UITooltipManager Get()
 	{
-		return UITooltipManager.s_instance;
+		return s_instance;
 	}
 
 	public override SceneType GetSceneType()
@@ -41,42 +105,43 @@ public class UITooltipManager : UIScene
 
 	public override void Awake()
 	{
-		UITooltipManager.s_instance = this;
+		s_instance = this;
 		base.Awake();
 	}
 
 	private void OnDestroy()
 	{
-		if (UITooltipManager.s_instance == this)
+		if (!(s_instance == this))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UITooltipManager.s_instance = null;
+			s_instance = null;
+			return;
 		}
 	}
 
 	private void Start()
 	{
-		this.m_tooltips = new UITooltipBase[0x14];
-		this.m_inputModule = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
+		m_tooltips = new UITooltipBase[20];
+		m_inputModule = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 	}
 
 	private void LateUpdate()
 	{
-		if (this.m_currentDisplayTooltip != null)
+		if (m_currentDisplayTooltip != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -85,16 +150,16 @@ public class UITooltipManager : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.LateUpdate()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_currentDisplayTooltip.isActiveAndEnabled)
+			if (m_currentDisplayTooltip.isActiveAndEnabled)
 			{
-				GameObject pointerEnter = this.m_inputModule.GetLastPointerEventDataPublic(-1).pointerEnter;
-				if (!(this.m_currentHoveredObject == null) && !(pointerEnter == null))
+				GameObject pointerEnter = m_inputModule.GetLastPointerEventDataPublic(-1).pointerEnter;
+				if (!(m_currentHoveredObject == null) && !(pointerEnter == null))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -103,11 +168,11 @@ public class UITooltipManager : UIScene
 						}
 						break;
 					}
-					if (this.IsEqualOrParent(this.m_currentHoveredObject.transform, pointerEnter.transform))
+					if (IsEqualOrParent(m_currentHoveredObject.transform, pointerEnter.transform))
 					{
-						goto IL_A4;
+						goto IL_00b4;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -117,30 +182,51 @@ public class UITooltipManager : UIScene
 						break;
 					}
 				}
-				this.HideDisplayTooltip();
-				this.m_currentHoveredObject = null;
-				IL_A4:;
+				HideDisplayTooltip();
+				m_currentHoveredObject = null;
 			}
 			else
 			{
-				this.m_currentDisplayTooltip = null;
-				this.m_currentHoveredObject = null;
+				m_currentDisplayTooltip = null;
+				m_currentHoveredObject = null;
 			}
 		}
-		if (this.m_currentMenuTooltip != null)
+		goto IL_00b4;
+		IL_00b4:
+		if (!(m_currentMenuTooltip != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!this.m_currentMenuTooltip.isActiveAndEnabled)
+			if (!m_currentMenuTooltip.isActiveAndEnabled)
 			{
-				for (;;)
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						m_currentMenuTooltip = null;
+						m_currentClickedObject = null;
+						return;
+					}
+				}
+			}
+			if (m_currentClickedObject == null || !m_currentClickedObject.isActiveAndEnabled)
+			{
+				HideMenu();
+				return;
+			}
+			if (!Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1))
+			{
+				while (true)
 				{
 					switch (2)
 					{
@@ -149,132 +235,112 @@ public class UITooltipManager : UIScene
 					}
 					break;
 				}
-				this.m_currentMenuTooltip = null;
-				this.m_currentClickedObject = null;
-			}
-			else if (this.m_currentClickedObject == null || !this.m_currentClickedObject.isActiveAndEnabled)
-			{
-				this.HideMenu();
-			}
-			else
-			{
-				if (!Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1))
+				if (!Input.GetMouseButtonDown(2))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!Input.GetMouseButtonDown(2))
-					{
-						return;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					return;
 				}
-				GameObject gameObject = this.m_inputModule.GetLastPointerEventDataPublic(-1).pointerCurrentRaycast.gameObject;
-				if (gameObject != null)
+				while (true)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.IsEqualOrParent(this.m_currentMenuTooltip.transform, gameObject.transform))
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.HideMenu();
-					}
-				}
-			}
-		}
-	}
-
-	private bool IsEqualOrParent(Transform parent, Transform child)
-	{
-		while (!(parent == child))
-		{
-			child = child.parent;
-			if (!(child != null))
-			{
-				for (;;)
-				{
-					switch (1)
+					switch (5)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				return false;
 			}
-		}
-		for (;;)
-		{
-			switch (2)
+			GameObject gameObject = m_inputModule.GetLastPointerEventDataPublic(-1).pointerCurrentRaycast.gameObject;
+			if (!(gameObject != null))
 			{
-			case 0:
-				continue;
+				return;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.IsEqualOrParent(Transform, Transform)).MethodHandle;
-		}
-		return true;
-	}
-
-	public bool IsVisible(TooltipType type)
-	{
-		UITooltipBase uitooltipBase = this.m_tooltips[(int)type];
-		if (uitooltipBase == null)
-		{
-			for (;;)
+			while (true)
 			{
-				switch (6)
+				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (!IsEqualOrParent(m_currentMenuTooltip.transform, gameObject.transform))
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						HideMenu();
+						return;
+					}
+				}
+				return;
 			}
-			if (!true)
+		}
+	}
+
+	private bool IsEqualOrParent(Transform parent, Transform child)
+	{
+		do
+		{
+			if (parent == child)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.IsVisible(TooltipType)).MethodHandle;
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return true;
+					}
+				}
+			}
+			child = child.parent;
+		}
+		while (child != null);
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
 			}
 			return false;
 		}
-		if (!(this.m_currentDisplayTooltip == uitooltipBase))
+	}
+
+	public bool IsVisible(TooltipType type)
+	{
+		UITooltipBase uITooltipBase = m_tooltips[(int)type];
+		if (uITooltipBase == null)
 		{
-			if (!(this.m_currentMenuTooltip == uitooltipBase))
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
+				}
+			}
+		}
+		if (!(m_currentDisplayTooltip == uITooltipBase))
+		{
+			if (!(m_currentMenuTooltip == uITooltipBase))
 			{
 				return false;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -289,9 +355,9 @@ public class UITooltipManager : UIScene
 
 	public void HideDisplayTooltip()
 	{
-		if (this.m_currentDisplayTooltip != null)
+		if (m_currentDisplayTooltip != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -300,88 +366,89 @@ public class UITooltipManager : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.HideDisplayTooltip()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_currentHoveredObject.CallDisableTooltip();
-			this.m_currentDisplayTooltip.SetVisible(false);
+			m_currentHoveredObject.CallDisableTooltip();
+			m_currentDisplayTooltip.SetVisible(false);
 		}
-		this.m_currentDisplayTooltip = null;
+		m_currentDisplayTooltip = null;
 	}
 
 	public void HideDisplayTooltip(TooltipType type)
 	{
-		if (this.m_tooltips[(int)type] != null)
+		if (!(m_tooltips[(int)type] != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.HideDisplayTooltip(TooltipType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_tooltips[(int)type] == this.m_currentDisplayTooltip)
+			if (m_tooltips[(int)type] == m_currentDisplayTooltip)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					HideDisplayTooltip();
+					return;
 				}
-				this.HideDisplayTooltip();
 			}
+			return;
 		}
 	}
 
 	public void ShowDisplayTooltip(UITooltipHoverObject obj)
 	{
-		this.HideDisplayTooltip();
-		this.m_currentDisplayTooltip = this.GetTooltip(obj.GetTooltipType());
-		this.m_currentHoveredObject = obj;
-		if (!this.m_currentHoveredObject.PopulateTooltip(this.m_currentDisplayTooltip))
+		HideDisplayTooltip();
+		m_currentDisplayTooltip = GetTooltip(obj.GetTooltipType());
+		m_currentHoveredObject = obj;
+		if (!m_currentHoveredObject.PopulateTooltip(m_currentDisplayTooltip))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					HideDisplayTooltip();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.ShowDisplayTooltip(UITooltipHoverObject)).MethodHandle;
-			}
-			this.HideDisplayTooltip();
-			return;
 		}
-		this.m_currentDisplayTooltip.SetVisible(true);
-		this.PositionTooltip(this.m_currentHoveredObject, this.m_currentDisplayTooltip);
+		m_currentDisplayTooltip.SetVisible(true);
+		PositionTooltip(m_currentHoveredObject, m_currentDisplayTooltip);
 	}
 
 	public void HideMenu()
 	{
-		this.m_currentMenuTooltip.SetVisible(false);
-		this.m_currentMenuTooltip = null;
-		this.m_currentClickedObject = null;
+		m_currentMenuTooltip.SetVisible(false);
+		m_currentMenuTooltip = null;
+		m_currentClickedObject = null;
 	}
 
 	public void ShowMenu(UITooltipClickObject obj)
 	{
-		if (this.m_currentMenuTooltip != null)
+		if (m_currentMenuTooltip != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -390,37 +457,37 @@ public class UITooltipManager : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.ShowMenu(UITooltipClickObject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_currentMenuTooltip.SetVisible(false);
+			m_currentMenuTooltip.SetVisible(false);
 		}
-		this.m_currentMenuTooltip = this.GetTooltip(obj.GetTooltipType());
-		this.m_currentClickedObject = obj;
-		if (!this.m_currentClickedObject.PopulateTooltip(this.m_currentMenuTooltip))
+		m_currentMenuTooltip = GetTooltip(obj.GetTooltipType());
+		m_currentClickedObject = obj;
+		if (!m_currentClickedObject.PopulateTooltip(m_currentMenuTooltip))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					HideMenu();
+					return;
 				}
-				break;
 			}
-			this.HideMenu();
-			return;
 		}
-		this.m_currentMenuTooltip.SetVisible(true);
-		this.PositionTooltip(this.m_currentClickedObject, this.m_currentMenuTooltip);
+		m_currentMenuTooltip.SetVisible(true);
+		PositionTooltip(m_currentClickedObject, m_currentMenuTooltip);
 	}
 
 	private UITooltipBase GetTooltip(TooltipType type)
 	{
-		if (this.m_tooltips[(int)type] == null)
+		if (m_tooltips[(int)type] == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -429,152 +496,224 @@ public class UITooltipManager : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.GetTooltip(TooltipType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UITooltipBase uitooltipBase = UnityEngine.Object.Instantiate<UITooltipBase>(this.m_tooltipPrefabs[(int)type]);
-			uitooltipBase.transform.SetParent(base.transform);
-			uitooltipBase.transform.localPosition = Vector3.zero;
-			uitooltipBase.transform.localScale = Vector3.one;
-			this.m_tooltips[(int)type] = uitooltipBase;
+			UITooltipBase uITooltipBase = UnityEngine.Object.Instantiate(m_tooltipPrefabs[(int)type]);
+			uITooltipBase.transform.SetParent(base.transform);
+			uITooltipBase.transform.localPosition = Vector3.zero;
+			uITooltipBase.transform.localScale = Vector3.one;
+			m_tooltips[(int)type] = uITooltipBase;
 		}
-		return this.m_tooltips[(int)type];
+		return m_tooltips[(int)type];
 	}
 
 	public void UpdateTooltip(UITooltipObject obj)
 	{
 		if (obj is UITooltipHoverObject)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.UpdateTooltip(UITooltipObject)).MethodHandle;
-			}
-			if (this.m_currentHoveredObject != obj)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				return;
-			}
-			if (this.m_currentDisplayTooltip == null)
-			{
-				for (;;)
-				{
-					switch (2)
+				default:
+					if (1 == 0)
 					{
-					case 0:
-						continue;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					break;
-				}
-				this.ShowDisplayTooltip(obj as UITooltipHoverObject);
-				return;
-			}
-			if (!this.m_currentHoveredObject.PopulateTooltip(this.m_currentDisplayTooltip))
-			{
-				for (;;)
-				{
-					switch (1)
+					if (m_currentHoveredObject != obj)
 					{
-					case 0:
-						continue;
+						while (true)
+						{
+							switch (3)
+							{
+							default:
+								return;
+							case 0:
+								break;
+							}
+						}
 					}
-					break;
+					if (m_currentDisplayTooltip == null)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								break;
+							default:
+								ShowDisplayTooltip(obj as UITooltipHoverObject);
+								return;
+							}
+						}
+					}
+					if (!m_currentHoveredObject.PopulateTooltip(m_currentDisplayTooltip))
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								break;
+							default:
+								HideDisplayTooltip();
+								return;
+							}
+						}
+					}
+					return;
 				}
-				this.HideDisplayTooltip();
 			}
 		}
-		else if (obj is UITooltipClickObject)
+		if (!(obj is UITooltipClickObject))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.m_currentMenuTooltip == null || this.m_currentClickedObject != obj)
+			if (!(m_currentMenuTooltip == null) && !(m_currentClickedObject != obj) && !m_currentClickedObject.PopulateTooltip(m_currentMenuTooltip))
 			{
-				return;
+				HideMenu();
 			}
-			if (!this.m_currentClickedObject.PopulateTooltip(this.m_currentMenuTooltip))
-			{
-				this.HideMenu();
-			}
+			return;
 		}
 	}
 
 	private void PositionTooltip(UITooltipObject obj, UITooltipBase tooltip)
 	{
 		LayoutRebuilder.ForceRebuildLayoutImmediate(tooltip.transform as RectTransform);
-		UITooltipManager.PositioningData positioningData = new UITooltipManager.PositioningData(obj.transform);
-		UITooltipManager.PositioningData positioningData2 = new UITooltipManager.PositioningData(tooltip.transform);
+		PositioningData positioningData = new PositioningData(obj.transform);
+		PositioningData positioningData2 = new PositioningData(tooltip.transform);
 		if (positioningData.Canvas.renderMode != RenderMode.WorldSpace)
 		{
-			for (;;)
+			while (true)
 			{
+				float left;
+				float width;
+				float bottom;
+				float height;
+				Vector2[] array;
+				Vector2 vector;
+				Vector2[] anchors;
+				int num;
+				Vector2 comparee;
+				Vector2 closestVector;
+				Vector2[] candidates;
+				bool flag;
+				Vector2[] array2;
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.PositionTooltip(UITooltipObject, UITooltipBase)).MethodHandle;
-			}
-			float x;
-			float num;
-			float x2;
-			float num2;
-			Vector2 closestVector;
-			if (obj is UITooltipHoverObject)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				UITooltipHoverObject uitooltipHoverObject = obj as UITooltipHoverObject;
-				positioningData.GetCornerBoundsInViewport(out x, out num, out x2, out num2);
-				Vector2[] array;
-				if (uitooltipHoverObject.m_anchorPoints != null)
-				{
-					for (;;)
+				default:
 					{
-						switch (3)
+						if (1 == 0)
 						{
-						case 0:
-							continue;
+							/*OpCode not supported: LdMemberToken*/;
 						}
-						break;
+						if (obj is UITooltipHoverObject)
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							UITooltipHoverObject uITooltipHoverObject = obj as UITooltipHoverObject;
+							positioningData.GetCornerBoundsInViewport(out left, out width, out bottom, out height);
+							if (uITooltipHoverObject.m_anchorPoints != null)
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (uITooltipHoverObject.m_anchorPoints.Length > 0)
+								{
+									while (true)
+									{
+										switch (6)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									array = uITooltipHoverObject.m_anchorPoints;
+									goto IL_00b5;
+								}
+							}
+							array = m_defaultAnchorPoints;
+							goto IL_00b5;
+						}
+						Vector3 mousePosition = Input.mousePosition;
+						vector = new Vector2(mousePosition.x / (float)Screen.width, mousePosition.y / (float)Screen.height);
+						left = vector.x;
+						bottom = vector.x;
+						width = (height = 0f);
+						goto IL_0125;
 					}
-					if (uitooltipHoverObject.m_anchorPoints.Length > 0)
+					IL_00b5:
+					anchors = array;
+					anchors = positioningData.GetViewportAnchors(anchors, left, width, bottom, height);
+					vector = GetClosestVector(obj.m_gravityWell, anchors);
+					goto IL_0125;
+					IL_01c5:
+					if (num != 0)
 					{
-						for (;;)
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						comparee *= -1f;
+					}
+					comparee.x = comparee.x / -2f + 0.5f;
+					comparee.y = comparee.y / -2f + 0.5f;
+					closestVector = GetClosestVector(comparee, candidates);
+					positioningData2.Transform.anchorMin = closestVector;
+					positioningData2.Transform.anchorMax = closestVector;
+					positioningData2.Transform.pivot = closestVector;
+					positioningData2.UpdatePosFromViewportPoint(vector);
+					positioningData2.GetCornerBoundsInViewport(out left, out width, out bottom, out height);
+					flag = false;
+					if (left < 0f)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						vector.x -= left;
+						flag = true;
+					}
+					else if (left + width > 1f)
+					{
+						while (true)
 						{
 							switch (6)
 							{
@@ -583,71 +722,48 @@ public class UITooltipManager : UIScene
 							}
 							break;
 						}
-						array = uitooltipHoverObject.m_anchorPoints;
-						goto IL_B5;
+						vector.x -= left + width - 1f;
+						flag = true;
 					}
-				}
-				array = this.m_defaultAnchorPoints;
-				IL_B5:
-				Vector2[] array2 = array;
-				array2 = positioningData.GetViewportAnchors(array2, x, num, x2, num2);
-				closestVector = this.GetClosestVector(obj.m_gravityWell, array2);
-			}
-			else
-			{
-				Vector3 mousePosition = Input.mousePosition;
-				closestVector = new Vector2(mousePosition.x / (float)Screen.width, mousePosition.y / (float)Screen.height);
-				x = closestVector.x;
-				x2 = closestVector.x;
-				num2 = (num = 0f);
-			}
-			Vector2 vector = obj.m_gravityWell - closestVector;
-			vector.Normalize();
-			Vector2[] array3;
-			if (tooltip.m_anchorPoints.Length > 0)
-			{
-				for (;;)
-				{
-					switch (4)
+					if (bottom < 0f)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				array3 = tooltip.m_anchorPoints;
-			}
-			else
-			{
-				array3 = this.m_defaultAnchorPoints;
-			}
-			Vector2[] candidates = array3;
-			bool flag;
-			if (obj.m_gravityWell.x >= x)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (obj.m_gravityWell.x <= x + num)
-				{
-					for (;;)
-					{
-						switch (6)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
-						break;
+						vector.y -= bottom;
+						flag = true;
 					}
-					if (obj.m_gravityWell.y >= x2)
+					else if (bottom + height > 1f)
 					{
-						for (;;)
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						vector.y -= bottom + height - 1f;
+						flag = true;
+					}
+					if (flag)
+					{
+						positioningData2.UpdatePosFromViewportPoint(vector);
+					}
+					return;
+					IL_0125:
+					comparee = obj.m_gravityWell - vector;
+					comparee.Normalize();
+					if (tooltip.m_anchorPoints.Length > 0)
+					{
+						while (true)
 						{
 							switch (4)
 							{
@@ -656,97 +772,55 @@ public class UITooltipManager : UIScene
 							}
 							break;
 						}
-						flag = (obj.m_gravityWell.y <= x2 + num2);
-						goto IL_1C5;
+						array2 = tooltip.m_anchorPoints;
 					}
-				}
-			}
-			flag = false;
-			IL_1C5:
-			bool flag2 = flag;
-			if (flag2)
-			{
-				for (;;)
-				{
-					switch (1)
+					else
 					{
-					case 0:
-						continue;
+						array2 = m_defaultAnchorPoints;
 					}
-					break;
-				}
-				vector *= -1f;
-			}
-			vector.x = vector.x / -2f + 0.5f;
-			vector.y = vector.y / -2f + 0.5f;
-			Vector2 closestVector2 = this.GetClosestVector(vector, candidates);
-			positioningData2.Transform.anchorMin = closestVector2;
-			positioningData2.Transform.anchorMax = closestVector2;
-			positioningData2.Transform.pivot = closestVector2;
-			positioningData2.UpdatePosFromViewportPoint(closestVector);
-			positioningData2.GetCornerBoundsInViewport(out x, out num, out x2, out num2);
-			bool flag3 = false;
-			if (x < 0f)
-			{
-				for (;;)
-				{
-					switch (2)
+					candidates = array2;
+					if (obj.m_gravityWell.x >= left)
 					{
-					case 0:
-						continue;
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (obj.m_gravityWell.x <= left + width)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (obj.m_gravityWell.y >= bottom)
+							{
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								num = ((obj.m_gravityWell.y <= bottom + height) ? 1 : 0);
+								goto IL_01c5;
+							}
+						}
 					}
-					break;
+					num = 0;
+					goto IL_01c5;
 				}
-				closestVector.x -= x;
-				flag3 = true;
 			}
-			else if (x + num > 1f)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				closestVector.x -= x + num - 1f;
-				flag3 = true;
-			}
-			if (x2 < 0f)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				closestVector.y -= x2;
-				flag3 = true;
-			}
-			else if (x2 + num2 > 1f)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				closestVector.y -= x2 + num2 - 1f;
-				flag3 = true;
-			}
-			if (flag3)
-			{
-				positioningData2.UpdatePosFromViewportPoint(closestVector);
-			}
-			return;
 		}
 		throw new NotImplementedException();
 	}
@@ -760,7 +834,7 @@ public class UITooltipManager : UIScene
 			float num2 = Vector2.Distance(comparee, candidates[i]);
 			if (num2 < num)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -769,79 +843,22 @@ public class UITooltipManager : UIScene
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.GetClosestVector(Vector2, Vector2[])).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				num = num2;
 				vector = candidates[i];
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		return vector;
-	}
-
-	private class PositioningData
-	{
-		public PositioningData(Transform transform)
-		{
-			this.Transform = (transform as RectTransform);
-			this.Canvas = transform.GetComponentInParent<Canvas>();
-		}
-
-		public RectTransform Transform { get; private set; }
-
-		public Canvas Canvas { get; private set; }
-
-		public void GetCornerBoundsInViewport(out float left, out float width, out float bottom, out float height)
-		{
-			Vector3[] array = new Vector3[4];
-			this.Transform.GetWorldCorners(array);
-			Vector3 vector = this.Canvas.worldCamera.WorldToViewportPoint(array[0]);
-			Vector3 vector2 = this.Canvas.worldCamera.WorldToViewportPoint(array[2]);
-			left = vector.x;
-			width = vector2.x - left;
-			bottom = vector.y;
-			height = vector2.y - bottom;
-		}
-
-		public Vector2[] GetViewportAnchors(Vector2[] anchors, float left, float width, float bottom, float height)
-		{
-			Vector2[] array = new Vector2[anchors.Length];
-			for (int i = 0; i < anchors.Length; i++)
-			{
-				array[i].x = left + anchors[i].x * width;
-				array[i].y = bottom + anchors[i].y * height;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.PositioningData.GetViewportAnchors(Vector2[], float, float, float, float)).MethodHandle;
-			}
-			return array;
-		}
-
-		public void UpdatePosFromViewportPoint(Vector2 newViewportPos)
-		{
-			Vector3 position = this.Canvas.worldCamera.ViewportToWorldPoint(newViewportPos);
-			position.z = this.Transform.position.z;
-			this.Transform.position = position;
+			return vector;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,33 +30,31 @@ public class AbilityMod_MantaRegeneration : AbilityMod
 		MantaRegeneration mantaRegeneration = targetAbility as MantaRegeneration;
 		if (mantaRegeneration != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_maxRegenerationMod, "MaxRegeneration", string.Empty, mantaRegeneration.m_maxRegeneration, true, false);
-			AbilityMod.AddToken(tokens, this.m_turnsOfRegenerationMod, "TurnsOfRegeneration", string.Empty, mantaRegeneration.m_turnsOfRegeneration, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageToHealRatioMod, "DamageToHealRatio", string.Empty, mantaRegeneration.m_damageToHealRatio, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_techPointGainPerIncomingHit, "EnergyPerHit", string.Empty, mantaRegeneration.m_techPointGainPerIncomingHit, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_healEffectDataMod, "HealEffectData", mantaRegeneration.m_healEffectData, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_otherSelfEffectMod, "OtherSelfEffect", mantaRegeneration.m_otherSelfEffect, true);
-			this.m_cooldownReductionsWhenNoHits.AddTooltipTokens(tokens, "CooldownReductionOnNoDamage");
+			AbilityMod.AddToken(tokens, m_maxRegenerationMod, "MaxRegeneration", string.Empty, mantaRegeneration.m_maxRegeneration);
+			AbilityMod.AddToken(tokens, m_turnsOfRegenerationMod, "TurnsOfRegeneration", string.Empty, mantaRegeneration.m_turnsOfRegeneration);
+			AbilityMod.AddToken(tokens, m_damageToHealRatioMod, "DamageToHealRatio", string.Empty, mantaRegeneration.m_damageToHealRatio);
+			AbilityMod.AddToken(tokens, m_techPointGainPerIncomingHit, "EnergyPerHit", string.Empty, mantaRegeneration.m_techPointGainPerIncomingHit);
+			AbilityMod.AddToken_EffectMod(tokens, m_healEffectDataMod, "HealEffectData", mantaRegeneration.m_healEffectData);
+			AbilityMod.AddToken_EffectMod(tokens, m_otherSelfEffectMod, "OtherSelfEffect", mantaRegeneration.m_otherSelfEffect);
+			m_cooldownReductionsWhenNoHits.AddTooltipTokens(tokens, "CooldownReductionOnNoDamage");
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		MantaRegeneration mantaRegeneration = base.GetTargetAbilityOnAbilityData(abilityData) as MantaRegeneration;
+		MantaRegeneration mantaRegeneration = GetTargetAbilityOnAbilityData(abilityData) as MantaRegeneration;
 		bool flag = mantaRegeneration != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_maxRegenerationMod, "[MaxRegeneration]", flag, (!flag) ? 0 : mantaRegeneration.m_maxRegeneration);
-		text += base.PropDesc(this.m_turnsOfRegenerationMod, "[TurnsOfRegeneration]", flag, (!flag) ? 0 : mantaRegeneration.m_turnsOfRegeneration);
-		text += base.PropDesc(this.m_damageToHealRatioMod, "[DamageToHealRatio]", flag, (!flag) ? 0f : mantaRegeneration.m_damageToHealRatio);
-		text += base.PropDesc(this.m_techPointGainPerIncomingHit, "[EnergyPerHit]", flag, (!flag) ? 0 : mantaRegeneration.m_techPointGainPerIncomingHit);
-		string str = text;
-		AbilityModPropertyEffectData healEffectDataMod = this.m_healEffectDataMod;
-		string prefix = "[HealEffectData]";
-		bool showBaseVal = flag;
-		StandardActorEffectData baseVal;
+		string empty = string.Empty;
+		empty += PropDesc(m_maxRegenerationMod, "[MaxRegeneration]", flag, flag ? mantaRegeneration.m_maxRegeneration : 0);
+		empty += PropDesc(m_turnsOfRegenerationMod, "[TurnsOfRegeneration]", flag, flag ? mantaRegeneration.m_turnsOfRegeneration : 0);
+		empty += PropDesc(m_damageToHealRatioMod, "[DamageToHealRatio]", flag, (!flag) ? 0f : mantaRegeneration.m_damageToHealRatio);
+		empty += PropDesc(m_techPointGainPerIncomingHit, "[EnergyPerHit]", flag, flag ? mantaRegeneration.m_techPointGainPerIncomingHit : 0);
+		string str = empty;
+		AbilityModPropertyEffectData healEffectDataMod = m_healEffectDataMod;
+		object baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -65,9 +63,9 @@ public class AbilityMod_MantaRegeneration : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MantaRegeneration.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = mantaRegeneration.m_healEffectData;
 		}
@@ -75,15 +73,13 @@ public class AbilityMod_MantaRegeneration : AbilityMod
 		{
 			baseVal = null;
 		}
-		text = str + base.PropDesc(healEffectDataMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyEffectInfo otherSelfEffectMod = this.m_otherSelfEffectMod;
-		string prefix2 = "[OtherSelfEffect]";
-		bool showBaseVal2 = flag;
-		StandardEffectInfo baseVal2;
+		empty = str + PropDesc(healEffectDataMod, "[HealEffectData]", flag, (StandardActorEffectData)baseVal);
+		string str2 = empty;
+		AbilityModPropertyEffectInfo otherSelfEffectMod = m_otherSelfEffectMod;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -98,7 +94,7 @@ public class AbilityMod_MantaRegeneration : AbilityMod
 		{
 			baseVal2 = null;
 		}
-		text = str2 + base.PropDesc(otherSelfEffectMod, prefix2, showBaseVal2, baseVal2);
-		return text + this.m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
+		empty = str2 + PropDesc(otherSelfEffectMod, "[OtherSelfEffect]", flag, (StandardEffectInfo)baseVal2);
+		return empty + m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
 	}
 }

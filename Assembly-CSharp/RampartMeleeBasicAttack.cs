@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,11 +18,11 @@ public class RampartMeleeBasicAttack : Ability
 	public float m_coneRange = 2.5f;
 
 	[Header("-- Hit Damage/Effects")]
-	public int m_laserDamage = 0x14;
+	public int m_laserDamage = 20;
 
 	public StandardEffectInfo m_laserEnemyHitEffect;
 
-	public int m_coneDamage = 0xA;
+	public int m_coneDamage = 10;
 
 	public StandardEffectInfo m_coneEnemyHitEffect;
 
@@ -42,17 +41,17 @@ public class RampartMeleeBasicAttack : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Overhead Slam";
+			m_abilityName = "Overhead Slam";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_ClaymoreSlam(this, this.GetLaserRange(), this.GetLaserWidth(), this.GetLaserMaxTargets(), this.GetConeAngle(), this.GetConeRange(), 0f, this.PenetrateLos(), true, false, false, this.GetBonusDamageForOverlap() > 0);
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_ClaymoreSlam(this, GetLaserRange(), GetLaserWidth(), GetLaserMaxTargets(), GetConeAngle(), GetConeRange(), 0f, PenetrateLos(), true, false, false, GetBonusDamageForOverlap() > 0);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -62,16 +61,16 @@ public class RampartMeleeBasicAttack : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetLaserRange();
+		return GetLaserRange();
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedLaserEnemyHitEffect = ((!this.m_abilityMod) ? this.m_laserEnemyHitEffect : this.m_abilityMod.m_laserEnemyHitEffectMod.GetModifiedValue(this.m_laserEnemyHitEffect));
+		m_cachedLaserEnemyHitEffect = ((!m_abilityMod) ? m_laserEnemyHitEffect : m_abilityMod.m_laserEnemyHitEffectMod.GetModifiedValue(m_laserEnemyHitEffect));
 		StandardEffectInfo cachedConeEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -80,30 +79,30 @@ public class RampartMeleeBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartMeleeBasicAttack.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedConeEnemyHitEffect = this.m_abilityMod.m_coneEnemyHitEffectMod.GetModifiedValue(this.m_coneEnemyHitEffect);
+			cachedConeEnemyHitEffect = m_abilityMod.m_coneEnemyHitEffectMod.GetModifiedValue(m_coneEnemyHitEffect);
 		}
 		else
 		{
-			cachedConeEnemyHitEffect = this.m_coneEnemyHitEffect;
+			cachedConeEnemyHitEffect = m_coneEnemyHitEffect;
 		}
-		this.m_cachedConeEnemyHitEffect = cachedConeEnemyHitEffect;
+		m_cachedConeEnemyHitEffect = cachedConeEnemyHitEffect;
 	}
 
 	public float GetLaserRange()
 	{
-		return (!this.m_abilityMod) ? this.m_laserRange : this.m_abilityMod.m_laserRangeMod.GetModifiedValue(this.m_laserRange);
+		return (!m_abilityMod) ? m_laserRange : m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange);
 	}
 
 	public float GetLaserWidth()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -112,15 +111,15 @@ public class RampartMeleeBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartMeleeBasicAttack.GetLaserWidth()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
+			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
 		{
-			result = this.m_laserWidth;
+			result = m_laserWidth;
 		}
 		return result;
 	}
@@ -128,9 +127,9 @@ public class RampartMeleeBasicAttack : Ability
 	public int GetLaserMaxTargets()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -139,15 +138,15 @@ public class RampartMeleeBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartMeleeBasicAttack.GetLaserMaxTargets()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_laserMaxTargetsMod.GetModifiedValue(this.m_laserMaxTargets);
+			result = m_abilityMod.m_laserMaxTargetsMod.GetModifiedValue(m_laserMaxTargets);
 		}
 		else
 		{
-			result = this.m_laserMaxTargets;
+			result = m_laserMaxTargets;
 		}
 		return result;
 	}
@@ -155,9 +154,9 @@ public class RampartMeleeBasicAttack : Ability
 	public bool PenetrateLos()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -166,35 +165,35 @@ public class RampartMeleeBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartMeleeBasicAttack.PenetrateLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
+			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
 		{
-			result = this.m_penetrateLos;
+			result = m_penetrateLos;
 		}
 		return result;
 	}
 
 	public float GetConeAngle()
 	{
-		return (!this.m_abilityMod) ? this.m_coneWidthAngle : this.m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(this.m_coneWidthAngle);
+		return (!m_abilityMod) ? m_coneWidthAngle : m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle);
 	}
 
 	public float GetConeRange()
 	{
-		return (!this.m_abilityMod) ? this.m_coneRange : this.m_abilityMod.m_coneRangeMod.GetModifiedValue(this.m_coneRange);
+		return (!m_abilityMod) ? m_coneRange : m_abilityMod.m_coneRangeMod.GetModifiedValue(m_coneRange);
 	}
 
 	public int GetLaserDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -203,30 +202,30 @@ public class RampartMeleeBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartMeleeBasicAttack.GetLaserDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_laserDamageMod.GetModifiedValue(this.m_laserDamage);
+			result = m_abilityMod.m_laserDamageMod.GetModifiedValue(m_laserDamage);
 		}
 		else
 		{
-			result = this.m_laserDamage;
+			result = m_laserDamage;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetLaserEnemyHitEffect()
 	{
-		return (this.m_cachedLaserEnemyHitEffect == null) ? this.m_laserEnemyHitEffect : this.m_cachedLaserEnemyHitEffect;
+		return (m_cachedLaserEnemyHitEffect == null) ? m_laserEnemyHitEffect : m_cachedLaserEnemyHitEffect;
 	}
 
 	public int GetConeDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -235,34 +234,34 @@ public class RampartMeleeBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartMeleeBasicAttack.GetConeDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneDamageMod.GetModifiedValue(this.m_coneDamage);
+			result = m_abilityMod.m_coneDamageMod.GetModifiedValue(m_coneDamage);
 		}
 		else
 		{
-			result = this.m_coneDamage;
+			result = m_coneDamage;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetConeEnemyHitEffect()
 	{
-		return (this.m_cachedConeEnemyHitEffect == null) ? this.m_coneEnemyHitEffect : this.m_cachedConeEnemyHitEffect;
+		return (m_cachedConeEnemyHitEffect == null) ? m_coneEnemyHitEffect : m_cachedConeEnemyHitEffect;
 	}
 
 	public int GetBonusDamageForOverlap()
 	{
-		return (!this.m_abilityMod) ? this.m_bonusDamageForOverlap : this.m_abilityMod.m_bonusDamageForOverlapMod.GetModifiedValue(this.m_bonusDamageForOverlap);
+		return (!m_abilityMod) ? m_bonusDamageForOverlap : m_abilityMod.m_bonusDamageForOverlapMod.GetModifiedValue(m_bonusDamageForOverlap);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RampartMeleeBasicAttack))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -271,27 +270,27 @@ public class RampartMeleeBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartMeleeBasicAttack.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_RampartMeleeBasicAttack);
+			m_abilityMod = (abilityMod as AbilityMod_RampartMeleeBasicAttack);
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetLaserDamage());
-		this.m_laserEnemyHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetLaserDamage());
+		m_laserEnemyHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -300,7 +299,7 @@ public class RampartMeleeBasicAttack : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -309,16 +308,16 @@ public class RampartMeleeBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartMeleeBasicAttack.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool flag = tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary);
 			bool flag2 = tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary);
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -329,7 +328,7 @@ public class RampartMeleeBasicAttack : Ability
 				}
 				if (flag2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -338,13 +337,13 @@ public class RampartMeleeBasicAttack : Ability
 						}
 						break;
 					}
-					dictionary[AbilityTooltipSymbol.Damage] = this.GetLaserDamage() + this.GetBonusDamageForOverlap();
-					return dictionary;
+					dictionary[AbilityTooltipSymbol.Damage] = GetLaserDamage() + GetBonusDamageForOverlap();
+					goto IL_00ae;
 				}
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -353,11 +352,11 @@ public class RampartMeleeBasicAttack : Ability
 					}
 					break;
 				}
-				dictionary[AbilityTooltipSymbol.Damage] = this.GetLaserDamage();
+				dictionary[AbilityTooltipSymbol.Damage] = GetLaserDamage();
 			}
 			else if (flag2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -366,9 +365,11 @@ public class RampartMeleeBasicAttack : Ability
 					}
 					break;
 				}
-				dictionary[AbilityTooltipSymbol.Damage] = this.GetConeDamage();
+				dictionary[AbilityTooltipSymbol.Damage] = GetConeDamage();
 			}
 		}
+		goto IL_00ae;
+		IL_00ae:
 		return dictionary;
 	}
 
@@ -376,12 +377,11 @@ public class RampartMeleeBasicAttack : Ability
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
 		AbilityMod_RampartMeleeBasicAttack abilityMod_RampartMeleeBasicAttack = modAsBase as AbilityMod_RampartMeleeBasicAttack;
-		string name = "LaserMaxTargets";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_RampartMeleeBasicAttack)
+		if ((bool)abilityMod_RampartMeleeBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -390,23 +390,22 @@ public class RampartMeleeBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartMeleeBasicAttack.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_RampartMeleeBasicAttack.m_laserMaxTargetsMod.GetModifiedValue(this.m_laserMaxTargets);
+			val = abilityMod_RampartMeleeBasicAttack.m_laserMaxTargetsMod.GetModifiedValue(m_laserMaxTargets);
 		}
 		else
 		{
-			val = this.m_laserMaxTargets;
+			val = m_laserMaxTargets;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "LaserDamage";
+		AddTokenInt(tokens, "LaserMaxTargets", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_RampartMeleeBasicAttack)
+		if ((bool)abilityMod_RampartMeleeBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -415,17 +414,17 @@ public class RampartMeleeBasicAttack : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_RampartMeleeBasicAttack.m_laserDamageMod.GetModifiedValue(this.m_laserDamage);
+			val2 = abilityMod_RampartMeleeBasicAttack.m_laserDamageMod.GetModifiedValue(m_laserDamage);
 		}
 		else
 		{
-			val2 = this.m_laserDamage;
+			val2 = m_laserDamage;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
+		AddTokenInt(tokens, "LaserDamage", empty2, val2);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_RampartMeleeBasicAttack)
+		if ((bool)abilityMod_RampartMeleeBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -434,19 +433,18 @@ public class RampartMeleeBasicAttack : Ability
 				}
 				break;
 			}
-			effectInfo = abilityMod_RampartMeleeBasicAttack.m_laserEnemyHitEffectMod.GetModifiedValue(this.m_laserEnemyHitEffect);
+			effectInfo = abilityMod_RampartMeleeBasicAttack.m_laserEnemyHitEffectMod.GetModifiedValue(m_laserEnemyHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_laserEnemyHitEffect;
+			effectInfo = m_laserEnemyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "LaserEnemyHitEffect", this.m_laserEnemyHitEffect, true);
-		string name3 = "ConeDamage";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "LaserEnemyHitEffect", m_laserEnemyHitEffect);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_RampartMeleeBasicAttack)
+		if ((bool)abilityMod_RampartMeleeBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -455,17 +453,17 @@ public class RampartMeleeBasicAttack : Ability
 				}
 				break;
 			}
-			val3 = abilityMod_RampartMeleeBasicAttack.m_coneDamageMod.GetModifiedValue(this.m_coneDamage);
+			val3 = abilityMod_RampartMeleeBasicAttack.m_coneDamageMod.GetModifiedValue(m_coneDamage);
 		}
 		else
 		{
-			val3 = this.m_coneDamage;
+			val3 = m_coneDamage;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
+		AddTokenInt(tokens, "ConeDamage", empty3, val3);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_RampartMeleeBasicAttack)
+		if ((bool)abilityMod_RampartMeleeBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -474,12 +472,12 @@ public class RampartMeleeBasicAttack : Ability
 				}
 				break;
 			}
-			effectInfo2 = abilityMod_RampartMeleeBasicAttack.m_coneEnemyHitEffectMod.GetModifiedValue(this.m_coneEnemyHitEffect);
+			effectInfo2 = abilityMod_RampartMeleeBasicAttack.m_coneEnemyHitEffectMod.GetModifiedValue(m_coneEnemyHitEffect);
 		}
 		else
 		{
-			effectInfo2 = this.m_coneEnemyHitEffect;
+			effectInfo2 = m_coneEnemyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "ConeEnemyHitEffect", this.m_coneEnemyHitEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "ConeEnemyHitEffect", m_coneEnemyHitEffect);
 	}
 }

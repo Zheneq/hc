@@ -1,12 +1,11 @@
-﻿using System;
-
 public static class InventoryWideDataExtensions
 {
 	public static bool IsDefaultStackableType(InventoryItemType itemType)
 	{
+		int result;
 		if (itemType != InventoryItemType.Material)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -15,13 +14,13 @@ public static class InventoryWideDataExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideDataExtensions.IsDefaultStackableType(InventoryItemType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (itemType != InventoryItemType.Currency && itemType != InventoryItemType.Experience)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -30,10 +29,14 @@ public static class InventoryWideDataExtensions
 					}
 					break;
 				}
-				return itemType == InventoryItemType.FreelancerExpBonus;
+				result = ((itemType == InventoryItemType.FreelancerExpBonus) ? 1 : 0);
+				goto IL_0034;
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_0034;
+		IL_0034:
+		return (byte)result != 0;
 	}
 
 	public static bool IsStackable(this InventoryItem item)
@@ -53,9 +56,10 @@ public static class InventoryWideDataExtensions
 
 	public static bool IsCollectable(this InventoryItemTemplate itemTemplate)
 	{
+		int result;
 		if (itemTemplate.Type != InventoryItemType.Material)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -64,13 +68,13 @@ public static class InventoryWideDataExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryItemTemplate.IsCollectable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (itemTemplate.Type != InventoryItemType.Currency)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -81,11 +85,15 @@ public static class InventoryWideDataExtensions
 				}
 				if (itemTemplate.Type != InventoryItemType.Experience)
 				{
-					return itemTemplate.Type != InventoryItemType.FreelancerExpBonus;
+					result = ((itemTemplate.Type != InventoryItemType.FreelancerExpBonus) ? 1 : 0);
+					goto IL_004b;
 				}
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_004b;
+		IL_004b:
+		return (byte)result != 0;
 	}
 
 	public static InventoryItemTemplate GetTemplate(this InventoryItem item)
@@ -103,26 +111,28 @@ public static class InventoryWideDataExtensions
 		}
 		if (itemTemplate.Type == InventoryItemType.TitleID)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					int num2 = itemTemplate.TypeSpecificData[0];
+					GameBalanceVars.PlayerTitle playerTitle = GameBalanceVars.Get().PlayerTitles[num2];
+					return playerTitle.m_relatedCharacter;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryItemTemplate.GetBindingCharacterType()).MethodHandle;
-			}
-			int num2 = itemTemplate.TypeSpecificData[0];
-			GameBalanceVars.PlayerTitle playerTitle = GameBalanceVars.Get().PlayerTitles[num2];
-			return playerTitle.m_relatedCharacter;
 		}
 		if (itemTemplate.Type != InventoryItemType.Skin)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -133,7 +143,7 @@ public static class InventoryWideDataExtensions
 			}
 			if (itemTemplate.Type != InventoryItemType.Texture)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -144,7 +154,7 @@ public static class InventoryWideDataExtensions
 				}
 				if (itemTemplate.Type != InventoryItemType.Style && itemTemplate.Type != InventoryItemType.Taunt && itemTemplate.Type != InventoryItemType.Mod)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -157,7 +167,7 @@ public static class InventoryWideDataExtensions
 					{
 						return CharacterType.None;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{

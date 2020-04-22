@@ -1,9 +1,15 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class LOSLookup : MonoBehaviour
 {
-	public LOSLookup.BoardSquareLOSLookup[] m_boardSquares;
+	[Serializable]
+	public class BoardSquareLOSLookup
+	{
+		public float[] m_LOS;
+	}
+
+	public BoardSquareLOSLookup[] m_boardSquares;
 
 	public int m_maxX;
 
@@ -16,9 +22,9 @@ public class LOSLookup : MonoBehaviour
 	public float GetLOSDistance(int xSource, int ySource, int xDest, int yDest)
 	{
 		float result = 0f;
-		if (this.m_boardSquares[xSource + ySource * this.m_maxX].m_LOS != null)
+		if (m_boardSquares[xSource + ySource * m_maxX].m_LOS != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -27,13 +33,13 @@ public class LOSLookup : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LOSLookup.GetLOSDistance(int, int, int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_boardSquares[xSource + ySource * this.m_maxX].m_LOS.Length > 0)
+			if (m_boardSquares[xSource + ySource * m_maxX].m_LOS.Length > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -42,15 +48,9 @@ public class LOSLookup : MonoBehaviour
 					}
 					break;
 				}
-				result = this.m_boardSquares[xSource + ySource * this.m_maxX].m_LOS[xDest + yDest * this.m_maxX];
+				result = m_boardSquares[xSource + ySource * m_maxX].m_LOS[xDest + yDest * m_maxX];
 			}
 		}
 		return result;
-	}
-
-	[Serializable]
-	public class BoardSquareLOSLookup
-	{
-		public float[] m_LOS;
 	}
 }

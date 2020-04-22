@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,28 +16,27 @@ namespace AbilityContextNamespace
 
 		public EffectFieldListModData m_allyEffectMods;
 
-		public OnHitAuthoredData \u001D(OnHitAuthoredData \u001D)
+		public OnHitAuthoredData _001D(OnHitAuthoredData _001D)
 		{
-			return new OnHitAuthoredData
-			{
-				m_enemyHitIntFields = this.m_enemyIntFieldMods.\u001D(\u001D.m_enemyHitIntFields),
-				m_enemyHitEffectFields = this.m_enemyEffectMods.\u001D(\u001D.m_enemyHitEffectFields),
-				m_allyHitIntFields = this.m_allyIntFieldMods.\u001D(\u001D.m_allyHitIntFields),
-				m_allyHitEffectFields = this.m_allyEffectMods.\u001D(\u001D.m_allyHitEffectFields)
-			};
+			OnHitAuthoredData onHitAuthoredData = new OnHitAuthoredData();
+			onHitAuthoredData.m_enemyHitIntFields = m_enemyIntFieldMods._001D(_001D.m_enemyHitIntFields);
+			onHitAuthoredData.m_enemyHitEffectFields = m_enemyEffectMods._001D(_001D.m_enemyHitEffectFields);
+			onHitAuthoredData.m_allyHitIntFields = m_allyIntFieldMods._001D(_001D.m_allyHitIntFields);
+			onHitAuthoredData.m_allyHitEffectFields = m_allyEffectMods._001D(_001D.m_allyHitEffectFields);
+			return onHitAuthoredData;
 		}
 
-		public string \u001D(string \u001D, OnHitAuthoredData \u000E)
+		public string _001D(string _001D, OnHitAuthoredData _000E)
 		{
-			string text = string.Empty;
-			text += OnHitDataMod.\u001D(this.m_enemyIntFieldMods, (\u000E == null) ? null : \u000E.m_enemyHitIntFields, "Enemy Int Field Mods");
-			text += OnHitDataMod.\u001D(this.m_enemyEffectMods, (\u000E == null) ? null : \u000E.m_enemyHitEffectFields, "Enemy Effect Field Mods");
-			string str = text;
-			IntFieldListModData allyIntFieldMods = this.m_allyIntFieldMods;
-			List<OnHitIntField> u000E;
-			if (\u000E != null)
+			string empty = string.Empty;
+			empty += OnHitDataMod._001D(m_enemyIntFieldMods, _000E?.m_enemyHitIntFields, "Enemy Int Field Mods");
+			empty += OnHitDataMod._001D(m_enemyEffectMods, _000E?.m_enemyHitEffectFields, "Enemy Effect Field Mods");
+			string str = empty;
+			IntFieldListModData allyIntFieldMods = m_allyIntFieldMods;
+			object obj;
+			if (_000E != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -46,23 +45,23 @@ namespace AbilityContextNamespace
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitDataMod.\u001D(string, OnHitAuthoredData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				u000E = \u000E.m_allyHitIntFields;
+				obj = _000E.m_allyHitIntFields;
 			}
 			else
 			{
-				u000E = null;
+				obj = null;
 			}
-			text = str + OnHitDataMod.\u001D(allyIntFieldMods, u000E, "Ally Int Field Mods");
-			string str2 = text;
-			EffectFieldListModData allyEffectMods = this.m_allyEffectMods;
-			List<OnHitEffecField> u000E2;
-			if (\u000E != null)
+			empty = str + OnHitDataMod._001D(allyIntFieldMods, (List<OnHitIntField>)obj, "Ally Int Field Mods");
+			string str2 = empty;
+			EffectFieldListModData allyEffectMods = m_allyEffectMods;
+			object obj2;
+			if (_000E != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -71,16 +70,16 @@ namespace AbilityContextNamespace
 					}
 					break;
 				}
-				u000E2 = \u000E.m_allyHitEffectFields;
+				obj2 = _000E.m_allyHitEffectFields;
 			}
 			else
 			{
-				u000E2 = null;
+				obj2 = null;
 			}
-			text = str2 + OnHitDataMod.\u001D(allyEffectMods, u000E2, "Ally Effect Field Mods");
-			if (text.Length > 0)
+			empty = str2 + OnHitDataMod._001D(allyEffectMods, (List<OnHitEffecField>)obj2, "Ally Effect Field Mods");
+			if (empty.Length > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -89,17 +88,17 @@ namespace AbilityContextNamespace
 					}
 					break;
 				}
-				text = InEditorDescHelper.ColoredString(\u001D, "yellow", false) + "\n" + text + "\n";
+				empty = InEditorDescHelper.ColoredString(_001D, "yellow") + "\n" + empty + "\n";
 			}
-			return text;
+			return empty;
 		}
 
-		public static string \u001D(IntFieldListModData \u001D, List<OnHitIntField> \u000E, string \u0012)
+		public static string _001D(IntFieldListModData _001D, List<OnHitIntField> _000E, string _0012)
 		{
 			string text = string.Empty;
-			if (\u001D.m_prependIntFields != null)
+			if (_001D.m_prependIntFields != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -108,13 +107,13 @@ namespace AbilityContextNamespace
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitDataMod.\u001D(IntFieldListModData, List<OnHitIntField>, string)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (\u001D.m_prependIntFields.Count > 0)
+				if (_001D.m_prependIntFields.Count > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -123,17 +122,17 @@ namespace AbilityContextNamespace
 						}
 						break;
 					}
-					text = text + "<color=cyan>" + \u0012 + ": New entries prepended:</color>\n";
-					for (int i = 0; i < \u001D.m_prependIntFields.Count; i++)
+					text = text + "<color=cyan>" + _0012 + ": New entries prepended:</color>\n";
+					for (int i = 0; i < _001D.m_prependIntFields.Count; i++)
 					{
-						OnHitIntField onHitIntField = \u001D.m_prependIntFields[i];
+						OnHitIntField onHitIntField = _001D.m_prependIntFields[i];
 						text += onHitIntField.GetInEditorDesc();
 					}
 				}
 			}
-			if (\u001D.m_overrides != null)
+			if (_001D.m_overrides != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -142,51 +141,53 @@ namespace AbilityContextNamespace
 					}
 					break;
 				}
-				if (\u001D.m_overrides.Count > 0)
+				if (_001D.m_overrides.Count > 0)
 				{
-					text = text + "<color=cyan>" + \u0012 + ": Override to existing entry:</color>\n";
-					for (int j = 0; j < \u001D.m_overrides.Count; j++)
+					text = text + "<color=cyan>" + _0012 + ": Override to existing entry:</color>\n";
+					for (int j = 0; j < _001D.m_overrides.Count; j++)
 					{
-						IntFieldOverride intFieldOverride = \u001D.m_overrides[j];
-						string text2 = intFieldOverride.\u001D();
-						if (!string.IsNullOrEmpty(text2))
+						IntFieldOverride intFieldOverride = _001D.m_overrides[j];
+						string text2 = intFieldOverride._001D();
+						if (string.IsNullOrEmpty(text2))
 						{
-							text = text + "Target Identifier: " + InEditorDescHelper.ColoredString(intFieldOverride.m_targetIdentifier, "white", false) + "\n";
-							if (\u000E != null)
+							continue;
+						}
+						text = text + "Target Identifier: " + InEditorDescHelper.ColoredString(intFieldOverride.m_targetIdentifier, "white") + "\n";
+						if (_000E == null)
+						{
+							continue;
+						}
+						while (true)
+						{
+							switch (1)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								bool flag = false;
-								foreach (OnHitIntField onHitIntField2 in \u000E)
-								{
-									if (onHitIntField2.GetIdentifier().Equals(text2, StringComparison.OrdinalIgnoreCase))
-									{
-										flag = true;
-										text += intFieldOverride.m_fieldOverride.\u001D(onHitIntField2);
-										break;
-									}
-								}
-								if (!flag)
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									text = text + "<color=red>Target Identifier " + text2 + " not found on base on hit data</color>\n";
-								}
+							case 0:
+								continue;
 							}
+							break;
+						}
+						bool flag = false;
+						foreach (OnHitIntField item in _000E)
+						{
+							if (item.GetIdentifier().Equals(text2, StringComparison.OrdinalIgnoreCase))
+							{
+								flag = true;
+								text += intFieldOverride.m_fieldOverride.GetDesc(item);
+								break;
+							}
+						}
+						if (!flag)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							text = text + "<color=red>Target Identifier " + text2 + " not found on base on hit data</color>\n";
 						}
 					}
 				}
@@ -194,12 +195,12 @@ namespace AbilityContextNamespace
 			return text;
 		}
 
-		public static string \u001D(EffectFieldListModData \u001D, List<OnHitEffecField> \u000E, string \u0012)
+		public static string _001D(EffectFieldListModData _001D, List<OnHitEffecField> _000E, string _0012)
 		{
 			string text = string.Empty;
-			if (\u001D.m_prependEffectFields != null)
+			if (_001D.m_prependEffectFields != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -208,19 +209,19 @@ namespace AbilityContextNamespace
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitDataMod.\u001D(EffectFieldListModData, List<OnHitEffecField>, string)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (\u001D.m_prependEffectFields.Count > 0)
+				if (_001D.m_prependEffectFields.Count > 0)
 				{
-					text = text + "<color=cyan>" + \u0012 + ": New entries prepended:</color>\n";
-					for (int i = 0; i < \u001D.m_prependEffectFields.Count; i++)
+					text = text + "<color=cyan>" + _0012 + ": New entries prepended:</color>\n";
+					for (int i = 0; i < _001D.m_prependEffectFields.Count; i++)
 					{
-						OnHitEffecField onHitEffecField = \u001D.m_prependEffectFields[i];
+						OnHitEffecField onHitEffecField = _001D.m_prependEffectFields[i];
 						text += onHitEffecField.GetInEditorDesc(false, null);
 					}
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -231,9 +232,9 @@ namespace AbilityContextNamespace
 					}
 				}
 			}
-			if (\u001D.m_overrides != null)
+			if (_001D.m_overrides != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -242,9 +243,9 @@ namespace AbilityContextNamespace
 					}
 					break;
 				}
-				if (\u001D.m_overrides.Count > 0)
+				if (_001D.m_overrides.Count > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -253,75 +254,80 @@ namespace AbilityContextNamespace
 						}
 						break;
 					}
-					text = text + "<color=cyan>" + \u0012 + ": Override to existing entry:</color>\n";
-					for (int j = 0; j < \u001D.m_overrides.Count; j++)
+					text = text + "<color=cyan>" + _0012 + ": Override to existing entry:</color>\n";
+					for (int j = 0; j < _001D.m_overrides.Count; j++)
 					{
-						EffectFieldOverride effectFieldOverride = \u001D.m_overrides[j];
-						string text2 = effectFieldOverride.\u001D();
-						if (!string.IsNullOrEmpty(text2))
+						EffectFieldOverride effectFieldOverride = _001D.m_overrides[j];
+						string text2 = effectFieldOverride._001D();
+						if (string.IsNullOrEmpty(text2))
 						{
-							OnHitEffecField onHitEffecField2 = null;
-							if (\u000E != null)
+							continue;
+						}
+						OnHitEffecField onHitEffecField2 = null;
+						if (_000E != null)
+						{
+							while (true)
 							{
-								for (;;)
+								switch (6)
 								{
-									switch (6)
+								case 0:
+									continue;
+								}
+								break;
+							}
+							using (List<OnHitEffecField>.Enumerator enumerator = _000E.GetEnumerator())
+							{
+								while (true)
+								{
+									if (!enumerator.MoveNext())
+									{
+										while (true)
+										{
+											switch (2)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										break;
+									}
+									OnHitEffecField current = enumerator.Current;
+									if (current.GetIdentifier().Equals(text2, StringComparison.OrdinalIgnoreCase))
+									{
+										while (true)
+										{
+											switch (4)
+											{
+											case 0:
+												break;
+											default:
+												onHitEffecField2 = current;
+												goto end_IL_011b;
+											}
+										}
+									}
+								}
+								end_IL_011b:;
+							}
+							if (onHitEffecField2 == null)
+							{
+								while (true)
+								{
+									switch (5)
 									{
 									case 0:
 										continue;
 									}
 									break;
 								}
-								using (List<OnHitEffecField>.Enumerator enumerator = \u000E.GetEnumerator())
-								{
-									while (enumerator.MoveNext())
-									{
-										OnHitEffecField onHitEffecField3 = enumerator.Current;
-										if (onHitEffecField3.GetIdentifier().Equals(text2, StringComparison.OrdinalIgnoreCase))
-										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											onHitEffecField2 = onHitEffecField3;
-											goto IL_16E;
-										}
-									}
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-								}
-								IL_16E:
-								if (onHitEffecField2 == null)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									text = text + "<color=red>Target Identifier " + text2 + " not found on base on hit data</color>\n";
-								}
+								text = text + "<color=red>Target Identifier " + text2 + " not found on base on hit data</color>\n";
 							}
-							text = text + "Target Identifier: " + InEditorDescHelper.ColoredString(effectFieldOverride.m_targetIdentifier, "white", false) + "\n";
-							text += effectFieldOverride.m_effectOverride.GetInEditorDesc(onHitEffecField2 != null, onHitEffecField2);
 						}
+						text = text + "Target Identifier: " + InEditorDescHelper.ColoredString(effectFieldOverride.m_targetIdentifier, "white") + "\n";
+						text += effectFieldOverride.m_effectOverride.GetInEditorDesc(onHitEffecField2 != null, onHitEffecField2);
 					}
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -335,41 +341,42 @@ namespace AbilityContextNamespace
 			return text;
 		}
 
-		public void \u001D(List<TooltipTokenEntry> \u001D, OnHitAuthoredData \u000E)
+		public void _001D(List<TooltipTokenEntry> _001D, OnHitAuthoredData _000E)
 		{
-			if (\u000E != null && this.m_enemyIntFieldMods != null)
+			if (_000E == null || m_enemyIntFieldMods == null)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitDataMod.\u001D(List<TooltipTokenEntry>, OnHitAuthoredData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				OnHitDataMod.\u001D(\u001D, this.m_enemyIntFieldMods, \u000E.m_enemyHitIntFields);
-				OnHitDataMod.\u001D(\u001D, this.m_enemyEffectMods, \u000E.m_enemyHitEffectFields);
-				OnHitDataMod.\u001D(\u001D, this.m_allyIntFieldMods, \u000E.m_allyHitIntFields);
-				OnHitDataMod.\u001D(\u001D, this.m_allyEffectMods, \u000E.m_allyHitEffectFields);
+				OnHitDataMod._001D(_001D, m_enemyIntFieldMods, _000E.m_enemyHitIntFields);
+				OnHitDataMod._001D(_001D, m_enemyEffectMods, _000E.m_enemyHitEffectFields);
+				OnHitDataMod._001D(_001D, m_allyIntFieldMods, _000E.m_allyHitIntFields);
+				OnHitDataMod._001D(_001D, m_allyEffectMods, _000E.m_allyHitEffectFields);
+				return;
 			}
 		}
 
-		public static void \u001D(List<TooltipTokenEntry> \u001D, IntFieldListModData \u000E, List<OnHitIntField> \u0012)
+		public static void _001D(List<TooltipTokenEntry> _001D, IntFieldListModData _000E, List<OnHitIntField> _0012)
 		{
-			if (\u000E.m_prependIntFields != null)
+			if (_000E.m_prependIntFields != null)
 			{
-				for (int i = 0; i < \u000E.m_prependIntFields.Count; i++)
+				for (int i = 0; i < _000E.m_prependIntFields.Count; i++)
 				{
-					OnHitIntField onHitIntField = \u000E.m_prependIntFields[i];
+					OnHitIntField onHitIntField = _000E.m_prependIntFields[i];
 					string identifier = onHitIntField.GetIdentifier();
 					if (!string.IsNullOrEmpty(identifier))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -378,14 +385,14 @@ namespace AbilityContextNamespace
 							}
 							break;
 						}
-						if (!true)
+						if (1 == 0)
 						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitDataMod.\u001D(List<TooltipTokenEntry>, IntFieldListModData, List<OnHitIntField>)).MethodHandle;
+							/*OpCode not supported: LdMemberToken*/;
 						}
-						onHitIntField.AddTooltipTokens(\u001D);
+						onHitIntField.AddTooltipTokens(_001D);
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -395,88 +402,94 @@ namespace AbilityContextNamespace
 					break;
 				}
 			}
-			if (\u000E.m_overrides != null)
+			if (_000E.m_overrides == null)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (7)
+				case 0:
+					continue;
+				}
+				for (int j = 0; j < _000E.m_overrides.Count; j++)
+				{
+					IntFieldOverride intFieldOverride = _000E.m_overrides[j];
+					string text = intFieldOverride._001D();
+					if (string.IsNullOrEmpty(text))
 					{
-					case 0:
 						continue;
 					}
-					break;
-				}
-				for (int j = 0; j < \u000E.m_overrides.Count; j++)
-				{
-					IntFieldOverride intFieldOverride = \u000E.m_overrides[j];
-					string text = intFieldOverride.\u001D();
-					if (!string.IsNullOrEmpty(text))
+					OnHitIntField onHitIntField2 = null;
+					using (List<OnHitIntField>.Enumerator enumerator = _0012.GetEnumerator())
 					{
-						OnHitIntField onHitIntField2 = null;
-						using (List<OnHitIntField>.Enumerator enumerator = \u0012.GetEnumerator())
+						while (true)
 						{
-							while (enumerator.MoveNext())
+							if (!enumerator.MoveNext())
 							{
-								OnHitIntField onHitIntField3 = enumerator.Current;
-								string identifier2 = onHitIntField3.GetIdentifier();
-								if (text.Equals(identifier2, StringComparison.OrdinalIgnoreCase))
+								while (true)
 								{
-									for (;;)
+									switch (7)
 									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
+									case 0:
+										continue;
 									}
-									onHitIntField2 = onHitIntField3;
-									goto IL_10B;
-								}
-							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
+									break;
 								}
 								break;
 							}
+							OnHitIntField current = enumerator.Current;
+							string identifier2 = current.GetIdentifier();
+							if (text.Equals(identifier2, StringComparison.OrdinalIgnoreCase))
+							{
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										break;
+									default:
+										onHitIntField2 = current;
+										goto end_IL_00b2;
+									}
+								}
+							}
 						}
-						IL_10B:
-						if (onHitIntField2 != null)
+						end_IL_00b2:;
+					}
+					if (onHitIntField2 != null)
+					{
+						while (true)
 						{
-							for (;;)
+							switch (2)
 							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
+							case 0:
+								continue;
 							}
-							intFieldOverride.m_fieldOverride.\u001D(\u001D, onHitIntField2, text);
+							break;
 						}
+						intFieldOverride.m_fieldOverride.AddTokens_zq(_001D, onHitIntField2, text);
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}
 
-		public static void \u001D(List<TooltipTokenEntry> \u001D, EffectFieldListModData \u000E, List<OnHitEffecField> \u0012)
+		public static void _001D(List<TooltipTokenEntry> _001D, EffectFieldListModData _000E, List<OnHitEffecField> _0012)
 		{
-			if (\u000E.m_prependEffectFields != null)
+			if (_000E.m_prependEffectFields != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -485,17 +498,17 @@ namespace AbilityContextNamespace
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitDataMod.\u001D(List<TooltipTokenEntry>, EffectFieldListModData, List<OnHitEffecField>)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				for (int i = 0; i < \u000E.m_prependEffectFields.Count; i++)
+				for (int i = 0; i < _000E.m_prependEffectFields.Count; i++)
 				{
-					OnHitEffecField onHitEffecField = \u000E.m_prependEffectFields[i];
+					OnHitEffecField onHitEffecField = _000E.m_prependEffectFields[i];
 					string identifier = onHitEffecField.GetIdentifier();
 					if (!string.IsNullOrEmpty(identifier))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -504,10 +517,10 @@ namespace AbilityContextNamespace
 							}
 							break;
 						}
-						onHitEffecField.AddTooltipTokens(\u001D, false, null, null);
+						onHitEffecField.AddTooltipTokens(_001D, false, null);
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -517,51 +530,55 @@ namespace AbilityContextNamespace
 					break;
 				}
 			}
-			if (\u000E.m_overrides != null)
+			if (_000E.m_overrides == null)
 			{
-				for (int j = 0; j < \u000E.m_overrides.Count; j++)
+				return;
+			}
+			for (int j = 0; j < _000E.m_overrides.Count; j++)
+			{
+				EffectFieldOverride effectFieldOverride = _000E.m_overrides[j];
+				string text = effectFieldOverride._001D();
+				if (!string.IsNullOrEmpty(text))
 				{
-					EffectFieldOverride effectFieldOverride = \u000E.m_overrides[j];
-					string text = effectFieldOverride.\u001D();
-					if (!string.IsNullOrEmpty(text))
+					while (true)
 					{
-						for (;;)
+						switch (2)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
+						case 0:
+							continue;
 						}
-						OnHitEffecField onHitEffecField2 = null;
-						using (List<OnHitEffecField>.Enumerator enumerator = \u0012.GetEnumerator())
+						break;
+					}
+					OnHitEffecField onHitEffecField2 = null;
+					using (List<OnHitEffecField>.Enumerator enumerator = _0012.GetEnumerator())
+					{
+						while (true)
 						{
-							while (enumerator.MoveNext())
+							if (!enumerator.MoveNext())
 							{
-								OnHitEffecField onHitEffecField3 = enumerator.Current;
-								string identifier2 = onHitEffecField3.GetIdentifier();
-								if (text.Equals(identifier2, StringComparison.OrdinalIgnoreCase))
+								while (true)
 								{
-									onHitEffecField2 = onHitEffecField3;
-									goto IL_112;
-								}
-							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
 								}
 								break;
 							}
+							OnHitEffecField current = enumerator.Current;
+							string identifier2 = current.GetIdentifier();
+							if (text.Equals(identifier2, StringComparison.OrdinalIgnoreCase))
+							{
+								onHitEffecField2 = current;
+								break;
+							}
 						}
-						IL_112:
-						if (onHitEffecField2 != null)
-						{
-							effectFieldOverride.m_effectOverride.AddTooltipTokens(\u001D, true, onHitEffecField2, text);
-						}
+					}
+					if (onHitEffecField2 != null)
+					{
+						effectFieldOverride.m_effectOverride.AddTooltipTokens(_001D, true, onHitEffecField2, text);
 					}
 				}
 			}

@@ -1,65 +1,71 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class TeamStatusDisplay : NetworkBehaviour
 {
+	private class TeamStatusEntry
+	{
+		public string m_text;
+	}
+
 	private static TeamStatusDisplay s_instance;
 
-	private Dictionary<ActorData, TeamStatusDisplay.TeamStatusEntry> m_playerIndexToTextMap;
+	private Dictionary<ActorData, TeamStatusEntry> m_playerIndexToTextMap;
 
-	private static int kRpcRpcSetTeamStatus = -0x5C5D65D8;
+	private static int kRpcRpcSetTeamStatus;
 
 	static TeamStatusDisplay()
 	{
-		NetworkBehaviour.RegisterRpcDelegate(typeof(TeamStatusDisplay), TeamStatusDisplay.kRpcRpcSetTeamStatus, new NetworkBehaviour.CmdDelegate(TeamStatusDisplay.InvokeRpcRpcSetTeamStatus));
+		kRpcRpcSetTeamStatus = -1549624792;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(TeamStatusDisplay), kRpcRpcSetTeamStatus, InvokeRpcRpcSetTeamStatus);
 		NetworkCRC.RegisterBehaviour("TeamStatusDisplay", 0);
 	}
 
 	public static TeamStatusDisplay GetTeamStatusDisplay()
 	{
-		return TeamStatusDisplay.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		TeamStatusDisplay.s_instance = this;
-		this.m_playerIndexToTextMap = new Dictionary<ActorData, TeamStatusDisplay.TeamStatusEntry>();
+		s_instance = this;
+		m_playerIndexToTextMap = new Dictionary<ActorData, TeamStatusEntry>();
 	}
 
 	private void OnDestroy()
 	{
-		TeamStatusDisplay.s_instance = null;
+		s_instance = null;
 	}
 
 	public void RebuildTeamDisplay()
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		if (activeOwnedActorData)
+		if ((bool)activeOwnedActorData)
 		{
-			List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.\u000E());
+			List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetTeam());
 			using (List<ActorData>.Enumerator enumerator = playerAndBotTeamMembers.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					ActorData key = enumerator.Current;
-					TeamStatusDisplay.TeamStatusEntry teamStatusEntry = new TeamStatusDisplay.TeamStatusEntry();
+					ActorData current = enumerator.Current;
+					TeamStatusEntry teamStatusEntry = new TeamStatusEntry();
 					teamStatusEntry.m_text = string.Empty;
-					this.m_playerIndexToTextMap[key] = teamStatusEntry;
+					m_playerIndexToTextMap[current] = teamStatusEntry;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return;
 					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TeamStatusDisplay.RebuildTeamDisplay()).MethodHandle;
 				}
 			}
 		}
@@ -67,90 +73,91 @@ public class TeamStatusDisplay : NetworkBehaviour
 
 	public void SetStatusText(ActorData actorData, string text)
 	{
-		if (this.m_playerIndexToTextMap.ContainsKey(actorData))
+		if (m_playerIndexToTextMap.ContainsKey(actorData))
 		{
-			this.m_playerIndexToTextMap[actorData].m_text = text;
+			m_playerIndexToTextMap[actorData].m_text = text;
 		}
 	}
 
 	public void ClearStatusText()
 	{
-		using (Dictionary<ActorData, TeamStatusDisplay.TeamStatusEntry>.Enumerator enumerator = this.m_playerIndexToTextMap.GetEnumerator())
+		using (Dictionary<ActorData, TeamStatusEntry>.Enumerator enumerator = m_playerIndexToTextMap.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<ActorData, TeamStatusDisplay.TeamStatusEntry> keyValuePair = enumerator.Current;
-				keyValuePair.Value.m_text = string.Empty;
+				enumerator.Current.Value.m_text = string.Empty;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamStatusDisplay.ClearStatusText()).MethodHandle;
 			}
 		}
 	}
 
 	public void ResetTeamStatus()
 	{
-		this.m_playerIndexToTextMap.Clear();
+		m_playerIndexToTextMap.Clear();
 	}
 
 	internal void SendSetTeamStatus(int playerIndex, string status)
 	{
-		Log.Warning("TeamStatusDisplay is not used, please remove it.", new object[0]);
+		Log.Warning("TeamStatusDisplay is not used, please remove it.");
 	}
 
 	[ClientRpc]
 	private void RpcSetTeamStatus(int playerIndex, string status)
 	{
 		ActorData actorData = GameFlowData.Get().FindActorByPlayerIndex(playerIndex);
-		if (actorData)
+		if (!actorData)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(GameFlowData.Get().activeOwnedActorData != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamStatusDisplay.RpcSetTeamStatus(int, string)).MethodHandle;
-			}
-			if (GameFlowData.Get().activeOwnedActorData != null)
-			{
-				for (;;)
+				if (actorData.GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (actorData.\u000E() == GameFlowData.Get().activeOwnedActorData.\u000E())
-				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						SetStatusText(actorData, status);
+						return;
 					}
-					this.SetStatusText(actorData, status);
 				}
+				return;
 			}
 		}
 	}
@@ -163,21 +170,21 @@ public class TeamStatusDisplay : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("RPC RpcSetTeamStatus called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamStatusDisplay.InvokeRpcRpcSetTeamStatus(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("RPC RpcSetTeamStatus called on server.");
-			return;
 		}
 		((TeamStatusDisplay)obj).RpcSetTeamStatus((int)reader.ReadPackedUInt32(), reader.ReadString());
 	}
@@ -190,27 +197,22 @@ public class TeamStatusDisplay : NetworkBehaviour
 			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)TeamStatusDisplay.kRpcRpcSetTeamStatus);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcSetTeamStatus);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.WritePackedUInt32((uint)playerIndex);
 		networkWriter.Write(status);
-		this.SendRPCInternal(networkWriter, 0, "RpcSetTeamStatus");
+		SendRPCInternal(networkWriter, 0, "RpcSetTeamStatus");
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
+		bool result = default(bool);
 		return result;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
-	}
-
-	private class TeamStatusEntry
-	{
-		public string m_text;
 	}
 }

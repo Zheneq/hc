@@ -1,15 +1,25 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 {
+	[Serializable]
+	public class ShapeToHitInfoMod
+	{
+		public AbilityAreaShape m_shape;
+
+		public AbilityModPropertyInt m_damageMod;
+
+		public AbilityModPropertyEffectInfo m_onExplosionEffectInfo;
+	}
+
 	[Header("-- Shape and Layered Shapes")]
 	public AbilityModPropertyShape m_shapeMod;
 
 	public bool m_useAdditionalShapeToHitInfoOverride;
 
-	public List<AbilityMod_BazookaGirlDelayedMissile.ShapeToHitInfoMod> m_additionalShapeToHitInfoMod = new List<AbilityMod_BazookaGirlDelayedMissile.ShapeToHitInfoMod>();
+	public List<ShapeToHitInfoMod> m_additionalShapeToHitInfoMod = new List<ShapeToHitInfoMod>();
 
 	[Header("-- Fake Markers")]
 	public AbilityModPropertyInt m_useFakeMarkerIndexStartMod;
@@ -33,53 +43,52 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		BazookaGirlDelayedMissile bazookaGirlDelayedMissile = targetAbility as BazookaGirlDelayedMissile;
-		if (bazookaGirlDelayedMissile != null)
+		if (!(bazookaGirlDelayedMissile != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlDelayedMissile.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnEnemyOnCastOverride, "OnCastEnemyHitEffect", bazookaGirlDelayedMissile.m_onCastEnemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, bazookaGirlDelayedMissile.m_damage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_onExplosionEffectMod, "EffectOnHit", bazookaGirlDelayedMissile.m_effectOnHit, true);
-			if (this.m_cooldownReductionsWhenNoHits != null)
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemyOnCastOverride, "OnCastEnemyHitEffect", bazookaGirlDelayedMissile.m_onCastEnemyHitEffect);
+			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, bazookaGirlDelayedMissile.m_damage);
+			AbilityMod.AddToken_EffectMod(tokens, m_onExplosionEffectMod, "EffectOnHit", bazookaGirlDelayedMissile.m_effectOnHit);
+			if (m_cooldownReductionsWhenNoHits != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_cooldownReductionsWhenNoHits.AddTooltipTokens(tokens, "OnMiss");
+					return;
 				}
-				this.m_cooldownReductionsWhenNoHits.AddTooltipTokens(tokens, "OnMiss");
 			}
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		BazookaGirlDelayedMissile bazookaGirlDelayedMissile = base.GetTargetAbilityOnAbilityData(abilityData) as BazookaGirlDelayedMissile;
+		BazookaGirlDelayedMissile bazookaGirlDelayedMissile = GetTargetAbilityOnAbilityData(abilityData) as BazookaGirlDelayedMissile;
 		bool flag = bazookaGirlDelayedMissile != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix = "[Damage]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -88,9 +97,9 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlDelayedMissile.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = bazookaGirlDelayedMissile.m_damage;
 		}
@@ -98,16 +107,14 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + base.PropDesc(damageMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_onExplosionEffectMod, "[EffectOnHit]", flag, (!flag) ? null : bazookaGirlDelayedMissile.m_effectOnHit);
-		string str2 = text;
-		AbilityModPropertyEffectInfo effectOnEnemyOnCastOverride = this.m_effectOnEnemyOnCastOverride;
-		string prefix2 = "{ Effect on Enemy in Shape on Ability Cast }";
-		bool showBaseVal2 = flag;
-		StandardEffectInfo baseVal2;
+		empty = str + PropDesc(damageMod, "[Damage]", flag, baseVal);
+		empty += PropDesc(m_onExplosionEffectMod, "[EffectOnHit]", flag, (!flag) ? null : bazookaGirlDelayedMissile.m_effectOnHit);
+		string str2 = empty;
+		AbilityModPropertyEffectInfo effectOnEnemyOnCastOverride = m_effectOnEnemyOnCastOverride;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -122,18 +129,18 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 		{
 			baseVal2 = null;
 		}
-		text = str2 + base.PropDesc(effectOnEnemyOnCastOverride, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_shapeMod, "[Shape]", flag, (!flag) ? AbilityAreaShape.SingleSquare : bazookaGirlDelayedMissile.m_shape);
-		if (this.m_useAdditionalShapeToHitInfoOverride && this.m_additionalShapeToHitInfoMod != null)
+		empty = str2 + PropDesc(effectOnEnemyOnCastOverride, "{ Effect on Enemy in Shape on Ability Cast }", flag, (StandardEffectInfo)baseVal2);
+		empty += PropDesc(m_shapeMod, "[Shape]", flag, flag ? bazookaGirlDelayedMissile.m_shape : AbilityAreaShape.SingleSquare);
+		if (m_useAdditionalShapeToHitInfoOverride && m_additionalShapeToHitInfoMod != null)
 		{
-			text += "Using Additional Shape to Hit Info override\n";
-			for (int i = 0; i < this.m_additionalShapeToHitInfoMod.Count; i++)
+			empty += "Using Additional Shape to Hit Info override\n";
+			for (int i = 0; i < m_additionalShapeToHitInfoMod.Count; i++)
 			{
-				AbilityMod_BazookaGirlDelayedMissile.ShapeToHitInfoMod shapeToHitInfoMod = this.m_additionalShapeToHitInfoMod[i];
+				ShapeToHitInfoMod shapeToHitInfoMod = m_additionalShapeToHitInfoMod[i];
 				int num;
 				if (flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -151,7 +158,7 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 				int baseVal3 = num;
 				if (bazookaGirlDelayedMissile != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -162,7 +169,7 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 					}
 					if (bazookaGirlDelayedMissile.m_additionalShapeToHitInfo.Count > i)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -174,14 +181,14 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 						baseVal3 = bazookaGirlDelayedMissile.m_additionalShapeToHitInfo[i].m_damage;
 					}
 				}
-				text = text + "* [Shape] = " + shapeToHitInfoMod.m_shape.ToString() + "\n";
-				text += base.PropDesc(shapeToHitInfoMod.m_damageMod, "[Damage]", flag, baseVal3);
-				text += base.PropDesc(shapeToHitInfoMod.m_onExplosionEffectInfo, "[Effect]", false, null);
+				empty = empty + "* [Shape] = " + shapeToHitInfoMod.m_shape.ToString() + "\n";
+				empty += PropDesc(shapeToHitInfoMod.m_damageMod, "[Damage]", flag, baseVal3);
+				empty += PropDesc(shapeToHitInfoMod.m_onExplosionEffectInfo, "[Effect]");
 			}
 		}
-		if (this.m_cooldownReductionsWhenNoHits.HasCooldownReduction())
+		if (m_cooldownReductionsWhenNoHits.HasCooldownReduction())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -190,18 +197,8 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 				}
 				break;
 			}
-			text = text + "Cooldown Reduction on Miss\n" + this.m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
+			empty = empty + "Cooldown Reduction on Miss\n" + m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
 		}
-		return text + base.PropDesc(this.m_useFakeMarkerIndexStartMod, "[UseFakeMarkerIndexStart]", flag, (!flag) ? 0 : bazookaGirlDelayedMissile.m_useFakeMarkerIndexStart);
-	}
-
-	[Serializable]
-	public class ShapeToHitInfoMod
-	{
-		public AbilityAreaShape m_shape;
-
-		public AbilityModPropertyInt m_damageMod;
-
-		public AbilityModPropertyEffectInfo m_onExplosionEffectInfo;
+		return empty + PropDesc(m_useFakeMarkerIndexStartMod, "[UseFakeMarkerIndexStart]", flag, flag ? bazookaGirlDelayedMissile.m_useFakeMarkerIndexStart : 0);
 	}
 }

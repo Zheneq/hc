@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -65,38 +65,36 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		ClericAreaBuff clericAreaBuff = targetAbility as ClericAreaBuff;
 		if (clericAreaBuff != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_extraTpCostPerTurnActiveMod, "ExtraTpCostPerTurnActive", string.Empty, clericAreaBuff.m_extraTpCostPerTurnActive, true, false);
-			AbilityMod.AddToken(tokens, this.m_cooldownWhenBuffLapsesMod, "CooldownWhenBuffLapses", string.Empty, clericAreaBuff.m_cooldownWhenBuffLapses, true, false);
-			AbilityMod.AddToken(tokens, this.m_effectDurationMod, "EffectDuration", string.Empty, clericAreaBuff.m_effectDuration, true, false);
-			AbilityMod.AddToken(tokens, this.m_healAmountMod, "HealAmount", string.Empty, clericAreaBuff.m_healAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnCasterMod, "EffectOnCaster", clericAreaBuff.m_effectOnCaster, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnAlliesMod, "EffectOnAllies", clericAreaBuff.m_effectOnAllies, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_firstTurnOnlyEffectOnAlliesMod, "FirstTurnOnlyEffectOnAllies", clericAreaBuff.m_effectOnAllies, true);
-			AbilityMod.AddToken(tokens, this.m_selfShieldingOverrideMod, "SelfShieldingOverride", string.Empty, clericAreaBuff.m_selfShieldingOverride, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnEnemiesMod, "EffectOnEnemies", clericAreaBuff.m_effectOnEnemies, true);
-			AbilityMod.AddToken(tokens, this.m_extraSelfShieldingPerEnemyInShape, "ExtraSelfShieldingPerEnemyInShape", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_visionRadiusMod, "VisionRadius", string.Empty, clericAreaBuff.m_visionRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_visionDurationMod, "VisionDuration", string.Empty, clericAreaBuff.m_visionDuration, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraShieldsPerTurnActive, "ExtraShieldsPerTurnActive", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_allyTechPointGainPerTurnActive, "AllyEnergyGainPerTurnActive", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraHealForPurifyOnBuffedAllies, "ExtraHealForPurifyOnBuffedAllies", string.Empty, 0, true, false);
+			AbilityMod.AddToken(tokens, m_extraTpCostPerTurnActiveMod, "ExtraTpCostPerTurnActive", string.Empty, clericAreaBuff.m_extraTpCostPerTurnActive);
+			AbilityMod.AddToken(tokens, m_cooldownWhenBuffLapsesMod, "CooldownWhenBuffLapses", string.Empty, clericAreaBuff.m_cooldownWhenBuffLapses);
+			AbilityMod.AddToken(tokens, m_effectDurationMod, "EffectDuration", string.Empty, clericAreaBuff.m_effectDuration);
+			AbilityMod.AddToken(tokens, m_healAmountMod, "HealAmount", string.Empty, clericAreaBuff.m_healAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnCasterMod, "EffectOnCaster", clericAreaBuff.m_effectOnCaster);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnAlliesMod, "EffectOnAllies", clericAreaBuff.m_effectOnAllies);
+			AbilityMod.AddToken_EffectMod(tokens, m_firstTurnOnlyEffectOnAlliesMod, "FirstTurnOnlyEffectOnAllies", clericAreaBuff.m_effectOnAllies);
+			AbilityMod.AddToken(tokens, m_selfShieldingOverrideMod, "SelfShieldingOverride", string.Empty, clericAreaBuff.m_selfShieldingOverride);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemiesMod, "EffectOnEnemies", clericAreaBuff.m_effectOnEnemies);
+			AbilityMod.AddToken(tokens, m_extraSelfShieldingPerEnemyInShape, "ExtraSelfShieldingPerEnemyInShape", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_visionRadiusMod, "VisionRadius", string.Empty, clericAreaBuff.m_visionRadius);
+			AbilityMod.AddToken(tokens, m_visionDurationMod, "VisionDuration", string.Empty, clericAreaBuff.m_visionDuration);
+			AbilityMod.AddToken(tokens, m_extraShieldsPerTurnActive, "ExtraShieldsPerTurnActive", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_allyTechPointGainPerTurnActive, "AllyEnergyGainPerTurnActive", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_extraHealForPurifyOnBuffedAllies, "ExtraHealForPurifyOnBuffedAllies", string.Empty, 0);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ClericAreaBuff clericAreaBuff = base.GetTargetAbilityOnAbilityData(abilityData) as ClericAreaBuff;
+		ClericAreaBuff clericAreaBuff = GetTargetAbilityOnAbilityData(abilityData) as ClericAreaBuff;
 		bool flag = clericAreaBuff != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_shapeMod, "[Shape]", flag, (!flag) ? AbilityAreaShape.SingleSquare : clericAreaBuff.m_shape);
-		string str = text;
-		AbilityModPropertyBool penetrateLoSMod = this.m_penetrateLoSMod;
-		string prefix = "[PenetrateLoS]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		string empty = string.Empty;
+		empty += PropDesc(m_shapeMod, "[Shape]", flag, flag ? clericAreaBuff.m_shape : AbilityAreaShape.SingleSquare);
+		string str = empty;
+		AbilityModPropertyBool penetrateLoSMod = m_penetrateLoSMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -105,25 +103,23 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericAreaBuff.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			baseVal = clericAreaBuff.m_penetrateLoS;
+			baseVal = (clericAreaBuff.m_penetrateLoS ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(penetrateLoSMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyBool includeEnemiesMod = this.m_includeEnemiesMod;
-		string prefix2 = "[IncludeEnemies]";
-		bool showBaseVal2 = flag;
-		bool baseVal2;
+		empty = str + PropDesc(penetrateLoSMod, "[PenetrateLoS]", flag, (byte)baseVal != 0);
+		string str2 = empty;
+		AbilityModPropertyBool includeEnemiesMod = m_includeEnemiesMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -132,21 +128,19 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 				}
 				break;
 			}
-			baseVal2 = clericAreaBuff.m_includeEnemies;
+			baseVal2 = (clericAreaBuff.m_includeEnemies ? 1 : 0);
 		}
 		else
 		{
-			baseVal2 = false;
+			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(includeEnemiesMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyBool includeAlliesMod = this.m_includeAlliesMod;
-		string prefix3 = "[IncludeAllies]";
-		bool showBaseVal3 = flag;
-		bool baseVal3;
+		empty = str2 + PropDesc(includeEnemiesMod, "[IncludeEnemies]", flag, (byte)baseVal2 != 0);
+		string str3 = empty;
+		AbilityModPropertyBool includeAlliesMod = m_includeAlliesMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -155,22 +149,20 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 				}
 				break;
 			}
-			baseVal3 = clericAreaBuff.m_includeAllies;
+			baseVal3 = (clericAreaBuff.m_includeAllies ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(includeAlliesMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_includeCasterMod, "[IncludeCaster]", flag, flag && clericAreaBuff.m_includeCaster);
-		string str4 = text;
-		AbilityModPropertyInt extraTpCostPerTurnActiveMod = this.m_extraTpCostPerTurnActiveMod;
-		string prefix4 = "[ExtraTpCostPerTurnActive]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(includeAlliesMod, "[IncludeAllies]", flag, (byte)baseVal3 != 0);
+		empty += PropDesc(m_includeCasterMod, "[IncludeCaster]", flag, flag && clericAreaBuff.m_includeCaster);
+		string str4 = empty;
+		AbilityModPropertyInt extraTpCostPerTurnActiveMod = m_extraTpCostPerTurnActiveMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -185,15 +177,13 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(extraTpCostPerTurnActiveMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt cooldownWhenBuffLapsesMod = this.m_cooldownWhenBuffLapsesMod;
-		string prefix5 = "[CooldownWhenBuffLapses]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(extraTpCostPerTurnActiveMod, "[ExtraTpCostPerTurnActive]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyInt cooldownWhenBuffLapsesMod = m_cooldownWhenBuffLapsesMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -208,15 +198,13 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(cooldownWhenBuffLapsesMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt effectDurationMod = this.m_effectDurationMod;
-		string prefix6 = "[EffectDuration]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(cooldownWhenBuffLapsesMod, "[CooldownWhenBuffLapses]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt effectDurationMod = m_effectDurationMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -231,15 +219,13 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(effectDurationMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyInt healAmountMod = this.m_healAmountMod;
-		string prefix7 = "[HealAmount]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(effectDurationMod, "[EffectDuration]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyInt healAmountMod = m_healAmountMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -254,15 +240,13 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		{
 			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(healAmountMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyEffectInfo effectOnCasterMod = this.m_effectOnCasterMod;
-		string prefix8 = "[EffectOnCaster]";
-		bool showBaseVal8 = flag;
-		StandardEffectInfo baseVal8;
+		empty = str7 + PropDesc(healAmountMod, "[HealAmount]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyEffectInfo effectOnCasterMod = m_effectOnCasterMod;
+		object baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -277,15 +261,13 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		{
 			baseVal8 = null;
 		}
-		text = str8 + base.PropDesc(effectOnCasterMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyEffectInfo effectOnAlliesMod = this.m_effectOnAlliesMod;
-		string prefix9 = "[EffectOnAllies]";
-		bool showBaseVal9 = flag;
-		StandardEffectInfo baseVal9;
+		empty = str8 + PropDesc(effectOnCasterMod, "[EffectOnCaster]", flag, (StandardEffectInfo)baseVal8);
+		string str9 = empty;
+		AbilityModPropertyEffectInfo effectOnAlliesMod = m_effectOnAlliesMod;
+		object baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -300,15 +282,13 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		{
 			baseVal9 = null;
 		}
-		text = str9 + base.PropDesc(effectOnAlliesMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyEffectInfo firstTurnOnlyEffectOnAlliesMod = this.m_firstTurnOnlyEffectOnAlliesMod;
-		string prefix10 = "[FirstTurnOnlyEffectOnAllies]";
-		bool showBaseVal10 = flag;
-		StandardEffectInfo baseVal10;
+		empty = str9 + PropDesc(effectOnAlliesMod, "[EffectOnAllies]", flag, (StandardEffectInfo)baseVal9);
+		string str10 = empty;
+		AbilityModPropertyEffectInfo firstTurnOnlyEffectOnAlliesMod = m_firstTurnOnlyEffectOnAlliesMod;
+		object baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -323,16 +303,14 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		{
 			baseVal10 = null;
 		}
-		text = str10 + base.PropDesc(firstTurnOnlyEffectOnAlliesMod, prefix10, showBaseVal10, baseVal10);
-		text += base.PropDesc(this.m_selfShieldingOverrideMod, "[SelfShieldingOverride]", flag, (!flag) ? 0 : clericAreaBuff.m_selfShieldingOverride);
-		string str11 = text;
-		AbilityModPropertyEffectInfo effectOnEnemiesMod = this.m_effectOnEnemiesMod;
-		string prefix11 = "[EffectOnEnemies]";
-		bool showBaseVal11 = flag;
-		StandardEffectInfo baseVal11;
+		empty = str10 + PropDesc(firstTurnOnlyEffectOnAlliesMod, "[FirstTurnOnlyEffectOnAllies]", flag, (StandardEffectInfo)baseVal10);
+		empty += PropDesc(m_selfShieldingOverrideMod, "[SelfShieldingOverride]", flag, flag ? clericAreaBuff.m_selfShieldingOverride : 0);
+		string str11 = empty;
+		AbilityModPropertyEffectInfo effectOnEnemiesMod = m_effectOnEnemiesMod;
+		object baseVal11;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -347,16 +325,14 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		{
 			baseVal11 = null;
 		}
-		text = str11 + base.PropDesc(effectOnEnemiesMod, prefix11, showBaseVal11, baseVal11);
-		text += base.PropDesc(this.m_extraSelfShieldingPerEnemyInShape, "[ExtraSelfShieldingPerEnemyInShape]", flag, 0);
-		string str12 = text;
-		AbilityModPropertyBool addVisionOnTargetSquareMod = this.m_addVisionOnTargetSquareMod;
-		string prefix12 = "[AddVisionOnTargetSquare]";
-		bool showBaseVal12 = flag;
-		bool baseVal12;
+		empty = str11 + PropDesc(effectOnEnemiesMod, "[EffectOnEnemies]", flag, (StandardEffectInfo)baseVal11);
+		empty += PropDesc(m_extraSelfShieldingPerEnemyInShape, "[ExtraSelfShieldingPerEnemyInShape]", flag);
+		string str12 = empty;
+		AbilityModPropertyBool addVisionOnTargetSquareMod = m_addVisionOnTargetSquareMod;
+		int baseVal12;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -365,21 +341,19 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 				}
 				break;
 			}
-			baseVal12 = clericAreaBuff.m_addVisionOnTargetSquare;
+			baseVal12 = (clericAreaBuff.m_addVisionOnTargetSquare ? 1 : 0);
 		}
 		else
 		{
-			baseVal12 = false;
+			baseVal12 = 0;
 		}
-		text = str12 + base.PropDesc(addVisionOnTargetSquareMod, prefix12, showBaseVal12, baseVal12);
-		string str13 = text;
-		AbilityModPropertyFloat visionRadiusMod = this.m_visionRadiusMod;
-		string prefix13 = "[VisionRadius]";
-		bool showBaseVal13 = flag;
+		empty = str12 + PropDesc(addVisionOnTargetSquareMod, "[AddVisionOnTargetSquare]", flag, (byte)baseVal12 != 0);
+		string str13 = empty;
+		AbilityModPropertyFloat visionRadiusMod = m_visionRadiusMod;
 		float baseVal13;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -394,15 +368,13 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		{
 			baseVal13 = 0f;
 		}
-		text = str13 + base.PropDesc(visionRadiusMod, prefix13, showBaseVal13, baseVal13);
-		string str14 = text;
-		AbilityModPropertyInt visionDurationMod = this.m_visionDurationMod;
-		string prefix14 = "[VisionDuration]";
-		bool showBaseVal14 = flag;
+		empty = str13 + PropDesc(visionRadiusMod, "[VisionRadius]", flag, baseVal13);
+		string str14 = empty;
+		AbilityModPropertyInt visionDurationMod = m_visionDurationMod;
 		int baseVal14;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -417,10 +389,10 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		{
 			baseVal14 = 0;
 		}
-		text = str14 + base.PropDesc(visionDurationMod, prefix14, showBaseVal14, baseVal14);
-		text += base.PropDesc(this.m_visionAreaIgnoreLosMod, "[VisionAreaIgnoreLos]", flag, flag && clericAreaBuff.m_visionAreaIgnoreLos);
-		text += base.PropDesc(this.m_extraShieldsPerTurnActive, "[ExtraShieldsPerTurnActive]", flag, 0);
-		text += base.PropDesc(this.m_allyTechPointGainPerTurnActive, "[AllyEnergyGainPerTurnActive]", flag, 0);
-		return text + base.PropDesc(this.m_extraHealForPurifyOnBuffedAllies, "[ExtraHealForPurifyOnBuffedAllies]", flag, 0);
+		empty = str14 + PropDesc(visionDurationMod, "[VisionDuration]", flag, baseVal14);
+		empty += PropDesc(m_visionAreaIgnoreLosMod, "[VisionAreaIgnoreLos]", flag, flag && clericAreaBuff.m_visionAreaIgnoreLos);
+		empty += PropDesc(m_extraShieldsPerTurnActive, "[ExtraShieldsPerTurnActive]", flag);
+		empty += PropDesc(m_allyTechPointGainPerTurnActive, "[AllyEnergyGainPerTurnActive]", flag);
+		return empty + PropDesc(m_extraHealForPurifyOnBuffedAllies, "[ExtraHealForPurifyOnBuffedAllies]", flag);
 	}
 }

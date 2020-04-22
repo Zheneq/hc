@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,34 +46,34 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ClericBasicAttack clericBasicAttack = targetAbility as ClericBasicAttack;
-		if (clericBasicAttack != null)
+		if (!(clericBasicAttack != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericBasicAttack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_coneAngleMod, "ConeAngle", string.Empty, clericBasicAttack.m_coneAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneLengthInnerMod, "ConeLengthInner", string.Empty, clericBasicAttack.m_coneLengthInner, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneLengthMod, "ConeLength", string.Empty, clericBasicAttack.m_coneLength, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, clericBasicAttack.m_coneBackwardOffset, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxTargetsMod, "MaxTargets", string.Empty, clericBasicAttack.m_maxTargets, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageAmountInnerMod, "DamageAmountInner", string.Empty, clericBasicAttack.m_damageAmountInner, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, clericBasicAttack.m_damageAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_targetHitEffectInnerMod, "TargetHitEffectInner", clericBasicAttack.m_targetHitEffectInner, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_targetHitEffectMod, "TargetHitEffect", clericBasicAttack.m_targetHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_extraDamageToTargetsWhoEvaded, "ExtraDamageToTargetsWhoEvaded", string.Empty, 0, true, false);
-			if (this.m_useCooldownReductionOverride)
+			AbilityMod.AddToken(tokens, m_coneAngleMod, "ConeAngle", string.Empty, clericBasicAttack.m_coneAngle);
+			AbilityMod.AddToken(tokens, m_coneLengthInnerMod, "ConeLengthInner", string.Empty, clericBasicAttack.m_coneLengthInner);
+			AbilityMod.AddToken(tokens, m_coneLengthMod, "ConeLength", string.Empty, clericBasicAttack.m_coneLength);
+			AbilityMod.AddToken(tokens, m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, clericBasicAttack.m_coneBackwardOffset);
+			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, clericBasicAttack.m_maxTargets);
+			AbilityMod.AddToken(tokens, m_damageAmountInnerMod, "DamageAmountInner", string.Empty, clericBasicAttack.m_damageAmountInner);
+			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, clericBasicAttack.m_damageAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_targetHitEffectInnerMod, "TargetHitEffectInner", clericBasicAttack.m_targetHitEffectInner);
+			AbilityMod.AddToken_EffectMod(tokens, m_targetHitEffectMod, "TargetHitEffect", clericBasicAttack.m_targetHitEffect);
+			AbilityMod.AddToken(tokens, m_extraDamageToTargetsWhoEvaded, "ExtraDamageToTargetsWhoEvaded", string.Empty, 0);
+			if (m_useCooldownReductionOverride)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -82,26 +82,25 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 					}
 					break;
 				}
-				this.m_cooldownReductionOverrideMod.AddTooltipTokens(tokens, "CooldownReductionOverride");
-				AbilityMod.AddToken(tokens, this.m_hitsToIgnoreForCooldownReductionMultiplier, "HitsToIgnoreForCooldownReductionMultiplier", string.Empty, 0, true, false);
+				m_cooldownReductionOverrideMod.AddTooltipTokens(tokens, "CooldownReductionOverride");
+				AbilityMod.AddToken(tokens, m_hitsToIgnoreForCooldownReductionMultiplier, "HitsToIgnoreForCooldownReductionMultiplier", string.Empty, 0);
 			}
-			AbilityMod.AddToken(tokens, this.m_extraTechPointGainInAreaBuff, "ExtraEnergyGainInAreaBuff", string.Empty, 0, true, false);
+			AbilityMod.AddToken(tokens, m_extraTechPointGainInAreaBuff, "ExtraEnergyGainInAreaBuff", string.Empty, 0);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ClericBasicAttack clericBasicAttack = base.GetTargetAbilityOnAbilityData(abilityData) as ClericBasicAttack;
+		ClericBasicAttack clericBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as ClericBasicAttack;
 		bool flag = clericBasicAttack != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyBool penetrateLineOfSightMod = this.m_penetrateLineOfSightMod;
-		string prefix = "[PenetrateLineOfSight]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyBool penetrateLineOfSightMod = m_penetrateLineOfSightMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -110,27 +109,25 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			baseVal = clericBasicAttack.m_penetrateLineOfSight;
+			baseVal = (clericBasicAttack.m_penetrateLineOfSight ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(penetrateLineOfSightMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_coneAngleMod, "[ConeAngle]", flag, (!flag) ? 0f : clericBasicAttack.m_coneAngle);
-		text += base.PropDesc(this.m_coneLengthInnerMod, "[ConeLengthInner]", flag, (!flag) ? 0f : clericBasicAttack.m_coneLengthInner);
-		string str2 = text;
-		AbilityModPropertyFloat coneLengthMod = this.m_coneLengthMod;
-		string prefix2 = "[ConeLength]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(penetrateLineOfSightMod, "[PenetrateLineOfSight]", flag, (byte)baseVal != 0);
+		empty += PropDesc(m_coneAngleMod, "[ConeAngle]", flag, (!flag) ? 0f : clericBasicAttack.m_coneAngle);
+		empty += PropDesc(m_coneLengthInnerMod, "[ConeLengthInner]", flag, (!flag) ? 0f : clericBasicAttack.m_coneLengthInner);
+		string str2 = empty;
+		AbilityModPropertyFloat coneLengthMod = m_coneLengthMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -145,16 +142,14 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(coneLengthMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_coneBackwardOffsetMod, "[ConeBackwardOffset]", flag, (!flag) ? 0f : clericBasicAttack.m_coneBackwardOffset);
-		string str3 = text;
-		AbilityModPropertyInt maxTargetsMod = this.m_maxTargetsMod;
-		string prefix3 = "[MaxTargets]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(coneLengthMod, "[ConeLength]", flag, baseVal2);
+		empty += PropDesc(m_coneBackwardOffsetMod, "[ConeBackwardOffset]", flag, (!flag) ? 0f : clericBasicAttack.m_coneBackwardOffset);
+		string str3 = empty;
+		AbilityModPropertyInt maxTargetsMod = m_maxTargetsMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -169,16 +164,14 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(maxTargetsMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_damageAmountInnerMod, "[DamageAmountInner]", flag, (!flag) ? 0 : clericBasicAttack.m_damageAmountInner);
-		string str4 = text;
-		AbilityModPropertyInt damageAmountMod = this.m_damageAmountMod;
-		string prefix4 = "[DamageAmount]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(maxTargetsMod, "[MaxTargets]", flag, baseVal3);
+		empty += PropDesc(m_damageAmountInnerMod, "[DamageAmountInner]", flag, flag ? clericBasicAttack.m_damageAmountInner : 0);
+		string str4 = empty;
+		AbilityModPropertyInt damageAmountMod = m_damageAmountMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -193,15 +186,13 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(damageAmountMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyEffectInfo targetHitEffectInnerMod = this.m_targetHitEffectInnerMod;
-		string prefix5 = "[TargetHitEffectInner]";
-		bool showBaseVal5 = flag;
-		StandardEffectInfo baseVal5;
+		empty = str4 + PropDesc(damageAmountMod, "[DamageAmount]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyEffectInfo targetHitEffectInnerMod = m_targetHitEffectInnerMod;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -216,15 +207,13 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 		{
 			baseVal5 = null;
 		}
-		text = str5 + base.PropDesc(targetHitEffectInnerMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyEffectInfo targetHitEffectMod = this.m_targetHitEffectMod;
-		string prefix6 = "[TargetHitEffect]";
-		bool showBaseVal6 = flag;
-		StandardEffectInfo baseVal6;
+		empty = str5 + PropDesc(targetHitEffectInnerMod, "[TargetHitEffectInner]", flag, (StandardEffectInfo)baseVal5);
+		string str6 = empty;
+		AbilityModPropertyEffectInfo targetHitEffectMod = m_targetHitEffectMod;
+		object baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -239,11 +228,11 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 		{
 			baseVal6 = null;
 		}
-		text = str6 + base.PropDesc(targetHitEffectMod, prefix6, showBaseVal6, baseVal6);
-		text += base.PropDesc(this.m_extraDamageToTargetsWhoEvaded, "[ExtraDamageToTargetsWhoEvaded]", flag, 0);
-		if (this.m_useCooldownReductionOverride)
+		empty = str6 + PropDesc(targetHitEffectMod, "[TargetHitEffect]", flag, (StandardEffectInfo)baseVal6);
+		empty += PropDesc(m_extraDamageToTargetsWhoEvaded, "[ExtraDamageToTargetsWhoEvaded]", flag);
+		if (m_useCooldownReductionOverride)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -252,9 +241,9 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 				}
 				break;
 			}
-			text += this.m_cooldownReductionOverrideMod.GetDescription(abilityData);
-			text += base.PropDesc(this.m_hitsToIgnoreForCooldownReductionMultiplier, "[HitsToIgnoreForCooldownReductionMultiplier]", flag, 0);
+			empty += m_cooldownReductionOverrideMod.GetDescription(abilityData);
+			empty += PropDesc(m_hitsToIgnoreForCooldownReductionMultiplier, "[HitsToIgnoreForCooldownReductionMultiplier]", flag);
 		}
-		return text + base.PropDesc(this.m_extraTechPointGainInAreaBuff, "[ExtraEnergyGainInAreaBuff]", flag, 0);
+		return empty + PropDesc(m_extraTechPointGainInAreaBuff, "[ExtraEnergyGainInAreaBuff]", flag);
 	}
 }

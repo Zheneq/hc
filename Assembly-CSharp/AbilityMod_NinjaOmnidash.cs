@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,25 +57,25 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		NinjaOmnidash ninjaOmnidash = targetAbility as NinjaOmnidash;
-		if (ninjaOmnidash != null)
+		if (!(ninjaOmnidash != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NinjaOmnidash.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Ninja_SyncComponent component = ninjaOmnidash.GetComponent<Ninja_SyncComponent>();
 			if (component != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -84,31 +84,32 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 					}
 					break;
 				}
-				AbilityMod.AddToken(tokens, this.m_deathmarkDamageMod, "Deathmark_TriggerDamage", string.Empty, component.m_deathmarkOnTriggerDamage, true, false);
-				AbilityMod.AddToken(tokens, this.m_deathmarkCasterHealMod, "Deathmark_CasterHeal", string.Empty, component.m_deathmarkOnTriggerCasterHeal, true, false);
+				AbilityMod.AddToken(tokens, m_deathmarkDamageMod, "Deathmark_TriggerDamage", string.Empty, component.m_deathmarkOnTriggerDamage);
+				AbilityMod.AddToken(tokens, m_deathmarkCasterHealMod, "Deathmark_CasterHeal", string.Empty, component.m_deathmarkOnTriggerCasterHeal);
 			}
-			AbilityMod.AddToken(tokens, this.m_baseDamageMod, "BaseDamage", string.Empty, ninjaOmnidash.m_baseDamage, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageChangePerEnemyAfterFirstMod, "DamageChangePerEnemyAfterFirst", string.Empty, ninjaOmnidash.m_damageChangePerEnemyAfterFirst, true, false);
-			AbilityMod.AddToken(tokens, this.m_minDamageMod, "MinDamage", string.Empty, ninjaOmnidash.m_minDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", ninjaOmnidash.m_enemyHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_singleHitEnemyEffectMod, "SingleHitEnemyEffect", ninjaOmnidash.m_singleHitEnemyEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_extraSingleHitEnemyEffectMod, "ExtraSingleHitEnemyEffect", ninjaOmnidash.m_extraSingleHitEnemyEffect, true);
-			AbilityMod.AddToken(tokens, this.m_energyGainPerMarkedHitMod, "EnergyGainPerMarkedHit", string.Empty, ninjaOmnidash.m_energyGainPerMarkedHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_dashRadiusAtStartMod, "DashRadiusAtStart", string.Empty, ninjaOmnidash.m_dashRadiusAtStart, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_dashRadiusMiddleMod, "DashRadiusMiddle", string.Empty, ninjaOmnidash.m_dashRadiusMiddle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_dashRadiusAtEndMod, "DashRadiusAtEnd", string.Empty, ninjaOmnidash.m_dashRadiusAtEnd, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_cdrOnAbilityMod, "CdrOnAbility", string.Empty, ninjaOmnidash.m_cdrOnAbility, true, false);
+			AbilityMod.AddToken(tokens, m_baseDamageMod, "BaseDamage", string.Empty, ninjaOmnidash.m_baseDamage);
+			AbilityMod.AddToken(tokens, m_damageChangePerEnemyAfterFirstMod, "DamageChangePerEnemyAfterFirst", string.Empty, ninjaOmnidash.m_damageChangePerEnemyAfterFirst);
+			AbilityMod.AddToken(tokens, m_minDamageMod, "MinDamage", string.Empty, ninjaOmnidash.m_minDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", ninjaOmnidash.m_enemyHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_singleHitEnemyEffectMod, "SingleHitEnemyEffect", ninjaOmnidash.m_singleHitEnemyEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_extraSingleHitEnemyEffectMod, "ExtraSingleHitEnemyEffect", ninjaOmnidash.m_extraSingleHitEnemyEffect);
+			AbilityMod.AddToken(tokens, m_energyGainPerMarkedHitMod, "EnergyGainPerMarkedHit", string.Empty, ninjaOmnidash.m_energyGainPerMarkedHit);
+			AbilityMod.AddToken(tokens, m_dashRadiusAtStartMod, "DashRadiusAtStart", string.Empty, ninjaOmnidash.m_dashRadiusAtStart);
+			AbilityMod.AddToken(tokens, m_dashRadiusMiddleMod, "DashRadiusMiddle", string.Empty, ninjaOmnidash.m_dashRadiusMiddle);
+			AbilityMod.AddToken(tokens, m_dashRadiusAtEndMod, "DashRadiusAtEnd", string.Empty, ninjaOmnidash.m_dashRadiusAtEnd);
+			AbilityMod.AddToken(tokens, m_cdrOnAbilityMod, "CdrOnAbility", string.Empty, ninjaOmnidash.m_cdrOnAbility);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		NinjaOmnidash ninjaOmnidash = base.GetTargetAbilityOnAbilityData(abilityData) as NinjaOmnidash;
+		NinjaOmnidash ninjaOmnidash = GetTargetAbilityOnAbilityData(abilityData) as NinjaOmnidash;
 		bool flag = ninjaOmnidash != null;
 		Ninja_SyncComponent ninja_SyncComponent = null;
 		if (ninjaOmnidash != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -117,23 +118,21 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NinjaOmnidash.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			ninja_SyncComponent = ninjaOmnidash.GetComponent<Ninja_SyncComponent>();
 		}
-		string text = string.Empty;
-		text += base.PropDesc(this.m_deathmarkDamageMod, "[Deathmark_Damage]", ninja_SyncComponent != null, ninja_SyncComponent.m_deathmarkOnTriggerDamage);
-		text += base.PropDesc(this.m_deathmarkCasterHealMod, "[Deathmark_CasterHeal]", ninja_SyncComponent != null, ninja_SyncComponent.m_deathmarkOnTriggerCasterHeal);
-		string str = text;
-		AbilityModPropertyInt baseDamageMod = this.m_baseDamageMod;
-		string prefix = "[BaseDamage]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += PropDesc(m_deathmarkDamageMod, "[Deathmark_Damage]", ninja_SyncComponent != null, ninja_SyncComponent.m_deathmarkOnTriggerDamage);
+		empty += PropDesc(m_deathmarkCasterHealMod, "[Deathmark_CasterHeal]", ninja_SyncComponent != null, ninja_SyncComponent.m_deathmarkOnTriggerCasterHeal);
+		string str = empty;
+		AbilityModPropertyInt baseDamageMod = m_baseDamageMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -148,15 +147,13 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + base.PropDesc(baseDamageMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt damageChangePerEnemyAfterFirstMod = this.m_damageChangePerEnemyAfterFirstMod;
-		string prefix2 = "[DamageChangePerEnemyAfterFirst]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(baseDamageMod, "[BaseDamage]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyInt damageChangePerEnemyAfterFirstMod = m_damageChangePerEnemyAfterFirstMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -171,15 +168,13 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(damageChangePerEnemyAfterFirstMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt minDamageMod = this.m_minDamageMod;
-		string prefix3 = "[MinDamage]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(damageChangePerEnemyAfterFirstMod, "[DamageChangePerEnemyAfterFirst]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyInt minDamageMod = m_minDamageMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -194,16 +189,14 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(minDamageMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_enemyHitEffectMod, "[EnemyHitEffect]", flag, (!flag) ? null : ninjaOmnidash.m_enemyHitEffect);
-		string str4 = text;
-		AbilityModPropertyEffectInfo singleHitEnemyEffectMod = this.m_singleHitEnemyEffectMod;
-		string prefix4 = "[SingleHitEnemyEffect]";
-		bool showBaseVal4 = flag;
-		StandardEffectInfo baseVal4;
+		empty = str3 + PropDesc(minDamageMod, "[MinDamage]", flag, baseVal3);
+		empty += PropDesc(m_enemyHitEffectMod, "[EnemyHitEffect]", flag, (!flag) ? null : ninjaOmnidash.m_enemyHitEffect);
+		string str4 = empty;
+		AbilityModPropertyEffectInfo singleHitEnemyEffectMod = m_singleHitEnemyEffectMod;
+		object baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -218,15 +211,13 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		{
 			baseVal4 = null;
 		}
-		text = str4 + base.PropDesc(singleHitEnemyEffectMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyEffectInfo extraSingleHitEnemyEffectMod = this.m_extraSingleHitEnemyEffectMod;
-		string prefix5 = "[ExtraSingleHitEnemyEffect]";
-		bool showBaseVal5 = flag;
-		StandardEffectInfo baseVal5;
+		empty = str4 + PropDesc(singleHitEnemyEffectMod, "[SingleHitEnemyEffect]", flag, (StandardEffectInfo)baseVal4);
+		string str5 = empty;
+		AbilityModPropertyEffectInfo extraSingleHitEnemyEffectMod = m_extraSingleHitEnemyEffectMod;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -241,15 +232,13 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		{
 			baseVal5 = null;
 		}
-		text = str5 + base.PropDesc(extraSingleHitEnemyEffectMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt energyGainPerMarkedHitMod = this.m_energyGainPerMarkedHitMod;
-		string prefix6 = "[EnergyGainPerMarkedHit]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(extraSingleHitEnemyEffectMod, "[ExtraSingleHitEnemyEffect]", flag, (StandardEffectInfo)baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt energyGainPerMarkedHitMod = m_energyGainPerMarkedHitMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -264,15 +253,13 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(energyGainPerMarkedHitMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyBool skipEvadeMod = this.m_skipEvadeMod;
-		string prefix7 = "[SkipEvade]";
-		bool showBaseVal7 = flag;
-		bool baseVal7;
+		empty = str6 + PropDesc(energyGainPerMarkedHitMod, "[EnergyGainPerMarkedHit]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyBool skipEvadeMod = m_skipEvadeMod;
+		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -281,22 +268,20 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 				}
 				break;
 			}
-			baseVal7 = ninjaOmnidash.m_skipEvade;
+			baseVal7 = (ninjaOmnidash.m_skipEvade ? 1 : 0);
 		}
 		else
 		{
-			baseVal7 = false;
+			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(skipEvadeMod, prefix7, showBaseVal7, baseVal7);
-		text += base.PropDesc(this.m_isTeleportMod, "[IsTeleport]", flag, flag && ninjaOmnidash.m_isTeleport);
-		string str8 = text;
-		AbilityModPropertyFloat dashRadiusAtStartMod = this.m_dashRadiusAtStartMod;
-		string prefix8 = "[DashRadiusAtStart]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(skipEvadeMod, "[SkipEvade]", flag, (byte)baseVal7 != 0);
+		empty += PropDesc(m_isTeleportMod, "[IsTeleport]", flag, flag && ninjaOmnidash.m_isTeleport);
+		string str8 = empty;
+		AbilityModPropertyFloat dashRadiusAtStartMod = m_dashRadiusAtStartMod;
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -311,15 +296,13 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		{
 			baseVal8 = 0f;
 		}
-		text = str8 + base.PropDesc(dashRadiusAtStartMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyFloat dashRadiusMiddleMod = this.m_dashRadiusMiddleMod;
-		string prefix9 = "[DashRadiusMiddle]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(dashRadiusAtStartMod, "[DashRadiusAtStart]", flag, baseVal8);
+		string str9 = empty;
+		AbilityModPropertyFloat dashRadiusMiddleMod = m_dashRadiusMiddleMod;
 		float baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -334,15 +317,13 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		{
 			baseVal9 = 0f;
 		}
-		text = str9 + base.PropDesc(dashRadiusMiddleMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyFloat dashRadiusAtEndMod = this.m_dashRadiusAtEndMod;
-		string prefix10 = "[DashRadiusAtEnd]";
-		bool showBaseVal10 = flag;
+		empty = str9 + PropDesc(dashRadiusMiddleMod, "[DashRadiusMiddle]", flag, baseVal9);
+		string str10 = empty;
+		AbilityModPropertyFloat dashRadiusAtEndMod = m_dashRadiusAtEndMod;
 		float baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -357,15 +338,13 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		{
 			baseVal10 = 0f;
 		}
-		text = str10 + base.PropDesc(dashRadiusAtEndMod, prefix10, showBaseVal10, baseVal10);
-		string str11 = text;
-		AbilityModPropertyBool dashPenetrateLineOfSightMod = this.m_dashPenetrateLineOfSightMod;
-		string prefix11 = "[DashPenetrateLineOfSight]";
-		bool showBaseVal11 = flag;
-		bool baseVal11;
+		empty = str10 + PropDesc(dashRadiusAtEndMod, "[DashRadiusAtEnd]", flag, baseVal10);
+		string str11 = empty;
+		AbilityModPropertyBool dashPenetrateLineOfSightMod = m_dashPenetrateLineOfSightMod;
+		int baseVal11;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -374,21 +353,19 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 				}
 				break;
 			}
-			baseVal11 = ninjaOmnidash.m_dashPenetrateLineOfSight;
+			baseVal11 = (ninjaOmnidash.m_dashPenetrateLineOfSight ? 1 : 0);
 		}
 		else
 		{
-			baseVal11 = false;
+			baseVal11 = 0;
 		}
-		text = str11 + base.PropDesc(dashPenetrateLineOfSightMod, prefix11, showBaseVal11, baseVal11);
-		string str12 = text;
-		AbilityModPropertyBool canQueueMoveAfterEvadeMod = this.m_canQueueMoveAfterEvadeMod;
-		string prefix12 = "[CanQueueMoveAfterEvade]";
-		bool showBaseVal12 = flag;
-		bool baseVal12;
+		empty = str11 + PropDesc(dashPenetrateLineOfSightMod, "[DashPenetrateLineOfSight]", flag, (byte)baseVal11 != 0);
+		string str12 = empty;
+		AbilityModPropertyBool canQueueMoveAfterEvadeMod = m_canQueueMoveAfterEvadeMod;
+		int baseVal12;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -397,21 +374,19 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 				}
 				break;
 			}
-			baseVal12 = ninjaOmnidash.m_canQueueMoveAfterEvade;
+			baseVal12 = (ninjaOmnidash.m_canQueueMoveAfterEvade ? 1 : 0);
 		}
 		else
 		{
-			baseVal12 = false;
+			baseVal12 = 0;
 		}
-		text = str12 + base.PropDesc(canQueueMoveAfterEvadeMod, prefix12, showBaseVal12, baseVal12);
-		string str13 = text;
-		AbilityModPropertyBool applyDeathmarkEffectMod = this.m_applyDeathmarkEffectMod;
-		string prefix13 = "[ApplyDeathmarkEffect]";
-		bool showBaseVal13 = flag;
-		bool baseVal13;
+		empty = str12 + PropDesc(canQueueMoveAfterEvadeMod, "[CanQueueMoveAfterEvade]", flag, (byte)baseVal12 != 0);
+		string str13 = empty;
+		AbilityModPropertyBool applyDeathmarkEffectMod = m_applyDeathmarkEffectMod;
+		int baseVal13;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -420,21 +395,19 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 				}
 				break;
 			}
-			baseVal13 = ninjaOmnidash.m_applyDeathmarkEffect;
+			baseVal13 = (ninjaOmnidash.m_applyDeathmarkEffect ? 1 : 0);
 		}
 		else
 		{
-			baseVal13 = false;
+			baseVal13 = 0;
 		}
-		text = str13 + base.PropDesc(applyDeathmarkEffectMod, prefix13, showBaseVal13, baseVal13);
-		string str14 = text;
-		AbilityModPropertyInt cdrOnAbilityMod = this.m_cdrOnAbilityMod;
-		string prefix14 = "[CdrOnAbility]";
-		bool showBaseVal14 = flag;
+		empty = str13 + PropDesc(applyDeathmarkEffectMod, "[ApplyDeathmarkEffect]", flag, (byte)baseVal13 != 0);
+		string str14 = empty;
+		AbilityModPropertyInt cdrOnAbilityMod = m_cdrOnAbilityMod;
 		int baseVal14;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -449,6 +422,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		{
 			baseVal14 = 0;
 		}
-		return str14 + base.PropDesc(cdrOnAbilityMod, prefix14, showBaseVal14, baseVal14);
+		return str14 + PropDesc(cdrOnAbilityMod, "[CdrOnAbility]", flag, baseVal14);
 	}
 }

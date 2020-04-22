@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,11 +21,11 @@ public class BounceBombInfo
 
 	public Vector3 GetAdjustedStartPosition(Vector3 aimDirection, ActorData caster)
 	{
-		Vector3 vector = caster.\u0015();
-		float num = this.startOffsetDistance * Board.\u000E().squareSize;
-		if (!this.startPosIgnoreLos)
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		float num = startOffsetDistance * Board.Get().squareSize;
+		if (!startPosIgnoreLos)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -34,13 +34,13 @@ public class BounceBombInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BounceBombInfo.GetAdjustedStartPosition(Vector3, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.startOffsetDistance > 0f)
+			if (startOffsetDistance > 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -49,13 +49,13 @@ public class BounceBombInfo
 					}
 					break;
 				}
-				float totalMaxDistanceInSquares = num + Board.\u000E().squareSize;
-				Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary;
-				List<ActorData> list2;
-				List<Vector3> list = VectorUtils.CalculateBouncingLaserEndpoints(vector, aimDirection, num, totalMaxDistanceInSquares, 1, caster, this.width, -1, true, null, false, out dictionary, out list2, null, false, true);
+				float totalMaxDistanceInSquares = num + Board.Get().squareSize;
+				Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors;
+				List<ActorData> orderedHitActors;
+				List<Vector3> list = VectorUtils.CalculateBouncingLaserEndpoints(travelBoardSquareWorldPositionForLos, aimDirection, num, totalMaxDistanceInSquares, 1, caster, width, -1, true, null, false, out bounceHitActors, out orderedHitActors, null);
 				if (list.Count < 2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -64,22 +64,24 @@ public class BounceBombInfo
 						}
 						break;
 					}
-					vector += num * aimDirection;
+					travelBoardSquareWorldPositionForLos += num * aimDirection;
 				}
-				return vector;
+				goto IL_00bb;
 			}
 		}
-		vector += num * aimDirection;
-		return vector;
+		travelBoardSquareWorldPositionForLos += num * aimDirection;
+		goto IL_00bb;
+		IL_00bb:
+		return travelBoardSquareWorldPositionForLos;
 	}
 
-	public unsafe Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> FindBounceHitActors(Vector3 aimDirection, ActorData caster, out List<Vector3> bounceEndPoints, List<List<NonActorTargetInfo>> nonActorTargetInfoInSegment, float maxDistancePerBounceOverride = -1f, float maxTotalDistanceOverride = -1f, bool includeInvisibles = true)
+	public Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> FindBounceHitActors(Vector3 aimDirection, ActorData caster, out List<Vector3> bounceEndPoints, List<List<NonActorTargetInfo>> nonActorTargetInfoInSegment, float maxDistancePerBounceOverride = -1f, float maxTotalDistanceOverride = -1f, bool includeInvisibles = true)
 	{
-		Vector3 adjustedStartPosition = this.GetAdjustedStartPosition(aimDirection, caster);
+		Vector3 adjustedStartPosition = GetAdjustedStartPosition(aimDirection, caster);
 		float num;
 		if (maxDistancePerBounceOverride > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -88,27 +90,25 @@ public class BounceBombInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BounceBombInfo.FindBounceHitActors(Vector3, ActorData, List<Vector3>*, List<List<NonActorTargetInfo>>, float, float, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = maxDistancePerBounceOverride;
 		}
 		else
 		{
-			num = this.maxDistancePerBounce;
+			num = maxDistancePerBounce;
 		}
 		float maxDistancePerBounceInSquares = num;
-		float totalMaxDistanceInSquares = (maxTotalDistanceOverride <= 0f) ? this.maxTotalDistance : maxTotalDistanceOverride;
+		float totalMaxDistanceInSquares = (!(maxTotalDistanceOverride > 0f)) ? maxTotalDistance : maxTotalDistanceOverride;
 		List<Team> list = new List<Team>();
-		list.Add(caster.\u0012());
-		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> result;
-		List<ActorData> list2;
-		bounceEndPoints = VectorUtils.CalculateBouncingLaserEndpoints(adjustedStartPosition, aimDirection, maxDistancePerBounceInSquares, totalMaxDistanceInSquares, this.maxBounces, caster, this.width, 1, includeInvisibles, list, false, out result, out list2, nonActorTargetInfoInSegment, false, true);
+		list.Add(caster.GetOpposingTeam());
+		bounceEndPoints = VectorUtils.CalculateBouncingLaserEndpoints(adjustedStartPosition, aimDirection, maxDistancePerBounceInSquares, totalMaxDistanceInSquares, maxBounces, caster, width, 1, includeInvisibles, list, false, out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors, out List<ActorData> _, nonActorTargetInfoInSegment);
 		Vector3 start = adjustedStartPosition;
 		if (bounceEndPoints.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -119,7 +119,7 @@ public class BounceBombInfo
 			}
 			if (bounceEndPoints.Count > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -131,10 +131,9 @@ public class BounceBombInfo
 				start = bounceEndPoints[bounceEndPoints.Count - 2];
 			}
 			Vector3 end = bounceEndPoints[bounceEndPoints.Count - 1];
-			Vector3 value;
-			if (AreaEffectUtils.GetEndPointForValidGameplaySquare(start, end, out value))
+			if (AreaEffectUtils.GetEndPointForValidGameplaySquare(start, end, out Vector3 adjustedEndPoint))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -143,9 +142,9 @@ public class BounceBombInfo
 					}
 					break;
 				}
-				bounceEndPoints[bounceEndPoints.Count - 1] = value;
+				bounceEndPoints[bounceEndPoints.Count - 1] = adjustedEndPoint;
 			}
 		}
-		return result;
+		return bounceHitActors;
 	}
 }

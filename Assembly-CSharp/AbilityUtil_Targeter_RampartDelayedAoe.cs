@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,91 +21,95 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 
 	private GridPos m_currentGridPos = GridPos.s_invalid;
 
-	public AbilityUtil_Targeter_RampartDelayedAoe(Ability ability, AbilityAreaShape shapeLowEnergy, AbilityAreaShape shapeFullEnergy, bool penetrateLoS, bool affectsEnemies = true, bool affectsAllies = false, bool affectsCaster = true) : base(ability)
+	public AbilityUtil_Targeter_RampartDelayedAoe(Ability ability, AbilityAreaShape shapeLowEnergy, AbilityAreaShape shapeFullEnergy, bool penetrateLoS, bool affectsEnemies = true, bool affectsAllies = false, bool affectsCaster = true)
+		: base(ability)
 	{
-		this.m_shapeLowEnergy = shapeLowEnergy;
-		this.m_shapeFullEnergy = shapeFullEnergy;
-		this.m_penetrateLoS = penetrateLoS;
-		this.m_affectsCaster = affectsCaster;
-		this.m_affectsEnemies = affectsEnemies;
-		this.m_affectsAllies = affectsAllies;
-		this.m_enemyTooltipSubject = AbilityTooltipSubject.Primary;
-		this.m_allyTooltipSubject = AbilityTooltipSubject.Primary;
+		m_shapeLowEnergy = shapeLowEnergy;
+		m_shapeFullEnergy = shapeFullEnergy;
+		m_penetrateLoS = penetrateLoS;
+		m_affectsCaster = affectsCaster;
+		m_affectsEnemies = affectsEnemies;
+		m_affectsAllies = affectsAllies;
+		m_enemyTooltipSubject = AbilityTooltipSubject.Primary;
+		m_allyTooltipSubject = AbilityTooltipSubject.Primary;
 	}
 
 	public GridPos GetCurrentGridPos()
 	{
-		return this.m_currentGridPos;
+		return m_currentGridPos;
 	}
 
 	public void SetTooltipSubjectTypes(AbilityTooltipSubject enemySubject = AbilityTooltipSubject.Primary, AbilityTooltipSubject allySubject = AbilityTooltipSubject.Primary)
 	{
-		this.m_enemyTooltipSubject = enemySubject;
-		this.m_allyTooltipSubject = allySubject;
+		m_enemyTooltipSubject = enemySubject;
+		m_allyTooltipSubject = allySubject;
 	}
 
 	protected Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		BoardSquare targetSquare = this.GetTargetSquare(currentTarget);
+		BoardSquare targetSquare = GetTargetSquare(currentTarget);
 		if (targetSquare != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shapeFullEnergy, currentTarget.FreePos, targetSquare);
+					Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+					centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
+					return centerOfShape;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_RampartDelayedAoe.GetHighlightGoalPos(AbilityTarget, ActorData)).MethodHandle;
-			}
-			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shapeFullEnergy, currentTarget.FreePos, targetSquare);
-			centerOfShape.y = targetingActor.\u0016().y + this.m_heightOffset;
-			return centerOfShape;
 		}
 		return Vector3.zero;
 	}
 
 	private BoardSquare GetTargetSquare(AbilityTarget currentTarget)
 	{
-		return Board.\u000E().\u000E(currentTarget.GridPos);
+		return Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		this.m_currentGridPos = currentTarget.GridPos;
-		base.ClearActorsInRange();
-		BoardSquare targetSquare = this.GetTargetSquare(currentTarget);
-		if (targetSquare != null)
+		m_currentGridPos = currentTarget.GridPos;
+		ClearActorsInRange();
+		BoardSquare targetSquare = GetTargetSquare(currentTarget);
+		if (!(targetSquare != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_RampartDelayedAoe.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Vector3 highlightGoalPos = this.GetHighlightGoalPos(currentTarget, targetingActor);
-			if (this.m_highlights != null)
+			Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
+			if (m_highlights != null)
 			{
-				if (this.m_highlights.Count >= 2)
+				if (m_highlights.Count >= 2)
 				{
-					for (int i = 0; i < this.m_highlights.Count; i++)
+					for (int i = 0; i < m_highlights.Count; i++)
 					{
-						this.m_highlights[i].transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos, this.m_highlights[i], ref this.m_curSpeed);
+						m_highlights[i].transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos, m_highlights[i], ref m_curSpeed);
 					}
-					goto IL_165;
+					goto IL_0165;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -116,14 +119,14 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 					break;
 				}
 			}
-			this.m_highlights = new List<GameObject>();
-			this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_shapeLowEnergy, targetingActor == GameFlowData.Get().activeOwnedActorData));
-			this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_shapeFullEnergy, targetingActor == GameFlowData.Get().activeOwnedActorData));
-			for (int j = 0; j < this.m_highlights.Count; j++)
+			m_highlights = new List<GameObject>();
+			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_shapeLowEnergy, targetingActor == GameFlowData.Get().activeOwnedActorData));
+			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_shapeFullEnergy, targetingActor == GameFlowData.Get().activeOwnedActorData));
+			for (int j = 0; j < m_highlights.Count; j++)
 			{
-				this.m_highlights[j].transform.position = highlightGoalPos;
+				m_highlights[j].transform.position = highlightGoalPos;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -132,31 +135,33 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 				}
 				break;
 			}
-			IL_165:
-			bool flag = targetingActor.TechPoints >= targetingActor.\u0016();
-			this.m_highlights[0].SetActive(!flag);
-			this.m_highlights[1].SetActive(flag);
-			AbilityAreaShape shape = (!flag) ? this.m_shapeLowEnergy : this.m_shapeFullEnergy;
+			goto IL_0165;
+			IL_0165:
+			bool flag = targetingActor.TechPoints >= targetingActor.GetActualMaxTechPoints();
+			m_highlights[0].SetActive(!flag);
+			m_highlights[1].SetActive(flag);
+			AbilityAreaShape shape = (!flag) ? m_shapeLowEnergy : m_shapeFullEnergy;
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, currentTarget.FreePos, targetSquare);
-			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(shape, currentTarget.FreePos, targetSquare, this.m_penetrateLoS, targetingActor, base.GetAffectedTeams(), null);
-			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
-			foreach (ActorData actor in actorsInShape)
+			List<ActorData> actors = AreaEffectUtils.GetActorsInShape(shape, currentTarget.FreePos, targetSquare, m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
+			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+			foreach (ActorData item in actors)
 			{
-				base.AddActorInRange(actor, centerOfShape, targetingActor, AbilityTooltipSubject.Primary, false);
+				AddActorInRange(item, centerOfShape, targetingActor);
 			}
-			if (this.m_affectsCaster)
+			if (m_affectsCaster)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					AddActorInRange(targetingActor, centerOfShape, targetingActor, m_allyTooltipSubject);
+					return;
 				}
-				base.AddActorInRange(targetingActor, centerOfShape, targetingActor, this.m_allyTooltipSubject, false);
 			}
+			return;
 		}
 	}
 }

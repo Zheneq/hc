@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class KnockbackHitData
@@ -17,11 +16,11 @@ public class KnockbackHitData
 
 	public KnockbackHitData(ActorData target, ActorData sourceActor, KnockbackType type, Vector3 aimDir, Vector3 sourcePos, float distance)
 	{
-		this.m_target = target;
-		this.m_sourceActor = sourceActor;
-		this.m_type = type;
-		this.m_aimDir = aimDir;
-		this.m_sourcePos = sourcePos;
-		this.m_distance = distance;
+		m_target = target;
+		m_sourceActor = sourceActor;
+		m_type = type;
+		m_aimDir = aimDir;
+		m_sourcePos = sourcePos;
+		m_distance = distance;
 	}
 }

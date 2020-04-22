@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,34 +46,32 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		FishManBubbleLaser fishManBubbleLaser = targetAbility as FishManBubbleLaser;
 		if (fishManBubbleLaser != null)
 		{
-			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "LaserInfo", fishManBubbleLaser.m_laserInfo, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnAlliesMod, "EffectOnAllies", fishManBubbleLaser.m_effectOnAllies, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnEnemiesMod, "EffectOnEnemies", fishManBubbleLaser.m_effectOnEnemies, true);
-			AbilityMod.AddToken(tokens, this.m_initialHitHealingToAlliesMod, "InitialHitHealingToAllies", string.Empty, fishManBubbleLaser.m_initialHitHealingToAllies, true, false);
-			AbilityMod.AddToken(tokens, this.m_initialHitDamageToEnemiesMod, "InitialHitDamageToEnemies", string.Empty, fishManBubbleLaser.m_initialHitDamageToEnemies, true, false);
-			AbilityMod.AddToken(tokens, this.m_numTurnsBeforeFirstExplosionMod, "NumTurnsBeforeFirstExplosionMod", string.Empty, fishManBubbleLaser.m_numTurnsBeforeFirstExplosion, true, false);
-			AbilityMod.AddToken(tokens, this.m_numExplosionsBeforeEndingMod, "NumExplosionsBeforeEndingMod", string.Empty, fishManBubbleLaser.m_numExplosionsBeforeEnding, true, false);
-			AbilityMod.AddToken(tokens, this.m_explosionHealingToAlliesMod, "ExplosionHealingToAllies", string.Empty, fishManBubbleLaser.m_explosionHealingToAllies, true, false);
-			AbilityMod.AddToken(tokens, this.m_explosionDamageToEnemiesMod, "ExplosionDamageToEnemies", string.Empty, fishManBubbleLaser.m_explosionDamageToEnemies, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_explosionEffectToAlliesMod, "ExplosionEffectToAllies", fishManBubbleLaser.m_explosionEffectToAllies, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_explosionEffectToEnemiesMod, "ExplosionEffectToEnemies", fishManBubbleLaser.m_explosionEffectToEnemies, true);
+			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", fishManBubbleLaser.m_laserInfo);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnAlliesMod, "EffectOnAllies", fishManBubbleLaser.m_effectOnAllies);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemiesMod, "EffectOnEnemies", fishManBubbleLaser.m_effectOnEnemies);
+			AbilityMod.AddToken(tokens, m_initialHitHealingToAlliesMod, "InitialHitHealingToAllies", string.Empty, fishManBubbleLaser.m_initialHitHealingToAllies);
+			AbilityMod.AddToken(tokens, m_initialHitDamageToEnemiesMod, "InitialHitDamageToEnemies", string.Empty, fishManBubbleLaser.m_initialHitDamageToEnemies);
+			AbilityMod.AddToken(tokens, m_numTurnsBeforeFirstExplosionMod, "NumTurnsBeforeFirstExplosionMod", string.Empty, fishManBubbleLaser.m_numTurnsBeforeFirstExplosion);
+			AbilityMod.AddToken(tokens, m_numExplosionsBeforeEndingMod, "NumExplosionsBeforeEndingMod", string.Empty, fishManBubbleLaser.m_numExplosionsBeforeEnding);
+			AbilityMod.AddToken(tokens, m_explosionHealingToAlliesMod, "ExplosionHealingToAllies", string.Empty, fishManBubbleLaser.m_explosionHealingToAllies);
+			AbilityMod.AddToken(tokens, m_explosionDamageToEnemiesMod, "ExplosionDamageToEnemies", string.Empty, fishManBubbleLaser.m_explosionDamageToEnemies);
+			AbilityMod.AddToken_EffectMod(tokens, m_explosionEffectToAlliesMod, "ExplosionEffectToAllies", fishManBubbleLaser.m_explosionEffectToAllies);
+			AbilityMod.AddToken_EffectMod(tokens, m_explosionEffectToEnemiesMod, "ExplosionEffectToEnemies", fishManBubbleLaser.m_explosionEffectToEnemies);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		FishManBubbleLaser fishManBubbleLaser = base.GetTargetAbilityOnAbilityData(abilityData) as FishManBubbleLaser;
+		FishManBubbleLaser fishManBubbleLaser = GetTargetAbilityOnAbilityData(abilityData) as FishManBubbleLaser;
 		bool flag = fishManBubbleLaser != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_laserInfoMod, "[LaserInfo]", flag, (!flag) ? null : fishManBubbleLaser.m_laserInfo);
-		string str = text;
-		AbilityModPropertyEffectInfo effectOnAlliesMod = this.m_effectOnAlliesMod;
-		string prefix = "[EffectOnAllies]";
-		bool showBaseVal = flag;
-		StandardEffectInfo baseVal;
+		string empty = string.Empty;
+		empty += PropDesc(m_laserInfoMod, "[LaserInfo]", flag, (!flag) ? null : fishManBubbleLaser.m_laserInfo);
+		string str = empty;
+		AbilityModPropertyEffectInfo effectOnAlliesMod = m_effectOnAlliesMod;
+		object baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -82,9 +80,9 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FishManBubbleLaser.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = fishManBubbleLaser.m_effectOnAllies;
 		}
@@ -92,15 +90,13 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		{
 			baseVal = null;
 		}
-		text = str + base.PropDesc(effectOnAlliesMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyEffectInfo effectOnEnemiesMod = this.m_effectOnEnemiesMod;
-		string prefix2 = "[EffectOnEnemies]";
-		bool showBaseVal2 = flag;
-		StandardEffectInfo baseVal2;
+		empty = str + PropDesc(effectOnAlliesMod, "[EffectOnAllies]", flag, (StandardEffectInfo)baseVal);
+		string str2 = empty;
+		AbilityModPropertyEffectInfo effectOnEnemiesMod = m_effectOnEnemiesMod;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -115,15 +111,13 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		{
 			baseVal2 = null;
 		}
-		text = str2 + base.PropDesc(effectOnEnemiesMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt initialHitHealingToAlliesMod = this.m_initialHitHealingToAlliesMod;
-		string prefix3 = "[InitialHitHealingToAllies]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(effectOnEnemiesMod, "[EffectOnEnemies]", flag, (StandardEffectInfo)baseVal2);
+		string str3 = empty;
+		AbilityModPropertyInt initialHitHealingToAlliesMod = m_initialHitHealingToAlliesMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -138,16 +132,14 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(initialHitHealingToAlliesMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_initialHitDamageToEnemiesMod, "[InitialHitDamageToEnemies]", flag, (!flag) ? 0 : fishManBubbleLaser.m_initialHitDamageToEnemies);
-		string str4 = text;
-		AbilityModPropertyInt numTurnsBeforeFirstExplosionMod = this.m_numTurnsBeforeFirstExplosionMod;
-		string prefix4 = "[NumTurnsBeforeFirstExplosionMod]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(initialHitHealingToAlliesMod, "[InitialHitHealingToAllies]", flag, baseVal3);
+		empty += PropDesc(m_initialHitDamageToEnemiesMod, "[InitialHitDamageToEnemies]", flag, flag ? fishManBubbleLaser.m_initialHitDamageToEnemies : 0);
+		string str4 = empty;
+		AbilityModPropertyInt numTurnsBeforeFirstExplosionMod = m_numTurnsBeforeFirstExplosionMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -162,17 +154,15 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(numTurnsBeforeFirstExplosionMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_numExplosionsBeforeEndingMod, "[NumExplosionsBeforeEndingMod]", flag, (!flag) ? 0 : fishManBubbleLaser.m_numExplosionsBeforeEnding);
-		text += base.PropDesc(this.m_explosionShapeMod, "[ExplosionShape]", flag, (!flag) ? AbilityAreaShape.SingleSquare : fishManBubbleLaser.m_explosionShape);
-		string str5 = text;
-		AbilityModPropertyBool explosionIgnoresLineOfSightMod = this.m_explosionIgnoresLineOfSightMod;
-		string prefix5 = "[ExplosionIgnoresLineOfSight]";
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		empty = str4 + PropDesc(numTurnsBeforeFirstExplosionMod, "[NumTurnsBeforeFirstExplosionMod]", flag, baseVal4);
+		empty += PropDesc(m_numExplosionsBeforeEndingMod, "[NumExplosionsBeforeEndingMod]", flag, flag ? fishManBubbleLaser.m_numExplosionsBeforeEnding : 0);
+		empty += PropDesc(m_explosionShapeMod, "[ExplosionShape]", flag, flag ? fishManBubbleLaser.m_explosionShape : AbilityAreaShape.SingleSquare);
+		string str5 = empty;
+		AbilityModPropertyBool explosionIgnoresLineOfSightMod = m_explosionIgnoresLineOfSightMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -181,22 +171,20 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 				}
 				break;
 			}
-			baseVal5 = fishManBubbleLaser.m_explosionIgnoresLineOfSight;
+			baseVal5 = (fishManBubbleLaser.m_explosionIgnoresLineOfSight ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(explosionIgnoresLineOfSightMod, prefix5, showBaseVal5, baseVal5);
-		text += base.PropDesc(this.m_explosionCanAffectEffectHolderMod, "[ExplosionCanAffectEffectHolder]", flag, flag && fishManBubbleLaser.m_explosionCanAffectEffectHolder);
-		string str6 = text;
-		AbilityModPropertyInt explosionHealingToAlliesMod = this.m_explosionHealingToAlliesMod;
-		string prefix6 = "[ExplosionHealingToAllies]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(explosionIgnoresLineOfSightMod, "[ExplosionIgnoresLineOfSight]", flag, (byte)baseVal5 != 0);
+		empty += PropDesc(m_explosionCanAffectEffectHolderMod, "[ExplosionCanAffectEffectHolder]", flag, flag && fishManBubbleLaser.m_explosionCanAffectEffectHolder);
+		string str6 = empty;
+		AbilityModPropertyInt explosionHealingToAlliesMod = m_explosionHealingToAlliesMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -211,15 +199,13 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(explosionHealingToAlliesMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyInt explosionDamageToEnemiesMod = this.m_explosionDamageToEnemiesMod;
-		string prefix7 = "[ExplosionDamageToEnemies]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(explosionHealingToAlliesMod, "[ExplosionHealingToAllies]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyInt explosionDamageToEnemiesMod = m_explosionDamageToEnemiesMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -234,15 +220,13 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		{
 			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(explosionDamageToEnemiesMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyEffectInfo explosionEffectToAlliesMod = this.m_explosionEffectToAlliesMod;
-		string prefix8 = "[ExplosionEffectToAllies]";
-		bool showBaseVal8 = flag;
-		StandardEffectInfo baseVal8;
+		empty = str7 + PropDesc(explosionDamageToEnemiesMod, "[ExplosionDamageToEnemies]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyEffectInfo explosionEffectToAlliesMod = m_explosionEffectToAlliesMod;
+		object baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -257,15 +241,13 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		{
 			baseVal8 = null;
 		}
-		text = str8 + base.PropDesc(explosionEffectToAlliesMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyEffectInfo explosionEffectToEnemiesMod = this.m_explosionEffectToEnemiesMod;
-		string prefix9 = "[ExplosionEffectToEnemies]";
-		bool showBaseVal9 = flag;
-		StandardEffectInfo baseVal9;
+		empty = str8 + PropDesc(explosionEffectToAlliesMod, "[ExplosionEffectToAllies]", flag, (StandardEffectInfo)baseVal8);
+		string str9 = empty;
+		AbilityModPropertyEffectInfo explosionEffectToEnemiesMod = m_explosionEffectToEnemiesMod;
+		object baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -280,6 +262,6 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		{
 			baseVal9 = null;
 		}
-		return str9 + base.PropDesc(explosionEffectToEnemiesMod, prefix9, showBaseVal9, baseVal9);
+		return str9 + PropDesc(explosionEffectToEnemiesMod, "[ExplosionEffectToEnemies]", flag, (StandardEffectInfo)baseVal9);
 	}
 }

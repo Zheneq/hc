@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class MatchResultsStats : ICloneable
@@ -19,6 +19,6 @@ public class MatchResultsStats : ICloneable
 
 	public object Clone()
 	{
-		return base.MemberwiseClone();
+		return MemberwiseClone();
 	}
 }

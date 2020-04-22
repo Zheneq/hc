@@ -1,13 +1,33 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 {
+	public enum CurrentList
+	{
+		Foreground,
+		Background,
+		Title,
+		Ribbon
+	}
+
+	private class SortedItem<T>
+	{
+		public T Payload;
+
+		public int SortOrder;
+
+		public SortedItem(T payload, int sortOrder)
+		{
+			Payload = payload;
+			SortOrder = sortOrder;
+		}
+	}
+
 	public _ButtonSwapSprite m_foregroundBtn;
 
 	public _ButtonSwapSprite m_backgroundBtn;
@@ -54,7 +74,7 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 
 	private int numBannersPerPage;
 
-	private UIPlayerProgressBanners.CurrentList m_currentList;
+	private CurrentList m_currentList;
 
 	private List<GameBalanceVars.PlayerTitle> m_visibleTitles;
 
@@ -76,25 +96,25 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 	{
 		if (HitchDetector.Get() != null)
 		{
-			HitchDetector.Get().AddNewLayoutGroup(this.m_bannerGrid);
-			HitchDetector.Get().AddNewLayoutGroup(this.m_emblemGrid);
-			HitchDetector.Get().AddNewLayoutGroup(this.m_titleGrid);
-			HitchDetector.Get().AddNewLayoutGroup(this.m_ribbonGrid);
+			HitchDetector.Get().AddNewLayoutGroup(m_bannerGrid);
+			HitchDetector.Get().AddNewLayoutGroup(m_emblemGrid);
+			HitchDetector.Get().AddNewLayoutGroup(m_titleGrid);
+			HitchDetector.Get().AddNewLayoutGroup(m_ribbonGrid);
 		}
-		this.Init();
-		this.m_prevPage.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ClickedOnPrevPage);
-		this.m_nextPage.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ClickedOnNextPage);
-		this.m_foregroundBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ForegroundBtnClicked);
-		this.m_backgroundBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BackgroundBtnClicked);
-		this.m_titlesBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.TitlesBtnClicked);
-		this.m_ribbonsBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.RibbonsBtnClicked);
-		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.Scroll, new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-		UIEventTriggerUtils.AddListener(this.m_prevPage.gameObject, EventTriggerType.Scroll, new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-		UIEventTriggerUtils.AddListener(this.m_nextPage.gameObject, EventTriggerType.Scroll, new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-		ClientGameManager.Get().OnAccountDataUpdated += this.OnAccountDataUpdate;
+		Init();
+		m_prevPage.callback = ClickedOnPrevPage;
+		m_nextPage.callback = ClickedOnNextPage;
+		m_foregroundBtn.callback = ForegroundBtnClicked;
+		m_backgroundBtn.callback = BackgroundBtnClicked;
+		m_titlesBtn.callback = TitlesBtnClicked;
+		m_ribbonsBtn.callback = RibbonsBtnClicked;
+		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.Scroll, OnScroll);
+		UIEventTriggerUtils.AddListener(m_prevPage.gameObject, EventTriggerType.Scroll, OnScroll);
+		UIEventTriggerUtils.AddListener(m_nextPage.gameObject, EventTriggerType.Scroll, OnScroll);
+		ClientGameManager.Get().OnAccountDataUpdated += OnAccountDataUpdate;
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -103,91 +123,91 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.OnAccountDataUpdate(ClientGameManager.Get().GetPlayerAccountData());
+			OnAccountDataUpdate(ClientGameManager.Get().GetPlayerAccountData());
 		}
-		UITooltipHoverObject component = this.m_ownedToggle.GetComponent<UITooltipHoverObject>();
+		UITooltipHoverObject component = m_ownedToggle.GetComponent<UITooltipHoverObject>();
 		component.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
 		{
-			UISimpleTooltip uisimpleTooltip = (UISimpleTooltip)tooltip;
-			uisimpleTooltip.Setup(StringUtil.TR("Owned", "Store"));
+			UISimpleTooltip uISimpleTooltip = (UISimpleTooltip)tooltip;
+			uISimpleTooltip.Setup(StringUtil.TR("Owned", "Store"));
 			return true;
-		}, null);
-		this.m_ownedToggle.onValueChanged.AddListener(new UnityAction<bool>(this.OnOwnedCheckedChanged));
+		});
+		m_ownedToggle.onValueChanged.AddListener(OnOwnedCheckedChanged);
 	}
 
 	private void OnDestroy()
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			ClientGameManager.Get().OnAccountDataUpdated -= this.OnAccountDataUpdate;
+			ClientGameManager.Get().OnAccountDataUpdated -= OnAccountDataUpdate;
 		}
 	}
 
 	private void OnAccountDataUpdate(PersistedAccountData accountData)
 	{
-		this.UpdateVisibleItems(accountData.AccountComponent);
-		int currentPage = this.m_currentPage;
-		this.ShowList(this.m_currentList);
-		this.m_currentPage = currentPage;
-		this.ResetPage();
+		UpdateVisibleItems(accountData.AccountComponent);
+		int currentPage = m_currentPage;
+		ShowList(m_currentList);
+		m_currentPage = currentPage;
+		ResetPage();
 	}
 
 	private List<T> SortList<T>(List<T> listToSort, List<int> sortOrders)
 	{
 		List<T> list = new List<T>();
-		List<UIPlayerProgressBanners.SortedItem<T>> list2 = new List<UIPlayerProgressBanners.SortedItem<T>>();
+		List<SortedItem<T>> list2 = new List<SortedItem<T>>();
 		for (int i = 0; i < listToSort.Count; i++)
 		{
-			list2.Add(new UIPlayerProgressBanners.SortedItem<T>(listToSort[i], sortOrders[i] * listToSort.Count + i));
+			list2.Add(new SortedItem<T>(listToSort[i], sortOrders[i] * listToSort.Count + i));
 		}
-		list2.Sort(delegate(UIPlayerProgressBanners.SortedItem<T> one, UIPlayerProgressBanners.SortedItem<T> two)
+		list2.Sort(delegate(SortedItem<T> one, SortedItem<T> two)
 		{
 			if (one == null && two == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return 0;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIPlayerProgressBanners.<SortList`1>m__1(UIPlayerProgressBanners.SortedItem<T>, UIPlayerProgressBanners.SortedItem<T>)).MethodHandle;
-				}
-				return 0;
 			}
 			if (one == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return -1;
 					}
-					break;
 				}
-				return -1;
 			}
 			if (two == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return 1;
 					}
-					break;
 				}
-				return 1;
 			}
 			return one.SortOrder.CompareTo(two.SortOrder);
 		});
@@ -195,36 +215,35 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		{
 			list.Add(list2[j].Payload);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return list;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.SortList(List<T>, List<int>)).MethodHandle;
-		}
-		return list;
 	}
 
 	private void OnOwnedCheckedChanged(bool isChecked)
 	{
-		this.m_showLocked = !isChecked;
-		this.ShowList(this.m_currentList);
-		this.m_currentPage = 0;
-		this.ResetPage();
+		m_showLocked = !isChecked;
+		ShowList(m_currentList);
+		m_currentPage = 0;
+		ResetPage();
 	}
 
 	private void UpdateVisibleItems(AccountComponent accountComponent)
 	{
-		bool flag;
+		int num;
 		if (GameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -233,20 +252,20 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.UpdateVisibleItems(AccountComponent)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = GameManager.Get().GameplayOverrides.EnableHiddenCharacters;
+			num = (GameManager.Get().GameplayOverrides.EnableHiddenCharacters ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
-		if (flag2)
+		bool flag = (byte)num != 0;
+		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -255,35 +274,33 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			this.m_visibleTitles = new List<GameBalanceVars.PlayerTitle>(GameBalanceVars.Get().PlayerTitles);
+			m_visibleTitles = new List<GameBalanceVars.PlayerTitle>(GameBalanceVars.Get().PlayerTitles);
 		}
 		else
 		{
-			this.m_visibleTitles = new List<GameBalanceVars.PlayerTitle>();
+			m_visibleTitles = new List<GameBalanceVars.PlayerTitle>();
 			GameBalanceVars.PlayerTitle[] playerTitles = GameBalanceVars.Get().PlayerTitles;
-			int i = 0;
-			while (i < playerTitles.Length)
+			foreach (GameBalanceVars.PlayerTitle playerTitle in playerTitles)
 			{
-				GameBalanceVars.PlayerTitle playerTitle = playerTitles[i];
-				if (accountComponent.IsTitleUnlocked(playerTitle))
+				if (!accountComponent.IsTitleUnlocked(playerTitle))
 				{
-					goto IL_E7;
-				}
-				for (;;)
-				{
-					switch (7)
+					while (true)
 					{
-					case 0:
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					CharacterType unlockCharacterType = playerTitle.GetUnlockCharacterType();
+					if (playerTitle.m_isHidden)
+					{
 						continue;
 					}
-					break;
-				}
-				CharacterType unlockCharacterType = playerTitle.GetUnlockCharacterType();
-				if (!playerTitle.m_isHidden)
-				{
-					if (unlockCharacterType != CharacterType.None)
+					if (unlockCharacterType != 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -294,55 +311,34 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 						}
 						if (GameWideData.Get().GetCharacterResourceLink(unlockCharacterType).m_isHidden)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
 								case 0:
 									continue;
 								}
-								goto IL_D9;
+								break;
 							}
+							continue;
 						}
 					}
-					if (GameBalanceVarsExtensions.MeetsVisibilityConditions(playerTitle))
+					if (!GameBalanceVarsExtensions.MeetsVisibilityConditions(playerTitle))
 					{
-						goto IL_E7;
+						continue;
 					}
 				}
-				IL_D9:
-				IL_F3:
-				i++;
-				continue;
-				IL_E7:
-				this.m_visibleTitles.Add(playerTitle);
-				goto IL_F3;
+				m_visibleTitles.Add(playerTitle);
 			}
 		}
-		this.m_visibleBackgroundBanners = new List<GameBalanceVars.PlayerBanner>();
-		this.m_visibleForegroundBanners = new List<GameBalanceVars.PlayerBanner>();
+		m_visibleBackgroundBanners = new List<GameBalanceVars.PlayerBanner>();
+		m_visibleForegroundBanners = new List<GameBalanceVars.PlayerBanner>();
 		GameBalanceVars.PlayerBanner[] playerBanners = GameBalanceVars.Get().PlayerBanners;
-		int j = 0;
-		while (j < playerBanners.Length)
+		foreach (GameBalanceVars.PlayerBanner playerBanner in playerBanners)
 		{
-			GameBalanceVars.PlayerBanner playerBanner = playerBanners[j];
-			if (flag2 || accountComponent.IsBannerUnlocked(playerBanner))
+			if (!flag && !accountComponent.IsBannerUnlocked(playerBanner))
 			{
-				goto IL_1B6;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			CharacterType unlockCharacterType2 = playerBanner.GetUnlockCharacterType();
-			if (!playerBanner.m_isHidden)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -351,9 +347,23 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 					}
 					break;
 				}
-				if (unlockCharacterType2 != CharacterType.None)
+				CharacterType unlockCharacterType2 = playerBanner.GetUnlockCharacterType();
+				if (playerBanner.m_isHidden)
 				{
-					for (;;)
+					continue;
+				}
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (unlockCharacterType2 != 0)
+				{
+					while (true)
 					{
 						switch (6)
 						{
@@ -364,39 +374,35 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 					}
 					if (GameWideData.Get().GetCharacterResourceLink(unlockCharacterType2).m_isHidden)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
 							case 0:
 								continue;
 							}
-							goto IL_19D;
+							break;
 						}
-					}
-				}
-				if (GameBalanceVarsExtensions.MeetsVisibilityConditions(playerBanner))
-				{
-					goto IL_1B6;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
 						continue;
 					}
-					break;
+				}
+				if (!GameBalanceVarsExtensions.MeetsVisibilityConditions(playerBanner))
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					continue;
 				}
 			}
-			IL_19D:
-			IL_1E6:
-			j++;
-			continue;
-			IL_1B6:
 			if (playerBanner.m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -405,268 +411,27 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 					}
 					break;
 				}
-				this.m_visibleBackgroundBanners.Add(playerBanner);
-				goto IL_1E6;
+				m_visibleBackgroundBanners.Add(playerBanner);
 			}
-			this.m_visibleForegroundBanners.Add(playerBanner);
-			goto IL_1E6;
+			else
+			{
+				m_visibleForegroundBanners.Add(playerBanner);
+			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		this.m_visibleRibbons = new List<GameBalanceVars.PlayerRibbon>();
-		GameBalanceVars.PlayerRibbon[] playerRibbons = GameBalanceVars.Get().PlayerRibbons;
-		int k = 0;
-		while (k < playerRibbons.Length)
-		{
-			GameBalanceVars.PlayerRibbon playerRibbon = playerRibbons[k];
-			if (accountComponent.IsRibbonUnlocked(playerRibbon))
+			m_visibleRibbons = new List<GameBalanceVars.PlayerRibbon>();
+			GameBalanceVars.PlayerRibbon[] playerRibbons = GameBalanceVars.Get().PlayerRibbons;
+			foreach (GameBalanceVars.PlayerRibbon playerRibbon in playerRibbons)
 			{
-				goto IL_29A;
-			}
-			for (;;)
-			{
-				switch (5)
+				if (!accountComponent.IsRibbonUnlocked(playerRibbon))
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (flag2)
-			{
-				goto IL_29A;
-			}
-			CharacterType unlockCharacterType3 = playerRibbon.GetUnlockCharacterType();
-			if (!playerRibbon.m_isHidden)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (unlockCharacterType3 != CharacterType.None && GameWideData.Get().GetCharacterResourceLink(unlockCharacterType3).m_isHidden)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
-				{
-					if (GameBalanceVarsExtensions.MeetsVisibilityConditions(playerRibbon))
-					{
-						goto IL_29A;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-			}
-			IL_2CE:
-			k++;
-			continue;
-			IL_29A:
-			if (!FactionWideData.Get().IsRibbonInCompetition(playerRibbon.ID, ClientGameManager.Get().ActiveFactionCompetition))
-			{
-				goto IL_2CE;
-			}
-			this.m_visibleRibbons.Add(playerRibbon);
-			goto IL_2CE;
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		List<int> list = new List<int>();
-		for (int l = 0; l < this.m_visibleTitles.Count; l++)
-		{
-			list.Add(this.m_visibleTitles[l].m_sortOrder);
-		}
-		this.m_visibleTitles = this.SortList<GameBalanceVars.PlayerTitle>(this.m_visibleTitles, list);
-		list.Clear();
-		for (int m = 0; m < this.m_visibleBackgroundBanners.Count; m++)
-		{
-			list.Add(this.m_visibleBackgroundBanners[m].m_sortOrder);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.m_visibleBackgroundBanners = this.SortList<GameBalanceVars.PlayerBanner>(this.m_visibleBackgroundBanners, list);
-		list.Clear();
-		for (int n = 0; n < this.m_visibleForegroundBanners.Count; n++)
-		{
-			list.Add(this.m_visibleForegroundBanners[n].m_sortOrder);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.m_visibleForegroundBanners = this.SortList<GameBalanceVars.PlayerBanner>(this.m_visibleForegroundBanners, list);
-		list.Clear();
-		for (int num = 0; num < this.m_visibleRibbons.Count; num++)
-		{
-			list.Add(this.m_visibleRibbons[num].m_sortOrder);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.m_visibleRibbons = this.SortList<GameBalanceVars.PlayerRibbon>(this.m_visibleRibbons, list);
-		this.m_visibleTitles.Insert(0, null);
-		this.m_visibleRibbons.Insert(0, null);
-		this.m_unlockedTitles = new List<GameBalanceVars.PlayerTitle>();
-		foreach (GameBalanceVars.PlayerTitle playerTitle2 in this.m_visibleTitles)
-		{
-			if (playerTitle2 != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!ClientGameManager.Get().IsTitleUnlocked(playerTitle2))
-				{
-					continue;
-				}
-			}
-			this.m_unlockedTitles.Add(playerTitle2);
-		}
-		this.m_unlockedBackgroundBanners = new List<GameBalanceVars.PlayerBanner>();
-		foreach (GameBalanceVars.PlayerBanner playerBanner2 in this.m_visibleBackgroundBanners)
-		{
-			if (playerBanner2 != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				List<GameBalanceVars.UnlockConditionValue> list2;
-				if (!ClientGameManager.Get().IsBannerUnlocked(playerBanner2, out list2))
-				{
-					continue;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			this.m_unlockedBackgroundBanners.Add(playerBanner2);
-		}
-		this.m_unlockedForegroundBanners = new List<GameBalanceVars.PlayerBanner>();
-		using (List<GameBalanceVars.PlayerBanner>.Enumerator enumerator3 = this.m_visibleForegroundBanners.GetEnumerator())
-		{
-			while (enumerator3.MoveNext())
-			{
-				GameBalanceVars.PlayerBanner playerBanner3 = enumerator3.Current;
-				if (playerBanner3 != null)
-				{
-					List<GameBalanceVars.UnlockConditionValue> list2;
-					if (!ClientGameManager.Get().IsBannerUnlocked(playerBanner3, out list2))
-					{
-						continue;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				this.m_unlockedForegroundBanners.Add(playerBanner3);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		this.m_unlockedRibbons = new List<GameBalanceVars.PlayerRibbon>();
-		using (List<GameBalanceVars.PlayerRibbon>.Enumerator enumerator4 = this.m_visibleRibbons.GetEnumerator())
-		{
-			while (enumerator4.MoveNext())
-			{
-				GameBalanceVars.PlayerRibbon playerRibbon2 = enumerator4.Current;
-				if (playerRibbon2 != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					List<GameBalanceVars.UnlockConditionValue> list2;
-					if (!ClientGameManager.Get().IsRibbonUnlocked(playerRibbon2, out list2))
-					{
-						continue;
-					}
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -675,67 +440,294 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 						}
 						break;
 					}
+					if (!flag)
+					{
+						CharacterType unlockCharacterType3 = playerRibbon.GetUnlockCharacterType();
+						if (playerRibbon.m_isHidden)
+						{
+							continue;
+						}
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (unlockCharacterType3 != 0 && GameWideData.Get().GetCharacterResourceLink(unlockCharacterType3).m_isHidden)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							continue;
+						}
+						if (!GameBalanceVarsExtensions.MeetsVisibilityConditions(playerRibbon))
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							continue;
+						}
+					}
 				}
-				this.m_unlockedRibbons.Add(playerRibbon2);
-			}
-			for (;;)
-			{
-				switch (2)
+				if (FactionWideData.Get().IsRibbonInCompetition(playerRibbon.ID, ClientGameManager.Get().ActiveFactionCompetition))
 				{
-				case 0:
-					continue;
+					m_visibleRibbons.Add(playerRibbon);
 				}
-				break;
 			}
-		}
-	}
-
-	private void Init()
-	{
-		if (!this.initialized)
-		{
-			this.m_pageIndicators = new List<UIPageIndicator>(this.m_pageGrid.GetComponentsInChildren<UIPageIndicator>(true));
-			this.m_bannerButtons = new List<UIPlayerProgressBannersButton>(this.m_bannerGrid.GetComponentsInChildren<UIPlayerProgressBannersButton>(true));
-			this.m_titleButtons = new List<UIPlayerProgressBannersButton>(this.m_titleGrid.GetComponentsInChildren<UIPlayerProgressBannersButton>(true));
-			this.m_ribbonButtons = new List<UIPlayerProgressBannersButton>(this.m_ribbonGrid.GetComponentsInChildren<UIPlayerProgressBannersButton>(true));
-			this.m_emblemButtons = new List<UIPlayerProgressBannersButton>(this.m_emblemGrid.GetComponentsInChildren<UIPlayerProgressBannersButton>(true));
-			this.initialized = true;
-			List<UIPlayerProgressBannersButton> list = this.m_bannerButtons.Concat(this.m_titleButtons).Concat(this.m_emblemButtons).Concat(this.m_ribbonButtons).ToList<UIPlayerProgressBannersButton>();
-			for (int i = 0; i < list.Count; i++)
-			{
-				list[i].m_selectableButton.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-				UIManager.SetGameObjectActive(list[i], false, null);
-				StaggerComponent.SetStaggerComponent(list[i].gameObject, true, true);
-			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				List<int> list = new List<int>();
+				for (int l = 0; l < m_visibleTitles.Count; l++)
+				{
+					list.Add(m_visibleTitles[l].m_sortOrder);
+				}
+				m_visibleTitles = SortList(m_visibleTitles, list);
+				list.Clear();
+				for (int m = 0; m < m_visibleBackgroundBanners.Count; m++)
+				{
+					list.Add(m_visibleBackgroundBanners[m].m_sortOrder);
+				}
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					m_visibleBackgroundBanners = SortList(m_visibleBackgroundBanners, list);
+					list.Clear();
+					for (int n = 0; n < m_visibleForegroundBanners.Count; n++)
+					{
+						list.Add(m_visibleForegroundBanners[n].m_sortOrder);
+					}
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						m_visibleForegroundBanners = SortList(m_visibleForegroundBanners, list);
+						list.Clear();
+						for (int num2 = 0; num2 < m_visibleRibbons.Count; num2++)
+						{
+							list.Add(m_visibleRibbons[num2].m_sortOrder);
+						}
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							m_visibleRibbons = SortList(m_visibleRibbons, list);
+							m_visibleTitles.Insert(0, null);
+							m_visibleRibbons.Insert(0, null);
+							m_unlockedTitles = new List<GameBalanceVars.PlayerTitle>();
+							foreach (GameBalanceVars.PlayerTitle visibleTitle in m_visibleTitles)
+							{
+								if (visibleTitle != null)
+								{
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									if (!ClientGameManager.Get().IsTitleUnlocked(visibleTitle))
+									{
+										continue;
+									}
+								}
+								m_unlockedTitles.Add(visibleTitle);
+							}
+							m_unlockedBackgroundBanners = new List<GameBalanceVars.PlayerBanner>();
+							List<GameBalanceVars.UnlockConditionValue> unlockConditionValues;
+							foreach (GameBalanceVars.PlayerBanner visibleBackgroundBanner in m_visibleBackgroundBanners)
+							{
+								if (visibleBackgroundBanner != null)
+								{
+									while (true)
+									{
+										switch (1)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									if (!ClientGameManager.Get().IsBannerUnlocked(visibleBackgroundBanner, out unlockConditionValues))
+									{
+										continue;
+									}
+									while (true)
+									{
+										switch (6)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+								}
+								m_unlockedBackgroundBanners.Add(visibleBackgroundBanner);
+							}
+							m_unlockedForegroundBanners = new List<GameBalanceVars.PlayerBanner>();
+							using (List<GameBalanceVars.PlayerBanner>.Enumerator enumerator3 = m_visibleForegroundBanners.GetEnumerator())
+							{
+								while (enumerator3.MoveNext())
+								{
+									GameBalanceVars.PlayerBanner current3 = enumerator3.Current;
+									if (current3 != null)
+									{
+										if (!ClientGameManager.Get().IsBannerUnlocked(current3, out unlockConditionValues))
+										{
+											continue;
+										}
+										while (true)
+										{
+											switch (1)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+									}
+									m_unlockedForegroundBanners.Add(current3);
+								}
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							m_unlockedRibbons = new List<GameBalanceVars.PlayerRibbon>();
+							using (List<GameBalanceVars.PlayerRibbon>.Enumerator enumerator4 = m_visibleRibbons.GetEnumerator())
+							{
+								while (enumerator4.MoveNext())
+								{
+									GameBalanceVars.PlayerRibbon current4 = enumerator4.Current;
+									if (current4 != null)
+									{
+										while (true)
+										{
+											switch (4)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										if (!ClientGameManager.Get().IsRibbonUnlocked(current4, out unlockConditionValues))
+										{
+											continue;
+										}
+										while (true)
+										{
+											switch (5)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+									}
+									m_unlockedRibbons.Add(current4);
+								}
+								while (true)
+								{
+									switch (2)
+									{
+									default:
+										return;
+									case 0:
+										break;
+									}
+								}
+							}
+						}
+					}
+				}
 			}
-			if (!true)
+		}
+	}
+
+	private void Init()
+	{
+		if (initialized)
+		{
+			return;
+		}
+		m_pageIndicators = new List<UIPageIndicator>(m_pageGrid.GetComponentsInChildren<UIPageIndicator>(true));
+		m_bannerButtons = new List<UIPlayerProgressBannersButton>(m_bannerGrid.GetComponentsInChildren<UIPlayerProgressBannersButton>(true));
+		m_titleButtons = new List<UIPlayerProgressBannersButton>(m_titleGrid.GetComponentsInChildren<UIPlayerProgressBannersButton>(true));
+		m_ribbonButtons = new List<UIPlayerProgressBannersButton>(m_ribbonGrid.GetComponentsInChildren<UIPlayerProgressBannersButton>(true));
+		m_emblemButtons = new List<UIPlayerProgressBannersButton>(m_emblemGrid.GetComponentsInChildren<UIPlayerProgressBannersButton>(true));
+		initialized = true;
+		List<UIPlayerProgressBannersButton> list = m_bannerButtons.Concat(m_titleButtons).Concat(m_emblemButtons).Concat(m_ribbonButtons)
+			.ToList();
+		for (int i = 0; i < list.Count; i++)
+		{
+			list[i].m_selectableButton.spriteController.RegisterScrollListener(OnScroll);
+			UIManager.SetGameObjectActive(list[i], false);
+			StaggerComponent.SetStaggerComponent(list[i].gameObject, true);
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.Init()).MethodHandle;
+			case 0:
+				continue;
 			}
-			this.UpdateVisibleItems(ClientGameManager.Get().GetPlayerAccountData().AccountComponent);
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			UpdateVisibleItems(ClientGameManager.Get().GetPlayerAccountData().AccountComponent);
+			return;
 		}
 	}
 
 	private List<UIPlayerProgressBannersButton> GetCurrentButtonsList()
 	{
-		switch (this.m_currentList)
+		switch (m_currentList)
 		{
-		case UIPlayerProgressBanners.CurrentList.Foreground:
-			return this.m_emblemButtons;
-		case UIPlayerProgressBanners.CurrentList.Background:
-			return this.m_bannerButtons;
-		case UIPlayerProgressBanners.CurrentList.Title:
-			return this.m_titleButtons;
-		case UIPlayerProgressBanners.CurrentList.Ribbon:
-			return this.m_ribbonButtons;
+		case CurrentList.Foreground:
+			return m_emblemButtons;
+		case CurrentList.Background:
+			return m_bannerButtons;
+		case CurrentList.Title:
+			return m_titleButtons;
+		case CurrentList.Ribbon:
+			return m_ribbonButtons;
 		default:
 			return null;
 		}
@@ -744,224 +736,230 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 	private void OnScroll(BaseEventData data)
 	{
 		PointerEventData pointerEventData = data as PointerEventData;
-		if (pointerEventData.scrollDelta.y > 0f)
+		Vector2 scrollDelta = pointerEventData.scrollDelta;
+		if (scrollDelta.y > 0f)
 		{
-			this.ClickedOnPrevPage(data);
+			ClickedOnPrevPage(data);
+			return;
 		}
-		else if (pointerEventData.scrollDelta.y < 0f)
+		Vector2 scrollDelta2 = pointerEventData.scrollDelta;
+		if (!(scrollDelta2.y < 0f))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.OnScroll(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.ClickedOnNextPage(data);
+			ClickedOnNextPage(data);
+			return;
 		}
 	}
 
 	public void BannerClicked(UIPlayerProgressBannersButton btnClicked)
 	{
-		if (btnClicked.m_unlocked)
+		if (!btnClicked.m_unlocked)
 		{
-			List<UIPlayerProgressBannersButton> currentButtonsList = this.GetCurrentButtonsList();
-			for (int i = 0; i < currentButtonsList.Count; i++)
+			return;
+		}
+		List<UIPlayerProgressBannersButton> currentButtonsList = GetCurrentButtonsList();
+		for (int i = 0; i < currentButtonsList.Count; i++)
+		{
+			if (btnClicked == currentButtonsList[i])
 			{
-				if (btnClicked == currentButtonsList[i])
+				while (true)
 				{
-					for (;;)
+					switch (1)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.BannerClicked(UIPlayerProgressBannersButton)).MethodHandle;
-					}
-					currentButtonsList[i].SetSelected(true);
+					break;
 				}
-				else
+				if (1 == 0)
 				{
-					currentButtonsList[i].SetSelected(false);
+					/*OpCode not supported: LdMemberToken*/;
 				}
+				currentButtonsList[i].SetSelected(true);
 			}
-			for (;;)
+			else
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
+				currentButtonsList[i].SetSelected(false);
+			}
+		}
+		while (true)
+		{
+			switch (4)
+			{
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
 	}
 
-	public void ShowList(UIPlayerProgressBanners.CurrentList listType)
+	public void ShowList(CurrentList listType)
 	{
-		this.m_currentList = listType;
-		this.m_numItems = this.GetNumberOfItems(listType);
-		this.numBannersPerPage = this.GetCurrentButtonsList().Count;
-		int num = Mathf.CeilToInt((float)this.m_numItems / (float)this.numBannersPerPage);
-		while (this.m_pageIndicators.Count < num)
+		m_currentList = listType;
+		m_numItems = GetNumberOfItems(listType);
+		numBannersPerPage = GetCurrentButtonsList().Count;
+		int num = Mathf.CeilToInt((float)m_numItems / (float)numBannersPerPage);
+		while (m_pageIndicators.Count < num)
 		{
-			UIPageIndicator uipageIndicator = UnityEngine.Object.Instantiate<UIPageIndicator>(this.m_pageIndicatorPrefab);
-			uipageIndicator.transform.SetParent(this.m_pageGrid.transform);
-			uipageIndicator.transform.localEulerAngles = Vector3.zero;
-			uipageIndicator.transform.localPosition = Vector3.zero;
-			uipageIndicator.transform.localScale = Vector3.one;
-			UIEventTriggerUtils.AddListener(uipageIndicator.m_hitbox.gameObject, EventTriggerType.Scroll, new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-			uipageIndicator.SetSelected(false);
-			this.m_pageIndicators.Add(uipageIndicator);
+			UIPageIndicator uIPageIndicator = UnityEngine.Object.Instantiate(m_pageIndicatorPrefab);
+			uIPageIndicator.transform.SetParent(m_pageGrid.transform);
+			uIPageIndicator.transform.localEulerAngles = Vector3.zero;
+			uIPageIndicator.transform.localPosition = Vector3.zero;
+			uIPageIndicator.transform.localScale = Vector3.one;
+			UIEventTriggerUtils.AddListener(uIPageIndicator.m_hitbox.gameObject, EventTriggerType.Scroll, OnScroll);
+			uIPageIndicator.SetSelected(false);
+			m_pageIndicators.Add(uIPageIndicator);
 		}
-		while (this.m_pageIndicators.Count > num)
+		while (m_pageIndicators.Count > num)
 		{
-			UnityEngine.Object.Destroy(this.m_pageIndicators[0].gameObject);
-			this.m_pageIndicators.RemoveAt(0);
+			UnityEngine.Object.Destroy(m_pageIndicators[0].gameObject);
+			m_pageIndicators.RemoveAt(0);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.ShowList(UIPlayerProgressBanners.CurrentList)).MethodHandle;
-		}
-		if (this.m_pageIndicators.Count > 0)
-		{
-			for (;;)
+			if (1 == 0)
 			{
-				switch (6)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_pageIndicators.Count > 0)
+			{
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
+				ClickedOnPageIndicator(m_pageIndicators[0]);
+				for (int i = 0; i < m_pageIndicators.Count; i++)
+				{
+					m_pageIndicators[i].SetPageNumber(i + 1);
+					m_pageIndicators[i].SetClickCallback(UIPlayerProgressPanel.Get().ClickedOnPage);
+				}
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			else
+			{
+				ClickedOnPageIndicator(null);
+			}
+			bool doActive = false;
+			bool doActive2 = false;
+			bool doActive3 = false;
+			bool doActive4 = false;
+			m_nextPage.transform.parent.SetAsLastSibling();
+			switch (m_currentList)
+			{
+			case CurrentList.Foreground:
+				m_foregroundBtn.selectableButton.SetSelected(true, false, string.Empty, string.Empty);
+				m_backgroundBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
+				m_titlesBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
+				m_ribbonsBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
+				doActive = true;
+				break;
+			case CurrentList.Background:
+				m_foregroundBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
+				m_backgroundBtn.selectableButton.SetSelected(true, false, string.Empty, string.Empty);
+				m_titlesBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
+				m_ribbonsBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
+				doActive2 = true;
+				break;
+			case CurrentList.Title:
+				m_foregroundBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
+				m_backgroundBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
+				m_titlesBtn.selectableButton.SetSelected(true, false, string.Empty, string.Empty);
+				m_ribbonsBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
+				doActive3 = true;
+				break;
+			case CurrentList.Ribbon:
+				m_foregroundBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
+				m_backgroundBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
+				m_titlesBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
+				m_ribbonsBtn.selectableButton.SetSelected(true, false, string.Empty, string.Empty);
+				doActive4 = true;
 				break;
 			}
-			this.ClickedOnPageIndicator(this.m_pageIndicators[0]);
-			for (int i = 0; i < this.m_pageIndicators.Count; i++)
-			{
-				this.m_pageIndicators[i].SetPageNumber(i + 1);
-				this.m_pageIndicators[i].SetClickCallback(new Action<UIPageIndicator>(UIPlayerProgressPanel.Get().ClickedOnPage));
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			UIManager.SetGameObjectActive(m_emblemGrid, doActive);
+			UIManager.SetGameObjectActive(m_bannerGrid, doActive2);
+			UIManager.SetGameObjectActive(m_titleGrid, doActive3);
+			UIManager.SetGameObjectActive(m_ribbonGrid, doActive4);
+			return;
 		}
-		else
-		{
-			this.ClickedOnPageIndicator(null);
-		}
-		bool doActive = false;
-		bool doActive2 = false;
-		bool doActive3 = false;
-		bool doActive4 = false;
-		this.m_nextPage.transform.parent.SetAsLastSibling();
-		switch (this.m_currentList)
-		{
-		case UIPlayerProgressBanners.CurrentList.Foreground:
-			this.m_foregroundBtn.selectableButton.SetSelected(true, false, string.Empty, string.Empty);
-			this.m_backgroundBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
-			this.m_titlesBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
-			this.m_ribbonsBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
-			doActive = true;
-			break;
-		case UIPlayerProgressBanners.CurrentList.Background:
-			this.m_foregroundBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
-			this.m_backgroundBtn.selectableButton.SetSelected(true, false, string.Empty, string.Empty);
-			this.m_titlesBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
-			this.m_ribbonsBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
-			doActive2 = true;
-			break;
-		case UIPlayerProgressBanners.CurrentList.Title:
-			this.m_foregroundBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
-			this.m_backgroundBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
-			this.m_titlesBtn.selectableButton.SetSelected(true, false, string.Empty, string.Empty);
-			this.m_ribbonsBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
-			doActive3 = true;
-			break;
-		case UIPlayerProgressBanners.CurrentList.Ribbon:
-			this.m_foregroundBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
-			this.m_backgroundBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
-			this.m_titlesBtn.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
-			this.m_ribbonsBtn.selectableButton.SetSelected(true, false, string.Empty, string.Empty);
-			doActive4 = true;
-			break;
-		}
-		UIManager.SetGameObjectActive(this.m_emblemGrid, doActive, null);
-		UIManager.SetGameObjectActive(this.m_bannerGrid, doActive2, null);
-		UIManager.SetGameObjectActive(this.m_titleGrid, doActive3, null);
-		UIManager.SetGameObjectActive(this.m_ribbonGrid, doActive4, null);
 	}
 
 	public void ForegroundBtnClicked(BaseEventData data)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.PlayCategorySelect);
-		this.ShowList(UIPlayerProgressBanners.CurrentList.Foreground);
+		ShowList(CurrentList.Foreground);
 	}
 
 	public void BackgroundBtnClicked(BaseEventData data)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.PlayCategorySelect);
-		this.ShowList(UIPlayerProgressBanners.CurrentList.Background);
+		ShowList(CurrentList.Background);
 	}
 
 	public void TitlesBtnClicked(BaseEventData data)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.PlayCategorySelect);
-		this.ShowList(UIPlayerProgressBanners.CurrentList.Title);
+		ShowList(CurrentList.Title);
 	}
 
 	public void RibbonsBtnClicked(BaseEventData data)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.PlayCategorySelect);
-		this.ShowList(UIPlayerProgressBanners.CurrentList.Ribbon);
+		ShowList(CurrentList.Ribbon);
 	}
 
 	public void ClickedOnPrevPage(BaseEventData data)
 	{
-		if (this.m_currentPage > 0)
+		if (m_currentPage <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.ClickedOnPrevPage(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_currentPage--;
-			UIPageIndicator pageIndicator;
-			if (this.m_pageIndicators.Count > this.m_currentPage)
+			m_currentPage--;
+			object pageIndicator;
+			if (m_pageIndicators.Count > m_currentPage)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -970,39 +968,39 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 					}
 					break;
 				}
-				pageIndicator = this.m_pageIndicators[this.m_currentPage];
+				pageIndicator = m_pageIndicators[m_currentPage];
 			}
 			else
 			{
 				pageIndicator = null;
 			}
-			this.ClickedOnPageIndicator(pageIndicator);
+			ClickedOnPageIndicator((UIPageIndicator)pageIndicator);
 			return;
 		}
 	}
 
 	public void ClickedOnNextPage(BaseEventData data)
 	{
-		if (this.m_currentPage + 1 < this.m_pageIndicators.Count)
+		if (m_currentPage + 1 >= m_pageIndicators.Count)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.ClickedOnNextPage(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_currentPage++;
-			UIPageIndicator pageIndicator;
-			if (this.m_pageIndicators.Count > this.m_currentPage)
+			m_currentPage++;
+			object pageIndicator;
+			if (m_pageIndicators.Count > m_currentPage)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1011,103 +1009,97 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 					}
 					break;
 				}
-				pageIndicator = this.m_pageIndicators[this.m_currentPage];
+				pageIndicator = m_pageIndicators[m_currentPage];
 			}
 			else
 			{
 				pageIndicator = null;
 			}
-			this.ClickedOnPageIndicator(pageIndicator);
+			ClickedOnPageIndicator((UIPageIndicator)pageIndicator);
 			return;
 		}
 	}
 
-	public int GetNumberOfItems(UIPlayerProgressBanners.CurrentList listType)
+	public int GetNumberOfItems(CurrentList listType)
 	{
-		if (listType == UIPlayerProgressBanners.CurrentList.Title)
+		if (listType == CurrentList.Title)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.GetNumberOfItems(UIPlayerProgressBanners.CurrentList)).MethodHandle;
-			}
-			if (this.m_showLocked)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (m_showLocked)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								break;
+							default:
+								return m_visibleTitles.Count;
+							}
+						}
+					}
+					return m_unlockedTitles.Count;
 				}
-				return this.m_visibleTitles.Count;
 			}
-			return this.m_unlockedTitles.Count;
 		}
-		else if (listType == UIPlayerProgressBanners.CurrentList.Background)
+		switch (listType)
 		{
-			for (;;)
+		case CurrentList.Background:
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (m_showLocked)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							break;
+						default:
+							return m_visibleBackgroundBanners.Count;
+						}
+					}
+				}
+				return m_unlockedBackgroundBanners.Count;
 			}
-			if (this.m_showLocked)
+		case CurrentList.Foreground:
+			if (m_showLocked)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_visibleForegroundBanners.Count;
 					}
-					break;
 				}
-				return this.m_visibleBackgroundBanners.Count;
 			}
-			return this.m_unlockedBackgroundBanners.Count;
-		}
-		else if (listType == UIPlayerProgressBanners.CurrentList.Foreground)
-		{
-			if (this.m_showLocked)
+			return m_unlockedForegroundBanners.Count;
+		case CurrentList.Ribbon:
+			if (m_showLocked)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return this.m_visibleForegroundBanners.Count;
+				return m_visibleRibbons.Count;
 			}
-			return this.m_unlockedForegroundBanners.Count;
-		}
-		else
-		{
-			if (listType != UIPlayerProgressBanners.CurrentList.Ribbon)
-			{
-				return 0;
-			}
-			if (this.m_showLocked)
-			{
-				return this.m_visibleRibbons.Count;
-			}
-			return this.m_unlockedRibbons.Count;
+			return m_unlockedRibbons.Count;
+		default:
+			return 0;
 		}
 	}
 
@@ -1118,10 +1110,10 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 
 	public void ResetPage()
 	{
-		UIPageIndicator pageIndicator;
-		if (this.m_pageIndicators.Count > this.m_currentPage)
+		object pageIndicator;
+		if (m_pageIndicators.Count > m_currentPage)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1130,26 +1122,26 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.ResetPage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			pageIndicator = this.m_pageIndicators[this.m_currentPage];
+			pageIndicator = m_pageIndicators[m_currentPage];
 		}
 		else
 		{
 			pageIndicator = null;
 		}
-		this.ClickedOnPageIndicator(pageIndicator);
+		ClickedOnPageIndicator((UIPageIndicator)pageIndicator);
 	}
 
 	public override void ClickedOnPageIndicator(UIPageIndicator pageIndicator)
 	{
-		for (int i = 0; i < this.m_pageIndicators.Count; i++)
+		for (int i = 0; i < m_pageIndicators.Count; i++)
 		{
-			if (this.m_pageIndicators[i] == pageIndicator)
+			if (m_pageIndicators[i] == pageIndicator)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1158,25 +1150,25 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.ClickedOnPageIndicator(UIPageIndicator)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_pageIndicators[i].SetSelected(true);
-				this.m_currentPage = i;
+				m_pageIndicators[i].SetSelected(true);
+				m_currentPage = i;
 			}
 			else
 			{
-				this.m_pageIndicators[i].SetSelected(false);
+				m_pageIndicators[i].SetSelected(false);
 			}
 		}
-		List<UIPlayerProgressBannersButton> currentButtonsList = this.GetCurrentButtonsList();
+		List<UIPlayerProgressBannersButton> currentButtonsList = GetCurrentButtonsList();
 		for (int j = 0; j < currentButtonsList.Count; j++)
 		{
-			int num = this.m_currentPage * this.numBannersPerPage + j;
-			if (num < this.m_numItems)
+			int num = m_currentPage * numBannersPerPage + j;
+			if (num < m_numItems)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1185,11 +1177,11 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 					}
 					break;
 				}
-				if (this.m_currentList == UIPlayerProgressBanners.CurrentList.Title)
+				if (m_currentList == CurrentList.Title)
 				{
-					if (this.m_showLocked)
+					if (m_showLocked)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -1198,16 +1190,17 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 							}
 							break;
 						}
-						currentButtonsList[j].SetupTitle(this.m_visibleTitles[num]);
+						currentButtonsList[j].SetupTitle(m_visibleTitles[num]);
 					}
 					else
 					{
-						currentButtonsList[j].SetupTitle(this.m_unlockedTitles[num]);
+						currentButtonsList[j].SetupTitle(m_unlockedTitles[num]);
 					}
+					continue;
 				}
-				else if (this.m_currentList == UIPlayerProgressBanners.CurrentList.Background)
+				if (m_currentList == CurrentList.Background)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -1216,9 +1209,9 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 						}
 						break;
 					}
-					if (this.m_showLocked)
+					if (m_showLocked)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -1227,16 +1220,17 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 							}
 							break;
 						}
-						currentButtonsList[j].SetupBanner(this.m_visibleBackgroundBanners[num]);
+						currentButtonsList[j].SetupBanner(m_visibleBackgroundBanners[num]);
 					}
 					else
 					{
-						currentButtonsList[j].SetupBanner(this.m_unlockedBackgroundBanners[num]);
+						currentButtonsList[j].SetupBanner(m_unlockedBackgroundBanners[num]);
 					}
+					continue;
 				}
-				else if (this.m_currentList == UIPlayerProgressBanners.CurrentList.Foreground)
+				if (m_currentList == CurrentList.Foreground)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1245,9 +1239,9 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 						}
 						break;
 					}
-					if (this.m_showLocked)
+					if (m_showLocked)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -1256,45 +1250,43 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 							}
 							break;
 						}
-						currentButtonsList[j].SetupBanner(this.m_visibleForegroundBanners[num]);
+						currentButtonsList[j].SetupBanner(m_visibleForegroundBanners[num]);
 					}
 					else
 					{
-						currentButtonsList[j].SetupBanner(this.m_unlockedForegroundBanners[num]);
+						currentButtonsList[j].SetupBanner(m_unlockedForegroundBanners[num]);
 					}
+					continue;
 				}
-				else
+				if (m_currentList != CurrentList.Ribbon)
 				{
-					if (this.m_currentList != UIPlayerProgressBanners.CurrentList.Ribbon)
+					throw new Exception(string.Concat(m_currentList, " not supported"));
+				}
+				while (true)
+				{
+					switch (2)
 					{
-						throw new Exception(this.m_currentList + " not supported");
+					case 0:
+						continue;
 					}
-					for (;;)
+					break;
+				}
+				if (m_showLocked)
+				{
+					while (true)
 					{
-						switch (2)
+						switch (3)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (this.m_showLocked)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						currentButtonsList[j].SetupRibbon(this.m_visibleRibbons[num]);
-					}
-					else
-					{
-						currentButtonsList[j].SetupRibbon(this.m_unlockedRibbons[num]);
-					}
+					currentButtonsList[j].SetupRibbon(m_visibleRibbons[num]);
+				}
+				else
+				{
+					currentButtonsList[j].SetupRibbon(m_unlockedRibbons[num]);
 				}
 			}
 			else
@@ -1302,59 +1294,39 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				currentButtonsList[j].SetupBanner(null);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public override void SetActive(bool visible)
 	{
 		base.SetActive(visible);
-		this.Init();
+		Init();
 		if (!visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.SetActive(bool)).MethodHandle;
-			}
-			return;
 		}
-		this.ShowList(UIPlayerProgressBanners.CurrentList.Foreground);
-	}
-
-	public enum CurrentList
-	{
-		Foreground,
-		Background,
-		Title,
-		Ribbon
-	}
-
-	private class SortedItem<T>
-	{
-		public T Payload;
-
-		public int SortOrder;
-
-		public SortedItem(T payload, int sortOrder)
-		{
-			this.Payload = payload;
-			this.SortOrder = sortOrder;
-		}
+		ShowList(CurrentList.Foreground);
 	}
 }

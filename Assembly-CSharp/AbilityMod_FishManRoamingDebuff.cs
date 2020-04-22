@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,49 +48,48 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		FishManRoamingDebuff fishManRoamingDebuff = targetAbility as FishManRoamingDebuff;
-		if (fishManRoamingDebuff != null)
+		if (!(fishManRoamingDebuff != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FishManRoamingDebuff.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "LaserInfo", fishManRoamingDebuff.m_laserInfo, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectWhileOnEnemyMod, "EffectWhileOnEnemy", fishManRoamingDebuff.m_effectWhileOnEnemy, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectWhileOnAllyMod, "EffectWhileOnAlly", fishManRoamingDebuff.m_effectWhileOnAlly, true);
-			AbilityMod.AddToken(tokens, this.m_jumpRadiusMod, "JumpRadius", string.Empty, fishManRoamingDebuff.m_jumpRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_numJumpsMod, "NumJumps", string.Empty, fishManRoamingDebuff.m_numJumps, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageToEnemiesOnJumpMod, "DamageToEnemiesOnJump", string.Empty, fishManRoamingDebuff.m_damageToEnemiesOnJump, true, false);
-			AbilityMod.AddToken(tokens, this.m_healingToAlliesOnJumpMod, "HealingToAlliesOnJump", string.Empty, fishManRoamingDebuff.m_healingToAlliesOnJump, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageIncreasePerJumpMod, "DamageIncreasePerJump", string.Empty, fishManRoamingDebuff.m_damageIncreasePerJump, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageToEnemyOnInitialHitMod, "DamageToEnemyOnInitialHit", string.Empty, fishManRoamingDebuff.m_damageToEnemyOnInitialHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_healingToAllyOnInitialHitMod, "HealingToAllyOnInitialHit", string.Empty, fishManRoamingDebuff.m_healingToAllyOnInitialHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_jumpAnimationIndexMod, "JumpAnimationIndex", string.Empty, fishManRoamingDebuff.m_jumpAnimationIndex, true, false);
+			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", fishManRoamingDebuff.m_laserInfo);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectWhileOnEnemyMod, "EffectWhileOnEnemy", fishManRoamingDebuff.m_effectWhileOnEnemy);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectWhileOnAllyMod, "EffectWhileOnAlly", fishManRoamingDebuff.m_effectWhileOnAlly);
+			AbilityMod.AddToken(tokens, m_jumpRadiusMod, "JumpRadius", string.Empty, fishManRoamingDebuff.m_jumpRadius);
+			AbilityMod.AddToken(tokens, m_numJumpsMod, "NumJumps", string.Empty, fishManRoamingDebuff.m_numJumps);
+			AbilityMod.AddToken(tokens, m_damageToEnemiesOnJumpMod, "DamageToEnemiesOnJump", string.Empty, fishManRoamingDebuff.m_damageToEnemiesOnJump);
+			AbilityMod.AddToken(tokens, m_healingToAlliesOnJumpMod, "HealingToAlliesOnJump", string.Empty, fishManRoamingDebuff.m_healingToAlliesOnJump);
+			AbilityMod.AddToken(tokens, m_damageIncreasePerJumpMod, "DamageIncreasePerJump", string.Empty, fishManRoamingDebuff.m_damageIncreasePerJump);
+			AbilityMod.AddToken(tokens, m_damageToEnemyOnInitialHitMod, "DamageToEnemyOnInitialHit", string.Empty, fishManRoamingDebuff.m_damageToEnemyOnInitialHit);
+			AbilityMod.AddToken(tokens, m_healingToAllyOnInitialHitMod, "HealingToAllyOnInitialHit", string.Empty, fishManRoamingDebuff.m_healingToAllyOnInitialHit);
+			AbilityMod.AddToken(tokens, m_jumpAnimationIndexMod, "JumpAnimationIndex", string.Empty, fishManRoamingDebuff.m_jumpAnimationIndex);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		FishManRoamingDebuff fishManRoamingDebuff = base.GetTargetAbilityOnAbilityData(abilityData) as FishManRoamingDebuff;
+		FishManRoamingDebuff fishManRoamingDebuff = GetTargetAbilityOnAbilityData(abilityData) as FishManRoamingDebuff;
 		bool flag = fishManRoamingDebuff != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_laserInfoMod, "[LaserInfo]", flag, (!flag) ? null : fishManRoamingDebuff.m_laserInfo);
-		string str = text;
-		AbilityModPropertyEffectInfo effectWhileOnEnemyMod = this.m_effectWhileOnEnemyMod;
-		string prefix = "[EffectWhileOnEnemy]";
-		bool showBaseVal = flag;
-		StandardEffectInfo baseVal;
+		string empty = string.Empty;
+		empty += PropDesc(m_laserInfoMod, "[LaserInfo]", flag, (!flag) ? null : fishManRoamingDebuff.m_laserInfo);
+		string str = empty;
+		AbilityModPropertyEffectInfo effectWhileOnEnemyMod = m_effectWhileOnEnemyMod;
+		object baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -99,9 +98,9 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FishManRoamingDebuff.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = fishManRoamingDebuff.m_effectWhileOnEnemy;
 		}
@@ -109,15 +108,13 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		{
 			baseVal = null;
 		}
-		text = str + base.PropDesc(effectWhileOnEnemyMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyEffectInfo effectWhileOnAllyMod = this.m_effectWhileOnAllyMod;
-		string prefix2 = "[EffectWhileOnAlly]";
-		bool showBaseVal2 = flag;
-		StandardEffectInfo baseVal2;
+		empty = str + PropDesc(effectWhileOnEnemyMod, "[EffectWhileOnEnemy]", flag, (StandardEffectInfo)baseVal);
+		string str2 = empty;
+		AbilityModPropertyEffectInfo effectWhileOnAllyMod = m_effectWhileOnAllyMod;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -132,16 +129,14 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		{
 			baseVal2 = null;
 		}
-		text = str2 + base.PropDesc(effectWhileOnAllyMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_jumpRadiusMod, "[JumpRadius]", flag, (!flag) ? 0f : fishManRoamingDebuff.m_jumpRadius);
-		string str3 = text;
-		AbilityModPropertyBool jumpIgnoresLineOfSightMod = this.m_jumpIgnoresLineOfSightMod;
-		string prefix3 = "[JumpIgnoresLineOfSight]";
-		bool showBaseVal3 = flag;
-		bool baseVal3;
+		empty = str2 + PropDesc(effectWhileOnAllyMod, "[EffectWhileOnAlly]", flag, (StandardEffectInfo)baseVal2);
+		empty += PropDesc(m_jumpRadiusMod, "[JumpRadius]", flag, (!flag) ? 0f : fishManRoamingDebuff.m_jumpRadius);
+		string str3 = empty;
+		AbilityModPropertyBool jumpIgnoresLineOfSightMod = m_jumpIgnoresLineOfSightMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -150,21 +145,19 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 				}
 				break;
 			}
-			baseVal3 = fishManRoamingDebuff.m_jumpIgnoresLineOfSight;
+			baseVal3 = (fishManRoamingDebuff.m_jumpIgnoresLineOfSight ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(jumpIgnoresLineOfSightMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt numJumpsMod = this.m_numJumpsMod;
-		string prefix4 = "[NumJumps]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(jumpIgnoresLineOfSightMod, "[JumpIgnoresLineOfSight]", flag, (byte)baseVal3 != 0);
+		string str4 = empty;
+		AbilityModPropertyInt numJumpsMod = m_numJumpsMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -179,15 +172,13 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(numJumpsMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyBool canJumpToEnemiesMod = this.m_canJumpToEnemiesMod;
-		string prefix5 = "[CanJumpToEnemies]";
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		empty = str4 + PropDesc(numJumpsMod, "[NumJumps]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyBool canJumpToEnemiesMod = m_canJumpToEnemiesMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -196,21 +187,19 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 				}
 				break;
 			}
-			baseVal5 = fishManRoamingDebuff.m_canJumpToEnemies;
+			baseVal5 = (fishManRoamingDebuff.m_canJumpToEnemies ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(canJumpToEnemiesMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyBool canJumpToAlliesMod = this.m_canJumpToAlliesMod;
-		string prefix6 = "[CanJumpToAllies]";
-		bool showBaseVal6 = flag;
-		bool baseVal6;
+		empty = str5 + PropDesc(canJumpToEnemiesMod, "[CanJumpToEnemies]", flag, (byte)baseVal5 != 0);
+		string str6 = empty;
+		AbilityModPropertyBool canJumpToAlliesMod = m_canJumpToAlliesMod;
+		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -219,21 +208,19 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 				}
 				break;
 			}
-			baseVal6 = fishManRoamingDebuff.m_canJumpToAllies;
+			baseVal6 = (fishManRoamingDebuff.m_canJumpToAllies ? 1 : 0);
 		}
 		else
 		{
-			baseVal6 = false;
+			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(canJumpToAlliesMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyBool canJumpToInvisibleTargetsMod = this.m_canJumpToInvisibleTargetsMod;
-		string prefix7 = "[CanJumpToInvisibleTargets]";
-		bool showBaseVal7 = flag;
-		bool baseVal7;
+		empty = str6 + PropDesc(canJumpToAlliesMod, "[CanJumpToAllies]", flag, (byte)baseVal6 != 0);
+		string str7 = empty;
+		AbilityModPropertyBool canJumpToInvisibleTargetsMod = m_canJumpToInvisibleTargetsMod;
+		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -242,21 +229,19 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 				}
 				break;
 			}
-			baseVal7 = fishManRoamingDebuff.m_canJumpToInvisibleTargets;
+			baseVal7 = (fishManRoamingDebuff.m_canJumpToInvisibleTargets ? 1 : 0);
 		}
 		else
 		{
-			baseVal7 = false;
+			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(canJumpToInvisibleTargetsMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyInt damageToEnemyOnInitialHitMod = this.m_damageToEnemyOnInitialHitMod;
-		string prefix8 = "[DamageToEnemyOnInitialHit]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(canJumpToInvisibleTargetsMod, "[CanJumpToInvisibleTargets]", flag, (byte)baseVal7 != 0);
+		string str8 = empty;
+		AbilityModPropertyInt damageToEnemyOnInitialHitMod = m_damageToEnemyOnInitialHitMod;
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -271,15 +256,13 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		{
 			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(damageToEnemyOnInitialHitMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyInt healingToAllyOnInitialHitMod = this.m_healingToAllyOnInitialHitMod;
-		string prefix9 = "[HealingToAllyOnInitialHit]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(damageToEnemyOnInitialHitMod, "[DamageToEnemyOnInitialHit]", flag, baseVal8);
+		string str9 = empty;
+		AbilityModPropertyInt healingToAllyOnInitialHitMod = m_healingToAllyOnInitialHitMod;
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -294,15 +277,13 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		{
 			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(healingToAllyOnInitialHitMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyInt damageToEnemiesOnJumpMod = this.m_damageToEnemiesOnJumpMod;
-		string prefix10 = "[DamageToEnemiesOnJump]";
-		bool showBaseVal10 = flag;
+		empty = str9 + PropDesc(healingToAllyOnInitialHitMod, "[HealingToAllyOnInitialHit]", flag, baseVal9);
+		string str10 = empty;
+		AbilityModPropertyInt damageToEnemiesOnJumpMod = m_damageToEnemiesOnJumpMod;
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -317,15 +298,13 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		{
 			baseVal10 = 0;
 		}
-		text = str10 + base.PropDesc(damageToEnemiesOnJumpMod, prefix10, showBaseVal10, baseVal10);
-		string str11 = text;
-		AbilityModPropertyInt healingToAlliesOnJumpMod = this.m_healingToAlliesOnJumpMod;
-		string prefix11 = "[HealingToAlliesOnJump]";
-		bool showBaseVal11 = flag;
+		empty = str10 + PropDesc(damageToEnemiesOnJumpMod, "[DamageToEnemiesOnJump]", flag, baseVal10);
+		string str11 = empty;
+		AbilityModPropertyInt healingToAlliesOnJumpMod = m_healingToAlliesOnJumpMod;
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -340,16 +319,14 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		{
 			baseVal11 = 0;
 		}
-		text = str11 + base.PropDesc(healingToAlliesOnJumpMod, prefix11, showBaseVal11, baseVal11);
-		text += base.PropDesc(this.m_damageIncreasePerJumpMod, "[DamageIncreasePerJump]", flag, (!flag) ? 0 : fishManRoamingDebuff.m_damageIncreasePerJump);
-		string str12 = text;
-		AbilityModPropertyInt jumpAnimationIndexMod = this.m_jumpAnimationIndexMod;
-		string prefix12 = "[JumpAnimationIndex]";
-		bool showBaseVal12 = flag;
+		empty = str11 + PropDesc(healingToAlliesOnJumpMod, "[HealingToAlliesOnJump]", flag, baseVal11);
+		empty += PropDesc(m_damageIncreasePerJumpMod, "[DamageIncreasePerJump]", flag, flag ? fishManRoamingDebuff.m_damageIncreasePerJump : 0);
+		string str12 = empty;
+		AbilityModPropertyInt jumpAnimationIndexMod = m_jumpAnimationIndexMod;
 		int baseVal12;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -364,6 +341,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		{
 			baseVal12 = 0;
 		}
-		return str12 + base.PropDesc(jumpAnimationIndexMod, prefix12, showBaseVal12, baseVal12);
+		return str12 + PropDesc(jumpAnimationIndexMod, "[JumpAnimationIndex]", flag, baseVal12);
 	}
 }

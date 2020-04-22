@@ -1,8 +1,6 @@
-﻿using System;
-
 public class SiegeBreakerBigBang : Ability
 {
-	public int m_damageAmount = 0x4B;
+	public int m_damageAmount = 75;
 
 	public int m_knockbackDistance = 8;
 
@@ -12,22 +10,23 @@ public class SiegeBreakerBigBang : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (!(m_abilityName == "Base Ability"))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SiegeBreakerBigBang.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Big Bang";
+			m_abilityName = "Big Bang";
+			return;
 		}
 	}
 }

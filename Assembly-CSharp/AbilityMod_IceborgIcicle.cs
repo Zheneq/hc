@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class AbilityMod_IceborgIcicle : GenericAbility_AbilityMod
@@ -19,41 +19,42 @@ public class AbilityMod_IceborgIcicle : GenericAbility_AbilityMod
 
 	public override void GenModImpl_SetTargetSelectMod(GenericAbility_TargetSelectBase targetSelect)
 	{
-		targetSelect.SetTargetSelectMod(this.m_targetSelectMod);
+		targetSelect.SetTargetSelectMod(m_targetSelectMod);
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		IceborgIcicle iceborgIcicle = targetAbility as IceborgIcicle;
-		if (iceborgIcicle != null)
+		if (!(iceborgIcicle != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgIcicle.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			AbilityMod.AddToken(tokens, this.m_energyOnCasterIfTargetHasNovaCoreMod, "EnergyOnCasterIfTargetHasNovaCore", string.Empty, iceborgIcicle.m_energyOnCasterIfTargetHasNovaCore, true, false);
-			AbilityMod.AddToken(tokens, this.m_cdrIfHasHitMod, "CdrIfHasHit", string.Empty, iceborgIcicle.m_cdrIfHasHit, true, false);
+			AbilityMod.AddToken(tokens, m_energyOnCasterIfTargetHasNovaCoreMod, "EnergyOnCasterIfTargetHasNovaCore", string.Empty, iceborgIcicle.m_energyOnCasterIfTargetHasNovaCore);
+			AbilityMod.AddToken(tokens, m_cdrIfHasHitMod, "CdrIfHasHit", string.Empty, iceborgIcicle.m_cdrIfHasHit);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		IceborgIcicle iceborgIcicle = base.GetTargetAbilityOnAbilityData(abilityData) as IceborgIcicle;
+		IceborgIcicle iceborgIcicle = GetTargetAbilityOnAbilityData(abilityData) as IceborgIcicle;
 		bool flag = iceborgIcicle != null;
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (iceborgIcicle != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -62,19 +63,17 @@ public class AbilityMod_IceborgIcicle : GenericAbility_AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgIcicle.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, iceborgIcicle.m_targetSelectComp, "-- Target Select --");
+			text += GetTargetSelectModDesc(m_targetSelectMod, iceborgIcicle.m_targetSelectComp, "-- Target Select --");
 			string str = text;
-			AbilityModPropertyInt energyOnCasterIfTargetHasNovaCoreMod = this.m_energyOnCasterIfTargetHasNovaCoreMod;
-			string prefix = "[EnergyOnCasterIfTargetHasNovaCore]";
-			bool showBaseVal = flag;
+			AbilityModPropertyInt energyOnCasterIfTargetHasNovaCoreMod = m_energyOnCasterIfTargetHasNovaCoreMod;
 			int baseVal;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -89,15 +88,13 @@ public class AbilityMod_IceborgIcicle : GenericAbility_AbilityMod
 			{
 				baseVal = 0;
 			}
-			text = str + base.PropDesc(energyOnCasterIfTargetHasNovaCoreMod, prefix, showBaseVal, baseVal);
+			text = str + PropDesc(energyOnCasterIfTargetHasNovaCoreMod, "[EnergyOnCasterIfTargetHasNovaCore]", flag, baseVal);
 			string str2 = text;
-			AbilityModPropertyInt cdrIfHasHitMod = this.m_cdrIfHasHitMod;
-			string prefix2 = "[CdrIfHasHit]";
-			bool showBaseVal2 = flag;
+			AbilityModPropertyInt cdrIfHasHitMod = m_cdrIfHasHitMod;
 			int baseVal2;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -112,7 +109,7 @@ public class AbilityMod_IceborgIcicle : GenericAbility_AbilityMod
 			{
 				baseVal2 = 0;
 			}
-			text = str2 + base.PropDesc(cdrIfHasHitMod, prefix2, showBaseVal2, baseVal2);
+			text = str2 + PropDesc(cdrIfHasHitMod, "[CdrIfHasHit]", flag, baseVal2);
 		}
 		return text;
 	}

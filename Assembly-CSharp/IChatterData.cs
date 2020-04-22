@@ -1,5 +1,3 @@
-﻿using System;
-
 public interface IChatterData
 {
 	ChatterData GetCommonData();

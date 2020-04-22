@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -18,66 +18,69 @@ public class OnHitEffecField
 
 	public string GetIdentifier()
 	{
-		return this.m_identifier.Trim();
+		return m_identifier.Trim();
 	}
 
 	public OnHitEffecField GetCopy()
 	{
-		OnHitEffecField onHitEffecField = base.MemberwiseClone() as OnHitEffecField;
-		onHitEffecField.m_conditions = this.m_conditions.\u001D();
-		onHitEffecField.m_effect = this.m_effect.GetShallowCopy();
+		OnHitEffecField onHitEffecField = MemberwiseClone() as OnHitEffecField;
+		onHitEffecField.m_conditions = m_conditions._001D();
+		onHitEffecField.m_effect = m_effect.GetShallowCopy();
 		return onHitEffecField;
 	}
 
 	public void AddTooltipTokens(List<TooltipTokenEntry> tokens, bool diff, OnHitEffecField other, string identifierOverride = null)
 	{
-		string text = (identifierOverride == null) ? this.GetIdentifier() : identifierOverride;
-		if (!string.IsNullOrEmpty(text) && this.m_effect.m_applyEffect)
+		string text = (identifierOverride == null) ? GetIdentifier() : identifierOverride;
+		if (string.IsNullOrEmpty(text) || !m_effect.m_applyEffect)
 		{
-			bool flag;
-			if (diff)
+			return;
+		}
+		int num;
+		if (diff)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (1)
 				{
-					switch (1)
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (other != null)
+			{
+				while (true)
+				{
+					switch (2)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitEffecField.AddTooltipTokens(List<TooltipTokenEntry>, bool, OnHitEffecField, string)).MethodHandle;
-				}
-				if (other != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag = (other.m_effect != null);
-					goto IL_5A;
-				}
+				num = ((other.m_effect != null) ? 1 : 0);
+				goto IL_005a;
 			}
-			flag = false;
-			IL_5A:
-			bool flag2 = flag;
-			this.m_effect.m_effectData.AddTooltipTokens(tokens, text, flag2, (!flag2) ? null : other.m_effect.m_effectData);
 		}
+		num = 0;
+		goto IL_005a;
+		IL_005a:
+		bool flag = (byte)num != 0;
+		m_effect.m_effectData.AddTooltipTokens(tokens, text, flag, (!flag) ? null : other.m_effect.m_effectData);
 	}
 
 	public string GetInEditorDesc(bool diff, OnHitEffecField other)
 	{
-		string text = "(effect set to not apply)\n";
-		if (this.m_effect != null)
+		string result = "(effect set to not apply)\n";
+		int num;
+		if (m_effect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -86,16 +89,16 @@ public class OnHitEffecField
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitEffecField.GetInEditorDesc(bool, OnHitEffecField)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_effect.m_applyEffect)
+			if (m_effect.m_applyEffect)
 			{
-				text = "- Effect to Apply -\n";
-				if (!string.IsNullOrEmpty(this.m_identifier))
+				result = "- Effect to Apply -\n";
+				if (!string.IsNullOrEmpty(m_identifier))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -104,12 +107,12 @@ public class OnHitEffecField
 						}
 						break;
 					}
-					text = text + "Identifier: " + InEditorDescHelper.ColoredString(this.m_identifier, "white", false) + "\n";
+					result = result + "Identifier: " + InEditorDescHelper.ColoredString(m_identifier, "white") + "\n";
 				}
-				text = text + "Conditions:\n" + this.m_conditions.\u001D("    ");
-				if (this.m_skipRemainingEffectEntriesIfMatch)
+				result = result + "Conditions:\n" + m_conditions._001D("    ");
+				if (m_skipRemainingEffectEntriesIfMatch)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -118,13 +121,12 @@ public class OnHitEffecField
 						}
 						break;
 					}
-					text = text + InEditorDescHelper.ColoredString("    * Skipping later entries if this one applies to target", "white", false) + "\n";
+					result = result + InEditorDescHelper.ColoredString("    * Skipping later entries if this one applies to target", "white") + "\n";
 				}
-				text += "Effect Data:\n";
-				bool flag;
+				result += "Effect Data:\n";
 				if (diff)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -135,39 +137,40 @@ public class OnHitEffecField
 					}
 					if (other != null)
 					{
-						flag = (other.m_effect != null);
-						goto IL_EE;
+						num = ((other.m_effect != null) ? 1 : 0);
+						goto IL_00ee;
 					}
 				}
-				flag = false;
-				IL_EE:
-				bool flag2 = flag;
-				string str = text;
-				StandardActorEffectData effectData = this.m_effect.m_effectData;
-				string initialIndent = "    ";
-				bool showDivider = false;
-				bool diff2 = flag2;
-				StandardActorEffectData other2;
-				if (flag2)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					other2 = other.m_effect.m_effectData;
-				}
-				else
-				{
-					other2 = null;
-				}
-				text = str + effectData.GetInEditorDescription(initialIndent, showDivider, diff2, other2) + "\n";
+				num = 0;
+				goto IL_00ee;
 			}
 		}
-		return text;
+		goto IL_012f;
+		IL_012f:
+		return result;
+		IL_00ee:
+		bool flag = (byte)num != 0;
+		string str = result;
+		StandardActorEffectData effectData = m_effect.m_effectData;
+		object other2;
+		if (flag)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			other2 = other.m_effect.m_effectData;
+		}
+		else
+		{
+			other2 = null;
+		}
+		result = str + effectData.GetInEditorDescription("    ", false, flag, (StandardActorEffectData)other2) + "\n";
+		goto IL_012f;
 	}
 }

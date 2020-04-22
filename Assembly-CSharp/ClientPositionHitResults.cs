@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,28 +15,32 @@ public class ClientPositionHitResults
 
 	private List<ClientMovementResults> m_reactionsOnPosHit;
 
-	public ClientPositionHitResults(ref IBitStream stream)
+	public bool ExecutedHit
 	{
-		this.m_effectsToStart = AbilityResultsUtils.DeSerializeEffectsToStartFromStream(ref stream);
-		this.m_barriersToStart = AbilityResultsUtils.DeSerializeBarriersToStartFromStream(ref stream);
-		this.m_effectsToRemove = AbilityResultsUtils.DeSerializeEffectsForRemovalFromStream(ref stream);
-		this.m_barriersToRemove = AbilityResultsUtils.DeSerializeBarriersForRemovalFromStream(ref stream);
-		this.m_sequencesToEnd = AbilityResultsUtils.DeSerializeSequenceEndDataListFromStream(ref stream);
-		this.m_reactionsOnPosHit = AbilityResultsUtils.DeSerializeClientMovementResultsListFromStream(ref stream);
-		this.ExecutedHit = false;
+		get;
+		private set;
 	}
 
-	public bool ExecutedHit { get; private set; }
+	public ClientPositionHitResults(ref IBitStream stream)
+	{
+		m_effectsToStart = AbilityResultsUtils.DeSerializeEffectsToStartFromStream(ref stream);
+		m_barriersToStart = AbilityResultsUtils.DeSerializeBarriersToStartFromStream(ref stream);
+		m_effectsToRemove = AbilityResultsUtils.DeSerializeEffectsForRemovalFromStream(ref stream);
+		m_barriersToRemove = AbilityResultsUtils.DeSerializeBarriersForRemovalFromStream(ref stream);
+		m_sequencesToEnd = AbilityResultsUtils.DeSerializeSequenceEndDataListFromStream(ref stream);
+		m_reactionsOnPosHit = AbilityResultsUtils.DeSerializeClientMovementResultsListFromStream(ref stream);
+		ExecutedHit = false;
+	}
 
 	public void ExecutePositionHit()
 	{
-		if (this.ExecutedHit)
+		if (ExecutedHit)
 		{
 			return;
 		}
-		if (ClientAbilityResults.\u001D)
+		if (ClientAbilityResults.LogMissingSequences)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -46,20 +49,20 @@ public class ClientPositionHitResults
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientPositionHitResults.ExecutePositionHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Debug.LogWarning(ClientAbilityResults.s_executePositionHitHeader + " Executing Position Hit");
 		}
-		using (List<ClientEffectStartData>.Enumerator enumerator = this.m_effectsToStart.GetEnumerator())
+		using (List<ClientEffectStartData>.Enumerator enumerator = m_effectsToStart.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ClientEffectStartData effectData = enumerator.Current;
-				ClientEffectBarrierManager.Get().ExecuteEffectStart(effectData);
+				ClientEffectStartData current = enumerator.Current;
+				ClientEffectBarrierManager.Get().ExecuteEffectStart(current);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -69,22 +72,22 @@ public class ClientPositionHitResults
 				break;
 			}
 		}
-		foreach (ClientBarrierStartData barrierData in this.m_barriersToStart)
+		foreach (ClientBarrierStartData item in m_barriersToStart)
 		{
-			ClientEffectBarrierManager.Get().ExecuteBarrierStart(barrierData);
+			ClientEffectBarrierManager.Get().ExecuteBarrierStart(item);
 		}
-		foreach (int effectGuid in this.m_effectsToRemove)
+		foreach (int item2 in m_effectsToRemove)
 		{
-			ClientEffectBarrierManager.Get().EndEffect(effectGuid);
+			ClientEffectBarrierManager.Get().EndEffect(item2);
 		}
-		using (List<int>.Enumerator enumerator4 = this.m_barriersToRemove.GetEnumerator())
+		using (List<int>.Enumerator enumerator4 = m_barriersToRemove.GetEnumerator())
 		{
 			while (enumerator4.MoveNext())
 			{
-				int barrierGuid = enumerator4.Current;
-				ClientEffectBarrierManager.Get().EndBarrier(barrierGuid);
+				int current4 = enumerator4.Current;
+				ClientEffectBarrierManager.Get().EndBarrier(current4);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -94,14 +97,14 @@ public class ClientPositionHitResults
 				break;
 			}
 		}
-		using (List<ServerClientUtils.SequenceEndData>.Enumerator enumerator5 = this.m_sequencesToEnd.GetEnumerator())
+		using (List<ServerClientUtils.SequenceEndData>.Enumerator enumerator5 = m_sequencesToEnd.GetEnumerator())
 		{
 			while (enumerator5.MoveNext())
 			{
-				ServerClientUtils.SequenceEndData sequenceEndData = enumerator5.Current;
-				sequenceEndData.EndClientSequences();
+				ServerClientUtils.SequenceEndData current5 = enumerator5.Current;
+				current5.EndClientSequences();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -111,14 +114,14 @@ public class ClientPositionHitResults
 				break;
 			}
 		}
-		using (List<ClientMovementResults>.Enumerator enumerator6 = this.m_reactionsOnPosHit.GetEnumerator())
+		using (List<ClientMovementResults>.Enumerator enumerator6 = m_reactionsOnPosHit.GetEnumerator())
 		{
 			while (enumerator6.MoveNext())
 			{
-				ClientMovementResults clientMovementResults = enumerator6.Current;
-				clientMovementResults.ReactToMovement();
+				ClientMovementResults current6 = enumerator6.Current;
+				current6.ReactToMovement();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -128,7 +131,7 @@ public class ClientPositionHitResults
 				break;
 			}
 		}
-		this.ExecutedHit = true;
+		ExecutedHit = true;
 		ClientResolutionManager.Get().UpdateLastEventTime();
 	}
 }

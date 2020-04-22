@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +10,6 @@ public class Card_MaxHealthIncrease_Ability : Ability
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "TurnsToHealAddedMax", string.Empty, this.m_turnsToHealAddedMax, false);
+		AddTokenInt(tokens, "TurnsToHealAddedMax", string.Empty, m_turnsToHealAddedMax);
 	}
 }

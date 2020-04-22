@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,15 +17,15 @@ public class AbilityMod_NanoSmithBarrier : AbilityMod
 		NanoSmithBarrier nanoSmithBarrier = targetAbility as NanoSmithBarrier;
 		if (nanoSmithBarrier != null)
 		{
-			AbilityMod.AddToken_BarrierMod(tokens, this.m_barrierDataMod, "BarrierData", nanoSmithBarrier.m_barrierData);
+			AbilityMod.AddToken_BarrierMod(tokens, m_barrierDataMod, "BarrierData", nanoSmithBarrier.m_barrierData);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		NanoSmithBarrier nanoSmithBarrier = base.GetTargetAbilityOnAbilityData(abilityData) as NanoSmithBarrier;
+		NanoSmithBarrier nanoSmithBarrier = GetTargetAbilityOnAbilityData(abilityData) as NanoSmithBarrier;
 		bool flag = nanoSmithBarrier != null;
 		string empty = string.Empty;
-		return empty + AbilityModHelper.GetModPropertyDesc(this.m_barrierDataMod, "{ Barrier Data (with mod) }", (!flag) ? null : nanoSmithBarrier.m_barrierData);
+		return empty + AbilityModHelper.GetModPropertyDesc(m_barrierDataMod, "{ Barrier Data (with mod) }", (!flag) ? null : nanoSmithBarrier.m_barrierData);
 	}
 }

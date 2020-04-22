@@ -1,4 +1,6 @@
-﻿using System;
+using NetSerializer;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -6,29 +8,34 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using NetSerializer;
-using Newtonsoft.Json;
 
 public class WebSocketMessageFactory
 {
-	public static readonly WebSocketMessageFactory Empty = new WebSocketMessageFactory();
+	public static readonly WebSocketMessageFactory Empty;
 
 	private Dictionary<string, Type> m_typesByName;
 
 	private string m_md5Sum;
 
+	public Serializer BinarySerializer
+	{
+		get;
+		private set;
+	}
+
+	public string ProtocolVersion => GetMD5Sum();
+
 	static WebSocketMessageFactory()
 	{
-		WebSocketMessageFactory.Empty.AddMessageTypes(new Type[0]);
+		Empty = new WebSocketMessageFactory();
+		Empty.AddMessageTypes(new Type[0]);
 	}
 
 	public WebSocketMessageFactory()
 	{
-		this.m_typesByName = new Dictionary<string, Type>();
-		this.BinarySerializer = new Serializer();
+		m_typesByName = new Dictionary<string, Type>();
+		BinarySerializer = new Serializer();
 	}
-
-	public Serializer BinarySerializer { get; private set; }
 
 	public void AddMessageTypes(IEnumerable<Type> types)
 	{
@@ -37,85 +44,79 @@ public class WebSocketMessageFactory
 		{
 			while (enumerator.MoveNext())
 			{
-				Type type = enumerator.Current;
-				this.m_typesByName.Add(type.Name, type);
+				Type current = enumerator.Current;
+				m_typesByName.Add(current.Name, current);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					goto end_IL_0007;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageFactory.AddMessageTypes(IEnumerable<Type>)).MethodHandle;
-			}
+			end_IL_0007:;
 		}
 		finally
 		{
 			if (enumerator != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						enumerator.Dispose();
+						goto end_IL_0043;
 					}
-					break;
 				}
-				enumerator.Dispose();
 			}
+			end_IL_0043:;
 		}
-		this.BinarySerializer.AddTypes(types);
-		this.m_md5Sum = null;
-	}
-
-	public string ProtocolVersion
-	{
-		get
-		{
-			return this.GetMD5Sum();
-		}
+		BinarySerializer.AddTypes(types);
+		m_md5Sum = null;
 	}
 
 	public string GetMD5Sum()
 	{
-		if (this.m_md5Sum != null)
+		if (m_md5Sum != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_md5Sum;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageFactory.GetMD5Sum()).MethodHandle;
-			}
-			return this.m_md5Sum;
 		}
-		MD5 md = MD5.Create();
+		MD5 mD = MD5.Create();
 		try
 		{
 			HashSet<Type> hashedTypes = new HashSet<Type>();
-			IEnumerator<Type> enumerator = (from type in this.m_typesByName.Values
-			orderby type.Name
-			select type).GetEnumerator();
+			IEnumerator<Type> enumerator = m_typesByName.Values.OrderBy((Type type) => type.Name).GetEnumerator();
 			try
 			{
 				while (enumerator.MoveNext())
 				{
-					Type type2 = enumerator.Current;
-					this.AddMD5Sum(md, type2, hashedTypes);
+					Type current = enumerator.Current;
+					AddMD5Sum(mD, current, hashedTypes);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -129,54 +130,60 @@ public class WebSocketMessageFactory
 			{
 				if (enumerator != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							enumerator.Dispose();
+							goto end_IL_008d;
 						}
-						break;
 					}
-					enumerator.Dispose();
 				}
+				end_IL_008d:;
 			}
 			byte[] inputBuffer = new byte[0];
-			md.TransformFinalBlock(inputBuffer, 0, 0);
-			byte[] hash = md.Hash;
+			mD.TransformFinalBlock(inputBuffer, 0, 0);
+			byte[] hash = mD.Hash;
 			StringBuilder stringBuilder = new StringBuilder();
 			for (int i = 0; i < hash.Length; i++)
 			{
 				stringBuilder.AppendFormat("{0:x2}", hash[i]);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_md5Sum = stringBuilder.ToString();
+					goto end_IL_0028;
 				}
-				break;
 			}
-			this.m_md5Sum = stringBuilder.ToString();
+			end_IL_0028:;
 		}
 		finally
 		{
-			if (md != null)
+			if (mD != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						((IDisposable)mD).Dispose();
+						goto end_IL_010a;
 					}
-					break;
 				}
-				((IDisposable)md).Dispose();
 			}
+			end_IL_010a:;
 		}
-		return this.m_md5Sum;
+		return m_md5Sum;
 	}
 
 	public void AddMD5Sum(MD5 md5, string value)
@@ -187,10 +194,10 @@ public class WebSocketMessageFactory
 
 	private void AddMD5Sum(MD5 md5, Type type, HashSet<Type> hashedTypes)
 	{
-		this.AddMD5Sum(md5, type.Name);
+		AddMD5Sum(md5, type.Name);
 		if (type.IsGenericType)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -199,74 +206,78 @@ public class WebSocketMessageFactory
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageFactory.AddMD5Sum(MD5, Type, HashSet<Type>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			foreach (Type type2 in type.GetGenericArguments())
+			Type[] genericArguments = type.GetGenericArguments();
+			foreach (Type type2 in genericArguments)
 			{
-				this.AddMD5Sum(md5, type2, hashedTypes);
+				AddMD5Sum(md5, type2, hashedTypes);
 			}
 		}
-		if (!hashedTypes.Contains(type))
+		if (hashedTypes.Contains(type))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			hashedTypes.Add(type);
-			if (!this.IsCustomSerialized(type))
+			if (!IsCustomSerialized(type))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				IEnumerator<FieldInfo> enumerator = WebSocketMessageFactory.GetFieldInfos(type).GetEnumerator();
-				try
-				{
-					while (enumerator.MoveNext())
+					IEnumerator<FieldInfo> enumerator = GetFieldInfos(type).GetEnumerator();
+					try
 					{
-						FieldInfo fieldInfo = enumerator.Current;
-						this.AddMD5Sum(md5, fieldInfo.Name);
-						this.AddMD5Sum(md5, fieldInfo.FieldType, hashedTypes);
-					}
-					for (;;)
-					{
-						switch (4)
+						while (enumerator.MoveNext())
 						{
-						case 0:
-							continue;
+							FieldInfo current = enumerator.Current;
+							AddMD5Sum(md5, current.Name);
+							AddMD5Sum(md5, current.FieldType, hashedTypes);
 						}
-						break;
-					}
-				}
-				finally
-				{
-					if (enumerator != null)
-					{
-						for (;;)
+						while (true)
 						{
-							switch (6)
+							switch (4)
 							{
+							default:
+								return;
 							case 0:
-								continue;
+								break;
 							}
-							break;
 						}
-						enumerator.Dispose();
+					}
+					finally
+					{
+						if (enumerator != null)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									break;
+								default:
+									enumerator.Dispose();
+									goto end_IL_00d2;
+								}
+							}
+						}
+						end_IL_00d2:;
 					}
 				}
 			}
+			return;
 		}
 	}
 
@@ -274,24 +285,23 @@ public class WebSocketMessageFactory
 	{
 		if (type == typeof(DateTime))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return true;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageFactory.IsCustomSerialized(Type)).MethodHandle;
-			}
-			return true;
 		}
 		if (type.IsGenericType)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -302,7 +312,7 @@ public class WebSocketMessageFactory
 			}
 			if (type.GetGenericTypeDefinition() != typeof(Dictionary<, >) && type.GetGenericTypeDefinition() != typeof(List<>))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -313,20 +323,22 @@ public class WebSocketMessageFactory
 				}
 				if (type.GetGenericTypeDefinition() != typeof(HashSet<>) && type.GetGenericTypeDefinition() != typeof(Nullable<>))
 				{
-					return false;
+					goto IL_0096;
 				}
 			}
 			return true;
 		}
+		goto IL_0096;
+		IL_0096:
 		return false;
 	}
 
 	private static IEnumerable<FieldInfo> GetFieldInfos(Type type)
 	{
-		IEnumerable<FieldInfo> fields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-		if (WebSocketMessageFactory.<>f__am$cache1 == null)
+		FieldInfo[] fields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -335,16 +347,16 @@ public class WebSocketMessageFactory
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageFactory.GetFieldInfos(Type)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			WebSocketMessageFactory.<>f__am$cache1 = ((FieldInfo fi) => (fi.Attributes & FieldAttributes.NotSerialized) == FieldAttributes.PrivateScope);
+			_003C_003Ef__am_0024cache1 = ((FieldInfo fi) => (fi.Attributes & FieldAttributes.NotSerialized) == 0);
 		}
-		IEnumerable<FieldInfo> source = fields.Where(WebSocketMessageFactory.<>f__am$cache1);
-		if (WebSocketMessageFactory.<>f__am$cache2 == null)
+		IEnumerable<FieldInfo> source = fields.Where(_003C_003Ef__am_0024cache1);
+		if (_003C_003Ef__am_0024cache2 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -353,23 +365,23 @@ public class WebSocketMessageFactory
 				}
 				break;
 			}
-			WebSocketMessageFactory.<>f__am$cache2 = ((FieldInfo f) => f.Name);
+			_003C_003Ef__am_0024cache2 = ((FieldInfo f) => f.Name);
 		}
-		IOrderedEnumerable<FieldInfo> orderedEnumerable = source.OrderBy(WebSocketMessageFactory.<>f__am$cache2, StringComparer.Ordinal);
+		IOrderedEnumerable<FieldInfo> orderedEnumerable = source.OrderBy(_003C_003Ef__am_0024cache2, StringComparer.Ordinal);
 		if (type.BaseType == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return orderedEnumerable;
 				}
-				break;
 			}
-			return orderedEnumerable;
 		}
-		IEnumerable<FieldInfo> fieldInfos = WebSocketMessageFactory.GetFieldInfos(type.BaseType);
+		IEnumerable<FieldInfo> fieldInfos = GetFieldInfos(type.BaseType);
 		return fieldInfos.Concat(orderedEnumerable);
 	}
 
@@ -378,19 +390,17 @@ public class WebSocketMessageFactory
 		string name = message.GetType().Name;
 		StringWriter stringWriter = new StringWriter();
 		stringWriter.WriteLine(name);
-		string result;
 		try
 		{
 			JsonSerializer jsonSerializer = DefaultJsonSerializer.Get();
 			jsonSerializer.Serialize(stringWriter, message);
-			result = stringWriter.ToString();
+			return stringWriter.ToString();
 		}
 		catch (Exception arg)
 		{
-			Log.Exception(string.Format("Failed to serialize message type {0} : {1}", message.GetType().Name, arg), new object[0]);
+			Log.Exception($"Failed to serialize message type {message.GetType().Name} : {arg}");
 			throw;
 		}
-		return result;
 	}
 
 	public WebSocketMessage DeserializeFromText(string text)
@@ -399,59 +409,57 @@ public class WebSocketMessageFactory
 		stopwatch.Start();
 		StringReader stringReader = new StringReader(text);
 		string text2 = stringReader.ReadLine();
-		Type messageType = this.GetMessageType(text2);
+		Type messageType = GetMessageType(text2);
 		if (messageType == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageFactory.DeserializeFromText(string)).MethodHandle;
-			}
-			if (!text2.IsNullOrEmpty())
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (text2.IndexOfAny(new char[]
-				{
-					'{',
-					' ',
-					'}'
-				}) < 0)
-				{
-					throw new Exception(string.Format("Message type {0} not found", text2));
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (!text2.IsNullOrEmpty())
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (text2.IndexOfAny(new char[3]
+						{
+							'{',
+							' ',
+							'}'
+						}) < 0)
+						{
+							throw new Exception($"Message type {text2} not found");
+						}
+					}
+					throw new Exception($"Message type not parsed");
 				}
 			}
-			throw new Exception(string.Format("Message type not parsed", new object[0]));
 		}
-		WebSocketMessage result;
 		try
 		{
 			WebSocketMessage webSocketMessage = (WebSocketMessage)DefaultJsonSerializer.Get().Deserialize(new JsonTextReader(stringReader), messageType);
 			webSocketMessage.DeserializationTicks = stopwatch.ElapsedTicks;
-			webSocketMessage.SerializedLength = (long)text.Length;
-			result = webSocketMessage;
+			webSocketMessage.SerializedLength = text.Length;
+			return webSocketMessage;
 		}
 		catch (Exception arg)
 		{
-			Log.Exception(string.Format("Failed to deserialize message type {0} : {1} \n{2}", messageType.Name, arg, text), new object[0]);
+			Log.Exception($"Failed to deserialize message type {messageType.Name} : {arg} \n{text}");
 			throw;
 		}
-		return result;
 	}
 
 	public WebSocketMessage DeserializeFromText(string messageTypeName, string text)
@@ -459,80 +467,74 @@ public class WebSocketMessageFactory
 		Stopwatch stopwatch = new Stopwatch();
 		stopwatch.Start();
 		StringReader reader = new StringReader(text);
-		Type messageType = this.GetMessageType(messageTypeName);
+		Type messageType = GetMessageType(messageTypeName);
 		if (messageType == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					throw new Exception($"Message type {messageTypeName} not found");
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageFactory.DeserializeFromText(string, string)).MethodHandle;
-			}
-			throw new Exception(string.Format("Message type {0} not found", messageTypeName));
 		}
-		WebSocketMessage result;
 		try
 		{
 			WebSocketMessage webSocketMessage = (WebSocketMessage)DefaultJsonSerializer.Get().Deserialize(new JsonTextReader(reader), messageType);
 			webSocketMessage.DeserializationTicks = stopwatch.ElapsedTicks;
-			webSocketMessage.SerializedLength = (long)text.Length;
-			result = webSocketMessage;
+			webSocketMessage.SerializedLength = text.Length;
+			return webSocketMessage;
 		}
 		catch (Exception arg)
 		{
-			Log.Exception(string.Format("Failed to deserialize message type {0} : {1} \n{2}", messageType.Name, arg, text), new object[0]);
+			Log.Exception($"Failed to deserialize message type {messageType.Name} : {arg} \n{text}");
 			throw;
 		}
-		return result;
 	}
 
 	public byte[] SerializeToBytes(WebSocketMessage message)
 	{
-		byte[] result;
 		try
 		{
 			MemoryStream memoryStream = new MemoryStream();
-			this.BinarySerializer.Serialize(memoryStream, message);
-			result = memoryStream.ToArray();
+			BinarySerializer.Serialize(memoryStream, message);
+			return memoryStream.ToArray();
 		}
 		catch (Exception arg)
 		{
-			Log.Exception(string.Format("Failed to serialize message type {0} : {1}", message.GetType().Name, arg), new object[0]);
+			Log.Exception($"Failed to serialize message type {message.GetType().Name} : {arg}");
 			throw;
 		}
-		return result;
 	}
 
 	public WebSocketMessage DeserializeFromBytes(byte[] bytes)
 	{
 		Stopwatch stopwatch = new Stopwatch();
 		stopwatch.Start();
-		WebSocketMessage result;
 		try
 		{
 			MemoryStream stream = new MemoryStream(bytes);
-			WebSocketMessage webSocketMessage = (WebSocketMessage)this.BinarySerializer.Deserialize(stream);
+			WebSocketMessage webSocketMessage = (WebSocketMessage)BinarySerializer.Deserialize(stream);
 			webSocketMessage.DeserializationTicks = stopwatch.ElapsedTicks;
-			webSocketMessage.SerializedLength = (long)bytes.Length;
-			result = webSocketMessage;
+			webSocketMessage.SerializedLength = bytes.Length;
+			return webSocketMessage;
 		}
 		catch (Exception arg)
 		{
-			Log.Exception(string.Format("Failed to deserialize message: {0} \n{1}", arg, bytes.ToHexString()), new object[0]);
+			Log.Exception($"Failed to deserialize message: {arg} \n{bytes.ToHexString()}");
 			throw;
 		}
-		return result;
 	}
 
 	public Type GetMessageType(string name)
 	{
-		return this.m_typesByName.TryGetValue(name);
+		return m_typesByName.TryGetValue(name);
 	}
 }

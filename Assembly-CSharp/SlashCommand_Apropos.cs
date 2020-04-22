@@ -1,18 +1,18 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class SlashCommand_Apropos : SlashCommand
 {
-	public SlashCommand_Apropos() : base("/apropos", SlashCommandType.Everywhere)
+	public SlashCommand_Apropos()
+		: base("/apropos", SlashCommandType.Everywhere)
 	{
 	}
 
 	private void DumpCommand(string arguments, string command, List<string> aliases, bool bAvailableBecauseWereInFrontEnd, bool bAvailableBecauseWereInGame)
 	{
 		bool flag = arguments.IsNullOrEmpty() || command.Contains(arguments);
-		if (!flag && !aliases.IsNullOrEmpty<string>())
+		if (!flag && !aliases.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -21,42 +21,42 @@ public class SlashCommand_Apropos : SlashCommand
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_Apropos.DumpCommand(string, string, List<string>, bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			foreach (string text in aliases)
+			foreach (string alias in aliases)
 			{
-				if (text.Contains(arguments))
+				if (alias.Contains(arguments))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							flag = true;
+							goto end_IL_003c;
 						}
-						break;
 					}
-					flag = true;
-					break;
 				}
 			}
 		}
-		if (flag)
+		if (!flag)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			if (!bAvailableBecauseWereInFrontEnd)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -73,9 +73,9 @@ public class SlashCommand_Apropos : SlashCommand
 			TextConsole.Message message = default(TextConsole.Message);
 			message.MessageType = ConsoleMessageType.SystemMessage;
 			message.Text = command;
-			if (!aliases.IsNullOrEmpty<string>())
+			if (!aliases.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -88,10 +88,10 @@ public class SlashCommand_Apropos : SlashCommand
 				{
 					while (enumerator2.MoveNext())
 					{
-						string str = enumerator2.Current;
-						message.Text = message.Text + ", " + str;
+						string current2 = enumerator2.Current;
+						message.Text = message.Text + ", " + current2;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -102,37 +102,38 @@ public class SlashCommand_Apropos : SlashCommand
 					}
 				}
 			}
-			TextConsole.Get().Write(message, null);
+			TextConsole.Get().Write(message);
+			return;
 		}
 	}
 
 	public override void OnSlashCommand(string arguments)
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (clientGameManager != null)
+		if (!(clientGameManager != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_Apropos.OnSlashCommand(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool flag = GameFlowData.Get() == null;
 			using (List<SlashCommand>.Enumerator enumerator = SlashCommands.Get().m_slashCommands.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					SlashCommand slashCommand = enumerator.Current;
-					if (!slashCommand.PublicFacing)
+					SlashCommand current = enumerator.Current;
+					if (!current.PublicFacing)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -146,11 +147,11 @@ public class SlashCommand_Apropos : SlashCommand
 							continue;
 						}
 					}
-					bool bAvailableBecauseWereInFrontEnd = flag && slashCommand.AvailableInFrontEnd;
-					bool flag2;
+					bool bAvailableBecauseWereInFrontEnd = flag && current.AvailableInFrontEnd;
+					int num;
 					if (!flag)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -159,23 +160,24 @@ public class SlashCommand_Apropos : SlashCommand
 							}
 							break;
 						}
-						flag2 = slashCommand.AvailableInGame;
+						num = (current.AvailableInGame ? 1 : 0);
 					}
 					else
 					{
-						flag2 = false;
+						num = 0;
 					}
-					bool bAvailableBecauseWereInGame = flag2;
-					this.DumpCommand(arguments, slashCommand.Command, slashCommand.Aliases, bAvailableBecauseWereInFrontEnd, bAvailableBecauseWereInGame);
+					bool bAvailableBecauseWereInGame = (byte)num != 0;
+					DumpCommand(arguments, current.Command, current.Aliases, bAvailableBecauseWereInFrontEnd, bAvailableBecauseWereInGame);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}

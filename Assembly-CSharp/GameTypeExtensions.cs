@@ -1,12 +1,11 @@
-﻿using System;
-
 public static class GameTypeExtensions
 {
 	public static bool IsHumanVsHumanGame(this GameType gameType)
 	{
+		int result;
 		if (gameType != GameType.PvP)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -15,13 +14,13 @@ public static class GameTypeExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameType.IsHumanVsHumanGame()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (gameType != GameType.Ranked)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -30,17 +29,22 @@ public static class GameTypeExtensions
 					}
 					break;
 				}
-				return gameType == GameType.NewPlayerPvP;
+				result = ((gameType == GameType.NewPlayerPvP) ? 1 : 0);
+				goto IL_002e;
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_002e;
+		IL_002e:
+		return (byte)result != 0;
 	}
 
 	public static bool IsQueueable(this GameType gameType)
 	{
+		int result;
 		if (gameType != GameType.Coop)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -49,13 +53,13 @@ public static class GameTypeExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameType.IsQueueable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (gameType != GameType.PvP)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -66,7 +70,7 @@ public static class GameTypeExtensions
 				}
 				if (gameType != GameType.Ranked)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -75,19 +79,23 @@ public static class GameTypeExtensions
 						}
 						break;
 					}
-					return gameType == GameType.NewPlayerPvP;
+					result = ((gameType == GameType.NewPlayerPvP) ? 1 : 0);
+					goto IL_003c;
 				}
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_003c;
+		IL_003c:
+		return (byte)result != 0;
 	}
 
 	public static bool IsAutoLaunchable(this GameType gameType)
 	{
-		bool result;
-		if (gameType != GameType.Custom && gameType != GameType.Practice)
+		int result;
+		if (gameType != 0 && gameType != GameType.Practice)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -96,24 +104,25 @@ public static class GameTypeExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameType.IsAutoLaunchable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (gameType == GameType.Tutorial);
+			result = ((gameType == GameType.Tutorial) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public static bool TracksElo(this GameType gameType)
 	{
+		int result;
 		if (gameType != GameType.PvP)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -122,13 +131,13 @@ public static class GameTypeExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameType.TracksElo()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (gameType != GameType.Ranked)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -137,17 +146,22 @@ public static class GameTypeExtensions
 					}
 					break;
 				}
-				return gameType == GameType.NewPlayerPvP;
+				result = ((gameType == GameType.NewPlayerPvP) ? 1 : 0);
+				goto IL_002e;
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_002e;
+		IL_002e:
+		return (byte)result != 0;
 	}
 
 	public static bool AllowsLockedCharacters(this GameType gameType)
 	{
+		int result;
 		if (gameType != GameType.Practice)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -156,13 +170,13 @@ public static class GameTypeExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameType.AllowsLockedCharacters()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (gameType != GameType.Tutorial)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -171,17 +185,22 @@ public static class GameTypeExtensions
 					}
 					break;
 				}
-				return gameType == GameType.NewPlayerSolo;
+				result = ((gameType == GameType.NewPlayerSolo) ? 1 : 0);
+				goto IL_002d;
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_002d;
+		IL_002d:
+		return (byte)result != 0;
 	}
 
 	public static bool AllowsReconnect(this GameType gameType)
 	{
+		int result;
 		if (gameType != GameType.Coop)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -190,13 +209,13 @@ public static class GameTypeExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameType.AllowsReconnect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (gameType != GameType.PvP)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -207,7 +226,7 @@ public static class GameTypeExtensions
 				}
 				if (gameType != GameType.Ranked)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -218,7 +237,7 @@ public static class GameTypeExtensions
 					}
 					if (gameType != GameType.NewPlayerPvP)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -227,12 +246,16 @@ public static class GameTypeExtensions
 							}
 							break;
 						}
-						return gameType == GameType.Custom;
+						result = ((gameType == GameType.Custom) ? 1 : 0);
+						goto IL_004a;
 					}
 				}
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_004a;
+		IL_004a:
+		return (byte)result != 0;
 	}
 
 	public static string GetDisplayName(this GameType gameType)
@@ -250,17 +273,18 @@ public static class GameTypeExtensions
 		case GameType.PvP:
 		case GameType.NewPlayerPvP:
 			return StringUtil.TR("PVP", "Global");
+		case GameType.Duel:
+			return StringUtil.TR("Duel", "Global");
 		case GameType.Solo:
 		case GameType.PvE:
 		case GameType.NewPlayerSolo:
 			return StringUtil.TR("PvE", "Global");
-		case GameType.Duel:
-			return StringUtil.TR("Duel", "Global");
 		case GameType.QuickPlay:
 			return StringUtil.TR("QuickPlay", "Global");
 		case GameType.Ranked:
 			return StringUtil.TR("Ranked", "Global");
+		default:
+			return gameType.ToString() + "#NotLocalized";
 		}
-		return gameType.ToString() + "#NotLocalized";
 	}
 }

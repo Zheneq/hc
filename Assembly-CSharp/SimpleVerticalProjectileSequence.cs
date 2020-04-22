@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class SimpleVerticalProjectileSequence : Sequence
@@ -24,7 +23,7 @@ public class SimpleVerticalProjectileSequence : Sequence
 
 	[AnimEventPicker]
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
 	[Tooltip("Spawn FX if Caster is Dead on Start")]
 	public bool m_spawnFxOnStartIfCasterIsDead;
@@ -52,12 +51,12 @@ public class SimpleVerticalProjectileSequence : Sequence
 
 	public override void FinishSetup()
 	{
-		this.m_impactDurationLeft = 0f;
-		this.m_fxJoint.Initialize(base.Caster.gameObject);
-		this.m_impactDuration = Sequence.GetFXDuration(this.m_fxImpactPrefab);
-		if (!(this.m_startEvent == null))
+		m_impactDurationLeft = 0f;
+		m_fxJoint.Initialize(base.Caster.gameObject);
+		m_impactDuration = Sequence.GetFXDuration(m_fxImpactPrefab);
+		if (!(m_startEvent == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -66,15 +65,15 @@ public class SimpleVerticalProjectileSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVerticalProjectileSequence.FinishSetup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_spawnFxOnStartIfCasterIsDead)
+			if (!m_spawnFxOnStartIfCasterIsDead)
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -87,7 +86,7 @@ public class SimpleVerticalProjectileSequence : Sequence
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -96,11 +95,11 @@ public class SimpleVerticalProjectileSequence : Sequence
 				}
 				break;
 			}
-			if (!base.Caster.\u000E())
+			if (!base.Caster.IsDead())
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -110,257 +109,67 @@ public class SimpleVerticalProjectileSequence : Sequence
 				break;
 			}
 		}
-		this.SpawnFX();
+		SpawnFX();
 	}
 
 	private void Update()
 	{
-		base.ProcessSequenceVisibility();
-		if (this.m_initialized)
+		ProcessSequenceVisibility();
+		if (!m_initialized)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVerticalProjectileSequence.Update()).MethodHandle;
-			}
-			if (this.m_fx != null)
-			{
-				if (this.m_fx.activeSelf)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Vector3 vector = this.m_fx.transform.position + this.m_travelDir * this.m_projectileSpeed * GameTime.deltaTime;
-					Vector3 lhs = this.m_endPos - vector;
-					Vector3 rhs = this.m_startPos - vector;
-					if (Vector3.Dot(lhs, rhs) > 0f)
-					{
-						this.m_fx.SetActive(false);
-						if (this.m_fxImpactPrefab != null)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.SpawnImpactFX(this.m_endPos);
-						}
-						else
-						{
-							base.Source.OnSequenceHit(this, base.TargetPos, null);
-							if (base.Targets != null)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								foreach (ActorData target in base.Targets)
-								{
-									base.Source.OnSequenceHit(this, target, Sequence.CreateImpulseInfoWithObjectPose(this.m_fx), ActorModelData.RagdollActivation.HealthBased, true);
-								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-							base.MarkForRemoval();
-						}
-					}
-					else
-					{
-						this.m_fx.transform.position = vector;
-					}
-				}
-				if (this.m_fxImpact != null && this.m_fxImpact.activeSelf)
-				{
-					if (this.m_impactDurationLeft > 0f)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_impactDurationLeft -= GameTime.deltaTime;
-					}
-					if (this.m_impactDurationLeft <= 0f)
-					{
-						base.MarkForRemoval();
-					}
-				}
-			}
+			return;
 		}
-	}
-
-	private void OnDisable()
-	{
-		if (this.m_fx != null)
+		while (true)
 		{
-			for (;;)
+			switch (6)
 			{
-				switch (6)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(m_fx != null))
+			{
+				return;
+			}
+			if (m_fx.activeSelf)
+			{
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVerticalProjectileSequence.OnDisable()).MethodHandle;
-			}
-			UnityEngine.Object.Destroy(this.m_fx);
-			this.m_fx = null;
-		}
-		if (this.m_fxImpact != null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UnityEngine.Object.Destroy(this.m_fxImpact);
-			this.m_fxImpact = null;
-		}
-		this.m_initialized = false;
-	}
-
-	private void SpawnImpactFX(Vector3 impactPos)
-	{
-		if (this.m_fxImpactPrefab)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVerticalProjectileSequence.SpawnImpactFX(Vector3)).MethodHandle;
-			}
-			this.m_fxImpact = base.InstantiateFX(this.m_fxImpactPrefab, impactPos, Quaternion.identity, true, true);
-			this.m_impactDurationLeft = this.m_impactDuration;
-		}
-		if (!string.IsNullOrEmpty(this.m_impactAudioEvent))
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			AudioManager.PostEvent(this.m_impactAudioEvent, this.m_fx.gameObject);
-		}
-		base.CallHitSequenceOnTargets(impactPos, 1f, null, true);
-		CameraManager.Get().PlayCameraShake(CameraManager.CameraShakeIntensity.Large);
-	}
-
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
-	{
-		if (this.m_startEvent == parameter)
-		{
-			this.SpawnFX();
-		}
-	}
-
-	private void SpawnFX()
-	{
-		if (this.m_fx == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVerticalProjectileSequence.SpawnFX()).MethodHandle;
-			}
-			if (this.m_fxPrefab != null)
-			{
-				for (;;)
-				{
-					switch (5)
+					switch (4)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				Quaternion rotation = default(Quaternion);
-				if (this.m_travelingUp)
+				Vector3 vector = m_fx.transform.position + m_travelDir * m_projectileSpeed * GameTime.deltaTime;
+				Vector3 lhs = m_endPos - vector;
+				Vector3 rhs = m_startPos - vector;
+				if (Vector3.Dot(lhs, rhs) > 0f)
 				{
-					for (;;)
+					m_fx.SetActive(false);
+					if (m_fxImpactPrefab != null)
 					{
-						switch (3)
+						while (true)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_startPos = this.m_fxJoint.m_jointObject.transform.position;
-					this.m_travelDir = Vector3.up;
-					if (this.m_useJointDirectionForProjectile)
-					{
-						for (;;)
-						{
-							switch (1)
+							switch (2)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						if (!base.Caster.\u000E())
+						SpawnImpactFX(m_endPos);
+					}
+					else
+					{
+						base.Source.OnSequenceHit(this, base.TargetPos);
+						if (base.Targets != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -369,25 +178,219 @@ public class SimpleVerticalProjectileSequence : Sequence
 								}
 								break;
 							}
-							this.m_travelDir = this.m_fxJoint.m_jointObject.transform.forward;
+							ActorData[] targets = base.Targets;
+							foreach (ActorData target in targets)
+							{
+								base.Source.OnSequenceHit(this, target, Sequence.CreateImpulseInfoWithObjectPose(m_fx));
+							}
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
 						}
+						MarkForRemoval();
 					}
-					rotation.SetLookRotation(this.m_travelDir);
-					this.m_endPos = this.m_travelDir * this.m_heightOffset;
-					Debug.DrawRay(this.m_startPos, 10f * this.m_travelDir, Color.green, 10f);
 				}
 				else
 				{
-					this.m_startPos = base.TargetPos;
-					this.m_startPos.y = this.m_startPos.y + this.m_heightOffset;
-					this.m_endPos = base.TargetPos;
-					this.m_travelDir = -1f * Vector3.up;
-					rotation.SetLookRotation(this.m_travelDir);
+					m_fx.transform.position = vector;
 				}
-				this.m_fx = base.InstantiateFX(this.m_fxPrefab, this.m_startPos, rotation, true, true);
-				if (this.m_fx != null)
+			}
+			if (!(m_fxImpact != null) || !m_fxImpact.activeSelf)
+			{
+				return;
+			}
+			if (m_impactDurationLeft > 0f)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_impactDurationLeft -= GameTime.deltaTime;
+			}
+			if (m_impactDurationLeft <= 0f)
+			{
+				MarkForRemoval();
+			}
+			return;
+		}
+	}
+
+	private void OnDisable()
+	{
+		if (m_fx != null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			Object.Destroy(m_fx);
+			m_fx = null;
+		}
+		if (m_fxImpact != null)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			Object.Destroy(m_fxImpact);
+			m_fxImpact = null;
+		}
+		m_initialized = false;
+	}
+
+	private void SpawnImpactFX(Vector3 impactPos)
+	{
+		if ((bool)m_fxImpactPrefab)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_fxImpact = InstantiateFX(m_fxImpactPrefab, impactPos, Quaternion.identity);
+			m_impactDurationLeft = m_impactDuration;
+		}
+		if (!string.IsNullOrEmpty(m_impactAudioEvent))
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			AudioManager.PostEvent(m_impactAudioEvent, m_fx.gameObject);
+		}
+		CallHitSequenceOnTargets(impactPos);
+		CameraManager.Get().PlayCameraShake(CameraManager.CameraShakeIntensity.Large);
+	}
+
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
+	{
+		if (m_startEvent == parameter)
+		{
+			SpawnFX();
+		}
+	}
+
+	private void SpawnFX()
+	{
+		if (!(m_fx == null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(m_fxPrefab != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				Quaternion rotation = default(Quaternion);
+				if (m_travelingUp)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_startPos = m_fxJoint.m_jointObject.transform.position;
+					m_travelDir = Vector3.up;
+					if (m_useJointDirectionForProjectile)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!base.Caster.IsDead())
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							m_travelDir = m_fxJoint.m_jointObject.transform.forward;
+						}
+					}
+					rotation.SetLookRotation(m_travelDir);
+					m_endPos = m_travelDir * m_heightOffset;
+					Debug.DrawRay(m_startPos, 10f * m_travelDir, Color.green, 10f);
+				}
+				else
+				{
+					m_startPos = base.TargetPos;
+					m_startPos.y += m_heightOffset;
+					m_endPos = base.TargetPos;
+					m_travelDir = -1f * Vector3.up;
+					rotation.SetLookRotation(m_travelDir);
+				}
+				m_fx = InstantiateFX(m_fxPrefab, m_startPos, rotation);
+				if (m_fx != null)
+				{
+					while (true)
 					{
 						switch (6)
 						{
@@ -396,25 +399,26 @@ public class SimpleVerticalProjectileSequence : Sequence
 						}
 						break;
 					}
-					FriendlyEnemyVFXSelector component = this.m_fx.GetComponent<FriendlyEnemyVFXSelector>();
+					FriendlyEnemyVFXSelector component = m_fx.GetComponent<FriendlyEnemyVFXSelector>();
 					if (component != null)
 					{
-						component.Setup(base.Caster.\u000E());
+						component.Setup(base.Caster.GetTeam());
 					}
 				}
-				if (!string.IsNullOrEmpty(this.m_audioEvent))
+				if (!string.IsNullOrEmpty(m_audioEvent))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
+						return;
 					}
-					AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
 				}
+				return;
 			}
 		}
 	}

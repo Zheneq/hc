@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public static class LogicStatement
@@ -7,34 +7,34 @@ public static class LogicStatement
 
 	public static LogicOpClass EvaluateLogicStatement(string logicStatement)
 	{
-		if (LogicStatement.s_logicStatementCache.ContainsKey(logicStatement))
+		if (s_logicStatementCache.ContainsKey(logicStatement))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return s_logicStatementCache[logicStatement];
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LogicStatement.EvaluateLogicStatement(string)).MethodHandle;
-			}
-			return LogicStatement.s_logicStatementCache[logicStatement];
 		}
 		int i = 0;
 		string text = logicStatement.Trim();
 		char[] array = text.ToCharArray();
 		LogicOpClass logicOpClass = null;
 		bool flag = false;
-		while (i < array.Length)
+		for (; i < array.Length; i++)
 		{
 			char c = array[i];
 			if (c == '!')
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -47,7 +47,7 @@ public static class LogicStatement
 			}
 			else if (c == '(')
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -61,7 +61,7 @@ public static class LogicStatement
 				int num3 = 0;
 				while (num == -1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -70,19 +70,7 @@ public static class LogicStatement
 						}
 						break;
 					}
-					if (num2 >= text.Length)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_E4;
-						}
-					}
-					else
+					if (num2 < text.Length)
 					{
 						if (array[num2] == ')')
 						{
@@ -97,7 +85,7 @@ public static class LogicStatement
 						}
 						else if (array[num2] == '(')
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -109,28 +97,38 @@ public static class LogicStatement
 							num3++;
 						}
 						num2++;
+						continue;
 					}
-				}
-				IL_E4:
-				if (num == -1)
-				{
-					for (;;)
+					while (true)
 					{
-						switch (2)
+						switch (7)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					Log.Warning("Error, part of the logic statement (invalid parens) passed to quest evaluation was bad.  Returning false!", new object[0]);
-					return new ConstantLogicOpClass();
+					break;
+				}
+				if (num == -1)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							break;
+						default:
+							Log.Warning("Error, part of the logic statement (invalid parens) passed to quest evaluation was bad.  Returning false!");
+							return new ConstantLogicOpClass();
+						}
+					}
 				}
 				string logicStatement2 = text.Substring(i + 1, num - (i + 1));
-				LogicOpClass logicOpClass2 = LogicStatement.EvaluateLogicStatement(logicStatement2);
+				LogicOpClass logicOpClass2 = EvaluateLogicStatement(logicStatement2);
 				if (flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -139,10 +137,9 @@ public static class LogicStatement
 						}
 						break;
 					}
-					logicOpClass = new NegateLogicOpClass
-					{
-						m_target = logicOpClass2
-					};
+					NegateLogicOpClass negateLogicOpClass = new NegateLogicOpClass();
+					negateLogicOpClass.m_target = logicOpClass2;
+					logicOpClass = negateLogicOpClass;
 				}
 				else
 				{
@@ -155,7 +152,7 @@ public static class LogicStatement
 				OrLogicOpClass orLogicOpClass = new OrLogicOpClass();
 				orLogicOpClass.m_left = logicOpClass;
 				string logicStatement3 = text.Substring(i + 1);
-				orLogicOpClass.m_right = LogicStatement.EvaluateLogicStatement(logicStatement3);
+				orLogicOpClass.m_right = EvaluateLogicStatement(logicStatement3);
 				i = text.Length;
 				logicOpClass = orLogicOpClass;
 			}
@@ -164,13 +161,17 @@ public static class LogicStatement
 				AndLogicOpClass andLogicOpClass = new AndLogicOpClass();
 				andLogicOpClass.m_left = logicOpClass;
 				string logicStatement4 = text.Substring(i + 1);
-				andLogicOpClass.m_right = LogicStatement.EvaluateLogicStatement(logicStatement4);
+				andLogicOpClass.m_right = EvaluateLogicStatement(logicStatement4);
 				i = text.Length;
 				logicOpClass = andLogicOpClass;
 			}
-			else if (c >= 'A')
+			else
 			{
-				for (;;)
+				if (c < 'A')
+				{
+					continue;
+				}
+				while (true)
 				{
 					switch (3)
 					{
@@ -181,7 +182,7 @@ public static class LogicStatement
 				}
 				if (c <= 'Z')
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -191,14 +192,12 @@ public static class LogicStatement
 						break;
 					}
 					ConstantLogicOpClass constantLogicOpClass = new ConstantLogicOpClass();
-					int myIndex = (int)(c - 'A');
-					constantLogicOpClass.myIndex = myIndex;
+					int num4 = constantLogicOpClass.myIndex = c - 65;
 					if (flag)
 					{
-						logicOpClass = new NegateLogicOpClass
-						{
-							m_target = constantLogicOpClass
-						};
+						NegateLogicOpClass negateLogicOpClass2 = new NegateLogicOpClass();
+						negateLogicOpClass2.m_target = constantLogicOpClass;
+						logicOpClass = negateLogicOpClass2;
 					}
 					else
 					{
@@ -206,11 +205,10 @@ public static class LogicStatement
 					}
 				}
 			}
-			i++;
 		}
 		if (logicOpClass == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -219,22 +217,19 @@ public static class LogicStatement
 				}
 				break;
 			}
-			Log.Warning("Error, part of the logic statement {0} passed to quest evaluation was bad.  Returning false!", new object[]
-			{
-				logicStatement
-			});
+			Log.Warning("Error, part of the logic statement {0} passed to quest evaluation was bad.  Returning false!", logicStatement);
 			logicOpClass = new ConstantLogicOpClass();
 		}
-		LogicStatement.s_logicStatementCache[logicStatement] = logicOpClass;
+		s_logicStatementCache[logicStatement] = logicOpClass;
 		return logicOpClass;
 	}
 
 	public static DateTime ToDateTime(this QuestCondition dateTimeCondition)
 	{
 		List<int> typeSpecificDate = dateTimeCondition.typeSpecificDate;
-		if (!typeSpecificDate.IsNullOrEmpty<int>())
+		if (!typeSpecificDate.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -243,15 +238,15 @@ public static class LogicStatement
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestCondition.ToDateTime()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (typeSpecificDate.Count >= 6)
 			{
 				return new DateTime(typeSpecificDate[0], typeSpecificDate[1], typeSpecificDate[2], typeSpecificDate[3], typeSpecificDate[4], typeSpecificDate[5]);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -270,7 +265,7 @@ public static class LogicStatement
 		string text = prereqs.LogicStatement;
 		if (text.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -279,24 +274,17 @@ public static class LogicStatement
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestPrerequisites.GetTimeRange()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			int num = 0x41;
+			int num = 65;
 			for (int i = 0; i < prereqs.Conditions.Count; i++)
 			{
-				if (text.IsNullOrEmpty())
-				{
-					text = Convert.ToChar(num).ToString();
-				}
-				else
-				{
-					text = text + " & " + Convert.ToChar(num);
-				}
+				text = ((!text.IsNullOrEmpty()) ? (text + " & " + Convert.ToChar(num)) : Convert.ToChar(num).ToString());
 				num++;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -306,14 +294,14 @@ public static class LogicStatement
 				break;
 			}
 		}
-		queue.Enqueue(LogicStatement.EvaluateLogicStatement(text));
+		queue.Enqueue(EvaluateLogicStatement(text));
 		TimeRange timeRange = new TimeRange();
 		while (queue.Count > 0)
 		{
 			LogicOpClass logicOpClass = queue.Dequeue();
 			if (logicOpClass is ConstantLogicOpClass)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -323,35 +311,37 @@ public static class LogicStatement
 					break;
 				}
 				int myIndex = ((ConstantLogicOpClass)logicOpClass).myIndex;
-				if (myIndex < prereqs.Conditions.Count)
+				if (myIndex >= prereqs.Conditions.Count)
 				{
-					for (;;)
+					continue;
+				}
+				while (true)
+				{
+					switch (2)
 					{
-						switch (2)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (prereqs.Conditions[myIndex].ConditionType == QuestConditionType.HasDateTimePassed)
+				{
+					while (true)
+					{
+						switch (3)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (prereqs.Conditions[myIndex].ConditionType == QuestConditionType.HasDateTimePassed)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						timeRange.StartTime = new DateTime?(prereqs.Conditions[myIndex].ToDateTime());
-					}
+					timeRange.StartTime = prereqs.Conditions[myIndex].ToDateTime();
 				}
+				continue;
 			}
-			else if (logicOpClass is AndLogicOpClass)
+			if (logicOpClass is AndLogicOpClass)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -363,16 +353,18 @@ public static class LogicStatement
 				AndLogicOpClass andLogicOpClass = (AndLogicOpClass)logicOpClass;
 				queue.Enqueue(andLogicOpClass.m_left);
 				queue.Enqueue(andLogicOpClass.m_right);
+				continue;
 			}
-			else if (logicOpClass is OrLogicOpClass)
+			if (logicOpClass is OrLogicOpClass)
 			{
 				OrLogicOpClass orLogicOpClass = (OrLogicOpClass)logicOpClass;
 				queue.Enqueue(orLogicOpClass.m_left);
 				queue.Enqueue(orLogicOpClass.m_right);
+				continue;
 			}
-			else if (!(logicOpClass is NegateLogicOpClass))
+			if (!(logicOpClass is NegateLogicOpClass))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -381,63 +373,28 @@ public static class LogicStatement
 					}
 					break;
 				}
+				continue;
 			}
-			else
+			NegateLogicOpClass negateLogicOpClass = (NegateLogicOpClass)logicOpClass;
+			if (negateLogicOpClass.m_target is ConstantLogicOpClass)
 			{
-				NegateLogicOpClass negateLogicOpClass = (NegateLogicOpClass)logicOpClass;
-				if (negateLogicOpClass.m_target is ConstantLogicOpClass)
+				int myIndex2 = ((ConstantLogicOpClass)negateLogicOpClass.m_target).myIndex;
+				if (myIndex2 >= prereqs.Conditions.Count)
 				{
-					int myIndex2 = ((ConstantLogicOpClass)negateLogicOpClass.m_target).myIndex;
-					if (myIndex2 < prereqs.Conditions.Count)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (prereqs.Conditions[myIndex2].ConditionType == QuestConditionType.HasDateTimePassed)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							timeRange.EndTime = new DateTime?(prereqs.Conditions[myIndex2].ToDateTime());
-						}
-					}
+					continue;
 				}
-				else if (negateLogicOpClass.m_target is AndLogicOpClass)
+				while (true)
 				{
-					for (;;)
+					switch (4)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					AndLogicOpClass andLogicOpClass2 = (AndLogicOpClass)negateLogicOpClass.m_target;
-					queue.Enqueue(new NegateLogicOpClass
-					{
-						m_target = andLogicOpClass2.m_left
-					});
-					queue.Enqueue(new NegateLogicOpClass
-					{
-						m_target = andLogicOpClass2.m_right
-					});
+					break;
 				}
-				else if (negateLogicOpClass.m_target is OrLogicOpClass)
+				if (prereqs.Conditions[myIndex2].ConditionType == QuestConditionType.HasDateTimePassed)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -446,32 +403,61 @@ public static class LogicStatement
 						}
 						break;
 					}
-					OrLogicOpClass orLogicOpClass2 = (OrLogicOpClass)negateLogicOpClass.m_target;
-					queue.Enqueue(new NegateLogicOpClass
-					{
-						m_target = orLogicOpClass2.m_left
-					});
-					queue.Enqueue(new NegateLogicOpClass
-					{
-						m_target = orLogicOpClass2.m_right
-					});
-				}
-				else if (negateLogicOpClass.m_target is NegateLogicOpClass)
-				{
-					negateLogicOpClass = (NegateLogicOpClass)negateLogicOpClass.m_target;
-					queue.Enqueue(negateLogicOpClass.m_target);
+					timeRange.EndTime = prereqs.Conditions[myIndex2].ToDateTime();
 				}
 			}
+			else if (negateLogicOpClass.m_target is AndLogicOpClass)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				AndLogicOpClass andLogicOpClass2 = (AndLogicOpClass)negateLogicOpClass.m_target;
+				negateLogicOpClass = new NegateLogicOpClass();
+				negateLogicOpClass.m_target = andLogicOpClass2.m_left;
+				queue.Enqueue(negateLogicOpClass);
+				negateLogicOpClass = new NegateLogicOpClass();
+				negateLogicOpClass.m_target = andLogicOpClass2.m_right;
+				queue.Enqueue(negateLogicOpClass);
+			}
+			else if (negateLogicOpClass.m_target is OrLogicOpClass)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				OrLogicOpClass orLogicOpClass2 = (OrLogicOpClass)negateLogicOpClass.m_target;
+				negateLogicOpClass = new NegateLogicOpClass();
+				negateLogicOpClass.m_target = orLogicOpClass2.m_left;
+				queue.Enqueue(negateLogicOpClass);
+				negateLogicOpClass = new NegateLogicOpClass();
+				negateLogicOpClass.m_target = orLogicOpClass2.m_right;
+				queue.Enqueue(negateLogicOpClass);
+			}
+			else if (negateLogicOpClass.m_target is NegateLogicOpClass)
+			{
+				negateLogicOpClass = (NegateLogicOpClass)negateLogicOpClass.m_target;
+				queue.Enqueue(negateLogicOpClass.m_target);
+			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return timeRange;
 		}
-		return timeRange;
 	}
 }

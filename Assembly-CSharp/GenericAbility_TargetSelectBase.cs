@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
@@ -32,14 +31,14 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 
 	private void Awake()
 	{
-		this.BaseInit();
-		this.m_owner = base.GetComponent<ActorData>();
+		BaseInit();
+		m_owner = GetComponent<ActorData>();
 	}
 
 	private void BaseInit()
 	{
-		this.m_contextCalcData = new ContextCalcData();
-		this.m_commonProperties = new ContextVars();
+		m_contextCalcData = new ContextCalcData();
+		m_commonProperties = new ContextVars();
 	}
 
 	public virtual void Initialize()
@@ -68,7 +67,7 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 
 	public string GetContextUsageStr(string contextName, string usage, bool actorSpecific = true)
 	{
-		return ContextVars.\u0015(contextName, usage, actorSpecific);
+		return ContextVars.GetDebugString(contextName, usage, actorSpecific);
 	}
 
 	public virtual void ListContextNamesForEditor(List<string> names)
@@ -84,7 +83,7 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 	{
 		if (targetData.Length > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -93,15 +92,15 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_TargetSelectBase.CanShowTargeterRangePreview(TargetData[])).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			TargetData targetData2 = targetData[0];
 			float num = Mathf.Max(0f, targetData2.m_range - 0.5f);
 			if (num > 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -112,7 +111,7 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 				}
 				if (num < 15f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -140,66 +139,65 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 	{
 		if (modBase != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_currentTargetSelectMod = modBase;
+					OnTargetSelModApplied(modBase);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_TargetSelectBase.SetTargetSelectMod(TargetSelectModBase)).MethodHandle;
-			}
-			this.m_currentTargetSelectMod = modBase;
-			this.OnTargetSelModApplied(modBase);
 		}
-		else
-		{
-			Log.Error("Trying to apply null for target select mod", new object[0]);
-		}
+		Log.Error("Trying to apply null for target select mod");
 	}
 
 	public void ClearTargetSelectMod()
 	{
-		if (this.m_currentTargetSelectMod != null)
+		if (m_currentTargetSelectMod == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_TargetSelectBase.ClearTargetSelectMod()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_currentTargetSelectMod = null;
-			this.OnTargetSelModRemoved();
+			m_currentTargetSelectMod = null;
+			OnTargetSelModRemoved();
+			return;
 		}
 	}
 
 	protected virtual void OnTargetSelModApplied(TargetSelectModBase modBase)
 	{
-		Log.Error("Please implement OnTargetSelModApplied in derived class " + base.GetType(), new object[0]);
+		Log.Error("Please implement OnTargetSelModApplied in derived class " + GetType());
 	}
 
 	protected virtual void OnTargetSelModRemoved()
 	{
-		Log.Error("Please implement OnTargetSelModRemoved in derived class " + base.GetType(), new object[0]);
+		Log.Error("Please implement OnTargetSelModRemoved in derived class " + GetType());
 	}
 
 	public bool IncludeEnemies()
 	{
 		bool result;
-		if (this.m_currentTargetSelectMod != null)
+		if (m_currentTargetSelectMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -208,15 +206,15 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_TargetSelectBase.IncludeEnemies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_currentTargetSelectMod.m_includeEnemiesMod.GetModifiedValue(this.m_includeEnemies);
+			result = m_currentTargetSelectMod.m_includeEnemiesMod.GetModifiedValue(m_includeEnemies);
 		}
 		else
 		{
-			result = this.m_includeEnemies;
+			result = m_includeEnemies;
 		}
 		return result;
 	}
@@ -224,9 +222,9 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 	public bool IncludeAllies()
 	{
 		bool result;
-		if (this.m_currentTargetSelectMod != null)
+		if (m_currentTargetSelectMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -235,30 +233,30 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_TargetSelectBase.IncludeAllies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_currentTargetSelectMod.m_includeAlliesMod.GetModifiedValue(this.m_includeAllies);
+			result = m_currentTargetSelectMod.m_includeAlliesMod.GetModifiedValue(m_includeAllies);
 		}
 		else
 		{
-			result = this.m_includeAllies;
+			result = m_includeAllies;
 		}
 		return result;
 	}
 
 	public bool IncludeCaster()
 	{
-		return (this.m_currentTargetSelectMod == null) ? this.m_includeCaster : this.m_currentTargetSelectMod.m_includeCasterMod.GetModifiedValue(this.m_includeCaster);
+		return (m_currentTargetSelectMod == null) ? m_includeCaster : m_currentTargetSelectMod.m_includeCasterMod.GetModifiedValue(m_includeCaster);
 	}
 
 	public bool IgnoreLos()
 	{
 		bool result;
-		if (this.m_currentTargetSelectMod != null)
+		if (m_currentTargetSelectMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -267,24 +265,24 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_TargetSelectBase.IgnoreLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_currentTargetSelectMod.m_ignoreLosMod.GetModifiedValue(this.m_ignoreLos);
+			result = m_currentTargetSelectMod.m_ignoreLosMod.GetModifiedValue(m_ignoreLos);
 		}
 		else
 		{
-			result = this.m_ignoreLos;
+			result = m_ignoreLos;
 		}
 		return result;
 	}
 
 	public TargetData[] GetTargetDataOverride()
 	{
-		if (this.m_currentTargetSelectMod != null)
+		if (m_currentTargetSelectMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -293,39 +291,39 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_TargetSelectBase.GetTargetDataOverride()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_currentTargetSelectMod.m_overrideTargetDataOnTargetSelect)
+			if (m_currentTargetSelectMod.m_overrideTargetDataOnTargetSelect)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_currentTargetSelectMod.m_targetDataOverride;
 					}
-					break;
 				}
-				return this.m_currentTargetSelectMod.m_targetDataOverride;
 			}
 		}
-		return this.m_targetDataOverride;
+		return m_targetDataOverride;
 	}
 
 	public bool GetPropFloat(int key, out float value)
 	{
-		return this.m_commonProperties.\u000E.TryGetValue(key, out value);
+		return m_commonProperties.FloatVars.TryGetValue(key, out value);
 	}
 
 	public bool GetPropInt(int key, out int value)
 	{
-		return this.m_commonProperties.\u001D.TryGetValue(key, out value);
+		return m_commonProperties.IntVars.TryGetValue(key, out value);
 	}
 
 	public bool GetPropVec3(int key, out Vector3 value)
 	{
-		return this.m_commonProperties.\u0012.TryGetValue(key, out value);
+		return m_commonProperties.VectorVars.TryGetValue(key, out value);
 	}
 }

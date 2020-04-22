@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -24,35 +23,34 @@ public class UIInventoryItemTooltip : UITooltipBase
 
 	public InventoryItemTemplate GetItemRef()
 	{
-		return this.m_itemRef;
+		return m_itemRef;
 	}
 
 	public void Setup(InventoryItemTemplate item)
 	{
-		this.m_itemRef = item;
+		m_itemRef = item;
 		if (item == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItemTooltip.Setup(InventoryItemTemplate)).MethodHandle;
-			}
-			return;
 		}
 		string text = InventoryWideData.TypeDisplayString(item);
-		this.m_titleText.text = item.GetDisplayName();
-		this.m_rarityText.text = item.Rarity.GetRarityString() + " " + text;
+		m_titleText.text = item.GetDisplayName();
+		m_rarityText.text = item.Rarity.GetRarityString() + " " + text;
 		if (item.Type != InventoryItemType.Experience)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -63,9 +61,9 @@ public class UIInventoryItemTooltip : UITooltipBase
 			}
 			if (item.Type != InventoryItemType.FreelancerExpBonus)
 			{
-				goto IL_8F;
+				goto IL_008f;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -75,12 +73,13 @@ public class UIInventoryItemTooltip : UITooltipBase
 				break;
 			}
 		}
-		this.m_rarityText.text = text;
-		IL_8F:
+		m_rarityText.text = text;
+		goto IL_008f;
+		IL_008f:
 		string colorHexString = item.Rarity.GetColorHexString();
 		if (!colorHexString.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -89,29 +88,15 @@ public class UIInventoryItemTooltip : UITooltipBase
 				}
 				break;
 			}
-			this.m_titleText.text = string.Concat(new string[]
-			{
-				"<color=",
-				colorHexString,
-				">",
-				this.m_titleText.text,
-				"</color>"
-			});
-			this.m_rarityText.text = string.Concat(new string[]
-			{
-				"<color=",
-				colorHexString,
-				">",
-				this.m_rarityText.text,
-				"</color>"
-			});
+			m_titleText.text = "<color=" + colorHexString + ">" + m_titleText.text + "</color>";
+			m_rarityText.text = "<color=" + colorHexString + ">" + m_rarityText.text + "</color>";
 		}
-		this.m_desciptionText.text = item.GetDescription();
-		UIManager.SetGameObjectActive(this.m_descriptionDivider, !item.GetDescription().IsNullOrEmpty(), null);
-		this.m_obtainedText.text = item.GetObtainDescription();
-		UIManager.SetGameObjectActive(this.m_obtainedDivider, !item.GetObtainDescription().IsNullOrEmpty(), null);
-		this.m_flavorText.text = "<i>" + item.GetFlavorText() + "</i>";
-		UIManager.SetGameObjectActive(this.m_flavorDivider, !item.GetFlavorText().IsNullOrEmpty(), null);
-		UIManager.SetGameObjectActive(this.m_flavorText, !item.GetFlavorText().IsNullOrEmpty(), null);
+		m_desciptionText.text = item.GetDescription();
+		UIManager.SetGameObjectActive(m_descriptionDivider, !item.GetDescription().IsNullOrEmpty());
+		m_obtainedText.text = item.GetObtainDescription();
+		UIManager.SetGameObjectActive(m_obtainedDivider, !item.GetObtainDescription().IsNullOrEmpty());
+		m_flavorText.text = "<i>" + item.GetFlavorText() + "</i>";
+		UIManager.SetGameObjectActive(m_flavorDivider, !item.GetFlavorText().IsNullOrEmpty());
+		UIManager.SetGameObjectActive(m_flavorText, !item.GetFlavorText().IsNullOrEmpty());
 	}
 }

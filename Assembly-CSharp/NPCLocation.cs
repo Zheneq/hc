@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class NPCLocation : MonoBehaviour
@@ -9,9 +8,9 @@ public class NPCLocation : MonoBehaviour
 	{
 		get
 		{
-			if (this.m_boardSquare == null)
+			if (m_boardSquare == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -20,13 +19,17 @@ public class NPCLocation : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NPCLocation.get_boardSquare()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_boardSquare = Board.\u000E().\u0012(base.transform.position.x, base.transform.position.z);
+				Board board = Board.Get();
+				Vector3 position = base.transform.position;
+				float x = position.x;
+				Vector3 position2 = base.transform.position;
+				m_boardSquare = board.GetBoardSquareSafe(x, position2.z);
 			}
-			return this.m_boardSquare;
+			return m_boardSquare;
 		}
 	}
 
@@ -34,20 +37,20 @@ public class NPCLocation : MonoBehaviour
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCLocation.OnDrawGizmos()).MethodHandle;
-			}
-			return;
 		}
 		Gizmos.DrawIcon(base.transform.position, "icon_NPC.png");
 	}

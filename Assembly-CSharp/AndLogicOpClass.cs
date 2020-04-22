@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class AndLogicOpClass : LogicOpClass
@@ -9,6 +8,6 @@ public class AndLogicOpClass : LogicOpClass
 
 	public override bool GetValue(List<bool> constantVals)
 	{
-		return this.m_left.GetValue(constantVals) && this.m_right.GetValue(constantVals);
+		return m_left.GetValue(constantVals) && m_right.GetValue(constantVals);
 	}
 }

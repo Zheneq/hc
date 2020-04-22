@@ -1,95 +1,97 @@
-﻿using System;
 using UnityEngine;
 
 public class StatusIndicatorVFX : AttachedActorVFXInfo
 {
 	private StatusType m_status;
 
-	public StatusIndicatorVFX(GameObject vfxInstance, ActorData actor, StatusType status, JointPopupProperty vfxJoint, bool alignToRootOrientation, string vfxParentObjectName) : base(vfxInstance, actor, vfxJoint, alignToRootOrientation, vfxParentObjectName, AttachedActorVFXInfo.FriendOrFoeVisibility.Both)
+	public StatusIndicatorVFX(GameObject vfxInstance, ActorData actor, StatusType status, JointPopupProperty vfxJoint, bool alignToRootOrientation, string vfxParentObjectName)
+		: base(vfxInstance, actor, vfxJoint, alignToRootOrientation, vfxParentObjectName, FriendOrFoeVisibility.Both)
 	{
-		this.m_status = status;
+		m_status = status;
 	}
 
 	public override void UpdateVisibility(bool actorVisible, bool sameTeamAsClientActor)
 	{
-		if (this.m_vfxInstance != null)
+		if (!(m_vfxInstance != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(m_attachParentObject != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StatusIndicatorVFX.UpdateVisibility(bool, bool)).MethodHandle;
-			}
-			if (this.m_attachParentObject != null)
-			{
-				for (;;)
+				if (!(m_actor != null))
 				{
-					switch (2)
+					return;
+				}
+				while (true)
+				{
+					switch (6)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (this.m_actor != null)
-				{
-					for (;;)
+					if (!(m_actor.GetActorStatus() != null))
 					{
-						switch (6)
+						return;
+					}
+					bool flag = actorVisible && m_actor.GetActorStatus().HasStatus(m_status, false);
+					if (m_vfxInstance.activeSelf != flag)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						m_vfxInstance.SetActive(flag);
+					}
+					if (!flag)
+					{
+						return;
+					}
+					while (true)
+					{
+						switch (4)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					if (this.m_actor.\u000E() != null)
-					{
-						bool flag = actorVisible && this.m_actor.\u000E().HasStatus(this.m_status, false);
-						if (this.m_vfxInstance.activeSelf != flag)
+						if (m_alignToRootOrientation)
 						{
-							for (;;)
+							while (true)
 							{
-								switch (6)
+								switch (7)
 								{
 								case 0:
 									continue;
 								}
-								break;
-							}
-							this.m_vfxInstance.SetActive(flag);
-						}
-						if (flag)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_alignToRootOrientation)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.m_vfxInstance.transform.rotation = this.m_actor.gameObject.transform.rotation;
+								m_vfxInstance.transform.rotation = m_actor.gameObject.transform.rotation;
+								return;
 							}
 						}
+						return;
 					}
 				}
 			}

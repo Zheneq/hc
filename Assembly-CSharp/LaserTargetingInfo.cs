@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,27 +21,27 @@ public class LaserTargetingInfo
 
 	public List<Team> GetAffectedTeams(ActorData caster)
 	{
-		if (this.affectsEnemies && this.affectsAllies)
+		if (affectsEnemies && affectsAllies)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LaserTargetingInfo.GetAffectedTeams(ActorData)).MethodHandle;
-			}
-			return null;
 		}
 		List<Team> list = new List<Team>();
-		if (this.affectsEnemies)
+		if (affectsEnemies)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -50,11 +50,11 @@ public class LaserTargetingInfo
 				}
 				break;
 			}
-			list.Add(caster.\u0012());
+			list.Add(caster.GetOpposingTeam());
 		}
-		if (this.affectsAllies)
+		if (affectsAllies)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -63,7 +63,7 @@ public class LaserTargetingInfo
 				}
 				break;
 			}
-			list.Add(caster.\u000E());
+			list.Add(caster.GetTeam());
 		}
 		return list;
 	}
@@ -73,7 +73,7 @@ public class LaserTargetingInfo
 		LaserTargetingInfo laserTargetingInfo = new LaserTargetingInfo();
 		if (mod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -82,13 +82,13 @@ public class LaserTargetingInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LaserTargetingInfo.GetModifiedCopy(AbilityModPropertyLaserInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (mod.m_rangeMod == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -104,12 +104,11 @@ public class LaserTargetingInfo
 				mod = null;
 			}
 		}
-		laserTargetingInfo.range = ((mod == null) ? this.range : mod.GetRange(this));
-		LaserTargetingInfo laserTargetingInfo2 = laserTargetingInfo;
+		laserTargetingInfo.range = (mod?.GetRange(this) ?? range);
 		float num;
 		if (mod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -122,14 +121,13 @@ public class LaserTargetingInfo
 		}
 		else
 		{
-			num = this.width;
+			num = width;
 		}
-		laserTargetingInfo2.width = num;
-		LaserTargetingInfo laserTargetingInfo3 = laserTargetingInfo;
+		laserTargetingInfo.width = num;
 		int num2;
 		if (mod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -142,14 +140,13 @@ public class LaserTargetingInfo
 		}
 		else
 		{
-			num2 = this.maxTargets;
+			num2 = maxTargets;
 		}
-		laserTargetingInfo3.maxTargets = num2;
-		LaserTargetingInfo laserTargetingInfo4 = laserTargetingInfo;
-		bool flag;
+		laserTargetingInfo.maxTargets = num2;
+		bool num3;
 		if (mod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -158,18 +155,17 @@ public class LaserTargetingInfo
 				}
 				break;
 			}
-			flag = mod.GetPenetrateLos(this);
+			num3 = mod.GetPenetrateLos(this);
 		}
 		else
 		{
-			flag = this.penetrateLos;
+			num3 = penetrateLos;
 		}
-		laserTargetingInfo4.penetrateLos = flag;
-		LaserTargetingInfo laserTargetingInfo5 = laserTargetingInfo;
+		laserTargetingInfo.penetrateLos = num3;
 		bool affectsEnemy;
 		if (mod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -182,14 +178,13 @@ public class LaserTargetingInfo
 		}
 		else
 		{
-			affectsEnemy = this.affectsEnemies;
+			affectsEnemy = affectsEnemies;
 		}
-		laserTargetingInfo5.affectsEnemies = affectsEnemy;
-		LaserTargetingInfo laserTargetingInfo6 = laserTargetingInfo;
+		laserTargetingInfo.affectsEnemies = affectsEnemy;
 		bool affectsAlly;
 		if (mod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -202,14 +197,13 @@ public class LaserTargetingInfo
 		}
 		else
 		{
-			affectsAlly = this.affectsAllies;
+			affectsAlly = affectsAllies;
 		}
-		laserTargetingInfo6.affectsAllies = affectsAlly;
-		LaserTargetingInfo laserTargetingInfo7 = laserTargetingInfo;
-		bool flag2;
+		laserTargetingInfo.affectsAllies = affectsAlly;
+		bool num4;
 		if (mod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -218,13 +212,13 @@ public class LaserTargetingInfo
 				}
 				break;
 			}
-			flag2 = mod.GetAffectsCaster(this);
+			num4 = mod.GetAffectsCaster(this);
 		}
 		else
 		{
-			flag2 = this.affectsCaster;
+			num4 = affectsCaster;
 		}
-		laserTargetingInfo7.affectsCaster = flag2;
+		laserTargetingInfo.affectsCaster = num4;
 		return laserTargetingInfo;
 	}
 }

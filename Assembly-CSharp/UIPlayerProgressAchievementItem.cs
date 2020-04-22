@@ -1,9 +1,7 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIPlayerProgressAchievementItem : MonoBehaviour
@@ -52,57 +50,57 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 
 	private void Init()
 	{
-		if (this.m_isInitialized)
+		if (m_isInitialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressAchievementItem.Init()).MethodHandle;
-			}
-			return;
 		}
-		this.m_isInitialized = true;
-		this.m_selectableBtn.spriteController.callback = delegate(BaseEventData data)
+		m_isInitialized = true;
+		m_selectableBtn.spriteController.callback = delegate
 		{
-			this.m_isExpanded = !this.m_isExpanded;
-			this.UpdateExpandedVisuals();
+			m_isExpanded = !m_isExpanded;
+			UpdateExpandedVisuals();
 		};
-		this.m_defaultSprite = this.m_icon.sprite;
-		this.m_expandedTexts = this.m_expandedContainer.GetComponentsInChildren<TextMeshProUGUI>(true);
-		_SelectableBtn component = this.m_questReward.GetComponent<_SelectableBtn>();
-		this.m_selectableBtn.spriteController.AddSubButton(component.spriteController);
+		m_defaultSprite = m_icon.sprite;
+		m_expandedTexts = m_expandedContainer.GetComponentsInChildren<TextMeshProUGUI>(true);
+		_SelectableBtn component = m_questReward.GetComponent<_SelectableBtn>();
+		m_selectableBtn.spriteController.AddSubButton(component.spriteController);
 		string currentLanguagecode = StringUtil.GetCurrentLanguagecode();
 		CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture(currentLanguagecode);
-		this.m_datePattern = cultureInfo.DateTimeFormat.ShortDatePattern.Replace("yyyy", "yy");
+		m_datePattern = cultureInfo.DateTimeFormat.ShortDatePattern.Replace("yyyy", "yy");
 	}
 
 	public int Setup(QuestTemplate quest, Dictionary<int, QuestMetaData> questMetaData)
 	{
-		this.Init();
-		this.m_quest = quest;
-		this.m_selectableBtn.SetSelected(false, false, string.Empty, string.Empty);
-		this.m_isExpanded = false;
+		Init();
+		m_quest = quest;
+		m_selectableBtn.SetSelected(false, false, string.Empty, string.Empty);
+		m_isExpanded = false;
 		List<string> list = new List<string>();
-		foreach (QuestObjective questObjective in this.m_quest.Objectives)
+		foreach (QuestObjective objective in m_quest.Objectives)
 		{
-			using (List<QuestTrigger>.Enumerator enumerator2 = questObjective.Triggers.GetEnumerator())
+			using (List<QuestTrigger>.Enumerator enumerator2 = objective.Triggers.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
 				{
-					QuestTrigger questTrigger = enumerator2.Current;
-					foreach (QuestCondition questCondition in questTrigger.Conditions)
+					QuestTrigger current2 = enumerator2.Current;
+					foreach (QuestCondition condition in current2.Conditions)
 					{
-						if (questCondition.ConditionType == QuestConditionType.HasCharacterLevel)
+						if (condition.ConditionType == QuestConditionType.HasCharacterLevel)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -111,16 +109,16 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 								}
 								break;
 							}
-							if (!true)
+							if (1 == 0)
 							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressAchievementItem.Setup(QuestTemplate, Dictionary<int, QuestMetaData>)).MethodHandle;
+								/*OpCode not supported: LdMemberToken*/;
 							}
-							this.m_hasExpandData = true;
-							CharacterType typeSpecificData = (CharacterType)questCondition.typeSpecificData;
-							int typeSpecificData2 = questCondition.typeSpecificData2;
+							m_hasExpandData = true;
+							CharacterType typeSpecificData = (CharacterType)condition.typeSpecificData;
+							int typeSpecificData2 = condition.typeSpecificData2;
 							if (ClientGameManager.Get().GetPlayerCharacterData(typeSpecificData).ExperienceComponent.Level >= typeSpecificData2)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -132,7 +130,7 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 								string displayName = typeSpecificData.GetDisplayName();
 								if (!list.Contains(displayName))
 								{
-									for (;;)
+									while (true)
 									{
 										switch (7)
 										{
@@ -147,7 +145,7 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 						}
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -166,7 +164,7 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -177,7 +175,7 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 				}
 				if (questMetaData.ContainsKey(quest.Index))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -189,12 +187,12 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 					QuestMetaData questMetaData2 = questMetaData[quest.Index];
 					flag = (questMetaData2.CompletedCount > 0);
 					CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture(currentLanguagecode);
-					this.m_dateCompleted.text = questMetaData2.UtcFirstCompleted.ToLocalTime().ToString(this.m_datePattern, cultureInfo.DateTimeFormat);
+					m_dateCompleted.text = questMetaData2.UtcFirstCompleted.ToLocalTime().ToString(m_datePattern, cultureInfo.DateTimeFormat);
 				}
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -205,9 +203,9 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 				}
 				num += quest.AchievementPoints;
 				num2 += quest.AchievementPoints;
-				if (quest != this.m_quest)
+				if (quest != m_quest)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -222,24 +220,18 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 						text = StringUtil.TR_QuestDescription(quest.Index);
 					}
 					string text2 = text;
-					text = string.Concat(new object[]
-					{
-						text2,
-						" [",
-						quest.AchievementPoints,
-						"]"
-					});
+					text = text2 + " [" + quest.AchievementPoints + "]";
 					list.Add(text);
 				}
 			}
 			else
 			{
-				this.m_quest = quest;
+				m_quest = quest;
 				num2 = quest.AchievementPoints;
 			}
 			if (quest.AchievementPrevious > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -255,143 +247,142 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 				quest = null;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		this.m_points.text = num2.ToString();
-		if (this.m_quest != null && questMetaData.ContainsKey(this.m_quest.Index))
-		{
-			for (;;)
+			m_points.text = num2.ToString();
+			if (m_quest != null && questMetaData.ContainsKey(m_quest.Index))
 			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag = (questMetaData[this.m_quest.Index].CompletedCount > 0);
-		}
-		else
-		{
-			flag = false;
-		}
-		string text3 = StringUtil.TR_QuestName(this.m_quest.Index);
-		string text4 = StringUtil.TR_QuestDescription(this.m_quest.Index);
-		if (text3 != string.Empty)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_description.text = string.Format("<size=20>{0}</size>\n<#a9a9a9>{1}", text3, text4);
-		}
-		else
-		{
-			this.m_description.text = text4;
-		}
-		Sprite sprite;
-		if (flag)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			sprite = Resources.Load<Sprite>(this.m_quest.IconFilename);
-		}
-		else
-		{
-			sprite = Resources.Load<Sprite>(this.m_quest.UnfinishedIconFilename);
-		}
-		if (sprite)
-		{
-			this.m_icon.sprite = sprite;
-		}
-		else
-		{
-			this.m_icon.sprite = this.m_defaultSprite;
-		}
-		UIManager.SetGameObjectActive(this.m_dateCompleted, flag, null);
-		int num3 = 0;
-		int num4 = 0;
-		QuestItem.GetQuestProgress(this.m_quest.Index, out num3, out num4);
-		if (flag)
-		{
-			num3 = num4;
-		}
-		string text5 = string.Format("{0}/{1}", num3, num4);
-		this.m_progressText.text = text5;
-		this.m_progressBar.fillAmount = (float)num3 / (1f * (float)num4);
-		UIManager.SetGameObjectActive(this.m_progressBar, !flag, null);
-		UIManager.SetGameObjectActive(this.m_completedBar, flag, null);
-		this.SetupQuestReward(this.m_quest);
-		this.m_hasExpandData = (list.Count > 0);
-		if (this.m_hasExpandData)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			for (int i = 0; i < this.m_expandedTexts.Length; i++)
-			{
-				UIManager.SetGameObjectActive(this.m_expandedTexts[i], i < list.Count, null);
-				if (i < list.Count)
-				{
-					for (;;)
+					switch (5)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					UIManager.SetGameObjectActive(this.m_expandedTexts[i], true, null);
-					this.m_expandedTexts[i].text = "- " + list[i];
+					break;
 				}
+				flag = (questMetaData[m_quest.Index].CompletedCount > 0);
 			}
-			for (;;)
+			else
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				flag = false;
 			}
+			string text3 = StringUtil.TR_QuestName(m_quest.Index);
+			string text4 = StringUtil.TR_QuestDescription(m_quest.Index);
+			if (text3 != string.Empty)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_description.text = $"<size=20>{text3}</size>\n<#a9a9a9>{text4}";
+			}
+			else
+			{
+				m_description.text = text4;
+			}
+			Sprite sprite;
+			if (flag)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				sprite = Resources.Load<Sprite>(m_quest.IconFilename);
+			}
+			else
+			{
+				sprite = Resources.Load<Sprite>(m_quest.UnfinishedIconFilename);
+			}
+			if ((bool)sprite)
+			{
+				m_icon.sprite = sprite;
+			}
+			else
+			{
+				m_icon.sprite = m_defaultSprite;
+			}
+			UIManager.SetGameObjectActive(m_dateCompleted, flag);
+			int currentProgress = 0;
+			int maxProgress = 0;
+			QuestItem.GetQuestProgress(m_quest.Index, out currentProgress, out maxProgress);
+			if (flag)
+			{
+				currentProgress = maxProgress;
+			}
+			string text5 = $"{currentProgress}/{maxProgress}";
+			m_progressText.text = text5;
+			m_progressBar.fillAmount = (float)currentProgress / (1f * (float)maxProgress);
+			UIManager.SetGameObjectActive(m_progressBar, !flag);
+			UIManager.SetGameObjectActive(m_completedBar, flag);
+			SetupQuestReward(m_quest);
+			m_hasExpandData = (list.Count > 0);
+			if (m_hasExpandData)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				for (int i = 0; i < m_expandedTexts.Length; i++)
+				{
+					UIManager.SetGameObjectActive(m_expandedTexts[i], i < list.Count);
+					if (i < list.Count)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						UIManager.SetGameObjectActive(m_expandedTexts[i], true);
+						m_expandedTexts[i].text = "- " + list[i];
+					}
+				}
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			UpdateExpandedVisuals();
+			m_selectableBtn.spriteController.SetClickable(m_hasExpandData);
+			return num;
 		}
-		this.UpdateExpandedVisuals();
-		this.m_selectableBtn.spriteController.SetClickable(this.m_hasExpandData);
-		return num;
 	}
 
 	private void SetupQuestReward(QuestTemplate quest)
 	{
-		bool flag = this.SetupReward(quest.Rewards);
+		bool flag = SetupReward(quest.Rewards);
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -400,13 +391,13 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressAchievementItem.SetupQuestReward(QuestTemplate)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (quest.ConditionalRewards != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -415,46 +406,52 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 					}
 					break;
 				}
-				for (int i = 0; i < quest.ConditionalRewards.Length; i++)
+				int num = 0;
+				while (true)
 				{
-					if (QuestWideData.AreConditionsMet(quest.ConditionalRewards[i].Prerequisites.Conditions, quest.ConditionalRewards[i].Prerequisites.LogicStatement, false))
+					if (num < quest.ConditionalRewards.Length)
 					{
-						flag = this.SetupReward(quest.ConditionalRewards[i]);
-						if (flag)
+						if (QuestWideData.AreConditionsMet(quest.ConditionalRewards[num].Prerequisites.Conditions, quest.ConditionalRewards[num].Prerequisites.LogicStatement))
 						{
-							for (;;)
+							flag = SetupReward(quest.ConditionalRewards[num]);
+							if (flag)
 							{
-								switch (6)
+								while (true)
 								{
-								case 0:
-									continue;
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
 								}
 								break;
 							}
-							goto IL_A6;
 						}
-					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
+						num++;
 						continue;
+					}
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
 					break;
 				}
 			}
 		}
-		IL_A6:
-		UIManager.SetGameObjectActive(this.m_questReward, flag, null);
+		UIManager.SetGameObjectActive(m_questReward, flag);
 	}
 
 	private bool SetupReward(QuestRewards questRewards)
 	{
 		if (questRewards.CurrencyRewards.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -463,15 +460,15 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressAchievementItem.SetupReward(QuestRewards)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_questReward.Setup(questRewards.CurrencyRewards[0], 0);
+			m_questReward.Setup(questRewards.CurrencyRewards[0], 0);
 		}
 		else if (questRewards.UnlockRewards.Count > 0)
 		{
-			this.m_questReward.SetupHack(questRewards.UnlockRewards[0].resourceString, 0);
+			m_questReward.SetupHack(questRewards.UnlockRewards[0].resourceString);
 		}
 		else
 		{
@@ -479,7 +476,7 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 			{
 				return false;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -489,35 +486,35 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 				break;
 			}
 			InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(questRewards.ItemRewards[0].ItemTemplateId);
-			this.m_questReward.SetupHack(itemTemplate, itemTemplate.IconPath, 0);
+			m_questReward.SetupHack(itemTemplate, itemTemplate.IconPath);
 		}
 		return true;
 	}
 
 	private void UpdateExpandedVisuals()
 	{
-		if (this.m_isExpanded && !this.m_hasExpandData)
+		if (m_isExpanded && !m_hasExpandData)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressAchievementItem.UpdateExpandedVisuals()).MethodHandle;
-			}
-			return;
 		}
-		LayoutElement layoutElement = this.m_layoutElement;
+		LayoutElement layoutElement = m_layoutElement;
 		float preferredHeight;
-		if (this.m_isExpanded)
+		if (m_isExpanded)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -526,14 +523,14 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 				}
 				break;
 			}
-			preferredHeight = this.m_expandedHeight;
+			preferredHeight = m_expandedHeight;
 		}
 		else
 		{
-			preferredHeight = this.m_defaultHeight;
+			preferredHeight = m_defaultHeight;
 		}
 		layoutElement.preferredHeight = preferredHeight;
-		UIManager.SetGameObjectActive(this.m_expandedContainer, this.m_isExpanded, null);
-		UIManager.SetGameObjectActive(this.m_expandDownArrow, !this.m_isExpanded, null);
+		UIManager.SetGameObjectActive(m_expandedContainer, m_isExpanded);
+		UIManager.SetGameObjectActive(m_expandDownArrow, !m_isExpanded);
 	}
 }

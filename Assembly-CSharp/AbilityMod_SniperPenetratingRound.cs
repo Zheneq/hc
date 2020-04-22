@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,46 +39,45 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SniperPenetratingRound sniperPenetratingRound = targetAbility as SniperPenetratingRound;
-		if (sniperPenetratingRound != null)
+		if (!(sniperPenetratingRound != null))
 		{
-			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", string.Empty, sniperPenetratingRound.m_laserInfo.width, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "LaserRange", string.Empty, sniperPenetratingRound.m_laserInfo.range, true, false, false);
-			if (this.m_useEnemyHitEffectOverride)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperPenetratingRound.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-				}
-				AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffectOverride, "EnemyHitEffect", sniperPenetratingRound.m_laserHitEffect, true);
-			}
-			AbilityMod.AddToken(tokens, this.m_laserDamage, "Damage", "base damage", sniperPenetratingRound.m_laserDamageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_additionalDamageOnLowHealthTargetMod, "AdditionalDamageOnLowHealthTarget", string.Empty, sniperPenetratingRound.m_additionalDamageOnLowHealthTarget, true, false);
-			AbilityMod.AddToken(tokens, this.m_lowHealthThresholdMod, "LowHealthThreshold", string.Empty, sniperPenetratingRound.m_lowHealthThreshold, true, false, false);
+			return;
 		}
+		AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, sniperPenetratingRound.m_laserInfo.width);
+		AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, sniperPenetratingRound.m_laserInfo.range);
+		if (m_useEnemyHitEffectOverride)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffectOverride, "EnemyHitEffect", sniperPenetratingRound.m_laserHitEffect);
+		}
+		AbilityMod.AddToken(tokens, m_laserDamage, "Damage", "base damage", sniperPenetratingRound.m_laserDamageAmount);
+		AbilityMod.AddToken(tokens, m_additionalDamageOnLowHealthTargetMod, "AdditionalDamageOnLowHealthTarget", string.Empty, sniperPenetratingRound.m_additionalDamageOnLowHealthTarget);
+		AbilityMod.AddToken(tokens, m_lowHealthThresholdMod, "LowHealthThreshold", string.Empty, sniperPenetratingRound.m_lowHealthThreshold);
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SniperPenetratingRound sniperPenetratingRound = base.GetTargetAbilityOnAbilityData(abilityData) as SniperPenetratingRound;
+		SniperPenetratingRound sniperPenetratingRound = GetTargetAbilityOnAbilityData(abilityData) as SniperPenetratingRound;
 		bool flag = sniperPenetratingRound != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat laserWidthMod = this.m_laserWidthMod;
-		string prefix = "[Laser Width]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat laserWidthMod = m_laserWidthMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -87,9 +86,9 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperPenetratingRound.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = sniperPenetratingRound.m_laserInfo.width;
 		}
@@ -97,11 +96,11 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(laserWidthMod, prefix, showBaseVal, baseVal);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_laserRangeMod, "[Laser Range]", flag, (!flag) ? 0f : sniperPenetratingRound.m_laserInfo.range);
-		if (this.m_useEnemyHitEffectOverride)
+		empty = str + AbilityModHelper.GetModPropertyDesc(laserWidthMod, "[Laser Width]", flag, baseVal);
+		empty += AbilityModHelper.GetModPropertyDesc(m_laserRangeMod, "[Laser Range]", flag, (!flag) ? 0f : sniperPenetratingRound.m_laserInfo.range);
+		if (m_useEnemyHitEffectOverride)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -110,15 +109,13 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 				}
 				break;
 			}
-			string str2 = text;
-			StandardEffectInfo enemyHitEffectOverride = this.m_enemyHitEffectOverride;
-			string prefix2 = "{ Enemy Hit Effect Override }";
-			string empty = string.Empty;
-			bool useBaseVal = flag;
-			StandardEffectInfo baseVal2;
+			string str2 = empty;
+			StandardEffectInfo enemyHitEffectOverride = m_enemyHitEffectOverride;
+			string empty2 = string.Empty;
+			object baseVal2;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -133,11 +130,11 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 			{
 				baseVal2 = null;
 			}
-			text = str2 + AbilityModHelper.GetModEffectInfoDesc(enemyHitEffectOverride, prefix2, empty, useBaseVal, baseVal2);
+			empty = str2 + AbilityModHelper.GetModEffectInfoDesc(enemyHitEffectOverride, "{ Enemy Hit Effect Override }", empty2, flag, (StandardEffectInfo)baseVal2);
 		}
-		if (this.m_knockbackHitEnemy)
+		if (m_knockbackHitEnemy)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -146,25 +143,17 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 				}
 				break;
 			}
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"Can knock back hit enemy within ",
-				this.m_knockbackThresholdDistance,
-				" squares\n"
-			});
+			string text = empty;
+			empty = text + "Can knock back hit enemy within " + m_knockbackThresholdDistance + " squares\n";
 		}
-		text += AbilityModHelper.GetModPropertyDesc(this.m_laserDamage, "[Laser Damage]", flag, (!flag) ? 0 : sniperPenetratingRound.m_laserDamageAmount);
-		text += base.PropDesc(this.m_additionalDamageOnLowHealthTargetMod, "[AdditionalDamageOnLowHealthTarget]", flag, (!flag) ? 0 : sniperPenetratingRound.m_additionalDamageOnLowHealthTarget);
-		string str3 = text;
-		AbilityModPropertyFloat lowHealthThresholdMod = this.m_lowHealthThresholdMod;
-		string prefix3 = "[LowHealthThreshold]";
-		bool showBaseVal2 = flag;
+		empty += AbilityModHelper.GetModPropertyDesc(m_laserDamage, "[Laser Damage]", flag, flag ? sniperPenetratingRound.m_laserDamageAmount : 0);
+		empty += PropDesc(m_additionalDamageOnLowHealthTargetMod, "[AdditionalDamageOnLowHealthTarget]", flag, flag ? sniperPenetratingRound.m_additionalDamageOnLowHealthTarget : 0);
+		string str3 = empty;
+		AbilityModPropertyFloat lowHealthThresholdMod = m_lowHealthThresholdMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -179,27 +168,28 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		return str3 + base.PropDesc(lowHealthThresholdMod, prefix3, showBaseVal2, baseVal3);
+		return str3 + PropDesc(lowHealthThresholdMod, "[LowHealthThreshold]", flag, baseVal3);
 	}
 
 	protected override void AppendModSpecificTooltipCheckNumbers(Ability abilityAsBase, List<int> numbers)
 	{
-		if (this.m_useEnemyHitEffectOverride && this.m_enemyHitEffectOverride.m_applyEffect)
+		if (!m_useEnemyHitEffectOverride || !m_enemyHitEffectOverride.m_applyEffect)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperPenetratingRound.AppendModSpecificTooltipCheckNumbers(Ability, List<int>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			numbers.Add(this.m_enemyHitEffectOverride.m_effectData.m_duration - 1);
+			numbers.Add(m_enemyHitEffectOverride.m_effectData.m_duration - 1);
+			return;
 		}
 	}
 }

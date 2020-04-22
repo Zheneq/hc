@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,27 +7,28 @@ public class UITooltipHoverObject : UITooltipObject
 
 	private void Awake()
 	{
-		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnMouseHover));
+		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerEnter, OnMouseHover);
 	}
 
 	private void OnMouseHover(BaseEventData data)
 	{
-		if (base.IsSetup())
+		if (!IsSetup())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipHoverObject.OnMouseHover(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UITooltipManager.Get().ShowDisplayTooltip(this);
+			return;
 		}
 	}
 }

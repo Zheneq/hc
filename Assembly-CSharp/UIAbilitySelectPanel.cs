@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -35,181 +34,186 @@ public class UIAbilitySelectPanel : MonoBehaviour
 	public void Init(AbilityData abilityData)
 	{
 		AbilityData.AbilityEntry[] abilityEntries = abilityData.abilityEntries;
-		TextMeshProUGUI[] componentsInChildren = this.m_ability1Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
-		foreach (TextMeshProUGUI textMeshProUGUI in componentsInChildren)
+		TextMeshProUGUI[] componentsInChildren = m_ability1Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+		TextMeshProUGUI[] array = componentsInChildren;
+		foreach (TextMeshProUGUI textMeshProUGUI in array)
 		{
 			textMeshProUGUI.text = abilityEntries[0].ability.GetNameString();
 		}
-		TextMeshProUGUI[] componentsInChildren2 = this.m_ability2Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
-		foreach (TextMeshProUGUI textMeshProUGUI2 in componentsInChildren2)
+		TextMeshProUGUI[] componentsInChildren2 = m_ability2Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+		TextMeshProUGUI[] array2 = componentsInChildren2;
+		foreach (TextMeshProUGUI textMeshProUGUI2 in array2)
 		{
 			textMeshProUGUI2.text = abilityEntries[1].ability.GetNameString();
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilitySelectPanel.Init(AbilityData)).MethodHandle;
-		}
-		TextMeshProUGUI[] componentsInChildren3 = this.m_ability3Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
-		foreach (TextMeshProUGUI textMeshProUGUI3 in componentsInChildren3)
-		{
-			textMeshProUGUI3.text = abilityEntries[2].ability.GetNameString();
-		}
-		for (;;)
-		{
-			switch (6)
+			if (1 == 0)
 			{
-			case 0:
-				continue;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			break;
-		}
-		TextMeshProUGUI[] componentsInChildren4 = this.m_ability4Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
-		foreach (TextMeshProUGUI textMeshProUGUI4 in componentsInChildren4)
-		{
-			textMeshProUGUI4.text = abilityEntries[3].ability.GetNameString();
-		}
-		for (;;)
-		{
-			switch (1)
+			TextMeshProUGUI[] componentsInChildren3 = m_ability3Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+			TextMeshProUGUI[] array3 = componentsInChildren3;
+			foreach (TextMeshProUGUI textMeshProUGUI3 in array3)
 			{
-			case 0:
-				continue;
+				textMeshProUGUI3.text = abilityEntries[2].ability.GetNameString();
 			}
-			break;
-		}
-		TextMeshProUGUI[] componentsInChildren5 = this.m_ability5Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
-		foreach (TextMeshProUGUI textMeshProUGUI5 in componentsInChildren5)
-		{
-			textMeshProUGUI5.text = abilityEntries[4].ability.GetNameString();
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (abilityEntries[7].ability == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_catalyst1Btn, false, null);
-		}
-		else
-		{
-			UIManager.SetGameObjectActive(this.m_catalyst1Btn, true, null);
-			TextMeshProUGUI[] componentsInChildren6 = this.m_catalyst1Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
-			foreach (TextMeshProUGUI textMeshProUGUI6 in componentsInChildren6)
-			{
-				textMeshProUGUI6.text = abilityEntries[7].ability.GetNameString();
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		if (abilityEntries[8].ability == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_catalyst2Btn, false, null);
-		}
-		else
-		{
-			UIManager.SetGameObjectActive(this.m_catalyst2Btn, true, null);
-			TextMeshProUGUI[] componentsInChildren7 = this.m_catalyst2Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
-			foreach (TextMeshProUGUI textMeshProUGUI7 in componentsInChildren7)
-			{
-				textMeshProUGUI7.text = abilityEntries[8].ability.GetNameString();
-			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-		}
-		if (abilityEntries[9].ability == null)
-		{
-			for (;;)
-			{
-				switch (6)
+				TextMeshProUGUI[] componentsInChildren4 = m_ability4Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+				TextMeshProUGUI[] array4 = componentsInChildren4;
+				foreach (TextMeshProUGUI textMeshProUGUI4 in array4)
 				{
-				case 0:
-					continue;
+					textMeshProUGUI4.text = abilityEntries[3].ability.GetNameString();
 				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_catalyst3Btn, false, null);
-		}
-		else
-		{
-			UIManager.SetGameObjectActive(this.m_catalyst3Btn, true, null);
-			TextMeshProUGUI[] componentsInChildren8 = this.m_catalyst3Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
-			foreach (TextMeshProUGUI textMeshProUGUI8 in componentsInChildren8)
-			{
-				textMeshProUGUI8.text = abilityEntries[9].ability.GetNameString();
-			}
-			for (;;)
-			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					TextMeshProUGUI[] componentsInChildren5 = m_ability5Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+					TextMeshProUGUI[] array5 = componentsInChildren5;
+					foreach (TextMeshProUGUI textMeshProUGUI5 in array5)
+					{
+						textMeshProUGUI5.text = abilityEntries[4].ability.GetNameString();
+					}
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						if (abilityEntries[7].ability == null)
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							UIManager.SetGameObjectActive(m_catalyst1Btn, false);
+						}
+						else
+						{
+							UIManager.SetGameObjectActive(m_catalyst1Btn, true);
+							TextMeshProUGUI[] componentsInChildren6 = m_catalyst1Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+							TextMeshProUGUI[] array6 = componentsInChildren6;
+							foreach (TextMeshProUGUI textMeshProUGUI6 in array6)
+							{
+								textMeshProUGUI6.text = abilityEntries[7].ability.GetNameString();
+							}
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+						if (abilityEntries[8].ability == null)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							UIManager.SetGameObjectActive(m_catalyst2Btn, false);
+						}
+						else
+						{
+							UIManager.SetGameObjectActive(m_catalyst2Btn, true);
+							TextMeshProUGUI[] componentsInChildren7 = m_catalyst2Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+							TextMeshProUGUI[] array7 = componentsInChildren7;
+							foreach (TextMeshProUGUI textMeshProUGUI7 in array7)
+							{
+								textMeshProUGUI7.text = abilityEntries[8].ability.GetNameString();
+							}
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+						if (abilityEntries[9].ability == null)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							UIManager.SetGameObjectActive(m_catalyst3Btn, false);
+						}
+						else
+						{
+							UIManager.SetGameObjectActive(m_catalyst3Btn, true);
+							TextMeshProUGUI[] componentsInChildren8 = m_catalyst3Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+							TextMeshProUGUI[] array8 = componentsInChildren8;
+							foreach (TextMeshProUGUI textMeshProUGUI8 in array8)
+							{
+								textMeshProUGUI8.text = abilityEntries[9].ability.GetNameString();
+							}
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+						m_ability1Btn.SetSelected(false, false, string.Empty, string.Empty);
+						m_ability2Btn.SetSelected(false, false, string.Empty, string.Empty);
+						m_ability3Btn.SetSelected(false, false, string.Empty, string.Empty);
+						m_ability4Btn.SetSelected(false, false, string.Empty, string.Empty);
+						m_ability5Btn.SetSelected(false, false, string.Empty, string.Empty);
+						m_catalyst1Btn.SetSelected(false, false, string.Empty, string.Empty);
+						m_catalyst2Btn.SetSelected(false, false, string.Empty, string.Empty);
+						m_catalyst3Btn.SetSelected(false, false, string.Empty, string.Empty);
+						m_ability1Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_abilityButtons[0].m_disabled.gameObject.activeSelf);
+						m_ability2Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_abilityButtons[1].m_disabled.gameObject.activeSelf);
+						m_ability3Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_abilityButtons[2].m_disabled.gameObject.activeSelf);
+						m_ability4Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_abilityButtons[3].m_disabled.gameObject.activeSelf);
+						m_ability5Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_abilityButtons[4].m_disabled.gameObject.activeSelf);
+						m_catalyst1Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_cardBar.m_cardButtons[0].m_disabled.gameObject.activeSelf);
+						m_catalyst2Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_cardBar.m_cardButtons[1].m_disabled.gameObject.activeSelf);
+						m_catalyst3Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_cardBar.m_cardButtons[2].m_disabled.gameObject.activeSelf);
+						m_hoverAbility = KeyPreference.NullPreference;
+						return;
+					}
 				}
-				break;
 			}
 		}
-		this.m_ability1Btn.SetSelected(false, false, string.Empty, string.Empty);
-		this.m_ability2Btn.SetSelected(false, false, string.Empty, string.Empty);
-		this.m_ability3Btn.SetSelected(false, false, string.Empty, string.Empty);
-		this.m_ability4Btn.SetSelected(false, false, string.Empty, string.Empty);
-		this.m_ability5Btn.SetSelected(false, false, string.Empty, string.Empty);
-		this.m_catalyst1Btn.SetSelected(false, false, string.Empty, string.Empty);
-		this.m_catalyst2Btn.SetSelected(false, false, string.Empty, string.Empty);
-		this.m_catalyst3Btn.SetSelected(false, false, string.Empty, string.Empty);
-		this.m_ability1Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_abilityButtons[0].m_disabled.gameObject.activeSelf);
-		this.m_ability2Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_abilityButtons[1].m_disabled.gameObject.activeSelf);
-		this.m_ability3Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_abilityButtons[2].m_disabled.gameObject.activeSelf);
-		this.m_ability4Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_abilityButtons[3].m_disabled.gameObject.activeSelf);
-		this.m_ability5Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_abilityButtons[4].m_disabled.gameObject.activeSelf);
-		this.m_catalyst1Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_cardBar.m_cardButtons[0].m_disabled.gameObject.activeSelf);
-		this.m_catalyst2Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_cardBar.m_cardButtons[1].m_disabled.gameObject.activeSelf);
-		this.m_catalyst3Btn.SetDisabled(HUD_UI.Get().m_mainScreenPanel.m_cardBar.m_cardButtons[2].m_disabled.gameObject.activeSelf);
-		this.m_hoverAbility = KeyPreference.NullPreference;
 	}
 
 	private void SetSelectedButton(KeyPreference hoverAbility, bool clear = false)
@@ -218,149 +222,152 @@ public class UIAbilitySelectPanel : MonoBehaviour
 		switch (hoverAbility)
 		{
 		case KeyPreference.Ability1:
-			selectableBtn = this.m_ability1Btn;
+			selectableBtn = m_ability1Btn;
 			break;
 		case KeyPreference.Ability2:
-			selectableBtn = this.m_ability2Btn;
+			selectableBtn = m_ability2Btn;
 			break;
 		case KeyPreference.Ability3:
-			selectableBtn = this.m_ability3Btn;
+			selectableBtn = m_ability3Btn;
 			break;
 		case KeyPreference.Ability4:
-			selectableBtn = this.m_ability4Btn;
+			selectableBtn = m_ability4Btn;
 			break;
 		case KeyPreference.Ability5:
-			selectableBtn = this.m_ability5Btn;
+			selectableBtn = m_ability5Btn;
 			break;
 		case KeyPreference.Card1:
-			selectableBtn = this.m_catalyst1Btn;
+			selectableBtn = m_catalyst1Btn;
 			break;
 		case KeyPreference.Card2:
-			selectableBtn = this.m_catalyst2Btn;
+			selectableBtn = m_catalyst2Btn;
 			break;
 		case KeyPreference.Card3:
-			selectableBtn = this.m_catalyst3Btn;
+			selectableBtn = m_catalyst3Btn;
 			break;
 		}
-		if (selectableBtn != null)
+		if (!(selectableBtn != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilitySelectPanel.SetSelectedButton(KeyPreference, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!selectableBtn.IsDisabled)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					selectableBtn.SetSelected(!clear, false, string.Empty, string.Empty);
+					return;
 				}
-				selectableBtn.SetSelected(!clear, false, string.Empty, string.Empty);
 			}
+			return;
 		}
 	}
 
 	public void SelectAbilityButtonFromAngle(float angle, float lineSize)
 	{
-		if (lineSize == 0f && this.m_hoverAbility != KeyPreference.NullPreference)
+		if (lineSize == 0f && m_hoverAbility != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					SetSelectedButton(m_hoverAbility, true);
+					m_hoverAbility = KeyPreference.NullPreference;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilitySelectPanel.SelectAbilityButtonFromAngle(float, float)).MethodHandle;
-			}
-			this.SetSelectedButton(this.m_hoverAbility, true);
-			this.m_hoverAbility = KeyPreference.NullPreference;
+		}
+		if (!(lineSize > 0f))
+		{
 			return;
 		}
-		if (lineSize > 0f)
+		KeyPreference keyPreference = KeyPreference.NullPreference;
+		angle += 10f;
+		if (angle < 0f)
 		{
-			KeyPreference keyPreference = KeyPreference.NullPreference;
-			angle += 10f;
-			if (angle < 0f)
-			{
-				angle += 360f;
-			}
-			switch ((int)(angle / 360f * 8f))
+			angle += 360f;
+		}
+		switch ((int)(angle / 360f * 8f))
+		{
+		case 0:
+			keyPreference = KeyPreference.Ability3;
+			break;
+		case 1:
+			keyPreference = KeyPreference.Ability2;
+			break;
+		case 2:
+			keyPreference = KeyPreference.Ability1;
+			break;
+		case 3:
+			keyPreference = KeyPreference.Card3;
+			break;
+		case 4:
+			keyPreference = KeyPreference.Card2;
+			break;
+		case 5:
+			keyPreference = KeyPreference.Card1;
+			break;
+		case 6:
+			keyPreference = KeyPreference.Ability5;
+			break;
+		case 7:
+			keyPreference = KeyPreference.Ability4;
+			break;
+		}
+		if (keyPreference == m_hoverAbility)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
 			case 0:
-				keyPreference = KeyPreference.Ability3;
-				break;
-			case 1:
-				keyPreference = KeyPreference.Ability2;
-				break;
-			case 2:
-				keyPreference = KeyPreference.Ability1;
-				break;
-			case 3:
-				keyPreference = KeyPreference.Card3;
-				break;
-			case 4:
-				keyPreference = KeyPreference.Card2;
-				break;
-			case 5:
-				keyPreference = KeyPreference.Card1;
-				break;
-			case 6:
-				keyPreference = KeyPreference.Ability5;
-				break;
-			case 7:
-				keyPreference = KeyPreference.Ability4;
-				break;
+				continue;
 			}
-			if (keyPreference != this.m_hoverAbility)
+			if (m_hoverAbility != 0)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (6)
+					switch (4)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (this.m_hoverAbility != KeyPreference.NullPreference)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.SetSelectedButton(this.m_hoverAbility, true);
-				}
-				this.m_hoverAbility = keyPreference;
-				this.SetSelectedButton(this.m_hoverAbility, false);
+				SetSelectedButton(m_hoverAbility, true);
 			}
+			m_hoverAbility = keyPreference;
+			SetSelectedButton(m_hoverAbility);
+			return;
 		}
 	}
 
 	public KeyPreference GetAbilityHover()
 	{
-		return this.m_hoverAbility;
+		return m_hoverAbility;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UIVideoOverlayPanel : MonoBehaviour
@@ -11,67 +10,68 @@ public class UIVideoOverlayPanel : MonoBehaviour
 
 	private void Update()
 	{
-		PlayRawImageMovieTexture videoPlayer = this.GetVideoPlayer();
-		if (videoPlayer)
+		PlayRawImageMovieTexture videoPlayer = GetVideoPlayer();
+		if (!videoPlayer)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIVideoOverlayPanel.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (videoPlayer.MovieState == PlayRawImageMovieTexture.MovieStates.Done)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					UILandingPageFullScreenMenus.Get().SetVideoContainerVisible(false);
+					return;
 				}
-				UILandingPageFullScreenMenus.Get().SetVideoContainerVisible(false);
 			}
+			return;
 		}
 	}
 
 	public PlayRawImageMovieTexture GetVideoPlayer()
 	{
-		if (this.m_videoPlacement)
+		if ((bool)m_videoPlacement)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_videoPlacement.GetComponentInChildren<PlayRawImageMovieTexture>();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIVideoOverlayPanel.GetVideoPlayer()).MethodHandle;
-			}
-			return this.m_videoPlacement.GetComponentInChildren<PlayRawImageMovieTexture>();
 		}
 		return null;
 	}
 
 	public void PlayVideo(string movieAssetName)
 	{
-		PlayRawImageMovieTexture videoPlayer = this.GetVideoPlayer();
-		if (videoPlayer)
+		PlayRawImageMovieTexture videoPlayer = GetVideoPlayer();
+		if ((bool)videoPlayer)
 		{
 			bool loop = false;
-			videoPlayer.Play(movieAssetName, loop, false, true);
+			videoPlayer.Play(movieAssetName, loop);
 		}
 	}
 }

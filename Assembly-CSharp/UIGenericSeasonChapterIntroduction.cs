@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,10 +19,10 @@ public class UIGenericSeasonChapterIntroduction : UIIntroductions
 
 	public override bool AreConditionsMetToAutoDisplay()
 	{
-		bool result;
-		if (ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason == this.AppliedSeason)
+		int result;
+		if (ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason == AppliedSeason)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -32,26 +31,26 @@ public class UIGenericSeasonChapterIntroduction : UIIntroductions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGenericSeasonChapterIntroduction.AreConditionsMetToAutoDisplay()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (ClientGameManager.Get().GetHighestOpenSeasonChapterIndexForActiveSeason() == this.AppliedChapter);
+			result = ((ClientGameManager.Get().GetHighestOpenSeasonChapterIndexForActiveSeason() == AppliedChapter) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public override void DisplayIntroduction(int pageNum = 0)
 	{
 		base.DisplayIntroduction(pageNum);
-		GameSubTypeData.GameSubTypeInstructions instructionSet = GameSubTypeData.Get().GetInstructionSet(this.m_instructionType);
+		GameSubTypeData.GameSubTypeInstructions instructionSet = GameSubTypeData.Get().GetInstructionSet(m_instructionType);
 		if (instructionSet != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -60,23 +59,23 @@ public class UIGenericSeasonChapterIntroduction : UIIntroductions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGenericSeasonChapterIntroduction.DisplayIntroduction(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (int i = 0; i < this.m_tooltips.Length; i++)
+			for (int i = 0; i < m_tooltips.Length; i++)
 			{
 				if (i < instructionSet.DisplayInfos.Length)
 				{
-					UIManager.SetGameObjectActive(this.m_tooltips[i], true, null);
-					this.m_tooltips[i].Setup(instructionSet.DisplayInfos[i]);
+					UIManager.SetGameObjectActive(m_tooltips[i], true);
+					m_tooltips[i].Setup(instructionSet.DisplayInfos[i]);
 				}
 				else
 				{
-					UIManager.SetGameObjectActive(this.m_tooltips[i], false, null);
+					UIManager.SetGameObjectActive(m_tooltips[i], false);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -86,25 +85,25 @@ public class UIGenericSeasonChapterIntroduction : UIIntroductions
 				break;
 			}
 		}
-		if (this.m_thermoStat != null)
+		if (!(m_thermoStat != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			InventoryItem itemByTemplateId = ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.GetItemByTemplateId(this.m_LootMatrixThermostatTemplateID);
+			InventoryItem itemByTemplateId = ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.GetItemByTemplateId(m_LootMatrixThermostatTemplateID);
 			List<InventoryItem> items = ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.Items;
 			List<int> list = new List<int>();
 			for (int j = 0; j < items.Count; j++)
 			{
-				if (items[j].TemplateId == this.m_LootMatrixThermostatTemplateID)
+				if (items[j].TemplateId == m_LootMatrixThermostatTemplateID)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -116,16 +115,16 @@ public class UIGenericSeasonChapterIntroduction : UIIntroductions
 					list.Add(items[j].Id);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				m_thermoStat.UpdateThermostat(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent, itemByTemplateId, InventoryWideData.Get().GetItemTemplate(m_LootMatrixThermostatTemplateID), list);
+				return;
 			}
-			this.m_thermoStat.UpdateThermostat(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent, itemByTemplateId, InventoryWideData.Get().GetItemTemplate(this.m_LootMatrixThermostatTemplateID), list, false);
 		}
 	}
 }

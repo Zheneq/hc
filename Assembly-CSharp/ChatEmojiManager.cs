@@ -1,274 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class ChatEmojiManager : MonoBehaviour
 {
-	public List<ChatEmojiManager.ChatEmoji> m_emojiList = new List<ChatEmojiManager.ChatEmoji>();
-
-	public int m_displayTextSize = 0x24;
-
-	public TMP_SpriteAsset m_chatEmojiAsset;
-
-	private static ChatEmojiManager s_instance;
-
-	private List<ChatEmojiManager.EmojiDisplayInfo> m_emojiTextFields = new List<ChatEmojiManager.EmojiDisplayInfo>();
-
-	public static ChatEmojiManager Get()
-	{
-		return ChatEmojiManager.s_instance;
-	}
-
-	public void AddNewEmoji(TextMeshProUGUI textfield, List<int> allowedEmojis = null)
-	{
-		if (textfield != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ChatEmojiManager.AddNewEmoji(TextMeshProUGUI, List<int>)).MethodHandle;
-			}
-			if (this.ContainsEmoji(textfield, allowedEmojis))
-			{
-				ChatEmojiManager.EmojiDisplayInfo item = new ChatEmojiManager.EmojiDisplayInfo(textfield, allowedEmojis);
-				this.m_emojiTextFields.Add(item);
-			}
-		}
-	}
-
-	private bool ContainsEmoji(TextMeshProUGUI textField, List<int> allowedEmojis = null)
-	{
-		using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator = this.m_emojiList.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				ChatEmojiManager.ChatEmoji chatEmoji = enumerator.Current;
-				if (textField.text.Contains(chatEmoji.m_emojiTag))
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ChatEmojiManager.ContainsEmoji(TextMeshProUGUI, List<int>)).MethodHandle;
-					}
-					if (allowedEmojis != null)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						for (int i = 0; i < allowedEmojis.Count; i++)
-						{
-							string unlocalizedChatEmojiName = GameBalanceVars.Get().GetUnlocalizedChatEmojiName(allowedEmojis[i], string.Empty);
-							if (unlocalizedChatEmojiName == chatEmoji.m_emojiName)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								return true;
-							}
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		return false;
-	}
-
-	public List<int> GetAllEmojisIndicesInString(string text)
-	{
-		List<int> list = new List<int>();
-		using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator = this.m_emojiList.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				ChatEmojiManager.ChatEmoji chatEmoji = enumerator.Current;
-				if (text.Contains(chatEmoji.m_emojiTag))
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ChatEmojiManager.GetAllEmojisIndicesInString(string)).MethodHandle;
-					}
-					int chatEmojiIndexByName = GameBalanceVars.Get().GetChatEmojiIndexByName(chatEmoji.m_emojiName);
-					list.Add(chatEmojiIndexByName);
-				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		return list;
-	}
-
-	public List<int> GetAllEmojisInString(string text)
-	{
-		List<int> list = new List<int>();
-		using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator = this.m_emojiList.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				ChatEmojiManager.ChatEmoji chatEmoji = enumerator.Current;
-				if (text.Contains(chatEmoji.m_emojiTag))
-				{
-					int chatEmojiIDByName = GameBalanceVars.Get().GetChatEmojiIDByName(chatEmoji.m_emojiName);
-					list.Add(chatEmojiIDByName);
-				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ChatEmojiManager.GetAllEmojisInString(string)).MethodHandle;
-			}
-		}
-		return list;
-	}
-
-	public string UnlocalizeEmojis(string theString)
-	{
-		string text = theString;
-		using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator = this.m_emojiList.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				ChatEmojiManager.ChatEmoji chatEmoji = enumerator.Current;
-				string emojiTag = chatEmoji.GetEmojiTag();
-				if (theString.Contains(emojiTag))
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ChatEmojiManager.UnlocalizeEmojis(string)).MethodHandle;
-					}
-					if (!emojiTag.IsNullOrEmpty())
-					{
-						text = text.Replace(emojiTag, chatEmoji.m_emojiTag);
-					}
-				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		return text;
-	}
-
-	private void Update()
-	{
-		for (int i = 0; i < this.m_emojiTextFields.Count; i++)
-		{
-			ChatEmojiManager.EmojiDisplayInfo emojiDisplayInfo = this.m_emojiTextFields[i];
-			if (emojiDisplayInfo.m_textField != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ChatEmojiManager.Update()).MethodHandle;
-				}
-				emojiDisplayInfo.Update();
-			}
-			else
-			{
-				this.m_emojiTextFields.Remove(emojiDisplayInfo);
-				i--;
-			}
-		}
-	}
-
-	private void Start()
-	{
-		ChatEmojiManager.s_instance = this;
-	}
-
 	[Serializable]
 	public class ChatEmoji
 	{
@@ -288,45 +24,54 @@ public class ChatEmojiManager : MonoBehaviour
 
 		public ChatEmoji()
 		{
-			this.m_framesPerSecond = 0xC;
+			m_framesPerSecond = 12;
 		}
 
 		public string GetEmojiName()
 		{
-			int chatEmojiIDByName = GameBalanceVars.Get().GetChatEmojiIDByName(this.m_emojiName);
+			int chatEmojiIDByName = GameBalanceVars.Get().GetChatEmojiIDByName(m_emojiName);
 			return StringUtil.TR_EmojiName(chatEmojiIDByName);
 		}
 
 		public string GetEmojiTag()
 		{
-			int chatEmojiIDByName = GameBalanceVars.Get().GetChatEmojiIDByName(this.m_emojiName);
+			int chatEmojiIDByName = GameBalanceVars.Get().GetChatEmojiIDByName(m_emojiName);
 			return StringUtil.TR_EmojiTag(chatEmojiIDByName);
 		}
 
 		public string GetHowToUnlock()
 		{
-			int chatEmojiIDByName = GameBalanceVars.Get().GetChatEmojiIDByName(this.m_emojiName);
+			int chatEmojiIDByName = GameBalanceVars.Get().GetChatEmojiIDByName(m_emojiName);
 			return StringUtil.TR_EmojiUnlock(chatEmojiIDByName);
 		}
 	}
 
 	public class EmojiDisplayInfo
 	{
-		public List<ChatEmojiManager.EmojiDisplayInfo.PerEmojiDisplayInfo> m_emojiDisplayList = new List<ChatEmojiManager.EmojiDisplayInfo.PerEmojiDisplayInfo>();
+		public class PerEmojiDisplayInfo
+		{
+			public ChatEmoji m_refInfo;
+
+			public int m_currentIndex;
+
+			public float m_lastTimeUpdate;
+		}
+
+		public List<PerEmojiDisplayInfo> m_emojiDisplayList = new List<PerEmojiDisplayInfo>();
 
 		public TextMeshProUGUI m_textField;
 
 		public EmojiDisplayInfo(TextMeshProUGUI textfield, List<int> allowedEmojis)
 		{
-			this.m_textField = textfield;
-			using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator = ChatEmojiManager.Get().m_emojiList.GetEnumerator())
+			m_textField = textfield;
+			using (List<ChatEmoji>.Enumerator enumerator = Get().m_emojiList.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					ChatEmojiManager.ChatEmoji chatEmoji = enumerator.Current;
-					if (this.m_textField.text.Contains(chatEmoji.m_emojiTag))
+					ChatEmoji current = enumerator.Current;
+					if (m_textField.text.Contains(current.m_emojiTag))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -335,13 +80,13 @@ public class ChatEmojiManager : MonoBehaviour
 							}
 							break;
 						}
-						if (!true)
+						if (1 == 0)
 						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(ChatEmojiManager.EmojiDisplayInfo..ctor(TextMeshProUGUI, List<int>)).MethodHandle;
+							/*OpCode not supported: LdMemberToken*/;
 						}
 						if (allowedEmojis != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -353,9 +98,9 @@ public class ChatEmojiManager : MonoBehaviour
 							for (int i = 0; i < allowedEmojis.Count; i++)
 							{
 								string unlocalizedChatEmojiName = GameBalanceVars.Get().GetUnlocalizedChatEmojiName(allowedEmojis[i], string.Empty);
-								if (unlocalizedChatEmojiName == chatEmoji.m_emojiName)
+								if (unlocalizedChatEmojiName == current.m_emojiName)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (2)
 										{
@@ -364,24 +109,15 @@ public class ChatEmojiManager : MonoBehaviour
 										}
 										break;
 									}
-									ChatEmojiManager.EmojiDisplayInfo.PerEmojiDisplayInfo perEmojiDisplayInfo = new ChatEmojiManager.EmojiDisplayInfo.PerEmojiDisplayInfo();
-									this.m_textField.text = this.m_textField.text.Replace(chatEmoji.m_emojiTag, string.Concat(new object[]
-									{
-										"<size=",
-										ChatEmojiManager.Get().m_displayTextSize,
-										"><link=emoji-",
-										chatEmoji.m_emojiTag,
-										"><sprite=\"EmoticonsAssets\" index=",
-										chatEmoji.m_startIndex,
-										"></link>​</size>"
-									}));
-									perEmojiDisplayInfo.m_refInfo = chatEmoji;
-									perEmojiDisplayInfo.m_currentIndex = chatEmoji.m_startIndex;
+									PerEmojiDisplayInfo perEmojiDisplayInfo = new PerEmojiDisplayInfo();
+									m_textField.text = m_textField.text.Replace(current.m_emojiTag, "<size=" + Get().m_displayTextSize + "><link=emoji-" + current.m_emojiTag + "><sprite=\"EmoticonsAssets\" index=" + current.m_startIndex + "></link>\u200b</size>");
+									perEmojiDisplayInfo.m_refInfo = current;
+									perEmojiDisplayInfo.m_currentIndex = current.m_startIndex;
 									perEmojiDisplayInfo.m_lastTimeUpdate = Time.time;
-									this.m_emojiDisplayList.Add(perEmojiDisplayInfo);
+									m_emojiDisplayList.Add(perEmojiDisplayInfo);
 								}
 							}
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -393,28 +129,29 @@ public class ChatEmojiManager : MonoBehaviour
 						}
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}
 
 		public void Update()
 		{
-			using (List<ChatEmojiManager.EmojiDisplayInfo.PerEmojiDisplayInfo>.Enumerator enumerator = this.m_emojiDisplayList.GetEnumerator())
+			using (List<PerEmojiDisplayInfo>.Enumerator enumerator = m_emojiDisplayList.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					ChatEmojiManager.EmojiDisplayInfo.PerEmojiDisplayInfo perEmojiDisplayInfo = enumerator.Current;
-					if (Time.time - perEmojiDisplayInfo.m_lastTimeUpdate >= 1f / (float)perEmojiDisplayInfo.m_refInfo.m_framesPerSecond)
+					PerEmojiDisplayInfo current = enumerator.Current;
+					if (Time.time - current.m_lastTimeUpdate >= 1f / (float)current.m_refInfo.m_framesPerSecond)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -423,13 +160,13 @@ public class ChatEmojiManager : MonoBehaviour
 							}
 							break;
 						}
-						if (!true)
+						if (1 == 0)
 						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(ChatEmojiManager.EmojiDisplayInfo.Update()).MethodHandle;
+							/*OpCode not supported: LdMemberToken*/;
 						}
-						if (perEmojiDisplayInfo.m_currentIndex < perEmojiDisplayInfo.m_refInfo.m_endIndex)
+						if (current.m_currentIndex < current.m_refInfo.m_endIndex)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -438,36 +175,294 @@ public class ChatEmojiManager : MonoBehaviour
 								}
 								break;
 							}
-							this.m_textField.text = this.m_textField.text.Replace("<sprite=\"EmoticonsAssets\" index=" + perEmojiDisplayInfo.m_currentIndex + ">", "<sprite=\"EmoticonsAssets\" index=" + (perEmojiDisplayInfo.m_currentIndex + 1) + ">");
-							perEmojiDisplayInfo.m_currentIndex++;
+							m_textField.text = m_textField.text.Replace("<sprite=\"EmoticonsAssets\" index=" + current.m_currentIndex + ">", "<sprite=\"EmoticonsAssets\" index=" + (current.m_currentIndex + 1) + ">");
+							current.m_currentIndex++;
 						}
 						else
 						{
-							this.m_textField.text = this.m_textField.text.Replace("<sprite=\"EmoticonsAssets\" index=" + perEmojiDisplayInfo.m_currentIndex + ">", "<sprite=\"EmoticonsAssets\" index=" + perEmojiDisplayInfo.m_refInfo.m_startIndex + ">");
-							perEmojiDisplayInfo.m_currentIndex = perEmojiDisplayInfo.m_refInfo.m_startIndex;
+							m_textField.text = m_textField.text.Replace("<sprite=\"EmoticonsAssets\" index=" + current.m_currentIndex + ">", "<sprite=\"EmoticonsAssets\" index=" + current.m_refInfo.m_startIndex + ">");
+							current.m_currentIndex = current.m_refInfo.m_startIndex;
 						}
-						perEmojiDisplayInfo.m_lastTimeUpdate = Time.time;
+						current.m_lastTimeUpdate = Time.time;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	public List<ChatEmoji> m_emojiList = new List<ChatEmoji>();
+
+	public int m_displayTextSize = 36;
+
+	public TMP_SpriteAsset m_chatEmojiAsset;
+
+	private static ChatEmojiManager s_instance;
+
+	private List<EmojiDisplayInfo> m_emojiTextFields = new List<EmojiDisplayInfo>();
+
+	public static ChatEmojiManager Get()
+	{
+		return s_instance;
+	}
+
+	public void AddNewEmoji(TextMeshProUGUI textfield, List<int> allowedEmojis = null)
+	{
+		if (!(textfield != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (ContainsEmoji(textfield, allowedEmojis))
+			{
+				EmojiDisplayInfo item = new EmojiDisplayInfo(textfield, allowedEmojis);
+				m_emojiTextFields.Add(item);
+			}
+			return;
+		}
+	}
+
+	private bool ContainsEmoji(TextMeshProUGUI textField, List<int> allowedEmojis = null)
+	{
+		using (List<ChatEmoji>.Enumerator enumerator = m_emojiList.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
+			{
+				ChatEmoji current = enumerator.Current;
+				if (textField.text.Contains(current.m_emojiTag))
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (allowedEmojis != null)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						for (int i = 0; i < allowedEmojis.Count; i++)
+						{
+							string unlocalizedChatEmojiName = GameBalanceVars.Get().GetUnlocalizedChatEmojiName(allowedEmojis[i], string.Empty);
+							if (unlocalizedChatEmojiName == current.m_emojiName)
+							{
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										break;
+									default:
+										return true;
+									}
+								}
+							}
+						}
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+				}
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		return false;
+	}
+
+	public List<int> GetAllEmojisIndicesInString(string text)
+	{
+		List<int> list = new List<int>();
+		using (List<ChatEmoji>.Enumerator enumerator = m_emojiList.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
+			{
+				ChatEmoji current = enumerator.Current;
+				if (text.Contains(current.m_emojiTag))
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					int chatEmojiIndexByName = GameBalanceVars.Get().GetChatEmojiIndexByName(current.m_emojiName);
+					list.Add(chatEmojiIndexByName);
+				}
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					break;
+				default:
+					return list;
+				}
+			}
+		}
+	}
+
+	public List<int> GetAllEmojisInString(string text)
+	{
+		List<int> list = new List<int>();
+		using (List<ChatEmoji>.Enumerator enumerator = m_emojiList.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
+			{
+				ChatEmoji current = enumerator.Current;
+				if (text.Contains(current.m_emojiTag))
+				{
+					int chatEmojiIDByName = GameBalanceVars.Get().GetChatEmojiIDByName(current.m_emojiName);
+					list.Add(chatEmojiIDByName);
+				}
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					if (true)
+					{
+						return list;
+					}
+					/*OpCode not supported: LdMemberToken*/;
+					return list;
+				}
+			}
+		}
+	}
+
+	public string UnlocalizeEmojis(string theString)
+	{
+		string text = theString;
+		using (List<ChatEmoji>.Enumerator enumerator = m_emojiList.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
+			{
+				ChatEmoji current = enumerator.Current;
+				string emojiTag = current.GetEmojiTag();
+				if (theString.Contains(emojiTag))
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (!emojiTag.IsNullOrEmpty())
+					{
+						text = text.Replace(emojiTag, current.m_emojiTag);
+					}
+				}
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					break;
+				default:
+					return text;
+				}
+			}
+		}
+	}
+
+	private void Update()
+	{
+		for (int i = 0; i < m_emojiTextFields.Count; i++)
+		{
+			EmojiDisplayInfo emojiDisplayInfo = m_emojiTextFields[i];
+			if (emojiDisplayInfo.m_textField != null)
+			{
+				while (true)
+				{
+					switch (6)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				emojiDisplayInfo.Update();
+			}
+			else
+			{
+				m_emojiTextFields.Remove(emojiDisplayInfo);
+				i--;
 			}
 		}
+	}
 
-		public class PerEmojiDisplayInfo
-		{
-			public ChatEmojiManager.ChatEmoji m_refInfo;
-
-			public int m_currentIndex;
-
-			public float m_lastTimeUpdate;
-		}
+	private void Start()
+	{
+		s_instance = this;
 	}
 }

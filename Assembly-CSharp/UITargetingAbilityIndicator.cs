@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -52,208 +51,211 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 
 	private void Awake()
 	{
-		this.m_canvasGroup = base.GetComponent<CanvasGroup>();
+		m_canvasGroup = GetComponent<CanvasGroup>();
 	}
 
 	private void Start()
 	{
-		if (this.m_mouseHitBox != null)
+		if (!(m_mouseHitBox != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITargetingAbilityIndicator.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIEventTriggerUtils.AddListener(this.m_mouseHitBox.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.MouseEnter));
-			UIEventTriggerUtils.AddListener(this.m_mouseHitBox.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.MouseExit));
-			this.m_mouseHitBox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, new TooltipPopulateCall(this.ShowTooltip), null);
+			UIEventTriggerUtils.AddListener(m_mouseHitBox.gameObject, EventTriggerType.PointerEnter, MouseEnter);
+			UIEventTriggerUtils.AddListener(m_mouseHitBox.gameObject, EventTriggerType.PointerExit, MouseExit);
+			m_mouseHitBox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, ShowTooltip);
+			return;
 		}
 	}
 
 	public void SetCanvasGroupVisibility(bool visible)
 	{
-		if (this.m_canvasGroup != null)
+		if (!(m_canvasGroup != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (visible)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						break;
+					default:
+						m_canvasGroup.alpha = 1f;
+						m_canvasGroup.blocksRaycasts = true;
+						m_canvasGroup.interactable = true;
+						return;
+					}
+				}
+			}
+			m_canvasGroup.alpha = 0f;
+			m_canvasGroup.blocksRaycasts = false;
+			m_canvasGroup.interactable = false;
+			return;
+		}
+	}
+
+	private bool ShowTooltip(UITooltipBase tooltip)
+	{
+		if (m_ability == null)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
+				}
+			}
+		}
+		UIAbilityTooltip uIAbilityTooltip = (UIAbilityTooltip)tooltip;
+		uIAbilityTooltip.Setup(m_ability, m_ability.CurrentAbilityMod);
+		return true;
+	}
+
+	public void MouseEnter(BaseEventData data)
+	{
+		if (!(m_hoverState != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			UIManager.SetGameObjectActive(m_hoverState, true);
+			m_hoverState.GetComponent<CanvasGroup>().alpha = 1f;
+			return;
+		}
+	}
+
+	public void MouseExit(BaseEventData data)
+	{
+		if (!(m_hoverState != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			UIManager.SetGameObjectActive(m_hoverState, false);
+			m_hoverState.GetComponent<CanvasGroup>().alpha = 0f;
+			return;
+		}
+	}
+
+	public void OnDisable()
+	{
+		if (!(m_hoverState != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			UIManager.SetGameObjectActive(m_hoverState, false);
+			m_hoverState.GetComponent<CanvasGroup>().alpha = 0f;
+			return;
+		}
+	}
+
+	public void Setup(ActorData actor, Ability ability, AbilityData.ActionType action)
+	{
+		if (!(actor != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(actor.GetAbilityData() != null))
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITargetingAbilityIndicator.SetCanvasGroupVisibility(bool)).MethodHandle;
-			}
-			if (visible)
-			{
-				for (;;)
+				if (!(ability != null))
 				{
-					switch (6)
+					return;
+				}
+				while (true)
+				{
+					switch (3)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				this.m_canvasGroup.alpha = 1f;
-				this.m_canvasGroup.blocksRaycasts = true;
-				this.m_canvasGroup.interactable = true;
-			}
-			else
-			{
-				this.m_canvasGroup.alpha = 0f;
-				this.m_canvasGroup.blocksRaycasts = false;
-				this.m_canvasGroup.interactable = false;
-			}
-		}
-	}
-
-	private bool ShowTooltip(UITooltipBase tooltip)
-	{
-		if (this.m_ability == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITargetingAbilityIndicator.ShowTooltip(UITooltipBase)).MethodHandle;
-			}
-			return false;
-		}
-		UIAbilityTooltip uiabilityTooltip = (UIAbilityTooltip)tooltip;
-		uiabilityTooltip.Setup(this.m_ability, this.m_ability.CurrentAbilityMod);
-		return true;
-	}
-
-	public void MouseEnter(BaseEventData data)
-	{
-		if (this.m_hoverState != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITargetingAbilityIndicator.MouseEnter(BaseEventData)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_hoverState, true, null);
-			this.m_hoverState.GetComponent<CanvasGroup>().alpha = 1f;
-		}
-	}
-
-	public void MouseExit(BaseEventData data)
-	{
-		if (this.m_hoverState != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITargetingAbilityIndicator.MouseExit(BaseEventData)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_hoverState, false, null);
-			this.m_hoverState.GetComponent<CanvasGroup>().alpha = 0f;
-		}
-	}
-
-	public void OnDisable()
-	{
-		if (this.m_hoverState != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITargetingAbilityIndicator.OnDisable()).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_hoverState, false, null);
-			this.m_hoverState.GetComponent<CanvasGroup>().alpha = 0f;
-		}
-	}
-
-	public void Setup(ActorData actor, Ability ability, AbilityData.ActionType action)
-	{
-		if (actor != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITargetingAbilityIndicator.Setup(ActorData, Ability, AbilityData.ActionType)).MethodHandle;
-			}
-			if (actor.\u000E() != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (ability != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					AbilityData abilityData = actor.\u000E();
-					bool flag = GameFlowData.Get().LocalPlayerData.IsViewingTeam(actor.\u000E());
-					bool flag2;
+					AbilityData abilityData = actor.GetAbilityData();
+					bool flag = GameFlowData.Get().LocalPlayerData.IsViewingTeam(actor.GetTeam());
+					int num;
 					if (ClientGameManager.Get().PlayerInfo != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -264,17 +266,18 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 						}
 						if (ClientGameManager.Get().PlayerInfo.IsSpectator)
 						{
-							flag2 = ClientGameManager.Get().SpectatorHideAbilityTargeter;
-							goto IL_B1;
+							num = (ClientGameManager.Get().SpectatorHideAbilityTargeter ? 1 : 0);
+							goto IL_00b1;
 						}
 					}
-					flag2 = false;
-					IL_B1:
-					bool flag3 = flag2;
-					bool flag4;
-					if (!flag3)
+					num = 0;
+					goto IL_00b1;
+					IL_00b1:
+					bool flag2 = (byte)num != 0;
+					int num2;
+					if (!flag2)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -283,17 +286,17 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 							}
 							break;
 						}
-						flag4 = abilityData.HasQueuedAction(action);
+						num2 = (abilityData.HasQueuedAction(action) ? 1 : 0);
 					}
 					else
 					{
-						flag4 = false;
+						num2 = 0;
 					}
-					bool flag5 = flag4;
-					bool flag6;
-					if (!flag3)
+					bool flag3 = (byte)num2 != 0;
+					int num3;
+					if (!flag2)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -302,21 +305,21 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 							}
 							break;
 						}
-						flag6 = (abilityData.GetSelectedActionTypeForTargeting() == action);
+						num3 = ((abilityData.GetSelectedActionTypeForTargeting() == action) ? 1 : 0);
 					}
 					else
 					{
-						flag6 = false;
+						num3 = 0;
 					}
-					bool flag7 = flag6;
-					bool flag8 = abilityData.IsAbilityAllowedByUnlockTurns(action);
+					bool flag4 = (byte)num3 != 0;
+					bool flag5 = abilityData.IsAbilityAllowedByUnlockTurns(action);
 					int cooldownRemaining = abilityData.GetCooldownRemaining(action);
 					int stocksRemaining = abilityData.GetStocksRemaining(action);
 					int stockRefreshCountdown = abilityData.GetStockRefreshCountdown(action);
-					bool flag9 = ability.GetModdedCost() <= actor.\u0019();
-					if (this.m_ability == ability && this.m_cachedIsQueued == flag5)
+					bool flag6 = ability.GetModdedCost() <= actor.GetEnergyToDisplay();
+					if (m_ability == ability && m_cachedIsQueued == flag3)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -325,9 +328,9 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 							}
 							break;
 						}
-						if (this.m_cachedIsTargeting == flag7 && this.m_cachedAbilityUseAllowed == flag8)
+						if (m_cachedIsTargeting == flag4 && m_cachedAbilityUseAllowed == flag5)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -336,9 +339,9 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 								}
 								break;
 							}
-							if (this.m_cachedCooldown == cooldownRemaining)
+							if (m_cachedCooldown == cooldownRemaining)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (6)
 									{
@@ -347,9 +350,9 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 									}
 									break;
 								}
-								if (this.m_cachedStocksRemaining == stocksRemaining)
+								if (m_cachedStocksRemaining == stocksRemaining)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (6)
 										{
@@ -358,9 +361,9 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 										}
 										break;
 									}
-									if (this.m_cachedStockRefreshCountdown == stockRefreshCountdown)
+									if (m_cachedStockRefreshCountdown == stockRefreshCountdown)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (6)
 											{
@@ -369,35 +372,35 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 											}
 											break;
 										}
-										if (this.m_cachedEnergyOk == flag9)
+										if (m_cachedEnergyOk == flag6)
 										{
-											for (;;)
+											while (true)
 											{
 												switch (3)
 												{
+												default:
+													return;
 												case 0:
-													continue;
+													break;
 												}
-												break;
 											}
-											return;
 										}
 									}
 								}
 							}
 						}
 					}
-					this.m_ability = ability;
-					this.m_cachedIsQueued = flag5;
-					this.m_cachedIsTargeting = flag7;
-					this.m_cachedAbilityUseAllowed = flag8;
-					this.m_cachedCooldown = cooldownRemaining;
-					this.m_cachedStocksRemaining = stocksRemaining;
-					this.m_cachedStockRefreshCountdown = stockRefreshCountdown;
-					this.m_cachedEnergyOk = flag9;
-					if (this.m_queuedState != null)
+					m_ability = ability;
+					m_cachedIsQueued = flag3;
+					m_cachedIsTargeting = flag4;
+					m_cachedAbilityUseAllowed = flag5;
+					m_cachedCooldown = cooldownRemaining;
+					m_cachedStocksRemaining = stocksRemaining;
+					m_cachedStockRefreshCountdown = stockRefreshCountdown;
+					m_cachedEnergyOk = flag6;
+					if (m_queuedState != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -406,12 +409,12 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 							}
 							break;
 						}
-						UIManager.SetGameObjectActive(this.m_queuedState, false, null);
+						UIManager.SetGameObjectActive(m_queuedState, false);
 					}
-					this.ShowDisabledIndicator(false);
-					if (this.m_targetingState != null)
+					ShowDisabledIndicator(false);
+					if (m_targetingState != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -420,11 +423,11 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 							}
 							break;
 						}
-						UIManager.SetGameObjectActive(this.m_targetingState, false, null);
+						UIManager.SetGameObjectActive(m_targetingState, false);
 					}
-					if (this.m_defaultState != null)
+					if (m_defaultState != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -433,13 +436,13 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 							}
 							break;
 						}
-						UIManager.SetGameObjectActive(this.m_defaultState, false, null);
+						UIManager.SetGameObjectActive(m_defaultState, false);
 					}
-					this.m_abilityIconImage.sprite = ability.sprite;
-					this.m_cooldownLabel.text = string.Empty;
+					m_abilityIconImage.sprite = ability.sprite;
+					m_cooldownLabel.text = string.Empty;
 					if (flag)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -448,15 +451,15 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 							}
 							break;
 						}
-						if (flag5)
+						if (flag3)
 						{
-							if (this.m_queuedState != null)
+							if (m_queuedState != null)
 							{
-								UIManager.SetGameObjectActive(this.m_queuedState, true, null);
+								UIManager.SetGameObjectActive(m_queuedState, true);
 							}
-							if (this.m_phaseColorImage != null)
+							if (m_phaseColorImage != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -465,15 +468,15 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 									}
 									break;
 								}
-								this.SetPhaseImageColor(this.m_phaseColorImage, this.m_ability.GetRunPriority());
+								SetPhaseImageColor(m_phaseColorImage, m_ability.GetRunPriority());
 							}
-							this.m_abilityIconImage.color = HighlightUtils.Get().m_allyAvailableAbilityIconColor;
+							m_abilityIconImage.color = HighlightUtils.Get().m_allyAvailableAbilityIconColor;
 							return;
 						}
 					}
 					if (flag)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -482,33 +485,33 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 							}
 							break;
 						}
-						if (flag7)
+						if (flag4)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									if (m_targetingState != null)
+									{
+										UIManager.SetGameObjectActive(m_targetingState, true);
+									}
+									if (m_targetingPhaseColorImage != null)
+									{
+										SetPhaseImageColor(m_targetingPhaseColorImage, m_ability.GetRunPriority());
+									}
+									m_abilityIconImage.color = HighlightUtils.Get().m_allyTargetingAbilityIconColor;
+									return;
 								}
-								break;
 							}
-							if (this.m_targetingState != null)
-							{
-								UIManager.SetGameObjectActive(this.m_targetingState, true, null);
-							}
-							if (this.m_targetingPhaseColorImage != null)
-							{
-								this.SetPhaseImageColor(this.m_targetingPhaseColorImage, this.m_ability.GetRunPriority());
-							}
-							this.m_abilityIconImage.color = HighlightUtils.Get().m_allyTargetingAbilityIconColor;
-							return;
 						}
 					}
-					bool flag10 = this.m_ability.GetModdedMaxStocks() > 0;
+					bool flag7 = m_ability.GetModdedMaxStocks() > 0;
 					if (cooldownRemaining > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -517,83 +520,80 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 							}
 							break;
 						}
-						if (!flag10)
+						if (!flag7)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									ShowDisabledIndicator(true);
+									m_abilityIconImage.color = HighlightUtils.Get().m_allyCooldownAbilityIconColor;
+									m_cooldownLabel.text = cooldownRemaining.ToString();
+									return;
 								}
-								break;
 							}
-							this.ShowDisabledIndicator(true);
-							this.m_abilityIconImage.color = HighlightUtils.Get().m_allyCooldownAbilityIconColor;
-							this.m_cooldownLabel.text = cooldownRemaining.ToString();
-							return;
 						}
 					}
-					if (!flag8)
+					if (!flag5)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
+							{
+							case 0:
+								break;
+							default:
+								ShowDisabledIndicator(true);
+								m_abilityIconImage.color = HighlightUtils.Get().m_allyCooldownAbilityIconColor;
+								m_cooldownLabel.text = "1";
+								return;
+							}
+						}
+					}
+					if (flag7)
+					{
+						while (true)
+						{
+							switch (6)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						this.ShowDisabledIndicator(true);
-						this.m_abilityIconImage.color = HighlightUtils.Get().m_allyCooldownAbilityIconColor;
-						this.m_cooldownLabel.text = "1";
-					}
-					else
-					{
-						if (flag10)
+						if (stocksRemaining == 0)
 						{
-							for (;;)
+							while (true)
 							{
-								switch (6)
+								switch (4)
 								{
 								case 0:
-									continue;
-								}
-								break;
-							}
-							if (stocksRemaining == 0)
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
 									break;
+								default:
+									ShowDisabledIndicator(true);
+									m_abilityIconImage.color = HighlightUtils.Get().m_allyCooldownAbilityIconColor;
+									m_cooldownLabel.text = stockRefreshCountdown.ToString();
+									return;
 								}
-								this.ShowDisabledIndicator(true);
-								this.m_abilityIconImage.color = HighlightUtils.Get().m_allyCooldownAbilityIconColor;
-								this.m_cooldownLabel.text = stockRefreshCountdown.ToString();
-								return;
-							}
-						}
-						if (!flag9)
-						{
-							this.ShowDisabledIndicator(true);
-							this.m_abilityIconImage.color = HighlightUtils.Get().m_allyCooldownAbilityIconColor;
-							this.m_cooldownLabel.text = string.Empty;
-						}
-						else
-						{
-							this.m_abilityIconImage.color = HighlightUtils.Get().m_allyAvailableAbilityIconColor;
-							if (this.m_defaultState != null)
-							{
-								UIManager.SetGameObjectActive(this.m_defaultState, true, null);
 							}
 						}
 					}
+					if (!flag6)
+					{
+						ShowDisabledIndicator(true);
+						m_abilityIconImage.color = HighlightUtils.Get().m_allyCooldownAbilityIconColor;
+						m_cooldownLabel.text = string.Empty;
+						return;
+					}
+					m_abilityIconImage.color = HighlightUtils.Get().m_allyAvailableAbilityIconColor;
+					if (m_defaultState != null)
+					{
+						UIManager.SetGameObjectActive(m_defaultState, true);
+					}
+					return;
 				}
 			}
 		}
@@ -601,27 +601,27 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 
 	private void ShowDisabledIndicator(bool show)
 	{
-		if (this.m_cooldownState != null)
+		if (!(m_cooldownState != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITargetingAbilityIndicator.ShowDisabledIndicator(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_cooldownState, show, null);
-			CanvasGroup component = this.m_cooldownState.GetComponent<CanvasGroup>();
-			float num;
+			UIManager.SetGameObjectActive(m_cooldownState, show);
+			CanvasGroup component = m_cooldownState.GetComponent<CanvasGroup>();
+			int num;
 			if (show)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -630,13 +630,14 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 					}
 					break;
 				}
-				num = (float)1;
+				num = 1;
 			}
 			else
 			{
-				num = (float)0;
+				num = 0;
 			}
 			component.alpha = num;
+			return;
 		}
 	}
 
@@ -644,28 +645,27 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 	{
 		if (abilityRunPhase <= AbilityPriority.Prep_Offense)
 		{
-			phaseImage.color = this.m_prepPhaseColor;
+			phaseImage.color = m_prepPhaseColor;
+			return;
 		}
-		else if (abilityRunPhase <= AbilityPriority.Evasion)
+		if (abilityRunPhase <= AbilityPriority.Evasion)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					phaseImage.color = m_evasionPhaseColor;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITargetingAbilityIndicator.SetPhaseImageColor(Image, AbilityPriority)).MethodHandle;
-			}
-			phaseImage.color = this.m_evasionPhaseColor;
 		}
-		else
-		{
-			phaseImage.color = this.m_combatPhaseColor;
-		}
+		phaseImage.color = m_combatPhaseColor;
 	}
 }

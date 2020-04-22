@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,38 +33,39 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SpaceMarineDropPod spaceMarineDropPod = targetAbility as SpaceMarineDropPod;
-		if (spaceMarineDropPod != null)
+		if (!(spaceMarineDropPod != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SpaceMarineDropPod.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_damageMod, "DamageAmount", string.Empty, spaceMarineDropPod.m_damageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_knockbackDistanceMod, "KnockbackDistance", string.Empty, spaceMarineDropPod.m_knockbackDistance, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_energyRefundIfNoEnemyHitMod, "EnergyRefundIfNoEnemyHit", string.Empty, spaceMarineDropPod.m_energyRefundIfNoEnemyHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraPowerupHealIfDirectHitMod, "ExtraPowerupHealIfDirectHit", string.Empty, spaceMarineDropPod.m_extraPowerupHealIfDirectHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraPowerupEnergyIfDirectHitMod, "ExtraPowerupEnergy", string.Empty, spaceMarineDropPod.m_extraPowerupEnergyIfDirectHit, true, false);
+			AbilityMod.AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, spaceMarineDropPod.m_damageAmount);
+			AbilityMod.AddToken(tokens, m_knockbackDistanceMod, "KnockbackDistance", string.Empty, spaceMarineDropPod.m_knockbackDistance);
+			AbilityMod.AddToken(tokens, m_energyRefundIfNoEnemyHitMod, "EnergyRefundIfNoEnemyHit", string.Empty, spaceMarineDropPod.m_energyRefundIfNoEnemyHit);
+			AbilityMod.AddToken(tokens, m_extraPowerupHealIfDirectHitMod, "ExtraPowerupHealIfDirectHit", string.Empty, spaceMarineDropPod.m_extraPowerupHealIfDirectHit);
+			AbilityMod.AddToken(tokens, m_extraPowerupEnergyIfDirectHitMod, "ExtraPowerupEnergy", string.Empty, spaceMarineDropPod.m_extraPowerupEnergyIfDirectHit);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SpaceMarineDropPod spaceMarineDropPod = base.GetTargetAbilityOnAbilityData(abilityData) as SpaceMarineDropPod;
+		SpaceMarineDropPod spaceMarineDropPod = GetTargetAbilityOnAbilityData(abilityData) as SpaceMarineDropPod;
 		bool flag = spaceMarineDropPod != null;
 		int num = 0;
 		int num2 = 0;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -73,16 +74,16 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SpaceMarineDropPod.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (spaceMarineDropPod.m_powerupPrefab != null)
 			{
 				PowerUp_Standard_Ability component = spaceMarineDropPod.m_powerupPrefab.GetComponent<PowerUp_Standard_Ability>();
 				if (component != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -96,15 +97,13 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 				}
 			}
 		}
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix = "[Damage]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -119,15 +118,13 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(damageMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat knockbackDistanceMod = this.m_knockbackDistanceMod;
-		string prefix2 = "[Knockback Distance]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(damageMod, "[Damage]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat knockbackDistanceMod = m_knockbackDistanceMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -142,15 +139,13 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(knockbackDistanceMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt energyRefundIfNoEnemyHitMod = this.m_energyRefundIfNoEnemyHitMod;
-		string prefix3 = "[EnergyRefundIfNoEnemyHit]";
-		bool showBaseVal3 = flag;
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(knockbackDistanceMod, "[Knockback Distance]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyInt energyRefundIfNoEnemyHitMod = m_energyRefundIfNoEnemyHitMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -165,16 +160,14 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(energyRefundIfNoEnemyHitMod, prefix3, showBaseVal3, baseVal3);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_powerupHealMod, "[PowerUp Heal Amount]", flag, (!flag) ? 0 : num);
-		string str4 = text;
-		AbilityModPropertyInt powerupTechPointMod = this.m_powerupTechPointMod;
-		string prefix4 = "[PowerUp TechPoint Amount]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(energyRefundIfNoEnemyHitMod, "[EnergyRefundIfNoEnemyHit]", flag, baseVal3);
+		empty += AbilityModHelper.GetModPropertyDesc(m_powerupHealMod, "[PowerUp Heal Amount]", flag, flag ? num : 0);
+		string str4 = empty;
+		AbilityModPropertyInt powerupTechPointMod = m_powerupTechPointMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -189,16 +182,14 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + AbilityModHelper.GetModPropertyDesc(powerupTechPointMod, prefix4, showBaseVal4, baseVal4);
-		text += AbilityModHelper.GetModGroundEffectInfoDesc(this.m_groundEffectInfoOnDropPod, "-- Ground Effect on Drop Pod Location --", flag, null);
-		string str5 = text;
-		AbilityModPropertyInt extraPowerupHealIfDirectHitMod = this.m_extraPowerupHealIfDirectHitMod;
-		string prefix5 = "[ExtraPowerupHealIfDirectHit]";
-		bool showBaseVal5 = flag;
+		empty = str4 + AbilityModHelper.GetModPropertyDesc(powerupTechPointMod, "[PowerUp TechPoint Amount]", flag, baseVal4);
+		empty += AbilityModHelper.GetModGroundEffectInfoDesc(m_groundEffectInfoOnDropPod, "-- Ground Effect on Drop Pod Location --", flag);
+		string str5 = empty;
+		AbilityModPropertyInt extraPowerupHealIfDirectHitMod = m_extraPowerupHealIfDirectHitMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -213,15 +204,13 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(extraPowerupHealIfDirectHitMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt extraPowerupEnergyIfDirectHitMod = this.m_extraPowerupEnergyIfDirectHitMod;
-		string prefix6 = "[ExtraPowerupEnergy]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(extraPowerupHealIfDirectHitMod, "[ExtraPowerupHealIfDirectHit]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt extraPowerupEnergyIfDirectHitMod = m_extraPowerupEnergyIfDirectHitMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -236,6 +225,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		return str6 + base.PropDesc(extraPowerupEnergyIfDirectHitMod, prefix6, showBaseVal6, baseVal6);
+		return str6 + PropDesc(extraPowerupEnergyIfDirectHitMod, "[ExtraPowerupEnergy]", flag, baseVal6);
 	}
 }

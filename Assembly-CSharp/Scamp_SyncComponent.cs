@@ -1,4 +1,3 @@
-﻿using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -40,15 +39,15 @@ public class Scamp_SyncComponent : NetworkBehaviour
 
 	private Scamp_ChatterEventOverrider m_chatterEventOverrider;
 
-	private static readonly int s_aHashIdleType = Animator.StringToHash("IdleType");
+	private static readonly int s_aHashIdleType;
 
-	private static readonly int s_aHashAttack = Animator.StringToHash("Attack");
+	private static readonly int s_aHashAttack;
 
-	private static readonly int s_aHashCinematicCam = Animator.StringToHash("CinematicCam");
+	private static readonly int s_aHashCinematicCam;
 
-	private static readonly int s_aHashStartAttack = Animator.StringToHash("StartAttack");
+	private static readonly int s_aHashStartAttack;
 
-	private static int kRpcRpcResetTargetersForSuitMode = -0x6FA705BA;
+	private static int kRpcRpcResetTargetersForSuitMode;
 
 	private static int kRpcRpcSetAnimParamForSuit;
 
@@ -56,29 +55,86 @@ public class Scamp_SyncComponent : NetworkBehaviour
 
 	private static int kRpcRpcResetAttackParam;
 
+	public bool Networkm_suitWasActiveOnTurnStart
+	{
+		get
+		{
+			return m_suitWasActiveOnTurnStart;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_suitWasActiveOnTurnStart, 1u);
+		}
+	}
+
+	public bool Networkm_suitActive
+	{
+		get
+		{
+			return m_suitActive;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_suitActive, 2u);
+		}
+	}
+
+	public uint Networkm_suitShieldingOnTurnStart
+	{
+		get
+		{
+			return m_suitShieldingOnTurnStart;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_suitShieldingOnTurnStart, 4u);
+		}
+	}
+
+	public uint Networkm_lastSuitLostTurn
+	{
+		get
+		{
+			return m_lastSuitLostTurn;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_lastSuitLostTurn, 8u);
+		}
+	}
+
 	static Scamp_SyncComponent()
 	{
-		NetworkBehaviour.RegisterRpcDelegate(typeof(Scamp_SyncComponent), Scamp_SyncComponent.kRpcRpcResetTargetersForSuitMode, new NetworkBehaviour.CmdDelegate(Scamp_SyncComponent.InvokeRpcRpcResetTargetersForSuitMode));
-		Scamp_SyncComponent.kRpcRpcSetAnimParamForSuit = -0x4732BCD1;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(Scamp_SyncComponent), Scamp_SyncComponent.kRpcRpcSetAnimParamForSuit, new NetworkBehaviour.CmdDelegate(Scamp_SyncComponent.InvokeRpcRpcSetAnimParamForSuit));
-		Scamp_SyncComponent.kRpcRpcPlayShieldRemoveAnim = 0x55B42EDF;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(Scamp_SyncComponent), Scamp_SyncComponent.kRpcRpcPlayShieldRemoveAnim, new NetworkBehaviour.CmdDelegate(Scamp_SyncComponent.InvokeRpcRpcPlayShieldRemoveAnim));
-		Scamp_SyncComponent.kRpcRpcResetAttackParam = -0x3C05E89D;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(Scamp_SyncComponent), Scamp_SyncComponent.kRpcRpcResetAttackParam, new NetworkBehaviour.CmdDelegate(Scamp_SyncComponent.InvokeRpcRpcResetAttackParam));
+		s_aHashIdleType = Animator.StringToHash("IdleType");
+		s_aHashAttack = Animator.StringToHash("Attack");
+		s_aHashCinematicCam = Animator.StringToHash("CinematicCam");
+		s_aHashStartAttack = Animator.StringToHash("StartAttack");
+		kRpcRpcResetTargetersForSuitMode = -1873216954;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(Scamp_SyncComponent), kRpcRpcResetTargetersForSuitMode, InvokeRpcRpcResetTargetersForSuitMode);
+		kRpcRpcSetAnimParamForSuit = -1194507473;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(Scamp_SyncComponent), kRpcRpcSetAnimParamForSuit, InvokeRpcRpcSetAnimParamForSuit);
+		kRpcRpcPlayShieldRemoveAnim = 1437871839;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(Scamp_SyncComponent), kRpcRpcPlayShieldRemoveAnim, InvokeRpcRpcPlayShieldRemoveAnim);
+		kRpcRpcResetAttackParam = -1007020189;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(Scamp_SyncComponent), kRpcRpcResetAttackParam, InvokeRpcRpcResetAttackParam);
 		NetworkCRC.RegisterBehaviour("Scamp_SyncComponent", 0);
 	}
 
 	private void Awake()
 	{
-		this.m_suitActiveAnimHash = Animator.StringToHash(this.m_suitActiveAnimParamName);
+		m_suitActiveAnimHash = Animator.StringToHash(m_suitActiveAnimParamName);
 	}
 
 	private void Start()
 	{
-		this.m_actor = base.GetComponent<ActorData>();
-		if (this.m_actor != null && this.m_actor.\u000E() != null)
+		m_actor = GetComponent<ActorData>();
+		if (m_actor != null && m_actor.GetModelAnimator() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -87,25 +143,25 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_actor.\u000E().SetInteger(this.m_suitActiveAnimHash, 1);
+			m_actor.GetModelAnimator().SetInteger(m_suitActiveAnimHash, 1);
 		}
-		AbilityData component = base.GetComponent<AbilityData>();
+		AbilityData component = GetComponent<AbilityData>();
 		if (component != null)
 		{
-			this.m_sideLasersAbility = component.GetAbilityOfType<ScampSideLaserOrCone>();
-			this.m_meetingLasersAbility = component.GetAbilityOfType<ScampDualLasers>();
-			this.m_dashAoeAbility = component.GetAbilityOfType<ScampDashAndAoe>();
+			m_sideLasersAbility = component.GetAbilityOfType<ScampSideLaserOrCone>();
+			m_meetingLasersAbility = component.GetAbilityOfType<ScampDualLasers>();
+			m_dashAoeAbility = component.GetAbilityOfType<ScampDashAndAoe>();
 		}
-		this.m_vfxController = base.GetComponentInChildren<ScampVfxController>();
-		ChatterComponent component2 = base.GetComponent<ChatterComponent>();
+		m_vfxController = GetComponentInChildren<ScampVfxController>();
+		ChatterComponent component2 = GetComponent<ChatterComponent>();
 		if (component2 != null)
 		{
-			this.m_chatterEventOverrider = new Scamp_ChatterEventOverrider(this);
-			component2.SetEventOverrider(this.m_chatterEventOverrider);
+			m_chatterEventOverrider = new Scamp_ChatterEventOverrider(this);
+			component2.SetEventOverrider(m_chatterEventOverrider);
 		}
 	}
 
@@ -114,16 +170,16 @@ public class Scamp_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			this.Networkm_suitWasActiveOnTurnStart = hasShielding;
-			this.ResetTargeterForSuitMode(hasShielding);
+			Networkm_suitWasActiveOnTurnStart = hasShielding;
+			ResetTargeterForSuitMode(hasShielding);
 		}
 	}
 
 	public void ResetTargeterForSuitMode(bool hasShielding)
 	{
-		if (this.m_sideLasersAbility != null)
+		if (m_sideLasersAbility != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -132,15 +188,15 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.ResetTargeterForSuitMode(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_sideLasersAbility.ResetTargetersForShielding(hasShielding);
+			m_sideLasersAbility.ResetTargetersForShielding(hasShielding);
 		}
-		if (this.m_dashAoeAbility != null)
+		if (m_dashAoeAbility != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -149,43 +205,43 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_dashAoeAbility.ResetTargetersForShielding(hasShielding);
+			m_dashAoeAbility.ResetTargetersForShielding(hasShielding);
 		}
-		if (this.m_meetingLasersAbility != null)
+		if (m_meetingLasersAbility != null)
 		{
-			this.m_meetingLasersAbility.ResetTargetersForShielding(hasShielding);
+			m_meetingLasersAbility.ResetTargetersForShielding(hasShielding);
 		}
 	}
 
 	[ClientRpc]
 	public void RpcSetAnimParamForSuit(bool activeNow)
 	{
-		this.SetAnimParamForSuit(activeNow);
+		SetAnimParamForSuit(activeNow);
 	}
 
 	public void SetAnimParamForSuit(bool activeNow)
 	{
-		if (NetworkClient.active && this.m_actor != null && this.m_actor.\u000E() != null)
+		if (!NetworkClient.active || !(m_actor != null) || !(m_actor.GetModelAnimator() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.SetAnimParamForSuit(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Animator animator = this.m_actor.\u000E();
-			int suitActiveAnimHash = this.m_suitActiveAnimHash;
+			Animator modelAnimator = m_actor.GetModelAnimator();
+			int suitActiveAnimHash = m_suitActiveAnimHash;
 			int value;
 			if (activeNow)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -200,76 +256,78 @@ public class Scamp_SyncComponent : NetworkBehaviour
 			{
 				value = 0;
 			}
-			animator.SetInteger(suitActiveAnimHash, value);
+			modelAnimator.SetInteger(suitActiveAnimHash, value);
+			return;
 		}
 	}
 
 	[ClientRpc]
 	public void RpcPlayShieldRemoveAnim()
 	{
-		this.PlayShieldRemoveAnim();
+		PlayShieldRemoveAnim();
 	}
 
 	public void PlayShieldRemoveAnim()
 	{
-		Animator animator = this.m_actor.\u000E();
-		if (animator != null)
+		Animator modelAnimator = m_actor.GetModelAnimator();
+		if (!(modelAnimator != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.PlayShieldRemoveAnim()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_shieldRemoveAnimIndex > 0)
+			if (m_shieldRemoveAnimIndex > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					modelAnimator.SetInteger(s_aHashAttack, m_shieldRemoveAnimIndex);
+					modelAnimator.SetInteger(s_aHashIdleType, 0);
+					modelAnimator.SetBool(s_aHashCinematicCam, false);
+					modelAnimator.SetTrigger(s_aHashStartAttack);
+					SetAnimParamForSuit(false);
+					return;
 				}
-				animator.SetInteger(Scamp_SyncComponent.s_aHashAttack, this.m_shieldRemoveAnimIndex);
-				animator.SetInteger(Scamp_SyncComponent.s_aHashIdleType, 0);
-				animator.SetBool(Scamp_SyncComponent.s_aHashCinematicCam, false);
-				animator.SetTrigger(Scamp_SyncComponent.s_aHashStartAttack);
-				this.SetAnimParamForSuit(false);
 			}
+			return;
 		}
 	}
 
 	[ClientRpc]
 	public void RpcResetAttackParam()
 	{
-		this.ResetAttackParam();
+		ResetAttackParam();
 	}
 
 	public void ResetAttackParam()
 	{
-		Animator animator = this.m_actor.\u000E();
-		if (animator != null)
+		Animator modelAnimator = m_actor.GetModelAnimator();
+		if (modelAnimator != null)
 		{
-			animator.SetInteger(Scamp_SyncComponent.s_aHashAttack, 0);
-			animator.SetBool(Scamp_SyncComponent.s_aHashCinematicCam, false);
+			modelAnimator.SetInteger(s_aHashAttack, 0);
+			modelAnimator.SetBool(s_aHashCinematicCam, false);
 		}
 	}
 
 	public bool IsSuitModelActive()
 	{
-		bool result;
-		if (this.m_vfxController != null)
+		int result;
+		if (m_vfxController != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -278,94 +336,42 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.IsSuitModelActive()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_vfxController.IsSuitVisuallyShown();
+			result = (m_vfxController.IsSuitVisuallyShown() ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private void UNetVersion()
 	{
 	}
 
-	public bool Networkm_suitWasActiveOnTurnStart
-	{
-		get
-		{
-			return this.m_suitWasActiveOnTurnStart;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<bool>(value, ref this.m_suitWasActiveOnTurnStart, 1U);
-		}
-	}
-
-	public bool Networkm_suitActive
-	{
-		get
-		{
-			return this.m_suitActive;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<bool>(value, ref this.m_suitActive, 2U);
-		}
-	}
-
-	public uint Networkm_suitShieldingOnTurnStart
-	{
-		get
-		{
-			return this.m_suitShieldingOnTurnStart;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<uint>(value, ref this.m_suitShieldingOnTurnStart, 4U);
-		}
-	}
-
-	public uint Networkm_lastSuitLostTurn
-	{
-		get
-		{
-			return this.m_lastSuitLostTurn;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<uint>(value, ref this.m_lastSuitLostTurn, 8U);
-		}
-	}
-
 	protected static void InvokeRpcRpcResetTargetersForSuitMode(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("RPC RpcResetTargetersForSuitMode called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.InvokeRpcRpcResetTargetersForSuitMode(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("RPC RpcResetTargetersForSuitMode called on server.");
-			return;
 		}
 		((Scamp_SyncComponent)obj).RpcResetTargetersForSuitMode(reader.ReadBoolean());
 	}
@@ -374,21 +380,21 @@ public class Scamp_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("RPC RpcSetAnimParamForSuit called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.InvokeRpcRpcSetAnimParamForSuit(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("RPC RpcSetAnimParamForSuit called on server.");
-			return;
 		}
 		((Scamp_SyncComponent)obj).RpcSetAnimParamForSuit(reader.ReadBoolean());
 	}
@@ -397,21 +403,21 @@ public class Scamp_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("RPC RpcPlayShieldRemoveAnim called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.InvokeRpcRpcPlayShieldRemoveAnim(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("RPC RpcPlayShieldRemoveAnim called on server.");
-			return;
 		}
 		((Scamp_SyncComponent)obj).RpcPlayShieldRemoveAnim();
 	}
@@ -421,67 +427,69 @@ public class Scamp_SyncComponent : NetworkBehaviour
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("RPC RpcResetAttackParam called on server.");
-			return;
 		}
-		((Scamp_SyncComponent)obj).RpcResetAttackParam();
+		else
+		{
+			((Scamp_SyncComponent)obj).RpcResetAttackParam();
+		}
 	}
 
 	public void CallRpcResetTargetersForSuitMode(bool hasShielding)
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("RPC Function RpcResetTargetersForSuitMode called on client.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.CallRpcResetTargetersForSuitMode(bool)).MethodHandle;
-			}
-			Debug.LogError("RPC Function RpcResetTargetersForSuitMode called on client.");
-			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)Scamp_SyncComponent.kRpcRpcResetTargetersForSuitMode);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcResetTargetersForSuitMode);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.Write(hasShielding);
-		this.SendRPCInternal(networkWriter, 0, "RpcResetTargetersForSuitMode");
+		SendRPCInternal(networkWriter, 0, "RpcResetTargetersForSuitMode");
 	}
 
 	public void CallRpcSetAnimParamForSuit(bool activeNow)
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("RPC Function RpcSetAnimParamForSuit called on client.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.CallRpcSetAnimParamForSuit(bool)).MethodHandle;
-			}
-			Debug.LogError("RPC Function RpcSetAnimParamForSuit called on client.");
-			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)Scamp_SyncComponent.kRpcRpcSetAnimParamForSuit);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcSetAnimParamForSuit);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.Write(activeNow);
-		this.SendRPCInternal(networkWriter, 0, "RpcSetAnimParamForSuit");
+		SendRPCInternal(networkWriter, 0, "RpcSetAnimParamForSuit");
 	}
 
 	public void CallRpcPlayShieldRemoveAnim()
@@ -492,68 +500,68 @@ public class Scamp_SyncComponent : NetworkBehaviour
 			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)Scamp_SyncComponent.kRpcRpcPlayShieldRemoveAnim);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
-		this.SendRPCInternal(networkWriter, 0, "RpcPlayShieldRemoveAnim");
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcPlayShieldRemoveAnim);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
+		SendRPCInternal(networkWriter, 0, "RpcPlayShieldRemoveAnim");
 	}
 
 	public void CallRpcResetAttackParam()
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("RPC Function RpcResetAttackParam called on client.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.CallRpcResetAttackParam()).MethodHandle;
-			}
-			Debug.LogError("RPC Function RpcResetAttackParam called on client.");
-			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)Scamp_SyncComponent.kRpcRpcResetAttackParam);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
-		this.SendRPCInternal(networkWriter, 0, "RpcResetAttackParam");
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcResetAttackParam);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
+		SendRPCInternal(networkWriter, 0, "RpcResetAttackParam");
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					writer.Write(m_suitWasActiveOnTurnStart);
+					writer.Write(m_suitActive);
+					writer.WritePackedUInt32(m_suitShieldingOnTurnStart);
+					writer.WritePackedUInt32(m_lastSuitLostTurn);
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
-			writer.Write(this.m_suitWasActiveOnTurnStart);
-			writer.Write(this.m_suitActive);
-			writer.WritePackedUInt32(this.m_suitShieldingOnTurnStart);
-			writer.WritePackedUInt32(this.m_lastSuitLostTurn);
-			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -567,11 +575,11 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_suitWasActiveOnTurnStart);
+			writer.Write(m_suitWasActiveOnTurnStart);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -582,7 +590,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -594,20 +602,20 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_suitActive);
+			writer.Write(m_suitActive);
 		}
-		if ((base.syncVarDirtyBits & 4U) != 0U)
+		if ((base.syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32(this.m_suitShieldingOnTurnStart);
+			writer.WritePackedUInt32(m_suitShieldingOnTurnStart);
 		}
-		if ((base.syncVarDirtyBits & 8U) != 0U)
+		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -618,7 +626,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -630,11 +638,11 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32(this.m_lastSuitLostTurn);
+			writer.WritePackedUInt32(m_lastSuitLostTurn);
 		}
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -652,29 +660,29 @@ public class Scamp_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_suitWasActiveOnTurnStart = reader.ReadBoolean();
+					m_suitActive = reader.ReadBoolean();
+					m_suitShieldingOnTurnStart = reader.ReadPackedUInt32();
+					m_lastSuitLostTurn = reader.ReadPackedUInt32();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
-			this.m_suitWasActiveOnTurnStart = reader.ReadBoolean();
-			this.m_suitActive = reader.ReadBoolean();
-			this.m_suitShieldingOnTurnStart = reader.ReadPackedUInt32();
-			this.m_lastSuitLostTurn = reader.ReadPackedUInt32();
-			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -683,11 +691,11 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_suitWasActiveOnTurnStart = reader.ReadBoolean();
+			m_suitWasActiveOnTurnStart = reader.ReadBoolean();
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -696,11 +704,11 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_suitActive = reader.ReadBoolean();
+			m_suitActive = reader.ReadBoolean();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -709,11 +717,11 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_suitShieldingOnTurnStart = reader.ReadPackedUInt32();
+			m_suitShieldingOnTurnStart = reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)
 		{
-			this.m_lastSuitLostTurn = reader.ReadPackedUInt32();
+			m_lastSuitLostTurn = reader.ReadPackedUInt32();
 		}
 	}
 }

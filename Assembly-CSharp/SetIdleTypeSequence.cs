@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class SetIdleTypeSequence : Sequence
@@ -14,56 +13,57 @@ public class SetIdleTypeSequence : Sequence
 	public int m_altIntIdleType;
 
 	[AnimEventPicker]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
 	[AnimEventPicker]
-	public UnityEngine.Object m_endEvent;
+	public Object m_endEvent;
 
 	public bool m_restoreOnDisable = true;
 
 	public override void FinishSetup()
 	{
-		if (this.m_startEvent == null)
+		if (!(m_startEvent == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SetIdleTypeSequence.FinishSetup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.SetIdleType();
+			SetIdleType();
+			return;
 		}
 	}
 
 	private void SetIdleType()
 	{
-		Animator animator = base.Caster.\u000E();
-		if (animator != null)
+		Animator modelAnimator = base.Caster.GetModelAnimator();
+		if (!(modelAnimator != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SetIdleTypeSequence.SetIdleType()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			int num;
-			if (this.m_useAltIntIdleType)
+			if (m_useAltIntIdleType)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -72,16 +72,16 @@ public class SetIdleTypeSequence : Sequence
 					}
 					break;
 				}
-				num = this.m_altIntIdleType;
+				num = m_altIntIdleType;
 			}
 			else
 			{
-				num = (int)this.m_idleType;
+				num = (int)m_idleType;
 			}
 			int value = num;
-			if (!this.m_animParameter.IsNullOrEmpty())
+			if (!m_animParameter.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -90,97 +90,101 @@ public class SetIdleTypeSequence : Sequence
 					}
 					break;
 				}
-				animator.SetInteger(this.m_animParameter, value);
+				modelAnimator.SetInteger(m_animParameter, value);
 			}
-			if (!this.m_triggerAnimParameter.IsNullOrEmpty())
+			if (!m_triggerAnimParameter.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					modelAnimator.SetTrigger(m_triggerAnimParameter);
+					return;
 				}
-				animator.SetTrigger(this.m_triggerAnimParameter);
 			}
+			return;
 		}
 	}
 
 	private void RestoreIdleType()
 	{
-		Animator animator = base.Caster.\u000E();
-		if (animator != null && !this.m_animParameter.IsNullOrEmpty())
+		Animator modelAnimator = base.Caster.GetModelAnimator();
+		if (modelAnimator != null && !m_animParameter.IsNullOrEmpty())
 		{
-			animator.SetInteger(this.m_animParameter, 0);
+			modelAnimator.SetInteger(m_animParameter, 0);
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (this.m_startEvent == parameter)
+		if (m_startEvent == parameter)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					SetIdleType();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SetIdleTypeSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
-			this.SetIdleType();
 		}
-		else if (this.m_endEvent == parameter)
+		if (!(m_endEvent == parameter))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.RestoreIdleType();
+			RestoreIdleType();
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SetIdleTypeSequence.OnDisable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_restoreOnDisable)
+			if (m_restoreOnDisable)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					RestoreIdleType();
+					return;
 				}
-				this.RestoreIdleType();
 			}
+			return;
 		}
 	}
 }

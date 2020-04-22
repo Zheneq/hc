@@ -1,18 +1,116 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HitActorGroupOnAnimEventSequence : Sequence
 {
+	public class ActorParams : IExtraSequenceParams
+	{
+		public sbyte m_groupIdentifier;
+
+		public List<ActorData> m_hitActors;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			stream.Serialize(ref m_groupIdentifier);
+			List<ActorData> hitActors = m_hitActors;
+			int num;
+			if (hitActors != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				num = (sbyte)hitActors.Count;
+			}
+			else
+			{
+				num = 0;
+			}
+			sbyte value = (sbyte)num;
+			stream.Serialize(ref value);
+			for (int i = 0; i < value; i++)
+			{
+				ActorData actorData = hitActors[i];
+				int num2;
+				if (actorData != null)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num2 = (sbyte)actorData.ActorIndex;
+				}
+				else
+				{
+					num2 = (sbyte)ActorData.s_invalidActorIndex;
+				}
+				sbyte value2 = (sbyte)num2;
+				stream.Serialize(ref value2);
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			stream.Serialize(ref m_groupIdentifier);
+			sbyte value = 0;
+			stream.Serialize(ref value);
+			m_hitActors = new List<ActorData>(value);
+			for (int i = 0; i < value; i++)
+			{
+				sbyte value2 = (sbyte)ActorData.s_invalidActorIndex;
+				stream.Serialize(ref value2);
+				ActorData item = GameFlowData.Get().FindActorByActorIndex(value2);
+				m_hitActors.Add(item);
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
+			}
+		}
+	}
+
 	[Separator("Arbitrary number to identify a relevant component, passed in by ability", true)]
 	public int m_groupIdentidier = -1;
 
 	[Separator("Anim Events", true)]
 	[AnimEventPicker]
-	public UnityEngine.Object m_hitAnimEvent;
+	public Object m_hitAnimEvent;
 
 	[AnimEventPicker]
-	public UnityEngine.Object m_lastHitAnimEvent;
+	public Object m_lastHitAnimEvent;
 
 	[Separator("Hit Vfx/Audio on Targets", true)]
 	public GameObject m_hitFxPrefab;
@@ -26,71 +124,22 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 	public string m_hitAudioEvent;
 
 	[Header("-- Team restrictions for Hit VFX on Targets --")]
-	public Sequence.HitVFXSpawnTeam m_hitVfxSpawnTeamMode = Sequence.HitVFXSpawnTeam.EnemyOnly;
+	public HitVFXSpawnTeam m_hitVfxSpawnTeamMode = HitVFXSpawnTeam.EnemyOnly;
 
 	private List<ActorData> m_actorsToHit;
 
 	private List<GameObject> m_fxImpacts = new List<GameObject>();
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
 		base.Initialize(extraParams);
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			if (extraSequenceParams is HitActorGroupOnAnimEventSequence.ActorParams)
+			if (!(extraSequenceParams is ActorParams))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HitActorGroupOnAnimEventSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
-				HitActorGroupOnAnimEventSequence.ActorParams actorParams = extraSequenceParams as HitActorGroupOnAnimEventSequence.ActorParams;
-				if (this.m_groupIdentidier == (int)actorParams.m_groupIdentifier)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_actorsToHit = new List<ActorData>(actorParams.m_hitActors);
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-	}
-
-	private void OnDisable()
-	{
-		if (this.m_fxImpacts != null)
-		{
-			for (int i = 0; i < this.m_fxImpacts.Count; i++)
-			{
-				if (this.m_fxImpacts[i] != null)
-				{
-					UnityEngine.Object.Destroy(this.m_fxImpacts[i].gameObject);
-				}
-			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -99,34 +148,86 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitActorGroupOnAnimEventSequence.OnDisable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_fxImpacts.Clear();
+			ActorParams actorParams = extraSequenceParams as ActorParams;
+			if (m_groupIdentidier == actorParams.m_groupIdentifier)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_actorsToHit = new List<ActorData>(actorParams.m_hitActors);
+			}
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			default:
+				return;
+			case 0:
+				break;
+			}
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	private void OnDisable()
 	{
-		if (this.m_actorsToHit != null)
+		if (m_fxImpacts == null)
 		{
-			for (;;)
+			return;
+		}
+		for (int i = 0; i < m_fxImpacts.Count; i++)
+		{
+			if (m_fxImpacts[i] != null)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				Object.Destroy(m_fxImpacts[i].gameObject);
 			}
-			if (!true)
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitActorGroupOnAnimEventSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
+			case 0:
+				continue;
 			}
-			if (parameter == this.m_hitAnimEvent)
+			if (1 == 0)
 			{
-				for (;;)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_fxImpacts.Clear();
+			return;
+		}
+	}
+
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
+	{
+		if (m_actorsToHit == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (parameter == m_hitAnimEvent)
+			{
+				while (true)
 				{
 					switch (6)
 					{
@@ -135,14 +236,14 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 					}
 					break;
 				}
-				bool flag = this.m_lastHitAnimEvent == null;
-				for (int i = 0; i < this.m_actorsToHit.Count; i++)
+				bool flag = m_lastHitAnimEvent == null;
+				for (int i = 0; i < m_actorsToHit.Count; i++)
 				{
-					this.SpawnImpactFXOnTarget(this.m_actorsToHit[i], flag);
+					SpawnImpactFXOnTarget(m_actorsToHit[i], flag);
 				}
 				if (flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -151,43 +252,44 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 						}
 						break;
 					}
-					base.Source.OnSequenceHit(this, base.TargetPos, null);
+					base.Source.OnSequenceHit(this, base.TargetPos);
 				}
 			}
-			if (parameter == this.m_lastHitAnimEvent)
+			if (!(parameter == m_lastHitAnimEvent))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				for (int j = 0; j < this.m_actorsToHit.Count; j++)
+				for (int j = 0; j < m_actorsToHit.Count; j++)
 				{
-					this.SpawnImpactFXOnTarget(this.m_actorsToHit[j], true);
+					SpawnImpactFXOnTarget(m_actorsToHit[j], true);
 				}
-				base.Source.OnSequenceHit(this, base.TargetPos, null);
+				base.Source.OnSequenceHit(this, base.TargetPos);
+				return;
 			}
 		}
 	}
 
 	private void SpawnImpactFXOnTarget(ActorData targetActor, bool lastHit)
 	{
-		Vector3 targetHitPosition = base.GetTargetHitPosition(targetActor, this.m_hitFxJoint);
+		Vector3 targetHitPosition = GetTargetHitPosition(targetActor, m_hitFxJoint);
 		Vector3 vector = targetHitPosition - base.Caster.transform.position;
 		vector.y = 0f;
 		vector.Normalize();
 		ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, vector);
-		bool flag = this.IsHitFXVisibleForActor(targetActor);
-		if (this.m_hitFxPrefab && flag)
+		bool flag = IsHitFXVisibleForActor(targetActor);
+		Quaternion quaternion;
+		if ((bool)m_hitFxPrefab && flag)
 		{
-			Quaternion quaternion;
-			if (this.m_hitAlighedWithCaster)
+			if (m_hitAlighedWithCaster)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -196,13 +298,13 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HitActorGroupOnAnimEventSequence.SpawnImpactFXOnTarget(ActorData, bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (vector.magnitude > 0.001f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -212,24 +314,23 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 						break;
 					}
 					quaternion = Quaternion.LookRotation(vector);
-					goto IL_A4;
+					goto IL_00a4;
 				}
 			}
 			quaternion = Quaternion.identity;
-			IL_A4:
-			Quaternion rotation = quaternion;
-			this.m_fxImpacts.Add(base.InstantiateFX(this.m_hitFxPrefab, targetHitPosition, rotation, true, true));
+			goto IL_00a4;
 		}
-		if (!string.IsNullOrEmpty(this.m_hitAudioEvent))
+		goto IL_00c2;
+		IL_00c2:
+		if (!string.IsNullOrEmpty(m_hitAudioEvent))
 		{
-			AudioManager.PostEvent(this.m_hitAudioEvent, targetActor.gameObject);
+			AudioManager.PostEvent(m_hitAudioEvent, targetActor.gameObject);
 		}
 		SequenceSource source = base.Source;
-		ActorModelData.ImpulseInfo impulseInfo2 = impulseInfo;
-		ActorModelData.RagdollActivation ragdollActivation;
+		int ragdollActivation;
 		if (lastHit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -238,115 +339,22 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 				}
 				break;
 			}
-			ragdollActivation = ActorModelData.RagdollActivation.HealthBased;
+			ragdollActivation = 1;
 		}
 		else
 		{
-			ragdollActivation = ActorModelData.RagdollActivation.None;
+			ragdollActivation = 0;
 		}
-		source.OnSequenceHit(this, targetActor, impulseInfo2, ragdollActivation, true);
+		source.OnSequenceHit(this, targetActor, impulseInfo, (ActorModelData.RagdollActivation)ragdollActivation);
+		return;
+		IL_00a4:
+		Quaternion rotation = quaternion;
+		m_fxImpacts.Add(InstantiateFX(m_hitFxPrefab, targetHitPosition, rotation));
+		goto IL_00c2;
 	}
 
 	private bool IsHitFXVisibleForActor(ActorData hitTarget)
 	{
-		return base.IsHitFXVisibleWrtTeamFilter(hitTarget, this.m_hitVfxSpawnTeamMode);
-	}
-
-	public class ActorParams : Sequence.IExtraSequenceParams
-	{
-		public sbyte m_groupIdentifier;
-
-		public List<ActorData> m_hitActors;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.m_groupIdentifier);
-			List<ActorData> hitActors = this.m_hitActors;
-			sbyte b;
-			if (hitActors != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HitActorGroupOnAnimEventSequence.ActorParams.XSP_SerializeToStream(IBitStream)).MethodHandle;
-				}
-				b = (sbyte)hitActors.Count;
-			}
-			else
-			{
-				b = 0;
-			}
-			sbyte b2 = b;
-			stream.Serialize(ref b2);
-			for (int i = 0; i < (int)b2; i++)
-			{
-				ActorData actorData = hitActors[i];
-				sbyte b3;
-				if (actorData != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					b3 = (sbyte)actorData.ActorIndex;
-				}
-				else
-				{
-					b3 = (sbyte)ActorData.s_invalidActorIndex;
-				}
-				sbyte b4 = b3;
-				stream.Serialize(ref b4);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.m_groupIdentifier);
-			sbyte b = 0;
-			stream.Serialize(ref b);
-			this.m_hitActors = new List<ActorData>((int)b);
-			for (int i = 0; i < (int)b; i++)
-			{
-				sbyte b2 = (sbyte)ActorData.s_invalidActorIndex;
-				stream.Serialize(ref b2);
-				ActorData item = GameFlowData.Get().FindActorByActorIndex((int)b2);
-				this.m_hitActors.Add(item);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitActorGroupOnAnimEventSequence.ActorParams.XSP_DeserializeFromStream(IBitStream)).MethodHandle;
-			}
-		}
+		return IsHitFXVisibleWrtTeamFilter(hitTarget, m_hitVfxSpawnTeamMode);
 	}
 }

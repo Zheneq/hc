@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 
@@ -32,9 +32,9 @@ public class NetworkStats
 
 	public static NetworkStats Get()
 	{
-		if (NetworkStats.s_instance == null)
+		if (s_instance == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -43,70 +43,70 @@ public class NetworkStats
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NetworkStats.Get()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			NetworkStats.s_instance = new NetworkStats();
-			NetworkStats.s_instance.Start();
+			s_instance = new NetworkStats();
+			s_instance.Start();
 		}
-		return NetworkStats.s_instance;
+		return s_instance;
 	}
 
 	~NetworkStats()
 	{
-		NetworkStats.s_instance = null;
+		s_instance = null;
 	}
 
 	private void Start()
 	{
-		this.m_lastStatsTime = DateTime.UtcNow;
-		this.m_serverConnections = new List<NetworkConnection>();
-		this.m_clientConnections = new List<NetworkConnection>();
-		this.m_lastClientOutNumBytes = new Dictionary<int, int>();
-		this.m_lastClientOutNumMsgs = new Dictionary<int, int>();
-		this.m_lastServerOutNumBytes = new Dictionary<int, int>();
-		this.m_lastServerOutNumMsgs = new Dictionary<int, int>();
-		this.m_clientConnectTime = new Dictionary<int, DateTime>();
-		this.m_serverConnectTime = new Dictionary<int, DateTime>();
-		MyNetworkManager.Get().m_OnServerConnect += this.OnServerConnect;
-		MyNetworkManager.Get().m_OnServerDisconnect += this.OnServerDisconnect;
-		MyNetworkManager.Get().m_OnClientConnect += this.OnClientConnect;
-		MyNetworkManager.Get().m_OnClientDisconnect += this.OnClientDisconnect;
+		m_lastStatsTime = DateTime.UtcNow;
+		m_serverConnections = new List<NetworkConnection>();
+		m_clientConnections = new List<NetworkConnection>();
+		m_lastClientOutNumBytes = new Dictionary<int, int>();
+		m_lastClientOutNumMsgs = new Dictionary<int, int>();
+		m_lastServerOutNumBytes = new Dictionary<int, int>();
+		m_lastServerOutNumMsgs = new Dictionary<int, int>();
+		m_clientConnectTime = new Dictionary<int, DateTime>();
+		m_serverConnectTime = new Dictionary<int, DateTime>();
+		MyNetworkManager.Get().m_OnServerConnect += OnServerConnect;
+		MyNetworkManager.Get().m_OnServerDisconnect += OnServerDisconnect;
+		MyNetworkManager.Get().m_OnClientConnect += OnClientConnect;
+		MyNetworkManager.Get().m_OnClientDisconnect += OnClientDisconnect;
 	}
 
 	public void Update()
 	{
-		TimeSpan timeSpan = DateTime.UtcNow - this.m_lastStatsTime;
-		if (this.m_outputRate != 0f)
+		TimeSpan timeSpan = DateTime.UtcNow - m_lastStatsTime;
+		if (m_outputRate == 0f)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(timeSpan.TotalSeconds > (double)m_outputRate))
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NetworkStats.Update()).MethodHandle;
-			}
-			if (timeSpan.TotalSeconds > (double)this.m_outputRate)
-			{
-				for (;;)
+				if (m_outputClient)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_outputClient)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -115,20 +115,16 @@ public class NetworkStats
 						}
 						break;
 					}
-					using (List<NetworkConnection>.Enumerator enumerator = this.m_clientConnections.GetEnumerator())
+					using (List<NetworkConnection>.Enumerator enumerator = m_clientConnections.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
 						{
-							NetworkConnection networkConnection = enumerator.Current;
-							int num;
-							int num2;
-							int num3;
-							int num4;
-							networkConnection.GetStatsOut(out num, out num2, out num3, out num4);
-							int num5 = 0;
-							if (this.m_lastClientOutNumBytes.ContainsKey(networkConnection.connectionId))
+							NetworkConnection current = enumerator.Current;
+							current.GetStatsOut(out int numMsgs, out int numBufferedMsgs, out int numBytes, out int lastBufferedPerSecond);
+							int num = 0;
+							if (m_lastClientOutNumBytes.ContainsKey(current.connectionId))
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
@@ -137,12 +133,12 @@ public class NetworkStats
 									}
 									break;
 								}
-								num5 = this.m_lastClientOutNumBytes[networkConnection.connectionId];
+								num = m_lastClientOutNumBytes[current.connectionId];
 							}
-							int num6 = 0;
-							if (this.m_lastClientOutNumMsgs.ContainsKey(networkConnection.connectionId))
+							int num2 = 0;
+							if (m_lastClientOutNumMsgs.ContainsKey(current.connectionId))
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -151,23 +147,13 @@ public class NetworkStats
 									}
 									break;
 								}
-								num6 = this.m_lastClientOutNumMsgs[networkConnection.connectionId];
+								num2 = m_lastClientOutNumMsgs[current.connectionId];
 							}
-							Log.Info("NS: Client Connection {0} - Over the last {1} ms - OutBytes: {2} (total: {3}) OutMsgs: {4} (total: {5}) OutBufferedMsgs: {6} (total: {7}) ", new object[]
-							{
-								networkConnection.connectionId,
-								(int)timeSpan.TotalMilliseconds,
-								num3 - num5,
-								num3,
-								num - num6,
-								num,
-								num4,
-								num2
-							});
-							this.m_lastClientOutNumBytes[networkConnection.connectionId] = num3;
-							this.m_lastClientOutNumMsgs[networkConnection.connectionId] = num;
+							Log.Info("NS: Client Connection {0} - Over the last {1} ms - OutBytes: {2} (total: {3}) OutMsgs: {4} (total: {5}) OutBufferedMsgs: {6} (total: {7}) ", current.connectionId, (int)timeSpan.TotalMilliseconds, numBytes - num, numBytes, numMsgs - num2, numMsgs, lastBufferedPerSecond, numBufferedMsgs);
+							m_lastClientOutNumBytes[current.connectionId] = numBytes;
+							m_lastClientOutNumMsgs[current.connectionId] = numMsgs;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -178,43 +164,29 @@ public class NetworkStats
 						}
 					}
 				}
-				if (this.m_outputServer)
+				if (m_outputServer)
 				{
-					using (List<NetworkConnection>.Enumerator enumerator2 = this.m_serverConnections.GetEnumerator())
+					using (List<NetworkConnection>.Enumerator enumerator2 = m_serverConnections.GetEnumerator())
 					{
 						while (enumerator2.MoveNext())
 						{
-							NetworkConnection networkConnection2 = enumerator2.Current;
-							int num7;
-							int num8;
-							int num9;
-							int num10;
-							networkConnection2.GetStatsOut(out num7, out num8, out num9, out num10);
-							int num11 = 0;
-							if (this.m_lastServerOutNumBytes.ContainsKey(networkConnection2.connectionId))
+							NetworkConnection current2 = enumerator2.Current;
+							current2.GetStatsOut(out int numMsgs2, out int numBufferedMsgs2, out int numBytes2, out int lastBufferedPerSecond2);
+							int num3 = 0;
+							if (m_lastServerOutNumBytes.ContainsKey(current2.connectionId))
 							{
-								num11 = this.m_lastServerOutNumBytes[networkConnection2.connectionId];
+								num3 = m_lastServerOutNumBytes[current2.connectionId];
 							}
-							int num12 = 0;
-							if (this.m_lastServerOutNumMsgs.ContainsKey(networkConnection2.connectionId))
+							int num4 = 0;
+							if (m_lastServerOutNumMsgs.ContainsKey(current2.connectionId))
 							{
-								num12 = this.m_lastServerOutNumMsgs[networkConnection2.connectionId];
+								num4 = m_lastServerOutNumMsgs[current2.connectionId];
 							}
-							Log.Info("NS: Server Connection {0} - Over the last {1} ms - OutBytes: {2} (total: {3}) OutMsgs: {4} (total: {5}) OutBufferedMsgs: {6} (total: {7}) ", new object[]
-							{
-								networkConnection2.connectionId,
-								(int)timeSpan.TotalMilliseconds,
-								num9 - num11,
-								num9,
-								num7 - num12,
-								num7,
-								num10,
-								num8
-							});
-							this.m_lastServerOutNumBytes[networkConnection2.connectionId] = num9;
-							this.m_lastServerOutNumMsgs[networkConnection2.connectionId] = num7;
+							Log.Info("NS: Server Connection {0} - Over the last {1} ms - OutBytes: {2} (total: {3}) OutMsgs: {4} (total: {5}) OutBufferedMsgs: {6} (total: {7}) ", current2.connectionId, (int)timeSpan.TotalMilliseconds, numBytes2 - num3, numBytes2, numMsgs2 - num4, numMsgs2, lastBufferedPerSecond2, numBufferedMsgs2);
+							m_lastServerOutNumBytes[current2.connectionId] = numBytes2;
+							m_lastServerOutNumMsgs[current2.connectionId] = numMsgs2;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -225,74 +197,42 @@ public class NetworkStats
 						}
 					}
 				}
-				this.m_lastStatsTime = DateTime.UtcNow;
+				m_lastStatsTime = DateTime.UtcNow;
+				return;
 			}
 		}
 	}
 
 	private void OnServerConnect(NetworkConnection conn)
 	{
-		this.m_serverConnections.Add(conn);
-		Log.Info("NS: Added server connection {0}", new object[]
-		{
-			conn.connectionId
-		});
-		this.m_serverConnectTime[conn.connectionId] = DateTime.UtcNow;
+		m_serverConnections.Add(conn);
+		Log.Info("NS: Added server connection {0}", conn.connectionId);
+		m_serverConnectTime[conn.connectionId] = DateTime.UtcNow;
 	}
 
 	private void OnServerDisconnect(NetworkConnection conn)
 	{
-		TimeSpan timeSpan = DateTime.UtcNow - this.m_serverConnectTime[conn.connectionId];
-		int num;
-		int num2;
-		int num3;
-		int num4;
-		conn.GetStatsOut(out num, out num2, out num3, out num4);
-		Log.Info("NS: Removed server connection {0} - OutNumMsgs: {1} OutNumBufferedMsgs: {2} OutNumBytes: {3} OutLastBufferedPerSecond: {4} SecondsConnected: {5} AverageBytesPerSecond: {6}", new object[]
-		{
-			conn.connectionId,
-			num,
-			num2,
-			num3,
-			num4,
-			(int)timeSpan.TotalSeconds,
-			(int)((double)num3 / timeSpan.TotalSeconds)
-		});
-		this.m_serverConnections.Remove(conn);
+		TimeSpan timeSpan = DateTime.UtcNow - m_serverConnectTime[conn.connectionId];
+		conn.GetStatsOut(out int numMsgs, out int numBufferedMsgs, out int numBytes, out int lastBufferedPerSecond);
+		Log.Info("NS: Removed server connection {0} - OutNumMsgs: {1} OutNumBufferedMsgs: {2} OutNumBytes: {3} OutLastBufferedPerSecond: {4} SecondsConnected: {5} AverageBytesPerSecond: {6}", conn.connectionId, numMsgs, numBufferedMsgs, numBytes, lastBufferedPerSecond, (int)timeSpan.TotalSeconds, (int)((double)numBytes / timeSpan.TotalSeconds));
+		m_serverConnections.Remove(conn);
 	}
 
 	private void OnClientConnect(NetworkConnection conn)
 	{
-		this.m_clientConnections.Add(conn);
-		Log.Info("NS: Added client connection {0}", new object[]
-		{
-			conn.connectionId
-		});
-		this.m_clientConnectTime[conn.connectionId] = DateTime.UtcNow;
+		m_clientConnections.Add(conn);
+		Log.Info("NS: Added client connection {0}", conn.connectionId);
+		m_clientConnectTime[conn.connectionId] = DateTime.UtcNow;
 	}
 
 	private void OnClientDisconnect(NetworkConnection conn)
 	{
-		DateTime d;
-		if (this.m_clientConnectTime.TryGetValue(conn.connectionId, out d))
+		if (m_clientConnectTime.TryGetValue(conn.connectionId, out DateTime value))
 		{
-			TimeSpan timeSpan = DateTime.UtcNow - d;
-			int num;
-			int num2;
-			int num3;
-			int num4;
-			conn.GetStatsOut(out num, out num2, out num3, out num4);
-			Log.Info("NS: Removed client connection {0} - OutNumMsgs: {1} OutNumBufferedMsgs: {2} OutNumBytes: {3} OutLastBufferedPerSecond: {4} SecondsConnected: {5} AverageBytesPerSecond: {6}", new object[]
-			{
-				conn.connectionId,
-				num,
-				num2,
-				num3,
-				num4,
-				(int)timeSpan.TotalSeconds,
-				(int)((double)num3 / timeSpan.TotalSeconds)
-			});
-			this.m_clientConnections.Remove(conn);
+			TimeSpan timeSpan = DateTime.UtcNow - value;
+			conn.GetStatsOut(out int numMsgs, out int numBufferedMsgs, out int numBytes, out int lastBufferedPerSecond);
+			Log.Info("NS: Removed client connection {0} - OutNumMsgs: {1} OutNumBufferedMsgs: {2} OutNumBytes: {3} OutLastBufferedPerSecond: {4} SecondsConnected: {5} AverageBytesPerSecond: {6}", conn.connectionId, numMsgs, numBufferedMsgs, numBytes, lastBufferedPerSecond, (int)timeSpan.TotalSeconds, (int)((double)numBytes / timeSpan.TotalSeconds));
+			m_clientConnections.Remove(conn);
 		}
 	}
 }

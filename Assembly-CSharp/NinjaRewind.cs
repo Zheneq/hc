@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,9 +20,9 @@ public class NinjaRewind : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -32,20 +31,20 @@ public class NinjaRewind : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaRewind.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "NinjaRewind";
+			m_abilityName = "NinjaRewind";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		if (this.m_syncComp == null)
+		if (m_syncComp == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -54,13 +53,13 @@ public class NinjaRewind : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaRewind.Setup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_syncComp = base.GetComponent<Ninja_SyncComponent>();
+			m_syncComp = GetComponent<Ninja_SyncComponent>();
 		}
-		AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Always, AbilityUtil_Targeter.AffectsActor.Possible);
+		AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Always);
 		abilityUtil_Targeter_Shape.SetShowArcToShape(false);
 		base.Targeter = abilityUtil_Targeter_Shape;
 	}
@@ -72,14 +71,14 @@ public class NinjaRewind : Ability
 
 	public override bool CanOverrideMoveStartSquare()
 	{
-		return this.m_canQueueMoveAfterEvade;
+		return m_canQueueMoveAfterEvade;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -88,23 +87,25 @@ public class NinjaRewind : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaRewind.CustomCanCastValidation(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComp.m_rewindHToHp > 0)
+			if (m_syncComp.m_rewindHToHp > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						BoardSquare squareForRewind = m_syncComp.GetSquareForRewind();
+						return squareForRewind != null;
 					}
-					break;
+					}
 				}
-				BoardSquare squareForRewind = this.m_syncComp.GetSquareForRewind();
-				return squareForRewind != null;
 			}
 		}
 		return false;
@@ -112,9 +113,9 @@ public class NinjaRewind : Ability
 
 	public override AbilityTarget CreateAbilityTargetForSimpleAction(ActorData caster)
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -123,23 +124,23 @@ public class NinjaRewind : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaRewind.CreateAbilityTargetForSimpleAction(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			BoardSquare squareForRewind = this.m_syncComp.GetSquareForRewind();
+			BoardSquare squareForRewind = m_syncComp.GetSquareForRewind();
 			if (squareForRewind != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return AbilityTarget.CreateAbilityTargetFromBoardSquare(squareForRewind, caster.GetTravelBoardSquareWorldPosition());
 					}
-					break;
 				}
-				return AbilityTarget.CreateAbilityTargetFromBoardSquare(squareForRewind, caster.\u0016());
 			}
 		}
 		return base.CreateAbilityTargetForSimpleAction(caster);
@@ -147,10 +148,10 @@ public class NinjaRewind : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Self, 1);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, 1);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Self, 1);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, 1);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -160,7 +161,7 @@ public class NinjaRewind : Ability
 		ActorData actorData = base.ActorData;
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -169,13 +170,13 @@ public class NinjaRewind : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaRewind.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self) && this.m_syncComp != null)
+			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self) && m_syncComp != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -186,7 +187,7 @@ public class NinjaRewind : Ability
 				}
 				if (actorData != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -195,7 +196,7 @@ public class NinjaRewind : Ability
 						}
 						break;
 					}
-					int rewindHToHp = (int)this.m_syncComp.m_rewindHToHp;
+					int rewindHToHp = m_syncComp.m_rewindHToHp;
 					int hitPoints = actorData.HitPoints;
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 					dictionary[AbilityTooltipSymbol.Damage] = 0;
@@ -206,7 +207,7 @@ public class NinjaRewind : Ability
 					}
 					else if (rewindHToHp > hitPoints)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{

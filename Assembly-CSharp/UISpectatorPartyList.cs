@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -12,65 +11,67 @@ public class UISpectatorPartyList : MonoBehaviour
 
 	private void Awake()
 	{
-		UIManager.SetGameObjectActive(this.SampleName, false, null);
-		this.SampleName.transform.SetParent(base.gameObject.transform);
-		this.Clear();
+		UIManager.SetGameObjectActive(SampleName, false);
+		SampleName.transform.SetParent(base.gameObject.transform);
+		Clear();
 	}
 
 	public void UpdateCharacterList(List<LobbyPlayerInfo> spectatorPlayerInfos)
 	{
-		this.Clear();
+		Clear();
 		using (List<LobbyPlayerInfo>.Enumerator enumerator = spectatorPlayerInfos.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
-				this.AddPlayer(lobbyPlayerInfo.GetHandle());
+				LobbyPlayerInfo current = enumerator.Current;
+				AddPlayer(current.GetHandle());
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorPartyList.UpdateCharacterList(List<LobbyPlayerInfo>)).MethodHandle;
 			}
 		}
 	}
 
 	private void Clear()
 	{
-		TextMeshProUGUI[] componentsInChildren = this.m_layout.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
-		foreach (TextMeshProUGUI textMeshProUGUI in componentsInChildren)
+		TextMeshProUGUI[] componentsInChildren = m_layout.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+		TextMeshProUGUI[] array = componentsInChildren;
+		foreach (TextMeshProUGUI textMeshProUGUI in array)
 		{
 			textMeshProUGUI.gameObject.transform.SetParent(null);
-			UnityEngine.Object.Destroy(textMeshProUGUI.gameObject);
+			Object.Destroy(textMeshProUGUI.gameObject);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorPartyList.Clear()).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	private void AddPlayer(string playerHandle)
 	{
-		GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(this.SampleName);
-		UIManager.SetGameObjectActive(gameObject, true, null);
-		gameObject.transform.SetParent(this.m_layout.transform);
+		GameObject gameObject = Object.Instantiate(SampleName);
+		UIManager.SetGameObjectActive(gameObject, true);
+		gameObject.transform.SetParent(m_layout.transform);
 		gameObject.transform.localPosition = Vector3.zero;
 		gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
 		TextMeshProUGUI component = gameObject.GetComponent<TextMeshProUGUI>();

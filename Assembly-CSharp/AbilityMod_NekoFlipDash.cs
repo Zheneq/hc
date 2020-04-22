@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -82,60 +82,59 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		NekoFlipDash nekoFlipDash = targetAbility as NekoFlipDash;
-		if (nekoFlipDash != null)
+		if (!(nekoFlipDash != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NekoFlipDash.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_dashTargetRangeMod, "DashTargetRange", string.Empty, nekoFlipDash.m_dashTargetRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxDistanceFromTargetMod, "MaxDistanceFromTarget", string.Empty, nekoFlipDash.m_maxDistanceFromTarget, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_minDistanceFromTargetMod, "MinDistanceFromTarget", string.Empty, nekoFlipDash.m_minDistanceFromTarget, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxAngleChangeMod, "MaxAngleChange", string.Empty, nekoFlipDash.m_maxAngleChange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", string.Empty, nekoFlipDash.m_laserWidth, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserLengthMod, "LaserLength", string.Empty, nekoFlipDash.m_laserLength, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_aoeRadiusAtLaserEndMod, "AoeRadiusAtLaserEnd", string.Empty, nekoFlipDash.m_aoeRadiusAtLaserEnd, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_discReturnEndRadiusMod, "DiscReturnEndRadius", string.Empty, nekoFlipDash.m_discReturnEndRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_chargeRadiusMod, "ChargeRadius", string.Empty, nekoFlipDash.m_chargeRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_chargeRadiusAtStartMod, "ChargeRadiusAtStart", string.Empty, nekoFlipDash.m_chargeRadiusAtStart, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_chargeRadiusAtEndMod, "ChargeRadiusAtEnd", string.Empty, nekoFlipDash.m_chargeRadiusAtEnd, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_explosionRadiusAtTargetedDiscMod, "ExplosionRadiusAtTargetedDisc", string.Empty, nekoFlipDash.m_explosionRadiusAtTargetedDisc, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_discMaxTargetsMod, "DiscMaxTargets", string.Empty, nekoFlipDash.m_discMaxTargets, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnSelfMod, "EffectOnSelf", nekoFlipDash.m_effectOnSelf, true);
-			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, nekoFlipDash.m_damage, true, false);
-			AbilityMod.AddToken(tokens, this.m_discDirectDamageMod, "DiscDirectDamage", string.Empty, nekoFlipDash.m_discDirectDamage, true, false);
-			AbilityMod.AddToken(tokens, this.m_discReturnTripDamageMod, "DiscReturnTripDamage", string.Empty, nekoFlipDash.m_discReturnTripDamage, true, false);
-			AbilityMod.AddToken(tokens, this.m_discReturnTripSubsequentHitDamageMod, "DiscReturnTripSubsequentHitDamage", string.Empty, nekoFlipDash.m_discReturnTripSubsequentHitDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", nekoFlipDash.m_enemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_explodingTargetDiscDamageMod, "ExplodingTargetDiscDamage", string.Empty, nekoFlipDash.m_explodingTargetDiscDamage, true, false);
-			AbilityMod.AddToken(tokens, this.m_discsReturningThisTurnExtraDamageMod, "DiscsReturningThisTurnExtraDamage", string.Empty, nekoFlipDash.m_discsReturningThisTurnExtraDamage, true, false);
-			AbilityMod.AddToken(tokens, this.m_cdrIfHasReturnDiscHitMod, "CdrIfHasReturnDiscHit", string.Empty, nekoFlipDash.m_cdrIfHasReturnDiscHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_cdrOnEnlargeDiscIfCastSameTurnMod, "CdrOnEnlargeDiscIfCastSameTurn", string.Empty, nekoFlipDash.m_cdrOnEnlargeDiscIfCastSameTurn, true, false);
+			AbilityMod.AddToken(tokens, m_dashTargetRangeMod, "DashTargetRange", string.Empty, nekoFlipDash.m_dashTargetRange);
+			AbilityMod.AddToken(tokens, m_maxDistanceFromTargetMod, "MaxDistanceFromTarget", string.Empty, nekoFlipDash.m_maxDistanceFromTarget);
+			AbilityMod.AddToken(tokens, m_minDistanceFromTargetMod, "MinDistanceFromTarget", string.Empty, nekoFlipDash.m_minDistanceFromTarget);
+			AbilityMod.AddToken(tokens, m_maxAngleChangeMod, "MaxAngleChange", string.Empty, nekoFlipDash.m_maxAngleChange);
+			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, nekoFlipDash.m_laserWidth);
+			AbilityMod.AddToken(tokens, m_laserLengthMod, "LaserLength", string.Empty, nekoFlipDash.m_laserLength);
+			AbilityMod.AddToken(tokens, m_aoeRadiusAtLaserEndMod, "AoeRadiusAtLaserEnd", string.Empty, nekoFlipDash.m_aoeRadiusAtLaserEnd);
+			AbilityMod.AddToken(tokens, m_discReturnEndRadiusMod, "DiscReturnEndRadius", string.Empty, nekoFlipDash.m_discReturnEndRadius);
+			AbilityMod.AddToken(tokens, m_chargeRadiusMod, "ChargeRadius", string.Empty, nekoFlipDash.m_chargeRadius);
+			AbilityMod.AddToken(tokens, m_chargeRadiusAtStartMod, "ChargeRadiusAtStart", string.Empty, nekoFlipDash.m_chargeRadiusAtStart);
+			AbilityMod.AddToken(tokens, m_chargeRadiusAtEndMod, "ChargeRadiusAtEnd", string.Empty, nekoFlipDash.m_chargeRadiusAtEnd);
+			AbilityMod.AddToken(tokens, m_explosionRadiusAtTargetedDiscMod, "ExplosionRadiusAtTargetedDisc", string.Empty, nekoFlipDash.m_explosionRadiusAtTargetedDisc);
+			AbilityMod.AddToken(tokens, m_discMaxTargetsMod, "DiscMaxTargets", string.Empty, nekoFlipDash.m_discMaxTargets);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnSelfMod, "EffectOnSelf", nekoFlipDash.m_effectOnSelf);
+			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, nekoFlipDash.m_damage);
+			AbilityMod.AddToken(tokens, m_discDirectDamageMod, "DiscDirectDamage", string.Empty, nekoFlipDash.m_discDirectDamage);
+			AbilityMod.AddToken(tokens, m_discReturnTripDamageMod, "DiscReturnTripDamage", string.Empty, nekoFlipDash.m_discReturnTripDamage);
+			AbilityMod.AddToken(tokens, m_discReturnTripSubsequentHitDamageMod, "DiscReturnTripSubsequentHitDamage", string.Empty, nekoFlipDash.m_discReturnTripSubsequentHitDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", nekoFlipDash.m_enemyHitEffect);
+			AbilityMod.AddToken(tokens, m_explodingTargetDiscDamageMod, "ExplodingTargetDiscDamage", string.Empty, nekoFlipDash.m_explodingTargetDiscDamage);
+			AbilityMod.AddToken(tokens, m_discsReturningThisTurnExtraDamageMod, "DiscsReturningThisTurnExtraDamage", string.Empty, nekoFlipDash.m_discsReturningThisTurnExtraDamage);
+			AbilityMod.AddToken(tokens, m_cdrIfHasReturnDiscHitMod, "CdrIfHasReturnDiscHit", string.Empty, nekoFlipDash.m_cdrIfHasReturnDiscHit);
+			AbilityMod.AddToken(tokens, m_cdrOnEnlargeDiscIfCastSameTurnMod, "CdrOnEnlargeDiscIfCastSameTurn", string.Empty, nekoFlipDash.m_cdrOnEnlargeDiscIfCastSameTurn);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		NekoFlipDash nekoFlipDash = base.GetTargetAbilityOnAbilityData(abilityData) as NekoFlipDash;
+		NekoFlipDash nekoFlipDash = GetTargetAbilityOnAbilityData(abilityData) as NekoFlipDash;
 		bool flag = nekoFlipDash != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat dashTargetRangeMod = this.m_dashTargetRangeMod;
-		string prefix = "[DashTargetRange]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat dashTargetRangeMod = m_dashTargetRangeMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -144,9 +143,9 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NekoFlipDash.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = nekoFlipDash.m_dashTargetRange;
 		}
@@ -154,15 +153,13 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(dashTargetRangeMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyBool canTargetDiscsMod = this.m_canTargetDiscsMod;
-		string prefix2 = "[CanTargetDiscs]";
-		bool showBaseVal2 = flag;
-		bool baseVal2;
+		empty = str + PropDesc(dashTargetRangeMod, "[DashTargetRange]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyBool canTargetDiscsMod = m_canTargetDiscsMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -171,21 +168,19 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 				}
 				break;
 			}
-			baseVal2 = nekoFlipDash.m_canTargetDiscs;
+			baseVal2 = (nekoFlipDash.m_canTargetDiscs ? 1 : 0);
 		}
 		else
 		{
-			baseVal2 = false;
+			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(canTargetDiscsMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyBool canTargetEnemiesMod = this.m_canTargetEnemiesMod;
-		string prefix3 = "[CanTargetEnemies]";
-		bool showBaseVal3 = flag;
-		bool baseVal3;
+		empty = str2 + PropDesc(canTargetDiscsMod, "[CanTargetDiscs]", flag, (byte)baseVal2 != 0);
+		string str3 = empty;
+		AbilityModPropertyBool canTargetEnemiesMod = m_canTargetEnemiesMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -194,22 +189,20 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 				}
 				break;
 			}
-			baseVal3 = nekoFlipDash.m_canTargetEnemies;
+			baseVal3 = (nekoFlipDash.m_canTargetEnemies ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(canTargetEnemiesMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_maxDistanceFromTargetMod, "[MaxDistanceFromTarget]", flag, (!flag) ? 0f : nekoFlipDash.m_maxDistanceFromTarget);
-		string str4 = text;
-		AbilityModPropertyFloat minDistanceFromTargetMod = this.m_minDistanceFromTargetMod;
-		string prefix4 = "[MinDistanceFromTarget]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(canTargetEnemiesMod, "[CanTargetEnemies]", flag, (byte)baseVal3 != 0);
+		empty += PropDesc(m_maxDistanceFromTargetMod, "[MaxDistanceFromTarget]", flag, (!flag) ? 0f : nekoFlipDash.m_maxDistanceFromTarget);
+		string str4 = empty;
+		AbilityModPropertyFloat minDistanceFromTargetMod = m_minDistanceFromTargetMod;
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -224,15 +217,13 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal4 = 0f;
 		}
-		text = str4 + base.PropDesc(minDistanceFromTargetMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyFloat maxAngleChangeMod = this.m_maxAngleChangeMod;
-		string prefix5 = "[MaxAngleChange]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(minDistanceFromTargetMod, "[MinDistanceFromTarget]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyFloat maxAngleChangeMod = m_maxAngleChangeMod;
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -247,16 +238,14 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal5 = 0f;
 		}
-		text = str5 + base.PropDesc(maxAngleChangeMod, prefix5, showBaseVal5, baseVal5);
-		text += base.PropDesc(this.m_laserWidthMod, "[LaserWidth]", flag, (!flag) ? 0f : nekoFlipDash.m_laserWidth);
-		string str6 = text;
-		AbilityModPropertyFloat laserLengthMod = this.m_laserLengthMod;
-		string prefix6 = "[LaserLength]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(maxAngleChangeMod, "[MaxAngleChange]", flag, baseVal5);
+		empty += PropDesc(m_laserWidthMod, "[LaserWidth]", flag, (!flag) ? 0f : nekoFlipDash.m_laserWidth);
+		string str6 = empty;
+		AbilityModPropertyFloat laserLengthMod = m_laserLengthMod;
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -271,15 +260,13 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal6 = 0f;
 		}
-		text = str6 + base.PropDesc(laserLengthMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyFloat aoeRadiusAtLaserEndMod = this.m_aoeRadiusAtLaserEndMod;
-		string prefix7 = "[AoeRadiusAtLaserEnd]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(laserLengthMod, "[LaserLength]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyFloat aoeRadiusAtLaserEndMod = m_aoeRadiusAtLaserEndMod;
 		float baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -294,15 +281,13 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal7 = 0f;
 		}
-		text = str7 + base.PropDesc(aoeRadiusAtLaserEndMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyFloat discReturnEndRadiusMod = this.m_discReturnEndRadiusMod;
-		string prefix8 = "[DiscReturnEndRadius]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(aoeRadiusAtLaserEndMod, "[AoeRadiusAtLaserEnd]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyFloat discReturnEndRadiusMod = m_discReturnEndRadiusMod;
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -317,15 +302,13 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal8 = 0f;
 		}
-		text = str8 + base.PropDesc(discReturnEndRadiusMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyFloat chargeRadiusMod = this.m_chargeRadiusMod;
-		string prefix9 = "[ChargeRadius]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(discReturnEndRadiusMod, "[DiscReturnEndRadius]", flag, baseVal8);
+		string str9 = empty;
+		AbilityModPropertyFloat chargeRadiusMod = m_chargeRadiusMod;
 		float baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -340,15 +323,13 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal9 = 0f;
 		}
-		text = str9 + base.PropDesc(chargeRadiusMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyFloat chargeRadiusAtStartMod = this.m_chargeRadiusAtStartMod;
-		string prefix10 = "[ChargeRadiusAtStart]";
-		bool showBaseVal10 = flag;
+		empty = str9 + PropDesc(chargeRadiusMod, "[ChargeRadius]", flag, baseVal9);
+		string str10 = empty;
+		AbilityModPropertyFloat chargeRadiusAtStartMod = m_chargeRadiusAtStartMod;
 		float baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -363,16 +344,14 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal10 = 0f;
 		}
-		text = str10 + base.PropDesc(chargeRadiusAtStartMod, prefix10, showBaseVal10, baseVal10);
-		text += base.PropDesc(this.m_chargeRadiusAtEndMod, "[ChargeRadiusAtEnd]", flag, (!flag) ? 0f : nekoFlipDash.m_chargeRadiusAtEnd);
-		string str11 = text;
-		AbilityModPropertyFloat explosionRadiusAtTargetedDiscMod = this.m_explosionRadiusAtTargetedDiscMod;
-		string prefix11 = "[ExplosionRadiusAtTargetedDisc]";
-		bool showBaseVal11 = flag;
+		empty = str10 + PropDesc(chargeRadiusAtStartMod, "[ChargeRadiusAtStart]", flag, baseVal10);
+		empty += PropDesc(m_chargeRadiusAtEndMod, "[ChargeRadiusAtEnd]", flag, (!flag) ? 0f : nekoFlipDash.m_chargeRadiusAtEnd);
+		string str11 = empty;
+		AbilityModPropertyFloat explosionRadiusAtTargetedDiscMod = m_explosionRadiusAtTargetedDiscMod;
 		float baseVal11;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -387,15 +366,13 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal11 = 0f;
 		}
-		text = str11 + base.PropDesc(explosionRadiusAtTargetedDiscMod, prefix11, showBaseVal11, baseVal11);
-		string str12 = text;
-		AbilityModPropertyBool continueToEndIfTargetEvadesMod = this.m_continueToEndIfTargetEvadesMod;
-		string prefix12 = "[ContinueToEndIfTargetEvades]";
-		bool showBaseVal12 = flag;
-		bool baseVal12;
+		empty = str11 + PropDesc(explosionRadiusAtTargetedDiscMod, "[ExplosionRadiusAtTargetedDisc]", flag, baseVal11);
+		string str12 = empty;
+		AbilityModPropertyBool continueToEndIfTargetEvadesMod = m_continueToEndIfTargetEvadesMod;
+		int baseVal12;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -404,21 +381,19 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 				}
 				break;
 			}
-			baseVal12 = nekoFlipDash.m_continueToEndIfTargetEvades;
+			baseVal12 = (nekoFlipDash.m_continueToEndIfTargetEvades ? 1 : 0);
 		}
 		else
 		{
-			baseVal12 = false;
+			baseVal12 = 0;
 		}
-		text = str12 + base.PropDesc(continueToEndIfTargetEvadesMod, prefix12, showBaseVal12, baseVal12);
-		string str13 = text;
-		AbilityModPropertyBool leaveDiscAtStartSquareMod = this.m_leaveDiscAtStartSquareMod;
-		string prefix13 = "[LeaveDiscAtStartSquare]";
-		bool showBaseVal13 = flag;
-		bool baseVal13;
+		empty = str12 + PropDesc(continueToEndIfTargetEvadesMod, "[ContinueToEndIfTargetEvades]", flag, (byte)baseVal12 != 0);
+		string str13 = empty;
+		AbilityModPropertyBool leaveDiscAtStartSquareMod = m_leaveDiscAtStartSquareMod;
+		int baseVal13;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -427,21 +402,19 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 				}
 				break;
 			}
-			baseVal13 = nekoFlipDash.m_leaveDiscAtStartSquare;
+			baseVal13 = (nekoFlipDash.m_leaveDiscAtStartSquare ? 1 : 0);
 		}
 		else
 		{
-			baseVal13 = false;
+			baseVal13 = 0;
 		}
-		text = str13 + base.PropDesc(leaveDiscAtStartSquareMod, prefix13, showBaseVal13, baseVal13);
-		string str14 = text;
-		AbilityModPropertyBool throwDiscFromStartMod = this.m_throwDiscFromStartMod;
-		string prefix14 = "[ThrowDiscFromStart]";
-		bool showBaseVal14 = flag;
-		bool baseVal14;
+		empty = str13 + PropDesc(leaveDiscAtStartSquareMod, "[LeaveDiscAtStartSquare]", flag, (byte)baseVal13 != 0);
+		string str14 = empty;
+		AbilityModPropertyBool throwDiscFromStartMod = m_throwDiscFromStartMod;
+		int baseVal14;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -450,21 +423,19 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 				}
 				break;
 			}
-			baseVal14 = nekoFlipDash.m_throwDiscFromStart;
+			baseVal14 = (nekoFlipDash.m_throwDiscFromStart ? 1 : 0);
 		}
 		else
 		{
-			baseVal14 = false;
+			baseVal14 = 0;
 		}
-		text = str14 + base.PropDesc(throwDiscFromStartMod, prefix14, showBaseVal14, baseVal14);
-		string str15 = text;
-		AbilityModPropertyBool canMoveAfterEvadeMod = this.m_canMoveAfterEvadeMod;
-		string prefix15 = "[CanMoveAfterEvade]";
-		bool showBaseVal15 = flag;
-		bool baseVal15;
+		empty = str14 + PropDesc(throwDiscFromStartMod, "[ThrowDiscFromStart]", flag, (byte)baseVal14 != 0);
+		string str15 = empty;
+		AbilityModPropertyBool canMoveAfterEvadeMod = m_canMoveAfterEvadeMod;
+		int baseVal15;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -473,21 +444,19 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 				}
 				break;
 			}
-			baseVal15 = nekoFlipDash.m_canMoveAfterEvade;
+			baseVal15 = (nekoFlipDash.m_canMoveAfterEvade ? 1 : 0);
 		}
 		else
 		{
-			baseVal15 = false;
+			baseVal15 = 0;
 		}
-		text = str15 + base.PropDesc(canMoveAfterEvadeMod, prefix15, showBaseVal15, baseVal15);
-		string str16 = text;
-		AbilityModPropertyBool explodeTargetedDiscMod = this.m_explodeTargetedDiscMod;
-		string prefix16 = "[ExplodeTargetedDisc]";
-		bool showBaseVal16 = flag;
-		bool baseVal16;
+		empty = str15 + PropDesc(canMoveAfterEvadeMod, "[CanMoveAfterEvade]", flag, (byte)baseVal15 != 0);
+		string str16 = empty;
+		AbilityModPropertyBool explodeTargetedDiscMod = m_explodeTargetedDiscMod;
+		int baseVal16;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -496,21 +465,19 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 				}
 				break;
 			}
-			baseVal16 = nekoFlipDash.m_explodeTargetedDisc;
+			baseVal16 = (nekoFlipDash.m_explodeTargetedDisc ? 1 : 0);
 		}
 		else
 		{
-			baseVal16 = false;
+			baseVal16 = 0;
 		}
-		text = str16 + base.PropDesc(explodeTargetedDiscMod, prefix16, showBaseVal16, baseVal16);
-		string str17 = text;
-		AbilityModPropertyInt discMaxTargetsMod = this.m_discMaxTargetsMod;
-		string prefix17 = "[DiscMaxTargets]";
-		bool showBaseVal17 = flag;
+		empty = str16 + PropDesc(explodeTargetedDiscMod, "[ExplodeTargetedDisc]", flag, (byte)baseVal16 != 0);
+		string str17 = empty;
+		AbilityModPropertyInt discMaxTargetsMod = m_discMaxTargetsMod;
 		int baseVal17;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -525,15 +492,13 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal17 = 0;
 		}
-		text = str17 + base.PropDesc(discMaxTargetsMod, prefix17, showBaseVal17, baseVal17);
-		string str18 = text;
-		AbilityModPropertyEffectInfo effectOnSelfMod = this.m_effectOnSelfMod;
-		string prefix18 = "[EffectOnSelf]";
-		bool showBaseVal18 = flag;
-		StandardEffectInfo baseVal18;
+		empty = str17 + PropDesc(discMaxTargetsMod, "[DiscMaxTargets]", flag, baseVal17);
+		string str18 = empty;
+		AbilityModPropertyEffectInfo effectOnSelfMod = m_effectOnSelfMod;
+		object baseVal18;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -548,15 +513,13 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal18 = null;
 		}
-		text = str18 + base.PropDesc(effectOnSelfMod, prefix18, showBaseVal18, baseVal18);
-		string str19 = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix19 = "[Damage]";
-		bool showBaseVal19 = flag;
+		empty = str18 + PropDesc(effectOnSelfMod, "[EffectOnSelf]", flag, (StandardEffectInfo)baseVal18);
+		string str19 = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal19;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -571,15 +534,13 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal19 = 0;
 		}
-		text = str19 + base.PropDesc(damageMod, prefix19, showBaseVal19, baseVal19);
-		string str20 = text;
-		AbilityModPropertyInt discDirectDamageMod = this.m_discDirectDamageMod;
-		string prefix20 = "[DiscDirectDamage]";
-		bool showBaseVal20 = flag;
+		empty = str19 + PropDesc(damageMod, "[Damage]", flag, baseVal19);
+		string str20 = empty;
+		AbilityModPropertyInt discDirectDamageMod = m_discDirectDamageMod;
 		int baseVal20;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -594,16 +555,14 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal20 = 0;
 		}
-		text = str20 + base.PropDesc(discDirectDamageMod, prefix20, showBaseVal20, baseVal20);
-		text += base.PropDesc(this.m_discReturnTripDamageMod, "[DiscReturnTripDamage]", flag, (!flag) ? 0 : nekoFlipDash.m_discReturnTripDamage);
-		string str21 = text;
-		AbilityModPropertyInt discReturnTripSubsequentHitDamageMod = this.m_discReturnTripSubsequentHitDamageMod;
-		string prefix21 = "[DiscReturnTripSubsequentHitDamage]";
-		bool showBaseVal21 = flag;
+		empty = str20 + PropDesc(discDirectDamageMod, "[DiscDirectDamage]", flag, baseVal20);
+		empty += PropDesc(m_discReturnTripDamageMod, "[DiscReturnTripDamage]", flag, flag ? nekoFlipDash.m_discReturnTripDamage : 0);
+		string str21 = empty;
+		AbilityModPropertyInt discReturnTripSubsequentHitDamageMod = m_discReturnTripSubsequentHitDamageMod;
 		int baseVal21;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -618,15 +577,13 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal21 = 0;
 		}
-		text = str21 + base.PropDesc(discReturnTripSubsequentHitDamageMod, prefix21, showBaseVal21, baseVal21);
-		string str22 = text;
-		AbilityModPropertyBool returnTripIgnoreCoverMod = this.m_returnTripIgnoreCoverMod;
-		string prefix22 = "[ReturnTripIgnoreCover]";
-		bool showBaseVal22 = flag;
-		bool baseVal22;
+		empty = str21 + PropDesc(discReturnTripSubsequentHitDamageMod, "[DiscReturnTripSubsequentHitDamage]", flag, baseVal21);
+		string str22 = empty;
+		AbilityModPropertyBool returnTripIgnoreCoverMod = m_returnTripIgnoreCoverMod;
+		int baseVal22;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -635,21 +592,19 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 				}
 				break;
 			}
-			baseVal22 = nekoFlipDash.m_returnTripIgnoreCover;
+			baseVal22 = (nekoFlipDash.m_returnTripIgnoreCover ? 1 : 0);
 		}
 		else
 		{
-			baseVal22 = false;
+			baseVal22 = 0;
 		}
-		text = str22 + base.PropDesc(returnTripIgnoreCoverMod, prefix22, showBaseVal22, baseVal22);
-		string str23 = text;
-		AbilityModPropertyEffectInfo enemyHitEffectMod = this.m_enemyHitEffectMod;
-		string prefix23 = "[EnemyHitEffect]";
-		bool showBaseVal23 = flag;
-		StandardEffectInfo baseVal23;
+		empty = str22 + PropDesc(returnTripIgnoreCoverMod, "[ReturnTripIgnoreCover]", flag, (byte)baseVal22 != 0);
+		string str23 = empty;
+		AbilityModPropertyEffectInfo enemyHitEffectMod = m_enemyHitEffectMod;
+		object baseVal23;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -664,15 +619,13 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal23 = null;
 		}
-		text = str23 + base.PropDesc(enemyHitEffectMod, prefix23, showBaseVal23, baseVal23);
-		string str24 = text;
-		AbilityModPropertyInt explodingTargetDiscDamageMod = this.m_explodingTargetDiscDamageMod;
-		string prefix24 = "[ExplodingTargetDiscDamage]";
-		bool showBaseVal24 = flag;
+		empty = str23 + PropDesc(enemyHitEffectMod, "[EnemyHitEffect]", flag, (StandardEffectInfo)baseVal23);
+		string str24 = empty;
+		AbilityModPropertyInt explodingTargetDiscDamageMod = m_explodingTargetDiscDamageMod;
 		int baseVal24;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -687,17 +640,15 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal24 = 0;
 		}
-		text = str24 + base.PropDesc(explodingTargetDiscDamageMod, prefix24, showBaseVal24, baseVal24);
-		text += base.PropDesc(this.m_discsReturningThisTurnExtraDamageMod, "[DiscsReturningThisTurnExtraDamage]", flag, (!flag) ? 0 : nekoFlipDash.m_discsReturningThisTurnExtraDamage);
-		text += base.PropDesc(this.m_cdrIfHasReturnDiscHitMod, "[CdrIfHasReturnDiscHit]", flag, (!flag) ? 0 : nekoFlipDash.m_cdrIfHasReturnDiscHit);
-		string str25 = text;
-		AbilityModPropertyInt cdrOnEnlargeDiscIfCastSameTurnMod = this.m_cdrOnEnlargeDiscIfCastSameTurnMod;
-		string prefix25 = "[CdrOnEnlargeDiscIfCastSameTurn]";
-		bool showBaseVal25 = flag;
+		empty = str24 + PropDesc(explodingTargetDiscDamageMod, "[ExplodingTargetDiscDamage]", flag, baseVal24);
+		empty += PropDesc(m_discsReturningThisTurnExtraDamageMod, "[DiscsReturningThisTurnExtraDamage]", flag, flag ? nekoFlipDash.m_discsReturningThisTurnExtraDamage : 0);
+		empty += PropDesc(m_cdrIfHasReturnDiscHitMod, "[CdrIfHasReturnDiscHit]", flag, flag ? nekoFlipDash.m_cdrIfHasReturnDiscHit : 0);
+		string str25 = empty;
+		AbilityModPropertyInt cdrOnEnlargeDiscIfCastSameTurnMod = m_cdrOnEnlargeDiscIfCastSameTurnMod;
 		int baseVal25;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -712,6 +663,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		{
 			baseVal25 = 0;
 		}
-		return str25 + base.PropDesc(cdrOnEnlargeDiscIfCastSameTurnMod, prefix25, showBaseVal25, baseVal25);
+		return str25 + PropDesc(cdrOnEnlargeDiscIfCastSameTurnMod, "[CdrOnEnlargeDiscIfCastSameTurn]", flag, baseVal25);
 	}
 }

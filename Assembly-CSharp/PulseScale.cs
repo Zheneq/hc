@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class PulseScale : MonoBehaviour
@@ -13,7 +12,10 @@ public class PulseScale : MonoBehaviour
 	{
 		float realtimeSinceStartup = Time.realtimeSinceStartup;
 		float num = Mathf.Sin(5f * realtimeSinceStartup);
-		this.m_oscillatingScale = 0.8f + Mathf.Clamp(num * 0.2f, -0.2f, 0.2f);
-		base.transform.localScale = new Vector3(this.m_oscillatingScale, base.transform.localScale.y, this.m_oscillatingScale);
+		m_oscillatingScale = 0.8f + Mathf.Clamp(num * 0.2f, -0.2f, 0.2f);
+		Transform transform = base.transform;
+		float oscillatingScale = m_oscillatingScale;
+		Vector3 localScale = base.transform.localScale;
+		transform.localScale = new Vector3(oscillatingScale, localScale.y, m_oscillatingScale);
 	}
 }

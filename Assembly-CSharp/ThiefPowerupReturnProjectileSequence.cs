@@ -1,96 +1,20 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class ThiefPowerupReturnProjectileSequence : ArcingProjectileSequence
 {
-	[Header("-- Powerup to VFX mapping --")]
-	public ThiefPowerupReturnProjectileSequence.PowerUpCategoryToVFX[] m_powerupToProjectileVFXPrefab;
-
-	[Space(10f)]
-	public ThiefPowerupReturnProjectileSequence.PowerUpCategoryToVFX[] m_powerupToImpactVFXPrefab;
-
-	private int m_powerupCategoryInt = -1;
-
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
-	{
-		base.Initialize(extraParams);
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
-		{
-			ThiefPowerupReturnProjectileSequence.PowerupTypeExtraParams powerupTypeExtraParams = extraSequenceParams as ThiefPowerupReturnProjectileSequence.PowerupTypeExtraParams;
-			if (powerupTypeExtraParams != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefPowerupReturnProjectileSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
-				this.m_powerupCategoryInt = powerupTypeExtraParams.powerupCategory;
-			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-	}
-
-	protected override GameObject GetProjectileFxPrefab()
-	{
-		GameObject gameObject = ThiefPowerupReturnProjectileSequence.PowerUpCategoryToVFX.GetPrefabForCategory(this.m_powerupToProjectileVFXPrefab, this.m_powerupCategoryInt);
-		if (gameObject == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefPowerupReturnProjectileSequence.GetProjectileFxPrefab()).MethodHandle;
-			}
-			gameObject = this.m_fxPrefab;
-		}
-		return gameObject;
-	}
-
-	protected override GameObject GetImpactFxPrefab()
-	{
-		GameObject gameObject = ThiefPowerupReturnProjectileSequence.PowerUpCategoryToVFX.GetPrefabForCategory(this.m_powerupToImpactVFXPrefab, this.m_powerupCategoryInt);
-		if (gameObject == null)
-		{
-			gameObject = this.m_fxImpactPrefab;
-		}
-		return gameObject;
-	}
-
-	public class PowerupTypeExtraParams : Sequence.IExtraSequenceParams
+	public class PowerupTypeExtraParams : IExtraSequenceParams
 	{
 		public int powerupCategory;
 
 		public override void XSP_SerializeToStream(IBitStream stream)
 		{
-			stream.Serialize(ref this.powerupCategory);
+			stream.Serialize(ref powerupCategory);
 		}
 
 		public override void XSP_DeserializeFromStream(IBitStream stream)
 		{
-			stream.Serialize(ref this.powerupCategory);
+			stream.Serialize(ref powerupCategory);
 		}
 	}
 
@@ -101,12 +25,12 @@ public class ThiefPowerupReturnProjectileSequence : ArcingProjectileSequence
 
 		public GameObject m_vfxPrefab;
 
-		public static GameObject GetPrefabForCategory(ThiefPowerupReturnProjectileSequence.PowerUpCategoryToVFX[] catToVfx, int categoryInt)
+		public static GameObject GetPrefabForCategory(PowerUpCategoryToVFX[] catToVfx, int categoryInt)
 		{
 			GameObject result = null;
 			if (catToVfx != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -115,15 +39,15 @@ public class ThiefPowerupReturnProjectileSequence : ArcingProjectileSequence
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefPowerupReturnProjectileSequence.PowerUpCategoryToVFX.GetPrefabForCategory(ThiefPowerupReturnProjectileSequence.PowerUpCategoryToVFX[], int)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				foreach (ThiefPowerupReturnProjectileSequence.PowerUpCategoryToVFX powerUpCategoryToVFX in catToVfx)
+				foreach (PowerUpCategoryToVFX powerUpCategoryToVFX in catToVfx)
 				{
 					if (powerUpCategoryToVFX.m_category == (PowerUp.PowerUpCategory)categoryInt && powerUpCategoryToVFX.m_vfxPrefab != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -139,5 +63,82 @@ public class ThiefPowerupReturnProjectileSequence : ArcingProjectileSequence
 			}
 			return result;
 		}
+	}
+
+	[Header("-- Powerup to VFX mapping --")]
+	public PowerUpCategoryToVFX[] m_powerupToProjectileVFXPrefab;
+
+	[Space(10f)]
+	public PowerUpCategoryToVFX[] m_powerupToImpactVFXPrefab;
+
+	private int m_powerupCategoryInt = -1;
+
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
+	{
+		base.Initialize(extraParams);
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
+		{
+			PowerupTypeExtraParams powerupTypeExtraParams = extraSequenceParams as PowerupTypeExtraParams;
+			if (powerupTypeExtraParams != null)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				m_powerupCategoryInt = powerupTypeExtraParams.powerupCategory;
+			}
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			default:
+				return;
+			case 0:
+				break;
+			}
+		}
+	}
+
+	protected override GameObject GetProjectileFxPrefab()
+	{
+		GameObject gameObject = PowerUpCategoryToVFX.GetPrefabForCategory(m_powerupToProjectileVFXPrefab, m_powerupCategoryInt);
+		if (gameObject == null)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			gameObject = m_fxPrefab;
+		}
+		return gameObject;
+	}
+
+	protected override GameObject GetImpactFxPrefab()
+	{
+		GameObject gameObject = PowerUpCategoryToVFX.GetPrefabForCategory(m_powerupToImpactVFXPrefab, m_powerupCategoryInt);
+		if (gameObject == null)
+		{
+			gameObject = m_fxImpactPrefab;
+		}
+		return gameObject;
 	}
 }

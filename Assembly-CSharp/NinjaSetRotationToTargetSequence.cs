@@ -1,9 +1,54 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NinjaSetRotationToTargetSequence : Sequence
 {
+	public enum RotateHitMode
+	{
+		RotateAndHitEachEvent,
+		InBursts
+	}
+
+	private class AngleToActor : IComparable<AngleToActor>
+	{
+		public float m_angleWithHorizontal;
+
+		public ActorData m_actor;
+
+		public int m_lastHitOnEventNum;
+
+		public bool m_didLastHit;
+
+		public AngleToActor(float horizontalAngle, ActorData actor)
+		{
+			m_angleWithHorizontal = horizontalAngle;
+			m_actor = actor;
+		}
+
+		public int CompareTo(AngleToActor other)
+		{
+			if (other == null)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return 1;
+					}
+				}
+			}
+			return m_angleWithHorizontal.CompareTo(other.m_angleWithHorizontal);
+		}
+	}
+
 	[Separator("Anim Event to let sequence consider rotating, depending on number of total expected events", true)]
 	[AnimEventPicker]
 	public UnityEngine.Object m_rotateSignalAnimEvent;
@@ -48,92 +93,25 @@ public class NinjaSetRotationToTargetSequence : Sequence
 
 	private List<GameObject> m_fxImpacts = new List<GameObject>();
 
-	public NinjaSetRotationToTargetSequence.RotateHitMode m_rotateHitMode;
+	public RotateHitMode m_rotateHitMode;
 
-	private List<NinjaSetRotationToTargetSequence.AngleToActor> m_angleToTargetActor = new List<NinjaSetRotationToTargetSequence.AngleToActor>();
+	private List<AngleToActor> m_angleToTargetActor = new List<AngleToActor>();
 
 	public override void FinishSetup()
 	{
 		int num = 0;
-		this.m_angleToTargetActor.Clear();
+		m_angleToTargetActor.Clear();
 		if (base.Caster != null && base.Targets != null)
 		{
-			Vector3 b = base.Caster.\u0016();
+			Vector3 travelBoardSquareWorldPosition = base.Caster.GetTravelBoardSquareWorldPosition();
 			for (int i = 0; i < base.Targets.Length; i++)
 			{
 				ActorData actorData = base.Targets[i];
-				if (actorData != null)
+				if (!(actorData != null))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaSetRotationToTargetSequence.FinishSetup()).MethodHandle;
-					}
-					Vector3 a = actorData.\u0016();
-					if (actorData != base.Caster)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num++;
-						Vector3 vec = a - b;
-						vec.y = 0f;
-						float horizontalAngle = VectorUtils.HorizontalAngle_Deg(vec);
-						this.m_angleToTargetActor.Add(new NinjaSetRotationToTargetSequence.AngleToActor(horizontalAngle, actorData));
-					}
-					else
-					{
-						this.m_casterInTargetsList = true;
-					}
+					continue;
 				}
-			}
-			this.m_angleToTargetActor.Sort();
-		}
-		if (this.m_rotateHitMode == NinjaSetRotationToTargetSequence.RotateHitMode.RotateAndHitEachEvent)
-		{
-			this.m_currRotateTargetIndex = -1;
-		}
-		else
-		{
-			if (num > 0 && this.m_expectedRotateSignalCount > 0)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_signalEventPerRotation = Mathf.Max(1, Mathf.RoundToInt((float)this.m_expectedRotateSignalCount / (float)num));
-			}
-			else
-			{
-				this.m_signalEventPerRotation = 1;
-			}
-			int j = 0;
-			while (j < this.m_angleToTargetActor.Count)
-			{
-				if (j != this.m_angleToTargetActor.Count - 1)
-				{
-					goto IL_187;
-				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -142,57 +120,118 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					}
 					break;
 				}
-				if (this.m_expectedRotateSignalCount <= 0)
+				if (1 == 0)
 				{
-					goto IL_187;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_angleToTargetActor[j].m_lastHitOnEventNum = this.m_expectedRotateSignalCount;
-				IL_1A6:
-				j++;
-				continue;
-				IL_187:
-				this.m_angleToTargetActor[j].m_lastHitOnEventNum = (j + 1) * this.m_signalEventPerRotation;
-				goto IL_1A6;
-			}
-		}
-		if (this.m_setParamForChargeEndAnim)
-		{
-			for (;;)
-			{
-				switch (2)
+				Vector3 travelBoardSquareWorldPosition2 = actorData.GetTravelBoardSquareWorldPosition();
+				if (actorData != base.Caster)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!string.IsNullOrEmpty(this.m_chargeEndParamName))
-			{
-				for (;;)
-				{
-					switch (7)
+					while (true)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Animator animator = base.Caster.\u000E();
-				if (animator != null)
-				{
-					for (;;)
-					{
-						switch (1)
+						switch (6)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
+					num++;
+					Vector3 vec = travelBoardSquareWorldPosition2 - travelBoardSquareWorldPosition;
+					vec.y = 0f;
+					float horizontalAngle = VectorUtils.HorizontalAngle_Deg(vec);
+					m_angleToTargetActor.Add(new AngleToActor(horizontalAngle, actorData));
+				}
+				else
+				{
+					m_casterInTargetsList = true;
+				}
+			}
+			m_angleToTargetActor.Sort();
+		}
+		if (m_rotateHitMode == RotateHitMode.RotateAndHitEachEvent)
+		{
+			m_currRotateTargetIndex = -1;
+		}
+		else
+		{
+			if (num > 0 && m_expectedRotateSignalCount > 0)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_signalEventPerRotation = Mathf.Max(1, Mathf.RoundToInt((float)m_expectedRotateSignalCount / (float)num));
+			}
+			else
+			{
+				m_signalEventPerRotation = 1;
+			}
+			for (int j = 0; j < m_angleToTargetActor.Count; j++)
+			{
+				if (j == m_angleToTargetActor.Count - 1)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (m_expectedRotateSignalCount > 0)
+					{
+						m_angleToTargetActor[j].m_lastHitOnEventNum = m_expectedRotateSignalCount;
+						continue;
+					}
+				}
+				m_angleToTargetActor[j].m_lastHitOnEventNum = (j + 1) * m_signalEventPerRotation;
+			}
+		}
+		if (!m_setParamForChargeEndAnim)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			if (string.IsNullOrEmpty(m_chargeEndParamName))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				Animator modelAnimator = base.Caster.GetModelAnimator();
+				if (!(modelAnimator != null))
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
 					int num2;
 					if (num > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -208,31 +247,32 @@ public class NinjaSetRotationToTargetSequence : Sequence
 						num2 = 0;
 					}
 					int value = num2;
-					animator.SetInteger(this.m_chargeEndParamName, value);
-					if (num == 0)
+					modelAnimator.SetInteger(m_chargeEndParamName, value);
+					if (num != 0)
 					{
-						for (;;)
+						return;
+					}
+					while (true)
+					{
+						switch (1)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
+						case 0:
+							continue;
 						}
-						if (this.m_casterInTargetsList)
+						if (m_casterInTargetsList)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
 								case 0:
 									continue;
 								}
-								break;
+								DoGameplayHitsOnCaster();
+								return;
 							}
-							this.DoGameplayHitsOnCaster();
 						}
+						return;
 					}
 				}
 			}
@@ -241,26 +281,26 @@ public class NinjaSetRotationToTargetSequence : Sequence
 
 	private void OnDisable()
 	{
-		if (this.m_fxImpacts != null)
+		if (m_fxImpacts == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaSetRotationToTargetSequence.OnDisable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (int i = 0; i < this.m_fxImpacts.Count; i++)
+			for (int i = 0; i < m_fxImpacts.Count; i++)
 			{
-				if (this.m_fxImpacts[i] != null)
+				if (m_fxImpacts[i] != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -269,18 +309,19 @@ public class NinjaSetRotationToTargetSequence : Sequence
 						}
 						break;
 					}
-					UnityEngine.Object.Destroy(this.m_fxImpacts[i].gameObject);
+					UnityEngine.Object.Destroy(m_fxImpacts[i].gameObject);
 				}
 			}
-			this.m_fxImpacts.Clear();
+			m_fxImpacts.Clear();
+			return;
 		}
 	}
 
 	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
 	{
-		if (parameter == this.m_rotateSignalAnimEvent && base.Caster != null)
+		if (parameter == m_rotateSignalAnimEvent && base.Caster != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -289,13 +330,13 @@ public class NinjaSetRotationToTargetSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaSetRotationToTargetSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_rotateHitMode == NinjaSetRotationToTargetSequence.RotateHitMode.RotateAndHitEachEvent)
+			if (m_rotateHitMode == RotateHitMode.RotateAndHitEachEvent)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -304,49 +345,45 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					}
 					break;
 				}
-				if (this.m_angleToTargetActor.Count > 0)
+				if (m_angleToTargetActor.Count > 0)
 				{
-					this.m_currRotateTargetIndex++;
-					this.m_currRotateTargetIndex %= this.m_angleToTargetActor.Count;
-					ActorData actor = this.m_angleToTargetActor[this.m_currRotateTargetIndex].m_actor;
-					base.Caster.TurnToPositionInstant(actor.\u0016());
+					m_currRotateTargetIndex++;
+					m_currRotateTargetIndex %= m_angleToTargetActor.Count;
+					ActorData actor = m_angleToTargetActor[m_currRotateTargetIndex].m_actor;
+					base.Caster.TurnToPositionInstant(actor.GetTravelBoardSquareWorldPosition());
 				}
 			}
 			else
 			{
-				int num = this.m_numSignalEventsReceived / this.m_signalEventPerRotation;
-				if (num > this.m_currRotateTargetIndex)
+				int num = m_numSignalEventsReceived / m_signalEventPerRotation;
+				if (num > m_currRotateTargetIndex)
 				{
-					if (this.m_currRotateTargetIndex >= 0)
+					if (m_currRotateTargetIndex >= 0)
 					{
-						int i = Mathf.Max(0, this.m_lastGameplayHitTargetIndex);
-						while (i < this.m_currRotateTargetIndex)
+						for (int i = Mathf.Max(0, m_lastGameplayHitTargetIndex); i < m_currRotateTargetIndex; i++)
 						{
-							if (i >= this.m_angleToTargetActor.Count)
+							if (i < m_angleToTargetActor.Count)
 							{
-								for (;;)
+								SpawnImpactFXOnTarget(m_angleToTargetActor[i].m_actor, true);
+								m_angleToTargetActor[i].m_didLastHit = true;
+								continue;
+							}
+							while (true)
+							{
+								switch (4)
 								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									goto IL_13F;
+								case 0:
+									continue;
 								}
+								break;
 							}
-							else
-							{
-								this.SpawnImpactFXOnTarget(this.m_angleToTargetActor[i].m_actor, true);
-								this.m_angleToTargetActor[i].m_didLastHit = true;
-								i++;
-							}
+							break;
 						}
 					}
-					IL_13F:
-					this.m_currRotateTargetIndex = num;
-					if (this.m_currRotateTargetIndex < this.m_angleToTargetActor.Count)
+					m_currRotateTargetIndex = num;
+					if (m_currRotateTargetIndex < m_angleToTargetActor.Count)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -355,16 +392,16 @@ public class NinjaSetRotationToTargetSequence : Sequence
 							}
 							break;
 						}
-						ActorData actor2 = this.m_angleToTargetActor[this.m_currRotateTargetIndex].m_actor;
-						base.Caster.TurnToPositionInstant(actor2.\u0016());
+						ActorData actor2 = m_angleToTargetActor[m_currRotateTargetIndex].m_actor;
+						base.Caster.TurnToPositionInstant(actor2.GetTravelBoardSquareWorldPosition());
 					}
 				}
 			}
-			this.m_numSignalEventsReceived++;
+			m_numSignalEventsReceived++;
 		}
-		if (parameter == this.m_hitAnimEvent)
+		if (parameter == m_hitAnimEvent)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -373,9 +410,9 @@ public class NinjaSetRotationToTargetSequence : Sequence
 				}
 				break;
 			}
-			if (this.m_currRotateTargetIndex >= 0 && this.m_currRotateTargetIndex < this.m_angleToTargetActor.Count)
+			if (m_currRotateTargetIndex >= 0 && m_currRotateTargetIndex < m_angleToTargetActor.Count)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -384,15 +421,15 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					}
 					break;
 				}
-				this.m_numHitEventsReceived++;
-				if (this.m_rotateHitMode == NinjaSetRotationToTargetSequence.RotateHitMode.RotateAndHitEachEvent)
+				m_numHitEventsReceived++;
+				if (m_rotateHitMode == RotateHitMode.RotateAndHitEachEvent)
 				{
-					bool flag = this.m_numHitEventsReceived > this.m_expectedRotateSignalCount - this.m_angleToTargetActor.Count;
-					ActorData actor3 = this.m_angleToTargetActor[this.m_currRotateTargetIndex].m_actor;
-					this.SpawnImpactFXOnTarget(actor3, flag);
+					bool flag = m_numHitEventsReceived > m_expectedRotateSignalCount - m_angleToTargetActor.Count;
+					ActorData actor3 = m_angleToTargetActor[m_currRotateTargetIndex].m_actor;
+					SpawnImpactFXOnTarget(actor3, flag);
 					if (flag)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -401,17 +438,17 @@ public class NinjaSetRotationToTargetSequence : Sequence
 							}
 							break;
 						}
-						this.m_angleToTargetActor[this.m_currRotateTargetIndex].m_didLastHit = true;
+						m_angleToTargetActor[m_currRotateTargetIndex].m_didLastHit = true;
 					}
 				}
 				else
 				{
-					bool flag2 = this.m_angleToTargetActor[this.m_currRotateTargetIndex].m_lastHitOnEventNum == this.m_numHitEventsReceived;
-					ActorData actor4 = this.m_angleToTargetActor[this.m_currRotateTargetIndex].m_actor;
-					this.SpawnImpactFXOnTarget(actor4, flag2);
+					bool flag2 = m_angleToTargetActor[m_currRotateTargetIndex].m_lastHitOnEventNum == m_numHitEventsReceived;
+					ActorData actor4 = m_angleToTargetActor[m_currRotateTargetIndex].m_actor;
+					SpawnImpactFXOnTarget(actor4, flag2);
 					if (flag2)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -420,31 +457,31 @@ public class NinjaSetRotationToTargetSequence : Sequence
 							}
 							break;
 						}
-						this.m_lastGameplayHitTargetIndex = this.m_currRotateTargetIndex;
-						this.m_angleToTargetActor[this.m_currRotateTargetIndex].m_didLastHit = true;
+						m_lastGameplayHitTargetIndex = m_currRotateTargetIndex;
+						m_angleToTargetActor[m_currRotateTargetIndex].m_didLastHit = true;
 					}
 				}
 			}
 		}
-		if (parameter == this.m_lastHitAnimEvent)
+		if (!(parameter == m_lastHitAnimEvent))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.DoGameplayHitsOnCaster();
-			if (this.m_rotateHitMode == NinjaSetRotationToTargetSequence.RotateHitMode.RotateAndHitEachEvent)
+			DoGameplayHitsOnCaster();
+			if (m_rotateHitMode == RotateHitMode.RotateAndHitEachEvent)
 			{
-				for (int j = 0; j < this.m_angleToTargetActor.Count; j++)
+				for (int j = 0; j < m_angleToTargetActor.Count; j++)
 				{
-					if (!this.m_angleToTargetActor[j].m_didLastHit)
+					if (!m_angleToTargetActor[j].m_didLastHit)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -453,24 +490,23 @@ public class NinjaSetRotationToTargetSequence : Sequence
 							}
 							break;
 						}
-						this.SpawnImpactFXOnTarget(this.m_angleToTargetActor[j].m_actor, true);
+						SpawnImpactFXOnTarget(m_angleToTargetActor[j].m_actor, true);
 					}
 				}
+				return;
 			}
-			else
+			for (int k = m_lastGameplayHitTargetIndex + 1; k < m_angleToTargetActor.Count; k++)
 			{
-				for (int k = this.m_lastGameplayHitTargetIndex + 1; k < this.m_angleToTargetActor.Count; k++)
+				ActorData actor5 = m_angleToTargetActor[k].m_actor;
+				SpawnImpactFXOnTarget(actor5, true);
+			}
+			while (true)
+			{
+				switch (1)
 				{
-					ActorData actor5 = this.m_angleToTargetActor[k].m_actor;
-					this.SpawnImpactFXOnTarget(actor5, true);
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
+				default:
+					return;
+				case 0:
 					break;
 				}
 			}
@@ -479,92 +515,48 @@ public class NinjaSetRotationToTargetSequence : Sequence
 
 	private void DoGameplayHitsOnCaster()
 	{
-		if (this.m_doGameplayHits)
+		if (!m_doGameplayHits)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaSetRotationToTargetSequence.DoGameplayHitsOnCaster()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			base.Source.OnSequenceHit(this, base.TargetPos, null);
-			if (this.m_casterInTargetsList)
+			base.Source.OnSequenceHit(this, base.TargetPos);
+			if (m_casterInTargetsList)
 			{
-				base.Source.OnSequenceHit(this, base.Caster, Sequence.CreateImpulseInfoWithActorForward(base.Caster), ActorModelData.RagdollActivation.HealthBased, true);
+				base.Source.OnSequenceHit(this, base.Caster, Sequence.CreateImpulseInfoWithActorForward(base.Caster));
 			}
+			return;
 		}
 	}
 
 	private void SpawnImpactFXOnTarget(ActorData targetActor, bool lastHit)
 	{
-		Vector3 targetHitPosition = base.GetTargetHitPosition(targetActor, this.m_hitFxJoint);
+		Vector3 targetHitPosition = GetTargetHitPosition(targetActor, m_hitFxJoint);
 		Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 		hitDirection.y = 0f;
 		hitDirection.Normalize();
 		ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, hitDirection);
-		if (this.m_hitFxPrefab)
+		if ((bool)m_hitFxPrefab)
 		{
-			this.m_fxImpacts.Add(base.InstantiateFX(this.m_hitFxPrefab, targetHitPosition, Quaternion.identity, true, true));
+			m_fxImpacts.Add(InstantiateFX(m_hitFxPrefab, targetHitPosition, Quaternion.identity));
 		}
-		if (!string.IsNullOrEmpty(this.m_hitAudioEvent))
+		if (!string.IsNullOrEmpty(m_hitAudioEvent))
 		{
-			AudioManager.PostEvent(this.m_hitAudioEvent, targetActor.gameObject);
+			AudioManager.PostEvent(m_hitAudioEvent, targetActor.gameObject);
 		}
-		if (this.m_doGameplayHits)
+		if (m_doGameplayHits)
 		{
-			base.Source.OnSequenceHit(this, targetActor, impulseInfo, (!lastHit) ? ActorModelData.RagdollActivation.None : ActorModelData.RagdollActivation.HealthBased, true);
-		}
-	}
-
-	public enum RotateHitMode
-	{
-		RotateAndHitEachEvent,
-		InBursts
-	}
-
-	private class AngleToActor : IComparable<NinjaSetRotationToTargetSequence.AngleToActor>
-	{
-		public float m_angleWithHorizontal;
-
-		public ActorData m_actor;
-
-		public int m_lastHitOnEventNum;
-
-		public bool m_didLastHit;
-
-		public AngleToActor(float horizontalAngle, ActorData actor)
-		{
-			this.m_angleWithHorizontal = horizontalAngle;
-			this.m_actor = actor;
-		}
-
-		public int CompareTo(NinjaSetRotationToTargetSequence.AngleToActor other)
-		{
-			if (other == null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaSetRotationToTargetSequence.AngleToActor.CompareTo(NinjaSetRotationToTargetSequence.AngleToActor)).MethodHandle;
-				}
-				return 1;
-			}
-			return this.m_angleWithHorizontal.CompareTo(other.m_angleWithHorizontal);
+			base.Source.OnSequenceHit(this, targetActor, impulseInfo, lastHit ? ActorModelData.RagdollActivation.HealthBased : ActorModelData.RagdollActivation.None);
 		}
 	}
 }

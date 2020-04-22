@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class DebugCommand_SetGlobalShaderLOD : DebugCommand
@@ -35,27 +34,24 @@ public class DebugCommand_SetGlobalShaderLOD : DebugCommand
 
 	public override void OnIncreaseClick()
 	{
-		int num = Shader.globalMaximumLOD;
-		num = Mathf.Clamp(num, 0, 0x28A);
-		num += 0x32;
-		num = Mathf.Clamp(num, 0, 0x28A);
-		Shader.globalMaximumLOD = num;
+		int globalMaximumLOD = Shader.globalMaximumLOD;
+		globalMaximumLOD = Mathf.Clamp(globalMaximumLOD, 0, 650);
+		globalMaximumLOD += 50;
+		globalMaximumLOD = (Shader.globalMaximumLOD = Mathf.Clamp(globalMaximumLOD, 0, 650));
 	}
 
 	public override void OnDecreaseClick()
 	{
-		int num = Shader.globalMaximumLOD;
-		num = Mathf.Clamp(num, 0, 0x28A);
-		num -= 0x32;
-		num = Mathf.Clamp(num, 0, 0x28A);
-		Shader.globalMaximumLOD = num;
+		int globalMaximumLOD = Shader.globalMaximumLOD;
+		globalMaximumLOD = Mathf.Clamp(globalMaximumLOD, 0, 650);
+		globalMaximumLOD -= 50;
+		globalMaximumLOD = (Shader.globalMaximumLOD = Mathf.Clamp(globalMaximumLOD, 0, 650));
 	}
 
 	public override bool OnSlashCommand(string arguments)
 	{
-		int num = int.Parse(arguments);
-		num = Mathf.Clamp(num, 0, 0x28A);
-		Shader.globalMaximumLOD = num;
+		int value = int.Parse(arguments);
+		value = (Shader.globalMaximumLOD = Mathf.Clamp(value, 0, 650));
 		return true;
 	}
 }

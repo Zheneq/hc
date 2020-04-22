@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,33 +13,34 @@ public class UICharacterSelectScreen : MonoBehaviour
 
 	public static UICharacterSelectScreen Get()
 	{
-		return UICharacterSelectScreen.s_instance;
+		return s_instance;
 	}
 
 	public void SelectedGameMode(GameType gameType)
 	{
-		UICharacterScreen.Get().DoRefreshFunctions(0x120);
+		UICharacterScreen.Get().DoRefreshFunctions(288);
 	}
 
 	public void Awake()
 	{
-		UICharacterSelectScreen.s_instance = this;
-		if (base.gameObject.transform.parent == null)
+		s_instance = this;
+		if (!(base.gameObject.transform.parent == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreen.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+			Object.DontDestroyOnLoad(base.gameObject);
+			return;
 		}
 	}
 
@@ -51,22 +51,23 @@ public class UICharacterSelectScreen : MonoBehaviour
 
 	public void SetGameSettingsButtonVisibility(bool visible)
 	{
-		if (NavigationBar.Get() != null)
+		if (!(NavigationBar.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreen.SetGameSettingsButtonVisibility(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(NavigationBar.Get().m_gameSettingsBtn, visible, null);
+			UIManager.SetGameObjectActive(NavigationBar.Get().m_gameSettingsBtn, visible);
+			return;
 		}
 	}
 
@@ -74,24 +75,25 @@ public class UICharacterSelectScreen : MonoBehaviour
 	{
 		UIGameSettingsPanel.Get().SetVisible(true);
 		UIGameSettingsPanel.Get().Setup(gameConfig, teamInfo, playerInfo);
-		foreach (UICharacterSelectRing uicharacterSelectRing in UICharacterSelectWorldObjects.Get().m_ringAnimations)
+		UICharacterSelectRing[] ringAnimations = UICharacterSelectWorldObjects.Get().m_ringAnimations;
+		foreach (UICharacterSelectRing uICharacterSelectRing in ringAnimations)
 		{
-			uicharacterSelectRing.SetClickable(false);
+			uICharacterSelectRing.SetClickable(false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			UICharacterSelectScreenController.Get().UpdateReadyCancelButtonStates();
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreen.ShowGameSettingsPanel(LobbyGameConfig, LobbyTeamInfo, LobbyPlayerInfo)).MethodHandle;
-		}
-		UICharacterSelectScreenController.Get().UpdateReadyCancelButtonStates();
 	}
 
 	public void AllowCharacterSwapForConflict()
@@ -102,72 +104,75 @@ public class UICharacterSelectScreen : MonoBehaviour
 	public void HideGameSettingsPanel(LobbyGameConfig gameConfig)
 	{
 		UIGameSettingsPanel.Get().SetVisible(false);
-		foreach (UICharacterSelectRing uicharacterSelectRing in UICharacterSelectWorldObjects.Get().m_ringAnimations)
+		UICharacterSelectRing[] ringAnimations = UICharacterSelectWorldObjects.Get().m_ringAnimations;
+		foreach (UICharacterSelectRing uICharacterSelectRing in ringAnimations)
 		{
-			uicharacterSelectRing.SetClickable(true);
+			uICharacterSelectRing.SetClickable(true);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreen.HideGameSettingsPanel(LobbyGameConfig)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	public void ShowPleaseEquipModsDialog()
 	{
 		string description = StringUtil.TR("PleaseSelectYourAbilityMods", "Global");
-		if (this.m_selectModsDialog == null)
+		if (!(m_selectModsDialog == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreen.ShowPleaseEquipModsDialog()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_selectModsDialog = UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("SelectAbilityMods", "Global"), description, StringUtil.TR("Ok", "Global"), null, -1, false);
+			m_selectModsDialog = UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("SelectAbilityMods", "Global"), description, StringUtil.TR("Ok", "Global"));
+			return;
 		}
 	}
 
 	public void SetVisible(bool visible)
 	{
-		if (this.m_selectModsDialog != null)
+		if (!(m_selectModsDialog != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreen.SetVisible(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIDialogPopupManager.Get().CloseDialog(this.m_selectModsDialog);
+			UIDialogPopupManager.Get().CloseDialog(m_selectModsDialog);
+			return;
 		}
 	}
 
 	public void Setup(LobbyGameConfig gameConfig, LobbyGameInfo gameInfo, CharacterType charType)
 	{
 		UIGameSettingsPanel.Get().SetVisible(false);
-		UIManager.SetGameObjectActive(NavigationBar.Get().m_gameSettingsBtn, gameConfig.GameType == GameType.Custom, null);
+		UIManager.SetGameObjectActive(NavigationBar.Get().m_gameSettingsBtn, gameConfig.GameType == GameType.Custom);
 	}
 
 	public void OnShowGameSettingsClicked(BaseEventData data)

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class BrushLocation : MonoBehaviour
@@ -7,20 +6,20 @@ public class BrushLocation : MonoBehaviour
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushLocation.OnDrawGizmos()).MethodHandle;
-			}
-			return;
 		}
 		Gizmos.DrawIcon(base.transform.position, "icon_Brush.png");
 	}

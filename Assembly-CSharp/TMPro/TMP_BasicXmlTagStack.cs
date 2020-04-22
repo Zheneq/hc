@@ -1,5 +1,3 @@
-﻿using System;
-
 namespace TMPro
 {
 	public struct TMP_BasicXmlTagStack
@@ -26,84 +24,81 @@ namespace TMPro
 
 		public void Clear()
 		{
-			this.bold = 0;
-			this.italic = 0;
-			this.underline = 0;
-			this.strikethrough = 0;
-			this.highlight = 0;
-			this.superscript = 0;
-			this.subscript = 0;
-			this.uppercase = 0;
-			this.lowercase = 0;
-			this.smallcaps = 0;
+			bold = 0;
+			italic = 0;
+			underline = 0;
+			strikethrough = 0;
+			highlight = 0;
+			superscript = 0;
+			subscript = 0;
+			uppercase = 0;
+			lowercase = 0;
+			smallcaps = 0;
 		}
 
 		public byte Add(FontStyles style)
 		{
 			switch (style)
 			{
-			case FontStyles.Bold:
-				this.bold += 1;
-				return this.bold;
-			case FontStyles.Italic:
-				this.italic += 1;
-				return this.italic;
 			default:
-				if (style == FontStyles.Strikethrough)
-				{
-					this.strikethrough += 1;
-					return this.strikethrough;
-				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_BasicXmlTagStack.Add(FontStyles)).MethodHandle;
-				}
-				if (style == FontStyles.Superscript)
-				{
-					this.superscript += 1;
-					return this.superscript;
-				}
-				for (;;)
-				{
-					switch (7)
+					if (1 == 0)
 					{
-					case 0:
-						continue;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					break;
-				}
-				if (style == FontStyles.Subscript)
-				{
-					this.subscript += 1;
-					return this.subscript;
-				}
-				for (;;)
-				{
-					switch (1)
+					if (style != FontStyles.Superscript)
 					{
-					case 0:
-						continue;
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								break;
+							default:
+								if (style != FontStyles.Subscript)
+								{
+									while (true)
+									{
+										switch (1)
+										{
+										case 0:
+											break;
+										default:
+											if (style == FontStyles.Highlight)
+											{
+												highlight++;
+												return highlight;
+											}
+											return 0;
+										}
+									}
+								}
+								subscript++;
+								return subscript;
+							}
+						}
 					}
-					break;
+					superscript++;
+					return superscript;
 				}
-				if (style != FontStyles.Highlight)
-				{
-					return 0;
-				}
-				this.highlight += 1;
-				return this.highlight;
+			case FontStyles.Bold:
+				bold++;
+				return bold;
+			case FontStyles.Italic:
+				italic++;
+				return italic;
 			case FontStyles.Underline:
-				this.underline += 1;
-				return this.underline;
+				underline++;
+				return underline;
+			case FontStyles.Strikethrough:
+				strikethrough++;
+				return strikethrough;
 			}
 		}
 
@@ -111,10 +106,96 @@ namespace TMPro
 		{
 			switch (style)
 			{
-			case FontStyles.Bold:
-				if (this.bold > 1)
+			default:
+				while (true)
 				{
-					for (;;)
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (style != FontStyles.Superscript)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								break;
+							default:
+								switch (style)
+								{
+								default:
+									while (true)
+									{
+										switch (1)
+										{
+										case 0:
+											break;
+										default:
+											return 0;
+										}
+									}
+								case FontStyles.Highlight:
+									if (highlight > 1)
+									{
+										while (true)
+										{
+											switch (4)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										highlight--;
+									}
+									else
+									{
+										highlight = 0;
+									}
+									return highlight;
+								case FontStyles.Subscript:
+									if (subscript > 1)
+									{
+										while (true)
+										{
+											switch (6)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										subscript--;
+									}
+									else
+									{
+										subscript = 0;
+									}
+									return subscript;
+								}
+							}
+						}
+					}
+					if (superscript > 1)
+					{
+						superscript--;
+					}
+					else
+					{
+						superscript = 0;
+					}
+					return superscript;
+				}
+			case FontStyles.Bold:
+				if (bold > 1)
+				{
+					while (true)
 					{
 						switch (5)
 						{
@@ -123,141 +204,52 @@ namespace TMPro
 						}
 						break;
 					}
-					this.bold -= 1;
+					bold--;
 				}
 				else
 				{
-					this.bold = 0;
+					bold = 0;
 				}
-				return this.bold;
+				return bold;
 			case FontStyles.Italic:
-				if (this.italic > 1)
+				if (italic > 1)
 				{
-					this.italic -= 1;
+					italic--;
 				}
 				else
 				{
-					this.italic = 0;
+					italic = 0;
 				}
-				return this.italic;
-			default:
-				if (style == FontStyles.Strikethrough)
-				{
-					if (this.strikethrough > 1)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.strikethrough -= 1;
-					}
-					else
-					{
-						this.strikethrough = 0;
-					}
-					return this.strikethrough;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_BasicXmlTagStack.Remove(FontStyles)).MethodHandle;
-				}
-				if (style == FontStyles.Superscript)
-				{
-					if (this.superscript > 1)
-					{
-						this.superscript -= 1;
-					}
-					else
-					{
-						this.superscript = 0;
-					}
-					return this.superscript;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (style == FontStyles.Subscript)
-				{
-					if (this.subscript > 1)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.subscript -= 1;
-					}
-					else
-					{
-						this.subscript = 0;
-					}
-					return this.subscript;
-				}
-				if (style != FontStyles.Highlight)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return 0;
-				}
-				if (this.highlight > 1)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.highlight -= 1;
-				}
-				else
-				{
-					this.highlight = 0;
-				}
-				return this.highlight;
+				return italic;
 			case FontStyles.Underline:
-				if (this.underline > 1)
+				if (underline > 1)
 				{
-					this.underline -= 1;
+					underline--;
 				}
 				else
 				{
-					this.underline = 0;
+					underline = 0;
 				}
-				return this.underline;
+				return underline;
+			case FontStyles.Strikethrough:
+				if (strikethrough > 1)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					strikethrough--;
+				}
+				else
+				{
+					strikethrough = 0;
+				}
+				return strikethrough;
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,29 +45,27 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		RobotAnimalCharge robotAnimalCharge = targetAbility as RobotAnimalCharge;
 		if (robotAnimalCharge != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_damageMod, "DamageAmount", string.Empty, robotAnimalCharge.m_damageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_lifeOnFirstHitMod, "LifeOnFirstHit", string.Empty, robotAnimalCharge.m_lifeOnFirstHit, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_lifePerHitMod, "LifePerHit", string.Empty, robotAnimalCharge.m_lifePerHit, true, false, false);
-			AbilityMod.AddToken_IntDiff(tokens, "HealOnNextTurnIfKilledTarget", string.Empty, this.m_healOnNextTurnStartIfKilledTarget, false, 0);
-			AbilityMod.AddToken(tokens, this.m_cdrOnHittingAllyMod, "CdrOnHittingAlly", string.Empty, robotAnimalCharge.m_cdrOnHittingAlly, true, false);
-			AbilityMod.AddToken(tokens, this.m_cdrOnHittingEnemyMod, "CdrOnHittingEnemy", string.Empty, robotAnimalCharge.m_cdrOnHittingEnemy, true, false);
+			AbilityMod.AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, robotAnimalCharge.m_damageAmount);
+			AbilityMod.AddToken(tokens, m_lifeOnFirstHitMod, "LifeOnFirstHit", string.Empty, robotAnimalCharge.m_lifeOnFirstHit);
+			AbilityMod.AddToken(tokens, m_lifePerHitMod, "LifePerHit", string.Empty, robotAnimalCharge.m_lifePerHit);
+			AbilityMod.AddToken_IntDiff(tokens, "HealOnNextTurnIfKilledTarget", string.Empty, m_healOnNextTurnStartIfKilledTarget, false, 0);
+			AbilityMod.AddToken(tokens, m_cdrOnHittingAllyMod, "CdrOnHittingAlly", string.Empty, robotAnimalCharge.m_cdrOnHittingAlly);
+			AbilityMod.AddToken(tokens, m_cdrOnHittingEnemyMod, "CdrOnHittingEnemy", string.Empty, robotAnimalCharge.m_cdrOnHittingEnemy);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		RobotAnimalCharge robotAnimalCharge = base.GetTargetAbilityOnAbilityData(abilityData) as RobotAnimalCharge;
+		RobotAnimalCharge robotAnimalCharge = GetTargetAbilityOnAbilityData(abilityData) as RobotAnimalCharge;
 		bool flag = robotAnimalCharge != null;
-		string text = string.Empty;
-		text += AbilityModHelper.GetModPropertyDesc(this.m_damageMod, "[Damage]", flag, (!flag) ? 0 : robotAnimalCharge.m_damageAmount);
-		string str = text;
-		AbilityModPropertyFloat lifeOnFirstHitMod = this.m_lifeOnFirstHitMod;
-		string prefix = "[Life On First Hit]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", flag, flag ? robotAnimalCharge.m_damageAmount : 0);
+		string str = empty;
+		AbilityModPropertyFloat lifeOnFirstHitMod = m_lifeOnFirstHitMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -76,9 +74,9 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalCharge.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = robotAnimalCharge.m_lifeOnFirstHit;
 		}
@@ -86,11 +84,11 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(lifeOnFirstHitMod, prefix, showBaseVal, baseVal);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_lifePerHitMod, "[Life Per Hit Mod]", flag, (!flag) ? 0f : robotAnimalCharge.m_lifePerHit);
-		if (this.m_healOnNextTurnStartIfKilledTarget > 0)
+		empty = str + AbilityModHelper.GetModPropertyDesc(lifeOnFirstHitMod, "[Life On First Hit]", flag, baseVal);
+		empty += AbilityModHelper.GetModPropertyDesc(m_lifePerHitMod, "[Life Per Hit Mod]", flag, (!flag) ? 0f : robotAnimalCharge.m_lifePerHit);
+		if (m_healOnNextTurnStartIfKilledTarget > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -99,20 +97,14 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 				}
 				break;
 			}
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"[Heal on Next Turn Start If Killed Target] = ",
-				this.m_healOnNextTurnStartIfKilledTarget,
-				"\n"
-			});
+			string text = empty;
+			empty = text + "[Heal on Next Turn Start If Killed Target] = " + m_healOnNextTurnStartIfKilledTarget + "\n";
 		}
-		text += AbilityModHelper.GetModEffectInfoDesc(this.m_effectOnSelf, "{ Effect on Self }", string.Empty, flag, null);
-		text += AbilityModHelper.GetModEffectInfoDesc(this.m_effectToSelfPerAdjacentAlly, "{ Effect on Self Per Adjacent Ally }", string.Empty, flag, null);
-		if (this.m_techPointsPerAdjacentAlly > 0)
+		empty += AbilityModHelper.GetModEffectInfoDesc(m_effectOnSelf, "{ Effect on Self }", string.Empty, flag);
+		empty += AbilityModHelper.GetModEffectInfoDesc(m_effectToSelfPerAdjacentAlly, "{ Effect on Self Per Adjacent Ally }", string.Empty, flag);
+		if (m_techPointsPerAdjacentAlly > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -121,23 +113,15 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 				}
 				break;
 			}
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"[Tech Points Per Adjacent Ally] = ",
-				this.m_techPointsPerAdjacentAlly,
-				"\n"
-			});
+			string text = empty;
+			empty = text + "[Tech Points Per Adjacent Ally] = " + m_techPointsPerAdjacentAlly + "\n";
 		}
-		string str2 = text;
-		AbilityModPropertyBool requireTargetActorMod = this.m_requireTargetActorMod;
-		string prefix2 = "[RequireTargetActor]";
-		bool showBaseVal2 = flag;
-		bool baseVal2;
+		string str2 = empty;
+		AbilityModPropertyBool requireTargetActorMod = m_requireTargetActorMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -146,21 +130,19 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 				}
 				break;
 			}
-			baseVal2 = robotAnimalCharge.m_requireTargetActor;
+			baseVal2 = (robotAnimalCharge.m_requireTargetActor ? 1 : 0);
 		}
 		else
 		{
-			baseVal2 = false;
+			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(requireTargetActorMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyBool canIncludeEnemyMod = this.m_canIncludeEnemyMod;
-		string prefix3 = "[CanIncludeEnemy]";
-		bool showBaseVal3 = flag;
-		bool baseVal3;
+		empty = str2 + PropDesc(requireTargetActorMod, "[RequireTargetActor]", flag, (byte)baseVal2 != 0);
+		string str3 = empty;
+		AbilityModPropertyBool canIncludeEnemyMod = m_canIncludeEnemyMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -169,22 +151,20 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 				}
 				break;
 			}
-			baseVal3 = robotAnimalCharge.m_canIncludeEnemy;
+			baseVal3 = (robotAnimalCharge.m_canIncludeEnemy ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(canIncludeEnemyMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_canIncludeAllyMod, "[CanIncludeAlly]", flag, flag && robotAnimalCharge.m_canIncludeAlly);
-		string str4 = text;
-		AbilityModPropertyInt cdrOnHittingAllyMod = this.m_cdrOnHittingAllyMod;
-		string prefix4 = "[CdrOnHittingAlly]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(canIncludeEnemyMod, "[CanIncludeEnemy]", flag, (byte)baseVal3 != 0);
+		empty += PropDesc(m_canIncludeAllyMod, "[CanIncludeAlly]", flag, flag && robotAnimalCharge.m_canIncludeAlly);
+		string str4 = empty;
+		AbilityModPropertyInt cdrOnHittingAllyMod = m_cdrOnHittingAllyMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -199,7 +179,7 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(cdrOnHittingAllyMod, prefix4, showBaseVal4, baseVal4);
-		return text + base.PropDesc(this.m_cdrOnHittingEnemyMod, "[CdrOnHittingEnemy]", flag, (!flag) ? 0 : robotAnimalCharge.m_cdrOnHittingEnemy);
+		empty = str4 + PropDesc(cdrOnHittingAllyMod, "[CdrOnHittingAlly]", flag, baseVal4);
+		return empty + PropDesc(m_cdrOnHittingEnemyMod, "[CdrOnHittingEnemy]", flag, flag ? robotAnimalCharge.m_cdrOnHittingEnemy : 0);
 	}
 }

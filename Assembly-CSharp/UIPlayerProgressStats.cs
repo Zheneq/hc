@@ -1,10 +1,9 @@
-﻿using System;
+using LobbyGameClientMessages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIPlayerProgressStats : UIPlayerProgressSubPanel
@@ -59,36 +58,47 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 
 	private Dictionary<string, CalculateFreelancerStatsResponse> m_percentileInfos = new Dictionary<string, CalculateFreelancerStatsResponse>();
 
-	public bool HasGlobalStatsToCompareTo { get; private set; }
+	public bool HasGlobalStatsToCompareTo
+	{
+		get;
+		private set;
+	}
 
-	public bool HasFreelancerStatsToCompareTo { get; private set; }
+	public bool HasFreelancerStatsToCompareTo
+	{
+		get;
+		private set;
+	}
 
-	public string StatCompareFailure { get; private set; }
+	public string StatCompareFailure
+	{
+		get;
+		private set;
+	}
 
 	private void Init()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			return;
+			m_initialized = true;
+			m_freelancerItems = m_freelancerLayout.GetComponentsInChildren<UIGameOverStatWidget>(true);
+			m_generalItems = m_generalLayout.GetComponentsInChildren<UIGameOverStatWidget>(true);
+			m_firepowerItems = m_firepowerLayout.GetComponentsInChildren<UIGameOverStatWidget>(true);
+			m_supportItems = m_supportLayout.GetComponentsInChildren<UIGameOverStatWidget>(true);
+			m_frontlineItems = m_frontlineLayout.GetComponentsInChildren<UIGameOverStatWidget>(true);
+			m_season = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
 		}
-		this.m_initialized = true;
-		this.m_freelancerItems = this.m_freelancerLayout.GetComponentsInChildren<UIGameOverStatWidget>(true);
-		this.m_generalItems = this.m_generalLayout.GetComponentsInChildren<UIGameOverStatWidget>(true);
-		this.m_firepowerItems = this.m_firepowerLayout.GetComponentsInChildren<UIGameOverStatWidget>(true);
-		this.m_supportItems = this.m_supportLayout.GetComponentsInChildren<UIGameOverStatWidget>(true);
-		this.m_frontlineItems = this.m_frontlineLayout.GetComponentsInChildren<UIGameOverStatWidget>(true);
-		this.m_season = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
 	}
 
 	private void Awake()
 	{
-		this.m_freelancerDropdownBtn.m_button.spriteController.callback = delegate(BaseEventData data)
+		m_freelancerDropdownBtn.m_button.spriteController.callback = delegate
 		{
-			UIPlayerProgressPanel.Get().OpenFreelancerDropdown(this.m_characterType, delegate(int charTypeInt)
+			UIPlayerProgressPanel.Get().OpenFreelancerDropdown(m_characterType, delegate(int charTypeInt)
 			{
 				if (charTypeInt >= 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -97,59 +107,58 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressStats.<Awake>m__5(int)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					this.m_characterType = (CharacterType)charTypeInt;
-					this.m_characterRole = CharacterRole.None;
+					m_characterType = (CharacterType)charTypeInt;
+					m_characterRole = CharacterRole.None;
 				}
 				else
 				{
-					this.m_characterType = CharacterType.None;
-					this.m_characterRole = (CharacterRole)(-(CharacterRole)charTypeInt);
+					m_characterType = CharacterType.None;
+					m_characterRole = (CharacterRole)(-charTypeInt);
 				}
-				this.Setup();
-			}, this.m_freelancerDropdownSlot, true, this.m_characterRole);
+				Setup();
+			}, m_freelancerDropdownSlot, true, m_characterRole);
 		};
-		this.m_gameModeDropdownBtn.m_button.spriteController.callback = delegate(BaseEventData data)
+		m_gameModeDropdownBtn.m_button.spriteController.callback = delegate
 		{
-			UIPlayerProgressPanel.Get().OpenGameModeDropdown(this.m_gameType, delegate(int gameModeInt)
+			UIPlayerProgressPanel.Get().OpenGameModeDropdown(m_gameType, delegate(int gameModeInt)
 			{
-				this.m_gameType = (PersistedStatBucket)gameModeInt;
-				this.Setup();
-			}, this.m_gameModeDropdownSlot);
+				m_gameType = (PersistedStatBucket)gameModeInt;
+				Setup();
+			}, m_gameModeDropdownSlot);
 		};
-		this.m_seasonsDropdownBtn.m_button.spriteController.callback = delegate(BaseEventData data)
+		m_seasonsDropdownBtn.m_button.spriteController.callback = delegate
 		{
-			UIPlayerProgressPanel.Get().OpenSeasonsDropdown(this.m_season, delegate(int season)
+			UIPlayerProgressPanel.Get().OpenSeasonsDropdown(m_season, delegate(int season)
 			{
-				this.m_season = season;
-				this.Setup();
+				m_season = season;
+				Setup();
 			}, delegate(int season)
 			{
-				bool flag = season == ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
-				if (flag)
+				if (season == ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							return true;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressStats.<Awake>m__8(int)).MethodHandle;
-					}
-					return true;
 				}
 				List<PersistedCharacterData> list = new List<PersistedCharacterData>();
-				if (this.m_characterType != CharacterType.None)
+				if (m_characterType != 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -158,7 +167,7 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 						}
 						break;
 					}
-					list.Add(ClientGameManager.Get().GetPlayerCharacterData(this.m_characterType));
+					list.Add(ClientGameManager.Get().GetPlayerCharacterData(m_characterType));
 				}
 				else
 				{
@@ -171,67 +180,69 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 						return true;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return false;
 					}
-					break;
 				}
-				return false;
-			}, this.m_seasonsDropdownSlot);
+			}, m_seasonsDropdownSlot);
 		};
-		this.m_numWins.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
+		m_numWins.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
 		{
-			UISimpleTooltip uisimpleTooltip = tooltip as UISimpleTooltip;
-			if (uisimpleTooltip != null)
+			UISimpleTooltip uISimpleTooltip = tooltip as UISimpleTooltip;
+			if (uISimpleTooltip != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressStats.<Awake>m__3(UITooltipBase)).MethodHandle;
-				}
-				string text = string.Format(StringUtil.TR("MatchesPlayed", "Global"), this.m_matchesPlayed);
-				if (this.m_matchesPlayed > 0)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						string text = string.Format(StringUtil.TR("MatchesPlayed", "Global"), m_matchesPlayed);
+						if (m_matchesPlayed > 0)
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							text = text + Environment.NewLine + string.Format(StringUtil.TR("WinPercentage", "Global"), m_matchesWon * 100 / m_matchesPlayed);
+						}
+						uISimpleTooltip.Setup(text);
+						return true;
 					}
-					text = text + Environment.NewLine + string.Format(StringUtil.TR("WinPercentage", "Global"), this.m_matchesWon * 0x64 / this.m_matchesPlayed);
+					}
 				}
-				uisimpleTooltip.Setup(text);
-				return true;
 			}
 			return false;
-		}, null);
+		});
 	}
 
 	private void Start()
 	{
-		ClientGameManager.Get().OnAccountDataUpdated += this.OnAccountDataUpdated;
+		ClientGameManager.Get().OnAccountDataUpdated += OnAccountDataUpdated;
 	}
 
 	private void OnEnable()
 	{
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			this.OnAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
+			OnAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
 		}
 	}
 
@@ -244,22 +255,22 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			ClientGameManager.Get().OnAccountDataUpdated -= this.OnAccountDataUpdated;
+			ClientGameManager.Get().OnAccountDataUpdated -= OnAccountDataUpdated;
 		}
 	}
 
 	private void OnAccountDataUpdated(PersistedAccountData newData)
 	{
-		this.HideOrShowSeasonDropdown();
-		this.Setup();
+		HideOrShowSeasonDropdown();
+		Setup();
 	}
 
 	private void HideOrShowSeasonDropdown()
 	{
 		List<PersistedCharacterData> list = new List<PersistedCharacterData>();
-		if (this.m_characterType != CharacterType.None)
+		if (m_characterType != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -268,20 +279,19 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressStats.HideOrShowSeasonDropdown()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			list.Add(ClientGameManager.Get().GetPlayerCharacterData(this.m_characterType));
+			list.Add(ClientGameManager.Get().GetPlayerCharacterData(m_characterType));
 		}
 		else
 		{
 			list.AddRange(ClientGameManager.Get().GetAllPlayerCharacterData().Values);
 		}
-		IEnumerable<PersistedCharacterData> source = list;
-		if (UIPlayerProgressStats.<>f__am$cache0 == null)
+		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -290,30 +300,30 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			UIPlayerProgressStats.<>f__am$cache0 = ((PersistedCharacterData x) => x.ExperienceComponent.PersistedStatsDictionaryBySeason.Keys);
+			_003C_003Ef__am_0024cache0 = ((PersistedCharacterData x) => x.ExperienceComponent.PersistedStatsDictionaryBySeason.Keys);
 		}
-		using (IEnumerator<int> enumerator = source.SelectMany(UIPlayerProgressStats.<>f__am$cache0).Distinct<int>().GetEnumerator())
+		using (IEnumerator<int> enumerator = list.SelectMany(_003C_003Ef__am_0024cache0).Distinct().GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				int seasonNumber = enumerator.Current;
-				SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(seasonNumber);
+				int current = enumerator.Current;
+				SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(current);
 				if (!seasonTemplate.IsTutorial)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							UIManager.SetGameObjectActive(m_seasonsDropdownBtn, true);
+							return;
 						}
-						break;
 					}
-					UIManager.SetGameObjectActive(this.m_seasonsDropdownBtn, true, null);
-					return;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -323,17 +333,17 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				break;
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_seasonsDropdownBtn, false, null);
+		UIManager.SetGameObjectActive(m_seasonsDropdownBtn, false);
 	}
 
 	private void Setup()
 	{
-		this.Init();
-		bool flag = this.m_season == ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
-		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(this.m_season);
+		Init();
+		bool flag = m_season == ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
+		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(m_season);
 		if (seasonTemplate != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -342,15 +352,15 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressStats.Setup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!seasonTemplate.IsTutorial)
 			{
-				goto IL_6D;
+				goto IL_006d;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -360,14 +370,15 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				break;
 			}
 		}
-		this.m_season = -1;
+		m_season = -1;
 		flag = false;
-		IL_6D:
-		this.m_gameModeDropdownBtn.Setup(StringUtil.TR_PersistedStatBucketName(this.m_gameType), CharacterType.None);
+		goto IL_006d;
+		IL_006d:
+		m_gameModeDropdownBtn.Setup(StringUtil.TR_PersistedStatBucketName(m_gameType));
 		string text;
-		if (this.m_season < 0)
+		if (m_season < 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -380,7 +391,7 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 		}
 		else if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -393,13 +404,13 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 		}
 		else
 		{
-			text = SeasonWideData.Get().GetSeasonTemplate(this.m_season).GetDisplayName();
+			text = SeasonWideData.Get().GetSeasonTemplate(m_season).GetDisplayName();
 		}
-		this.m_seasonsDropdownBtn.Setup(text, CharacterType.None);
-		PersistedStats persistedStats;
-		if (this.m_characterType != CharacterType.None)
+		m_seasonsDropdownBtn.Setup(text);
+		PersistedStats stats;
+		if (m_characterType != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -408,15 +419,15 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_characterType);
-			this.GetStats(playerCharacterData, flag, out persistedStats);
-			this.m_freelancerDropdownBtn.Setup(GameWideData.Get().GetCharacterDisplayName(this.m_characterType), this.m_characterType);
-			UIManager.SetGameObjectActive(this.m_freelancerLayout, true, null);
-			this.HandleFreelancerRow(persistedStats);
+			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_characterType);
+			GetStats(playerCharacterData, flag, out stats);
+			m_freelancerDropdownBtn.Setup(GameWideData.Get().GetCharacterDisplayName(m_characterType), m_characterType);
+			UIManager.SetGameObjectActive(m_freelancerLayout, true);
+			HandleFreelancerRow(stats);
 		}
-		else if (this.m_characterRole != CharacterRole.None)
+		else if (m_characterRole != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -425,16 +436,16 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_freelancerLayout, false, null);
-			persistedStats = new PersistedStats();
+			UIManager.SetGameObjectActive(m_freelancerLayout, false);
+			stats = new PersistedStats();
 			using (Dictionary<CharacterType, PersistedCharacterData>.ValueCollection.Enumerator enumerator = ClientGameManager.Get().GetAllPlayerCharacterData().Values.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					PersistedCharacterData persistedCharacterData = enumerator.Current;
-					if (persistedCharacterData.CharacterType.IsValidForHumanGameplay())
+					PersistedCharacterData current = enumerator.Current;
+					if (current.CharacterType.IsValidForHumanGameplay())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -443,10 +454,10 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 							}
 							break;
 						}
-						CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(persistedCharacterData.CharacterType);
-						if (characterResourceLink.m_characterRole == this.m_characterRole)
+						CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(current.CharacterType);
+						if (characterResourceLink.m_characterRole == m_characterRole)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -455,11 +466,10 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 								}
 								break;
 							}
-							PersistedStats persistedStats2;
-							this.GetStats(persistedCharacterData, flag, out persistedStats2);
-							if (persistedStats2 != null)
+							GetStats(current, flag, out PersistedStats stats2);
+							if (stats2 != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (7)
 									{
@@ -468,12 +478,12 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 									}
 									break;
 								}
-								persistedStats.CombineStats(persistedStats2);
+								stats.CombineStats(stats2);
 							}
 						}
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -483,17 +493,17 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 					break;
 				}
 			}
-			this.m_freelancerDropdownBtn.Setup(StringUtil.TR("CharacterRole_" + this.m_characterRole, "Global"), this.m_characterRole);
+			m_freelancerDropdownBtn.Setup(StringUtil.TR("CharacterRole_" + m_characterRole, "Global"), m_characterRole);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_freelancerLayout, false, null);
-			persistedStats = new PersistedStats();
-			foreach (PersistedCharacterData persistedCharacterData2 in ClientGameManager.Get().GetAllPlayerCharacterData().Values)
+			UIManager.SetGameObjectActive(m_freelancerLayout, false);
+			stats = new PersistedStats();
+			foreach (PersistedCharacterData value in ClientGameManager.Get().GetAllPlayerCharacterData().Values)
 			{
-				if (persistedCharacterData2.CharacterType.IsValidForHumanGameplay())
+				if (value.CharacterType.IsValidForHumanGameplay())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -502,11 +512,10 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 						}
 						break;
 					}
-					PersistedStats persistedStats3;
-					this.GetStats(persistedCharacterData2, flag, out persistedStats3);
-					if (persistedStats3 != null)
+					GetStats(value, flag, out PersistedStats stats3);
+					if (stats3 != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -515,72 +524,70 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 							}
 							break;
 						}
-						persistedStats.CombineStats(persistedStats3);
+						stats.CombineStats(stats3);
 					}
 				}
 			}
-			this.m_freelancerDropdownBtn.Setup(StringUtil.TR("AllFreelancers", "Global"), this.m_characterType);
+			m_freelancerDropdownBtn.Setup(StringUtil.TR("AllFreelancers", "Global"), m_characterType);
 		}
-		if (persistedStats != null)
+		if (stats != null)
 		{
-			this.m_matchesWon = (int)persistedStats.MatchesWon.GetSum();
-			this.m_matchesPlayed = persistedStats.MatchesWon.GetNumGames();
+			m_matchesWon = (int)stats.MatchesWon.GetSum();
+			m_matchesPlayed = stats.MatchesWon.GetNumGames();
 		}
 		else
 		{
-			this.m_matchesWon = (this.m_matchesPlayed = 0);
+			m_matchesWon = (m_matchesPlayed = 0);
 		}
-		this.m_numWins.text = string.Format(StringUtil.TR("MatchesWon", "Global"), this.m_matchesWon);
-		this.HandleStatRow(this.m_generalItems, StatDisplaySettings.GeneralStats, persistedStats);
-		this.HandleStatRow(this.m_firepowerItems, StatDisplaySettings.FirepowerStats, persistedStats);
-		this.HandleStatRow(this.m_supportItems, StatDisplaySettings.SupportStats, persistedStats);
-		this.HandleStatRow(this.m_frontlineItems, StatDisplaySettings.FrontlinerStats, persistedStats);
-		if (this.m_characterType.IsValidForHumanGameplay())
+		m_numWins.text = string.Format(StringUtil.TR("MatchesWon", "Global"), m_matchesWon);
+		HandleStatRow(m_generalItems, StatDisplaySettings.GeneralStats, stats);
+		HandleStatRow(m_firepowerItems, StatDisplaySettings.FirepowerStats, stats);
+		HandleStatRow(m_supportItems, StatDisplaySettings.SupportStats, stats);
+		HandleStatRow(m_frontlineItems, StatDisplaySettings.FrontlinerStats, stats);
+		if (m_characterType.IsValidForHumanGameplay())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			string percentilesResponseKey = this.GetPercentilesResponseKey();
-			if (this.m_percentileInfos.ContainsKey(percentilesResponseKey))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					string percentilesResponseKey = GetPercentilesResponseKey();
+					if (m_percentileInfos.ContainsKey(percentilesResponseKey))
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								break;
+							default:
+								UpdateAllPercentiles(m_percentileInfos[percentilesResponseKey]);
+								return;
+							}
+						}
+					}
+					ClientGameManager.Get().CalculateFreelancerStats(m_gameType, m_characterType, stats, UpdateAllPercentiles);
+					return;
 				}
-				this.UpdateAllPercentiles(this.m_percentileInfos[percentilesResponseKey]);
-			}
-			else
-			{
-				ClientGameManager.Get().CalculateFreelancerStats(this.m_gameType, this.m_characterType, persistedStats, new Action<CalculateFreelancerStatsResponse>(this.UpdateAllPercentiles));
+				}
 			}
 		}
-		else
-		{
-			this.UpdateAllPercentiles(null);
-		}
+		UpdateAllPercentiles(null);
 	}
 
 	private string GetPercentilesResponseKey()
 	{
-		return string.Format("{0}|{1}|{2}", this.m_gameType, this.m_characterType, this.m_season);
+		return $"{m_gameType}|{m_characterType}|{m_season}";
 	}
 
 	private void UpdateAllPercentiles(CalculateFreelancerStatsResponse response)
 	{
 		if (response != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -589,13 +596,13 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressStats.UpdateAllPercentiles(CalculateFreelancerStatsResponse)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (response.Success)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -604,40 +611,33 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 					}
 					break;
 				}
-				bool flag = !response.FreelancerSpecificPercentiles.IsNullOrEmpty<KeyValuePair<int, PercentileInfo>>();
-				int i = 0;
-				while (i < this.m_freelancerItems.Length)
+				bool flag = !response.FreelancerSpecificPercentiles.IsNullOrEmpty();
+				for (int i = 0; i < m_freelancerItems.Length; i++)
 				{
-					if (!flag)
+					if (flag)
 					{
-						goto IL_80;
-					}
-					for (;;)
-					{
-						switch (7)
+						while (true)
 						{
-						case 0:
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (response.FreelancerSpecificPercentiles.ContainsKey(i))
+						{
+							HasFreelancerStatsToCompareTo = true;
+							m_freelancerItems[i].UpdatePercentiles(response.FreelancerSpecificPercentiles[i]);
 							continue;
 						}
-						break;
 					}
-					if (!response.FreelancerSpecificPercentiles.ContainsKey(i))
-					{
-						goto IL_80;
-					}
-					this.HasFreelancerStatsToCompareTo = true;
-					this.m_freelancerItems[i].UpdatePercentiles(response.FreelancerSpecificPercentiles[i]);
-					IL_95:
-					i++;
-					continue;
-					IL_80:
-					this.HasFreelancerStatsToCompareTo = false;
-					this.m_freelancerItems[i].UpdatePercentiles(null);
-					goto IL_95;
+					HasFreelancerStatsToCompareTo = false;
+					m_freelancerItems[i].UpdatePercentiles(null);
 				}
-				if (!response.GlobalPercentiles.IsNullOrEmpty<KeyValuePair<StatDisplaySettings.StatType, PercentileInfo>>())
+				if (!response.GlobalPercentiles.IsNullOrEmpty())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -646,36 +646,36 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 						}
 						break;
 					}
-					this.HasGlobalStatsToCompareTo = true;
-					this.UpdatePercentiles(this.m_generalItems, response.GlobalPercentiles);
-					this.UpdatePercentiles(this.m_firepowerItems, response.GlobalPercentiles);
-					this.UpdatePercentiles(this.m_supportItems, response.GlobalPercentiles);
-					this.UpdatePercentiles(this.m_frontlineItems, response.GlobalPercentiles);
+					HasGlobalStatsToCompareTo = true;
+					UpdatePercentiles(m_generalItems, response.GlobalPercentiles);
+					UpdatePercentiles(m_firepowerItems, response.GlobalPercentiles);
+					UpdatePercentiles(m_supportItems, response.GlobalPercentiles);
+					UpdatePercentiles(m_frontlineItems, response.GlobalPercentiles);
 				}
 				else
 				{
-					this.HasGlobalStatsToCompareTo = false;
-					this.UpdatePercentiles(this.m_generalItems, null);
-					this.UpdatePercentiles(this.m_firepowerItems, null);
-					this.UpdatePercentiles(this.m_supportItems, null);
-					this.UpdatePercentiles(this.m_frontlineItems, null);
+					HasGlobalStatsToCompareTo = false;
+					UpdatePercentiles(m_generalItems, null);
+					UpdatePercentiles(m_firepowerItems, null);
+					UpdatePercentiles(m_supportItems, null);
+					UpdatePercentiles(m_frontlineItems, null);
 				}
-				goto IL_1D9;
+				goto IL_01d9;
 			}
 		}
-		for (int j = 0; j < this.m_freelancerItems.Length; j++)
+		for (int j = 0; j < m_freelancerItems.Length; j++)
 		{
-			this.m_freelancerItems[j].UpdatePercentiles(null);
+			m_freelancerItems[j].UpdatePercentiles(null);
 		}
-		this.UpdatePercentiles(this.m_generalItems, null);
-		this.UpdatePercentiles(this.m_firepowerItems, null);
-		this.UpdatePercentiles(this.m_supportItems, null);
-		this.UpdatePercentiles(this.m_frontlineItems, null);
-		this.HasGlobalStatsToCompareTo = false;
-		this.HasFreelancerStatsToCompareTo = false;
+		UpdatePercentiles(m_generalItems, null);
+		UpdatePercentiles(m_firepowerItems, null);
+		UpdatePercentiles(m_supportItems, null);
+		UpdatePercentiles(m_frontlineItems, null);
+		HasGlobalStatsToCompareTo = false;
+		HasFreelancerStatsToCompareTo = false;
 		if (response != null && response.LocalizedFailure != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -684,69 +684,69 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			this.StatCompareFailure = response.LocalizedFailure.ToString();
+			StatCompareFailure = response.LocalizedFailure.ToString();
 		}
-		IL_1D9:
-		if (response != null)
+		goto IL_01d9;
+		IL_01d9:
+		if (response == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_percentileInfos[this.GetPercentilesResponseKey()] = response;
+			m_percentileInfos[GetPercentilesResponseKey()] = response;
+			return;
 		}
 	}
 
-	private unsafe void GetStats(PersistedCharacterData charData, bool isCurrentSeason, out PersistedStats stats)
+	private void GetStats(PersistedCharacterData charData, bool isCurrentSeason, out PersistedStats stats)
 	{
 		if (isCurrentSeason)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressStats.GetStats(PersistedCharacterData, bool, PersistedStats*)).MethodHandle;
-			}
-			charData.ExperienceComponent.PersistedStatsDictionary.TryGetValue(this.m_gameType, out stats);
-		}
-		else
-		{
-			if (!charData.ExperienceComponent.PersistedStatsDictionaryBySeason.ContainsKey(this.m_season))
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					charData.ExperienceComponent.PersistedStatsDictionary.TryGetValue(m_gameType, out stats);
+					return;
 				}
-				stats = null;
-				return;
 			}
-			charData.ExperienceComponent.PersistedStatsDictionaryBySeason[this.m_season].TryGetValue(this.m_gameType, out stats);
 		}
+		if (!charData.ExperienceComponent.PersistedStatsDictionaryBySeason.ContainsKey(m_season))
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					break;
+				default:
+					stats = null;
+					return;
+				}
+			}
+		}
+		charData.ExperienceComponent.PersistedStatsDictionaryBySeason[m_season].TryGetValue(m_gameType, out stats);
 	}
 
 	private void HandleStatRow(UIGameOverStatWidget[] widgets, StatDisplaySettings.StatType[] statTypes, PersistedStats stats)
 	{
-		int i = 0;
-		while (i < statTypes.Length)
+		int i;
+		for (i = 0; i < statTypes.Length; i++)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -755,76 +755,45 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressStats.HandleStatRow(UIGameOverStatWidget[], StatDisplaySettings.StatType[], PersistedStats)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (i >= widgets.Length)
+			if (i < widgets.Length)
 			{
-				for (;;)
+				UIManager.SetGameObjectActive(widgets[i], true);
+				widgets[i].SetupTotalledStat(stats, statTypes[i], m_characterType);
+				continue;
+			}
+			while (true)
+			{
+				switch (2)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_4D;
+				case 0:
+					continue;
 				}
+				break;
 			}
-			else
-			{
-				UIManager.SetGameObjectActive(widgets[i], true, null);
-				widgets[i].SetupTotalledStat(stats, statTypes[i], this.m_characterType);
-				i++;
-			}
+			break;
 		}
-		IL_4D:
-		while (i < widgets.Length)
+		for (; i < widgets.Length; i++)
 		{
-			UIManager.SetGameObjectActive(widgets[i], false, null);
-			i++;
+			UIManager.SetGameObjectActive(widgets[i], false);
 		}
 	}
 
 	private void HandleFreelancerRow(PersistedStats stats)
 	{
-		for (int i = 0; i < this.m_freelancerItems.Length; i++)
+		int i = 0;
+		while (true)
 		{
-			string text = StringUtil.TR_FreelancerStatName(this.m_characterType.ToString(), i);
-			string text2 = StringUtil.TR_FreelancerStatDescription(this.m_characterType.ToString(), i);
-			if (text.IsNullOrEmpty())
+			if (i < m_freelancerItems.Length)
 			{
-				for (;;)
+				string text = StringUtil.TR_FreelancerStatName(m_characterType.ToString(), i);
+				string text2 = StringUtil.TR_FreelancerStatDescription(m_characterType.ToString(), i);
+				if (text.IsNullOrEmpty())
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressStats.HandleFreelancerRow(PersistedStats)).MethodHandle;
-				}
-				if (text2.IsNullOrEmpty())
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					IL_D4:
-					while (i < this.m_freelancerItems.Length)
-					{
-						UIManager.SetGameObjectActive(this.m_freelancerItems[i], false, null);
-						i++;
-					}
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -833,21 +802,54 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 						}
 						break;
 					}
-					return;
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (text2.IsNullOrEmpty())
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						break;
+					}
 				}
+				UIManager.SetGameObjectActive(m_freelancerItems[i], true);
+				AbilityData component = GameWideData.Get().GetCharacterResourceLink(m_characterType).ActorDataPrefab.GetComponent<AbilityData>();
+				m_freelancerItems[i].SetupFreelancerTotalledStats(stats, text, text2, i, component, m_characterType);
+				i++;
+				continue;
 			}
-			UIManager.SetGameObjectActive(this.m_freelancerItems[i], true, null);
-			AbilityData component = GameWideData.Get().GetCharacterResourceLink(this.m_characterType).ActorDataPrefab.GetComponent<AbilityData>();
-			this.m_freelancerItems[i].SetupFreelancerTotalledStats(stats, text, text2, i, component, this.m_characterType);
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			break;
 		}
-		for (;;)
+		for (; i < m_freelancerItems.Length; i++)
+		{
+			UIManager.SetGameObjectActive(m_freelancerItems[i], false);
+		}
+		while (true)
 		{
 			switch (7)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			goto IL_D4;
 		}
 	}
 
@@ -859,10 +861,10 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 			{
 				return;
 			}
-			PercentileInfo info = null;
+			PercentileInfo value = null;
 			if (percentiles != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -871,22 +873,23 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressStats.UpdatePercentiles(UIGameOverStatWidget[], Dictionary<StatDisplaySettings.StatType, PercentileInfo>)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				percentiles.TryGetValue(widgets[i].GeneralStatType, out info);
+				percentiles.TryGetValue(widgets[i].GeneralStatType, out value);
 			}
-			widgets[i].UpdatePercentiles(info);
+			widgets[i].UpdatePercentiles(value);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			return;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,72 +24,72 @@ public class TricksterMakeBarriers_Damage : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Hollusionary Wallogram - Damage";
+			m_abilityName = "Hollusionary Wallogram - Damage";
 		}
-		this.m_sequencePrefab = this.m_castSequencePrefab;
-		this.m_afterImageSyncComp = base.GetComponent<TricksterAfterImageNetworkBehaviour>();
-		base.Targeter = new AbilityUtil_Targeter_TricksterBarriers(this, this.m_afterImageSyncComp, this.GetRangeFromLine(), this.GetLineEndOffset(), this.GetRadiusAroundOrigin(), this.GetPenetrateLos(), false);
+		m_sequencePrefab = m_castSequencePrefab;
+		m_afterImageSyncComp = GetComponent<TricksterAfterImageNetworkBehaviour>();
+		base.Targeter = new AbilityUtil_Targeter_TricksterBarriers(this, m_afterImageSyncComp, GetRangeFromLine(), GetLineEndOffset(), GetRadiusAroundOrigin(), GetPenetrateLos(), false);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_damageAmount);
-		this.m_enemyOnHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_damageAmount);
+		m_enemyOnHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		return numbers;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 		return validAfterImages.Count > 0;
 	}
 
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 		for (int i = 0; i < validAfterImages.Count; i++)
 		{
-			Animator animator = validAfterImages[i].\u000E();
-			animator.SetInteger("Attack", animationIndex);
-			animator.SetBool("CinematicCam", cinecam);
-			animator.SetTrigger("StartAttack");
+			Animator modelAnimator = validAfterImages[i].GetModelAnimator();
+			modelAnimator.SetInteger("Attack", animationIndex);
+			modelAnimator.SetBool("CinematicCam", cinecam);
+			modelAnimator.SetTrigger("StartAttack");
 		}
 	}
 
 	public override void OnAbilityAnimationRequestProcessed(ActorData caster)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
-		foreach (ActorData actorData in validAfterImages)
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
+		foreach (ActorData item in validAfterImages)
 		{
-			if (actorData != null && !actorData.\u000E())
+			if (item != null && !item.IsDead())
 			{
-				Animator animator = actorData.\u000E();
-				animator.SetInteger("Attack", 0);
-				animator.SetBool("CinematicCam", false);
+				Animator modelAnimator = item.GetModelAnimator();
+				modelAnimator.SetInteger("Attack", 0);
+				modelAnimator.SetBool("CinematicCam", false);
 			}
 		}
 	}
 
 	public float GetRangeFromLine()
 	{
-		return this.m_rangeFromLine;
+		return m_rangeFromLine;
 	}
 
 	public float GetLineEndOffset()
 	{
-		return this.m_lineEndOffset;
+		return m_lineEndOffset;
 	}
 
 	public float GetRadiusAroundOrigin()
 	{
-		return this.m_radiusAroundOrigin;
+		return m_radiusAroundOrigin;
 	}
 
 	public bool GetPenetrateLos()
 	{
-		return this.m_capsulePenetrateLos;
+		return m_capsulePenetrateLos;
 	}
 }

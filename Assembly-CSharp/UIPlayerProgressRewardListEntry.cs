@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,84 +16,88 @@ public class UIPlayerProgressRewardListEntry : MonoBehaviour
 
 	public void Setup(RewardUtils.RewardData reward, int currentLevel)
 	{
-		this.m_icon.sprite = (Sprite)Resources.Load(reward.SpritePath, typeof(Sprite));
-		UIManager.SetGameObjectActive(this.m_offContainer, currentLevel < reward.Level, null);
-		UIManager.SetGameObjectActive(this.m_onContainer, currentLevel >= reward.Level, null);
+		m_icon.sprite = (Sprite)Resources.Load(reward.SpritePath, typeof(Sprite));
+		UIManager.SetGameObjectActive(m_offContainer, currentLevel < reward.Level);
+		UIManager.SetGameObjectActive(m_onContainer, currentLevel >= reward.Level);
 		if (reward.isRepeating)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressRewardListEntry.Setup(RewardUtils.RewardData, int)).MethodHandle;
-			}
-			foreach (TextMeshProUGUI textMeshProUGUI in this.m_levelTexts)
-			{
-				textMeshProUGUI.text = string.Format("+{0}", reward.repeatLevels.ToString());
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			string text = RewardUtils.GetDisplayString(reward, false);
-			if (reward.InventoryTemplate != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				text = reward.InventoryTemplate.GetDisplayName();
-			}
-			foreach (TextMeshProUGUI textMeshProUGUI2 in this.m_descriptionTexts)
-			{
-				textMeshProUGUI2.text = text;
-			}
-			for (;;)
-			{
-				switch (6)
+				default:
 				{
-				case 0:
-					continue;
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					TextMeshProUGUI[] levelTexts = m_levelTexts;
+					foreach (TextMeshProUGUI textMeshProUGUI in levelTexts)
+					{
+						textMeshProUGUI.text = $"+{reward.repeatLevels.ToString()}";
+					}
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							break;
+						default:
+						{
+							string text = RewardUtils.GetDisplayString(reward);
+							if (reward.InventoryTemplate != null)
+							{
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								text = reward.InventoryTemplate.GetDisplayName();
+							}
+							TextMeshProUGUI[] descriptionTexts = m_descriptionTexts;
+							foreach (TextMeshProUGUI textMeshProUGUI2 in descriptionTexts)
+							{
+								textMeshProUGUI2.text = text;
+							}
+							while (true)
+							{
+								switch (6)
+								{
+								default:
+									return;
+								case 0:
+									break;
+								}
+							}
+						}
+						}
+					}
 				}
-				break;
+				}
 			}
 		}
-		else
+		TextMeshProUGUI[] levelTexts2 = m_levelTexts;
+		foreach (TextMeshProUGUI textMeshProUGUI3 in levelTexts2)
 		{
-			foreach (TextMeshProUGUI textMeshProUGUI3 in this.m_levelTexts)
+			textMeshProUGUI3.text = reward.Level.ToString();
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				textMeshProUGUI3.text = reward.Level.ToString();
+			case 0:
+				continue;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			string text2 = RewardUtils.GetDisplayString(reward, false);
+			string text2 = RewardUtils.GetDisplayString(reward);
 			if (reward.InventoryTemplate != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -105,18 +108,20 @@ public class UIPlayerProgressRewardListEntry : MonoBehaviour
 				}
 				text2 = reward.InventoryTemplate.GetDisplayName();
 			}
-			foreach (TextMeshProUGUI textMeshProUGUI4 in this.m_descriptionTexts)
+			TextMeshProUGUI[] descriptionTexts2 = m_descriptionTexts;
+			foreach (TextMeshProUGUI textMeshProUGUI4 in descriptionTexts2)
 			{
 				textMeshProUGUI4.text = text2;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}

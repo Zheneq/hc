@@ -1,19 +1,19 @@
-﻿using System;
+using ICSharpCode.SharpZipLib.Zip;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Text.RegularExpressions;
-using ICSharpCode.SharpZipLib.Zip;
 
 public static class CrashReportArchiver
 {
-	private const int MAX_ARCHIVE_SIZE = 0x400000;
+	private const int MAX_ARCHIVE_SIZE = 4194304;
 
-	internal const int MAX_LOG_SIZE = 0x40000;
+	internal const int MAX_LOG_SIZE = 262144;
 
-	internal unsafe static bool CreateArchiveFromCrashDumpDirectory(out string resultPath, out int resultArchiveNumBytes, string crashDumpDirectoryPath, string persistentDataPath, Dictionary<string, string> userKeyValues, BugReportType bugReportType = BugReportType.Crash)
+	internal static bool CreateArchiveFromCrashDumpDirectory(out string resultPath, out int resultArchiveNumBytes, string crashDumpDirectoryPath, string persistentDataPath, Dictionary<string, string> userKeyValues, BugReportType bugReportType = BugReportType.Crash)
 	{
 		resultPath = null;
 		resultArchiveNumBytes = 0;
@@ -23,29 +23,30 @@ public static class CrashReportArchiver
 			DirectoryInfo directoryInfo = Directory.CreateDirectory(text);
 			if (!directoryInfo.Exists)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						Log.Error("Failed to create " + text);
+						return false;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.CreateArchiveFromCrashDumpDirectory(string*, int*, string, string, Dictionary<string, string>, BugReportType)).MethodHandle;
-				}
-				Log.Error("Failed to create " + text, new object[0]);
-				return false;
 			}
-			foreach (string text2 in Directory.GetFiles(crashDumpDirectoryPath))
+			string[] files = Directory.GetFiles(crashDumpDirectoryPath);
+			foreach (string text2 in files)
 			{
 				string fileName = Path.GetFileName(text2);
 				string path = fileName.ToLower();
 				if (Path.GetFileNameWithoutExtension(path) != "system_info")
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -56,7 +57,7 @@ public static class CrashReportArchiver
 					}
 					if (Path.GetExtension(path) != ".dmp")
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -70,68 +71,21 @@ public static class CrashReportArchiver
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			string[] files = Directory.GetFiles(text);
-			string text3 = null;
-			foreach (string text4 in files)
-			{
-				if (bugReportType != BugReportType.Crash)
+					break;
+				default:
 				{
-					for (;;)
+					files = Directory.GetFiles(text);
+					string text3 = null;
+					foreach (string text4 in files)
 					{
-						switch (5)
+						if (bugReportType != 0)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (bugReportType != BugReportType.Exception)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (bugReportType != BugReportType.Error)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							goto IL_389;
-						}
-					}
-					if (text4.EndsWith("UserMessage.txt"))
-					{
-						StreamReader streamReader = new StreamReader(text4);
-						try
-						{
-							StringBuilder stringBuilder = new StringBuilder();
-							string text5;
-							while ((text5 = streamReader.ReadLine()) != null)
-							{
-								string value = text5.Trim();
-								stringBuilder.Append(value);
-							}
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -140,215 +94,268 @@ public static class CrashReportArchiver
 								}
 								break;
 							}
-							string name = stringBuilder.ToString();
-							userKeyValues["StackTraceHash"] = string.Format("{0:X8}", StringUtil.CaseInsensitiveHash(name));
-						}
-						finally
-						{
-							if (streamReader != null)
+							if (bugReportType != BugReportType.Exception)
 							{
-								for (;;)
+								while (true)
 								{
-									switch (6)
+									switch (1)
 									{
 									case 0:
 										continue;
 									}
 									break;
 								}
-								((IDisposable)streamReader).Dispose();
-							}
-						}
-					}
-				}
-				else
-				{
-					if (text4.EndsWith("output_log.txt"))
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						text3 = string.Empty;
-						StreamReader streamReader2 = new StreamReader(text4);
-						try
-						{
-							StringBuilder stringBuilder2 = new StringBuilder();
-							string text6;
-							while ((text6 = streamReader2.ReadLine()) != null)
-							{
-								if (!string.IsNullOrEmpty("Hydrogen Version: ") && text6.StartsWith("Hydrogen Version: "))
+								if (bugReportType != BugReportType.Error)
 								{
-									text3 = text6.Substring("Hydrogen Version: ".Length);
-									string[] array = text3.Split(new char[]
+									while (true)
 									{
-										',',
-										' '
-									});
-									if (array != null)
-									{
-										for (;;)
+										switch (7)
 										{
-											switch (1)
+										case 0:
+											continue;
+										}
+										break;
+									}
+									continue;
+								}
+							}
+							if (text4.EndsWith("UserMessage.txt"))
+							{
+								StreamReader streamReader = new StreamReader(text4);
+								try
+								{
+									StringBuilder stringBuilder = new StringBuilder();
+									string text5;
+									while ((text5 = streamReader.ReadLine()) != null)
+									{
+										string value = text5.Trim();
+										stringBuilder.Append(value);
+									}
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											break;
+										default:
+										{
+											string name = stringBuilder.ToString();
+											userKeyValues["StackTraceHash"] = $"{StringUtil.CaseInsensitiveHash(name):X8}";
+											goto end_IL_030c;
+										}
+										}
+									}
+									end_IL_030c:;
+								}
+								finally
+								{
+									if (streamReader != null)
+									{
+										while (true)
+										{
+											switch (6)
 											{
 											case 0:
-												continue;
+												break;
+											default:
+												((IDisposable)streamReader).Dispose();
+												goto end_IL_0371;
 											}
-											break;
 										}
-										if (array.Length > 0)
+									}
+									end_IL_0371:;
+								}
+							}
+						}
+						else if (text4.EndsWith("output_log.txt"))
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							text3 = string.Empty;
+							StreamReader streamReader2 = new StreamReader(text4);
+							try
+							{
+								StringBuilder stringBuilder2 = new StringBuilder();
+								string text6;
+								while ((text6 = streamReader2.ReadLine()) != null)
+								{
+									if (!string.IsNullOrEmpty("Hydrogen Version: ") && text6.StartsWith("Hydrogen Version: "))
+									{
+										text3 = text6.Substring("Hydrogen Version: ".Length);
+										string[] array = text3.Split(',', ' ');
+										if (array != null)
 										{
-											for (;;)
+											while (true)
 											{
-												switch (4)
+												switch (1)
 												{
 												case 0:
 													continue;
 												}
 												break;
 											}
-											if (!string.IsNullOrEmpty(array[0]))
+											if (array.Length > 0)
 											{
-												for (;;)
+												while (true)
 												{
-													switch (2)
+													switch (4)
 													{
 													case 0:
 														continue;
 													}
 													break;
 												}
-												text3 = array[0];
+												if (!string.IsNullOrEmpty(array[0]))
+												{
+													while (true)
+													{
+														switch (2)
+														{
+														case 0:
+															continue;
+														}
+														break;
+													}
+													text3 = array[0];
+												}
 											}
 										}
 									}
-								}
-								if (text6.StartsWith("========== OUTPUTING STACK TRACE"))
-								{
-									for (;;)
+									if (text6.StartsWith("========== OUTPUTING STACK TRACE"))
 									{
-										switch (6)
+										while (true)
 										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									break;
-								}
-							}
-							while ((text6 = streamReader2.ReadLine()) != null)
-							{
-								string text7 = text6.Trim();
-								if (text7.Length > 0)
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!text6.StartsWith(" "))
-									{
-										for (;;)
-										{
-											switch (5)
+											switch (6)
 											{
 											case 0:
 												continue;
 											}
 											break;
 										}
-										stringBuilder2.Append(text7);
+										break;
 									}
 								}
-								else if (stringBuilder2.Length > 0)
+								while (true)
 								{
-									for (;;)
+									if ((text6 = streamReader2.ReadLine()) == null)
 									{
-										switch (4)
+										while (true)
 										{
-										case 0:
-											continue;
+											switch (6)
+											{
+											case 0:
+												continue;
+											}
+											break;
 										}
 										break;
 									}
-									IL_2A2:
-									string name2 = stringBuilder2.ToString();
-									userKeyValues["StackTraceHash"] = string.Format("{0:X8}", StringUtil.CaseInsensitiveHash(name2));
-									goto IL_2EB;
+									string text7 = text6.Trim();
+									if (text7.Length > 0)
+									{
+										while (true)
+										{
+											switch (6)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										if (!text6.StartsWith(" "))
+										{
+											while (true)
+											{
+												switch (5)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											stringBuilder2.Append(text7);
+										}
+									}
+									else if (stringBuilder2.Length > 0)
+									{
+										while (true)
+										{
+											switch (4)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										break;
+									}
 								}
+								string name2 = stringBuilder2.ToString();
+								userKeyValues["StackTraceHash"] = $"{StringUtil.CaseInsensitiveHash(name2):X8}";
 							}
-							for (;;)
+							finally
 							{
-								switch (6)
+								if (streamReader2 != null)
 								{
-								case 0:
-									continue;
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											break;
+										default:
+											((IDisposable)streamReader2).Dispose();
+											goto end_IL_02d5;
+										}
+									}
 								}
-								goto IL_2A2;
+								end_IL_02d5:;
 							}
 						}
-						finally
+					}
+					while (true)
+					{
+						switch (7)
 						{
-							if (streamReader2 != null)
+						case 0:
+							break;
+						default:
+						{
+							CreateSystemInfoFile(crashDumpDirectoryPath, userKeyValues, bugReportType, text3);
+							CompressResult compressResult = CompressDirectoryToPersistentDataPath(out resultPath, out resultArchiveNumBytes, crashDumpDirectoryPath, persistentDataPath, true);
+							if (compressResult == CompressResult.FailureExceedsMaxArchiveSize)
 							{
-								for (;;)
+								while (true)
 								{
-									switch (3)
+									switch (2)
 									{
 									case 0:
 										continue;
 									}
 									break;
 								}
-								((IDisposable)streamReader2).Dispose();
+								compressResult = CompressDirectoryToPersistentDataPath(out resultPath, out resultArchiveNumBytes, crashDumpDirectoryPath, persistentDataPath, false);
 							}
+							if (compressResult == CompressResult.Success)
+							{
+								Log.Info("Created crash report archive: " + resultPath);
+								return true;
+							}
+							Log.Error("CrashReportArchiver.CompressDirectoryToPersistentDataPath failed: " + compressResult);
+							return false;
+						}
 						}
 					}
-					IL_2EB:;
 				}
-				IL_389:;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
 				}
-				break;
 			}
-			CrashReportArchiver.CreateSystemInfoFile(crashDumpDirectoryPath, userKeyValues, bugReportType, text3);
-			CompressResult compressResult = CrashReportArchiver.CompressDirectoryToPersistentDataPath(out resultPath, out resultArchiveNumBytes, crashDumpDirectoryPath, persistentDataPath, true);
-			if (compressResult == CompressResult.FailureExceedsMaxArchiveSize)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				compressResult = CrashReportArchiver.CompressDirectoryToPersistentDataPath(out resultPath, out resultArchiveNumBytes, crashDumpDirectoryPath, persistentDataPath, false);
-			}
-			if (compressResult != CompressResult.Success)
-			{
-				Log.Error("CrashReportArchiver.CompressDirectoryToPersistentDataPath failed: " + compressResult.ToString(), new object[0]);
-				return false;
-			}
-			Log.Info("Created crash report archive: " + resultPath, new object[0]);
-			return true;
 		}
 		catch (Exception exception)
 		{
@@ -373,18 +380,19 @@ public static class CrashReportArchiver
 					Log.Exception(exception);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.DeleteArchives(string)).MethodHandle;
 			}
 		}
 		catch (Exception exception2)
@@ -398,7 +406,7 @@ public static class CrashReportArchiver
 		string text = Process.GetCurrentProcess().ProcessName;
 		if (text == "Unity")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -407,54 +415,48 @@ public static class CrashReportArchiver
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.GetProcessName()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			text = "AtlasReactor_UnityEditor";
 		}
 		return text;
 	}
 
-	private unsafe static CompressResult CompressDirectoryToPersistentDataPath(out string resultPath, out int resultArchiveBytes, string sourceDirectoryPath, string destinationDirectoryPath, bool includeLogFiles)
+	private static CompressResult CompressDirectoryToPersistentDataPath(out string resultPath, out int resultArchiveBytes, string sourceDirectoryPath, string destinationDirectoryPath, bool includeLogFiles)
 	{
 		resultPath = null;
 		resultArchiveBytes = 0;
 		if (!Directory.Exists(sourceDirectoryPath))
 		{
-			Log.Warning("Cannot find directory '{0}'", new object[]
-			{
-				sourceDirectoryPath
-			});
+			Log.Warning("Cannot find directory '{0}'", sourceDirectoryPath);
 			return CompressResult.Failure;
 		}
 		if (!Directory.Exists(destinationDirectoryPath))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Log.Warning("Cannot find directory '{0}'", destinationDirectoryPath);
+					return CompressResult.Failure;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.CompressDirectoryToPersistentDataPath(string*, int*, string, string, bool)).MethodHandle;
-			}
-			Log.Warning("Cannot find directory '{0}'", new object[]
-			{
-				destinationDirectoryPath
-			});
-			return CompressResult.Failure;
 		}
 		try
 		{
 			string[] files = Directory.GetFiles(sourceDirectoryPath);
 			string[] directories = Directory.GetDirectories(sourceDirectoryPath);
-			string processName = CrashReportArchiver.GetProcessName();
-			string path = string.Format("Channel150_{0}_temp.zip", processName);
+			string processName = GetProcessName();
+			string path = $"Channel150_{processName}_temp.zip";
 			string text = Path.Combine(destinationDirectoryPath, path);
 			long num = 0L;
 			FileStream fileStream = File.Create(text);
@@ -463,44 +465,83 @@ public static class CrashReportArchiver
 				using (ZipOutputStream zipOutputStream = new ZipOutputStream(fileStream))
 				{
 					zipOutputStream.SetLevel(9);
-					byte[] buffer = new byte[0x1000];
-					foreach (string text2 in files)
+					byte[] buffer = new byte[4096];
+					string[] array = files;
+					foreach (string text2 in array)
 					{
-						CrashReportArchiver.WriteFileToZip(text2, Path.GetFileName(text2), zipOutputStream, buffer);
+						WriteFileToZip(text2, Path.GetFileName(text2), zipOutputStream, buffer);
 					}
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (includeLogFiles)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						foreach (string path2 in directories)
-						{
-							string fileName = Path.GetFileName(path2);
-							string[] files2 = Directory.GetFiles(path2);
-							int k = 0;
-							while (k < files2.Length)
+						default:
+							if (includeLogFiles)
 							{
-								string text3 = files2[k];
-								if (text3.LastIndexOf(".txt") >= 0)
+								while (true)
 								{
-									goto IL_191;
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
 								}
-								for (;;)
+								foreach (string path2 in directories)
+								{
+									string fileName = Path.GetFileName(path2);
+									string[] files2 = Directory.GetFiles(path2);
+									string text3;
+									string text4;
+									for (int k = 0; k < files2.Length; WriteFileToZip(text3, text4, zipOutputStream, buffer), k++)
+									{
+										text3 = files2[k];
+										text4 = null;
+										if (text3.LastIndexOf(".txt") < 0)
+										{
+											while (true)
+											{
+												switch (5)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											if (text3.LastIndexOf(".htm") < 0)
+											{
+												while (true)
+												{
+													switch (1)
+													{
+													case 0:
+														continue;
+													}
+													break;
+												}
+												text4 = Path.Combine(fileName, Path.GetFileName(text3) + ".txt");
+												continue;
+											}
+										}
+										text4 = Path.Combine(fileName, Path.GetFileName(text3));
+									}
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											break;
+										default:
+											goto end_IL_01c1;
+										}
+										continue;
+										end_IL_01c1:
+										break;
+									}
+								}
+								while (true)
 								{
 									switch (5)
 									{
@@ -509,94 +550,59 @@ public static class CrashReportArchiver
 									}
 									break;
 								}
-								if (text3.LastIndexOf(".htm") >= 0)
-								{
-									goto IL_191;
-								}
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								string fileZipPath = Path.Combine(fileName, Path.GetFileName(text3) + ".txt");
-								IL_1A3:
-								CrashReportArchiver.WriteFileToZip(text3, fileZipPath, zipOutputStream, buffer);
-								k++;
-								continue;
-								IL_191:
-								fileZipPath = Path.Combine(fileName, Path.GetFileName(text3));
-								goto IL_1A3;
 							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							zipOutputStream.Finish();
+							num = fileStream.Length;
+							zipOutputStream.Close();
+							goto end_IL_00a4;
 						}
 					}
-					zipOutputStream.Finish();
-					num = fileStream.Length;
-					zipOutputStream.Close();
+					end_IL_00a4:;
 				}
 			}
 			finally
 			{
 				if (fileStream != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							((IDisposable)fileStream).Dispose();
+							goto end_IL_020c;
 						}
+					}
+				}
+				end_IL_020c:;
+			}
+			if (num > 4194304)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
 						break;
+					default:
+						return CompressResult.FailureExceedsMaxArchiveSize;
 					}
-					((IDisposable)fileStream).Dispose();
 				}
 			}
-			if (num > 0x400000L)
+			if (num <= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return CompressResult.Failure;
 					}
-					break;
 				}
-				return CompressResult.FailureExceedsMaxArchiveSize;
-			}
-			if (num <= 0L)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return CompressResult.Failure;
 			}
 			resultPath = text;
 			resultArchiveBytes = (int)num;
@@ -611,10 +617,9 @@ public static class CrashReportArchiver
 
 	private static void WriteFileToZip(string file, string fileZipPath, ZipOutputStream zipOutputStream, byte[] buffer)
 	{
-		zipOutputStream.PutNextEntry(new ZipEntry(fileZipPath)
-		{
-			DateTime = DateTime.Now
-		});
+		ZipEntry zipEntry = new ZipEntry(fileZipPath);
+		zipEntry.DateTime = DateTime.Now;
+		zipOutputStream.PutNextEntry(zipEntry);
 		FileStream fileStream = File.OpenRead(file);
 		try
 		{
@@ -625,42 +630,45 @@ public static class CrashReportArchiver
 				zipOutputStream.Write(buffer, 0, num);
 			}
 			while (num > 0);
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.WriteFileToZip(string, string, ZipOutputStream, byte[])).MethodHandle;
 			}
 		}
 		finally
 		{
 			if (fileStream != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						((IDisposable)fileStream).Dispose();
+						goto end_IL_0050;
 					}
-					break;
 				}
-				((IDisposable)fileStream).Dispose();
 			}
+			end_IL_0050:;
 		}
 	}
 
 	private static bool CreateSystemInfoFile(string directoryPath, Dictionary<string, string> userKeyValues, BugReportType bugReportType, string fullVersionString)
 	{
 		string text = Path.Combine(directoryPath, "system_info.xml");
-		Log.Info(string.Format("Creating system info file: {0}", text), new object[0]);
+		Log.Info($"Creating system info file: {text}");
 		bool result = true;
 		try
 		{
@@ -669,40 +677,42 @@ public static class CrashReportArchiver
 			{
 				streamWriter.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-16\" standalone=\"no\"?>");
 				streamWriter.WriteLine("<CrashCollector xmlns=\"http://www.trionworld.com\">");
-				CrashReportArchiver.PopulateFiles(streamWriter);
-				CrashReportArchiver.PopulateProcessInfo(streamWriter, userKeyValues);
-				CrashReportArchiver.PopulateEnvironmentVariables(streamWriter);
-				CrashReportArchiver.PopulateSystemInfo(streamWriter, userKeyValues, bugReportType, fullVersionString);
-				CrashReportArchiver.PopulateKeyValueData(streamWriter, userKeyValues);
+				PopulateFiles(streamWriter);
+				PopulateProcessInfo(streamWriter, userKeyValues);
+				PopulateEnvironmentVariables(streamWriter);
+				PopulateSystemInfo(streamWriter, userKeyValues, bugReportType, fullVersionString);
+				PopulateKeyValueData(streamWriter, userKeyValues);
 				streamWriter.WriteLine("</CrashCollector>");
+				return result;
 			}
 			finally
 			{
 				if (streamWriter != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							((IDisposable)streamWriter).Dispose();
+							goto end_IL_007b;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.CreateSystemInfoFile(string, Dictionary<string, string>, BugReportType, string)).MethodHandle;
-					}
-					((IDisposable)streamWriter).Dispose();
 				}
+				end_IL_007b:;
 			}
 		}
 		catch (Exception ex)
 		{
-			Log.Error(string.Format("Error creating system info file. Exception {0}.", ex.ToString()), new object[0]);
-			result = false;
+			Log.Error($"Error creating system info file. Exception {ex.ToString()}.");
+			return false;
 		}
-		return result;
 	}
 
 	private static void PopulateFiles(StreamWriter text)
@@ -714,12 +724,10 @@ public static class CrashReportArchiver
 
 	private static string TryGetMemoryCounter(Dictionary<string, string> userKeyValues, string key)
 	{
-		string text;
-		bool flag = userKeyValues.TryGetValue(key, out text);
-		string input;
-		if (flag)
+		object input;
+		if (userKeyValues.TryGetValue(key, out string value))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -728,32 +736,33 @@ public static class CrashReportArchiver
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.TryGetMemoryCounter(Dictionary<string, string>, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!string.IsNullOrEmpty(text))
+			if (!string.IsNullOrEmpty(value))
 			{
-				input = text;
-				goto IL_34;
+				input = value;
+				goto IL_0034;
 			}
 		}
 		input = "0";
-		IL_34:
-		return CrashReportArchiver.SanitizeXml(input);
+		goto IL_0034;
+		IL_0034:
+		return SanitizeXml((string)input);
 	}
 
 	private static void PopulateProcessInfo(StreamWriter text, Dictionary<string, string> userKeyValues)
 	{
 		text.WriteLine("  <Process>");
-		text.WriteLine("    <PageFaultCount>" + CrashReportArchiver.TryGetMemoryCounter(userKeyValues, "MemoryPageFaultCount") + "</PageFaultCount>");
-		text.WriteLine("    <WorkingSetSize>" + CrashReportArchiver.TryGetMemoryCounter(userKeyValues, "MemoryWorkingSetSize") + "</WorkingSetSize>");
-		text.WriteLine("    <PeakWorkingSetSize>" + CrashReportArchiver.TryGetMemoryCounter(userKeyValues, "MemoryPeakWorkingSetSize") + "</PeakWorkingSetSize>");
-		text.WriteLine("    <PagefileUsage>" + CrashReportArchiver.TryGetMemoryCounter(userKeyValues, "MemoryPagefileUsage") + "</PagefileUsage>");
-		text.WriteLine("    <PeakPagefileUsage>" + CrashReportArchiver.TryGetMemoryCounter(userKeyValues, "MemoryPeakPagefileUsage") + "</PeakPagefileUsage>");
-		text.WriteLine("    <PrivateUsage>" + CrashReportArchiver.TryGetMemoryCounter(userKeyValues, "MemoryPrivateUsage") + "</PrivateUsage>");
-		text.WriteLine("    <VirtualMemoryAvailable>" + CrashReportArchiver.TryGetMemoryCounter(userKeyValues, "MemoryTotalVirtual") + "</VirtualMemoryAvailable>");
-		text.WriteLine("    <VirtualMemoryUsage>" + CrashReportArchiver.TryGetMemoryCounter(userKeyValues, "MemoryUsedVirtual") + "</VirtualMemoryUsage>");
+		text.WriteLine("    <PageFaultCount>" + TryGetMemoryCounter(userKeyValues, "MemoryPageFaultCount") + "</PageFaultCount>");
+		text.WriteLine("    <WorkingSetSize>" + TryGetMemoryCounter(userKeyValues, "MemoryWorkingSetSize") + "</WorkingSetSize>");
+		text.WriteLine("    <PeakWorkingSetSize>" + TryGetMemoryCounter(userKeyValues, "MemoryPeakWorkingSetSize") + "</PeakWorkingSetSize>");
+		text.WriteLine("    <PagefileUsage>" + TryGetMemoryCounter(userKeyValues, "MemoryPagefileUsage") + "</PagefileUsage>");
+		text.WriteLine("    <PeakPagefileUsage>" + TryGetMemoryCounter(userKeyValues, "MemoryPeakPagefileUsage") + "</PeakPagefileUsage>");
+		text.WriteLine("    <PrivateUsage>" + TryGetMemoryCounter(userKeyValues, "MemoryPrivateUsage") + "</PrivateUsage>");
+		text.WriteLine("    <VirtualMemoryAvailable>" + TryGetMemoryCounter(userKeyValues, "MemoryTotalVirtual") + "</VirtualMemoryAvailable>");
+		text.WriteLine("    <VirtualMemoryUsage>" + TryGetMemoryCounter(userKeyValues, "MemoryUsedVirtual") + "</VirtualMemoryUsage>");
 		text.WriteLine("  </Process>");
 	}
 
@@ -770,7 +779,7 @@ public static class CrashReportArchiver
 		string input = string.Empty;
 		if (fullVersionString == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -779,19 +788,16 @@ public static class CrashReportArchiver
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.PopulateSystemInfo(StreamWriter, Dictionary<string, string>, BugReportType, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			fullVersionString = BuildVersion.FullVersionString;
 		}
-		string[] array = fullVersionString.Split(new char[]
-		{
-			'-'
-		});
+		string[] array = fullVersionString.Split('-');
 		if (array != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -802,7 +808,7 @@ public static class CrashReportArchiver
 			}
 			if (array.Length > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -813,7 +819,7 @@ public static class CrashReportArchiver
 				}
 				if (!string.IsNullOrEmpty(array[1]))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -827,17 +833,17 @@ public static class CrashReportArchiver
 			}
 		}
 		text.WriteLine("  <System>");
-		text.WriteLine("    <MachineName>" + CrashReportArchiver.SanitizeXml(Environment.MachineName) + "</MachineName>");
-		text.WriteLine("    <Channel>" + CrashReportArchiver.SanitizeXml("Channel_150") + "</Channel>");
-		text.WriteLine("    <BuildVersion>" + CrashReportArchiver.SanitizeXml(fullVersionString) + "</BuildVersion>");
-		text.WriteLine("    <BuildType>" + CrashReportArchiver.SanitizeXml(HydrogenConfig.Get().EnvironmentName) + "</BuildType>");
+		text.WriteLine("    <MachineName>" + SanitizeXml(Environment.MachineName) + "</MachineName>");
+		text.WriteLine("    <Channel>" + SanitizeXml("Channel_150") + "</Channel>");
+		text.WriteLine("    <BuildVersion>" + SanitizeXml(fullVersionString) + "</BuildVersion>");
+		text.WriteLine("    <BuildType>" + SanitizeXml(HydrogenConfig.Get().EnvironmentName) + "</BuildType>");
 		string input2 = DateTime.Now.ToString("MM/dd/yy hh:mm:ss");
-		text.WriteLine("    <Time>" + CrashReportArchiver.SanitizeXml(input2) + "</Time>");
-		text.WriteLine("    <BuildNum>" + CrashReportArchiver.SanitizeXml(input) + "</BuildNum>");
-		text.WriteLine("    <Application>" + CrashReportArchiver.SanitizeXml(CrashReportArchiver.GetProcessName()) + "</Application>");
+		text.WriteLine("    <Time>" + SanitizeXml(input2) + "</Time>");
+		text.WriteLine("    <BuildNum>" + SanitizeXml(input) + "</BuildNum>");
+		text.WriteLine("    <Application>" + SanitizeXml(GetProcessName()) + "</Application>");
 		if (bugReportType == BugReportType.Crash)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -846,18 +852,17 @@ public static class CrashReportArchiver
 				}
 				break;
 			}
-			text.WriteLine("    <ProcessName>" + CrashReportArchiver.SanitizeXml(CrashReportArchiver.GetProcessName()) + "</ProcessName>");
+			text.WriteLine("    <ProcessName>" + SanitizeXml(GetProcessName()) + "</ProcessName>");
 		}
 		else
 		{
-			text.WriteLine("    <ProcessName>" + CrashReportArchiver.SanitizeXml(string.Format("{0}_{1}Report", CrashReportArchiver.GetProcessName(), bugReportType.ToString())) + "</ProcessName>");
+			text.WriteLine("    <ProcessName>" + SanitizeXml($"{GetProcessName()}_{bugReportType.ToString()}Report") + "</ProcessName>");
 		}
-		text.WriteLine("    <CorrelationID>" + CrashReportArchiver.SanitizeXml(Guid.NewGuid().ToString()) + "</CorrelationID>");
-		string str = "    <UserID>";
-		string input3;
+		text.WriteLine("    <CorrelationID>" + SanitizeXml(Guid.NewGuid().ToString()) + "</CorrelationID>");
+		object input3;
 		if (HydrogenConfig.Get().Ticket == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -872,10 +877,10 @@ public static class CrashReportArchiver
 		{
 			input3 = HydrogenConfig.Get().Ticket.UserName;
 		}
-		text.WriteLine(str + CrashReportArchiver.SanitizeXml(input3) + "</UserID>");
-		text.WriteLine("    <TotalMemory>" + CrashReportArchiver.TryGetMemoryCounter(userKeyValues, "MemoryTotalPhysical") + "</TotalMemory>");
-		text.WriteLine("    <UsedMemory>" + CrashReportArchiver.TryGetMemoryCounter(userKeyValues, "MemoryUsedPhysical") + "</UsedMemory>");
-		CrashReportArchiver.PopulateNetworkCards(text);
+		text.WriteLine("    <UserID>" + SanitizeXml((string)input3) + "</UserID>");
+		text.WriteLine("    <TotalMemory>" + TryGetMemoryCounter(userKeyValues, "MemoryTotalPhysical") + "</TotalMemory>");
+		text.WriteLine("    <UsedMemory>" + TryGetMemoryCounter(userKeyValues, "MemoryUsedPhysical") + "</UsedMemory>");
+		PopulateNetworkCards(text);
 		text.WriteLine("  </System>");
 	}
 
@@ -884,7 +889,8 @@ public static class CrashReportArchiver
 		text.WriteLine("    <NetworkCards>");
 		try
 		{
-			foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
+			NetworkInterface[] allNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+			foreach (NetworkInterface networkInterface in allNetworkInterfaces)
 			{
 				text.WriteLine("      <Card>");
 				text.WriteLine("        <Address>");
@@ -895,17 +901,13 @@ public static class CrashReportArchiver
 					text.Write(addressBytes[j].ToString("x2"));
 				}
 				text.WriteLine("</Address>");
-				text.WriteLine("        <Description>" + CrashReportArchiver.FormatEscapedXml<string>("{0}", networkInterface.Description) + "</Description>");
+				text.WriteLine("        <Description>" + FormatEscapedXml("{0}", networkInterface.Description) + "</Description>");
 				text.WriteLine("      </Card>");
 			}
 		}
 		catch (Exception ex)
 		{
-			Log.Error("Exception trying to enumerate net cards for exception reporting: {0}:{1}", new object[]
-			{
-				ex,
-				ex.Message
-			});
+			Log.Error("Exception trying to enumerate net cards for exception reporting: {0}:{1}", ex, ex.Message);
 		}
 		text.WriteLine("    </NetworkCards>");
 	}
@@ -917,25 +919,27 @@ public static class CrashReportArchiver
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<string, string> keyValuePair = enumerator.Current;
+				KeyValuePair<string, string> current = enumerator.Current;
 				text.WriteLine("    <Pair>");
-				text.WriteLine("      <Key>" + CrashReportArchiver.SanitizeXml(keyValuePair.Key) + "</Key>");
-				text.WriteLine("      <Value>" + CrashReportArchiver.SanitizeXml(keyValuePair.Value) + "</Value>");
+				text.WriteLine("      <Key>" + SanitizeXml(current.Key) + "</Key>");
+				text.WriteLine("      <Value>" + SanitizeXml(current.Value) + "</Value>");
 				text.WriteLine("    </Pair>");
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					goto end_IL_0014;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.PopulateKeyValueData(StreamWriter, Dictionary<string, string>)).MethodHandle;
-			}
+			end_IL_0014:;
 		}
 		text.WriteLine("  </UserKeyValue>");
 	}
@@ -945,36 +949,40 @@ public static class CrashReportArchiver
 		string text = "XML sanitization error";
 		try
 		{
-			text = ((input != null) ? input.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;").Replace("\"", "&quot;").Replace("'", "&apos;") : "NULL");
+			text = ((input != null) ? input.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;")
+				.Replace("\"", "&quot;")
+				.Replace("'", "&apos;") : "NULL");
 			string pattern = "[^\\x09\\x0A\\x0D\\x20-\\xD7FF\\xE000-\\xFFFD\\x10000-x10FFFF]";
 			text = Regex.Replace(text, pattern, string.Empty);
-			if (text.Length >= 0x800)
+			if (text.Length >= 2048)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						text = $"{text.Substring(0, 2044)}...";
+						return text;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.SanitizeXml(string)).MethodHandle;
-				}
-				text = string.Format("{0}...", text.Substring(0, 0x7FC));
 			}
+			return text;
 		}
 		catch (Exception exception)
 		{
 			Log.Exception(exception);
+			return text;
 		}
-		return text;
 	}
 
 	private static string FormatEscapedXml<T1>(string format, T1 t1)
 	{
-		return CrashReportArchiver.SanitizeXml(string.Format(format, t1));
+		return SanitizeXml(string.Format(format, t1));
 	}
 }

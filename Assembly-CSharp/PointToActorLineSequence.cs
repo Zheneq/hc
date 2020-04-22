@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class PointToActorLineSequence : Sequence
@@ -9,11 +8,11 @@ public class PointToActorLineSequence : Sequence
 	[JointPopup("FX attach joint on the caster")]
 	public JointPopupProperty m_fxJoint;
 
-	public Sequence.ReferenceModelType m_fxJointReferenceType;
+	public ReferenceModelType m_fxJointReferenceType;
 
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
 	[AnimEventPicker]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
 	[AudioEvent(false)]
 	public string m_audioEvent;
@@ -22,42 +21,43 @@ public class PointToActorLineSequence : Sequence
 
 	public override void FinishSetup()
 	{
-		if (this.m_startEvent == null)
+		if (!(m_startEvent == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PointToActorLineSequence.FinishSetup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.SpawnFX();
+			SpawnFX();
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_initialized)
+		if (m_initialized)
 		{
-			Sequence.SetAttribute(this.m_fx, "startPoint", base.TargetPos);
-			if (this.m_fxJoint.m_jointObject != null)
+			Sequence.SetAttribute(m_fx, "startPoint", base.TargetPos);
+			if (m_fxJoint.m_jointObject != null)
 			{
-				Sequence.SetAttribute(this.m_fx, "endPoint", this.m_fxJoint.m_jointObject.transform.position);
+				Sequence.SetAttribute(m_fx, "endPoint", m_fxJoint.m_jointObject.transform.position);
 			}
 		}
 	}
 
 	private void SpawnFX()
 	{
-		if (!this.m_fxJoint.IsInitialized())
+		if (!m_fxJoint.IsInitialized())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -66,14 +66,14 @@ public class PointToActorLineSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PointToActorLineSequence.SpawnFX()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			GameObject referenceModel = base.GetReferenceModel(base.Target, this.m_fxJointReferenceType);
+			GameObject referenceModel = GetReferenceModel(base.Target, m_fxJointReferenceType);
 			if (referenceModel != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -82,12 +82,12 @@ public class PointToActorLineSequence : Sequence
 					}
 					break;
 				}
-				this.m_fxJoint.Initialize(referenceModel);
+				m_fxJoint.Initialize(referenceModel);
 			}
 		}
-		if (this.m_fxPrefab != null)
+		if (m_fxPrefab != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -97,14 +97,13 @@ public class PointToActorLineSequence : Sequence
 				break;
 			}
 			Vector3 targetPos = base.TargetPos;
-			Quaternion rotation = default(Quaternion);
-			this.m_fx = base.InstantiateFX(this.m_fxPrefab, targetPos, rotation, true, true);
+			m_fx = InstantiateFX(m_fxPrefab, targetPos, default(Quaternion));
 		}
 		for (int i = 0; i < base.Targets.Length; i++)
 		{
 			if (base.Targets[i] != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -113,43 +112,44 @@ public class PointToActorLineSequence : Sequence
 					}
 					break;
 				}
-				Vector3 targetHitPosition = base.GetTargetHitPosition(i);
+				Vector3 targetHitPosition = GetTargetHitPosition(i);
 				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 				hitDirection.y = 0f;
 				hitDirection.Normalize();
 				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, hitDirection);
-				base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
+				base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo);
 			}
 		}
-		if (!string.IsNullOrEmpty(this.m_audioEvent))
+		if (string.IsNullOrEmpty(m_audioEvent))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
+			AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
+			return;
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (this.m_startEvent == parameter)
+		if (m_startEvent == parameter)
 		{
-			this.SpawnFX();
+			SpawnFX();
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_fx != null)
+		if (m_fx != null)
 		{
-			UnityEngine.Object.Destroy(this.m_fx.gameObject);
-			this.m_fx = null;
+			Object.Destroy(m_fx.gameObject);
+			m_fx = null;
 		}
 	}
 }

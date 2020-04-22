@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UI_Persistent : MonoBehaviour
@@ -11,79 +10,80 @@ public class UI_Persistent : MonoBehaviour
 
 	public static UI_Persistent Get()
 	{
-		return UI_Persistent.s_instance;
+		return s_instance;
 	}
 
 	public void NotifyFrontEndVisible(bool visible)
 	{
-		for (int i = 0; i < this.m_newFrontEndPersistantScreens.Length; i++)
+		for (int i = 0; i < m_newFrontEndPersistantScreens.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_newFrontEndPersistantScreens[i], visible, null);
+			UIManager.SetGameObjectActive(m_newFrontEndPersistantScreens[i], visible);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UI_Persistent.NotifyFrontEndVisible(bool)).MethodHandle;
-		}
-		if (visible)
-		{
-			for (;;)
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!visible)
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			for (int j = 0; j < this.m_enableOnVisible.Length; j++)
-			{
-				UIManager.SetGameObjectActive(this.m_enableOnVisible[j], true, null);
-			}
-			for (;;)
-			{
-				switch (2)
+				for (int j = 0; j < m_enableOnVisible.Length; j++)
 				{
-				case 0:
-					continue;
+					UIManager.SetGameObjectActive(m_enableOnVisible[j], true);
 				}
-				break;
+				while (true)
+				{
+					switch (2)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
 			}
 		}
 	}
 
 	private void Awake()
 	{
-		UI_Persistent.s_instance = this;
-		if (base.gameObject.transform.parent == null)
+		s_instance = this;
+		if (!(base.gameObject.transform.parent == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_Persistent.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+			Object.DontDestroyOnLoad(base.gameObject);
+			return;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		UI_Persistent.s_instance = null;
+		s_instance = null;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +15,7 @@ public class RampartBuffAndDelayedAoe : Ability
 
 	public int m_aoeDelayTurns = 1;
 
-	public int m_aoeDamageAmount = 0xA;
+	public int m_aoeDamageAmount = 10;
 
 	public StandardEffectInfo m_aoeEnemyHitEffect;
 
@@ -29,20 +28,20 @@ public class RampartBuffAndDelayedAoe : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Buff and Delayed Aoe";
+			m_abilityName = "Buff and Delayed Aoe";
 		}
-		this.m_sequencePrefab = this.m_castSequencePrefab;
-		this.SetupTargeter();
+		m_sequencePrefab = m_castSequencePrefab;
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		AbilityAreaShape shapeLowEnergy;
-		if (this.m_onlyDoAoeIfFullEnergy)
+		int shapeLowEnergy;
+		if (m_onlyDoAoeIfFullEnergy)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -51,25 +50,25 @@ public class RampartBuffAndDelayedAoe : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBuffAndDelayedAoe.SetupTargeter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			shapeLowEnergy = AbilityAreaShape.SingleSquare;
+			shapeLowEnergy = 0;
 		}
 		else
 		{
-			shapeLowEnergy = this.m_aoeShape;
+			shapeLowEnergy = (int)m_aoeShape;
 		}
-		base.Targeter = new AbilityUtil_Targeter_RampartDelayedAoe(this, shapeLowEnergy, this.m_aoeShape, this.m_penetrateLos, this.m_aoeDelayTurns <= 0, false, this.m_selfBuffEffect.m_applyEffect);
+		base.Targeter = new AbilityUtil_Targeter_RampartDelayedAoe(this, (AbilityAreaShape)shapeLowEnergy, m_aoeShape, m_penetrateLos, m_aoeDelayTurns <= 0, false, m_selfBuffEffect.m_applyEffect);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.m_selfBuffEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.m_aoeDamageAmount);
-		this.m_aoeEnemyHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		m_selfBuffEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, m_aoeDamageAmount);
+		m_aoeEnemyHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		return numbers;
 	}
 }

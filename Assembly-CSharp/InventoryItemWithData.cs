@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class InventoryItemWithData
@@ -9,7 +9,7 @@ public class InventoryItemWithData
 
 	public InventoryItemWithData(InventoryItem item, int isoGained)
 	{
-		this.Item = item;
-		this.IsoGained = isoGained;
+		Item = item;
+		IsoGained = isoGained;
 	}
 }

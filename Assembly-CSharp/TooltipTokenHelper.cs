@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class TooltipTokenHelper
@@ -23,7 +22,7 @@ public class TooltipTokenHelper
 	{
 		if (value <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -32,15 +31,15 @@ public class TooltipTokenHelper
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TooltipTokenHelper.AddTokenInt(List<TooltipTokenEntry>, string, int, string, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!addIfNonPositive)
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -55,13 +54,13 @@ public class TooltipTokenHelper
 
 	public static void AddTokenFloat(List<TooltipTokenEntry> tokens, string name, float value, string desc = "", bool addIfNonPositive = false)
 	{
-		if (value <= 0f)
+		if (!(value > 0f))
 		{
 			if (!addIfNonPositive)
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -70,9 +69,9 @@ public class TooltipTokenHelper
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TooltipTokenHelper.AddTokenFloat(List<TooltipTokenEntry>, string, float, string, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		tokens.Add(new TooltipTokenFloat(name, desc, value));

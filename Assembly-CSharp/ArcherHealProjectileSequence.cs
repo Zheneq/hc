@@ -1,76 +1,84 @@
-﻿using System;
-
 public class ArcherHealProjectileSequence : ArcingProjectileSequence
 {
 	private Archer_SyncComponent m_syncComp;
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
 		base.Initialize(extraParams);
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		int num = 0;
+		IExtraSequenceParams extraSequenceParams;
+		while (true)
 		{
-			if (extraSequenceParams is Sequence.ActorIndexExtraParam)
+			if (num < extraParams.Length)
 			{
-				for (;;)
+				extraSequenceParams = extraParams[num];
+				if (extraSequenceParams is ActorIndexExtraParam)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealProjectileSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
-				Sequence.ActorIndexExtraParam actorIndexExtraParam = extraSequenceParams as Sequence.ActorIndexExtraParam;
-				ActorData actorData = GameFlowData.Get().FindActorByActorIndex((int)actorIndexExtraParam.m_actorIndex);
-				if (actorData != null)
-				{
-					this.m_syncComp = actorData.GetComponent<Archer_SyncComponent>();
-				}
-				break;
+				num++;
+				continue;
 			}
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			ActorIndexExtraParam actorIndexExtraParam = extraSequenceParams as ActorIndexExtraParam;
+			ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndexExtraParam.m_actorIndex);
+			if (actorData != null)
+			{
+				m_syncComp = actorData.GetComponent<Archer_SyncComponent>();
+			}
+			return;
 		}
 	}
 
 	protected override void SpawnFX()
 	{
 		base.SpawnFX();
-		if (base.Target != null && this.m_syncComp != null)
+		if (!(base.Target != null) || !(m_syncComp != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealProjectileSequence.SpawnFX()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComp.ActorHasExpendedHealReaction(base.Target))
+			if (m_syncComp.ActorHasExpendedHealReaction(base.Target))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_syncComp.ChangeVfxForHealReaction(base.Target);
+					return;
 				}
-				this.m_syncComp.ChangeVfxForHealReaction(base.Target);
 			}
+			return;
 		}
 	}
 
 	protected override Team GetFoFObservingTeam()
 	{
-		return base.Caster.\u0012();
+		return base.Caster.GetOpposingTeam();
 	}
 }

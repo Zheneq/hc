@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,62 +9,62 @@ public class ClientPowerupResults
 
 	public ClientPowerupResults(List<ServerClientUtils.SequenceStartData> seqStartDataList, ClientAbilityResults clientAbilityResults)
 	{
-		this.m_seqStartDataList = seqStartDataList;
-		this.m_powerupAbilityResults = clientAbilityResults;
+		m_seqStartDataList = seqStartDataList;
+		m_powerupAbilityResults = clientAbilityResults;
 	}
 
 	public bool HasSequencesToStart()
 	{
-		if (this.m_seqStartDataList == null)
+		if (m_seqStartDataList == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientPowerupResults.HasSequencesToStart()).MethodHandle;
-			}
-			return false;
 		}
-		if (this.m_seqStartDataList.Count == 0)
+		if (m_seqStartDataList.Count == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
-		using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = this.m_seqStartDataList.GetEnumerator())
+		using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = m_seqStartDataList.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ServerClientUtils.SequenceStartData sequenceStartData = enumerator.Current;
-				if (sequenceStartData != null && sequenceStartData.HasSequencePrefab())
+				ServerClientUtils.SequenceStartData current = enumerator.Current;
+				if (current != null && current.HasSequencePrefab())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return true;
 						}
-						break;
 					}
-					return true;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -80,73 +79,71 @@ public class ClientPowerupResults
 
 	public void RunResults()
 	{
-		if (this.HasSequencesToStart())
+		if (HasSequencesToStart())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientPowerupResults.RunResults()).MethodHandle;
-			}
-			foreach (ServerClientUtils.SequenceStartData sequenceStartData in this.m_seqStartDataList)
-			{
-				sequenceStartData.CreateSequencesFromData(new SequenceSource.ActorDelegate(this.OnPowerupHitActor), new SequenceSource.Vector3Delegate(this.OnPowerupHitPosition));
-			}
-		}
-		else
-		{
-			if (ClientAbilityResults.\u001D)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					foreach (ServerClientUtils.SequenceStartData seqStartData in m_seqStartDataList)
+					{
+						seqStartData.CreateSequencesFromData(OnPowerupHitActor, OnPowerupHitPosition);
+					}
+					return;
 				}
-				Log.Warning(ClientAbilityResults.s_clientHitResultHeader + this.GetDebugDescription() + ": no Sequence to start, executing results directly", new object[0]);
 			}
-			this.m_powerupAbilityResults.RunClientAbilityHits();
 		}
-	}
-
-	internal void OnPowerupHitActor(ActorData target)
-	{
-		this.m_powerupAbilityResults.OnAbilityHitActor(target);
-	}
-
-	internal void OnPowerupHitPosition(Vector3 position)
-	{
-		this.m_powerupAbilityResults.OnAbilityHitPosition(position);
-	}
-
-	internal string GetDebugDescription()
-	{
-		if (this.m_powerupAbilityResults != null)
+		if (ClientAbilityResults.LogMissingSequences)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (3)
+				switch (2)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			Log.Warning(ClientAbilityResults.s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
+		}
+		m_powerupAbilityResults.RunClientAbilityHits();
+	}
+
+	internal void OnPowerupHitActor(ActorData target)
+	{
+		m_powerupAbilityResults.OnAbilityHitActor(target);
+	}
+
+	internal void OnPowerupHitPosition(Vector3 position)
+	{
+		m_powerupAbilityResults.OnAbilityHitPosition(position);
+	}
+
+	internal string GetDebugDescription()
+	{
+		if (m_powerupAbilityResults != null)
+		{
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientPowerupResults.GetDebugDescription()).MethodHandle;
+				switch (3)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_powerupAbilityResults.GetDebugDescription();
+				}
 			}
-			return this.m_powerupAbilityResults.GetDebugDescription();
 		}
 		return "Powerup UNKNWON";
 	}

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,53 +54,52 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SenseiBasicAttack senseiBasicAttack = targetAbility as SenseiBasicAttack;
-		if (senseiBasicAttack != null)
+		if (!(senseiBasicAttack != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SenseiBasicAttack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_circleDistThresholdMod, "CircleDistThreshold", string.Empty, senseiBasicAttack.m_circleDistThreshold, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_circleRadiusMod, "CircleRadius", string.Empty, senseiBasicAttack.m_circleRadius, true, false, false);
-			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "LaserInfo", senseiBasicAttack.m_laserInfo, true);
-			AbilityMod.AddToken(tokens, this.m_circleDamageMod, "CircleDamage", string.Empty, senseiBasicAttack.m_circleDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_circleEnemyHitEffectMod, "CircleEnemyHitEffect", senseiBasicAttack.m_circleEnemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_laserDamageMod, "LaserDamage", string.Empty, senseiBasicAttack.m_laserDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_laserEnemyHitEffectMod, "LaserEnemyHitEffect", senseiBasicAttack.m_laserEnemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_extraDamageForAlternatingMod, "ExtraDamageForAlternating", string.Empty, senseiBasicAttack.m_extraDamageForAlternating, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageForFarTargetMod, "ExtraDamageForFarTarget", string.Empty, senseiBasicAttack.m_extraDamageForFarTarget, true, false);
-			AbilityMod.AddToken(tokens, this.m_laserFarDistThreshMod, "LaserFarDistThresh", string.Empty, senseiBasicAttack.m_laserFarDistThresh, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_circleFarDistThreshMod, "CircleFarDistThresh", string.Empty, senseiBasicAttack.m_circleFarDistThresh, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_healPerEnemyHitMod, "HealPerEnemyHit", string.Empty, senseiBasicAttack.m_healPerEnemyHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_cdrOnAbilityMod, "CdrOnAbility", string.Empty, senseiBasicAttack.m_cdrOnAbility, true, false);
-			AbilityMod.AddToken(tokens, this.m_cdrMinTriggerHitCountMod, "CdrMinTriggerHitCount", string.Empty, senseiBasicAttack.m_cdrMinTriggerHitCount, true, false);
-			AbilityMod.AddToken(tokens, this.m_absorbPerEnemyHitOnTurnStartMod, "AbsorbPerEnemyHitOnTurnStart", string.Empty, senseiBasicAttack.m_absorbPerEnemyHitOnTurnStart, true, false);
-			AbilityMod.AddToken(tokens, this.m_absorbAmountIfTriggeredHitCountMod, "AbsorbAmountIfTriggeredHitCount", string.Empty, senseiBasicAttack.m_absorbAmountIfTriggeredHitCount, true, false);
+			AbilityMod.AddToken(tokens, m_circleDistThresholdMod, "CircleDistThreshold", string.Empty, senseiBasicAttack.m_circleDistThreshold);
+			AbilityMod.AddToken(tokens, m_circleRadiusMod, "CircleRadius", string.Empty, senseiBasicAttack.m_circleRadius);
+			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", senseiBasicAttack.m_laserInfo);
+			AbilityMod.AddToken(tokens, m_circleDamageMod, "CircleDamage", string.Empty, senseiBasicAttack.m_circleDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_circleEnemyHitEffectMod, "CircleEnemyHitEffect", senseiBasicAttack.m_circleEnemyHitEffect);
+			AbilityMod.AddToken(tokens, m_laserDamageMod, "LaserDamage", string.Empty, senseiBasicAttack.m_laserDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_laserEnemyHitEffectMod, "LaserEnemyHitEffect", senseiBasicAttack.m_laserEnemyHitEffect);
+			AbilityMod.AddToken(tokens, m_extraDamageForAlternatingMod, "ExtraDamageForAlternating", string.Empty, senseiBasicAttack.m_extraDamageForAlternating);
+			AbilityMod.AddToken(tokens, m_extraDamageForFarTargetMod, "ExtraDamageForFarTarget", string.Empty, senseiBasicAttack.m_extraDamageForFarTarget);
+			AbilityMod.AddToken(tokens, m_laserFarDistThreshMod, "LaserFarDistThresh", string.Empty, senseiBasicAttack.m_laserFarDistThresh);
+			AbilityMod.AddToken(tokens, m_circleFarDistThreshMod, "CircleFarDistThresh", string.Empty, senseiBasicAttack.m_circleFarDistThresh);
+			AbilityMod.AddToken(tokens, m_healPerEnemyHitMod, "HealPerEnemyHit", string.Empty, senseiBasicAttack.m_healPerEnemyHit);
+			AbilityMod.AddToken(tokens, m_cdrOnAbilityMod, "CdrOnAbility", string.Empty, senseiBasicAttack.m_cdrOnAbility);
+			AbilityMod.AddToken(tokens, m_cdrMinTriggerHitCountMod, "CdrMinTriggerHitCount", string.Empty, senseiBasicAttack.m_cdrMinTriggerHitCount);
+			AbilityMod.AddToken(tokens, m_absorbPerEnemyHitOnTurnStartMod, "AbsorbPerEnemyHitOnTurnStart", string.Empty, senseiBasicAttack.m_absorbPerEnemyHitOnTurnStart);
+			AbilityMod.AddToken(tokens, m_absorbAmountIfTriggeredHitCountMod, "AbsorbAmountIfTriggeredHitCount", string.Empty, senseiBasicAttack.m_absorbAmountIfTriggeredHitCount);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SenseiBasicAttack senseiBasicAttack = base.GetTargetAbilityOnAbilityData(abilityData) as SenseiBasicAttack;
+		SenseiBasicAttack senseiBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as SenseiBasicAttack;
 		bool flag = senseiBasicAttack != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat circleDistThresholdMod = this.m_circleDistThresholdMod;
-		string prefix = "[CircleDistThreshold]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat circleDistThresholdMod = m_circleDistThresholdMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -109,9 +108,9 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SenseiBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = senseiBasicAttack.m_circleDistThreshold;
 		}
@@ -119,15 +118,13 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(circleDistThresholdMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat circleRadiusMod = this.m_circleRadiusMod;
-		string prefix2 = "[CircleRadius]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(circleDistThresholdMod, "[CircleDistThreshold]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat circleRadiusMod = m_circleRadiusMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -142,15 +139,13 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(circleRadiusMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyLaserInfo laserInfoMod = this.m_laserInfoMod;
-		string prefix3 = "[LaserInfo]";
-		bool showBaseVal3 = flag;
-		LaserTargetingInfo baseLaserInfo;
+		empty = str2 + PropDesc(circleRadiusMod, "[CircleRadius]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyLaserInfo laserInfoMod = m_laserInfoMod;
+		object baseLaserInfo;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -165,16 +160,14 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		{
 			baseLaserInfo = null;
 		}
-		text = str3 + base.PropDesc(laserInfoMod, prefix3, showBaseVal3, baseLaserInfo);
-		text += base.PropDesc(this.m_circleDamageMod, "[CircleDamage]", flag, (!flag) ? 0 : senseiBasicAttack.m_circleDamage);
-		string str4 = text;
-		AbilityModPropertyEffectInfo circleEnemyHitEffectMod = this.m_circleEnemyHitEffectMod;
-		string prefix4 = "[CircleEnemyHitEffect]";
-		bool showBaseVal4 = flag;
-		StandardEffectInfo baseVal3;
+		empty = str3 + PropDesc(laserInfoMod, "[LaserInfo]", flag, (LaserTargetingInfo)baseLaserInfo);
+		empty += PropDesc(m_circleDamageMod, "[CircleDamage]", flag, flag ? senseiBasicAttack.m_circleDamage : 0);
+		string str4 = empty;
+		AbilityModPropertyEffectInfo circleEnemyHitEffectMod = m_circleEnemyHitEffectMod;
+		object baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -189,15 +182,13 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		{
 			baseVal3 = null;
 		}
-		text = str4 + base.PropDesc(circleEnemyHitEffectMod, prefix4, showBaseVal4, baseVal3);
-		string str5 = text;
-		AbilityModPropertyInt laserDamageMod = this.m_laserDamageMod;
-		string prefix5 = "[LaserDamage]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(circleEnemyHitEffectMod, "[CircleEnemyHitEffect]", flag, (StandardEffectInfo)baseVal3);
+		string str5 = empty;
+		AbilityModPropertyInt laserDamageMod = m_laserDamageMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -212,15 +203,13 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str5 + base.PropDesc(laserDamageMod, prefix5, showBaseVal5, baseVal4);
-		string str6 = text;
-		AbilityModPropertyEffectInfo laserEnemyHitEffectMod = this.m_laserEnemyHitEffectMod;
-		string prefix6 = "[LaserEnemyHitEffect]";
-		bool showBaseVal6 = flag;
-		StandardEffectInfo baseVal5;
+		empty = str5 + PropDesc(laserDamageMod, "[LaserDamage]", flag, baseVal4);
+		string str6 = empty;
+		AbilityModPropertyEffectInfo laserEnemyHitEffectMod = m_laserEnemyHitEffectMod;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -235,15 +224,13 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		{
 			baseVal5 = null;
 		}
-		text = str6 + base.PropDesc(laserEnemyHitEffectMod, prefix6, showBaseVal6, baseVal5);
-		string str7 = text;
-		AbilityModPropertyInt extraDamageForAlternatingMod = this.m_extraDamageForAlternatingMod;
-		string prefix7 = "[ExtraDamageForAlternating]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(laserEnemyHitEffectMod, "[LaserEnemyHitEffect]", flag, (StandardEffectInfo)baseVal5);
+		string str7 = empty;
+		AbilityModPropertyInt extraDamageForAlternatingMod = m_extraDamageForAlternatingMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -258,15 +245,13 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str7 + base.PropDesc(extraDamageForAlternatingMod, prefix7, showBaseVal7, baseVal6);
-		string str8 = text;
-		AbilityModPropertyInt extraDamageForFarTargetMod = this.m_extraDamageForFarTargetMod;
-		string prefix8 = "[ExtraDamageForFarTarget]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(extraDamageForAlternatingMod, "[ExtraDamageForAlternating]", flag, baseVal6);
+		string str8 = empty;
+		AbilityModPropertyInt extraDamageForFarTargetMod = m_extraDamageForFarTargetMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -281,15 +266,13 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		{
 			baseVal7 = 0;
 		}
-		text = str8 + base.PropDesc(extraDamageForFarTargetMod, prefix8, showBaseVal8, baseVal7);
-		string str9 = text;
-		AbilityModPropertyFloat laserFarDistThreshMod = this.m_laserFarDistThreshMod;
-		string prefix9 = "[LaserFarDistThresh]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(extraDamageForFarTargetMod, "[ExtraDamageForFarTarget]", flag, baseVal7);
+		string str9 = empty;
+		AbilityModPropertyFloat laserFarDistThreshMod = m_laserFarDistThreshMod;
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -304,15 +287,13 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		{
 			baseVal8 = 0f;
 		}
-		text = str9 + base.PropDesc(laserFarDistThreshMod, prefix9, showBaseVal9, baseVal8);
-		string str10 = text;
-		AbilityModPropertyFloat circleFarDistThreshMod = this.m_circleFarDistThreshMod;
-		string prefix10 = "[CircleFarDistThresh]";
-		bool showBaseVal10 = flag;
+		empty = str9 + PropDesc(laserFarDistThreshMod, "[LaserFarDistThresh]", flag, baseVal8);
+		string str10 = empty;
+		AbilityModPropertyFloat circleFarDistThreshMod = m_circleFarDistThreshMod;
 		float baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -327,16 +308,14 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		{
 			baseVal9 = 0f;
 		}
-		text = str10 + base.PropDesc(circleFarDistThreshMod, prefix10, showBaseVal10, baseVal9);
-		text += base.PropDesc(this.m_healPerEnemyHitMod, "[HealPerEnemyHit]", flag, (!flag) ? 0 : senseiBasicAttack.m_healPerEnemyHit);
-		string str11 = text;
-		AbilityModPropertyInt cdrOnAbilityMod = this.m_cdrOnAbilityMod;
-		string prefix11 = "[CdrOnAbility]";
-		bool showBaseVal11 = flag;
+		empty = str10 + PropDesc(circleFarDistThreshMod, "[CircleFarDistThresh]", flag, baseVal9);
+		empty += PropDesc(m_healPerEnemyHitMod, "[HealPerEnemyHit]", flag, flag ? senseiBasicAttack.m_healPerEnemyHit : 0);
+		string str11 = empty;
+		AbilityModPropertyInt cdrOnAbilityMod = m_cdrOnAbilityMod;
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -351,15 +330,13 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		{
 			baseVal10 = 0;
 		}
-		text = str11 + base.PropDesc(cdrOnAbilityMod, prefix11, showBaseVal11, baseVal10);
-		string str12 = text;
-		AbilityModPropertyInt cdrMinTriggerHitCountMod = this.m_cdrMinTriggerHitCountMod;
-		string prefix12 = "[CdrMinTriggerHitCount]";
-		bool showBaseVal12 = flag;
+		empty = str11 + PropDesc(cdrOnAbilityMod, "[CdrOnAbility]", flag, baseVal10);
+		string str12 = empty;
+		AbilityModPropertyInt cdrMinTriggerHitCountMod = m_cdrMinTriggerHitCountMod;
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -374,15 +351,13 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		{
 			baseVal11 = 0;
 		}
-		text = str12 + base.PropDesc(cdrMinTriggerHitCountMod, prefix12, showBaseVal12, baseVal11);
-		string str13 = text;
-		AbilityModPropertyInt absorbPerEnemyHitOnTurnStartMod = this.m_absorbPerEnemyHitOnTurnStartMod;
-		string prefix13 = "[AbsorbPerEnemyHitOnTurnStart]";
-		bool showBaseVal13 = flag;
+		empty = str12 + PropDesc(cdrMinTriggerHitCountMod, "[CdrMinTriggerHitCount]", flag, baseVal11);
+		string str13 = empty;
+		AbilityModPropertyInt absorbPerEnemyHitOnTurnStartMod = m_absorbPerEnemyHitOnTurnStartMod;
 		int baseVal12;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -397,15 +372,13 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		{
 			baseVal12 = 0;
 		}
-		text = str13 + base.PropDesc(absorbPerEnemyHitOnTurnStartMod, prefix13, showBaseVal13, baseVal12);
-		string str14 = text;
-		AbilityModPropertyInt absorbAmountIfTriggeredHitCountMod = this.m_absorbAmountIfTriggeredHitCountMod;
-		string prefix14 = "[AbsorbAmountIfTriggeredHitCount]";
-		bool showBaseVal14 = flag;
+		empty = str13 + PropDesc(absorbPerEnemyHitOnTurnStartMod, "[AbsorbPerEnemyHitOnTurnStart]", flag, baseVal12);
+		string str14 = empty;
+		AbilityModPropertyInt absorbAmountIfTriggeredHitCountMod = m_absorbAmountIfTriggeredHitCountMod;
 		int baseVal13;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -420,6 +393,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		{
 			baseVal13 = 0;
 		}
-		return str14 + base.PropDesc(absorbAmountIfTriggeredHitCountMod, prefix14, showBaseVal14, baseVal13);
+		return str14 + PropDesc(absorbAmountIfTriggeredHitCountMod, "[AbsorbAmountIfTriggeredHitCount]", flag, baseVal13);
 	}
 }

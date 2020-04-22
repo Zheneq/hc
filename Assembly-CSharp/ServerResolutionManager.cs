@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine.Networking;
 
 public class ServerResolutionManager : NetworkBehaviour
@@ -9,7 +8,7 @@ public class ServerResolutionManager : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
+		bool result = default(bool);
 		return result;
 	}
 

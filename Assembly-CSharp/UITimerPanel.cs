@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -22,66 +21,67 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 
 	public static UITimerPanel Get()
 	{
-		return UITimerPanel.s_instance;
+		return s_instance;
 	}
 
 	public void Awake()
 	{
-		UITimerPanel.s_instance = this;
+		s_instance = this;
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType == GameEventManager.EventType.GameCameraCreated)
+		if (eventType != GameEventManager.EventType.GameCameraCreated)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITimerPanel.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_matchStartTime = Time.realtimeSinceStartup;
+			m_matchStartTime = Time.realtimeSinceStartup;
+			return;
 		}
 	}
 
 	public void SetMatchTime(float timeSinceMatchStart)
 	{
-		this.m_matchStartTime = Time.realtimeSinceStartup - timeSinceMatchStart;
+		m_matchStartTime = Time.realtimeSinceStartup - timeSinceMatchStart;
 	}
 
 	public void SetMatchTurn(int matchTurn)
 	{
-		this.m_matchStartTurn = this.m_turn - matchTurn;
-		this.m_turnLabel.text = string.Format("-{0}-", this.GetTurn());
+		m_matchStartTurn = m_turn - matchTurn;
+		m_turnLabel.text = $"-{GetTurn()}-";
 	}
 
 	public int GetMinutes()
 	{
-		return this.m_minutes;
+		return m_minutes;
 	}
 
 	public int GetSeconds()
 	{
-		return this.m_seconds;
+		return m_seconds;
 	}
 
 	public int GetTurn()
 	{
-		return this.m_turn - this.m_matchStartTurn;
+		return m_turn - m_matchStartTurn;
 	}
 
 	private void Start()
 	{
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.GameCameraCreated);
-		this.m_matchStartTime = Time.realtimeSinceStartup;
-		this.m_matchStartTurn = 0;
+		m_matchStartTime = Time.realtimeSinceStartup;
+		m_matchStartTurn = 0;
 	}
 
 	private void OnDestroy()
@@ -89,7 +89,7 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 		if (GameEventManager.Get() != null)
 		{
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GameCameraCreated);
-			UITimerPanel.s_instance = null;
+			s_instance = null;
 		}
 	}
 
@@ -97,24 +97,24 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 	{
 		if (GameFlowData.Get() == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITimerPanel.Update()).MethodHandle;
-			}
-			return;
 		}
-		if (this.m_turn != GameFlowData.Get().CurrentTurn)
+		if (m_turn != GameFlowData.Get().CurrentTurn)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -123,13 +123,13 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			this.m_turn = GameFlowData.Get().CurrentTurn;
-			this.m_turnLabel.text = string.Format("-{0}-", this.GetTurn());
+			m_turn = GameFlowData.Get().CurrentTurn;
+			m_turnLabel.text = $"-{GetTurn()}-";
 		}
 		float num = 0f;
-		if (!AppState.GetCurrent() != AppState_InGameDeployment.Get())
+		if (!AppState.GetCurrent() != (bool)AppState_InGameDeployment.Get())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -138,17 +138,17 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			num = Time.realtimeSinceStartup - this.m_matchStartTime;
+			num = Time.realtimeSinceStartup - m_matchStartTime;
 		}
 		int num2 = (int)(num / 60f);
-		int num3 = (int)num % 0x3C;
-		if (num2 == this.m_minutes)
+		int num3 = (int)num % 60;
+		if (num2 == m_minutes)
 		{
-			if (num3 == this.m_seconds)
+			if (num3 == m_seconds)
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -158,9 +158,9 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 				break;
 			}
 		}
-		if (num3 < 0xA)
+		if (num3 < 10)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -169,18 +169,18 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			this.m_timeLabel.text = string.Format("{0}:0{1}", num2, num3);
+			m_timeLabel.text = $"{num2}:0{num3}";
 		}
 		else
 		{
-			this.m_timeLabel.text = string.Format("{0}:{1}", num2, num3);
+			m_timeLabel.text = $"{num2}:{num3}";
 		}
-		this.m_minutes = num2;
-		this.m_seconds = num3;
+		m_minutes = num2;
+		m_seconds = num3;
 	}
 
 	private void OnEnable()
 	{
-		this.Update();
+		Update();
 	}
 }

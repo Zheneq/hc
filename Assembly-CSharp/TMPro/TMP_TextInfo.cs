@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace TMPro
@@ -44,132 +44,132 @@ namespace TMPro
 
 		public TMP_TextInfo()
 		{
-			this.characterInfo = new TMP_CharacterInfo[8];
-			this.wordInfo = new TMP_WordInfo[0x10];
-			this.linkInfo = new TMP_LinkInfo[0];
-			this.lineInfo = new TMP_LineInfo[2];
-			this.pageInfo = new TMP_PageInfo[4];
-			this.meshInfo = new TMP_MeshInfo[1];
+			characterInfo = new TMP_CharacterInfo[8];
+			wordInfo = new TMP_WordInfo[16];
+			linkInfo = new TMP_LinkInfo[0];
+			lineInfo = new TMP_LineInfo[2];
+			pageInfo = new TMP_PageInfo[4];
+			meshInfo = new TMP_MeshInfo[1];
 		}
 
 		public TMP_TextInfo(TMP_Text textComponent)
 		{
 			this.textComponent = textComponent;
-			this.characterInfo = new TMP_CharacterInfo[8];
-			this.wordInfo = new TMP_WordInfo[4];
-			this.linkInfo = new TMP_LinkInfo[0];
-			this.lineInfo = new TMP_LineInfo[2];
-			this.pageInfo = new TMP_PageInfo[4];
-			this.meshInfo = new TMP_MeshInfo[1];
-			this.meshInfo[0].mesh = textComponent.mesh;
-			this.materialCount = 1;
+			characterInfo = new TMP_CharacterInfo[8];
+			wordInfo = new TMP_WordInfo[4];
+			linkInfo = new TMP_LinkInfo[0];
+			lineInfo = new TMP_LineInfo[2];
+			pageInfo = new TMP_PageInfo[4];
+			meshInfo = new TMP_MeshInfo[1];
+			meshInfo[0].mesh = textComponent.mesh;
+			materialCount = 1;
 		}
 
 		public void Clear()
 		{
-			this.characterCount = 0;
-			this.spaceCount = 0;
-			this.wordCount = 0;
-			this.linkCount = 0;
-			this.lineCount = 0;
-			this.pageCount = 0;
-			this.spriteCount = 0;
-			for (int i = 0; i < this.meshInfo.Length; i++)
+			characterCount = 0;
+			spaceCount = 0;
+			wordCount = 0;
+			linkCount = 0;
+			lineCount = 0;
+			pageCount = 0;
+			spriteCount = 0;
+			for (int i = 0; i < meshInfo.Length; i++)
 			{
-				this.meshInfo[i].vertexCount = 0;
+				meshInfo[i].vertexCount = 0;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.Clear()).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 
 		public void ClearMeshInfo(bool updateMesh)
 		{
-			for (int i = 0; i < this.meshInfo.Length; i++)
+			for (int i = 0; i < meshInfo.Length; i++)
 			{
-				this.meshInfo[i].Clear(updateMesh);
+				meshInfo[i].Clear(updateMesh);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.ClearMeshInfo(bool)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 
 		public void ClearAllMeshInfo()
 		{
-			for (int i = 0; i < this.meshInfo.Length; i++)
+			for (int i = 0; i < meshInfo.Length; i++)
 			{
-				this.meshInfo[i].Clear(true);
+				meshInfo[i].Clear(true);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.ClearAllMeshInfo()).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 
 		public void ResetVertexLayout(bool isVolumetric)
 		{
-			for (int i = 0; i < this.meshInfo.Length; i++)
+			for (int i = 0; i < meshInfo.Length; i++)
 			{
-				this.meshInfo[i].ResizeMeshInfo(0, isVolumetric);
+				meshInfo[i].ResizeMeshInfo(0, isVolumetric);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.ResetVertexLayout(bool)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 
 		public void ClearUnusedVertices(MaterialReference[] materials)
 		{
-			for (int i = 0; i < this.meshInfo.Length; i++)
+			for (int i = 0; i < meshInfo.Length; i++)
 			{
 				int startIndex = 0;
-				this.meshInfo[i].ClearUnusedVertices(startIndex);
+				meshInfo[i].ClearUnusedVertices(startIndex);
 			}
 		}
 
 		public void ClearLineInfo()
 		{
-			if (this.lineInfo == null)
+			if (lineInfo == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -178,43 +178,44 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.ClearLineInfo()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.lineInfo = new TMP_LineInfo[2];
+				lineInfo = new TMP_LineInfo[2];
 			}
-			for (int i = 0; i < this.lineInfo.Length; i++)
+			for (int i = 0; i < lineInfo.Length; i++)
 			{
-				this.lineInfo[i].characterCount = 0;
-				this.lineInfo[i].spaceCount = 0;
-				this.lineInfo[i].width = 0f;
-				this.lineInfo[i].ascender = TMP_TextInfo.k_InfinityVectorNegative.x;
-				this.lineInfo[i].descender = TMP_TextInfo.k_InfinityVectorPositive.x;
-				this.lineInfo[i].lineExtents.min = TMP_TextInfo.k_InfinityVectorPositive;
-				this.lineInfo[i].lineExtents.max = TMP_TextInfo.k_InfinityVectorNegative;
-				this.lineInfo[i].maxAdvance = 0f;
+				lineInfo[i].characterCount = 0;
+				lineInfo[i].spaceCount = 0;
+				lineInfo[i].width = 0f;
+				lineInfo[i].ascender = k_InfinityVectorNegative.x;
+				lineInfo[i].descender = k_InfinityVectorPositive.x;
+				lineInfo[i].lineExtents.min = k_InfinityVectorPositive;
+				lineInfo[i].lineExtents.max = k_InfinityVectorNegative;
+				lineInfo[i].maxAdvance = 0f;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 
 		public TMP_MeshInfo[] CopyMeshInfoVertexData()
 		{
-			if (this.m_CachedMeshInfo != null)
+			if (m_CachedMeshInfo != null)
 			{
-				if (this.m_CachedMeshInfo.Length == this.meshInfo.Length)
+				if (m_CachedMeshInfo.Length == meshInfo.Length)
 				{
-					goto IL_D3;
+					goto IL_00d3;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -223,21 +224,21 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.CopyMeshInfoVertexData()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 			}
-			this.m_CachedMeshInfo = new TMP_MeshInfo[this.meshInfo.Length];
-			for (int i = 0; i < this.m_CachedMeshInfo.Length; i++)
+			m_CachedMeshInfo = new TMP_MeshInfo[meshInfo.Length];
+			for (int i = 0; i < m_CachedMeshInfo.Length; i++)
 			{
-				int num = this.meshInfo[i].vertices.Length;
-				this.m_CachedMeshInfo[i].vertices = new Vector3[num];
-				this.m_CachedMeshInfo[i].uvs0 = new Vector2[num];
-				this.m_CachedMeshInfo[i].uvs2 = new Vector2[num];
-				this.m_CachedMeshInfo[i].colors32 = new Color32[num];
+				int num = meshInfo[i].vertices.Length;
+				m_CachedMeshInfo[i].vertices = new Vector3[num];
+				m_CachedMeshInfo[i].uvs0 = new Vector2[num];
+				m_CachedMeshInfo[i].uvs2 = new Vector2[num];
+				m_CachedMeshInfo[i].colors32 = new Color32[num];
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -246,13 +247,14 @@ namespace TMPro
 				}
 				break;
 			}
-			IL_D3:
-			for (int j = 0; j < this.m_CachedMeshInfo.Length; j++)
+			goto IL_00d3;
+			IL_00d3:
+			for (int j = 0; j < m_CachedMeshInfo.Length; j++)
 			{
-				int num2 = this.meshInfo[j].vertices.Length;
-				if (this.m_CachedMeshInfo[j].vertices.Length != num2)
+				int num2 = meshInfo[j].vertices.Length;
+				if (m_CachedMeshInfo[j].vertices.Length != num2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -261,34 +263,33 @@ namespace TMPro
 						}
 						break;
 					}
-					this.m_CachedMeshInfo[j].vertices = new Vector3[num2];
-					this.m_CachedMeshInfo[j].uvs0 = new Vector2[num2];
-					this.m_CachedMeshInfo[j].uvs2 = new Vector2[num2];
-					this.m_CachedMeshInfo[j].colors32 = new Color32[num2];
+					m_CachedMeshInfo[j].vertices = new Vector3[num2];
+					m_CachedMeshInfo[j].uvs0 = new Vector2[num2];
+					m_CachedMeshInfo[j].uvs2 = new Vector2[num2];
+					m_CachedMeshInfo[j].colors32 = new Color32[num2];
 				}
-				Array.Copy(this.meshInfo[j].vertices, this.m_CachedMeshInfo[j].vertices, num2);
-				Array.Copy(this.meshInfo[j].uvs0, this.m_CachedMeshInfo[j].uvs0, num2);
-				Array.Copy(this.meshInfo[j].uvs2, this.m_CachedMeshInfo[j].uvs2, num2);
-				Array.Copy(this.meshInfo[j].colors32, this.m_CachedMeshInfo[j].colors32, num2);
+				Array.Copy(meshInfo[j].vertices, m_CachedMeshInfo[j].vertices, num2);
+				Array.Copy(meshInfo[j].uvs0, m_CachedMeshInfo[j].uvs0, num2);
+				Array.Copy(meshInfo[j].uvs2, m_CachedMeshInfo[j].uvs2, num2);
+				Array.Copy(meshInfo[j].colors32, m_CachedMeshInfo[j].colors32, num2);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				return m_CachedMeshInfo;
 			}
-			return this.m_CachedMeshInfo;
 		}
 
-		public unsafe static void Resize<T>(ref T[] array, int size)
+		public static void Resize<T>(ref T[] array, int size)
 		{
 			int num;
-			if (size > 0x400)
+			if (size > 1024)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -297,25 +298,25 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.Resize(T[]*, int)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				num = size + 0x100;
+				num = size + 256;
 			}
 			else
 			{
 				num = Mathf.NextPowerOfTwo(size);
 			}
 			int newSize = num;
-			Array.Resize<T>(ref array, newSize);
+			Array.Resize(ref array, newSize);
 		}
 
-		public unsafe static void Resize<T>(ref T[] array, int size, bool isBlockAllocated)
+		public static void Resize<T>(ref T[] array, int size, bool isBlockAllocated)
 		{
 			if (isBlockAllocated)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -324,14 +325,14 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.Resize(T[]*, int, bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				int num;
-				if (size > 0x400)
+				if (size > 1024)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -340,7 +341,7 @@ namespace TMPro
 						}
 						break;
 					}
-					num = size + 0x100;
+					num = size + 256;
 				}
 				else
 				{
@@ -350,18 +351,18 @@ namespace TMPro
 			}
 			if (size == array.Length)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
-				return;
 			}
-			Array.Resize<T>(ref array, size);
+			Array.Resize(ref array, size);
 		}
 	}
 }

@@ -1,33 +1,20 @@
-﻿using System;
 using Newtonsoft.Json;
+using System;
 
 [Serializable]
 public class QueueRequirement_Never : QueueRequirement
 {
-	private QueueRequirement.RequirementType m_requirementType = QueueRequirement.RequirementType.AdminDisabled;
+	private RequirementType m_requirementType = RequirementType.AdminDisabled;
 
-	public override bool AnyGroupMember
-	{
-		get
-		{
-			return false;
-		}
-	}
+	public override bool AnyGroupMember => false;
 
-	public override QueueRequirement.RequirementType Requirement
-	{
-		get
-		{
-			return this.m_requirementType;
-		}
-	}
+	public override RequirementType Requirement => m_requirementType;
 
 	public static QueueRequirement CreateAdminDisabled()
 	{
-		return new QueueRequirement_Never
-		{
-			m_requirementType = QueueRequirement.RequirementType.AdminDisabled
-		};
+		QueueRequirement_Never queueRequirement_Never = new QueueRequirement_Never();
+		queueRequirement_Never.m_requirementType = RequirementType.AdminDisabled;
+		return queueRequirement_Never;
 	}
 
 	public override bool DoesApplicantPass(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType)
@@ -37,30 +24,29 @@ public class QueueRequirement_Never : QueueRequirement
 
 	public override LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, RequirementMessageContext context)
 	{
-		QueueBlockOutReasonDetails queueBlockOutReasonDetails;
-		return this.GenerateFailure(systemInfo, applicant, context, out queueBlockOutReasonDetails);
+		QueueBlockOutReasonDetails Details;
+		return GenerateFailure(systemInfo, applicant, context, out Details);
 	}
 
 	public override LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, RequirementMessageContext context, out QueueBlockOutReasonDetails Details)
 	{
 		Details = new QueueBlockOutReasonDetails();
-		QueueRequirement.RequirementType requirement = this.Requirement;
-		if (requirement != QueueRequirement.RequirementType.AdminDisabled)
+		RequirementType requirement = Requirement;
+		if (requirement == RequirementType.AdminDisabled)
 		{
-			throw new Exception(string.Format("Unknown requirement is failed: {0}", this.Requirement));
+			return LocalizationPayload.Create("DisabledByAdmin", "Matchmaking");
 		}
-		return LocalizationPayload.Create("DisabledByAdmin", "Matchmaking");
+		throw new Exception($"Unknown requirement is failed: {Requirement}");
 	}
 
 	public override void WriteToJson(JsonWriter writer)
 	{
 	}
 
-	public static QueueRequirement Create(QueueRequirement.RequirementType reqType, JsonReader reader)
+	public static QueueRequirement Create(RequirementType reqType, JsonReader reader)
 	{
-		return new QueueRequirement_Never
-		{
-			m_requirementType = reqType
-		};
+		QueueRequirement_Never queueRequirement_Never = new QueueRequirement_Never();
+		queueRequirement_Never.m_requirementType = reqType;
+		return queueRequirement_Never;
 	}
 }

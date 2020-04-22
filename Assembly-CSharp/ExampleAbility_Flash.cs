@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -30,9 +29,9 @@ public class ExampleAbility_Flash : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -41,29 +40,30 @@ public class ExampleAbility_Flash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExampleAbility_Flash.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Flash";
+			m_abilityName = "Flash";
 		}
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false);
 		base.Targeter.ShowArcToShape = false;
-		if (this.m_tags != null)
+		if (m_tags == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!this.m_tags.Contains(AbilityTags.UseTeleportUIEffect))
+			if (!m_tags.Contains(AbilityTags.UseTeleportUIEffect))
 			{
-				this.m_tags.Add(AbilityTags.UseTeleportUIEffect);
+				m_tags.Add(AbilityTags.UseTeleportUIEffect);
 			}
+			return;
 		}
 	}
 
@@ -74,9 +74,9 @@ public class ExampleAbility_Flash : Ability
 
 	public override bool CanShowTargetableRadiusPreview()
 	{
-		if (this.m_requireTargetNextToActor)
+		if (m_requireTargetNextToActor)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -85,11 +85,11 @@ public class ExampleAbility_Flash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExampleAbility_Flash.CanShowTargetableRadiusPreview()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_dashToTargetSelectRange > 0f)
+			if (m_dashToTargetSelectRange > 0f)
 			{
 				return true;
 			}
@@ -99,69 +99,71 @@ public class ExampleAbility_Flash : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		if (this.m_requireTargetNextToActor && this.m_dashToTargetSelectRange > 0f)
+		if (m_requireTargetNextToActor && m_dashToTargetSelectRange > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_dashToTargetSelectRange;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExampleAbility_Flash.GetTargetableRadiusInSquares(ActorData)).MethodHandle;
-			}
-			return this.m_dashToTargetSelectRange;
 		}
 		return base.GetTargetableRadiusInSquares(caster);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_requireTargetNextToActor)
+		if (m_requireTargetNextToActor)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExampleAbility_Flash.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
-			List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, this.m_canDashNextToAllies, this.m_canDashNextToEnemies);
-			float num = this.m_dashToTargetSelectRange;
-			if (num <= 0f)
-			{
-				num = 50f;
-			}
-			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.\u0016(), num, true, caster, relevantTeams, null, false, default(Vector3));
-			actorsInRadius.Remove(caster);
-			if (NetworkClient.active)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, m_canDashNextToAllies, m_canDashNextToEnemies);
+					float num = m_dashToTargetSelectRange;
+					if (num <= 0f)
+					{
+						num = 50f;
+					}
+					List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(caster.GetTravelBoardSquareWorldPosition(), num, true, caster, relevantTeams, null);
+					actors.Remove(caster);
+					if (NetworkClient.active)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+					}
+					else
+					{
+						TargeterUtils.RemoveActorsInvisibleToActor(ref actors, caster);
+					}
+					return actors.Count > 0;
 				}
-				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInRadius);
+				}
 			}
-			else
-			{
-				TargeterUtils.RemoveActorsInvisibleToActor(ref actorsInRadius, caster);
-			}
-			return actorsInRadius.Count > 0;
 		}
 		return base.CustomCanCastValidation(caster);
 	}
@@ -169,10 +171,10 @@ public class ExampleAbility_Flash : Ability
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		bool flag = false;
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -181,13 +183,13 @@ public class ExampleAbility_Flash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExampleAbility_Flash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -196,9 +198,9 @@ public class ExampleAbility_Flash : Ability
 					}
 					break;
 				}
-				if (boardSquare != caster.\u0012())
+				if (boardSquareSafe != caster.GetCurrentBoardSquare())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -207,9 +209,9 @@ public class ExampleAbility_Flash : Ability
 						}
 						break;
 					}
-					if (this.m_requireTargetNextToActor)
+					if (m_requireTargetNextToActor)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -221,7 +223,7 @@ public class ExampleAbility_Flash : Ability
 						List<ActorData> actorsVisibleToActor;
 						if (NetworkServer.active)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -230,18 +232,17 @@ public class ExampleAbility_Flash : Ability
 								}
 								break;
 							}
-							actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(caster, true);
+							actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(caster);
 						}
 						else
 						{
-							actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(GameFlowData.Get().activeOwnedActorData, true);
+							actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(GameFlowData.Get().activeOwnedActorData);
 						}
 						List<ActorData> list = actorsVisibleToActor;
-						Vector3 coneStart = caster.\u0012().ToVector3();
-						int i = 0;
-						while (i < list.Count)
+						Vector3 coneStart = caster.GetCurrentBoardSquare().ToVector3();
+						for (int i = 0; i < list.Count; i++)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -250,89 +251,88 @@ public class ExampleAbility_Flash : Ability
 								}
 								break;
 							}
-							if (flag)
+							ActorData actorData;
+							if (!flag)
 							{
-								for (;;)
+								actorData = list[i];
+								bool flag2 = true;
+								if (m_dashToTargetSelectRange > 0f)
+								{
+									flag2 = AreaEffectUtils.IsSquareInConeByActorRadius(actorData.GetCurrentBoardSquare(), coneStart, 0f, 360f, m_dashToTargetSelectRange, 0f, true, caster);
+								}
+								if (!flag2)
+								{
+									continue;
+								}
+								while (true)
 								{
 									switch (1)
 									{
 									case 0:
 										continue;
 									}
-									goto IL_21C;
+									break;
 								}
-							}
-							else
-							{
-								ActorData actorData = list[i];
-								bool flag2 = true;
-								if (this.m_dashToTargetSelectRange > 0f)
+								bool flag3 = (!NetworkClient.active) ? actorData.IsActorVisibleToActor(caster) : actorData.IsVisibleToClient();
+								bool flag4 = actorData.GetTeam() == caster.GetTeam();
+								if (!flag3 || !(actorData != caster))
 								{
-									flag2 = AreaEffectUtils.IsSquareInConeByActorRadius(actorData.\u0012(), coneStart, 0f, 360f, this.m_dashToTargetSelectRange, 0f, true, caster, false, default(Vector3));
+									continue;
 								}
-								if (flag2)
+								while (true)
 								{
-									for (;;)
+									switch (5)
 									{
-										switch (1)
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (!flag4)
+								{
+									if (m_canDashNextToEnemies)
+									{
+										goto IL_01b8;
+									}
+									while (true)
+									{
+										switch (6)
 										{
 										case 0:
 											continue;
 										}
 										break;
 									}
-									bool flag3 = (!NetworkClient.active) ? actorData.\u000E(caster, false) : actorData.\u0018();
-									bool flag4 = actorData.\u000E() == caster.\u000E();
-									if (flag3 && actorData != caster)
-									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (!flag4)
-										{
-											if (this.m_canDashNextToEnemies)
-											{
-												goto IL_1B8;
-											}
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-										}
-										if (!flag4 || !this.m_canDashNextToAllies)
-										{
-											goto IL_1F2;
-										}
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										IL_1B8:
-										bool flag5 = AreaEffectUtils.IsSquareInConeByActorRadius(boardSquare, actorData.\u0016(), 0f, 360f, this.m_dashToOtherRange, 0f, true, caster, false, default(Vector3));
-										flag = (flag || flag5);
-									}
 								}
-								IL_1F2:
-								i++;
+								if (!flag4 || !m_canDashNextToAllies)
+								{
+									continue;
+								}
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								goto IL_01b8;
 							}
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							break;
+							IL_01b8:
+							bool flag5 = AreaEffectUtils.IsSquareInConeByActorRadius(boardSquareSafe, actorData.GetTravelBoardSquareWorldPosition(), 0f, 360f, m_dashToOtherRange, 0f, true, caster);
+							flag = (flag || flag5);
 						}
-						IL_21C:;
 					}
 					else
 					{

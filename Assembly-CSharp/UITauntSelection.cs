@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,7 +16,7 @@ public class UITauntSelection : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -26,18 +25,17 @@ public class UITauntSelection : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntSelection.SetupTauntList()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			ActorCinematicRequests component = activeOwnedActorData.GetComponent<ActorCinematicRequests>();
-			AbilityData abilityData = activeOwnedActorData.\u000E();
+			AbilityData abilityData = activeOwnedActorData.GetAbilityData();
 			int i = 0;
-			List<AbilityData.ActionType> autoQueuedRequestActionTypes = activeOwnedActorData.\u000E().GetAutoQueuedRequestActionTypes();
-			int j = 0;
-			while (j < autoQueuedRequestActionTypes.Count)
+			List<AbilityData.ActionType> autoQueuedRequestActionTypes = activeOwnedActorData.GetActorTurnSM().GetAutoQueuedRequestActionTypes();
+			for (int j = 0; j < autoQueuedRequestActionTypes.Count; j++)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -46,25 +44,12 @@ public class UITauntSelection : MonoBehaviour
 					}
 					break;
 				}
-				if (i >= this.m_tauntButtons.Length)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_183;
-					}
-				}
-				else
+				if (i < m_tauntButtons.Length)
 				{
 					AbilityData.ActionType actionType = autoQueuedRequestActionTypes[j];
-					bool flag = UICharacterProfile.CanTauntForAction(activeOwnedActorData, abilityData, component, actionType);
-					if (flag)
+					if (UICharacterProfile.CanTauntForAction(activeOwnedActorData, abilityData, component, actionType))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -73,15 +58,15 @@ public class UITauntSelection : MonoBehaviour
 							}
 							break;
 						}
-						List<CameraShotSequence> tauntListForActionTypeForPlayer = abilityData.GetTauntListForActionTypeForPlayer(ClientGameManager.Get().GetPlayerCharacterData(activeOwnedActorData.m_characterType), activeOwnedActorData.\u000E(), actionType);
+						List<CameraShotSequence> tauntListForActionTypeForPlayer = abilityData.GetTauntListForActionTypeForPlayer(ClientGameManager.Get().GetPlayerCharacterData(activeOwnedActorData.m_characterType), activeOwnedActorData.GetCharacterResourceLink(), actionType);
 						using (List<CameraShotSequence>.Enumerator enumerator = tauntListForActionTypeForPlayer.GetEnumerator())
 						{
 							while (enumerator.MoveNext())
 							{
-								CameraShotSequence cameraShotSequence = enumerator.Current;
-								if (i < this.m_tauntButtons.Length)
+								CameraShotSequence current = enumerator.Current;
+								if (i < m_tauntButtons.Length)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (2)
 										{
@@ -90,9 +75,9 @@ public class UITauntSelection : MonoBehaviour
 										}
 										break;
 									}
-									if (component.NumRequestsLeft(cameraShotSequence.m_uniqueTauntID) > 0)
+									if (component.NumRequestsLeft(current.m_uniqueTauntID) > 0)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (1)
 											{
@@ -101,14 +86,14 @@ public class UITauntSelection : MonoBehaviour
 											}
 											break;
 										}
-										UIManager.SetGameObjectActive(this.m_tauntButtons[i], true, null);
-										this.m_tauntButtons[i].SetupTaunt(actionType, abilityData.GetAbilityEntryOfActionType(actionType), cameraShotSequence);
+										UIManager.SetGameObjectActive(m_tauntButtons[i], true);
+										m_tauntButtons[i].SetupTaunt(actionType, abilityData.GetAbilityEntryOfActionType(actionType), current);
 										num++;
 										i++;
 									}
 								}
 							}
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -119,15 +104,9 @@ public class UITauntSelection : MonoBehaviour
 							}
 						}
 					}
-					j++;
+					continue;
 				}
-			}
-			IL_183:
-			List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.\u000E().GetRequestStackForUndo();
-			int k = 0;
-			while (k < requestStackForUndo.Count)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -136,25 +115,26 @@ public class UITauntSelection : MonoBehaviour
 					}
 					break;
 				}
-				if (i >= this.m_tauntButtons.Length)
+				break;
+			}
+			List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.GetActorTurnSM().GetRequestStackForUndo();
+			for (int k = 0; k < requestStackForUndo.Count; k++)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (3)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_2C0;
+					case 0:
+						continue;
 					}
+					break;
 				}
-				else
+				if (i < m_tauntButtons.Length)
 				{
 					AbilityData.ActionType action = requestStackForUndo[k].m_action;
-					bool flag2 = UICharacterProfile.CanTauntForAction(activeOwnedActorData, abilityData, component, action);
-					if (flag2)
+					if (UICharacterProfile.CanTauntForAction(activeOwnedActorData, abilityData, component, action))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -163,15 +143,15 @@ public class UITauntSelection : MonoBehaviour
 							}
 							break;
 						}
-						List<CameraShotSequence> tauntListForActionTypeForPlayer2 = abilityData.GetTauntListForActionTypeForPlayer(ClientGameManager.Get().GetPlayerCharacterData(activeOwnedActorData.m_characterType), activeOwnedActorData.\u000E(), action);
+						List<CameraShotSequence> tauntListForActionTypeForPlayer2 = abilityData.GetTauntListForActionTypeForPlayer(ClientGameManager.Get().GetPlayerCharacterData(activeOwnedActorData.m_characterType), activeOwnedActorData.GetCharacterResourceLink(), action);
 						using (List<CameraShotSequence>.Enumerator enumerator2 = tauntListForActionTypeForPlayer2.GetEnumerator())
 						{
 							while (enumerator2.MoveNext())
 							{
-								CameraShotSequence cameraShotSequence2 = enumerator2.Current;
-								if (i < this.m_tauntButtons.Length && component.NumRequestsLeft(cameraShotSequence2.m_uniqueTauntID) > 0)
+								CameraShotSequence current2 = enumerator2.Current;
+								if (i < m_tauntButtons.Length && component.NumRequestsLeft(current2.m_uniqueTauntID) > 0)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (4)
 										{
@@ -180,13 +160,13 @@ public class UITauntSelection : MonoBehaviour
 										}
 										break;
 									}
-									UIManager.SetGameObjectActive(this.m_tauntButtons[i], true, null);
-									this.m_tauntButtons[i].SetupTaunt(action, abilityData.GetAbilityEntryOfActionType(action), cameraShotSequence2);
+									UIManager.SetGameObjectActive(m_tauntButtons[i], true);
+									m_tauntButtons[i].SetupTaunt(action, abilityData.GetAbilityEntryOfActionType(action), current2);
 									num++;
 									i++;
 								}
 							}
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -197,18 +177,28 @@ public class UITauntSelection : MonoBehaviour
 							}
 						}
 					}
-					k++;
+					continue;
 				}
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				break;
 			}
-			IL_2C0:
 			float y = 50f + (float)i * 93.6f;
-			(base.gameObject.transform as RectTransform).sizeDelta = new Vector2((base.gameObject.transform as RectTransform).sizeDelta.x, y);
-			while (i < this.m_tauntButtons.Length)
+			RectTransform obj = base.gameObject.transform as RectTransform;
+			Vector2 sizeDelta = (base.gameObject.transform as RectTransform).sizeDelta;
+			obj.sizeDelta = new Vector2(sizeDelta.x, y);
+			for (; i < m_tauntButtons.Length; i++)
 			{
-				UIManager.SetGameObjectActive(this.m_tauntButtons[i], false, null);
-				i++;
+				UIManager.SetGameObjectActive(m_tauntButtons[i], false);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{

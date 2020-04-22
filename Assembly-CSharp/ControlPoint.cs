@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using TMPro;
@@ -8,14 +8,77 @@ using UnityEngine.UI;
 
 public class ControlPoint : NetworkBehaviour, IGameEventListener
 {
+	public enum State
+	{
+		Enabled,
+		Locked,
+		Disabled
+	}
+
+	public enum ControlProgressType
+	{
+		TugOfWar,
+		IndependentProgress
+	}
+
+	public enum VisionGranting
+	{
+		Never,
+		WhenControlled_ToEveryone,
+		WhenControlled_ToControllers,
+		WhenControlled_ToOthers,
+		AlwaysWhenUnlocked,
+		AlwaysIncludingLocked
+	}
+
+	public enum CaptureMessageCondition
+	{
+		OnFriendlyCapture,
+		OnEnemyCapture,
+		OnEnemyTeamACapture,
+		OnFriendlyTeamACapture,
+		OnEnemyTeamBCapture,
+		OnFriendlyTeamBCapture
+	}
+
+	[Serializable]
+	public struct CaptureMessage
+	{
+		public CaptureMessageCondition condition;
+
+		public string message;
+
+		public Color color;
+	}
+
+	[Serializable]
+	public class ControlPointGameplay
+	{
+		public int m_objPoints_uncontested_vacant;
+
+		public int m_objPoints_uncontested_alliesPresent;
+
+		public int m_objPoints_uncontested_enemiesPresent;
+
+		public int m_objPoints_contested_alliesOutnumberEnemies;
+
+		public int m_objPoints_contested_equalEnemiesAndAllies;
+
+		public int m_objPoints_contested_enemiesOutnumberAllies;
+
+		public int m_objPoints_pointsPerAllyOutnumberingEnemy;
+
+		public int m_objPoints_pointsPerEnemyOutnumberingAlly;
+	}
+
 	public string m_displayName = "Base Control Point";
 
 	public BoardRegion m_region;
 
 	[Separator("Progress Settings", true)]
-	public ControlPoint.State m_startingState;
+	public State m_startingState;
 
-	public ControlPoint.ControlProgressType m_progressType;
+	public ControlProgressType m_progressType;
 
 	public bool m_stayControlledUntilOtherTeamCaptures;
 
@@ -24,21 +87,21 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	public bool m_resetProgressOnceDisabled = true;
 
 	[Header("-- Progress For Team A")]
-	public int m_progressNeededForTeamAToCapture = 0xA;
+	public int m_progressNeededForTeamAToCapture = 10;
 
-	public int m_maxTotalProgressForTeamA = 0xA;
+	public int m_maxTotalProgressForTeamA = 10;
 
 	public int m_maxProgressForTeamAOnceControlled;
 
 	[Header("-- Progress For Team B")]
-	public int m_progressNeededForTeamBToCapture = 0xA;
+	public int m_progressNeededForTeamBToCapture = 10;
 
-	public int m_maxTotalProgressForTeamB = 0xA;
+	public int m_maxTotalProgressForTeamB = 10;
 
 	public int m_maxProgressForTeamBOnceControlled;
 
 	[Separator("Caps on Progress, Decay, Lock Duration", true)]
-	public int m_maxProgressChangeInOneTurn = 0xA;
+	public int m_maxProgressChangeInOneTurn = 10;
 
 	public int m_progressDecayPerTurn = 5;
 
@@ -58,9 +121,9 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	public int m_startingProgress;
 
 	[Separator("Objective Points", true)]
-	public ControlPoint.ControlPointGameplay m_controllingTeamGameplay;
+	public ControlPointGameplay m_controllingTeamGameplay;
 
-	public ControlPoint.ControlPointGameplay m_otherTeamGameplay;
+	public ControlPointGameplay m_otherTeamGameplay;
 
 	public int m_totalObjectivePointsToDispense = -1;
 
@@ -77,7 +140,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	public bool m_randomActivateIgnoreIfEverActivated;
 
 	[Separator("Vision", true)]
-	public ControlPoint.VisionGranting m_visionGranting;
+	public VisionGranting m_visionGranting;
 
 	public bool m_visionSeeThroughBrush = true;
 
@@ -85,7 +148,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	public BoardRegion m_visionRegionOverride;
 
 	[Separator("Healing", true)]
-	public ControlPoint.VisionGranting m_whenToApplyHealing;
+	public VisionGranting m_whenToApplyHealing;
 
 	public int m_healPerTurn;
 
@@ -153,7 +216,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	public Color m_currentMinimapColor;
 
 	[Header("Misc")]
-	public ControlPoint.CaptureMessage[] m_captureMessages;
+	public CaptureMessage[] m_captureMessages;
 
 	[SyncVar]
 	private int m_currentProgressTugOfWar;
@@ -171,7 +234,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	private int m_numObjectivePointsDispensed;
 
 	[SyncVar(hook = "HookSetCurrentState")]
-	private ControlPoint.State m_currentControlPointState;
+	private State m_currentControlPointState;
 
 	[SyncVar(hook = "SetLockedTurnsRemaining")]
 	private int m_lockedTurnsRemaining;
@@ -196,111 +259,333 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 
 	private static List<ControlPoint> s_controlPoints;
 
-	public int CurrentProgressTugOfWar
+	public int CurrentProgressTugOfWar => m_currentProgressTugOfWar;
+
+	public int ProgressTeamA => m_progressTeamA;
+
+	public int ProgressTeamB => m_progressTeamB;
+
+	public State CurrentControlPointState => m_currentControlPointState;
+
+	public int Networkm_currentProgressTugOfWar
 	{
 		get
 		{
-			return this.m_currentProgressTugOfWar;
+			return m_currentProgressTugOfWar;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_currentProgressTugOfWar, 1u);
 		}
 	}
 
-	public int ProgressTeamA
+	public int Networkm_progressTeamA
 	{
 		get
 		{
-			return this.m_progressTeamA;
+			return m_progressTeamA;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_progressTeamA, 2u);
 		}
 	}
 
-	public int ProgressTeamB
+	public int Networkm_progressTeamB
 	{
 		get
 		{
-			return this.m_progressTeamB;
+			return m_progressTeamB;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_progressTeamB, 4u);
 		}
 	}
 
-	public ControlPoint.State CurrentControlPointState
+	public int Networkm_controllingTeam
 	{
 		get
 		{
-			return this.m_currentControlPointState;
+			return m_controllingTeam;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_controllingTeam, 8u);
 		}
 	}
 
-	public void SetCurrentControlPointState(ControlPoint.State newState)
+	public int Networkm_numObjectivePointsDispensed
 	{
-		if (this.m_currentControlPointState != newState)
+		get
 		{
-			ControlPoint.State currentControlPointState = this.m_currentControlPointState;
-			this.Networkm_currentControlPointState = newState;
-			if (NetworkServer.active)
+			return m_numObjectivePointsDispensed;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_numObjectivePointsDispensed, 16u);
+		}
+	}
+
+	public State Networkm_currentControlPointState
+	{
+		get
+		{
+			return m_currentControlPointState;
+		}
+		[param: In]
+		set
+		{
+			ref State currentControlPointState = ref m_currentControlPointState;
+			if (NetworkServer.localClientActive)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (2)
+					switch (7)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.SetCurrentControlPointState(ControlPoint.State)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (newState == ControlPoint.State.Disabled)
+				if (!base.syncVarHookGuard)
 				{
-					for (;;)
+					base.syncVarHookGuard = true;
+					HookSetCurrentState(value);
+					base.syncVarHookGuard = false;
+				}
+			}
+			SetSyncVar(value, ref currentControlPointState, 32u);
+		}
+	}
+
+	public int Networkm_lockedTurnsRemaining
+	{
+		get
+		{
+			return m_lockedTurnsRemaining;
+		}
+		[param: In]
+		set
+		{
+			ref int lockedTurnsRemaining = ref m_lockedTurnsRemaining;
+			if (NetworkServer.localClientActive)
+			{
+				while (true)
+				{
+					switch (3)
 					{
-						switch (5)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (!base.syncVarHookGuard)
+				{
+					base.syncVarHookGuard = true;
+					SetLockedTurnsRemaining(value);
+					base.syncVarHookGuard = false;
+				}
+			}
+			SetSyncVar(value, ref lockedTurnsRemaining, 64u);
+		}
+	}
+
+	public int Networkm_numTeamAPlayers
+	{
+		get
+		{
+			return m_numTeamAPlayers;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_numTeamAPlayers, 128u);
+		}
+	}
+
+	public int Networkm_numTeamBPlayers
+	{
+		get
+		{
+			return m_numTeamBPlayers;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_numTeamBPlayers, 256u);
+		}
+	}
+
+	public bool Networkm_grantingVisionForTeamA
+	{
+		get
+		{
+			return m_grantingVisionForTeamA;
+		}
+		[param: In]
+		set
+		{
+			ref bool grantingVisionForTeamA = ref m_grantingVisionForTeamA;
+			if (NetworkServer.localClientActive)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (!base.syncVarHookGuard)
+				{
+					while (true)
+					{
+						switch (7)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (this.m_resetProgressOnceDisabled)
+					base.syncVarHookGuard = true;
+					HookSetGrantingVisionForTeamA(value);
+					base.syncVarHookGuard = false;
+				}
+			}
+			SetSyncVar(value, ref grantingVisionForTeamA, 512u);
+		}
+	}
+
+	public bool Networkm_grantingVisionForTeamB
+	{
+		get
+		{
+			return m_grantingVisionForTeamB;
+		}
+		[param: In]
+		set
+		{
+			ref bool grantingVisionForTeamB = ref m_grantingVisionForTeamB;
+			if (NetworkServer.localClientActive)
+			{
+				while (true)
+				{
+					switch (5)
 					{
-						for (;;)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (!base.syncVarHookGuard)
+				{
+					base.syncVarHookGuard = true;
+					HookSetGrantingVisionForTeamB(value);
+					base.syncVarHookGuard = false;
+				}
+			}
+			SetSyncVar(value, ref grantingVisionForTeamB, 1024u);
+		}
+	}
+
+	public void SetCurrentControlPointState(State newState)
+	{
+		if (m_currentControlPointState == newState)
+		{
+			return;
+		}
+		State currentControlPointState = m_currentControlPointState;
+		Networkm_currentControlPointState = newState;
+		if (!NetworkServer.active)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (newState != State.Disabled)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				if (m_resetProgressOnceDisabled)
+				{
+					while (true)
+					{
+						switch (7)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
+						case 0:
+							continue;
 						}
-						this.Networkm_progressTeamA = 0;
-						this.Networkm_progressTeamB = 0;
-						this.Networkm_currentProgressTugOfWar = 0;
+						Networkm_progressTeamA = 0;
+						Networkm_progressTeamB = 0;
+						Networkm_currentProgressTugOfWar = 0;
+						return;
 					}
 				}
+				return;
 			}
 		}
 	}
 
 	private void SetLockedTurnsRemaining(int lockedTurnsRemaining)
 	{
-		if (this.m_lockedTurnsRemaining != lockedTurnsRemaining)
+		if (m_lockedTurnsRemaining == lockedTurnsRemaining)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.SetLockedTurnsRemaining(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.Networkm_lockedTurnsRemaining = lockedTurnsRemaining;
-			if (this.CurrentControlPointState == ControlPoint.State.Locked)
+			Networkm_lockedTurnsRemaining = lockedTurnsRemaining;
+			if (CurrentControlPointState == State.Locked)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -311,31 +596,32 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				if (lockedTurnsRemaining == 0)
 				{
-					this.SetCurrentControlPointState(ControlPoint.State.Enabled);
+					SetCurrentControlPointState(State.Enabled);
 					return;
 				}
 			}
-			if (this.CurrentControlPointState == ControlPoint.State.Enabled && lockedTurnsRemaining > 0)
+			if (CurrentControlPointState == State.Enabled && lockedTurnsRemaining > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					SetCurrentControlPointState(State.Locked);
+					return;
 				}
-				this.SetCurrentControlPointState(ControlPoint.State.Locked);
 			}
+			return;
 		}
 	}
 
 	protected virtual void Start()
 	{
-		if (this.m_boundaryNeutral != null)
+		if (m_boundaryNeutral != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -344,15 +630,15 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_boundaryNeutral.SetActive(false);
+			m_boundaryNeutral.SetActive(false);
 		}
-		if (this.m_boundaryAllied != null)
+		if (m_boundaryAllied != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -361,38 +647,38 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			this.m_boundaryAllied.SetActive(false);
+			m_boundaryAllied.SetActive(false);
 		}
-		if (this.m_boundaryEnemy != null)
+		if (m_boundaryEnemy != null)
 		{
-			this.m_boundaryEnemy.SetActive(false);
+			m_boundaryEnemy.SetActive(false);
 		}
-		if (this.m_boundaryDisabled != null)
+		if (m_boundaryDisabled != null)
 		{
-			this.m_boundaryDisabled.SetActive(false);
+			m_boundaryDisabled.SetActive(false);
 		}
-		this.m_region.Initialize();
-		this.m_visionRegionOverride.Initialize();
-		this.GenerateBoundaryVisuals(false);
+		m_region.Initialize();
+		m_visionRegionOverride.Initialize();
+		GenerateBoundaryVisuals();
 	}
 
 	public static List<ControlPoint> GetAllControlPoints()
 	{
-		if (ControlPoint.s_controlPoints == null)
+		if (s_controlPoints == null)
 		{
-			ControlPoint.s_controlPoints = new List<ControlPoint>();
+			s_controlPoints = new List<ControlPoint>();
 		}
-		return ControlPoint.s_controlPoints;
+		return s_controlPoints;
 	}
 
 	private void Awake()
 	{
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.TurnTick);
-		this.SetCurrentControlPointState(this.m_startingState);
-		this.SetLockedTurnsRemaining(this.m_turnsLockedAfterActivated);
-		if (ControlPoint.s_controlPoints == null)
+		SetCurrentControlPointState(m_startingState);
+		SetLockedTurnsRemaining(m_turnsLockedAfterActivated);
+		if (s_controlPoints == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -401,22 +687,22 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ControlPoint.s_controlPoints = new List<ControlPoint>();
+			s_controlPoints = new List<ControlPoint>();
 		}
-		ControlPoint.s_controlPoints.Add(this);
+		s_controlPoints.Add(this);
 	}
 
 	private void OnDestroy()
 	{
-		ControlPoint.s_controlPoints.Remove(this);
+		s_controlPoints.Remove(this);
 		GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.TurnTick);
-		if (this.m_autoBoundary != null)
+		if (m_autoBoundary != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -425,77 +711,78 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			HighlightUtils.DestroyBoundaryHighlightObject(this.m_autoBoundary);
-			this.m_autoBoundary = null;
+			HighlightUtils.DestroyBoundaryHighlightObject(m_autoBoundary);
+			m_autoBoundary = null;
 		}
-		if (HUD_UI.Get() != null)
+		if (!(HUD_UI.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			HUD_UI.Get().m_mainScreenPanel.m_controlPointNameplatePanel.RemoveControlPoint(this);
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.RemoveControlPoint(this);
+			return;
 		}
 	}
 
 	public void SetRegion(BoardRegion region)
 	{
-		this.m_region = region;
-		this.m_region.Initialize();
-		this.GenerateBoundaryVisuals(true);
+		m_region = region;
+		m_region.Initialize();
+		GenerateBoundaryVisuals(true);
 	}
 
 	public BoardRegion GetRegion()
 	{
-		return this.m_region;
+		return m_region;
 	}
 
 	public List<BoardSquare> GetSquaresForVision()
 	{
-		List<BoardSquare> list = this.m_visionRegionOverride.\u001D();
-		if (list.Count > 0)
+		List<BoardSquare> squaresInRegion = m_visionRegionOverride.GetSquaresInRegion();
+		if (squaresInRegion.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return squaresInRegion;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.GetSquaresForVision()).MethodHandle;
-			}
-			return list;
 		}
-		return this.m_region.\u001D();
+		return m_region.GetSquaresInRegion();
 	}
 
-	protected void HookSetCurrentState(ControlPoint.State newState)
+	protected void HookSetCurrentState(State newState)
 	{
-		this.Networkm_currentControlPointState = newState;
-		this.RefreshBoundaryVFX();
+		Networkm_currentControlPointState = newState;
+		RefreshBoundaryVFX();
 	}
 
 	private void Update()
 	{
 		if (HUD_UI.Get() != null)
 		{
-			if (!this.m_initializedControlPointHud)
+			if (!m_initializedControlPointHud)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -504,17 +791,17 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.Update()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				HUD_UI.Get().m_mainScreenPanel.m_controlPointNameplatePanel.AddControlPoint(this);
 				HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.AddControlPoint(this);
-				this.m_initializedControlPointHud = true;
+				m_initializedControlPointHud = true;
 			}
-			if (this.m_boundaryToShow != null)
+			if (m_boundaryToShow != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -523,11 +810,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (this.m_boundaryVFX != this.m_boundaryToShow)
+				if (m_boundaryVFX != m_boundaryToShow)
 				{
-					if (this.m_boundaryVFX != null)
+					if (m_boundaryVFX != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -536,59 +823,64 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						this.m_boundaryVFX.SetActive(false);
+						m_boundaryVFX.SetActive(false);
 					}
-					this.m_boundaryToShow.SetActive(true);
-					this.m_boundaryVFX = this.m_boundaryToShow;
+					m_boundaryToShow.SetActive(true);
+					m_boundaryVFX = m_boundaryToShow;
 					HUD_UI.Get().m_mainScreenPanel.m_minimap.AddControlPoint(this);
-					this.m_boundaryToShow = null;
+					m_boundaryToShow = null;
 				}
 			}
 		}
-		this.GenerateBoundaryVisuals(false);
-		if (this.m_autoBoundary != null)
+		GenerateBoundaryVisuals();
+		if (!(m_autoBoundary != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
+			case 0:
+				continue;
+			}
+			float num = (1f - Mathf.Cos(Time.time * m_boundaryOscillationSpeed)) / 2f;
+			float num2 = num * m_boundaryOscillationHeight;
+			Transform transform = m_autoBoundary.transform;
+			Vector3 position = m_autoBoundary.transform.position;
+			float x = position.x;
+			float y = m_autoBoundaryHeight + num2;
+			Vector3 position2 = m_autoBoundary.transform.position;
+			transform.position = new Vector3(x, y, position2.z);
+			if (!(GameFlowData.Get() != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			float num = (1f - Mathf.Cos(Time.time * this.m_boundaryOscillationSpeed)) / 2f;
-			float num2 = num * this.m_boundaryOscillationHeight;
-			this.m_autoBoundary.transform.position = new Vector3(this.m_autoBoundary.transform.position.x, this.m_autoBoundaryHeight + num2, this.m_autoBoundary.transform.position.z);
-			if (GameFlowData.Get() != null)
-			{
-				for (;;)
+				if (!(GameFlowData.Get().LocalPlayerData != null))
 				{
-					switch (5)
+					return;
+				}
+				while (true)
+				{
+					switch (3)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (GameFlowData.Get().LocalPlayerData != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
-					Team controllingTeam = this.GetControllingTeam();
-					Color mainColor = this.GetMainColor(controllingTeam, teamViewing);
-					bool flag;
-					if (this.m_numTeamAPlayers > 0)
+					Team controllingTeam = GetControllingTeam();
+					Color mainColor = GetMainColor(controllingTeam, teamViewing);
+					int num3;
+					if (m_numTeamAPlayers > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -597,18 +889,18 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						flag = (this.m_numTeamBPlayers > 0);
+						num3 = ((m_numTeamBPlayers > 0) ? 1 : 0);
 					}
 					else
 					{
-						flag = false;
+						num3 = 0;
 					}
-					bool contested = flag;
+					bool contested = (byte)num3 != 0;
+					bool flag;
 					bool flag2;
-					bool flag3;
-					if (this.m_canContributeProgressWhileContested)
+					if (m_canContributeProgressWhileContested)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -617,15 +909,15 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						flag2 = (this.m_numTeamAPlayers > this.m_numTeamBPlayers);
-						flag3 = (this.m_numTeamBPlayers > this.m_numTeamAPlayers);
+						flag = (m_numTeamAPlayers > m_numTeamBPlayers);
+						flag2 = (m_numTeamBPlayers > m_numTeamAPlayers);
 					}
 					else
 					{
-						bool flag4;
-						if (this.m_numTeamAPlayers > 0)
+						int num4;
+						if (m_numTeamAPlayers > 0)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -634,26 +926,26 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 								}
 								break;
 							}
-							flag4 = (this.m_numTeamBPlayers == 0);
+							num4 = ((m_numTeamBPlayers == 0) ? 1 : 0);
 						}
 						else
 						{
-							flag4 = false;
+							num4 = 0;
 						}
-						flag2 = flag4;
-						flag3 = (this.m_numTeamBPlayers > 0 && this.m_numTeamAPlayers == 0);
+						flag = ((byte)num4 != 0);
+						flag2 = (m_numTeamBPlayers > 0 && m_numTeamAPlayers == 0);
 					}
 					bool alliedControlled = controllingTeam == teamViewing;
 					bool enemyControlled = controllingTeam != teamViewing;
-					bool flag5;
-					if (flag2)
+					int num5;
+					if (flag)
 					{
 						if (teamViewing == Team.TeamA)
 						{
-							flag5 = true;
-							goto IL_2C1;
+							num5 = 1;
+							goto IL_02c1;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -663,13 +955,14 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							break;
 						}
 					}
-					flag5 = (flag3 && teamViewing == Team.TeamB);
-					IL_2C1:
-					bool alliedCapturing = flag5;
-					bool flag6;
-					if (flag2)
+					num5 = ((flag2 && teamViewing == Team.TeamB) ? 1 : 0);
+					goto IL_02c1;
+					IL_02c1:
+					bool alliedCapturing = (byte)num5 != 0;
+					int num6;
+					if (flag)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -678,15 +971,15 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (teamViewing != Team.TeamA)
+						if (teamViewing != 0)
 						{
-							flag6 = true;
-							goto IL_2F1;
+							num6 = 1;
+							goto IL_02f1;
 						}
 					}
-					if (flag3)
+					if (flag2)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -695,19 +988,21 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						flag6 = (teamViewing != Team.TeamB);
+						num6 = ((teamViewing != Team.TeamB) ? 1 : 0);
 					}
 					else
 					{
-						flag6 = false;
+						num6 = 0;
 					}
-					IL_2F1:
-					bool enemyCapturing = flag6;
-					Color secondaryColor = this.GetSecondaryColor(alliedCapturing, alliedControlled, enemyCapturing, enemyControlled, contested, mainColor);
-					float num3 = 1f - num * num;
-					float num4 = num * num;
-					Color boundaryColor = new Color(mainColor.r * num3 + secondaryColor.r * num4, mainColor.g * num3 + secondaryColor.g * num4, mainColor.b * num3 + secondaryColor.b * num4, mainColor.a * num3 + secondaryColor.a * num4);
-					this.SetBoundaryColor(boundaryColor);
+					goto IL_02f1;
+					IL_02f1:
+					bool enemyCapturing = (byte)num6 != 0;
+					Color secondaryColor = GetSecondaryColor(alliedCapturing, alliedControlled, enemyCapturing, enemyControlled, contested, mainColor);
+					float num7 = 1f - num * num;
+					float num8 = num * num;
+					Color boundaryColor = new Color(mainColor.r * num7 + secondaryColor.r * num8, mainColor.g * num7 + secondaryColor.g * num8, mainColor.b * num7 + secondaryColor.b * num8, mainColor.a * num7 + secondaryColor.a * num8);
+					SetBoundaryColor(boundaryColor);
+					return;
 				}
 			}
 		}
@@ -715,9 +1010,9 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 
 	private void GenerateBoundaryVisuals(bool forceRefreshBoundary = false)
 	{
-		if (this.m_autoBoundary != null)
+		if (m_autoBoundary != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -726,13 +1021,13 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.GenerateBoundaryVisuals(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_autoGenerateBoundaryVisuals)
+			if (m_autoGenerateBoundaryVisuals)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -741,13 +1036,13 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (this.m_currentControlPointState != ControlPoint.State.Disabled)
+				if (m_currentControlPointState != State.Disabled)
 				{
 					if (!forceRefreshBoundary)
 					{
-						goto IL_5B;
+						goto IL_005b;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -758,145 +1053,153 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 				}
 			}
-			HighlightUtils.DestroyBoundaryHighlightObject(this.m_autoBoundary);
-			this.m_autoBoundary = null;
+			HighlightUtils.DestroyBoundaryHighlightObject(m_autoBoundary);
+			m_autoBoundary = null;
 		}
-		IL_5B:
-		if (this.m_autoBoundary == null)
+		goto IL_005b;
+		IL_005b:
+		if (!(m_autoBoundary == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
+			case 0:
+				continue;
+			}
+			if (!m_autoGenerateBoundaryVisuals)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (this.m_autoGenerateBoundaryVisuals)
-			{
-				for (;;)
+				if (m_currentControlPointState != State.Disabled)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_currentControlPointState != ControlPoint.State.Disabled)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						m_autoBoundary = HighlightUtils.Get().CreateBoundaryHighlight(m_region.GetSquaresInRegion(), Color.yellow);
+						m_autoBoundary.name = m_displayName + " Auto-Boundary";
+						UnityEngine.Object.DontDestroyOnLoad(m_autoBoundary);
+						Vector3 position = m_autoBoundary.transform.position;
+						m_autoBoundaryHeight = position.y;
+						return;
 					}
-					this.m_autoBoundary = HighlightUtils.Get().CreateBoundaryHighlight(this.m_region.\u001D(), Color.yellow, false);
-					this.m_autoBoundary.name = this.m_displayName + " Auto-Boundary";
-					UnityEngine.Object.DontDestroyOnLoad(this.m_autoBoundary);
-					this.m_autoBoundaryHeight = this.m_autoBoundary.transform.position.y;
 				}
+				return;
 			}
 		}
 	}
 
 	private void SetBoundaryColor(Color newColor)
 	{
-		if (this.m_autoBoundary != null)
+		if (!(m_autoBoundary != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.SetBoundaryColor(Color)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_autoBoundary.GetComponent<Renderer>().material.SetColor("_TintColor", newColor);
+			m_autoBoundary.GetComponent<Renderer>().material.SetColor("_TintColor", newColor);
+			return;
 		}
 	}
 
 	protected void RefreshBoundaryVFX()
 	{
-		this.m_boundaryToShow = null;
-		if (this.m_autoGenerateBoundaryVisuals)
+		m_boundaryToShow = null;
+		if (m_autoGenerateBoundaryVisuals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_boundaryToShow = m_autoBoundary;
+					return;
 				}
-				break;
 			}
-			if (!true)
+		}
+		if (m_currentControlPointState == State.Disabled)
+		{
+			m_boundaryToShow = m_boundaryDisabled;
+			m_currentMinimapColor = m_miniMapColorDisabled;
+		}
+		else
+		{
+			if (!(GameFlowData.Get() != null))
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.RefreshBoundaryVFX()).MethodHandle;
+				return;
 			}
-			this.m_boundaryToShow = this.m_autoBoundary;
-		}
-		else if (this.m_currentControlPointState == ControlPoint.State.Disabled)
-		{
-			this.m_boundaryToShow = this.m_boundaryDisabled;
-			this.m_currentMinimapColor = this.m_miniMapColorDisabled;
-		}
-		else if (GameFlowData.Get() != null)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (GameFlowData.Get().activeOwnedActorData != null)
-			{
-				for (;;)
+				if (!(GameFlowData.Get().activeOwnedActorData != null))
+				{
+					return;
+				}
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
-				Team controllingTeam = this.GetControllingTeam();
-				if (controllingTeam == Team.Invalid)
-				{
-					this.m_boundaryToShow = this.m_boundaryNeutral;
-					this.m_currentMinimapColor = this.m_miniMapColorNeutral;
-				}
-				else if (controllingTeam == teamViewing)
-				{
-					for (;;)
+					Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
+					Team controllingTeam = GetControllingTeam();
+					if (controllingTeam == Team.Invalid)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						m_boundaryToShow = m_boundaryNeutral;
+						m_currentMinimapColor = m_miniMapColorNeutral;
+						return;
 					}
-					this.m_boundaryToShow = this.m_boundaryAllied;
-					this.m_currentMinimapColor = this.m_miniMapColorAllied;
-				}
-				else
-				{
-					this.m_boundaryToShow = this.m_boundaryEnemy;
-					this.m_currentMinimapColor = this.m_miniMapColorEnemy;
+					if (controllingTeam == teamViewing)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								break;
+							default:
+								m_boundaryToShow = m_boundaryAllied;
+								m_currentMinimapColor = m_miniMapColorAllied;
+								return;
+							}
+						}
+					}
+					m_boundaryToShow = m_boundaryEnemy;
+					m_currentMinimapColor = m_miniMapColorEnemy;
+					return;
 				}
 			}
 		}
@@ -904,144 +1207,120 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 
 	private Color GetMainColor(Team controllingTeam, Team clientTeam)
 	{
-		Color result;
 		if (controllingTeam == Team.Invalid)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_primaryColor_neutral;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.GetMainColor(Team, Team)).MethodHandle;
-			}
-			result = this.m_primaryColor_neutral;
 		}
-		else if (controllingTeam == clientTeam)
+		if (controllingTeam == clientTeam)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_primaryColor_friendly;
 				}
-				break;
 			}
-			result = this.m_primaryColor_friendly;
 		}
-		else
-		{
-			result = this.m_primaryColor_hostile;
-		}
-		return result;
+		return m_primaryColor_hostile;
 	}
 
 	private Color GetSecondaryColor(bool alliedCapturing, bool alliedControlled, bool enemyCapturing, bool enemyControlled, bool contested, Color mainColor)
 	{
-		Color result;
 		if (alliedCapturing)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.GetSecondaryColor(bool, bool, bool, bool, bool, Color)).MethodHandle;
-			}
-			if (alliedControlled)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (alliedControlled)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								break;
+							default:
+								return mainColor;
+							}
+						}
+					}
+					return m_secondaryColor_friendlyCapturing;
 				}
-				result = mainColor;
-			}
-			else
-			{
-				result = this.m_secondaryColor_friendlyCapturing;
 			}
 		}
-		else if (enemyCapturing)
+		if (enemyCapturing)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (enemyControlled)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (enemyControlled)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								break;
+							default:
+								return mainColor;
+							}
+						}
+					}
+					return m_secondaryColor_hostileCapturing;
 				}
-				result = mainColor;
-			}
-			else
-			{
-				result = this.m_secondaryColor_hostileCapturing;
 			}
 		}
-		else if (contested)
+		if (contested)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_secondaryColor_contested;
 				}
-				break;
 			}
-			result = this.m_secondaryColor_contested;
 		}
-		else
-		{
-			result = mainColor;
-		}
-		return result;
+		return mainColor;
 	}
 
 	public virtual Vector3 GetGUIPosition(float pixelsAbove)
 	{
-		Vector3 vector;
-		if (this.m_nameplateOverridePosition != null)
-		{
-			vector = this.m_nameplateOverridePosition.transform.position;
-		}
-		else
-		{
-			vector = this.m_region.\u001D();
-		}
+		Vector3 vector = (!(m_nameplateOverridePosition != null)) ? m_region.GetCenter() : m_nameplateOverridePosition.transform.position;
 		Vector3 b2;
 		if (Camera.main != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1050,9 +1329,9 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.GetGUIPosition(float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (Camera.main.transform != null)
 			{
@@ -1062,118 +1341,58 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				vector2.z = 0f;
 				float d = pixelsAbove / vector2.magnitude;
 				b2 = Camera.main.transform.up * d;
-				goto IL_EB;
+				goto IL_00eb;
 			}
 		}
 		b2 = Vector3.zero;
-		IL_EB:
+		goto IL_00eb;
+		IL_00eb:
 		return vector + b2;
 	}
 
-	public unsafe virtual void SetupRectNameplate(ref TextMeshProUGUI controllerLabel, ref TextMeshProUGUI progressLabel, ref Slider bar)
+	public virtual void SetupRectNameplate(ref TextMeshProUGUI controllerLabel, ref TextMeshProUGUI progressLabel, ref Slider bar)
 	{
-		if (!(GameFlowData.Get() == null))
+		if (GameFlowData.Get() == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.SetupRectNameplate(TextMeshProUGUI*, TextMeshProUGUI*, Slider*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!(GameFlowData.Get().LocalPlayerData == null))
+			if (GameFlowData.Get().LocalPlayerData == null)
 			{
-				bool flag;
-				bool flag2;
-				bool flag3;
-				bool flag4;
-				bool flag5;
-				bool flag6;
-				bool flag7;
-				bool flag8;
-				bool flag9;
-				this.CalcCurrentStatus(out flag, out flag2, out flag3, out flag4, out flag5, out flag6, out flag7, out flag8, out flag9);
-				Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
-				Team controllingTeam = this.GetControllingTeam();
-				Team winningTeam = this.GetWinningTeam();
-				Color mainColor = this.GetMainColor(winningTeam, teamViewing);
-				Color mainColor2 = this.GetMainColor(controllingTeam, teamViewing);
-				if (this.m_progressType == ControlPoint.ControlProgressType.TugOfWar)
+				while (true)
 				{
-					int num = Mathf.Abs(this.CurrentProgressTugOfWar);
-					if (this.CurrentProgressTugOfWar > 0)
+					switch (5)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						bar.value = (float)num / (float)this.m_maxTotalProgressForTeamA;
+					default:
+						return;
+					case 0:
+						break;
 					}
-					else if (this.CurrentProgressTugOfWar < 0)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						bar.value = (float)num / (float)this.m_maxTotalProgressForTeamB;
-					}
-					else
-					{
-						bar.value = 0f;
-					}
-					bar.fillRect.GetComponent<Image>().color = mainColor;
-					GameObject gameObject = bar.gameObject;
-					bool active;
-					if (num <= 0)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						active = (this.CurrentControlPointState == ControlPoint.State.Enabled);
-					}
-					else
-					{
-						active = true;
-					}
-					gameObject.SetActive(active);
 				}
-				else
+			}
+			CalcCurrentStatus(out bool _, out bool _, out bool _, out bool _, out bool alliedCapturing, out bool alliedControlled, out bool enemyCapturing, out bool enemyControlled, out bool contested);
+			Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
+			Team controllingTeam = GetControllingTeam();
+			Team winningTeam = GetWinningTeam();
+			Color mainColor = GetMainColor(winningTeam, teamViewing);
+			Color mainColor2 = GetMainColor(controllingTeam, teamViewing);
+			int num = 0;
+			if (m_progressType == ControlProgressType.TugOfWar)
+			{
+				num = Mathf.Abs(CurrentProgressTugOfWar);
+				if (CurrentProgressTugOfWar > 0)
 				{
-					bar.gameObject.SetActive(false);
-				}
-				if (controllingTeam != Team.Invalid)
-				{
-					controllerLabel.color = mainColor2;
-				}
-				else
-				{
-					controllerLabel.color = this.m_uiTextColor_Empty;
-				}
-				if (this.CurrentControlPointState != ControlPoint.State.Enabled)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -1182,80 +1401,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					progressLabel.color = this.m_uiTextColor_Locked;
+					bar.value = (float)num / (float)m_maxTotalProgressForTeamA;
 				}
-				else if (flag5)
+				else if (CurrentProgressTugOfWar < 0)
 				{
-					progressLabel.color = this.m_secondaryColor_friendlyCapturing;
-				}
-				else if (flag7)
-				{
-					progressLabel.color = this.m_secondaryColor_hostileCapturing;
-				}
-				else if (flag9)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					progressLabel.color = this.m_secondaryColor_contested;
-				}
-				else
-				{
-					progressLabel.color = this.m_uiTextColor_Empty;
-				}
-				if (controllingTeam == Team.TeamA)
-				{
-					if (teamViewing == Team.TeamA)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						controllerLabel.text = "Friendly Controlled";
-					}
-					else
-					{
-						controllerLabel.text = "Enemy Controlled";
-					}
-				}
-				else if (controllingTeam == Team.TeamB)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (teamViewing == Team.TeamB)
-					{
-						controllerLabel.text = "Friendly Controlled";
-					}
-					else
-					{
-						controllerLabel.text = "Enemy Controlled";
-					}
-				}
-				else
-				{
-					controllerLabel.text = "Uncontrolled";
-				}
-				if (this.m_totalObjectivePointsToDispense >= 0)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -1264,133 +1414,250 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					string str = " (" + (this.m_totalObjectivePointsToDispense - this.m_numObjectivePointsDispensed).ToString() + " ObjPts)";
-					TextMeshProUGUI textMeshProUGUI = controllerLabel;
-					textMeshProUGUI.text += str;
+					bar.value = (float)num / (float)m_maxTotalProgressForTeamB;
 				}
-				string str2 = string.Empty;
-				if (this.m_progressType == ControlPoint.ControlProgressType.IndependentProgress)
+				else
 				{
-					for (;;)
+					bar.value = 0f;
+				}
+				bar.fillRect.GetComponent<Image>().color = mainColor;
+				GameObject gameObject = bar.gameObject;
+				int active;
+				if (num <= 0)
+				{
+					while (true)
 					{
-						switch (3)
+						switch (6)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					int num2;
-					int num3;
-					if (teamViewing == Team.TeamA)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num2 = this.m_progressTeamA;
-						num3 = this.m_progressTeamB;
-					}
-					else
-					{
-						num2 = this.m_progressTeamB;
-						num3 = this.m_progressTeamA;
-					}
-					str2 = string.Concat(new object[]
-					{
-						"\n(Progress: Ally ",
-						num2,
-						", Enemy ",
-						num3,
-						")"
-					});
+					active = ((CurrentControlPointState == State.Enabled) ? 1 : 0);
 				}
-				if (this.CurrentControlPointState == ControlPoint.State.Locked)
+				else
 				{
-					progressLabel.text = string.Format("Locked for {0} turns", this.m_lockedTurnsRemaining);
+					active = 1;
 				}
-				else if (this.CurrentControlPointState == ControlPoint.State.Disabled)
+				gameObject.SetActive((byte)active != 0);
+			}
+			else
+			{
+				bar.gameObject.SetActive(false);
+			}
+			if (controllingTeam != Team.Invalid)
+			{
+				controllerLabel.color = mainColor2;
+			}
+			else
+			{
+				controllerLabel.color = m_uiTextColor_Empty;
+			}
+			if (CurrentControlPointState != 0)
+			{
+				while (true)
 				{
-					progressLabel.text = "Disabled";
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
-				else if (this.CurrentControlPointState == ControlPoint.State.Enabled)
+				progressLabel.color = m_uiTextColor_Locked;
+			}
+			else if (alliedCapturing)
+			{
+				progressLabel.color = m_secondaryColor_friendlyCapturing;
+			}
+			else if (enemyCapturing)
+			{
+				progressLabel.color = m_secondaryColor_hostileCapturing;
+			}
+			else if (contested)
+			{
+				while (true)
 				{
-					if (flag5)
+					switch (3)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (flag6)
-						{
-							progressLabel.text = "Friendly Occupied";
-						}
-						else
-						{
-							progressLabel.text = "Friendly Capturing!";
-						}
+					case 0:
+						continue;
 					}
-					else if (flag7)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (flag8)
-						{
-							progressLabel.text = "Enemy Occupied";
-						}
-						else
-						{
-							progressLabel.text = "Enemy Capturing!";
-						}
-					}
-					else if (!flag9)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						progressLabel.text = "Uncontested";
-					}
-					else
-					{
-						progressLabel.text = "Capturing Contested";
-					}
-					TextMeshProUGUI textMeshProUGUI2 = progressLabel;
-					textMeshProUGUI2.text += str2;
+					break;
 				}
+				progressLabel.color = m_secondaryColor_contested;
+			}
+			else
+			{
+				progressLabel.color = m_uiTextColor_Empty;
+			}
+			if (controllingTeam == Team.TeamA)
+			{
+				if (teamViewing == Team.TeamA)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					controllerLabel.text = "Friendly Controlled";
+				}
+				else
+				{
+					controllerLabel.text = "Enemy Controlled";
+				}
+			}
+			else if (controllingTeam == Team.TeamB)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (teamViewing == Team.TeamB)
+				{
+					controllerLabel.text = "Friendly Controlled";
+				}
+				else
+				{
+					controllerLabel.text = "Enemy Controlled";
+				}
+			}
+			else
+			{
+				controllerLabel.text = "Uncontrolled";
+			}
+			if (m_totalObjectivePointsToDispense >= 0)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				string text = " (" + (m_totalObjectivePointsToDispense - m_numObjectivePointsDispensed) + " ObjPts)";
+				controllerLabel.text += text;
+			}
+			string text2 = string.Empty;
+			if (m_progressType == ControlProgressType.IndependentProgress)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				int num2 = 0;
+				int num3 = 0;
+				if (teamViewing == Team.TeamA)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num2 = m_progressTeamA;
+					num3 = m_progressTeamB;
+				}
+				else
+				{
+					num2 = m_progressTeamB;
+					num3 = m_progressTeamA;
+				}
+				text2 = "\n(Progress: Ally " + num2 + ", Enemy " + num3 + ")";
+			}
+			if (CurrentControlPointState == State.Locked)
+			{
+				progressLabel.text = $"Locked for {m_lockedTurnsRemaining} turns";
 				return;
 			}
-			for (;;)
+			if (CurrentControlPointState == State.Disabled)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				progressLabel.text = "Disabled";
+				return;
 			}
+			if (CurrentControlPointState != 0)
+			{
+				return;
+			}
+			if (alliedCapturing)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (alliedControlled)
+				{
+					progressLabel.text = "Friendly Occupied";
+				}
+				else
+				{
+					progressLabel.text = "Friendly Capturing!";
+				}
+			}
+			else if (enemyCapturing)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (enemyControlled)
+				{
+					progressLabel.text = "Enemy Occupied";
+				}
+				else
+				{
+					progressLabel.text = "Enemy Capturing!";
+				}
+			}
+			else if (!contested)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				progressLabel.text = "Uncontested";
+			}
+			else
+			{
+				progressLabel.text = "Capturing Contested";
+			}
+			progressLabel.text += text2;
+			return;
 		}
 	}
 
@@ -1398,54 +1665,55 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.OnTurnStart_ControlPoint_Client()).MethodHandle;
-			}
-			return;
 		}
-		this.RefreshBoundaryVFX();
-		if (!this.m_initializedControlPointHud)
+		RefreshBoundaryVFX();
+		if (!m_initializedControlPointHud)
 		{
 			HUD_UI.Get().m_mainScreenPanel.m_controlPointNameplatePanel.AddControlPoint(this);
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.AddControlPoint(this);
-			this.m_initializedControlPointHud = true;
+			m_initializedControlPointHud = true;
 		}
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType == GameEventManager.EventType.TurnTick)
+		if (eventType != GameEventManager.EventType.TurnTick)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.OnTurnStart_ControlPoint();
+			OnTurnStart_ControlPoint();
+			return;
 		}
 	}
 
 	public virtual void OnTurnStart_ControlPoint()
 	{
-		this.OnTurnStart_ControlPoint_Client();
+		OnTurnStart_ControlPoint_Client();
 	}
 
 	public virtual bool ShouldControlPointEnd()
@@ -1455,29 +1723,29 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 
 	public Team GetControllingTeam()
 	{
-		return (Team)this.m_controllingTeam;
+		return (Team)m_controllingTeam;
 	}
 
 	public Team GetWinningTeam()
 	{
-		if (this.CurrentProgressTugOfWar > 0)
+		if (CurrentProgressTugOfWar > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return Team.TeamA;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.GetWinningTeam()).MethodHandle;
-			}
-			return Team.TeamA;
 		}
-		if (this.CurrentProgressTugOfWar < 0)
+		if (CurrentProgressTugOfWar < 0)
 		{
 			return Team.TeamB;
 		}
@@ -1489,63 +1757,67 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.OnCapturedBy(Team, Team)).MethodHandle;
-			}
-			Debug.LogWarning("[Server] function 'System.Void ControlPoint::OnCapturedBy(Team,Team)' called on client");
-			return;
-		}
-		this.SetLockedTurnsRemaining(this.m_turnsLockedAfterCapture);
-		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		foreach (ControlPoint.CaptureMessage captureMessage in this.m_captureMessages)
-		{
-			if (!string.IsNullOrEmpty(captureMessage.message))
-			{
-				if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnFriendlyCapture)
-				{
-					for (;;)
+					break;
+				default:
+					if (1 == 0)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (activeOwnedActorData.\u000E() == capturedByTeam)
+					Debug.LogWarning("[Server] function 'System.Void ControlPoint::OnCapturedBy(Team,Team)' called on client");
+					return;
+				}
+			}
+		}
+		SetLockedTurnsRemaining(m_turnsLockedAfterCapture);
+		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+		CaptureMessage[] captureMessages = m_captureMessages;
+		int num = 0;
+		while (true)
+		{
+			if (num < captureMessages.Length)
+			{
+				CaptureMessage captureMessage = captureMessages[num];
+				if (!string.IsNullOrEmpty(captureMessage.message))
+				{
+					if (captureMessage.condition == CaptureMessageCondition.OnFriendlyCapture)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (2)
+							switch (3)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
-						goto IL_260;
+						if (activeOwnedActorData.GetTeam() == capturedByTeam)
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f);
+							break;
+						}
 					}
-				}
-				if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnEnemyCapture && activeOwnedActorData.\u000E() != capturedByTeam)
-				{
-					InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
-				}
-				else
-				{
-					if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnFriendlyTeamACapture)
+					if (captureMessage.condition == CaptureMessageCondition.OnEnemyCapture && activeOwnedActorData.GetTeam() != capturedByTeam)
 					{
-						for (;;)
+						InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f);
+						break;
+					}
+					if (captureMessage.condition == CaptureMessageCondition.OnFriendlyTeamACapture)
+					{
+						while (true)
 						{
 							switch (5)
 							{
@@ -1554,9 +1826,9 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (activeOwnedActorData.\u000E() == capturedByTeam)
+						if (activeOwnedActorData.GetTeam() == capturedByTeam)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -1567,7 +1839,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 							if (capturedByTeam == Team.TeamA)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
@@ -1576,14 +1848,14 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 									}
 									break;
 								}
-								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
-								goto IL_260;
+								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f);
+								break;
 							}
 						}
 					}
-					if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnEnemyTeamACapture)
+					if (captureMessage.condition == CaptureMessageCondition.OnEnemyTeamACapture)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -1592,9 +1864,9 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (activeOwnedActorData.\u000E() != capturedByTeam)
+						if (activeOwnedActorData.GetTeam() != capturedByTeam)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -1605,7 +1877,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 							if (capturedByTeam == Team.TeamA)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (7)
 									{
@@ -1614,14 +1886,14 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 									}
 									break;
 								}
-								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
-								goto IL_260;
+								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f);
+								break;
 							}
 						}
 					}
-					if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnFriendlyTeamBCapture)
+					if (captureMessage.condition == CaptureMessageCondition.OnFriendlyTeamBCapture)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -1630,9 +1902,9 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (activeOwnedActorData.\u000E() == capturedByTeam)
+						if (activeOwnedActorData.GetTeam() == capturedByTeam)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -1643,7 +1915,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 							if (capturedByTeam == Team.TeamB)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -1652,58 +1924,57 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 									}
 									break;
 								}
-								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
-								goto IL_260;
+								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f);
+								break;
 							}
 						}
 					}
-					if (captureMessage.condition != ControlPoint.CaptureMessageCondition.OnEnemyTeamBCapture || activeOwnedActorData.\u000E() == capturedByTeam)
+					if (captureMessage.condition == CaptureMessageCondition.OnEnemyTeamBCapture && activeOwnedActorData.GetTeam() != capturedByTeam)
 					{
-						goto IL_249;
-					}
-					for (;;)
-					{
-						switch (7)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
-						break;
+						if (capturedByTeam == Team.TeamB)
+						{
+							InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f);
+							break;
+						}
 					}
-					if (capturedByTeam != Team.TeamB)
-					{
-						goto IL_249;
-					}
-					InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
 				}
-				IL_260:
-				GameEventManager.Get().FireEvent(GameEventManager.EventType.MatchObjectiveEvent, new GameEventManager.MatchObjectiveEventArgs
-				{
-					objective = GameEventManager.MatchObjectiveEventArgs.ObjectiveType.ControlPointCaptured,
-					activatingActor = null,
-					team = capturedByTeam
-				});
-				return;
-			}
-			IL_249:;
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
+				num++;
 				continue;
 			}
-			goto IL_260;
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			break;
 		}
+		GameEventManager.Get().FireEvent(GameEventManager.EventType.MatchObjectiveEvent, new GameEventManager.MatchObjectiveEventArgs
+		{
+			objective = GameEventManager.MatchObjectiveEventArgs.ObjectiveType.ControlPointCaptured,
+			activatingActor = null,
+			team = capturedByTeam
+		});
 	}
 
-	public unsafe virtual void CalcCurrentStatus(out bool teamACapturing, out bool teamAControlled, out bool teamBCapturing, out bool teamBControlled, out bool alliedCapturing, out bool alliedControlled, out bool enemyCapturing, out bool enemyControlled, out bool contested)
+	public virtual void CalcCurrentStatus(out bool teamACapturing, out bool teamAControlled, out bool teamBCapturing, out bool teamBControlled, out bool alliedCapturing, out bool alliedControlled, out bool enemyCapturing, out bool enemyControlled, out bool contested)
 	{
-		Team controllingTeam = this.GetControllingTeam();
+		Team controllingTeam = GetControllingTeam();
 		if (controllingTeam == Team.TeamA)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1712,9 +1983,9 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.CalcCurrentStatus(bool*, bool*, bool*, bool*, bool*, bool*, bool*, bool*, bool*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			teamAControlled = true;
 			teamBControlled = false;
@@ -1729,10 +2000,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			teamAControlled = false;
 			teamBControlled = false;
 		}
-		bool flag;
-		if (this.m_numTeamAPlayers > 0)
+		int num;
+		if (m_numTeamAPlayers > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1741,16 +2012,16 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			flag = (this.m_numTeamBPlayers > 0);
+			num = ((m_numTeamBPlayers > 0) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		contested = flag;
-		if (this.m_canContributeProgressWhileContested)
+		contested = ((byte)num != 0);
+		if (m_canContributeProgressWhileContested)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1759,15 +2030,15 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			teamACapturing = (this.m_numTeamAPlayers > this.m_numTeamBPlayers);
-			teamBCapturing = (this.m_numTeamBPlayers > this.m_numTeamAPlayers);
+			teamACapturing = (m_numTeamAPlayers > m_numTeamBPlayers);
+			teamBCapturing = (m_numTeamBPlayers > m_numTeamAPlayers);
 		}
 		else
 		{
-			bool flag2;
-			if (this.m_numTeamAPlayers > 0)
+			int num2;
+			if (m_numTeamAPlayers > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1776,17 +2047,17 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				flag2 = (this.m_numTeamBPlayers == 0);
+				num2 = ((m_numTeamBPlayers == 0) ? 1 : 0);
 			}
 			else
 			{
-				flag2 = false;
+				num2 = 0;
 			}
-			teamACapturing = flag2;
-			bool flag3;
-			if (this.m_numTeamBPlayers > 0)
+			teamACapturing = ((byte)num2 != 0);
+			int num3;
+			if (m_numTeamBPlayers > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1795,17 +2066,17 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				flag3 = (this.m_numTeamAPlayers == 0);
+				num3 = ((m_numTeamAPlayers == 0) ? 1 : 0);
 			}
 			else
 			{
-				flag3 = false;
+				num3 = 0;
 			}
-			teamBCapturing = flag3;
+			teamBCapturing = ((byte)num3 != 0);
 		}
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1816,158 +2087,165 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			if (GameFlowData.Get().LocalPlayerData != null)
 			{
-				for (;;)
+				while (true)
 				{
+					Team teamViewing;
+					int num4;
+					int num5;
+					int num6;
+					int num7;
 					switch (3)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
-				bool flag4;
-				if (controllingTeam == Team.TeamA)
-				{
-					if (teamViewing == Team.TeamA)
-					{
-						flag4 = true;
-						goto IL_157;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-				}
-				if (controllingTeam == Team.TeamB)
-				{
-					for (;;)
-					{
-						switch (7)
+					default:
 						{
-						case 0:
-							continue;
+							teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
+							if (controllingTeam == Team.TeamA)
+							{
+								if (teamViewing == Team.TeamA)
+								{
+									num4 = 1;
+									goto IL_0157;
+								}
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							if (controllingTeam == Team.TeamB)
+							{
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								num4 = ((teamViewing == Team.TeamB) ? 1 : 0);
+							}
+							else
+							{
+								num4 = 0;
+							}
+							goto IL_0157;
 						}
-						break;
-					}
-					flag4 = (teamViewing == Team.TeamB);
-				}
-				else
-				{
-					flag4 = false;
-				}
-				IL_157:
-				alliedControlled = flag4;
-				bool flag5;
-				if (controllingTeam == Team.TeamA)
-				{
-					for (;;)
-					{
-						switch (2)
+						IL_01af:
+						alliedCapturing = ((byte)num5 != 0);
+						if (teamACapturing)
 						{
-						case 0:
-							continue;
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (teamViewing != 0)
+							{
+								num6 = 1;
+								goto IL_01de;
+							}
 						}
-						break;
-					}
-					if (teamViewing == Team.TeamB)
-					{
-						flag5 = true;
-						goto IL_18D;
-					}
-					for (;;)
-					{
-						switch (5)
+						if (teamBCapturing)
 						{
-						case 0:
-							continue;
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num6 = ((teamViewing != Team.TeamB) ? 1 : 0);
 						}
-						break;
-					}
-				}
-				if (controllingTeam == Team.TeamB)
-				{
-					for (;;)
-					{
-						switch (2)
+						else
 						{
-						case 0:
-							continue;
+							num6 = 0;
 						}
-						break;
-					}
-					flag5 = (teamViewing == Team.TeamA);
-				}
-				else
-				{
-					flag5 = false;
-				}
-				IL_18D:
-				enemyControlled = flag5;
-				bool flag6;
-				if (teamACapturing)
-				{
-					if (teamViewing == Team.TeamA)
-					{
-						flag6 = true;
-						goto IL_1AF;
-					}
-					for (;;)
-					{
-						switch (6)
+						goto IL_01de;
+						IL_018d:
+						enemyControlled = ((byte)num7 != 0);
+						if (teamACapturing)
 						{
-						case 0:
-							continue;
+							if (teamViewing == Team.TeamA)
+							{
+								num5 = 1;
+								goto IL_01af;
+							}
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
 						}
-						break;
-					}
-				}
-				flag6 = (teamBCapturing && teamViewing == Team.TeamB);
-				IL_1AF:
-				alliedCapturing = flag6;
-				bool flag7;
-				if (teamACapturing)
-				{
-					for (;;)
-					{
-						switch (2)
+						num5 = ((teamBCapturing && teamViewing == Team.TeamB) ? 1 : 0);
+						goto IL_01af;
+						IL_0157:
+						alliedControlled = ((byte)num4 != 0);
+						if (controllingTeam == Team.TeamA)
 						{
-						case 0:
-							continue;
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (teamViewing == Team.TeamB)
+							{
+								num7 = 1;
+								goto IL_018d;
+							}
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
 						}
-						break;
-					}
-					if (teamViewing != Team.TeamA)
-					{
-						flag7 = true;
-						goto IL_1DE;
-					}
-				}
-				if (teamBCapturing)
-				{
-					for (;;)
-					{
-						switch (2)
+						if (controllingTeam == Team.TeamB)
 						{
-						case 0:
-							continue;
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num7 = ((teamViewing == Team.TeamA) ? 1 : 0);
 						}
-						break;
+						else
+						{
+							num7 = 0;
+						}
+						goto IL_018d;
+						IL_01de:
+						enemyCapturing = ((byte)num6 != 0);
+						return;
 					}
-					flag7 = (teamViewing != Team.TeamB);
 				}
-				else
-				{
-					flag7 = false;
-				}
-				IL_1DE:
-				enemyCapturing = flag7;
-				return;
 			}
 		}
 		alliedControlled = false;
@@ -1984,111 +2262,113 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if (team == Team.TeamA)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_grantingVisionForTeamA;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.IsGrantingVisionForTeam(Team)).MethodHandle;
-			}
-			return this.m_grantingVisionForTeamA;
 		}
 		if (team == Team.TeamB)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_grantingVisionForTeamB;
 				}
-				break;
 			}
-			return this.m_grantingVisionForTeamB;
 		}
 		return false;
 	}
 
 	private void HookSetGrantingVisionForTeamA(bool grantingVisionForTeamA)
 	{
-		if (NetworkClient.active)
+		if (!NetworkClient.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.HookSetGrantingVisionForTeamA(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_grantingVisionForTeamA != grantingVisionForTeamA)
+			if (m_grantingVisionForTeamA != grantingVisionForTeamA)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				this.Networkm_grantingVisionForTeamA = grantingVisionForTeamA;
-				List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(Team.TeamA);
-				using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
-				{
-					while (enumerator.MoveNext())
+					Networkm_grantingVisionForTeamA = grantingVisionForTeamA;
+					List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(Team.TeamA);
+					using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
 					{
-						ActorData actorData = enumerator.Current;
-						actorData.\u000E().MarkForRecalculateVisibility();
-					}
-					for (;;)
-					{
-						switch (3)
+						while (enumerator.MoveNext())
 						{
-						case 0:
-							continue;
+							ActorData current = enumerator.Current;
+							current.GetFogOfWar().MarkForRecalculateVisibility();
 						}
-						break;
+						while (true)
+						{
+							switch (3)
+							{
+							default:
+								return;
+							case 0:
+								break;
+							}
+						}
 					}
 				}
 			}
+			return;
 		}
 	}
 
 	private void HookSetGrantingVisionForTeamB(bool grantingVisionForTeamB)
 	{
-		if (NetworkClient.active && this.m_grantingVisionForTeamB != grantingVisionForTeamB)
+		if (!NetworkClient.active || m_grantingVisionForTeamB == grantingVisionForTeamB)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.HookSetGrantingVisionForTeamB(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.Networkm_grantingVisionForTeamB = grantingVisionForTeamB;
+			Networkm_grantingVisionForTeamB = grantingVisionForTeamB;
 			List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(Team.TeamB);
-			foreach (ActorData actorData in allTeamMembers)
+			foreach (ActorData item in allTeamMembers)
 			{
-				actorData.\u000E().MarkForRecalculateVisibility();
+				item.GetFogOfWar().MarkForRecalculateVisibility();
 			}
+			return;
 		}
 	}
 
@@ -2096,271 +2376,27 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 	}
 
-	public int Networkm_currentProgressTugOfWar
-	{
-		get
-		{
-			return this.m_currentProgressTugOfWar;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_currentProgressTugOfWar, 1U);
-		}
-	}
-
-	public int Networkm_progressTeamA
-	{
-		get
-		{
-			return this.m_progressTeamA;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_progressTeamA, 2U);
-		}
-	}
-
-	public int Networkm_progressTeamB
-	{
-		get
-		{
-			return this.m_progressTeamB;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_progressTeamB, 4U);
-		}
-	}
-
-	public int Networkm_controllingTeam
-	{
-		get
-		{
-			return this.m_controllingTeam;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_controllingTeam, 8U);
-		}
-	}
-
-	public int Networkm_numObjectivePointsDispensed
-	{
-		get
-		{
-			return this.m_numObjectivePointsDispensed;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_numObjectivePointsDispensed, 0x10U);
-		}
-	}
-
-	public ControlPoint.State Networkm_currentControlPointState
-	{
-		get
-		{
-			return this.m_currentControlPointState;
-		}
-		[param: In]
-		set
-		{
-			uint dirtyBit = 0x20U;
-			if (NetworkServer.localClientActive)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.set_Networkm_currentControlPointState(ControlPoint.State)).MethodHandle;
-				}
-				if (!base.syncVarHookGuard)
-				{
-					base.syncVarHookGuard = true;
-					this.HookSetCurrentState(value);
-					base.syncVarHookGuard = false;
-				}
-			}
-			base.SetSyncVar<ControlPoint.State>(value, ref this.m_currentControlPointState, dirtyBit);
-		}
-	}
-
-	public int Networkm_lockedTurnsRemaining
-	{
-		get
-		{
-			return this.m_lockedTurnsRemaining;
-		}
-		[param: In]
-		set
-		{
-			uint dirtyBit = 0x40U;
-			if (NetworkServer.localClientActive)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.set_Networkm_lockedTurnsRemaining(int)).MethodHandle;
-				}
-				if (!base.syncVarHookGuard)
-				{
-					base.syncVarHookGuard = true;
-					this.SetLockedTurnsRemaining(value);
-					base.syncVarHookGuard = false;
-				}
-			}
-			base.SetSyncVar<int>(value, ref this.m_lockedTurnsRemaining, dirtyBit);
-		}
-	}
-
-	public int Networkm_numTeamAPlayers
-	{
-		get
-		{
-			return this.m_numTeamAPlayers;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_numTeamAPlayers, 0x80U);
-		}
-	}
-
-	public int Networkm_numTeamBPlayers
-	{
-		get
-		{
-			return this.m_numTeamBPlayers;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_numTeamBPlayers, 0x100U);
-		}
-	}
-
-	public bool Networkm_grantingVisionForTeamA
-	{
-		get
-		{
-			return this.m_grantingVisionForTeamA;
-		}
-		[param: In]
-		set
-		{
-			uint dirtyBit = 0x200U;
-			if (NetworkServer.localClientActive)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.set_Networkm_grantingVisionForTeamA(bool)).MethodHandle;
-				}
-				if (!base.syncVarHookGuard)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					base.syncVarHookGuard = true;
-					this.HookSetGrantingVisionForTeamA(value);
-					base.syncVarHookGuard = false;
-				}
-			}
-			base.SetSyncVar<bool>(value, ref this.m_grantingVisionForTeamA, dirtyBit);
-		}
-	}
-
-	public bool Networkm_grantingVisionForTeamB
-	{
-		get
-		{
-			return this.m_grantingVisionForTeamB;
-		}
-		[param: In]
-		set
-		{
-			uint dirtyBit = 0x400U;
-			if (NetworkServer.localClientActive)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.set_Networkm_grantingVisionForTeamB(bool)).MethodHandle;
-				}
-				if (!base.syncVarHookGuard)
-				{
-					base.syncVarHookGuard = true;
-					this.HookSetGrantingVisionForTeamB(value);
-					base.syncVarHookGuard = false;
-				}
-			}
-			base.SetSyncVar<bool>(value, ref this.m_grantingVisionForTeamB, dirtyBit);
-		}
-	}
-
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			writer.WritePackedUInt32((uint)this.m_currentProgressTugOfWar);
-			writer.WritePackedUInt32((uint)this.m_progressTeamA);
-			writer.WritePackedUInt32((uint)this.m_progressTeamB);
-			writer.WritePackedUInt32((uint)this.m_controllingTeam);
-			writer.WritePackedUInt32((uint)this.m_numObjectivePointsDispensed);
-			writer.Write((int)this.m_currentControlPointState);
-			writer.WritePackedUInt32((uint)this.m_lockedTurnsRemaining);
-			writer.WritePackedUInt32((uint)this.m_numTeamAPlayers);
-			writer.WritePackedUInt32((uint)this.m_numTeamBPlayers);
-			writer.Write(this.m_grantingVisionForTeamA);
-			writer.Write(this.m_grantingVisionForTeamB);
+			writer.WritePackedUInt32((uint)m_currentProgressTugOfWar);
+			writer.WritePackedUInt32((uint)m_progressTeamA);
+			writer.WritePackedUInt32((uint)m_progressTeamB);
+			writer.WritePackedUInt32((uint)m_controllingTeam);
+			writer.WritePackedUInt32((uint)m_numObjectivePointsDispensed);
+			writer.Write((int)m_currentControlPointState);
+			writer.WritePackedUInt32((uint)m_lockedTurnsRemaining);
+			writer.WritePackedUInt32((uint)m_numTeamAPlayers);
+			writer.WritePackedUInt32((uint)m_numTeamBPlayers);
+			writer.Write(m_grantingVisionForTeamA);
+			writer.Write(m_grantingVisionForTeamB);
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -2369,13 +2405,13 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.OnSerialize(NetworkWriter, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -2387,11 +2423,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_currentProgressTugOfWar);
+			writer.WritePackedUInt32((uint)m_currentProgressTugOfWar);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -2402,7 +2438,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -2414,13 +2450,13 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_progressTeamA);
+			writer.WritePackedUInt32((uint)m_progressTeamA);
 		}
-		if ((base.syncVarDirtyBits & 4U) != 0U)
+		if ((base.syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -2432,11 +2468,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_progressTeamB);
+			writer.WritePackedUInt32((uint)m_progressTeamB);
 		}
-		if ((base.syncVarDirtyBits & 8U) != 0U)
+		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -2447,7 +2483,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -2459,11 +2495,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_controllingTeam);
+			writer.WritePackedUInt32((uint)m_controllingTeam);
 		}
-		if ((base.syncVarDirtyBits & 0x10U) != 0U)
+		if ((base.syncVarDirtyBits & 0x10) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -2477,13 +2513,13 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_numObjectivePointsDispensed);
+			writer.WritePackedUInt32((uint)m_numObjectivePointsDispensed);
 		}
-		if ((base.syncVarDirtyBits & 0x20U) != 0U)
+		if ((base.syncVarDirtyBits & 0x20) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -2495,11 +2531,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write((int)this.m_currentControlPointState);
+			writer.Write((int)m_currentControlPointState);
 		}
-		if ((base.syncVarDirtyBits & 0x40U) != 0U)
+		if ((base.syncVarDirtyBits & 0x40) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -2510,7 +2546,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -2522,11 +2558,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_lockedTurnsRemaining);
+			writer.WritePackedUInt32((uint)m_lockedTurnsRemaining);
 		}
-		if ((base.syncVarDirtyBits & 0x80U) != 0U)
+		if ((base.syncVarDirtyBits & 0x80) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -2540,13 +2576,13 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_numTeamAPlayers);
+			writer.WritePackedUInt32((uint)m_numTeamAPlayers);
 		}
-		if ((base.syncVarDirtyBits & 0x100U) != 0U)
+		if ((base.syncVarDirtyBits & 0x100) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -2558,11 +2594,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_numTeamBPlayers);
+			writer.WritePackedUInt32((uint)m_numTeamBPlayers);
 		}
-		if ((base.syncVarDirtyBits & 0x200U) != 0U)
+		if ((base.syncVarDirtyBits & 0x200) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2573,7 +2609,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -2585,11 +2621,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_grantingVisionForTeamA);
+			writer.Write(m_grantingVisionForTeamA);
 		}
-		if ((base.syncVarDirtyBits & 0x400U) != 0U)
+		if ((base.syncVarDirtyBits & 0x400) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -2600,7 +2636,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -2612,7 +2648,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_grantingVisionForTeamB);
+			writer.Write(m_grantingVisionForTeamB);
 		}
 		if (!flag)
 		{
@@ -2625,27 +2661,27 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (initialState)
 		{
-			this.m_currentProgressTugOfWar = (int)reader.ReadPackedUInt32();
-			this.m_progressTeamA = (int)reader.ReadPackedUInt32();
-			this.m_progressTeamB = (int)reader.ReadPackedUInt32();
-			this.m_controllingTeam = (int)reader.ReadPackedUInt32();
-			this.m_numObjectivePointsDispensed = (int)reader.ReadPackedUInt32();
-			this.m_currentControlPointState = (ControlPoint.State)reader.ReadInt32();
-			this.m_lockedTurnsRemaining = (int)reader.ReadPackedUInt32();
-			this.m_numTeamAPlayers = (int)reader.ReadPackedUInt32();
-			this.m_numTeamBPlayers = (int)reader.ReadPackedUInt32();
-			this.m_grantingVisionForTeamA = reader.ReadBoolean();
-			this.m_grantingVisionForTeamB = reader.ReadBoolean();
+			m_currentProgressTugOfWar = (int)reader.ReadPackedUInt32();
+			m_progressTeamA = (int)reader.ReadPackedUInt32();
+			m_progressTeamB = (int)reader.ReadPackedUInt32();
+			m_controllingTeam = (int)reader.ReadPackedUInt32();
+			m_numObjectivePointsDispensed = (int)reader.ReadPackedUInt32();
+			m_currentControlPointState = (State)reader.ReadInt32();
+			m_lockedTurnsRemaining = (int)reader.ReadPackedUInt32();
+			m_numTeamAPlayers = (int)reader.ReadPackedUInt32();
+			m_numTeamBPlayers = (int)reader.ReadPackedUInt32();
+			m_grantingVisionForTeamA = reader.ReadBoolean();
+			m_grantingVisionForTeamB = reader.ReadBoolean();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			this.m_currentProgressTugOfWar = (int)reader.ReadPackedUInt32();
+			m_currentProgressTugOfWar = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -2654,15 +2690,15 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.OnDeserialize(NetworkReader, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_progressTeamA = (int)reader.ReadPackedUInt32();
+			m_progressTeamA = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -2671,11 +2707,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			this.m_progressTeamB = (int)reader.ReadPackedUInt32();
+			m_progressTeamB = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -2684,11 +2720,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			this.m_controllingTeam = (int)reader.ReadPackedUInt32();
+			m_controllingTeam = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x10) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -2697,11 +2733,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			this.m_numObjectivePointsDispensed = (int)reader.ReadPackedUInt32();
+			m_numObjectivePointsDispensed = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x20) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -2710,11 +2746,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			this.HookSetCurrentState((ControlPoint.State)reader.ReadInt32());
+			HookSetCurrentState((State)reader.ReadInt32());
 		}
 		if ((num & 0x40) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -2723,11 +2759,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			this.SetLockedTurnsRemaining((int)reader.ReadPackedUInt32());
+			SetLockedTurnsRemaining((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 0x80) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2736,11 +2772,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			this.m_numTeamAPlayers = (int)reader.ReadPackedUInt32();
+			m_numTeamAPlayers = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x100) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -2749,11 +2785,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			this.m_numTeamBPlayers = (int)reader.ReadPackedUInt32();
+			m_numTeamBPlayers = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x200) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -2762,83 +2798,21 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			this.HookSetGrantingVisionForTeamA(reader.ReadBoolean());
+			HookSetGrantingVisionForTeamA(reader.ReadBoolean());
 		}
-		if ((num & 0x400) != 0)
+		if ((num & 0x400) == 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.HookSetGrantingVisionForTeamB(reader.ReadBoolean());
+			return;
 		}
-	}
-
-	public enum State
-	{
-		Enabled,
-		Locked,
-		Disabled
-	}
-
-	public enum ControlProgressType
-	{
-		TugOfWar,
-		IndependentProgress
-	}
-
-	public enum VisionGranting
-	{
-		Never,
-		WhenControlled_ToEveryone,
-		WhenControlled_ToControllers,
-		WhenControlled_ToOthers,
-		AlwaysWhenUnlocked,
-		AlwaysIncludingLocked
-	}
-
-	public enum CaptureMessageCondition
-	{
-		OnFriendlyCapture,
-		OnEnemyCapture,
-		OnEnemyTeamACapture,
-		OnFriendlyTeamACapture,
-		OnEnemyTeamBCapture,
-		OnFriendlyTeamBCapture
-	}
-
-	[Serializable]
-	public struct CaptureMessage
-	{
-		public ControlPoint.CaptureMessageCondition condition;
-
-		public string message;
-
-		public Color color;
-	}
-
-	[Serializable]
-	public class ControlPointGameplay
-	{
-		public int m_objPoints_uncontested_vacant;
-
-		public int m_objPoints_uncontested_alliesPresent;
-
-		public int m_objPoints_uncontested_enemiesPresent;
-
-		public int m_objPoints_contested_alliesOutnumberEnemies;
-
-		public int m_objPoints_contested_equalEnemiesAndAllies;
-
-		public int m_objPoints_contested_enemiesOutnumberAllies;
-
-		public int m_objPoints_pointsPerAllyOutnumberingEnemy;
-
-		public int m_objPoints_pointsPerEnemyOutnumberingAlly;
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			HookSetGrantingVisionForTeamB(reader.ReadBoolean());
+			return;
+		}
 	}
 }

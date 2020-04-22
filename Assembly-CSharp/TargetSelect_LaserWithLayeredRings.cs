@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetSelect_LaserWithLayeredRings : GenericAbility_TargetSelectBase
@@ -28,63 +27,63 @@ public class TargetSelect_LaserWithLayeredRings : GenericAbility_TargetSelectBas
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u001A.\u0012(), "1 if target is in AoE, 0 otherwise", true) + base.GetContextUsageStr(ContextKeys.\u0003.\u0012(), "for indicating which layer a target in AoE (sorted from inner to outer)", true) + base.GetContextUsageStr(ContextKeys.\u0018.\u0012(), "distance from start of AoE center, in squares", true);
+		return GetContextUsageStr(ContextKeys._001A.GetName(), "1 if target is in AoE, 0 otherwise") + GetContextUsageStr(ContextKeys._0003.GetName(), "for indicating which layer a target in AoE (sorted from inner to outer)") + GetContextUsageStr(ContextKeys._0018.GetName(), "distance from start of AoE center, in squares");
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u001A.\u0012());
-		names.Add(ContextKeys.\u0003.\u0012());
-		names.Add(ContextKeys.\u0018.\u0012());
+		names.Add(ContextKeys._001A.GetName());
+		names.Add(ContextKeys._0003.GetName());
+		names.Add(ContextKeys._0018.GetName());
 	}
 
 	public override void Initialize()
 	{
-		this.m_radiusToLayerList.Clear();
-		for (int i = 0; i < this.m_aoeRadiusList.Count; i++)
+		m_radiusToLayerList.Clear();
+		for (int i = 0; i < m_aoeRadiusList.Count; i++)
 		{
-			this.m_radiusToLayerList.Add(new RadiusToLayerIndex(this.m_aoeRadiusList[i]));
+			m_radiusToLayerList.Add(new RadiusToLayerIndex(m_aoeRadiusList[i]));
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserWithLayeredRings.Initialize()).MethodHandle;
-		}
-		if (this.m_radiusToLayerList.Count == 0)
-		{
-			for (;;)
+			if (1 == 0)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Log.Error(base.GetType() + " has empty aoe radius list", new object[0]);
-			this.m_radiusToLayerList.Add(new RadiusToLayerIndex(1f));
+			if (m_radiusToLayerList.Count == 0)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				Log.Error(string.Concat(GetType(), " has empty aoe radius list"));
+				m_radiusToLayerList.Add(new RadiusToLayerIndex(1f));
+			}
+			RadiusToLayerIndex.SortAndSetLayerIndex(m_radiusToLayerList);
+			m_cachedOuterRadius = m_radiusToLayerList[m_radiusToLayerList.Count - 1].m_radius;
+			return;
 		}
-		RadiusToLayerIndex.SortAndSetLayerIndex(this.m_radiusToLayerList);
-		this.m_cachedOuterRadius = this.m_radiusToLayerList[this.m_radiusToLayerList.Count - 1].m_radius;
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)
 	{
 		List<AbilityUtil_Targeter> list = new List<AbilityUtil_Targeter>();
-		AbilityUtil_Targeter_LaserWithLayeredRings abilityUtil_Targeter_LaserWithLayeredRings = new AbilityUtil_Targeter_LaserWithLayeredRings(ability, this.m_laserWidth, this.m_laserRange, base.IgnoreLos(), this.m_laserMaxTargets, this.m_clampAoeCenterToCursor, false, this.m_aoeRadiusList);
-		abilityUtil_Targeter_LaserWithLayeredRings.m_minRangeIfClampToCursor = this.m_minRangeIfClampToCursor;
-		abilityUtil_Targeter_LaserWithLayeredRings.SetAffectedGroups(base.IncludeEnemies(), base.IncludeAllies(), base.IncludeCaster());
-		if (this.m_laserWidth <= 0f)
+		AbilityUtil_Targeter_LaserWithLayeredRings abilityUtil_Targeter_LaserWithLayeredRings = new AbilityUtil_Targeter_LaserWithLayeredRings(ability, m_laserWidth, m_laserRange, IgnoreLos(), m_laserMaxTargets, m_clampAoeCenterToCursor, false, m_aoeRadiusList);
+		abilityUtil_Targeter_LaserWithLayeredRings.m_minRangeIfClampToCursor = m_minRangeIfClampToCursor;
+		abilityUtil_Targeter_LaserWithLayeredRings.SetAffectedGroups(IncludeEnemies(), IncludeAllies(), IncludeCaster());
+		if (m_laserWidth <= 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -93,9 +92,9 @@ public class TargetSelect_LaserWithLayeredRings : GenericAbility_TargetSelectBas
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserWithLayeredRings.CreateTargeters(Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			abilityUtil_Targeter_LaserWithLayeredRings.SetShowArcToShape(true);
 		}
@@ -105,6 +104,6 @@ public class TargetSelect_LaserWithLayeredRings : GenericAbility_TargetSelectBas
 
 	public List<RadiusToLayerIndex> GetRadiusToLayerList()
 	{
-		return this.m_radiusToLayerList;
+		return m_radiusToLayerList;
 	}
 }

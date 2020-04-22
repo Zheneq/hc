@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,94 +9,90 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 
 	private float m_curSpeed;
 
-	public AbilityUtil_Targeter.AffectsActor m_affectsCaster;
+	public AffectsActor m_affectsCaster;
 
 	public int m_numNodesInPath;
 
-	public AbilityUtil_Targeter_ScoundrelEvasionRoll(Ability ability, bool spawnTrapwireOnStart, AbilityGridPattern trapwirePattern) : base(ability)
+	public AbilityUtil_Targeter_ScoundrelEvasionRoll(Ability ability, bool spawnTrapwireOnStart, AbilityGridPattern trapwirePattern)
+		: base(ability)
 	{
-		this.m_spawnTrapwireInStart = spawnTrapwireOnStart;
-		this.m_trapwirePattern = trapwirePattern;
-		this.m_curSpeed = 0f;
-		this.m_cursorType = HighlightUtils.CursorType.MouseOverCursorType;
+		m_spawnTrapwireInStart = spawnTrapwireOnStart;
+		m_trapwirePattern = trapwirePattern;
+		m_curSpeed = 0f;
+		m_cursorType = HighlightUtils.CursorType.MouseOverCursorType;
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		this.UpdateTargetingMultiTargets(currentTarget, targetingActor, 0, null);
+		UpdateTargetingMultiTargets(currentTarget, targetingActor, 0, null);
 	}
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
-		base.ClearActorsInRange();
-		this.m_numNodesInPath = 0;
+		ClearActorsInRange();
+		m_numNodesInPath = 0;
 		BoardSquarePathInfo boardSquarePathInfo = null;
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		if (!(boardSquareSafe != null))
 		{
-			for (;;)
+			goto IL_007b;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
+			case 0:
+				continue;
+			}
+			break;
+		}
+		if (1 == 0)
+		{
+			/*OpCode not supported: LdMemberToken*/;
+		}
+		if (currentTargetIndex != 0)
+		{
+			while (true)
+			{
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (targets != null)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ScoundrelEvasionRoll.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
-			if (currentTargetIndex != 0)
-			{
-				for (;;)
+				while (true)
 				{
-					switch (6)
+					switch (2)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (targets != null)
+				if (IsUsingMultiTargetUpdate())
 				{
-					for (;;)
+					goto IL_007b;
+				}
+				while (true)
+				{
+					switch (4)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (this.IsUsingMultiTargetUpdate())
-					{
-						goto IL_7B;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					break;
 				}
 			}
-			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare);
-			goto IL_B0;
 		}
-		IL_7B:
-		if (boardSquare != null)
-		{
-			BoardSquare startSquare = Board.\u000E().\u000E(targets[currentTargetIndex - 1].GridPos);
-			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, startSquare, false);
-		}
-		IL_B0:
+		boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe);
+		goto IL_00b0;
+		IL_00b0:
 		if (boardSquarePathInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -110,10 +105,10 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 			{
 				if (boardSquarePathInfo2.next == null || boardSquarePathInfo2.next.square != boardSquarePathInfo2.square)
 				{
-					this.m_numNodesInPath++;
+					m_numNodesInPath++;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -123,12 +118,12 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 				break;
 			}
 		}
-		base.EnableAllMovementArrows();
-		int fromIndex = base.AddMovementArrowWithPrevious(targetingActor, boardSquarePathInfo, AbilityUtil_Targeter.TargeterMovementType.Movement, 0, false);
-		base.SetMovementArrowEnabledFromIndex(fromIndex, false);
-		if (this.m_spawnTrapwireInStart && this.m_trapwirePattern != AbilityGridPattern.NoPattern)
+		EnableAllMovementArrows();
+		int fromIndex = AddMovementArrowWithPrevious(targetingActor, boardSquarePathInfo, TargeterMovementType.Movement, 0);
+		SetMovementArrowEnabledFromIndex(fromIndex, false);
+		if (m_spawnTrapwireInStart && m_trapwirePattern != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -137,10 +132,10 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 				}
 				break;
 			}
-			Vector3 trapwireHighlightPos = this.GetTrapwireHighlightPos(currentTarget, targetingActor);
+			Vector3 trapwireHighlightPos = GetTrapwireHighlightPos(currentTarget, targetingActor);
 			if (base.Highlight == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -149,18 +144,18 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 					}
 					break;
 				}
-				base.Highlight = HighlightUtils.Get().CreateGridPatternHighlight(this.m_trapwirePattern, 1f);
+				base.Highlight = HighlightUtils.Get().CreateGridPatternHighlight(m_trapwirePattern, 1f);
 				base.Highlight.transform.position = trapwireHighlightPos;
 			}
 			else
 			{
-				base.Highlight.transform.position = TargeterUtils.MoveHighlightTowards(trapwireHighlightPos, base.Highlight, ref this.m_curSpeed);
+				base.Highlight.transform.position = TargeterUtils.MoveHighlightTowards(trapwireHighlightPos, base.Highlight, ref m_curSpeed);
 			}
 			base.Highlight.SetActive(true);
 		}
-		if (this.m_affectsCaster != AbilityUtil_Targeter.AffectsActor.Always)
+		if (m_affectsCaster != AffectsActor.Always)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -169,11 +164,11 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (this.m_affectsCaster != AbilityUtil_Targeter.AffectsActor.Possible)
+			if (m_affectsCaster != AffectsActor.Possible)
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -182,21 +177,29 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!boardSquare.\u0012())
+			if (!boardSquareSafe.IsInBrushRegion())
 			{
 				return;
 			}
 		}
-		base.AddActorInRange(targetingActor, currentTarget.FreePos, targetingActor, AbilityTooltipSubject.Self, false);
+		AddActorInRange(targetingActor, currentTarget.FreePos, targetingActor, AbilityTooltipSubject.Self);
+		return;
+		IL_007b:
+		if (boardSquareSafe != null)
+		{
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
+			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe, boardSquareSafe2, false);
+		}
+		goto IL_00b0;
 	}
 
 	private Vector3 GetTrapwireHighlightPos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		Vector3 vector;
-		if (boardSquare != null)
+		if (boardSquareSafe != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -205,18 +208,18 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ScoundrelEvasionRoll.GetTrapwireHighlightPos(AbilityTarget, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			vector = boardSquare.ToVector3();
+			vector = boardSquareSafe.ToVector3();
 		}
 		else
 		{
 			vector = currentTarget.FreePos;
 		}
 		Vector3 freePos = vector;
-		Vector3 centerOfGridPattern = AreaEffectUtils.GetCenterOfGridPattern(this.m_trapwirePattern, freePos, targetingActor.\u0012());
+		Vector3 centerOfGridPattern = AreaEffectUtils.GetCenterOfGridPattern(m_trapwirePattern, freePos, targetingActor.GetCurrentBoardSquare());
 		centerOfGridPattern.y = HighlightUtils.GetHighlightHeight();
 		return centerOfGridPattern;
 	}

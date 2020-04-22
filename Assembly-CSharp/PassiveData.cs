@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class PassiveData : MonoBehaviour
@@ -11,11 +11,12 @@ public class PassiveData : MonoBehaviour
 
 	public Passive GetPassiveOfType(Type passiveType)
 	{
-		foreach (Passive passive in this.m_passives)
+		Passive[] passives = m_passives;
+		foreach (Passive passive in passives)
 		{
 			if (passive != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -24,9 +25,9 @@ public class PassiveData : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PassiveData.GetPassiveOfType(Type)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (passive.GetType() == passiveType)
 				{
@@ -34,52 +35,53 @@ public class PassiveData : MonoBehaviour
 				}
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return null;
 		}
-		return null;
 	}
 
 	public T GetPassiveOfType<T>() where T : Passive
 	{
-		foreach (Passive passive in this.m_passives)
+		Passive[] passives = m_passives;
+		foreach (Passive passive in passives)
 		{
-			if (passive != null)
+			if (!(passive != null))
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (6)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (passive.GetType() != typeof(T))
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (5)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PassiveData.GetPassiveOfType()).MethodHandle;
+				case 0:
+					continue;
 				}
-				if (passive.GetType() == typeof(T))
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return passive as T;
-				}
+				return passive as T;
 			}
 		}
-		return (T)((object)null);
+		return (T)null;
 	}
 }

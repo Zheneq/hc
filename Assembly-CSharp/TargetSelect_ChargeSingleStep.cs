@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,29 +18,28 @@ public class TargetSelect_ChargeSingleStep : GenericAbility_TargetSelectBase
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)
 	{
-		AbilityUtil_Targeter_Charge item = new AbilityUtil_Targeter_Charge(ability, this.GetDestShape(), base.IgnoreLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, base.IncludeEnemies(), base.IncludeAllies());
-		return new List<AbilityUtil_Targeter>
-		{
-			item
-		};
+		AbilityUtil_Targeter_Charge item = new AbilityUtil_Targeter_Charge(ability, GetDestShape(), IgnoreLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, IncludeEnemies(), IncludeAllies());
+		List<AbilityUtil_Targeter> list = new List<AbilityUtil_Targeter>();
+		list.Add(item);
+		return list;
 	}
 
 	protected override void OnTargetSelModApplied(TargetSelectModBase modBase)
 	{
-		this.m_targetSelMod = (modBase as TargetSelectMod_ChargeSingleStep);
+		m_targetSelMod = (modBase as TargetSelectMod_ChargeSingleStep);
 	}
 
 	protected override void OnTargetSelModRemoved()
 	{
-		this.m_targetSelMod = null;
+		m_targetSelMod = null;
 	}
 
 	public AbilityAreaShape GetDestShape()
 	{
 		AbilityAreaShape result;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -50,25 +48,25 @@ public class TargetSelect_ChargeSingleStep : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_ChargeSingleStep.GetDestShape()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetSelMod.m_destShapeMod.GetModifiedValue(this.m_destShape);
+			result = m_targetSelMod.m_destShapeMod.GetModifiedValue(m_destShape);
 		}
 		else
 		{
-			result = this.m_destShape;
+			result = m_destShape;
 		}
 		return result;
 	}
 
 	public override bool HandleCustomTargetValidation(Ability ability, ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null && boardSquare.\u0016())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -77,23 +75,25 @@ public class TargetSelect_ChargeSingleStep : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_ChargeSingleStep.HandleCustomTargetValidation(Ability, ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (boardSquare != caster.\u0012())
+			if (boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						int numSquaresInPath;
+						return KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out numSquaresInPath);
 					}
-					break;
+					}
 				}
-				int num;
-				return KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), false, out num);
 			}
 		}
 		return false;

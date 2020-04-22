@@ -1,26 +1,26 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class ELOKeyComponent_FinalScore : ELOKeyComponent
 {
-	private ELOKeyComponent_FinalScore.GameTypeMode m_gameTypeMode;
-
-	public override ELOKeyComponent.KeyModeEnum KeyMode
+	public enum GameTypeMode
 	{
-		get
-		{
-			return ELOKeyComponent.KeyModeEnum.BINARY;
-		}
+		ABSOLUTE,
+		RELATIVE
 	}
 
-	public override ELOKeyComponent.BinaryModePhaseEnum BinaryModePhase
+	private GameTypeMode m_gameTypeMode;
+
+	public override KeyModeEnum KeyMode => KeyModeEnum.BINARY;
+
+	public override BinaryModePhaseEnum BinaryModePhase
 	{
 		get
 		{
-			ELOKeyComponent.BinaryModePhaseEnum result;
-			if (this.m_gameTypeMode == ELOKeyComponent_FinalScore.GameTypeMode.ABSOLUTE)
+			int result;
+			if (m_gameTypeMode == GameTypeMode.ABSOLUTE)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -29,74 +29,68 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_FinalScore.get_BinaryModePhase()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = ELOKeyComponent.BinaryModePhaseEnum.PRIMARY;
+				result = 0;
 			}
 			else
 			{
-				result = ELOKeyComponent.BinaryModePhaseEnum.SECONDARY;
+				result = 1;
 			}
-			return result;
+			return (BinaryModePhaseEnum)result;
 		}
 	}
 
-	public static uint PhaseWidth
-	{
-		get
-		{
-			return 2U;
-		}
-	}
+	public static uint PhaseWidth => 2u;
 
 	public override char GetComponentChar()
 	{
-		if (this.m_gameTypeMode == ELOKeyComponent_FinalScore.GameTypeMode.ABSOLUTE)
+		if (m_gameTypeMode == GameTypeMode.ABSOLUTE)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return '-';
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_FinalScore.GetComponentChar()).MethodHandle;
-			}
-			return '-';
 		}
-		if (this.m_gameTypeMode == ELOKeyComponent_FinalScore.GameTypeMode.RELATIVE)
+		if (m_gameTypeMode == GameTypeMode.RELATIVE)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 'R';
 				}
-				break;
 			}
-			return 'R';
 		}
 		return '?';
 	}
 
 	public override char GetPhaseChar()
 	{
-		return (this.m_gameTypeMode != ELOKeyComponent_FinalScore.GameTypeMode.ABSOLUTE) ? 'R' : '0';
+		return (m_gameTypeMode != 0) ? 'R' : '0';
 	}
 
 	public override string GetPhaseDescription()
 	{
-		string result;
-		if (this.m_gameTypeMode == ELOKeyComponent_FinalScore.GameTypeMode.ABSOLUTE)
+		object result;
+		if (m_gameTypeMode == GameTypeMode.ABSOLUTE)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -105,9 +99,9 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_FinalScore.GetPhaseDescription()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = "absolute";
 		}
@@ -115,15 +109,15 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 		{
 			result = "relative";
 		}
-		return result;
+		return (string)result;
 	}
 
-	public override void Initialize(ELOKeyComponent.BinaryModePhaseEnum phase, GameType gameType, bool isCasual)
+	public override void Initialize(BinaryModePhaseEnum phase, GameType gameType, bool isCasual)
 	{
-		ELOKeyComponent_FinalScore.GameTypeMode gameTypeMode;
-		if (phase == ELOKeyComponent.BinaryModePhaseEnum.PRIMARY)
+		int gameTypeMode;
+		if (phase == BinaryModePhaseEnum.PRIMARY)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -132,22 +126,22 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_FinalScore.Initialize(ELOKeyComponent.BinaryModePhaseEnum, GameType, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			gameTypeMode = ELOKeyComponent_FinalScore.GameTypeMode.ABSOLUTE;
+			gameTypeMode = 0;
 		}
 		else
 		{
-			gameTypeMode = ELOKeyComponent_FinalScore.GameTypeMode.RELATIVE;
+			gameTypeMode = 1;
 		}
-		this.m_gameTypeMode = gameTypeMode;
+		m_gameTypeMode = (GameTypeMode)gameTypeMode;
 	}
 
 	public override void Initialize(List<MatchmakingQueueConfig.EloKeyFlags> flags, GameType gameType, bool isCasual)
 	{
-		this.m_gameTypeMode = ((!flags.Contains(MatchmakingQueueConfig.EloKeyFlags.RELATIVE)) ? ELOKeyComponent_FinalScore.GameTypeMode.ABSOLUTE : ELOKeyComponent_FinalScore.GameTypeMode.RELATIVE);
+		m_gameTypeMode = (flags.Contains(MatchmakingQueueConfig.EloKeyFlags.RELATIVE) ? GameTypeMode.RELATIVE : GameTypeMode.ABSOLUTE);
 	}
 
 	public override bool MatchesFlag(MatchmakingQueueConfig.EloKeyFlags flag)
@@ -163,24 +157,24 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 	{
 		if (gameResultAbsolute == GameResult.TieGame)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return 0.5f;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_FinalScore.GetActualResult(Team, GameResult, float)).MethodHandle;
-			}
-			return 0.5f;
 		}
 		if (gameResultFraction < 0.5f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -193,7 +187,7 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 		}
 		else if (gameResultFraction > 1f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -204,125 +198,119 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 			}
 			gameResultFraction = 1f;
 		}
-		if (gameResultAbsolute == GameResult.TeamAWon)
+		switch (gameResultAbsolute)
 		{
-			for (;;)
+		case GameResult.TeamAWon:
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (team == Team.TeamA)
-			{
-				for (;;)
+				if (team == Team.TeamA)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return (this.m_gameTypeMode != ELOKeyComponent_FinalScore.GameTypeMode.ABSOLUTE) ? gameResultFraction : 1f;
-			}
-			if (team == Team.TeamB)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return (this.m_gameTypeMode != ELOKeyComponent_FinalScore.GameTypeMode.ABSOLUTE) ? (1f - gameResultFraction) : 0f;
-			}
-			throw new Exception("Unexpected victor");
-		}
-		else
-		{
-			if (gameResultAbsolute != GameResult.TeamBWon)
-			{
-				throw new Exception("Unexpected game result");
-			}
-			if (team == Team.TeamB)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				float result;
-				if (this.m_gameTypeMode == ELOKeyComponent_FinalScore.GameTypeMode.ABSOLUTE)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = 1f;
-				}
-				else
-				{
-					result = gameResultFraction;
-				}
-				return result;
-			}
-			if (team == Team.TeamA)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				float result2;
-				if (this.m_gameTypeMode == ELOKeyComponent_FinalScore.GameTypeMode.ABSOLUTE)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return (m_gameTypeMode != 0) ? gameResultFraction : 1f;
 						}
-						break;
 					}
-					result2 = 0f;
 				}
-				else
+				if (team == Team.TeamB)
 				{
-					result2 = 1f - gameResultFraction;
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							break;
+						default:
+							return (m_gameTypeMode != 0) ? (1f - gameResultFraction) : 0f;
+						}
+					}
 				}
-				return result2;
+				throw new Exception("Unexpected victor");
+			}
+		case GameResult.TeamBWon:
+			if (team == Team.TeamB)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						break;
+					default:
+					{
+						float result;
+						if (m_gameTypeMode == GameTypeMode.ABSOLUTE)
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							result = 1f;
+						}
+						else
+						{
+							result = gameResultFraction;
+						}
+						return result;
+					}
+					}
+				}
+			}
+			if (team == Team.TeamA)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						break;
+					default:
+					{
+						float result2;
+						if (m_gameTypeMode == GameTypeMode.ABSOLUTE)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							result2 = 0f;
+						}
+						else
+						{
+							result2 = 1f - gameResultFraction;
+						}
+						return result2;
+					}
+					}
+				}
 			}
 			throw new Exception("Unexpected victor");
+		default:
+			throw new Exception("Unexpected game result");
 		}
 	}
 
 	public bool IsRelative()
 	{
-		return this.m_gameTypeMode == ELOKeyComponent_FinalScore.GameTypeMode.RELATIVE;
-	}
-
-	public enum GameTypeMode
-	{
-		ABSOLUTE,
-		RELATIVE
+		return m_gameTypeMode == GameTypeMode.RELATIVE;
 	}
 }

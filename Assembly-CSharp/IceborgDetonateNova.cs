@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 
 public class IceborgDetonateNova : GenericAbility_Container
 {
@@ -30,15 +29,15 @@ public class IceborgDetonateNova : GenericAbility_Container
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetUsageForEditor() + ContextVars.\u0015(IceborgDetonateNova.s_cvarNumNovaCores.\u0012(), "Number of nova cores detonating", false);
+		return base.GetUsageForEditor() + ContextVars.GetDebugString(s_cvarNumNovaCores.GetName(), "Number of nova cores detonating", false);
 	}
 
 	public override string GetOnHitDataDesc()
 	{
 		string text = base.GetOnHitDataDesc();
-		if (this.m_empoweredDelayedAoeOnHitData != null)
+		if (m_empoweredDelayedAoeOnHitData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -47,11 +46,11 @@ public class IceborgDetonateNova : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.GetOnHitDataDesc()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text += this.m_empoweredDelayedAoeOnHitData.GetInEditorDesc();
+			text += m_empoweredDelayedAoeOnHitData.GetInEditorDesc();
 		}
 		return text;
 	}
@@ -59,34 +58,34 @@ public class IceborgDetonateNova : GenericAbility_Container
 	public override List<string> GetContextNamesForEditor()
 	{
 		List<string> contextNamesForEditor = base.GetContextNamesForEditor();
-		contextNamesForEditor.Add(IceborgDetonateNova.s_cvarNumNovaCores.\u0012());
+		contextNamesForEditor.Add(s_cvarNumNovaCores.GetName());
 		return contextNamesForEditor;
 	}
 
 	public int GetDelayedDenotateDamage()
 	{
-		OnHitAuthoredData empoweredDelayedAoeOnHitData = this.GetEmpoweredDelayedAoeOnHitData();
+		OnHitAuthoredData empoweredDelayedAoeOnHitData = GetEmpoweredDelayedAoeOnHitData();
 		return empoweredDelayedAoeOnHitData.GetFirstDamageValue();
 	}
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
+		m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		base.SetupTargetersAndCachedVars();
-		this.SetCachedFields();
+		SetCachedFields();
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedEmpoweredDelayedAoeOnHitData = ((!(this.m_abilityMod != null)) ? this.m_empoweredDelayedAoeOnHitData : this.m_abilityMod.m_empoweredDelayedAoeOnHitDataMod.\u001D(this.m_empoweredDelayedAoeOnHitData));
+		m_cachedEmpoweredDelayedAoeOnHitData = ((!(m_abilityMod != null)) ? m_empoweredDelayedAoeOnHitData : m_abilityMod.m_empoweredDelayedAoeOnHitDataMod._001D(m_empoweredDelayedAoeOnHitData));
 	}
 
 	public OnHitAuthoredData GetEmpoweredDelayedAoeOnHitData()
 	{
 		OnHitAuthoredData result;
-		if (this.m_cachedEmpoweredDelayedAoeOnHitData != null)
+		if (m_cachedEmpoweredDelayedAoeOnHitData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -95,15 +94,15 @@ public class IceborgDetonateNova : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.GetEmpoweredDelayedAoeOnHitData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEmpoweredDelayedAoeOnHitData;
+			result = m_cachedEmpoweredDelayedAoeOnHitData;
 		}
 		else
 		{
-			result = this.m_empoweredDelayedAoeOnHitData;
+			result = m_empoweredDelayedAoeOnHitData;
 		}
 		return result;
 	}
@@ -111,9 +110,9 @@ public class IceborgDetonateNova : GenericAbility_Container
 	public int GetNovaOnReactShieldPerDetonate()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -122,15 +121,15 @@ public class IceborgDetonateNova : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.GetNovaOnReactShieldPerDetonate()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_novaOnReactShieldPerDetonateMod.GetModifiedValue(this.m_novaOnReactShieldPerDetonate);
+			result = m_abilityMod.m_novaOnReactShieldPerDetonateMod.GetModifiedValue(m_novaOnReactShieldPerDetonate);
 		}
 		else
 		{
-			result = this.m_novaOnReactShieldPerDetonate;
+			result = m_novaOnReactShieldPerDetonate;
 		}
 		return result;
 	}
@@ -138,9 +137,9 @@ public class IceborgDetonateNova : GenericAbility_Container
 	public int GetShieldOnDetonateDuration()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -149,15 +148,15 @@ public class IceborgDetonateNova : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.GetShieldOnDetonateDuration()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_shieldOnDetonateDurationMod.GetModifiedValue(this.m_shieldOnDetonateDuration);
+			result = m_abilityMod.m_shieldOnDetonateDurationMod.GetModifiedValue(m_shieldOnDetonateDuration);
 		}
 		else
 		{
-			result = this.m_shieldOnDetonateDuration;
+			result = m_shieldOnDetonateDuration;
 		}
 		return result;
 	}
@@ -165,9 +164,9 @@ public class IceborgDetonateNova : GenericAbility_Container
 	public int GetCdrPerKill()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -176,15 +175,15 @@ public class IceborgDetonateNova : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.GetCdrPerKill()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_cdrPerKillMod.GetModifiedValue(this.m_cdrPerKill);
+			result = m_abilityMod.m_cdrPerKillMod.GetModifiedValue(m_cdrPerKill);
 		}
 		else
 		{
-			result = this.m_cdrPerKill;
+			result = m_cdrPerKill;
 		}
 		return result;
 	}
@@ -192,9 +191,9 @@ public class IceborgDetonateNova : GenericAbility_Container
 	public int GetCdrIfAnyKill()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -203,15 +202,15 @@ public class IceborgDetonateNova : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.GetCdrIfAnyKill()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_cdrIfAnyKillMod.GetModifiedValue(this.m_cdrIfAnyKill);
+			result = m_abilityMod.m_cdrIfAnyKillMod.GetModifiedValue(m_cdrIfAnyKill);
 		}
 		else
 		{
-			result = this.m_cdrIfAnyKill;
+			result = m_cdrIfAnyKill;
 		}
 		return result;
 	}
@@ -219,14 +218,14 @@ public class IceborgDetonateNova : GenericAbility_Container
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		this.m_empoweredDelayedAoeOnHitData.AddTooltipTokens(tokens);
-		base.AddTokenInt(tokens, "NovaOnReactShieldPerDetonate", string.Empty, this.m_novaOnReactShieldPerDetonate, false);
-		base.AddTokenInt(tokens, "ShieldOnDetonateDuration", string.Empty, this.m_shieldOnDetonateDuration, false);
-		base.AddTokenInt(tokens, "CdrPerKill", string.Empty, this.m_cdrPerKill, false);
-		base.AddTokenInt(tokens, "CdrIfAnyKill", string.Empty, this.m_cdrIfAnyKill, false);
-		if (this.m_syncComp == null)
+		m_empoweredDelayedAoeOnHitData.AddTooltipTokens(tokens);
+		AddTokenInt(tokens, "NovaOnReactShieldPerDetonate", string.Empty, m_novaOnReactShieldPerDetonate);
+		AddTokenInt(tokens, "ShieldOnDetonateDuration", string.Empty, m_shieldOnDetonateDuration);
+		AddTokenInt(tokens, "CdrPerKill", string.Empty, m_cdrPerKill);
+		AddTokenInt(tokens, "CdrIfAnyKill", string.Empty, m_cdrIfAnyKill);
+		if (m_syncComp == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -235,77 +234,79 @@ public class IceborgDetonateNova : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
+			m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		}
-		if (this.m_syncComp != null)
+		if (!(m_syncComp != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_syncComp.AddTooltipTokens(tokens);
+			m_syncComp.AddTooltipTokens(tokens);
+			return;
 		}
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_syncComp != null && this.m_syncComp.m_numNovaEffectsOnTurnStart <= 0)
+		if (m_syncComp != null && m_syncComp.m_numNovaEffectsOnTurnStart <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
-			return false;
 		}
 		return base.CustomCanCastValidation(caster);
 	}
 
 	public override void PreProcessTargetingNumbers(ActorData targetActor, int currentTargetIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext)
 	{
-		if (this.m_syncComp != null)
+		if (!(m_syncComp != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.PreProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			abilityContext.\u0016(IceborgDetonateNova.s_cvarNumNovaCores.\u0012(), (int)this.m_syncComp.m_numNovaEffectsOnTurnStart);
+			abilityContext.SetInt(s_cvarNumNovaCores.GetHash(), m_syncComp.m_numNovaEffectsOnTurnStart);
+			return;
 		}
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		this.m_abilityMod = (abilityMod as AbilityMod_IceborgDetonateNova);
+		m_abilityMod = (abilityMod as AbilityMod_IceborgDetonateNova);
 	}
 
 	protected override void GenModImpl_ClearModRef()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 }

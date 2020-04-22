@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,6 +5,8 @@ using UnityEngine.UI;
 
 public class UIStorePurchaseItemDialogBox : UIDialogBox
 {
+	public delegate void PurchaseCloseDialogCallback();
+
 	public TextMeshProUGUI m_dialogTitle;
 
 	public _ButtonSwapSprite m_closeBtn;
@@ -60,43 +61,43 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 
 	private bool m_purchaseSuccess;
 
-	private UIStorePurchaseItemDialogBox.PurchaseCloseDialogCallback m_closeDialogCallback;
+	private PurchaseCloseDialogCallback m_closeDialogCallback;
 
 	public override void Awake()
 	{
 		base.Awake();
-		this.m_startPurchaseTime = -1f;
-		this.m_closeBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseDialog);
-		this.m_cancelBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseDialog);
-		this.m_confirmBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PurchaseItem);
-		this.m_generalBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.GeneralButtonClicked);
-		this.m_purchaseResultBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PurchaseResultOkClicked);
+		m_startPurchaseTime = -1f;
+		m_closeBtn.callback = CloseDialog;
+		m_cancelBtn.callback = CloseDialog;
+		m_confirmBtn.callback = PurchaseItem;
+		m_generalBtn.callback = GeneralButtonClicked;
+		m_purchaseResultBtn.callback = PurchaseResultOkClicked;
 	}
 
 	private void TimeoutPurchase()
 	{
-		this.m_purchaseResultLabel.text = StringUtil.TR("PurchaseHasTimedOut", "Store");
-		this.m_purchaseSuccess = false;
-		UIManager.SetGameObjectActive(this.m_waitingPurchaseContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_confirmPurchaseContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_resultPurchaseContainer, true, null);
-		UIManager.SetGameObjectActive(this.m_generalBtnContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_disableCloseBtn, false, null);
+		m_purchaseResultLabel.text = StringUtil.TR("PurchaseHasTimedOut", "Store");
+		m_purchaseSuccess = false;
+		UIManager.SetGameObjectActive(m_waitingPurchaseContainer, false);
+		UIManager.SetGameObjectActive(m_confirmPurchaseContainer, false);
+		UIManager.SetGameObjectActive(m_resultPurchaseContainer, true);
+		UIManager.SetGameObjectActive(m_generalBtnContainer, false);
+		UIManager.SetGameObjectActive(m_disableCloseBtn, false);
 	}
 
 	public void PurchaseItem(BaseEventData data)
 	{
-		if (this.m_itemRef.m_itemType == PurchaseItemType.Character)
+		if (m_itemRef.m_itemType == PurchaseItemType.Character)
 		{
-			UIStorePanel.Get().RequestToPurchaseCharacter(this.m_itemRef.m_currencyType, this.m_itemRef.m_charLink.m_characterType);
+			UIStorePanel.Get().RequestToPurchaseCharacter(m_itemRef.m_currencyType, m_itemRef.m_charLink.m_characterType);
 		}
-		else if (this.m_itemRef.m_itemType == PurchaseItemType.Skin)
+		else if (m_itemRef.m_itemType == PurchaseItemType.Skin)
 		{
-			UIStorePanel.Get().RequestToPurchaseSkin(this.m_itemRef.m_currencyType, this.m_itemRef.m_charLink.m_characterType, this.m_itemRef.m_skinIndex);
+			UIStorePanel.Get().RequestToPurchaseSkin(m_itemRef.m_currencyType, m_itemRef.m_charLink.m_characterType, m_itemRef.m_skinIndex);
 		}
-		else if (this.m_itemRef.m_itemType == PurchaseItemType.Texture)
+		else if (m_itemRef.m_itemType == PurchaseItemType.Texture)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -105,19 +106,19 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseItemDialogBox.PurchaseItem(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIStorePanel.Get().RequestToPurchaseTexture(this.m_itemRef.m_currencyType, this.m_itemRef.m_charLink.m_characterType, this.m_itemRef.m_skinIndex, this.m_itemRef.m_textureIndex);
+			UIStorePanel.Get().RequestToPurchaseTexture(m_itemRef.m_currencyType, m_itemRef.m_charLink.m_characterType, m_itemRef.m_skinIndex, m_itemRef.m_textureIndex);
 		}
-		else if (this.m_itemRef.m_itemType == PurchaseItemType.Tint)
+		else if (m_itemRef.m_itemType == PurchaseItemType.Tint)
 		{
-			UIStorePanel.Get().RequestToPurchaseTint(this.m_itemRef.m_currencyType, this.m_itemRef.m_charLink.m_characterType, this.m_itemRef.m_skinIndex, this.m_itemRef.m_textureIndex, this.m_itemRef.m_tintIndex);
+			UIStorePanel.Get().RequestToPurchaseTint(m_itemRef.m_currencyType, m_itemRef.m_charLink.m_characterType, m_itemRef.m_skinIndex, m_itemRef.m_textureIndex, m_itemRef.m_tintIndex);
 		}
-		else if (this.m_itemRef.m_itemType == PurchaseItemType.Taunt)
+		else if (m_itemRef.m_itemType == PurchaseItemType.Taunt)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -126,15 +127,15 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 				}
 				break;
 			}
-			UIStorePanel.Get().RequestToPurchaseTaunt(this.m_itemRef.m_currencyType, this.m_itemRef.m_charLink.m_characterType, this.m_itemRef.m_tauntIndex);
+			UIStorePanel.Get().RequestToPurchaseTaunt(m_itemRef.m_currencyType, m_itemRef.m_charLink.m_characterType, m_itemRef.m_tauntIndex);
 		}
-		else if (this.m_itemRef.m_itemType == PurchaseItemType.InventoryItem)
+		else if (m_itemRef.m_itemType == PurchaseItemType.InventoryItem)
 		{
-			UIStorePanel.Get().RequestToPurchaseInventoryItem(this.m_itemRef.m_inventoryTemplateId, this.m_itemRef.m_currencyType);
+			UIStorePanel.Get().RequestToPurchaseInventoryItem(m_itemRef.m_inventoryTemplateId, m_itemRef.m_currencyType);
 		}
-		else if (this.m_itemRef.m_itemType == PurchaseItemType.Title)
+		else if (m_itemRef.m_itemType == PurchaseItemType.Title)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -143,11 +144,11 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 				}
 				break;
 			}
-			UIStorePanel.Get().RequestToPurchaseTitle(this.m_itemRef.m_titleID, this.m_itemRef.m_currencyType);
+			UIStorePanel.Get().RequestToPurchaseTitle(m_itemRef.m_titleID, m_itemRef.m_currencyType);
 		}
-		else if (this.m_itemRef.m_itemType == PurchaseItemType.Banner)
+		else if (m_itemRef.m_itemType == PurchaseItemType.Banner)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -156,9 +157,9 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 				}
 				break;
 			}
-			if (GameBalanceVars.Get().GetBanner(this.m_itemRef.m_bannerID).m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
+			if (GameBalanceVars.Get().GetBanner(m_itemRef.m_bannerID).m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -167,20 +168,20 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 					}
 					break;
 				}
-				UIStorePanel.Get().RequestToPurchaseBanner(this.m_itemRef.m_bannerID, this.m_itemRef.m_currencyType);
+				UIStorePanel.Get().RequestToPurchaseBanner(m_itemRef.m_bannerID, m_itemRef.m_currencyType);
 			}
 			else
 			{
-				UIStorePanel.Get().RequestToPurchaseEmblem(this.m_itemRef.m_bannerID, this.m_itemRef.m_currencyType);
+				UIStorePanel.Get().RequestToPurchaseEmblem(m_itemRef.m_bannerID, m_itemRef.m_currencyType);
 			}
 		}
-		else if (this.m_itemRef.m_itemType == PurchaseItemType.Emoticon)
+		else if (m_itemRef.m_itemType == PurchaseItemType.Emoticon)
 		{
-			UIStorePanel.Get().RequestToPurchaseEmoticon(this.m_itemRef.m_emoticonID, this.m_itemRef.m_currencyType);
+			UIStorePanel.Get().RequestToPurchaseEmoticon(m_itemRef.m_emoticonID, m_itemRef.m_currencyType);
 		}
-		else if (this.m_itemRef.m_itemType == PurchaseItemType.AbilityVfx)
+		else if (m_itemRef.m_itemType == PurchaseItemType.AbilityVfx)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -189,15 +190,15 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 				}
 				break;
 			}
-			UIStorePanel.Get().RequestToPurchaseAbilityVfx(this.m_itemRef.m_charLink.m_characterType, this.m_itemRef.m_abilityID, this.m_itemRef.m_abilityVfxID, this.m_itemRef.m_currencyType);
+			UIStorePanel.Get().RequestToPurchaseAbilityVfx(m_itemRef.m_charLink.m_characterType, m_itemRef.m_abilityID, m_itemRef.m_abilityVfxID, m_itemRef.m_currencyType);
 		}
-		else if (this.m_itemRef.m_itemType == PurchaseItemType.Overcon)
+		else if (m_itemRef.m_itemType == PurchaseItemType.Overcon)
 		{
-			UIStorePanel.Get().RequestToPurchaseOvercon(this.m_itemRef.m_overconID, this.m_itemRef.m_currencyType);
+			UIStorePanel.Get().RequestToPurchaseOvercon(m_itemRef.m_overconID, m_itemRef.m_currencyType);
 		}
-		else if (this.m_itemRef.m_itemType == PurchaseItemType.LoadingScreenBackground)
+		else if (m_itemRef.m_itemType == PurchaseItemType.LoadingScreenBackground)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -206,22 +207,22 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 				}
 				break;
 			}
-			UIStorePanel.Get().RequestToPurchaseLoadingScreenBackground(this.m_itemRef.m_loadingScreenBackgroundId, this.m_itemRef.m_currencyType);
+			UIStorePanel.Get().RequestToPurchaseLoadingScreenBackground(m_itemRef.m_loadingScreenBackgroundId, m_itemRef.m_currencyType);
 		}
-		this.m_startPurchaseTime = Time.time;
-		UIManager.SetGameObjectActive(this.m_waitingPurchaseContainer, true, null);
-		UIManager.SetGameObjectActive(this.m_confirmPurchaseContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_resultPurchaseContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_generalBtnContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_disableCloseBtn, true, null);
-		this.m_purchaseSuccess = false;
+		m_startPurchaseTime = Time.time;
+		UIManager.SetGameObjectActive(m_waitingPurchaseContainer, true);
+		UIManager.SetGameObjectActive(m_confirmPurchaseContainer, false);
+		UIManager.SetGameObjectActive(m_resultPurchaseContainer, false);
+		UIManager.SetGameObjectActive(m_generalBtnContainer, false);
+		UIManager.SetGameObjectActive(m_disableCloseBtn, true);
+		m_purchaseSuccess = false;
 	}
 
 	private void SetGeneralButtonLabels(string newString)
 	{
-		for (int i = 0; i < this.m_generalBtnLabels.Length; i++)
+		for (int i = 0; i < m_generalBtnLabels.Length; i++)
 		{
-			this.m_generalBtnLabels[i].text = newString;
+			m_generalBtnLabels[i].text = newString;
 		}
 	}
 
@@ -230,62 +231,63 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		if (successful)
 		{
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.PurchaseComplete);
-			this.m_purchaseResultLabel.text = StringUtil.TR("PurchaseSuccessful", "Store");
-			this.m_purchaseSuccess = true;
-			this.Close();
+			m_purchaseResultLabel.text = StringUtil.TR("PurchaseSuccessful", "Store");
+			m_purchaseSuccess = true;
+			Close();
 		}
 		else
 		{
-			this.m_purchaseResultLabel.text = StringUtil.TR("PurchaseFailed", "Store");
-			this.m_purchaseSuccess = false;
+			m_purchaseResultLabel.text = StringUtil.TR("PurchaseFailed", "Store");
+			m_purchaseSuccess = false;
 		}
-		UIManager.SetGameObjectActive(this.m_waitingPurchaseContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_confirmPurchaseContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_resultPurchaseContainer, true, null);
-		UIManager.SetGameObjectActive(this.m_generalBtnContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_disableCloseBtn, false, null);
+		UIManager.SetGameObjectActive(m_waitingPurchaseContainer, false);
+		UIManager.SetGameObjectActive(m_confirmPurchaseContainer, false);
+		UIManager.SetGameObjectActive(m_resultPurchaseContainer, true);
+		UIManager.SetGameObjectActive(m_generalBtnContainer, false);
+		UIManager.SetGameObjectActive(m_disableCloseBtn, false);
 	}
 
 	public void NotifyPurchaseInventoryItemResponse(bool successful)
 	{
-		this.NotifyPurchaseResponse(successful);
+		NotifyPurchaseResponse(successful);
 	}
 
 	public void NotifyTauntPurchaseResponse(bool successful)
 	{
-		this.NotifyPurchaseResponse(successful);
-		if (successful)
+		NotifyPurchaseResponse(successful);
+		if (!successful)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseItemDialogBox.NotifyTauntPurchaseResponse(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UICharacterTauntsPanel.RefreshActivePanels(this.m_itemRef.m_charLink, this.m_itemRef.m_tauntIndex);
+			UICharacterTauntsPanel.RefreshActivePanels(m_itemRef.m_charLink, m_itemRef.m_tauntIndex);
+			return;
 		}
 	}
 
 	public void GeneralButtonClicked(BaseEventData data)
 	{
-		if (this.m_success)
+		if (m_success)
 		{
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.Cancel);
-			this.m_confirmPurchaseLabel.text = StringUtil.TR("PurchaseConfirmation", "Store");
-			UIManager.SetGameObjectActive(this.m_confirmPurchaseContainer, true, null);
-			UIManager.SetGameObjectActive(this.m_generalBtnContainer, false, null);
-			this.PurchaseItem(null);
+			m_confirmPurchaseLabel.text = StringUtil.TR("PurchaseConfirmation", "Store");
+			UIManager.SetGameObjectActive(m_confirmPurchaseContainer, true);
+			UIManager.SetGameObjectActive(m_generalBtnContainer, false);
+			PurchaseItem(null);
 		}
 		else
 		{
-			this.Close();
+			Close();
 			UIFrontEnd.Get().m_frontEndNavPanel.CollectionsBtnClicked(null);
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.SubMenuOpen);
 		}
@@ -293,33 +295,31 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 
 	public void CloseDialog(BaseEventData data)
 	{
-		this.Close();
+		Close();
 	}
 
 	public void PurchaseResultOkClicked(BaseEventData data)
 	{
-		if (this.m_purchaseSuccess)
+		if (m_purchaseSuccess)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Close();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseItemDialogBox.PurchaseResultOkClicked(BaseEventData)).MethodHandle;
-			}
-			this.Close();
 		}
-		else
-		{
-			UIManager.SetGameObjectActive(this.m_resultPurchaseContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_generalBtnContainer, true, null);
-		}
+		UIManager.SetGameObjectActive(m_resultPurchaseContainer, false);
+		UIManager.SetGameObjectActive(m_generalBtnContainer, true);
 	}
 
 	public override void ClearCallback()
@@ -332,52 +332,53 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 
 	public void Update()
 	{
-		if (UIStorePanel.Get().IsWaitingForPurchaseRequest)
+		if (!UIStorePanel.Get().IsWaitingForPurchaseRequest)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseItemDialogBox.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (Time.time - this.m_startPurchaseTime >= 5f)
+			if (Time.time - m_startPurchaseTime >= 5f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					TimeoutPurchase();
+					UIStorePanel.Get().TimeOutPurchase();
+					return;
 				}
-				this.TimeoutPurchase();
-				UIStorePanel.Get().TimeOutPurchase();
 			}
+			return;
 		}
 	}
 
 	public override void Close()
 	{
-		if (this.m_closeDialogCallback != null)
+		if (m_closeDialogCallback != null)
 		{
-			this.m_closeDialogCallback();
-			this.m_closeDialogCallback = null;
+			m_closeDialogCallback();
+			m_closeDialogCallback = null;
 		}
 		base.Close();
 	}
 
-	public void Setup(UIPurchaseableItem item, UIStorePurchaseItemDialogBox.PurchaseCloseDialogCallback closeCallback = null)
+	public void Setup(UIPurchaseableItem item, PurchaseCloseDialogCallback closeCallback = null)
 	{
-		this.m_itemRef = item;
-		this.m_closeDialogCallback = closeCallback;
+		m_itemRef = item;
+		m_closeDialogCallback = closeCallback;
 		string text = string.Empty;
 		string text2 = string.Empty;
 		int num = 0;
@@ -388,7 +389,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		GameBalanceVars.CharacterUnlockData characterUnlockData = null;
 		if (item.m_charLink != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -397,16 +398,16 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseItemDialogBox.Setup(UIPurchaseableItem, UIStorePurchaseItemDialogBox.PurchaseCloseDialogCallback)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			characterUnlockData = GameBalanceVars.Get().GetCharacterUnlockData(item.m_charLink.m_characterType);
 		}
-		UIManager.SetGameObjectActive(this.m_Item.m_itemFG, false, null);
+		UIManager.SetGameObjectActive(m_Item.m_itemFG, false);
 		if (item.m_itemType == PurchaseItemType.Character)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -417,10 +418,10 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			text2 = StringUtil.TR("PurchaseFreelancer", "Store");
 			text = string.Format(StringUtil.TR("PurchaseFreelancerDesc", "Store"), item.m_charLink.GetDisplayName());
-			this.m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(item.m_charLink.m_characterIconResourceString);
+			m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(item.m_charLink.m_characterIconResourceString);
 			if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -437,10 +438,10 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			CharacterSkin characterSkin = item.m_charLink.m_skins[skinIndex];
 			text2 = StringUtil.TR("PurchaseSkin", "Store");
 			text = string.Format(StringUtil.TR("PurchaseSkinDesc", "Store"), item.m_charLink.GetSkinName(skinIndex));
-			this.m_Item.m_itemIcon.sprite = (Sprite)Resources.Load(characterSkin.m_skinSelectionIconPath, typeof(Sprite));
+			m_Item.m_itemIcon.sprite = (Sprite)Resources.Load(characterSkin.m_skinSelectionIconPath, typeof(Sprite));
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -458,7 +459,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		}
 		else if (item.m_itemType == PurchaseItemType.Texture)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -475,7 +476,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -492,10 +493,10 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			CharacterColor characterColor = item.m_charLink.m_skins[skinIndex].m_patterns[textureIndex].m_colors[tintIndex];
 			text2 = StringUtil.TR("PurchaseStyle", "Store");
 			text = string.Format(StringUtil.TR("PurchaseStyleDesc", "Store"), item.m_charLink.GetPatternColorName(skinIndex, textureIndex, tintIndex));
-			this.m_Item.m_itemIcon.sprite = (Sprite)Resources.Load(characterColor.m_iconResourceString, typeof(Sprite));
+			m_Item.m_itemIcon.sprite = (Sprite)Resources.Load(characterColor.m_iconResourceString, typeof(Sprite));
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -508,7 +509,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -521,7 +522,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -535,7 +536,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		}
 		else if (item.m_itemType == PurchaseItemType.Taunt)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -546,16 +547,16 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			text2 = StringUtil.TR("PurchaseTaunt", "Store");
 			text = item.m_charLink.GetTauntName(tauntIndex);
-			this.m_Item.m_itemIcon.sprite = this.m_tauntSprite;
-			UIManager.SetGameObjectActive(this.m_Item.m_itemFG, true, null);
+			m_Item.m_itemIcon.sprite = m_tauntSprite;
+			UIManager.SetGameObjectActive(m_Item.m_itemFG, true);
 			AbilityData component = item.m_charLink.ActorDataPrefab.GetComponent<AbilityData>();
 			if (item.m_charLink.m_taunts[tauntIndex].m_actionForTaunt == AbilityData.ActionType.ABILITY_0)
 			{
-				this.m_Item.m_itemFG.sprite = component.m_sprite0;
+				m_Item.m_itemFG.sprite = component.m_sprite0;
 			}
 			else if (item.m_charLink.m_taunts[tauntIndex].m_actionForTaunt == AbilityData.ActionType.ABILITY_1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -564,11 +565,11 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 					}
 					break;
 				}
-				this.m_Item.m_itemFG.sprite = component.m_sprite1;
+				m_Item.m_itemFG.sprite = component.m_sprite1;
 			}
 			else if (item.m_charLink.m_taunts[tauntIndex].m_actionForTaunt == AbilityData.ActionType.ABILITY_2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -577,11 +578,11 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 					}
 					break;
 				}
-				this.m_Item.m_itemFG.sprite = component.m_sprite2;
+				m_Item.m_itemFG.sprite = component.m_sprite2;
 			}
 			else if (item.m_charLink.m_taunts[tauntIndex].m_actionForTaunt == AbilityData.ActionType.ABILITY_3)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -590,11 +591,11 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 					}
 					break;
 				}
-				this.m_Item.m_itemFG.sprite = component.m_sprite3;
+				m_Item.m_itemFG.sprite = component.m_sprite3;
 			}
 			else if (item.m_charLink.m_taunts[tauntIndex].m_actionForTaunt == AbilityData.ActionType.ABILITY_4)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -603,11 +604,11 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 					}
 					break;
 				}
-				this.m_Item.m_itemFG.sprite = component.m_sprite4;
+				m_Item.m_itemFG.sprite = component.m_sprite4;
 			}
 			else if (item.m_charLink.m_taunts[tauntIndex].m_actionForTaunt == AbilityData.ActionType.ABILITY_5)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -616,15 +617,15 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 					}
 					break;
 				}
-				this.m_Item.m_itemFG.sprite = component.m_sprite5;
+				m_Item.m_itemFG.sprite = component.m_sprite5;
 			}
 			else if (item.m_charLink.m_taunts[tauntIndex].m_actionForTaunt == AbilityData.ActionType.ABILITY_6)
 			{
-				this.m_Item.m_itemFG.sprite = component.m_sprite6;
+				m_Item.m_itemFG.sprite = component.m_sprite6;
 			}
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -637,7 +638,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -651,7 +652,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		}
 		else if (item.m_itemType == PurchaseItemType.InventoryItem)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -669,7 +670,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -679,48 +680,54 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 					break;
 				}
 				GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
-				for (int i = 0; i < gameBalanceVars.StoreItemsForPurchase.Length; i++)
+				int num2 = 0;
+				while (true)
 				{
-					if (gameBalanceVars.StoreItemsForPurchase[i].m_itemTemplateId == item.m_inventoryTemplateId)
+					if (num2 < gameBalanceVars.StoreItemsForPurchase.Length)
 					{
-						for (;;)
+						if (gameBalanceVars.StoreItemsForPurchase[num2].m_itemTemplateId == item.m_inventoryTemplateId)
 						{
-							switch (3)
+							while (true)
 							{
-							case 0:
-								continue;
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
 							}
+							num = gameBalanceVars.StoreItemsForPurchase[num2].GetUnlockFreelancerCurrencyPrice();
 							break;
 						}
-						num = gameBalanceVars.StoreItemsForPurchase[i].GetUnlockFreelancerCurrencyPrice();
-						goto IL_727;
-					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
+						num2++;
 						continue;
+					}
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
 					break;
 				}
 			}
-			IL_727:
 			string spritePath = InventoryWideData.GetSpritePath(itemTemplate);
 			if (!spritePath.IsNullOrEmpty())
 			{
-				this.m_Item.m_itemIcon.sprite = (Sprite)Resources.Load(spritePath, typeof(Sprite));
+				m_Item.m_itemIcon.sprite = (Sprite)Resources.Load(spritePath, typeof(Sprite));
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.m_Item.m_itemIcon, false, null);
+				UIManager.SetGameObjectActive(m_Item.m_itemIcon, false);
 			}
-			UIManager.SetGameObjectActive(this.m_Item.m_itemFG, false, null);
+			UIManager.SetGameObjectActive(m_Item.m_itemFG, false);
 		}
 		else if (item.m_itemType == PurchaseItemType.Title)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -730,51 +737,17 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 				break;
 			}
 			GameBalanceVars gameBalanceVars2 = GameBalanceVars.Get();
-			string title = gameBalanceVars2.GetTitle(item.m_titleID, string.Empty, -1);
+			string title = gameBalanceVars2.GetTitle(item.m_titleID, string.Empty);
 			text2 = string.Format(StringUtil.TR("PurchaseItem", "Store"), title);
 			text = string.Format(StringUtil.TR("PurchaseItemDesc", "Store"), title);
-			for (int j = 0; j < gameBalanceVars2.PlayerTitles.Length; j++)
+			int num3 = 0;
+			while (true)
 			{
-				if (gameBalanceVars2.PlayerTitles[j].ID == item.m_titleID)
+				if (num3 < gameBalanceVars2.PlayerTitles.Length)
 				{
-					for (;;)
+					if (gameBalanceVars2.PlayerTitles[num3].ID == item.m_titleID)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (item.m_currencyType == CurrencyType.ISO)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num = gameBalanceVars2.PlayerTitles[j].GetUnlockISOPrice();
-					}
-					else if (item.m_currencyType == CurrencyType.RankedCurrency)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num = gameBalanceVars2.PlayerTitles[j].GetUnlockRankedCurrencyPrice();
-					}
-					else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -783,27 +756,67 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 							}
 							break;
 						}
-						num = gameBalanceVars2.PlayerTitles[j].GetUnlockFreelancerCurrencyPrice();
+						if (item.m_currencyType == CurrencyType.ISO)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num = gameBalanceVars2.PlayerTitles[num3].GetUnlockISOPrice();
+						}
+						else if (item.m_currencyType == CurrencyType.RankedCurrency)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num = gameBalanceVars2.PlayerTitles[num3].GetUnlockRankedCurrencyPrice();
+						}
+						else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num = gameBalanceVars2.PlayerTitles[num3].GetUnlockFreelancerCurrencyPrice();
+						}
+						break;
 					}
-					IL_8B9:
-					UIManager.SetGameObjectActive(this.m_Item.m_itemIcon, false, null);
-					UIManager.SetGameObjectActive(this.m_Item.m_itemFG, false, null);
-					goto IL_F2E;
-				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
+					num3++;
 					continue;
 				}
-				goto IL_8B9;
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				break;
 			}
+			UIManager.SetGameObjectActive(m_Item.m_itemIcon, false);
+			UIManager.SetGameObjectActive(m_Item.m_itemFG, false);
 		}
 		else if (item.m_itemType == PurchaseItemType.Banner)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -818,7 +831,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			text = string.Format(StringUtil.TR("PurchaseItemDesc", "Store"), banner.GetBannerName());
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -835,7 +848,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -846,12 +859,12 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 				}
 				num = banner.GetUnlockFreelancerCurrencyPrice();
 			}
-			this.m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(banner.m_iconResourceString);
-			UIManager.SetGameObjectActive(this.m_Item.m_itemFG, false, null);
+			m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(banner.m_iconResourceString);
+			UIManager.SetGameObjectActive(m_Item.m_itemFG, false);
 		}
 		else if (item.m_itemType == PurchaseItemType.Emoticon)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -862,11 +875,11 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			GameBalanceVars gameBalanceVars4 = GameBalanceVars.Get();
 			GameBalanceVars.ChatEmoticon chatEmoticon = null;
-			for (int k = 0; k < gameBalanceVars4.ChatEmojis.Length; k++)
+			for (int i = 0; i < gameBalanceVars4.ChatEmojis.Length; i++)
 			{
-				if (item.m_emoticonID == gameBalanceVars4.ChatEmojis[k].ID)
+				if (item.m_emoticonID == gameBalanceVars4.ChatEmojis[i].ID)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -875,7 +888,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 						}
 						break;
 					}
-					chatEmoticon = gameBalanceVars4.ChatEmojis[k];
+					chatEmoticon = gameBalanceVars4.ChatEmojis[i];
 					break;
 				}
 			}
@@ -883,7 +896,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			text = chatEmoticon.GetEmojiName();
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -900,7 +913,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -911,12 +924,12 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 				}
 				num = chatEmoticon.GetUnlockFreelancerCurrencyPrice();
 			}
-			this.m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(chatEmoticon.IconPath);
-			UIManager.SetGameObjectActive(this.m_Item.m_itemFG, false, null);
+			m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(chatEmoticon.IconPath);
+			UIManager.SetGameObjectActive(m_Item.m_itemFG, false);
 		}
 		else if (item.m_itemType == PurchaseItemType.Overcon)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -926,30 +939,30 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 				break;
 			}
 			UIOverconData.NameToOverconEntry nameToOverconEntry = null;
-			foreach (UIOverconData.NameToOverconEntry nameToOverconEntry2 in UIOverconData.Get().m_nameToOverconEntry)
+			foreach (UIOverconData.NameToOverconEntry item2 in UIOverconData.Get().m_nameToOverconEntry)
 			{
-				if (nameToOverconEntry2.m_overconId == item.m_overconID)
+				if (item2.m_overconId == item.m_overconID)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							nameToOverconEntry = item2;
+							goto end_IL_0b15;
 						}
-						break;
 					}
-					nameToOverconEntry = nameToOverconEntry2;
-					break;
 				}
 			}
 			GameBalanceVars gameBalanceVars5 = GameBalanceVars.Get();
 			GameBalanceVars.OverconUnlockData playerUnlockable = null;
-			for (int l = 0; l < gameBalanceVars5.Overcons.Length; l++)
+			for (int j = 0; j < gameBalanceVars5.Overcons.Length; j++)
 			{
-				if (item.m_overconID == gameBalanceVars5.Overcons[l].ID)
+				if (item.m_overconID == gameBalanceVars5.Overcons[j].ID)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -958,10 +971,10 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 						}
 						break;
 					}
-					playerUnlockable = gameBalanceVars5.Overcons[l];
+					playerUnlockable = gameBalanceVars5.Overcons[j];
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -974,7 +987,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			text = string.Format(StringUtil.TR("PurchaseItemDesc", "Store"), nameToOverconEntry.GetDisplayName());
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -991,7 +1004,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1002,12 +1015,12 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 				}
 				num = playerUnlockable.GetUnlockFreelancerCurrencyPrice();
 			}
-			this.m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(nameToOverconEntry.m_iconSpritePath);
-			UIManager.SetGameObjectActive(this.m_Item.m_itemFG, false, null);
+			m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(nameToOverconEntry.m_iconSpritePath);
+			UIManager.SetGameObjectActive(m_Item.m_itemFG, false);
 		}
 		else if (item.m_itemType == PurchaseItemType.AbilityVfx)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1020,82 +1033,88 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			switch (item.m_abilityID)
 			{
 			case 0:
-				this.m_Item.m_itemFG.sprite = component2.m_sprite0;
+				m_Item.m_itemFG.sprite = component2.m_sprite0;
 				break;
 			case 1:
-				this.m_Item.m_itemFG.sprite = component2.m_sprite1;
+				m_Item.m_itemFG.sprite = component2.m_sprite1;
 				break;
 			case 2:
-				this.m_Item.m_itemFG.sprite = component2.m_sprite2;
+				m_Item.m_itemFG.sprite = component2.m_sprite2;
 				break;
 			case 3:
-				this.m_Item.m_itemFG.sprite = component2.m_sprite3;
+				m_Item.m_itemFG.sprite = component2.m_sprite3;
 				break;
 			case 4:
-				this.m_Item.m_itemFG.sprite = component2.m_sprite4;
+				m_Item.m_itemFG.sprite = component2.m_sprite4;
 				break;
 			}
-			this.m_Item.m_itemIcon.sprite = Resources.Load<Sprite>("QuestRewards/vfxicon");
-			UIManager.SetGameObjectActive(this.m_Item.m_itemFG, true, null);
-			for (int m = 0; m < characterUnlockData.abilityVfxUnlockData.Length; m++)
+			m_Item.m_itemIcon.sprite = Resources.Load<Sprite>("QuestRewards/vfxicon");
+			UIManager.SetGameObjectActive(m_Item.m_itemFG, true);
+			int num4 = 0;
+			while (true)
 			{
-				if (characterUnlockData.abilityVfxUnlockData[m].Index2 == item.m_abilityID && characterUnlockData.abilityVfxUnlockData[m].ID == item.m_abilityVfxID)
+				if (num4 < characterUnlockData.abilityVfxUnlockData.Length)
 				{
-					for (;;)
+					if (characterUnlockData.abilityVfxUnlockData[num4].Index2 == item.m_abilityID && characterUnlockData.abilityVfxUnlockData[num4].ID == item.m_abilityVfxID)
 					{
-						switch (1)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (item.m_currencyType == CurrencyType.ISO)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num = characterUnlockData.abilityVfxUnlockData[num4].GetUnlockISOPrice();
+						}
+						else if (item.m_currencyType == CurrencyType.RankedCurrency)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num = characterUnlockData.abilityVfxUnlockData[num4].GetUnlockRankedCurrencyPrice();
 						}
 						break;
 					}
-					if (item.m_currencyType == CurrencyType.ISO)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num = characterUnlockData.abilityVfxUnlockData[m].GetUnlockISOPrice();
-					}
-					else if (item.m_currencyType == CurrencyType.RankedCurrency)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num = characterUnlockData.abilityVfxUnlockData[m].GetUnlockRankedCurrencyPrice();
-					}
-					IL_E25:
-					string vfxswapName = item.m_charLink.GetVFXSwapName(item.m_abilityID, item.m_abilityVfxID);
-					text2 = vfxswapName;
-					text = vfxswapName;
-					goto IL_F2E;
-				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
+					num4++;
 					continue;
 				}
-				goto IL_E25;
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				break;
 			}
+			string vFXSwapName = item.m_charLink.GetVFXSwapName(item.m_abilityID, item.m_abilityVfxID);
+			text2 = vFXSwapName;
+			text = vFXSwapName;
 		}
 		else if (item.m_itemType == PurchaseItemType.LoadingScreenBackground)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1105,13 +1124,14 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 				break;
 			}
 			GameBalanceVars gameBalanceVars6 = GameBalanceVars.Get();
-			GameBalanceVars.LoadingScreenBackground loadingScreenBackground = gameBalanceVars6.GetLoadingScreenBackground(item.m_loadingScreenBackgroundId);
+			GameBalanceVars.LoadingScreenBackground loadingScreenBackground = null;
+			loadingScreenBackground = gameBalanceVars6.GetLoadingScreenBackground(item.m_loadingScreenBackgroundId);
 			string loadingScreenBackgroundName = loadingScreenBackground.GetLoadingScreenBackgroundName();
 			text2 = string.Format(StringUtil.TR("PurchaseItem", "Store"), loadingScreenBackgroundName);
 			text = string.Format(StringUtil.TR("PurchaseItemDesc", "Store"), loadingScreenBackgroundName);
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -1130,14 +1150,13 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			{
 				num = loadingScreenBackground.GetUnlockFreelancerCurrencyPrice();
 			}
-			this.m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(loadingScreenBackground.m_iconPath);
-			UIManager.SetGameObjectActive(this.m_Item.m_itemFG, false, null);
+			m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(loadingScreenBackground.m_iconPath);
+			UIManager.SetGameObjectActive(m_Item.m_itemFG, false);
 		}
-		IL_F2E:
-		int num2 = 0;
+		int num5 = 0;
 		if (ClientGameManager.Get().PlayerWallet != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1148,7 +1167,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1157,21 +1176,21 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 					}
 					break;
 				}
-				num2 = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.ISO);
+				num5 = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.ISO);
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
 			{
-				num2 = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.RankedCurrency);
+				num5 = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.RankedCurrency);
 			}
 			else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				num2 = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.FreelancerCurrency);
+				num5 = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.FreelancerCurrency);
 			}
 		}
-		this.m_success = (num2 >= num);
-		if (this.m_success)
+		m_success = (num5 >= num);
+		if (m_success)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1182,7 +1201,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1191,11 +1210,11 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 					}
 					break;
 				}
-				this.m_descriptionCostResults.text = StringUtil.TR("ISORemaining", "Store");
+				m_descriptionCostResults.text = StringUtil.TR("ISORemaining", "Store");
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1204,11 +1223,11 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 					}
 					break;
 				}
-				this.m_descriptionCostResults.text = StringUtil.TR("RankedCurrencyRemaining", "Store");
+				m_descriptionCostResults.text = StringUtil.TR("RankedCurrencyRemaining", "Store");
 			}
 			else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1217,11 +1236,11 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 					}
 					break;
 				}
-				this.m_descriptionCostResults.text = StringUtil.TR("FreelancerCurrencyRemaining", "Store");
+				m_descriptionCostResults.text = StringUtil.TR("FreelancerCurrencyRemaining", "Store");
 			}
-			this.SetGeneralButtonLabels(StringUtil.TR("CONFIRMPURCHASE", "Store"));
-			this.m_generalBtn.SetClickable(true);
-			UIManager.SetGameObjectActive(this.m_generalBtnDisabledImage, false, null);
+			SetGeneralButtonLabels(StringUtil.TR("CONFIRMPURCHASE", "Store"));
+			m_generalBtn.SetClickable(true);
+			UIManager.SetGameObjectActive(m_generalBtnDisabledImage, false);
 		}
 		else
 		{
@@ -1232,7 +1251,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1247,17 +1266,17 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			{
 				text3 = StringUtil.TR("NotEnoughFreelancerCurrency", "Global");
 			}
-			this.m_descriptionCostResults.text = text3;
-			this.m_descriptionCostResults.color = Color.red;
+			m_descriptionCostResults.text = text3;
+			m_descriptionCostResults.color = Color.red;
 			text2 = text3;
-			this.SetGeneralButtonLabels(text3);
-			this.m_generalBtn.SetClickable(false);
-			UIManager.SetGameObjectActive(this.m_generalBtnDisabledImage, true, null);
+			SetGeneralButtonLabels(text3);
+			m_generalBtn.SetClickable(false);
+			UIManager.SetGameObjectActive(m_generalBtnDisabledImage, true);
 		}
 		string str = string.Empty;
 		if (item.m_currencyType == CurrencyType.ISO)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1270,7 +1289,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		}
 		else if (item.m_currencyType == CurrencyType.RankedCurrency)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1285,27 +1304,25 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		{
 			str = "<sprite name=credit>";
 		}
-		this.m_dialogTitle.text = text2;
-		this.m_descriptionTitle.text = text;
-		this.m_Item.m_headerNameLabel.text = text;
-		this.m_descriptionCurrentCredits.text = str + UIStorePanel.FormatIntToString(num2, true);
-		this.m_descriptionAddCredits.text = str + UIStorePanel.FormatIntToString(num, true);
-		this.m_descriptionTotalCredits.text = str + UIStorePanel.FormatIntToString(Mathf.Abs(num2 - num), true);
-		UIManager.SetGameObjectActive(this.m_Item.m_discountLabelContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_Item.m_headerPriceContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_Item.m_lockedIcon, false, null);
-		UIManager.SetGameObjectActive(this.m_Item.m_ownedIcon, false, null);
-		UIManager.SetGameObjectActive(this.m_Item.m_selectedCurrent, false, null);
-		UIManager.SetGameObjectActive(this.m_Item.m_selectedInUse, false, null);
-		UIManager.SetGameObjectActive(this.m_Item.m_realCurrencyIcon, false, null);
-		UIManager.SetGameObjectActive(this.m_Item.m_gameCurrencyLabel, false, null);
-		UIManager.SetGameObjectActive(this.m_Item.m_realCurrencyLabel, false, null);
-		UIManager.SetGameObjectActive(this.m_resultPurchaseContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_waitingPurchaseContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_confirmPurchaseContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_generalBtnContainer, true, null);
-		UIManager.SetGameObjectActive(this.m_disableCloseBtn, false, null);
+		m_dialogTitle.text = text2;
+		m_descriptionTitle.text = text;
+		m_Item.m_headerNameLabel.text = text;
+		m_descriptionCurrentCredits.text = str + UIStorePanel.FormatIntToString(num5, true);
+		m_descriptionAddCredits.text = str + UIStorePanel.FormatIntToString(num, true);
+		m_descriptionTotalCredits.text = str + UIStorePanel.FormatIntToString(Mathf.Abs(num5 - num), true);
+		UIManager.SetGameObjectActive(m_Item.m_discountLabelContainer, false);
+		UIManager.SetGameObjectActive(m_Item.m_headerPriceContainer, false);
+		UIManager.SetGameObjectActive(m_Item.m_lockedIcon, false);
+		UIManager.SetGameObjectActive(m_Item.m_ownedIcon, false);
+		UIManager.SetGameObjectActive(m_Item.m_selectedCurrent, false);
+		UIManager.SetGameObjectActive(m_Item.m_selectedInUse, false);
+		UIManager.SetGameObjectActive(m_Item.m_realCurrencyIcon, false);
+		UIManager.SetGameObjectActive(m_Item.m_gameCurrencyLabel, false);
+		UIManager.SetGameObjectActive(m_Item.m_realCurrencyLabel, false);
+		UIManager.SetGameObjectActive(m_resultPurchaseContainer, false);
+		UIManager.SetGameObjectActive(m_waitingPurchaseContainer, false);
+		UIManager.SetGameObjectActive(m_confirmPurchaseContainer, false);
+		UIManager.SetGameObjectActive(m_generalBtnContainer, true);
+		UIManager.SetGameObjectActive(m_disableCloseBtn, false);
 	}
-
-	public delegate void PurchaseCloseDialogCallback();
 }

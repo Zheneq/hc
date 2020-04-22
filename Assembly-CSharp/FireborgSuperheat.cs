@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class FireborgSuperheat : GenericAbility_Container
@@ -14,23 +13,23 @@ public class FireborgSuperheat : GenericAbility_Container
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Fireborg_SyncComponent>();
+		m_syncComp = GetComponent<Fireborg_SyncComponent>();
 		base.SetupTargetersAndCachedVars();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		base.AddTokenInt(tokens, "SuperheatDuration", string.Empty, this.m_superheatDuration, false);
-		base.AddTokenInt(tokens, "IgniteExtraDamageIfSuperheated", string.Empty, this.m_igniteExtraDamageIfSuperheated, false);
+		AddTokenInt(tokens, "SuperheatDuration", string.Empty, m_superheatDuration);
+		AddTokenInt(tokens, "IgniteExtraDamageIfSuperheated", string.Empty, m_igniteExtraDamageIfSuperheated);
 	}
 
 	public int GetSuperheatDuration()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -39,15 +38,15 @@ public class FireborgSuperheat : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgSuperheat.GetSuperheatDuration()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_superheatDurationMod.GetModifiedValue(this.m_superheatDuration);
+			result = m_abilityMod.m_superheatDurationMod.GetModifiedValue(m_superheatDuration);
 		}
 		else
 		{
-			result = this.m_superheatDuration;
+			result = m_superheatDuration;
 		}
 		return result;
 	}
@@ -55,9 +54,9 @@ public class FireborgSuperheat : GenericAbility_Container
 	public int GetIgniteExtraDamageIfSuperheated()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -66,26 +65,26 @@ public class FireborgSuperheat : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgSuperheat.GetIgniteExtraDamageIfSuperheated()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_igniteExtraDamageIfSuperheatedMod.GetModifiedValue(this.m_igniteExtraDamageIfSuperheated);
+			result = m_abilityMod.m_igniteExtraDamageIfSuperheatedMod.GetModifiedValue(m_igniteExtraDamageIfSuperheated);
 		}
 		else
 		{
-			result = this.m_igniteExtraDamageIfSuperheated;
+			result = m_igniteExtraDamageIfSuperheated;
 		}
 		return result;
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		this.m_abilityMod = (abilityMod as AbilityMod_FireborgSuperheat);
+		m_abilityMod = (abilityMod as AbilityMod_FireborgSuperheat);
 	}
 
 	protected override void GenModImpl_ClearModRef()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 }

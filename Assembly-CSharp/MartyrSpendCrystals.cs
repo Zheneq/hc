@@ -1,10 +1,15 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MartyrSpendCrystals : Ability
 {
-	public MartyrSpendCrystals.TargetingMode m_targetingMode;
+	public enum TargetingMode
+	{
+		OnSelf,
+		Aoe
+	}
+
+	public TargetingMode m_targetingMode;
 
 	[Header("-- Self Healing & Absorb")]
 	public StandardEffectInfo m_spentCrystalsEffect;
@@ -75,9 +80,9 @@ public class MartyrSpendCrystals : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -86,44 +91,42 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Martyr Spend Crystals";
+			m_abilityName = "Martyr Spend Crystals";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		this.m_syncComponent = base.GetComponent<Martyr_SyncComponent>();
-		if (this.m_targetingMode == MartyrSpendCrystals.TargetingMode.OnSelf)
+		SetCachedFields();
+		m_syncComponent = GetComponent<Martyr_SyncComponent>();
+		if (m_targetingMode == TargetingMode.OnSelf)
 		{
-			base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Always, AbilityUtil_Targeter.AffectsActor.Possible);
+			base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Always);
 			base.Targeter.ShowArcToShape = false;
+			return;
 		}
-		else
-		{
-			AbilityUtil_Targeter_AoE_Smooth abilityUtil_Targeter_AoE_Smooth = new AbilityUtil_Targeter_AoE_Smooth(this, 1f, this.PenetrateLos(), this.IncludeEnemies(), this.IncludeAllies(), -1);
-			abilityUtil_Targeter_AoE_Smooth.SetAffectedGroups(this.IncludeEnemies(), this.IncludeAllies(), true);
-			abilityUtil_Targeter_AoE_Smooth.m_customRadiusDelegate = new AbilityUtil_Targeter_AoE_Smooth.GetRadiusDelegate(this.GetTargeterRadius);
-			base.Targeter = abilityUtil_Targeter_AoE_Smooth;
-		}
+		AbilityUtil_Targeter_AoE_Smooth abilityUtil_Targeter_AoE_Smooth = new AbilityUtil_Targeter_AoE_Smooth(this, 1f, PenetrateLos(), IncludeEnemies(), IncludeAllies());
+		abilityUtil_Targeter_AoE_Smooth.SetAffectedGroups(IncludeEnemies(), IncludeAllies(), true);
+		abilityUtil_Targeter_AoE_Smooth.m_customRadiusDelegate = GetTargeterRadius;
+		base.Targeter = abilityUtil_Targeter_AoE_Smooth;
 	}
 
 	private float GetTargeterRadius(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		return this.GetCurrentAoeRadius(targetingActor);
+		return GetCurrentAoeRadius(targetingActor);
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedSpentCrystalsEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -132,21 +135,21 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedSpentCrystalsEffect = this.m_abilityMod.m_spentCrystalsEffectMod.GetModifiedValue(this.m_spentCrystalsEffect);
+			cachedSpentCrystalsEffect = m_abilityMod.m_spentCrystalsEffectMod.GetModifiedValue(m_spentCrystalsEffect);
 		}
 		else
 		{
-			cachedSpentCrystalsEffect = this.m_spentCrystalsEffect;
+			cachedSpentCrystalsEffect = m_spentCrystalsEffect;
 		}
-		this.m_cachedSpentCrystalsEffect = cachedSpentCrystalsEffect;
+		m_cachedSpentCrystalsEffect = cachedSpentCrystalsEffect;
 		StandardEffectInfo cachedEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -155,22 +158,22 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			cachedEnemyHitEffect = this.m_enemyHitEffect;
+			cachedEnemyHitEffect = m_enemyHitEffect;
 		}
-		this.m_cachedEnemyHitEffect = cachedEnemyHitEffect;
-		this.m_cachedAllyHitEffect = ((!this.m_abilityMod) ? this.m_allyHitEffect : this.m_abilityMod.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect));
+		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
+		m_cachedAllyHitEffect = ((!m_abilityMod) ? m_allyHitEffect : m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect));
 	}
 
 	public StandardEffectInfo GetSpentCrystalsEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedSpentCrystalsEffect != null)
+		if (m_cachedSpentCrystalsEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -179,15 +182,15 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetSpentCrystalsEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedSpentCrystalsEffect;
+			result = m_cachedSpentCrystalsEffect;
 		}
 		else
 		{
-			result = this.m_spentCrystalsEffect;
+			result = m_spentCrystalsEffect;
 		}
 		return result;
 	}
@@ -195,9 +198,9 @@ public class MartyrSpendCrystals : Ability
 	public int GetSelfHealBase()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -206,35 +209,35 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetSelfHealBase()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_selfHealBaseMod.GetModifiedValue(this.m_selfHealBase);
+			result = m_abilityMod.m_selfHealBaseMod.GetModifiedValue(m_selfHealBase);
 		}
 		else
 		{
-			result = this.m_selfHealBase;
+			result = m_selfHealBase;
 		}
 		return result;
 	}
 
 	public int GetSelfHealPerCrystalSpent()
 	{
-		return (!this.m_abilityMod) ? this.m_selfHealPerCrystalSpent : this.m_abilityMod.m_selfHealPerCrystalSpentMod.GetModifiedValue(this.m_selfHealPerCrystalSpent);
+		return (!m_abilityMod) ? m_selfHealPerCrystalSpent : m_abilityMod.m_selfHealPerCrystalSpentMod.GetModifiedValue(m_selfHealPerCrystalSpent);
 	}
 
 	public int GetSelfHealPerEnemyHit()
 	{
-		return (!this.m_abilityMod) ? this.m_selfHealPerEnemyHit : this.m_abilityMod.m_selfHealPerEnemyHitMod.GetModifiedValue(this.m_selfHealPerEnemyHit);
+		return (!m_abilityMod) ? m_selfHealPerEnemyHit : m_abilityMod.m_selfHealPerEnemyHitMod.GetModifiedValue(m_selfHealPerEnemyHit);
 	}
 
 	public bool SelfHealIsOverTime()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -243,15 +246,15 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.SelfHealIsOverTime()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_selfHealIsOverTimeMod.GetModifiedValue(this.m_selfHealIsOverTime);
+			result = m_abilityMod.m_selfHealIsOverTimeMod.GetModifiedValue(m_selfHealIsOverTime);
 		}
 		else
 		{
-			result = this.m_selfHealIsOverTime;
+			result = m_selfHealIsOverTime;
 		}
 		return result;
 	}
@@ -259,9 +262,9 @@ public class MartyrSpendCrystals : Ability
 	public int GetExtraSelfHealPerTurnAtMaxEnergy()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -270,35 +273,35 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetExtraSelfHealPerTurnAtMaxEnergy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraSelfHealPerTurnAtMaxEnergyMod.GetModifiedValue(this.m_extraSelfHealPerTurnAtMaxEnergy);
+			result = m_abilityMod.m_extraSelfHealPerTurnAtMaxEnergyMod.GetModifiedValue(m_extraSelfHealPerTurnAtMaxEnergy);
 		}
 		else
 		{
-			result = this.m_extraSelfHealPerTurnAtMaxEnergy;
+			result = m_extraSelfHealPerTurnAtMaxEnergy;
 		}
 		return result;
 	}
 
 	public int GetMaxExtraSelfHealForMaxEnergy()
 	{
-		return (!this.m_abilityMod) ? this.m_maxExtraSelfHealForMaxEnergy : this.m_abilityMod.m_maxExtraSelfHealForMaxEnergyMod.GetModifiedValue(this.m_maxExtraSelfHealForMaxEnergy);
+		return (!m_abilityMod) ? m_maxExtraSelfHealForMaxEnergy : m_abilityMod.m_maxExtraSelfHealForMaxEnergyMod.GetModifiedValue(m_maxExtraSelfHealForMaxEnergy);
 	}
 
 	public int GetSelfAbsorbBase()
 	{
-		return (!this.m_abilityMod) ? this.m_selfAbsorbBase : this.m_abilityMod.m_selfAbsorbBaseMod.GetModifiedValue(this.m_selfAbsorbBase);
+		return (!m_abilityMod) ? m_selfAbsorbBase : m_abilityMod.m_selfAbsorbBaseMod.GetModifiedValue(m_selfAbsorbBase);
 	}
 
 	public int GetSelfAbsorbPerCrystalSpent()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -307,15 +310,15 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetSelfAbsorbPerCrystalSpent()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_selfAbsorbPerCrystalSpentMod.GetModifiedValue(this.m_selfAbsorbPerCrystalSpent);
+			result = m_abilityMod.m_selfAbsorbPerCrystalSpentMod.GetModifiedValue(m_selfAbsorbPerCrystalSpent);
 		}
 		else
 		{
-			result = this.m_selfAbsorbPerCrystalSpent;
+			result = m_selfAbsorbPerCrystalSpent;
 		}
 		return result;
 	}
@@ -323,9 +326,9 @@ public class MartyrSpendCrystals : Ability
 	public float GetAoeRadiusBase()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -334,30 +337,30 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetAoeRadiusBase()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_aoeRadiusBaseMod.GetModifiedValue(this.m_aoeRadiusBase);
+			result = m_abilityMod.m_aoeRadiusBaseMod.GetModifiedValue(m_aoeRadiusBase);
 		}
 		else
 		{
-			result = this.m_aoeRadiusBase;
+			result = m_aoeRadiusBase;
 		}
 		return result;
 	}
 
 	public float GetAoeRadiuePerCrystal()
 	{
-		return (!this.m_abilityMod) ? this.m_aoeRadiuePerCrystal : this.m_abilityMod.m_aoeRadiuePerCrystalMod.GetModifiedValue(this.m_aoeRadiuePerCrystal);
+		return (!m_abilityMod) ? m_aoeRadiuePerCrystal : m_abilityMod.m_aoeRadiuePerCrystalMod.GetModifiedValue(m_aoeRadiuePerCrystal);
 	}
 
 	public bool PenetrateLos()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -366,15 +369,15 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.PenetrateLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
+			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
 		{
-			result = this.m_penetrateLos;
+			result = m_penetrateLos;
 		}
 		return result;
 	}
@@ -382,9 +385,9 @@ public class MartyrSpendCrystals : Ability
 	public int GetDamageBase()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -393,15 +396,15 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetDamageBase()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damageBaseMod.GetModifiedValue(this.m_damageBase);
+			result = m_abilityMod.m_damageBaseMod.GetModifiedValue(m_damageBase);
 		}
 		else
 		{
-			result = this.m_damageBase;
+			result = m_damageBase;
 		}
 		return result;
 	}
@@ -409,9 +412,9 @@ public class MartyrSpendCrystals : Ability
 	public int GetDamagePerCrystal()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -420,15 +423,15 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetDamagePerCrystal()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damagePerCrystalMod.GetModifiedValue(this.m_damagePerCrystal);
+			result = m_abilityMod.m_damagePerCrystalMod.GetModifiedValue(m_damagePerCrystal);
 		}
 		else
 		{
-			result = this.m_damagePerCrystal;
+			result = m_damagePerCrystal;
 		}
 		return result;
 	}
@@ -436,9 +439,9 @@ public class MartyrSpendCrystals : Ability
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyHitEffect != null)
+		if (m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -447,15 +450,15 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemyHitEffect;
+			result = m_cachedEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyHitEffect;
+			result = m_enemyHitEffect;
 		}
 		return result;
 	}
@@ -463,9 +466,9 @@ public class MartyrSpendCrystals : Ability
 	public int GetAllyHealBase()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -474,15 +477,15 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetAllyHealBase()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_allyHealBaseMod.GetModifiedValue(this.m_allyHealBase);
+			result = m_abilityMod.m_allyHealBaseMod.GetModifiedValue(m_allyHealBase);
 		}
 		else
 		{
-			result = this.m_allyHealBase;
+			result = m_allyHealBase;
 		}
 		return result;
 	}
@@ -490,9 +493,9 @@ public class MartyrSpendCrystals : Ability
 	public int GetAllyHealPerCrystal()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -501,15 +504,15 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetAllyHealPerCrystal()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_allyHealPerCrystalMod.GetModifiedValue(this.m_allyHealPerCrystal);
+			result = m_abilityMod.m_allyHealPerCrystalMod.GetModifiedValue(m_allyHealPerCrystal);
 		}
 		else
 		{
-			result = this.m_allyHealPerCrystal;
+			result = m_allyHealPerCrystal;
 		}
 		return result;
 	}
@@ -517,9 +520,9 @@ public class MartyrSpendCrystals : Ability
 	public int GetAllyHealPerEnemyHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -528,15 +531,15 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetAllyHealPerEnemyHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_allyHealPerEnemyHitMod.GetModifiedValue(this.m_allyHealPerEnemyHit);
+			result = m_abilityMod.m_allyHealPerEnemyHitMod.GetModifiedValue(m_allyHealPerEnemyHit);
 		}
 		else
 		{
-			result = this.m_allyHealPerEnemyHit;
+			result = m_allyHealPerEnemyHit;
 		}
 		return result;
 	}
@@ -544,9 +547,9 @@ public class MartyrSpendCrystals : Ability
 	public StandardEffectInfo GetAllyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAllyHitEffect != null)
+		if (m_cachedAllyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -555,49 +558,50 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetAllyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedAllyHitEffect;
+			result = m_cachedAllyHitEffect;
 		}
 		else
 		{
-			result = this.m_allyHitEffect;
+			result = m_allyHitEffect;
 		}
 		return result;
 	}
 
 	public bool ClearEnergyOnCast()
 	{
-		return (!this.m_abilityMod) ? this.m_clearEnergyOnCast : this.m_abilityMod.m_clearEnergyOnCastMod.GetModifiedValue(this.m_clearEnergyOnCast);
+		return (!m_abilityMod) ? m_clearEnergyOnCast : m_abilityMod.m_clearEnergyOnCastMod.GetModifiedValue(m_clearEnergyOnCast);
 	}
 
 	public int GetSelfEnergyGainOnCast()
 	{
-		return (!this.m_abilityMod) ? this.m_selfEnergyGainOnCast : this.m_abilityMod.m_selfEnergyGainOnCastMod.GetModifiedValue(this.m_selfEnergyGainOnCast);
+		return (!m_abilityMod) ? m_selfEnergyGainOnCast : m_abilityMod.m_selfEnergyGainOnCastMod.GetModifiedValue(m_selfEnergyGainOnCast);
 	}
 
 	public int GetCdrOnProtectAllyAbility()
 	{
-		return (!this.m_abilityMod) ? this.m_cdrOnProtectAllyAbility : this.m_abilityMod.m_cdrOnProtectAllyAbilityMod.GetModifiedValue(this.m_cdrOnProtectAllyAbility);
+		return (!m_abilityMod) ? m_cdrOnProtectAllyAbility : m_abilityMod.m_cdrOnProtectAllyAbilityMod.GetModifiedValue(m_cdrOnProtectAllyAbility);
 	}
 
 	public float GetCurrentAoeRadius(ActorData caster)
 	{
 		float num = 0f;
-		if (this.m_syncComponent != null)
+		if (m_syncComponent != null)
 		{
-			num = this.GetAoeRadiuePerCrystal() * (float)this.m_syncComponent.SpentDamageCrystals(caster);
+			num = GetAoeRadiuePerCrystal() * (float)m_syncComponent.SpentDamageCrystals(caster);
 		}
-		return this.GetAoeRadiusBase() + num;
+		return GetAoeRadiusBase() + num;
 	}
 
 	public bool IncludeEnemies()
 	{
-		if (this.GetDamageBase() <= 0)
+		int result;
+		if (GetDamageBase() <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -606,24 +610,28 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.IncludeEnemies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.GetDamagePerCrystal() <= 0)
+			if (GetDamagePerCrystal() <= 0)
 			{
-				return this.GetEnemyHitEffect().m_applyEffect;
+				result = (GetEnemyHitEffect().m_applyEffect ? 1 : 0);
+				goto IL_0035;
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_0035;
+		IL_0035:
+		return (byte)result != 0;
 	}
 
 	public bool IncludeAllies()
 	{
-		bool result;
-		if (this.GetAllyHealBase() <= 0 && this.GetAllyHealPerCrystal() <= 0)
+		int result;
+		if (GetAllyHealBase() <= 0 && GetAllyHealPerCrystal() <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -632,30 +640,30 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.IncludeAllies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.GetAllyHitEffect().m_applyEffect;
+			result = (GetAllyHitEffect().m_applyEffect ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private int GetCurrentAbsorbOnSelf(ActorData caster)
 	{
-		return this.GetSelfAbsorbBase() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetSelfAbsorbPerCrystalSpent();
+		return GetSelfAbsorbBase() + m_syncComponent.SpentDamageCrystals(caster) * GetSelfAbsorbPerCrystalSpent();
 	}
 
 	private int GetCurrentHealingOnSelf(ActorData caster, int numEnemiesHit)
 	{
 		int num = 0;
-		if (this.GetSelfHealPerEnemyHit() > 0)
+		if (GetSelfHealPerEnemyHit() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -664,15 +672,15 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetCurrentHealingOnSelf(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num += this.GetSelfHealPerEnemyHit() * numEnemiesHit;
+			num += GetSelfHealPerEnemyHit() * numEnemiesHit;
 		}
-		if (this.GetExtraSelfHealPerTurnAtMaxEnergy() > 0)
+		if (GetExtraSelfHealPerTurnAtMaxEnergy() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -681,9 +689,9 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (this.m_syncComponent != null)
+			if (m_syncComponent != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -692,9 +700,9 @@ public class MartyrSpendCrystals : Ability
 					}
 					break;
 				}
-				if (this.m_syncComponent.m_syncNumTurnsAtFullEnergy > 1)
+				if (m_syncComponent.m_syncNumTurnsAtFullEnergy > 1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -703,10 +711,10 @@ public class MartyrSpendCrystals : Ability
 						}
 						break;
 					}
-					int num2 = this.GetExtraSelfHealPerTurnAtMaxEnergy() * (this.m_syncComponent.m_syncNumTurnsAtFullEnergy - 1);
-					if (this.GetMaxExtraSelfHealForMaxEnergy() > 0)
+					int num2 = GetExtraSelfHealPerTurnAtMaxEnergy() * (m_syncComponent.m_syncNumTurnsAtFullEnergy - 1);
+					if (GetMaxExtraSelfHealForMaxEnergy() > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -715,21 +723,21 @@ public class MartyrSpendCrystals : Ability
 							}
 							break;
 						}
-						num2 = Mathf.Min(this.GetMaxExtraSelfHealForMaxEnergy(), num2);
+						num2 = Mathf.Min(GetMaxExtraSelfHealForMaxEnergy(), num2);
 					}
 					num += num2;
 				}
 			}
 		}
-		return this.GetSelfHealBase() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetSelfHealPerCrystalSpent() + num;
+		return GetSelfHealBase() + m_syncComponent.SpentDamageCrystals(caster) * GetSelfHealPerCrystalSpent() + num;
 	}
 
 	private int GetCurrentHealingOnAlly(ActorData caster, int numEnemiesHit)
 	{
 		int num = 0;
-		if (this.GetSelfHealPerEnemyHit() > 0)
+		if (GetSelfHealPerEnemyHit() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -738,18 +746,18 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetCurrentHealingOnAlly(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = this.GetAllyHealPerEnemyHit() * numEnemiesHit;
+			num = GetAllyHealPerEnemyHit() * numEnemiesHit;
 		}
-		return this.GetAllyHealBase() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetAllyHealPerCrystal() + num;
+		return GetAllyHealBase() + m_syncComponent.SpentDamageCrystals(caster) * GetAllyHealPerCrystal() + num;
 	}
 
 	private int GetCurrentDamage(ActorData caster)
 	{
-		return this.GetDamageBase() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetDamagePerCrystal();
+		return GetDamageBase() + m_syncComponent.SpentDamageCrystals(caster) * GetDamagePerCrystal();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -757,9 +765,9 @@ public class MartyrSpendCrystals : Ability
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
 		AbilityMod_MartyrSpendCrystals abilityMod_MartyrSpendCrystals = modAsBase as AbilityMod_MartyrSpendCrystals;
 		StandardEffectInfo effectInfo;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -768,23 +776,22 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			effectInfo = abilityMod_MartyrSpendCrystals.m_spentCrystalsEffectMod.GetModifiedValue(this.m_spentCrystalsEffect);
+			effectInfo = abilityMod_MartyrSpendCrystals.m_spentCrystalsEffectMod.GetModifiedValue(m_spentCrystalsEffect);
 		}
 		else
 		{
-			effectInfo = this.m_spentCrystalsEffect;
+			effectInfo = m_spentCrystalsEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "SpentCrystalsEffect", this.m_spentCrystalsEffect, true);
-		string name = "SelfHealBase";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "SpentCrystalsEffect", m_spentCrystalsEffect);
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -793,19 +800,18 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val = abilityMod_MartyrSpendCrystals.m_selfHealBaseMod.GetModifiedValue(this.m_selfHealBase);
+			val = abilityMod_MartyrSpendCrystals.m_selfHealBaseMod.GetModifiedValue(m_selfHealBase);
 		}
 		else
 		{
-			val = this.m_selfHealBase;
+			val = m_selfHealBase;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "SelfHealPerCrystalSpent";
+		AddTokenInt(tokens, "SelfHealBase", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -814,20 +820,19 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_MartyrSpendCrystals.m_selfHealPerCrystalSpentMod.GetModifiedValue(this.m_selfHealPerCrystalSpent);
+			val2 = abilityMod_MartyrSpendCrystals.m_selfHealPerCrystalSpentMod.GetModifiedValue(m_selfHealPerCrystalSpent);
 		}
 		else
 		{
-			val2 = this.m_selfHealPerCrystalSpent;
+			val2 = m_selfHealPerCrystalSpent;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		base.AddTokenInt(tokens, "SelfHealPerEnemyHit", string.Empty, (!abilityMod_MartyrSpendCrystals) ? this.m_selfHealPerEnemyHit : abilityMod_MartyrSpendCrystals.m_selfHealPerEnemyHitMod.GetModifiedValue(this.m_selfHealPerEnemyHit), false);
-		string name3 = "ExtraSelfHealPerTurnAtMaxEnergy";
+		AddTokenInt(tokens, "SelfHealPerCrystalSpent", empty2, val2);
+		AddTokenInt(tokens, "SelfHealPerEnemyHit", string.Empty, (!abilityMod_MartyrSpendCrystals) ? m_selfHealPerEnemyHit : abilityMod_MartyrSpendCrystals.m_selfHealPerEnemyHitMod.GetModifiedValue(m_selfHealPerEnemyHit));
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -836,19 +841,18 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val3 = abilityMod_MartyrSpendCrystals.m_extraSelfHealPerTurnAtMaxEnergyMod.GetModifiedValue(this.m_extraSelfHealPerTurnAtMaxEnergy);
+			val3 = abilityMod_MartyrSpendCrystals.m_extraSelfHealPerTurnAtMaxEnergyMod.GetModifiedValue(m_extraSelfHealPerTurnAtMaxEnergy);
 		}
 		else
 		{
-			val3 = this.m_extraSelfHealPerTurnAtMaxEnergy;
+			val3 = m_extraSelfHealPerTurnAtMaxEnergy;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
-		string name4 = "MaxExtraSelfHealForMaxEnergy";
+		AddTokenInt(tokens, "ExtraSelfHealPerTurnAtMaxEnergy", empty3, val3);
 		string empty4 = string.Empty;
 		int val4;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -857,19 +861,18 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val4 = abilityMod_MartyrSpendCrystals.m_maxExtraSelfHealForMaxEnergyMod.GetModifiedValue(this.m_maxExtraSelfHealForMaxEnergy);
+			val4 = abilityMod_MartyrSpendCrystals.m_maxExtraSelfHealForMaxEnergyMod.GetModifiedValue(m_maxExtraSelfHealForMaxEnergy);
 		}
 		else
 		{
-			val4 = this.m_maxExtraSelfHealForMaxEnergy;
+			val4 = m_maxExtraSelfHealForMaxEnergy;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
-		string name5 = "SelfAbsorbBase";
+		AddTokenInt(tokens, "MaxExtraSelfHealForMaxEnergy", empty4, val4);
 		string empty5 = string.Empty;
 		int val5;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -878,19 +881,18 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val5 = abilityMod_MartyrSpendCrystals.m_selfAbsorbBaseMod.GetModifiedValue(this.m_selfAbsorbBase);
+			val5 = abilityMod_MartyrSpendCrystals.m_selfAbsorbBaseMod.GetModifiedValue(m_selfAbsorbBase);
 		}
 		else
 		{
-			val5 = this.m_selfAbsorbBase;
+			val5 = m_selfAbsorbBase;
 		}
-		base.AddTokenInt(tokens, name5, empty5, val5, false);
-		string name6 = "SelfAbsorbPerCrystalSpent";
+		AddTokenInt(tokens, "SelfAbsorbBase", empty5, val5);
 		string empty6 = string.Empty;
 		int val6;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -899,19 +901,18 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val6 = abilityMod_MartyrSpendCrystals.m_selfAbsorbPerCrystalSpentMod.GetModifiedValue(this.m_selfAbsorbPerCrystalSpent);
+			val6 = abilityMod_MartyrSpendCrystals.m_selfAbsorbPerCrystalSpentMod.GetModifiedValue(m_selfAbsorbPerCrystalSpent);
 		}
 		else
 		{
-			val6 = this.m_selfAbsorbPerCrystalSpent;
+			val6 = m_selfAbsorbPerCrystalSpent;
 		}
-		base.AddTokenInt(tokens, name6, empty6, val6, false);
-		string name7 = "AoeRadiusBase";
+		AddTokenInt(tokens, "SelfAbsorbPerCrystalSpent", empty6, val6);
 		string empty7 = string.Empty;
 		float val7;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -920,19 +921,18 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val7 = abilityMod_MartyrSpendCrystals.m_aoeRadiusBaseMod.GetModifiedValue(this.m_aoeRadiusBase);
+			val7 = abilityMod_MartyrSpendCrystals.m_aoeRadiusBaseMod.GetModifiedValue(m_aoeRadiusBase);
 		}
 		else
 		{
-			val7 = this.m_aoeRadiusBase;
+			val7 = m_aoeRadiusBase;
 		}
-		base.AddTokenFloat(tokens, name7, empty7, val7, false);
-		string name8 = "AoeRadiuePerCrystal";
+		AddTokenFloat(tokens, "AoeRadiusBase", empty7, val7);
 		string empty8 = string.Empty;
 		float val8;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -941,19 +941,18 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val8 = abilityMod_MartyrSpendCrystals.m_aoeRadiuePerCrystalMod.GetModifiedValue(this.m_aoeRadiuePerCrystal);
+			val8 = abilityMod_MartyrSpendCrystals.m_aoeRadiuePerCrystalMod.GetModifiedValue(m_aoeRadiuePerCrystal);
 		}
 		else
 		{
-			val8 = this.m_aoeRadiuePerCrystal;
+			val8 = m_aoeRadiuePerCrystal;
 		}
-		base.AddTokenFloat(tokens, name8, empty8, val8, false);
-		string name9 = "DamageBase";
+		AddTokenFloat(tokens, "AoeRadiuePerCrystal", empty8, val8);
 		string empty9 = string.Empty;
 		int val9;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -962,19 +961,18 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val9 = abilityMod_MartyrSpendCrystals.m_damageBaseMod.GetModifiedValue(this.m_damageBase);
+			val9 = abilityMod_MartyrSpendCrystals.m_damageBaseMod.GetModifiedValue(m_damageBase);
 		}
 		else
 		{
-			val9 = this.m_damageBase;
+			val9 = m_damageBase;
 		}
-		base.AddTokenInt(tokens, name9, empty9, val9, false);
-		string name10 = "DamagePerCrystal";
+		AddTokenInt(tokens, "DamageBase", empty9, val9);
 		string empty10 = string.Empty;
 		int val10;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -983,17 +981,17 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val10 = abilityMod_MartyrSpendCrystals.m_damagePerCrystalMod.GetModifiedValue(this.m_damagePerCrystal);
+			val10 = abilityMod_MartyrSpendCrystals.m_damagePerCrystalMod.GetModifiedValue(m_damagePerCrystal);
 		}
 		else
 		{
-			val10 = this.m_damagePerCrystal;
+			val10 = m_damagePerCrystal;
 		}
-		base.AddTokenInt(tokens, name10, empty10, val10, false);
+		AddTokenInt(tokens, "DamagePerCrystal", empty10, val10);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1002,19 +1000,18 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			effectInfo2 = abilityMod_MartyrSpendCrystals.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			effectInfo2 = abilityMod_MartyrSpendCrystals.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			effectInfo2 = this.m_enemyHitEffect;
+			effectInfo2 = m_enemyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EnemyHitEffect", this.m_enemyHitEffect, true);
-		string name11 = "AllyHealBase";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EnemyHitEffect", m_enemyHitEffect);
 		string empty11 = string.Empty;
 		int val11;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1023,19 +1020,18 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val11 = abilityMod_MartyrSpendCrystals.m_allyHealBaseMod.GetModifiedValue(this.m_allyHealBase);
+			val11 = abilityMod_MartyrSpendCrystals.m_allyHealBaseMod.GetModifiedValue(m_allyHealBase);
 		}
 		else
 		{
-			val11 = this.m_allyHealBase;
+			val11 = m_allyHealBase;
 		}
-		base.AddTokenInt(tokens, name11, empty11, val11, false);
-		string name12 = "AllyHealPerCrystal";
+		AddTokenInt(tokens, "AllyHealBase", empty11, val11);
 		string empty12 = string.Empty;
 		int val12;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1044,19 +1040,18 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val12 = abilityMod_MartyrSpendCrystals.m_allyHealPerCrystalMod.GetModifiedValue(this.m_allyHealPerCrystal);
+			val12 = abilityMod_MartyrSpendCrystals.m_allyHealPerCrystalMod.GetModifiedValue(m_allyHealPerCrystal);
 		}
 		else
 		{
-			val12 = this.m_allyHealPerCrystal;
+			val12 = m_allyHealPerCrystal;
 		}
-		base.AddTokenInt(tokens, name12, empty12, val12, false);
-		string name13 = "AllyHealPerEnemyHit";
+		AddTokenInt(tokens, "AllyHealPerCrystal", empty12, val12);
 		string empty13 = string.Empty;
 		int val13;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1065,17 +1060,17 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val13 = abilityMod_MartyrSpendCrystals.m_allyHealPerEnemyHitMod.GetModifiedValue(this.m_allyHealPerEnemyHit);
+			val13 = abilityMod_MartyrSpendCrystals.m_allyHealPerEnemyHitMod.GetModifiedValue(m_allyHealPerEnemyHit);
 		}
 		else
 		{
-			val13 = this.m_allyHealPerEnemyHit;
+			val13 = m_allyHealPerEnemyHit;
 		}
-		base.AddTokenInt(tokens, name13, empty13, val13, false);
+		AddTokenInt(tokens, "AllyHealPerEnemyHit", empty13, val13);
 		StandardEffectInfo effectInfo3;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1084,19 +1079,18 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			effectInfo3 = abilityMod_MartyrSpendCrystals.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
+			effectInfo3 = abilityMod_MartyrSpendCrystals.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
 		{
-			effectInfo3 = this.m_allyHitEffect;
+			effectInfo3 = m_allyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "AllyHitEffect", this.m_allyHitEffect, true);
-		string name14 = "SelfEnergyGainOnCast";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "AllyHitEffect", m_allyHitEffect);
 		string empty14 = string.Empty;
 		int val14;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1105,19 +1099,18 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val14 = abilityMod_MartyrSpendCrystals.m_selfEnergyGainOnCastMod.GetModifiedValue(this.m_selfEnergyGainOnCast);
+			val14 = abilityMod_MartyrSpendCrystals.m_selfEnergyGainOnCastMod.GetModifiedValue(m_selfEnergyGainOnCast);
 		}
 		else
 		{
-			val14 = this.m_selfEnergyGainOnCast;
+			val14 = m_selfEnergyGainOnCast;
 		}
-		base.AddTokenInt(tokens, name14, empty14, val14, false);
-		string name15 = "CdrOnProtectAllyAbility";
+		AddTokenInt(tokens, "SelfEnergyGainOnCast", empty14, val14);
 		string empty15 = string.Empty;
 		int val15;
-		if (abilityMod_MartyrSpendCrystals)
+		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1126,38 +1119,38 @@ public class MartyrSpendCrystals : Ability
 				}
 				break;
 			}
-			val15 = abilityMod_MartyrSpendCrystals.m_cdrOnProtectAllyAbilityMod.GetModifiedValue(this.m_cdrOnProtectAllyAbility);
+			val15 = abilityMod_MartyrSpendCrystals.m_cdrOnProtectAllyAbilityMod.GetModifiedValue(m_cdrOnProtectAllyAbility);
 		}
 		else
 		{
-			val15 = this.m_cdrOnProtectAllyAbility;
+			val15 = m_cdrOnProtectAllyAbility;
 		}
-		base.AddTokenInt(tokens, name15, empty15, val15, false);
+		AddTokenInt(tokens, "CdrOnProtectAllyAbility", empty15, val15);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = base.CalculateNameplateTargetingNumbers();
-		this.GetSpentCrystalsEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		AbilityTooltipHelper.ReportAbsorb(ref result, AbilityTooltipSubject.Self, 1);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, 1);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, 1);
-		this.GetAllyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, 1);
-		return result;
+		List<AbilityTooltipNumber> numbers = base.CalculateNameplateTargetingNumbers();
+		GetSpentCrystalsEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, 1);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, 1);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, 1);
+		GetAllyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, 1);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		ActorData actorData = base.ActorData;
 		int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 		if (targetActor == actorData)
 		{
-			int currentAbsorbOnSelf = this.GetCurrentAbsorbOnSelf(actorData);
-			int currentHealingOnSelf = this.GetCurrentHealingOnSelf(actorData, visibleActorsCountByTooltipSubject);
-			Ability.AddNameplateValueForSingleHit(ref dictionary, base.Targeter, actorData, currentAbsorbOnSelf, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Self);
-			Ability.AddNameplateValueForSingleHit(ref dictionary, base.Targeter, actorData, currentHealingOnSelf, AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self);
+			int currentAbsorbOnSelf = GetCurrentAbsorbOnSelf(actorData);
+			int currentHealingOnSelf = GetCurrentHealingOnSelf(actorData, visibleActorsCountByTooltipSubject);
+			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, actorData, currentAbsorbOnSelf, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Self);
+			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, actorData, currentHealingOnSelf, AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self);
 		}
 		else
 		{
@@ -1166,12 +1159,11 @@ public class MartyrSpendCrystals : Ability
 			{
 				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 				{
-					int currentDamage = this.GetCurrentDamage(actorData);
-					dictionary[AbilityTooltipSymbol.Damage] = currentDamage;
+					int num = symbolToValue[AbilityTooltipSymbol.Damage] = GetCurrentDamage(actorData);
 				}
 				else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -1180,58 +1172,57 @@ public class MartyrSpendCrystals : Ability
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					int currentHealingOnAlly = this.GetCurrentHealingOnAlly(actorData, visibleActorsCountByTooltipSubject);
-					dictionary[AbilityTooltipSymbol.Healing] = currentHealingOnAlly;
+					int num2 = symbolToValue[AbilityTooltipSymbol.Healing] = GetCurrentHealingOnAlly(actorData, visibleActorsCountByTooltipSubject);
 				}
 			}
 		}
-		return dictionary;
+		return symbolToValue;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (this.GetSelfEnergyGainOnCast() > 0)
+		if (GetSelfEnergyGainOnCast() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return GetSelfEnergyGainOnCast();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
-			return this.GetSelfEnergyGainOnCast();
 		}
 		return base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_syncComponent != null)
+		if (m_syncComponent != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_syncComponent.DamageCrystals > 0;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
-			return this.m_syncComponent.DamageCrystals > 0;
 		}
 		return false;
 	}
@@ -1240,20 +1231,14 @@ public class MartyrSpendCrystals : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_MartyrSpendCrystals))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_MartyrSpendCrystals);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_MartyrSpendCrystals);
+			Setup();
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
-	}
-
-	public enum TargetingMode
-	{
-		OnSelf,
-		Aoe
+		m_abilityMod = null;
+		Setup();
 	}
 }

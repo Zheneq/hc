@@ -1,5 +1,3 @@
-﻿using System;
-
 public class DebugCommand_Discord : DebugCommand
 {
 	public override bool AvailableInFrontEnd()
@@ -22,7 +20,7 @@ public class DebugCommand_Discord : DebugCommand
 		string text = "/discord command requires following format\r\n/discord join\r\n/discord leave\r\n/discord autojoin [on/off]\r\n/discord check\r\n/discord shutdown\r\n/discord help\r\n";
 		if (!array[0].IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -31,15 +29,15 @@ public class DebugCommand_Discord : DebugCommand
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_Discord.OnSlashCommand(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!array[0].EqualsIgnoreCase("help"))
 			{
 				if (array[0].EqualsIgnoreCase("check"))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -52,7 +50,7 @@ public class DebugCommand_Discord : DebugCommand
 				}
 				else if (array[0].EqualsIgnoreCase("join"))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -63,7 +61,7 @@ public class DebugCommand_Discord : DebugCommand
 					}
 					if (!DiscordClientInterface.CanJoinTeamChat)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -74,10 +72,10 @@ public class DebugCommand_Discord : DebugCommand
 						}
 						if (!DiscordClientInterface.CanJoinGroupChat)
 						{
-							TextConsole.Get().Write("Failed to join Discord chat. You are not in a team or group.", ConsoleMessageType.SystemMessage);
-							goto IL_E4;
+							TextConsole.Get().Write("Failed to join Discord chat. You are not in a team or group.");
+							goto IL_02b0;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -88,11 +86,10 @@ public class DebugCommand_Discord : DebugCommand
 						}
 					}
 					ClientGameManager.Get().JoinDiscord();
-					IL_E4:;
 				}
 				else if (array[0].EqualsIgnoreCase("leave"))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -105,7 +102,7 @@ public class DebugCommand_Discord : DebugCommand
 				}
 				else if (array[0].EqualsIgnoreCase("autojoin"))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -114,10 +111,10 @@ public class DebugCommand_Discord : DebugCommand
 						}
 						break;
 					}
-					bool autoJoin = true;
+					bool result = true;
 					if (array.Length > 1)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -126,9 +123,9 @@ public class DebugCommand_Discord : DebugCommand
 							}
 							break;
 						}
-						if (!bool.TryParse(array[1], out autoJoin))
+						if (!bool.TryParse(array[1], out result))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -139,7 +136,7 @@ public class DebugCommand_Discord : DebugCommand
 							}
 							if (array[1].EqualsIgnoreCase("on"))
 							{
-								for (;;)
+								while (true)
 								{
 									switch (4)
 									{
@@ -148,11 +145,11 @@ public class DebugCommand_Discord : DebugCommand
 									}
 									break;
 								}
-								autoJoin = true;
+								result = true;
 							}
 							else if (array[1].EqualsIgnoreCase("off"))
 							{
-								for (;;)
+								while (true)
 								{
 									switch (1)
 									{
@@ -161,18 +158,18 @@ public class DebugCommand_Discord : DebugCommand
 									}
 									break;
 								}
-								autoJoin = false;
+								result = false;
 							}
 						}
 					}
-					ClientGameManager.Get().ConfigureDiscord(autoJoin);
+					ClientGameManager.Get().ConfigureDiscord(result);
 				}
 				else if (array[0].EqualsIgnoreCase("port"))
 				{
-					int s_RpcPortOverride = 0;
-					if (int.TryParse(array[1], out s_RpcPortOverride))
+					int result2 = 0;
+					if (int.TryParse(array[1], out result2))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -181,12 +178,12 @@ public class DebugCommand_Discord : DebugCommand
 							}
 							break;
 						}
-						DiscordClientInterface.s_RpcPortOverride = s_RpcPortOverride;
+						DiscordClientInterface.s_RpcPortOverride = result2;
 					}
 				}
 				else if (array[0].EqualsIgnoreCase("shutdown"))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -199,10 +196,10 @@ public class DebugCommand_Discord : DebugCommand
 				}
 				else if (array[0].EqualsIgnoreCase("debug"))
 				{
-					bool flag = true;
-					if (array.Length > 1 && !bool.TryParse(array[1], out flag))
+					bool result3 = true;
+					if (array.Length > 1 && !bool.TryParse(array[1], out result3))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -213,7 +210,7 @@ public class DebugCommand_Discord : DebugCommand
 						}
 						if (array[1].EqualsIgnoreCase("on"))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -222,11 +219,11 @@ public class DebugCommand_Discord : DebugCommand
 								}
 								break;
 							}
-							flag = true;
+							result3 = true;
 						}
 						else if (array[1].EqualsIgnoreCase("off"))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -235,20 +232,19 @@ public class DebugCommand_Discord : DebugCommand
 								}
 								break;
 							}
-							flag = false;
+							result3 = false;
 						}
 					}
-					Log.Info("Discord | debugOutput={0}", new object[]
-					{
-						flag
-					});
-					TextConsole.Get().Write("Discord | debugOutput=" + flag, ConsoleMessageType.SystemMessage);
-					DiscordClientInterface.s_debugOutput = flag;
+					Log.Info("Discord | debugOutput={0}", result3);
+					TextConsole.Get().Write("Discord | debugOutput=" + result3);
+					DiscordClientInterface.s_debugOutput = result3;
 				}
-				return true;
+				goto IL_02b0;
 			}
 		}
-		TextConsole.Get().Write(text, ConsoleMessageType.SystemMessage);
+		TextConsole.Get().Write(text);
 		return false;
+		IL_02b0:
+		return true;
 	}
 }

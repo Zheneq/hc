@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.CompilerServices;
 
 public static class ConsoleLog
@@ -6,146 +6,67 @@ public static class ConsoleLog
 	private static object s_lock;
 
 	[CompilerGenerated]
-	private static Action<Log.Message> <>f__mg$cache0;
+	private static Action<Log.Message> _003C_003Ef__mg_0024cache0;
 
 	[CompilerGenerated]
-	private static Action<Log.Message> <>f__mg$cache1;
+	private static Action<Log.Message> _003C_003Ef__mg_0024cache1;
+
+	public static Log.Level MinStdOutLevel
+	{
+		get;
+		set;
+	}
+
+	public static Log.Level MinStdErrLevel
+	{
+		get;
+		set;
+	}
+
+	public static bool RawLogging
+	{
+		get;
+		set;
+	}
+
+	public static bool Started
+	{
+		get;
+		set;
+	}
 
 	static ConsoleLog()
 	{
-		ConsoleLog.MinStdOutLevel = Log.Level.Info;
-		ConsoleLog.MinStdErrLevel = Log.Level.Warning;
-		ConsoleLog.s_lock = new object();
+		Started = false;
+		MinStdOutLevel = Log.Level.Info;
+		MinStdErrLevel = Log.Level.Warning;
+		s_lock = new object();
 	}
-
-	public static Log.Level MinStdOutLevel { get; set; }
-
-	public static Log.Level MinStdErrLevel { get; set; }
-
-	public static bool RawLogging { get; set; }
-
-	public static bool Started { get; set; } = false;
 
 	public static void HandleLogMessage(Log.Message args)
 	{
-		object obj = ConsoleLog.s_lock;
-		lock (obj)
+		lock (s_lock)
 		{
-			if (args.level < ConsoleLog.MinStdOutLevel)
+			if (args.level >= MinStdOutLevel)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ConsoleLog.HandleLogMessage(Log.Message)).MethodHandle;
-				}
-				if (args.level < ConsoleLog.MinStdErrLevel)
-				{
-					goto IL_11F;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				goto IL_0048;
 			}
-			string text = args.ToString();
-			if (!text.IsNullOrEmpty())
+			while (true)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				string value = string.Empty;
-				if (!ConsoleLog.RawLogging)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					value = string.Format("{0} [{1}] ", args.timestamp.ToString(Log.TimestampFormat), Log.ToStringCode(args.level));
-				}
-				bool flag = false;
-				if (args.level >= ConsoleLog.MinStdErrLevel)
-				{
-					Console.Error.Write(value);
-					Console.Error.WriteLine(text);
-					flag = true;
-				}
-				else if (args.level >= ConsoleLog.MinStdOutLevel)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Console.Out.Write(value);
-					Console.Out.WriteLine(text);
-					flag = true;
-				}
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-			}
-			IL_11F:;
-		}
-	}
-
-	public static void Start()
-	{
-		if (!ConsoleLog.Started)
-		{
-			for (;;)
-			{
-				switch (5)
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ConsoleLog.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ConsoleLog.Started = true;
-			if (ConsoleLog.<>f__mg$cache0 == null)
+			if (args.level >= MinStdErrLevel)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -154,22 +75,121 @@ public static class ConsoleLog
 					}
 					break;
 				}
-				ConsoleLog.<>f__mg$cache0 = new Action<Log.Message>(ConsoleLog.HandleLogMessage);
+				goto IL_0048;
 			}
-			Log.AddLogHandler(ConsoleLog.<>f__mg$cache0);
+			goto end_IL_000c;
+			IL_0048:
+			string text = args.ToString();
+			if (!text.IsNullOrEmpty())
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						break;
+					default:
+					{
+						string value = string.Empty;
+						if (!RawLogging)
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							value = $"{args.timestamp.ToString(Log.TimestampFormat)} [{Log.ToStringCode(args.level)}] ";
+						}
+						bool flag = false;
+						if (args.level >= MinStdErrLevel)
+						{
+							Console.Error.Write(value);
+							Console.Error.WriteLine(text);
+							flag = true;
+						}
+						else if (args.level >= MinStdOutLevel)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							Console.Out.Write(value);
+							Console.Out.WriteLine(text);
+							flag = true;
+						}
+						if (flag)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								default:
+									return;
+								case 0:
+									break;
+								}
+							}
+						}
+						return;
+					}
+					}
+				}
+			}
+			end_IL_000c:;
+		}
+	}
+
+	public static void Start()
+	{
+		if (Started)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			Started = true;
+			if (_003C_003Ef__mg_0024cache0 == null)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				_003C_003Ef__mg_0024cache0 = HandleLogMessage;
+			}
+			Log.AddLogHandler(_003C_003Ef__mg_0024cache0);
+			return;
 		}
 	}
 
 	public static void Stop()
 	{
-		if (ConsoleLog.Started)
+		if (Started)
 		{
-			ConsoleLog.Started = false;
-			if (ConsoleLog.<>f__mg$cache1 == null)
-			{
-				ConsoleLog.<>f__mg$cache1 = new Action<Log.Message>(ConsoleLog.HandleLogMessage);
-			}
-			Log.RemoveLogHandler(ConsoleLog.<>f__mg$cache1);
+			Started = false;
+			Log.RemoveLogHandler(HandleLogMessage);
 		}
 	}
 }

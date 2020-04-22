@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,9 +13,9 @@ public class QuestWideData : MonoBehaviour
 
 	public DayOfWeek m_questResetDayOfWeek;
 
-	public int m_questBonusPerRejection = 0xA;
+	public int m_questBonusPerRejection = 10;
 
-	public int m_questMaxRejectPercentage = 0x32;
+	public int m_questMaxRejectPercentage = 50;
 
 	public int m_notIncludedWeightIncrease;
 
@@ -38,38 +38,38 @@ public class QuestWideData : MonoBehaviour
 
 	public static QuestWideData Get()
 	{
-		return QuestWideData.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		QuestWideData.s_instance = this;
-		if (this.m_quests.Count == 0)
+		s_instance = this;
+		if (m_quests.Count == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					throw new Exception("QuestWideData failed to load");
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestWideData.Awake()).MethodHandle;
-			}
-			throw new Exception("QuestWideData failed to load");
 		}
-		QuestWideData.m_dailyQuestsCache = new Dictionary<int, bool>();
-		using (List<QuestPool>.Enumerator enumerator = this.m_dailyQuestPools.GetEnumerator())
+		m_dailyQuestsCache = new Dictionary<int, bool>();
+		using (List<QuestPool>.Enumerator enumerator = m_dailyQuestPools.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				QuestPool questPool = enumerator.Current;
-				if (questPool.Valid)
+				QuestPool current = enumerator.Current;
+				if (current.Valid)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -78,14 +78,14 @@ public class QuestWideData : MonoBehaviour
 						}
 						break;
 					}
-					using (List<QuestPool.Quest>.Enumerator enumerator2 = questPool.Quests.GetEnumerator())
+					using (List<QuestPool.Quest>.Enumerator enumerator2 = current.Quests.GetEnumerator())
 					{
 						while (enumerator2.MoveNext())
 						{
-							QuestPool.Quest quest = enumerator2.Current;
-							if (!QuestWideData.m_dailyQuestsCache.ContainsKey(quest.QuestId))
+							QuestPool.Quest current2 = enumerator2.Current;
+							if (!m_dailyQuestsCache.ContainsKey(current2.QuestId))
 							{
-								for (;;)
+								while (true)
 								{
 									switch (7)
 									{
@@ -94,10 +94,10 @@ public class QuestWideData : MonoBehaviour
 									}
 									break;
 								}
-								QuestWideData.m_dailyQuestsCache.Add(quest.QuestId, true);
+								m_dailyQuestsCache.Add(current2.QuestId, true);
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -109,53 +109,52 @@ public class QuestWideData : MonoBehaviour
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public QuestTemplate GetQuestTemplate(int templateId)
 	{
-		if (templateId > 0 && this.m_quests.Count >= templateId)
+		if (templateId > 0 && m_quests.Count >= templateId)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_quests[templateId - 1];
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestWideData.GetQuestTemplate(int)).MethodHandle;
-			}
-			return this.m_quests[templateId - 1];
 		}
 		return null;
 	}
 
 	private void OnDestroy()
 	{
-		QuestWideData.s_instance = null;
+		s_instance = null;
 	}
 
 	public bool IsDailyQuest(int questId)
 	{
-		bool flag2;
-		bool flag = QuestWideData.m_dailyQuestsCache.TryGetValue(questId, out flag2);
-		bool result;
-		if (flag)
+		int result;
+		if (m_dailyQuestsCache.TryGetValue(questId, out bool value))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -164,17 +163,17 @@ public class QuestWideData : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestWideData.IsDailyQuest(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = flag2;
+			result = (value ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool CheckAllIndices()
@@ -182,103 +181,106 @@ public class QuestWideData : MonoBehaviour
 		bool result = false;
 		if (Application.isEditor)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestWideData.CheckAllIndices()).MethodHandle;
-			}
-			int num = 1;
-			foreach (QuestTemplate questTemplate in this.m_quests)
-			{
-				if (questTemplate.Index >= num)
+					break;
+				default:
 				{
-					num = questTemplate.Index + 1;
-				}
-			}
-			using (List<QuestTemplate>.Enumerator enumerator2 = this.m_quests.GetEnumerator())
-			{
-				while (enumerator2.MoveNext())
-				{
-					QuestTemplate questTemplate2 = enumerator2.Current;
-					bool flag = false;
-					if (questTemplate2.Index == 0)
+					if (1 == 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag = true;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					else
+					int num = 1;
+					foreach (QuestTemplate quest in m_quests)
 					{
-						int num2 = 0;
-						foreach (QuestTemplate questTemplate3 in this.m_quests)
+						if (quest.Index >= num)
 						{
-							if (questTemplate3.Index == questTemplate2.Index)
+							num = quest.Index + 1;
+						}
+					}
+					using (List<QuestTemplate>.Enumerator enumerator2 = m_quests.GetEnumerator())
+					{
+						while (enumerator2.MoveNext())
+						{
+							QuestTemplate current2 = enumerator2.Current;
+							bool flag = false;
+							if (current2.Index == 0)
 							{
-								for (;;)
+								while (true)
 								{
-									switch (3)
+									switch (5)
 									{
 									case 0:
 										continue;
 									}
 									break;
 								}
-								num2++;
+								flag = true;
 							}
-						}
-						if (num2 > 1)
-						{
-							for (;;)
+							else
 							{
-								switch (2)
+								int num2 = 0;
+								foreach (QuestTemplate quest2 in m_quests)
 								{
-								case 0:
-									continue;
+									if (quest2.Index == current2.Index)
+									{
+										while (true)
+										{
+											switch (3)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										num2++;
+									}
 								}
-								break;
+								if (num2 > 1)
+								{
+									while (true)
+									{
+										switch (2)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									flag = true;
+								}
 							}
-							flag = true;
+							if (flag)
+							{
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								current2.Index = num;
+								num++;
+								result = true;
+							}
 						}
-					}
-					if (flag)
-					{
-						for (;;)
+						while (true)
 						{
-							switch (5)
+							switch (3)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return result;
 							}
-							break;
 						}
-						questTemplate2.Index = num;
-						num++;
-						result = true;
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -291,20 +293,20 @@ public class QuestWideData : MonoBehaviour
 		{
 			while (enumerator.MoveNext())
 			{
-				QuestObjective questObjective = enumerator.Current;
-				using (List<QuestTrigger>.Enumerator enumerator2 = questObjective.Triggers.GetEnumerator())
+				QuestObjective current = enumerator.Current;
+				using (List<QuestTrigger>.Enumerator enumerator2 = current.Triggers.GetEnumerator())
 				{
 					while (enumerator2.MoveNext())
 					{
-						QuestTrigger questTrigger = enumerator2.Current;
-						using (List<QuestCondition>.Enumerator enumerator3 = questTrigger.Conditions.GetEnumerator())
+						QuestTrigger current2 = enumerator2.Current;
+						using (List<QuestCondition>.Enumerator enumerator3 = current2.Conditions.GetEnumerator())
 						{
 							while (enumerator3.MoveNext())
 							{
-								QuestCondition questCondition = enumerator3.Current;
-								if (questCondition.ConditionType == QuestConditionType.UsingCharacter)
+								QuestCondition current3 = enumerator3.Current;
+								if (current3.ConditionType == QuestConditionType.UsingCharacter)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (6)
 										{
@@ -313,27 +315,27 @@ public class QuestWideData : MonoBehaviour
 										}
 										break;
 									}
-									if (!true)
+									if (1 == 0)
 									{
-										RuntimeMethodHandle runtimeMethodHandle = methodof(QuestWideData.IsCharacterQuest(List<QuestObjective>, CharacterResourceLink)).MethodHandle;
+										/*OpCode not supported: LdMemberToken*/;
 									}
-									if (questCondition.typeSpecificData == (int)charLink.m_characterType)
+									if (current3.typeSpecificData == (int)charLink.m_characterType)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (4)
 											{
 											case 0:
-												continue;
+												break;
+											default:
+												return true;
 											}
-											break;
 										}
-										return true;
 									}
 								}
-								if (questCondition.ConditionType == QuestConditionType.HasCharacterLevel)
+								if (current3.ConditionType == QuestConditionType.HasCharacterLevel)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (3)
 										{
@@ -342,36 +344,36 @@ public class QuestWideData : MonoBehaviour
 										}
 										break;
 									}
-									if (questCondition.typeSpecificData == (int)charLink.m_characterType)
+									if (current3.typeSpecificData == (int)charLink.m_characterType)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (6)
 											{
 											case 0:
-												continue;
+												break;
+											default:
+												return true;
 											}
-											break;
 										}
-										return true;
 									}
 								}
-								if (questCondition.ConditionType == QuestConditionType.UsingCharacterRole && questCondition.typeSpecificData == (int)charLink.m_characterRole)
+								if (current3.ConditionType == QuestConditionType.UsingCharacterRole && current3.typeSpecificData == (int)charLink.m_characterRole)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (2)
 										{
 										case 0:
-											continue;
+											break;
+										default:
+											return true;
 										}
-										break;
 									}
-									return true;
 								}
-								if (questCondition.ConditionType == QuestConditionType.UsingCharacterFaction)
+								if (current3.ConditionType == QuestConditionType.UsingCharacterFaction)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (5)
 										{
@@ -380,25 +382,24 @@ public class QuestWideData : MonoBehaviour
 										}
 										break;
 									}
-									FactionCompetition factionCompetition = FactionWideData.Get().GetFactionCompetition(questCondition.typeSpecificData);
-									FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(factionCompetition.Factions[questCondition.typeSpecificData2].FactionGroupIDToUse);
-									bool flag = factionGroup.Characters.Exists((CharacterType x) => x == charLink.m_characterType);
-									if (flag)
+									FactionCompetition factionCompetition = FactionWideData.Get().GetFactionCompetition(current3.typeSpecificData);
+									FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(factionCompetition.Factions[current3.typeSpecificData2].FactionGroupIDToUse);
+									if (factionGroup.Characters.Exists((CharacterType x) => x == charLink.m_characterType))
 									{
-										for (;;)
+										while (true)
 										{
 											switch (2)
 											{
 											case 0:
-												continue;
+												break;
+											default:
+												return true;
 											}
-											break;
 										}
-										return true;
 									}
 								}
 							}
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -409,7 +410,7 @@ public class QuestWideData : MonoBehaviour
 							}
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -420,7 +421,7 @@ public class QuestWideData : MonoBehaviour
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -439,20 +440,13 @@ public class QuestWideData : MonoBehaviour
 		string text = prereqs.LogicStatement;
 		if (text.IsNullOrEmpty())
 		{
-			int num = 0x41;
+			int num = 65;
 			for (int i = 0; i < prereqs.Conditions.Count; i++)
 			{
-				if (text.IsNullOrEmpty())
-				{
-					text = Convert.ToChar(num).ToString();
-				}
-				else
-				{
-					text = text + " & " + Convert.ToChar(num);
-				}
+				text = ((!text.IsNullOrEmpty()) ? (text + " & " + Convert.ToChar(num)) : Convert.ToChar(num).ToString());
 				num++;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -461,9 +455,9 @@ public class QuestWideData : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestWideData.GetEndLevel(QuestPrerequisites, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		queue.Enqueue(LogicStatement.EvaluateLogicStatement(text));
@@ -473,7 +467,7 @@ public class QuestWideData : MonoBehaviour
 			LogicOpClass logicOpClass = queue.Dequeue();
 			if (logicOpClass is ConstantLogicOpClass)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -482,10 +476,11 @@ public class QuestWideData : MonoBehaviour
 					}
 					break;
 				}
+				continue;
 			}
-			else if (logicOpClass is AndLogicOpClass)
+			if (logicOpClass is AndLogicOpClass)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -497,10 +492,11 @@ public class QuestWideData : MonoBehaviour
 				AndLogicOpClass andLogicOpClass = (AndLogicOpClass)logicOpClass;
 				queue.Enqueue(andLogicOpClass.m_left);
 				queue.Enqueue(andLogicOpClass.m_right);
+				continue;
 			}
-			else if (logicOpClass is OrLogicOpClass)
+			if (logicOpClass is OrLogicOpClass)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -512,10 +508,11 @@ public class QuestWideData : MonoBehaviour
 				OrLogicOpClass orLogicOpClass = (OrLogicOpClass)logicOpClass;
 				queue.Enqueue(orLogicOpClass.m_left);
 				queue.Enqueue(orLogicOpClass.m_right);
+				continue;
 			}
-			else if (!(logicOpClass is NegateLogicOpClass))
+			if (!(logicOpClass is NegateLogicOpClass))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -524,107 +521,101 @@ public class QuestWideData : MonoBehaviour
 					}
 					break;
 				}
+				continue;
 			}
-			else
+			NegateLogicOpClass negateLogicOpClass = (NegateLogicOpClass)logicOpClass;
+			if (negateLogicOpClass.m_target is ConstantLogicOpClass)
 			{
-				NegateLogicOpClass negateLogicOpClass = (NegateLogicOpClass)logicOpClass;
-				if (negateLogicOpClass.m_target is ConstantLogicOpClass)
+				while (true)
 				{
-					for (;;)
+					switch (4)
 					{
-						switch (4)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				int myIndex = ((ConstantLogicOpClass)negateLogicOpClass.m_target).myIndex;
+				if (prereqs.Conditions[myIndex].ConditionType != QuestConditionType.HasSeasonLevel)
+				{
+					continue;
+				}
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (prereqs.Conditions[myIndex].typeSpecificData == seasonIndex)
+				{
+					while (true)
+					{
+						switch (1)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					int myIndex = ((ConstantLogicOpClass)negateLogicOpClass.m_target).myIndex;
-					if (prereqs.Conditions[myIndex].ConditionType == QuestConditionType.HasSeasonLevel)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (prereqs.Conditions[myIndex].typeSpecificData == seasonIndex)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							result = prereqs.Conditions[myIndex].typeSpecificData2;
-						}
-					}
+					result = prereqs.Conditions[myIndex].typeSpecificData2;
 				}
-				else if (negateLogicOpClass.m_target is AndLogicOpClass)
+			}
+			else if (negateLogicOpClass.m_target is AndLogicOpClass)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (5)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					AndLogicOpClass andLogicOpClass2 = (AndLogicOpClass)negateLogicOpClass.m_target;
-					queue.Enqueue(new NegateLogicOpClass
-					{
-						m_target = andLogicOpClass2.m_left
-					});
-					queue.Enqueue(new NegateLogicOpClass
-					{
-						m_target = andLogicOpClass2.m_right
-					});
+					break;
 				}
-				else if (negateLogicOpClass.m_target is OrLogicOpClass)
+				AndLogicOpClass andLogicOpClass2 = (AndLogicOpClass)negateLogicOpClass.m_target;
+				negateLogicOpClass = new NegateLogicOpClass();
+				negateLogicOpClass.m_target = andLogicOpClass2.m_left;
+				queue.Enqueue(negateLogicOpClass);
+				negateLogicOpClass = new NegateLogicOpClass();
+				negateLogicOpClass.m_target = andLogicOpClass2.m_right;
+				queue.Enqueue(negateLogicOpClass);
+			}
+			else if (negateLogicOpClass.m_target is OrLogicOpClass)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (3)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					OrLogicOpClass orLogicOpClass2 = (OrLogicOpClass)negateLogicOpClass.m_target;
-					queue.Enqueue(new NegateLogicOpClass
-					{
-						m_target = orLogicOpClass2.m_left
-					});
-					queue.Enqueue(new NegateLogicOpClass
-					{
-						m_target = orLogicOpClass2.m_right
-					});
+					break;
 				}
-				else if (negateLogicOpClass.m_target is NegateLogicOpClass)
-				{
-					negateLogicOpClass = (NegateLogicOpClass)negateLogicOpClass.m_target;
-					queue.Enqueue(negateLogicOpClass.m_target);
-				}
+				OrLogicOpClass orLogicOpClass2 = (OrLogicOpClass)negateLogicOpClass.m_target;
+				negateLogicOpClass = new NegateLogicOpClass();
+				negateLogicOpClass.m_target = orLogicOpClass2.m_left;
+				queue.Enqueue(negateLogicOpClass);
+				negateLogicOpClass = new NegateLogicOpClass();
+				negateLogicOpClass.m_target = orLogicOpClass2.m_right;
+				queue.Enqueue(negateLogicOpClass);
+			}
+			else if (negateLogicOpClass.m_target is NegateLogicOpClass)
+			{
+				negateLogicOpClass = (NegateLogicOpClass)negateLogicOpClass.m_target;
+				queue.Enqueue(negateLogicOpClass.m_target);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return result;
 		}
-		return result;
 	}
 
 	public static bool AreConditionsMet(List<QuestCondition> conditions, string logicStatement, bool tryUseCharDataOnInitialLoad = false)
@@ -638,7 +629,7 @@ public class QuestWideData : MonoBehaviour
 				DateTime t = new DateTime(questCondition.typeSpecificDate[0], questCondition.typeSpecificDate[1], questCondition.typeSpecificDate[2], questCondition.typeSpecificDate[3], questCondition.typeSpecificDate[4], questCondition.typeSpecificDate[5]);
 				if (ClientGameManager.Get().PacificNow() > t)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -647,9 +638,9 @@ public class QuestWideData : MonoBehaviour
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(QuestWideData.AreConditionsMet(List<QuestCondition>, string, bool)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					list.Add(true);
 				}
@@ -660,7 +651,7 @@ public class QuestWideData : MonoBehaviour
 			}
 			else if (questCondition.ConditionType == QuestConditionType.HasCompletedQuest)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -673,7 +664,7 @@ public class QuestWideData : MonoBehaviour
 			}
 			else if (questCondition.ConditionType == QuestConditionType.HasPurchasedGame)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -686,7 +677,7 @@ public class QuestWideData : MonoBehaviour
 			}
 			else if (questCondition.ConditionType == QuestConditionType.HasUnlockedCharacter)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -704,7 +695,7 @@ public class QuestWideData : MonoBehaviour
 				PersistedCharacterData persistedCharacterData;
 				if (tryUseCharDataOnInitialLoad)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -722,7 +713,7 @@ public class QuestWideData : MonoBehaviour
 				PersistedCharacterData persistedCharacterData2 = persistedCharacterData;
 				if (persistedCharacterData2 != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -737,7 +728,7 @@ public class QuestWideData : MonoBehaviour
 			}
 			else if (questCondition.ConditionType == QuestConditionType.HasUnlockedTitle)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -750,7 +741,7 @@ public class QuestWideData : MonoBehaviour
 			}
 			else if (questCondition.ConditionType == QuestConditionType.HasUnlockedChatEmoji)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -763,7 +754,7 @@ public class QuestWideData : MonoBehaviour
 			}
 			else if (questCondition.ConditionType == QuestConditionType.HasUnlockedOvercon)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -781,7 +772,7 @@ public class QuestWideData : MonoBehaviour
 				PersistedCharacterData persistedCharacterData3;
 				if (tryUseCharDataOnInitialLoad)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -799,7 +790,7 @@ public class QuestWideData : MonoBehaviour
 				PersistedCharacterData persistedCharacterData4 = persistedCharacterData3;
 				if (persistedCharacterData4 != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -810,7 +801,7 @@ public class QuestWideData : MonoBehaviour
 					}
 					if (questCondition.typeSpecificData2 < persistedCharacterData4.CharacterComponent.Taunts.Count)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -831,7 +822,7 @@ public class QuestWideData : MonoBehaviour
 					list.Add(false);
 					throw new Exception("Unimplemented quest condition: " + questCondition.ConditionType);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -845,36 +836,37 @@ public class QuestWideData : MonoBehaviour
 		}
 		if (logicStatement == string.Empty)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			bool result = true;
-			using (List<bool>.Enumerator enumerator = list.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
+					break;
+				default:
 				{
-					if (!enumerator.Current)
+					bool result = true;
 					{
-						for (;;)
+						foreach (bool item3 in list)
 						{
-							switch (4)
+							if (!item3)
 							{
-							case 0:
-								continue;
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								result = false;
 							}
-							break;
 						}
-						result = false;
+						return result;
 					}
 				}
+				}
 			}
-			return result;
 		}
 		return LogicStatement.EvaluateLogicStatement(logicStatement).GetValue(list);
 	}

@@ -1,10 +1,14 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class FogOfWar : MonoBehaviour
 {
+	private struct VisibleSquareEntry
+	{
+		public int m_visibleFlags;
+	}
+
 	private bool m_updateVisibility;
 
 	private bool m_updatedVisibilityThisFrame;
@@ -15,7 +19,7 @@ public class FogOfWar : MonoBehaviour
 
 	private ActorData m_owner;
 
-	private Dictionary<BoardSquare, FogOfWar.VisibleSquareEntry> m_visibleSquares;
+	private Dictionary<BoardSquare, VisibleSquareEntry> m_visibleSquares;
 
 	private float m_lastRecalcTime;
 
@@ -26,11 +30,11 @@ public class FogOfWar : MonoBehaviour
 		{
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				result = GameFlowData.Get().activeOwnedActorData.\u000E();
+				result = GameFlowData.Get().activeOwnedActorData.GetFogOfWar();
 			}
 			else if (GameFlowData.Get().LocalPlayerData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -39,9 +43,9 @@ public class FogOfWar : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.GetClientFog()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				result = GameFlowData.Get().LocalPlayerData.GetFogOfWar();
 			}
@@ -51,19 +55,19 @@ public class FogOfWar : MonoBehaviour
 
 	private void Awake()
 	{
-		this.m_visibleSquares = new Dictionary<BoardSquare, FogOfWar.VisibleSquareEntry>();
-		this.m_ownerPlayer = base.GetComponent<PlayerData>();
-		this.m_owner = base.GetComponent<ActorData>();
+		m_visibleSquares = new Dictionary<BoardSquare, VisibleSquareEntry>();
+		m_ownerPlayer = GetComponent<PlayerData>();
+		m_owner = GetComponent<ActorData>();
 	}
 
 	private bool ShouldUpdateMyVisibility()
 	{
 		bool result = false;
-		if (this.m_updateVisibility)
+		if (m_updateVisibility)
 		{
 			if (NetworkServer.active)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -72,19 +76,19 @@ public class FogOfWar : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.ShouldUpdateMyVisibility()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				result = true;
 			}
 			else if (GameFlowData.Get().LocalPlayerData != null)
 			{
 				Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
-				Team teamViewing2 = this.m_ownerPlayer.GetTeamViewing();
+				Team teamViewing2 = m_ownerPlayer.GetTeamViewing();
 				if (teamViewing != Team.Invalid)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -95,9 +99,9 @@ public class FogOfWar : MonoBehaviour
 					}
 					if (teamViewing != teamViewing2)
 					{
-						goto IL_97;
+						goto IL_0097;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -107,14 +111,15 @@ public class FogOfWar : MonoBehaviour
 						break;
 					}
 				}
-				if (this.m_ownerPlayer.PlayerIndex != PlayerData.s_invalidPlayerIndex)
+				if (m_ownerPlayer.PlayerIndex != PlayerData.s_invalidPlayerIndex)
 				{
 					result = true;
 				}
 			}
 		}
-		IL_97:
-		if (this.m_visibilityPersonalOnly != InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowPersonalVisibility))
+		goto IL_0097;
+		IL_0097:
+		if (m_visibilityPersonalOnly != InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowPersonalVisibility))
 		{
 			result = true;
 		}
@@ -126,7 +131,7 @@ public class FogOfWar : MonoBehaviour
 		bool result = false;
 		if (GameFlowData.Get().LocalPlayerData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -135,13 +140,13 @@ public class FogOfWar : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.ShouldUpdateClientActorVisibility()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameFlowData.Get().LocalPlayerData.GetFogOfWar() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -151,11 +156,11 @@ public class FogOfWar : MonoBehaviour
 					break;
 				}
 				Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
-				bool updateVisibility = this.m_updateVisibility;
-				bool flag;
-				if (!(this.m_owner == null) && teamViewing != Team.Invalid)
+				bool updateVisibility = m_updateVisibility;
+				int num;
+				if (!(m_owner == null) && teamViewing != Team.Invalid)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -164,18 +169,18 @@ public class FogOfWar : MonoBehaviour
 						}
 						break;
 					}
-					flag = (teamViewing == this.m_owner.\u000E());
+					num = ((teamViewing == m_owner.GetTeam()) ? 1 : 0);
 				}
 				else
 				{
-					flag = true;
+					num = 1;
 				}
-				bool flag2 = flag;
-				bool flag3 = this.m_ownerPlayer != GameFlowData.Get().LocalPlayerData;
-				bool flag4 = !FogOfWar.GetClientFog().m_updatedVisibilityThisFrame;
+				bool flag = (byte)num != 0;
+				bool flag2 = m_ownerPlayer != GameFlowData.Get().LocalPlayerData;
+				bool flag3 = !GetClientFog().m_updatedVisibilityThisFrame;
 				if (updateVisibility)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -184,9 +189,9 @@ public class FogOfWar : MonoBehaviour
 						}
 						break;
 					}
-					if (flag2)
+					if (flag)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -195,9 +200,9 @@ public class FogOfWar : MonoBehaviour
 							}
 							break;
 						}
-						if (flag3 && flag4)
+						if (flag2 && flag3)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -217,10 +222,10 @@ public class FogOfWar : MonoBehaviour
 
 	private void Update()
 	{
-		this.m_updatedVisibilityThisFrame = false;
-		if (this.ShouldUpdateMyVisibility())
+		m_updatedVisibilityThisFrame = false;
+		if (ShouldUpdateMyVisibility())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -229,16 +234,16 @@ public class FogOfWar : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.UpdateVisibilityOfSquares(true);
-			this.m_updatedVisibilityThisFrame = true;
+			UpdateVisibilityOfSquares();
+			m_updatedVisibilityThisFrame = true;
 		}
-		if (this.ShouldUpdateClientActorVisibility())
+		if (ShouldUpdateClientActorVisibility())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -247,327 +252,142 @@ public class FogOfWar : MonoBehaviour
 				}
 				break;
 			}
-			FogOfWar.GetClientFog().MarkForRecalculateVisibility();
+			GetClientFog().MarkForRecalculateVisibility();
 		}
-		this.m_updateVisibility = false;
+		m_updateVisibility = false;
 	}
 
 	private void CalcVisibleSquares(BoardSquare center, float radius, bool radiusAsStraightLineDist, BoardSquare.VisibilityFlags flag, bool ignoreLOS, VisionProviderInfo.BrushRevealType brushRevealType = VisionProviderInfo.BrushRevealType.BaseOnCenterPosition)
 	{
-		if (center != null)
+		if (!(center != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.CalcVisibleSquares(BoardSquare, float, bool, BoardSquare.VisibilityFlags, bool, VisionProviderInfo.BrushRevealType)).MethodHandle;
-			}
-			if (radius > 0f)
-			{
-				ActorData owner = this.m_owner;
-				Board board = Board.\u000E();
-				float num = Mathf.Max(radius, 0f);
-				int x = center.\u001D().x;
-				int y = center.\u001D().y;
-				int num2 = Mathf.Max(Mathf.FloorToInt((float)x - num), 0);
-				int num3 = Mathf.Min(Mathf.CeilToInt((float)x + num), board.\u000E() - 1);
-				int num4 = Mathf.Max(Mathf.FloorToInt((float)y - num), 0);
-				int num5 = Mathf.Min(Mathf.CeilToInt((float)y + num), board.\u0012() - 1);
-				bool flag2;
-				if (owner != null)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag2 = owner.\u000E().HasStatus(StatusType.SeeThroughBrush, true);
-				}
-				else
-				{
-					flag2 = false;
-				}
-				bool flag3 = flag2;
-				for (int i = num2; i <= num3; i++)
-				{
-					for (int j = num4; j <= num5; j++)
-					{
-						BoardSquare boardSquare = board.\u0016(i, j);
-						if (boardSquare != null)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							FogOfWar.VisibleSquareEntry value;
-							if (this.m_visibleSquares.TryGetValue(boardSquare, out value))
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.GetVisTypePriority(flag) <= this.GetHighestVisTypePriority(value.m_visibleFlags))
-								{
-									goto IL_2F6;
-								}
-							}
-							float num6;
-							if (radiusAsStraightLineDist)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								num6 = boardSquare.HorizontalDistanceInSquaresTo(center);
-							}
-							else
-							{
-								num6 = this.CalcHorizontalDistanceOnBoardTo(x, y, i, j);
-							}
-							float num7 = num6;
-							if (num7 <= num)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!ignoreLOS)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!center.\u0013(i, j))
-									{
-										goto IL_2F6;
-									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-								}
-								if (!owner)
-								{
-									goto IL_1F3;
-								}
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (flag3)
-								{
-									goto IL_204;
-								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									goto IL_1F3;
-								}
-								IL_286:
-								bool flag5;
-								if (BarrierManager.Get() != null)
-								{
-									bool flag4;
-									if (owner)
-									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										flag4 = BarrierManager.Get().IsVisionBlocked(owner, center, boardSquare);
-									}
-									else
-									{
-										flag4 = false;
-									}
-									flag5 = flag4;
-								}
-								else
-								{
-									flag5 = false;
-								}
-								bool flag6;
-								if (!flag6)
-								{
-									if (flag5)
-									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-									}
-									else
-									{
-										value.m_visibleFlags |= (int)flag;
-										this.m_visibleSquares[boardSquare] = value;
-									}
-								}
-								goto IL_2F6;
-								IL_1F3:
-								if (!(BrushCoordinator.Get() == null))
-								{
-									if (brushRevealType == VisionProviderInfo.BrushRevealType.Never)
-									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (boardSquare.BrushRegion >= 0)
-										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											flag6 = BrushCoordinator.Get().IsRegionFunctioning(boardSquare.BrushRegion);
-											goto IL_286;
-										}
-									}
-									if (brushRevealType == VisionProviderInfo.BrushRevealType.Always)
-									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (boardSquare.BrushRegion >= 0)
-										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											flag6 = false;
-											goto IL_286;
-										}
-									}
-									flag6 = BrushCoordinator.Get().IsSquareHiddenFrom(boardSquare, center);
-									goto IL_286;
-								}
-								IL_204:
-								flag6 = false;
-								goto IL_286;
-							}
-						}
-						IL_2F6:;
-					}
-				}
-			}
+			return;
 		}
-	}
-
-	private void AppendToVisibleSquares(List<BoardSquare> squares, BoardSquare.VisibilityFlags flag, bool seeThroughBrush)
-	{
-		for (int i = 0; i < squares.Count; i++)
+		while (true)
 		{
-			BoardSquare boardSquare = squares[i];
-			if (boardSquare != null)
+			switch (6)
 			{
-				for (;;)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(radius > 0f))
+			{
+				return;
+			}
+			ActorData owner = m_owner;
+			Board board = Board.Get();
+			float num = Mathf.Max(radius, 0f);
+			int x = center.GetGridPos().x;
+			int y = center.GetGridPos().y;
+			int num2 = Mathf.Max(Mathf.FloorToInt((float)x - num), 0);
+			int num3 = Mathf.Min(Mathf.CeilToInt((float)x + num), board.GetMaxX() - 1);
+			int num4 = Mathf.Max(Mathf.FloorToInt((float)y - num), 0);
+			int num5 = Mathf.Min(Mathf.CeilToInt((float)y + num), board.GetMaxY() - 1);
+			int num6;
+			if (owner != null)
+			{
+				while (true)
 				{
-					switch (6)
+					switch (7)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
+				num6 = (owner.GetActorStatus().HasStatus(StatusType.SeeThroughBrush) ? 1 : 0);
+			}
+			else
+			{
+				num6 = 0;
+			}
+			bool flag2 = (byte)num6 != 0;
+			for (int i = num2; i <= num3; i++)
+			{
+				for (int j = num4; j <= num5; j++)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.AppendToVisibleSquares(List<BoardSquare>, BoardSquare.VisibilityFlags, bool)).MethodHandle;
-				}
-				bool flag2 = false;
-				if (!seeThroughBrush)
-				{
-					for (;;)
+					BoardSquare boardSquare = board.GetBoardSquare(i, j);
+					if (!(boardSquare != null))
 					{
-						switch (2)
+						continue;
+					}
+					while (true)
+					{
+						switch (6)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (BrushCoordinator.Get() != null && boardSquare.BrushRegion > 0)
+					if (m_visibleSquares.TryGetValue(boardSquare, out VisibleSquareEntry value))
 					{
-						for (;;)
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (GetVisTypePriority(flag) <= GetHighestVisTypePriority(value.m_visibleFlags))
+						{
+							continue;
+						}
+					}
+					float num7;
+					if (radiusAsStraightLineDist)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num7 = boardSquare.HorizontalDistanceInSquaresTo(center);
+					}
+					else
+					{
+						num7 = CalcHorizontalDistanceOnBoardTo(x, y, i, j);
+					}
+					float num8 = num7;
+					if (!(num8 <= num))
+					{
+						continue;
+					}
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (!ignoreLOS)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!center._0013(i, j))
+						{
+							continue;
+						}
+						while (true)
 						{
 							switch (4)
 							{
@@ -576,25 +396,211 @@ public class FogOfWar : MonoBehaviour
 							}
 							break;
 						}
-						flag2 = BrushCoordinator.Get().IsRegionFunctioning(boardSquare.BrushRegion);
+					}
+					if ((bool)owner)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (flag2)
+						{
+							goto IL_0204;
+						}
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+					if (BrushCoordinator.Get() == null)
+					{
+						goto IL_0204;
+					}
+					bool flag3;
+					if (brushRevealType == VisionProviderInfo.BrushRevealType.Never)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (boardSquare.BrushRegion >= 0)
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							flag3 = BrushCoordinator.Get().IsRegionFunctioning(boardSquare.BrushRegion);
+							goto IL_0286;
+						}
+					}
+					if (brushRevealType == VisionProviderInfo.BrushRevealType.Always)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (boardSquare.BrushRegion >= 0)
+						{
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							flag3 = false;
+							goto IL_0286;
+						}
+					}
+					flag3 = BrushCoordinator.Get().IsSquareHiddenFrom(boardSquare, center);
+					goto IL_0286;
+					IL_0204:
+					flag3 = false;
+					goto IL_0286;
+					IL_0286:
+					bool flag4;
+					if (BarrierManager.Get() != null)
+					{
+						int num9;
+						if ((bool)owner)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num9 = (BarrierManager.Get().IsVisionBlocked(owner, center, boardSquare) ? 1 : 0);
+						}
+						else
+						{
+							num9 = 0;
+						}
+						flag4 = ((byte)num9 != 0);
+					}
+					else
+					{
+						flag4 = false;
+					}
+					if (flag3)
+					{
+						continue;
+					}
+					if (flag4)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+					else
+					{
+						value.m_visibleFlags |= (int)flag;
+						m_visibleSquares[boardSquare] = value;
 					}
 				}
-				if (!flag2)
+			}
+			return;
+		}
+	}
+
+	private void AppendToVisibleSquares(List<BoardSquare> squares, BoardSquare.VisibilityFlags flag, bool seeThroughBrush)
+	{
+		for (int i = 0; i < squares.Count; i++)
+		{
+			BoardSquare boardSquare = squares[i];
+			if (!(boardSquare != null))
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (6)
 				{
-					for (;;)
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			bool flag2 = false;
+			if (!seeThroughBrush)
+			{
+				while (true)
+				{
+					switch (2)
 					{
-						switch (2)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (BrushCoordinator.Get() != null && boardSquare.BrushRegion > 0)
+				{
+					while (true)
+					{
+						switch (4)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					FogOfWar.VisibleSquareEntry value;
-					this.m_visibleSquares.TryGetValue(boardSquare, out value);
-					value.m_visibleFlags |= (int)flag;
-					this.m_visibleSquares[boardSquare] = value;
+					flag2 = BrushCoordinator.Get().IsRegionFunctioning(boardSquare.BrushRegion);
 				}
+			}
+			if (!flag2)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_visibleSquares.TryGetValue(boardSquare, out VisibleSquareEntry value);
+				value.m_visibleFlags |= (int)flag;
+				m_visibleSquares[boardSquare] = value;
 			}
 		}
 	}
@@ -603,59 +609,59 @@ public class FogOfWar : MonoBehaviour
 	{
 		if (visType == BoardSquare.VisibilityFlags.Revealed)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return 4;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.GetVisTypePriority(BoardSquare.VisibilityFlags)).MethodHandle;
-			}
-			return 4;
 		}
 		if (visType == BoardSquare.VisibilityFlags.Objective)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 3;
 				}
-				break;
 			}
-			return 3;
 		}
 		if (visType == BoardSquare.VisibilityFlags.Self)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 2;
 				}
-				break;
 			}
-			return 2;
 		}
 		if (visType == BoardSquare.VisibilityFlags.Team)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 1;
 				}
-				break;
 			}
-			return 1;
 		}
 		return 0;
 	}
@@ -664,46 +670,46 @@ public class FogOfWar : MonoBehaviour
 	{
 		if ((flags & 8) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return 4;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.GetHighestVisTypePriority(int)).MethodHandle;
-			}
-			return 4;
 		}
 		if ((flags & 4) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 3;
 				}
-				break;
 			}
-			return 3;
 		}
 		if ((flags & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 2;
 				}
-				break;
 			}
-			return 2;
 		}
 		if ((flags & 2) != 0)
 		{
@@ -716,36 +722,32 @@ public class FogOfWar : MonoBehaviour
 	{
 		int num = Mathf.Abs(firstX - secondX);
 		int num2 = Mathf.Abs(firstY - secondY);
-		float result;
+		float num3 = 0f;
 		if (num > num2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return (float)(num - num2) + (float)num2 * 1.5f;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.CalcHorizontalDistanceOnBoardTo(int, int, int, int)).MethodHandle;
-			}
-			result = (float)(num - num2) + (float)num2 * 1.5f;
 		}
-		else
-		{
-			result = (float)(num2 - num) + (float)num * 1.5f;
-		}
-		return result;
+		return (float)(num2 - num) + (float)num * 1.5f;
 	}
 
 	public bool IsVisible(BoardSquare square)
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -754,13 +756,13 @@ public class FogOfWar : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.IsVisible(BoardSquare)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_owner != GameFlowData.Get().activeOwnedActorData)
+			if (m_owner != GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -769,23 +771,23 @@ public class FogOfWar : MonoBehaviour
 					}
 					break;
 				}
-				Log.Warning("Calling FogOfWar::IsVisible(BoardSquare square) on a client for not-the-client actor.", new object[0]);
+				Log.Warning("Calling FogOfWar::IsVisible(BoardSquare square) on a client for not-the-client actor.");
 			}
 		}
 		if (square == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
-		return this.m_visibleSquares.ContainsKey(square);
+		return m_visibleSquares.ContainsKey(square);
 	}
 
 	public bool IsVisibleBySelf(BoardSquare square)
@@ -793,7 +795,7 @@ public class FogOfWar : MonoBehaviour
 		bool result = false;
 		if (square != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -802,22 +804,26 @@ public class FogOfWar : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.IsVisibleBySelf(BoardSquare)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_visibleSquares.ContainsKey(square) && (this.m_visibleSquares[square].m_visibleFlags & 1) != 0)
+			if (m_visibleSquares.ContainsKey(square))
 			{
-				for (;;)
+				VisibleSquareEntry visibleSquareEntry = m_visibleSquares[square];
+				if ((visibleSquareEntry.m_visibleFlags & 1) != 0)
 				{
-					switch (7)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
-					break;
+					result = true;
 				}
-				result = true;
 			}
 		}
 		return result;
@@ -828,7 +834,7 @@ public class FogOfWar : MonoBehaviour
 		bool result = false;
 		if (otherActor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -837,14 +843,14 @@ public class FogOfWar : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.IsVisibleBySelf(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			BoardSquare boardSquare = otherActor.\u000E();
-			if (boardSquare != null)
+			BoardSquare travelBoardSquare = otherActor.GetTravelBoardSquare();
+			if (travelBoardSquare != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -853,7 +859,7 @@ public class FogOfWar : MonoBehaviour
 					}
 					break;
 				}
-				if (this.IsVisibleBySelf(boardSquare))
+				if (IsVisibleBySelf(travelBoardSquare))
 				{
 					result = true;
 				}
@@ -866,17 +872,18 @@ public class FogOfWar : MonoBehaviour
 	{
 		Bounds result = default(Bounds);
 		bool flag = false;
-		using (Dictionary<BoardSquare, FogOfWar.VisibleSquareEntry>.Enumerator enumerator = this.m_visibleSquares.GetEnumerator())
+		using (Dictionary<BoardSquare, VisibleSquareEntry>.Enumerator enumerator = m_visibleSquares.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<BoardSquare, FogOfWar.VisibleSquareEntry> keyValuePair = enumerator.Current;
-				BoardSquare key = keyValuePair.Key;
-				if ((keyValuePair.Value.m_visibleFlags & 1) != 0)
+				KeyValuePair<BoardSquare, VisibleSquareEntry> current = enumerator.Current;
+				BoardSquare key = current.Key;
+				VisibleSquareEntry value = current.Value;
+				if ((value.m_visibleFlags & 1) != 0)
 				{
 					if (flag)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -885,9 +892,9 @@ public class FogOfWar : MonoBehaviour
 							}
 							break;
 						}
-						if (!true)
+						if (1 == 0)
 						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.CalcVisibleBySelfBounds()).MethodHandle;
+							/*OpCode not supported: LdMemberToken*/;
 						}
 						result.Encapsulate(key.CameraBounds);
 					}
@@ -898,80 +905,79 @@ public class FogOfWar : MonoBehaviour
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return result;
 				}
-				break;
 			}
 		}
-		return result;
 	}
 
 	public static void CalculateFogOfWarForTeam(Team team)
 	{
 		if (GameFlowData.Get() == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.CalculateFogOfWarForTeam(Team)).MethodHandle;
-			}
-			Debug.LogError("Trying to calculate fog of war, but GameFlowData does not exist.");
-		}
-		else
-		{
-			List<ActorData> actors = GameFlowData.Get().GetActors();
-			using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					ActorData actorData = enumerator.Current;
-					if (actorData.\u000E() == team)
+					break;
+				default:
+					if (1 == 0)
 					{
-						for (;;)
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("Trying to calculate fog of war, but GameFlowData does not exist.");
+					return;
+				}
+			}
+		}
+		List<ActorData> actors = GameFlowData.Get().GetActors();
+		using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
+			{
+				ActorData current = enumerator.Current;
+				if (current.GetTeam() == team)
+				{
+					while (true)
+					{
+						switch (7)
 						{
-							switch (7)
+						case 0:
+							continue;
+						}
+						break;
+					}
+					FogOfWar fogOfWar = current.GetFogOfWar();
+					if (fogOfWar != null)
+					{
+						while (true)
+						{
+							switch (3)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						FogOfWar fogOfWar = actorData.\u000E();
-						if (fogOfWar != null)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							fogOfWar.MarkForRecalculateVisibility();
-						}
+						fogOfWar.MarkForRecalculateVisibility();
 					}
 				}
-				for (;;)
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
+				default:
+					return;
+				case 0:
 					break;
 				}
 			}
@@ -980,16 +986,16 @@ public class FogOfWar : MonoBehaviour
 
 	public void MarkForRecalculateVisibility()
 	{
-		this.m_updateVisibility = true;
+		m_updateVisibility = true;
 	}
 
 	public void UpdateVisibilityOfSquares(bool updateShade = true)
 	{
-		this.m_visibleSquares.Clear();
-		this.m_visibilityPersonalOnly = InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowPersonalVisibility);
-		if (this.m_owner)
+		m_visibleSquares.Clear();
+		m_visibilityPersonalOnly = InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowPersonalVisibility);
+		if ((bool)m_owner)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -998,14 +1004,14 @@ public class FogOfWar : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.UpdateVisibilityOfSquares(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			bool flag = this.m_owner.\u000E();
+			bool flag = m_owner.IsDead();
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1016,7 +1022,7 @@ public class FogOfWar : MonoBehaviour
 				}
 				if (NetworkClient.active)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -1025,13 +1031,13 @@ public class FogOfWar : MonoBehaviour
 						}
 						break;
 					}
-					flag = this.m_owner.\u0012();
+					flag = m_owner.IsModelAnimatorDisabled();
 				}
 			}
 			float num;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1044,15 +1050,15 @@ public class FogOfWar : MonoBehaviour
 			}
 			else
 			{
-				num = this.m_owner.\u0015();
+				num = m_owner.GetActualSightRange();
 			}
 			float radius = num;
-			this.CalcVisibleSquares(this.m_owner.\u000E(), radius, false, BoardSquare.VisibilityFlags.Self, false, VisionProviderInfo.BrushRevealType.BaseOnCenterPosition);
+			CalcVisibleSquares(m_owner.GetTravelBoardSquare(), radius, false, BoardSquare.VisibilityFlags.Self, false);
 		}
-		bool flag2 = GameplayMutators.IsStatusActive(StatusType.Blind, GameFlowData.Get().CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Default);
-		if (!this.m_visibilityPersonalOnly)
+		bool flag2 = GameplayMutators.IsStatusActive(StatusType.Blind, GameFlowData.Get().CurrentTurn);
+		if (!m_visibilityPersonalOnly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1061,9 +1067,9 @@ public class FogOfWar : MonoBehaviour
 				}
 				break;
 			}
-			if (this.m_owner)
+			if ((bool)m_owner)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1072,10 +1078,10 @@ public class FogOfWar : MonoBehaviour
 					}
 					break;
 				}
-				ActorAdditionalVisionProviders actorAdditionalVisionProviders = this.m_owner.\u000E();
+				ActorAdditionalVisionProviders actorAdditionalVisionProviders = m_owner.GetActorAdditionalVisionProviders();
 				if (actorAdditionalVisionProviders != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -1085,33 +1091,11 @@ public class FogOfWar : MonoBehaviour
 						break;
 					}
 					SyncListVisionProviderInfo visionProviders = actorAdditionalVisionProviders.GetVisionProviders();
-					int i = 0;
-					while (i < (int)visionProviders.Count)
+					for (int i = 0; i < visionProviders.Count; i++)
 					{
-						if (!flag2)
+						if (flag2)
 						{
-							goto IL_163;
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (visionProviders[i].m_canFunctionInGlobalBlind)
-						{
-							goto IL_163;
-						}
-						IL_20C:
-						i++;
-						continue;
-						IL_163:
-						if (visionProviders[i].GetBoardSquare() != null)
-						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -1120,12 +1104,37 @@ public class FogOfWar : MonoBehaviour
 								}
 								break;
 							}
-							this.CalcVisibleSquares(visionProviders[i].GetBoardSquare(), visionProviders[i].m_radius, visionProviders[i].m_radiusAsStraightLineDist, visionProviders[i].m_flag, visionProviders[i].m_ignoreLos, visionProviders[i].m_brushRevealType);
-							goto IL_20C;
+							VisionProviderInfo visionProviderInfo = visionProviders[i];
+							if (!visionProviderInfo.m_canFunctionInGlobalBlind)
+							{
+								continue;
+							}
 						}
-						goto IL_20C;
+						if (visionProviders[i].GetBoardSquare() != null)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							BoardSquare boardSquare = visionProviders[i].GetBoardSquare();
+							VisionProviderInfo visionProviderInfo2 = visionProviders[i];
+							float radius2 = visionProviderInfo2.m_radius;
+							VisionProviderInfo visionProviderInfo3 = visionProviders[i];
+							bool radiusAsStraightLineDist = visionProviderInfo3.m_radiusAsStraightLineDist;
+							VisionProviderInfo visionProviderInfo4 = visionProviders[i];
+							BoardSquare.VisibilityFlags flag3 = visionProviderInfo4.m_flag;
+							VisionProviderInfo visionProviderInfo5 = visionProviders[i];
+							bool ignoreLos = visionProviderInfo5.m_ignoreLos;
+							VisionProviderInfo visionProviderInfo6 = visionProviders[i];
+							CalcVisibleSquares(boardSquare, radius2, radiusAsStraightLineDist, flag3, ignoreLos, visionProviderInfo6.m_brushRevealType);
+						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -1138,7 +1147,7 @@ public class FogOfWar : MonoBehaviour
 				List<ControlPoint> allControlPoints = ControlPoint.GetAllControlPoints();
 				if (allControlPoints != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1150,9 +1159,9 @@ public class FogOfWar : MonoBehaviour
 					for (int j = 0; j < allControlPoints.Count; j++)
 					{
 						ControlPoint controlPoint = allControlPoints[j];
-						if (controlPoint.IsGrantingVisionForTeam(this.m_owner.\u000E()))
+						if (controlPoint.IsGrantingVisionForTeam(m_owner.GetTeam()))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -1161,10 +1170,10 @@ public class FogOfWar : MonoBehaviour
 								}
 								break;
 							}
-							this.AppendToVisibleSquares(controlPoint.GetSquaresForVision(), BoardSquare.VisibilityFlags.Team, controlPoint.m_visionSeeThroughBrush);
+							AppendToVisibleSquares(controlPoint.GetSquaresForVision(), BoardSquare.VisibilityFlags.Team, controlPoint.m_visionSeeThroughBrush);
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -1175,11 +1184,11 @@ public class FogOfWar : MonoBehaviour
 					}
 				}
 			}
-			Team team = (!this.m_owner) ? this.m_ownerPlayer.GetTeamViewing() : this.m_owner.\u000E();
-			ActorStatus actorStatus;
-			if (this.m_owner)
+			Team team = (!m_owner) ? m_ownerPlayer.GetTeamViewing() : m_owner.GetTeam();
+			object obj;
+			if ((bool)m_owner)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1188,18 +1197,18 @@ public class FogOfWar : MonoBehaviour
 					}
 					break;
 				}
-				actorStatus = this.m_owner.\u000E();
+				obj = m_owner.GetActorStatus();
 			}
 			else
 			{
-				actorStatus = null;
+				obj = null;
 			}
-			ActorStatus actorStatus2 = actorStatus;
+			ActorStatus actorStatus = (ActorStatus)obj;
 			List<ActorData> list;
 			List<ActorData> list2;
 			if (team != Team.Invalid)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1217,10 +1226,10 @@ public class FogOfWar : MonoBehaviour
 				list.AddRange(GameFlowData.Get().GetAllTeamMembers(Team.TeamB));
 				list2 = new List<ActorData>();
 			}
-			bool flag3 = true;
-			if (actorStatus2 && actorStatus2.HasStatus(StatusType.LoseAllyVision, true))
+			bool flag4 = true;
+			if ((bool)actorStatus && actorStatus.HasStatus(StatusType.LoseAllyVision))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1229,11 +1238,11 @@ public class FogOfWar : MonoBehaviour
 					}
 					break;
 				}
-				flag3 = false;
+				flag4 = false;
 			}
-			if (flag3)
+			if (flag4)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1242,11 +1251,11 @@ public class FogOfWar : MonoBehaviour
 					}
 					break;
 				}
-				foreach (ActorData actorData in list)
+				foreach (ActorData item in list)
 				{
-					if (actorData)
+					if ((bool)item)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -1255,9 +1264,9 @@ public class FogOfWar : MonoBehaviour
 							}
 							break;
 						}
-						if (!(this.m_owner == null))
+						if (!(m_owner == null))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -1266,11 +1275,11 @@ public class FogOfWar : MonoBehaviour
 								}
 								break;
 							}
-							if (!(this.m_owner != actorData))
+							if (!(m_owner != item))
 							{
 								continue;
 							}
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -1280,9 +1289,9 @@ public class FogOfWar : MonoBehaviour
 								break;
 							}
 						}
-						if (actorData.\u000E())
+						if ((bool)item.GetTravelBoardSquare())
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -1291,13 +1300,13 @@ public class FogOfWar : MonoBehaviour
 								}
 								break;
 							}
-							ActorStatus actorStatus3 = actorData.\u000E();
-							if (!actorStatus3.HasStatus(StatusType.IsolateVisionFromAllies, true))
+							ActorStatus actorStatus2 = item.GetActorStatus();
+							if (!actorStatus2.HasStatus(StatusType.IsolateVisionFromAllies))
 							{
-								bool flag4 = actorData.\u000E();
-								if (!flag4 && NetworkClient.active)
+								bool flag5 = item.IsDead();
+								if (!flag5 && NetworkClient.active)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (7)
 										{
@@ -1306,14 +1315,14 @@ public class FogOfWar : MonoBehaviour
 										}
 										break;
 									}
-									flag4 = actorData.\u0012();
+									flag5 = item.IsModelAnimatorDisabled();
 								}
-								float radius2 = (!flag4) ? actorData.\u0015() : 0f;
-								this.CalcVisibleSquares(actorData.\u000E(), radius2, false, BoardSquare.VisibilityFlags.Team, false, VisionProviderInfo.BrushRevealType.BaseOnCenterPosition);
-								ActorAdditionalVisionProviders component = actorData.GetComponent<ActorAdditionalVisionProviders>();
+								float radius3 = (!flag5) ? item.GetActualSightRange() : 0f;
+								CalcVisibleSquares(item.GetTravelBoardSquare(), radius3, false, BoardSquare.VisibilityFlags.Team, false);
+								ActorAdditionalVisionProviders component = item.GetComponent<ActorAdditionalVisionProviders>();
 								if (component != null)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (5)
 										{
@@ -1323,26 +1332,41 @@ public class FogOfWar : MonoBehaviour
 										break;
 									}
 									SyncListVisionProviderInfo visionProviders2 = component.GetVisionProviders();
-									for (int k = 0; k < (int)visionProviders2.Count; k++)
+									for (int k = 0; k < visionProviders2.Count; k++)
 									{
-										if (!flag2 || visionProviders2[k].m_canFunctionInGlobalBlind)
+										if (flag2)
 										{
-											if (visionProviders2[k].GetBoardSquare() != null)
+											VisionProviderInfo visionProviderInfo7 = visionProviders2[k];
+											if (!visionProviderInfo7.m_canFunctionInGlobalBlind)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												this.CalcVisibleSquares(visionProviders2[k].GetBoardSquare(), visionProviders2[k].m_radius, visionProviders2[k].m_radiusAsStraightLineDist, visionProviders2[k].m_flag, visionProviders2[k].m_ignoreLos, visionProviders2[k].m_brushRevealType);
+												continue;
 											}
 										}
+										if (visionProviders2[k].GetBoardSquare() != null)
+										{
+											while (true)
+											{
+												switch (2)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											BoardSquare boardSquare2 = visionProviders2[k].GetBoardSquare();
+											VisionProviderInfo visionProviderInfo8 = visionProviders2[k];
+											float radius4 = visionProviderInfo8.m_radius;
+											VisionProviderInfo visionProviderInfo9 = visionProviders2[k];
+											bool radiusAsStraightLineDist2 = visionProviderInfo9.m_radiusAsStraightLineDist;
+											VisionProviderInfo visionProviderInfo10 = visionProviders2[k];
+											BoardSquare.VisibilityFlags flag6 = visionProviderInfo10.m_flag;
+											VisionProviderInfo visionProviderInfo11 = visionProviders2[k];
+											bool ignoreLos2 = visionProviderInfo11.m_ignoreLos;
+											VisionProviderInfo visionProviderInfo12 = visionProviders2[k];
+											CalcVisibleSquares(boardSquare2, radius4, radiusAsStraightLineDist2, flag6, ignoreLos2, visionProviderInfo12.m_brushRevealType);
+										}
 									}
-									for (;;)
+									while (true)
 									{
 										switch (6)
 										{
@@ -1361,117 +1385,118 @@ public class FogOfWar : MonoBehaviour
 			{
 				while (enumerator2.MoveNext())
 				{
-					ActorData actorData2 = enumerator2.Current;
-					if (actorData2 != null)
+					ActorData current2 = enumerator2.Current;
+					if (!(current2 != null))
 					{
-						BoardSquare boardSquare = actorData2.\u000E();
-						ActorStatus actorStatus4 = actorData2.\u000E();
-						bool flag5;
-						if (actorStatus4)
+						continue;
+					}
+					BoardSquare travelBoardSquare = current2.GetTravelBoardSquare();
+					ActorStatus actorStatus3 = current2.GetActorStatus();
+					int num2;
+					if ((bool)actorStatus3)
+					{
+						while (true)
 						{
-							for (;;)
+							switch (3)
 							{
-								switch (3)
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num2 = (actorStatus3.HasStatus(StatusType.Revealed) ? 1 : 0);
+					}
+					else
+					{
+						num2 = 0;
+					}
+					bool flag7 = (byte)num2 != 0;
+					bool flag8 = false;
+					if (!NetworkServer.active)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (CaptureTheFlag.IsActorRevealedByFlag_Client(current2))
+						{
+							while (true)
+							{
+								switch (6)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							flag5 = actorStatus4.HasStatus(StatusType.Revealed, true);
+							flag8 = true;
 						}
-						else
+					}
+					if ((bool)travelBoardSquare)
+					{
+						while (true)
 						{
-							flag5 = false;
-						}
-						bool flag6 = flag5;
-						bool flag7 = false;
-						if (!NetworkServer.active)
-						{
-							for (;;)
+							switch (7)
 							{
-								switch (7)
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!flag7)
+						{
+							while (true)
+							{
+								switch (2)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							if (CaptureTheFlag.IsActorRevealedByFlag_Client(actorData2))
+							if (!flag8)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								flag7 = true;
+								goto IL_06a6;
 							}
 						}
-						if (boardSquare)
+						CalcVisibleSquares(current2.GetTravelBoardSquare(), 0.1f, false, BoardSquare.VisibilityFlags.Revealed, true);
+					}
+					goto IL_06a6;
+					IL_06a6:
+					if ((bool)travelBoardSquare)
+					{
+						while (true)
 						{
-							for (;;)
+							switch (4)
 							{
-								switch (7)
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if ((bool)m_owner && m_owner.IsLineOfSightVisibleException(current2))
+						{
+							while (true)
+							{
+								switch (6)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							if (!flag6)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!flag7)
-								{
-									goto IL_6A6;
-								}
-							}
-							this.CalcVisibleSquares(actorData2.\u000E(), 0.1f, false, BoardSquare.VisibilityFlags.Revealed, true, VisionProviderInfo.BrushRevealType.BaseOnCenterPosition);
-						}
-						IL_6A6:
-						if (boardSquare)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_owner && this.m_owner.\u000E(actorData2))
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								FogOfWar.VisibleSquareEntry value;
-								this.m_visibleSquares.TryGetValue(boardSquare, out value);
-								value.m_visibleFlags |= 8;
-								this.m_visibleSquares[boardSquare] = value;
-							}
+							m_visibleSquares.TryGetValue(travelBoardSquare, out VisibleSquareEntry value);
+							value.m_visibleFlags |= 8;
+							m_visibleSquares[travelBoardSquare] = value;
 						}
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1484,7 +1509,7 @@ public class FogOfWar : MonoBehaviour
 		}
 		if (updateShade)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1493,16 +1518,16 @@ public class FogOfWar : MonoBehaviour
 				}
 				break;
 			}
-			this.SetVisibleShadeOfAllSquares();
+			SetVisibleShadeOfAllSquares();
 		}
-		this.m_lastRecalcTime = Time.time;
+		m_lastRecalcTime = Time.time;
 	}
 
 	private bool IsClientFog()
 	{
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1511,60 +1536,60 @@ public class FogOfWar : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.IsClientFog()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (GameFlowData.Get().activeOwnedActorData != this.m_owner)
+			if (GameFlowData.Get().activeOwnedActorData != m_owner)
 			{
 				return false;
 			}
 		}
-		else if (this.m_ownerPlayer != GameFlowData.Get().LocalPlayerData)
+		else if (m_ownerPlayer != GameFlowData.Get().LocalPlayerData)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
 		return true;
 	}
 
 	public void SetVisibleShadeOfAllSquares()
 	{
-		if (!this.IsClientFog())
+		if (!IsClientFog())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.SetVisibleShadeOfAllSquares()).MethodHandle;
-			}
-			return;
 		}
-		bool flag = false;
-		Board board = Board.\u000E();
-		for (int i = 0; i < board.\u000E(); i++)
+		bool anySquareShadeChanged = false;
+		Board board = Board.Get();
+		for (int i = 0; i < board.GetMaxX(); i++)
 		{
-			for (int j = 0; j < board.\u0012(); j++)
+			for (int j = 0; j < board.GetMaxY(); j++)
 			{
-				BoardSquare boardSquare = board.\u0016(i, j);
+				BoardSquare boardSquare = board.GetBoardSquare(i, j);
 				if (boardSquare != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -1573,9 +1598,9 @@ public class FogOfWar : MonoBehaviour
 						}
 						break;
 					}
-					if (this.m_visibleSquares.ContainsKey(boardSquare))
+					if (m_visibleSquares.ContainsKey(boardSquare))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -1584,60 +1609,65 @@ public class FogOfWar : MonoBehaviour
 							}
 							break;
 						}
-						boardSquare.SetVisibleShade(this.m_visibleSquares[boardSquare].m_visibleFlags, ref flag);
+						VisibleSquareEntry visibleSquareEntry = m_visibleSquares[boardSquare];
+						boardSquare.SetVisibleShade(visibleSquareEntry.m_visibleFlags, ref anySquareShadeChanged);
 					}
 					else
 					{
-						boardSquare.SetVisibleShade(0, ref flag);
+						boardSquare.SetVisibleShade(0, ref anySquareShadeChanged);
 					}
 				}
 				else
 				{
-					Log.Info(string.Format("Trying to set visible shade of square ({0}, {1}), but it's out of bounds", i, j), new object[0]);
+					Log.Info($"Trying to set visible shade of square ({i}, {j}), but it's out of bounds");
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_00d1;
 				}
+				continue;
+				end_IL_00d1:
 				break;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (flag)
-		{
-			for (;;)
+			if (!anySquareShadeChanged)
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (GameEventManager.Get() != null)
-			{
-				for (;;)
+				if (GameEventManager.Get() != null)
 				{
-					switch (7)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						GameEventManager.Get().FireEvent(GameEventManager.EventType.BoardSquareVisibleShadeChanged, null);
+						return;
 					}
-					break;
 				}
-				GameEventManager.Get().FireEvent(GameEventManager.EventType.BoardSquareVisibleShadeChanged, null);
+				return;
 			}
 		}
 	}
@@ -1646,89 +1676,85 @@ public class FogOfWar : MonoBehaviour
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.OnDrawGizmos()).MethodHandle;
-			}
+		}
+		if (!(GameFlowData.Get() != null) || !(m_owner != null))
+		{
 			return;
 		}
-		if (GameFlowData.Get() != null && this.m_owner != null)
+		while (true)
 		{
-			for (;;)
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.m_owner == GameFlowData.Get().activeOwnedActorData)
+			if (m_owner == GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				using (Dictionary<BoardSquare, FogOfWar.VisibleSquareEntry>.Enumerator enumerator = this.m_visibleSquares.GetEnumerator())
-				{
-					while (enumerator.MoveNext())
+					using (Dictionary<BoardSquare, VisibleSquareEntry>.Enumerator enumerator = m_visibleSquares.GetEnumerator())
 					{
-						KeyValuePair<BoardSquare, FogOfWar.VisibleSquareEntry> keyValuePair = enumerator.Current;
-						BoardSquare key = keyValuePair.Key;
-						if ((keyValuePair.Value.m_visibleFlags & 1) != 0)
+						while (enumerator.MoveNext())
 						{
-							for (;;)
+							KeyValuePair<BoardSquare, VisibleSquareEntry> current = enumerator.Current;
+							BoardSquare key = current.Key;
+							VisibleSquareEntry value = current.Value;
+							if ((value.m_visibleFlags & 1) != 0)
 							{
-								switch (3)
+								while (true)
 								{
-								case 0:
-									continue;
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
 								}
-								break;
+								Gizmos.color = Color.gray;
 							}
-							Gizmos.color = Color.gray;
+							else
+							{
+								Gizmos.color = Color.blue;
+							}
+							Gizmos.DrawWireCube(key.CameraBounds.center, key.CameraBounds.size * 0.7f);
 						}
-						else
+						while (true)
 						{
-							Gizmos.color = Color.blue;
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
-						Gizmos.DrawWireCube(key.CameraBounds.center, key.CameraBounds.size * 0.7f);
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					Gizmos.color = Color.white;
+					float num = 1f - Mathf.Clamp((Time.time - m_lastRecalcTime) * 2f, 0f, 1f);
+					Color color2 = Gizmos.color = new Color(0f, num, num, num);
+					Gizmos.DrawSphere(m_owner.GetNameplatePosition(10f), 0.5f);
+					return;
 				}
-				Gizmos.color = Color.white;
-				float num = 1f - Mathf.Clamp((Time.time - this.m_lastRecalcTime) * 2f, 0f, 1f);
-				Color color = new Color(0f, num, num, num);
-				Gizmos.color = color;
-				Gizmos.DrawSphere(this.m_owner.\u000E(10f), 0.5f);
 			}
+			return;
 		}
-	}
-
-	private struct VisibleSquareEntry
-	{
-		public int m_visibleFlags;
 	}
 }

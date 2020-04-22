@@ -1,30 +1,30 @@
-﻿using System;
-
 public class WaitingState : TurnState
 {
-	public WaitingState(ActorTurnSM masterSM) : base(masterSM)
+	public WaitingState(ActorTurnSM masterSM)
+		: base(masterSM)
 	{
 	}
 
 	public override void OnEnter()
 	{
-		AbilityData component = this.m_SM.GetComponent<AbilityData>();
-		if (component)
+		AbilityData component = m_SM.GetComponent<AbilityData>();
+		if (!component)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WaitingState.OnEnter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			component.ClearSelectedAbility();
+			return;
 		}
 	}
 
@@ -32,34 +32,36 @@ public class WaitingState : TurnState
 	{
 		if (msg == TurnMessage.TURN_START)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_SM.SetupForNewTurn();
+					m_SM.NextState = TurnStateEnum.DECIDING;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WaitingState.OnMsg(TurnMessage, int)).MethodHandle;
-			}
-			this.m_SM.SetupForNewTurn();
-			this.m_SM.NextState = TurnStateEnum.DECIDING;
 		}
-		else if (msg == TurnMessage.RESPAWN)
+		if (msg != TurnMessage.RESPAWN)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_SM.NextState = TurnStateEnum.RESPAWNING;
+			m_SM.NextState = TurnStateEnum.RESPAWNING;
+			return;
 		}
 	}
 }

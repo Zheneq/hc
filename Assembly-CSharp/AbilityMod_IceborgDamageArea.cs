@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
@@ -51,48 +51,49 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 
 	public override void GenModImpl_SetTargetSelectMod(GenericAbility_TargetSelectBase targetSelect)
 	{
-		targetSelect.SetTargetSelectMod(this.m_targetSelectMod);
+		targetSelect.SetTargetSelectMod(m_targetSelectMod);
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		IceborgDamageArea iceborgDamageArea = targetAbility as IceborgDamageArea;
-		if (iceborgDamageArea != null)
+		if (!(iceborgDamageArea != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgDamageArea.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			AbilityMod.AddToken(tokens, this.m_initialCastMaxRangeMod, "InitialCastMaxRange", string.Empty, iceborgDamageArea.m_initialCastMaxRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_moveAreaCastMaxRangeMod, "MoveAreaCastMaxRange", string.Empty, iceborgDamageArea.m_moveAreaCastMaxRange, true, false, false);
-			AbilityMod.AddToken_GroundFieldMod(tokens, this.m_groundFieldDataMod, "GroundFieldData", iceborgDamageArea.m_groundFieldData);
-			AbilityMod.AddToken(tokens, this.m_extraDamageOnInitialCastMod, "ExtraDamageOnInitialCast", string.Empty, iceborgDamageArea.m_extraDamageOnInitialCast, true, false);
-			AbilityMod.AddToken(tokens, this.m_groundFieldDamageChangePerTurnMod, "GroundFieldDamageChangePerTurn", string.Empty, iceborgDamageArea.m_groundFieldDamageChangePerTurn, true, false);
-			AbilityMod.AddToken(tokens, this.m_minDamageMod, "MinDamage", string.Empty, iceborgDamageArea.m_minDamage, true, false);
-			AbilityMod.AddToken(tokens, this.m_shieldPerEnemyHitMod, "ShieldPerEnemyHit", string.Empty, iceborgDamageArea.m_shieldPerEnemyHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_shieldDurationMod, "ShieldDuration", string.Empty, iceborgDamageArea.m_shieldDuration, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnEnemyIfHitPreviousTurnMod, "EffectOnEnemyIfHitPreviousTurn", iceborgDamageArea.m_effectOnEnemyIfHitPreviousTurn, true);
+			AbilityMod.AddToken(tokens, m_initialCastMaxRangeMod, "InitialCastMaxRange", string.Empty, iceborgDamageArea.m_initialCastMaxRange);
+			AbilityMod.AddToken(tokens, m_moveAreaCastMaxRangeMod, "MoveAreaCastMaxRange", string.Empty, iceborgDamageArea.m_moveAreaCastMaxRange);
+			AbilityMod.AddToken_GroundFieldMod(tokens, m_groundFieldDataMod, "GroundFieldData", iceborgDamageArea.m_groundFieldData);
+			AbilityMod.AddToken(tokens, m_extraDamageOnInitialCastMod, "ExtraDamageOnInitialCast", string.Empty, iceborgDamageArea.m_extraDamageOnInitialCast);
+			AbilityMod.AddToken(tokens, m_groundFieldDamageChangePerTurnMod, "GroundFieldDamageChangePerTurn", string.Empty, iceborgDamageArea.m_groundFieldDamageChangePerTurn);
+			AbilityMod.AddToken(tokens, m_minDamageMod, "MinDamage", string.Empty, iceborgDamageArea.m_minDamage);
+			AbilityMod.AddToken(tokens, m_shieldPerEnemyHitMod, "ShieldPerEnemyHit", string.Empty, iceborgDamageArea.m_shieldPerEnemyHit);
+			AbilityMod.AddToken(tokens, m_shieldDurationMod, "ShieldDuration", string.Empty, iceborgDamageArea.m_shieldDuration);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemyIfHitPreviousTurnMod, "EffectOnEnemyIfHitPreviousTurn", iceborgDamageArea.m_effectOnEnemyIfHitPreviousTurn);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		IceborgDamageArea iceborgDamageArea = base.GetTargetAbilityOnAbilityData(abilityData) as IceborgDamageArea;
+		IceborgDamageArea iceborgDamageArea = GetTargetAbilityOnAbilityData(abilityData) as IceborgDamageArea;
 		bool flag = iceborgDamageArea != null;
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (iceborgDamageArea != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -101,19 +102,17 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgDamageArea.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, iceborgDamageArea.m_targetSelectComp, "-- Target Select --");
+			text += GetTargetSelectModDesc(m_targetSelectMod, iceborgDamageArea.m_targetSelectComp, "-- Target Select --");
 			string str = text;
-			AbilityModPropertyFloat initialCastMaxRangeMod = this.m_initialCastMaxRangeMod;
-			string prefix = "[InitialCastMaxRange]";
-			bool showBaseVal = flag;
+			AbilityModPropertyFloat initialCastMaxRangeMod = m_initialCastMaxRangeMod;
 			float baseVal;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -128,15 +127,13 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			{
 				baseVal = 0f;
 			}
-			text = str + base.PropDesc(initialCastMaxRangeMod, prefix, showBaseVal, baseVal);
+			text = str + PropDesc(initialCastMaxRangeMod, "[InitialCastMaxRange]", flag, baseVal);
 			string str2 = text;
-			AbilityModPropertyFloat moveAreaCastMaxRangeMod = this.m_moveAreaCastMaxRangeMod;
-			string prefix2 = "[MoveAreaCastMaxRange]";
-			bool showBaseVal2 = flag;
+			AbilityModPropertyFloat moveAreaCastMaxRangeMod = m_moveAreaCastMaxRangeMod;
 			float baseVal2;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -151,15 +148,13 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			{
 				baseVal2 = 0f;
 			}
-			text = str2 + base.PropDesc(moveAreaCastMaxRangeMod, prefix2, showBaseVal2, baseVal2);
+			text = str2 + PropDesc(moveAreaCastMaxRangeMod, "[MoveAreaCastMaxRange]", flag, baseVal2);
 			string str3 = text;
-			AbilityModPropertyBool targetingAreaCheckLosMod = this.m_targetingAreaCheckLosMod;
-			string prefix3 = "[TargetingAreaCheckLos]";
-			bool showBaseVal3 = flag;
-			bool baseVal3;
+			AbilityModPropertyBool targetingAreaCheckLosMod = m_targetingAreaCheckLosMod;
+			int baseVal3;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -168,22 +163,20 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 					}
 					break;
 				}
-				baseVal3 = iceborgDamageArea.m_targetingAreaCheckLos;
+				baseVal3 = (iceborgDamageArea.m_targetingAreaCheckLos ? 1 : 0);
 			}
 			else
 			{
-				baseVal3 = false;
+				baseVal3 = 0;
 			}
-			text = str3 + base.PropDesc(targetingAreaCheckLosMod, prefix3, showBaseVal3, baseVal3);
-			text += base.PropDesc(this.m_addGroundFieldMod, "[AddGroundField]", flag, flag && iceborgDamageArea.m_addGroundField);
+			text = str3 + PropDesc(targetingAreaCheckLosMod, "[TargetingAreaCheckLos]", flag, (byte)baseVal3 != 0);
+			text += PropDesc(m_addGroundFieldMod, "[AddGroundField]", flag, flag && iceborgDamageArea.m_addGroundField);
 			string str4 = text;
-			AbilityModPropertyBool stopMoversWithSlowStatusMod = this.m_stopMoversWithSlowStatusMod;
-			string prefix4 = "[StopMoversWithSlowStatus]";
-			bool showBaseVal4 = flag;
-			bool baseVal4;
+			AbilityModPropertyBool stopMoversWithSlowStatusMod = m_stopMoversWithSlowStatusMod;
+			int baseVal4;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -192,21 +185,19 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 					}
 					break;
 				}
-				baseVal4 = iceborgDamageArea.m_stopMoversWithSlowStatus;
+				baseVal4 = (iceborgDamageArea.m_stopMoversWithSlowStatus ? 1 : 0);
 			}
 			else
 			{
-				baseVal4 = false;
+				baseVal4 = 0;
 			}
-			text = str4 + base.PropDesc(stopMoversWithSlowStatusMod, prefix4, showBaseVal4, baseVal4);
+			text = str4 + PropDesc(stopMoversWithSlowStatusMod, "[StopMoversWithSlowStatus]", flag, (byte)baseVal4 != 0);
 			string str5 = text;
-			AbilityModPropertyBool stopMoverIfHitPreviousTurnMod = this.m_stopMoverIfHitPreviousTurnMod;
-			string prefix5 = "[StopMoverIfHitPreviousTurn]";
-			bool showBaseVal5 = flag;
-			bool baseVal5;
+			AbilityModPropertyBool stopMoverIfHitPreviousTurnMod = m_stopMoverIfHitPreviousTurnMod;
+			int baseVal5;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -215,23 +206,21 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 					}
 					break;
 				}
-				baseVal5 = iceborgDamageArea.m_stopMoverIfHitPreviousTurn;
+				baseVal5 = (iceborgDamageArea.m_stopMoverIfHitPreviousTurn ? 1 : 0);
 			}
 			else
 			{
-				baseVal5 = false;
+				baseVal5 = 0;
 			}
-			text = str5 + base.PropDesc(stopMoverIfHitPreviousTurnMod, prefix5, showBaseVal5, baseVal5);
-			text += base.PropDescGroundFieldMod(this.m_groundFieldDataMod, "{ GroundFieldData }", iceborgDamageArea.m_groundFieldData);
-			text += base.PropDesc(this.m_extraDamageOnInitialCastMod, "[ExtraDamageOnInitialCast]", flag, (!flag) ? 0 : iceborgDamageArea.m_extraDamageOnInitialCast);
+			text = str5 + PropDesc(stopMoverIfHitPreviousTurnMod, "[StopMoverIfHitPreviousTurn]", flag, (byte)baseVal5 != 0);
+			text += PropDescGroundFieldMod(m_groundFieldDataMod, "{ GroundFieldData }", iceborgDamageArea.m_groundFieldData);
+			text += PropDesc(m_extraDamageOnInitialCastMod, "[ExtraDamageOnInitialCast]", flag, flag ? iceborgDamageArea.m_extraDamageOnInitialCast : 0);
 			string str6 = text;
-			AbilityModPropertyInt groundFieldDamageChangePerTurnMod = this.m_groundFieldDamageChangePerTurnMod;
-			string prefix6 = "[GroundFieldDamageChangePerTurn]";
-			bool showBaseVal6 = flag;
+			AbilityModPropertyInt groundFieldDamageChangePerTurnMod = m_groundFieldDamageChangePerTurnMod;
 			int baseVal6;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -246,15 +235,13 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			{
 				baseVal6 = 0;
 			}
-			text = str6 + base.PropDesc(groundFieldDamageChangePerTurnMod, prefix6, showBaseVal6, baseVal6);
+			text = str6 + PropDesc(groundFieldDamageChangePerTurnMod, "[GroundFieldDamageChangePerTurn]", flag, baseVal6);
 			string str7 = text;
-			AbilityModPropertyInt minDamageMod = this.m_minDamageMod;
-			string prefix7 = "[MinDamage]";
-			bool showBaseVal7 = flag;
+			AbilityModPropertyInt minDamageMod = m_minDamageMod;
 			int baseVal7;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -269,16 +256,14 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			{
 				baseVal7 = 0;
 			}
-			text = str7 + base.PropDesc(minDamageMod, prefix7, showBaseVal7, baseVal7);
-			text += base.PropDesc(this.m_shieldPerEnemyHitMod, "[ShieldPerEnemyHit]", flag, (!flag) ? 0 : iceborgDamageArea.m_shieldPerEnemyHit);
+			text = str7 + PropDesc(minDamageMod, "[MinDamage]", flag, baseVal7);
+			text += PropDesc(m_shieldPerEnemyHitMod, "[ShieldPerEnemyHit]", flag, flag ? iceborgDamageArea.m_shieldPerEnemyHit : 0);
 			string str8 = text;
-			AbilityModPropertyInt shieldDurationMod = this.m_shieldDurationMod;
-			string prefix8 = "[ShieldDuration]";
-			bool showBaseVal8 = flag;
+			AbilityModPropertyInt shieldDurationMod = m_shieldDurationMod;
 			int baseVal8;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -293,16 +278,14 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			{
 				baseVal8 = 0;
 			}
-			text = str8 + base.PropDesc(shieldDurationMod, prefix8, showBaseVal8, baseVal8);
-			text += base.PropDesc(this.m_effectOnEnemyIfHitPreviousTurnMod, "[EffectOnEnemyIfHitPreviousTurn]", flag, (!flag) ? null : iceborgDamageArea.m_effectOnEnemyIfHitPreviousTurn);
+			text = str8 + PropDesc(shieldDurationMod, "[ShieldDuration]", flag, baseVal8);
+			text += PropDesc(m_effectOnEnemyIfHitPreviousTurnMod, "[EffectOnEnemyIfHitPreviousTurn]", flag, (!flag) ? null : iceborgDamageArea.m_effectOnEnemyIfHitPreviousTurn);
 			string str9 = text;
-			AbilityModPropertyBool applyDelayedAoeEffectMod = this.m_applyDelayedAoeEffectMod;
-			string prefix9 = "[ApplyDelayedAoeEffect]";
-			bool showBaseVal9 = flag;
-			bool baseVal9;
+			AbilityModPropertyBool applyDelayedAoeEffectMod = m_applyDelayedAoeEffectMod;
+			int baseVal9;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -311,21 +294,19 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 					}
 					break;
 				}
-				baseVal9 = iceborgDamageArea.m_applyDelayedAoeEffect;
+				baseVal9 = (iceborgDamageArea.m_applyDelayedAoeEffect ? 1 : 0);
 			}
 			else
 			{
-				baseVal9 = false;
+				baseVal9 = 0;
 			}
-			text = str9 + base.PropDesc(applyDelayedAoeEffectMod, prefix9, showBaseVal9, baseVal9);
+			text = str9 + PropDesc(applyDelayedAoeEffectMod, "[ApplyDelayedAoeEffect]", flag, (byte)baseVal9 != 0);
 			string str10 = text;
-			AbilityModPropertyBool applyNovaCoreIfHitPreviousTurnMod = this.m_applyNovaCoreIfHitPreviousTurnMod;
-			string prefix10 = "[ApplyNovaCoreIfHitPreviousTurn]";
-			bool showBaseVal10 = flag;
-			bool baseVal10;
+			AbilityModPropertyBool applyNovaCoreIfHitPreviousTurnMod = m_applyNovaCoreIfHitPreviousTurnMod;
+			int baseVal10;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -334,13 +315,13 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 					}
 					break;
 				}
-				baseVal10 = iceborgDamageArea.m_applyNovaCoreIfHitPreviousTurn;
+				baseVal10 = (iceborgDamageArea.m_applyNovaCoreIfHitPreviousTurn ? 1 : 0);
 			}
 			else
 			{
-				baseVal10 = false;
+				baseVal10 = 0;
 			}
-			text = str10 + base.PropDesc(applyNovaCoreIfHitPreviousTurnMod, prefix10, showBaseVal10, baseVal10);
+			text = str10 + PropDesc(applyNovaCoreIfHitPreviousTurnMod, "[ApplyNovaCoreIfHitPreviousTurn]", flag, (byte)baseVal10 != 0);
 		}
 		return text;
 	}

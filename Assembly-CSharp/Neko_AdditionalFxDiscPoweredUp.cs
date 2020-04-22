@@ -1,5 +1,3 @@
-﻿using System;
-
 public class Neko_AdditionalFxDiscPoweredUp : AdditionalVfxContainerBase
 {
 	private Neko_SyncComponent m_syncComp;
@@ -13,17 +11,17 @@ public class Neko_AdditionalFxDiscPoweredUp : AdditionalVfxContainerBase
 		base.Initialize(parentSequence);
 		if (parentSequence != null && parentSequence.Caster != null)
 		{
-			this.m_syncComp = parentSequence.Caster.GetComponent<Neko_SyncComponent>();
-			this.m_targetSquare = Board.\u000E().\u000E(parentSequence.TargetPos);
-			this.m_parentSequence = parentSequence;
+			m_syncComp = parentSequence.Caster.GetComponent<Neko_SyncComponent>();
+			m_targetSquare = Board.Get().GetBoardSquare(parentSequence.TargetPos);
+			m_parentSequence = parentSequence;
 		}
 	}
 
 	public override bool CanBeVisible(bool parentSeqVisible)
 	{
-		if (this.m_parentSequence != null && this.m_parentSequence.AgeInTurns > 0)
+		if (m_parentSequence != null && m_parentSequence.AgeInTurns > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -32,13 +30,13 @@ public class Neko_AdditionalFxDiscPoweredUp : AdditionalVfxContainerBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_AdditionalFxDiscPoweredUp.CanBeVisible(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (parentSeqVisible)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -47,9 +45,9 @@ public class Neko_AdditionalFxDiscPoweredUp : AdditionalVfxContainerBase
 					}
 					break;
 				}
-				if (this.m_syncComp != null)
+				if (m_syncComp != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -58,9 +56,9 @@ public class Neko_AdditionalFxDiscPoweredUp : AdditionalVfxContainerBase
 						}
 						break;
 					}
-					if (this.m_targetSquare != null)
+					if (m_targetSquare != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -71,34 +69,36 @@ public class Neko_AdditionalFxDiscPoweredUp : AdditionalVfxContainerBase
 						}
 						if (GameFlowData.Get() != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
 								case 0:
-									continue;
-								}
-								break;
-							}
-							bool result;
-							if (this.m_syncComp.m_clientLastDiscBuffTurn == GameFlowData.Get().CurrentTurn)
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
 									break;
+								default:
+								{
+									int result;
+									if (m_syncComp.m_clientLastDiscBuffTurn == GameFlowData.Get().CurrentTurn)
+									{
+										while (true)
+										{
+											switch (4)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										result = ((m_syncComp.m_clientDiscBuffTargetSquare == m_targetSquare) ? 1 : 0);
+									}
+									else
+									{
+										result = 0;
+									}
+									return (byte)result != 0;
 								}
-								result = (this.m_syncComp.m_clientDiscBuffTargetSquare == this.m_targetSquare);
+								}
 							}
-							else
-							{
-								result = false;
-							}
-							return result;
 						}
 					}
 				}

@@ -1,17 +1,15 @@
-﻿using System;
-
 namespace TMPro
 {
 	public enum FontWeights
 	{
-		Thin = 0x64,
-		ExtraLight = 0xC8,
-		Light = 0x12C,
-		Normal = 0x190,
-		Medium = 0x1F4,
-		SemiBold = 0x258,
-		Bold = 0x2BC,
-		Heavy = 0x320,
-		Black = 0x384
+		Thin = 100,
+		ExtraLight = 200,
+		Light = 300,
+		Normal = 400,
+		Medium = 500,
+		SemiBold = 600,
+		Bold = 700,
+		Heavy = 800,
+		Black = 900
 	}
 }

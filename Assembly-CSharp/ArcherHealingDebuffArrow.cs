@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,9 +33,9 @@ public class ArcherHealingDebuffArrow : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -45,32 +44,36 @@ public class ArcherHealingDebuffArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Bacta Arrow";
+			m_abilityName = "Bacta Arrow";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Never, AbilityUtil_Targeter.AffectsActor.Possible);
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Never);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return base.HasTargetableActorsInDecision(caster, true, false, false, Ability.ValidateCheckPath.Ignore, this.m_targetData[0].m_checkLineOfSight, false, false) && base.CustomCanCastValidation(caster);
+		if (HasTargetableActorsInDecision(caster, true, false, false, ValidateCheckPath.Ignore, m_targetData[0].m_checkLineOfSight, false))
+		{
+			return base.CustomCanCastValidation(caster);
+		}
+		return false;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -79,11 +82,11 @@ public class ArcherHealingDebuffArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (boardSquare.OccupantActor != null && base.CanTargetActorInDecision(caster, boardSquare.OccupantActor, true, false, false, Ability.ValidateCheckPath.Ignore, true, false, false))
+			if (boardSquareSafe.OccupantActor != null && CanTargetActorInDecision(caster, boardSquareSafe.OccupantActor, true, false, false, ValidateCheckPath.Ignore, true, false))
 			{
 				return true;
 			}
@@ -93,41 +96,41 @@ public class ArcherHealingDebuffArrow : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.m_laserHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		m_laserHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		return numbers;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_laserHitEffect, "LaserHitEffect", this.m_laserHitEffect, true);
-		base.AddTokenInt(tokens, "ReactionHealing", string.Empty, this.m_reactionHealing, false);
-		base.AddTokenInt(tokens, "ReactionHealingOnSelf", string.Empty, this.m_reactionHealingOnSelf, false);
-		base.AddTokenInt(tokens, "TechPointsPerHeal", string.Empty, this.m_techPointsPerHeal, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_reactionEffect, "ReactionEffect", this.m_reactionEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, m_laserHitEffect, "LaserHitEffect", m_laserHitEffect);
+		AddTokenInt(tokens, "ReactionHealing", string.Empty, m_reactionHealing);
+		AddTokenInt(tokens, "ReactionHealingOnSelf", string.Empty, m_reactionHealingOnSelf);
+		AddTokenInt(tokens, "TechPointsPerHeal", string.Empty, m_techPointsPerHeal);
+		AbilityMod.AddToken_EffectInfo(tokens, m_reactionEffect, "ReactionEffect", m_reactionEffect);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ArcherHealingDebuffArrow))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_ArcherHealingDebuffArrow);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_ArcherHealingDebuffArrow);
+			SetupTargeter();
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedLaserHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -136,21 +139,21 @@ public class ArcherHealingDebuffArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedLaserHitEffect = this.m_abilityMod.m_laserHitEffectMod.GetModifiedValue(this.m_laserHitEffect);
+			cachedLaserHitEffect = m_abilityMod.m_laserHitEffectMod.GetModifiedValue(m_laserHitEffect);
 		}
 		else
 		{
-			cachedLaserHitEffect = this.m_laserHitEffect;
+			cachedLaserHitEffect = m_laserHitEffect;
 		}
-		this.m_cachedLaserHitEffect = cachedLaserHitEffect;
-		StandardEffectInfo cachedExtraModEffect;
-		if (this.m_abilityMod)
+		m_cachedLaserHitEffect = cachedLaserHitEffect;
+		object cachedExtraModEffect;
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -159,17 +162,17 @@ public class ArcherHealingDebuffArrow : Ability
 				}
 				break;
 			}
-			cachedExtraModEffect = this.m_abilityMod.m_extraHitEffectMod.GetModifiedValue(null);
+			cachedExtraModEffect = m_abilityMod.m_extraHitEffectMod.GetModifiedValue(null);
 		}
 		else
 		{
 			cachedExtraModEffect = null;
 		}
-		this.m_cachedExtraModEffect = cachedExtraModEffect;
+		m_cachedExtraModEffect = (StandardEffectInfo)cachedExtraModEffect;
 		StandardEffectInfo cachedReactionEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -178,21 +181,21 @@ public class ArcherHealingDebuffArrow : Ability
 				}
 				break;
 			}
-			cachedReactionEffect = this.m_abilityMod.m_reactionEffectMod.GetModifiedValue(this.m_reactionEffect);
+			cachedReactionEffect = m_abilityMod.m_reactionEffectMod.GetModifiedValue(m_reactionEffect);
 		}
 		else
 		{
-			cachedReactionEffect = this.m_reactionEffect;
+			cachedReactionEffect = m_reactionEffect;
 		}
-		this.m_cachedReactionEffect = cachedReactionEffect;
+		m_cachedReactionEffect = cachedReactionEffect;
 	}
 
 	public StandardEffectInfo GetLaserHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedLaserHitEffect != null)
+		if (m_cachedLaserHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -201,30 +204,30 @@ public class ArcherHealingDebuffArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetLaserHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedLaserHitEffect;
+			result = m_cachedLaserHitEffect;
 		}
 		else
 		{
-			result = this.m_laserHitEffect;
+			result = m_laserHitEffect;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetExtraModEffect()
 	{
-		return this.m_cachedExtraModEffect;
+		return m_cachedExtraModEffect;
 	}
 
 	public int GetReactionHealing()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -233,15 +236,15 @@ public class ArcherHealingDebuffArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetReactionHealing()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_reactionHealingMod.GetModifiedValue(this.m_reactionHealing);
+			result = m_abilityMod.m_reactionHealingMod.GetModifiedValue(m_reactionHealing);
 		}
 		else
 		{
-			result = this.m_reactionHealing;
+			result = m_reactionHealing;
 		}
 		return result;
 	}
@@ -249,9 +252,9 @@ public class ArcherHealingDebuffArrow : Ability
 	public int GetReactionHealingOnSelf()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -260,40 +263,40 @@ public class ArcherHealingDebuffArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetReactionHealingOnSelf()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_reactionHealingOnSelfMod.GetModifiedValue(this.m_reactionHealingOnSelf);
+			result = m_abilityMod.m_reactionHealingOnSelfMod.GetModifiedValue(m_reactionHealingOnSelf);
 		}
 		else
 		{
-			result = this.m_reactionHealingOnSelf;
+			result = m_reactionHealingOnSelf;
 		}
 		return result;
 	}
 
 	public int GetLessHealingOnSubsequentReactions()
 	{
-		return (!this.m_abilityMod) ? 0 : this.m_abilityMod.m_lessHealingOnSubsequentReactions.GetModifiedValue(0);
+		return m_abilityMod ? m_abilityMod.m_lessHealingOnSubsequentReactions.GetModifiedValue(0) : 0;
 	}
 
 	public int GetHealsPerAlly()
 	{
-		return (!this.m_abilityMod) ? this.m_healsPerAlly : this.m_abilityMod.m_healsPerAllyMod.GetModifiedValue(this.m_healsPerAlly);
+		return (!m_abilityMod) ? m_healsPerAlly : m_abilityMod.m_healsPerAllyMod.GetModifiedValue(m_healsPerAlly);
 	}
 
 	public int GetTechPointsPerHeal()
 	{
-		return (!this.m_abilityMod) ? this.m_techPointsPerHeal : this.m_abilityMod.m_techPointsPerHealMod.GetModifiedValue(this.m_techPointsPerHeal);
+		return (!m_abilityMod) ? m_techPointsPerHeal : m_abilityMod.m_techPointsPerHealMod.GetModifiedValue(m_techPointsPerHeal);
 	}
 
 	public StandardEffectInfo GetReactionEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedReactionEffect != null)
+		if (m_cachedReactionEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -302,30 +305,30 @@ public class ArcherHealingDebuffArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetReactionEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedReactionEffect;
+			result = m_cachedReactionEffect;
 		}
 		else
 		{
-			result = this.m_reactionEffect;
+			result = m_reactionEffect;
 		}
 		return result;
 	}
 
 	public int GetExtraHealOnShieldGeneratorTargets()
 	{
-		return (!this.m_abilityMod) ? 0 : this.m_abilityMod.m_extraHealForShieldGeneratorTargets.GetModifiedValue(0);
+		return m_abilityMod ? m_abilityMod.m_extraHealForShieldGeneratorTargets.GetModifiedValue(0) : 0;
 	}
 
 	public AbilityModCooldownReduction GetCooldownReductionIfNoHeals()
 	{
-		AbilityModCooldownReduction result;
-		if (this.m_abilityMod)
+		object result;
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -334,25 +337,25 @@ public class ArcherHealingDebuffArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetCooldownReductionIfNoHeals()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_cooldownReductionIfNoHeals;
+			result = m_abilityMod.m_cooldownReductionIfNoHeals;
 		}
 		else
 		{
 			result = null;
 		}
-		return result;
+		return (AbilityModCooldownReduction)result;
 	}
 
 	public int GetExtraHealBelowHealthThreshold()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -361,11 +364,11 @@ public class ArcherHealingDebuffArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetExtraHealBelowHealthThreshold()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraHealBelowHealthThresholdMod.GetModifiedValue(0);
+			result = m_abilityMod.m_extraHealBelowHealthThresholdMod.GetModifiedValue(0);
 		}
 		else
 		{
@@ -377,9 +380,9 @@ public class ArcherHealingDebuffArrow : Ability
 	public float GetHealthThresholdForExtraHeal()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -388,11 +391,11 @@ public class ArcherHealingDebuffArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetHealthThresholdForExtraHeal()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_healthThresholdMod.GetModifiedValue(0f);
+			result = m_abilityMod.m_healthThresholdMod.GetModifiedValue(0f);
 		}
 		else
 		{
@@ -404,9 +407,9 @@ public class ArcherHealingDebuffArrow : Ability
 	public int GetExtraDamageToThisTargetFromCaster()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -415,11 +418,11 @@ public class ArcherHealingDebuffArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetExtraDamageToThisTargetFromCaster()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageToThisTargetFromCasterMod.GetModifiedValue(0);
+			result = m_abilityMod.m_extraDamageToThisTargetFromCasterMod.GetModifiedValue(0);
 		}
 		else
 		{

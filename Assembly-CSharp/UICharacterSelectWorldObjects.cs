@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,57 +13,58 @@ public class UICharacterSelectWorldObjects : UICharacterWorldObjects
 
 	private void Awake()
 	{
-		UICharacterSelectWorldObjects.s_instance = this;
-		base.Initialize();
+		s_instance = this;
+		Initialize();
 	}
 
 	private void OnDestroy()
 	{
-		if (UICharacterSelectWorldObjects.s_instance == this)
+		if (!(s_instance == this))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectWorldObjects.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Log.Info(base.GetType() + " OnDestroy, clearing singleton reference", new object[0]);
-			UICharacterSelectWorldObjects.s_instance = null;
+			Log.Info(string.Concat(GetType(), " OnDestroy, clearing singleton reference"));
+			s_instance = null;
+			return;
 		}
 	}
 
 	public static UICharacterSelectWorldObjects Get()
 	{
-		return UICharacterSelectWorldObjects.s_instance;
+		return s_instance;
 	}
 
 	protected override void OnVisibleChange()
 	{
-		if (this.m_LobbyCameraAnimator != null)
+		if (!(m_LobbyCameraAnimator != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectWorldObjects.OnVisibleChange()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (base.IsVisible())
+			if (IsVisible())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -75,18 +75,20 @@ public class UICharacterSelectWorldObjects : UICharacterWorldObjects
 				}
 				if (!UIPlayCategoryMenu.Get().IsVisible() || UIPlayCategoryMenu.Get().GetGameTypeForSelectedButton() != GameType.Ranked)
 				{
-					this.PlayCameraAnimation("CamIN");
-					goto IL_72;
+					PlayCameraAnimation("CamIN");
+					goto IL_0072;
 				}
 			}
-			this.PlayCameraAnimation("CamOUT");
-			IL_72:
-			UIManager.SetGameObjectActive(this.m_LobbyBaseAnimator, base.IsVisible(), null);
+			PlayCameraAnimation("CamOUT");
+			goto IL_0072;
+			IL_0072:
+			UIManager.SetGameObjectActive(m_LobbyBaseAnimator, IsVisible());
+			return;
 		}
 	}
 
 	public void PlayCameraAnimation(string animName)
 	{
-		UIAnimationEventManager.Get().PlayAnimation(this.m_LobbyCameraAnimator, animName, null, string.Empty, 0, 0f, true, true, null, null);
+		UIAnimationEventManager.Get().PlayAnimation(m_LobbyCameraAnimator, animName, null, string.Empty, 0, 0f, true, true);
 	}
 }

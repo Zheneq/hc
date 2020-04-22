@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using LobbyGameClientMessages;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,43 +37,44 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 
 	private void Awake()
 	{
-		_SelectableBtn componentInChildren = base.GetComponentInChildren<_SelectableBtn>(true);
-		if (componentInChildren != null)
+		_SelectableBtn componentInChildren = GetComponentInChildren<_SelectableBtn>(true);
+		if (!(componentInChildren != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProfileRankDisplay.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			componentInChildren.spriteController.SetClickable(false);
+			return;
 		}
 	}
 
 	public void SetRankDisplayText(string text)
 	{
-		for (int i = 0; i < this.m_rankDisplayTitle.Length; i++)
+		for (int i = 0; i < m_rankDisplayTitle.Length; i++)
 		{
-			this.m_rankDisplayTitle[i].text = text;
+			m_rankDisplayTitle[i].text = text;
 		}
 	}
 
 	public void SetAsActiveQueue(bool isActive)
 	{
-		UIManager.SetGameObjectActive(this.m_selectedQueueRankContainer, isActive, null);
-		TextMeshProUGUI[] componentsInChildren = this.m_InPlacementMatchesContainer.GetComponentsInChildren<TextMeshProUGUI>();
+		UIManager.SetGameObjectActive(m_selectedQueueRankContainer, isActive);
+		TextMeshProUGUI[] componentsInChildren = m_InPlacementMatchesContainer.GetComponentsInChildren<TextMeshProUGUI>();
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
 			if (isActive)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -83,9 +83,9 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProfileRankDisplay.SetAsActiveQueue(bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				componentsInChildren[i].color = Color.white;
 			}
@@ -94,14 +94,15 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 				componentsInChildren[i].color = Color.gray;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
@@ -110,26 +111,24 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 		string tierIconResource = UIRankedModeSelectScreen.GetTierIconResource(tier);
 		if (!tierIconResource.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					UIManager.SetGameObjectActive(m_currentRankImage, true);
+					m_currentRankImage.sprite = (Sprite)Resources.Load(tierIconResource, typeof(Sprite));
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProfileRankDisplay.SetTierIcon(int)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_currentRankImage, true, null);
-			this.m_currentRankImage.sprite = (Sprite)Resources.Load(tierIconResource, typeof(Sprite));
 		}
-		else
-		{
-			UIManager.SetGameObjectActive(this.m_currentRankImage, false, null);
-		}
+		UIManager.SetGameObjectActive(m_currentRankImage, false);
 	}
 
 	private void SetBarColor(int tier)
@@ -137,79 +136,86 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 		string tierIconResource = UIRankedModeSelectScreen.GetTierIconResource(tier);
 		if (!tierIconResource.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProfileRankDisplay.SetBarColor(int)).MethodHandle;
-			}
-			if (tierIconResource.ToLower().Contains("bronze"))
-			{
-				this.m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Bronze_fill", typeof(Sprite));
-			}
-			else if (tierIconResource.ToLower().Contains("silver"))
-			{
-				this.m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Silver_fill", typeof(Sprite));
-			}
-			else if (tierIconResource.ToLower().Contains("gold"))
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				this.m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Gold_fill", typeof(Sprite));
-			}
-			else if (tierIconResource.ToLower().Contains("platinum"))
-			{
-				this.m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Platinum_fill", typeof(Sprite));
-			}
-			else if (tierIconResource.ToLower().Contains("diamond"))
-			{
-				for (;;)
-				{
-					switch (1)
+				default:
+					if (1 == 0)
 					{
-					case 0:
-						continue;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					break;
-				}
-				this.m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Diamond_fill", typeof(Sprite));
-			}
-			else if (tierIconResource.ToLower().Contains("master"))
-			{
-				for (;;)
-				{
-					switch (2)
+					if (tierIconResource.ToLower().Contains("bronze"))
 					{
-					case 0:
-						continue;
+						m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Bronze_fill", typeof(Sprite));
 					}
-					break;
+					else if (tierIconResource.ToLower().Contains("silver"))
+					{
+						m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Silver_fill", typeof(Sprite));
+					}
+					else
+					{
+						if (tierIconResource.ToLower().Contains("gold"))
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									break;
+								default:
+									m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Gold_fill", typeof(Sprite));
+									return;
+								}
+							}
+						}
+						if (tierIconResource.ToLower().Contains("platinum"))
+						{
+							m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Platinum_fill", typeof(Sprite));
+						}
+						else
+						{
+							if (tierIconResource.ToLower().Contains("diamond"))
+							{
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										break;
+									default:
+										m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Diamond_fill", typeof(Sprite));
+										return;
+									}
+								}
+							}
+							if (tierIconResource.ToLower().Contains("master"))
+							{
+								while (true)
+								{
+									switch (2)
+									{
+									case 0:
+										break;
+									default:
+										m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Master_fill", typeof(Sprite));
+										return;
+									}
+								}
+							}
+							if (tierIconResource.ToLower().Contains("contender"))
+							{
+								m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Contender_fill", typeof(Sprite));
+							}
+						}
+					}
+					return;
 				}
-				this.m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Master_fill", typeof(Sprite));
-			}
-			else if (tierIconResource.ToLower().Contains("contender"))
-			{
-				this.m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Contender_fill", typeof(Sprite));
 			}
 		}
-		else
-		{
-			Log.Warning("Did not find icon for tier: " + tier, new object[0]);
-		}
+		Log.Warning("Did not find icon for tier: " + tier);
 	}
 
 	private int GetGroupSize(UIRankDisplayType type)
@@ -217,7 +223,7 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 		int result = 0;
 		if (type == UIRankDisplayType.Solo)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -226,21 +232,21 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProfileRankDisplay.GetGroupSize(UIRankDisplayType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = 1;
-			this.SetRankDisplayText(StringUtil.TR("SOLORANKED", "RankMode"));
+			SetRankDisplayText(StringUtil.TR("SOLORANKED", "RankMode"));
 		}
 		else if (type == UIRankDisplayType.Duo)
 		{
 			result = 2;
-			this.SetRankDisplayText(StringUtil.TR("DUORANKED", "RankMode"));
+			SetRankDisplayText(StringUtil.TR("DUORANKED", "RankMode"));
 		}
 		else if (type == UIRankDisplayType.FullTeam)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -250,22 +256,22 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 				break;
 			}
 			result = 4;
-			this.SetRankDisplayText(StringUtil.TR("TEAMRANKED", "RankMode"));
+			SetRankDisplayText(StringUtil.TR("TEAMRANKED", "RankMode"));
 		}
 		return result;
 	}
 
 	public void Setup(UIRankDisplayType type, Dictionary<int, PerGroupSizeTierInfo> tierInfos)
 	{
-		int groupSize = this.GetGroupSize(type);
+		int groupSize = GetGroupSize(type);
 		PerGroupSizeTierInfo perGroupSizeTierInfo = tierInfos[groupSize];
 		int gamesPlayed = 0;
 		int tier = 0;
 		int instanceId = 0;
 		float tierPoints = 0f;
-		if (perGroupSizeTierInfo.OurEntry != null)
+		if (perGroupSizeTierInfo.OurEntry.HasValue)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -274,84 +280,83 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProfileRankDisplay.Setup(UIRankDisplayType, Dictionary<int, PerGroupSizeTierInfo>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			tier = perGroupSizeTierInfo.OurEntry.Value.Tier;
-			instanceId = perGroupSizeTierInfo.OurEntry.Value.InstanceId;
-			gamesPlayed = perGroupSizeTierInfo.OurEntry.Value.MatchCount;
-			tierPoints = perGroupSizeTierInfo.OurEntry.Value.TierPoints;
+			RankedScoreboardEntry value = perGroupSizeTierInfo.OurEntry.Value;
+			tier = value.Tier;
+			RankedScoreboardEntry value2 = perGroupSizeTierInfo.OurEntry.Value;
+			instanceId = value2.InstanceId;
+			RankedScoreboardEntry value3 = perGroupSizeTierInfo.OurEntry.Value;
+			gamesPlayed = value3.MatchCount;
+			RankedScoreboardEntry value4 = perGroupSizeTierInfo.OurEntry.Value;
+			tierPoints = value4.TierPoints;
 		}
 		else if (ClientGameManager.Get().GameTypeAvailabilies[GameType.Ranked].MinMatchesToAppearOnLeaderboard == 0)
 		{
-			tier = 0x19;
+			tier = 25;
 			tierPoints = 1f;
-			Log.Error("Did not receive Tier Info when there are 0 placement matches!", new object[0]);
+			Log.Error("Did not receive Tier Info when there are 0 placement matches!");
 		}
-		this.Setup(groupSize, tier, instanceId, gamesPlayed, tierPoints);
+		Setup(groupSize, tier, instanceId, gamesPlayed, tierPoints);
 	}
 
 	public void Setup(int groupSize, int tier, int instanceId, int gamesPlayed, float tierPoints)
 	{
-		UIManager.SetGameObjectActive(this.m_InPlacementMatchesContainer, true, null);
-		UIManager.SetGameObjectActive(this.m_HasRankAlreadyContainer, false, null);
-		if (groupSize > 0)
+		UIManager.SetGameObjectActive(m_InPlacementMatchesContainer, true);
+		UIManager.SetGameObjectActive(m_HasRankAlreadyContainer, false);
+		if (groupSize <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProfileRankDisplay.Setup(int, int, int, int, float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool flag = false;
 			if (tier > 0)
 			{
 				flag = true;
-				UIManager.SetGameObjectActive(this.m_InPlacementMatchesContainer, false, null);
-				UIManager.SetGameObjectActive(this.m_HasRankAlreadyContainer, true, null);
-				string text;
-				string text2;
-				UIRankedModeSelectScreen.Get().GetTierLocalizedName(tier, instanceId, groupSize, out text, out text2);
-				string text3 = ((int)(tierPoints + 0.5f)).ToString();
+				UIManager.SetGameObjectActive(m_InPlacementMatchesContainer, false);
+				UIManager.SetGameObjectActive(m_HasRankAlreadyContainer, true);
+				UIRankedModeSelectScreen.Get().GetTierLocalizedName(tier, instanceId, groupSize, out string tierName, out string _);
+				string text = ((int)(tierPoints + 0.5f)).ToString();
 				string str = string.Empty;
 				string arg;
 				if (tier != 1 && tier != 2)
 				{
 					str = " / 100";
-					arg = text3;
+					arg = text;
 				}
 				else
 				{
-					arg = string.Format("{0:F1}", tierPoints);
+					arg = $"{tierPoints:F1}";
 				}
-				string[] array = text.Split(new char[]
-				{
-					' '
-				});
+				string[] array = tierName.Split(' ');
 				if (array.Length > 1)
 				{
-					this.m_DivisionText.text = array[0];
-					this.m_TierLevelText.text = (tier - 2).ToString();
-					this.m_rankFillBar.fillAmount = UIPlayerProfileRankDisplay.GetRankFillAmt(tierPoints / 100f);
+					m_DivisionText.text = array[0];
+					m_TierLevelText.text = (tier - 2).ToString();
+					m_rankFillBar.fillAmount = GetRankFillAmt(tierPoints / 100f);
 				}
 				else
 				{
-					this.m_DivisionText.text = text;
-					this.m_TierLevelText.text = text3;
-					this.m_rankFillBar.fillAmount = 1f;
+					m_DivisionText.text = tierName;
+					m_TierLevelText.text = text;
+					m_rankFillBar.fillAmount = 1f;
 				}
-				this.SetBarColor(tier);
-				if (this.m_GamesPlayed != null)
+				SetBarColor(tier);
+				if (m_GamesPlayed != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -360,29 +365,29 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 						}
 						break;
 					}
-					this.m_GamesPlayed.text = string.Format(StringUtil.TR("ELONumber", "RankMode"), arg) + str;
+					m_GamesPlayed.text = string.Format(StringUtil.TR("ELONumber", "RankMode"), arg) + str;
 				}
-				this.SetTierIcon(tier);
+				SetTierIcon(tier);
 			}
-			if (!flag)
+			if (flag)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (5)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				this.m_DivisionText.text = StringUtil.TR("Placement", "RankMode");
-				UIManager.SetGameObjectActive(this.m_InPlacementMatchesContainer, true, null);
-				UIManager.SetGameObjectActive(this.m_HasRankAlreadyContainer, false, null);
-				int num = ClientGameManager.Get().GameTypeAvailabilies[GameType.Ranked].MinMatchesToAppearOnLeaderboard - gamesPlayed;
-				num = Mathf.Max(num, 0);
-				if (this.m_PlacementGamesLeftText != null)
+				m_DivisionText.text = StringUtil.TR("Placement", "RankMode");
+				UIManager.SetGameObjectActive(m_InPlacementMatchesContainer, true);
+				UIManager.SetGameObjectActive(m_HasRankAlreadyContainer, false);
+				int a = ClientGameManager.Get().GameTypeAvailabilies[GameType.Ranked].MinMatchesToAppearOnLeaderboard - gamesPlayed;
+				a = Mathf.Max(a, 0);
+				if (m_PlacementGamesLeftText != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -391,9 +396,10 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 						}
 						break;
 					}
-					this.m_PlacementGamesLeftText.text = string.Format(StringUtil.TR("PlayMoreGames", "RankMode"), num);
+					m_PlacementGamesLeftText.text = string.Format(StringUtil.TR("PlayMoreGames", "RankMode"), a);
 				}
-				this.SetTierIcon(0);
+				SetTierIcon(0);
+				return;
 			}
 		}
 	}

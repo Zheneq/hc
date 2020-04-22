@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +28,7 @@ public class ThiefPickPocket : Ability
 	[Header("-- Self Hit")]
 	public bool m_includeSelf = true;
 
-	public int m_selfHealAmount = 0xC;
+	public int m_selfHealAmount = 12;
 
 	public StandardEffectInfo m_selfHitEffect;
 
@@ -63,85 +62,78 @@ public class ThiefPickPocket : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Pick Pocket";
+			m_abilityName = "Pick Pocket";
 		}
-		this.m_sequencePrefab = this.m_castSequencePrefab;
-		this.m_actionType = base.GetComponent<ActorData>().\u000E().GetActionTypeOfAbility(this);
-		this.SetupTargeter();
+		m_sequencePrefab = m_castSequencePrefab;
+		m_actionType = GetComponent<ActorData>().GetAbilityData().GetActionTypeOfAbility(this);
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		if (this.m_targeterMultiTarget)
+		if (m_targeterMultiTarget)
 		{
-			base.ClearTargeters();
-			for (int i = 0; i < this.m_laserCount; i++)
+			ClearTargeters();
+			for (int i = 0; i < m_laserCount; i++)
 			{
-				AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser = new AbilityUtil_Targeter_ThiefFanLaser(this, this.m_targeterMinAngle, this.m_targeterMaxAngle, this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance, this.m_laserRange, this.m_laserWidth, this.m_laserMaxTargets, this.m_laserCount, this.m_laserPenetrateLos, false, false, false, false, 0, 0f, 0f);
-				abilityUtil_Targeter_ThiefFanLaser.SetIncludeTeams(this.m_includeAllies, this.m_includeEnemies, this.m_includeSelf);
+				AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser = new AbilityUtil_Targeter_ThiefFanLaser(this, m_targeterMinAngle, m_targeterMaxAngle, m_targeterMinInterpDistance, m_targeterMaxInterpDistance, m_laserRange, m_laserWidth, m_laserMaxTargets, m_laserCount, m_laserPenetrateLos, false, false, false, false, 0);
+				abilityUtil_Targeter_ThiefFanLaser.SetIncludeTeams(m_includeAllies, m_includeEnemies, m_includeSelf);
 				base.Targeters.Add(abilityUtil_Targeter_ThiefFanLaser);
 				base.Targeters[i].SetUseMultiTargetUpdate(true);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefPickPocket.SetupTargeter()).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
-		else
-		{
-			AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser2 = new AbilityUtil_Targeter_ThiefFanLaser(this, this.m_targeterMinAngle, this.m_targeterMaxAngle, this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance, this.m_laserRange, this.m_laserWidth, this.m_laserMaxTargets, this.m_laserCount, this.m_laserPenetrateLos, false, false, false, false, 0, 0f, 0f);
-			abilityUtil_Targeter_ThiefFanLaser2.SetIncludeTeams(this.m_includeAllies, this.m_includeEnemies, this.m_includeSelf);
-			base.Targeter = abilityUtil_Targeter_ThiefFanLaser2;
-		}
+		AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser2 = new AbilityUtil_Targeter_ThiefFanLaser(this, m_targeterMinAngle, m_targeterMaxAngle, m_targeterMinInterpDistance, m_targeterMaxInterpDistance, m_laserRange, m_laserWidth, m_laserMaxTargets, m_laserCount, m_laserPenetrateLos, false, false, false, false, 0);
+		abilityUtil_Targeter_ThiefFanLaser2.SetIncludeTeams(m_includeAllies, m_includeEnemies, m_includeSelf);
+		base.Targeter = abilityUtil_Targeter_ThiefFanLaser2;
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		return (!this.m_targeterMultiTarget) ? 1 : this.m_laserCount;
+		return (!m_targeterMultiTarget) ? 1 : m_laserCount;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.m_laserDamageAmount);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, this.m_laserHealAmount);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, this.m_selfHealAmount);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, m_laserDamageAmount);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, m_laserHealAmount);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, m_selfHealAmount);
+		return numbers;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		int stocksRemaining = caster.\u000E().GetStocksRemaining(this.m_actionType);
-		int stockConsumedOnCast = this.m_stockConsumedOnCast;
-		bool result;
-		if (this.m_castableStockThreshold < 0)
+		bool flag = false;
+		int stocksRemaining = caster.GetAbilityData().GetStocksRemaining(m_actionType);
+		int stockConsumedOnCast = m_stockConsumedOnCast;
+		if (m_castableStockThreshold < 0)
 		{
-			result = (stocksRemaining >= stockConsumedOnCast);
+			return stocksRemaining >= stockConsumedOnCast;
 		}
-		else
-		{
-			result = (stocksRemaining >= this.m_castableStockThreshold);
-		}
-		return result;
+		return stocksRemaining >= m_castableStockThreshold;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		if (this.GetExpectedNumberOfTargeters() < 2)
+		if (GetExpectedNumberOfTargeters() < 2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -150,19 +142,19 @@ public class ThiefPickPocket : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefPickPocket.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.AccumulateHealthChangesFromTargeter(targetActor, base.Targeter, dictionary);
+			AccumulateHealthChangesFromTargeter(targetActor, base.Targeter, dictionary);
 		}
 		else
 		{
 			for (int i = 0; i <= currentTargeterIndex; i++)
 			{
-				this.AccumulateHealthChangesFromTargeter(targetActor, base.Targeters[i], dictionary);
+				AccumulateHealthChangesFromTargeter(targetActor, base.Targeters[i], dictionary);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -184,10 +176,10 @@ public class ThiefPickPocket : Ability
 			{
 				while (enumerator.MoveNext())
 				{
-					AbilityTooltipSubject abilityTooltipSubject = enumerator.Current;
-					if (abilityTooltipSubject == AbilityTooltipSubject.Primary)
+					AbilityTooltipSubject current = enumerator.Current;
+					if (current == AbilityTooltipSubject.Primary)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -196,13 +188,13 @@ public class ThiefPickPocket : Ability
 							}
 							break;
 						}
-						if (!true)
+						if (1 == 0)
 						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefPickPocket.AccumulateHealthChangesFromTargeter(ActorData, AbilityUtil_Targeter, Dictionary<AbilityTooltipSymbol, int>)).MethodHandle;
+							/*OpCode not supported: LdMemberToken*/;
 						}
 						if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -213,7 +205,7 @@ public class ThiefPickPocket : Ability
 							}
 							if (!symbolToValue.ContainsKey(AbilityTooltipSymbol.Damage))
 							{
-								for (;;)
+								while (true)
 								{
 									switch (1)
 									{
@@ -222,18 +214,18 @@ public class ThiefPickPocket : Ability
 									}
 									break;
 								}
-								symbolToValue[AbilityTooltipSymbol.Damage] = this.m_laserDamageAmount;
+								symbolToValue[AbilityTooltipSymbol.Damage] = m_laserDamageAmount;
 							}
 							else
 							{
-								symbolToValue[AbilityTooltipSymbol.Damage] = symbolToValue[AbilityTooltipSymbol.Damage] + this.m_laserSubsequentDamageAmount;
+								symbolToValue[AbilityTooltipSymbol.Damage] += m_laserSubsequentDamageAmount;
 							}
 							continue;
 						}
 					}
-					if (abilityTooltipSubject == AbilityTooltipSubject.Primary && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
+					if (current == AbilityTooltipSubject.Primary && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -244,22 +236,23 @@ public class ThiefPickPocket : Ability
 						}
 						if (!symbolToValue.ContainsKey(AbilityTooltipSymbol.Healing))
 						{
-							symbolToValue[AbilityTooltipSymbol.Healing] = this.m_laserHealAmount;
+							symbolToValue[AbilityTooltipSymbol.Healing] = m_laserHealAmount;
 						}
 						else
 						{
-							symbolToValue[AbilityTooltipSymbol.Healing] = symbolToValue[AbilityTooltipSymbol.Healing] + this.m_laserSubsequentHealAmount;
+							symbolToValue[AbilityTooltipSymbol.Healing] += m_laserSubsequentHealAmount;
 						}
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}

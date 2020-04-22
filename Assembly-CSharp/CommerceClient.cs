@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
 using LobbyGameClientMessages;
 using Steamworks;
+using System;
+using System.Collections.Generic;
 
 public class CommerceClient
 {
@@ -25,60 +25,54 @@ public class CommerceClient
 
 	public CommerceClient()
 	{
-		CommerceClient.s_instance = this;
-		this.m_overriddenLootMatrixPacks = new List<LootMatrixPackPriceOverride>();
-		this.m_overriddenGamePacks = new List<GamePackPriceOverride>();
-		this.m_overriddenGGPacks = new List<GGPackPriceOverride>();
-		this.m_overriddenStyles = new List<StylePriceOverride>();
-		this.m_overriddenStoreItems = new List<StoreItemPriceOverride>();
-		ClientGameManager.Get().OnLobbyStatusNotification += this.HandleLobbyStatusNotification;
-		this.HandleLobbyStatusNotification(null);
-		if (SteamManager.Initialized)
+		s_instance = this;
+		m_overriddenLootMatrixPacks = new List<LootMatrixPackPriceOverride>();
+		m_overriddenGamePacks = new List<GamePackPriceOverride>();
+		m_overriddenGGPacks = new List<GGPackPriceOverride>();
+		m_overriddenStyles = new List<StylePriceOverride>();
+		m_overriddenStoreItems = new List<StoreItemPriceOverride>();
+		ClientGameManager.Get().OnLobbyStatusNotification += HandleLobbyStatusNotification;
+		HandleLobbyStatusNotification(null);
+		if (!SteamManager.Initialized)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_steamMtxResponse = Callback<MicroTxnAuthorizationResponse_t>.Create(OnSteamMtxResponse);
+			return;
+		}
+	}
+
+	~CommerceClient()
+	{
+		if (ClientGameManager.Get() != null)
+		{
+			while (true)
+			{
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CommerceClient..ctor()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_steamMtxResponse = Callback<MicroTxnAuthorizationResponse_t>.Create(new Callback<MicroTxnAuthorizationResponse_t>.DispatchDelegate(this.OnSteamMtxResponse));
+			ClientGameManager.Get().OnLobbyStatusNotification -= HandleLobbyStatusNotification;
 		}
-	}
-
-	protected override void Finalize()
-	{
-		try
-		{
-			if (ClientGameManager.Get() != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CommerceClient.Finalize()).MethodHandle;
-				}
-				ClientGameManager.Get().OnLobbyStatusNotification -= this.HandleLobbyStatusNotification;
-			}
-			CommerceClient.s_instance = null;
-		}
-		finally
-		{
-			base.Finalize();
-		}
+		s_instance = null;
 	}
 
 	private void OnSteamMtxResponse(MicroTxnAuthorizationResponse_t pCallback)
@@ -91,40 +85,41 @@ public class CommerceClient
 	{
 		if (ClientGameManager.Get().ClientAccessLevel > ClientAccessLevel.Locked)
 		{
-			this.RequestPrices();
+			RequestPrices();
 		}
 	}
 
 	public static CommerceClient Get()
 	{
-		if (CommerceClient.s_instance == null)
+		if (s_instance == null)
 		{
-			CommerceClient.s_instance = new CommerceClient();
+			s_instance = new CommerceClient();
 		}
-		return CommerceClient.s_instance;
+		return s_instance;
 	}
 
 	public void RequestPrices()
 	{
-		if (ClientGameManager.Get().LobbyInterface != null)
+		if (ClientGameManager.Get().LobbyInterface == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CommerceClient.RequestPrices()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (ClientGameManager.Get().ClientAccessLevel > ClientAccessLevel.Locked)
 			{
-				ClientGameManager.Get().LobbyInterface.RequestPrices(new Action<PricesResponse>(this.HandlePrices));
+				ClientGameManager.Get().LobbyInterface.RequestPrices(HandlePrices);
 			}
+			return;
 		}
 	}
 
@@ -133,7 +128,7 @@ public class CommerceClient
 		int num;
 		if (response.lootMatrixPackPrices == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -142,9 +137,9 @@ public class CommerceClient
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CommerceClient.HandlePrices(PricesResponse)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = 0;
 		}
@@ -156,7 +151,7 @@ public class CommerceClient
 		int num3;
 		if (response.gamePackPrices == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -175,7 +170,7 @@ public class CommerceClient
 		int num5;
 		if (response.characterPrices == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -195,7 +190,7 @@ public class CommerceClient
 		int num8;
 		if (response.stylePrices == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -214,7 +209,7 @@ public class CommerceClient
 		int num10;
 		if (response.storeItemPrices == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -230,18 +225,10 @@ public class CommerceClient
 			num10 = response.storeItemPrices.Count;
 		}
 		int num11 = num10;
-		Log.Info("Got {0} game pack price(s), {1} loot matrix pack price(s), {2} Character price(s), {3} gg price(s), {4} style price(s), and {5} store item price(s) from server.", new object[]
-		{
-			num4,
-			num2,
-			num6,
-			num7,
-			num9,
-			num11
-		});
+		Log.Info("Got {0} game pack price(s), {1} loot matrix pack price(s), {2} Character price(s), {3} gg price(s), {4} style price(s), and {5} store item price(s) from server.", num4, num2, num6, num7, num9, num11);
 		if (response.gamePackPrices != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -250,19 +237,19 @@ public class CommerceClient
 				}
 				break;
 			}
-			this.m_overriddenGamePacks = response.gamePackPrices;
+			m_overriddenGamePacks = response.gamePackPrices;
 		}
 		if (response.lootMatrixPackPrices != null)
 		{
-			this.m_overriddenLootMatrixPacks = response.lootMatrixPackPrices;
+			m_overriddenLootMatrixPacks = response.lootMatrixPackPrices;
 		}
 		if (response.characterPrices != null)
 		{
-			this.m_overriddenCharacters = response.characterPrices;
+			m_overriddenCharacters = response.characterPrices;
 		}
 		if (response.ggPackPrices != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -271,11 +258,11 @@ public class CommerceClient
 				}
 				break;
 			}
-			this.m_overriddenGGPacks = response.ggPackPrices;
+			m_overriddenGGPacks = response.ggPackPrices;
 		}
 		if (response.stylePrices != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -284,11 +271,11 @@ public class CommerceClient
 				}
 				break;
 			}
-			this.m_overriddenStyles = response.stylePrices;
+			m_overriddenStyles = response.stylePrices;
 		}
 		if (response.storeItemPrices != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -297,9 +284,9 @@ public class CommerceClient
 				}
 				break;
 			}
-			this.m_overriddenStoreItems = response.storeItemPrices;
+			m_overriddenStoreItems = response.storeItemPrices;
 		}
-		this.LastPacificTimePriceRequestWithServerTimeOffset = response.PacificTimeWithServerTimeOffset;
+		LastPacificTimePriceRequestWithServerTimeOffset = response.PacificTimeWithServerTimeOffset;
 	}
 
 	public int GetISOPriceForInventoryItem(int inventoryItemID)
@@ -310,38 +297,39 @@ public class CommerceClient
 
 	public float GetLootMatrixPackPrice(string productCode, string currencyCode)
 	{
-		foreach (LootMatrixPackPriceOverride lootMatrixPackPriceOverride in this.m_overriddenLootMatrixPacks)
+		foreach (LootMatrixPackPriceOverride overriddenLootMatrixPack in m_overriddenLootMatrixPacks)
 		{
-			if (lootMatrixPackPriceOverride.productCode == productCode && lootMatrixPackPriceOverride.prices != null)
+			if (overriddenLootMatrixPack.productCode == productCode && overriddenLootMatrixPack.prices != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return overriddenLootMatrixPack.prices.GetPrice(currencyCode);
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CommerceClient.GetLootMatrixPackPrice(string, string)).MethodHandle;
-				}
-				return lootMatrixPackPriceOverride.prices.GetPrice(currencyCode);
 			}
 		}
-		foreach (LootMatrixPack lootMatrixPack in LootMatrixPackData.Get().m_lootMatrixPacks)
+		LootMatrixPack[] lootMatrixPacks = LootMatrixPackData.Get().m_lootMatrixPacks;
+		foreach (LootMatrixPack lootMatrixPack in lootMatrixPacks)
 		{
-			if (lootMatrixPack.ProductCode == productCode)
+			if (!(lootMatrixPack.ProductCode == productCode))
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
 				return lootMatrixPack.Prices.GetPrice(currencyCode);
 			}
@@ -349,14 +337,15 @@ public class CommerceClient
 		return 0f;
 	}
 
-	public unsafe float GetGamePackPrice(string productCode, string currencyCode, out float originalPrice)
+	public float GetGamePackPrice(string productCode, string currencyCode, out float originalPrice)
 	{
 		originalPrice = 0f;
-		foreach (GamePack gamePack in GamePackData.Get().m_gamePacks)
+		GamePack[] gamePacks = GamePackData.Get().m_gamePacks;
+		foreach (GamePack gamePack in gamePacks)
 		{
 			if (gamePack.ProductCode == productCode)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -365,65 +354,63 @@ public class CommerceClient
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CommerceClient.GetGamePackPrice(string, string, float*)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				originalPrice = gamePack.Prices.GetPrice(currencyCode);
+				continue;
 			}
-			else
+			GamePackUpgrade[] upgrades = gamePack.Upgrades;
+			foreach (GamePackUpgrade gamePackUpgrade in upgrades)
 			{
-				foreach (GamePackUpgrade gamePackUpgrade in gamePack.Upgrades)
+				if (gamePackUpgrade.ProductCode == productCode)
 				{
-					if (gamePackUpgrade.ProductCode == productCode)
-					{
-						originalPrice = gamePackUpgrade.Prices.GetPrice(currencyCode);
-					}
+					originalPrice = gamePackUpgrade.Prices.GetPrice(currencyCode);
 				}
-				for (;;)
+			}
+			while (true)
+			{
+				switch (5)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
+				break;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		foreach (GamePackPriceOverride gamePackPriceOverride in this.m_overriddenGamePacks)
-		{
-			if (gamePackPriceOverride.productCode == productCode && gamePackPriceOverride.prices != null)
+			foreach (GamePackPriceOverride overriddenGamePack in m_overriddenGamePacks)
 			{
-				for (;;)
+				if (overriddenGamePack.productCode == productCode && overriddenGamePack.prices != null)
 				{
-					switch (1)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (1)
+						{
+						case 0:
+							break;
+						default:
+							return overriddenGamePack.prices.GetPrice(currencyCode);
+						}
 					}
-					break;
 				}
-				return gamePackPriceOverride.prices.GetPrice(currencyCode);
 			}
+			return originalPrice;
 		}
-		return originalPrice;
 	}
 
 	public float GetFreelancerPrice(CharacterType type, string currencyCode)
 	{
-		if (!this.m_overriddenCharacters.IsNullOrEmpty<CharacterPriceOverride>())
+		if (!m_overriddenCharacters.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -432,15 +419,15 @@ public class CommerceClient
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CommerceClient.GetFreelancerPrice(CharacterType, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			foreach (CharacterPriceOverride characterPriceOverride in this.m_overriddenCharacters)
+			foreach (CharacterPriceOverride overriddenCharacter in m_overriddenCharacters)
 			{
-				if (characterPriceOverride.characterType == type)
+				if (overriddenCharacter.characterType == type)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -449,25 +436,26 @@ public class CommerceClient
 						}
 						break;
 					}
-					if (characterPriceOverride.prices != null)
+					if (overriddenCharacter.prices != null)
 					{
-						return characterPriceOverride.prices.GetPrice(currencyCode);
+						return overriddenCharacter.prices.GetPrice(currencyCode);
 					}
 				}
 			}
 		}
-		foreach (CharacterResourceLink characterResourceLink in GameWideData.Get().m_characterResourceLinks)
+		CharacterResourceLink[] characterResourceLinks = GameWideData.Get().m_characterResourceLinks;
+		foreach (CharacterResourceLink characterResourceLink in characterResourceLinks)
 		{
-			if (characterResourceLink.m_characterType == type)
+			if (characterResourceLink.m_characterType != type)
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (4)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
 				return characterResourceLink.Prices.GetPrice(currencyCode);
 			}
@@ -477,14 +465,14 @@ public class CommerceClient
 
 	public float GetGGPackPrice(string productCode, string currencyCode)
 	{
-		using (List<GGPackPriceOverride>.Enumerator enumerator = this.m_overriddenGGPacks.GetEnumerator())
+		using (List<GGPackPriceOverride>.Enumerator enumerator = m_overriddenGGPacks.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				GGPackPriceOverride ggpackPriceOverride = enumerator.Current;
-				if (ggpackPriceOverride.productCode == productCode)
+				GGPackPriceOverride current = enumerator.Current;
+				if (current.productCode == productCode)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -493,26 +481,26 @@ public class CommerceClient
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(CommerceClient.GetGGPackPrice(string, string)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (ggpackPriceOverride.prices != null)
+					if (current.prices != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return current.prices.GetPrice(currencyCode);
 							}
-							break;
 						}
-						return ggpackPriceOverride.prices.GetPrice(currencyCode);
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -522,11 +510,12 @@ public class CommerceClient
 				break;
 			}
 		}
-		foreach (GGPack ggpack in GameWideData.Get().m_ggPackData.m_ggPacks)
+		GGPack[] ggPacks = GameWideData.Get().m_ggPackData.m_ggPacks;
+		foreach (GGPack gGPack in ggPacks)
 		{
-			if (ggpack.ProductCode == productCode)
+			if (gGPack.ProductCode == productCode)
 			{
-				return ggpack.Prices.GetPrice(currencyCode);
+				return gGPack.Prices.GetPrice(currencyCode);
 			}
 		}
 		return 0f;
@@ -534,14 +523,14 @@ public class CommerceClient
 
 	public float GetStylePrice(CharacterType charType, int skinIndex, int textureIndex, int colorIndex, string currencyCode)
 	{
-		using (List<StylePriceOverride>.Enumerator enumerator = this.m_overriddenStyles.GetEnumerator())
+		using (List<StylePriceOverride>.Enumerator enumerator = m_overriddenStyles.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				StylePriceOverride stylePriceOverride = enumerator.Current;
-				if (stylePriceOverride.prices != null)
+				StylePriceOverride current = enumerator.Current;
+				if (current.prices != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -550,13 +539,13 @@ public class CommerceClient
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(CommerceClient.GetStylePrice(CharacterType, int, int, int, string)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (stylePriceOverride.characterType == charType && stylePriceOverride.skinIndex == skinIndex && stylePriceOverride.textureIndex == textureIndex)
+					if (current.characterType == charType && current.skinIndex == skinIndex && current.textureIndex == textureIndex)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -565,23 +554,23 @@ public class CommerceClient
 							}
 							break;
 						}
-						if (stylePriceOverride.colorIndex == colorIndex)
+						if (current.colorIndex == colorIndex)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return current.prices.GetPrice(currencyCode);
 								}
-								break;
 							}
-							return stylePriceOverride.prices.GetPrice(currencyCode);
 						}
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -596,73 +585,80 @@ public class CommerceClient
 		return colorUnlockData.Prices.GetPrice(currencyCode);
 	}
 
-	public unsafe float GetStoreItemPrice(int templateId, string currencyCode, out float originalPrice)
+	public float GetStoreItemPrice(int templateId, string currencyCode, out float originalPrice)
 	{
 		originalPrice = 0f;
-		foreach (GameBalanceVars.StoreItemForPurchase storeItemForPurchase in GameBalanceVars.Get().StoreItemsForPurchase)
+		GameBalanceVars.StoreItemForPurchase[] storeItemsForPurchase = GameBalanceVars.Get().StoreItemsForPurchase;
+		int num = 0;
+		while (true)
 		{
-			if (storeItemForPurchase.m_itemTemplateId == templateId)
+			if (num < storeItemsForPurchase.Length)
 			{
-				originalPrice = storeItemForPurchase.Prices.GetPrice(currencyCode);
-				IL_54:
-				using (List<StoreItemPriceOverride>.Enumerator enumerator = this.m_overriddenStoreItems.GetEnumerator())
+				GameBalanceVars.StoreItemForPurchase storeItemForPurchase = storeItemsForPurchase[num];
+				if (storeItemForPurchase.m_itemTemplateId == templateId)
 				{
-					while (enumerator.MoveNext())
+					originalPrice = storeItemForPurchase.Prices.GetPrice(currencyCode);
+					break;
+				}
+				num++;
+				continue;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			break;
+		}
+		using (List<StoreItemPriceOverride>.Enumerator enumerator = m_overriddenStoreItems.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
+			{
+				StoreItemPriceOverride current = enumerator.Current;
+				if (current.inventoryTemplateId == templateId)
+				{
+					while (true)
 					{
-						StoreItemPriceOverride storeItemPriceOverride = enumerator.Current;
-						if (storeItemPriceOverride.inventoryTemplateId == templateId)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (storeItemPriceOverride.prices != null)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								return storeItemPriceOverride.prices.GetPrice(currencyCode);
-							}
-						}
-					}
-					for (;;)
-					{
-						switch (2)
+						switch (4)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
+					if (current.prices != null)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								break;
+							default:
+								return current.prices.GetPrice(currencyCode);
+							}
+						}
+					}
 				}
-				return originalPrice;
 			}
-		}
-		for (;;)
-		{
-			switch (3)
+			while (true)
 			{
-			case 0:
-				continue;
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
 			}
-			break;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(CommerceClient.GetStoreItemPrice(int, string, float*)).MethodHandle;
-			goto IL_54;
-		}
-		goto IL_54;
+		return originalPrice;
 	}
 }

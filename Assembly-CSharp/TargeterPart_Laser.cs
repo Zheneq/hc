@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,29 +17,29 @@ public class TargeterPart_Laser
 
 	public TargeterPart_Laser(float width, float lengthInSquares, bool ignoreLos, int maxTargets)
 	{
-		this.m_widthInSquares = width;
-		this.m_lengthInSquares = lengthInSquares;
-		this.m_ignoreLos = ignoreLos;
-		this.m_maxTargets = maxTargets;
+		m_widthInSquares = width;
+		m_lengthInSquares = lengthInSquares;
+		m_ignoreLos = ignoreLos;
+		m_maxTargets = maxTargets;
 	}
 
 	public TargeterPart_Laser(LaserTargetingInfo laserInfo)
 	{
-		this.m_widthInSquares = laserInfo.width;
-		this.m_lengthInSquares = laserInfo.range;
-		this.m_ignoreLos = laserInfo.penetrateLos;
-		this.m_maxTargets = laserInfo.maxTargets;
+		m_widthInSquares = laserInfo.width;
+		m_lengthInSquares = laserInfo.range;
+		m_ignoreLos = laserInfo.penetrateLos;
+		m_maxTargets = laserInfo.maxTargets;
 	}
 
 	public void UpdateDimensions(float width, float lengthInSquares)
 	{
-		this.m_widthInSquares = width;
-		this.m_lengthInSquares = lengthInSquares;
+		m_widthInSquares = width;
+		m_lengthInSquares = lengthInSquares;
 	}
 
 	public List<ActorData> GetHitActors(Vector3 startPos, Vector3 aimDir, ActorData targetingActor, List<Team> teams, out Vector3 endPos)
 	{
-		return AreaEffectUtils.GetActorsInLaser(startPos, aimDir, this.m_lengthInSquares, this.m_widthInSquares, targetingActor, teams, this.m_ignoreLos, this.m_maxTargets, this.m_lengthIgnoreWorldGeo, false, out endPos, null, null, this.m_ignoreStartOffset, true);
+		return AreaEffectUtils.GetActorsInLaser(startPos, aimDir, m_lengthInSquares, m_widthInSquares, targetingActor, teams, m_ignoreLos, m_maxTargets, m_lengthIgnoreWorldGeo, false, out endPos, null, null, m_ignoreStartOffset);
 	}
 
 	public GameObject CreateHighlightObject(AbilityUtil_Targeter targeter)
@@ -50,24 +49,24 @@ public class TargeterPart_Laser
 
 	public void AdjustHighlight(GameObject highlightObj, Vector3 startPos, Vector3 endPos, bool applyStartOffset = true)
 	{
-		if (highlightObj != null)
+		if (!(highlightObj != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterPart_Laser.AdjustHighlight(GameObject, Vector3, Vector3, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (applyStartOffset)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -82,16 +81,17 @@ public class TargeterPart_Laser
 			Vector3 forward = endPos - startPos;
 			forward.y = 0f;
 			float magnitude = forward.magnitude;
-			float widthInWorld = this.m_widthInSquares * Board.\u000E().squareSize;
+			float widthInWorld = m_widthInSquares * Board.Get().squareSize;
 			HighlightUtils.Get().ResizeRectangularCursor(widthInWorld, magnitude, highlightObj);
 			startPos.y = HighlightUtils.GetHighlightHeight();
 			highlightObj.transform.position = startPos;
 			highlightObj.transform.rotation = Quaternion.LookRotation(forward);
+			return;
 		}
 	}
 
 	public void ShowHiddenSquares(OperationOnSquare_TurnOnHiddenSquareIndicator indicatorHandler, Vector3 startPos, Vector3 endPos, ActorData targetingActor, bool ignoreLos)
 	{
-		AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(indicatorHandler, startPos, endPos, this.m_widthInSquares, targetingActor, ignoreLos, null, null, !this.m_ignoreStartOffset);
+		AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(indicatorHandler, startPos, endPos, m_widthInSquares, targetingActor, ignoreLos, null, null, !m_ignoreStartOffset);
 	}
 }

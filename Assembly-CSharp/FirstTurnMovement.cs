@@ -1,9 +1,15 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FirstTurnMovement : MonoBehaviour
 {
+	public enum RestrictedMovementState
+	{
+		Invalid = -1,
+		Inactive,
+		Active
+	}
+
 	private static FirstTurnMovement s_instance;
 
 	public BoardRegion m_regionForTeamA;
@@ -14,91 +20,75 @@ public class FirstTurnMovement : MonoBehaviour
 
 	private void Awake()
 	{
-		if (FirstTurnMovement.s_instance != null)
+		if (s_instance != null)
 		{
 			Debug.LogError("FirstTurnMovement is supposed to be a singleton class, but an instance already existed when it awoke.  Make sure there are not two instances of FirstTurnMovement in the scene.");
 		}
-		FirstTurnMovement.s_instance = this;
+		s_instance = this;
 	}
 
 	private void Start()
 	{
-		this.m_regionForTeamA.Initialize();
-		this.m_regionForTeamB.Initialize();
+		m_regionForTeamA.Initialize();
+		m_regionForTeamB.Initialize();
 	}
 
 	public static FirstTurnMovement Get()
 	{
-		return FirstTurnMovement.s_instance;
+		return s_instance;
 	}
 
 	public static bool CanActorMoveToSquare(ActorData actor, BoardSquare square)
 	{
 		if (!(GameFlowData.Get() == null))
 		{
-			if (GameFlowData.Get().CurrentTurn > 1)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FirstTurnMovement.CanActorMoveToSquare(ActorData, BoardSquare)).MethodHandle;
-				}
-			}
-			else
+			if (GameFlowData.Get().CurrentTurn <= 1)
 			{
 				if (actor == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return false;
 						}
-						break;
 					}
-					return false;
 				}
 				if (square == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return false;
 						}
-						break;
 					}
-					return false;
 				}
-				FirstTurnMovement firstTurnMovement = FirstTurnMovement.Get();
+				FirstTurnMovement firstTurnMovement = Get();
 				if (firstTurnMovement == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return true;
 						}
-						break;
 					}
-					return true;
 				}
-				if (actor.\u000E() == Team.TeamA)
+				if (actor.GetTeam() == Team.TeamA)
 				{
 					if (firstTurnMovement.m_regionForTeamA != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -111,7 +101,7 @@ public class FirstTurnMovement : MonoBehaviour
 						{
 							return firstTurnMovement.m_regionForTeamA.Contains(square.x, square.y);
 						}
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -123,7 +113,7 @@ public class FirstTurnMovement : MonoBehaviour
 					}
 					return true;
 				}
-				if (actor.\u000E() == Team.TeamB)
+				if (actor.GetTeam() == Team.TeamB)
 				{
 					if (firstTurnMovement.m_regionForTeamB != null)
 					{
@@ -131,7 +121,7 @@ public class FirstTurnMovement : MonoBehaviour
 						{
 							return firstTurnMovement.m_regionForTeamB.Contains(square.x, square.y);
 						}
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -145,6 +135,19 @@ public class FirstTurnMovement : MonoBehaviour
 				}
 				return true;
 			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
 		}
 		return true;
 	}
@@ -153,43 +156,27 @@ public class FirstTurnMovement : MonoBehaviour
 	{
 		if (!(GameFlowData.Get() == null))
 		{
-			if (GameFlowData.Get().CurrentTurn > 1)
+			if (GameFlowData.Get().CurrentTurn <= 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FirstTurnMovement.ForceShowSprintRange(ActorData)).MethodHandle;
-				}
-			}
-			else
-			{
-				FirstTurnMovement firstTurnMovement = FirstTurnMovement.Get();
+				FirstTurnMovement firstTurnMovement = Get();
 				if (firstTurnMovement == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return false;
 						}
-						break;
 					}
-					return false;
 				}
-				if (actor.\u000E() == Team.TeamA)
+				if (actor.GetTeam() == Team.TeamA)
 				{
 					if (firstTurnMovement.m_regionForTeamA != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -202,7 +189,7 @@ public class FirstTurnMovement : MonoBehaviour
 						{
 							return true;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -214,45 +201,58 @@ public class FirstTurnMovement : MonoBehaviour
 					}
 					return false;
 				}
-				if (actor.\u000E() == Team.TeamB)
+				if (actor.GetTeam() == Team.TeamB)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (firstTurnMovement.m_regionForTeamB != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						if (firstTurnMovement.m_regionForTeamB.HasNonZeroArea())
-						{
-							return true;
-						}
-						for (;;)
-						{
-							switch (7)
+						default:
+							if (firstTurnMovement.m_regionForTeamB != null)
 							{
-							case 0:
-								continue;
+								while (true)
+								{
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (firstTurnMovement.m_regionForTeamB.HasNonZeroArea())
+								{
+									return true;
+								}
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
 							}
-							break;
+							return false;
 						}
 					}
-					return false;
 				}
 				return false;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		return false;
@@ -260,9 +260,9 @@ public class FirstTurnMovement : MonoBehaviour
 
 	public static bool CanWaypoint()
 	{
-		if (FirstTurnMovement.s_instance != null)
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -271,22 +271,22 @@ public class FirstTurnMovement : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FirstTurnMovement.CanWaypoint()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (FirstTurnMovement.s_instance.GetRestrictedMovementState() == FirstTurnMovement.RestrictedMovementState.Active)
+			if (s_instance.GetRestrictedMovementState() == RestrictedMovementState.Active)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return s_instance.m_canWaypointOnFirstTurn;
 					}
-					break;
 				}
-				return FirstTurnMovement.s_instance.m_canWaypointOnFirstTurn;
 			}
 		}
 		return true;
@@ -300,7 +300,7 @@ public class FirstTurnMovement : MonoBehaviour
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -309,23 +309,23 @@ public class FirstTurnMovement : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FirstTurnMovement.OnTurnTick()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		List<ActorData> actors = GameFlowData.Get().GetActors();
-		foreach (ActorData actorData in actors)
+		foreach (ActorData item in actors)
 		{
-			actorData.\u000E().UpdateSquaresCanMoveTo();
+			item.GetActorMovement().UpdateSquaresCanMoveTo();
 		}
 	}
 
-	public FirstTurnMovement.RestrictedMovementState GetRestrictedMovementState()
+	public RestrictedMovementState GetRestrictedMovementState()
 	{
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -334,27 +334,27 @@ public class FirstTurnMovement : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FirstTurnMovement.GetRestrictedMovementState()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameFlowData.Get().CurrentTurn > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return RestrictedMovementState.Inactive;
 					}
-					break;
 				}
-				return FirstTurnMovement.RestrictedMovementState.Inactive;
 			}
 		}
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -365,25 +365,18 @@ public class FirstTurnMovement : MonoBehaviour
 			}
 			if (GameFlowData.Get().CurrentTurn == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return RestrictedMovementState.Active;
 					}
-					break;
 				}
-				return FirstTurnMovement.RestrictedMovementState.Active;
 			}
 		}
-		return FirstTurnMovement.RestrictedMovementState.Invalid;
-	}
-
-	public enum RestrictedMovementState
-	{
-		Invalid = -1,
-		Inactive,
-		Active
+		return RestrictedMovementState.Invalid;
 	}
 }

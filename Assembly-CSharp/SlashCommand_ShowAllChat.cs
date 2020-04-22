@@ -1,62 +1,63 @@
-﻿using System;
-
 public class SlashCommand_ShowAllChat : SlashCommand
 {
-	public SlashCommand_ShowAllChat() : base("/showallchat", SlashCommandType.Everywhere)
+	public SlashCommand_ShowAllChat()
+		: base("/showallchat", SlashCommandType.Everywhere)
 	{
 	}
 
 	public override void OnSlashCommand(string arguments)
 	{
-		if (!arguments.IsNullOrEmpty())
+		if (arguments.IsNullOrEmpty())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (ClientGameManager.Get() == null)
+			{
+				return;
+			}
+			TextConsole.Message message = default(TextConsole.Message);
+			message.MessageType = ConsoleMessageType.SystemMessage;
+			if (arguments.EqualsIgnoreCase(StringUtil.TR("on", "SlashCommand")))
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						break;
+					default:
+						Options_UI.Get().SetShowAllChat(true);
+						message.Text = StringUtil.TR("AllChatEnabled", "SlashCommand");
+						TextConsole.Get().Write(message);
+						return;
+					}
+				}
+			}
+			if (!arguments.EqualsIgnoreCase(StringUtil.TR("off", "SlashCommand")))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_ShowAllChat.OnSlashCommand(string)).MethodHandle;
-			}
-			if (!(ClientGameManager.Get() == null))
-			{
-				TextConsole.Message message = default(TextConsole.Message);
-				message.MessageType = ConsoleMessageType.SystemMessage;
-				if (arguments.EqualsIgnoreCase(StringUtil.TR("on", "SlashCommand")))
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Options_UI.Get().SetShowAllChat(true);
-					message.Text = StringUtil.TR("AllChatEnabled", "SlashCommand");
-					TextConsole.Get().Write(message, null);
-				}
-				else if (arguments.EqualsIgnoreCase(StringUtil.TR("off", "SlashCommand")))
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Options_UI.Get().SetShowAllChat(false);
-					message.Text = StringUtil.TR("AllChatDisabled", "SlashCommand");
-					TextConsole.Get().Write(message, null);
-				}
+				Options_UI.Get().SetShowAllChat(false);
+				message.Text = StringUtil.TR("AllChatDisabled", "SlashCommand");
+				TextConsole.Get().Write(message);
 				return;
 			}
 		}

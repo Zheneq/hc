@@ -1,16 +1,28 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SoldierGrenade : Ability
 {
+	[Serializable]
+	public class ShapeToDamage : ShapeToDataBase
+	{
+		public int m_damage;
+
+		public ShapeToDamage(AbilityAreaShape shape, int damage)
+		{
+			m_shape = shape;
+			m_damage = damage;
+		}
+	}
+
 	[Header("-- Targeting --")]
 	public AbilityAreaShape m_shape = AbilityAreaShape.Three_x_Three;
 
 	public bool m_penetrateLos;
 
 	[Header("-- On Hit Stuff --")]
-	public int m_damageAmount = 0xA;
+	public int m_damageAmount = 10;
 
 	public StandardEffectInfo m_enemyHitEffect;
 
@@ -28,7 +40,7 @@ public class SoldierGrenade : Ability
 
 	private SoldierStimPack m_stimAbility;
 
-	private List<SoldierGrenade.ShapeToDamage> m_cachedShapeToDamage = new List<SoldierGrenade.ShapeToDamage>();
+	private List<ShapeToDamage> m_cachedShapeToDamage = new List<ShapeToDamage>();
 
 	private List<AbilityAreaShape> m_shapes = new List<AbilityAreaShape>();
 
@@ -38,9 +50,9 @@ public class SoldierGrenade : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -49,20 +61,20 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Grenade";
+			m_abilityName = "Grenade";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		if (this.m_abilityData == null)
+		if (m_abilityData == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -71,22 +83,22 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.Setup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityData = base.GetComponent<AbilityData>();
+			m_abilityData = GetComponent<AbilityData>();
 		}
-		if (this.m_stimAbility == null && this.m_abilityData != null)
+		if (m_stimAbility == null && m_abilityData != null)
 		{
-			this.m_stimAbility = (this.m_abilityData.GetAbilityOfType(typeof(SoldierStimPack)) as SoldierStimPack);
+			m_stimAbility = (m_abilityData.GetAbilityOfType(typeof(SoldierStimPack)) as SoldierStimPack);
 		}
-		this.SetCachedFields();
-		this.m_cachedShapeToDamage.Clear();
-		this.m_cachedShapeToDamage.Add(new SoldierGrenade.ShapeToDamage(this.GetShape(), this.GetDamageAmount()));
-		if (this.m_abilityMod != null)
+		SetCachedFields();
+		m_cachedShapeToDamage.Clear();
+		m_cachedShapeToDamage.Add(new ShapeToDamage(GetShape(), GetDamageAmount()));
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -95,14 +107,14 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (this.m_abilityMod.m_useAdditionalShapeOverride)
+			if (m_abilityMod.m_useAdditionalShapeOverride)
 			{
-				for (int i = 0; i < this.m_abilityMod.m_additionalShapeToDamageOverride.Count; i++)
+				for (int i = 0; i < m_abilityMod.m_additionalShapeToDamageOverride.Count; i++)
 				{
-					SoldierGrenade.ShapeToDamage shapeToDamage = this.m_abilityMod.m_additionalShapeToDamageOverride[i];
-					this.m_cachedShapeToDamage.Add(new SoldierGrenade.ShapeToDamage(shapeToDamage.m_shape, shapeToDamage.m_damage));
+					ShapeToDamage shapeToDamage = m_abilityMod.m_additionalShapeToDamageOverride[i];
+					m_cachedShapeToDamage.Add(new ShapeToDamage(shapeToDamage.m_shape, shapeToDamage.m_damage));
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -113,33 +125,32 @@ public class SoldierGrenade : Ability
 				}
 			}
 		}
-		this.m_cachedShapeToDamage.Sort();
-		this.m_shapes.Clear();
-		for (int j = 0; j < this.m_cachedShapeToDamage.Count; j++)
+		m_cachedShapeToDamage.Sort();
+		m_shapes.Clear();
+		for (int j = 0; j < m_cachedShapeToDamage.Count; j++)
 		{
-			this.m_shapes.Add(this.m_cachedShapeToDamage[j].m_shape);
+			m_shapes.Add(m_cachedShapeToDamage[j].m_shape);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			List<AbilityTooltipSubject> list = new List<AbilityTooltipSubject>();
+			list.Add(AbilityTooltipSubject.Primary);
+			List<AbilityTooltipSubject> subjects = list;
+			base.Targeter = new AbilityUtil_Targeter_MultipleShapes(this, m_shapes, subjects, PenetrateLos(), IncludeEnemies(), IncludeAllies());
+			return;
 		}
-		List<AbilityTooltipSubject> subjects = new List<AbilityTooltipSubject>
-		{
-			AbilityTooltipSubject.Primary
-		};
-		base.Targeter = new AbilityUtil_Targeter_MultipleShapes(this, this.m_shapes, subjects, this.PenetrateLos(), this.IncludeEnemies(), this.IncludeAllies(), false);
 	}
 
 	public int GetDamageForShapeIndex(int shapeIndex)
 	{
-		if (this.m_cachedShapeToDamage != null)
+		if (m_cachedShapeToDamage != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -148,33 +159,33 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.GetDamageForShapeIndex(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (shapeIndex < this.m_cachedShapeToDamage.Count)
+			if (shapeIndex < m_cachedShapeToDamage.Count)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_cachedShapeToDamage[shapeIndex].m_damage;
 					}
-					break;
 				}
-				return this.m_cachedShapeToDamage[shapeIndex].m_damage;
 			}
 		}
-		return this.GetDamageAmount();
+		return GetDamageAmount();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -183,21 +194,21 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			cachedEnemyHitEffect = this.m_enemyHitEffect;
+			cachedEnemyHitEffect = m_enemyHitEffect;
 		}
-		this.m_cachedEnemyHitEffect = cachedEnemyHitEffect;
+		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
 		StandardEffectInfo cachedAllyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -206,21 +217,21 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			cachedAllyHitEffect = this.m_abilityMod.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
+			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
 		{
-			cachedAllyHitEffect = this.m_allyHitEffect;
+			cachedAllyHitEffect = m_allyHitEffect;
 		}
-		this.m_cachedAllyHitEffect = cachedAllyHitEffect;
+		m_cachedAllyHitEffect = cachedAllyHitEffect;
 	}
 
 	public AbilityAreaShape GetShape()
 	{
 		AbilityAreaShape result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -229,30 +240,30 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.GetShape()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_shapeMod.GetModifiedValue(this.m_shape);
+			result = m_abilityMod.m_shapeMod.GetModifiedValue(m_shape);
 		}
 		else
 		{
-			result = this.m_shape;
+			result = m_shape;
 		}
 		return result;
 	}
 
 	public bool PenetrateLos()
 	{
-		return (!this.m_abilityMod) ? this.m_penetrateLos : this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
+		return (!m_abilityMod) ? m_penetrateLos : m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 	}
 
 	public int GetDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -261,15 +272,15 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.GetDamageAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
 		{
-			result = this.m_damageAmount;
+			result = m_damageAmount;
 		}
 		return result;
 	}
@@ -277,9 +288,9 @@ public class SoldierGrenade : Ability
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyHitEffect != null)
+		if (m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -288,15 +299,15 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.GetEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemyHitEffect;
+			result = m_cachedEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyHitEffect;
+			result = m_enemyHitEffect;
 		}
 		return result;
 	}
@@ -304,9 +315,9 @@ public class SoldierGrenade : Ability
 	public int GetAllyHealAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -315,15 +326,15 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.GetAllyHealAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_allyHealAmountMod.GetModifiedValue(this.m_allyHealAmount);
+			result = m_abilityMod.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount);
 		}
 		else
 		{
-			result = this.m_allyHealAmount;
+			result = m_allyHealAmount;
 		}
 		return result;
 	}
@@ -331,9 +342,9 @@ public class SoldierGrenade : Ability
 	public StandardEffectInfo GetAllyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAllyHitEffect != null)
+		if (m_cachedAllyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -342,25 +353,25 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.GetAllyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedAllyHitEffect;
+			result = m_cachedAllyHitEffect;
 		}
 		else
 		{
-			result = this.m_allyHitEffect;
+			result = m_allyHitEffect;
 		}
 		return result;
 	}
 
 	public bool IncludeEnemies()
 	{
-		bool result;
-		if (this.GetDamageAmount() <= 0)
+		int result;
+		if (GetDamageAmount() <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -369,25 +380,25 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.IncludeEnemies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.GetEnemyHitEffect().m_applyEffect;
+			result = (GetEnemyHitEffect().m_applyEffect ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool IncludeAllies()
 	{
-		bool result;
-		if (this.GetAllyHealAmount() <= 0)
+		int result;
+		if (GetAllyHealAmount() <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -396,36 +407,36 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.IncludeAllies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.GetAllyHitEffect().m_applyEffect;
+			result = (GetAllyHitEffect().m_applyEffect ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetDamageAmount());
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, this.GetAllyHealAmount());
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, this.GetAllyHealAmount());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetDamageAmount());
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, GetAllyHealAmount());
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, GetAllyHealAmount());
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
+		Dictionary<AbilityTooltipSymbol, int> result = null;
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeters[currentTargeterIndex].GetTooltipSubjectTypes(targetActor);
 		ActorData actorData = base.ActorData;
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -434,44 +445,47 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (actorData != null)
 			{
-				dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+				result = new Dictionary<AbilityTooltipSymbol, int>();
 				List<AbilityUtil_Targeter_MultipleShapes.HitActorContext> hitActorContext = (base.Targeter as AbilityUtil_Targeter_MultipleShapes).GetHitActorContext();
-				foreach (AbilityUtil_Targeter_MultipleShapes.HitActorContext hitActorContext2 in hitActorContext)
 				{
-					if (hitActorContext2.m_actor == targetActor && targetActor.\u000E() != actorData.\u000E())
+					foreach (AbilityUtil_Targeter_MultipleShapes.HitActorContext item in hitActorContext)
 					{
-						for (;;)
+						if (item.m_actor == targetActor && targetActor.GetTeam() != actorData.GetTeam())
 						{
-							switch (5)
+							while (true)
 							{
-							case 0:
-								continue;
+								switch (5)
+								{
+								case 0:
+									break;
+								default:
+									result[AbilityTooltipSymbol.Damage] = GetDamageForShapeIndex(item.m_hitShapeIndex);
+									return result;
+								}
 							}
-							break;
 						}
-						dictionary[AbilityTooltipSymbol.Damage] = this.GetDamageForShapeIndex(hitActorContext2.m_hitShapeIndex);
-						break;
 					}
+					return result;
 				}
 			}
 		}
-		return dictionary;
+		return result;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SoldierGrenade abilityMod_SoldierGrenade = modAsBase as AbilityMod_SoldierGrenade;
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, (!abilityMod_SoldierGrenade) ? this.m_damageAmount : abilityMod_SoldierGrenade.m_damageAmountMod.GetModifiedValue(this.m_damageAmount), false);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, (!abilityMod_SoldierGrenade) ? m_damageAmount : abilityMod_SoldierGrenade.m_damageAmountMod.GetModifiedValue(m_damageAmount));
 		StandardEffectInfo effectInfo;
-		if (abilityMod_SoldierGrenade)
+		if ((bool)abilityMod_SoldierGrenade)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -480,23 +494,22 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			effectInfo = abilityMod_SoldierGrenade.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			effectInfo = abilityMod_SoldierGrenade.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_enemyHitEffect;
+			effectInfo = m_enemyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", this.m_enemyHitEffect, true);
-		string name = "AllyHealAmount";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", m_enemyHitEffect);
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_SoldierGrenade)
+		if ((bool)abilityMod_SoldierGrenade)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -505,17 +518,17 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			val = abilityMod_SoldierGrenade.m_allyHealAmountMod.GetModifiedValue(this.m_allyHealAmount);
+			val = abilityMod_SoldierGrenade.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount);
 		}
 		else
 		{
-			val = this.m_allyHealAmount;
+			val = m_allyHealAmount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
+		AddTokenInt(tokens, "AllyHealAmount", empty, val);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_SoldierGrenade)
+		if ((bool)abilityMod_SoldierGrenade)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -524,21 +537,21 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			effectInfo2 = abilityMod_SoldierGrenade.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
+			effectInfo2 = abilityMod_SoldierGrenade.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
 		{
-			effectInfo2 = this.m_allyHitEffect;
+			effectInfo2 = m_allyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "AllyHitEffect", this.m_allyHitEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "AllyHitEffect", m_allyHitEffect);
 	}
 
 	public override float GetRangeInSquares(int targetIndex)
 	{
 		float num = base.GetRangeInSquares(targetIndex);
-		if (this.m_abilityData != null)
+		if (m_abilityData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -547,13 +560,13 @@ public class SoldierGrenade : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.GetRangeInSquares(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_stimAbility != null)
+			if (m_stimAbility != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -562,9 +575,9 @@ public class SoldierGrenade : Ability
 					}
 					break;
 				}
-				if (this.m_stimAbility.GetGrenadeExtraRange() > 0f)
+				if (m_stimAbility.GetGrenadeExtraRange() > 0f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -573,9 +586,9 @@ public class SoldierGrenade : Ability
 						}
 						break;
 					}
-					if (this.m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack)))
+					if (m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack)))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -584,7 +597,7 @@ public class SoldierGrenade : Ability
 							}
 							break;
 						}
-						num += this.m_stimAbility.GetGrenadeExtraRange();
+						num += m_stimAbility.GetGrenadeExtraRange();
 					}
 				}
 			}
@@ -594,41 +607,30 @@ public class SoldierGrenade : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_SoldierGrenade))
+		if (abilityMod.GetType() != typeof(AbilityMod_SoldierGrenade))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierGrenade.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_SoldierGrenade);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_SoldierGrenade);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
-	}
-
-	[Serializable]
-	public class ShapeToDamage : ShapeToDataBase
-	{
-		public int m_damage;
-
-		public ShapeToDamage(AbilityAreaShape shape, int damage)
-		{
-			this.m_shape = shape;
-			this.m_damage = damage;
-		}
+		m_abilityMod = null;
+		Setup();
 	}
 }

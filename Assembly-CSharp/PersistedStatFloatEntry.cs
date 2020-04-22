@@ -1,49 +1,65 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class PersistedStatFloatEntry : ICloneable, IPersistedGameplayStat
 {
-	public PersistedStatFloatEntry()
+	public float Sum
 	{
-		this.Sum = 0f;
-		this.NumGamesInSum = 0;
-		this.Min = 0f;
-		this.Max = 0f;
+		get;
+		set;
 	}
 
-	public float Sum { get; set; }
+	public int NumGamesInSum
+	{
+		get;
+		set;
+	}
 
-	public int NumGamesInSum { get; set; }
+	public float Min
+	{
+		get;
+		set;
+	}
 
-	public float Min { get; set; }
+	public float Max
+	{
+		get;
+		set;
+	}
 
-	public float Max { get; set; }
+	public PersistedStatFloatEntry()
+	{
+		Sum = 0f;
+		NumGamesInSum = 0;
+		Min = 0f;
+		Max = 0f;
+	}
 
 	public float Average()
 	{
-		if (this.NumGamesInSum == 0)
+		if (NumGamesInSum == 0)
 		{
 			return 0f;
 		}
-		return this.Sum / (float)this.NumGamesInSum;
+		return Sum / (float)NumGamesInSum;
 	}
 
 	public void CombineStats(PersistedStatFloatEntry entry)
 	{
-		this.Sum += entry.Sum;
-		this.NumGamesInSum += entry.NumGamesInSum;
-		this.Max = Math.Max(this.Max, entry.Max);
-		this.Min = Math.Min(this.Min, entry.Min);
+		Sum += entry.Sum;
+		NumGamesInSum += entry.NumGamesInSum;
+		Max = Math.Max(Max, entry.Max);
+		Min = Math.Min(Min, entry.Min);
 	}
 
 	public void Adjust(float val)
 	{
-		bool flag = this.NumGamesInSum == 0;
-		this.Sum += val;
-		this.NumGamesInSum++;
-		if (val <= this.Max)
+		bool flag = NumGamesInSum == 0;
+		Sum += val;
+		NumGamesInSum++;
+		if (!(val > Max))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -52,15 +68,15 @@ public class PersistedStatFloatEntry : ICloneable, IPersistedGameplayStat
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistedStatFloatEntry.Adjust(float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!flag)
 			{
-				goto IL_5C;
+				goto IL_005c;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -70,11 +86,12 @@ public class PersistedStatFloatEntry : ICloneable, IPersistedGameplayStat
 				break;
 			}
 		}
-		this.Max = val;
-		IL_5C:
-		if (val >= this.Min)
+		Max = val;
+		goto IL_005c;
+		IL_005c:
+		if (!(val < Min))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -87,7 +104,7 @@ public class PersistedStatFloatEntry : ICloneable, IPersistedGameplayStat
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -97,36 +114,36 @@ public class PersistedStatFloatEntry : ICloneable, IPersistedGameplayStat
 				break;
 			}
 		}
-		this.Min = val;
+		Min = val;
 	}
 
 	public object Clone()
 	{
-		return base.MemberwiseClone();
+		return MemberwiseClone();
 	}
 
 	public PersistedStatFloatEntry GetCopy()
 	{
-		return (PersistedStatFloatEntry)base.MemberwiseClone();
+		return (PersistedStatFloatEntry)MemberwiseClone();
 	}
 
 	public float GetSum()
 	{
-		return this.Sum;
+		return Sum;
 	}
 
 	public float GetMin()
 	{
-		return this.Min;
+		return Min;
 	}
 
 	public float GetMax()
 	{
-		return this.Max;
+		return Max;
 	}
 
 	public int GetNumGames()
 	{
-		return this.NumGamesInSum;
+		return NumGamesInSum;
 	}
 }

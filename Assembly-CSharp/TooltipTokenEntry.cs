@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public abstract class TooltipTokenEntry
@@ -91,8 +91,8 @@ public abstract class TooltipTokenEntry
 
 	protected TooltipTokenEntry(string name, string desc)
 	{
-		this.m_name = name;
-		this.m_desc = desc;
+		m_name = name;
+		m_desc = desc;
 	}
 
 	public abstract string GetStringToReplace();
@@ -105,27 +105,26 @@ public abstract class TooltipTokenEntry
 	{
 		if (tooltipNow == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return string.Empty;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TooltipTokenEntry.GetTooltipWithSubstitutes(string, List<TooltipTokenEntry>, bool)).MethodHandle;
-			}
-			return string.Empty;
 		}
 		string tooltipNow2 = tooltipNow;
-		string toReplace = "[^";
-		string substitute;
+		object substitute;
 		if (boldCaretToken)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -140,13 +139,12 @@ public abstract class TooltipTokenEntry
 		{
 			substitute = "<color=#FFC000>";
 		}
-		tooltipNow = TooltipTokenEntry.GetStringWithReplacements(tooltipNow2, toReplace, substitute);
+		tooltipNow = GetStringWithReplacements(tooltipNow2, "[^", (string)substitute);
 		string tooltipNow3 = tooltipNow;
-		string toReplace2 = "^]";
-		string substitute2;
+		object substitute2;
 		if (boldCaretToken)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -161,22 +159,22 @@ public abstract class TooltipTokenEntry
 		{
 			substitute2 = "</color>";
 		}
-		tooltipNow = TooltipTokenEntry.GetStringWithReplacements(tooltipNow3, toReplace2, substitute2);
+		tooltipNow = GetStringWithReplacements(tooltipNow3, "^]", (string)substitute2);
 		if (tokensToReplace != null && tokensToReplace.Count > 0)
 		{
 			using (List<TooltipTokenEntry>.Enumerator enumerator = tokensToReplace.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					TooltipTokenEntry tooltipTokenEntry = enumerator.Current;
-					string stringToReplace = tooltipTokenEntry.GetStringToReplace();
+					TooltipTokenEntry current = enumerator.Current;
+					string stringToReplace = current.GetStringToReplace();
 					if (stringToReplace.Length != 0)
 					{
-						string replacementString = tooltipTokenEntry.GetReplacementString();
-						tooltipNow = TooltipTokenEntry.GetStringWithReplacements(tooltipNow, stringToReplace, replacementString);
+						string replacementString = current.GetReplacementString();
+						tooltipNow = GetStringWithReplacements(tooltipNow, stringToReplace, replacementString);
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -189,7 +187,7 @@ public abstract class TooltipTokenEntry
 		}
 		if (tooltipNow.IndexOf("%") >= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -198,8 +196,8 @@ public abstract class TooltipTokenEntry
 				}
 				break;
 			}
-			tooltipNow = TooltipTokenEntry.GetStringWithReplacements(tooltipNow, "%</color><color=#FFC000>%</color>", "%</color>");
-			tooltipNow = TooltipTokenEntry.GetStringWithReplacements(tooltipNow, "%</color>%", "%</color>");
+			tooltipNow = GetStringWithReplacements(tooltipNow, "%</color><color=#FFC000>%</color>", "%</color>");
+			tooltipNow = GetStringWithReplacements(tooltipNow, "%</color>%", "%</color>");
 		}
 		return tooltipNow;
 	}
@@ -209,7 +207,7 @@ public abstract class TooltipTokenEntry
 		int length = toReplace.Length;
 		if (length != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -218,22 +216,22 @@ public abstract class TooltipTokenEntry
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TooltipTokenEntry.GetStringWithReplacements(string, string, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (tooltipNow != null)
 			{
 				int num = 0;
-				int num2;
-				while ((num2 = tooltipNow.IndexOf(toReplace, StringComparison.OrdinalIgnoreCase)) >= 0 && num < 0x64)
+				int num2 = -1;
+				while ((num2 = tooltipNow.IndexOf(toReplace, StringComparison.OrdinalIgnoreCase)) >= 0 && num < 100)
 				{
 					tooltipNow = tooltipNow.Substring(0, num2) + substitute + tooltipNow.Substring(num2 + length);
 					num++;
 				}
 				return tooltipNow;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -248,37 +246,25 @@ public abstract class TooltipTokenEntry
 
 	private static string GetStringWithoutBoldTags(string input)
 	{
-		string stringWithReplacements = TooltipTokenEntry.GetStringWithReplacements(input, "<b>", string.Empty);
-		return TooltipTokenEntry.GetStringWithReplacements(stringWithReplacements, "</b>", string.Empty);
+		string stringWithReplacements = GetStringWithReplacements(input, "<b>", string.Empty);
+		return GetStringWithReplacements(stringWithReplacements, "</b>", string.Empty);
 	}
 
 	private static string ReplaceColorTagsWithShorthand(string tooltipNow)
 	{
 		int num = 0;
+		int num2 = -1;
 		string text = "<color=";
 		int length = text.Length;
-		int num2;
 		while ((num2 = tooltipNow.IndexOf(text, StringComparison.OrdinalIgnoreCase)) >= 0)
 		{
-			if (num >= 0x64)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_8A;
-				}
-			}
-			else
+			if (num < 100)
 			{
 				int num3 = tooltipNow.IndexOf(">", num2);
 				int startIndex = num2 + length;
 				if (num3 > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -287,34 +273,44 @@ public abstract class TooltipTokenEntry
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TooltipTokenEntry.ReplaceColorTagsWithShorthand(string)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					startIndex = num3 + 1;
 				}
 				tooltipNow = tooltipNow.Substring(0, num2) + "[^" + tooltipNow.Substring(startIndex);
 				num++;
+				continue;
 			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			break;
 		}
-		IL_8A:
-		tooltipNow = TooltipTokenEntry.GetStringWithReplacements(tooltipNow, "</color>", "^]");
+		tooltipNow = GetStringWithReplacements(tooltipNow, "</color>", "^]");
 		return tooltipNow;
 	}
 
 	public static string GetTooltipWithUnprocessedTokens(string tooltipNow)
 	{
-		tooltipNow = TooltipTokenEntry.GetStringWithoutBoldTags(tooltipNow);
-		tooltipNow = TooltipTokenEntry.ReplaceColorTagsWithShorthand(tooltipNow);
+		tooltipNow = GetStringWithoutBoldTags(tooltipNow);
+		tooltipNow = ReplaceColorTagsWithShorthand(tooltipNow);
 		return tooltipNow;
 	}
 
 	public static List<StatusType> GetStatusTypesFromTooltip(string input)
 	{
 		List<StatusType> list = new List<StatusType>();
-		if (TooltipTokenEntry.s_statusTypeToKeywords != null)
+		if (s_statusTypeToKeywords != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -323,40 +319,43 @@ public abstract class TooltipTokenEntry
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TooltipTokenEntry.GetStatusTypesFromTooltip(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!string.IsNullOrEmpty(input) && input.IndexOf("[^", StringComparison.OrdinalIgnoreCase) >= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				foreach (KeyValuePair<StatusType, List<string>> keyValuePair in TooltipTokenEntry.s_statusTypeToKeywords)
-				{
-					List<string> value = keyValuePair.Value;
-					for (int i = 0; i < value.Count; i++)
+						break;
+					default:
 					{
-						if (input.IndexOf(value[i], StringComparison.OrdinalIgnoreCase) >= 0)
+						foreach (KeyValuePair<StatusType, List<string>> s_statusTypeToKeyword in s_statusTypeToKeywords)
 						{
-							for (;;)
+							List<string> value = s_statusTypeToKeyword.Value;
+							for (int i = 0; i < value.Count; i++)
 							{
-								switch (3)
+								if (input.IndexOf(value[i], StringComparison.OrdinalIgnoreCase) >= 0)
 								{
-								case 0:
-									continue;
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									list.Add(s_statusTypeToKeyword.Key);
+									break;
 								}
-								break;
 							}
-							list.Add(keyValuePair.Key);
-							break;
 						}
+						return list;
+					}
 					}
 				}
 			}

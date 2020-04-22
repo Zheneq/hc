@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smooth
@@ -17,19 +16,20 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 
 	public AbilityTooltipSubject m_enemyOccupantSubject = AbilityTooltipSubject.Primary;
 
-	public AbilityUtil_Targeter_AoE_AroundActor(Ability ability, float radius, bool penetrateLoS, bool aoeAffectsEnemies = true, bool aoeAffectsAllies = false, int maxTargets = -1, bool canTargetOnEnemy = false, bool canTargetOnAlly = true, bool canTargetOnSelf = true) : base(ability, radius, penetrateLoS, aoeAffectsEnemies, aoeAffectsAllies, maxTargets)
+	public AbilityUtil_Targeter_AoE_AroundActor(Ability ability, float radius, bool penetrateLoS, bool aoeAffectsEnemies = true, bool aoeAffectsAllies = false, int maxTargets = -1, bool canTargetOnEnemy = false, bool canTargetOnAlly = true, bool canTargetOnSelf = true)
+		: base(ability, radius, penetrateLoS, aoeAffectsEnemies, aoeAffectsAllies, maxTargets)
 	{
-		this.m_canTargetOnEnemy = canTargetOnEnemy;
-		this.m_canTargetOnAlly = canTargetOnAlly;
-		this.m_canTargetOnSelf = canTargetOnSelf;
+		m_canTargetOnEnemy = canTargetOnEnemy;
+		m_canTargetOnAlly = canTargetOnAlly;
+		m_canTargetOnSelf = canTargetOnSelf;
 	}
 
 	protected override Vector3 GetRefPos(AbilityTarget currentTarget, ActorData targetingActor, float range)
 	{
 		Vector3 result = base.GetRefPos(currentTarget, targetingActor, range);
-		if (this.m_lockToGridPos && Board.\u000E() != null && currentTarget != null)
+		if (m_lockToGridPos && Board.Get() != null && currentTarget != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -38,14 +38,14 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AoE_AroundActor.GetRefPos(AbilityTarget, ActorData, float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+			if (boardSquareSafe != null)
 			{
-				result = boardSquare.ToVector3();
+				result = boardSquareSafe.ToVector3();
 			}
 		}
 		return result;
@@ -54,27 +54,27 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		this.m_lastCenterActor = null;
-		BoardSquare boardSquare = Board.\u000E().\u000E(this.GetRefPos(currentTarget, targetingActor, this.GetCurrentRangeInSquares()));
+		m_lastCenterActor = null;
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(GetRefPos(currentTarget, targetingActor, GetCurrentRangeInSquares()));
 		ActorData occupantActor = boardSquare.OccupantActor;
-		if (occupantActor != null)
+		if (!(occupantActor != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AoE_AroundActor.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (occupantActor == targetingActor)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -83,25 +83,25 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 					}
 					break;
 				}
-				if (this.m_canTargetOnSelf)
+				if (m_canTargetOnSelf)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, m_allyOccupantSubject);
+							m_lastCenterActor = occupantActor;
+							return;
 						}
-						break;
 					}
-					base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, this.m_allyOccupantSubject, false);
-					this.m_lastCenterActor = occupantActor;
-					return;
 				}
 			}
-			if (occupantActor.\u000E() == targetingActor.\u000E())
+			if (occupantActor.GetTeam() == targetingActor.GetTeam())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -110,36 +110,37 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 					}
 					break;
 				}
-				if (this.m_canTargetOnAlly)
+				if (m_canTargetOnAlly)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							AddActorInRange(occupantActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, m_allyOccupantSubject);
+							m_lastCenterActor = occupantActor;
+							return;
 						}
-						break;
 					}
-					base.AddActorInRange(occupantActor, targetingActor.\u0016(), targetingActor, this.m_allyOccupantSubject, false);
-					this.m_lastCenterActor = occupantActor;
-					return;
 				}
 			}
-			if (occupantActor.\u000E() != targetingActor.\u000E() && this.m_canTargetOnEnemy)
+			if (occupantActor.GetTeam() != targetingActor.GetTeam() && m_canTargetOnEnemy)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					AddActorInRange(occupantActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, m_enemyOccupantSubject);
+					m_lastCenterActor = occupantActor;
+					return;
 				}
-				base.AddActorInRange(occupantActor, targetingActor.\u0016(), targetingActor, this.m_enemyOccupantSubject, false);
-				this.m_lastCenterActor = occupantActor;
 			}
+			return;
 		}
 	}
 }

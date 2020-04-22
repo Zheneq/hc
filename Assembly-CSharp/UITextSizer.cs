@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -33,20 +32,23 @@ public class UITextSizer : MonoBehaviour
 
 	private void Start()
 	{
-		RectTransform rectTransform = this.m_border.transform as RectTransform;
-		this.m_maxWidth = rectTransform.rect.width;
-		this.m_minHeight = rectTransform.rect.height;
-		RectTransform rectTransform2 = this.m_textControl.transform as RectTransform;
-		this.m_extraWidth = 30f;
-		this.m_extraHeight = rectTransform.rect.height - rectTransform2.rect.height * rectTransform2.localScale.y;
-		this.m_lastStringValue = "Uninitialized";
+		RectTransform rectTransform = m_border.transform as RectTransform;
+		m_maxWidth = rectTransform.rect.width;
+		m_minHeight = rectTransform.rect.height;
+		RectTransform rectTransform2 = m_textControl.transform as RectTransform;
+		m_extraWidth = 30f;
+		float height = rectTransform.rect.height;
+		float height2 = rectTransform2.rect.height;
+		Vector3 localScale = rectTransform2.localScale;
+		m_extraHeight = height - height2 * localScale.y;
+		m_lastStringValue = "Uninitialized";
 	}
 
 	private void Update()
 	{
-		if (this.m_textControl != null)
+		if (m_textControl != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -55,15 +57,15 @@ public class UITextSizer : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextSizer.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_lastStringValue != this.m_textControl.text)
+			if (m_lastStringValue != m_textControl.text)
 			{
-				goto IL_54;
+				goto IL_0054;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -73,21 +75,22 @@ public class UITextSizer : MonoBehaviour
 				break;
 			}
 		}
-		if (!this.doItAgain)
+		if (!doItAgain)
 		{
 			return;
 		}
-		IL_54:
-		RectTransform rectTransform = this.m_textControl.transform as RectTransform;
-		this.doItAgain = !this.doItAgain;
-		this.m_lastStringValue = this.m_textControl.text;
-		this.m_textControl.CalculateLayoutInputHorizontal();
-		this.m_textControl.CalculateLayoutInputVertical();
-		float x;
-		float num;
-		if (this.m_textControl.preferredWidth / 2f < this.m_maxWidth - this.m_extraWidth)
+		goto IL_0054;
+		IL_0054:
+		RectTransform rectTransform = m_textControl.transform as RectTransform;
+		doItAgain = !doItAgain;
+		m_lastStringValue = m_textControl.text;
+		m_textControl.CalculateLayoutInputHorizontal();
+		m_textControl.CalculateLayoutInputVertical();
+		float num = 0f;
+		float num2 = 0f;
+		if (m_textControl.preferredWidth / 2f < m_maxWidth - m_extraWidth)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -96,17 +99,21 @@ public class UITextSizer : MonoBehaviour
 				}
 				break;
 			}
-			x = this.m_textControl.preferredWidth * rectTransform.localScale.x + this.m_extraWidth + 10f;
-			num = this.m_minHeight;
+			float preferredWidth = m_textControl.preferredWidth;
+			Vector3 localScale = rectTransform.localScale;
+			num = preferredWidth * localScale.x + m_extraWidth + 10f;
+			num2 = m_minHeight;
 		}
 		else
 		{
-			x = this.m_maxWidth;
-			num = this.m_textControl.preferredHeight * rectTransform.localScale.y + this.m_extraHeight + 10f;
+			num = m_maxWidth;
+			float preferredHeight = m_textControl.preferredHeight;
+			Vector3 localScale2 = rectTransform.localScale;
+			num2 = preferredHeight * localScale2.y + m_extraHeight + 10f;
 		}
-		if (this.m_doNotContractWidth)
+		if (m_doNotContractWidth)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -115,38 +122,40 @@ public class UITextSizer : MonoBehaviour
 				}
 				break;
 			}
-			x = this.m_maxWidth;
+			num = m_maxWidth;
 		}
-		if (this.m_calcTextHeight)
+		if (m_calcTextHeight)
 		{
-			(this.m_textControl.transform as RectTransform).sizeDelta = new Vector2((this.m_textControl.transform as RectTransform).sizeDelta.x, num * 2f - this.m_extraHeight - 10f);
+			RectTransform obj = m_textControl.transform as RectTransform;
+			Vector2 sizeDelta = (m_textControl.transform as RectTransform).sizeDelta;
+			obj.sizeDelta = new Vector2(sizeDelta.x, num2 * 2f - m_extraHeight - 10f);
 		}
-		RectTransform rectTransform2 = this.m_border.transform as RectTransform;
-		Vector2 sizeDelta = new Vector2(x, num);
-		rectTransform2.sizeDelta = sizeDelta;
-		if (this.m_childrenToSize != null)
+		RectTransform rectTransform2 = m_border.transform as RectTransform;
+		Vector2 sizeDelta2 = rectTransform2.sizeDelta = new Vector2(num, num2);
+		if (m_childrenToSize == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			for (int i = 0; i < this.m_childrenToSize.Length; i++)
+			for (int i = 0; i < m_childrenToSize.Length; i++)
 			{
-				this.m_childrenToSize[i].sizeDelta = sizeDelta;
+				m_childrenToSize[i].sizeDelta = sizeDelta2;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}

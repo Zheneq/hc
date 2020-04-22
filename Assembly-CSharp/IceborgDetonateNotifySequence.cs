@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class IceborgDetonateNotifySequence : SimpleTimingSequence
@@ -8,56 +7,58 @@ public class IceborgDetonateNotifySequence : SimpleTimingSequence
 	public override void FinishSetup()
 	{
 		base.FinishSetup();
-		this.m_syncComp = base.Caster.GetComponent<Iceborg_SyncComponent>();
-		if (this.m_syncComp == null)
+		m_syncComp = base.Caster.GetComponent<Iceborg_SyncComponent>();
+		if (!(m_syncComp == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNotifySequence.FinishSetup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (Application.isEditor)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					Debug.LogError(string.Concat(GetType(), " did not find sync component on caster"));
+					return;
 				}
-				Debug.LogError(base.GetType() + " did not find sync component on caster");
 			}
+			return;
 		}
 	}
 
 	protected override void DoSequenceHits()
 	{
-		if (this.m_syncComp != null)
+		if (!(m_syncComp != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNotifySequence.DoSequenceHits()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_syncComp.m_clientDetonateNovaUsedTurn = GameFlowData.Get().CurrentTurn;
+			m_syncComp.m_clientDetonateNovaUsedTurn = GameFlowData.Get().CurrentTurn;
+			return;
 		}
 	}
 }

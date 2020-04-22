@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,355 +6,6 @@ using System.Linq;
 [Serializable]
 public class GameSubType
 {
-	public string LocalizedName;
-
-	public List<GameMapConfig> GameMapConfigs;
-
-	public List<GameSubType.SubTypeMods> Mods;
-
-	public GameSubType.GameLoadScreenInstructions InstructionsToDisplay;
-
-	public RequirementCollection Requirements;
-
-	public Rate MaxMatchesGrantingXP;
-
-	public TeamCompositionRules TeamComposition;
-
-	public GameValueOverrides GameOverrides;
-
-	public int TeamAPlayers = -1;
-
-	public int TeamBPlayers = -1;
-
-	public int TeamABots = -1;
-
-	public int TeamBBots = -1;
-
-	public FreelancerRoleBalancingRuleTypes RoleBalancingRule;
-
-	public FreelancerDuplicationRuleTypes DuplicationRule;
-
-	public FreelancerTieBreakerRuleTypes TiebreakerRule;
-
-	public List<GameSubType.RankedSelectionOrderType> RankedSelectionOrder;
-
-	public PersistedStatBucket PersistedStatBucket;
-
-	public GameBalanceVars.GameRewardBucketType RewardBucket = GameBalanceVars.GameRewardBucketType.NoRewards;
-
-	public TimeSpan LoadoutSelectionTimeoutOverride;
-
-	public GameSubType Clone()
-	{
-		GameSubType gameSubType = (GameSubType)base.MemberwiseClone();
-		gameSubType.GameMapConfigs = new List<GameMapConfig>();
-		using (List<GameMapConfig>.Enumerator enumerator = this.GameMapConfigs.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				GameMapConfig gameMapConfig = enumerator.Current;
-				gameSubType.GameMapConfigs.Add(gameMapConfig.Clone());
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubType.Clone()).MethodHandle;
-			}
-		}
-		return gameSubType;
-	}
-
-	public bool NeedsPreSelectedFreelancer
-	{
-		get
-		{
-			int num;
-			if (!this.HasMod(GameSubType.SubTypeMods.OverrideFreelancerSelection))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubType.get_NeedsPreSelectedFreelancer()).MethodHandle;
-				}
-				num = (this.HasMod(GameSubType.SubTypeMods.RankedFreelancerSelection) ? 1 : 0);
-			}
-			else
-			{
-				num = 1;
-			}
-			return num == 0;
-		}
-	}
-
-	public bool HasMod(GameSubType.SubTypeMods mod)
-	{
-		return !this.Mods.IsNullOrEmpty<GameSubType.SubTypeMods>() && this.Mods.Contains(mod);
-	}
-
-	public LocalizationPayload GetNameAsPayload()
-	{
-		string attedLocIdentifier;
-		if (this.LocalizedName.IsNullOrEmpty())
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubType.GetNameAsPayload()).MethodHandle;
-			}
-			attedLocIdentifier = "unknown@unknown";
-		}
-		else
-		{
-			attedLocIdentifier = this.LocalizedName;
-		}
-		return LocalizationPayload.Create(attedLocIdentifier);
-	}
-
-	public bool IsCharacterAllowed(CharacterType freelancer, IFreelancerSetQueryInterface qi)
-	{
-		return this.TeamComposition == null || this.TeamComposition.IsCharacterAllowed(freelancer, qi);
-	}
-
-	public bool IsCharacterAllowedInSlot(CharacterType freelancer, Team team, int slot, IFreelancerSetQueryInterface qi)
-	{
-		bool result;
-		if (this.TeamComposition != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubType.IsCharacterAllowedInSlot(CharacterType, Team, int, IFreelancerSetQueryInterface)).MethodHandle;
-			}
-			result = this.TeamComposition.IsCharacterAllowedInSlot(freelancer, team, slot, qi);
-		}
-		else
-		{
-			result = true;
-		}
-		return result;
-	}
-
-	public FreelancerDuplicationRuleTypes GetResolvedDuplicationRule()
-	{
-		if (this.DuplicationRule != FreelancerDuplicationRuleTypes.byGameType)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubType.GetResolvedDuplicationRule()).MethodHandle;
-			}
-			return this.DuplicationRule;
-		}
-		if (this.HasMod(GameSubType.SubTypeMods.RankedFreelancerSelection))
-		{
-			return FreelancerDuplicationRuleTypes.noneInGame;
-		}
-		return FreelancerDuplicationRuleTypes.noneInTeam;
-	}
-
-	public void ValidateSelf(IFreelancerSetQueryInterface qi, LobbyGameConfig gameConfig)
-	{
-		if (this.TeamComposition != null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubType.ValidateSelf(IFreelancerSetQueryInterface, LobbyGameConfig)).MethodHandle;
-			}
-			this.TeamComposition.ValidateSelf(qi, gameConfig, this.GetResolvedDuplicationRule(), this.GetNameAsPayload().Term);
-		}
-	}
-
-	public static TimeSpan ConformTurnTimeSpanFromSeconds(double totalSeconds)
-	{
-		double value = Math.Max(1.0, Math.Min(99.9, totalSeconds));
-		return TimeSpan.FromSeconds(value);
-	}
-
-	public static ushort CalculateClosestSubType(GameSubType original, List<GameSubType> allSubTypesInOrder)
-	{
-		GameSubType.CCSTSort ccstsort = new GameSubType.CCSTSort(original, null);
-		ushort num = 1;
-		ushort result = 0;
-		GameSubType gameSubType = null;
-		using (List<GameSubType>.Enumerator enumerator = allSubTypesInOrder.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				GameSubType gameSubType2 = enumerator.Current;
-				if (gameSubType == null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubType.CalculateClosestSubType(GameSubType, List<GameSubType>)).MethodHandle;
-					}
-					result = num;
-					gameSubType = gameSubType2;
-				}
-				else if (ccstsort.Compare(gameSubType2, gameSubType) < 0)
-				{
-					result = num;
-					gameSubType = gameSubType2;
-				}
-				num = (ushort)(num << 1);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		return result;
-	}
-
-	public static ushort CalculatePivotSubTypes(ushort mask, GameSubType.SubTypeMods pivot, List<GameSubType> allSubTypesInOrder)
-	{
-		Dictionary<ushort, GameSubType> dictionary = new Dictionary<ushort, GameSubType>();
-		Dictionary<ushort, GameSubType> dictionary2 = new Dictionary<ushort, GameSubType>();
-		ushort num = 1;
-		using (List<GameSubType>.Enumerator enumerator = allSubTypesInOrder.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				GameSubType value = enumerator.Current;
-				if ((mask & num) == 0)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubType.CalculatePivotSubTypes(ushort, GameSubType.SubTypeMods, List<GameSubType>)).MethodHandle;
-					}
-					dictionary2.Add(num, value);
-				}
-				else
-				{
-					dictionary.Add(num, value);
-				}
-				num = (ushort)(num << 1);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		ushort num2 = 0;
-		if (!dictionary2.IsNullOrEmpty<KeyValuePair<ushort, GameSubType>>())
-		{
-			foreach (KeyValuePair<ushort, GameSubType> keyValuePair in dictionary)
-			{
-				GameSubType.CCSTSort ccstsort = new GameSubType.CCSTSort(keyValuePair.Value, new GameSubType.SubTypeMods?(pivot));
-				ushort num3 = 0;
-				GameSubType gameSubType = null;
-				foreach (KeyValuePair<ushort, GameSubType> keyValuePair2 in dictionary2)
-				{
-					if (gameSubType != null)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (ccstsort.Compare(keyValuePair2.Value, gameSubType) >= 0)
-						{
-							continue;
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					gameSubType = keyValuePair2.Value;
-					num3 = keyValuePair2.Key;
-				}
-				num2 |= num3;
-			}
-		}
-		return num2;
-	}
-
 	public enum GameLoadScreenInstructions
 	{
 		Default,
@@ -401,20 +52,20 @@ public class GameSubType
 	{
 		private GameSubType m_original;
 
-		private GameSubType.SubTypeMods? m_pivot;
+		private SubTypeMods? m_pivot;
 
 		private bool m_originalHasPivot;
 
 		private List<string> m_originalMaps;
 
-		internal CCSTSort(GameSubType original, GameSubType.SubTypeMods? pivot)
+		internal CCSTSort(GameSubType original, SubTypeMods? pivot)
 		{
-			this.m_original = original;
-			this.m_pivot = pivot;
-			bool originalHasPivot;
-			if (pivot != null)
+			m_original = original;
+			m_pivot = pivot;
+			int originalHasPivot;
+			if (pivot.HasValue)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -423,21 +74,21 @@ public class GameSubType
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubType.CCSTSort..ctor(GameSubType, GameSubType.SubTypeMods?)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				originalHasPivot = this.m_original.HasMod(pivot.Value);
+				originalHasPivot = (m_original.HasMod(pivot.Value) ? 1 : 0);
 			}
 			else
 			{
-				originalHasPivot = false;
+				originalHasPivot = 0;
 			}
-			this.m_originalHasPivot = originalHasPivot;
-			IEnumerable<GameMapConfig> gameMapConfigs = this.m_original.GameMapConfigs;
-			if (GameSubType.CCSTSort.<>f__am$cache0 == null)
+			m_originalHasPivot = ((byte)originalHasPivot != 0);
+			List<GameMapConfig> gameMapConfigs = m_original.GameMapConfigs;
+			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -446,12 +97,12 @@ public class GameSubType
 					}
 					break;
 				}
-				GameSubType.CCSTSort.<>f__am$cache0 = ((GameMapConfig p) => p.IsActive);
+				_003C_003Ef__am_0024cache0 = ((GameMapConfig p) => p.IsActive);
 			}
-			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(GameSubType.CCSTSort.<>f__am$cache0);
-			if (GameSubType.CCSTSort.<>f__am$cache1 == null)
+			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(_003C_003Ef__am_0024cache0);
+			if (_003C_003Ef__am_0024cache1 == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -460,16 +111,16 @@ public class GameSubType
 					}
 					break;
 				}
-				GameSubType.CCSTSort.<>f__am$cache1 = ((GameMapConfig p) => p.Map);
+				_003C_003Ef__am_0024cache1 = ((GameMapConfig p) => p.Map);
 			}
-			this.m_originalMaps = source.Select(GameSubType.CCSTSort.<>f__am$cache1).ToList<string>();
+			m_originalMaps = source.Select(_003C_003Ef__am_0024cache1).ToList();
 		}
 
 		public int Compare(GameSubType left, GameSubType right)
 		{
-			if (this.m_pivot != null)
+			if (m_pivot.HasValue)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -478,87 +129,90 @@ public class GameSubType
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubType.CCSTSort.Compare(GameSubType, GameSubType)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				bool flag = this.m_originalHasPivot == left.HasMod(this.m_pivot.Value);
-				bool flag2 = this.m_originalHasPivot == right.HasMod(this.m_pivot.Value);
+				bool flag = m_originalHasPivot == left.HasMod(m_pivot.Value);
+				bool flag2 = m_originalHasPivot == right.HasMod(m_pivot.Value);
 				if (flag != flag2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					int result;
-					if (flag)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+						{
+							int result;
+							if (flag)
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								result = 1;
+							}
+							else
+							{
+								result = -1;
+							}
+							return result;
 						}
-						result = 1;
+						}
 					}
-					else
-					{
-						result = -1;
-					}
-					return result;
 				}
 			}
-			bool flag3 = this.m_original.LocalizedName == left.LocalizedName;
-			bool flag4 = this.m_original.LocalizedName == right.LocalizedName;
+			bool flag3 = m_original.LocalizedName == left.LocalizedName;
+			bool flag4 = m_original.LocalizedName == right.LocalizedName;
 			if (flag3 != flag4)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				int result2;
-				if (flag3)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						int result2;
+						if (flag3)
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							result2 = -1;
+						}
+						else
+						{
+							result2 = 1;
+						}
+						return result2;
 					}
-					result2 = -1;
+					}
 				}
-				else
-				{
-					result2 = 1;
-				}
-				return result2;
 			}
-			IEnumerator enumerator = Enum.GetValues(typeof(GameSubType.SubTypeMods)).GetEnumerator();
+			IEnumerator enumerator = Enum.GetValues(typeof(SubTypeMods)).GetEnumerator();
 			try
 			{
 				while (enumerator.MoveNext())
 				{
-					object obj = enumerator.Current;
-					GameSubType.SubTypeMods subTypeMods = (GameSubType.SubTypeMods)obj;
-					if (this.m_pivot != null)
+					SubTypeMods subTypeMods = (SubTypeMods)enumerator.Current;
+					if (m_pivot.HasValue)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -567,9 +221,9 @@ public class GameSubType
 							}
 							break;
 						}
-						if (subTypeMods == this.m_pivot.Value)
+						if (subTypeMods == m_pivot.Value)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -586,9 +240,9 @@ public class GameSubType
 					if (flag5 != flag6)
 					{
 						int result3;
-						if (flag5 == this.m_original.HasMod(subTypeMods))
+						if (flag5 == m_original.HasMod(subTypeMods))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -606,7 +260,7 @@ public class GameSubType
 						return result3;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -624,10 +278,10 @@ public class GameSubType
 					disposable.Dispose();
 				}
 			}
-			IEnumerable<GameMapConfig> gameMapConfigs = left.GameMapConfigs;
-			if (GameSubType.CCSTSort.<>f__am$cache2 == null)
+			List<GameMapConfig> gameMapConfigs = left.GameMapConfigs;
+			if (_003C_003Ef__am_0024cache2 == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -636,12 +290,12 @@ public class GameSubType
 					}
 					break;
 				}
-				GameSubType.CCSTSort.<>f__am$cache2 = ((GameMapConfig p) => p.IsActive);
+				_003C_003Ef__am_0024cache2 = ((GameMapConfig p) => p.IsActive);
 			}
-			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(GameSubType.CCSTSort.<>f__am$cache2);
-			if (GameSubType.CCSTSort.<>f__am$cache3 == null)
+			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(_003C_003Ef__am_0024cache2);
+			if (_003C_003Ef__am_0024cache3 == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -650,13 +304,14 @@ public class GameSubType
 					}
 					break;
 				}
-				GameSubType.CCSTSort.<>f__am$cache3 = ((GameMapConfig p) => p.Map);
+				_003C_003Ef__am_0024cache3 = ((GameMapConfig p) => p.Map);
 			}
-			int num = source.Select(GameSubType.CCSTSort.<>f__am$cache3).ToList<string>().Intersect(this.m_originalMaps).Count<string>();
-			IEnumerable<GameMapConfig> gameMapConfigs2 = right.GameMapConfigs;
-			if (GameSubType.CCSTSort.<>f__am$cache4 == null)
+			int num = source.Select(_003C_003Ef__am_0024cache3).ToList().Intersect(m_originalMaps)
+				.Count();
+			List<GameMapConfig> gameMapConfigs2 = right.GameMapConfigs;
+			if (_003C_003Ef__am_0024cache4 == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -665,12 +320,12 @@ public class GameSubType
 					}
 					break;
 				}
-				GameSubType.CCSTSort.<>f__am$cache4 = ((GameMapConfig p) => p.IsActive);
+				_003C_003Ef__am_0024cache4 = ((GameMapConfig p) => p.IsActive);
 			}
-			IEnumerable<GameMapConfig> source2 = gameMapConfigs2.Where(GameSubType.CCSTSort.<>f__am$cache4);
-			if (GameSubType.CCSTSort.<>f__am$cache5 == null)
+			IEnumerable<GameMapConfig> source2 = gameMapConfigs2.Where(_003C_003Ef__am_0024cache4);
+			if (_003C_003Ef__am_0024cache5 == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -679,41 +334,396 @@ public class GameSubType
 					}
 					break;
 				}
-				GameSubType.CCSTSort.<>f__am$cache5 = ((GameMapConfig p) => p.Map);
+				_003C_003Ef__am_0024cache5 = ((GameMapConfig p) => p.Map);
 			}
-			int num2 = source2.Select(GameSubType.CCSTSort.<>f__am$cache5).ToList<string>().Intersect(this.m_originalMaps).Count<string>();
+			int num2 = source2.Select(_003C_003Ef__am_0024cache5).ToList().Intersect(m_originalMaps)
+				.Count();
 			if (num != num2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
+					{
+					case 0:
+						break;
+					default:
+					{
+						int result4;
+						if (num > num2)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							result4 = -1;
+						}
+						else
+						{
+							result4 = 1;
+						}
+						return result4;
+					}
+					}
+				}
+			}
+			return 0;
+		}
+	}
+
+	public string LocalizedName;
+
+	public List<GameMapConfig> GameMapConfigs;
+
+	public List<SubTypeMods> Mods;
+
+	public GameLoadScreenInstructions InstructionsToDisplay;
+
+	public RequirementCollection Requirements;
+
+	public Rate MaxMatchesGrantingXP;
+
+	public TeamCompositionRules TeamComposition;
+
+	public GameValueOverrides GameOverrides;
+
+	public int TeamAPlayers = -1;
+
+	public int TeamBPlayers = -1;
+
+	public int TeamABots = -1;
+
+	public int TeamBBots = -1;
+
+	public FreelancerRoleBalancingRuleTypes RoleBalancingRule;
+
+	public FreelancerDuplicationRuleTypes DuplicationRule;
+
+	public FreelancerTieBreakerRuleTypes TiebreakerRule;
+
+	public List<RankedSelectionOrderType> RankedSelectionOrder;
+
+	public PersistedStatBucket PersistedStatBucket;
+
+	public GameBalanceVars.GameRewardBucketType RewardBucket = GameBalanceVars.GameRewardBucketType.NoRewards;
+
+	public TimeSpan LoadoutSelectionTimeoutOverride;
+
+	public bool NeedsPreSelectedFreelancer
+	{
+		get
+		{
+			int num;
+			if (!HasMod(SubTypeMods.OverrideFreelancerSelection))
+			{
+				while (true)
+				{
+					switch (5)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				int result4;
-				if (num > num2)
+				if (1 == 0)
 				{
-					for (;;)
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				num = (HasMod(SubTypeMods.RankedFreelancerSelection) ? 1 : 0);
+			}
+			else
+			{
+				num = 1;
+			}
+			return num == 0;
+		}
+	}
+
+	public GameSubType Clone()
+	{
+		GameSubType gameSubType = (GameSubType)MemberwiseClone();
+		gameSubType.GameMapConfigs = new List<GameMapConfig>();
+		using (List<GameMapConfig>.Enumerator enumerator = GameMapConfigs.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
+			{
+				GameMapConfig current = enumerator.Current;
+				gameSubType.GameMapConfigs.Add(current.Clone());
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					if (true)
 					{
-						switch (7)
+						return gameSubType;
+					}
+					/*OpCode not supported: LdMemberToken*/;
+					return gameSubType;
+				}
+			}
+		}
+	}
+
+	public bool HasMod(SubTypeMods mod)
+	{
+		return !Mods.IsNullOrEmpty() && Mods.Contains(mod);
+	}
+
+	public LocalizationPayload GetNameAsPayload()
+	{
+		object attedLocIdentifier;
+		if (LocalizedName.IsNullOrEmpty())
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			attedLocIdentifier = "unknown@unknown";
+		}
+		else
+		{
+			attedLocIdentifier = LocalizedName;
+		}
+		return LocalizationPayload.Create((string)attedLocIdentifier);
+	}
+
+	public bool IsCharacterAllowed(CharacterType freelancer, IFreelancerSetQueryInterface qi)
+	{
+		return TeamComposition == null || TeamComposition.IsCharacterAllowed(freelancer, qi);
+	}
+
+	public bool IsCharacterAllowedInSlot(CharacterType freelancer, Team team, int slot, IFreelancerSetQueryInterface qi)
+	{
+		int result;
+		if (TeamComposition != null)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			result = (TeamComposition.IsCharacterAllowedInSlot(freelancer, team, slot, qi) ? 1 : 0);
+		}
+		else
+		{
+			result = 1;
+		}
+		return (byte)result != 0;
+	}
+
+	public FreelancerDuplicationRuleTypes GetResolvedDuplicationRule()
+	{
+		if (DuplicationRule != 0)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return DuplicationRule;
+				}
+			}
+		}
+		if (HasMod(SubTypeMods.RankedFreelancerSelection))
+		{
+			return FreelancerDuplicationRuleTypes.noneInGame;
+		}
+		return FreelancerDuplicationRuleTypes.noneInTeam;
+	}
+
+	public void ValidateSelf(IFreelancerSetQueryInterface qi, LobbyGameConfig gameConfig)
+	{
+		if (TeamComposition == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			TeamComposition.ValidateSelf(qi, gameConfig, GetResolvedDuplicationRule(), GetNameAsPayload().Term);
+			return;
+		}
+	}
+
+	public static TimeSpan ConformTurnTimeSpanFromSeconds(double totalSeconds)
+	{
+		double value = Math.Max(1.0, Math.Min(99.9, totalSeconds));
+		return TimeSpan.FromSeconds(value);
+	}
+
+	public static ushort CalculateClosestSubType(GameSubType original, List<GameSubType> allSubTypesInOrder)
+	{
+		CCSTSort cCSTSort = new CCSTSort(original, null);
+		ushort num = 1;
+		ushort result = 0;
+		GameSubType gameSubType = null;
+		using (List<GameSubType>.Enumerator enumerator = allSubTypesInOrder.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
+			{
+				GameSubType current = enumerator.Current;
+				if (gameSubType == null)
+				{
+					while (true)
+					{
+						switch (4)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					result4 = -1;
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					result = num;
+					gameSubType = current;
+				}
+				else if (cCSTSort.Compare(current, gameSubType) < 0)
+				{
+					result = num;
+					gameSubType = current;
+				}
+				num = (ushort)(num << 1);
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					break;
+				default:
+					return result;
+				}
+			}
+		}
+	}
+
+	public static ushort CalculatePivotSubTypes(ushort mask, SubTypeMods pivot, List<GameSubType> allSubTypesInOrder)
+	{
+		Dictionary<ushort, GameSubType> dictionary = new Dictionary<ushort, GameSubType>();
+		Dictionary<ushort, GameSubType> dictionary2 = new Dictionary<ushort, GameSubType>();
+		ushort num = 1;
+		using (List<GameSubType>.Enumerator enumerator = allSubTypesInOrder.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
+			{
+				GameSubType current = enumerator.Current;
+				if ((mask & num) == 0)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					dictionary2.Add(num, current);
 				}
 				else
 				{
-					result4 = 1;
+					dictionary.Add(num, current);
 				}
-				return result4;
+				num = (ushort)(num << 1);
 			}
-			return 0;
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
 		}
+		ushort num2 = 0;
+		if (!dictionary2.IsNullOrEmpty())
+		{
+			foreach (KeyValuePair<ushort, GameSubType> item in dictionary)
+			{
+				CCSTSort cCSTSort = new CCSTSort(item.Value, pivot);
+				ushort num3 = 0;
+				GameSubType gameSubType = null;
+				foreach (KeyValuePair<ushort, GameSubType> item2 in dictionary2)
+				{
+					if (gameSubType != null)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (cCSTSort.Compare(item2.Value, gameSubType) >= 0)
+						{
+							continue;
+						}
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+					gameSubType = item2.Value;
+					num3 = item2.Key;
+				}
+				num2 = (ushort)(num2 | num3);
+			}
+			return num2;
+		}
+		return num2;
 	}
 }

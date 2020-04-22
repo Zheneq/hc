@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -8,7 +8,7 @@ public class OnLockedChatter : ScriptableObject, IChatterData
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_baseData;
+		return m_baseData;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()
@@ -20,20 +20,20 @@ public class OnLockedChatter : ScriptableObject, IChatterData
 	{
 		if (GameFlowData.Get().activeOwnedActorData != component.gameObject.GetComponent<ActorData>())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnLockedChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
-			return false;
 		}
 		return ChatterData.ShouldPlayChatter(this, eventType, args, component);
 	}

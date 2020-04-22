@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,49 +47,48 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SamuraiSelfBuff samuraiSelfBuff = targetAbility as SamuraiSelfBuff;
-		if (samuraiSelfBuff != null)
+		if (!(samuraiSelfBuff != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SamuraiSelfBuff.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken_EffectMod(tokens, this.m_selfBuffEffectMod, "SelfBuffEffect", samuraiSelfBuff.m_selfBuffEffect, true);
-			AbilityMod.AddToken(tokens, this.m_extraDamageIfQueuedMod, "ExtraDamageIfQueued", string.Empty, samuraiSelfBuff.m_extraDamageIfQueued, true, false);
-			AbilityMod.AddToken(tokens, this.m_baseShieldingMod, "BaseShielding", string.Empty, samuraiSelfBuff.m_baseShielding, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraShieldingIfOnlyAbilityMod, "ExtraShieldingIfOnlyAbility", string.Empty, samuraiSelfBuff.m_extraShieldingIfOnlyAbility, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_generalEffectOnSelfMod, "GeneralEffectOnSelf", samuraiSelfBuff.m_generalEffectOnSelf, true);
-			AbilityMod.AddToken(tokens, this.m_aoeRadiusMod, "AoeRadius", string.Empty, samuraiSelfBuff.m_aoeRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_knockbackDistMod, "KnockbackDist", string.Empty, samuraiSelfBuff.m_knockbackDist, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, samuraiSelfBuff.m_damageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageIncreaseFirstHitMod, "DamageIncreaseFirstHit", string.Empty, samuraiSelfBuff.m_damageIncreaseFirstHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageIncreaseSubseqHitsMod, "DamageIncreaseSubseqHits", string.Empty, samuraiSelfBuff.m_damageIncreaseSubseqHits, true, false);
-			AbilityMod.AddToken(tokens, this.m_techPointGainPerIncomingHitMod, "TechPointGainPerIncomingHit", string.Empty, samuraiSelfBuff.m_techPointGainPerIncomingHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_cdrIfNotHitMod, "CdrIfNotHit", string.Empty, samuraiSelfBuff.m_cdrIfNotHit, true, false);
+			AbilityMod.AddToken_EffectMod(tokens, m_selfBuffEffectMod, "SelfBuffEffect", samuraiSelfBuff.m_selfBuffEffect);
+			AbilityMod.AddToken(tokens, m_extraDamageIfQueuedMod, "ExtraDamageIfQueued", string.Empty, samuraiSelfBuff.m_extraDamageIfQueued);
+			AbilityMod.AddToken(tokens, m_baseShieldingMod, "BaseShielding", string.Empty, samuraiSelfBuff.m_baseShielding);
+			AbilityMod.AddToken(tokens, m_extraShieldingIfOnlyAbilityMod, "ExtraShieldingIfOnlyAbility", string.Empty, samuraiSelfBuff.m_extraShieldingIfOnlyAbility);
+			AbilityMod.AddToken_EffectMod(tokens, m_generalEffectOnSelfMod, "GeneralEffectOnSelf", samuraiSelfBuff.m_generalEffectOnSelf);
+			AbilityMod.AddToken(tokens, m_aoeRadiusMod, "AoeRadius", string.Empty, samuraiSelfBuff.m_aoeRadius);
+			AbilityMod.AddToken(tokens, m_knockbackDistMod, "KnockbackDist", string.Empty, samuraiSelfBuff.m_knockbackDist);
+			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, samuraiSelfBuff.m_damageAmount);
+			AbilityMod.AddToken(tokens, m_damageIncreaseFirstHitMod, "DamageIncreaseFirstHit", string.Empty, samuraiSelfBuff.m_damageIncreaseFirstHit);
+			AbilityMod.AddToken(tokens, m_damageIncreaseSubseqHitsMod, "DamageIncreaseSubseqHits", string.Empty, samuraiSelfBuff.m_damageIncreaseSubseqHits);
+			AbilityMod.AddToken(tokens, m_techPointGainPerIncomingHitMod, "TechPointGainPerIncomingHit", string.Empty, samuraiSelfBuff.m_techPointGainPerIncomingHit);
+			AbilityMod.AddToken(tokens, m_cdrIfNotHitMod, "CdrIfNotHit", string.Empty, samuraiSelfBuff.m_cdrIfNotHit);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SamuraiSelfBuff samuraiSelfBuff = base.GetTargetAbilityOnAbilityData(abilityData) as SamuraiSelfBuff;
+		SamuraiSelfBuff samuraiSelfBuff = GetTargetAbilityOnAbilityData(abilityData) as SamuraiSelfBuff;
 		bool flag = samuraiSelfBuff != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyBool selfBuffLastsUntilYouDealDamageMod = this.m_selfBuffLastsUntilYouDealDamageMod;
-		string prefix = "[SelfBuffLastsUntilYouDealDamage]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyBool selfBuffLastsUntilYouDealDamageMod = m_selfBuffLastsUntilYouDealDamageMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -98,25 +97,23 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SamuraiSelfBuff.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			baseVal = samuraiSelfBuff.m_selfBuffLastsUntilYouDealDamage;
+			baseVal = (samuraiSelfBuff.m_selfBuffLastsUntilYouDealDamage ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(selfBuffLastsUntilYouDealDamageMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyEffectInfo selfBuffEffectMod = this.m_selfBuffEffectMod;
-		string prefix2 = "[SelfBuffEffect]";
-		bool showBaseVal2 = flag;
-		StandardEffectInfo baseVal2;
+		empty = str + PropDesc(selfBuffLastsUntilYouDealDamageMod, "[SelfBuffLastsUntilYouDealDamage]", flag, (byte)baseVal != 0);
+		string str2 = empty;
+		AbilityModPropertyEffectInfo selfBuffEffectMod = m_selfBuffEffectMod;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -131,15 +128,13 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		{
 			baseVal2 = null;
 		}
-		text = str2 + base.PropDesc(selfBuffEffectMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt extraDamageIfQueuedMod = this.m_extraDamageIfQueuedMod;
-		string prefix3 = "[ExtraDamageIfQueued]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(selfBuffEffectMod, "[SelfBuffEffect]", flag, (StandardEffectInfo)baseVal2);
+		string str3 = empty;
+		AbilityModPropertyInt extraDamageIfQueuedMod = m_extraDamageIfQueuedMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -154,15 +149,13 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(extraDamageIfQueuedMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt baseShieldingMod = this.m_baseShieldingMod;
-		string prefix4 = "[BaseShielding]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(extraDamageIfQueuedMod, "[ExtraDamageIfQueued]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyInt baseShieldingMod = m_baseShieldingMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -177,16 +170,14 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(baseShieldingMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_extraShieldingIfOnlyAbilityMod, "[ExtraShieldingIfOnlyAbility]", flag, (!flag) ? 0 : samuraiSelfBuff.m_extraShieldingIfOnlyAbility);
-		string str5 = text;
-		AbilityModPropertyEffectInfo generalEffectOnSelfMod = this.m_generalEffectOnSelfMod;
-		string prefix5 = "[GeneralEffectOnSelf]";
-		bool showBaseVal5 = flag;
-		StandardEffectInfo baseVal5;
+		empty = str4 + PropDesc(baseShieldingMod, "[BaseShielding]", flag, baseVal4);
+		empty += PropDesc(m_extraShieldingIfOnlyAbilityMod, "[ExtraShieldingIfOnlyAbility]", flag, flag ? samuraiSelfBuff.m_extraShieldingIfOnlyAbility : 0);
+		string str5 = empty;
+		AbilityModPropertyEffectInfo generalEffectOnSelfMod = m_generalEffectOnSelfMod;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -201,15 +192,13 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		{
 			baseVal5 = null;
 		}
-		text = str5 + base.PropDesc(generalEffectOnSelfMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyFloat aoeRadiusMod = this.m_aoeRadiusMod;
-		string prefix6 = "[AoeRadius]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(generalEffectOnSelfMod, "[GeneralEffectOnSelf]", flag, (StandardEffectInfo)baseVal5);
+		string str6 = empty;
+		AbilityModPropertyFloat aoeRadiusMod = m_aoeRadiusMod;
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -224,15 +213,13 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		{
 			baseVal6 = 0f;
 		}
-		text = str6 + base.PropDesc(aoeRadiusMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyFloat knockbackDistMod = this.m_knockbackDistMod;
-		string prefix7 = "[KnockbackDist]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(aoeRadiusMod, "[AoeRadius]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyFloat knockbackDistMod = m_knockbackDistMod;
 		float baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -247,15 +234,13 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		{
 			baseVal7 = 0f;
 		}
-		text = str7 + base.PropDesc(knockbackDistMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyInt damageAmountMod = this.m_damageAmountMod;
-		string prefix8 = "[DamageAmount]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(knockbackDistMod, "[KnockbackDist]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyInt damageAmountMod = m_damageAmountMod;
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -270,15 +255,13 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		{
 			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(damageAmountMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyBool penetrateLoSMod = this.m_penetrateLoSMod;
-		string prefix9 = "[PenetrateLoS]";
-		bool showBaseVal9 = flag;
-		bool baseVal9;
+		empty = str8 + PropDesc(damageAmountMod, "[DamageAmount]", flag, baseVal8);
+		string str9 = empty;
+		AbilityModPropertyBool penetrateLoSMod = m_penetrateLoSMod;
+		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -287,21 +270,19 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 				}
 				break;
 			}
-			baseVal9 = samuraiSelfBuff.m_penetrateLoS;
+			baseVal9 = (samuraiSelfBuff.m_penetrateLoS ? 1 : 0);
 		}
 		else
 		{
-			baseVal9 = false;
+			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(penetrateLoSMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyInt damageIncreaseFirstHitMod = this.m_damageIncreaseFirstHitMod;
-		string prefix10 = "[DamageIncreaseFirstHit]";
-		bool showBaseVal10 = flag;
+		empty = str9 + PropDesc(penetrateLoSMod, "[PenetrateLoS]", flag, (byte)baseVal9 != 0);
+		string str10 = empty;
+		AbilityModPropertyInt damageIncreaseFirstHitMod = m_damageIncreaseFirstHitMod;
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -316,15 +297,13 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		{
 			baseVal10 = 0;
 		}
-		text = str10 + base.PropDesc(damageIncreaseFirstHitMod, prefix10, showBaseVal10, baseVal10);
-		string str11 = text;
-		AbilityModPropertyInt damageIncreaseSubseqHitsMod = this.m_damageIncreaseSubseqHitsMod;
-		string prefix11 = "[DamageIncreaseSubseqHits]";
-		bool showBaseVal11 = flag;
+		empty = str10 + PropDesc(damageIncreaseFirstHitMod, "[DamageIncreaseFirstHit]", flag, baseVal10);
+		string str11 = empty;
+		AbilityModPropertyInt damageIncreaseSubseqHitsMod = m_damageIncreaseSubseqHitsMod;
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -339,15 +318,13 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		{
 			baseVal11 = 0;
 		}
-		text = str11 + base.PropDesc(damageIncreaseSubseqHitsMod, prefix11, showBaseVal11, baseVal11);
-		string str12 = text;
-		AbilityModPropertyInt techPointGainPerIncomingHitMod = this.m_techPointGainPerIncomingHitMod;
-		string prefix12 = "[TechPointGainPerIncomingHit]";
-		bool showBaseVal12 = flag;
+		empty = str11 + PropDesc(damageIncreaseSubseqHitsMod, "[DamageIncreaseSubseqHits]", flag, baseVal11);
+		string str12 = empty;
+		AbilityModPropertyInt techPointGainPerIncomingHitMod = m_techPointGainPerIncomingHitMod;
 		int baseVal12;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -362,15 +339,13 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		{
 			baseVal12 = 0;
 		}
-		text = str12 + base.PropDesc(techPointGainPerIncomingHitMod, prefix12, showBaseVal12, baseVal12);
-		string str13 = text;
-		AbilityModPropertyBool buffInResponseToIndirectDamageMod = this.m_buffInResponseToIndirectDamageMod;
-		string prefix13 = "[BuffInResponseToIndirectDamage]";
-		bool showBaseVal13 = flag;
-		bool baseVal13;
+		empty = str12 + PropDesc(techPointGainPerIncomingHitMod, "[TechPointGainPerIncomingHit]", flag, baseVal12);
+		string str13 = empty;
+		AbilityModPropertyBool buffInResponseToIndirectDamageMod = m_buffInResponseToIndirectDamageMod;
+		int baseVal13;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -379,21 +354,19 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 				}
 				break;
 			}
-			baseVal13 = samuraiSelfBuff.m_buffInResponseToIndirectDamage;
+			baseVal13 = (samuraiSelfBuff.m_buffInResponseToIndirectDamage ? 1 : 0);
 		}
 		else
 		{
-			baseVal13 = false;
+			baseVal13 = 0;
 		}
-		text = str13 + base.PropDesc(buffInResponseToIndirectDamageMod, prefix13, showBaseVal13, baseVal13);
-		string str14 = text;
-		AbilityModPropertyInt cdrIfNotHitMod = this.m_cdrIfNotHitMod;
-		string prefix14 = "[CdrIfNotHit]";
-		bool showBaseVal14 = flag;
+		empty = str13 + PropDesc(buffInResponseToIndirectDamageMod, "[BuffInResponseToIndirectDamage]", flag, (byte)baseVal13 != 0);
+		string str14 = empty;
+		AbilityModPropertyInt cdrIfNotHitMod = m_cdrIfNotHitMod;
 		int baseVal14;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -408,6 +381,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		{
 			baseVal14 = 0;
 		}
-		return str14 + base.PropDesc(cdrIfNotHitMod, prefix14, showBaseVal14, baseVal14);
+		return str14 + PropDesc(cdrIfNotHitMod, "[CdrIfNotHit]", flag, baseVal14);
 	}
 }

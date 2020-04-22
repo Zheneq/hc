@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,157 +5,313 @@ public class ControllerInputSnapshot
 {
 	public List<ControllerButtonState> m_allGamepadButtons;
 
+	public float LeftStickX
+	{
+		get;
+		private set;
+	}
+
+	public float LeftStickY
+	{
+		get;
+		private set;
+	}
+
+	public float RightStickX
+	{
+		get;
+		private set;
+	}
+
+	public float RightStickY
+	{
+		get;
+		private set;
+	}
+
+	public float LeftTrigger
+	{
+		get;
+		private set;
+	}
+
+	public float RightTrigger
+	{
+		get;
+		private set;
+	}
+
+	public float DpadX
+	{
+		get;
+		private set;
+	}
+
+	public float DpadY
+	{
+		get;
+		private set;
+	}
+
+	public float MouseX
+	{
+		get;
+		private set;
+	}
+
+	public float MouseY
+	{
+		get;
+		private set;
+	}
+
+	public ControllerButtonState Button_A
+	{
+		get;
+		private set;
+	}
+
+	public ControllerButtonState Button_B
+	{
+		get;
+		private set;
+	}
+
+	public ControllerButtonState Button_X
+	{
+		get;
+		private set;
+	}
+
+	public ControllerButtonState Button_Y
+	{
+		get;
+		private set;
+	}
+
+	public ControllerButtonState Button_leftShoulder
+	{
+		get;
+		private set;
+	}
+
+	public ControllerButtonState Button_rightShoulder
+	{
+		get;
+		private set;
+	}
+
+	public ControllerButtonState Button_start
+	{
+		get;
+		private set;
+	}
+
+	public ControllerButtonState Button_back
+	{
+		get;
+		private set;
+	}
+
+	public ControllerButtonState Button_leftStickIn
+	{
+		get;
+		private set;
+	}
+
+	public ControllerButtonState Button_rightStickIn
+	{
+		get;
+		private set;
+	}
+
+	public ControllerButtonState MouseButton_0
+	{
+		get;
+		private set;
+	}
+
+	public ControllerButtonState MouseButton_1
+	{
+		get;
+		private set;
+	}
+
+	public ControllerButtonState MouseButton_2
+	{
+		get;
+		private set;
+	}
+
+	public Vector3 LeftStickWorldDir
+	{
+		get;
+		private set;
+	}
+
+	public Vector3 RightStickWorldDir
+	{
+		get;
+		private set;
+	}
+
+	public Vector3 DpadWorldDir
+	{
+		get;
+		private set;
+	}
+
 	public ControllerInputSnapshot()
 	{
-		this.Button_A = new ControllerButtonState();
-		this.Button_B = new ControllerButtonState();
-		this.Button_X = new ControllerButtonState();
-		this.Button_Y = new ControllerButtonState();
-		this.Button_leftShoulder = new ControllerButtonState();
-		this.Button_rightShoulder = new ControllerButtonState();
-		this.Button_start = new ControllerButtonState();
-		this.Button_back = new ControllerButtonState();
-		this.Button_leftStickIn = new ControllerButtonState();
-		this.Button_rightStickIn = new ControllerButtonState();
-		this.MouseButton_0 = new ControllerButtonState();
-		this.MouseButton_1 = new ControllerButtonState();
-		this.MouseButton_2 = new ControllerButtonState();
-		this.m_allGamepadButtons = new List<ControllerButtonState>(0xA);
-		this.m_allGamepadButtons.Add(this.Button_A);
-		this.m_allGamepadButtons.Add(this.Button_B);
-		this.m_allGamepadButtons.Add(this.Button_X);
-		this.m_allGamepadButtons.Add(this.Button_Y);
-		this.m_allGamepadButtons.Add(this.Button_leftShoulder);
-		this.m_allGamepadButtons.Add(this.Button_rightShoulder);
-		this.m_allGamepadButtons.Add(this.Button_start);
-		this.m_allGamepadButtons.Add(this.Button_back);
-		this.m_allGamepadButtons.Add(this.Button_leftStickIn);
-		this.m_allGamepadButtons.Add(this.Button_rightStickIn);
+		Button_A = new ControllerButtonState();
+		Button_B = new ControllerButtonState();
+		Button_X = new ControllerButtonState();
+		Button_Y = new ControllerButtonState();
+		Button_leftShoulder = new ControllerButtonState();
+		Button_rightShoulder = new ControllerButtonState();
+		Button_start = new ControllerButtonState();
+		Button_back = new ControllerButtonState();
+		Button_leftStickIn = new ControllerButtonState();
+		Button_rightStickIn = new ControllerButtonState();
+		MouseButton_0 = new ControllerButtonState();
+		MouseButton_1 = new ControllerButtonState();
+		MouseButton_2 = new ControllerButtonState();
+		m_allGamepadButtons = new List<ControllerButtonState>(10);
+		m_allGamepadButtons.Add(Button_A);
+		m_allGamepadButtons.Add(Button_B);
+		m_allGamepadButtons.Add(Button_X);
+		m_allGamepadButtons.Add(Button_Y);
+		m_allGamepadButtons.Add(Button_leftShoulder);
+		m_allGamepadButtons.Add(Button_rightShoulder);
+		m_allGamepadButtons.Add(Button_start);
+		m_allGamepadButtons.Add(Button_back);
+		m_allGamepadButtons.Add(Button_leftStickIn);
+		m_allGamepadButtons.Add(Button_rightStickIn);
 	}
 
 	public void CacheInputThisFrame()
 	{
-		this.LeftStickX = Input.GetAxis("GamepadLeftStickX");
-		this.LeftStickY = Input.GetAxis("GamepadLeftStickY");
-		this.RightStickX = Input.GetAxis("GamepadRightStickX");
-		this.RightStickY = Input.GetAxis("GamepadRightStickY");
-		this.LeftTrigger = Input.GetAxis("GamepadLeftTrigger");
-		this.RightTrigger = Input.GetAxis("GamepadRightTrigger");
-		this.DpadX = Input.GetAxis("GamepadDpadX");
-		this.DpadY = Input.GetAxis("GamepadDpadY");
-		this.Button_A.GatherState("GamepadButtonA");
-		this.Button_B.GatherState("GamepadButtonB");
-		this.Button_X.GatherState("GamepadButtonX");
-		this.Button_Y.GatherState("GamepadButtonY");
-		this.Button_leftShoulder.GatherState("GamepadButtonLeftShoulder");
-		this.Button_rightShoulder.GatherState("GamepadButtonRightShoulder");
-		this.Button_start.GatherState("GamepadButtonStart");
-		this.Button_back.GatherState("GamepadButtonBack");
-		this.Button_leftStickIn.GatherState("GamepadButtonLeftStickIn");
-		this.Button_rightStickIn.GatherState("GamepadButtonRightStickIn");
-		this.MouseX = Input.GetAxis("Mouse X");
-		this.MouseY = Input.GetAxis("Mouse Y");
-		this.MouseButton_0.GatherStateFromMouseButton(0);
-		this.MouseButton_1.GatherStateFromMouseButton(1);
-		this.MouseButton_2.GatherStateFromMouseButton(2);
+		LeftStickX = Input.GetAxis("GamepadLeftStickX");
+		LeftStickY = Input.GetAxis("GamepadLeftStickY");
+		RightStickX = Input.GetAxis("GamepadRightStickX");
+		RightStickY = Input.GetAxis("GamepadRightStickY");
+		LeftTrigger = Input.GetAxis("GamepadLeftTrigger");
+		RightTrigger = Input.GetAxis("GamepadRightTrigger");
+		DpadX = Input.GetAxis("GamepadDpadX");
+		DpadY = Input.GetAxis("GamepadDpadY");
+		Button_A.GatherState("GamepadButtonA");
+		Button_B.GatherState("GamepadButtonB");
+		Button_X.GatherState("GamepadButtonX");
+		Button_Y.GatherState("GamepadButtonY");
+		Button_leftShoulder.GatherState("GamepadButtonLeftShoulder");
+		Button_rightShoulder.GatherState("GamepadButtonRightShoulder");
+		Button_start.GatherState("GamepadButtonStart");
+		Button_back.GatherState("GamepadButtonBack");
+		Button_leftStickIn.GatherState("GamepadButtonLeftStickIn");
+		Button_rightStickIn.GatherState("GamepadButtonRightStickIn");
+		MouseX = Input.GetAxis("Mouse X");
+		MouseY = Input.GetAxis("Mouse Y");
+		MouseButton_0.GatherStateFromMouseButton(0);
+		MouseButton_1.GatherStateFromMouseButton(1);
+		MouseButton_2.GatherStateFromMouseButton(2);
 		Camera main = Camera.main;
 		if (main != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Vector3 forward = main.transform.forward;
+					Vector3 vector = new Vector3(forward.x, 0f, forward.z);
+					vector.Normalize();
+					Vector3 a = Vector3.Cross(Vector3.up, vector);
+					a.Normalize();
+					Vector3 vector2 = a * LeftStickX + vector * LeftStickY;
+					Vector3 vector3 = a * RightStickX + vector * RightStickY;
+					Vector3 vector4 = a * DpadX + vector * DpadY;
+					LeftStickWorldDir = vector2.normalized;
+					RightStickWorldDir = vector3.normalized;
+					DpadWorldDir = vector4.normalized;
+					return;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControllerInputSnapshot.CacheInputThisFrame()).MethodHandle;
-			}
-			Vector3 forward = main.transform.forward;
-			Vector3 vector = new Vector3(forward.x, 0f, forward.z);
-			vector.Normalize();
-			Vector3 a = Vector3.Cross(Vector3.up, vector);
-			a.Normalize();
-			Vector3 vector2 = a * this.LeftStickX + vector * this.LeftStickY;
-			Vector3 vector3 = a * this.RightStickX + vector * this.RightStickY;
-			Vector3 vector4 = a * this.DpadX + vector * this.DpadY;
-			this.LeftStickWorldDir = vector2.normalized;
-			this.RightStickWorldDir = vector3.normalized;
-			this.DpadWorldDir = vector4.normalized;
 		}
-		else
-		{
-			this.LeftStickWorldDir = Vector3.zero;
-			this.RightStickWorldDir = Vector3.zero;
-			this.DpadWorldDir = Vector3.zero;
-		}
+		LeftStickWorldDir = Vector3.zero;
+		RightStickWorldDir = Vector3.zero;
+		DpadWorldDir = Vector3.zero;
 	}
 
 	public void ClearAllValues()
 	{
-		this.LeftStickX = 0f;
-		this.LeftStickY = 0f;
-		this.RightStickX = 0f;
-		this.RightStickY = 0f;
-		this.LeftTrigger = 0f;
-		this.RightTrigger = 0f;
-		this.DpadX = 0f;
-		this.DpadY = 0f;
-		this.Button_A.ClearAllValues();
-		this.Button_B.ClearAllValues();
-		this.Button_X.ClearAllValues();
-		this.Button_Y.ClearAllValues();
-		this.Button_leftShoulder.ClearAllValues();
-		this.Button_rightShoulder.ClearAllValues();
-		this.Button_start.ClearAllValues();
-		this.Button_back.ClearAllValues();
-		this.Button_leftStickIn.ClearAllValues();
-		this.Button_rightStickIn.ClearAllValues();
+		LeftStickX = 0f;
+		LeftStickY = 0f;
+		RightStickX = 0f;
+		RightStickY = 0f;
+		LeftTrigger = 0f;
+		RightTrigger = 0f;
+		DpadX = 0f;
+		DpadY = 0f;
+		Button_A.ClearAllValues();
+		Button_B.ClearAllValues();
+		Button_X.ClearAllValues();
+		Button_Y.ClearAllValues();
+		Button_leftShoulder.ClearAllValues();
+		Button_rightShoulder.ClearAllValues();
+		Button_start.ClearAllValues();
+		Button_back.ClearAllValues();
+		Button_leftStickIn.ClearAllValues();
+		Button_rightStickIn.ClearAllValues();
 	}
 
 	public void CopySnapshotValuesFrom(ControllerInputSnapshot other)
 	{
-		this.LeftStickX = other.LeftStickX;
-		this.LeftStickY = other.LeftStickY;
-		this.RightStickX = other.RightStickX;
-		this.RightStickY = other.RightStickY;
-		this.LeftTrigger = other.LeftTrigger;
-		this.RightTrigger = other.RightTrigger;
-		this.DpadX = other.DpadX;
-		this.DpadY = other.DpadY;
-		this.Button_A.CopyButtonValuesFrom(other.Button_A);
-		this.Button_B.CopyButtonValuesFrom(other.Button_B);
-		this.Button_X.CopyButtonValuesFrom(other.Button_X);
-		this.Button_Y.CopyButtonValuesFrom(other.Button_Y);
-		this.Button_leftShoulder.CopyButtonValuesFrom(other.Button_leftShoulder);
-		this.Button_rightShoulder.CopyButtonValuesFrom(other.Button_rightShoulder);
-		this.Button_start.CopyButtonValuesFrom(other.Button_start);
-		this.Button_back.CopyButtonValuesFrom(other.Button_back);
-		this.Button_leftStickIn.CopyButtonValuesFrom(other.Button_leftStickIn);
-		this.Button_rightStickIn.CopyButtonValuesFrom(other.Button_rightStickIn);
+		LeftStickX = other.LeftStickX;
+		LeftStickY = other.LeftStickY;
+		RightStickX = other.RightStickX;
+		RightStickY = other.RightStickY;
+		LeftTrigger = other.LeftTrigger;
+		RightTrigger = other.RightTrigger;
+		DpadX = other.DpadX;
+		DpadY = other.DpadY;
+		Button_A.CopyButtonValuesFrom(other.Button_A);
+		Button_B.CopyButtonValuesFrom(other.Button_B);
+		Button_X.CopyButtonValuesFrom(other.Button_X);
+		Button_Y.CopyButtonValuesFrom(other.Button_Y);
+		Button_leftShoulder.CopyButtonValuesFrom(other.Button_leftShoulder);
+		Button_rightShoulder.CopyButtonValuesFrom(other.Button_rightShoulder);
+		Button_start.CopyButtonValuesFrom(other.Button_start);
+		Button_back.CopyButtonValuesFrom(other.Button_back);
+		Button_leftStickIn.CopyButtonValuesFrom(other.Button_leftStickIn);
+		Button_rightStickIn.CopyButtonValuesFrom(other.Button_rightStickIn);
 	}
 
 	public bool IsUsingAnyGamepadButton()
 	{
-		for (int i = 0; i < this.m_allGamepadButtons.Count; i++)
+		for (int i = 0; i < m_allGamepadButtons.Count; i++)
 		{
-			if (this.m_allGamepadButtons[i].BeingUsed)
+			if (!m_allGamepadButtons[i].BeingUsed)
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (3)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControllerInputSnapshot.IsUsingAnyGamepadButton()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				return true;
 			}
@@ -166,369 +321,379 @@ public class ControllerInputSnapshot
 
 	public bool IsUsingAnyMouseButton()
 	{
-		return this.MouseButton_0.BeingUsed || this.MouseButton_1.BeingUsed || this.MouseButton_2.BeingUsed;
+		return MouseButton_0.BeingUsed || MouseButton_1.BeingUsed || MouseButton_2.BeingUsed;
 	}
 
 	public float GetValueOfInput(ControlpadInputValue input)
 	{
-		float result;
 		if (input == ControlpadInputValue.LeftStickX)
 		{
-			result = this.LeftStickX;
+			return LeftStickX;
 		}
-		else if (input == ControlpadInputValue.LeftStickY)
+		if (input == ControlpadInputValue.LeftStickY)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return LeftStickY;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControllerInputSnapshot.GetValueOfInput(ControlpadInputValue)).MethodHandle;
-			}
-			result = this.LeftStickY;
 		}
-		else if (input == ControlpadInputValue.RightStickX)
+		if (input == ControlpadInputValue.RightStickX)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = this.RightStickX;
-		}
-		else if (input == ControlpadInputValue.RightStickY)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return RightStickX;
 				}
-				break;
 			}
-			result = this.RightStickY;
 		}
-		else if (input == ControlpadInputValue.LeftTrigger)
+		if (input == ControlpadInputValue.RightStickY)
 		{
-			for (;;)
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					return RightStickY;
+				}
+			}
+		}
+		if (input == ControlpadInputValue.LeftTrigger)
+		{
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return LeftTrigger;
 				}
-				break;
 			}
-			result = this.LeftTrigger;
 		}
-		else if (input == ControlpadInputValue.RightTrigger)
+		if (input == ControlpadInputValue.RightTrigger)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return RightTrigger;
 				}
-				break;
 			}
-			result = this.RightTrigger;
 		}
-		else if (input == ControlpadInputValue.DpadX)
+		if (input == ControlpadInputValue.DpadX)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return DpadX;
 				}
-				break;
 			}
-			result = this.DpadX;
 		}
-		else if (input == ControlpadInputValue.DpadY)
+		if (input == ControlpadInputValue.DpadY)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return DpadY;
 				}
-				break;
 			}
-			result = this.DpadY;
 		}
-		else if (input == ControlpadInputValue.Button_A)
+		if (input == ControlpadInputValue.Button_A)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			float num;
-			if (this.Button_A.Value)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					float result;
+					if (Button_A.Value)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						result = 1f;
+					}
+					else
+					{
+						result = 0f;
+					}
+					return result;
 				}
-				num = 1f;
+				}
 			}
-			else
-			{
-				num = 0f;
-			}
-			result = num;
 		}
-		else if (input == ControlpadInputValue.Button_B)
+		if (input == ControlpadInputValue.Button_B)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			float num2;
-			if (this.Button_A.Value)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					float result2;
+					if (Button_A.Value)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						result2 = 1f;
+					}
+					else
+					{
+						result2 = 0f;
+					}
+					return result2;
 				}
-				num2 = 1f;
+				}
 			}
-			else
-			{
-				num2 = 0f;
-			}
-			result = num2;
 		}
-		else if (input == ControlpadInputValue.Button_X)
+		if (input == ControlpadInputValue.Button_X)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			float num3;
-			if (this.Button_X.Value)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					float result3;
+					if (Button_X.Value)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						result3 = 1f;
+					}
+					else
+					{
+						result3 = 0f;
+					}
+					return result3;
 				}
-				num3 = 1f;
+				}
 			}
-			else
-			{
-				num3 = 0f;
-			}
-			result = num3;
 		}
-		else if (input == ControlpadInputValue.Button_Y)
+		if (input == ControlpadInputValue.Button_Y)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			float num4;
-			if (this.Button_Y.Value)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					float result4;
+					if (Button_Y.Value)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						result4 = 1f;
+					}
+					else
+					{
+						result4 = 0f;
+					}
+					return result4;
 				}
-				num4 = 1f;
+				}
 			}
-			else
-			{
-				num4 = 0f;
-			}
-			result = num4;
 		}
-		else if (input == ControlpadInputValue.Button_leftShoulder)
+		if (input == ControlpadInputValue.Button_leftShoulder)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			float num5;
-			if (this.Button_leftShoulder.Value)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					float result5;
+					if (Button_leftShoulder.Value)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						result5 = 1f;
+					}
+					else
+					{
+						result5 = 0f;
+					}
+					return result5;
 				}
-				num5 = 1f;
+				}
 			}
-			else
-			{
-				num5 = 0f;
-			}
-			result = num5;
 		}
-		else if (input == ControlpadInputValue.Button_rightShoulder)
+		if (input == ControlpadInputValue.Button_rightShoulder)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			float num6;
-			if (this.Button_rightShoulder.Value)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					float result6;
+					if (Button_rightShoulder.Value)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						result6 = 1f;
+					}
+					else
+					{
+						result6 = 0f;
+					}
+					return result6;
 				}
-				num6 = 1f;
+				}
 			}
-			else
-			{
-				num6 = 0f;
-			}
-			result = num6;
 		}
-		else if (input == ControlpadInputValue.Button_start)
+		if (input == ControlpadInputValue.Button_start)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			float num7;
-			if (this.Button_start.Value)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					float result7;
+					if (Button_start.Value)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						result7 = 1f;
+					}
+					else
+					{
+						result7 = 0f;
+					}
+					return result7;
 				}
-				num7 = 1f;
+				}
 			}
-			else
-			{
-				num7 = 0f;
-			}
-			result = num7;
 		}
-		else if (input == ControlpadInputValue.Button_back)
+		switch (input)
 		{
-			result = ((!this.Button_back.Value) ? 0f : 1f);
-		}
-		else if (input == ControlpadInputValue.Button_leftStickIn)
-		{
-			for (;;)
+		case ControlpadInputValue.Button_back:
+			return (!Button_back.Value) ? 0f : 1f;
+		case ControlpadInputValue.Button_leftStickIn:
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			float num8;
-			if (this.Button_leftStickIn.Value)
-			{
-				for (;;)
+				float result9;
+				if (Button_leftStickIn.Value)
 				{
-					switch (4)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
-					break;
+					result9 = 1f;
 				}
-				num8 = 1f;
+				else
+				{
+					result9 = 0f;
+				}
+				return result9;
 			}
-			else
-			{
-				num8 = 0f;
-			}
-			result = num8;
-		}
-		else if (input == ControlpadInputValue.Button_rightStickIn)
+		case ControlpadInputValue.Button_rightStickIn:
 		{
-			float num9;
-			if (this.Button_rightStickIn.Value)
+			float result8;
+			if (Button_rightStickIn.Value)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -537,70 +702,16 @@ public class ControllerInputSnapshot
 					}
 					break;
 				}
-				num9 = 1f;
+				result8 = 1f;
 			}
 			else
 			{
-				num9 = 0f;
+				result8 = 0f;
 			}
-			result = num9;
+			return result8;
 		}
-		else
-		{
-			result = 0f;
+		default:
+			return 0f;
 		}
-		return result;
 	}
-
-	public float LeftStickX { get; private set; }
-
-	public float LeftStickY { get; private set; }
-
-	public float RightStickX { get; private set; }
-
-	public float RightStickY { get; private set; }
-
-	public float LeftTrigger { get; private set; }
-
-	public float RightTrigger { get; private set; }
-
-	public float DpadX { get; private set; }
-
-	public float DpadY { get; private set; }
-
-	public float MouseX { get; private set; }
-
-	public float MouseY { get; private set; }
-
-	public ControllerButtonState Button_A { get; private set; }
-
-	public ControllerButtonState Button_B { get; private set; }
-
-	public ControllerButtonState Button_X { get; private set; }
-
-	public ControllerButtonState Button_Y { get; private set; }
-
-	public ControllerButtonState Button_leftShoulder { get; private set; }
-
-	public ControllerButtonState Button_rightShoulder { get; private set; }
-
-	public ControllerButtonState Button_start { get; private set; }
-
-	public ControllerButtonState Button_back { get; private set; }
-
-	public ControllerButtonState Button_leftStickIn { get; private set; }
-
-	public ControllerButtonState Button_rightStickIn { get; private set; }
-
-	public ControllerButtonState MouseButton_0 { get; private set; }
-
-	public ControllerButtonState MouseButton_1 { get; private set; }
-
-	public ControllerButtonState MouseButton_2 { get; private set; }
-
-	public Vector3 LeftStickWorldDir { get; private set; }
-
-	public Vector3 RightStickWorldDir { get; private set; }
-
-	public Vector3 DpadWorldDir { get; private set; }
 }

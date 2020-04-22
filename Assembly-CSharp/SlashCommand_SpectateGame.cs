@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
 using LobbyGameClientMessages;
+using System;
+using System.Collections.Generic;
 
 public class SlashCommand_SpectateGame : SlashCommand
 {
-	public SlashCommand_SpectateGame() : base("/spectategame", SlashCommandType.InFrontEnd)
+	public SlashCommand_SpectateGame()
+		: base("/spectategame", SlashCommandType.InFrontEnd)
 	{
 	}
 
@@ -12,25 +13,25 @@ public class SlashCommand_SpectateGame : SlashCommand
 	{
 		if (!GameManager.Get().GameplayOverrides.AllowSpectatorsOutsideCustom)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					TextConsole.Get().Write(StringUtil.TR("FriendGameSpectatingNotAvailable", "Frontend"));
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_SpectateGame.OnSlashCommand(string)).MethodHandle;
-			}
-			TextConsole.Get().Write(StringUtil.TR("FriendGameSpectatingNotAvailable", "Frontend"), ConsoleMessageType.SystemMessage);
-			return;
 		}
-		if (SlashCommand_SpectateGame.<>f__am$cache0 == null)
+		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -39,45 +40,46 @@ public class SlashCommand_SpectateGame : SlashCommand
 				}
 				break;
 			}
-			SlashCommand_SpectateGame.<>f__am$cache0 = delegate(GameSpectatorResponse response)
+			_003C_003Ef__am_0024cache0 = delegate(GameSpectatorResponse response)
 			{
 				TextConsole.Message message = default(TextConsole.Message);
 				message.MessageType = ConsoleMessageType.SystemMessage;
 				if (!response.Success)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							if (response.LocalizedFailure != null)
+							{
+								message.Text = response.LocalizedFailure.ToString();
+							}
+							else if (!response.ErrorMessage.IsNullOrEmpty())
+							{
+								message.Text = $"Failed: {response.ErrorMessage}#NeedsLocalization";
+							}
+							else
+							{
+								message.Text = StringUtil.TR("UnknownErrorTryAgain", "Frontend");
+							}
+							TextConsole.Get().Write(message);
+							return;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(SlashCommand_SpectateGame.<OnSlashCommand>m__0(GameSpectatorResponse)).MethodHandle;
-					}
-					if (response.LocalizedFailure != null)
-					{
-						message.Text = response.LocalizedFailure.ToString();
-					}
-					else if (!response.ErrorMessage.IsNullOrEmpty())
-					{
-						message.Text = string.Format("Failed: {0}#NeedsLocalization", response.ErrorMessage);
-					}
-					else
-					{
-						message.Text = StringUtil.TR("UnknownErrorTryAgain", "Frontend");
-					}
-					TextConsole.Get().Write(message, null);
 				}
 			};
 		}
-		Action<GameSpectatorResponse> onResponseCallback = SlashCommand_SpectateGame.<>f__am$cache0;
+		Action<GameSpectatorResponse> onResponseCallback = _003C_003Ef__am_0024cache0;
 		if (!arguments.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -95,35 +97,39 @@ public class SlashCommand_SpectateGame : SlashCommand
 		FriendList friendList = ClientGameManager.Get().FriendList;
 		using (Dictionary<long, FriendInfo>.Enumerator enumerator = friendList.Friends.GetEnumerator())
 		{
-			while (enumerator.MoveNext())
+			while (true)
 			{
-				KeyValuePair<long, FriendInfo> keyValuePair = enumerator.Current;
-				if (keyValuePair.Value.IsJoinable(GameManager.Get().GameplayOverrides))
+				if (!enumerator.MoveNext())
 				{
-					for (;;)
+					while (true)
 					{
-						switch (6)
+						switch (2)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					ClientGameManager.Get().SpectateGame(keyValuePair.Value.FriendHandle, onResponseCallback);
-					goto IL_11C;
+					break;
 				}
-			}
-			for (;;)
-			{
-				switch (2)
+				KeyValuePair<long, FriendInfo> current = enumerator.Current;
+				if (current.Value.IsJoinable(GameManager.Get().GameplayOverrides))
 				{
-				case 0:
-					continue;
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							break;
+						default:
+							ClientGameManager.Get().SpectateGame(current.Value.FriendHandle, onResponseCallback);
+							goto end_IL_00aa;
+						}
+					}
 				}
-				break;
 			}
+			end_IL_00aa:;
 		}
-		IL_11C:
-		TextConsole.Get().Write(StringUtil.TR("NoFriendsIngame", "Frontend"), ConsoleMessageType.SystemMessage);
+		TextConsole.Get().Write(StringUtil.TR("NoFriendsIngame", "Frontend"));
 	}
 }

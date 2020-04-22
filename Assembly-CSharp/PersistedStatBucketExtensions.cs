@@ -1,13 +1,11 @@
-﻿using System;
-
 public static class PersistedStatBucketExtensions
 {
 	public static bool IsTracked(this PersistedStatBucket psb)
 	{
-		bool result;
-		if (psb != PersistedStatBucket.None)
+		int result;
+		if (psb != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -16,16 +14,16 @@ public static class PersistedStatBucketExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistedStatBucket.IsTracked()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (psb != PersistedStatBucket.DoNotPersist);
+			result = ((psb != PersistedStatBucket.DoNotPersist) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 }

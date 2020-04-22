@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,48 +31,47 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SniperBasicAttack sniperBasicAttack = targetAbility as SniperBasicAttack;
-		if (sniperBasicAttack != null)
+		if (!(sniperBasicAttack != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperBasicAttack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_damageMod, "LaserDamageAmount", string.Empty, sniperBasicAttack.m_laserDamageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_minDamageMod, "MinDamageAmount", string.Empty, sniperBasicAttack.m_minDamageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageChangePerHitMod, "DamageChangePerHit", string.Empty, sniperBasicAttack.m_damageChangePerHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", string.Empty, sniperBasicAttack.m_laserInfo.width, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "LaserRange", string.Empty, sniperBasicAttack.m_laserInfo.range, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxTargetsMod, "LaserMaxTargets", string.Empty, sniperBasicAttack.m_laserInfo.maxTargets, true, false);
-			if (this.m_farDistanceThreshold > 0f)
+			AbilityMod.AddToken(tokens, m_damageMod, "LaserDamageAmount", string.Empty, sniperBasicAttack.m_laserDamageAmount);
+			AbilityMod.AddToken(tokens, m_minDamageMod, "MinDamageAmount", string.Empty, sniperBasicAttack.m_minDamageAmount);
+			AbilityMod.AddToken(tokens, m_damageChangePerHitMod, "DamageChangePerHit", string.Empty, sniperBasicAttack.m_damageChangePerHit);
+			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, sniperBasicAttack.m_laserInfo.width);
+			AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, sniperBasicAttack.m_laserInfo.range);
+			AbilityMod.AddToken(tokens, m_maxTargetsMod, "LaserMaxTargets", string.Empty, sniperBasicAttack.m_laserInfo.maxTargets);
+			if (m_farDistanceThreshold > 0f)
 			{
-				AbilityMod.AddToken_IntDiff(tokens, "FarDistThreshold", string.Empty, Mathf.RoundToInt(this.m_farDistanceThreshold), false, 0);
-				AbilityMod.AddToken(tokens, this.m_farEnemyDamageMod, "Damage_Far", string.Empty, sniperBasicAttack.m_laserDamageAmount, true, false);
+				AbilityMod.AddToken_IntDiff(tokens, "FarDistThreshold", string.Empty, Mathf.RoundToInt(m_farDistanceThreshold), false, 0);
+				AbilityMod.AddToken(tokens, m_farEnemyDamageMod, "Damage_Far", string.Empty, sniperBasicAttack.m_laserDamageAmount);
 			}
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SniperBasicAttack sniperBasicAttack = base.GetTargetAbilityOnAbilityData(abilityData) as SniperBasicAttack;
+		SniperBasicAttack sniperBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as SniperBasicAttack;
 		bool flag = sniperBasicAttack != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat laserWidthMod = this.m_laserWidthMod;
-		string prefix = "[Laser Width]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat laserWidthMod = m_laserWidthMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -81,9 +80,9 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = sniperBasicAttack.m_laserInfo.width;
 		}
@@ -91,18 +90,16 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(laserWidthMod, prefix, showBaseVal, baseVal);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_laserRangeMod, "[Laser Range]", flag, (!flag) ? 0f : sniperBasicAttack.m_laserInfo.range);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_maxTargetsMod, "[Max Targets]", flag, (!flag) ? 0 : sniperBasicAttack.m_laserInfo.maxTargets);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_damageMod, "[Base Damage]", flag, (!flag) ? 0 : sniperBasicAttack.m_laserDamageAmount);
-		string str2 = text;
-		AbilityModPropertyInt minDamageMod = this.m_minDamageMod;
-		string prefix2 = "[Min Damage]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(laserWidthMod, "[Laser Width]", flag, baseVal);
+		empty += AbilityModHelper.GetModPropertyDesc(m_laserRangeMod, "[Laser Range]", flag, (!flag) ? 0f : sniperBasicAttack.m_laserInfo.range);
+		empty += AbilityModHelper.GetModPropertyDesc(m_maxTargetsMod, "[Max Targets]", flag, flag ? sniperBasicAttack.m_laserInfo.maxTargets : 0);
+		empty += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Base Damage]", flag, flag ? sniperBasicAttack.m_laserDamageAmount : 0);
+		string str2 = empty;
+		AbilityModPropertyInt minDamageMod = m_minDamageMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -117,15 +114,13 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(minDamageMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt damageChangePerHitMod = this.m_damageChangePerHitMod;
-		string prefix3 = "[Damage Change Per Hit]";
-		bool showBaseVal3 = flag;
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(minDamageMod, "[Min Damage]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyInt damageChangePerHitMod = m_damageChangePerHitMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -140,10 +135,10 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + AbilityModHelper.GetModPropertyDesc(damageChangePerHitMod, prefix3, showBaseVal3, baseVal3);
-		if (this.m_farDistanceThreshold > 0f)
+		empty = str3 + AbilityModHelper.GetModPropertyDesc(damageChangePerHitMod, "[Damage Change Per Hit]", flag, baseVal3);
+		if (m_farDistanceThreshold > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -152,52 +147,47 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 				}
 				break;
 			}
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"[Far Distance Threshold] = ",
-				this.m_farDistanceThreshold,
-				"\n"
-			});
-			text += AbilityModHelper.GetModPropertyDesc(this.m_farEnemyDamageMod, "[Far Enemy Damage]", flag, (!flag) ? 0 : sniperBasicAttack.m_laserDamageAmount);
+			string text = empty;
+			empty = text + "[Far Distance Threshold] = " + m_farDistanceThreshold + "\n";
+			empty += AbilityModHelper.GetModPropertyDesc(m_farEnemyDamageMod, "[Far Enemy Damage]", flag, flag ? sniperBasicAttack.m_laserDamageAmount : 0);
 		}
-		return text;
+		return empty;
 	}
 
 	protected override void AppendModSpecificTooltipCheckNumbers(Ability abilityAsBase, List<int> numbers)
 	{
 		SniperBasicAttack sniperBasicAttack = abilityAsBase as SniperBasicAttack;
-		if (sniperBasicAttack != null)
+		if (!(sniperBasicAttack != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperBasicAttack.AppendModSpecificTooltipCheckNumbers(Ability, List<int>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			int modifiedValue = this.m_damageMod.GetModifiedValue(sniperBasicAttack.m_laserDamageAmount);
-			int modifiedValue2 = this.m_damageChangePerHitMod.GetModifiedValue(sniperBasicAttack.m_damageChangePerHit);
+			int modifiedValue = m_damageMod.GetModifiedValue(sniperBasicAttack.m_laserDamageAmount);
+			int modifiedValue2 = m_damageChangePerHitMod.GetModifiedValue(sniperBasicAttack.m_damageChangePerHit);
 			if (modifiedValue2 != 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					numbers.Add(modifiedValue + modifiedValue2);
+					return;
 				}
-				numbers.Add(modifiedValue + modifiedValue2);
 			}
+			return;
 		}
 	}
 }

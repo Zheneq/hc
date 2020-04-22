@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 
 public static class BuildInfo
@@ -15,6 +15,6 @@ public static class BuildInfo
 
 	public static string GetBuildInfoString()
 	{
-		return BuildVersion.GetBuildDescriptionString(BuildInfo.GetBuildDateUtc(), BuildInfo.GetBuildMachine());
+		return BuildVersion.GetBuildDescriptionString(GetBuildDateUtc(), GetBuildMachine());
 	}
 }

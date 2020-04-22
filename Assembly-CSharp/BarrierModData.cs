@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -84,40 +84,40 @@ public class BarrierModData
 	public StandardBarrierData GetModifiedCopy(StandardBarrierData input)
 	{
 		StandardBarrierData shallowCopy = input.GetShallowCopy();
-		shallowCopy.m_maxDuration = this.m_durationMod.GetModifiedValue(input.m_maxDuration);
-		shallowCopy.m_width = this.m_widthMod.GetModifiedValue(input.m_width);
-		shallowCopy.m_bidirectional = this.m_bidirectionalMod.GetModifiedValue(input.m_bidirectional);
-		shallowCopy.m_maxHits = this.m_maxHitsMod.GetModifiedValue(input.m_maxHits);
-		shallowCopy.m_blocksVision = this.m_blocksVisionMod.GetModifiedValue(input.m_blocksVision);
-		shallowCopy.m_blocksAbilities = this.m_blocksAbilitiesMod.GetModifiedValue(input.m_blocksAbilities);
-		shallowCopy.m_blocksMovement = this.m_blocksMovementMod.GetModifiedValue(input.m_blocksMovement);
-		shallowCopy.m_blocksMovementOnCrossover = this.m_blocksMovementOnCrossoverMod.GetModifiedValue(input.m_blocksMovementOnCrossover);
-		shallowCopy.m_blocksPositionTargeting = this.m_blocksPositionTargetingMod.GetModifiedValue(input.m_blocksPositionTargeting);
-		shallowCopy.m_considerAsCover = this.m_considerAsCoverMod.GetModifiedValue(input.m_considerAsCover);
-		shallowCopy.m_onEnemyMovedThrough.m_damage = this.m_enemyMoveThroughDamageMod.GetModifiedValue(input.m_onEnemyMovedThrough.m_damage);
-		shallowCopy.m_onEnemyMovedThrough.m_techPoints = this.m_enemyMoveThroughEnergyMod.GetModifiedValue(input.m_onEnemyMovedThrough.m_techPoints);
-		shallowCopy.m_onEnemyMovedThrough.m_effect = this.m_enemyMoveThroughEffectMod.GetModifiedValue(input.m_onEnemyMovedThrough.m_effect);
-		shallowCopy.m_onAllyMovedThrough.m_healing = this.m_allyMoveThroughHealMod.GetModifiedValue(input.m_onAllyMovedThrough.m_healing);
-		shallowCopy.m_onAllyMovedThrough.m_techPoints = this.m_allyMoveThroughEnergyMod.GetModifiedValue(input.m_onAllyMovedThrough.m_techPoints);
-		shallowCopy.m_onAllyMovedThrough.m_effect = this.m_allyMoveThroughEffectMod.GetModifiedValue(input.m_onAllyMovedThrough.m_effect);
-		shallowCopy.m_removeAtTurnEndIfEnemyMovedThrough = this.m_removeOnTurnEndIfEnemyCrossed.GetModifiedValue(input.m_removeAtTurnEndIfEnemyMovedThrough);
-		shallowCopy.m_removeAtTurnEndIfAllyMovedThrough = this.m_removeOnTurnEndIfAllyCrossed.GetModifiedValue(input.m_removeAtTurnEndIfAllyMovedThrough);
-		shallowCopy.m_removeAtPhaseEndIfEnemyMovedThrough = this.m_removeOnPhaseEndIfEnemyCrossed.GetModifiedValue(input.m_removeAtPhaseEndIfEnemyMovedThrough);
-		shallowCopy.m_removeAtPhaseEndIfAllyMovedThrough = this.m_removeOnPhaseEndIfAllyCrossed.GetModifiedValue(input.m_removeAtPhaseEndIfAllyMovedThrough);
-		shallowCopy.m_endOnCasterDeath = this.m_removeOnCasterDeath.GetModifiedValue(input.m_endOnCasterDeath);
-		shallowCopy.m_onEnemyMovedThrough.m_sequenceToPlay = this.m_onEnemyCrossHitSequenceOverride.GetModifiedValue(input.m_onEnemyMovedThrough.m_sequenceToPlay);
-		shallowCopy.m_onAllyMovedThrough.m_sequenceToPlay = this.m_onAllyCrossHitSequenceOverride.GetModifiedValue(input.m_onAllyMovedThrough.m_sequenceToPlay);
-		shallowCopy.m_responseOnShotBlock.m_onShotSequencePrefab = this.m_responseOnShotSequenceOverride.GetModifiedValue(input.m_responseOnShotBlock.m_onShotSequencePrefab);
-		shallowCopy.m_responseOnShotBlock.m_useShooterPosAsReactionSequenceTargetPos = this.m_useShooterPosAsReactionSequenceTargetPosMod.GetModifiedValue(input.m_responseOnShotBlock.m_useShooterPosAsReactionSequenceTargetPos);
-		shallowCopy.m_responseOnShotBlock.m_healOnOwnerFromEnemyShot = this.m_healOnOwnerForShotBlock.GetModifiedValue(input.m_responseOnShotBlock.m_healOnOwnerFromEnemyShot);
-		shallowCopy.m_responseOnShotBlock.m_energyGainOnOwnerFromEnemyShot = this.m_energyGainOnOwnerForShotBlock.GetModifiedValue(input.m_responseOnShotBlock.m_energyGainOnOwnerFromEnemyShot);
-		shallowCopy.m_responseOnShotBlock.m_effectOnOwnerFromEnemyShot = this.m_effectOnOwnerForShotBlock.GetModifiedValue(input.m_responseOnShotBlock.m_effectOnOwnerFromEnemyShot);
-		shallowCopy.m_responseOnShotBlock.m_damageOnEnemyOnShot = this.m_damageOnEnemyForShotBlock.GetModifiedValue(input.m_responseOnShotBlock.m_damageOnEnemyOnShot);
-		shallowCopy.m_responseOnShotBlock.m_energyLossOnEnemyOnShot = this.m_energyLossOnEnemyForShotBlock.GetModifiedValue(input.m_responseOnShotBlock.m_energyLossOnEnemyOnShot);
-		shallowCopy.m_responseOnShotBlock.m_effectOnEnemyOnShot = this.m_effectOnEnemyForShotBlock.GetModifiedValue(input.m_responseOnShotBlock.m_effectOnEnemyOnShot);
-		if (this.m_useBarrierSequenceOverride)
+		shallowCopy.m_maxDuration = m_durationMod.GetModifiedValue(input.m_maxDuration);
+		shallowCopy.m_width = m_widthMod.GetModifiedValue(input.m_width);
+		shallowCopy.m_bidirectional = m_bidirectionalMod.GetModifiedValue(input.m_bidirectional);
+		shallowCopy.m_maxHits = m_maxHitsMod.GetModifiedValue(input.m_maxHits);
+		shallowCopy.m_blocksVision = m_blocksVisionMod.GetModifiedValue(input.m_blocksVision);
+		shallowCopy.m_blocksAbilities = m_blocksAbilitiesMod.GetModifiedValue(input.m_blocksAbilities);
+		shallowCopy.m_blocksMovement = m_blocksMovementMod.GetModifiedValue(input.m_blocksMovement);
+		shallowCopy.m_blocksMovementOnCrossover = m_blocksMovementOnCrossoverMod.GetModifiedValue(input.m_blocksMovementOnCrossover);
+		shallowCopy.m_blocksPositionTargeting = m_blocksPositionTargetingMod.GetModifiedValue(input.m_blocksPositionTargeting);
+		shallowCopy.m_considerAsCover = m_considerAsCoverMod.GetModifiedValue(input.m_considerAsCover);
+		shallowCopy.m_onEnemyMovedThrough.m_damage = m_enemyMoveThroughDamageMod.GetModifiedValue(input.m_onEnemyMovedThrough.m_damage);
+		shallowCopy.m_onEnemyMovedThrough.m_techPoints = m_enemyMoveThroughEnergyMod.GetModifiedValue(input.m_onEnemyMovedThrough.m_techPoints);
+		shallowCopy.m_onEnemyMovedThrough.m_effect = m_enemyMoveThroughEffectMod.GetModifiedValue(input.m_onEnemyMovedThrough.m_effect);
+		shallowCopy.m_onAllyMovedThrough.m_healing = m_allyMoveThroughHealMod.GetModifiedValue(input.m_onAllyMovedThrough.m_healing);
+		shallowCopy.m_onAllyMovedThrough.m_techPoints = m_allyMoveThroughEnergyMod.GetModifiedValue(input.m_onAllyMovedThrough.m_techPoints);
+		shallowCopy.m_onAllyMovedThrough.m_effect = m_allyMoveThroughEffectMod.GetModifiedValue(input.m_onAllyMovedThrough.m_effect);
+		shallowCopy.m_removeAtTurnEndIfEnemyMovedThrough = m_removeOnTurnEndIfEnemyCrossed.GetModifiedValue(input.m_removeAtTurnEndIfEnemyMovedThrough);
+		shallowCopy.m_removeAtTurnEndIfAllyMovedThrough = m_removeOnTurnEndIfAllyCrossed.GetModifiedValue(input.m_removeAtTurnEndIfAllyMovedThrough);
+		shallowCopy.m_removeAtPhaseEndIfEnemyMovedThrough = m_removeOnPhaseEndIfEnemyCrossed.GetModifiedValue(input.m_removeAtPhaseEndIfEnemyMovedThrough);
+		shallowCopy.m_removeAtPhaseEndIfAllyMovedThrough = m_removeOnPhaseEndIfAllyCrossed.GetModifiedValue(input.m_removeAtPhaseEndIfAllyMovedThrough);
+		shallowCopy.m_endOnCasterDeath = m_removeOnCasterDeath.GetModifiedValue(input.m_endOnCasterDeath);
+		shallowCopy.m_onEnemyMovedThrough.m_sequenceToPlay = m_onEnemyCrossHitSequenceOverride.GetModifiedValue(input.m_onEnemyMovedThrough.m_sequenceToPlay);
+		shallowCopy.m_onAllyMovedThrough.m_sequenceToPlay = m_onAllyCrossHitSequenceOverride.GetModifiedValue(input.m_onAllyMovedThrough.m_sequenceToPlay);
+		shallowCopy.m_responseOnShotBlock.m_onShotSequencePrefab = m_responseOnShotSequenceOverride.GetModifiedValue(input.m_responseOnShotBlock.m_onShotSequencePrefab);
+		shallowCopy.m_responseOnShotBlock.m_useShooterPosAsReactionSequenceTargetPos = m_useShooterPosAsReactionSequenceTargetPosMod.GetModifiedValue(input.m_responseOnShotBlock.m_useShooterPosAsReactionSequenceTargetPos);
+		shallowCopy.m_responseOnShotBlock.m_healOnOwnerFromEnemyShot = m_healOnOwnerForShotBlock.GetModifiedValue(input.m_responseOnShotBlock.m_healOnOwnerFromEnemyShot);
+		shallowCopy.m_responseOnShotBlock.m_energyGainOnOwnerFromEnemyShot = m_energyGainOnOwnerForShotBlock.GetModifiedValue(input.m_responseOnShotBlock.m_energyGainOnOwnerFromEnemyShot);
+		shallowCopy.m_responseOnShotBlock.m_effectOnOwnerFromEnemyShot = m_effectOnOwnerForShotBlock.GetModifiedValue(input.m_responseOnShotBlock.m_effectOnOwnerFromEnemyShot);
+		shallowCopy.m_responseOnShotBlock.m_damageOnEnemyOnShot = m_damageOnEnemyForShotBlock.GetModifiedValue(input.m_responseOnShotBlock.m_damageOnEnemyOnShot);
+		shallowCopy.m_responseOnShotBlock.m_energyLossOnEnemyOnShot = m_energyLossOnEnemyForShotBlock.GetModifiedValue(input.m_responseOnShotBlock.m_energyLossOnEnemyOnShot);
+		shallowCopy.m_responseOnShotBlock.m_effectOnEnemyOnShot = m_effectOnEnemyForShotBlock.GetModifiedValue(input.m_responseOnShotBlock.m_effectOnEnemyOnShot);
+		if (m_useBarrierSequenceOverride)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -126,11 +126,11 @@ public class BarrierModData
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BarrierModData.GetModifiedCopy(StandardBarrierData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			shallowCopy.m_barrierSequencePrefabs = new List<GameObject>(this.m_barrierSequenceOverrides);
+			shallowCopy.m_barrierSequencePrefabs = new List<GameObject>(m_barrierSequenceOverrides);
 		}
 		return shallowCopy;
 	}

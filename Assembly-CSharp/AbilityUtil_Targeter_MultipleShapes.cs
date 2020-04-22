@@ -1,492 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 {
-	private List<AbilityUtil_Targeter_MultipleShapes.MultiShapeData> m_shapes;
-
-	private const float c_heightOffset = 0.1f;
-
-	private float m_curSpeed;
-
-	public AbilityUtil_Targeter_MultipleShapes.IsAffectingCasterDelegate m_affectCasterDelegate;
-
-	public AbilityUtil_Targeter_MultipleShapes.CenterSquareDelegate m_centerSquareDelegate;
-
-	public bool m_alwaysIncludeShapeCenterActor;
-
-	protected OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
-
-	private List<AbilityUtil_Targeter_MultipleShapes.HitActorContext> m_hitActorContext = new List<AbilityUtil_Targeter_MultipleShapes.HitActorContext>();
-
-	public AbilityUtil_Targeter_MultipleShapes(Ability ability, List<AbilityUtil_Targeter_MultipleShapes.MultiShapeData> shapeDataList) : base(ability)
-	{
-		this.m_shapes = shapeDataList;
-		this.m_shapes.Sort();
-		this.m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
-	}
-
-	public AbilityUtil_Targeter_MultipleShapes(Ability ability, List<AbilityAreaShape> shapes, List<AbilityTooltipSubject> subjects, bool penetrateLoS, bool affectEnemies = true, bool affectAllies = false, bool affectSelf = false) : base(ability)
-	{
-		this.m_shapes = new List<AbilityUtil_Targeter_MultipleShapes.MultiShapeData>();
-		for (int i = 0; i < shapes.Count; i++)
-		{
-			int index = Mathf.Min(i, subjects.Count - 1);
-			AbilityTooltipSubject subjectEnemyInShape = subjects[index];
-			AbilityUtil_Targeter_MultipleShapes.MultiShapeData multiShapeData = new AbilityUtil_Targeter_MultipleShapes.MultiShapeData();
-			multiShapeData.m_shape = shapes[i];
-			multiShapeData.m_subjectEnemyInShape = subjectEnemyInShape;
-			multiShapeData.m_penetrateLoS = penetrateLoS;
-			multiShapeData.m_affectEnemies = affectEnemies;
-			multiShapeData.m_affectAllies = affectAllies;
-			multiShapeData.m_affectSelf = affectSelf;
-			this.m_shapes.Add(multiShapeData);
-		}
-		this.m_shapes.Sort();
-		this.m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
-	}
-
-	public List<AbilityUtil_Targeter_MultipleShapes.HitActorContext> GetHitActorContext()
-	{
-		return this.m_hitActorContext;
-	}
-
-	private bool IsInputValid()
-	{
-		return this.m_shapes.Count > 0;
-	}
-
-	private BoardSquare GetTargetSquare(AbilityTarget currentTarget, ActorData targetingActor)
-	{
-		if (this.m_centerSquareDelegate != null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MultipleShapes.GetTargetSquare(AbilityTarget, ActorData)).MethodHandle;
-			}
-			return this.m_centerSquareDelegate(currentTarget, targetingActor);
-		}
-		return Board.\u000E().\u000E(currentTarget.GridPos);
-	}
-
-	private Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor, AbilityAreaShape shape)
-	{
-		BoardSquare targetSquare = this.GetTargetSquare(currentTarget, targetingActor);
-		if (targetSquare != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MultipleShapes.GetHighlightGoalPos(AbilityTarget, ActorData, AbilityAreaShape)).MethodHandle;
-			}
-			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, currentTarget.FreePos, targetSquare);
-			centerOfShape.y = targetingActor.\u0016().y + 0.1f;
-			return centerOfShape;
-		}
-		return Vector3.zero;
-	}
-
-	public override void UpdateHighlightPosAfterClick(AbilityTarget target, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
-	{
-		if (this.m_highlights != null && this.m_shapes != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MultipleShapes.UpdateHighlightPosAfterClick(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
-			int i = 0;
-			while (i < this.m_highlights.Count)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (i >= this.m_shapes.Count)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						return;
-					}
-				}
-				else
-				{
-					AbilityAreaShape shape = this.m_shapes[i].m_shape;
-					Vector3 highlightGoalPos = this.GetHighlightGoalPos(target, targetingActor, shape);
-					this.m_highlights[i].transform.position = highlightGoalPos;
-					i++;
-				}
-			}
-		}
-	}
-
-	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
-	{
-		this.UpdateTargetingMultiTargets(currentTarget, targetingActor, 0, null);
-	}
-
-	public unsafe void HandleKnockbackArrowForActor(ActorData knockbackTarget, Vector3 origin, AbilityTarget abilityTarget, AbilityUtil_Targeter_MultipleShapes.MultiShapeData data, ref int nextMovementArrowIndex)
-	{
-		if (data.m_knockbackEnemies)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MultipleShapes.HandleKnockbackArrowForActor(ActorData, Vector3, AbilityTarget, AbilityUtil_Targeter_MultipleShapes.MultiShapeData, int*)).MethodHandle;
-			}
-			BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(knockbackTarget, data.m_knockbackType, abilityTarget.AimDirection, origin, data.m_knockbackDistance);
-			nextMovementArrowIndex = base.AddMovementArrowWithPrevious(knockbackTarget, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, nextMovementArrowIndex, false);
-		}
-	}
-
-	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
-	{
-		base.ClearActorsInRange();
-		this.m_hitActorContext.Clear();
-		base.ClearArrows();
-		int num = 0;
-		if (!this.IsInputValid())
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MultipleShapes.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
-			return;
-		}
-		bool flag = GameFlowData.Get().activeOwnedActorData == targetingActor;
-		if (flag)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			base.ResetSquareIndicatorIndexToUse();
-		}
-		BoardSquare targetSquare = this.GetTargetSquare(currentTarget, targetingActor);
-		if (targetSquare != null)
-		{
-			List<ActorData> list = new List<ActorData>();
-			bool flag2 = false;
-			int num2 = -1;
-			for (int i = 0; i < this.m_shapes.Count; i++)
-			{
-				AbilityAreaShape shape = this.m_shapes[i].m_shape;
-				Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, currentTarget.FreePos, targetSquare);
-				AbilityTooltipSubject subjectEnemyInShape = this.m_shapes[i].m_subjectEnemyInShape;
-				AbilityTooltipSubject subjectAllyInShape = this.m_shapes[i].m_subjectAllyInShape;
-				List<Team> affectedTeams = this.m_shapes[i].GetAffectedTeams(targetingActor);
-				bool penetrateLoS = this.m_shapes[i].m_penetrateLoS;
-				List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(shape, currentTarget.FreePos, targetSquare, penetrateLoS, targetingActor, affectedTeams, null);
-				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
-				using (List<ActorData>.Enumerator enumerator = actorsInShape.GetEnumerator())
-				{
-					while (enumerator.MoveNext())
-					{
-						ActorData actorData = enumerator.Current;
-						if (!list.Contains(actorData))
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (actorData.\u000E() != targetingActor.\u000E())
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								base.AddActorInRange(actorData, centerOfShape, targetingActor, subjectEnemyInShape, false);
-								this.HandleKnockbackArrowForActor(actorData, centerOfShape, currentTarget, this.m_shapes[i], ref num);
-								list.Add(actorData);
-								this.m_hitActorContext.Add(new AbilityUtil_Targeter_MultipleShapes.HitActorContext(actorData, i));
-							}
-							else if (actorData != targetingActor)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								base.AddActorInRange(actorData, centerOfShape, targetingActor, subjectAllyInShape, false);
-								list.Add(actorData);
-								this.m_hitActorContext.Add(new AbilityUtil_Targeter_MultipleShapes.HitActorContext(actorData, i));
-							}
-							else
-							{
-								flag2 = true;
-								if (num2 < 0)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									num2 = i;
-								}
-							}
-						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!flag2 && !this.m_affectsTargetingActor)
-			{
-				if (this.m_affectCasterDelegate == null)
-				{
-					goto IL_2D0;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!this.m_affectCasterDelegate(targetingActor, list))
-				{
-					goto IL_2D0;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Primary, false);
-			list.Add(targetingActor);
-			num2 = Mathf.Max(0, num2);
-			this.m_hitActorContext.Add(new AbilityUtil_Targeter_MultipleShapes.HitActorContext(targetingActor, num2));
-			IL_2D0:
-			ActorData occupantActor = targetSquare.OccupantActor;
-			if (this.m_alwaysIncludeShapeCenterActor)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (occupantActor != null)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!list.Contains(occupantActor))
-					{
-						base.AddActorInRange(occupantActor, occupantActor.\u0016(), targetingActor, AbilityTooltipSubject.Primary, false);
-						list.Add(occupantActor);
-						this.m_hitActorContext.Add(new AbilityUtil_Targeter_MultipleShapes.HitActorContext(occupantActor, 0));
-					}
-				}
-			}
-			if (this.m_highlights != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_highlights.Count >= this.m_shapes.Count)
-				{
-					goto IL_400;
-				}
-			}
-			this.m_highlights = new List<GameObject>();
-			for (int j = 0; j < this.m_shapes.Count; j++)
-			{
-				AbilityAreaShape shape2 = this.m_shapes[j].m_shape;
-				Vector3 highlightGoalPos = this.GetHighlightGoalPos(currentTarget, targetingActor, shape2);
-				GameObject gameObject = HighlightUtils.Get().CreateShapeCursor(shape2, targetingActor == GameFlowData.Get().activeOwnedActorData);
-				gameObject.transform.position = highlightGoalPos;
-				this.m_highlights.Add(gameObject);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			IL_400:
-			float curSpeed = this.m_curSpeed;
-			for (int k = 0; k < this.m_shapes.Count; k++)
-			{
-				AbilityAreaShape shape3 = this.m_shapes[k].m_shape;
-				Vector3 highlightGoalPos2 = this.GetHighlightGoalPos(currentTarget, targetingActor, shape3);
-				float curSpeed2 = this.m_curSpeed;
-				this.m_highlights[k].transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos2, this.m_highlights[k], ref curSpeed2);
-				curSpeed = curSpeed2;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_curSpeed = curSpeed;
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				AbilityUtil_Targeter_MultipleShapes.MultiShapeData multiShapeData = this.m_shapes[this.m_shapes.Count - 1];
-				AreaEffectUtils.OperateOnSquaresInShape(this.m_indicatorHandler, multiShapeData.m_shape, currentTarget.FreePos, targetSquare, multiShapeData.m_penetrateLoS, targetingActor, null);
-			}
-		}
-		for (int l = 0; l < this.m_hitActorContext.Count; l++)
-		{
-			AbilityUtil_Targeter_MultipleShapes.HitActorContext hitActorContext = this.m_hitActorContext[l];
-			ActorHitContext actorHitContext = this.m_actorContextVars[hitActorContext.m_actor];
-			actorHitContext.\u0015.\u0016(TargetSelect_Shape.s_cvarShapeLayer.\u0012(), hitActorContext.m_hitShapeIndex);
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (flag)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			base.HideUnusedSquareIndicators();
-		}
-	}
-
 	public class MultiShapeData : ShapeToDataBase
 	{
 		public bool m_penetrateLoS = true;
@@ -510,9 +27,9 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 		public List<Team> GetAffectedTeams(ActorData caster)
 		{
 			List<Team> list = new List<Team>();
-			if (this.m_affectEnemies)
+			if (m_affectEnemies)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -521,15 +38,15 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MultipleShapes.MultiShapeData.GetAffectedTeams(ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				list.Add(caster.\u0012());
+				list.Add(caster.GetOpposingTeam());
 			}
-			if (this.m_affectAllies)
+			if (m_affectAllies)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -538,7 +55,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 					}
 					break;
 				}
-				list.Add(caster.\u000E());
+				list.Add(caster.GetTeam());
 			}
 			return list;
 		}
@@ -556,8 +73,506 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 
 		public HitActorContext(ActorData a, int index)
 		{
-			this.m_actor = a;
-			this.m_hitShapeIndex = index;
+			m_actor = a;
+			m_hitShapeIndex = index;
 		}
+	}
+
+	private List<MultiShapeData> m_shapes;
+
+	private const float c_heightOffset = 0.1f;
+
+	private float m_curSpeed;
+
+	public IsAffectingCasterDelegate m_affectCasterDelegate;
+
+	public CenterSquareDelegate m_centerSquareDelegate;
+
+	public bool m_alwaysIncludeShapeCenterActor;
+
+	protected OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
+
+	private List<HitActorContext> m_hitActorContext = new List<HitActorContext>();
+
+	public AbilityUtil_Targeter_MultipleShapes(Ability ability, List<MultiShapeData> shapeDataList)
+		: base(ability)
+	{
+		m_shapes = shapeDataList;
+		m_shapes.Sort();
+		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
+	}
+
+	public AbilityUtil_Targeter_MultipleShapes(Ability ability, List<AbilityAreaShape> shapes, List<AbilityTooltipSubject> subjects, bool penetrateLoS, bool affectEnemies = true, bool affectAllies = false, bool affectSelf = false)
+		: base(ability)
+	{
+		m_shapes = new List<MultiShapeData>();
+		for (int i = 0; i < shapes.Count; i++)
+		{
+			int index = Mathf.Min(i, subjects.Count - 1);
+			AbilityTooltipSubject subjectEnemyInShape = subjects[index];
+			MultiShapeData item = new MultiShapeData
+			{
+				m_shape = shapes[i],
+				m_subjectEnemyInShape = subjectEnemyInShape,
+				m_penetrateLoS = penetrateLoS,
+				m_affectEnemies = affectEnemies,
+				m_affectAllies = affectAllies,
+				m_affectSelf = affectSelf
+			};
+			m_shapes.Add(item);
+		}
+		m_shapes.Sort();
+		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
+	}
+
+	public List<HitActorContext> GetHitActorContext()
+	{
+		return m_hitActorContext;
+	}
+
+	private bool IsInputValid()
+	{
+		return m_shapes.Count > 0;
+	}
+
+	private BoardSquare GetTargetSquare(AbilityTarget currentTarget, ActorData targetingActor)
+	{
+		if (m_centerSquareDelegate != null)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_centerSquareDelegate(currentTarget, targetingActor);
+				}
+			}
+		}
+		return Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+	}
+
+	private Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor, AbilityAreaShape shape)
+	{
+		BoardSquare targetSquare = GetTargetSquare(currentTarget, targetingActor);
+		if (targetSquare != null)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, currentTarget.FreePos, targetSquare);
+					Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+					centerOfShape.y = travelBoardSquareWorldPosition.y + 0.1f;
+					return centerOfShape;
+				}
+				}
+			}
+		}
+		return Vector3.zero;
+	}
+
+	public override void UpdateHighlightPosAfterClick(AbilityTarget target, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
+	{
+		if (m_highlights == null || m_shapes == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			int num = 0;
+			while (num < m_highlights.Count)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					if (num < m_shapes.Count)
+					{
+						AbilityAreaShape shape = m_shapes[num].m_shape;
+						Vector3 highlightGoalPos = GetHighlightGoalPos(target, targetingActor, shape);
+						m_highlights[num].transform.position = highlightGoalPos;
+						num++;
+						goto IL_006c;
+					}
+					while (true)
+					{
+						switch (7)
+						{
+						default:
+							return;
+						case 0:
+							break;
+						}
+					}
+				}
+				IL_006c:;
+			}
+			return;
+		}
+	}
+
+	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
+	{
+		UpdateTargetingMultiTargets(currentTarget, targetingActor, 0, null);
+	}
+
+	public void HandleKnockbackArrowForActor(ActorData knockbackTarget, Vector3 origin, AbilityTarget abilityTarget, MultiShapeData data, ref int nextMovementArrowIndex)
+	{
+		if (!data.m_knockbackEnemies)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(knockbackTarget, data.m_knockbackType, abilityTarget.AimDirection, origin, data.m_knockbackDistance);
+			nextMovementArrowIndex = AddMovementArrowWithPrevious(knockbackTarget, path, TargeterMovementType.Knockback, nextMovementArrowIndex);
+			return;
+		}
+	}
+
+	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
+	{
+		ClearActorsInRange();
+		m_hitActorContext.Clear();
+		ClearArrows();
+		int nextMovementArrowIndex = 0;
+		if (!IsInputValid())
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
+			}
+		}
+		bool flag = GameFlowData.Get().activeOwnedActorData == targetingActor;
+		if (flag)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			ResetSquareIndicatorIndexToUse();
+		}
+		BoardSquare targetSquare = GetTargetSquare(currentTarget, targetingActor);
+		List<ActorData> list;
+		int num;
+		if (targetSquare != null)
+		{
+			list = new List<ActorData>();
+			bool flag2 = false;
+			num = -1;
+			for (int i = 0; i < m_shapes.Count; i++)
+			{
+				AbilityAreaShape shape = m_shapes[i].m_shape;
+				Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, currentTarget.FreePos, targetSquare);
+				AbilityTooltipSubject subjectEnemyInShape = m_shapes[i].m_subjectEnemyInShape;
+				AbilityTooltipSubject subjectAllyInShape = m_shapes[i].m_subjectAllyInShape;
+				List<Team> affectedTeams = m_shapes[i].GetAffectedTeams(targetingActor);
+				bool penetrateLoS = m_shapes[i].m_penetrateLoS;
+				List<ActorData> actors = AreaEffectUtils.GetActorsInShape(shape, currentTarget.FreePos, targetSquare, penetrateLoS, targetingActor, affectedTeams, null);
+				TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+				using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
+				{
+					while (enumerator.MoveNext())
+					{
+						ActorData current = enumerator.Current;
+						if (!list.Contains(current))
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (current.GetTeam() != targetingActor.GetTeam())
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								AddActorInRange(current, centerOfShape, targetingActor, subjectEnemyInShape);
+								HandleKnockbackArrowForActor(current, centerOfShape, currentTarget, m_shapes[i], ref nextMovementArrowIndex);
+								list.Add(current);
+								m_hitActorContext.Add(new HitActorContext(current, i));
+							}
+							else if (current != targetingActor)
+							{
+								while (true)
+								{
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								AddActorInRange(current, centerOfShape, targetingActor, subjectAllyInShape);
+								list.Add(current);
+								m_hitActorContext.Add(new HitActorContext(current, i));
+							}
+							else
+							{
+								flag2 = true;
+								if (num < 0)
+								{
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									num = i;
+								}
+							}
+						}
+					}
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (flag2 || m_affectsTargetingActor)
+			{
+				goto IL_0298;
+			}
+			if (m_affectCasterDelegate != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (m_affectCasterDelegate(targetingActor, list))
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					goto IL_0298;
+				}
+			}
+			goto IL_02d0;
+		}
+		goto IL_04e4;
+		IL_02d0:
+		ActorData occupantActor = targetSquare.OccupantActor;
+		if (m_alwaysIncludeShapeCenterActor)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (occupantActor != null)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!list.Contains(occupantActor))
+				{
+					AddActorInRange(occupantActor, occupantActor.GetTravelBoardSquareWorldPosition(), targetingActor);
+					list.Add(occupantActor);
+					m_hitActorContext.Add(new HitActorContext(occupantActor, 0));
+				}
+			}
+		}
+		if (m_highlights != null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (m_highlights.Count >= m_shapes.Count)
+			{
+				goto IL_0400;
+			}
+		}
+		m_highlights = new List<GameObject>();
+		for (int j = 0; j < m_shapes.Count; j++)
+		{
+			AbilityAreaShape shape2 = m_shapes[j].m_shape;
+			Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor, shape2);
+			GameObject gameObject = HighlightUtils.Get().CreateShapeCursor(shape2, targetingActor == GameFlowData.Get().activeOwnedActorData);
+			gameObject.transform.position = highlightGoalPos;
+			m_highlights.Add(gameObject);
+		}
+		while (true)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			break;
+		}
+		goto IL_0400;
+		IL_04e4:
+		for (int k = 0; k < m_hitActorContext.Count; k++)
+		{
+			HitActorContext hitActorContext = m_hitActorContext[k];
+			ActorHitContext actorHitContext = m_actorContextVars[hitActorContext.m_actor];
+			actorHitContext._0015.SetInt(TargetSelect_Shape.s_cvarShapeLayer.GetHash(), hitActorContext.m_hitShapeIndex);
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (flag)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					HideUnusedSquareIndicators();
+					return;
+				}
+			}
+			return;
+		}
+		IL_0400:
+		float curSpeed = m_curSpeed;
+		for (int l = 0; l < m_shapes.Count; l++)
+		{
+			AbilityAreaShape shape3 = m_shapes[l].m_shape;
+			Vector3 highlightGoalPos2 = GetHighlightGoalPos(currentTarget, targetingActor, shape3);
+			float currentSpeed = m_curSpeed;
+			m_highlights[l].transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos2, m_highlights[l], ref currentSpeed);
+			curSpeed = currentSpeed;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			break;
+		}
+		m_curSpeed = curSpeed;
+		if (flag)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			MultiShapeData multiShapeData = m_shapes[m_shapes.Count - 1];
+			AreaEffectUtils.OperateOnSquaresInShape(m_indicatorHandler, multiShapeData.m_shape, currentTarget.FreePos, targetSquare, multiShapeData.m_penetrateLoS, targetingActor);
+		}
+		goto IL_04e4;
+		IL_0298:
+		AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor);
+		list.Add(targetingActor);
+		num = Mathf.Max(0, num);
+		m_hitActorContext.Add(new HitActorContext(targetingActor, num));
+		goto IL_02d0;
 	}
 }

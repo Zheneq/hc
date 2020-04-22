@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,45 +36,44 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		BattleMonkBoundingLeap battleMonkBoundingLeap = targetAbility as BattleMonkBoundingLeap;
-		if (battleMonkBoundingLeap != null)
+		if (!(battleMonkBoundingLeap != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkBoundingLeap.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_maxDistancePerBounceMod, "MaxDistancePerBounce", string.Empty, battleMonkBoundingLeap.m_maxDistancePerBounce, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxTotalDistanceMod, "MaxTotalDistance", string.Empty, battleMonkBoundingLeap.m_maxTotalDistance, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxBouncesMod, "MaxBounces", string.Empty, battleMonkBoundingLeap.m_maxBounces, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageMod, "DamageAmount", string.Empty, battleMonkBoundingLeap.m_damageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageAfterFirstHitMod, "DamageAfterFirstHit", string.Empty, battleMonkBoundingLeap.m_damageAfterFirstHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_maxBouncesMod, "MaxBounces", string.Empty, battleMonkBoundingLeap.m_maxBounces, true, false);
-			AbilityMod.AddToken(tokens, this.m_maxHitTargetsMod, "MaxTargetsHit", string.Empty, battleMonkBoundingLeap.m_maxTargetsHit, true, false);
-			AbilityMod.AddToken_EffectInfo(tokens, this.m_allyHitEffect, "AllyHitEffectMod", null, false);
+			AbilityMod.AddToken(tokens, m_maxDistancePerBounceMod, "MaxDistancePerBounce", string.Empty, battleMonkBoundingLeap.m_maxDistancePerBounce);
+			AbilityMod.AddToken(tokens, m_maxTotalDistanceMod, "MaxTotalDistance", string.Empty, battleMonkBoundingLeap.m_maxTotalDistance);
+			AbilityMod.AddToken(tokens, m_maxBouncesMod, "MaxBounces", string.Empty, battleMonkBoundingLeap.m_maxBounces);
+			AbilityMod.AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, battleMonkBoundingLeap.m_damageAmount);
+			AbilityMod.AddToken(tokens, m_damageAfterFirstHitMod, "DamageAfterFirstHit", string.Empty, battleMonkBoundingLeap.m_damageAfterFirstHit);
+			AbilityMod.AddToken(tokens, m_maxBouncesMod, "MaxBounces", string.Empty, battleMonkBoundingLeap.m_maxBounces);
+			AbilityMod.AddToken(tokens, m_maxHitTargetsMod, "MaxTargetsHit", string.Empty, battleMonkBoundingLeap.m_maxTargetsHit);
+			AbilityMod.AddToken_EffectInfo(tokens, m_allyHitEffect, "AllyHitEffectMod", null, false);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		BattleMonkBoundingLeap battleMonkBoundingLeap = base.GetTargetAbilityOnAbilityData(abilityData) as BattleMonkBoundingLeap;
+		BattleMonkBoundingLeap battleMonkBoundingLeap = GetTargetAbilityOnAbilityData(abilityData) as BattleMonkBoundingLeap;
 		bool flag = battleMonkBoundingLeap != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix = "[Damage]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -83,9 +82,9 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkBoundingLeap.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = battleMonkBoundingLeap.m_damageAmount;
 		}
@@ -93,15 +92,13 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(damageMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt damageAfterFirstHitMod = this.m_damageAfterFirstHitMod;
-		string prefix2 = "[DamageAfterFirstHit]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(damageMod, "[Damage]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyInt damageAfterFirstHitMod = m_damageAfterFirstHitMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -116,15 +113,13 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(damageAfterFirstHitMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt maxHitTargetsMod = this.m_maxHitTargetsMod;
-		string prefix3 = "[Max Hits]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(damageAfterFirstHitMod, "[DamageAfterFirstHit]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyInt maxHitTargetsMod = m_maxHitTargetsMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -139,15 +134,13 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + AbilityModHelper.GetModPropertyDesc(maxHitTargetsMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyBool bounceOffEnemyActorMod = this.m_bounceOffEnemyActorMod;
-		string prefix4 = "[Bounce Off Enemies?]";
-		bool showBaseVal4 = flag;
-		bool baseVal4;
+		empty = str3 + AbilityModHelper.GetModPropertyDesc(maxHitTargetsMod, "[Max Hits]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyBool bounceOffEnemyActorMod = m_bounceOffEnemyActorMod;
+		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -156,21 +149,19 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 				}
 				break;
 			}
-			baseVal4 = battleMonkBoundingLeap.m_bounceOffEnemyActor;
+			baseVal4 = (battleMonkBoundingLeap.m_bounceOffEnemyActor ? 1 : 0);
 		}
 		else
 		{
-			baseVal4 = false;
+			baseVal4 = 0;
 		}
-		text = str4 + AbilityModHelper.GetModPropertyDesc(bounceOffEnemyActorMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyFloat maxDistancePerBounceMod = this.m_maxDistancePerBounceMod;
-		string prefix5 = "[MaxDistancePerBounce]";
-		bool showBaseVal5 = flag;
+		empty = str4 + AbilityModHelper.GetModPropertyDesc(bounceOffEnemyActorMod, "[Bounce Off Enemies?]", flag, (byte)baseVal4 != 0);
+		string str5 = empty;
+		AbilityModPropertyFloat maxDistancePerBounceMod = m_maxDistancePerBounceMod;
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -185,15 +176,13 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		{
 			baseVal5 = 0f;
 		}
-		text = str5 + base.PropDesc(maxDistancePerBounceMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyFloat maxTotalDistanceMod = this.m_maxTotalDistanceMod;
-		string prefix6 = "[MaxTotalDistance]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(maxDistancePerBounceMod, "[MaxDistancePerBounce]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyFloat maxTotalDistanceMod = m_maxTotalDistanceMod;
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -208,15 +197,13 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		{
 			baseVal6 = 0f;
 		}
-		text = str6 + base.PropDesc(maxTotalDistanceMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyInt maxBouncesMod = this.m_maxBouncesMod;
-		string prefix7 = "[MaxBounces]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(maxTotalDistanceMod, "[MaxTotalDistance]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyInt maxBouncesMod = m_maxBouncesMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -231,9 +218,9 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		{
 			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(maxBouncesMod, prefix7, showBaseVal7, baseVal7);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_hitAlliesInBetween, "[Hit Allies In-Between]", flag, false);
-		text += AbilityModHelper.GetModEffectInfoDesc(this.m_allyHitEffect, "{ Ally Hit Effect }", string.Empty, flag, null);
-		return text + base.PropDesc(this.m_healAmountIfNotDamagedThisTurn, "{ Heal Amount If Not Damaged This Turn }", flag, 0);
+		empty = str7 + PropDesc(maxBouncesMod, "[MaxBounces]", flag, baseVal7);
+		empty += AbilityModHelper.GetModPropertyDesc(m_hitAlliesInBetween, "[Hit Allies In-Between]", flag);
+		empty += AbilityModHelper.GetModEffectInfoDesc(m_allyHitEffect, "{ Ally Hit Effect }", string.Empty, flag);
+		return empty + PropDesc(m_healAmountIfNotDamagedThisTurn, "{ Heal Amount If Not Damaged This Turn }", flag);
 	}
 }

@@ -1,11 +1,25 @@
-﻿using System;
 using UnityEngine;
 
 public class SimpleTimingSequence : Sequence
 {
+	public class ExtraParams : IExtraSequenceParams
+	{
+		public float hitDelayTime = -1f;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			stream.Serialize(ref hitDelayTime);
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			stream.Serialize(ref hitDelayTime);
+		}
+	}
+
 	[AnimEventPicker]
 	[Tooltip("Animation Event to listen for to play the on hit")]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
 	public float m_hitDelay;
 
@@ -18,50 +32,31 @@ public class SimpleTimingSequence : Sequence
 
 	private float m_hitTime;
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			if (extraSequenceParams is SimpleTimingSequence.ExtraParams)
+			if (!(extraSequenceParams is ExtraParams))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleTimingSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
-				SimpleTimingSequence.ExtraParams extraParams2 = extraSequenceParams as SimpleTimingSequence.ExtraParams;
-				if (extraParams2.hitDelayTime > 0f)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_hitDelay = extraParams2.hitDelayTime;
-				}
+				continue;
 			}
-		}
-	}
-
-	private void Update()
-	{
-		if (this.m_initialized)
-		{
-			if (this.m_startEvent == null)
+			while (true)
 			{
-				for (;;)
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
+			if (extraParams2.hitDelayTime > 0f)
+			{
+				while (true)
 				{
 					switch (5)
 					{
@@ -70,83 +65,106 @@ public class SimpleTimingSequence : Sequence
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleTimingSequence.Update()).MethodHandle;
-				}
-				if (!this.m_calledOnHitForNullStartEvent)
-				{
-					this.StartHits();
-					this.m_calledOnHitForNullStartEvent = true;
-				}
-			}
-			if (!this.m_hitsDone)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_hitTime > 0f && GameTime.time > this.m_hitTime)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.DoSequenceHits();
-				}
+				m_hitDelay = extraParams2.hitDelayTime;
 			}
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	private void Update()
 	{
-		if (this.m_startEvent == parameter)
+		if (!m_initialized)
 		{
-			this.StartHits();
+			return;
 		}
-	}
-
-	private void StartHits()
-	{
-		if (this.m_hitDelay <= 0f)
+		if (m_startEvent == null)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (4)
+				switch (5)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleTimingSequence.StartHits()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.DoSequenceHits();
+			if (!m_calledOnHitForNullStartEvent)
+			{
+				StartHits();
+				m_calledOnHitForNullStartEvent = true;
+			}
 		}
-		else if (this.m_hitTime == 0f)
+		if (m_hitsDone)
 		{
-			this.m_hitTime = GameTime.time + this.m_hitDelay;
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (m_hitTime > 0f && GameTime.time > m_hitTime)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					DoSequenceHits();
+					return;
+				}
+			}
+			return;
+		}
+	}
+
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
+	{
+		if (m_startEvent == parameter)
+		{
+			StartHits();
+		}
+	}
+
+	private void StartHits()
+	{
+		if (m_hitDelay <= 0f)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					DoSequenceHits();
+					return;
+				}
+			}
+		}
+		if (m_hitTime == 0f)
+		{
+			m_hitTime = GameTime.time + m_hitDelay;
 		}
 	}
 
 	protected virtual void DoSequenceHits()
 	{
-		base.Source.OnSequenceHit(this, base.TargetPos, null);
+		base.Source.OnSequenceHit(this, base.TargetPos);
 		if (base.Targets != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -155,15 +173,16 @@ public class SimpleTimingSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleTimingSequence.DoSequenceHits()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			foreach (ActorData actorData in base.Targets)
+			ActorData[] targets = base.Targets;
+			foreach (ActorData actorData in targets)
 			{
-				base.Source.OnSequenceHit(this, actorData, Sequence.CreateImpulseInfoWithActorForward(actorData), ActorModelData.RagdollActivation.HealthBased, true);
+				base.Source.OnSequenceHit(this, actorData, Sequence.CreateImpulseInfoWithActorForward(actorData));
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -173,9 +192,9 @@ public class SimpleTimingSequence : Sequence
 				break;
 			}
 		}
-		if (!string.IsNullOrEmpty(this.m_onHitAudioEvent))
+		if (!string.IsNullOrEmpty(m_onHitAudioEvent))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -187,7 +206,7 @@ public class SimpleTimingSequence : Sequence
 			GameObject gameObject = null;
 			if (base.Caster != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -200,24 +219,9 @@ public class SimpleTimingSequence : Sequence
 			}
 			if (gameObject != null)
 			{
-				AudioManager.PostEvent(this.m_onHitAudioEvent, gameObject);
+				AudioManager.PostEvent(m_onHitAudioEvent, gameObject);
 			}
 		}
-		this.m_hitsDone = true;
-	}
-
-	public class ExtraParams : Sequence.IExtraSequenceParams
-	{
-		public float hitDelayTime = -1f;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.hitDelayTime);
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.hitDelayTime);
-		}
+		m_hitsDone = true;
 	}
 }

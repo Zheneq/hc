@@ -1,21 +1,26 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class UIRewardListTooltip : UITooltipBase
 {
+	public enum RewardsType
+	{
+		Seasons,
+		Character,
+		Tutorial
+	}
+
 	public UIPlayerProgressRewardListEntry m_entryPrefab;
 
 	public TextMeshProUGUI m_levelLabel;
 
-	public void Setup(List<RewardUtils.RewardData> rewards, int currentLevel, UIRewardListTooltip.RewardsType rewardType, bool flipped = false)
+	public void Setup(List<RewardUtils.RewardData> rewards, int currentLevel, RewardsType rewardType, bool flipped = false)
 	{
-		float x = 1f;
-		float num;
+		int num;
 		if (flipped)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -24,26 +29,26 @@ public class UIRewardListTooltip : UITooltipBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRewardListTooltip.Setup(List<RewardUtils.RewardData>, int, UIRewardListTooltip.RewardsType, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = (float)-1;
+			num = -1;
 		}
 		else
 		{
-			num = (float)1;
+			num = 1;
 		}
-		Vector3 localScale = new Vector3(x, num, 1f);
+		Vector3 localScale = new Vector3(1f, num, 1f);
 		base.transform.localScale = localScale;
 		List<UIPlayerProgressRewardListEntry> list = new List<UIPlayerProgressRewardListEntry>();
 		list.AddRange(base.gameObject.GetComponentsInChildren<UIPlayerProgressRewardListEntry>(true));
 		for (int i = 0; i < rewards.Count; i++)
 		{
-			UIPlayerProgressRewardListEntry uiplayerProgressRewardListEntry;
+			UIPlayerProgressRewardListEntry uIPlayerProgressRewardListEntry;
 			if (i < list.Count)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -53,103 +58,96 @@ public class UIRewardListTooltip : UITooltipBase
 					break;
 				}
 				list[i].Setup(rewards[i], currentLevel);
-				UIManager.SetGameObjectActive(list[i], true, null);
-				uiplayerProgressRewardListEntry = list[i];
+				UIManager.SetGameObjectActive(list[i], true);
+				uIPlayerProgressRewardListEntry = list[i];
 			}
 			else
 			{
-				uiplayerProgressRewardListEntry = UnityEngine.Object.Instantiate<UIPlayerProgressRewardListEntry>(this.m_entryPrefab);
-				uiplayerProgressRewardListEntry.transform.SetParent(base.transform);
-				uiplayerProgressRewardListEntry.transform.localPosition = Vector3.zero;
-				uiplayerProgressRewardListEntry.Setup(rewards[i], currentLevel);
-				list.Add(uiplayerProgressRewardListEntry);
+				uIPlayerProgressRewardListEntry = Object.Instantiate(m_entryPrefab);
+				uIPlayerProgressRewardListEntry.transform.SetParent(base.transform);
+				uIPlayerProgressRewardListEntry.transform.localPosition = Vector3.zero;
+				uIPlayerProgressRewardListEntry.Setup(rewards[i], currentLevel);
+				list.Add(uIPlayerProgressRewardListEntry);
 			}
-			for (int j = 0; j < uiplayerProgressRewardListEntry.m_levelTexts.Length; j++)
+			for (int j = 0; j < uIPlayerProgressRewardListEntry.m_levelTexts.Length; j++)
 			{
-				UIManager.SetGameObjectActive(uiplayerProgressRewardListEntry.m_levelTexts[j], rewardType != UIRewardListTooltip.RewardsType.Seasons, null);
+				UIManager.SetGameObjectActive(uIPlayerProgressRewardListEntry.m_levelTexts[j], rewardType != RewardsType.Seasons);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_011a;
 				}
+				continue;
+				end_IL_011a:
 				break;
 			}
-			uiplayerProgressRewardListEntry.transform.localScale = localScale;
+			uIPlayerProgressRewardListEntry.transform.localScale = localScale;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		for (int k = rewards.Count; k < list.Count; k++)
-		{
-			UIManager.SetGameObjectActive(list[k], false, null);
-		}
-		for (;;)
-		{
-			switch (4)
+			for (int k = rewards.Count; k < list.Count; k++)
 			{
-			case 0:
-				continue;
+				UIManager.SetGameObjectActive(list[k], false);
 			}
-			break;
-		}
-		UIManager.SetGameObjectActive(this.m_levelLabel, rewardType != UIRewardListTooltip.RewardsType.Seasons, null);
-		if (rewardType == UIRewardListTooltip.RewardsType.Tutorial)
-		{
-			for (;;)
+			while (true)
 			{
-				switch (3)
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			this.m_levelLabel.alignment = TextAlignmentOptions.Midline;
-			this.m_levelLabel.text = StringUtil.TR("MatchesPlayed", "OverlayScreensScene");
-		}
-		else if (rewardType == UIRewardListTooltip.RewardsType.Character)
-		{
-			this.m_levelLabel.alignment = TextAlignmentOptions.Left;
-			this.m_levelLabel.text = StringUtil.TR("LevelLabel", "PersistentScene");
-		}
-		RectTransform rectTransform = this.m_levelLabel.transform as RectTransform;
-		rectTransform.localScale = localScale;
-		if (flipped)
-		{
-			for (int l = 0; l < list.Count; l++)
-			{
-				list[list.Count - l - 1].transform.SetSiblingIndex(l);
-			}
-			for (;;)
-			{
-				switch (1)
+				UIManager.SetGameObjectActive(m_levelLabel, rewardType != RewardsType.Seasons);
+				if (rewardType == RewardsType.Tutorial)
 				{
-				case 0:
-					continue;
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_levelLabel.alignment = TextAlignmentOptions.Midline;
+					m_levelLabel.text = StringUtil.TR("MatchesPlayed", "OverlayScreensScene");
 				}
-				break;
+				else if (rewardType == RewardsType.Character)
+				{
+					m_levelLabel.alignment = TextAlignmentOptions.Left;
+					m_levelLabel.text = StringUtil.TR("LevelLabel", "PersistentScene");
+				}
+				RectTransform rectTransform = m_levelLabel.transform as RectTransform;
+				rectTransform.localScale = localScale;
+				if (flipped)
+				{
+					for (int l = 0; l < list.Count; l++)
+					{
+						list[list.Count - l - 1].transform.SetSiblingIndex(l);
+					}
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						rectTransform.SetAsLastSibling();
+						return;
+					}
+				}
+				rectTransform.SetAsFirstSibling();
+				return;
 			}
-			rectTransform.SetAsLastSibling();
 		}
-		else
-		{
-			rectTransform.SetAsFirstSibling();
-		}
-	}
-
-	public enum RewardsType
-	{
-		Seasons,
-		Character,
-		Tutorial
 	}
 }

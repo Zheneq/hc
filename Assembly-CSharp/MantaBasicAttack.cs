@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +13,9 @@ public class MantaBasicAttack : Ability
 	public float m_coneLengthThroughWalls = 2.5f;
 
 	[Header("-- Damage")]
-	public int m_damageAmountInner = 0x1C;
+	public int m_damageAmountInner = 28;
 
-	public int m_damageAmountThroughWalls = 0xA;
+	public int m_damageAmountThroughWalls = 10;
 
 	public StandardEffectInfo m_effectInner;
 
@@ -37,9 +36,9 @@ public class MantaBasicAttack : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -48,30 +47,29 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Crush & Quake";
+			m_abilityName = "Crush & Quake";
 		}
-		this.m_syncComp = base.GetComponent<Manta_SyncComponent>();
-		this.Setup();
+		m_syncComp = GetComponent<Manta_SyncComponent>();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		float coneWidthAngle = this.GetConeWidthAngle();
-		base.Targeter = new AbilityUtil_Targeter_MultipleCones(this, new List<AbilityUtil_Targeter_MultipleCones.ConeDimensions>
-		{
-			new AbilityUtil_Targeter_MultipleCones.ConeDimensions(coneWidthAngle, this.GetConeLengthInner()),
-			new AbilityUtil_Targeter_MultipleCones.ConeDimensions(coneWidthAngle, this.GetConeLengthThroughWalls())
-		}, this.m_coneBackwardOffset, true, true, true, false, false);
+		SetCachedFields();
+		float coneWidthAngle = GetConeWidthAngle();
+		List<AbilityUtil_Targeter_MultipleCones.ConeDimensions> list = new List<AbilityUtil_Targeter_MultipleCones.ConeDimensions>();
+		list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(coneWidthAngle, GetConeLengthInner()));
+		list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(coneWidthAngle, GetConeLengthThroughWalls()));
+		base.Targeter = new AbilityUtil_Targeter_MultipleCones(this, list, m_coneBackwardOffset, true, true);
 	}
 
 	public override string GetSetupNotesForEditor()
 	{
-		return "<color=cyan>-- For Art --</color>\nOn Sequence, for HitActorGroupOnAnimEventSequence components, use:\n" + this.c_innerConeIdentifier + " for Inner cone group identifier\n";
+		return "<color=cyan>-- For Art --</color>\nOn Sequence, for HitActorGroupOnAnimEventSequence components, use:\n" + c_innerConeIdentifier + " for Inner cone group identifier\n";
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -81,26 +79,26 @@ public class MantaBasicAttack : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetConeLengthThroughWalls();
+		return GetConeLengthThroughWalls();
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedEffectInner = ((!this.m_abilityMod) ? this.m_effectInner : this.m_abilityMod.m_effectInnerMod.GetModifiedValue(this.m_effectInner));
-		this.m_cachedEffectOuter = ((!this.m_abilityMod) ? this.m_effectOuter : this.m_abilityMod.m_effectOuterMod.GetModifiedValue(this.m_effectOuter));
+		m_cachedEffectInner = ((!m_abilityMod) ? m_effectInner : m_abilityMod.m_effectInnerMod.GetModifiedValue(m_effectInner));
+		m_cachedEffectOuter = ((!m_abilityMod) ? m_effectOuter : m_abilityMod.m_effectOuterMod.GetModifiedValue(m_effectOuter));
 	}
 
 	public float GetConeWidthAngle()
 	{
-		return (!this.m_abilityMod) ? this.m_coneWidthAngle : this.m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(this.m_coneWidthAngle);
+		return (!m_abilityMod) ? m_coneWidthAngle : m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle);
 	}
 
 	public float GetConeBackwardOffset()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -109,15 +107,15 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetConeBackwardOffset()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
+			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
 		}
 		else
 		{
-			result = this.m_coneBackwardOffset;
+			result = m_coneBackwardOffset;
 		}
 		return result;
 	}
@@ -125,9 +123,9 @@ public class MantaBasicAttack : Ability
 	public float GetConeLengthInner()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -136,30 +134,30 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetConeLengthInner()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneLengthInnerMod.GetModifiedValue(this.m_coneLengthInner);
+			result = m_abilityMod.m_coneLengthInnerMod.GetModifiedValue(m_coneLengthInner);
 		}
 		else
 		{
-			result = this.m_coneLengthInner;
+			result = m_coneLengthInner;
 		}
 		return result;
 	}
 
 	public float GetConeLengthThroughWalls()
 	{
-		return (!this.m_abilityMod) ? this.m_coneLengthThroughWalls : this.m_abilityMod.m_coneLengthThroughWallsMod.GetModifiedValue(this.m_coneLengthThroughWalls);
+		return (!m_abilityMod) ? m_coneLengthThroughWalls : m_abilityMod.m_coneLengthThroughWallsMod.GetModifiedValue(m_coneLengthThroughWalls);
 	}
 
 	public int GetDamageAmountInner()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -168,15 +166,15 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetDamageAmountInner()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damageAmountInnerMod.GetModifiedValue(this.m_damageAmountInner);
+			result = m_abilityMod.m_damageAmountInnerMod.GetModifiedValue(m_damageAmountInner);
 		}
 		else
 		{
-			result = this.m_damageAmountInner;
+			result = m_damageAmountInner;
 		}
 		return result;
 	}
@@ -184,9 +182,9 @@ public class MantaBasicAttack : Ability
 	public int GetDamageAmountThroughWalls()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -195,15 +193,15 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetDamageAmountThroughWalls()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damageAmountThroughWallsMod.GetModifiedValue(this.m_damageAmountThroughWalls);
+			result = m_abilityMod.m_damageAmountThroughWallsMod.GetModifiedValue(m_damageAmountThroughWalls);
 		}
 		else
 		{
-			result = this.m_damageAmountThroughWalls;
+			result = m_damageAmountThroughWalls;
 		}
 		return result;
 	}
@@ -211,9 +209,9 @@ public class MantaBasicAttack : Ability
 	public int GetExtraDamageNoLoS()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -222,11 +220,11 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetExtraDamageNoLoS()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageNoLoSMod.GetModifiedValue(0);
+			result = m_abilityMod.m_extraDamageNoLoSMod.GetModifiedValue(0);
 		}
 		else
 		{
@@ -238,9 +236,9 @@ public class MantaBasicAttack : Ability
 	public StandardEffectInfo GetEffectInner()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectInner != null)
+		if (m_cachedEffectInner != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -249,15 +247,15 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetEffectInner()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEffectInner;
+			result = m_cachedEffectInner;
 		}
 		else
 		{
-			result = this.m_effectInner;
+			result = m_effectInner;
 		}
 		return result;
 	}
@@ -265,9 +263,9 @@ public class MantaBasicAttack : Ability
 	public StandardEffectInfo GetEffectOuter()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectOuter != null)
+		if (m_cachedEffectOuter != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -276,24 +274,24 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetEffectOuter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEffectOuter;
+			result = m_cachedEffectOuter;
 		}
 		else
 		{
-			result = this.m_effectOuter;
+			result = m_effectOuter;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetAdditionalDirtyFightingExplosionEffect()
 	{
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -302,22 +300,22 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetAdditionalDirtyFightingExplosionEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_abilityMod.m_additionalDirtyFightingExplosionEffect.operation == AbilityModPropertyEffectInfo.ModOp.Override)
+			if (m_abilityMod.m_additionalDirtyFightingExplosionEffect.operation == AbilityModPropertyEffectInfo.ModOp.Override)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_abilityMod.m_additionalDirtyFightingExplosionEffect.effectInfo;
 					}
-					break;
 				}
-				return this.m_abilityMod.m_additionalDirtyFightingExplosionEffect.effectInfo;
 			}
 		}
 		return null;
@@ -325,10 +323,10 @@ public class MantaBasicAttack : Ability
 
 	public bool ShouldDisruptBrushInCone()
 	{
-		bool result;
-		if (this.m_abilityMod)
+		int result;
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -337,64 +335,65 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.ShouldDisruptBrushInCone()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_disruptBrushInConeMod.GetModifiedValue(false);
+			result = (m_abilityMod.m_disruptBrushInConeMod.GetModifiedValue(false) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_MantaBasicAttack))
+		if (abilityMod.GetType() != typeof(AbilityMod_MantaBasicAttack))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_MantaBasicAttack);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_MantaBasicAttack);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Near, this.m_damageAmountInner));
-		this.m_effectInner.ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Near);
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Far, this.m_damageAmountThroughWalls));
-		this.m_effectOuter.ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Far);
-		return list;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Near, m_damageAmountInner));
+		m_effectInner.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Near);
+		numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Far, m_damageAmountThroughWalls));
+		m_effectOuter.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Far);
+		return numbers;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> _001D()
 	{
-		List<int> list = base.\u001D();
-		int num = Mathf.Abs(this.m_damageAmountInner - this.m_damageAmountThroughWalls);
+		List<int> list = base._001D();
+		int num = Mathf.Abs(m_damageAmountInner - m_damageAmountThroughWalls);
 		if (num != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -403,9 +402,9 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.\u001D()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			list.Add(num);
 		}
@@ -414,10 +413,10 @@ public class MantaBasicAttack : Ability
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "DamageAmountInner", string.Empty, this.m_damageAmountInner, false);
-		base.AddTokenInt(tokens, "DamageAmountThroughWalls", string.Empty, this.m_damageAmountThroughWalls, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectInner, "EffectInner", this.m_effectInner, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOuter, "EffectOuter", this.m_effectOuter, true);
+		AddTokenInt(tokens, "DamageAmountInner", string.Empty, m_damageAmountInner);
+		AddTokenInt(tokens, "DamageAmountThroughWalls", string.Empty, m_damageAmountThroughWalls);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectInner, "EffectInner", m_effectInner);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectOuter, "EffectOuter", m_effectOuter);
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -426,7 +425,7 @@ public class MantaBasicAttack : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -435,14 +434,14 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			int num = 0;
-			if (!base.ActorData.CurrentBoardSquare.\u0013(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y))
+			if (!base.ActorData.CurrentBoardSquare._0013(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -451,11 +450,11 @@ public class MantaBasicAttack : Ability
 					}
 					break;
 				}
-				num += this.GetExtraDamageNoLoS();
+				num += GetExtraDamageNoLoS();
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Near))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -464,11 +463,11 @@ public class MantaBasicAttack : Ability
 					}
 					break;
 				}
-				dictionary[AbilityTooltipSymbol.Damage] = this.GetDamageAmountInner() + num;
+				dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmountInner() + num;
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Far))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -477,7 +476,7 @@ public class MantaBasicAttack : Ability
 					}
 					break;
 				}
-				dictionary[AbilityTooltipSymbol.Damage] = this.GetDamageAmountThroughWalls() + num;
+				dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmountThroughWalls() + num;
 			}
 		}
 		return dictionary;
@@ -485,41 +484,43 @@ public class MantaBasicAttack : Ability
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
-			int num = 0;
-			List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeters[currentTargeterIndex].GetActorsInRange();
-			using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
-					num += this.m_syncComp.GetDirtyFightingExtraTP(actorTarget.m_actor);
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					int num = 0;
+					List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeters[currentTargeterIndex].GetActorsInRange();
+					using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
+					{
+						while (enumerator.MoveNext())
+						{
+							AbilityUtil_Targeter.ActorTarget current = enumerator.Current;
+							num += m_syncComp.GetDirtyFightingExtraTP(current.m_actor);
+						}
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								break;
+							default:
+								return num;
+							}
+						}
+					}
+				}
 				}
 			}
-			return num;
 		}
 		return base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
 	}
@@ -528,7 +529,7 @@ public class MantaBasicAttack : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -537,22 +538,22 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComp != null)
+			if (m_syncComp != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_syncComp.GetAccessoryStringForDamage(targetActor, base.ActorData, this);
 					}
-					break;
 				}
-				return this.m_syncComp.GetAccessoryStringForDamage(targetActor, base.ActorData, this);
 			}
 		}
 		return null;
@@ -562,33 +563,33 @@ public class MantaBasicAttack : Ability
 	{
 		if (targetActor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject.Far, targetActor, base.ActorData.GetTravelBoardSquareWorldPosition(), base.ActorData);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.ForceIgnoreCover(ActorData)).MethodHandle;
-			}
-			return this.DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject.Far, targetActor, base.ActorData.\u0016(), base.ActorData);
 		}
 		return false;
 	}
 
 	private bool InsideNearRadius(ActorData targetActor, Vector3 damageOrigin)
 	{
-		float num = this.GetConeLengthInner() * Board.\u000E().squareSize;
-		Vector3 vector = targetActor.\u0016() - damageOrigin;
+		float num = GetConeLengthInner() * Board.Get().squareSize;
+		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - damageOrigin;
 		vector.y = 0f;
 		float num2 = vector.magnitude;
 		if (GameWideData.Get().UseActorRadiusForCone())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -597,11 +598,11 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.InsideNearRadius(ActorData, Vector3)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num2 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.\u000E().squareSize;
+			num2 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 		}
 		return num2 <= num;
 	}
@@ -610,7 +611,7 @@ public class MantaBasicAttack : Ability
 	{
 		if (subjectType != AbilityTooltipSubject.Near)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -619,15 +620,15 @@ public class MantaBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject, ActorData, Vector3, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (subjectType != AbilityTooltipSubject.Far)
 			{
 				return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -637,23 +638,14 @@ public class MantaBasicAttack : Ability
 				break;
 			}
 		}
-		bool flag = targetingActor.CurrentBoardSquare.\u0013(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y);
-		bool result;
-		if (flag)
+		if (targetingActor.CurrentBoardSquare._0013(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y))
 		{
-			if (this.InsideNearRadius(targetActor, damageOrigin))
+			if (InsideNearRadius(targetActor, damageOrigin))
 			{
-				result = (subjectType == AbilityTooltipSubject.Near);
+				return subjectType == AbilityTooltipSubject.Near;
 			}
-			else
-			{
-				result = (subjectType == AbilityTooltipSubject.Far);
-			}
+			return subjectType == AbilityTooltipSubject.Far;
 		}
-		else
-		{
-			result = (subjectType == AbilityTooltipSubject.Far);
-		}
-		return result;
+		return subjectType == AbilityTooltipSubject.Far;
 	}
 }

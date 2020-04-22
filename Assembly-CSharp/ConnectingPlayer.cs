@@ -1,27 +1,27 @@
-﻿using System;
 using UnityEngine.Networking;
 
 public class ConnectingPlayer : NetworkBehaviour
 {
 	public override void OnStartLocalPlayer()
 	{
-		if (NetworkServer.active)
+		if (!NetworkServer.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ConnectingPlayer.OnStartLocalPlayer()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			NetworkIdentity component = base.GetComponent<NetworkIdentity>();
+			NetworkIdentity component = GetComponent<NetworkIdentity>();
 			component.RebuildObservers(true);
+			return;
 		}
 	}
 
@@ -31,7 +31,7 @@ public class ConnectingPlayer : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
+		bool result = default(bool);
 		return result;
 	}
 

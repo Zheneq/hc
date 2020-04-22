@@ -1,435 +1,600 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
 public class PersistedStats : ICloneable
 {
-	public PersistedStats()
+	public PersistedStatEntry TotalDeaths
 	{
-		this.TotalDeaths = new PersistedStatEntry();
-		this.TotalPlayerKills = new PersistedStatEntry();
-		this.TotalPlayerAssists = new PersistedStatEntry();
-		this.TotalPlayerDamage = new PersistedStatEntry();
-		this.TotalPlayerHealing = new PersistedStatEntry();
-		this.TotalPlayerAbsorb = new PersistedStatEntry();
-		this.TotalPlayerDamageReceived = new PersistedStatEntry();
-		this.TotalBadgePoints = new PersistedStatFloatEntry();
-		this.NetDamageAvoidedByEvades = new PersistedStatEntry();
-		this.NetDamageAvoidedByEvadesPerLife = new PersistedStatFloatEntry();
-		this.DamageDodgedByEvades = new PersistedStatEntry();
-		this.DamageInterceptedByEvades = new PersistedStatEntry();
-		this.MyIncomingDamageReducedByCover = new PersistedStatEntry();
-		this.MyIncomingDamageReducedByCoverPerLife = new PersistedStatFloatEntry();
-		this.MyOutgoingDamageReducedByCover = new PersistedStatEntry();
-		this.MyOutgoingExtraDamageFromEmpowered = new PersistedStatEntry();
-		this.MyOutgoingDamageReducedFromWeakened = new PersistedStatEntry();
-		this.TeamOutgoingDamageIncreasedByEmpoweredFromMe = new PersistedStatEntry();
-		this.TeamIncomingDamageReducedByWeakenedFromMe = new PersistedStatEntry();
-		this.MovementDeniedByMePerTurn = new PersistedStatFloatEntry();
-		this.EnergyGainPerTurn = new PersistedStatFloatEntry();
-		this.DamagePerTurn = new PersistedStatFloatEntry();
-		this.BoostedOutgoingDamagePerTurn = new PersistedStatFloatEntry();
-		this.DamageEfficiency = new PersistedStatFloatEntry();
-		this.KillParticipation = new PersistedStatFloatEntry();
-		this.EffectiveHealing = new PersistedStatEntry();
-		this.TeamDamageAdjustedByMe = new PersistedStatEntry();
-		this.TeamDamageSwingByMePerTurn = new PersistedStatFloatEntry();
-		this.TeamExtraEnergyByEnergizedFromMe = new PersistedStatEntry();
-		this.TeamBoostedEnergyByMePerTurn = new PersistedStatFloatEntry();
-		this.TeamDamageReceived = new PersistedStatEntry();
-		this.DamageTakenPerLife = new PersistedStatFloatEntry();
-		this.EnemiesSightedPerTurn = new PersistedStatFloatEntry();
-		this.TotalTurns = new PersistedStatFloatEntry();
-		this.TankingPerLife = new PersistedStatFloatEntry();
-		this.TeamMitigation = new PersistedStatFloatEntry();
-		this.SupportPerTurn = new PersistedStatFloatEntry();
-		this.DamageDonePerLife = new PersistedStatFloatEntry();
-		this.DamageTakenPerTurn = new PersistedStatFloatEntry();
-		this.AvgLifeSpan = new PersistedStatFloatEntry();
-		this.SecondsPlayed = new PersistedStatFloatEntry();
-		this.MatchesWon = new PersistedStatEntry();
-		this.FreelancerSpecificStats = new List<PersistedStatEntry>();
+		get;
+		set;
 	}
 
-	public PersistedStatEntry TotalDeaths { get; set; }
+	public PersistedStatEntry TotalPlayerKills
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry TotalPlayerKills { get; set; }
+	public PersistedStatEntry TotalPlayerAssists
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry TotalPlayerAssists { get; set; }
+	public PersistedStatEntry TotalPlayerDamage
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry TotalPlayerDamage { get; set; }
+	public PersistedStatEntry TotalPlayerHealing
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry TotalPlayerHealing { get; set; }
+	public PersistedStatEntry TotalPlayerAbsorb
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry TotalPlayerAbsorb { get; set; }
+	public PersistedStatEntry TotalPlayerDamageReceived
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry TotalPlayerDamageReceived { get; set; }
+	public PersistedStatFloatEntry TotalBadgePoints
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry TotalBadgePoints { get; set; }
+	public PersistedStatEntry NetDamageAvoidedByEvades
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry NetDamageAvoidedByEvades { get; set; }
+	public PersistedStatFloatEntry NetDamageAvoidedByEvadesPerLife
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry NetDamageAvoidedByEvadesPerLife { get; set; }
+	public PersistedStatEntry DamageDodgedByEvades
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry DamageDodgedByEvades { get; set; }
+	public PersistedStatEntry DamageInterceptedByEvades
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry DamageInterceptedByEvades { get; set; }
+	public PersistedStatEntry MyIncomingDamageReducedByCover
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry MyIncomingDamageReducedByCover { get; set; }
+	public PersistedStatFloatEntry MyIncomingDamageReducedByCoverPerLife
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry MyIncomingDamageReducedByCoverPerLife { get; set; }
+	public PersistedStatEntry MyOutgoingDamageReducedByCover
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry MyOutgoingDamageReducedByCover { get; set; }
+	public PersistedStatEntry MyOutgoingExtraDamageFromEmpowered
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry MyOutgoingExtraDamageFromEmpowered { get; set; }
+	public PersistedStatEntry MyOutgoingDamageReducedFromWeakened
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry MyOutgoingDamageReducedFromWeakened { get; set; }
+	public PersistedStatEntry TeamOutgoingDamageIncreasedByEmpoweredFromMe
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry TeamOutgoingDamageIncreasedByEmpoweredFromMe { get; set; }
+	public PersistedStatEntry TeamIncomingDamageReducedByWeakenedFromMe
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry TeamIncomingDamageReducedByWeakenedFromMe { get; set; }
+	public PersistedStatFloatEntry MovementDeniedByMePerTurn
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry MovementDeniedByMePerTurn { get; set; }
+	public PersistedStatFloatEntry EnergyGainPerTurn
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry EnergyGainPerTurn { get; set; }
+	public PersistedStatFloatEntry DamagePerTurn
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry DamagePerTurn { get; set; }
+	public PersistedStatFloatEntry BoostedOutgoingDamagePerTurn
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry BoostedOutgoingDamagePerTurn { get; set; }
+	public PersistedStatFloatEntry DamageEfficiency
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry DamageEfficiency { get; set; }
+	public PersistedStatFloatEntry KillParticipation
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry KillParticipation { get; set; }
+	public PersistedStatEntry EffectiveHealing
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry EffectiveHealing { get; set; }
+	public PersistedStatEntry TeamDamageAdjustedByMe
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry TeamDamageAdjustedByMe { get; set; }
+	public PersistedStatFloatEntry TeamDamageSwingByMePerTurn
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry TeamDamageSwingByMePerTurn { get; set; }
+	public PersistedStatEntry TeamExtraEnergyByEnergizedFromMe
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry TeamExtraEnergyByEnergizedFromMe { get; set; }
+	public PersistedStatFloatEntry TeamBoostedEnergyByMePerTurn
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry TeamBoostedEnergyByMePerTurn { get; set; }
+	public PersistedStatEntry TeamDamageReceived
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry TeamDamageReceived { get; set; }
+	public PersistedStatFloatEntry DamageTakenPerLife
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry DamageTakenPerLife { get; set; }
+	public PersistedStatFloatEntry EnemiesSightedPerTurn
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry EnemiesSightedPerTurn { get; set; }
+	public PersistedStatFloatEntry TotalTurns
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry TotalTurns { get; set; }
+	public PersistedStatFloatEntry TankingPerLife
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry TankingPerLife { get; set; }
+	public PersistedStatFloatEntry TeamMitigation
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry TeamMitigation { get; set; }
+	public PersistedStatFloatEntry SupportPerTurn
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry SupportPerTurn { get; set; }
+	public PersistedStatFloatEntry DamageDonePerLife
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry DamageDonePerLife { get; set; }
+	public PersistedStatFloatEntry DamageTakenPerTurn
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry DamageTakenPerTurn { get; set; }
+	public PersistedStatFloatEntry AvgLifeSpan
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry AvgLifeSpan { get; set; }
+	public PersistedStatFloatEntry SecondsPlayed
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatFloatEntry SecondsPlayed { get; set; }
+	public PersistedStatEntry MatchesWon
+	{
+		get;
+		set;
+	}
 
-	public PersistedStatEntry MatchesWon { get; set; }
+	public List<PersistedStatEntry> FreelancerSpecificStats
+	{
+		get;
+		set;
+	}
 
-	public List<PersistedStatEntry> FreelancerSpecificStats { get; set; }
+	public PersistedStats()
+	{
+		TotalDeaths = new PersistedStatEntry();
+		TotalPlayerKills = new PersistedStatEntry();
+		TotalPlayerAssists = new PersistedStatEntry();
+		TotalPlayerDamage = new PersistedStatEntry();
+		TotalPlayerHealing = new PersistedStatEntry();
+		TotalPlayerAbsorb = new PersistedStatEntry();
+		TotalPlayerDamageReceived = new PersistedStatEntry();
+		TotalBadgePoints = new PersistedStatFloatEntry();
+		NetDamageAvoidedByEvades = new PersistedStatEntry();
+		NetDamageAvoidedByEvadesPerLife = new PersistedStatFloatEntry();
+		DamageDodgedByEvades = new PersistedStatEntry();
+		DamageInterceptedByEvades = new PersistedStatEntry();
+		MyIncomingDamageReducedByCover = new PersistedStatEntry();
+		MyIncomingDamageReducedByCoverPerLife = new PersistedStatFloatEntry();
+		MyOutgoingDamageReducedByCover = new PersistedStatEntry();
+		MyOutgoingExtraDamageFromEmpowered = new PersistedStatEntry();
+		MyOutgoingDamageReducedFromWeakened = new PersistedStatEntry();
+		TeamOutgoingDamageIncreasedByEmpoweredFromMe = new PersistedStatEntry();
+		TeamIncomingDamageReducedByWeakenedFromMe = new PersistedStatEntry();
+		MovementDeniedByMePerTurn = new PersistedStatFloatEntry();
+		EnergyGainPerTurn = new PersistedStatFloatEntry();
+		DamagePerTurn = new PersistedStatFloatEntry();
+		BoostedOutgoingDamagePerTurn = new PersistedStatFloatEntry();
+		DamageEfficiency = new PersistedStatFloatEntry();
+		KillParticipation = new PersistedStatFloatEntry();
+		EffectiveHealing = new PersistedStatEntry();
+		TeamDamageAdjustedByMe = new PersistedStatEntry();
+		TeamDamageSwingByMePerTurn = new PersistedStatFloatEntry();
+		TeamExtraEnergyByEnergizedFromMe = new PersistedStatEntry();
+		TeamBoostedEnergyByMePerTurn = new PersistedStatFloatEntry();
+		TeamDamageReceived = new PersistedStatEntry();
+		DamageTakenPerLife = new PersistedStatFloatEntry();
+		EnemiesSightedPerTurn = new PersistedStatFloatEntry();
+		TotalTurns = new PersistedStatFloatEntry();
+		TankingPerLife = new PersistedStatFloatEntry();
+		TeamMitigation = new PersistedStatFloatEntry();
+		SupportPerTurn = new PersistedStatFloatEntry();
+		DamageDonePerLife = new PersistedStatFloatEntry();
+		DamageTakenPerTurn = new PersistedStatFloatEntry();
+		AvgLifeSpan = new PersistedStatFloatEntry();
+		SecondsPlayed = new PersistedStatFloatEntry();
+		MatchesWon = new PersistedStatEntry();
+		FreelancerSpecificStats = new List<PersistedStatEntry>();
+	}
 
 	public IPersistedGameplayStat GetGameplayStat(StatDisplaySettings.StatType TypeOfStat)
 	{
 		if (TypeOfStat == StatDisplaySettings.StatType.IncomingDamageDodgeByEvade)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return NetDamageAvoidedByEvadesPerLife;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistedStats.GetGameplayStat(StatDisplaySettings.StatType)).MethodHandle;
-			}
-			return this.NetDamageAvoidedByEvadesPerLife;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalBadgePoints)
 		{
-			return this.TotalBadgePoints;
+			return TotalBadgePoints;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.IncomingDamageReducedByCover)
 		{
-			return this.MyIncomingDamageReducedByCoverPerLife;
+			return MyIncomingDamageReducedByCoverPerLife;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalAssists)
 		{
-			return this.TotalPlayerAssists;
+			return TotalPlayerAssists;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalDeaths)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return TotalDeaths;
 				}
-				break;
 			}
-			return this.TotalDeaths;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.MovementDenied)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return MovementDeniedByMePerTurn;
 				}
-				break;
 			}
-			return this.MovementDeniedByMePerTurn;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.EnergyGainPerTurn)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return EnergyGainPerTurn;
 				}
-				break;
 			}
-			return this.EnergyGainPerTurn;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamagePerTurn)
 		{
-			return this.DamagePerTurn;
+			return DamagePerTurn;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.NetBoostedOutgoingDamage)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return BoostedOutgoingDamagePerTurn;
 				}
-				break;
 			}
-			return this.BoostedOutgoingDamagePerTurn;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamageEfficiency)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return DamageEfficiency;
 				}
-				break;
 			}
-			return this.DamageEfficiency;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.KillParticipation)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return KillParticipation;
 				}
-				break;
 			}
-			return this.KillParticipation;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.EffectiveHealAndAbsorb)
 		{
-			return this.SupportPerTurn;
+			return SupportPerTurn;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TeamDamageAdjustedByMe)
 		{
-			return this.TeamDamageSwingByMePerTurn;
+			return TeamDamageSwingByMePerTurn;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TeamExtraEnergyByEnergizedFromMe)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return TeamBoostedEnergyByMePerTurn;
 				}
-				break;
 			}
-			return this.TeamBoostedEnergyByMePerTurn;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamageTakenPerLife)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return DamageTakenPerLife;
 				}
-				break;
 			}
-			return this.DamageTakenPerLife;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.EnemiesSightedPerLife)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return EnemiesSightedPerTurn;
 				}
-				break;
 			}
-			return this.EnemiesSightedPerTurn;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TankingPerLife)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return TankingPerLife;
 				}
-				break;
 			}
-			return this.TankingPerLife;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamageDonePerLife)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return DamageDonePerLife;
 				}
-				break;
 			}
-			return this.DamageDonePerLife;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TeamMitigation)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return TeamMitigation;
 				}
-				break;
 			}
-			return this.TeamMitigation;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalTurns)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return TotalTurns;
 				}
-				break;
 			}
-			return this.TotalTurns;
 		}
-		if (TypeOfStat == StatDisplaySettings.StatType.TotalTeamDamageReceived)
+		switch (TypeOfStat)
 		{
-			return this.TeamDamageReceived;
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.SupportPerTurn)
-		{
-			return this.SupportPerTurn;
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.DamageTakenPerTurn)
-		{
-			return this.DamageTakenPerTurn;
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.SecondsPlayed)
-		{
-			for (;;)
+		case StatDisplaySettings.StatType.TotalTeamDamageReceived:
+			return TeamDamageReceived;
+		case StatDisplaySettings.StatType.SupportPerTurn:
+			return SupportPerTurn;
+		case StatDisplaySettings.StatType.DamageTakenPerTurn:
+			return DamageTakenPerTurn;
+		case StatDisplaySettings.StatType.SecondsPlayed:
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				return SecondsPlayed;
 			}
-			return this.SecondsPlayed;
+		case StatDisplaySettings.StatType.MatchesWon:
+			return MatchesWon;
+		default:
+			Log.Warning("Attempting to display a stat that isn't categorized: " + TypeOfStat);
+			return null;
 		}
-		if (TypeOfStat == StatDisplaySettings.StatType.MatchesWon)
-		{
-			return this.MatchesWon;
-		}
-		Log.Warning("Attempting to display a stat that isn't categorized: " + TypeOfStat, new object[0]);
-		return null;
 	}
 
 	public void CombineStats(PersistedStats StatsToBeMerged)
 	{
-		this.TotalDeaths.CombineStats(StatsToBeMerged.TotalDeaths);
-		this.TotalPlayerKills.CombineStats(StatsToBeMerged.TotalPlayerKills);
-		this.TotalPlayerAssists.CombineStats(StatsToBeMerged.TotalPlayerAssists);
-		this.TotalPlayerDamage.CombineStats(StatsToBeMerged.TotalPlayerDamage);
-		this.TotalPlayerHealing.CombineStats(StatsToBeMerged.TotalPlayerHealing);
-		this.TotalPlayerAbsorb.CombineStats(StatsToBeMerged.TotalPlayerAbsorb);
-		this.TotalPlayerDamageReceived.CombineStats(StatsToBeMerged.TotalPlayerDamageReceived);
-		this.TotalBadgePoints.CombineStats(StatsToBeMerged.TotalBadgePoints);
-		this.NetDamageAvoidedByEvades.CombineStats(StatsToBeMerged.NetDamageAvoidedByEvades);
-		this.NetDamageAvoidedByEvadesPerLife.CombineStats(StatsToBeMerged.NetDamageAvoidedByEvadesPerLife);
-		this.DamageDodgedByEvades.CombineStats(StatsToBeMerged.DamageDodgedByEvades);
-		this.DamageInterceptedByEvades.CombineStats(StatsToBeMerged.DamageInterceptedByEvades);
-		this.MyIncomingDamageReducedByCover.CombineStats(StatsToBeMerged.MyIncomingDamageReducedByCover);
-		this.MyIncomingDamageReducedByCoverPerLife.CombineStats(StatsToBeMerged.MyIncomingDamageReducedByCoverPerLife);
-		this.MyOutgoingDamageReducedByCover.CombineStats(StatsToBeMerged.MyOutgoingDamageReducedByCover);
-		this.MyOutgoingExtraDamageFromEmpowered.CombineStats(StatsToBeMerged.MyOutgoingExtraDamageFromEmpowered);
-		this.MyOutgoingDamageReducedFromWeakened.CombineStats(StatsToBeMerged.MyOutgoingDamageReducedFromWeakened);
-		this.TeamOutgoingDamageIncreasedByEmpoweredFromMe.CombineStats(StatsToBeMerged.TeamOutgoingDamageIncreasedByEmpoweredFromMe);
-		this.TeamIncomingDamageReducedByWeakenedFromMe.CombineStats(StatsToBeMerged.TeamIncomingDamageReducedByWeakenedFromMe);
-		this.MovementDeniedByMePerTurn.CombineStats(StatsToBeMerged.MovementDeniedByMePerTurn);
-		this.EnergyGainPerTurn.CombineStats(StatsToBeMerged.EnergyGainPerTurn);
-		this.DamagePerTurn.CombineStats(StatsToBeMerged.DamagePerTurn);
-		this.BoostedOutgoingDamagePerTurn.CombineStats(StatsToBeMerged.BoostedOutgoingDamagePerTurn);
-		this.DamageEfficiency.CombineStats(StatsToBeMerged.DamageEfficiency);
-		this.KillParticipation.CombineStats(StatsToBeMerged.KillParticipation);
-		this.EffectiveHealing.CombineStats(StatsToBeMerged.EffectiveHealing);
-		this.TeamDamageAdjustedByMe.CombineStats(StatsToBeMerged.TeamDamageAdjustedByMe);
-		this.TeamDamageSwingByMePerTurn.CombineStats(StatsToBeMerged.TeamDamageSwingByMePerTurn);
-		this.TeamExtraEnergyByEnergizedFromMe.CombineStats(StatsToBeMerged.TeamExtraEnergyByEnergizedFromMe);
-		this.TeamBoostedEnergyByMePerTurn.CombineStats(StatsToBeMerged.TeamBoostedEnergyByMePerTurn);
-		this.TeamDamageReceived.CombineStats(StatsToBeMerged.TeamDamageReceived);
-		this.DamageTakenPerLife.CombineStats(StatsToBeMerged.DamageTakenPerLife);
-		this.EnemiesSightedPerTurn.CombineStats(StatsToBeMerged.EnemiesSightedPerTurn);
-		this.TotalTurns.CombineStats(StatsToBeMerged.TotalTurns);
-		this.TankingPerLife.CombineStats(StatsToBeMerged.TankingPerLife);
-		this.TeamMitigation.CombineStats(StatsToBeMerged.TeamMitigation);
-		this.SupportPerTurn.CombineStats(StatsToBeMerged.SupportPerTurn);
-		this.DamageDonePerLife.CombineStats(StatsToBeMerged.DamageDonePerLife);
-		this.DamageTakenPerTurn.CombineStats(StatsToBeMerged.DamageTakenPerTurn);
-		this.SecondsPlayed.CombineStats(StatsToBeMerged.SecondsPlayed);
-		this.MatchesWon.CombineStats(StatsToBeMerged.MatchesWon);
-		for (int i = 0; i < this.FreelancerSpecificStats.Count; i++)
+		TotalDeaths.CombineStats(StatsToBeMerged.TotalDeaths);
+		TotalPlayerKills.CombineStats(StatsToBeMerged.TotalPlayerKills);
+		TotalPlayerAssists.CombineStats(StatsToBeMerged.TotalPlayerAssists);
+		TotalPlayerDamage.CombineStats(StatsToBeMerged.TotalPlayerDamage);
+		TotalPlayerHealing.CombineStats(StatsToBeMerged.TotalPlayerHealing);
+		TotalPlayerAbsorb.CombineStats(StatsToBeMerged.TotalPlayerAbsorb);
+		TotalPlayerDamageReceived.CombineStats(StatsToBeMerged.TotalPlayerDamageReceived);
+		TotalBadgePoints.CombineStats(StatsToBeMerged.TotalBadgePoints);
+		NetDamageAvoidedByEvades.CombineStats(StatsToBeMerged.NetDamageAvoidedByEvades);
+		NetDamageAvoidedByEvadesPerLife.CombineStats(StatsToBeMerged.NetDamageAvoidedByEvadesPerLife);
+		DamageDodgedByEvades.CombineStats(StatsToBeMerged.DamageDodgedByEvades);
+		DamageInterceptedByEvades.CombineStats(StatsToBeMerged.DamageInterceptedByEvades);
+		MyIncomingDamageReducedByCover.CombineStats(StatsToBeMerged.MyIncomingDamageReducedByCover);
+		MyIncomingDamageReducedByCoverPerLife.CombineStats(StatsToBeMerged.MyIncomingDamageReducedByCoverPerLife);
+		MyOutgoingDamageReducedByCover.CombineStats(StatsToBeMerged.MyOutgoingDamageReducedByCover);
+		MyOutgoingExtraDamageFromEmpowered.CombineStats(StatsToBeMerged.MyOutgoingExtraDamageFromEmpowered);
+		MyOutgoingDamageReducedFromWeakened.CombineStats(StatsToBeMerged.MyOutgoingDamageReducedFromWeakened);
+		TeamOutgoingDamageIncreasedByEmpoweredFromMe.CombineStats(StatsToBeMerged.TeamOutgoingDamageIncreasedByEmpoweredFromMe);
+		TeamIncomingDamageReducedByWeakenedFromMe.CombineStats(StatsToBeMerged.TeamIncomingDamageReducedByWeakenedFromMe);
+		MovementDeniedByMePerTurn.CombineStats(StatsToBeMerged.MovementDeniedByMePerTurn);
+		EnergyGainPerTurn.CombineStats(StatsToBeMerged.EnergyGainPerTurn);
+		DamagePerTurn.CombineStats(StatsToBeMerged.DamagePerTurn);
+		BoostedOutgoingDamagePerTurn.CombineStats(StatsToBeMerged.BoostedOutgoingDamagePerTurn);
+		DamageEfficiency.CombineStats(StatsToBeMerged.DamageEfficiency);
+		KillParticipation.CombineStats(StatsToBeMerged.KillParticipation);
+		EffectiveHealing.CombineStats(StatsToBeMerged.EffectiveHealing);
+		TeamDamageAdjustedByMe.CombineStats(StatsToBeMerged.TeamDamageAdjustedByMe);
+		TeamDamageSwingByMePerTurn.CombineStats(StatsToBeMerged.TeamDamageSwingByMePerTurn);
+		TeamExtraEnergyByEnergizedFromMe.CombineStats(StatsToBeMerged.TeamExtraEnergyByEnergizedFromMe);
+		TeamBoostedEnergyByMePerTurn.CombineStats(StatsToBeMerged.TeamBoostedEnergyByMePerTurn);
+		TeamDamageReceived.CombineStats(StatsToBeMerged.TeamDamageReceived);
+		DamageTakenPerLife.CombineStats(StatsToBeMerged.DamageTakenPerLife);
+		EnemiesSightedPerTurn.CombineStats(StatsToBeMerged.EnemiesSightedPerTurn);
+		TotalTurns.CombineStats(StatsToBeMerged.TotalTurns);
+		TankingPerLife.CombineStats(StatsToBeMerged.TankingPerLife);
+		TeamMitigation.CombineStats(StatsToBeMerged.TeamMitigation);
+		SupportPerTurn.CombineStats(StatsToBeMerged.SupportPerTurn);
+		DamageDonePerLife.CombineStats(StatsToBeMerged.DamageDonePerLife);
+		DamageTakenPerTurn.CombineStats(StatsToBeMerged.DamageTakenPerTurn);
+		SecondsPlayed.CombineStats(StatsToBeMerged.SecondsPlayed);
+		MatchesWon.CombineStats(StatsToBeMerged.MatchesWon);
+		for (int i = 0; i < FreelancerSpecificStats.Count; i++)
 		{
 			if (i < StatsToBeMerged.FreelancerSpecificStats.Count)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -438,29 +603,30 @@ public class PersistedStats : ICloneable
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PersistedStats.CombineStats(PersistedStats)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.FreelancerSpecificStats[i].CombineStats(StatsToBeMerged.FreelancerSpecificStats[i]);
+				FreelancerSpecificStats[i].CombineStats(StatsToBeMerged.FreelancerSpecificStats[i]);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public PersistedStatEntry GetFreelancerStat(int index)
 	{
-		if (this.FreelancerSpecificStats != null)
+		if (FreelancerSpecificStats != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -469,13 +635,13 @@ public class PersistedStats : ICloneable
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistedStats.GetFreelancerStat(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (-1 < index)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -484,18 +650,18 @@ public class PersistedStats : ICloneable
 					}
 					break;
 				}
-				if (index < this.FreelancerSpecificStats.Count)
+				if (index < FreelancerSpecificStats.Count)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return FreelancerSpecificStats[index];
 						}
-						break;
 					}
-					return this.FreelancerSpecificStats[index];
 				}
 			}
 		}
@@ -505,50 +671,50 @@ public class PersistedStats : ICloneable
 	public object Clone()
 	{
 		PersistedStats persistedStats = new PersistedStats();
-		persistedStats.TotalDeaths = this.TotalDeaths.GetCopy();
-		persistedStats.TotalPlayerKills = this.TotalPlayerKills.GetCopy();
-		persistedStats.TotalPlayerAssists = this.TotalPlayerAssists.GetCopy();
-		persistedStats.TotalPlayerDamage = this.TotalPlayerDamage.GetCopy();
-		persistedStats.TotalPlayerHealing = this.TotalPlayerHealing.GetCopy();
-		persistedStats.TotalPlayerAbsorb = this.TotalPlayerAbsorb.GetCopy();
-		persistedStats.TotalPlayerDamageReceived = this.TotalPlayerDamageReceived.GetCopy();
-		persistedStats.TotalBadgePoints = this.TotalBadgePoints.GetCopy();
-		persistedStats.NetDamageAvoidedByEvades = this.NetDamageAvoidedByEvades.GetCopy();
-		persistedStats.NetDamageAvoidedByEvadesPerLife = this.NetDamageAvoidedByEvadesPerLife.GetCopy();
-		persistedStats.DamageDodgedByEvades = this.DamageDodgedByEvades.GetCopy();
-		persistedStats.DamageInterceptedByEvades = this.DamageInterceptedByEvades.GetCopy();
-		persistedStats.MyIncomingDamageReducedByCover = this.MyIncomingDamageReducedByCover.GetCopy();
-		persistedStats.MyIncomingDamageReducedByCoverPerLife = this.MyIncomingDamageReducedByCoverPerLife.GetCopy();
-		persistedStats.MyOutgoingDamageReducedByCover = this.MyOutgoingDamageReducedByCover.GetCopy();
-		persistedStats.MyOutgoingDamageReducedFromWeakened = this.MyOutgoingDamageReducedFromWeakened.GetCopy();
-		persistedStats.MyOutgoingExtraDamageFromEmpowered = this.MyOutgoingExtraDamageFromEmpowered.GetCopy();
-		persistedStats.TeamIncomingDamageReducedByWeakenedFromMe = this.TeamIncomingDamageReducedByWeakenedFromMe.GetCopy();
-		persistedStats.TeamOutgoingDamageIncreasedByEmpoweredFromMe = this.TeamOutgoingDamageIncreasedByEmpoweredFromMe.GetCopy();
-		persistedStats.MovementDeniedByMePerTurn = this.MovementDeniedByMePerTurn.GetCopy();
-		persistedStats.EnergyGainPerTurn = this.EnergyGainPerTurn.GetCopy();
-		persistedStats.DamagePerTurn = this.DamagePerTurn.GetCopy();
-		persistedStats.BoostedOutgoingDamagePerTurn = this.BoostedOutgoingDamagePerTurn.GetCopy();
-		persistedStats.DamageEfficiency = this.DamageEfficiency.GetCopy();
-		persistedStats.KillParticipation = this.KillParticipation.GetCopy();
-		persistedStats.EffectiveHealing = this.EffectiveHealing.GetCopy();
-		persistedStats.TeamDamageAdjustedByMe = this.TeamDamageAdjustedByMe.GetCopy();
-		persistedStats.TeamDamageSwingByMePerTurn = this.TeamDamageSwingByMePerTurn.GetCopy();
-		persistedStats.TeamExtraEnergyByEnergizedFromMe = this.TeamExtraEnergyByEnergizedFromMe.GetCopy();
-		persistedStats.TeamBoostedEnergyByMePerTurn = this.TeamBoostedEnergyByMePerTurn.GetCopy();
-		persistedStats.TeamDamageReceived = this.TeamDamageReceived.GetCopy();
-		persistedStats.DamageTakenPerLife = this.DamageTakenPerLife.GetCopy();
-		persistedStats.EnemiesSightedPerTurn = this.EnemiesSightedPerTurn.GetCopy();
-		persistedStats.TotalTurns = this.TotalTurns.GetCopy();
-		persistedStats.TankingPerLife = this.TankingPerLife.GetCopy();
-		persistedStats.TeamMitigation = this.TeamMitigation.GetCopy();
-		persistedStats.SupportPerTurn = this.SupportPerTurn.GetCopy();
-		persistedStats.DamageDonePerLife = this.DamageDonePerLife.GetCopy();
-		persistedStats.DamageTakenPerTurn = this.DamageTakenPerTurn.GetCopy();
-		persistedStats.SecondsPlayed = this.SecondsPlayed.GetCopy();
-		persistedStats.MatchesWon = this.MatchesWon.GetCopy();
-		if (this.FreelancerSpecificStats == null)
+		persistedStats.TotalDeaths = TotalDeaths.GetCopy();
+		persistedStats.TotalPlayerKills = TotalPlayerKills.GetCopy();
+		persistedStats.TotalPlayerAssists = TotalPlayerAssists.GetCopy();
+		persistedStats.TotalPlayerDamage = TotalPlayerDamage.GetCopy();
+		persistedStats.TotalPlayerHealing = TotalPlayerHealing.GetCopy();
+		persistedStats.TotalPlayerAbsorb = TotalPlayerAbsorb.GetCopy();
+		persistedStats.TotalPlayerDamageReceived = TotalPlayerDamageReceived.GetCopy();
+		persistedStats.TotalBadgePoints = TotalBadgePoints.GetCopy();
+		persistedStats.NetDamageAvoidedByEvades = NetDamageAvoidedByEvades.GetCopy();
+		persistedStats.NetDamageAvoidedByEvadesPerLife = NetDamageAvoidedByEvadesPerLife.GetCopy();
+		persistedStats.DamageDodgedByEvades = DamageDodgedByEvades.GetCopy();
+		persistedStats.DamageInterceptedByEvades = DamageInterceptedByEvades.GetCopy();
+		persistedStats.MyIncomingDamageReducedByCover = MyIncomingDamageReducedByCover.GetCopy();
+		persistedStats.MyIncomingDamageReducedByCoverPerLife = MyIncomingDamageReducedByCoverPerLife.GetCopy();
+		persistedStats.MyOutgoingDamageReducedByCover = MyOutgoingDamageReducedByCover.GetCopy();
+		persistedStats.MyOutgoingDamageReducedFromWeakened = MyOutgoingDamageReducedFromWeakened.GetCopy();
+		persistedStats.MyOutgoingExtraDamageFromEmpowered = MyOutgoingExtraDamageFromEmpowered.GetCopy();
+		persistedStats.TeamIncomingDamageReducedByWeakenedFromMe = TeamIncomingDamageReducedByWeakenedFromMe.GetCopy();
+		persistedStats.TeamOutgoingDamageIncreasedByEmpoweredFromMe = TeamOutgoingDamageIncreasedByEmpoweredFromMe.GetCopy();
+		persistedStats.MovementDeniedByMePerTurn = MovementDeniedByMePerTurn.GetCopy();
+		persistedStats.EnergyGainPerTurn = EnergyGainPerTurn.GetCopy();
+		persistedStats.DamagePerTurn = DamagePerTurn.GetCopy();
+		persistedStats.BoostedOutgoingDamagePerTurn = BoostedOutgoingDamagePerTurn.GetCopy();
+		persistedStats.DamageEfficiency = DamageEfficiency.GetCopy();
+		persistedStats.KillParticipation = KillParticipation.GetCopy();
+		persistedStats.EffectiveHealing = EffectiveHealing.GetCopy();
+		persistedStats.TeamDamageAdjustedByMe = TeamDamageAdjustedByMe.GetCopy();
+		persistedStats.TeamDamageSwingByMePerTurn = TeamDamageSwingByMePerTurn.GetCopy();
+		persistedStats.TeamExtraEnergyByEnergizedFromMe = TeamExtraEnergyByEnergizedFromMe.GetCopy();
+		persistedStats.TeamBoostedEnergyByMePerTurn = TeamBoostedEnergyByMePerTurn.GetCopy();
+		persistedStats.TeamDamageReceived = TeamDamageReceived.GetCopy();
+		persistedStats.DamageTakenPerLife = DamageTakenPerLife.GetCopy();
+		persistedStats.EnemiesSightedPerTurn = EnemiesSightedPerTurn.GetCopy();
+		persistedStats.TotalTurns = TotalTurns.GetCopy();
+		persistedStats.TankingPerLife = TankingPerLife.GetCopy();
+		persistedStats.TeamMitigation = TeamMitigation.GetCopy();
+		persistedStats.SupportPerTurn = SupportPerTurn.GetCopy();
+		persistedStats.DamageDonePerLife = DamageDonePerLife.GetCopy();
+		persistedStats.DamageTakenPerTurn = DamageTakenPerTurn.GetCopy();
+		persistedStats.SecondsPlayed = SecondsPlayed.GetCopy();
+		persistedStats.MatchesWon = MatchesWon.GetCopy();
+		if (FreelancerSpecificStats == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -557,22 +723,22 @@ public class PersistedStats : ICloneable
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistedStats.Clone()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			persistedStats.FreelancerSpecificStats = null;
 		}
 		else
 		{
 			persistedStats.FreelancerSpecificStats = new List<PersistedStatEntry>();
-			for (int i = 0; i < this.FreelancerSpecificStats.Count; i++)
+			for (int i = 0; i < FreelancerSpecificStats.Count; i++)
 			{
-				PersistedStatEntry item = new PersistedStatEntry();
-				item = (PersistedStatEntry)this.FreelancerSpecificStats[i].Clone();
-				persistedStats.FreelancerSpecificStats.Add(item);
+				PersistedStatEntry persistedStatEntry = new PersistedStatEntry();
+				persistedStatEntry = (PersistedStatEntry)FreelancerSpecificStats[i].Clone();
+				persistedStats.FreelancerSpecificStats.Add(persistedStatEntry);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{

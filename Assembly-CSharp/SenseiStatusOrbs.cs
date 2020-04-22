@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,7 +25,7 @@ public class SenseiStatusOrbs : Ability
 	public bool m_orbHitIgnoreLos;
 
 	[Header("    - if targeted Ally on cast -")]
-	public int m_fromAllyDamageOnHit = 0xA;
+	public int m_fromAllyDamageOnHit = 10;
 
 	public int m_fromAllySelfHealPerHit = 2;
 
@@ -53,9 +52,9 @@ public class SenseiStatusOrbs : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -64,30 +63,29 @@ public class SenseiStatusOrbs : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiStatusOrbs.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "SenseiStatusOrbs";
+			m_abilityName = "SenseiStatusOrbs";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		base.Targeter = new AbilityUtil_Targeter_AoE_AroundActor(this, this.m_orbHitRadius, this.m_orbHitIgnoreLos, true, true, this.m_numOrbs, this.m_canTargetEnemy, this.m_canTargetAlly, this.m_canTagetSelf)
-		{
-			m_customShouldIncludeActorDelegate = new AbilityUtil_Targeter_AoE_Smooth.ShouldIncludeActorDelegate(this.ShouldAddActorForTargeter),
-			m_allyOccupantSubject = AbilityTooltipSubject.Tertiary,
-			m_enemyOccupantSubject = AbilityTooltipSubject.Tertiary
-		};
+		AbilityUtil_Targeter_AoE_AroundActor abilityUtil_Targeter_AoE_AroundActor = new AbilityUtil_Targeter_AoE_AroundActor(this, m_orbHitRadius, m_orbHitIgnoreLos, true, true, m_numOrbs, m_canTargetEnemy, m_canTargetAlly, m_canTagetSelf);
+		abilityUtil_Targeter_AoE_AroundActor.m_customShouldIncludeActorDelegate = ShouldAddActorForTargeter;
+		abilityUtil_Targeter_AoE_AroundActor.m_allyOccupantSubject = AbilityTooltipSubject.Tertiary;
+		abilityUtil_Targeter_AoE_AroundActor.m_enemyOccupantSubject = AbilityTooltipSubject.Tertiary;
+		base.Targeter = abilityUtil_Targeter_AoE_AroundActor;
 	}
 
 	private bool ShouldAddActorForTargeter(ActorData potentialActor, Vector3 centerPos, ActorData targetingActor)
 	{
 		if (potentialActor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -96,15 +94,15 @@ public class SenseiStatusOrbs : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiStatusOrbs.ShouldAddActorForTargeter(ActorData, Vector3, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			BoardSquare square = Board.\u000E().\u000E(centerPos);
-			ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(square, true, true, targetingActor);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(centerPos);
+			ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquare, true, true, targetingActor);
 			if (targetableActorOnSquare != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -113,9 +111,9 @@ public class SenseiStatusOrbs : Ability
 					}
 					break;
 				}
-				if (targetableActorOnSquare.\u0018())
+				if (targetableActorOnSquare.IsVisibleToClient())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -126,16 +124,16 @@ public class SenseiStatusOrbs : Ability
 					}
 					if (potentialActor != targetableActorOnSquare)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return potentialActor.GetTeam() != targetableActorOnSquare.GetTeam();
 							}
-							break;
 						}
-						return potentialActor.\u000E() != targetableActorOnSquare.\u000E();
 					}
 				}
 			}
@@ -145,11 +143,11 @@ public class SenseiStatusOrbs : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, 1);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, 1);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, 1);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, 1);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, 1);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, 1);
+		return numbers;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
@@ -159,9 +157,9 @@ public class SenseiStatusOrbs : Ability
 		ActorData actorData = base.ActorData;
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Tertiary) > 0)
 		{
-			if (actorData.\u000E() == targetActor.\u000E())
+			if (actorData.GetTeam() == targetActor.GetTeam())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -170,25 +168,23 @@ public class SenseiStatusOrbs : Ability
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiStatusOrbs.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-				int healing = Mathf.Max(0, this.m_fromAllySelfHealPerHit * visibleActorsCountByTooltipSubject);
-				results.m_healing = healing;
+				int num = results.m_healing = Mathf.Max(0, m_fromAllySelfHealPerHit * visibleActorsCountByTooltipSubject);
 			}
 			else
 			{
-				int num = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
-				num += base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Self);
-				int damage = Mathf.Max(0, this.m_fromEnemySelfDamagePerHit * num);
-				results.m_damage = damage;
+				int visibleActorsCountByTooltipSubject2 = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
+				visibleActorsCountByTooltipSubject2 += base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Self);
+				int num2 = results.m_damage = Mathf.Max(0, m_fromEnemySelfDamagePerHit * visibleActorsCountByTooltipSubject2);
 			}
 		}
 		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -197,24 +193,25 @@ public class SenseiStatusOrbs : Ability
 				}
 				break;
 			}
-			results.m_damage = this.m_fromAllyDamageOnHit;
+			results.m_damage = m_fromAllyDamageOnHit;
 		}
 		else
 		{
-			results.m_healing = this.m_fromEnemyHealOnHit;
+			results.m_healing = m_fromEnemyHealOnHit;
 		}
 		return true;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
+		bool flag = false;
 		ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-		return base.CanTargetActorInDecision(caster, currentBestActorTarget, this.m_canTargetEnemy, this.m_canTargetAlly, this.m_canTagetSelf, Ability.ValidateCheckPath.Ignore, !this.m_targetingIgnoreLos, true, false);
+		return CanTargetActorInDecision(caster, currentBestActorTarget, m_canTargetEnemy, m_canTargetAlly, m_canTagetSelf, ValidateCheckPath.Ignore, !m_targetingIgnoreLos, true);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return base.HasTargetableActorsInDecision(caster, this.m_canTargetEnemy, this.m_canTargetAlly, this.m_canTagetSelf, Ability.ValidateCheckPath.Ignore, !this.m_targetingIgnoreLos, true, false);
+		return HasTargetableActorsInDecision(caster, m_canTargetEnemy, m_canTargetAlly, m_canTagetSelf, ValidateCheckPath.Ignore, !m_targetingIgnoreLos, true);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)

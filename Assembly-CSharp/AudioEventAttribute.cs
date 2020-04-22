@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class AudioEventAttribute : PropertyAttribute
@@ -7,6 +6,6 @@ public class AudioEventAttribute : PropertyAttribute
 
 	public AudioEventAttribute(bool audioMasterListOnly)
 	{
-		this.AudioManagerMasterListOnly = audioMasterListOnly;
+		AudioManagerMasterListOnly = audioMasterListOnly;
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -13,40 +13,38 @@ public class FactionRewards
 	public List<FactionReward> GetAllRewards()
 	{
 		List<FactionReward> list = new List<FactionReward>();
-		for (int i = 0; i < this.CurrencyRewards.Count; i++)
+		for (int i = 0; i < CurrencyRewards.Count; i++)
 		{
-			list.Add(this.CurrencyRewards[i]);
+			list.Add(CurrencyRewards[i]);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FactionRewards.GetAllRewards()).MethodHandle;
-		}
-		for (int j = 0; j < this.UnlockRewards.Count; j++)
-		{
-			list.Add(this.UnlockRewards[j]);
-		}
-		for (int k = 0; k < this.ItemRewards.Count; k++)
-		{
-			list.Add(this.ItemRewards[k]);
-		}
-		for (;;)
-		{
-			switch (7)
+			if (1 == 0)
 			{
-			case 0:
-				continue;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			break;
+			for (int j = 0; j < UnlockRewards.Count; j++)
+			{
+				list.Add(UnlockRewards[j]);
+			}
+			for (int k = 0; k < ItemRewards.Count; k++)
+			{
+				list.Add(ItemRewards[k]);
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				return list;
+			}
 		}
-		return list;
 	}
 }

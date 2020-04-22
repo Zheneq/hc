@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,26 +11,27 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 
 	private float m_knockbackDistance;
 
-	public AbilityUtil_Targeter_RocketJump(Ability ability, AbilityAreaShape shape, bool penetrateLoS, float knockbackDistance, bool affectsAllies) : base(ability)
+	public AbilityUtil_Targeter_RocketJump(Ability ability, AbilityAreaShape shape, bool penetrateLoS, float knockbackDistance, bool affectsAllies)
+		: base(ability)
 	{
-		this.m_shape = shape;
-		this.m_penetrateLoS = penetrateLoS;
-		this.m_knockbackDistance = knockbackDistance;
-		this.m_cursorType = HighlightUtils.CursorType.NoCursorType;
-		this.m_affectsAllies = affectsAllies;
+		m_shape = shape;
+		m_penetrateLoS = penetrateLoS;
+		m_knockbackDistance = knockbackDistance;
+		m_cursorType = HighlightUtils.CursorType.NoCursorType;
+		m_affectsAllies = affectsAllies;
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		base.ClearActorsInRange();
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		if (this.m_highlights != null)
+		ClearActorsInRange();
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		if (m_highlights != null)
 		{
-			if (this.m_highlights.Count >= 2)
+			if (m_highlights.Count >= 2)
 			{
-				goto IL_A3;
+				goto IL_00a3;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -40,29 +40,30 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_RocketJump.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		bool isForLocalPlayer = targetingActor == GameFlowData.Get().activeOwnedActorData;
-		this.m_highlights = new List<GameObject>();
-		this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_shape, isForLocalPlayer));
-		this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, isForLocalPlayer));
-		IL_A3:
-		GameObject gameObject = this.m_highlights[0];
-		GameObject gameObject2 = this.m_highlights[1];
-		Vector3 position = targetingActor.\u0016();
-		position.y = HighlightUtils.GetHighlightHeight();
-		gameObject.transform.position = position;
-		if (boardSquare != null)
+		m_highlights = new List<GameObject>();
+		m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_shape, isForLocalPlayer));
+		m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, isForLocalPlayer));
+		goto IL_00a3;
+		IL_00a3:
+		GameObject gameObject = m_highlights[0];
+		GameObject gameObject2 = m_highlights[1];
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		travelBoardSquareWorldPosition.y = HighlightUtils.GetHighlightHeight();
+		gameObject.transform.position = travelBoardSquareWorldPosition;
+		if (boardSquareSafe != null)
 		{
-			Vector3 position2 = boardSquare.ToVector3();
-			position2.y = HighlightUtils.GetHighlightHeight();
-			gameObject2.transform.position = position2;
+			Vector3 position = boardSquareSafe.ToVector3();
+			position.y = HighlightUtils.GetHighlightHeight();
+			gameObject2.transform.position = position;
 			if (!gameObject2.activeSelf)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -79,15 +80,15 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 			gameObject2.SetActive(false);
 		}
 		BoardSquarePathInfo boardSquarePathInfo = new BoardSquarePathInfo();
-		boardSquarePathInfo.square = targetingActor.\u0012();
+		boardSquarePathInfo.square = targetingActor.GetCurrentBoardSquare();
 		BoardSquarePathInfo boardSquarePathInfo2 = new BoardSquarePathInfo();
-		boardSquarePathInfo2.square = boardSquare;
+		boardSquarePathInfo2.square = boardSquareSafe;
 		boardSquarePathInfo.next = boardSquarePathInfo2;
 		boardSquarePathInfo2.prev = boardSquarePathInfo;
 		int num = 0;
-		if (this.m_knockbackDistance != 0f)
+		if (m_knockbackDistance != 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -96,21 +97,20 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 				}
 				break;
 			}
-			base.SetMovementArrowEnabledFromIndex(0, true);
+			SetMovementArrowEnabledFromIndex(0, true);
 		}
-		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_shape, targetingActor.\u0016(), targetingActor.\u0012(), this.m_penetrateLoS, targetingActor, base.GetAffectedTeams(), null);
-		TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
-		using (List<ActorData>.Enumerator enumerator = actorsInShape.GetEnumerator())
+		List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor.GetCurrentBoardSquare(), m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
+		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+		using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				ActorData actor = actorData;
-				Vector3 damageOrigin = targetingActor.\u0016();
-				AbilityTooltipSubject subjectType;
-				if (actorData.\u000E() == targetingActor.\u000E())
+				ActorData current = enumerator.Current;
+				Vector3 travelBoardSquareWorldPosition2 = targetingActor.GetTravelBoardSquareWorldPosition();
+				int subjectType;
+				if (current.GetTeam() == targetingActor.GetTeam())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -119,16 +119,16 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 						}
 						break;
 					}
-					subjectType = AbilityTooltipSubject.Ally;
+					subjectType = 6;
 				}
 				else
 				{
-					subjectType = AbilityTooltipSubject.Primary;
+					subjectType = 1;
 				}
-				base.AddActorInRange(actor, damageOrigin, targetingActor, subjectType, false);
-				if (this.m_knockbackDistance != 0f)
+				AddActorInRange(current, travelBoardSquareWorldPosition2, targetingActor, (AbilityTooltipSubject)subjectType);
+				if (m_knockbackDistance != 0f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -137,11 +137,11 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 						}
 						break;
 					}
-					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, KnockbackType.AwayFromSource, currentTarget.AimDirection, targetingActor.\u0016(), this.m_knockbackDistance);
-					num = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
+					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, KnockbackType.AwayFromSource, currentTarget.AimDirection, targetingActor.GetTravelBoardSquareWorldPosition(), m_knockbackDistance);
+					num = AddMovementArrowWithPrevious(current, path, TargeterMovementType.Knockback, num);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -151,9 +151,9 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 				break;
 			}
 		}
-		if (this.m_affectsTargetingActor)
+		if (m_affectsTargetingActor)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -162,8 +162,8 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 				}
 				break;
 			}
-			base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Self, false);
+			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
 		}
-		base.SetMovementArrowEnabledFromIndex(num, false);
+		SetMovementArrowEnabledFromIndex(num, false);
 	}
 }

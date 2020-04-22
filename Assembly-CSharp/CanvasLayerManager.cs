@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ public class CanvasLayerManager
 
 	private int nameplateItemEndIndex;
 
-	private const int c_nameplatePadding = 0x1F4;
+	private const int c_nameplatePadding = 500;
 
 	private bool m_addedNewNameplate;
 
@@ -22,129 +21,130 @@ public class CanvasLayerManager
 
 	private CanvasLayerManager()
 	{
-		this.m_canvases = new List<_CanvasLayerSorter>();
-		this.CreateSortOrder();
+		m_canvases = new List<_CanvasLayerSorter>();
+		CreateSortOrder();
 	}
 
 	public static CanvasLayerManager Get()
 	{
-		if (CanvasLayerManager.s_instance == null)
+		if (s_instance == null)
 		{
-			CanvasLayerManager.s_instance = new CanvasLayerManager();
+			s_instance = new CanvasLayerManager();
 		}
-		return CanvasLayerManager.s_instance;
+		return s_instance;
 	}
 
 	~CanvasLayerManager()
 	{
-		CanvasLayerManager.s_instance = null;
+		s_instance = null;
 	}
 
 	public void NotifyAddedNewNameplate()
 	{
-		this.m_addedNewNameplate = true;
-		this.m_refreshCounter = 0;
+		m_addedNewNameplate = true;
+		m_refreshCounter = 0;
 	}
 
 	public void Update()
 	{
-		if (this.m_addedNewNameplate)
+		if (!m_addedNewNameplate)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CanvasLayerManager.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			foreach (_CanvasLayerSorter canvasLayerSorter in this.m_canvases)
+			foreach (_CanvasLayerSorter canvase in m_canvases)
 			{
-				canvasLayerSorter.DoCanvasRefresh();
+				canvase.DoCanvasRefresh();
 			}
-			this.m_refreshCounter++;
-			if (this.m_refreshCounter > 1)
+			m_refreshCounter++;
+			if (m_refreshCounter > 1)
 			{
-				this.m_addedNewNameplate = false;
+				m_addedNewNameplate = false;
 			}
+			return;
 		}
 	}
 
 	private void CreateSortOrder()
 	{
-		this.m_canvasSortOrder = new List<CanvasLayerName>();
-		this.m_canvasSortOrder.Add(CanvasLayerName.None);
-		this.m_canvasSortOrder.Add(CanvasLayerName.InputBlock);
-		this.m_canvasSortOrder.Add(CanvasLayerName.PersistantWorldCanvas);
-		this.m_canvasSortOrder.Add(CanvasLayerName.TutorialPanel);
-		this.m_canvasSortOrder.Add(CanvasLayerName.OffscreenIndicatorPanel);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplatePanel);
-		this.nameplateItemBeginIndex = this.m_canvasSortOrder.Count;
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateItem);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateTargetGlow);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateBG);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateArrowBG);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateTeamColor);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateResolutionBar);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateDamageEaseBar);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateHPGainBar);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateShieldMask);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateCurrentHP);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateTechPointBarEase);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateTechPointBar);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateTickContainer);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateOnTopOfBars);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NameplateHealthBarMouseOver);
-		this.nameplateItemEndIndex = this.m_canvasSortOrder.Count - 1;
-		this.m_canvasSortOrder.Add(CanvasLayerName.MainHUDScreen);
-		this.m_canvasSortOrder.Add(CanvasLayerName.AbilityBarBG);
-		this.m_canvasSortOrder.Add(CanvasLayerName.InfoScreen);
-		this.m_canvasSortOrder.Add(CanvasLayerName.TimeContainer);
-		this.m_canvasSortOrder.Add(CanvasLayerName.AbilityButtons);
-		this.m_canvasSortOrder.Add(CanvasLayerName.CardBar);
-		this.m_canvasSortOrder.Add(CanvasLayerName.CharacterSelectGameMode);
-		this.m_canvasSortOrder.Add(CanvasLayerName.GameOverStatsWindow);
-		this.m_canvasSortOrder.Add(CanvasLayerName.WaitingInQueueCanvas);
-		this.m_canvasSortOrder.Add(CanvasLayerName.PersistantScreenOverlayCanvasBelow);
-		this.m_canvasSortOrder.Add(CanvasLayerName.CharacterSelectLeft);
-		this.m_canvasSortOrder.Add(CanvasLayerName.CharacterSelectRight);
-		this.m_canvasSortOrder.Add(CanvasLayerName.CharacterSelectSpells);
-		this.m_canvasSortOrder.Add(CanvasLayerName.CharacterSelectSkins);
-		this.m_canvasSortOrder.Add(CanvasLayerName.CharacterSelectAbilities);
-		this.m_canvasSortOrder.Add(CanvasLayerName.CharacterSelectBottomMenu);
-		this.m_canvasSortOrder.Add(CanvasLayerName.FrontEndTopCanvas);
-		this.m_canvasSortOrder.Add(CanvasLayerName.TextScrollView);
-		this.m_canvasSortOrder.Add(CanvasLayerName.TopDisplayPanel);
-		this.m_canvasSortOrder.Add(CanvasLayerName.GameSpecificDisplay);
-		this.m_canvasSortOrder.Add(CanvasLayerName.PersistantScreenOverlayCanvas);
-		this.m_canvasSortOrder.Add(CanvasLayerName.PersistantScreenOverlayCanvasTop);
-		this.m_canvasSortOrder.Add(CanvasLayerName.NewReward);
-		this.m_canvasSortOrder.Add(CanvasLayerName.CharacterProfileBackground);
-		this.m_canvasSortOrder.Add(CanvasLayerName.CharacterShield);
-		this.m_canvasSortOrder.Add(CanvasLayerName.CharacterHealth);
-		this.m_canvasSortOrder.Add(CanvasLayerName.CharacterStatusLabels);
-		this.m_canvasSortOrder.Add(CanvasLayerName.BuffTooltip);
-		this.m_canvasSortOrder.Add(CanvasLayerName.TooltipContainer);
-		this.m_canvasSortOrder.Add(CanvasLayerName.TutorialEnergyArrows);
-		this.m_canvasSortOrder.Add(CanvasLayerName.TutorialBackground);
-		this.m_canvasSortOrder.Add(CanvasLayerName.SystemMenu);
-		this.m_canvasSortOrder.Add(CanvasLayerName.SystemMenuPanel);
-		this.m_canvasSortOrder.Add(CanvasLayerName.OptionsMenu);
-		this.m_canvasSortOrder.Add(CanvasLayerName.DefeatVictoryBackground);
-		this.m_canvasSortOrder.Add(CanvasLayerName.FrontEndLoadingScreen);
+		m_canvasSortOrder = new List<CanvasLayerName>();
+		m_canvasSortOrder.Add(CanvasLayerName.None);
+		m_canvasSortOrder.Add(CanvasLayerName.InputBlock);
+		m_canvasSortOrder.Add(CanvasLayerName.PersistantWorldCanvas);
+		m_canvasSortOrder.Add(CanvasLayerName.TutorialPanel);
+		m_canvasSortOrder.Add(CanvasLayerName.OffscreenIndicatorPanel);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplatePanel);
+		nameplateItemBeginIndex = m_canvasSortOrder.Count;
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateItem);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateTargetGlow);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateBG);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateArrowBG);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateTeamColor);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateResolutionBar);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateDamageEaseBar);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateHPGainBar);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateShieldMask);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateCurrentHP);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateTechPointBarEase);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateTechPointBar);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateTickContainer);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateOnTopOfBars);
+		m_canvasSortOrder.Add(CanvasLayerName.NameplateHealthBarMouseOver);
+		nameplateItemEndIndex = m_canvasSortOrder.Count - 1;
+		m_canvasSortOrder.Add(CanvasLayerName.MainHUDScreen);
+		m_canvasSortOrder.Add(CanvasLayerName.AbilityBarBG);
+		m_canvasSortOrder.Add(CanvasLayerName.InfoScreen);
+		m_canvasSortOrder.Add(CanvasLayerName.TimeContainer);
+		m_canvasSortOrder.Add(CanvasLayerName.AbilityButtons);
+		m_canvasSortOrder.Add(CanvasLayerName.CardBar);
+		m_canvasSortOrder.Add(CanvasLayerName.CharacterSelectGameMode);
+		m_canvasSortOrder.Add(CanvasLayerName.GameOverStatsWindow);
+		m_canvasSortOrder.Add(CanvasLayerName.WaitingInQueueCanvas);
+		m_canvasSortOrder.Add(CanvasLayerName.PersistantScreenOverlayCanvasBelow);
+		m_canvasSortOrder.Add(CanvasLayerName.CharacterSelectLeft);
+		m_canvasSortOrder.Add(CanvasLayerName.CharacterSelectRight);
+		m_canvasSortOrder.Add(CanvasLayerName.CharacterSelectSpells);
+		m_canvasSortOrder.Add(CanvasLayerName.CharacterSelectSkins);
+		m_canvasSortOrder.Add(CanvasLayerName.CharacterSelectAbilities);
+		m_canvasSortOrder.Add(CanvasLayerName.CharacterSelectBottomMenu);
+		m_canvasSortOrder.Add(CanvasLayerName.FrontEndTopCanvas);
+		m_canvasSortOrder.Add(CanvasLayerName.TextScrollView);
+		m_canvasSortOrder.Add(CanvasLayerName.TopDisplayPanel);
+		m_canvasSortOrder.Add(CanvasLayerName.GameSpecificDisplay);
+		m_canvasSortOrder.Add(CanvasLayerName.PersistantScreenOverlayCanvas);
+		m_canvasSortOrder.Add(CanvasLayerName.PersistantScreenOverlayCanvasTop);
+		m_canvasSortOrder.Add(CanvasLayerName.NewReward);
+		m_canvasSortOrder.Add(CanvasLayerName.CharacterProfileBackground);
+		m_canvasSortOrder.Add(CanvasLayerName.CharacterShield);
+		m_canvasSortOrder.Add(CanvasLayerName.CharacterHealth);
+		m_canvasSortOrder.Add(CanvasLayerName.CharacterStatusLabels);
+		m_canvasSortOrder.Add(CanvasLayerName.BuffTooltip);
+		m_canvasSortOrder.Add(CanvasLayerName.TooltipContainer);
+		m_canvasSortOrder.Add(CanvasLayerName.TutorialEnergyArrows);
+		m_canvasSortOrder.Add(CanvasLayerName.TutorialBackground);
+		m_canvasSortOrder.Add(CanvasLayerName.SystemMenu);
+		m_canvasSortOrder.Add(CanvasLayerName.SystemMenuPanel);
+		m_canvasSortOrder.Add(CanvasLayerName.OptionsMenu);
+		m_canvasSortOrder.Add(CanvasLayerName.DefeatVictoryBackground);
+		m_canvasSortOrder.Add(CanvasLayerName.FrontEndLoadingScreen);
 	}
 
 	private bool IsLayerNameplate(CanvasLayerName layerName)
 	{
-		bool result;
-		if (this.nameplateItemBeginIndex <= this.GetIndex(layerName))
+		int result;
+		if (nameplateItemBeginIndex <= GetIndex(layerName))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -153,25 +153,25 @@ public class CanvasLayerManager
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CanvasLayerManager.IsLayerNameplate(CanvasLayerName)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (this.GetIndex(layerName) <= this.nameplateItemEndIndex);
+			result = ((GetIndex(layerName) <= nameplateItemEndIndex) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private bool IsLayerNameplate(int layer)
 	{
-		bool result;
-		if (this.nameplateItemBeginIndex <= layer)
+		int result;
+		if (nameplateItemBeginIndex <= layer)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -180,31 +180,31 @@ public class CanvasLayerManager
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CanvasLayerManager.IsLayerNameplate(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (layer <= this.nameplateItemEndIndex);
+			result = ((layer <= nameplateItemEndIndex) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private int GetIndex(CanvasLayerName layerName)
 	{
 		int result = -1;
 		int num = 0;
-		using (List<CanvasLayerName>.Enumerator enumerator = this.m_canvasSortOrder.GetEnumerator())
+		using (List<CanvasLayerName>.Enumerator enumerator = m_canvasSortOrder.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				CanvasLayerName canvasLayerName = enumerator.Current;
-				if (canvasLayerName != layerName)
+				CanvasLayerName current = enumerator.Current;
+				if (current != layerName)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -213,9 +213,9 @@ public class CanvasLayerManager
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(CanvasLayerManager.GetIndex(CanvasLayerName)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					num++;
 				}
@@ -224,32 +224,32 @@ public class CanvasLayerManager
 					result = num;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return result;
 				}
-				break;
 			}
 		}
-		return result;
 	}
 
 	public void UpdateNameplateOrder()
 	{
-		this.m_canvases.RemoveAll((_CanvasLayerSorter item) => item == null);
-		using (List<_CanvasLayerSorter>.Enumerator enumerator = this.m_canvases.GetEnumerator())
+		m_canvases.RemoveAll((_CanvasLayerSorter item) => item == null);
+		using (List<_CanvasLayerSorter>.Enumerator enumerator = m_canvases.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				_CanvasLayerSorter canvasLayerSorter = enumerator.Current;
-				Canvas canvas = canvasLayerSorter.GetCanvas();
-				int index = this.GetIndex(canvasLayerSorter.m_layerName);
-				if (this.IsLayerNameplate(index))
+				_CanvasLayerSorter current = enumerator.Current;
+				Canvas canvas = current.GetCanvas();
+				int index = GetIndex(current.m_layerName);
+				if (IsLayerNameplate(index))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -258,14 +258,14 @@ public class CanvasLayerManager
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(CanvasLayerManager.UpdateNameplateOrder()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					UINameplateItem componentInParent = canvasLayerSorter.GetComponentInParent<UINameplateItem>();
+					UINameplateItem componentInParent = current.GetComponentInParent<UINameplateItem>();
 					if (componentInParent != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -277,7 +277,7 @@ public class CanvasLayerManager
 						int num = UIManager.Get().GetNameplateCanvasLayer() + componentInParent.GetSortOrder();
 						if (canvas.sortingOrder != index + num)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -291,24 +291,25 @@ public class CanvasLayerManager
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public void AddCanvas(_CanvasLayerSorter newCanvas)
 	{
-		List<_CanvasLayerSorter> canvases = this.m_canvases;
-		if (CanvasLayerManager.<>f__am$cache1 == null)
+		List<_CanvasLayerSorter> canvases = m_canvases;
+		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -317,30 +318,30 @@ public class CanvasLayerManager
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CanvasLayerManager.AddCanvas(_CanvasLayerSorter)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			CanvasLayerManager.<>f__am$cache1 = ((_CanvasLayerSorter item) => item == null);
+			_003C_003Ef__am_0024cache1 = ((_CanvasLayerSorter item) => item == null);
 		}
-		canvases.RemoveAll(CanvasLayerManager.<>f__am$cache1);
-		if (!this.m_canvases.Contains(newCanvas))
+		canvases.RemoveAll(_003C_003Ef__am_0024cache1);
+		if (m_canvases.Contains(newCanvas))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_canvases.Add(newCanvas);
+			m_canvases.Add(newCanvas);
 			Canvas canvas = newCanvas.GetCanvas();
-			int index = this.GetIndex(newCanvas.m_layerName);
-			if (this.IsLayerNameplate(index))
+			int index = GetIndex(newCanvas.m_layerName);
+			if (IsLayerNameplate(index))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -352,7 +353,7 @@ public class CanvasLayerManager
 				UINameplateItem componentInParent = newCanvas.GetComponentInParent<UINameplateItem>();
 				if (componentInParent != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -361,12 +362,12 @@ public class CanvasLayerManager
 						}
 						break;
 					}
-					canvas.sortingOrder = index + (this.nameplateItemEndIndex - this.nameplateItemBeginIndex + 1) * componentInParent.GetSortOrder();
+					canvas.sortingOrder = index + (nameplateItemEndIndex - nameplateItemBeginIndex + 1) * componentInParent.GetSortOrder();
 				}
 			}
-			else if (index > this.nameplateItemEndIndex)
+			else if (index > nameplateItemEndIndex)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -375,7 +376,7 @@ public class CanvasLayerManager
 					}
 					break;
 				}
-				canvas.sortingOrder = index + 0x1F4;
+				canvas.sortingOrder = index + 500;
 			}
 			else
 			{
@@ -383,6 +384,7 @@ public class CanvasLayerManager
 			}
 			newCanvas.GetCanvas().overrideSorting = false;
 			newCanvas.GetCanvas().overrideSorting = true;
+			return;
 		}
 	}
 }

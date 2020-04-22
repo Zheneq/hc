@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class AppState_InGameDeployment : AppStateInGame
@@ -7,7 +6,7 @@ public class AppState_InGameDeployment : AppStateInGame
 
 	public static AppState_InGameDeployment Get()
 	{
-		return AppState_InGameDeployment.s_instance;
+		return s_instance;
 	}
 
 	public static void Create()
@@ -17,14 +16,14 @@ public class AppState_InGameDeployment : AppStateInGame
 
 	private void Awake()
 	{
-		AppState_InGameDeployment.s_instance = this;
+		s_instance = this;
 	}
 
 	protected override void OnEnter()
 	{
-		if (CameraManager.Get().GetFlyThroughCamera())
+		if ((bool)CameraManager.Get().GetFlyThroughCamera())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -33,13 +32,13 @@ public class AppState_InGameDeployment : AppStateInGame
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_InGameDeployment.OnEnter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!ClientGameManager.Get().IsSpectator)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -56,7 +55,7 @@ public class AppState_InGameDeployment : AppStateInGame
 		ChatterManager.Get().ForceCancelActiveChatter();
 		if (GameManager.Get().GameConfig.GameType != GameType.Tutorial)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -67,7 +66,7 @@ public class AppState_InGameDeployment : AppStateInGame
 			}
 			if (!ClientGameManager.Get().Reconnected)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -82,7 +81,7 @@ public class AppState_InGameDeployment : AppStateInGame
 		AudioManager.GetMixerSnapshotManager().SetMix_MatchIntro();
 		if (UIFrontendLoadingScreen.Get().gameObject.activeSelf)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -93,10 +92,10 @@ public class AppState_InGameDeployment : AppStateInGame
 			}
 			UIFrontendLoadingScreen.Get().StartDisplayFadeOut();
 		}
-		Board.\u000E().SetLOSVisualEffect(false);
+		Board.Get().SetLOSVisualEffect(false);
 		if (GameManager.Get().GameConfig.GameType == GameType.Tutorial)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -107,11 +106,11 @@ public class AppState_InGameDeployment : AppStateInGame
 			}
 			CameraManager.Get().EnableOffFogOfWarEffect(false);
 		}
-		Log.Info("HEALTHBARCHECK: DEPLOYMENT ENTERED", new object[0]);
-		UIScreenManager.Get().SetHUDHide(false, false, true, false);
+		Log.Info("HEALTHBARCHECK: DEPLOYMENT ENTERED");
+		UIScreenManager.Get().SetHUDHide(false, false, true);
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -120,11 +119,11 @@ public class AppState_InGameDeployment : AppStateInGame
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(HUD_UI.Get().m_textConsole, true, null);
+			UIManager.SetGameObjectActive(HUD_UI.Get().m_textConsole, true);
 		}
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -133,17 +132,17 @@ public class AppState_InGameDeployment : AppStateInGame
 				}
 				break;
 			}
-			GameFlowData.Get().activeOwnedActorData.\u000E().SetMovementDistanceLinesVisible(false);
+			GameFlowData.Get().activeOwnedActorData.GetActorController().SetMovementDistanceLinesVisible(false);
 		}
-		base.RegisterGameStoppedHandler();
-		GameFlowData.s_onGameStateChanged += this.OnGameStateChanged;
+		RegisterGameStoppedHandler();
+		GameFlowData.s_onGameStateChanged += OnGameStateChanged;
 	}
 
 	protected override void OnLeave()
 	{
-		if (CameraManager.Get().GetFlyThroughCamera())
+		if ((bool)CameraManager.Get().GetFlyThroughCamera())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -152,15 +151,15 @@ public class AppState_InGameDeployment : AppStateInGame
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_InGameDeployment.OnLeave()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			CameraManager.Get().GetFlyThroughCamera().StopFlyThroughAnimation();
 		}
-		if (BrushCoordinator.Get())
+		if ((bool)BrushCoordinator.Get())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -171,10 +170,10 @@ public class AppState_InGameDeployment : AppStateInGame
 			}
 			BrushCoordinator.Get().EnableBrushVisibility();
 		}
-		Board.\u000E().SetLOSVisualEffect(true);
+		Board.Get().SetLOSVisualEffect(true);
 		if (GameManager.Get().GameConfig.GameType == GameType.Tutorial)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -185,18 +184,18 @@ public class AppState_InGameDeployment : AppStateInGame
 			}
 			CameraManager.Get().EnableOffFogOfWarEffect(true);
 		}
-		Log.Info("HEALTHBARCHECK: DEPLOYMENT LEAVE", new object[0]);
-		UIScreenManager.Get().SetHUDHide(true, true, false, false);
+		Log.Info("HEALTHBARCHECK: DEPLOYMENT LEAVE");
+		UIScreenManager.Get().SetHUDHide(true, true);
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
 			using (List<ActorData>.Enumerator enumerator = GameFlowData.Get().m_ownedActorDatas.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					ActorData actorData = enumerator.Current;
-					actorData.\u000E().SetMovementDistanceLinesVisible(true);
+					ActorData current = enumerator.Current;
+					current.GetActorController().SetMovementDistanceLinesVisible(true);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -207,32 +206,35 @@ public class AppState_InGameDeployment : AppStateInGame
 				}
 			}
 		}
-		base.UnregisterGameStoppedHandler();
-		GameFlowData.s_onGameStateChanged -= this.OnGameStateChanged;
+		UnregisterGameStoppedHandler();
+		GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
 	}
 
 	private void OnGameStateChanged(GameState newState)
 	{
-		if (newState == GameState.BothTeams_Decision)
+		switch (newState)
 		{
+		default:
+			return;
+		case GameState.BothTeams_Decision:
 			AppState_InGameDecision.Get().Enter();
+			return;
+		case GameState.EndingGame:
+			break;
 		}
-		else if (newState == GameState.EndingGame)
+		while (true)
 		{
-			for (;;)
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_InGameDeployment.OnGameStateChanged(GameState)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			AppState_InGameEnding.Get().Enter();
+			return;
 		}
 	}
 }

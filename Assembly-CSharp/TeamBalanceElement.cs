@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class TeamBalanceElement
@@ -7,7 +6,7 @@ public class TeamBalanceElement
 	{
 		if (players.Count >= 2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -16,9 +15,9 @@ public class TeamBalanceElement
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamBalanceElement.Balance(List<ELOProvider>, BestSolutions.ILegalityValidator, float, double, FreelancerDuplicationRuleTypes)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (players.Count % 2 != 1)
 			{
@@ -27,23 +26,23 @@ public class TeamBalanceElement
 				{
 					while (enumerator.MoveNext())
 					{
-						ELOProvider eloprovider = enumerator.Current;
-						if (eloprovider.ELO <= 0f)
+						ELOProvider current = enumerator.Current;
+						if (current.ELO <= 0f)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return BestSolutions.BalanceResults.MakeError("InternalError", "Global");
 								}
-								break;
 							}
-							return BestSolutions.BalanceResults.MakeError("InternalError", "Global");
 						}
-						num += eloprovider.ELO;
+						num += current.ELO;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -58,7 +57,7 @@ public class TeamBalanceElement
 				{
 					if (i < players.Count / 2)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -75,10 +74,9 @@ public class TeamBalanceElement
 					}
 				}
 				float maxTeamDifference = num * percentMaxTeamEloDifference / 200f;
-				BestSolutions bestSolutions = new BestSolutions
-				{
-					m_duplicationRule = dupRule
-				};
+				BestSolutions bestSolutions = new BestSolutions();
+				bestSolutions.m_duplicationRule = dupRule;
+				BestSolutions bestSolutions2 = bestSolutions;
 				bool flag = false;
 				while (!flag)
 				{
@@ -90,7 +88,7 @@ public class TeamBalanceElement
 							num2 += players[j].ELO;
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -101,14 +99,14 @@ public class TeamBalanceElement
 					}
 					float num3 = num - num2;
 					float aVbEloDifference = num2 - num3;
-					bestSolutions.Register(list, players, aVbEloDifference, maxTeamDifference, validator);
+					bestSolutions2.Register(list, players, aVbEloDifference, maxTeamDifference, validator);
 					int num4 = -1;
 					int num5 = 0;
 					int num6 = 0;
 					bool flag2 = false;
 					while (num4 == -1)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -117,62 +115,63 @@ public class TeamBalanceElement
 							}
 							break;
 						}
-						if (num5 >= list.Count)
+						if (num5 < list.Count)
 						{
-							for (;;)
+							if (list[num5] == 1)
 							{
-								switch (6)
+								while (true)
 								{
-								case 0:
-									continue;
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
 								}
-								goto IL_21E;
-							}
-						}
-						else if (list[num5] == 1)
-						{
-							for (;;)
-							{
-								switch (4)
+								if (!flag2)
 								{
-								case 0:
-									continue;
+									flag2 = true;
+									num6 = 0;
 								}
-								break;
+								else
+								{
+									num6++;
+								}
+								num5++;
 							}
-							if (!flag2)
+							else if (!flag2)
 							{
-								flag2 = true;
-								num6 = 0;
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								num5++;
 							}
 							else
 							{
-								num6++;
+								num4 = num5;
 							}
-							num5++;
+							continue;
 						}
-						else if (!flag2)
+						while (true)
 						{
-							for (;;)
+							switch (6)
 							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
+							case 0:
+								continue;
 							}
-							num5++;
+							break;
 						}
-						else
-						{
-							num4 = num5;
-						}
+						break;
 					}
-					IL_21E:
 					if (num4 != -1)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -185,7 +184,7 @@ public class TeamBalanceElement
 						{
 							if (k < num6)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (6)
 									{
@@ -201,7 +200,7 @@ public class TeamBalanceElement
 								list[k] = 0;
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -217,32 +216,30 @@ public class TeamBalanceElement
 						flag = true;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				BestSolutions.BalanceResults result = bestSolutions.Resolve(rnd);
-				for (int l = 0; l < players.Count; l++)
-				{
-					players[l].Team = ((!bestSolutions.OnTeamA(l)) ? Team.TeamB : Team.TeamA);
-				}
-				for (;;)
-				{
-					switch (6)
+					BestSolutions.BalanceResults result = bestSolutions2.Resolve(rnd);
+					for (int l = 0; l < players.Count; l++)
 					{
-					case 0:
-						continue;
+						players[l].Team = ((!bestSolutions2.OnTeamA(l)) ? Team.TeamB : Team.TeamA);
 					}
-					break;
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						return result;
+					}
 				}
-				return result;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{

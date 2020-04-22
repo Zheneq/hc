@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class CameraAspect : MonoBehaviour
@@ -14,9 +13,9 @@ public class CameraAspect : MonoBehaviour
 		get
 		{
 			float result;
-			if (this.m_height == 0f)
+			if (m_height == 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -25,15 +24,15 @@ public class CameraAspect : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CameraAspect.get_Aspect()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				result = 1f;
 			}
 			else
 			{
-				result = this.m_width / this.m_height;
+				result = m_width / m_height;
 			}
 			return result;
 		}
@@ -41,18 +40,18 @@ public class CameraAspect : MonoBehaviour
 
 	private void Start()
 	{
-		this.SetAspect();
+		SetAspect();
 	}
 
 	private void Update()
 	{
-		this.SetAspect();
+		SetAspect();
 	}
 
 	private void SetAspect()
 	{
-		float num = (float)Screen.width * this.m_width;
+		float num = (float)Screen.width * m_width;
 		float width = num / (float)Screen.width;
-		base.GetComponent<Camera>().rect = new Rect(base.GetComponent<Camera>().rect.x, base.GetComponent<Camera>().rect.y, width, this.m_height);
+		GetComponent<Camera>().rect = new Rect(GetComponent<Camera>().rect.x, GetComponent<Camera>().rect.y, width, m_height);
 	}
 }

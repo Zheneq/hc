@@ -1,37 +1,37 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class AbilityModPropertyBlockingRules
 {
-	public AbilityModPropertyBlockingRules.ModOp operation;
+	public enum ModOp
+	{
+		Ignore,
+		Override
+	}
+
+	public ModOp operation;
 
 	public BlockingRules value;
 
 	public BlockingRules GetModifiedValue(BlockingRules input)
 	{
-		if (this.operation == AbilityModPropertyBlockingRules.ModOp.Override)
+		if (operation == ModOp.Override)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return value;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyBlockingRules.GetModifiedValue(BlockingRules)).MethodHandle;
-			}
-			return this.value;
 		}
 		return input;
-	}
-
-	public enum ModOp
-	{
-		Ignore,
-		Override
 	}
 }

@@ -1,5 +1,3 @@
-﻿using System;
-
 public interface IPersistedGameplayStat
 {
 	float GetSum();

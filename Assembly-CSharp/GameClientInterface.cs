@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+using System;
 using System.Threading;
 using WebSocketSharp;
 
@@ -15,71 +14,7 @@ public class GameClientInterface : WebSocketInterface
 
 	protected WebSocketMessageDispatcher<GameClientInterface> m_messageDispatcher;
 
-	public GameClientInterface()
-	{
-		if (GameClientInterface.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface..ctor()).MethodHandle;
-			}
-			GameClientInterface.<>f__am$cache0 = delegate()
-			{
-			};
-		}
-		this.OnConnected = GameClientInterface.<>f__am$cache0;
-		if (GameClientInterface.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameClientInterface.<>f__am$cache1 = delegate(string A_0, bool A_1, CloseStatusCode A_2)
-			{
-			};
-		}
-		this.OnDisconnected = GameClientInterface.<>f__am$cache1;
-		this.OnConnectionError = delegate(string A_0)
-		{
-		};
-		if (GameClientInterface.<>f__am$cache3 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameClientInterface.<>f__am$cache3 = delegate(BinaryMessageNotification A_0)
-			{
-			};
-		}
-		this.OnMessage = GameClientInterface.<>f__am$cache3;
-		base..ctor(new WebSocketMessageFactory());
-		base.HeartbeatPeriod = TimeSpan.FromMinutes(1.0);
-		base.HeartbeatTimeout = TimeSpan.FromMinutes(5.0);
-		base.IsRaw = true;
-		base.MaxMessagesPerSecond = 0;
-		this.m_registered = false;
-		base.ConnectionTimeout = 30f;
-	}
+	public bool IsConnected => base.State == WebSocket.SocketState.Open;
 
 	public event Action OnConnected
 	{
@@ -90,21 +25,21 @@ public class GameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action>(ref this.OnConnected, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnConnected, (Action)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.add_OnConnected(Action)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -114,26 +49,25 @@ public class GameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action>(ref this.OnConnected, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnConnected, (Action)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.remove_OnConnected(Action)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
 
-	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public event Action<string, bool, CloseStatusCode> OnDisconnected;
 
 	public event Action<string> OnConnectionError
@@ -145,21 +79,21 @@ public class GameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<string>>(ref this.OnConnectionError, (Action<string>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnConnectionError, (Action<string>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.add_OnConnectionError(Action<string>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -169,21 +103,21 @@ public class GameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<string>>(ref this.OnConnectionError, (Action<string>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnConnectionError, (Action<string>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.remove_OnConnectionError(Action<string>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -197,21 +131,21 @@ public class GameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<BinaryMessageNotification>>(ref this.OnMessage, (Action<BinaryMessageNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnMessage, (Action<BinaryMessageNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.add_OnMessage(Action<BinaryMessageNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -221,10 +155,69 @@ public class GameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<BinaryMessageNotification>>(ref this.OnMessage, (Action<BinaryMessageNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnMessage, (Action<BinaryMessageNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
+			}
+		}
+	}
+
+	public GameClientInterface()
+	{
+		if (_003C_003Ef__am_0024cache0 == null)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			_003C_003Ef__am_0024cache0 = delegate
+			{
+			};
+		}
+		this.OnConnected = _003C_003Ef__am_0024cache0;
+		if (_003C_003Ef__am_0024cache1 == null)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache1 = delegate
+			{
+			};
+		}
+		this.OnDisconnected = _003C_003Ef__am_0024cache1;
+		this.OnConnectionError = delegate
+		{
+		};
+		if (_003C_003Ef__am_0024cache3 == null)
+		{
+			while (true)
 			{
 				switch (6)
 				{
@@ -233,36 +226,35 @@ public class GameClientInterface : WebSocketInterface
 				}
 				break;
 			}
-			if (!true)
+			_003C_003Ef__am_0024cache3 = delegate
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.remove_OnMessage(Action<BinaryMessageNotification>)).MethodHandle;
-			}
+			};
 		}
-	}
-
-	public bool IsConnected
-	{
-		get
-		{
-			return base.State == global::WebSocket.SocketState.Open;
-		}
+		this.OnMessage = _003C_003Ef__am_0024cache3;
+		base._002Ector(new WebSocketMessageFactory());
+		base.HeartbeatPeriod = TimeSpan.FromMinutes(1.0);
+		base.HeartbeatTimeout = TimeSpan.FromMinutes(5.0);
+		base.IsRaw = true;
+		base.MaxMessagesPerSecond = 0;
+		m_registered = false;
+		base.ConnectionTimeout = 30f;
 	}
 
 	public void Initialize(string gameServerAddress, string gameClientHandle)
 	{
-		this.m_gameClientHandle = gameClientHandle;
-		this.m_gameServerAddress = gameServerAddress;
-		this.m_messageDispatcher = new WebSocketMessageDispatcher<GameClientInterface>();
-		this.m_messageDispatcher.RegisterMessageDelegate<ConnectionOpenedNotification>(new Action<ConnectionOpenedNotification>(this.HandleConnectionOpenedNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<ConnectionClosedNotification>(new Action<ConnectionClosedNotification>(this.HandleConnectionClosedNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<ConnectionErrorNotification>(new Action<ConnectionErrorNotification>(this.HandleConnectionErrorNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<BinaryMessageNotification>(new Action<BinaryMessageNotification>(this.HandleBinaryMessageNotification));
+		m_gameClientHandle = gameClientHandle;
+		m_gameServerAddress = gameServerAddress;
+		m_messageDispatcher = new WebSocketMessageDispatcher<GameClientInterface>();
+		m_messageDispatcher.RegisterMessageDelegate<ConnectionOpenedNotification>(HandleConnectionOpenedNotification);
+		m_messageDispatcher.RegisterMessageDelegate<ConnectionClosedNotification>(HandleConnectionClosedNotification);
+		m_messageDispatcher.RegisterMessageDelegate<ConnectionErrorNotification>(HandleConnectionErrorNotification);
+		m_messageDispatcher.RegisterMessageDelegate<BinaryMessageNotification>(HandleBinaryMessageNotification);
 	}
 
 	public override void Connect()
 	{
-		this.m_registered = false;
-		base.InitializeSocket(this.m_gameServerAddress, 0x1A2C, "GameClientInterface");
+		m_registered = false;
+		InitializeSocket(m_gameServerAddress, 6700, "GameClientInterface");
 		base.Connect();
 	}
 
@@ -273,83 +265,65 @@ public class GameClientInterface : WebSocketInterface
 
 	private void HandleConnectionOpenedNotification(ConnectionOpenedNotification notification)
 	{
-		base.Logger.Info("Connected to game server {0}", new object[]
-		{
-			this.m_serverAddress
-		});
-		this.m_overallConnectionTimer.Reset();
-		this.m_registered = true;
+		base.Logger.Info("Connected to game server {0}", m_serverAddress);
+		m_overallConnectionTimer.Reset();
+		m_registered = true;
 		this.OnConnected();
 	}
 
 	private void HandleConnectionClosedNotification(ConnectionClosedNotification notification)
 	{
-		if (this.m_registered)
+		if (m_registered)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					base.Logger.Info("Disconnected from {0} ({1}) CloseStatusCode={2}", m_serverAddress, notification.Message.Trim(), notification.Code);
+					m_allowRelogin = true;
+					this.OnDisconnected(notification.Message, m_allowRelogin, notification.Code);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.HandleConnectionClosedNotification(ConnectionClosedNotification)).MethodHandle;
-			}
-			base.Logger.Info("Disconnected from {0} ({1}) CloseStatusCode={2}", new object[]
-			{
-				this.m_serverAddress,
-				notification.Message.Trim(),
-				notification.Code
-			});
-			this.m_allowRelogin = true;
-			this.OnDisconnected(notification.Message, this.m_allowRelogin, notification.Code);
 		}
-		else if (this.m_overallConnectionTimer.IsRunning)
+		if (!m_overallConnectionTimer.IsRunning)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.m_overallConnectionTimer.Elapsed.TotalSeconds < (double)base.ConnectionTimeout)
+			if (m_overallConnectionTimer.Elapsed.TotalSeconds < (double)base.ConnectionTimeout)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						base.Logger.Info("Retrying connection to game server {0}: {1} CloseStatusCode={2}", m_serverAddress, notification.Message.Trim(), notification.Code);
+						Reconnect();
+						return;
 					}
-					break;
 				}
-				base.Logger.Info("Retrying connection to game server {0}: {1} CloseStatusCode={2}", new object[]
-				{
-					this.m_serverAddress,
-					notification.Message.Trim(),
-					notification.Code
-				});
-				base.Reconnect();
 			}
-			else
-			{
-				base.Logger.Info("Failed to connect to game server {0}: {1} CloseStatusCode={2}", new object[]
-				{
-					this.m_serverAddress,
-					notification.Message.Trim(),
-					notification.Code
-				});
-				this.m_overallConnectionTimer.Reset();
-				this.m_allowRelogin = false;
-				this.OnDisconnected(notification.Message, this.m_allowRelogin, notification.Code);
-			}
+			base.Logger.Info("Failed to connect to game server {0}: {1} CloseStatusCode={2}", m_serverAddress, notification.Message.Trim(), notification.Code);
+			m_overallConnectionTimer.Reset();
+			m_allowRelogin = false;
+			this.OnDisconnected(notification.Message, m_allowRelogin, notification.Code);
+			return;
 		}
 	}
 
@@ -361,7 +335,7 @@ public class GameClientInterface : WebSocketInterface
 	protected override void HandleMessage(WebSocketMessage message)
 	{
 		base.HandleMessage(message);
-		this.m_messageDispatcher.HandleMessage(this, message);
+		m_messageDispatcher.HandleMessage(this, message);
 	}
 
 	private void HandleBinaryMessageNotification(BinaryMessageNotification notification)
@@ -371,9 +345,9 @@ public class GameClientInterface : WebSocketInterface
 
 	public bool SendMessage(byte[] bytes)
 	{
-		if (this.m_webSocket != null)
+		if (m_webSocket != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -382,16 +356,16 @@ public class GameClientInterface : WebSocketInterface
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.SendMessage(byte[])).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_webSocket.State == global::WebSocket.SocketState.Open)
+			if (m_webSocket.State == WebSocket.SocketState.Open)
 			{
-				this.m_webSocket.Send(bytes);
+				m_webSocket.Send(bytes);
 				return true;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{

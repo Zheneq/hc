@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +5,23 @@ namespace TMPro
 {
 	public static class TMP_DefaultControls
 	{
+		public struct Resources
+		{
+			public Sprite standard;
+
+			public Sprite background;
+
+			public Sprite inputField;
+
+			public Sprite knob;
+
+			public Sprite checkmark;
+
+			public Sprite dropdown;
+
+			public Sprite mask;
+		}
+
 		private const float kWidth = 160f;
 
 		private const float kThickHeight = 30f;
@@ -18,7 +34,7 @@ namespace TMPro
 
 		private static Color s_DefaultSelectableColor = new Color(1f, 1f, 1f, 1f);
 
-		private static Color s_TextColor = new Color(0.196078435f, 0.196078435f, 0.196078435f, 1f);
+		private static Color s_TextColor = new Color(10f / 51f, 10f / 51f, 10f / 51f, 1f);
 
 		private static GameObject CreateUIElementRoot(string name, Vector2 size)
 		{
@@ -32,13 +48,13 @@ namespace TMPro
 		{
 			GameObject gameObject = new GameObject(name);
 			gameObject.AddComponent<RectTransform>();
-			TMP_DefaultControls.SetParentAndAlign(gameObject, parent);
+			SetParentAndAlign(gameObject, parent);
 			return gameObject;
 		}
 
 		private static void SetDefaultTextValues(TMP_Text lbl)
 		{
-			lbl.color = TMP_DefaultControls.s_TextColor;
+			lbl.color = s_TextColor;
 			lbl.fontSize = 14f;
 		}
 
@@ -54,23 +70,23 @@ namespace TMPro
 		{
 			if (parent == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_DefaultControls.SetParentAndAlign(GameObject, GameObject)).MethodHandle;
-				}
-				return;
 			}
 			child.transform.SetParent(parent.transform, false);
-			TMP_DefaultControls.SetLayerRecursively(child, parent.layer);
+			SetLayerRecursively(child, parent.layer);
 		}
 
 		private static void SetLayerRecursively(GameObject go, int layer)
@@ -79,36 +95,36 @@ namespace TMPro
 			Transform transform = go.transform;
 			for (int i = 0; i < transform.childCount; i++)
 			{
-				TMP_DefaultControls.SetLayerRecursively(transform.GetChild(i).gameObject, layer);
+				SetLayerRecursively(transform.GetChild(i).gameObject, layer);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_DefaultControls.SetLayerRecursively(GameObject, int)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 
-		public static GameObject CreateScrollbar(TMP_DefaultControls.Resources resources)
+		public static GameObject CreateScrollbar(Resources resources)
 		{
-			GameObject gameObject = TMP_DefaultControls.CreateUIElementRoot("Scrollbar", TMP_DefaultControls.s_ThinElementSize);
-			GameObject gameObject2 = TMP_DefaultControls.CreateUIObject("Sliding Area", gameObject);
-			GameObject gameObject3 = TMP_DefaultControls.CreateUIObject("Handle", gameObject2);
+			GameObject gameObject = CreateUIElementRoot("Scrollbar", s_ThinElementSize);
+			GameObject gameObject2 = CreateUIObject("Sliding Area", gameObject);
+			GameObject gameObject3 = CreateUIObject("Handle", gameObject2);
 			Image image = gameObject.AddComponent<Image>();
 			image.sprite = resources.background;
 			image.type = Image.Type.Sliced;
-			image.color = TMP_DefaultControls.s_DefaultSelectableColor;
+			image.color = s_DefaultSelectableColor;
 			Image image2 = gameObject3.AddComponent<Image>();
 			image2.sprite = resources.standard;
 			image2.type = Image.Type.Sliced;
-			image2.color = TMP_DefaultControls.s_DefaultSelectableColor;
+			image2.color = s_DefaultSelectableColor;
 			RectTransform component = gameObject2.GetComponent<RectTransform>();
 			component.sizeDelta = new Vector2(-20f, -20f);
 			component.anchorMin = Vector2.zero;
@@ -118,22 +134,22 @@ namespace TMPro
 			Scrollbar scrollbar = gameObject.AddComponent<Scrollbar>();
 			scrollbar.handleRect = component2;
 			scrollbar.targetGraphic = image2;
-			TMP_DefaultControls.SetDefaultColorTransitionValues(scrollbar);
+			SetDefaultColorTransitionValues(scrollbar);
 			return gameObject;
 		}
 
-		public static GameObject CreateInputField(TMP_DefaultControls.Resources resources)
+		public static GameObject CreateInputField(Resources resources)
 		{
-			GameObject gameObject = TMP_DefaultControls.CreateUIElementRoot("TextMeshPro - InputField", TMP_DefaultControls.s_ThickElementSize);
-			GameObject gameObject2 = TMP_DefaultControls.CreateUIObject("Text Area", gameObject);
-			GameObject gameObject3 = TMP_DefaultControls.CreateUIObject("Placeholder", gameObject2);
-			GameObject gameObject4 = TMP_DefaultControls.CreateUIObject("Text", gameObject2);
+			GameObject gameObject = CreateUIElementRoot("TextMeshPro - InputField", s_ThickElementSize);
+			GameObject gameObject2 = CreateUIObject("Text Area", gameObject);
+			GameObject gameObject3 = CreateUIObject("Placeholder", gameObject2);
+			GameObject gameObject4 = CreateUIObject("Text", gameObject2);
 			Image image = gameObject.AddComponent<Image>();
 			image.sprite = resources.inputField;
 			image.type = Image.Type.Sliced;
-			image.color = TMP_DefaultControls.s_DefaultSelectableColor;
-			TMP_InputField tmp_InputField = gameObject.AddComponent<TMP_InputField>();
-			TMP_DefaultControls.SetDefaultColorTransitionValues(tmp_InputField);
+			image.color = s_DefaultSelectableColor;
+			TMP_InputField tMP_InputField = gameObject.AddComponent<TMP_InputField>();
+			SetDefaultColorTransitionValues(tMP_InputField);
 			gameObject2.AddComponent<RectMask2D>();
 			RectTransform component = gameObject2.GetComponent<RectTransform>();
 			component.anchorMin = Vector2.zero;
@@ -146,7 +162,7 @@ namespace TMPro
 			textMeshProUGUI.enableWordWrapping = false;
 			textMeshProUGUI.extraPadding = true;
 			textMeshProUGUI.richText = true;
-			TMP_DefaultControls.SetDefaultTextValues(textMeshProUGUI);
+			SetDefaultTextValues(textMeshProUGUI);
 			TextMeshProUGUI textMeshProUGUI2 = gameObject3.AddComponent<TextMeshProUGUI>();
 			textMeshProUGUI2.text = "Enter text...";
 			textMeshProUGUI2.fontSize = 14f;
@@ -168,40 +184,41 @@ namespace TMPro
 			component3.sizeDelta = Vector2.zero;
 			component3.offsetMin = new Vector2(0f, 0f);
 			component3.offsetMax = new Vector2(0f, 0f);
-			tmp_InputField.textViewport = component;
-			tmp_InputField.textComponent = textMeshProUGUI;
-			tmp_InputField.placeholder = textMeshProUGUI2;
-			tmp_InputField.fontAsset = textMeshProUGUI.font;
+			tMP_InputField.textViewport = component;
+			tMP_InputField.textComponent = textMeshProUGUI;
+			tMP_InputField.placeholder = textMeshProUGUI2;
+			tMP_InputField.fontAsset = textMeshProUGUI.font;
 			return gameObject;
 		}
 
-		public static GameObject CreateDropdown(TMP_DefaultControls.Resources resources)
+		public static GameObject CreateDropdown(Resources resources)
 		{
-			GameObject gameObject = TMP_DefaultControls.CreateUIElementRoot("Dropdown", TMP_DefaultControls.s_ThickElementSize);
-			GameObject gameObject2 = TMP_DefaultControls.CreateUIObject("Label", gameObject);
-			GameObject gameObject3 = TMP_DefaultControls.CreateUIObject("Arrow", gameObject);
-			GameObject gameObject4 = TMP_DefaultControls.CreateUIObject("Template", gameObject);
-			GameObject gameObject5 = TMP_DefaultControls.CreateUIObject("Viewport", gameObject4);
-			GameObject gameObject6 = TMP_DefaultControls.CreateUIObject("Content", gameObject5);
-			GameObject gameObject7 = TMP_DefaultControls.CreateUIObject("Item", gameObject6);
-			GameObject gameObject8 = TMP_DefaultControls.CreateUIObject("Item Background", gameObject7);
-			GameObject gameObject9 = TMP_DefaultControls.CreateUIObject("Item Checkmark", gameObject7);
-			GameObject gameObject10 = TMP_DefaultControls.CreateUIObject("Item Label", gameObject7);
-			GameObject gameObject11 = TMP_DefaultControls.CreateScrollbar(resources);
+			GameObject gameObject = CreateUIElementRoot("Dropdown", s_ThickElementSize);
+			GameObject gameObject2 = CreateUIObject("Label", gameObject);
+			GameObject gameObject3 = CreateUIObject("Arrow", gameObject);
+			GameObject gameObject4 = CreateUIObject("Template", gameObject);
+			GameObject gameObject5 = CreateUIObject("Viewport", gameObject4);
+			GameObject gameObject6 = CreateUIObject("Content", gameObject5);
+			GameObject gameObject7 = CreateUIObject("Item", gameObject6);
+			GameObject gameObject8 = CreateUIObject("Item Background", gameObject7);
+			GameObject gameObject9 = CreateUIObject("Item Checkmark", gameObject7);
+			GameObject gameObject10 = CreateUIObject("Item Label", gameObject7);
+			GameObject gameObject11 = CreateScrollbar(resources);
 			gameObject11.name = "Scrollbar";
-			TMP_DefaultControls.SetParentAndAlign(gameObject11, gameObject4);
+			SetParentAndAlign(gameObject11, gameObject4);
 			Scrollbar component = gameObject11.GetComponent<Scrollbar>();
 			component.SetDirection(Scrollbar.Direction.BottomToTop, true);
 			RectTransform component2 = gameObject11.GetComponent<RectTransform>();
 			component2.anchorMin = Vector2.right;
 			component2.anchorMax = Vector2.one;
 			component2.pivot = Vector2.one;
-			component2.sizeDelta = new Vector2(component2.sizeDelta.x, 0f);
+			Vector2 sizeDelta = component2.sizeDelta;
+			component2.sizeDelta = new Vector2(sizeDelta.x, 0f);
 			TextMeshProUGUI textMeshProUGUI = gameObject10.AddComponent<TextMeshProUGUI>();
-			TMP_DefaultControls.SetDefaultTextValues(textMeshProUGUI);
+			SetDefaultTextValues(textMeshProUGUI);
 			textMeshProUGUI.alignment = TextAlignmentOptions.Left;
 			Image image = gameObject8.AddComponent<Image>();
-			image.color = new Color32(0xF5, 0xF5, 0xF5, byte.MaxValue);
+			image.color = new Color32(245, 245, 245, byte.MaxValue);
 			Image image2 = gameObject9.AddComponent<Image>();
 			image2.sprite = resources.checkmark;
 			Toggle toggle = gameObject7.AddComponent<Toggle>();
@@ -225,34 +242,34 @@ namespace TMPro
 			image4.sprite = resources.mask;
 			image4.type = Image.Type.Sliced;
 			TextMeshProUGUI textMeshProUGUI2 = gameObject2.AddComponent<TextMeshProUGUI>();
-			TMP_DefaultControls.SetDefaultTextValues(textMeshProUGUI2);
+			SetDefaultTextValues(textMeshProUGUI2);
 			textMeshProUGUI2.alignment = TextAlignmentOptions.Left;
 			Image image5 = gameObject3.AddComponent<Image>();
 			image5.sprite = resources.dropdown;
 			Image image6 = gameObject.AddComponent<Image>();
 			image6.sprite = resources.standard;
-			image6.color = TMP_DefaultControls.s_DefaultSelectableColor;
+			image6.color = s_DefaultSelectableColor;
 			image6.type = Image.Type.Sliced;
-			TMP_Dropdown tmp_Dropdown = gameObject.AddComponent<TMP_Dropdown>();
-			tmp_Dropdown.targetGraphic = image6;
-			TMP_DefaultControls.SetDefaultColorTransitionValues(tmp_Dropdown);
-			tmp_Dropdown.template = gameObject4.GetComponent<RectTransform>();
-			tmp_Dropdown.captionText = textMeshProUGUI2;
-			tmp_Dropdown.itemText = textMeshProUGUI;
+			TMP_Dropdown tMP_Dropdown = gameObject.AddComponent<TMP_Dropdown>();
+			tMP_Dropdown.targetGraphic = image6;
+			SetDefaultColorTransitionValues(tMP_Dropdown);
+			tMP_Dropdown.template = gameObject4.GetComponent<RectTransform>();
+			tMP_Dropdown.captionText = textMeshProUGUI2;
+			tMP_Dropdown.itemText = textMeshProUGUI;
 			textMeshProUGUI.text = "Option A";
-			tmp_Dropdown.options.Add(new TMP_Dropdown.OptionData
+			tMP_Dropdown.options.Add(new TMP_Dropdown.OptionData
 			{
 				text = "Option A"
 			});
-			tmp_Dropdown.options.Add(new TMP_Dropdown.OptionData
+			tMP_Dropdown.options.Add(new TMP_Dropdown.OptionData
 			{
 				text = "Option B"
 			});
-			tmp_Dropdown.options.Add(new TMP_Dropdown.OptionData
+			tMP_Dropdown.options.Add(new TMP_Dropdown.OptionData
 			{
 				text = "Option C"
 			});
-			tmp_Dropdown.RefreshShownValue();
+			tMP_Dropdown.RefreshShownValue();
 			RectTransform component3 = gameObject2.GetComponent<RectTransform>();
 			component3.anchorMin = Vector2.zero;
 			component3.anchorMax = Vector2.one;
@@ -300,23 +317,6 @@ namespace TMPro
 			component11.offsetMax = new Vector2(-10f, -2f);
 			gameObject4.SetActive(false);
 			return gameObject;
-		}
-
-		public struct Resources
-		{
-			public Sprite standard;
-
-			public Sprite background;
-
-			public Sprite inputField;
-
-			public Sprite knob;
-
-			public Sprite checkmark;
-
-			public Sprite dropdown;
-
-			public Sprite mask;
 		}
 	}
 }

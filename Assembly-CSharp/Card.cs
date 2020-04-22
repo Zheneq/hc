@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class Card : MonoBehaviour
@@ -18,126 +17,124 @@ public class Card : MonoBehaviour
 
 	public string GetDisplayName()
 	{
-		if (this.DisplayName.Length > 0)
+		if (DisplayName.Length > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return StringUtil.TR_CardDisplayName(m_cardType);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card.GetDisplayName()).MethodHandle;
-			}
-			return StringUtil.TR_CardDisplayName(this.m_cardType);
 		}
-		if (this.m_useAbility != null)
+		if (m_useAbility != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_useAbility.GetNameString();
 				}
-				break;
 			}
-			return this.m_useAbility.GetNameString();
 		}
 		return "UNKNOWN";
 	}
 
 	public string GetUnlocalizedDisplayName()
 	{
-		if (this.DisplayName.Length > 0)
+		if (DisplayName.Length > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return DisplayName;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card.GetUnlocalizedDisplayName()).MethodHandle;
-			}
-			return this.DisplayName;
 		}
-		if (this.m_useAbility != null)
+		if (m_useAbility != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_useAbility.m_abilityName;
 				}
-				break;
 			}
-			return this.m_useAbility.m_abilityName;
 		}
 		return "UNKNOWN";
 	}
 
 	private void Awake()
 	{
-		if (this.m_useAbility != null)
+		if (m_useAbility != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_useAbility.sprite = GetIconSprite();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card.Awake()).MethodHandle;
-			}
-			this.m_useAbility.sprite = this.GetIconSprite();
 		}
-		else
-		{
-			Log.Error("Card prefab " + this.DisplayName + " has no Use Ability. Card prefabs are currently required to have Use Abilities.", new object[0]);
-		}
+		Log.Error("Card prefab " + DisplayName + " has no Use Ability. Card prefabs are currently required to have Use Abilities.");
 	}
 
 	public Sprite GetIconSprite()
 	{
-		if (!string.IsNullOrEmpty(this.m_spriteIconPath))
+		if (!string.IsNullOrEmpty(m_spriteIconPath))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return (Sprite)Resources.Load(m_spriteIconPath, typeof(Sprite));
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card.GetIconSprite()).MethodHandle;
-			}
-			return (Sprite)Resources.Load(this.m_spriteIconPath, typeof(Sprite));
 		}
 		return null;
 	}
 
 	internal bool IsFreeAction()
 	{
-		if (this.m_useAbility != null)
+		if (m_useAbility != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -146,22 +143,22 @@ public class Card : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card.IsFreeAction()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_useAbility.IsFreeAction())
+			if (m_useAbility.IsFreeAction())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return true;
 					}
-					break;
 				}
-				return true;
 			}
 		}
 		return false;
@@ -169,22 +166,22 @@ public class Card : MonoBehaviour
 
 	public AbilityRunPhase GetAbilityRunPhase()
 	{
-		if (this.m_useAbility != null)
+		if (m_useAbility != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return AbilityPriorityToRunPhase(m_useAbility.RunPriority);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card.GetAbilityRunPhase()).MethodHandle;
-			}
-			return Card.AbilityPriorityToRunPhase(this.m_useAbility.RunPriority);
 		}
 		return AbilityRunPhase.Unknown;
 	}
@@ -193,7 +190,7 @@ public class Card : MonoBehaviour
 	{
 		if (priority >= AbilityPriority.Prep_Defense)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -202,32 +199,35 @@ public class Card : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card.AbilityPriorityToRunPhase(AbilityPriority)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (priority <= AbilityPriority.Prep_Offense)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return AbilityRunPhase.Prep;
 					}
-					break;
 				}
-				return AbilityRunPhase.Prep;
 			}
 		}
-		if (priority == AbilityPriority.Evasion)
+		switch (priority)
 		{
+		case AbilityPriority.Evasion:
 			return AbilityRunPhase.Dash;
-		}
-		if (priority >= AbilityPriority.Combat_Damage && priority <= AbilityPriority.Combat_Final)
-		{
+		case AbilityPriority.Combat_Damage:
+		case AbilityPriority.DEPRICATED_Combat_Charge:
+		case AbilityPriority.Combat_Knockback:
+		case AbilityPriority.Combat_Final:
 			return AbilityRunPhase.Combat;
+		default:
+			return AbilityRunPhase.Unknown;
 		}
-		return AbilityRunPhase.Unknown;
 	}
 }

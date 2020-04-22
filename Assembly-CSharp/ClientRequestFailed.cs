@@ -1,21 +1,28 @@
-﻿using System;
+using System;
 
 public class ClientRequestFailed : Exception
 {
-	public ClientRequestFailed(string clientErrorMessage = null) : base(clientErrorMessage)
+	public string ClientErrorMessage
 	{
-		this.ClientErrorMessage = clientErrorMessage;
+		get;
+		set;
 	}
 
-	public ClientRequestFailed(string clientErrorMessage, string serverErrorMessage) : base(serverErrorMessage)
+	public ClientRequestFailed(string clientErrorMessage = null)
+		: base(clientErrorMessage)
 	{
-		this.ClientErrorMessage = clientErrorMessage;
+		ClientErrorMessage = clientErrorMessage;
 	}
 
-	public ClientRequestFailed(string clientErrorMessage, Exception innerException) : base(innerException.Message, innerException)
+	public ClientRequestFailed(string clientErrorMessage, string serverErrorMessage)
+		: base(serverErrorMessage)
 	{
-		this.ClientErrorMessage = clientErrorMessage;
+		ClientErrorMessage = clientErrorMessage;
 	}
 
-	public string ClientErrorMessage { get; set; }
+	public ClientRequestFailed(string clientErrorMessage, Exception innerException)
+		: base(innerException.Message, innerException)
+	{
+		ClientErrorMessage = clientErrorMessage;
+	}
 }

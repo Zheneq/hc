@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -40,6 +40,6 @@ public class LobbyServerPlayerInfo : LobbyPlayerCommonInfo
 
 	public LobbyServerPlayerInfo Clone()
 	{
-		return (LobbyServerPlayerInfo)base.MemberwiseClone();
+		return (LobbyServerPlayerInfo)MemberwiseClone();
 	}
 }

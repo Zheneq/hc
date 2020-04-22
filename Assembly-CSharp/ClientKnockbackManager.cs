@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,49 +13,49 @@ public class ClientKnockbackManager : MonoBehaviour
 
 	private void Awake()
 	{
-		ClientKnockbackManager.s_instance = this;
-		this.m_outgoingKnockbacks = new Dictionary<ActorData, int>();
-		this.m_incomingKnockbacks = new Dictionary<ActorData, int>();
-		this.m_pendingKnockbackActors = new List<ActorData>();
+		s_instance = this;
+		m_outgoingKnockbacks = new Dictionary<ActorData, int>();
+		m_incomingKnockbacks = new Dictionary<ActorData, int>();
+		m_pendingKnockbackActors = new List<ActorData>();
 	}
 
 	private void OnDestroy()
 	{
-		ClientKnockbackManager.s_instance = null;
+		s_instance = null;
 	}
 
 	public static ClientKnockbackManager Get()
 	{
-		return ClientKnockbackManager.s_instance;
+		return s_instance;
 	}
 
 	public void ResetPendingKnockbackCounts()
 	{
-		this.m_outgoingKnockbacks.Clear();
-		this.m_incomingKnockbacks.Clear();
-		this.m_pendingKnockbackActors.Clear();
+		m_outgoingKnockbacks.Clear();
+		m_incomingKnockbacks.Clear();
+		m_pendingKnockbackActors.Clear();
 	}
 
 	public void InitKnockbacksFromActions(List<ClientResolutionAction> actions)
 	{
-		this.ResetPendingKnockbackCounts();
-		foreach (ClientResolutionAction clientResolutionAction in actions)
+		ResetPendingKnockbackCounts();
+		foreach (ClientResolutionAction action in actions)
 		{
-			clientResolutionAction.AdjustKnockbackCounts_ClientResolutionAction(ref this.m_outgoingKnockbacks, ref this.m_incomingKnockbacks);
+			action.AdjustKnockbackCounts_ClientResolutionAction(ref m_outgoingKnockbacks, ref m_incomingKnockbacks);
 		}
 	}
 
 	public bool ActorHasIncomingKnockback(ActorData actor)
 	{
-		return this.m_incomingKnockbacks.ContainsKey(actor);
+		return m_incomingKnockbacks.ContainsKey(actor);
 	}
 
 	public void OnKnockbackHit(ActorData sourceActor, ActorData hitActor)
 	{
-		bool flag;
-		if (this.m_incomingKnockbacks.ContainsKey(sourceActor))
+		int num;
+		if (m_incomingKnockbacks.ContainsKey(sourceActor))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -65,22 +64,21 @@ public class ClientKnockbackManager : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientKnockbackManager.OnKnockbackHit(ActorData, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = (sourceActor != hitActor);
+			num = ((sourceActor != hitActor) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
-		Dictionary<ActorData, int> dictionary;
-		(dictionary = this.m_incomingKnockbacks)[hitActor] = dictionary[hitActor] - 1;
+		bool flag = (byte)num != 0;
+		m_incomingKnockbacks[hitActor]--;
 		if (sourceActor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -89,11 +87,11 @@ public class ClientKnockbackManager : MonoBehaviour
 				}
 				break;
 			}
-			(dictionary = this.m_outgoingKnockbacks)[sourceActor] = dictionary[sourceActor] - 1;
+			m_outgoingKnockbacks[sourceActor]--;
 		}
-		if (flag2)
+		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -102,9 +100,9 @@ public class ClientKnockbackManager : MonoBehaviour
 				}
 				break;
 			}
-			if (this.ActorReadyToBeMoved(sourceActor))
+			if (ActorReadyToBeMoved(sourceActor))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -113,66 +111,68 @@ public class ClientKnockbackManager : MonoBehaviour
 					}
 					break;
 				}
-				this.KnockbackActor(sourceActor);
+				KnockbackActor(sourceActor);
 			}
 		}
-		if (this.ActorReadyToBeMoved(hitActor))
+		if (!ActorReadyToBeMoved(hitActor))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.KnockbackActor(hitActor);
+			KnockbackActor(hitActor);
+			return;
 		}
 	}
 
 	public void NotifyOnActorAnimHitsDone(ActorData caster)
 	{
-		if (caster != null)
+		if (!(caster != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!m_pendingKnockbackActors.Contains(caster))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientKnockbackManager.NotifyOnActorAnimHitsDone(ActorData)).MethodHandle;
-			}
-			if (this.m_pendingKnockbackActors.Contains(caster))
-			{
-				for (;;)
+				if (ActorReadyToBeMoved(caster))
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.ActorReadyToBeMoved(caster))
-				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						KnockbackActor(caster);
+						m_pendingKnockbackActors.Remove(caster);
+						return;
 					}
-					this.KnockbackActor(caster);
-					this.m_pendingKnockbackActors.Remove(caster);
 				}
+				return;
 			}
 		}
 	}
@@ -187,9 +187,9 @@ public class ClientKnockbackManager : MonoBehaviour
 		else
 		{
 			int num;
-			if (this.m_outgoingKnockbacks.ContainsKey(target))
+			if (m_outgoingKnockbacks.ContainsKey(target))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -198,29 +198,21 @@ public class ClientKnockbackManager : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientKnockbackManager.ActorReadyToBeMoved(ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				num = this.m_outgoingKnockbacks[target];
+				num = m_outgoingKnockbacks[target];
 			}
 			else
 			{
 				num = 0;
 			}
-			int num2;
-			if (this.m_incomingKnockbacks.ContainsKey(target))
-			{
-				num2 = this.m_incomingKnockbacks[target];
-			}
-			else
-			{
-				num2 = 0;
-			}
-			bool flag2;
+			int num2 = m_incomingKnockbacks.ContainsKey(target) ? m_incomingKnockbacks[target] : 0;
+			int num3;
 			if (num == 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -229,19 +221,19 @@ public class ClientKnockbackManager : MonoBehaviour
 					}
 					break;
 				}
-				flag2 = (num2 == 0);
+				num3 = ((num2 == 0) ? 1 : 0);
 			}
 			else
 			{
-				flag2 = false;
+				num3 = 0;
 			}
-			flag = flag2;
+			flag = ((byte)num3 != 0);
 			if (flag)
 			{
 				flag = !TheatricsManager.Get().ClientNeedToWaitBeforeKnockbackMove(target);
 				if (!flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -250,9 +242,9 @@ public class ClientKnockbackManager : MonoBehaviour
 						}
 						break;
 					}
-					if (!this.m_pendingKnockbackActors.Contains(target))
+					if (!m_pendingKnockbackActors.Contains(target))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -261,7 +253,7 @@ public class ClientKnockbackManager : MonoBehaviour
 							}
 							break;
 						}
-						this.m_pendingKnockbackActors.Add(target);
+						m_pendingKnockbackActors.Add(target);
 					}
 				}
 			}
@@ -275,21 +267,22 @@ public class ClientKnockbackManager : MonoBehaviour
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData sendingPlayer = enumerator.Current;
-				ClientResolutionManager.Get().SendActorReadyToResolveKnockback(knockbackedActor, sendingPlayer);
+				ActorData current = enumerator.Current;
+				ClientResolutionManager.Get().SendActorReadyToResolveKnockback(knockbackedActor, current);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientKnockbackManager.KnockbackActor(ActorData)).MethodHandle;
 			}
 		}
 	}

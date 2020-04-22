@@ -1,8 +1,26 @@
-﻿using System;
 using UnityEngine;
 
 public class GroundLineSequence : Sequence
 {
+	public class ExtraParams : IExtraSequenceParams
+	{
+		public Vector3 startPos;
+
+		public Vector3 endPos;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			stream.Serialize(ref startPos);
+			stream.Serialize(ref endPos);
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			stream.Serialize(ref startPos);
+			stream.Serialize(ref endPos);
+		}
+	}
+
 	private Vector3 m_startPos = Vector3.zero;
 
 	private Vector3 m_endPos = Vector3.zero;
@@ -12,7 +30,7 @@ public class GroundLineSequence : Sequence
 
 	[AnimEventPicker]
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
 	[Tooltip("Height above the ground to place the FX.")]
 	public float m_heightOffset = 0.1f;
@@ -22,14 +40,14 @@ public class GroundLineSequence : Sequence
 
 	private GameObject m_fx;
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			GroundLineSequence.ExtraParams extraParams2 = extraSequenceParams as GroundLineSequence.ExtraParams;
+			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2 != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -38,45 +56,45 @@ public class GroundLineSequence : Sequence
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GroundLineSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				Vector3 b = new Vector3(0f, this.m_heightOffset, 0f);
-				this.m_startPos = extraParams2.startPos + b;
-				this.m_endPos = extraParams2.endPos + b;
+				Vector3 b = new Vector3(0f, m_heightOffset, 0f);
+				m_startPos = extraParams2.startPos + b;
+				m_endPos = extraParams2.endPos + b;
 			}
 		}
 	}
 
 	public override void FinishSetup()
 	{
-		if (this.m_startEvent == null)
+		if (m_startEvent == null)
 		{
-			this.SpawnFX();
+			SpawnFX();
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroundLineSequence.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_fx != null)
+			if (m_fx != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -85,21 +103,22 @@ public class GroundLineSequence : Sequence
 					}
 					break;
 				}
-				if (this.m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
+				if (m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 				{
-					this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.\u000E());
+					m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 				}
 			}
-			Sequence.SetAttribute(this.m_fx, "startPoint", this.m_startPos);
-			Sequence.SetAttribute(this.m_fx, "endPoint", this.m_endPos);
+			Sequence.SetAttribute(m_fx, "startPoint", m_startPos);
+			Sequence.SetAttribute(m_fx, "endPoint", m_endPos);
+			return;
 		}
 	}
 
 	private void SpawnFX()
 	{
-		if (this.m_fxPrefab != null)
+		if (m_fxPrefab != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -108,109 +127,92 @@ public class GroundLineSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroundLineSequence.SpawnFX()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Vector3 startPos = this.m_startPos;
-			Quaternion rotation = default(Quaternion);
-			this.m_fx = base.InstantiateFX(this.m_fxPrefab, startPos, rotation, true, true);
+			Vector3 startPos = m_startPos;
+			m_fx = InstantiateFX(m_fxPrefab, startPos, default(Quaternion));
 		}
 		for (int i = 0; i < base.Targets.Length; i++)
 		{
 			if (base.Targets[i] != null)
 			{
-				Vector3 targetHitPosition = base.GetTargetHitPosition(i);
+				Vector3 targetHitPosition = GetTargetHitPosition(i);
 				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 				hitDirection.y = 0f;
 				hitDirection.Normalize();
 				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, hitDirection);
-				base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
+				base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo);
 			}
 		}
-		base.Source.OnSequenceHit(this, base.TargetPos, null);
-		if (!string.IsNullOrEmpty(this.m_audioEvent))
+		base.Source.OnSequenceHit(this, base.TargetPos);
+		if (string.IsNullOrEmpty(m_audioEvent))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
+			AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
+			return;
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (this.m_startEvent == parameter)
+		if (!(m_startEvent == parameter))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroundLineSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.SpawnFX();
+			SpawnFX();
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_fx != null)
+		if (m_fx != null)
 		{
-			UnityEngine.Object.Destroy(this.m_fx.gameObject);
-			this.m_fx = null;
+			Object.Destroy(m_fx.gameObject);
+			m_fx = null;
 		}
 	}
 
 	protected override void OnStopVfxOnClient()
 	{
-		if (this.m_fx != null)
+		if (!(m_fx != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroundLineSequence.OnStopVfxOnClient()).MethodHandle;
-			}
-			this.m_fx.SetActive(false);
+			return;
 		}
-	}
-
-	public class ExtraParams : Sequence.IExtraSequenceParams
-	{
-		public Vector3 startPos;
-
-		public Vector3 endPos;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
+		while (true)
 		{
-			stream.Serialize(ref this.startPos);
-			stream.Serialize(ref this.endPos);
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.startPos);
-			stream.Serialize(ref this.endPos);
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_fx.SetActive(false);
+			return;
 		}
 	}
 }

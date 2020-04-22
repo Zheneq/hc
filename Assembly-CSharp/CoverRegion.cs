@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class CoverRegion
@@ -11,16 +10,16 @@ public class CoverRegion
 
 	public CoverRegion(Vector3 center, float startAngle, float endAngle)
 	{
-		this.m_center = center;
-		this.m_startAngle = startAngle;
-		this.m_endAngle = endAngle;
+		m_center = center;
+		m_startAngle = startAngle;
+		m_endAngle = endAngle;
 	}
 
 	public bool IsDirInCover(float angle_deg)
 	{
-		if (angle_deg > this.m_startAngle)
+		if (angle_deg > m_startAngle)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -29,19 +28,19 @@ public class CoverRegion
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoverRegion.IsDirInCover(float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (angle_deg > this.m_endAngle)
+			if (angle_deg > m_endAngle)
 			{
 				angle_deg -= 360f;
-				goto IL_59;
+				goto IL_0059;
 			}
 		}
-		if (angle_deg < this.m_startAngle && angle_deg < this.m_endAngle)
+		if (angle_deg < m_startAngle && angle_deg < m_endAngle)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -52,10 +51,11 @@ public class CoverRegion
 			}
 			angle_deg += 360f;
 		}
-		IL_59:
-		if (this.m_startAngle <= angle_deg)
+		goto IL_0059;
+		IL_0059:
+		if (m_startAngle <= angle_deg)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -64,18 +64,18 @@ public class CoverRegion
 				}
 				break;
 			}
-			if (angle_deg <= this.m_endAngle)
+			if (angle_deg <= m_endAngle)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return true;
 					}
-					break;
 				}
-				return true;
 			}
 		}
 		return false;
@@ -83,8 +83,8 @@ public class CoverRegion
 
 	public bool IsInCoverFromPos(Vector3 pos)
 	{
-		Vector3 vec = pos - this.m_center;
+		Vector3 vec = pos - m_center;
 		float angle_deg = VectorUtils.HorizontalAngle_Deg(vec);
-		return this.IsDirInCover(angle_deg);
+		return IsDirInCover(angle_deg);
 	}
 }

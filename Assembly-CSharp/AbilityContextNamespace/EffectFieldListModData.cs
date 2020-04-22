@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace AbilityContextNamespace
@@ -10,20 +10,20 @@ namespace AbilityContextNamespace
 
 		public List<EffectFieldOverride> m_overrides;
 
-		public List<OnHitEffecField> \u001D(List<OnHitEffecField> \u001D)
+		public List<OnHitEffecField> _001D(List<OnHitEffecField> _001D)
 		{
 			List<OnHitEffecField> list = new List<OnHitEffecField>();
-			for (int i = 0; i < this.m_prependEffectFields.Count; i++)
+			for (int i = 0; i < m_prependEffectFields.Count; i++)
 			{
-				list.Add(this.m_prependEffectFields[i].GetCopy());
+				list.Add(m_prependEffectFields[i].GetCopy());
 			}
-			for (int j = 0; j < \u001D.Count; j++)
+			for (int j = 0; j < _001D.Count; j++)
 			{
-				string identifier = \u001D[j].GetIdentifier();
-				OnHitEffecField onHitEffecField = this.\u001D(identifier);
+				string identifier = _001D[j].GetIdentifier();
+				OnHitEffecField onHitEffecField = this._001D(identifier);
 				if (onHitEffecField != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -32,66 +32,64 @@ namespace AbilityContextNamespace
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(EffectFieldListModData.\u001D(List<OnHitEffecField>)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					list.Add(onHitEffecField.GetCopy());
 				}
 				else
 				{
-					list.Add(\u001D[j].GetCopy());
+					list.Add(_001D[j].GetCopy());
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				return list;
 			}
-			return list;
 		}
 
-		private OnHitEffecField \u001D(string \u001D)
+		private OnHitEffecField _001D(string _001D)
 		{
-			if (string.IsNullOrEmpty(\u001D))
+			if (string.IsNullOrEmpty(_001D))
 			{
 				return null;
 			}
-			for (int i = 0; i < this.m_overrides.Count; i++)
+			for (int i = 0; i < m_overrides.Count; i++)
 			{
-				string text = this.m_overrides[i].\u001D();
-				if (text.Equals(\u001D, StringComparison.OrdinalIgnoreCase))
+				string text = m_overrides[i]._001D();
+				if (!text.Equals(_001D, StringComparison.OrdinalIgnoreCase))
 				{
-					for (;;)
+					continue;
+				}
+				while (true)
+				{
+					switch (3)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(EffectFieldListModData.\u001D(string)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					return this.m_overrides[i].m_effectOverride;
+					return m_overrides[i].m_effectOverride;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				return null;
 			}
-			return null;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,9 +29,9 @@ public class NanoSmithAnvilSlam : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -41,16 +40,16 @@ public class NanoSmithAnvilSlam : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithAnvilSlam.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Anvil Slam";
+			m_abilityName = "Anvil Slam";
 		}
-		NanoSmithBoltInfoComponent component = base.GetComponent<NanoSmithBoltInfoComponent>();
-		if (component)
+		NanoSmithBoltInfoComponent component = GetComponent<NanoSmithBoltInfoComponent>();
+		if ((bool)component)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -59,10 +58,10 @@ public class NanoSmithAnvilSlam : Ability
 				}
 				break;
 			}
-			this.m_boltInfo = component.m_boltInfo.GetShallowCopy();
+			m_boltInfo = component.m_boltInfo.GetShallowCopy();
 			if (component.m_anvilSlamRangeOverride > 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -71,26 +70,26 @@ public class NanoSmithAnvilSlam : Ability
 					}
 					break;
 				}
-				this.m_boltInfo.range = component.m_anvilSlamRangeOverride;
+				m_boltInfo.range = component.m_anvilSlamRangeOverride;
 			}
 		}
 		else
 		{
 			Debug.LogError("No bolt info component found for NanoSmith ability");
-			this.m_boltInfo = new NanoSmithBoltInfo();
+			m_boltInfo = new NanoSmithBoltInfo();
 		}
-		base.ResetTooltipAndTargetingNumbers();
-		base.Targeter = new AbilityUtil_Targeter_AnvilSlam(this, this.m_dashWidth, this.m_dashMaxDistance, this.m_boltCount, this.m_boltAngleRelativeToAim, this.m_boltAngleOffset, this.m_boltInfo);
+		ResetTooltipAndTargetingNumbers();
+		base.Targeter = new AbilityUtil_Targeter_AnvilSlam(this, m_dashWidth, m_dashMaxDistance, m_boltCount, m_boltAngleRelativeToAim, m_boltAngleOffset, m_boltInfo);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_dashDamageAmount);
-		this.m_dashEffectOnHit.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		if (this.m_boltCount > 0)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_dashDamageAmount);
+		m_dashEffectOnHit.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		if (m_boltCount > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -99,13 +98,13 @@ public class NanoSmithAnvilSlam : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithAnvilSlam.CalculateAbilityTooltipNumbers()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_boltInfo != null)
+			if (m_boltInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -114,10 +113,10 @@ public class NanoSmithAnvilSlam : Ability
 					}
 					break;
 				}
-				this.m_boltInfo.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Secondary, AbilityTooltipSubject.Ally);
+				m_boltInfo.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
 			}
 		}
-		return result;
+		return numbers;
 	}
 
 	internal override ActorData.MovementType GetMovementType()

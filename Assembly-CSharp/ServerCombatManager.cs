@@ -1,35 +1,8 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class ServerCombatManager : MonoBehaviour
 {
-	public void ExecuteObjectivePointGain(ActorData caster, ActorData target, int finalChange)
-	{
-		if (target == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerCombatManager.ExecuteObjectivePointGain(ActorData, ActorData, int)).MethodHandle;
-			}
-			throw new ApplicationException("Objective point change requires a target");
-		}
-		ObjectivePoints objectivePoints = ObjectivePoints.Get();
-		if (objectivePoints)
-		{
-			Team teamToAdjust = target.\u000E();
-			objectivePoints.AdjustPoints(finalChange, teamToAdjust);
-		}
-	}
-
 	public enum DamageType
 	{
 		Ability,
@@ -57,5 +30,32 @@ public class ServerCombatManager : MonoBehaviour
 		Card,
 		Powerup,
 		Regen
+	}
+
+	public void ExecuteObjectivePointGain(ActorData caster, ActorData target, int finalChange)
+	{
+		if (target == null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					throw new ApplicationException("Objective point change requires a target");
+				}
+			}
+		}
+		ObjectivePoints objectivePoints = ObjectivePoints.Get();
+		if ((bool)objectivePoints)
+		{
+			Team team = target.GetTeam();
+			objectivePoints.AdjustPoints(finalChange, team);
+		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +5,10 @@ namespace TMPro
 {
 	public interface ITextElement
 	{
-		Material sharedMaterial { get; }
+		Material sharedMaterial
+		{
+			get;
+		}
 
 		void Rebuild(CanvasUpdate update);
 

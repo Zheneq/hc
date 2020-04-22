@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 
 public class UISimpleTooltip : UITooltipBase
@@ -7,6 +6,6 @@ public class UISimpleTooltip : UITooltipBase
 
 	public void Setup(string text)
 	{
-		this.m_text.text = text;
+		m_text.text = text;
 	}
 }

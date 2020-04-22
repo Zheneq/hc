@@ -1,10 +1,9 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpaceMarineJetpack : Ability
 {
-	public int m_damage = 0xA;
+	public int m_damage = 10;
 
 	public bool m_penetrateLineOfSight;
 
@@ -23,15 +22,15 @@ public class SpaceMarineJetpack : Ability
 
 	private void Start()
 	{
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
+		SetCachedFields();
 		if (base.Targeter == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -40,28 +39,28 @@ public class SpaceMarineJetpack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineJetpack.SetupTargeter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			base.Targeter = new AbilityUtil_Targeter_Jetpack(this, this.m_landingShape, this.m_penetrateLineOfSight);
+			base.Targeter = new AbilityUtil_Targeter_Jetpack(this, m_landingShape, m_penetrateLineOfSight);
 		}
 		AbilityUtil_Targeter_Jetpack abilityUtil_Targeter_Jetpack = base.Targeter as AbilityUtil_Targeter_Jetpack;
-		if (abilityUtil_Targeter_Jetpack != null)
+		if (abilityUtil_Targeter_Jetpack == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			bool flag;
-			if (!this.HasAbsorbOnCasterPerEnemyHit())
+			int num;
+			if (!HasAbsorbOnCasterPerEnemyHit())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -70,11 +69,11 @@ public class SpaceMarineJetpack : Ability
 					}
 					break;
 				}
-				if (!this.GetEffectOnSelf().m_applyEffect)
+				if (!GetEffectOnSelf().m_applyEffect)
 				{
-					if (this.m_abilityMod != null)
+					if (m_abilityMod != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -83,23 +82,22 @@ public class SpaceMarineJetpack : Ability
 							}
 							break;
 						}
-						flag = this.m_abilityMod.m_effectToSelfOnCast.m_applyEffect;
+						num = (m_abilityMod.m_effectToSelfOnCast.m_applyEffect ? 1 : 0);
 					}
 					else
 					{
-						flag = false;
+						num = 0;
 					}
-					goto IL_A8;
+					goto IL_00a8;
 				}
 			}
-			flag = true;
-			IL_A8:
-			bool flag2 = flag;
-			AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = abilityUtil_Targeter_Jetpack;
-			AbilityUtil_Targeter.AffectsActor affectsCaster;
-			if (flag2)
+			num = 1;
+			goto IL_00a8;
+			IL_00a8:
+			int affectsCaster;
+			if (num != 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -108,22 +106,23 @@ public class SpaceMarineJetpack : Ability
 					}
 					break;
 				}
-				affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
+				affectsCaster = 2;
 			}
 			else
 			{
-				affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
+				affectsCaster = 0;
 			}
-			abilityUtil_Targeter_Shape.m_affectsCaster = affectsCaster;
+			abilityUtil_Targeter_Jetpack.m_affectsCaster = (AbilityUtil_Targeter.AffectsActor)affectsCaster;
+			return;
 		}
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedEffectOnSelf;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -132,25 +131,25 @@ public class SpaceMarineJetpack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineJetpack.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedEffectOnSelf = this.m_abilityMod.m_effectOnSelfMod.GetModifiedValue(this.m_effectOnSelf);
+			cachedEffectOnSelf = m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
 		}
 		else
 		{
-			cachedEffectOnSelf = this.m_effectOnSelf;
+			cachedEffectOnSelf = m_effectOnSelf;
 		}
-		this.m_cachedEffectOnSelf = cachedEffectOnSelf;
+		m_cachedEffectOnSelf = cachedEffectOnSelf;
 	}
 
 	public StandardEffectInfo GetEffectOnSelf()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectOnSelf != null)
+		if (m_cachedEffectOnSelf != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -159,15 +158,15 @@ public class SpaceMarineJetpack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineJetpack.GetEffectOnSelf()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEffectOnSelf;
+			result = m_cachedEffectOnSelf;
 		}
 		else
 		{
-			result = this.m_effectOnSelf;
+			result = m_effectOnSelf;
 		}
 		return result;
 	}
@@ -175,9 +174,9 @@ public class SpaceMarineJetpack : Ability
 	private int GetDamage()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -186,15 +185,15 @@ public class SpaceMarineJetpack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineJetpack.GetDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_damage;
+			result = m_damage;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damage);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
 		}
 		return result;
 	}
@@ -202,9 +201,9 @@ public class SpaceMarineJetpack : Ability
 	public int CooldownResetHealthThreshold()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -213,24 +212,25 @@ public class SpaceMarineJetpack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineJetpack.CooldownResetHealthThreshold()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = 0;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_cooldownResetThreshold.GetModifiedValue(0);
+			result = m_abilityMod.m_cooldownResetThreshold.GetModifiedValue(0);
 		}
 		return result;
 	}
 
 	private bool HasAbsorbOnCasterPerEnemyHit()
 	{
-		if (this.m_abilityMod != null)
+		int result;
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -239,13 +239,13 @@ public class SpaceMarineJetpack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineJetpack.HasAbsorbOnCasterPerEnemyHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_abilityMod.m_effectOnCasterPerEnemyHit.m_applyEffect)
+			if (m_abilityMod.m_effectOnCasterPerEnemyHit.m_applyEffect)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -254,18 +254,22 @@ public class SpaceMarineJetpack : Ability
 					}
 					break;
 				}
-				return this.m_abilityMod.m_effectOnCasterPerEnemyHit.m_effectData.m_absorbAmount > 0;
+				result = ((m_abilityMod.m_effectOnCasterPerEnemyHit.m_effectData.m_absorbAmount > 0) ? 1 : 0);
+				goto IL_005a;
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_005a;
+		IL_005a:
+		return (byte)result != 0;
 	}
 
 	private StandardActorEffectData GetEffectOnEnemies()
 	{
 		StandardActorEffectData standardActorEffectData = null;
-		if (this.m_applyDebuffs)
+		if (m_applyDebuffs)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -274,53 +278,45 @@ public class SpaceMarineJetpack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineJetpack.GetEffectOnEnemies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			standardActorEffectData = this.m_debuffData;
+			standardActorEffectData = m_debuffData;
 		}
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_abilityMod.m_additionalEffectOnEnemy.GetModifiedValue(standardActorEffectData);
 				}
-				break;
 			}
-			return this.m_abilityMod.m_additionalEffectOnEnemy.GetModifiedValue(standardActorEffectData);
 		}
 		return standardActorEffectData;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.GetEffectOnSelf().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.m_damage);
-		StandardActorEffectData effectOnEnemies = this.GetEffectOnEnemies();
-		if (effectOnEnemies != null)
-		{
-			effectOnEnemies.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy);
-		}
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		GetEffectOnSelf().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, m_damage);
+		GetEffectOnEnemies()?.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		return numbers;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetDamage());
-		StandardActorEffectData effectOnEnemies = this.GetEffectOnEnemies();
-		if (effectOnEnemies != null)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetDamage());
+		GetEffectOnEnemies()?.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		if (HasAbsorbOnCasterPerEnemyHit())
 		{
-			effectOnEnemies.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy);
-		}
-		if (this.HasAbsorbOnCasterPerEnemyHit())
-		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -329,26 +325,26 @@ public class SpaceMarineJetpack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineJetpack.CalculateNameplateTargetingNumbers()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityTooltipHelper.ReportAbsorb(ref result, AbilityTooltipSubject.Self, 1);
+			AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, 1);
 		}
 		else
 		{
-			this.GetEffectOnSelf().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
+			GetEffectOnSelf().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		}
-		base.AppendTooltipNumbersFromBaseModEffects(ref result, AbilityTooltipSubject.Enemy, AbilityTooltipSubject.Ally, AbilityTooltipSubject.Self);
-		return result;
+		AppendTooltipNumbersFromBaseModEffects(ref numbers, AbilityTooltipSubject.Enemy);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
-		if (this.HasAbsorbOnCasterPerEnemyHit())
+		if (HasAbsorbOnCasterPerEnemyHit())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -357,15 +353,14 @@ public class SpaceMarineJetpack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineJetpack.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeter.GetActorsInRange();
 			int num = actorsInRange.Count - 1;
-			int value = num * this.m_abilityMod.m_effectOnCasterPerEnemyHit.m_effectData.m_absorbAmount;
-			dictionary[AbilityTooltipSymbol.Absorb] = value;
+			int num3 = dictionary[AbilityTooltipSymbol.Absorb] = num * m_abilityMod.m_effectOnCasterPerEnemyHit.m_effectData.m_absorbAmount;
 		}
 		return dictionary;
 	}
@@ -374,9 +369,9 @@ public class SpaceMarineJetpack : Ability
 	{
 		AbilityMod_SpaceMarineJetpack abilityMod_SpaceMarineJetpack = modAsBase as AbilityMod_SpaceMarineJetpack;
 		StandardEffectInfo effectInfo;
-		if (abilityMod_SpaceMarineJetpack)
+		if ((bool)abilityMod_SpaceMarineJetpack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -385,23 +380,22 @@ public class SpaceMarineJetpack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineJetpack.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			effectInfo = abilityMod_SpaceMarineJetpack.m_effectOnSelfMod.GetModifiedValue(this.m_effectOnSelf);
+			effectInfo = abilityMod_SpaceMarineJetpack.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
 		}
 		else
 		{
-			effectInfo = this.m_effectOnSelf;
+			effectInfo = m_effectOnSelf;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnSelf", this.m_effectOnSelf, true);
-		string name = "Damage";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnSelf", m_effectOnSelf);
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_SpaceMarineJetpack)
+		if ((bool)abilityMod_SpaceMarineJetpack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -410,14 +404,14 @@ public class SpaceMarineJetpack : Ability
 				}
 				break;
 			}
-			val = abilityMod_SpaceMarineJetpack.m_damageMod.GetModifiedValue(this.m_damage);
+			val = abilityMod_SpaceMarineJetpack.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
 		{
-			val = this.m_damage;
+			val = m_damage;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		this.m_debuffData.AddTooltipTokens(tokens, "DebuffData", false, null);
+		AddTokenInt(tokens, "Damage", empty, val);
+		m_debuffData.AddTooltipTokens(tokens, "DebuffData");
 	}
 
 	internal override ActorData.MovementType GetMovementType()
@@ -429,31 +423,29 @@ public class SpaceMarineJetpack : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SpaceMarineJetpack))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_abilityMod = (abilityMod as AbilityMod_SpaceMarineJetpack);
+					SetupTargeter();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineJetpack.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_SpaceMarineJetpack);
-			this.SetupTargeter();
 		}
-		else
-		{
-			Debug.LogError("Trying to apply wrong type of ability mod");
-		}
+		Debug.LogError("Trying to apply wrong type of ability mod");
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 }

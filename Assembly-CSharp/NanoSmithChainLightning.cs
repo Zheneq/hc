@@ -1,11 +1,10 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NanoSmithChainLightning : Ability
 {
 	[Separator("Laser/Primary Hit", true)]
-	public int m_laserDamage = 0x14;
+	public int m_laserDamage = 20;
 
 	public StandardEffectInfo m_laserEnemyHitEffect;
 
@@ -22,7 +21,7 @@ public class NanoSmithChainLightning : Ability
 
 	public int m_chainMaxHits = -1;
 
-	public int m_chainDamage = 0xA;
+	public int m_chainDamage = 10;
 
 	public StandardEffectInfo m_chainEnemyHitEffect;
 
@@ -33,7 +32,7 @@ public class NanoSmithChainLightning : Ability
 	[Separator("Extra Absob for Vacuum Bomb cast target", true)]
 	public int m_extraAbsorbPerHitForVacuumBomb;
 
-	public int m_maxExtraAbsorbForVacuumBomb = 0xA;
+	public int m_maxExtraAbsorbForVacuumBomb = 10;
 
 	[Header("-- Sequences")]
 	public GameObject m_bounceLaserSequencePrefab;
@@ -48,48 +47,47 @@ public class NanoSmithChainLightning : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Chain Lightning";
+			m_abilityName = "Chain Lightning";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		base.ClearTargeters();
-		if (this.GetExpectedNumberOfTargeters() < 2)
+		SetCachedFields();
+		ClearTargeters();
+		if (GetExpectedNumberOfTargeters() < 2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					base.Targeter = new AbilityUtil_Targeter_ChainLightningLaser(this, GetLaserWidth(), GetLaserRange(), m_penetrateLos, GetLaserMaxTargets(), false, GetChainMaxHits(), GetChainRadius());
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.SetupTargeter()).MethodHandle;
-			}
-			base.Targeter = new AbilityUtil_Targeter_ChainLightningLaser(this, this.GetLaserWidth(), this.GetLaserRange(), this.m_penetrateLos, this.GetLaserMaxTargets(), false, this.GetChainMaxHits(), this.GetChainRadius());
 		}
-		else
+		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 		{
-			for (int i = 0; i < this.GetExpectedNumberOfTargeters(); i++)
+			base.Targeters.Add(new AbilityUtil_Targeter_ChainLightningLaser(this, GetLaserWidth(), GetLaserRange(), m_penetrateLos, GetLaserMaxTargets(), false, GetChainMaxHits(), GetChainRadius()));
+			base.Targeters[i].SetUseMultiTargetUpdate(true);
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				base.Targeters.Add(new AbilityUtil_Targeter_ChainLightningLaser(this, this.GetLaserWidth(), this.GetLaserRange(), this.m_penetrateLos, this.GetLaserMaxTargets(), false, this.GetChainMaxHits(), this.GetChainRadius()));
-				base.Targeters[i].SetUseMultiTargetUpdate(true);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
@@ -98,9 +96,9 @@ public class NanoSmithChainLightning : Ability
 	public override int GetExpectedNumberOfTargeters()
 	{
 		int result = 1;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -109,13 +107,13 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetExpectedNumberOfTargeters()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_abilityMod.m_useTargetDataOverrides)
+			if (m_abilityMod.m_useTargetDataOverrides)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -124,9 +122,9 @@ public class NanoSmithChainLightning : Ability
 					}
 					break;
 				}
-				if (this.m_abilityMod.m_targetDataOverrides.Length > 1)
+				if (m_abilityMod.m_targetDataOverrides.Length > 1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -135,7 +133,7 @@ public class NanoSmithChainLightning : Ability
 						}
 						break;
 					}
-					result = this.m_abilityMod.m_targetDataOverrides.Length;
+					result = m_abilityMod.m_targetDataOverrides.Length;
 				}
 			}
 		}
@@ -149,15 +147,15 @@ public class NanoSmithChainLightning : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetLaserRange();
+		return GetLaserRange();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedLaserEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -166,26 +164,26 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedLaserEnemyHitEffect = this.m_abilityMod.m_laserEnemyHitEffectMod.GetModifiedValue(this.m_laserEnemyHitEffect);
+			cachedLaserEnemyHitEffect = m_abilityMod.m_laserEnemyHitEffectMod.GetModifiedValue(m_laserEnemyHitEffect);
 		}
 		else
 		{
-			cachedLaserEnemyHitEffect = this.m_laserEnemyHitEffect;
+			cachedLaserEnemyHitEffect = m_laserEnemyHitEffect;
 		}
-		this.m_cachedLaserEnemyHitEffect = cachedLaserEnemyHitEffect;
-		this.m_cachedChainEnemyHitEffect = ((!this.m_abilityMod) ? this.m_chainEnemyHitEffect : this.m_abilityMod.m_chainEnemyHitEffectMod.GetModifiedValue(this.m_chainEnemyHitEffect));
+		m_cachedLaserEnemyHitEffect = cachedLaserEnemyHitEffect;
+		m_cachedChainEnemyHitEffect = ((!m_abilityMod) ? m_chainEnemyHitEffect : m_abilityMod.m_chainEnemyHitEffectMod.GetModifiedValue(m_chainEnemyHitEffect));
 	}
 
 	public int GetLaserDamage()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -194,15 +192,15 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetLaserDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_laserDamage;
+			result = m_laserDamage;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_laserDamageMod.GetModifiedValue(this.m_laserDamage);
+			result = m_abilityMod.m_laserDamageMod.GetModifiedValue(m_laserDamage);
 		}
 		return result;
 	}
@@ -210,9 +208,9 @@ public class NanoSmithChainLightning : Ability
 	public StandardEffectInfo GetLaserEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedLaserEnemyHitEffect != null)
+		if (m_cachedLaserEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -221,15 +219,15 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetLaserEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedLaserEnemyHitEffect;
+			result = m_cachedLaserEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_laserEnemyHitEffect;
+			result = m_laserEnemyHitEffect;
 		}
 		return result;
 	}
@@ -237,9 +235,9 @@ public class NanoSmithChainLightning : Ability
 	public float GetLaserRange()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -248,30 +246,30 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetLaserRange()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_laserRangeMod.GetModifiedValue(this.m_laserRange);
+			result = m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange);
 		}
 		else
 		{
-			result = this.m_laserRange;
+			result = m_laserRange;
 		}
 		return result;
 	}
 
 	public float GetLaserWidth()
 	{
-		return (!this.m_abilityMod) ? this.m_laserWidth : this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
+		return (!m_abilityMod) ? m_laserWidth : m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 	}
 
 	public bool PenetrateLos()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -280,15 +278,15 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.PenetrateLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
+			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
 		{
-			result = this.m_penetrateLos;
+			result = m_penetrateLos;
 		}
 		return result;
 	}
@@ -296,9 +294,9 @@ public class NanoSmithChainLightning : Ability
 	public int GetLaserMaxTargets()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -307,15 +305,15 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetLaserMaxTargets()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_laserMaxHitsMod.GetModifiedValue(this.m_laserMaxHits);
+			result = m_abilityMod.m_laserMaxHitsMod.GetModifiedValue(m_laserMaxHits);
 		}
 		else
 		{
-			result = this.m_laserMaxHits;
+			result = m_laserMaxHits;
 		}
 		return result;
 	}
@@ -323,9 +321,9 @@ public class NanoSmithChainLightning : Ability
 	public float GetChainRadius()
 	{
 		float result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -334,15 +332,15 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetChainRadius()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_chainRadius;
+			result = m_chainRadius;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_chainRadiusMod.GetModifiedValue(this.m_chainRadius);
+			result = m_abilityMod.m_chainRadiusMod.GetModifiedValue(m_chainRadius);
 		}
 		return result;
 	}
@@ -350,9 +348,9 @@ public class NanoSmithChainLightning : Ability
 	public int GetChainMaxHits()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -361,30 +359,30 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetChainMaxHits()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_chainMaxHits;
+			result = m_chainMaxHits;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_chainMaxHitsMod.GetModifiedValue(this.m_chainMaxHits);
+			result = m_abilityMod.m_chainMaxHitsMod.GetModifiedValue(m_chainMaxHits);
 		}
 		return result;
 	}
 
 	public int GetChainDamage()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_chainDamageMod.GetModifiedValue(this.m_chainDamage) : this.m_chainDamage;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_chainDamageMod.GetModifiedValue(m_chainDamage) : m_chainDamage;
 	}
 
 	public int GetEnergyGainPerChainHit()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -393,15 +391,15 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetEnergyGainPerChainHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_energyGainPerChainHit;
+			result = m_energyGainPerChainHit;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_energyPerChainHitMod.GetModifiedValue(this.m_energyGainPerChainHit);
+			result = m_abilityMod.m_energyPerChainHitMod.GetModifiedValue(m_energyGainPerChainHit);
 		}
 		return result;
 	}
@@ -409,9 +407,9 @@ public class NanoSmithChainLightning : Ability
 	public StandardEffectInfo GetChainEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedChainEnemyHitEffect != null)
+		if (m_cachedChainEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -420,30 +418,30 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetChainEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedChainEnemyHitEffect;
+			result = m_cachedChainEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_chainEnemyHitEffect;
+			result = m_chainEnemyHitEffect;
 		}
 		return result;
 	}
 
 	public bool ChainCanHitInvisibleActors()
 	{
-		return (!this.m_abilityMod) ? this.m_chainCanHitInvisibleActors : this.m_abilityMod.m_chainCanHitInvisibleActorsMod.GetModifiedValue(this.m_chainCanHitInvisibleActors);
+		return (!m_abilityMod) ? m_chainCanHitInvisibleActors : m_abilityMod.m_chainCanHitInvisibleActorsMod.GetModifiedValue(m_chainCanHitInvisibleActors);
 	}
 
 	public int GetExtraAbsorbPerHitForVacuumBomb()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -452,15 +450,15 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetExtraAbsorbPerHitForVacuumBomb()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraAbsorbPerHitForVacuumBombMod.GetModifiedValue(this.m_extraAbsorbPerHitForVacuumBomb);
+			result = m_abilityMod.m_extraAbsorbPerHitForVacuumBombMod.GetModifiedValue(m_extraAbsorbPerHitForVacuumBomb);
 		}
 		else
 		{
-			result = this.m_extraAbsorbPerHitForVacuumBomb;
+			result = m_extraAbsorbPerHitForVacuumBomb;
 		}
 		return result;
 	}
@@ -468,9 +466,9 @@ public class NanoSmithChainLightning : Ability
 	public int GetMaxExtraAbsorbForVacuumBomb()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -479,43 +477,43 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetMaxExtraAbsorbForVacuumBomb()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_maxExtraAbsorbForVacuumBombMod.GetModifiedValue(this.m_maxExtraAbsorbForVacuumBomb);
+			result = m_abilityMod.m_maxExtraAbsorbForVacuumBombMod.GetModifiedValue(m_maxExtraAbsorbForVacuumBomb);
 		}
 		else
 		{
-			result = this.m_maxExtraAbsorbForVacuumBomb;
+			result = m_maxExtraAbsorbForVacuumBomb;
 		}
 		return result;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_laserDamage);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Secondary, this.m_chainDamage);
-		this.m_laserEnemyHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		this.m_chainEnemyHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Secondary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_laserDamage);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_chainDamage);
+		m_laserEnemyHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		m_chainEnemyHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
+		return numbers;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetLaserDamage());
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Secondary, this.GetChainDamage());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetLaserDamage());
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, GetChainDamage());
+		return numbers;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (this.GetEnergyGainPerChainHit() > 0 && base.Targeters != null && currentTargeterIndex < base.Targeters.Count)
+		if (GetEnergyGainPerChainHit() > 0 && base.Targeters != null && currentTargeterIndex < base.Targeters.Count)
 		{
 			List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeters[currentTargeterIndex].GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Secondary);
-			return this.GetEnergyGainPerChainHit() * visibleActorsInRangeByTooltipSubject.Count;
+			return GetEnergyGainPerChainHit() * visibleActorsInRangeByTooltipSubject.Count;
 		}
 		return 0;
 	}
@@ -523,12 +521,11 @@ public class NanoSmithChainLightning : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_NanoSmithChainLightning abilityMod_NanoSmithChainLightning = modAsBase as AbilityMod_NanoSmithChainLightning;
-		string name = "LaserDamage";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_NanoSmithChainLightning)
+		if ((bool)abilityMod_NanoSmithChainLightning)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -537,25 +534,24 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_NanoSmithChainLightning.m_laserDamageMod.GetModifiedValue(this.m_laserDamage);
+			val = abilityMod_NanoSmithChainLightning.m_laserDamageMod.GetModifiedValue(m_laserDamage);
 		}
 		else
 		{
-			val = this.m_laserDamage;
+			val = m_laserDamage;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_laserEnemyHitEffect, "LaserEnemyHitEffect", this.m_laserEnemyHitEffect, true);
-		base.AddTokenInt(tokens, "LaserMaxHits", string.Empty, this.m_laserMaxHits, false);
-		string name2 = "ChainMaxHits";
+		AddTokenInt(tokens, "LaserDamage", empty, val);
+		AbilityMod.AddToken_EffectInfo(tokens, m_laserEnemyHitEffect, "LaserEnemyHitEffect", m_laserEnemyHitEffect);
+		AddTokenInt(tokens, "LaserMaxHits", string.Empty, m_laserMaxHits);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_NanoSmithChainLightning)
+		if ((bool)abilityMod_NanoSmithChainLightning)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -564,19 +560,18 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_NanoSmithChainLightning.m_chainMaxHitsMod.GetModifiedValue(this.m_chainMaxHits);
+			val2 = abilityMod_NanoSmithChainLightning.m_chainMaxHitsMod.GetModifiedValue(m_chainMaxHits);
 		}
 		else
 		{
-			val2 = this.m_chainMaxHits;
+			val2 = m_chainMaxHits;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		string name3 = "ChainDamage";
+		AddTokenInt(tokens, "ChainMaxHits", empty2, val2);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_NanoSmithChainLightning)
+		if ((bool)abilityMod_NanoSmithChainLightning)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -585,20 +580,19 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			val3 = abilityMod_NanoSmithChainLightning.m_chainDamageMod.GetModifiedValue(this.m_chainDamage);
+			val3 = abilityMod_NanoSmithChainLightning.m_chainDamageMod.GetModifiedValue(m_chainDamage);
 		}
 		else
 		{
-			val3 = this.m_chainDamage;
+			val3 = m_chainDamage;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_chainEnemyHitEffect, "ChainEnemyHitEffect", this.m_chainEnemyHitEffect, true);
-		string name4 = "EnergyGainPerChainHit";
+		AddTokenInt(tokens, "ChainDamage", empty3, val3);
+		AbilityMod.AddToken_EffectInfo(tokens, m_chainEnemyHitEffect, "ChainEnemyHitEffect", m_chainEnemyHitEffect);
 		string empty4 = string.Empty;
 		int val4;
-		if (abilityMod_NanoSmithChainLightning)
+		if ((bool)abilityMod_NanoSmithChainLightning)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -607,44 +601,42 @@ public class NanoSmithChainLightning : Ability
 				}
 				break;
 			}
-			val4 = abilityMod_NanoSmithChainLightning.m_energyPerChainHitMod.GetModifiedValue(this.m_energyGainPerChainHit);
+			val4 = abilityMod_NanoSmithChainLightning.m_energyPerChainHitMod.GetModifiedValue(m_energyGainPerChainHit);
 		}
 		else
 		{
-			val4 = this.m_energyGainPerChainHit;
+			val4 = m_energyGainPerChainHit;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
+		AddTokenInt(tokens, "EnergyGainPerChainHit", empty4, val4);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_NanoSmithChainLightning))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_abilityMod = (abilityMod as AbilityMod_NanoSmithChainLightning);
+					SetupTargeter();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_NanoSmithChainLightning);
-			this.SetupTargeter();
 		}
-		else
-		{
-			Debug.LogError("Trying to apply wrong type of ability mod");
-		}
+		Debug.LogError("Trying to apply wrong type of ability mod");
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 }

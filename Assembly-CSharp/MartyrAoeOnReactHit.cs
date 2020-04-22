@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,7 +33,7 @@ public class MartyrAoeOnReactHit : Ability
 	public bool m_reactIncludeEffectTarget = true;
 
 	[Header("-- On React Hit --")]
-	public int m_reactAoeDamage = 0xA;
+	public int m_reactAoeDamage = 10;
 
 	public int m_reactDamagePerCrystal = 3;
 
@@ -64,9 +63,9 @@ public class MartyrAoeOnReactHit : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -75,20 +74,20 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "MartyrAoeOnReactHit";
+			m_abilityName = "MartyrAoeOnReactHit";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		if (this.m_syncComp == null)
+		if (m_syncComp == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -97,17 +96,16 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.Setup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_syncComp = base.GetComponent<Martyr_SyncComponent>();
+			m_syncComp = GetComponent<Martyr_SyncComponent>();
 		}
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_AoE_AroundActor(this, 1f, this.ReactPenetrateLos(), true, false, -1, this.CanTargetEnemy(), this.CanTargetAlly(), this.CanTargetSelf())
-		{
-			m_customRadiusDelegate = new AbilityUtil_Targeter_AoE_Smooth.GetRadiusDelegate(this.GetRadiusForTargeter)
-		};
+		SetCachedFields();
+		AbilityUtil_Targeter_AoE_AroundActor abilityUtil_Targeter_AoE_AroundActor = new AbilityUtil_Targeter_AoE_AroundActor(this, 1f, ReactPenetrateLos(), true, false, -1, CanTargetEnemy(), CanTargetAlly(), CanTargetSelf());
+		abilityUtil_Targeter_AoE_AroundActor.m_customRadiusDelegate = GetRadiusForTargeter;
+		base.Targeter = abilityUtil_Targeter_AoE_AroundActor;
 	}
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
@@ -118,9 +116,9 @@ public class MartyrAoeOnReactHit : Ability
 	private void SetCachedFields()
 	{
 		StandardActorEffectData cachedEnemyBaseEffectData;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -129,21 +127,21 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedEnemyBaseEffectData = this.m_abilityMod.m_enemyBaseEffectDataMod.GetModifiedValue(this.m_enemyBaseEffectData);
+			cachedEnemyBaseEffectData = m_abilityMod.m_enemyBaseEffectDataMod.GetModifiedValue(m_enemyBaseEffectData);
 		}
 		else
 		{
-			cachedEnemyBaseEffectData = this.m_enemyBaseEffectData;
+			cachedEnemyBaseEffectData = m_enemyBaseEffectData;
 		}
-		this.m_cachedEnemyBaseEffectData = cachedEnemyBaseEffectData;
+		m_cachedEnemyBaseEffectData = cachedEnemyBaseEffectData;
 		StandardActorEffectData cachedAllyBaseEffectData;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -152,17 +150,17 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			cachedAllyBaseEffectData = this.m_abilityMod.m_allyBaseEffectDataMod.GetModifiedValue(this.m_allyBaseEffectData);
+			cachedAllyBaseEffectData = m_abilityMod.m_allyBaseEffectDataMod.GetModifiedValue(m_allyBaseEffectData);
 		}
 		else
 		{
-			cachedAllyBaseEffectData = this.m_allyBaseEffectData;
+			cachedAllyBaseEffectData = m_allyBaseEffectData;
 		}
-		this.m_cachedAllyBaseEffectData = cachedAllyBaseEffectData;
+		m_cachedAllyBaseEffectData = cachedAllyBaseEffectData;
 		StandardEffectInfo cachedReactEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -171,26 +169,26 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			cachedReactEnemyHitEffect = this.m_abilityMod.m_reactEnemyHitEffectMod.GetModifiedValue(this.m_reactEnemyHitEffect);
+			cachedReactEnemyHitEffect = m_abilityMod.m_reactEnemyHitEffectMod.GetModifiedValue(m_reactEnemyHitEffect);
 		}
 		else
 		{
-			cachedReactEnemyHitEffect = this.m_reactEnemyHitEffect;
+			cachedReactEnemyHitEffect = m_reactEnemyHitEffect;
 		}
-		this.m_cachedReactEnemyHitEffect = cachedReactEnemyHitEffect;
+		m_cachedReactEnemyHitEffect = cachedReactEnemyHitEffect;
 	}
 
 	public bool CanTargetEnemy()
 	{
-		return (!this.m_abilityMod) ? this.m_canTargetEnemy : this.m_abilityMod.m_canTargetEnemyMod.GetModifiedValue(this.m_canTargetEnemy);
+		return (!m_abilityMod) ? m_canTargetEnemy : m_abilityMod.m_canTargetEnemyMod.GetModifiedValue(m_canTargetEnemy);
 	}
 
 	public bool CanTargetAlly()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -199,15 +197,15 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.CanTargetAlly()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_canTargetAllyMod.GetModifiedValue(this.m_canTargetAlly);
+			result = m_abilityMod.m_canTargetAllyMod.GetModifiedValue(m_canTargetAlly);
 		}
 		else
 		{
-			result = this.m_canTargetAlly;
+			result = m_canTargetAlly;
 		}
 		return result;
 	}
@@ -215,9 +213,9 @@ public class MartyrAoeOnReactHit : Ability
 	public bool CanTargetSelf()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -226,30 +224,30 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.CanTargetSelf()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_canTargetSelfMod.GetModifiedValue(this.m_canTargetSelf);
+			result = m_abilityMod.m_canTargetSelfMod.GetModifiedValue(m_canTargetSelf);
 		}
 		else
 		{
-			result = this.m_canTargetSelf;
+			result = m_canTargetSelf;
 		}
 		return result;
 	}
 
 	public bool TargetingIgnoreLos()
 	{
-		return (!this.m_abilityMod) ? this.m_targetingIgnoreLos : this.m_abilityMod.m_targetingIgnoreLosMod.GetModifiedValue(this.m_targetingIgnoreLos);
+		return (!m_abilityMod) ? m_targetingIgnoreLos : m_abilityMod.m_targetingIgnoreLosMod.GetModifiedValue(m_targetingIgnoreLos);
 	}
 
 	public StandardActorEffectData GetEnemyBaseEffectData()
 	{
 		StandardActorEffectData result;
-		if (this.m_cachedEnemyBaseEffectData != null)
+		if (m_cachedEnemyBaseEffectData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -258,15 +256,15 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.GetEnemyBaseEffectData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemyBaseEffectData;
+			result = m_cachedEnemyBaseEffectData;
 		}
 		else
 		{
-			result = this.m_enemyBaseEffectData;
+			result = m_enemyBaseEffectData;
 		}
 		return result;
 	}
@@ -274,9 +272,9 @@ public class MartyrAoeOnReactHit : Ability
 	public StandardActorEffectData GetAllyBaseEffectData()
 	{
 		StandardActorEffectData result;
-		if (this.m_cachedAllyBaseEffectData != null)
+		if (m_cachedAllyBaseEffectData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -285,15 +283,15 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.GetAllyBaseEffectData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedAllyBaseEffectData;
+			result = m_cachedAllyBaseEffectData;
 		}
 		else
 		{
-			result = this.m_allyBaseEffectData;
+			result = m_allyBaseEffectData;
 		}
 		return result;
 	}
@@ -301,9 +299,9 @@ public class MartyrAoeOnReactHit : Ability
 	public int GetExtraAbsorbPerCrystal()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -312,15 +310,15 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.GetExtraAbsorbPerCrystal()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraAbsorbPerCrystalMod.GetModifiedValue(this.m_extraAbsorbPerCrystal);
+			result = m_abilityMod.m_extraAbsorbPerCrystalMod.GetModifiedValue(m_extraAbsorbPerCrystal);
 		}
 		else
 		{
-			result = this.m_extraAbsorbPerCrystal;
+			result = m_extraAbsorbPerCrystal;
 		}
 		return result;
 	}
@@ -328,9 +326,9 @@ public class MartyrAoeOnReactHit : Ability
 	public float GetReactBaseRadius()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -339,15 +337,15 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.GetReactBaseRadius()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_reactBaseRadiusMod.GetModifiedValue(this.m_reactBaseRadius);
+			result = m_abilityMod.m_reactBaseRadiusMod.GetModifiedValue(m_reactBaseRadius);
 		}
 		else
 		{
-			result = this.m_reactBaseRadius;
+			result = m_reactBaseRadius;
 		}
 		return result;
 	}
@@ -355,9 +353,9 @@ public class MartyrAoeOnReactHit : Ability
 	public float GetReactRadiusPerCrystal()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -366,15 +364,15 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.GetReactRadiusPerCrystal()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_reactRadiusPerCrystalMod.GetModifiedValue(this.m_reactRadiusPerCrystal);
+			result = m_abilityMod.m_reactRadiusPerCrystalMod.GetModifiedValue(m_reactRadiusPerCrystal);
 		}
 		else
 		{
-			result = this.m_reactRadiusPerCrystal;
+			result = m_reactRadiusPerCrystal;
 		}
 		return result;
 	}
@@ -382,9 +380,9 @@ public class MartyrAoeOnReactHit : Ability
 	public bool ReactOnlyOncePerTurn()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -393,15 +391,15 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.ReactOnlyOncePerTurn()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_reactOnlyOncePerTurnMod.GetModifiedValue(this.m_reactOnlyOncePerTurn);
+			result = m_abilityMod.m_reactOnlyOncePerTurnMod.GetModifiedValue(m_reactOnlyOncePerTurn);
 		}
 		else
 		{
-			result = this.m_reactOnlyOncePerTurn;
+			result = m_reactOnlyOncePerTurn;
 		}
 		return result;
 	}
@@ -409,9 +407,9 @@ public class MartyrAoeOnReactHit : Ability
 	public bool ReactPenetrateLos()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -420,30 +418,30 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.ReactPenetrateLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_reactPenetrateLosMod.GetModifiedValue(this.m_reactPenetrateLos);
+			result = m_abilityMod.m_reactPenetrateLosMod.GetModifiedValue(m_reactPenetrateLos);
 		}
 		else
 		{
-			result = this.m_reactPenetrateLos;
+			result = m_reactPenetrateLos;
 		}
 		return result;
 	}
 
 	public bool ReactIncludeEffectTarget()
 	{
-		return (!this.m_abilityMod) ? this.m_reactIncludeEffectTarget : this.m_abilityMod.m_reactIncludeEffectTargetMod.GetModifiedValue(this.m_reactIncludeEffectTarget);
+		return (!m_abilityMod) ? m_reactIncludeEffectTarget : m_abilityMod.m_reactIncludeEffectTargetMod.GetModifiedValue(m_reactIncludeEffectTarget);
 	}
 
 	public int GetReactAoeDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -452,15 +450,15 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.GetReactAoeDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_reactAoeDamageMod.GetModifiedValue(this.m_reactAoeDamage);
+			result = m_abilityMod.m_reactAoeDamageMod.GetModifiedValue(m_reactAoeDamage);
 		}
 		else
 		{
-			result = this.m_reactAoeDamage;
+			result = m_reactAoeDamage;
 		}
 		return result;
 	}
@@ -468,9 +466,9 @@ public class MartyrAoeOnReactHit : Ability
 	public int GetReactDamagePerCrystal()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -479,15 +477,15 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.GetReactDamagePerCrystal()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_reactDamagePerCrystalMod.GetModifiedValue(this.m_reactDamagePerCrystal);
+			result = m_abilityMod.m_reactDamagePerCrystalMod.GetModifiedValue(m_reactDamagePerCrystal);
 		}
 		else
 		{
-			result = this.m_reactDamagePerCrystal;
+			result = m_reactDamagePerCrystal;
 		}
 		return result;
 	}
@@ -495,9 +493,9 @@ public class MartyrAoeOnReactHit : Ability
 	public StandardEffectInfo GetReactEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedReactEnemyHitEffect != null)
+		if (m_cachedReactEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -506,30 +504,30 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.GetReactEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedReactEnemyHitEffect;
+			result = m_cachedReactEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_reactEnemyHitEffect;
+			result = m_reactEnemyHitEffect;
 		}
 		return result;
 	}
 
 	public int GetReactHealOnTarget()
 	{
-		return (!this.m_abilityMod) ? this.m_reactHealOnTarget : this.m_abilityMod.m_reactHealOnTargetMod.GetModifiedValue(this.m_reactHealOnTarget);
+		return (!m_abilityMod) ? m_reactHealOnTarget : m_abilityMod.m_reactHealOnTargetMod.GetModifiedValue(m_reactHealOnTarget);
 	}
 
 	public int GetReactEnergyOnCasterPerReact()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -538,15 +536,15 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.GetReactEnergyOnCasterPerReact()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_reactEnergyOnCasterPerReactMod.GetModifiedValue(this.m_reactEnergyOnCasterPerReact);
+			result = m_abilityMod.m_reactEnergyOnCasterPerReactMod.GetModifiedValue(m_reactEnergyOnCasterPerReact);
 		}
 		else
 		{
-			result = this.m_reactEnergyOnCasterPerReact;
+			result = m_reactEnergyOnCasterPerReact;
 		}
 		return result;
 	}
@@ -554,9 +552,9 @@ public class MartyrAoeOnReactHit : Ability
 	public int GetCdrIfNoReactionTriggered()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -565,30 +563,30 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.GetCdrIfNoReactionTriggered()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_cdrIfNoReactionTriggeredMod.GetModifiedValue(this.m_cdrIfNoReactionTriggered);
+			result = m_abilityMod.m_cdrIfNoReactionTriggeredMod.GetModifiedValue(m_cdrIfNoReactionTriggered);
 		}
 		else
 		{
-			result = this.m_cdrIfNoReactionTriggered;
+			result = m_cdrIfNoReactionTriggered;
 		}
 		return result;
 	}
 
 	public float GetRadiusForTargeter(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		return this.GetCurrentRadius();
+		return GetCurrentRadius();
 	}
 
 	public float GetCurrentRadius()
 	{
-		float num = this.GetReactBaseRadius();
-		if (this.m_syncComp != null)
+		float num = GetReactBaseRadius();
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -597,13 +595,13 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.GetCurrentRadius()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.GetReactRadiusPerCrystal() > 0f)
+			if (GetReactRadiusPerCrystal() > 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -612,8 +610,8 @@ public class MartyrAoeOnReactHit : Ability
 					}
 					break;
 				}
-				int num2 = Mathf.Max(0, this.m_syncComp.DamageCrystals);
-				num += this.GetReactRadiusPerCrystal() * (float)num2;
+				int num2 = Mathf.Max(0, m_syncComp.DamageCrystals);
+				num += GetReactRadiusPerCrystal() * (float)num2;
 			}
 		}
 		return num;
@@ -621,10 +619,10 @@ public class MartyrAoeOnReactHit : Ability
 
 	public int GetTotalDamage()
 	{
-		int num = this.GetReactAoeDamage();
-		if (this.m_syncComp != null)
+		int num = GetReactAoeDamage();
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -633,13 +631,13 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.GetTotalDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.GetReactDamagePerCrystal() > 0)
+			if (GetReactDamagePerCrystal() > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -648,8 +646,8 @@ public class MartyrAoeOnReactHit : Ability
 					}
 					break;
 				}
-				int num2 = Mathf.Max(0, this.m_syncComp.DamageCrystals);
-				num += this.GetReactDamagePerCrystal() * num2;
+				int num2 = Mathf.Max(0, m_syncComp.DamageCrystals);
+				num += GetReactDamagePerCrystal() * num2;
 			}
 		}
 		return num;
@@ -658,9 +656,9 @@ public class MartyrAoeOnReactHit : Ability
 	public int GetCurrentExtraAbsorb(ActorData caster)
 	{
 		int num = 0;
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -669,13 +667,13 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.GetCurrentExtraAbsorb(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.GetExtraAbsorbPerCrystal() > 0)
+			if (GetExtraAbsorbPerCrystal() > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -684,8 +682,8 @@ public class MartyrAoeOnReactHit : Ability
 					}
 					break;
 				}
-				int num2 = this.m_syncComp.SpentDamageCrystals(caster);
-				num += num2 * this.GetExtraAbsorbPerCrystal();
+				int num2 = m_syncComp.SpentDamageCrystals(caster);
+				num += num2 * GetExtraAbsorbPerCrystal();
 			}
 		}
 		return num;
@@ -693,22 +691,23 @@ public class MartyrAoeOnReactHit : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
+		bool flag = false;
 		ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-		return base.CanTargetActorInDecision(caster, currentBestActorTarget, this.CanTargetEnemy(), this.CanTargetAlly(), this.CanTargetSelf(), Ability.ValidateCheckPath.Ignore, !this.TargetingIgnoreLos(), true, false);
+		return CanTargetActorInDecision(caster, currentBestActorTarget, CanTargetEnemy(), CanTargetAlly(), CanTargetSelf(), ValidateCheckPath.Ignore, !TargetingIgnoreLos(), true);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return base.HasTargetableActorsInDecision(caster, this.CanTargetEnemy(), this.CanTargetAlly(), this.CanTargetSelf(), Ability.ValidateCheckPath.Ignore, !this.TargetingIgnoreLos(), true, false);
+		return HasTargetableActorsInDecision(caster, CanTargetEnemy(), CanTargetAlly(), CanTargetSelf(), ValidateCheckPath.Ignore, !TargetingIgnoreLos(), true);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportAbsorb(ref result, AbilityTooltipSubject.Ally, 1);
-		AbilityTooltipHelper.ReportAbsorb(ref result, AbilityTooltipSubject.Self, 1);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, 1);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Ally, 1);
+		AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, 1);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, 1);
+		return numbers;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
@@ -718,27 +717,11 @@ public class MartyrAoeOnReactHit : Ability
 		results.m_healing = 0;
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Ally) <= 0)
 		{
-			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-				}
-			}
-			else
+			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) <= 0)
 			{
 				if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -747,15 +730,28 @@ public class MartyrAoeOnReactHit : Ability
 						}
 						break;
 					}
-					results.m_damage = this.GetTotalDamage();
-					return true;
+					results.m_damage = GetTotalDamage();
 				}
-				return true;
+				goto IL_00a0;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		ActorData actorData = base.ActorData;
-		int absorb = this.GetAllyBaseEffectData().m_absorbAmount + this.GetCurrentExtraAbsorb(actorData);
-		results.m_absorb = absorb;
+		int num = results.m_absorb = GetAllyBaseEffectData().m_absorbAmount + GetCurrentExtraAbsorb(actorData);
+		goto IL_00a0;
+		IL_00a0:
 		return true;
 	}
 
@@ -763,9 +759,9 @@ public class MartyrAoeOnReactHit : Ability
 	{
 		AbilityMod_MartyrAoeOnReactHit abilityMod_MartyrAoeOnReactHit = modAsBase as AbilityMod_MartyrAoeOnReactHit;
 		StandardActorEffectData standardActorEffectData;
-		if (abilityMod_MartyrAoeOnReactHit)
+		if ((bool)abilityMod_MartyrAoeOnReactHit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -774,22 +770,22 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			standardActorEffectData = abilityMod_MartyrAoeOnReactHit.m_enemyBaseEffectDataMod.GetModifiedValue(this.m_enemyBaseEffectData);
+			standardActorEffectData = abilityMod_MartyrAoeOnReactHit.m_enemyBaseEffectDataMod.GetModifiedValue(m_enemyBaseEffectData);
 		}
 		else
 		{
-			standardActorEffectData = this.m_enemyBaseEffectData;
+			standardActorEffectData = m_enemyBaseEffectData;
 		}
 		StandardActorEffectData standardActorEffectData2 = standardActorEffectData;
-		standardActorEffectData2.AddTooltipTokens(tokens, "EnemyBaseEffectData", abilityMod_MartyrAoeOnReactHit != null, this.m_enemyBaseEffectData);
+		standardActorEffectData2.AddTooltipTokens(tokens, "EnemyBaseEffectData", abilityMod_MartyrAoeOnReactHit != null, m_enemyBaseEffectData);
 		StandardActorEffectData standardActorEffectData3;
-		if (abilityMod_MartyrAoeOnReactHit)
+		if ((bool)abilityMod_MartyrAoeOnReactHit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -798,20 +794,19 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			standardActorEffectData3 = abilityMod_MartyrAoeOnReactHit.m_allyBaseEffectDataMod.GetModifiedValue(this.m_allyBaseEffectData);
+			standardActorEffectData3 = abilityMod_MartyrAoeOnReactHit.m_allyBaseEffectDataMod.GetModifiedValue(m_allyBaseEffectData);
 		}
 		else
 		{
-			standardActorEffectData3 = this.m_allyBaseEffectData;
+			standardActorEffectData3 = m_allyBaseEffectData;
 		}
 		StandardActorEffectData standardActorEffectData4 = standardActorEffectData3;
-		standardActorEffectData4.AddTooltipTokens(tokens, "AllyBaseEffectData", abilityMod_MartyrAoeOnReactHit != null, this.m_allyBaseEffectData);
-		string name = "ExtraAbsorbPerCrystal";
+		standardActorEffectData4.AddTooltipTokens(tokens, "AllyBaseEffectData", abilityMod_MartyrAoeOnReactHit != null, m_allyBaseEffectData);
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_MartyrAoeOnReactHit)
+		if ((bool)abilityMod_MartyrAoeOnReactHit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -820,19 +815,18 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			val = abilityMod_MartyrAoeOnReactHit.m_extraAbsorbPerCrystalMod.GetModifiedValue(this.m_extraAbsorbPerCrystal);
+			val = abilityMod_MartyrAoeOnReactHit.m_extraAbsorbPerCrystalMod.GetModifiedValue(m_extraAbsorbPerCrystal);
 		}
 		else
 		{
-			val = this.m_extraAbsorbPerCrystal;
+			val = m_extraAbsorbPerCrystal;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "ReactAoeDamage";
+		AddTokenInt(tokens, "ExtraAbsorbPerCrystal", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_MartyrAoeOnReactHit)
+		if ((bool)abilityMod_MartyrAoeOnReactHit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -841,19 +835,18 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_MartyrAoeOnReactHit.m_reactAoeDamageMod.GetModifiedValue(this.m_reactAoeDamage);
+			val2 = abilityMod_MartyrAoeOnReactHit.m_reactAoeDamageMod.GetModifiedValue(m_reactAoeDamage);
 		}
 		else
 		{
-			val2 = this.m_reactAoeDamage;
+			val2 = m_reactAoeDamage;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		string name3 = "ReactDamagePerCrystal";
+		AddTokenInt(tokens, "ReactAoeDamage", empty2, val2);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_MartyrAoeOnReactHit)
+		if ((bool)abilityMod_MartyrAoeOnReactHit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -862,17 +855,17 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			val3 = abilityMod_MartyrAoeOnReactHit.m_reactDamagePerCrystalMod.GetModifiedValue(this.m_reactDamagePerCrystal);
+			val3 = abilityMod_MartyrAoeOnReactHit.m_reactDamagePerCrystalMod.GetModifiedValue(m_reactDamagePerCrystal);
 		}
 		else
 		{
-			val3 = this.m_reactDamagePerCrystal;
+			val3 = m_reactDamagePerCrystal;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
+		AddTokenInt(tokens, "ReactDamagePerCrystal", empty3, val3);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_MartyrAoeOnReactHit)
+		if ((bool)abilityMod_MartyrAoeOnReactHit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -881,19 +874,18 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			effectInfo = abilityMod_MartyrAoeOnReactHit.m_reactEnemyHitEffectMod.GetModifiedValue(this.m_reactEnemyHitEffect);
+			effectInfo = abilityMod_MartyrAoeOnReactHit.m_reactEnemyHitEffectMod.GetModifiedValue(m_reactEnemyHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_reactEnemyHitEffect;
+			effectInfo = m_reactEnemyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "ReactEnemyHitEffect", this.m_reactEnemyHitEffect, true);
-		string name4 = "ReactHealOnTarget";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "ReactEnemyHitEffect", m_reactEnemyHitEffect);
 		string empty4 = string.Empty;
 		int val4;
-		if (abilityMod_MartyrAoeOnReactHit)
+		if ((bool)abilityMod_MartyrAoeOnReactHit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -902,19 +894,18 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			val4 = abilityMod_MartyrAoeOnReactHit.m_reactHealOnTargetMod.GetModifiedValue(this.m_reactHealOnTarget);
+			val4 = abilityMod_MartyrAoeOnReactHit.m_reactHealOnTargetMod.GetModifiedValue(m_reactHealOnTarget);
 		}
 		else
 		{
-			val4 = this.m_reactHealOnTarget;
+			val4 = m_reactHealOnTarget;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
-		string name5 = "ReactEnergyOnCasterPerReact";
+		AddTokenInt(tokens, "ReactHealOnTarget", empty4, val4);
 		string empty5 = string.Empty;
 		int val5;
-		if (abilityMod_MartyrAoeOnReactHit)
+		if ((bool)abilityMod_MartyrAoeOnReactHit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -923,19 +914,18 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			val5 = abilityMod_MartyrAoeOnReactHit.m_reactEnergyOnCasterPerReactMod.GetModifiedValue(this.m_reactEnergyOnCasterPerReact);
+			val5 = abilityMod_MartyrAoeOnReactHit.m_reactEnergyOnCasterPerReactMod.GetModifiedValue(m_reactEnergyOnCasterPerReact);
 		}
 		else
 		{
-			val5 = this.m_reactEnergyOnCasterPerReact;
+			val5 = m_reactEnergyOnCasterPerReact;
 		}
-		base.AddTokenInt(tokens, name5, empty5, val5, false);
-		string name6 = "CdrIfNoReactionTriggered";
+		AddTokenInt(tokens, "ReactEnergyOnCasterPerReact", empty5, val5);
 		string empty6 = string.Empty;
 		int val6;
-		if (abilityMod_MartyrAoeOnReactHit)
+		if ((bool)abilityMod_MartyrAoeOnReactHit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -944,40 +934,41 @@ public class MartyrAoeOnReactHit : Ability
 				}
 				break;
 			}
-			val6 = abilityMod_MartyrAoeOnReactHit.m_cdrIfNoReactionTriggeredMod.GetModifiedValue(this.m_cdrIfNoReactionTriggered);
+			val6 = abilityMod_MartyrAoeOnReactHit.m_cdrIfNoReactionTriggeredMod.GetModifiedValue(m_cdrIfNoReactionTriggered);
 		}
 		else
 		{
-			val6 = this.m_cdrIfNoReactionTriggered;
+			val6 = m_cdrIfNoReactionTriggered;
 		}
-		base.AddTokenInt(tokens, name6, empty6, val6, false);
+		AddTokenInt(tokens, "CdrIfNoReactionTriggered", empty6, val6);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_MartyrAoeOnReactHit))
+		if (abilityMod.GetType() != typeof(AbilityMod_MartyrAoeOnReactHit))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrAoeOnReactHit.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_MartyrAoeOnReactHit);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_MartyrAoeOnReactHit);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

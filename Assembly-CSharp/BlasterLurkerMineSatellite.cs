@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class BlasterLurkerMineSatellite : TempSatellite
@@ -12,37 +11,38 @@ public class BlasterLurkerMineSatellite : TempSatellite
 	protected override void Initialize()
 	{
 		base.Initialize();
-		this.m_renderers = base.GetComponentsInChildren<Renderer>();
-		this.EnableStealth();
+		m_renderers = GetComponentsInChildren<Renderer>();
+		EnableStealth();
 	}
 
 	public override void OnTempSatelliteDestroy()
 	{
-		if (this.m_renderers != null)
+		if (m_renderers == null)
 		{
-			for (int i = 0; i < this.m_renderers.Length; i++)
+			return;
+		}
+		for (int i = 0; i < m_renderers.Length; i++)
+		{
+			Renderer renderer = m_renderers[i];
+			if (renderer != null)
 			{
-				Renderer renderer = this.m_renderers[i];
-				if (renderer != null)
+				Material[] materials = renderer.materials;
+				for (int j = 0; j < materials.Length; j++)
 				{
-					Material[] materials = renderer.materials;
-					for (int j = 0; j < materials.Length; j++)
+					Object.Destroy(materials[i]);
+				}
+				while (true)
+				{
+					switch (3)
 					{
-						UnityEngine.Object.Destroy(materials[i]);
+					case 0:
+						continue;
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterLurkerMineSatellite.OnTempSatelliteDestroy()).MethodHandle;
-					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
 				}
 			}
 		}
@@ -51,34 +51,34 @@ public class BlasterLurkerMineSatellite : TempSatellite
 	public override void TriggerAttack(GameObject attackTarget)
 	{
 		base.TriggerAttack(attackTarget);
-		this.m_attackTriggered = true;
-		this.DisableStealth();
+		m_attackTriggered = true;
+		DisableStealth();
 	}
 
 	private void EnableStealth()
 	{
-		this.SetMaterialKeyword("STEALTH_ON", true);
-		this.SetMaterialRenderQueue(0xBB8);
-		ActorData owner = base.GetOwner();
-		if (owner != null)
+		SetMaterialKeyword("STEALTH_ON", true);
+		SetMaterialRenderQueue(3000);
+		ActorData owner = GetOwner();
+		if (!(owner != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterLurkerMineSatellite.EnableStealth()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			float num;
 			if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -87,9 +87,9 @@ public class BlasterLurkerMineSatellite : TempSatellite
 					}
 					break;
 				}
-				if (owner.\u0012() == GameFlowData.Get().activeOwnedActorData.\u000E())
+				if (owner.GetOpposingTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -99,61 +99,63 @@ public class BlasterLurkerMineSatellite : TempSatellite
 						break;
 					}
 					num = 1f;
-					goto IL_A5;
+					goto IL_00a5;
 				}
 			}
 			num = 0f;
-			IL_A5:
+			goto IL_00a5;
+			IL_00a5:
 			float value = num;
-			this.SetMaterialFloat(ActorModelData.s_materialPropertyIDTeam, value);
+			SetMaterialFloat(ActorModelData.s_materialPropertyIDTeam, value);
+			return;
 		}
 	}
 
 	private void DisableStealth()
 	{
-		this.SetMaterialKeyword("STEALTH_ON", false);
-		this.SetMaterialRenderQueue(0x7D0);
+		SetMaterialKeyword("STEALTH_ON", false);
+		SetMaterialRenderQueue(2000);
 	}
 
 	private void SetMaterialFloat(int propertyID, float value)
 	{
-		for (int i = 0; i < this.m_renderers.Length; i++)
+		for (int i = 0; i < m_renderers.Length; i++)
 		{
-			Renderer renderer = this.m_renderers[i];
-			foreach (Material material in renderer.materials)
+			Renderer renderer = m_renderers[i];
+			Material[] materials = renderer.materials;
+			foreach (Material material in materials)
 			{
 				material.SetFloat(propertyID, value);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterLurkerMineSatellite.SetMaterialFloat(int, float)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	private void SetMaterialRenderQueue(int renderQueue)
 	{
-		for (int i = 0; i < this.m_renderers.Length; i++)
+		for (int i = 0; i < m_renderers.Length; i++)
 		{
-			Renderer renderer = this.m_renderers[i];
+			Renderer renderer = m_renderers[i];
 			Material[] materials = renderer.materials;
 			for (int j = 0; j < materials.Length; j++)
 			{
 				Material material = materials[j];
-				Material material2 = material;
 				int renderQueue2;
 				if (renderQueue < -1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -162,9 +164,9 @@ public class BlasterLurkerMineSatellite : TempSatellite
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterLurkerMineSatellite.SetMaterialRenderQueue(int)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					renderQueue2 = renderer.sharedMaterials[j].renderQueue;
 				}
@@ -172,15 +174,19 @@ public class BlasterLurkerMineSatellite : TempSatellite
 				{
 					renderQueue2 = renderQueue;
 				}
-				material2.renderQueue = renderQueue2;
+				material.renderQueue = renderQueue2;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_0059;
 				}
+				continue;
+				end_IL_0059:
 				break;
 			}
 		}
@@ -188,10 +194,12 @@ public class BlasterLurkerMineSatellite : TempSatellite
 
 	private void SetMaterialKeyword(string keyword, bool enable)
 	{
-		for (int i = 0; i < this.m_renderers.Length; i++)
+		int num = 0;
+		while (num < m_renderers.Length)
 		{
-			Renderer renderer = this.m_renderers[i];
-			foreach (Material material in renderer.materials)
+			Renderer renderer = m_renderers[num];
+			Material[] materials = renderer.materials;
+			foreach (Material material in materials)
 			{
 				if (material != null)
 				{
@@ -205,52 +213,55 @@ public class BlasterLurkerMineSatellite : TempSatellite
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				num++;
+				goto IL_0061;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterLurkerMineSatellite.SetMaterialKeyword(string, bool)).MethodHandle;
-			}
+			IL_0061:;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_renderers != null)
+		if (m_renderers == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterLurkerMineSatellite.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ActorData actorData;
+			object obj;
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -259,18 +270,18 @@ public class BlasterLurkerMineSatellite : TempSatellite
 					}
 					break;
 				}
-				actorData = GameFlowData.Get().activeOwnedActorData;
+				obj = GameFlowData.Get().activeOwnedActorData;
 			}
 			else
 			{
-				actorData = null;
+				obj = null;
 			}
-			ActorData actorData2 = actorData;
-			ActorData owner = base.GetOwner();
-			bool flag;
-			if (!this.m_attackTriggered)
+			ActorData actorData = (ActorData)obj;
+			ActorData owner = GetOwner();
+			int num;
+			if (!m_attackTriggered)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -279,9 +290,9 @@ public class BlasterLurkerMineSatellite : TempSatellite
 					}
 					break;
 				}
-				if (actorData2 != null && owner != null)
+				if (actorData != null && owner != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -290,21 +301,21 @@ public class BlasterLurkerMineSatellite : TempSatellite
 						}
 						break;
 					}
-					flag = (actorData2.\u000E() == owner.\u000E());
+					num = ((actorData.GetTeam() == owner.GetTeam()) ? 1 : 0);
 				}
 				else
 				{
-					flag = false;
+					num = 0;
 				}
 			}
 			else
 			{
-				flag = true;
+				num = 1;
 			}
-			bool flag2 = flag;
-			if (!flag2)
+			bool flag = (byte)num != 0;
+			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -313,9 +324,9 @@ public class BlasterLurkerMineSatellite : TempSatellite
 					}
 					break;
 				}
-				if (this.m_modelAnimator != null)
+				if (m_modelAnimator != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -324,10 +335,10 @@ public class BlasterLurkerMineSatellite : TempSatellite
 						}
 						break;
 					}
-					AnimatorStateInfo currentAnimatorStateInfo = this.m_modelAnimator.GetCurrentAnimatorStateInfo(0);
+					AnimatorStateInfo currentAnimatorStateInfo = m_modelAnimator.GetCurrentAnimatorStateInfo(0);
 					if (!currentAnimatorStateInfo.IsTag("Despawn"))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -338,41 +349,43 @@ public class BlasterLurkerMineSatellite : TempSatellite
 						}
 						if (!currentAnimatorStateInfo.IsTag("Attack"))
 						{
-							goto IL_FB;
+							goto IL_00fb;
 						}
 					}
-					flag2 = true;
+					flag = true;
 				}
 			}
-			IL_FB:
-			if (flag2 != this.m_visible)
+			goto IL_00fb;
+			IL_00fb:
+			if (flag == m_visible)
 			{
-				for (int i = 0; i < this.m_renderers.Length; i++)
+				return;
+			}
+			for (int i = 0; i < m_renderers.Length; i++)
+			{
+				if (m_renderers[i] != null)
 				{
-					if (this.m_renderers[i] != null)
+					while (true)
 					{
-						for (;;)
+						switch (4)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
+						case 0:
+							continue;
 						}
-						this.m_renderers[i].enabled = flag2;
+						break;
 					}
+					m_renderers[i].enabled = flag;
 				}
-				for (;;)
+			}
+			while (true)
+			{
+				switch (2)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				this.m_visible = flag2;
+				m_visible = flag;
+				return;
 			}
 		}
 	}

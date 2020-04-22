@@ -1,179 +1,161 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class ELOKeyComponent_Softened : ELOKeyComponent
 {
-	public ELOKeyComponent.BinaryModePhaseEnum m_phase;
+	public BinaryModePhaseEnum m_phase;
 
 	private static float c_minRange = 50f;
 
 	private static float c_halfingRange = 100f;
 
-	public override ELOKeyComponent.KeyModeEnum KeyMode
-	{
-		get
-		{
-			return ELOKeyComponent.KeyModeEnum.BINARY;
-		}
-	}
+	public override KeyModeEnum KeyMode => KeyModeEnum.BINARY;
 
-	public override ELOKeyComponent.BinaryModePhaseEnum BinaryModePhase
-	{
-		get
-		{
-			return this.m_phase;
-		}
-	}
+	public override BinaryModePhaseEnum BinaryModePhase => m_phase;
 
-	public static uint PhaseWidth
-	{
-		get
-		{
-			return 3U;
-		}
-	}
+	public static uint PhaseWidth => 3u;
 
 	public override char GetComponentChar()
 	{
-		if (this.m_phase == ELOKeyComponent.BinaryModePhaseEnum.PRIMARY)
+		if (m_phase == BinaryModePhaseEnum.PRIMARY)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return '-';
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Softened.GetComponentChar()).MethodHandle;
-			}
-			return '-';
 		}
-		if (this.m_phase == ELOKeyComponent.BinaryModePhaseEnum.SECONDARY)
+		if (m_phase == BinaryModePhaseEnum.SECONDARY)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 'V';
 				}
-				break;
 			}
-			return 'V';
 		}
-		if (this.m_phase == ELOKeyComponent.BinaryModePhaseEnum.TERTIARY)
+		if (m_phase == BinaryModePhaseEnum.TERTIARY)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 'i';
 				}
-				break;
 			}
-			return 'i';
 		}
 		return '?';
 	}
 
 	public override char GetPhaseChar()
 	{
-		if (this.m_phase == ELOKeyComponent.BinaryModePhaseEnum.PRIMARY)
+		if (m_phase == BinaryModePhaseEnum.PRIMARY)
 		{
 			return '0';
 		}
-		if (this.m_phase == ELOKeyComponent.BinaryModePhaseEnum.SECONDARY)
+		if (m_phase == BinaryModePhaseEnum.SECONDARY)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return 'V';
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Softened.GetPhaseChar()).MethodHandle;
-			}
-			return 'V';
 		}
-		if (this.m_phase == ELOKeyComponent.BinaryModePhaseEnum.TERTIARY)
+		if (m_phase == BinaryModePhaseEnum.TERTIARY)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 'i';
 				}
-				break;
 			}
-			return 'i';
 		}
 		return '?';
 	}
 
 	public override string GetPhaseDescription()
 	{
-		if (this.m_phase == ELOKeyComponent.BinaryModePhaseEnum.PRIMARY)
+		if (m_phase == BinaryModePhaseEnum.PRIMARY)
 		{
 			return "brute";
 		}
-		if (this.m_phase == ELOKeyComponent.BinaryModePhaseEnum.SECONDARY)
+		if (m_phase == BinaryModePhaseEnum.SECONDARY)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return "public";
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Softened.GetPhaseDescription()).MethodHandle;
-			}
-			return "public";
 		}
-		if (this.m_phase == ELOKeyComponent.BinaryModePhaseEnum.TERTIARY)
+		if (m_phase == BinaryModePhaseEnum.TERTIARY)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return "individual";
 				}
-				break;
 			}
-			return "individual";
 		}
 		return "error";
 	}
 
-	public override void Initialize(ELOKeyComponent.BinaryModePhaseEnum phase, GameType gameType, bool isCasual)
+	public override void Initialize(BinaryModePhaseEnum phase, GameType gameType, bool isCasual)
 	{
-		this.m_phase = phase;
+		m_phase = phase;
 	}
 
 	public override void Initialize(List<MatchmakingQueueConfig.EloKeyFlags> flags, GameType gameType, bool isCasual)
 	{
-		ELOKeyComponent.BinaryModePhaseEnum phase;
+		int phase;
 		if (flags.Contains(MatchmakingQueueConfig.EloKeyFlags.SOFTENED_PUBLIC))
 		{
-			phase = ELOKeyComponent.BinaryModePhaseEnum.SECONDARY;
+			phase = 1;
 		}
 		else if (flags.Contains(MatchmakingQueueConfig.EloKeyFlags.SOFTENED_INDIVIDUAL))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -182,17 +164,17 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Softened.Initialize(List<MatchmakingQueueConfig.EloKeyFlags>, GameType, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			phase = ELOKeyComponent.BinaryModePhaseEnum.TERTIARY;
+			phase = 2;
 		}
 		else
 		{
-			phase = ELOKeyComponent.BinaryModePhaseEnum.PRIMARY;
+			phase = 0;
 		}
-		this.m_phase = phase;
+		m_phase = (BinaryModePhaseEnum)phase;
 	}
 
 	public override bool MatchesFlag(MatchmakingQueueConfig.EloKeyFlags flag)
@@ -207,11 +189,11 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 	private float GetMaxDeltaFraction(float eloRange, float preMadeGroupRatio, bool won, float currentElo, float averageElo)
 	{
 		double num = 1.0;
-		if (this.m_phase == ELOKeyComponent.BinaryModePhaseEnum.SECONDARY)
+		if (m_phase == BinaryModePhaseEnum.SECONDARY)
 		{
-			if (eloRange > ELOKeyComponent_Softened.c_minRange)
+			if (eloRange > c_minRange)
 			{
-				double y = (double)((eloRange - ELOKeyComponent_Softened.c_minRange) / ELOKeyComponent_Softened.c_halfingRange);
+				double y = (eloRange - c_minRange) / c_halfingRange;
 				num /= Math.Pow(2.0, y);
 			}
 			if (preMadeGroupRatio < 0.25f)
@@ -220,7 +202,7 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 			}
 			else if (preMadeGroupRatio < 1f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -229,16 +211,16 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Softened.GetMaxDeltaFraction(float, float, bool, float, float)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				num *= (double)preMadeGroupRatio;
 			}
 		}
-		else if (this.m_phase == ELOKeyComponent.BinaryModePhaseEnum.TERTIARY)
+		else if (m_phase == BinaryModePhaseEnum.TERTIARY)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -250,7 +232,7 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 			float num2 = (!won) ? (averageElo - currentElo) : (currentElo - averageElo);
 			if (num2 > 0f)
 			{
-				double y2 = (double)(num2 / 400f);
+				double y2 = num2 / 400f;
 				num /= Math.Pow(4.0, y2);
 			}
 		}
@@ -264,9 +246,9 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 		{
 			num = placementKFactor;
 		}
-		else if (this.m_phase != ELOKeyComponent.BinaryModePhaseEnum.PRIMARY)
+		else if (m_phase != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -275,25 +257,25 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Softened.GetMaxDelta(float, float, float, bool, float, float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = 20f;
 		}
 		else
 		{
-			if (currentElo <= 2600f)
+			if (!(currentElo > 2600f))
 			{
-				if (currentElo >= 400f)
+				if (!(currentElo < 400f))
 				{
-					if (currentElo <= 2450f)
+					if (!(currentElo > 2450f))
 					{
-						if (currentElo >= 550f)
+						if (!(currentElo < 550f))
 						{
-							if (currentElo <= 2300f)
+							if (!(currentElo > 2300f))
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -302,11 +284,11 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 									}
 									break;
 								}
-								if (currentElo >= 700f)
+								if (!(currentElo < 700f))
 								{
-									goto IL_AF;
+									goto IL_00af;
 								}
-								for (;;)
+								while (true)
 								{
 									switch (7)
 									{
@@ -317,9 +299,9 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 								}
 							}
 							num = 20f;
-							goto IL_AF;
+							goto IL_00af;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -330,9 +312,9 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 						}
 					}
 					num = 10f;
-					goto IL_AF;
+					goto IL_00af;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -344,11 +326,14 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 			}
 			num = 5f;
 		}
-		IL_AF:
-		float maxDeltaFraction = this.GetMaxDeltaFraction(eloRange, preMadeGroupRatio, won, currentElo, averageElo);
+		goto IL_00af;
+		IL_010c:
+		return num;
+		IL_00af:
+		float maxDeltaFraction = GetMaxDeltaFraction(eloRange, preMadeGroupRatio, won, currentElo, averageElo);
 		if (maxDeltaFraction >= 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -359,7 +344,7 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 			}
 			if (maxDeltaFraction <= 1f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -368,14 +353,11 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 					}
 					break;
 				}
-				return num * maxDeltaFraction;
+				num *= maxDeltaFraction;
+				goto IL_010c;
 			}
 		}
-		Log.Error("Why is account generating in incorrect max K fraction ({0}) for phase ({1})?", new object[]
-		{
-			maxDeltaFraction,
-			this.GetPhaseDescription()
-		});
-		return num;
+		Log.Error("Why is account generating in incorrect max K fraction ({0}) for phase ({1})?", maxDeltaFraction, GetPhaseDescription());
+		goto IL_010c;
 	}
 }

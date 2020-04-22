@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -10,24 +10,25 @@ public class AbilityCooldownMod
 
 	public void ModifyCooldown(AbilityData abilityData)
 	{
-		if (abilityData != null && this.abilitySlot != AbilityData.ActionType.INVALID_ACTION)
+		if (!(abilityData != null) || abilitySlot == AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCooldownMod.ModifyCooldown(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			int num = abilityData.GetCooldownRemaining(this.abilitySlot);
-			num = Mathf.Max(0, this.modAmount.GetModifiedValue(num));
-			abilityData.OverrideCooldown(this.abilitySlot, num);
+			int cooldownRemaining = abilityData.GetCooldownRemaining(abilitySlot);
+			cooldownRemaining = Mathf.Max(0, modAmount.GetModifiedValue(cooldownRemaining));
+			abilityData.OverrideCooldown(abilitySlot, cooldownRemaining);
+			return;
 		}
 	}
 }

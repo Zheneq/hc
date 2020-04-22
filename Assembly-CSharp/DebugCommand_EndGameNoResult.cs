@@ -1,5 +1,3 @@
-﻿using System;
-
 public class DebugCommand_EndGameNoResult : DebugCommand
 {
 	public override string GetDebugItemName()
@@ -27,21 +25,21 @@ public class DebugCommand_EndGameNoResult : DebugCommand
 	{
 		if (arguments.EqualsIgnoreCase("noresult"))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					OnIncreaseClick();
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_EndGameNoResult.OnSlashCommand(string)).MethodHandle;
-			}
-			this.OnIncreaseClick();
-			return true;
 		}
 		return false;
 	}

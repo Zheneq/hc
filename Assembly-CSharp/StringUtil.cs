@@ -1,20 +1,20 @@
-﻿using System;
+using I2.Loc;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
-using I2.Loc;
 
 public static class StringUtil
 {
-	private const uint TWN_DEFAULT_FNV32_HASH_PRIME = 0x1000193U;
+	private const uint TWN_DEFAULT_FNV32_HASH_PRIME = 16777619u;
 
-	private const uint TWN_DEFAULT_FNV32_HASH_BASIS = 0x811C9DC5U;
+	private const uint TWN_DEFAULT_FNV32_HASH_BASIS = 2166136261u;
 
 	private static Regex m_loadoutNameRegex = new Regex("^Loadout #\\d+");
 
 	internal static uint CaseInsensitiveHash(string name)
 	{
-		return StringUtil.CaseInsensitiveHash(name, 0x1000193U, 0x811C9DC5U);
+		return CaseInsensitiveHash(name, 16777619u, 2166136261u);
 	}
 
 	private static uint CaseInsensitiveHash(string name, uint prime, uint basis)
@@ -22,7 +22,7 @@ public static class StringUtil
 		uint num = basis;
 		if (!string.IsNullOrEmpty(name))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -31,15 +31,15 @@ public static class StringUtil
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StringUtil.CaseInsensitiveHash(string, uint, uint)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			for (int i = 0; i < name.Length; i++)
 			{
-				num = (num * prime ^ Convert.ToUInt32(char.ToLower(name[i])));
+				num = ((num * prime) ^ Convert.ToUInt32(char.ToLower(name[i])));
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -57,10 +57,10 @@ public static class StringUtil
 		string text = string.Empty;
 		int num = 0;
 		int num2 = (int)difference.TotalDays;
-		int num3 = num2 / 0x16D;
+		int num3 = num2 / 365;
 		if (num3 > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -69,32 +69,25 @@ public static class StringUtil
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StringUtil.GetTimeDifferenceText(TimeSpan, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (num3 > 1)
-			{
-				text += string.Format(StringUtil.TR("Years", "TimeSpan"), num3);
-			}
-			else
-			{
-				text += StringUtil.TR("Year", "TimeSpan");
-			}
+			text = ((num3 <= 1) ? (text + TR("Year", "TimeSpan")) : (text + string.Format(TR("Years", "TimeSpan"), num3)));
 			num++;
-			difference -= TimeSpan.FromDays((double)(num3 * 0x16D));
+			difference -= TimeSpan.FromDays(num3 * 365);
 			if (!full)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return text;
 					}
-					break;
 				}
-				return text;
 			}
 		}
 		int days = difference.Days;
@@ -102,7 +95,7 @@ public static class StringUtil
 		{
 			if (!text.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -115,7 +108,7 @@ public static class StringUtil
 			}
 			if (days > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -124,16 +117,16 @@ public static class StringUtil
 					}
 					break;
 				}
-				text += string.Format(StringUtil.TR("Days", "TimeSpan"), days);
+				text += string.Format(TR("Days", "TimeSpan"), days);
 			}
 			else
 			{
-				text += StringUtil.TR("Day", "TimeSpan");
+				text += TR("Day", "TimeSpan");
 			}
 			num++;
 			if (full)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -144,9 +137,9 @@ public static class StringUtil
 				}
 				if (num <= 1)
 				{
-					goto IL_14D;
+					goto IL_014d;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -158,13 +151,14 @@ public static class StringUtil
 			}
 			return text;
 		}
-		IL_14D:
+		goto IL_014d;
+		IL_014d:
 		int hours = difference.Hours;
 		if (hours > 0)
 		{
 			if (!text.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -177,7 +171,7 @@ public static class StringUtil
 			}
 			if (hours > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -186,11 +180,11 @@ public static class StringUtil
 					}
 					break;
 				}
-				text += string.Format(StringUtil.TR("Hours", "TimeSpan"), hours);
+				text += string.Format(TR("Hours", "TimeSpan"), hours);
 			}
 			else
 			{
-				text += StringUtil.TR("Hour", "TimeSpan");
+				text += TR("Hour", "TimeSpan");
 			}
 			num++;
 			if (!full || num > 1)
@@ -203,7 +197,7 @@ public static class StringUtil
 		{
 			if (!text.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -216,7 +210,7 @@ public static class StringUtil
 			}
 			if (minutes > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -225,16 +219,16 @@ public static class StringUtil
 					}
 					break;
 				}
-				text += string.Format(StringUtil.TR("Minutes", "TimeSpan"), minutes);
+				text += string.Format(TR("Minutes", "TimeSpan"), minutes);
 			}
 			else
 			{
-				text += StringUtil.TR("Minute", "TimeSpan");
+				text += TR("Minute", "TimeSpan");
 			}
 			num++;
 			if (full)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -245,16 +239,17 @@ public static class StringUtil
 				}
 				if (num <= 1)
 				{
-					goto IL_275;
+					goto IL_0275;
 				}
 			}
 			return text;
 		}
-		IL_275:
+		goto IL_0275;
+		IL_0275:
 		int seconds = difference.Seconds;
 		if (!text.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -267,11 +262,11 @@ public static class StringUtil
 		}
 		if (seconds > 1)
 		{
-			text += string.Format(StringUtil.TR("Seconds", "TimeSpan"), seconds);
+			text += string.Format(TR("Seconds", "TimeSpan"), seconds);
 		}
 		else if (seconds == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -280,7 +275,7 @@ public static class StringUtil
 				}
 				break;
 			}
-			text += StringUtil.TR("Second", "TimeSpan");
+			text += TR("Second", "TimeSpan");
 		}
 		return text;
 	}
@@ -291,78 +286,78 @@ public static class StringUtil
 		float num2 = (float)num / 365f;
 		if (num2 > 1f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return string.Format(TR("Years", "TimeSpan"), (int)num2);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StringUtil.GetTimeDifferenceTextAbbreviated(TimeSpan)).MethodHandle;
-			}
-			return string.Format(StringUtil.TR("Years", "TimeSpan"), (int)num2);
 		}
 		float num3 = (float)(difference.TotalHours / 24.0);
 		if (num3 >= 1.1f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return string.Format(TR("Days", "TimeSpan"), (int)num3);
 				}
-				break;
 			}
-			return string.Format(StringUtil.TR("Days", "TimeSpan"), (int)num3);
 		}
 		float num4 = (float)(difference.TotalMinutes / 60.0);
 		if (num4 >= 1.1f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return string.Format(TR("NumHrs", "Global"), (int)num4);
 				}
-				break;
 			}
-			return string.Format(StringUtil.TR("NumHrs", "Global"), (int)num4);
 		}
 		float num5 = (float)(difference.TotalSeconds / 60.0);
 		if (num5 >= 1.1f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return string.Format(TR("Minutes", "TimeSpan"), (int)num5);
 				}
-				break;
 			}
-			return string.Format(StringUtil.TR("Minutes", "TimeSpan"), (int)num5);
 		}
 		float num6 = (float)(difference.TotalMilliseconds / 1000.0);
 		if (num6 >= 1.1f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return string.Format(TR("SecondsTimer", "Global"), (int)num6);
 				}
-				break;
 			}
-			return string.Format(StringUtil.TR("SecondsTimer", "Global"), (int)num6);
 		}
-		return StringUtil.TR("Second", "TimeSpan");
+		return TR("Second", "TimeSpan");
 	}
 
 	public static string GetCurrentLanguagecode()
@@ -370,7 +365,7 @@ public static class StringUtil
 		string text = LocalizationManager.CurrentLanguageCode;
 		if (text.Equals("zh", StringComparison.OrdinalIgnoreCase))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -379,9 +374,9 @@ public static class StringUtil
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StringUtil.GetCurrentLanguagecode()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			text = "zh-CN";
 		}
@@ -390,14 +385,14 @@ public static class StringUtil
 
 	public static string GetLocalizedFloat(float floatNumber, string format = "##,#.##")
 	{
-		string currentLanguagecode = StringUtil.GetCurrentLanguagecode();
+		string currentLanguagecode = GetCurrentLanguagecode();
 		CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture(currentLanguagecode);
 		return floatNumber.ToString(format, cultureInfo.NumberFormat);
 	}
 
 	public static string GetLocalizedDouble(double doubleNumber, string format = "##,#.##")
 	{
-		string currentLanguagecode = StringUtil.GetCurrentLanguagecode();
+		string currentLanguagecode = GetCurrentLanguagecode();
 		CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture(currentLanguagecode);
 		return doubleNumber.ToString(format, cultureInfo.NumberFormat);
 	}
@@ -412,44 +407,44 @@ public static class StringUtil
 
 	public static string PathChangeExtension(string path, string extension)
 	{
-		return string.Format("{0}/{1}{2}", Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path), extension);
+		return $"{Path.GetDirectoryName(path)}/{Path.GetFileNameWithoutExtension(path)}{extension}";
 	}
 
 	public static string RemoveOptionalSuffix(string path, string extension)
 	{
 		if (path.EndsWith(extension))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return path.Substring(0, path.Length - extension.Length);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StringUtil.RemoveOptionalSuffix(string, string)).MethodHandle;
-			}
-			return path.Substring(0, path.Length - extension.Length);
 		}
 		return path;
 	}
 
 	public static bool IsHexString(string hex)
 	{
-		int num;
-		return int.TryParse(hex, NumberStyles.HexNumber, null, out num);
+		int result;
+		return int.TryParse(hex, NumberStyles.HexNumber, null, out result);
 	}
 
 	public static string TR(string term, string context)
 	{
-		string text = string.Empty;
-		string text2 = term;
+		string empty = string.Empty;
+		string text = term;
 		if (!context.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -458,16 +453,16 @@ public static class StringUtil
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StringUtil.TR(string, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text2 = text2 + "@" + context;
+			text = text + "@" + context;
 		}
-		text = ScriptLocalization.Get(text2);
-		if (text.IsNullOrEmpty())
+		empty = ScriptLocalization.Get(text);
+		if (empty.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -476,9 +471,9 @@ public static class StringUtil
 				}
 				break;
 			}
-			text = string.Format("[{0}]#NotLocalized", text2);
+			empty = $"[{text}]#NotLocalized";
 		}
-		return text;
+		return empty;
 	}
 
 	public static string TR(string textDescription)
@@ -486,22 +481,22 @@ public static class StringUtil
 		string[] array = textDescription.Split("@".ToCharArray(), 2);
 		if (array.Length == 2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return TR(array[0], array[1]);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StringUtil.TR(string)).MethodHandle;
-			}
-			return StringUtil.TR(array[0], array[1]);
 		}
-		return string.Format("[{0}]#NotLocalized", textDescription);
+		return $"[{textDescription}]#NotLocalized";
 	}
 
 	public static string TR_IfHasContext(string textDescription)
@@ -509,7 +504,7 @@ public static class StringUtil
 		string[] array = textDescription.Split("@".ToCharArray(), 2);
 		if (array.Length == 2)
 		{
-			return StringUtil.TR(array[0], array[1]);
+			return TR(array[0], array[1]);
 		}
 		return textDescription;
 	}
@@ -1033,7 +1028,7 @@ public static class StringUtil
 	public static string TR_GetLoadoutName(string loadoutName)
 	{
 		string result = loadoutName;
-		Match match = StringUtil.m_loadoutNameRegex.Match(loadoutName);
+		Match match = m_loadoutNameRegex.Match(loadoutName);
 		if (match.Success)
 		{
 			Regex regex = new Regex("\\d+");
@@ -1041,7 +1036,7 @@ public static class StringUtil
 			if (match2.Success)
 			{
 				int num = int.Parse(match2.Value);
-				result = string.Format(StringUtil.TR("LoadoutNumber", "Global"), num);
+				result = string.Format(TR("LoadoutNumber", "Global"), num);
 			}
 		}
 		return result;
@@ -1109,6 +1104,6 @@ public static class StringUtil
 
 	public static string FormatTime(int seconds)
 	{
-		return string.Format("{0}:{1:00}", seconds / 0x3C, seconds % 0x3C);
+		return $"{seconds / 60}:{seconds % 60:00}";
 	}
 }

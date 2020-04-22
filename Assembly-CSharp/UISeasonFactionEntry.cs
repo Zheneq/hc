@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,17 +22,17 @@ public class UISeasonFactionEntry : MonoBehaviour
 
 	private void Start()
 	{
-		this.m_hitbox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.SetupTooltip), null);
+		m_hitbox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, SetupTooltip);
 	}
 
 	private bool SetupTooltip(UITooltipBase tooltip)
 	{
 		int activeFactionCompetition = ClientGameManager.Get().ActiveFactionCompetition;
-		string longName = Faction.GetLongName(activeFactionCompetition, this.m_factionId);
-		string loreDescription = Faction.GetLoreDescription(activeFactionCompetition, this.m_factionId);
+		string longName = Faction.GetLongName(activeFactionCompetition, m_factionId);
+		string loreDescription = Faction.GetLoreDescription(activeFactionCompetition, m_factionId);
 		if (!longName.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -42,24 +41,26 @@ public class UISeasonFactionEntry : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonFactionEntry.SetupTooltip(UITooltipBase)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!loreDescription.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+						uITitledTooltip.Setup(longName, loreDescription, string.Empty);
+						return true;
 					}
-					break;
+					}
 				}
-				UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-				uititledTooltip.Setup(longName, loreDescription, string.Empty);
-				return true;
 			}
 		}
 		return false;
@@ -67,11 +68,11 @@ public class UISeasonFactionEntry : MonoBehaviour
 
 	private void SetupProgressBar(Faction faction, int tierIndex, long remainingScore, bool showText)
 	{
-		float[] rbga = FactionWideData.Get().GetRBGA(faction);
-		float fillAmount;
+		float num = 0f;
+		float[] rBGA = FactionWideData.Get().GetRBGA(faction);
 		if (faction.Tiers[tierIndex].ContributionToComplete > remainingScore)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -80,30 +81,30 @@ public class UISeasonFactionEntry : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonFactionEntry.SetupProgressBar(Faction, int, long, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_factionBars[tierIndex].m_CompletedBar, false, null);
-			UIManager.SetGameObjectActive(this.m_factionBars[tierIndex].m_ProgressFillBar, true, null);
-			fillAmount = (float)remainingScore / (float)faction.Tiers[tierIndex].ContributionToComplete;
-			this.m_factionBars[tierIndex].m_ProgressFillBar.color = new Color(rbga[0], rbga[1], rbga[2], rbga[3]);
+			UIManager.SetGameObjectActive(m_factionBars[tierIndex].m_CompletedBar, false);
+			UIManager.SetGameObjectActive(m_factionBars[tierIndex].m_ProgressFillBar, true);
+			num = (float)remainingScore / (float)faction.Tiers[tierIndex].ContributionToComplete;
+			m_factionBars[tierIndex].m_ProgressFillBar.color = new Color(rBGA[0], rBGA[1], rBGA[2], rBGA[3]);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_factionBars[tierIndex].m_CompletedBar, true, null);
-			UIManager.SetGameObjectActive(this.m_factionBars[tierIndex].m_ProgressFillBar, false, null);
-			this.m_factionBars[tierIndex].m_CompletedBar.color = new Color(rbga[0], rbga[1], rbga[2], rbga[3]);
-			fillAmount = 1f;
+			UIManager.SetGameObjectActive(m_factionBars[tierIndex].m_CompletedBar, true);
+			UIManager.SetGameObjectActive(m_factionBars[tierIndex].m_ProgressFillBar, false);
+			m_factionBars[tierIndex].m_CompletedBar.color = new Color(rBGA[0], rBGA[1], rBGA[2], rBGA[3]);
+			num = 1f;
 		}
-		this.m_factionBars[tierIndex].m_ProgressFillBar.fillAmount = fillAmount;
+		m_factionBars[tierIndex].m_ProgressFillBar.fillAmount = num;
 	}
 
 	public void Setup(Faction faction, long score, int factionId)
 	{
-		if (this.m_factionBars != null)
+		if (m_factionBars != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -112,15 +113,15 @@ public class UISeasonFactionEntry : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonFactionEntry.Setup(Faction, long, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_factionBars.Length == faction.Tiers.Count)
+			if (m_factionBars.Length == faction.Tiers.Count)
 			{
-				goto IL_210;
+				goto IL_0210;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -130,13 +131,13 @@ public class UISeasonFactionEntry : MonoBehaviour
 				break;
 			}
 		}
-		if (this.m_factionBars != null)
+		if (m_factionBars != null)
 		{
-			for (int i = 0; i < this.m_factionBars.Length; i++)
+			for (int i = 0; i < m_factionBars.Length; i++)
 			{
-				UnityEngine.Object.Destroy(this.m_factionBars[i].gameObject);
+				Object.Destroy(m_factionBars[i].gameObject);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -146,15 +147,16 @@ public class UISeasonFactionEntry : MonoBehaviour
 				break;
 			}
 		}
-		this.m_factionBars = new UIFactionProgressBar[faction.Tiers.Count];
-		float preferredWidth = (this.m_FactionLevelContainer.transform as RectTransform).sizeDelta.x / (float)this.m_factionBars.Length;
-		for (int j = 0; j < this.m_factionBars.Length; j++)
+		m_factionBars = new UIFactionProgressBar[faction.Tiers.Count];
+		Vector2 sizeDelta = (m_FactionLevelContainer.transform as RectTransform).sizeDelta;
+		float preferredWidth = sizeDelta.x / (float)m_factionBars.Length;
+		for (int j = 0; j < m_factionBars.Length; j++)
 		{
-			this.m_factionBars[j] = UnityEngine.Object.Instantiate<UIFactionProgressBar>(this.m_ProgressBarPrefab);
-			UIManager.ReparentTransform(this.m_factionBars[j].transform, this.m_FactionLevelContainer.gameObject.transform);
-			this.m_factionBars[j].m_LayoutElement.preferredWidth = preferredWidth;
+			m_factionBars[j] = Object.Instantiate(m_ProgressBarPrefab);
+			UIManager.ReparentTransform(m_factionBars[j].transform, m_FactionLevelContainer.gameObject.transform);
+			m_factionBars[j].m_LayoutElement.preferredWidth = preferredWidth;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
@@ -163,60 +165,64 @@ public class UISeasonFactionEntry : MonoBehaviour
 			}
 			break;
 		}
-		if (this.m_factionBars.Length == 1)
+		if (m_factionBars.Length == 1)
 		{
-			this.m_factionBars[0].m_EmptyBar.type = Image.Type.Sliced;
-			this.m_factionBars[0].m_CompletedBar.type = Image.Type.Sliced;
-			this.m_factionBars[0].m_ProgressFillBar.fillSlope = 3.9f;
-			this.m_factionBars[0].m_ProgressFillBar.m_FillMin = 0.1f;
-			this.m_factionBars[0].m_ProgressFillBar.m_FillMax = 0.9f;
-			this.m_factionBars[0].m_ProgressFillBar.fillStart = 0f;
-			(this.m_factionBars[0].m_ProgressFillBar.gameObject.transform as RectTransform).sizeDelta = new Vector2(72f, (this.m_factionBars[0].m_ProgressFillBar.gameObject.transform as RectTransform).sizeDelta.y);
+			m_factionBars[0].m_EmptyBar.type = Image.Type.Sliced;
+			m_factionBars[0].m_CompletedBar.type = Image.Type.Sliced;
+			m_factionBars[0].m_ProgressFillBar.fillSlope = 3.9f;
+			m_factionBars[0].m_ProgressFillBar.m_FillMin = 0.1f;
+			m_factionBars[0].m_ProgressFillBar.m_FillMax = 0.9f;
+			m_factionBars[0].m_ProgressFillBar.fillStart = 0f;
+			RectTransform obj = m_factionBars[0].m_ProgressFillBar.gameObject.transform as RectTransform;
+			Vector2 sizeDelta2 = (m_factionBars[0].m_ProgressFillBar.gameObject.transform as RectTransform).sizeDelta;
+			obj.sizeDelta = new Vector2(72f, sizeDelta2.y);
 		}
-		IL_210:
-		this.m_factionId = factionId;
+		goto IL_0210;
+		IL_0210:
+		m_factionId = factionId;
 		FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(faction.FactionGroupIDToUse);
-		this.m_logo.sprite = Resources.Load<Sprite>(factionGroup.BannerPath);
+		m_logo.sprite = Resources.Load<Sprite>(factionGroup.BannerPath);
 		long num = score;
 		bool flag = false;
 		int num2 = 1;
-		int k = 0;
-		while (k < faction.Tiers.Count)
+		for (int num3 = 0; num3 < faction.Tiers.Count; num3++)
 		{
-			if (k == faction.Tiers.Count - 1)
+			int num4;
+			if (num3 != faction.Tiers.Count - 1)
 			{
-				goto IL_2BD;
-			}
-			for (;;)
-			{
-				switch (6)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
-				break;
-			}
-			if (score < faction.Tiers[k].ContributionToComplete)
-			{
-				goto IL_2BD;
-			}
-			for (;;)
-			{
-				switch (3)
+				if (score >= faction.Tiers[num3].ContributionToComplete)
 				{
-				case 0:
-					continue;
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num4 = ((score < faction.Tiers[num3].ContributionToComplete + faction.Tiers[num3 + 1].ContributionToComplete) ? 1 : 0);
+					goto IL_02be;
 				}
-				break;
 			}
-			bool flag2 = score < faction.Tiers[k].ContributionToComplete + faction.Tiers[k + 1].ContributionToComplete;
-			IL_2BE:
-			bool showText = flag2;
-			int tierIndex = k;
+			num4 = 1;
+			goto IL_02be;
+			IL_02be:
+			bool showText = (byte)num4 != 0;
+			int tierIndex = num3;
 			long remainingScore;
-			if (score < 0L)
+			if (score < 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -231,10 +237,10 @@ public class UISeasonFactionEntry : MonoBehaviour
 			{
 				remainingScore = score;
 			}
-			this.SetupProgressBar(faction, tierIndex, remainingScore, showText);
-			if (score >= 0L)
+			SetupProgressBar(faction, tierIndex, remainingScore, showText);
+			if (score >= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -243,57 +249,52 @@ public class UISeasonFactionEntry : MonoBehaviour
 					}
 					break;
 				}
-				num2 = k + 1;
-				if (score < faction.Tiers[k].ContributionToComplete)
+				num2 = num3 + 1;
+				if (score < faction.Tiers[num3].ContributionToComplete)
 				{
-					if (this.m_expLabel != null)
+					if (m_expLabel != null)
 					{
-						this.m_expLabel.text = score + " / " + faction.Tiers[k].ContributionToComplete;
+						m_expLabel.text = score + " / " + faction.Tiers[num3].ContributionToComplete;
 						flag = true;
 					}
-					num2 = k + 1;
+					num2 = num3 + 1;
 				}
 			}
-			score -= faction.Tiers[k].ContributionToComplete;
-			k++;
-			continue;
-			IL_2BD:
-			flag2 = true;
-			goto IL_2BE;
+			score -= faction.Tiers[num3].ContributionToComplete;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		this.m_expLevel.text = num2.ToString();
-		if (!flag)
-		{
-			for (;;)
+			m_expLevel.text = num2.ToString();
+			if (flag)
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (this.m_expLabel != null)
-			{
-				for (;;)
+				if (m_expLabel != null)
 				{
-					switch (1)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						m_expLabel.text = num.ToString();
+						return;
 					}
-					break;
 				}
-				this.m_expLabel.text = num.ToString();
+				return;
 			}
 		}
 	}

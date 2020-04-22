@@ -1,11 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
 using CameraManagerInternal;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
 public class CameraShot
 {
+	[Serializable]
+	public class AnimParamSetAction
+	{
+		public string m_paramName;
+
+		public int m_paramValue;
+
+		public bool m_isTrigger;
+	}
+
+	public class CharacterToAnimParamSetActions
+	{
+		public ActorData m_actor;
+
+		public List<AnimParamSetAction> m_animSetActions;
+
+		public CharacterToAnimParamSetActions(ActorData actor, List<AnimParamSetAction> animSetActions)
+		{
+			m_actor = actor;
+			m_animSetActions = animSetActions;
+		}
+	}
+
 	public string m_name = "Camera Shot Name";
 
 	[Tooltip("Set to 0 to wait until end of animation or associated event.")]
@@ -16,15 +39,15 @@ public class CameraShot
 	[Tooltip("Only applicable if camera type is Animated")]
 	public bool m_useAnimatedFov;
 
-	public global::CameraType m_type;
+	public CameraType m_type;
 
 	public CameraTransitionType m_transitionInType;
 
 	[Header("-- Anim Param Setters On Beginning of shot --")]
-	public List<CameraShot.AnimParamSetAction> m_animParamToSetOnBegin = new List<CameraShot.AnimParamSetAction>();
+	public List<AnimParamSetAction> m_animParamToSetOnBegin = new List<AnimParamSetAction>();
 
 	[Header("-- (On End of Turn) Anim Setters --")]
-	public List<CameraShot.AnimParamSetAction> m_animParamToSetOnEndOfTurn = new List<CameraShot.AnimParamSetAction>();
+	public List<AnimParamSetAction> m_animParamToSetOnEndOfTurn = new List<AnimParamSetAction>();
 
 	private float m_time;
 
@@ -32,10 +55,10 @@ public class CameraShot
 
 	internal void Begin(uint shotIndex, ActorData actor)
 	{
-		this.m_time = 0f;
-		if (this.m_type != global::CameraType.Isometric)
+		m_time = 0f;
+		if (m_type != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -44,16 +67,16 @@ public class CameraShot
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShot.Begin(uint, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			CameraManager.Get().OnSpecialCameraShotBehaviorEnable(this.m_transitionInType);
+			CameraManager.Get().OnSpecialCameraShotBehaviorEnable(m_transitionInType);
 		}
 		FadeObjectsCameraComponent component = Camera.main.GetComponent<FadeObjectsCameraComponent>();
 		if (component != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -65,10 +88,10 @@ public class CameraShot
 			component.ClearDesiredVisibleObjects();
 			component.AddDesiredVisibleObject(actor.gameObject);
 		}
-		CameraShot.SetAnimParamsForActor(actor, this.m_animParamToSetOnBegin);
-		if (this.m_animParamToSetOnEndOfTurn.Count > 0)
+		SetAnimParamsForActor(actor, m_animParamToSetOnBegin);
+		if (m_animParamToSetOnEndOfTurn.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -77,138 +100,19 @@ public class CameraShot
 				}
 				break;
 			}
-			CameraShot.CharacterToAnimParamSetActions animParamSetActions = new CameraShot.CharacterToAnimParamSetActions(actor, this.m_animParamToSetOnEndOfTurn);
+			CharacterToAnimParamSetActions animParamSetActions = new CharacterToAnimParamSetActions(actor, m_animParamToSetOnEndOfTurn);
 			CameraManager.Get().AddAnimParamSetActions(animParamSetActions);
 		}
 		MixSnapshots mixerSnapshotManager = AudioManager.GetMixerSnapshotManager();
-		global::CameraType type = this.m_type;
-		if (type != global::CameraType.Animated)
+		CameraType type = m_type;
+		switch (type)
 		{
-			if (type != global::CameraType.Fixed_CasterAndTargets)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (type != global::CameraType.Isometric)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-			}
-			else
-			{
-				Fixed_CasterAndTargetsCamera component2 = Camera.main.GetComponent<Fixed_CasterAndTargetsCamera>();
-				if (component2 == null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Camera.main.gameObject.AddComponent<Fixed_CasterAndTargetsCamera>();
-					component2 = Camera.main.GetComponent<Fixed_CasterAndTargetsCamera>();
-					Log.Warning("Missing Fixed_CasterAndTargetsCamera component on main camera. Generating dynamically for now.", new object[0]);
-				}
-				this.m_cameraPoseObject = actor.gameObject.FindInChildren("camera" + this.GetCameraIndex(shotIndex), 0);
-				component2.SetAnimator(this.m_cameraPoseObject);
-				if (component != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					List<ActorData> list = SequenceManager.Get().FindSequenceTargets(actor);
-					using (List<ActorData>.Enumerator enumerator = list.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							ActorData actorData = enumerator.Current;
-							if (actorData != null)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								component.AddDesiredVisibleObject(actorData.gameObject);
-							}
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-				}
-				AudioManager.PostEvent("sw_game_state", AudioManager.EventAction.SetSwitch, "game_state_action_cam", null);
-				if (mixerSnapshotManager != null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					mixerSnapshotManager.SetMix_TauntCam();
-				}
-				component2.enabled = true;
-				actor.m_hideNameplate = true;
-				if (CameraManager.Get().TauntBackgroundCamera != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					CameraManager.Get().TauntBackgroundCamera.gameObject.SetActive(true);
-					CameraManager.Get().TauntBackgroundCamera.SetFixedCasterAndTargetObj(this.m_cameraPoseObject);
-					CameraManager.Get().TauntBackgroundCamera.OnCamShotStart(this.m_type);
-				}
-			}
-		}
-		else
+		case CameraType.Animated:
 		{
 			AnimatedCamera component3 = Camera.main.GetComponent<AnimatedCamera>();
 			if (component3 == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -219,15 +123,15 @@ public class CameraShot
 				}
 				Camera.main.gameObject.AddComponent<AnimatedCamera>();
 				component3 = Camera.main.GetComponent<AnimatedCamera>();
-				Log.Warning("Missing AnimatedCamera component on main camera. Generating dynamically for now.", new object[0]);
+				Log.Warning("Missing AnimatedCamera component on main camera. Generating dynamically for now.");
 			}
-			this.m_cameraPoseObject = actor.gameObject.FindInChildren("camera" + this.GetCameraIndex(shotIndex), 0);
-			component3.SetAnimator(this.m_cameraPoseObject);
-			AudioManager.PostEvent("sw_game_state", AudioManager.EventAction.SetSwitch, "game_state_action_cam", null);
-			AudioManager.PostEvent("Set_state_action_cam", null);
+			m_cameraPoseObject = actor.gameObject.FindInChildren("camera" + GetCameraIndex(shotIndex));
+			component3.SetAnimator(m_cameraPoseObject);
+			AudioManager.PostEvent("sw_game_state", AudioManager.EventAction.SetSwitch, "game_state_action_cam");
+			AudioManager.PostEvent("Set_state_action_cam");
 			if (mixerSnapshotManager != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -240,21 +144,140 @@ public class CameraShot
 			}
 			actor.m_hideNameplate = true;
 			component3.enabled = true;
-			if (CameraManager.Get().TauntBackgroundCamera != null)
+			if (!(CameraManager.Get().TauntBackgroundCamera != null))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (1)
 				{
-					switch (1)
+				case 0:
+					continue;
+				}
+				CameraManager.Get().TauntBackgroundCamera.gameObject.SetActive(true);
+				CameraManager.Get().TauntBackgroundCamera.SetAnimatedCameraTargetObj(m_cameraPoseObject);
+				CameraManager.Get().TauntBackgroundCamera.OnCamShotStart(m_type);
+				return;
+			}
+		}
+		case CameraType.Fixed_CasterAndTargets:
+		{
+			Fixed_CasterAndTargetsCamera component2 = Camera.main.GetComponent<Fixed_CasterAndTargetsCamera>();
+			if (component2 == null)
+			{
+				while (true)
+				{
+					switch (5)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				CameraManager.Get().TauntBackgroundCamera.gameObject.SetActive(true);
-				CameraManager.Get().TauntBackgroundCamera.SetAnimatedCameraTargetObj(this.m_cameraPoseObject);
-				CameraManager.Get().TauntBackgroundCamera.OnCamShotStart(this.m_type);
+				Camera.main.gameObject.AddComponent<Fixed_CasterAndTargetsCamera>();
+				component2 = Camera.main.GetComponent<Fixed_CasterAndTargetsCamera>();
+				Log.Warning("Missing Fixed_CasterAndTargetsCamera component on main camera. Generating dynamically for now.");
 			}
+			m_cameraPoseObject = actor.gameObject.FindInChildren("camera" + GetCameraIndex(shotIndex));
+			component2.SetAnimator(m_cameraPoseObject);
+			if (component != null)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				List<ActorData> list = SequenceManager.Get().FindSequenceTargets(actor);
+				using (List<ActorData>.Enumerator enumerator = list.GetEnumerator())
+				{
+					while (enumerator.MoveNext())
+					{
+						ActorData current = enumerator.Current;
+						if (current != null)
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							component.AddDesiredVisibleObject(current.gameObject);
+						}
+					}
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+			}
+			AudioManager.PostEvent("sw_game_state", AudioManager.EventAction.SetSwitch, "game_state_action_cam");
+			if (mixerSnapshotManager != null)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				mixerSnapshotManager.SetMix_TauntCam();
+			}
+			component2.enabled = true;
+			actor.m_hideNameplate = true;
+			if (!(CameraManager.Get().TauntBackgroundCamera != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				CameraManager.Get().TauntBackgroundCamera.gameObject.SetActive(true);
+				CameraManager.Get().TauntBackgroundCamera.SetFixedCasterAndTargetObj(m_cameraPoseObject);
+				CameraManager.Get().TauntBackgroundCamera.OnCamShotStart(m_type);
+				return;
+			}
+		}
+		}
+		while (true)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			if (type != 0)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
+			}
+			return;
 		}
 	}
 
@@ -263,7 +286,7 @@ public class CameraShot
 		FadeObjectsCameraComponent component = Camera.main.GetComponent<FadeObjectsCameraComponent>();
 		if (component != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -272,19 +295,19 @@ public class CameraShot
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShot.End(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			component.ResetDesiredVisibleObjects();
 		}
 		actor.m_hideNameplate = false;
-		global::CameraType type = this.m_type;
-		if (type != global::CameraType.Animated)
+		CameraType type = m_type;
+		if (type != CameraType.Animated)
 		{
-			if (type != global::CameraType.Fixed_CasterAndTargets)
+			if (type != CameraType.Fixed_CasterAndTargets)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -293,9 +316,9 @@ public class CameraShot
 					}
 					break;
 				}
-				if (type != global::CameraType.Isometric)
+				if (type != 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -311,7 +334,7 @@ public class CameraShot
 				Camera.main.GetComponent<Fixed_CasterAndTargetsCamera>().enabled = false;
 				if (CameraManager.Get().TauntBackgroundCamera != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -334,7 +357,7 @@ public class CameraShot
 				CameraManager.Get().TauntBackgroundCamera.gameObject.SetActive(false);
 			}
 		}
-		AudioManager.PostEvent("sw_game_state", AudioManager.EventAction.SetSwitch, "game_state_resolve", null);
+		AudioManager.PostEvent("sw_game_state", AudioManager.EventAction.SetSwitch, "game_state_resolve");
 		MixSnapshots mixerSnapshotManager = AudioManager.GetMixerSnapshotManager();
 		if (mixerSnapshotManager != null)
 		{
@@ -344,10 +367,10 @@ public class CameraShot
 
 	private float GetFieldOfView()
 	{
-		float result = this.m_fieldOfView;
-		if (this.m_type == global::CameraType.Animated)
+		float result = m_fieldOfView;
+		if (m_type == CameraType.Animated)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -356,13 +379,13 @@ public class CameraShot
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShot.GetFieldOfView()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_useAnimatedFov)
+			if (m_useAnimatedFov)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -371,9 +394,9 @@ public class CameraShot
 					}
 					break;
 				}
-				if (this.m_cameraPoseObject != null)
+				if (m_cameraPoseObject != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -382,44 +405,49 @@ public class CameraShot
 						}
 						break;
 					}
-					if (this.m_cameraPoseObject.transform.localScale.z > 1f)
+					Vector3 localScale = m_cameraPoseObject.transform.localScale;
+					if (localScale.z > 1f)
 					{
-						return this.m_cameraPoseObject.transform.localScale.z;
+						Vector3 localScale2 = m_cameraPoseObject.transform.localScale;
+						result = localScale2.z;
+						goto IL_00ae;
 					}
 				}
 			}
 		}
-		if (this.m_fieldOfView <= 0f)
+		if (m_fieldOfView <= 0f)
 		{
 			result = CameraManager.Get().DefaultFOV;
 		}
+		goto IL_00ae;
+		IL_00ae:
 		return result;
 	}
 
-	internal static void SetAnimParamsForActor(ActorData actor, List<CameraShot.AnimParamSetAction> paramSetActions)
+	internal static void SetAnimParamsForActor(ActorData actor, List<AnimParamSetAction> paramSetActions)
 	{
-		if (actor != null && actor.\u000E() != null)
+		if (!(actor != null) || !(actor.GetModelAnimator() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShot.SetAnimParamsForActor(ActorData, List<CameraShot.AnimParamSetAction>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (paramSetActions != null)
 			{
-				foreach (CameraShot.AnimParamSetAction animParamSetAction in paramSetActions)
+				foreach (AnimParamSetAction paramSetAction in paramSetActions)
 				{
-					if (animParamSetAction.m_paramName.Length > 0)
+					if (paramSetAction.m_paramName.Length > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -428,9 +456,9 @@ public class CameraShot
 							}
 							break;
 						}
-						if (animParamSetAction.m_isTrigger)
+						if (paramSetAction.m_isTrigger)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -439,9 +467,9 @@ public class CameraShot
 								}
 								break;
 							}
-							if (animParamSetAction.m_paramValue != 0)
+							if (paramSetAction.m_paramValue != 0)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
@@ -450,31 +478,32 @@ public class CameraShot
 									}
 									break;
 								}
-								actor.\u000E().SetTrigger(animParamSetAction.m_paramName);
+								actor.GetModelAnimator().SetTrigger(paramSetAction.m_paramName);
 							}
 							else
 							{
-								actor.\u000E().ResetTrigger(animParamSetAction.m_paramName);
+								actor.GetModelAnimator().ResetTrigger(paramSetAction.m_paramName);
 							}
 						}
 						else
 						{
-							actor.\u000E().SetInteger(animParamSetAction.m_paramName, animParamSetAction.m_paramValue);
+							actor.GetModelAnimator().SetInteger(paramSetAction.m_paramName, paramSetAction.m_paramValue);
 						}
 					}
 				}
 			}
+			return;
 		}
 	}
 
 	internal bool Update()
 	{
-		Camera.main.fieldOfView = this.GetFieldOfView();
-		this.m_time += Time.deltaTime;
-		bool result;
-		if (this.m_time >= this.m_duration)
+		Camera.main.fieldOfView = GetFieldOfView();
+		m_time += Time.deltaTime;
+		int result;
+		if (!(m_time < m_duration))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -483,90 +512,39 @@ public class CameraShot
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShot.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (this.m_duration <= 0f);
+			result = ((m_duration <= 0f) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public void SetElapsedTime(float time)
 	{
-		this.m_time = time;
+		m_time = time;
 	}
 
 	private uint GetCameraIndex(uint shotIndex)
 	{
-		return shotIndex % 2U;
+		return shotIndex % 2u;
 	}
 
 	public string GetDebugDescription(string linePrefix)
 	{
-		string text = string.Empty;
-		string text2 = text;
-		text = string.Concat(new string[]
-		{
-			text2,
-			linePrefix,
-			"[Shot Name] ",
-			this.m_name,
-			"\n"
-		});
-		text2 = text;
-		text = string.Concat(new object[]
-		{
-			text2,
-			linePrefix,
-			"[Duration] ",
-			this.m_duration,
-			"\n"
-		});
-		text2 = text;
-		text = string.Concat(new string[]
-		{
-			text2,
-			linePrefix,
-			"[Type] ",
-			this.m_type.ToString(),
-			"\n"
-		});
-		text2 = text;
-		return string.Concat(new string[]
-		{
-			text2,
-			linePrefix,
-			"[Transition In Type] ",
-			this.m_transitionInType.ToString(),
-			"\n"
-		});
-	}
-
-	[Serializable]
-	public class AnimParamSetAction
-	{
-		public string m_paramName;
-
-		public int m_paramValue;
-
-		public bool m_isTrigger;
-	}
-
-	public class CharacterToAnimParamSetActions
-	{
-		public ActorData m_actor;
-
-		public List<CameraShot.AnimParamSetAction> m_animSetActions;
-
-		public CharacterToAnimParamSetActions(ActorData actor, List<CameraShot.AnimParamSetAction> animSetActions)
-		{
-			this.m_actor = actor;
-			this.m_animSetActions = animSetActions;
-		}
+		string empty = string.Empty;
+		string text = empty;
+		empty = text + linePrefix + "[Shot Name] " + m_name + "\n";
+		text = empty;
+		empty = text + linePrefix + "[Duration] " + m_duration + "\n";
+		text = empty;
+		empty = text + linePrefix + "[Type] " + m_type.ToString() + "\n";
+		text = empty;
+		return text + linePrefix + "[Transition In Type] " + m_transitionInType.ToString() + "\n";
 	}
 }

@@ -1,13 +1,11 @@
-﻿using System;
-
 public static class ServerTypeExtensions
 {
 	public static bool NeedsMaster(this ProcessType serverType)
 	{
-		bool result;
+		int result;
 		if (serverType != ProcessType.DirectoryServer)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -16,25 +14,25 @@ public static class ServerTypeExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessType.NeedsMaster()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (serverType == ProcessType.MatchmakingServer);
+			result = ((serverType == ProcessType.MatchmakingServer) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public static bool UsesInterconnect(this ProcessType serverType)
 	{
-		bool result;
+		int result;
 		if (serverType >= ProcessType.DirectoryServer)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -43,16 +41,16 @@ public static class ServerTypeExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessType.UsesInterconnect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (serverType <= ProcessType.LoadTestServer);
+			result = ((serverType <= ProcessType.LoadTestServer) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 }

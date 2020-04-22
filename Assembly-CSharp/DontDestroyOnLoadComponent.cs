@@ -1,26 +1,26 @@
-﻿using System;
 using UnityEngine;
 
 public class DontDestroyOnLoadComponent : MonoBehaviour
 {
 	private void Awake()
 	{
-		if (base.gameObject.transform.parent == null)
+		if (!(base.gameObject.transform.parent == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DontDestroyOnLoadComponent.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+			Object.DontDestroyOnLoad(base.gameObject);
+			return;
 		}
 	}
 }

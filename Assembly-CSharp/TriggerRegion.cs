@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -15,20 +15,20 @@ public class TriggerRegion : BoardRegion
 	public override void Initialize()
 	{
 		base.Initialize();
-		this.m_actorsTriggeredOnThisGame = new List<ActorData>();
+		m_actorsTriggeredOnThisGame = new List<ActorData>();
 	}
 
 	public void OnTurnTick()
 	{
-		List<ActorData> list = base.\u001D();
-		using (List<ActorData>.Enumerator enumerator = list.GetEnumerator())
+		List<ActorData> occupantActors = GetOccupantActors();
+		using (List<ActorData>.Enumerator enumerator = occupantActors.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (this.m_triggerLimit == TriggerAmount.OnceEverPerActor)
+				ActorData current = enumerator.Current;
+				if (m_triggerLimit == TriggerAmount.OnceEverPerActor)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -37,13 +37,13 @@ public class TriggerRegion : BoardRegion
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TriggerRegion.OnTurnTick()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (this.m_actorsTriggeredOnThisGame.Contains(actorData))
+					if (m_actorsTriggeredOnThisGame.Contains(current))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -55,9 +55,9 @@ public class TriggerRegion : BoardRegion
 						continue;
 					}
 				}
-				if (this.m_triggerLimit == TriggerAmount.OnceEverTotal)
+				if (m_triggerLimit == TriggerAmount.OnceEverTotal)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -66,9 +66,9 @@ public class TriggerRegion : BoardRegion
 						}
 						break;
 					}
-					if (this.m_actorsTriggeredOnThisGame.Count > 0)
+					if (m_actorsTriggeredOnThisGame.Count > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -80,9 +80,9 @@ public class TriggerRegion : BoardRegion
 						continue;
 					}
 				}
-				if (!TriggerRegion.ActorCanTrigger(actorData, this.m_triggerActor))
+				if (!ActorCanTrigger(current, m_triggerActor))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -92,37 +92,36 @@ public class TriggerRegion : BoardRegion
 						break;
 					}
 				}
-				else if (this.m_triggerLimit == TriggerAmount.OncePerTurnTotal)
+				else if (m_triggerLimit == TriggerAmount.OncePerTurnTotal)
 				{
 					return;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	private static bool ActorCanTrigger(ActorData actor, TriggerActor triggerActor)
 	{
-		bool result;
 		switch (triggerActor)
 		{
 		case TriggerActor.ClientPlayer:
-			result = GameFlowData.Get().m_ownedActorDatas.Contains(actor);
-			break;
+			return GameFlowData.Get().m_ownedActorDatas.Contains(actor);
 		case TriggerActor.HumanPlayer:
 		{
-			bool flag;
+			int result;
 			if (GameplayUtils.IsPlayerControlled(actor))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -131,32 +130,26 @@ public class TriggerRegion : BoardRegion
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TriggerRegion.ActorCanTrigger(ActorData, TriggerActor)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				flag = GameplayUtils.IsHumanControlled(actor);
+				result = (GameplayUtils.IsHumanControlled(actor) ? 1 : 0);
 			}
 			else
 			{
-				flag = false;
+				result = 0;
 			}
-			result = flag;
-			break;
+			return (byte)result != 0;
 		}
 		case TriggerActor.AnyPlayer:
-			result = GameplayUtils.IsPlayerControlled(actor);
-			break;
-		case TriggerActor.AnyActor:
-			result = true;
-			break;
+			return GameplayUtils.IsPlayerControlled(actor);
 		case TriggerActor.NonPlayerActor:
-			result = !GameplayUtils.IsPlayerControlled(actor);
-			break;
+			return !GameplayUtils.IsPlayerControlled(actor);
+		case TriggerActor.AnyActor:
+			return true;
 		default:
-			result = true;
-			break;
+			return true;
 		}
-		return result;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using Fabric;
 
 public class AppState_InGameStarting : AppStateInGame
@@ -7,7 +6,7 @@ public class AppState_InGameStarting : AppStateInGame
 
 	public static AppState_InGameStarting Get()
 	{
-		return AppState_InGameStarting.s_instance;
+		return s_instance;
 	}
 
 	public static void Create()
@@ -17,14 +16,14 @@ public class AppState_InGameStarting : AppStateInGame
 
 	private void Awake()
 	{
-		AppState_InGameStarting.s_instance = this;
+		s_instance = this;
 	}
 
 	protected override void OnEnter()
 	{
 		if (UIScreenManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -33,15 +32,15 @@ public class AppState_InGameStarting : AppStateInGame
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_InGameStarting.OnEnter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UIScreenManager.Get().ClearAllPanels();
 		}
 		if (GameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -52,7 +51,7 @@ public class AppState_InGameStarting : AppStateInGame
 			}
 			if (GameManager.Get().GameConfig != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -64,15 +63,16 @@ public class AppState_InGameStarting : AppStateInGame
 				if (GameManager.Get().GameConfig.GameType != GameType.Tutorial)
 				{
 					UILoadingScreenPanel.Get().SetVisible(true);
-					goto IL_93;
+					goto IL_0093;
 				}
 			}
 		}
 		UILoadingScreenPanel.Get().SetVisible(false);
-		IL_93:
+		goto IL_0093;
+		IL_0093:
 		if (ClientGameManager.Get().PlayerObjectStartedOnClient && ClientGameManager.Get().DesignSceneStarted)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -86,7 +86,7 @@ public class AppState_InGameStarting : AppStateInGame
 		}
 		if (QuestListPanel.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -95,11 +95,11 @@ public class AppState_InGameStarting : AppStateInGame
 				}
 				break;
 			}
-			QuestListPanel.Get().SetVisible(false, false, false);
+			QuestListPanel.Get().SetVisible(false);
 		}
-		Log.Info("AppState_InGameStarting.OnEnter", new object[0]);
-		base.RegisterGameStoppedHandler();
-		GameFlowData.s_onGameStateChanged += this.OnGameStateChanged;
+		Log.Info("AppState_InGameStarting.OnEnter");
+		RegisterGameStoppedHandler();
+		GameFlowData.s_onGameStateChanged += OnGameStateChanged;
 		GameTime.scale = 1f;
 	}
 
@@ -107,8 +107,8 @@ public class AppState_InGameStarting : AppStateInGame
 	{
 		AudioManager.StandardizeAudioLinkages();
 		EventManager.Instance.PostEvent("mus_menu", EventAction.SetSwitch, "mus_menu_loop");
-		base.UnregisterGameStoppedHandler();
-		GameFlowData.s_onGameStateChanged -= this.OnGameStateChanged;
+		UnregisterGameStoppedHandler();
+		GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
 	}
 
 	private void OnGameStateChanged(GameState newState)
@@ -116,49 +116,53 @@ public class AppState_InGameStarting : AppStateInGame
 		if (newState == GameState.Deployment)
 		{
 			AppState_InGameDeployment.Get().Enter();
+			return;
 		}
-		else if (newState == GameState.BothTeams_Decision)
+		if (newState == GameState.BothTeams_Decision)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					AppState_InGameDecision.Get().Enter();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_InGameStarting.OnGameStateChanged(GameState)).MethodHandle;
-			}
-			AppState_InGameDecision.Get().Enter();
 		}
-		else if (newState == GameState.BothTeams_Resolve)
+		if (newState == GameState.BothTeams_Resolve)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					AppState_InGameResolve.Get().Enter();
+					return;
 				}
-				break;
 			}
-			AppState_InGameResolve.Get().Enter();
 		}
-		else if (newState == GameState.EndingGame)
+		if (newState != GameState.EndingGame)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			AppState_InGameEnding.Get().Enter();
+			return;
 		}
 	}
 }

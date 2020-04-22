@@ -1,10 +1,10 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class ConfirmedState : TurnState
 {
-	public ConfirmedState(ActorTurnSM masterSM) : base(masterSM)
+	public ConfirmedState(ActorTurnSM masterSM)
+		: base(masterSM)
 	{
 	}
 
@@ -12,7 +12,7 @@ public class ConfirmedState : TurnState
 	{
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -21,13 +21,13 @@ public class ConfirmedState : TurnState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ConfirmedState.OnEnter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_SM.GetComponent<ActorData>() == GameFlowData.Get().activeOwnedActorData)
+			if (m_SM.GetComponent<ActorData>() == GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -39,9 +39,9 @@ public class ConfirmedState : TurnState
 				HUD_UI.Get().m_mainScreenPanel.m_notificationPanel.DisplayNotification(UINotificationPanel.GamePhaseDisplay.LockedIn);
 			}
 		}
-		if (this.m_SM)
+		if ((bool)m_SM)
 		{
-			this.m_SM.OnActionsConfirmed();
+			m_SM.OnActionsConfirmed();
 		}
 	}
 
@@ -49,167 +49,180 @@ public class ConfirmedState : TurnState
 	{
 		if (msg == TurnMessage.TURN_START)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ConfirmedState.OnMsg(TurnMessage, int)).MethodHandle;
-			}
-			ActorData component = this.m_SM.GetComponent<ActorData>();
-			if (component != null && !component.\u000E())
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					ActorData component = m_SM.GetComponent<ActorData>();
+					if (component != null && !component.IsDead())
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								break;
+							default:
+								Log.Error(component.GetDebugName() + " handling TURN_START message in Confirmed state");
+								m_SM.SetupForNewTurn();
+								m_SM.NextState = TurnStateEnum.DECIDING;
+								return;
+							}
+						}
+					}
+					return;
 				}
-				Log.Error(component.\u0018() + " handling TURN_START message in Confirmed state", new object[0]);
-				this.m_SM.SetupForNewTurn();
-				this.m_SM.NextState = TurnStateEnum.DECIDING;
+				}
 			}
 		}
-		else if (msg == TurnMessage.BEGIN_RESOLVE)
+		if (msg == TurnMessage.BEGIN_RESOLVE)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_SM.NextState = TurnStateEnum.RESOLVING;
+					return;
 				}
-				break;
 			}
-			this.m_SM.NextState = TurnStateEnum.RESOLVING;
 		}
-		else if (msg == TurnMessage.CANCEL_BUTTON_CLICKED)
+		if (msg == TurnMessage.CANCEL_BUTTON_CLICKED)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_SM)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				this.m_SM.OnActionsUnconfirmed();
-			}
-			ActorData component2 = this.m_SM.GetComponent<ActorData>();
-			if (component2.RespawnPickedPositionSquare != null)
-			{
-				for (;;)
+				default:
 				{
-					switch (1)
+					if ((bool)m_SM)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!component2.\u0015())
-				{
-					for (;;)
-					{
-						switch (6)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
-						break;
+						m_SM.OnActionsUnconfirmed();
 					}
-					component2.RespawnPickedPositionSquare = null;
-					this.m_SM.NextState = TurnStateEnum.PICKING_RESPAWN;
-					goto IL_131;
+					ActorData component2 = m_SM.GetComponent<ActorData>();
+					if (component2.RespawnPickedPositionSquare != null)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!component2.ShouldPickRespawn_zq())
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									break;
+								default:
+									component2.RespawnPickedPositionSquare = null;
+									m_SM.NextState = TurnStateEnum.PICKING_RESPAWN;
+									return;
+								}
+							}
+						}
+					}
+					m_SM.NextState = TurnStateEnum.DECIDING;
+					return;
+				}
 				}
 			}
-			this.m_SM.NextState = TurnStateEnum.DECIDING;
-			IL_131:;
 		}
-		else if (msg == TurnMessage.MOVEMENT_ACCEPTED)
+		if (msg == TurnMessage.MOVEMENT_ACCEPTED)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					ActorData component3 = m_SM.GetComponent<ActorData>();
+					if (component3.GetTimeBank().AllowUnconfirm())
+					{
+						m_SM.OnActionsUnconfirmed();
+						m_SM.NextState = TurnStateEnum.DECIDING;
+					}
+					return;
 				}
-				break;
-			}
-			ActorData component3 = this.m_SM.GetComponent<ActorData>();
-			if (component3.\u000E().AllowUnconfirm())
-			{
-				this.m_SM.OnActionsUnconfirmed();
-				this.m_SM.NextState = TurnStateEnum.DECIDING;
+				}
 			}
 		}
-		else if (msg == TurnMessage.PICK_RESPAWN)
+		if (msg == TurnMessage.PICK_RESPAWN)
 		{
-			this.m_SM.NextState = TurnStateEnum.PICKING_RESPAWN;
+			m_SM.NextState = TurnStateEnum.PICKING_RESPAWN;
+			return;
 		}
-		else if (msg == TurnMessage.RESPAWN)
+		if (msg == TurnMessage.RESPAWN)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_SM.NextState = TurnStateEnum.RESPAWNING;
+					return;
 				}
-				break;
 			}
-			this.m_SM.NextState = TurnStateEnum.RESPAWNING;
 		}
-		else if (msg == TurnMessage.MOVEMENT_RESOLVED)
+		if (msg == TurnMessage.MOVEMENT_RESOLVED)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error(m_SM.GetComponent<ActorData>().DisplayName + "Received a 'Movement Resolved' message in the Confirmed state, which is unexpected.");
+					m_SM.NextState = TurnStateEnum.WAITING;
+					return;
 				}
-				break;
 			}
-			Log.Error(this.m_SM.GetComponent<ActorData>().DisplayName + "Received a 'Movement Resolved' message in the Confirmed state, which is unexpected.", new object[0]);
-			this.m_SM.NextState = TurnStateEnum.WAITING;
 		}
-		else if (msg == TurnMessage.CLIENTS_RESOLVED_ABILITIES)
+		if (msg != TurnMessage.CLIENTS_RESOLVED_ABILITIES)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			if (NetworkServer.active)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -218,13 +231,14 @@ public class ConfirmedState : TurnState
 					}
 					break;
 				}
-				Log.Error(this.m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Confirmed state, which is unexpected.", new object[0]);
+				Log.Error(m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Confirmed state, which is unexpected.");
 			}
 			else
 			{
-				Log.Warning(this.m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Confirmed state, which is unexpected.", new object[0]);
+				Log.Warning(m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Confirmed state, which is unexpected.");
 			}
-			this.m_SM.NextState = TurnStateEnum.WAITING;
+			m_SM.NextState = TurnStateEnum.WAITING;
+			return;
 		}
 	}
 
@@ -234,70 +248,72 @@ public class ConfirmedState : TurnState
 
 	public override void Update()
 	{
-		ActorData component = this.m_SM.GetComponent<ActorData>();
-		if (GameFlowData.Get().activeOwnedActorData == component && GameFlowData.Get().gameState != GameState.EndingGame)
+		ActorData component = m_SM.GetComponent<ActorData>();
+		if (!(GameFlowData.Get().activeOwnedActorData == component) || GameFlowData.Get().gameState == GameState.EndingGame)
 		{
-			if (Input.GetMouseButtonUp(1))
+			return;
+		}
+		if (Input.GetMouseButtonUp(1))
+		{
+			while (true)
 			{
-				for (;;)
+				switch (6)
 				{
-					switch (6)
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (InterfaceManager.Get().ShouldHandleMouseClick() && !m_SM.HandledMouseInput)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						break;
+					default:
+						if (component.GetTimeBank().AllowUnconfirm())
+						{
+							m_SM.OnActionsUnconfirmed();
+							m_SM.HandledMouseInput = true;
+							m_SM.SelectMovementSquare();
+						}
+						return;
+					}
+				}
+			}
+		}
+		if (!InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.LockIn))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (!m_SM.HandledSpaceInput)
+			{
+				while (true)
+				{
+					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ConfirmedState.Update()).MethodHandle;
-				}
-				if (InterfaceManager.Get().ShouldHandleMouseClick() && !this.m_SM.HandledMouseInput)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (component.\u000E().AllowUnconfirm())
-					{
-						this.m_SM.OnActionsUnconfirmed();
-						this.m_SM.HandledMouseInput = true;
-						this.m_SM.SelectMovementSquare();
-					}
+					m_SM.HandledSpaceInput = true;
+					m_SM.RequestCancel(true);
 					return;
 				}
 			}
-			if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.LockIn))
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!this.m_SM.HandledSpaceInput)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_SM.HandledSpaceInput = true;
-					this.m_SM.RequestCancel(true);
-				}
-			}
+			return;
 		}
 	}
 }

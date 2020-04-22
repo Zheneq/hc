@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -12,17 +11,18 @@ public class UIStorePaymentMethodDropdownItem : MonoBehaviour
 
 	public PaymentMethod GetPaymentMethod()
 	{
-		return this.m_paymentMethodRef;
+		return m_paymentMethodRef;
 	}
 
 	public void SetPaymentMethod(PaymentMethod payMethod)
 	{
-		this.m_paymentMethodRef = payMethod;
+		m_paymentMethodRef = payMethod;
 	}
 
 	public void SetText(string newText)
 	{
-		foreach (TextMeshProUGUI textMeshProUGUI in this.m_textLabels)
+		TextMeshProUGUI[] textLabels = m_textLabels;
+		foreach (TextMeshProUGUI textMeshProUGUI in textLabels)
 		{
 			textMeshProUGUI.text = newText;
 		}

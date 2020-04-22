@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -8,7 +8,7 @@ public class OnFrontEndSelectionChatter : ScriptableObject, IChatterData
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_baseData;
+		return m_baseData;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()
@@ -20,21 +20,25 @@ public class OnFrontEndSelectionChatter : ScriptableObject, IChatterData
 	{
 		if (!ChatterData.ShouldPlayChatter(this, eventType, args, component))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnFrontEndSelectionChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
+		}
+		if (UIFrontEnd.GetVisibleCharacters() == null || UIFrontEnd.GetVisibleCharacters().CharacterResourceLinkInSlot(0) != component.GetCharacterResourceLink())
+		{
 			return false;
 		}
-		return !(UIFrontEnd.GetVisibleCharacters() == null) && !(UIFrontEnd.GetVisibleCharacters().CharacterResourceLinkInSlot(0) != component.GetCharacterResourceLink());
+		return true;
 	}
 }

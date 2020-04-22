@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public abstract class ShapeToDataBase : IComparable
@@ -12,7 +12,7 @@ public abstract class ShapeToDataBase : IComparable
 		{
 			return 1;
 		}
-		int shape = (int)this.m_shape;
+		int shape = (int)m_shape;
 		return shape.CompareTo((int)shapeToDataBase.m_shape);
 	}
 }

@@ -1,7 +1,7 @@
-﻿using System;
+using LobbyGameClientMessages;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,6 +9,1258 @@ using UnityEngine.UI;
 
 public class UIGameOverScreen : UIScene
 {
+	public class GameOverAccoladesUpdateSubState : GameOverSubState
+	{
+		public GameOverAccoladesUpdateSubState(float AutoTransitionTime)
+			: base(GameOverScreenState.Accolades, AutoTransitionTime)
+		{
+		}
+
+		public override void Update()
+		{
+		}
+	}
+
+	public class GameOverExperienceUpdateSubState : GameOverSubState
+	{
+		public enum UpdatingType
+		{
+			None,
+			InitialPause,
+			NormalExpBar,
+			GGExpAnim,
+			GGExpBar,
+			QuestBarPause,
+			QuestExp,
+			RankPoints
+		}
+
+		public class UpdatingInfo
+		{
+			private float PauseStartTime = -1f;
+
+			private float PercentageFromPause;
+
+			public UpdatingType UpdateType
+			{
+				get;
+				private set;
+			}
+
+			public float UpdateStartTime
+			{
+				get;
+				private set;
+			}
+
+			public float TotalUpdateTime
+			{
+				get;
+				private set;
+			}
+
+			public bool IsPaused
+			{
+				get;
+				private set;
+			}
+
+			public float PercentageProgress
+			{
+				get
+				{
+					if (IsPaused)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								break;
+							default:
+								if (1 == 0)
+								{
+									/*OpCode not supported: LdMemberToken*/;
+								}
+								return PercentageFromPause;
+							}
+						}
+					}
+					float num = Time.unscaledTime - UpdateStartTime;
+					float num2 = num / TotalUpdateTime;
+					float value = PercentageFromPause + (1f - PercentageFromPause) * num2;
+					return Mathf.Clamp01(value);
+				}
+			}
+
+			public UpdatingInfo(UpdatingType Type, float TimeToDoUpdate)
+			{
+				UpdateType = Type;
+				TotalUpdateTime = TimeToDoUpdate;
+				UpdateStartTime = Time.unscaledTime;
+			}
+
+			public void SetPaused(bool Paused)
+			{
+				if (Paused)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					PauseStartTime = Time.unscaledTime;
+					PercentageFromPause = PercentageProgress;
+				}
+				else if (PauseStartTime != -1f)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					TotalUpdateTime -= PauseStartTime - UpdateStartTime;
+					UpdateStartTime = Time.unscaledTime;
+					PauseStartTime = -1f;
+				}
+				IsPaused = Paused;
+			}
+		}
+
+		private List<UpdatingInfo> TypesBeingUpdated = new List<UpdatingInfo>();
+
+		public List<UpdatingInfo> CurrentInfos => TypesBeingUpdated;
+
+		public GameOverExperienceUpdateSubState(UpdatingInfo StartInfo)
+		{
+			base.SubStateType = GameOverScreenState.ExperienceBars;
+			TypesBeingUpdated.Add(StartInfo);
+		}
+
+		public GameOverExperienceUpdateSubState(IEnumerable<UpdatingInfo> StartInfos)
+		{
+			base.SubStateType = GameOverScreenState.ExperienceBars;
+			TypesBeingUpdated.AddRange(StartInfos);
+		}
+
+		public override bool IsDone()
+		{
+			return TypesBeingUpdated.Count == 0;
+		}
+
+		public override void Update()
+		{
+			List<UpdatingInfo> list = new List<UpdatingInfo>();
+			for (int i = 0; i < TypesBeingUpdated.Count; i++)
+			{
+				Get().HandleUpdateExpSubStateUpdate(TypesBeingUpdated[i]);
+				if (TypesBeingUpdated[i].IsPaused)
+				{
+					continue;
+				}
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (!(TypesBeingUpdated[i].PercentageProgress >= 1f))
+				{
+					continue;
+				}
+				UpdatingInfo updateInfo = TypesBeingUpdated[i];
+				TypesBeingUpdated.RemoveAt(i);
+				i--;
+				IEnumerable<UpdatingInfo> enumerable = Get().HandleUpdateExpSubStateComplete(updateInfo);
+				if (enumerable != null)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					list.AddRange(enumerable);
+				}
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				if (list.Count > 0)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						TypesBeingUpdated.AddRange(list);
+						return;
+					}
+				}
+				return;
+			}
+		}
+	}
+
+	public class GameOverTutorialGames : GameOverSubState
+	{
+		public bool CloseClicked
+		{
+			get;
+			private set;
+		}
+
+		public GameOverTutorialGames()
+		{
+			base.SubStateType = GameOverScreenState.TutorialTenGames;
+			CloseClicked = false;
+		}
+
+		public override bool IsDone()
+		{
+			return CloseClicked;
+		}
+
+		public void NotifyCloseClicked()
+		{
+			CloseClicked = true;
+		}
+	}
+
+	public class GameOverGGSubState : GameOverSubState
+	{
+		public enum GGBoosts
+		{
+			None,
+			Recapping,
+			UsageTimer,
+			FadeOut,
+			WaitingForNotification,
+			Done
+		}
+
+		private GGBoosts CurrentGGBoostState;
+
+		private float NextRecapDisplay = -1f;
+
+		private float RecapDisplayInterval = 0.5f;
+
+		private float FadeOutTime = -1f;
+
+		private float StartTime = -1f;
+
+		private float StartWaitingForNotificationTime = -1f;
+
+		public GameOverGGSubState(float TimeToFadeOut)
+		{
+			base.SubStateType = GameOverScreenState.GGBoostUsage;
+			CurrentGGBoostState = GGBoosts.Recapping;
+			FadeOutTime = TimeToFadeOut;
+		}
+
+		public override bool IsDone()
+		{
+			if (base.SubStateType == GameOverScreenState.GGBoostUsage)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return CurrentGGBoostState == GGBoosts.Done;
+					}
+				}
+			}
+			return false;
+		}
+
+		public void FadeoutAnimDone()
+		{
+			SetNewGGBoostState(GGBoosts.WaitingForNotification);
+			StartWaitingForNotificationTime = Time.unscaledTime;
+		}
+
+		private void SetNewGGBoostState(GGBoosts newGGBoostState)
+		{
+			CurrentGGBoostState = newGGBoostState;
+			if (CurrentGGBoostState == GGBoosts.UsageTimer)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				StartTime = Time.unscaledTime;
+			}
+			Get().HandleNewGGBoostSubState(this, CurrentGGBoostState);
+		}
+
+		public override void Update()
+		{
+			if (CurrentGGBoostState == GGBoosts.Recapping)
+			{
+				if (!(Time.unscaledTime >= NextRecapDisplay))
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (Get().DoNextGGBoostRecapDisplay())
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								break;
+							default:
+								NextRecapDisplay = Time.unscaledTime + RecapDisplayInterval;
+								return;
+							}
+						}
+					}
+					SetNewGGBoostState(GGBoosts.UsageTimer);
+					return;
+				}
+			}
+			if (CurrentGGBoostState == GGBoosts.UsageTimer)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						break;
+					default:
+					{
+						if (Get().NotificationArrived)
+						{
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							FadeOutTime = Time.unscaledTime;
+						}
+						float num = 0f;
+						if (StartTime >= 0f)
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num = (FadeOutTime - Time.unscaledTime) / (FadeOutTime - StartTime);
+						}
+						Get().HandleGGBoostSubStateUpdate(CurrentGGBoostState, num);
+						if (StartTime >= 0f)
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									break;
+								default:
+									if (num <= 0f)
+									{
+										while (true)
+										{
+											switch (3)
+											{
+											case 0:
+												break;
+											default:
+												SetNewGGBoostState(GGBoosts.FadeOut);
+												return;
+											}
+										}
+									}
+									return;
+								}
+							}
+						}
+						return;
+					}
+					}
+				}
+			}
+			if (CurrentGGBoostState != GGBoosts.WaitingForNotification)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				if (Get().NotificationArrived)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							break;
+						default:
+							SetNewGGBoostState(GGBoosts.Done);
+							return;
+						}
+					}
+				}
+				if (!(StartWaitingForNotificationTime > 0f))
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					if (Time.unscaledTime - StartWaitingForNotificationTime > 15f)
+					{
+						StartWaitingForNotificationTime = -1f;
+						Log.Info("Timed out waiting for match result notification. forcing to open end game UI.");
+						UIDialogPopupManager.OpenOneButtonDialog(string.Empty, string.Format(StringUtil.TR("PressOkToExit", "Global"), StringUtil.TR("TimeoutWaitingForMatchResult", "Global")), StringUtil.TR("Ok", "Global"), delegate
+						{
+							Get().OnContinueClicked(null);
+						});
+					}
+					return;
+				}
+			}
+		}
+	}
+
+	public class GameOverVictoryDefeatWaitingSubState : GameOverSubState
+	{
+		public GameOverVictoryDefeatWaitingSubState()
+		{
+			base.SubStateType = GameOverScreenState.VictoryDefeatWaitingForNotification;
+		}
+
+		public override bool IsDone()
+		{
+			return Get().NotificationArrived;
+		}
+	}
+
+	public class GameOverSubState
+	{
+		protected float TimeToAutoTransition;
+
+		private bool DidClickSkip;
+
+		public GameOverScreenState SubStateType
+		{
+			get;
+			protected set;
+		}
+
+		protected float SubStateStartTime
+		{
+			get;
+			private set;
+		}
+
+		public float ProgressThatClickCanSkip
+		{
+			get;
+			private set;
+		}
+
+		public float PercentageProgress => Mathf.Clamp01((Time.unscaledTime - SubStateStartTime) / (TimeToAutoTransition - SubStateStartTime));
+
+		public GameOverSubState()
+		{
+			ProgressThatClickCanSkip = 2f;
+			SubStateType = GameOverScreenState.None;
+			SubStateStartTime = Time.unscaledTime;
+		}
+
+		public GameOverSubState(GameOverScreenState SubState, float AutoTransitionTime)
+		{
+			ProgressThatClickCanSkip = 2f;
+			SubStateType = SubState;
+			TimeToAutoTransition = Time.unscaledTime + AutoTransitionTime;
+			SubStateStartTime = Time.unscaledTime;
+		}
+
+		public void TryClickToSkip()
+		{
+			if (PercentageProgress >= ProgressThatClickCanSkip)
+			{
+				DidClickSkip = true;
+			}
+		}
+
+		public void SetPercentageClickToSkip(float percentage)
+		{
+			ProgressThatClickCanSkip = Mathf.Clamp01(percentage);
+		}
+
+		public virtual bool IsDone()
+		{
+			return Time.unscaledTime >= TimeToAutoTransition || DidClickSkip;
+		}
+
+		public virtual void Update()
+		{
+			Get().UpdateGameOverSubStateObjects(this);
+		}
+	}
+
+	[Serializable]
+	public class XPDisplayInfo
+	{
+		public enum BarXPType
+		{
+			Season,
+			Character
+		}
+
+		public TextMeshProUGUI m_XPLabel;
+
+		public TextMeshProUGUI m_barLevelLabel;
+
+		public Animator m_levelUpAnimController;
+
+		public Animator m_barLevelUpAnimator;
+
+		public ImageFilledSloped m_OldXPSlider;
+
+		public ImageFilledSloped m_NormalXPGainSlider;
+
+		public ImageFilledSloped m_GGXPSlider;
+
+		public ImageFilledSloped m_QuestXPSlider;
+
+		public Image m_NextRewardIcon;
+
+		public Image m_NextRewardFG;
+
+		public UITooltipHoverObject m_RewardBtn;
+
+		public UITooltipHoverObject m_tooltipHitBox;
+
+		[HideInInspector]
+		public int m_LastLevelDisplayed;
+
+		[HideInInspector]
+		public bool m_playingLevelUp;
+
+		[HideInInspector]
+		public BarXPType XPBarType;
+
+		public string RewardTooltip
+		{
+			get;
+			private set;
+		}
+
+		public CharacterType LastCharType
+		{
+			get;
+			private set;
+		}
+
+		public static int GetXPForType(BarXPType BarType, int Level)
+		{
+			switch (BarType)
+			{
+			case BarXPType.Season:
+			{
+				int activeSeason = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
+				return SeasonWideData.Get().GetSeasonExperience(activeSeason, Level);
+			}
+			case BarXPType.Character:
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return GameBalanceVars.Get().CharacterExperienceToLevel(Level);
+				}
+			default:
+				return 0;
+			}
+		}
+
+		public void Init()
+		{
+			LastCharType = CharacterType.None;
+			m_RewardBtn.Setup(TooltipType.GameRewardItem, delegate(UITooltipBase tooltip)
+			{
+				if (RewardTooltip.IsNullOrEmpty())
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							return false;
+						}
+					}
+				}
+				UIRewardItemTooltip uIRewardItemTooltip = tooltip as UIRewardItemTooltip;
+				uIRewardItemTooltip.Setup(RewardTooltip);
+				return true;
+			});
+		}
+
+		public void PlayLevelUpAnimation(string name)
+		{
+			UIAnimationEventManager.Get().PlayAnimation(m_levelUpAnimController, name, null, string.Empty);
+		}
+
+		public void CheckForRewardDisplay(int NewLevel)
+		{
+		}
+
+		public void PopulateRewardIcon(int CurrentLevel, bool IsInitialReward = false, CharacterResourceLink charLink = null)
+		{
+			int num = 0;
+			int num2 = 0;
+			if (XPBarType == BarXPType.Season)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				List<SeasonReward> accountRewardsForNextLevel = GetAccountRewardsForNextLevel(CurrentLevel - 1);
+				List<SeasonReward> accountRewardsForNextLevel2 = GetAccountRewardsForNextLevel(CurrentLevel);
+				int num3 = 0;
+				for (int i = 0; i < accountRewardsForNextLevel2.Count; i++)
+				{
+					if (accountRewardsForNextLevel2[i] is SeasonItemReward)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (accountRewardsForNextLevel2[i].repeatEveryXLevels > num3)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							SeasonItemReward seasonItemReward = accountRewardsForNextLevel2[i] as SeasonItemReward;
+							if (!seasonItemReward.Conditions.IsNullOrEmpty())
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (!QuestWideData.AreConditionsMet(seasonItemReward.Conditions, seasonItemReward.LogicStatement))
+								{
+									continue;
+								}
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate((accountRewardsForNextLevel2[i] as SeasonItemReward).ItemReward.ItemTemplateId);
+							Sprite sprite = (Sprite)Resources.Load(itemTemplate.IconPath, typeof(Sprite));
+							RewardTooltip = itemTemplate.GetDisplayName();
+							m_NextRewardIcon.sprite = sprite;
+							m_NextRewardFG.sprite = null;
+							UIManager.SetGameObjectActive(m_NextRewardFG, false);
+							num3 = accountRewardsForNextLevel2[i].repeatEveryXLevels;
+							continue;
+						}
+					}
+					if (accountRewardsForNextLevel2[i] is SeasonUnlockReward && accountRewardsForNextLevel2[i].repeatEveryXLevels > num3)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						QuestUnlockReward unlockReward = (accountRewardsForNextLevel2[i] as SeasonUnlockReward).UnlockReward;
+						Sprite sprite2 = (Sprite)Resources.Load(unlockReward.resourceString, typeof(Sprite));
+						RewardTooltip = string.Empty;
+						m_NextRewardIcon.sprite = sprite2;
+						m_NextRewardFG.sprite = null;
+						UIManager.SetGameObjectActive(m_NextRewardFG, false);
+						num3 = accountRewardsForNextLevel2[i].repeatEveryXLevels;
+					}
+				}
+				num = accountRewardsForNextLevel2.Count;
+				num2 = accountRewardsForNextLevel.Count;
+			}
+			else if (XPBarType == BarXPType.Character)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				List<RewardUtils.RewardData> list = new List<RewardUtils.RewardData>();
+				List<RewardUtils.RewardData> list2 = new List<RewardUtils.RewardData>();
+				if (charLink != null)
+				{
+					LastCharType = charLink.m_characterType;
+					if (CurrentLevel < GameBalanceVars.Get().MaxCharacterLevel)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						list2 = RewardUtils.GetNextCharacterRewards(charLink, CurrentLevel);
+					}
+					if (0 < CurrentLevel - 1 && CurrentLevel - 1 < GameBalanceVars.Get().MaxCharacterLevel)
+					{
+						list = RewardUtils.GetNextCharacterRewards(charLink, CurrentLevel - 1);
+					}
+				}
+				if (list2.Count > 0)
+				{
+					m_NextRewardIcon.sprite = GetRewardSprite(list2[0]);
+					m_NextRewardFG.sprite = list2[0].Foreground;
+					UIManager.SetGameObjectActive(m_NextRewardFG, m_NextRewardFG.sprite != null);
+				}
+				RewardTooltip = string.Empty;
+				for (int j = 0; j < list2.Count; j++)
+				{
+					if (!RewardTooltip.IsNullOrEmpty())
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						RewardTooltip += Environment.NewLine;
+					}
+					RewardTooltip += RewardUtils.GetDisplayString(list2[j]);
+				}
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num = list2.Count;
+				num2 = list.Count;
+			}
+			if (num == 0)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (IsInitialReward)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					PlayLevelUpAnimation("resultsRewardIconNoIDLE");
+				}
+				else if (num2 > 0)
+				{
+					PlayLevelUpAnimation("resultsRewardIconYEStoNO");
+				}
+			}
+			else if (IsInitialReward)
+			{
+				PlayLevelUpAnimation("resultsRewardIconYesIDLE");
+			}
+			else if (num2 > 0)
+			{
+				PlayLevelUpAnimation("resultsRewardIconYEStoYES");
+			}
+			else
+			{
+				PlayLevelUpAnimation("resultsRewardIconNOtoYES");
+			}
+			m_RewardBtn.Refresh();
+		}
+
+		public void LevelUpAnimDone()
+		{
+			m_OldXPSlider.fillAmount = 0f;
+			m_NormalXPGainSlider.fillAmount = 0f;
+			m_QuestXPSlider.fillAmount = 0f;
+			m_GGXPSlider.fillAmount = 0f;
+			m_XPLabel.text = "0 / " + GetXPForType(XPBarType, m_LastLevelDisplayed);
+			m_playingLevelUp = false;
+			CharacterResourceLink charLink = null;
+			if (LastCharType != 0)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				charLink = GameWideData.Get().GetCharacterResourceLink(LastCharType);
+			}
+			PopulateRewardIcon(m_LastLevelDisplayed, false, charLink);
+		}
+	}
+
+	[Serializable]
+	public class CurrencyDisplayInfo
+	{
+		public RectTransform m_container;
+
+		public TextMeshProUGUI m_currencyGainText;
+
+		public UITooltipHoverObject m_tooltipHitBox;
+
+		public Image m_displayIcon;
+
+		[HideInInspector]
+		public List<MatchResultsNotification.CurrencyReward> m_currencyReward = new List<MatchResultsNotification.CurrencyReward>();
+
+		public int GetTotalBaseGained(CurrencyType currencyType)
+		{
+			int num = 0;
+			for (int i = 0; i < m_currencyReward.Count; i++)
+			{
+				if (m_currencyReward[i].Type == currencyType)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					num += m_currencyReward[i].BaseGained;
+				}
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				return num;
+			}
+		}
+
+		public int GetTotalEventGained(CurrencyType currencyType)
+		{
+			int num = 0;
+			for (int i = 0; i < m_currencyReward.Count; i++)
+			{
+				if (m_currencyReward[i].Type == currencyType)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					num += m_currencyReward[i].EventGained;
+				}
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				return num;
+			}
+		}
+
+		public int GetTotalWinGained(CurrencyType currencyType)
+		{
+			int num = 0;
+			for (int i = 0; i < m_currencyReward.Count; i++)
+			{
+				if (m_currencyReward[i].Type == currencyType)
+				{
+					num += m_currencyReward[i].WinGained;
+				}
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return num;
+			}
+		}
+
+		public int GetTotalQuestGained(CurrencyType currencyType)
+		{
+			int num = 0;
+			for (int i = 0; i < m_currencyReward.Count; i++)
+			{
+				if (m_currencyReward[i].Type == currencyType)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					num += m_currencyReward[i].QuestGained;
+				}
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				return num;
+			}
+		}
+
+		public int GetTotalGGGained(CurrencyType currencyType)
+		{
+			int num = 0;
+			for (int i = 0; i < m_currencyReward.Count; i++)
+			{
+				if (m_currencyReward[i].Type == currencyType)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					num += m_currencyReward[i].GGGained;
+				}
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				return num;
+			}
+		}
+
+		public int GetTotalLevelUpGained(CurrencyType currencyType)
+		{
+			int num = 0;
+			for (int i = 0; i < m_currencyReward.Count; i++)
+			{
+				if (m_currencyReward[i].Type == currencyType)
+				{
+					num += m_currencyReward[i].LevelUpGained;
+				}
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return num;
+			}
+		}
+
+		public int GetTotalNormalCurrencyReward(CurrencyType currencyType)
+		{
+			int num = 0;
+			for (int i = 0; i < m_currencyReward.Count; i++)
+			{
+				if (m_currencyReward[i].Type == currencyType)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					num += m_currencyReward[i].BaseGained + m_currencyReward[i].WinGained + m_currencyReward[i].EventGained + m_currencyReward[i].LevelUpGained;
+				}
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				return num;
+			}
+		}
+
+		public int GetTotalGGBoostCurrencyReward(CurrencyType currencyType)
+		{
+			int num = 0;
+			for (int i = 0; i < m_currencyReward.Count; i++)
+			{
+				if (m_currencyReward[i].Type == currencyType)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					num += m_currencyReward[i].GGGained;
+				}
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				return num;
+			}
+		}
+
+		public int GetTotalQuestCurrencyReward(CurrencyType currencyType)
+		{
+			int num = 0;
+			for (int i = 0; i < m_currencyReward.Count; i++)
+			{
+				if (m_currencyReward[i].Type == currencyType)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					num += m_currencyReward[i].QuestGained;
+				}
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				return num;
+			}
+		}
+	}
+
+	public enum GameOverScreenState
+	{
+		None,
+		VictoryDefeat,
+		VictoryDefeatWaitingForNotification,
+		GGBoostUsage,
+		TutorialTenGames,
+		ResultsScreenPause,
+		Accolades,
+		PersonalHighlights,
+		MissionNotifications,
+		ExperienceBars,
+		Stats,
+		Rewards,
+		Done
+	}
+
 	[Header("Setting Values")]
 	public float VictoryDefeatDisplayTimeDuration = 3.5f;
 
@@ -164,9 +1416,9 @@ public class UIGameOverScreen : UIScene
 
 	public Image m_bannerFG;
 
-	public UIGameOverScreen.XPDisplayInfo m_characterXPInfo = new UIGameOverScreen.XPDisplayInfo();
+	public XPDisplayInfo m_characterXPInfo = new XPDisplayInfo();
 
-	public UIGameOverScreen.XPDisplayInfo m_playerXPInfo = new UIGameOverScreen.XPDisplayInfo();
+	public XPDisplayInfo m_playerXPInfo = new XPDisplayInfo();
 
 	public TextMeshProUGUI m_seasonLevelText;
 
@@ -181,13 +1433,13 @@ public class UIGameOverScreen : UIScene
 	public UITooltipHoverObject m_ggBonusTooltipObj;
 
 	[Header("Currency Increase Objects")]
-	public UIGameOverScreen.CurrencyDisplayInfo m_isoDisplay;
+	public CurrencyDisplayInfo m_isoDisplay;
 
-	public UIGameOverScreen.CurrencyDisplayInfo m_freelancerCurrencyDisplay;
+	public CurrencyDisplayInfo m_freelancerCurrencyDisplay;
 
-	public UIGameOverScreen.CurrencyDisplayInfo m_rankedCurrencyDisplay;
+	public CurrencyDisplayInfo m_rankedCurrencyDisplay;
 
-	public UIGameOverScreen.CurrencyDisplayInfo m_influenceDisplay;
+	public CurrencyDisplayInfo m_influenceDisplay;
 
 	[Header("Rank Mode Change")]
 	public RectTransform m_rankModeLevelContainer;
@@ -229,13 +1481,13 @@ public class UIGameOverScreen : UIScene
 
 	private float m_GGPack_XPMult;
 
-	private UIGameOverScreen.GameOverSubState m_currentSubState;
+	private GameOverSubState m_currentSubState;
 
 	private PersistedStats m_statsAtBeginningOfMatch;
 
 	private float EstimatedNotificationArrivalTime = -1f;
 
-	private int LastRankTierDisplayed = -0x64;
+	private int LastRankTierDisplayed = -100;
 
 	private bool ShouldDisplayTierPoints;
 
@@ -255,63 +1507,58 @@ public class UIGameOverScreen : UIScene
 
 	private float ContinueBtnFailSafeTime = -1f;
 
-	public bool IsVisible { get; private set; }
-
-	public static UIGameOverScreen Get()
+	public bool IsVisible
 	{
-		return UIGameOverScreen.s_instance;
+		get;
+		private set;
 	}
 
-	public MatchResultsNotification Results
+	public MatchResultsNotification Results => m_results;
+
+	public int NumRewardsEarned
 	{
-		get
-		{
-			return this.m_results;
-		}
+		get;
+		private set;
 	}
 
-	public int NumRewardsEarned { get; private set; }
-
-	public bool RequestedToUseGGPack { get; private set; }
-
-	private bool BadgesAreSet { get; set; }
-
-	private bool TalliedCurrencies { get; set; }
-
-	private bool IsRewardsScreenSetup { get; set; }
-
-	private bool NotificationArrived
+	public bool RequestedToUseGGPack
 	{
-		get
-		{
-			return this.m_results != null;
-		}
+		get;
+		private set;
 	}
 
-	private bool IsRankedGame
+	private bool BadgesAreSet
 	{
-		get
-		{
-			return this.m_gameType == GameType.Ranked;
-		}
+		get;
+		set;
 	}
 
-	private Team ClientTeam
+	private bool TalliedCurrencies
 	{
-		get
-		{
-			return (GameManager.Get().PlayerInfo.TeamId != Team.TeamB) ? Team.TeamA : Team.TeamB;
-		}
+		get;
+		set;
 	}
+
+	private bool IsRewardsScreenSetup
+	{
+		get;
+		set;
+	}
+
+	private bool NotificationArrived => m_results != null;
+
+	private bool IsRankedGame => m_gameType == GameType.Ranked;
+
+	private Team ClientTeam => (GameManager.Get().PlayerInfo.TeamId == Team.TeamB) ? Team.TeamB : Team.TeamA;
 
 	private Team FriendlyTeam
 	{
 		get
 		{
-			Team result;
-			if (this.ClientTeam == Team.TeamB)
+			int result;
+			if (ClientTeam == Team.TeamB)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -320,17 +1567,17 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.get_FriendlyTeam()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = Team.TeamB;
+				result = 1;
 			}
 			else
 			{
-				result = Team.TeamA;
+				result = 0;
 			}
-			return result;
+			return (Team)result;
 		}
 	}
 
@@ -341,7 +1588,7 @@ public class UIGameOverScreen : UIScene
 			bool result = false;
 			if (GameManager.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -350,13 +1597,13 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.get_SelfWon()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (GameManager.Get().PlayerInfo != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -365,10 +1612,10 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					Team team;
+					int num;
 					if (GameManager.Get().PlayerInfo.TeamId == Team.TeamB)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -377,21 +1624,21 @@ public class UIGameOverScreen : UIScene
 							}
 							break;
 						}
-						team = Team.TeamB;
+						num = 1;
 					}
 					else
 					{
-						team = Team.TeamA;
+						num = 0;
 					}
-					Team team2 = team;
-					Team team3 = (team2 != Team.TeamB) ? Team.TeamA : Team.TeamB;
-					if (this.m_gameResult != GameResult.TeamAWon || team3 != Team.TeamA)
+					Team team = (Team)num;
+					Team team2 = (team == Team.TeamB) ? Team.TeamB : Team.TeamA;
+					if (m_gameResult == GameResult.TeamAWon && team2 == Team.TeamA)
 					{
-						if (this.m_gameResult != GameResult.TeamBWon)
-						{
-							return result;
-						}
-						for (;;)
+						goto IL_009c;
+					}
+					if (m_gameResult == GameResult.TeamBWon)
+					{
+						while (true)
 						{
 							switch (3)
 							{
@@ -400,24 +1647,28 @@ public class UIGameOverScreen : UIScene
 							}
 							break;
 						}
-						if (team3 != Team.TeamB)
+						if (team2 == Team.TeamB)
 						{
-							return result;
-						}
-						for (;;)
-						{
-							switch (1)
+							while (true)
 							{
-							case 0:
-								continue;
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
 							}
-							break;
+							goto IL_009c;
 						}
 					}
-					result = true;
 				}
 			}
+			goto IL_009e;
+			IL_009e:
 			return result;
+			IL_009c:
+			result = true;
+			goto IL_009e;
 		}
 	}
 
@@ -425,9 +1676,9 @@ public class UIGameOverScreen : UIScene
 	{
 		get
 		{
-			if (this.NotificationArrived)
+			if (NotificationArrived)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -436,85 +1687,90 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.get_BadgesAreActive()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (!this.m_results.BadgeAndParticipantsInfo.IsNullOrEmpty<BadgeAndParticipantInfo>())
+				if (!m_results.BadgeAndParticipantsInfo.IsNullOrEmpty())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return true;
 						}
-						break;
 					}
-					return true;
 				}
 			}
 			return false;
 		}
 	}
 
+	public static UIGameOverScreen Get()
+	{
+		return s_instance;
+	}
+
 	public override void Awake()
 	{
-		UIGameOverScreen.s_instance = this;
-		this.UpdateEndGameGGBonuses(0, 1f);
-		ClientGameManager.Get().OnMatchResultsNotification += this.HandleMatchResultsNotification;
-		ClientGameManager.Get().OnBankBalanceChange += this.HandleBankBalanceChange;
-		ClientGameManager.Get().OnUseGGPackNotification += this.HandleGGPackUsed;
-		this.m_tutorialLevelSliderBars = new List<UITutorialSeasonLevelBar>();
-		this.m_tutorialLevelSliderBars.AddRange(this.m_tutorialLevelLayout.GetComponentsInChildren<UITutorialSeasonLevelBar>());
-		this.m_ggBonusTooltipObj.Setup(TooltipType.Titled, new TooltipPopulateCall(this.GGBonusTooltipSetup), null);
-		this.InitButtons();
-		UIManager.SetGameObjectActive(this.m_TopParticipantsAnimator, false, null);
-		UIManager.SetGameObjectActive(this.m_PersonalHighlightsAnimator, false, null);
+		s_instance = this;
+		UpdateEndGameGGBonuses(0, 1f);
+		ClientGameManager.Get().OnMatchResultsNotification += HandleMatchResultsNotification;
+		ClientGameManager.Get().OnBankBalanceChange += HandleBankBalanceChange;
+		ClientGameManager.Get().OnUseGGPackNotification += HandleGGPackUsed;
+		m_tutorialLevelSliderBars = new List<UITutorialSeasonLevelBar>();
+		m_tutorialLevelSliderBars.AddRange(m_tutorialLevelLayout.GetComponentsInChildren<UITutorialSeasonLevelBar>());
+		m_ggBonusTooltipObj.Setup(TooltipType.Titled, GGBonusTooltipSetup);
+		InitButtons();
+		UIManager.SetGameObjectActive(m_TopParticipantsAnimator, false);
+		UIManager.SetGameObjectActive(m_PersonalHighlightsAnimator, false);
 		base.Awake();
 	}
 
 	private void InitButtons()
 	{
-		this.m_worldGGBtnHitBox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnWorldGGButtonClicked);
-		this.m_ContinueBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnContinueClicked);
-		this.m_ContinueBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.DialogBoxButton;
-		this.m_feedbackButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.FeedbackButtonClicked);
-		this.m_feedbackButton.spriteController.m_soundToPlay = FrontEndButtonSounds.MenuChoice;
-		this.m_shareFacebookButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ShareFacebookButtonClicked);
-		this.m_shareFacebookButton.spriteController.m_soundToPlay = FrontEndButtonSounds.MenuChoice;
-		this.m_influenceDisplay.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, delegate(UITooltipBase tooltip)
+		m_worldGGBtnHitBox.callback = OnWorldGGButtonClicked;
+		m_ContinueBtn.spriteController.callback = OnContinueClicked;
+		m_ContinueBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.DialogBoxButton;
+		m_feedbackButton.spriteController.callback = FeedbackButtonClicked;
+		m_feedbackButton.spriteController.m_soundToPlay = FrontEndButtonSounds.MenuChoice;
+		m_shareFacebookButton.spriteController.callback = ShareFacebookButtonClicked;
+		m_shareFacebookButton.spriteController.m_soundToPlay = FrontEndButtonSounds.MenuChoice;
+		m_influenceDisplay.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, delegate(UITooltipBase tooltip)
 		{
-			this.GetRewardTooltip(tooltip).Setup(this.m_results.FactionContributionAmounts, UIGameOverRewardTooltip.RewardTooltipType.FactionInfo);
+			GetRewardTooltip(tooltip).Setup(m_results.FactionContributionAmounts, UIGameOverRewardTooltip.RewardTooltipType.FactionInfo);
 			return true;
-		}, null);
-		this.m_isoDisplay.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, (UITooltipBase tooltip) => this.SetupCurrencyTooltip(tooltip, UIGameOverRewardTooltip.RewardTooltipType.ISOAmount, this.m_isoDisplay), null);
-		this.m_freelancerCurrencyDisplay.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, (UITooltipBase tooltip) => this.SetupCurrencyTooltip(tooltip, UIGameOverRewardTooltip.RewardTooltipType.FreelancerCurrencyAmount, this.m_freelancerCurrencyDisplay), null);
-		this.m_rankedCurrencyDisplay.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, (UITooltipBase tooltip) => this.SetupCurrencyTooltip(tooltip, UIGameOverRewardTooltip.RewardTooltipType.RankedPointsAmount, this.m_rankedCurrencyDisplay), null);
-		this.m_characterXPInfo.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, delegate(UITooltipBase tooltip)
+		});
+		m_isoDisplay.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, (UITooltipBase tooltip) => SetupCurrencyTooltip(tooltip, UIGameOverRewardTooltip.RewardTooltipType.ISOAmount, m_isoDisplay));
+		m_freelancerCurrencyDisplay.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, (UITooltipBase tooltip) => SetupCurrencyTooltip(tooltip, UIGameOverRewardTooltip.RewardTooltipType.FreelancerCurrencyAmount, m_freelancerCurrencyDisplay));
+		m_rankedCurrencyDisplay.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, (UITooltipBase tooltip) => SetupCurrencyTooltip(tooltip, UIGameOverRewardTooltip.RewardTooltipType.RankedPointsAmount, m_rankedCurrencyDisplay));
+		m_characterXPInfo.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, delegate(UITooltipBase tooltip)
 		{
-			this.GetRewardTooltip(tooltip).Setup(this.m_characterXPInfo, UIGameOverRewardTooltip.RewardTooltipType.CharacterInfo, this.m_results.NumCharactersPlayed);
+			GetRewardTooltip(tooltip).Setup(m_characterXPInfo, UIGameOverRewardTooltip.RewardTooltipType.CharacterInfo, m_results.NumCharactersPlayed);
 			return true;
-		}, null);
-		UIEventTriggerUtils.AddListener(this.m_characterXPInfo.m_tooltipHitBox.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.DisplayCharacterXPInfo));
-		UIEventTriggerUtils.AddListener(this.m_characterXPInfo.m_tooltipHitBox.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.HideXpInfo));
-		this.m_playerXPInfo.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, delegate(UITooltipBase tooltip)
+		});
+		UIEventTriggerUtils.AddListener(m_characterXPInfo.m_tooltipHitBox.gameObject, EventTriggerType.PointerEnter, DisplayCharacterXPInfo);
+		UIEventTriggerUtils.AddListener(m_characterXPInfo.m_tooltipHitBox.gameObject, EventTriggerType.PointerExit, HideXpInfo);
+		m_playerXPInfo.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, delegate(UITooltipBase tooltip)
 		{
-			this.GetRewardTooltip(tooltip).Setup(this.m_playerXPInfo, UIGameOverRewardTooltip.RewardTooltipType.AccountInfo, 1);
+			GetRewardTooltip(tooltip).Setup(m_playerXPInfo, UIGameOverRewardTooltip.RewardTooltipType.AccountInfo, 1);
 			return true;
-		}, null);
-		UIEventTriggerUtils.AddListener(this.m_playerXPInfo.m_tooltipHitBox.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.DisplayPlayerXPInfo));
-		UIEventTriggerUtils.AddListener(this.m_playerXPInfo.m_tooltipHitBox.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.HideXpInfo));
-		this.m_characterXPInfo.Init();
-		this.m_playerXPInfo.Init();
-		this.m_AccoladesHeaderBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.NavButtonClicked);
-		this.m_StatsHeaderBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.NavButtonClicked);
-		this.m_RewardsHeaderBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.NavButtonClicked);
-		this.m_ScoreHeaderBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.NavButtonClicked);
-		UIManager.SetGameObjectActive(this.m_AccoladesHeaderBtn, true, null);
-		UIManager.SetGameObjectActive(this.m_StatsHeaderBtn, true, null);
-		UIManager.SetGameObjectActive(this.m_StatsHeaderBtn, true, null);
-		UIManager.SetGameObjectActive(this.m_ScoreHeaderBtn, true, null);
+		});
+		UIEventTriggerUtils.AddListener(m_playerXPInfo.m_tooltipHitBox.gameObject, EventTriggerType.PointerEnter, DisplayPlayerXPInfo);
+		UIEventTriggerUtils.AddListener(m_playerXPInfo.m_tooltipHitBox.gameObject, EventTriggerType.PointerExit, HideXpInfo);
+		m_characterXPInfo.Init();
+		m_playerXPInfo.Init();
+		m_AccoladesHeaderBtn.spriteController.callback = NavButtonClicked;
+		m_StatsHeaderBtn.spriteController.callback = NavButtonClicked;
+		m_RewardsHeaderBtn.spriteController.callback = NavButtonClicked;
+		m_ScoreHeaderBtn.spriteController.callback = NavButtonClicked;
+		UIManager.SetGameObjectActive(m_AccoladesHeaderBtn, true);
+		UIManager.SetGameObjectActive(m_StatsHeaderBtn, true);
+		UIManager.SetGameObjectActive(m_StatsHeaderBtn, true);
+		UIManager.SetGameObjectActive(m_ScoreHeaderBtn, true);
 	}
 
 	private void OnDestroy()
@@ -523,19 +1779,19 @@ public class UIGameOverScreen : UIScene
 		{
 			UIScreenManager.Get().EndAllLoopSounds();
 		}
-		UIGameOverScreen.s_instance = null;
+		s_instance = null;
 		if (ClientGameManager.Get() != null)
 		{
-			ClientGameManager.Get().OnMatchResultsNotification -= this.HandleMatchResultsNotification;
-			ClientGameManager.Get().OnBankBalanceChange -= this.HandleBankBalanceChange;
-			ClientGameManager.Get().OnUseGGPackNotification -= this.HandleGGPackUsed;
+			ClientGameManager.Get().OnMatchResultsNotification -= HandleMatchResultsNotification;
+			ClientGameManager.Get().OnBankBalanceChange -= HandleBankBalanceChange;
+			ClientGameManager.Get().OnUseGGPackNotification -= HandleGGPackUsed;
 		}
 	}
 
 	private void HideXpInfo(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_characterXPInfo.m_XPLabel, false, null);
-		UIManager.SetGameObjectActive(this.m_playerXPInfo.m_XPLabel, false, null);
+		UIManager.SetGameObjectActive(m_characterXPInfo.m_XPLabel, false);
+		UIManager.SetGameObjectActive(m_playerXPInfo.m_XPLabel, false);
 	}
 
 	private bool GGBonusTooltipSetup(UITooltipBase tooltip)
@@ -543,7 +1799,7 @@ public class UIGameOverScreen : UIScene
 		int num = 0;
 		if (ClientGameManager.Get() != null && ClientGameManager.Get().PlayerWallet != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -552,25 +1808,18 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GGBonusTooltipSetup(UITooltipBase)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack);
 		}
-		string rightString = string.Empty;
-		if (num > 0)
-		{
-			rightString = string.Format("<color=green>x{0}</color>", num);
-		}
-		else
-		{
-			rightString = string.Format("<color=#7f7f7f>x{0}</color>", num);
-		}
+		string empty = string.Empty;
+		empty = ((num <= 0) ? $"<color=#7f7f7f>x{num}</color>" : $"<color=green>x{num}</color>");
 		string text = StringUtil.TR("GGBoostUsageDescription", "GameOver");
 		if (num == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -581,110 +1830,111 @@ public class UIGameOverScreen : UIScene
 			}
 			text += StringUtil.TR("NoGGBoosts", "GameOver");
 		}
-		UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-		uititledTooltip.Setup(StringUtil.TR("GGBoosts", "Rewards"), text, rightString);
+		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+		uITitledTooltip.Setup(StringUtil.TR("GGBoosts", "Rewards"), text, empty);
 		return true;
 	}
 
 	private void DisplayCharacterXPInfo(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_characterXPInfo.m_XPLabel, true, null);
+		UIManager.SetGameObjectActive(m_characterXPInfo.m_XPLabel, true);
 	}
 
 	private void DisplayPlayerXPInfo(BaseEventData data)
 	{
 		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason);
-		UIManager.SetGameObjectActive(this.m_tutorialLevelContainer, seasonTemplate.IsTutorial, null);
-		UIManager.SetGameObjectActive(this.m_playerXPInfo.m_XPLabel, !seasonTemplate.IsTutorial, null);
+		UIManager.SetGameObjectActive(m_tutorialLevelContainer, seasonTemplate.IsTutorial);
+		UIManager.SetGameObjectActive(m_playerXPInfo.m_XPLabel, !seasonTemplate.IsTutorial);
 	}
 
 	public void NotifyWidgetMouseOver(UIGameOverBadgeWidget widget, bool mouseOver)
 	{
 		if (mouseOver)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.NotifyWidgetMouseOver(UIGameOverBadgeWidget, bool)).MethodHandle;
-			}
-			for (int i = 0; i < this.m_GameOverStatWidgets.Count; i++)
-			{
-				if (widget.BadgeInfo.UsesFreelancerStats)
+					break;
+				default:
 				{
-					for (;;)
+					if (1 == 0)
 					{
-						switch (6)
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					for (int i = 0; i < m_GameOverStatWidgets.Count; i++)
+					{
+						if (widget.BadgeInfo.UsesFreelancerStats)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_GameOverStatWidgets[i].DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat)
-					{
-						this.m_GameOverStatWidgets[i].SetBadgeHighlight(true, true);
-					}
-					else
-					{
-						this.m_GameOverStatWidgets[i].SetBadgeHighlight(true, false);
-					}
-				}
-				else if (this.m_GameOverStatWidgets[i].DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
-				{
-					if (widget.BadgeInfo.StatsToHighlight.Contains(this.m_GameOverStatWidgets[i].GeneralStatType))
-					{
-						for (;;)
-						{
-							switch (2)
+							while (true)
 							{
-							case 0:
-								continue;
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
 							}
+							if (m_GameOverStatWidgets[i].DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat)
+							{
+								m_GameOverStatWidgets[i].SetBadgeHighlight(true, true);
+							}
+							else
+							{
+								m_GameOverStatWidgets[i].SetBadgeHighlight(true, false);
+							}
+						}
+						else if (m_GameOverStatWidgets[i].DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
+						{
+							if (widget.BadgeInfo.StatsToHighlight.Contains(m_GameOverStatWidgets[i].GeneralStatType))
+							{
+								while (true)
+								{
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								m_GameOverStatWidgets[i].SetBadgeHighlight(true, true);
+							}
+							else
+							{
+								m_GameOverStatWidgets[i].SetBadgeHighlight(true, false);
+							}
+						}
+						else
+						{
+							m_GameOverStatWidgets[i].SetBadgeHighlight(true, false);
+						}
+					}
+					while (true)
+					{
+						switch (5)
+						{
+						default:
+							return;
+						case 0:
 							break;
 						}
-						this.m_GameOverStatWidgets[i].SetBadgeHighlight(true, true);
-					}
-					else
-					{
-						this.m_GameOverStatWidgets[i].SetBadgeHighlight(true, false);
 					}
 				}
-				else
-				{
-					this.m_GameOverStatWidgets[i].SetBadgeHighlight(true, false);
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
-		else
+		for (int j = 0; j < m_GameOverStatWidgets.Count; j++)
 		{
-			for (int j = 0; j < this.m_GameOverStatWidgets.Count; j++)
+			m_GameOverStatWidgets[j].SetBadgeHighlight(false, false);
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				this.m_GameOverStatWidgets[j].SetBadgeHighlight(false, false);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
@@ -693,9 +1943,9 @@ public class UIGameOverScreen : UIScene
 	public void ShareFacebookButtonClicked(BaseEventData data)
 	{
 		FacebookClientInterface facebookClientInterface = FacebookClientInterface.Get();
-		if (UIGameOverScreen.<>f__am$cache0 == null)
+		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -704,23 +1954,23 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.ShareFacebookButtonClicked(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIGameOverScreen.<>f__am$cache0 = delegate(Texture2D texture)
+			_003C_003Ef__am_0024cache0 = delegate(Texture2D texture)
 			{
 				UILandingPageFullScreenMenus.Get().SetFacebookContainerVisible(true, texture);
 			};
 		}
-		facebookClientInterface.TakeScreenshot(UIGameOverScreen.<>f__am$cache0);
+		facebookClientInterface.TakeScreenshot(_003C_003Ef__am_0024cache0);
 	}
 
 	public void NavButtonClicked(BaseEventData data)
 	{
-		if (this.m_currentSubState != null && this.m_currentSubState.SubStateType != UIGameOverScreen.GameOverScreenState.Stats)
+		if (m_currentSubState != null && m_currentSubState.SubStateType != GameOverScreenState.Stats)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -729,17 +1979,17 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.NavButtonClicked(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_currentSubState.SubStateType != UIGameOverScreen.GameOverScreenState.Rewards)
+			if (m_currentSubState.SubStateType != GameOverScreenState.Rewards)
 			{
-				if (this.m_currentSubState.SubStateType != UIGameOverScreen.GameOverScreenState.Done)
+				if (m_currentSubState.SubStateType != GameOverScreenState.Done)
 				{
 					return;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -750,18 +2000,18 @@ public class UIGameOverScreen : UIScene
 				}
 			}
 		}
-		if (this.m_currentSubState.SubStateType != UIGameOverScreen.GameOverScreenState.Done)
+		if (m_currentSubState.SubStateType != GameOverScreenState.Done)
 		{
-			this.m_currentSubState = new UIGameOverScreen.GameOverSubState(UIGameOverScreen.GameOverScreenState.Done, 0f);
+			m_currentSubState = new GameOverSubState(GameOverScreenState.Done, 0f);
 		}
 		GameObject gameObject = (data as PointerEventData).pointerCurrentRaycast.gameObject;
 		bool flag = false;
 		bool flag2 = false;
 		bool flag3 = false;
 		bool flag4 = false;
-		if (this.m_AccoladesHeaderBtn.spriteController.gameObject == gameObject)
+		if (m_AccoladesHeaderBtn.spriteController.gameObject == gameObject)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -772,9 +2022,9 @@ public class UIGameOverScreen : UIScene
 			}
 			flag = true;
 		}
-		else if (this.m_StatsHeaderBtn.spriteController.gameObject == gameObject)
+		else if (m_StatsHeaderBtn.spriteController.gameObject == gameObject)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -785,9 +2035,9 @@ public class UIGameOverScreen : UIScene
 			}
 			flag2 = true;
 		}
-		else if (this.m_RewardsHeaderBtn.spriteController.gameObject == gameObject)
+		else if (m_RewardsHeaderBtn.spriteController.gameObject == gameObject)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -798,9 +2048,9 @@ public class UIGameOverScreen : UIScene
 			}
 			flag3 = true;
 		}
-		else if (this.m_ScoreHeaderBtn.spriteController.gameObject == gameObject)
+		else if (m_ScoreHeaderBtn.spriteController.gameObject == gameObject)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -811,15 +2061,15 @@ public class UIGameOverScreen : UIScene
 			}
 			flag4 = true;
 		}
-		this.m_AccoladesHeaderBtn.SetSelected(flag, false, "SelectedIN", "SelectedOUT");
-		this.m_StatsHeaderBtn.SetSelected(flag2, false, "SelectedIN", "SelectedOUT");
-		this.m_RewardsHeaderBtn.SetSelected(flag3, false, "SelectedIN", "SelectedOUT");
-		this.m_ScoreHeaderBtn.SetSelected(flag4, false, "SelectedIN", "SelectedOUT");
-		this.RefreshHeaderButtonClickability();
-		UIManager.SetGameObjectActive(this.m_AccoladesAnimator, flag, null);
+		m_AccoladesHeaderBtn.SetSelected(flag, false, "SelectedIN", "SelectedOUT");
+		m_StatsHeaderBtn.SetSelected(flag2, false, "SelectedIN", "SelectedOUT");
+		m_RewardsHeaderBtn.SetSelected(flag3, false, "SelectedIN", "SelectedOUT");
+		m_ScoreHeaderBtn.SetSelected(flag4, false, "SelectedIN", "SelectedOUT");
+		RefreshHeaderButtonClickability();
+		UIManager.SetGameObjectActive(m_AccoladesAnimator, flag);
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -828,16 +2078,16 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_TopParticipantsAnimator, true, null);
-			UIManager.SetGameObjectActive(this.m_PersonalHighlightsAnimator, true, null);
-			UIAnimationEventManager.Get().PlayAnimation(this.m_TopParticipantsAnimator, "TopParticipantsGrpDefaultIDLE", null, string.Empty, 0, 0f, true, false, null, null);
-			UIAnimationEventManager.Get().PlayAnimation(this.m_PersonalHighlightsAnimator, "PersonalHighlightsGrpDefaultIDLE", null, string.Empty, 0, 0f, true, false, null, null);
-			for (int i = 0; i < this.m_PersonalHighlightWidgets.Length; i++)
+			UIManager.SetGameObjectActive(m_TopParticipantsAnimator, true);
+			UIManager.SetGameObjectActive(m_PersonalHighlightsAnimator, true);
+			UIAnimationEventManager.Get().PlayAnimation(m_TopParticipantsAnimator, "TopParticipantsGrpDefaultIDLE", null, string.Empty);
+			UIAnimationEventManager.Get().PlayAnimation(m_PersonalHighlightsAnimator, "PersonalHighlightsGrpDefaultIDLE", null, string.Empty);
+			for (int i = 0; i < m_PersonalHighlightWidgets.Length; i++)
 			{
-				UIManager.SetGameObjectActive(this.m_PersonalHighlightWidgets[i], true, null);
-				this.m_PersonalHighlightWidgets[i].SetHighlight();
+				UIManager.SetGameObjectActive(m_PersonalHighlightWidgets[i], true);
+				m_PersonalHighlightWidgets[i].SetHighlight();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -847,10 +2097,10 @@ public class UIGameOverScreen : UIScene
 				break;
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_StatsContainer, flag2, null);
+		UIManager.SetGameObjectActive(m_StatsContainer, flag2);
 		if (flag2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -859,10 +2109,10 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			UIAnimationEventManager.Get().PlayAnimation(this.m_StatsAnimator, "StatsScreenDefaultIDLE", null, string.Empty, 0, 0f, true, false, null, null);
+			UIAnimationEventManager.Get().PlayAnimation(m_StatsAnimator, "StatsScreenDefaultIDLE", null, string.Empty);
 		}
-		UIManager.SetGameObjectActive(this.m_RewardsContainer, flag3, null);
-		UIGameStatsWindow.Get().SetToggleStatsVisible(flag4, true);
+		UIManager.SetGameObjectActive(m_RewardsContainer, flag3);
+		UIGameStatsWindow.Get().SetToggleStatsVisible(flag4);
 	}
 
 	public void FeedbackButtonClicked(BaseEventData data)
@@ -872,31 +2122,111 @@ public class UIGameOverScreen : UIScene
 
 	public void OnWorldGGButtonClicked(BaseEventData data)
 	{
-		if (this.RequestedToUseGGPack)
+		if (RequestedToUseGGPack)
 		{
 			return;
 		}
 		int currentAmount = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack);
 		if (currentAmount != 0)
 		{
-			if (this.m_numSelfGGpacksUsed < 3)
+			if (m_numSelfGGpacksUsed < 3)
 			{
-				for (int i = 0; i < this.m_ggButtonLevelsAnims.Length; i++)
+				for (int i = 0; i < m_ggButtonLevelsAnims.Length; i++)
 				{
-					if (this.m_ggButtonLevelsAnims[i].gameObject.activeInHierarchy)
+					if (!m_ggButtonLevelsAnims[i].gameObject.activeInHierarchy)
 					{
-						for (;;)
+						continue;
+					}
+					while (true)
+					{
+						switch (3)
 						{
-							switch (3)
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (currentAmount > 1)
+					{
+						while (true)
+						{
+							switch (7)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						if (currentAmount > 1)
+						UIAnimationEventManager.Get().PlayAnimation(m_ggButtonLevelsAnims[i], "GGBoostDefaultIN", null, string.Empty);
+					}
+					else
+					{
+						UIAnimationEventManager.Get().PlayAnimation(m_ggButtonLevelsAnims[i], "GGBoostNoMoreDefaultIN", null, string.Empty);
+						m_worldGGBtnHitBox.SetClickable(false);
+					}
+				}
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					ClientGameManager.Get().RequestToUseGGPack();
+					m_numSelfGGpacksUsed++;
+					for (int j = 0; j < m_ggButtonLevels.Length; j++)
+					{
+						UIManager.SetGameObjectActive(m_ggButtonLevels[j], j == m_numSelfGGpacksUsed);
+					}
+					while (true)
+					{
+						switch (4)
 						{
-							for (;;)
+						case 0:
+							continue;
+						}
+						if (m_numSelfGGpacksUsed == 1)
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							UIFrontEnd.PlaySound(FrontEndButtonSounds.GGButtonEndGameUsed);
+						}
+						else if (m_numSelfGGpacksUsed == 2)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							AudioManager.PostEvent("ui/endgame/ggboost_button_silver");
+						}
+						else if (m_numSelfGGpacksUsed == 3)
+						{
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							AudioManager.PostEvent("ui/endgame/ggboost_button_gold");
+						}
+						if (GameOverWorldObjects.Get() != null)
+						{
+							while (true)
 							{
 								switch (7)
 								{
@@ -905,137 +2235,56 @@ public class UIGameOverScreen : UIScene
 								}
 								break;
 							}
-							UIAnimationEventManager.Get().PlayAnimation(this.m_ggButtonLevelsAnims[i], "GGBoostDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
+							GameOverWorldObjects.Get().m_worldResultAnimController.Play("ResultGGPackPressAnimation");
 						}
-						else
+						RequestedToUseGGPack = true;
+						if (currentAmount > 1)
 						{
-							UIAnimationEventManager.Get().PlayAnimation(this.m_ggButtonLevelsAnims[i], "GGBoostNoMoreDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
-							this.m_worldGGBtnHitBox.SetClickable(false);
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (m_numSelfGGpacksUsed < 3)
+							{
+								return;
+							}
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
 						}
-					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ClientGameManager.Get().RequestToUseGGPack();
-				this.m_numSelfGGpacksUsed++;
-				for (int j = 0; j < this.m_ggButtonLevels.Length; j++)
-				{
-					UIManager.SetGameObjectActive(this.m_ggButtonLevels[j], j == this.m_numSelfGGpacksUsed, null);
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_numSelfGGpacksUsed == 1)
-				{
-					for (;;)
-					{
-						switch (2)
+						for (int k = 0; k < m_ggButtonLevelsAnims.Length; k++)
 						{
-						case 0:
-							continue;
+							if (m_ggButtonLevelsAnims[k].gameObject.activeInHierarchy)
+							{
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								UIAnimationEventManager.Get().PlayAnimation(m_ggButtonLevelsAnims[k], "GGBoostNoMoreDefaultIN", null, string.Empty);
+							}
 						}
-						break;
-					}
-					UIFrontEnd.PlaySound(FrontEndButtonSounds.GGButtonEndGameUsed);
-				}
-				else if (this.m_numSelfGGpacksUsed == 2)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					AudioManager.PostEvent("ui/endgame/ggboost_button_silver", null);
-				}
-				else if (this.m_numSelfGGpacksUsed == 3)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					AudioManager.PostEvent("ui/endgame/ggboost_button_gold", null);
-				}
-				if (GameOverWorldObjects.Get() != null)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					GameOverWorldObjects.Get().m_worldResultAnimController.Play("ResultGGPackPressAnimation");
-				}
-				this.RequestedToUseGGPack = true;
-				if (currentAmount > 1)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_numSelfGGpacksUsed < 3)
-					{
+						m_worldGGBtnHitBox.SetClickable(false);
 						return;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-				for (int k = 0; k < this.m_ggButtonLevelsAnims.Length; k++)
-				{
-					if (this.m_ggButtonLevelsAnims[k].gameObject.activeInHierarchy)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIAnimationEventManager.Get().PlayAnimation(this.m_ggButtonLevelsAnims[k], "GGBoostNoMoreDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
-					}
-				}
-				this.m_worldGGBtnHitBox.SetClickable(false);
-				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1044,12 +2293,12 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.OnWorldGGButtonClicked(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
-		this.m_worldGGBtnHitBox.SetClickable(false);
+		m_worldGGBtnHitBox.SetClickable(false);
 	}
 
 	public void OnContinueClicked(BaseEventData data)
@@ -1057,51 +2306,50 @@ public class UIGameOverScreen : UIScene
 		UINewReward.Get().Clear();
 		UIGameStatsWindow.Get().SetVisible(false);
 		FacebookClientInterface.Get().Reset();
-		ClientGameManager.Get().LeaveGame(true, this.m_gameResult);
+		ClientGameManager.Get().LeaveGame(true, m_gameResult);
 	}
 
 	public static CurrencyType RewardTooltipTypeToCurrencyType(UIGameOverRewardTooltip.RewardTooltipType rewardType)
 	{
 		if (rewardType == UIGameOverRewardTooltip.RewardTooltipType.FreelancerCurrencyAmount)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return CurrencyType.FreelancerCurrency;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.RewardTooltipTypeToCurrencyType(UIGameOverRewardTooltip.RewardTooltipType)).MethodHandle;
-			}
-			return CurrencyType.FreelancerCurrency;
 		}
-		if (rewardType == UIGameOverRewardTooltip.RewardTooltipType.ISOAmount)
+		switch (rewardType)
 		{
+		case UIGameOverRewardTooltip.RewardTooltipType.ISOAmount:
 			return CurrencyType.ISO;
-		}
-		if (rewardType == UIGameOverRewardTooltip.RewardTooltipType.RankedPointsAmount)
-		{
-			for (;;)
+		case UIGameOverRewardTooltip.RewardTooltipType.RankedPointsAmount:
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				return CurrencyType.RankedCurrency;
 			}
-			return CurrencyType.RankedCurrency;
+		default:
+			return CurrencyType.NONE;
 		}
-		return CurrencyType.NONE;
 	}
 
-	private bool SetupCurrencyTooltip(UITooltipBase tooltip, UIGameOverRewardTooltip.RewardTooltipType type, UIGameOverScreen.CurrencyDisplayInfo info)
+	private bool SetupCurrencyTooltip(UITooltipBase tooltip, UIGameOverRewardTooltip.RewardTooltipType type, CurrencyDisplayInfo info)
 	{
-		this.GetRewardTooltip(tooltip).Setup(info.GetTotalBaseGained(UIGameOverScreen.RewardTooltipTypeToCurrencyType(type)), info.GetTotalGGGained(UIGameOverScreen.RewardTooltipTypeToCurrencyType(type)), info.GetTotalWinGained(UIGameOverScreen.RewardTooltipTypeToCurrencyType(type)), info.GetTotalQuestGained(UIGameOverScreen.RewardTooltipTypeToCurrencyType(type)), info.GetTotalLevelUpGained(UIGameOverScreen.RewardTooltipTypeToCurrencyType(type)), info.GetTotalEventGained(UIGameOverScreen.RewardTooltipTypeToCurrencyType(type)), type);
+		GetRewardTooltip(tooltip).Setup(info.GetTotalBaseGained(RewardTooltipTypeToCurrencyType(type)), info.GetTotalGGGained(RewardTooltipTypeToCurrencyType(type)), info.GetTotalWinGained(RewardTooltipTypeToCurrencyType(type)), info.GetTotalQuestGained(RewardTooltipTypeToCurrencyType(type)), info.GetTotalLevelUpGained(RewardTooltipTypeToCurrencyType(type)), info.GetTotalEventGained(RewardTooltipTypeToCurrencyType(type)), type);
 		return true;
 	}
 
@@ -1122,26 +2370,26 @@ public class UIGameOverScreen : UIScene
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (actorData.m_characterType == playerInfo.CharacterType)
+				ActorData current = enumerator.Current;
+				if (current.m_characterType == playerInfo.CharacterType)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							return current;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GetPlayersOriginalActorData()).MethodHandle;
-					}
-					return actorData;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1156,17 +2404,17 @@ public class UIGameOverScreen : UIScene
 
 	public void SetWorldGGPackText(string text)
 	{
-		for (int i = 0; i < this.m_worldGGPackText.Length; i++)
+		for (int i = 0; i < m_worldGGPackText.Length; i++)
 		{
-			this.m_worldGGPackText[i].text = text;
+			m_worldGGPackText[i].text = text;
 		}
 	}
 
 	private void SetupLabelText(int myTeamScore, int enemyTeamScore)
 	{
-		if (this.m_turnTimeText != null)
+		if (m_turnTimeText != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1175,14 +2423,14 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupLabelText(int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			string arg = string.Empty;
-			if (UITimerPanel.Get().GetSeconds() < 0xA)
+			string empty = string.Empty;
+			if (UITimerPanel.Get().GetSeconds() < 10)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1191,21 +2439,21 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				arg = string.Format(StringUtil.TR("TimeFormatLeadingZero", "Global"), UITimerPanel.Get().GetMinutes(), UITimerPanel.Get().GetSeconds());
+				empty = string.Format(StringUtil.TR("TimeFormatLeadingZero", "Global"), UITimerPanel.Get().GetMinutes(), UITimerPanel.Get().GetSeconds());
 			}
 			else
 			{
-				arg = string.Format(StringUtil.TR("TimeFormat", "Global"), UITimerPanel.Get().GetMinutes(), UITimerPanel.Get().GetSeconds());
+				empty = string.Format(StringUtil.TR("TimeFormat", "Global"), UITimerPanel.Get().GetMinutes(), UITimerPanel.Get().GetSeconds());
 			}
-			this.m_turnTimeText.text = string.Format(StringUtil.TR("TurnTime", "GameOver"), UITimerPanel.Get().GetTurn(), arg);
+			m_turnTimeText.text = string.Format(StringUtil.TR("TurnTime", "GameOver"), UITimerPanel.Get().GetTurn(), empty);
 		}
-		if (this.m_blueTeamScore != null)
+		if (m_blueTeamScore != null)
 		{
-			this.m_blueTeamScore.text = string.Format(StringUtil.TR("BlueTeamScore", "GameOver"), myTeamScore.ToString());
+			m_blueTeamScore.text = string.Format(StringUtil.TR("BlueTeamScore", "GameOver"), myTeamScore.ToString());
 		}
-		if (this.m_redTeamScore != null)
+		if (m_redTeamScore != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1214,11 +2462,11 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			this.m_redTeamScore.text = string.Format(StringUtil.TR("RedTeamScore", "GameOver"), enemyTeamScore.ToString());
+			m_redTeamScore.text = string.Format(StringUtil.TR("RedTeamScore", "GameOver"), enemyTeamScore.ToString());
 		}
-		if (this.m_mapText != null)
+		if (m_mapText != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1227,11 +2475,11 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			this.m_mapText.text = GameWideData.Get().GetMapDisplayName(GameManager.Get().GameInfo.GameConfig.Map);
+			m_mapText.text = GameWideData.Get().GetMapDisplayName(GameManager.Get().GameInfo.GameConfig.Map);
 		}
-		if (this.m_gameTypeLabel != null)
+		if (m_gameTypeLabel != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1240,74 +2488,77 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			this.m_gameTypeLabel.text = string.Format(StringUtil.TR("DeathMatchLabel", "GameOver"), GameManager.Get().GameConfig.TeamAPlayers.ToString(), GameManager.Get().GameConfig.TeamBPlayers.ToString());
+			m_gameTypeLabel.text = string.Format(StringUtil.TR("DeathMatchLabel", "GameOver"), GameManager.Get().GameConfig.TeamAPlayers.ToString(), GameManager.Get().GameConfig.TeamBPlayers.ToString());
 		}
-		if (this.m_objectiveText != null)
+		if (!(m_objectiveText != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			if (ObjectivePoints.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_objectiveText.text = string.Format(StringUtil.TR(ObjectivePoints.Get().m_victoryCondition), (ObjectivePoints.Get().m_timeLimitTurns - 1).ToString());
+					return;
 				}
-				this.m_objectiveText.text = string.Format(StringUtil.TR(ObjectivePoints.Get().m_victoryCondition), (ObjectivePoints.Get().m_timeLimitTurns - 1).ToString());
 			}
+			return;
 		}
 	}
 
 	public void HandleBankBalanceChange(CurrencyData currencyData)
 	{
 		int currentAmount = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack);
-		this.m_GGPackCount.text = string.Format("x{0}", currentAmount);
-		for (int i = 0; i < this.m_ggButtonLevelsAnims.Length; i++)
+		m_GGPackCount.text = $"x{currentAmount}";
+		for (int i = 0; i < m_ggButtonLevelsAnims.Length; i++)
 		{
-			if (this.m_ggButtonLevelsAnims[i].gameObject.activeInHierarchy)
+			if (!m_ggButtonLevelsAnims[i].gameObject.activeInHierarchy)
 			{
-				if (currentAmount > 0)
+				continue;
+			}
+			if (currentAmount > 0)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (7)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.HandleBankBalanceChange(CurrencyData)).MethodHandle;
-					}
-					UIAnimationEventManager.Get().PlayAnimation(this.m_ggButtonLevelsAnims[i], "GGBoostDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
+					break;
 				}
-				else
+				if (1 == 0)
 				{
-					UIAnimationEventManager.Get().PlayAnimation(this.m_ggButtonLevelsAnims[i], "GGBoostNoMoreDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
+					/*OpCode not supported: LdMemberToken*/;
 				}
+				UIAnimationEventManager.Get().PlayAnimation(m_ggButtonLevelsAnims[i], "GGBoostDefaultIN", null, string.Empty);
+			}
+			else
+			{
+				UIAnimationEventManager.Get().PlayAnimation(m_ggButtonLevelsAnims[i], "GGBoostNoMoreDefaultIN", null, string.Empty);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
@@ -1319,50 +2570,51 @@ public class UIGameOverScreen : UIScene
 		int num = currentLevel + 1;
 		for (int i = 0; i < allRewards.Count; i++)
 		{
-			if (allRewards[i].level == num)
+			if (allRewards[i].level != num)
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (2)
 				{
-					switch (2)
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (allRewards[i].repeatEveryXLevels == 0)
+			{
+				while (true)
+				{
+					switch (7)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GetAccountRewardsForNextLevel(int)).MethodHandle;
-				}
-				if (allRewards[i].repeatEveryXLevels == 0)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					list.Add(allRewards[i]);
-				}
+				list.Add(allRewards[i]);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		for (int j = 0; j < allRewards.Count; j++)
-		{
-			if (allRewards[j].repeatEveryXLevels > 0)
+			for (int j = 0; j < allRewards.Count; j++)
 			{
-				for (;;)
+				if (allRewards[j].repeatEveryXLevels <= 0)
+				{
+					continue;
+				}
+				while (true)
 				{
 					switch (1)
 					{
@@ -1373,7 +2625,7 @@ public class UIGameOverScreen : UIScene
 				}
 				if ((num - allRewards[j].level) % allRewards[j].repeatEveryXLevels == 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -1385,45 +2637,45 @@ public class UIGameOverScreen : UIScene
 					list.Add(allRewards[j]);
 				}
 			}
+			return list;
 		}
-		return list;
 	}
 
 	private bool SetupAccountRewardTooltip(int currentLevel)
 	{
-		this.m_playerXPInfo.PopulateRewardIcon(currentLevel, true, null);
+		m_playerXPInfo.PopulateRewardIcon(currentLevel, true);
 		return true;
 	}
 
 	private void SetupExpBars()
 	{
-		int num = GameBalanceVars.Get().CharacterExperienceToLevel(this.m_results.CharacterLevelAtStart);
-		this.m_characterXPInfo.m_barLevelLabel.text = this.m_results.CharacterLevelAtStart.ToString();
-		this.m_characterXPInfo.m_GGXPSlider.fillAmount = 0f;
-		this.m_characterXPInfo.m_NormalXPGainSlider.fillAmount = 0f;
-		this.m_characterXPInfo.m_OldXPSlider.fillAmount = (float)this.m_results.CharacterXpAtStart / (float)num;
-		this.m_characterXPInfo.m_QuestXPSlider.fillAmount = 0f;
-		this.m_characterXPInfo.m_XPLabel.text = this.m_results.CharacterXpAtStart.ToString();
-		this.m_characterXPInfo.m_LastLevelDisplayed = this.m_results.CharacterLevelAtStart;
-		this.m_characterXPInfo.XPBarType = UIGameOverScreen.XPDisplayInfo.BarXPType.Character;
-		UIManager.SetGameObjectActive(this.m_characterXPInfo.m_XPLabel, false, null);
+		int num = GameBalanceVars.Get().CharacterExperienceToLevel(m_results.CharacterLevelAtStart);
+		m_characterXPInfo.m_barLevelLabel.text = m_results.CharacterLevelAtStart.ToString();
+		m_characterXPInfo.m_GGXPSlider.fillAmount = 0f;
+		m_characterXPInfo.m_NormalXPGainSlider.fillAmount = 0f;
+		m_characterXPInfo.m_OldXPSlider.fillAmount = (float)m_results.CharacterXpAtStart / (float)num;
+		m_characterXPInfo.m_QuestXPSlider.fillAmount = 0f;
+		m_characterXPInfo.m_XPLabel.text = m_results.CharacterXpAtStart.ToString();
+		m_characterXPInfo.m_LastLevelDisplayed = m_results.CharacterLevelAtStart;
+		m_characterXPInfo.XPBarType = XPDisplayInfo.BarXPType.Character;
+		UIManager.SetGameObjectActive(m_characterXPInfo.m_XPLabel, false);
 		int activeSeason = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
-		int seasonExperience = SeasonWideData.Get().GetSeasonExperience(activeSeason, this.m_results.SeasonLevelAtStart);
-		this.m_playerXPInfo.m_barLevelLabel.text = this.m_results.SeasonLevelAtStart.ToString();
-		this.m_playerXPInfo.m_GGXPSlider.fillAmount = 0f;
-		this.m_playerXPInfo.m_NormalXPGainSlider.fillAmount = 0f;
-		this.m_playerXPInfo.m_OldXPSlider.fillAmount = (float)this.m_results.SeasonXpAtStart / (float)seasonExperience;
-		this.m_playerXPInfo.m_QuestXPSlider.fillAmount = 0f;
-		this.m_playerXPInfo.m_XPLabel.text = this.m_results.SeasonXpAtStart.ToString();
-		this.m_playerXPInfo.m_LastLevelDisplayed = this.m_results.SeasonLevelAtStart;
-		this.m_playerXPInfo.XPBarType = UIGameOverScreen.XPDisplayInfo.BarXPType.Season;
-		UIManager.SetGameObjectActive(this.m_playerXPInfo.m_XPLabel, false, null);
-		this.m_expGain.text = "+0";
-		this.SetupAccountRewardTooltip(this.m_results.SeasonLevelAtStart);
-		ActorData playersOriginalActorData = UIGameOverScreen.GetPlayersOriginalActorData();
+		int seasonExperience = SeasonWideData.Get().GetSeasonExperience(activeSeason, m_results.SeasonLevelAtStart);
+		m_playerXPInfo.m_barLevelLabel.text = m_results.SeasonLevelAtStart.ToString();
+		m_playerXPInfo.m_GGXPSlider.fillAmount = 0f;
+		m_playerXPInfo.m_NormalXPGainSlider.fillAmount = 0f;
+		m_playerXPInfo.m_OldXPSlider.fillAmount = (float)m_results.SeasonXpAtStart / (float)seasonExperience;
+		m_playerXPInfo.m_QuestXPSlider.fillAmount = 0f;
+		m_playerXPInfo.m_XPLabel.text = m_results.SeasonXpAtStart.ToString();
+		m_playerXPInfo.m_LastLevelDisplayed = m_results.SeasonLevelAtStart;
+		m_playerXPInfo.XPBarType = XPDisplayInfo.BarXPType.Season;
+		UIManager.SetGameObjectActive(m_playerXPInfo.m_XPLabel, false);
+		m_expGain.text = "+0";
+		SetupAccountRewardTooltip(m_results.SeasonLevelAtStart);
+		ActorData playersOriginalActorData = GetPlayersOriginalActorData();
 		if (playersOriginalActorData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1432,51 +2684,32 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupExpBars()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.SetupCharacterRewardTooltip(playersOriginalActorData.\u000E(), this.m_results.CharacterLevelAtStart);
+			SetupCharacterRewardTooltip(playersOriginalActorData.GetCharacterResourceLink(), m_results.CharacterLevelAtStart);
 		}
-		if (GameFlowData.Get().activeOwnedActorData != null)
+		if (!(GameFlowData.Get().activeOwnedActorData != null))
 		{
-			if (ReplayPlayManager.Get())
+			goto IL_02c4;
+		}
+		if ((bool)ReplayPlayManager.Get())
+		{
+			while (true)
 			{
-				for (;;)
+				switch (5)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (ReplayPlayManager.Get().IsPlayback())
-				{
-					goto IL_2C4;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				break;
 			}
-			UIManager.SetGameObjectActive(this.m_rewardsInfoContainer, true, null);
-			goto IL_2D1;
-		}
-		IL_2C4:
-		UIManager.SetGameObjectActive(this.m_rewardsInfoContainer, false, null);
-		IL_2D1:
-		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason);
-		UIManager.SetGameObjectActive(this.m_playerXPInfo.m_barLevelUpAnimator, !seasonTemplate.IsTutorial, null);
-		UIManager.SetGameObjectActive(this.m_tutorialLevelContainer, seasonTemplate.IsTutorial, null);
-		if (seasonTemplate.IsTutorial)
-		{
-			for (;;)
+			if (ReplayPlayManager.Get().IsPlayback())
+			{
+				goto IL_02c4;
+			}
+			while (true)
 			{
 				switch (4)
 				{
@@ -1485,11 +2718,32 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			int endLevel = QuestWideData.GetEndLevel(seasonTemplate.Prerequisites, seasonTemplate.Index);
-			int num2 = this.m_results.SeasonLevelAtStart;
-			if (this.m_gameType != GameType.Custom)
+		}
+		UIManager.SetGameObjectActive(m_rewardsInfoContainer, true);
+		goto IL_02d1;
+		IL_02c4:
+		UIManager.SetGameObjectActive(m_rewardsInfoContainer, false);
+		goto IL_02d1;
+		IL_02d1:
+		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason);
+		UIManager.SetGameObjectActive(m_playerXPInfo.m_barLevelUpAnimator, !seasonTemplate.IsTutorial);
+		UIManager.SetGameObjectActive(m_tutorialLevelContainer, seasonTemplate.IsTutorial);
+		if (!seasonTemplate.IsTutorial)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				for (;;)
+			case 0:
+				continue;
+			}
+			int endLevel = QuestWideData.GetEndLevel(seasonTemplate.Prerequisites, seasonTemplate.Index);
+			int num2 = m_results.SeasonLevelAtStart;
+			if (m_gameType != 0)
+			{
+				while (true)
 				{
 					switch (4)
 					{
@@ -1498,9 +2752,9 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				if (this.m_gameType == GameType.Tutorial)
+				if (m_gameType == GameType.Tutorial)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -1511,314 +2765,109 @@ public class UIGameOverScreen : UIScene
 					}
 					if (num2 > 1)
 					{
-						goto IL_38F;
+						goto IL_038f;
 					}
 				}
 				num2++;
 			}
-			IL_38F:
-			this.m_tutorialLevelText.text = num2 - 1 + "/" + (endLevel - 1);
-			for (int i = this.m_tutorialLevelSliderBars.Count; i < endLevel - 1; i++)
+			goto IL_038f;
+			IL_038f:
+			m_tutorialLevelText.text = num2 - 1 + "/" + (endLevel - 1);
+			for (int i = m_tutorialLevelSliderBars.Count; i < endLevel - 1; i++)
 			{
-				UITutorialSeasonLevelBar uitutorialSeasonLevelBar = UnityEngine.Object.Instantiate<UITutorialSeasonLevelBar>(this.m_tutorialLevelBarPrefab);
-				uitutorialSeasonLevelBar.transform.SetParent(this.m_tutorialLevelLayout.transform);
-				uitutorialSeasonLevelBar.transform.localScale = Vector3.one;
-				uitutorialSeasonLevelBar.transform.localPosition = Vector3.zero;
-				this.m_tutorialLevelSliderBars.Add(uitutorialSeasonLevelBar);
+				UITutorialSeasonLevelBar uITutorialSeasonLevelBar = UnityEngine.Object.Instantiate(m_tutorialLevelBarPrefab);
+				uITutorialSeasonLevelBar.transform.SetParent(m_tutorialLevelLayout.transform);
+				uITutorialSeasonLevelBar.transform.localScale = Vector3.one;
+				uITutorialSeasonLevelBar.transform.localPosition = Vector3.zero;
+				m_tutorialLevelSliderBars.Add(uITutorialSeasonLevelBar);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			Queue<RewardUtils.RewardData> queue = new Queue<RewardUtils.RewardData>(RewardUtils.GetSeasonLevelRewards(-1));
-			List<RewardUtils.RewardData> availableSeasonEndRewards = RewardUtils.GetAvailableSeasonEndRewards(seasonTemplate);
-			if (availableSeasonEndRewards.Count > 0)
-			{
-				queue.Enqueue(availableSeasonEndRewards[0]);
-			}
-			for (int j = 0; j < this.m_tutorialLevelSliderBars.Count; j++)
-			{
-				int num3 = j + 1;
-				this.m_tutorialLevelSliderBars[j].SetFilled(num3 < num2);
-				UIManager.SetGameObjectActive(this.m_tutorialLevelSliderBars[j], num3 < endLevel, null);
-				RewardUtils.RewardData rewardData = null;
-				while (queue.Count > 0)
+				Queue<RewardUtils.RewardData> queue = new Queue<RewardUtils.RewardData>(RewardUtils.GetSeasonLevelRewards());
+				List<RewardUtils.RewardData> availableSeasonEndRewards = RewardUtils.GetAvailableSeasonEndRewards(seasonTemplate);
+				if (availableSeasonEndRewards.Count > 0)
 				{
-					for (;;)
+					queue.Enqueue(availableSeasonEndRewards[0]);
+				}
+				for (int j = 0; j < m_tutorialLevelSliderBars.Count; j++)
+				{
+					int num3 = j + 1;
+					m_tutorialLevelSliderBars[j].SetFilled(num3 < num2);
+					UIManager.SetGameObjectActive(m_tutorialLevelSliderBars[j], num3 < endLevel);
+					RewardUtils.RewardData rewardData = null;
+					while (queue.Count > 0)
 					{
-						switch (3)
+						while (true)
 						{
-						case 0:
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (rewardData == null)
+						{
+							int num4 = queue.Peek().Level - 1;
+							if (num4 < num3)
+							{
+								queue.Dequeue();
+								continue;
+							}
+							if (num4 > num3)
+							{
+								break;
+							}
+							rewardData = queue.Dequeue();
 							continue;
 						}
-						break;
-					}
-					if (rewardData != null)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
 							case 0:
 								continue;
 							}
-							goto IL_517;
+							break;
 						}
+						break;
 					}
-					else
-					{
-						int num4 = queue.Peek().Level - 1;
-						if (num4 < num3)
-						{
-							queue.Dequeue();
-						}
-						else
-						{
-							if (num4 > num3)
-							{
-								break;
-							}
-							rewardData = queue.Dequeue();
-						}
-					}
+					m_tutorialLevelSliderBars[j].SetReward(num3, rewardData);
 				}
-				IL_517:
-				this.m_tutorialLevelSliderBars[j].SetReward(num3, rewardData);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.SetupTutorialRewards();
-		}
-	}
-
-	private void SetupTutorialRewards()
-	{
-		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason);
-		this.m_tutorialRewards = RewardUtils.GetSeasonLevelRewards(-1);
-		for (int i = 0; i < QuestWideData.GetEndLevel(seasonTemplate.Prerequisites, seasonTemplate.Index); i++)
-		{
-			using (List<RewardUtils.RewardData>.Enumerator enumerator = RewardUtils.GetAccountLevelRewards(i).GetEnumerator())
-			{
-				IL_C9:
-				while (enumerator.MoveNext())
-				{
-					RewardUtils.RewardData rewardData = enumerator.Current;
-					int index = 0;
-					for (int j = 0; j < this.m_tutorialRewards.Count; j++)
-					{
-						if (rewardData.Level <= this.m_tutorialRewards[j].Level)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupTutorialRewards()).MethodHandle;
-							}
-							index = j;
-							IL_BB:
-							this.m_tutorialRewards.Insert(index, rewardData);
-							goto IL_C9;
-						}
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_BB;
-					}
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		List<RewardUtils.RewardData> availableSeasonEndRewards = RewardUtils.GetAvailableSeasonEndRewards(seasonTemplate);
-		this.m_tutorialRewards.AddRange(availableSeasonEndRewards);
-		for (int k = 0; k < this.m_tutorialRewards.Count; k++)
-		{
-			this.m_tutorialRewards[k].Level--;
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (this.m_tutorialRewards.Count == 0)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_tutorialRewardTooltipObj, false, null);
-			UIManager.SetGameObjectActive(this.m_tutorialNextRewardLabel, false, null);
-			UIManager.SetGameObjectActive(this.m_tutorialRewardIconImage, false, null);
-			return;
-		}
-		UIManager.SetGameObjectActive(this.m_tutorialRewardTooltipObj, true, null);
-		UIManager.SetGameObjectActive(this.m_tutorialNextRewardLabel, true, null);
-		UIManager.SetGameObjectActive(this.m_tutorialRewardIconImage, true, null);
-		RewardUtils.RewardData rewardData2 = null;
-		if (availableSeasonEndRewards.Count > 0)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			rewardData2 = availableSeasonEndRewards[0];
-		}
-		if (rewardData2 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_tutorialRewardTooltipObj, false, null);
-			UIManager.SetGameObjectActive(this.m_tutorialNextRewardLabel, false, null);
-			UIManager.SetGameObjectActive(this.m_tutorialRewardIconImage, false, null);
-			return;
-		}
-		UIManager.SetGameObjectActive(this.m_tutorialRewardTooltipObj, true, null);
-		UIManager.SetGameObjectActive(this.m_tutorialNextRewardLabel, true, null);
-		UIManager.SetGameObjectActive(this.m_tutorialRewardIconImage, true, null);
-		this.m_tutorialRewardIconImage.sprite = Resources.Load<Sprite>(rewardData2.SpritePath);
-		UIManager.SetGameObjectActive(this.m_tutorialRewardFgImage, rewardData2.Foreground != null, null);
-		this.m_tutorialRewardFgImage.sprite = rewardData2.Foreground;
-		this.m_tutorialNextRewardLabel.text = rewardData2.Name;
-		this.m_tutorialRewardTooltipObj.Setup(TooltipType.RewardList, delegate(UITooltipBase tooltip)
-		{
-			if (this.m_tutorialRewards != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameOverScreen.<SetupTutorialRewards>m__7(UITooltipBase)).MethodHandle;
-				}
-				if (this.m_tutorialRewards.Count != 0)
-				{
-					UIRewardListTooltip uirewardListTooltip = tooltip as UIRewardListTooltip;
-					uirewardListTooltip.Setup(this.m_tutorialRewards, this.m_results.SeasonLevelAtStart, UIRewardListTooltip.RewardsType.Tutorial, true);
-					return true;
-				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					SetupTutorialRewards();
+					return;
 				}
 			}
-			return false;
-		}, null);
-	}
-
-	private void SetupCharacterRewardTooltip(CharacterResourceLink charLink, int currentCharLevel)
-	{
-		if (GameBalanceVars.Get() == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupCharacterRewardTooltip(CharacterResourceLink, int)).MethodHandle;
-			}
-			return;
 		}
-		this.m_characterXPInfo.PopulateRewardIcon(currentCharLevel, true, charLink);
 	}
 
-	private void SetupCurrencyAndInfluenceDisplays()
+	private void SetupTutorialRewards()
 	{
-		bool doActive = this.GetDisplayTotalCurrency(this.m_isoDisplay, CurrencyType.ISO) > 0;
-		bool doActive2 = this.GetDisplayTotalCurrency(this.m_freelancerCurrencyDisplay, CurrencyType.FreelancerCurrency) > 0;
-		bool doActive3 = this.GetDisplayTotalCurrency(this.m_rankedCurrencyDisplay, CurrencyType.RankedCurrency) > 0;
-		if (!this.TalliedCurrencies && this.m_results.CurrencyRewards != null)
+		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason);
+		m_tutorialRewards = RewardUtils.GetSeasonLevelRewards();
+		for (int i = 0; i < QuestWideData.GetEndLevel(seasonTemplate.Prerequisites, seasonTemplate.Index); i++)
 		{
-			for (int i = 0; i < this.m_results.CurrencyRewards.Count; i++)
+			foreach (RewardUtils.RewardData accountLevelReward in RewardUtils.GetAccountLevelRewards(i))
 			{
-				int num = this.m_results.CurrencyRewards[i].BaseGained + this.m_results.CurrencyRewards[i].WinGained + this.m_results.CurrencyRewards[i].GGGained + this.m_results.CurrencyRewards[i].QuestGained + this.m_results.CurrencyRewards[i].LevelUpGained + this.m_results.CurrencyRewards[i].EventGained;
-				if (num > 0)
+				int index = 0;
+				int num = 0;
+				while (true)
 				{
-					for (;;)
+					if (num >= m_tutorialRewards.Count)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupCurrencyAndInfluenceDisplays()).MethodHandle;
-					}
-					CurrencyType type = this.m_results.CurrencyRewards[i].Type;
-					if (type != CurrencyType.ISO)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -1827,318 +2876,131 @@ public class UIGameOverScreen : UIScene
 							}
 							break;
 						}
-						if (type != CurrencyType.FreelancerCurrency)
+						break;
+					}
+					if (accountLevelReward.Level <= m_tutorialRewards[num].Level)
+					{
+						while (true)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (type != CurrencyType.RankedCurrency)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-							else
-							{
-								doActive3 = true;
-								this.m_rankedCurrencyDisplay.m_currencyReward.Add(this.m_results.CurrencyRewards[i]);
-								this.m_rankedCurrencyDisplay.m_currencyGainText.text = "+0";
-							}
-						}
-						else
-						{
-							doActive2 = true;
-							this.m_freelancerCurrencyDisplay.m_currencyReward.Add(this.m_results.CurrencyRewards[i]);
-							this.m_freelancerCurrencyDisplay.m_currencyGainText.text = "+0";
-						}
-					}
-					else
-					{
-						doActive = true;
-						this.m_isoDisplay.m_currencyReward.Add(this.m_results.CurrencyRewards[i]);
-						this.m_isoDisplay.m_currencyGainText.text = "+0";
-					}
-				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.TalliedCurrencies = true;
-		}
-		UIManager.SetGameObjectActive(this.m_isoDisplay.m_container, doActive, null);
-		UIManager.SetGameObjectActive(this.m_freelancerCurrencyDisplay.m_container, doActive2, null);
-		UIManager.SetGameObjectActive(this.m_rankedCurrencyDisplay.m_container, doActive3, null);
-		this.m_influenceDisplay.m_currencyGainText.text = "+0";
-		FactionCompetition factionCompetition = FactionWideData.Get().GetFactionCompetition(this.m_results.FactionCompetitionId);
-		if (factionCompetition != null && factionCompetition.ShouldShowcase)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_results.FactionId < factionCompetition.Factions.Count)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(factionCompetition.Factions[this.m_results.FactionId].FactionGroupIDToUse);
-				this.m_influenceDisplay.m_displayIcon.sprite = Resources.Load<Sprite>(factionGroup.IconPath);
-				UIManager.SetGameObjectActive(this.m_influenceDisplay.m_container, factionCompetition.Enabled, null);
-				return;
-			}
-		}
-		UIManager.SetGameObjectActive(this.m_influenceDisplay.m_container, false, null);
-	}
-
-	private void SetupRewardsScreen()
-	{
-		if (this.NotificationArrived)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupRewardsScreen()).MethodHandle;
-			}
-			if (!this.IsRewardsScreenSetup)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.IsRewardsScreenSetup = true;
-				List<int> list = new List<int>();
-				int i = this.GetNormalBarXPTotal() + this.m_results.GGXpGained + this.m_results.QuestXpGained;
-				int num = this.m_results.SeasonLevelAtStart;
-				int num2 = UIGameOverScreen.XPDisplayInfo.GetXPForType(UIGameOverScreen.XPDisplayInfo.BarXPType.Season, num) - this.m_results.SeasonXpAtStart;
-				while (i >= num2)
-				{
-					i -= num2;
-					num++;
-					list.Add(num);
-					num2 = UIGameOverScreen.XPDisplayInfo.GetXPForType(UIGameOverScreen.XPDisplayInfo.BarXPType.Season, num);
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				List<RewardUtils.RewardData> list2 = new List<RewardUtils.RewardData>();
-				List<RewardUtils.RewardData> list3 = new List<RewardUtils.RewardData>();
-				for (int j = 0; j < list.Count; j++)
-				{
-					List<RewardUtils.RewardData> nextSeasonLevelRewards = RewardUtils.GetNextSeasonLevelRewards(list[j] - 1);
-					foreach (RewardUtils.RewardData rewardData in nextSeasonLevelRewards)
-					{
-						if (rewardData.InventoryTemplate.Type == InventoryItemType.Currency)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							list2.Add(rewardData);
-						}
-					}
-					if (ClientGameManager.Get().GetPlayerAccountData().QuestComponent.SeasonItemRewardsGranted.ContainsKey(list[j]))
-					{
-						for (;;)
-						{
-							switch (4)
+							switch (3)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						List<int> list4 = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.SeasonItemRewardsGranted[list[j]];
-						using (List<int>.Enumerator enumerator2 = list4.GetEnumerator())
+						if (1 == 0)
 						{
-							while (enumerator2.MoveNext())
-							{
-								int templateId = enumerator2.Current;
-								InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(templateId);
-								list2.Add(new RewardUtils.RewardData
-								{
-									Amount = 1,
-									InventoryTemplate = itemTemplate,
-									Level = list[j],
-									Name = itemTemplate.DisplayName,
-									SpritePath = InventoryWideData.GetSpritePath(itemTemplate),
-									Foreground = InventoryWideData.GetItemFg(itemTemplate),
-									Type = RewardUtils.GetRewardTypeFromInventoryItem(itemTemplate)
-								});
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						index = num;
+						break;
+					}
+					num++;
+				}
+				m_tutorialRewards.Insert(index, accountLevelReward);
+			}
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			List<RewardUtils.RewardData> availableSeasonEndRewards = RewardUtils.GetAvailableSeasonEndRewards(seasonTemplate);
+			m_tutorialRewards.AddRange(availableSeasonEndRewards);
+			for (int j = 0; j < m_tutorialRewards.Count; j++)
+			{
+				m_tutorialRewards[j].Level--;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				if (m_tutorialRewards.Count == 0)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							break;
+						default:
+							UIManager.SetGameObjectActive(m_tutorialRewardTooltipObj, false);
+							UIManager.SetGameObjectActive(m_tutorialNextRewardLabel, false);
+							UIManager.SetGameObjectActive(m_tutorialRewardIconImage, false);
+							return;
 						}
 					}
 				}
-				for (;;)
+				UIManager.SetGameObjectActive(m_tutorialRewardTooltipObj, true);
+				UIManager.SetGameObjectActive(m_tutorialNextRewardLabel, true);
+				UIManager.SetGameObjectActive(m_tutorialRewardIconImage, true);
+				RewardUtils.RewardData rewardData = null;
+				if (availableSeasonEndRewards.Count > 0)
 				{
-					switch (1)
+					while (true)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ActorData playersOriginalActorData = UIGameOverScreen.GetPlayersOriginalActorData();
-				if (playersOriginalActorData != null)
-				{
-					for (;;)
-					{
-						switch (5)
+						switch (3)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					CharacterResourceLink characterResourceLink = playersOriginalActorData.\u000E();
-					GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
-					List<int> list5 = new List<int>();
-					int k = this.GetNormalBarXPTotal() + this.m_results.ConsumableXpGained + this.m_results.GGXpGained;
-					int num3 = this.m_results.CharacterLevelAtStart;
-					int num4 = UIGameOverScreen.XPDisplayInfo.GetXPForType(UIGameOverScreen.XPDisplayInfo.BarXPType.Character, num3) - this.m_results.CharacterXpAtStart;
-					while (k >= num4)
+					rewardData = availableSeasonEndRewards[0];
+				}
+				if (rewardData == null)
+				{
+					while (true)
 					{
-						k -= num4;
-						num3++;
-						list5.Add(num3);
-						num4 = UIGameOverScreen.XPDisplayInfo.GetXPForType(UIGameOverScreen.XPDisplayInfo.BarXPType.Character, num3);
-					}
-					for (;;)
-					{
-						switch (7)
+						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							UIManager.SetGameObjectActive(m_tutorialRewardTooltipObj, false);
+							UIManager.SetGameObjectActive(m_tutorialNextRewardLabel, false);
+							UIManager.SetGameObjectActive(m_tutorialRewardIconImage, false);
+							return;
 						}
-						break;
 					}
-					for (int l = 0; l < list5.Count; l++)
+				}
+				UIManager.SetGameObjectActive(m_tutorialRewardTooltipObj, true);
+				UIManager.SetGameObjectActive(m_tutorialNextRewardLabel, true);
+				UIManager.SetGameObjectActive(m_tutorialRewardIconImage, true);
+				m_tutorialRewardIconImage.sprite = Resources.Load<Sprite>(rewardData.SpritePath);
+				UIManager.SetGameObjectActive(m_tutorialRewardFgImage, rewardData.Foreground != null);
+				m_tutorialRewardFgImage.sprite = rewardData.Foreground;
+				m_tutorialNextRewardLabel.text = rewardData.Name;
+				m_tutorialRewardTooltipObj.Setup(TooltipType.RewardList, delegate(UITooltipBase tooltip)
+				{
+					if (m_tutorialRewards != null)
 					{
-						list3.AddRange(RewardUtils.GetNextCharacterRewards(characterResourceLink, list5[l] - 1));
-						for (int m = 0; m < gameBalanceVars.RepeatingCharacterLevelRewards.Length; m++)
+						while (true)
 						{
-							if (gameBalanceVars.RepeatingCharacterLevelRewards[m].charType == (int)characterResourceLink.m_characterType)
+							switch (2)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (gameBalanceVars.RepeatingCharacterLevelRewards[m].repeatingLevel > 0)
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (list5[l] - 1 > gameBalanceVars.RepeatingCharacterLevelRewards[m].startLevel)
-									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if ((list5[l] - gameBalanceVars.RepeatingCharacterLevelRewards[m].startLevel) % gameBalanceVars.RepeatingCharacterLevelRewards[m].repeatingLevel == 0)
-										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											RewardUtils.RewardData rewardData2 = new RewardUtils.RewardData();
-											rewardData2.Amount = gameBalanceVars.RepeatingCharacterLevelRewards[m].reward.Amount;
-											InventoryItemTemplate itemTemplate2 = InventoryWideData.Get().GetItemTemplate(gameBalanceVars.RepeatingCharacterLevelRewards[m].reward.ItemTemplateId);
-											rewardData2.Name = itemTemplate2.GetDisplayName();
-											rewardData2.SpritePath = itemTemplate2.IconPath;
-											rewardData2.Level = gameBalanceVars.RepeatingCharacterLevelRewards[m].startLevel;
-											rewardData2.InventoryTemplate = itemTemplate2;
-											rewardData2.Type = RewardUtils.GetRewardTypeFromInventoryItem(itemTemplate2);
-											rewardData2.isRepeating = true;
-											rewardData2.repeatLevels = gameBalanceVars.RepeatingCharacterLevelRewards[m].repeatingLevel;
-											list3.Add(rewardData2);
-										}
-									}
-								}
+							case 0:
+								continue;
 							}
+							break;
 						}
-						for (;;)
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						if (m_tutorialRewards.Count != 0)
+						{
+							UIRewardListTooltip uIRewardListTooltip = tooltip as UIRewardListTooltip;
+							uIRewardListTooltip.Setup(m_tutorialRewards, m_results.SeasonLevelAtStart, UIRewardListTooltip.RewardsType.Tutorial, true);
+							return true;
+						}
+						while (true)
 						{
 							switch (3)
 							{
@@ -2148,45 +3010,440 @@ public class UIGameOverScreen : UIScene
 							break;
 						}
 					}
-					for (;;)
+					return false;
+				});
+				return;
+			}
+		}
+	}
+
+	private void SetupCharacterRewardTooltip(CharacterResourceLink charLink, int currentCharLevel)
+	{
+		GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
+		if (gameBalanceVars == null)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						/*OpCode not supported: LdMemberToken*/;
 					}
+					return;
 				}
-				for (int n = 0; n < list2.Count; n++)
+			}
+		}
+		m_characterXPInfo.PopulateRewardIcon(currentCharLevel, true, charLink);
+	}
+
+	private void SetupCurrencyAndInfluenceDisplays()
+	{
+		bool doActive = GetDisplayTotalCurrency(m_isoDisplay, CurrencyType.ISO) > 0;
+		bool doActive2 = GetDisplayTotalCurrency(m_freelancerCurrencyDisplay, CurrencyType.FreelancerCurrency) > 0;
+		bool doActive3 = GetDisplayTotalCurrency(m_rankedCurrencyDisplay, CurrencyType.RankedCurrency) > 0;
+		if (!TalliedCurrencies && m_results.CurrencyRewards != null)
+		{
+			for (int i = 0; i < m_results.CurrencyRewards.Count; i++)
+			{
+				int num = m_results.CurrencyRewards[i].BaseGained + m_results.CurrencyRewards[i].WinGained + m_results.CurrencyRewards[i].GGGained + m_results.CurrencyRewards[i].QuestGained + m_results.CurrencyRewards[i].LevelUpGained + m_results.CurrencyRewards[i].EventGained;
+				if (num <= 0)
 				{
-					EndGameRewardItem endGameRewardItem = UnityEngine.Object.Instantiate<EndGameRewardItem>(this.m_endGameReward);
-					UIManager.ReparentTransform(endGameRewardItem.transform, this.m_RewardsGrid.transform);
-					UIManager.SetGameObjectActive(endGameRewardItem, true, null);
-					endGameRewardItem.Setup(list2[n], CharacterType.None);
-					_MouseEventPasser mouseEventPasser = endGameRewardItem.m_tooltipHoverObj.gameObject.AddComponent<_MouseEventPasser>();
-					mouseEventPasser.AddNewHandler(this.m_RewardsScrollRect);
+					continue;
 				}
-				for (int num5 = 0; num5 < list3.Count; num5++)
+				while (true)
 				{
-					EndGameRewardItem endGameRewardItem2 = UnityEngine.Object.Instantiate<EndGameRewardItem>(this.m_endGameReward);
-					UIManager.ReparentTransform(endGameRewardItem2.transform, this.m_RewardsGrid.transform);
-					UIManager.SetGameObjectActive(endGameRewardItem2, true, null);
-					endGameRewardItem2.Setup(list3[num5], playersOriginalActorData.m_characterType);
-					_MouseEventPasser mouseEventPasser2 = endGameRewardItem2.m_tooltipHoverObj.gameObject.AddComponent<_MouseEventPasser>();
-					mouseEventPasser2.AddNewHandler(this.m_RewardsScrollRect);
-				}
-				for (;;)
-				{
-					switch (7)
+					switch (5)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				this.NumRewardsEarned = list2.Count + list3.Count;
-				this.m_rewardNumberText.text = this.NumRewardsEarned.ToString();
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				CurrencyType type = m_results.CurrencyRewards[i].Type;
+				if (type != 0)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (type != CurrencyType.FreelancerCurrency)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (type != CurrencyType.RankedCurrency)
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+						else
+						{
+							doActive3 = true;
+							m_rankedCurrencyDisplay.m_currencyReward.Add(m_results.CurrencyRewards[i]);
+							m_rankedCurrencyDisplay.m_currencyGainText.text = "+0";
+						}
+					}
+					else
+					{
+						doActive2 = true;
+						m_freelancerCurrencyDisplay.m_currencyReward.Add(m_results.CurrencyRewards[i]);
+						m_freelancerCurrencyDisplay.m_currencyGainText.text = "+0";
+					}
+				}
+				else
+				{
+					doActive = true;
+					m_isoDisplay.m_currencyReward.Add(m_results.CurrencyRewards[i]);
+					m_isoDisplay.m_currencyGainText.text = "+0";
+				}
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			TalliedCurrencies = true;
+		}
+		UIManager.SetGameObjectActive(m_isoDisplay.m_container, doActive);
+		UIManager.SetGameObjectActive(m_freelancerCurrencyDisplay.m_container, doActive2);
+		UIManager.SetGameObjectActive(m_rankedCurrencyDisplay.m_container, doActive3);
+		m_influenceDisplay.m_currencyGainText.text = "+0";
+		FactionCompetition factionCompetition = FactionWideData.Get().GetFactionCompetition(m_results.FactionCompetitionId);
+		if (factionCompetition != null && factionCompetition.ShouldShowcase)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (m_results.FactionId < factionCompetition.Factions.Count)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						break;
+					default:
+					{
+						FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(factionCompetition.Factions[m_results.FactionId].FactionGroupIDToUse);
+						m_influenceDisplay.m_displayIcon.sprite = Resources.Load<Sprite>(factionGroup.IconPath);
+						UIManager.SetGameObjectActive(m_influenceDisplay.m_container, factionCompetition.Enabled);
+						return;
+					}
+					}
+				}
+			}
+		}
+		UIManager.SetGameObjectActive(m_influenceDisplay.m_container, false);
+	}
+
+	private void SetupRewardsScreen()
+	{
+		if (!NotificationArrived)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (IsRewardsScreenSetup)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				IsRewardsScreenSetup = true;
+				List<int> list = new List<int>();
+				int num = GetNormalBarXPTotal() + m_results.GGXpGained + m_results.QuestXpGained;
+				int num2 = m_results.SeasonLevelAtStart;
+				int num3 = XPDisplayInfo.GetXPForType(XPDisplayInfo.BarXPType.Season, num2) - m_results.SeasonXpAtStart;
+				while (num >= num3)
+				{
+					num -= num3;
+					num2++;
+					list.Add(num2);
+					num3 = XPDisplayInfo.GetXPForType(XPDisplayInfo.BarXPType.Season, num2);
+				}
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					List<RewardUtils.RewardData> list2 = new List<RewardUtils.RewardData>();
+					List<RewardUtils.RewardData> list3 = new List<RewardUtils.RewardData>();
+					for (int i = 0; i < list.Count; i++)
+					{
+						List<RewardUtils.RewardData> nextSeasonLevelRewards = RewardUtils.GetNextSeasonLevelRewards(list[i] - 1);
+						foreach (RewardUtils.RewardData item in nextSeasonLevelRewards)
+						{
+							if (item.InventoryTemplate.Type == InventoryItemType.Currency)
+							{
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								list2.Add(item);
+							}
+						}
+						if (ClientGameManager.Get().GetPlayerAccountData().QuestComponent.SeasonItemRewardsGranted.ContainsKey(list[i]))
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							List<int> list4 = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.SeasonItemRewardsGranted[list[i]];
+							using (List<int>.Enumerator enumerator2 = list4.GetEnumerator())
+							{
+								while (enumerator2.MoveNext())
+								{
+									int current2 = enumerator2.Current;
+									InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(current2);
+									RewardUtils.RewardData rewardData = new RewardUtils.RewardData();
+									rewardData.Amount = 1;
+									rewardData.InventoryTemplate = itemTemplate;
+									rewardData.Level = list[i];
+									rewardData.Name = itemTemplate.DisplayName;
+									rewardData.SpritePath = InventoryWideData.GetSpritePath(itemTemplate);
+									rewardData.Foreground = InventoryWideData.GetItemFg(itemTemplate);
+									rewardData.Type = RewardUtils.GetRewardTypeFromInventoryItem(itemTemplate);
+									list2.Add(rewardData);
+								}
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+						}
+					}
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						ActorData playersOriginalActorData = GetPlayersOriginalActorData();
+						if (playersOriginalActorData != null)
+						{
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							CharacterResourceLink characterResourceLink = playersOriginalActorData.GetCharacterResourceLink();
+							GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
+							List<int> list5 = new List<int>();
+							int num4 = GetNormalBarXPTotal() + m_results.ConsumableXpGained + m_results.GGXpGained;
+							int num5 = m_results.CharacterLevelAtStart;
+							int num6 = XPDisplayInfo.GetXPForType(XPDisplayInfo.BarXPType.Character, num5) - m_results.CharacterXpAtStart;
+							while (num4 >= num6)
+							{
+								num4 -= num6;
+								num5++;
+								list5.Add(num5);
+								num6 = XPDisplayInfo.GetXPForType(XPDisplayInfo.BarXPType.Character, num5);
+							}
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							for (int j = 0; j < list5.Count; j++)
+							{
+								list3.AddRange(RewardUtils.GetNextCharacterRewards(characterResourceLink, list5[j] - 1));
+								for (int k = 0; k < gameBalanceVars.RepeatingCharacterLevelRewards.Length; k++)
+								{
+									if (gameBalanceVars.RepeatingCharacterLevelRewards[k].charType != (int)characterResourceLink.m_characterType)
+									{
+										continue;
+									}
+									while (true)
+									{
+										switch (4)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									if (gameBalanceVars.RepeatingCharacterLevelRewards[k].repeatingLevel <= 0)
+									{
+										continue;
+									}
+									while (true)
+									{
+										switch (4)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									if (list5[j] - 1 <= gameBalanceVars.RepeatingCharacterLevelRewards[k].startLevel)
+									{
+										continue;
+									}
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									if ((list5[j] - gameBalanceVars.RepeatingCharacterLevelRewards[k].startLevel) % gameBalanceVars.RepeatingCharacterLevelRewards[k].repeatingLevel == 0)
+									{
+										while (true)
+										{
+											switch (6)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										RewardUtils.RewardData rewardData2 = new RewardUtils.RewardData();
+										rewardData2.Amount = gameBalanceVars.RepeatingCharacterLevelRewards[k].reward.Amount;
+										InventoryItemTemplate itemTemplate2 = InventoryWideData.Get().GetItemTemplate(gameBalanceVars.RepeatingCharacterLevelRewards[k].reward.ItemTemplateId);
+										rewardData2.Name = itemTemplate2.GetDisplayName();
+										rewardData2.SpritePath = itemTemplate2.IconPath;
+										rewardData2.Level = gameBalanceVars.RepeatingCharacterLevelRewards[k].startLevel;
+										rewardData2.InventoryTemplate = itemTemplate2;
+										rewardData2.Type = RewardUtils.GetRewardTypeFromInventoryItem(itemTemplate2);
+										rewardData2.isRepeating = true;
+										rewardData2.repeatLevels = gameBalanceVars.RepeatingCharacterLevelRewards[k].repeatingLevel;
+										list3.Add(rewardData2);
+									}
+								}
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										break;
+									default:
+										goto end_IL_04c2;
+									}
+									continue;
+									end_IL_04c2:
+									break;
+								}
+							}
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+						for (int l = 0; l < list2.Count; l++)
+						{
+							EndGameRewardItem endGameRewardItem = UnityEngine.Object.Instantiate(m_endGameReward);
+							UIManager.ReparentTransform(endGameRewardItem.transform, m_RewardsGrid.transform);
+							UIManager.SetGameObjectActive(endGameRewardItem, true);
+							endGameRewardItem.Setup(list2[l], CharacterType.None);
+							_MouseEventPasser mouseEventPasser = endGameRewardItem.m_tooltipHoverObj.gameObject.AddComponent<_MouseEventPasser>();
+							mouseEventPasser.AddNewHandler(m_RewardsScrollRect);
+						}
+						for (int m = 0; m < list3.Count; m++)
+						{
+							EndGameRewardItem endGameRewardItem2 = UnityEngine.Object.Instantiate(m_endGameReward);
+							UIManager.ReparentTransform(endGameRewardItem2.transform, m_RewardsGrid.transform);
+							UIManager.SetGameObjectActive(endGameRewardItem2, true);
+							endGameRewardItem2.Setup(list3[m], playersOriginalActorData.m_characterType);
+							_MouseEventPasser mouseEventPasser2 = endGameRewardItem2.m_tooltipHoverObj.gameObject.AddComponent<_MouseEventPasser>();
+							mouseEventPasser2.AddNewHandler(m_RewardsScrollRect);
+						}
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							NumRewardsEarned = list2.Count + list3.Count;
+							m_rewardNumberText.text = NumRewardsEarned.ToString();
+							return;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -2196,198 +3453,198 @@ public class UIGameOverScreen : UIScene
 		Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 		int playerId = GameManager.Get().PlayerInfo.PlayerId;
 		MatchResultsStats stats = GameplayUtils.GenerateStatsFromGame(teamViewing, playerId);
-		UIGameOverScreen.SetupTeamMemberList(stats);
-		this.SetupExpBars();
-		this.SetupCurrencyAndInfluenceDisplays();
-		this.SetupRankMode();
-		this.SetupRewardsScreen();
+		SetupTeamMemberList(stats);
+		SetupExpBars();
+		SetupCurrencyAndInfluenceDisplays();
+		SetupRankMode();
+		SetupRewardsScreen();
 	}
 
 	private void SetupBadges()
 	{
-		if (!this.BadgesAreSet)
+		if (BadgesAreSet)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!NotificationArrived)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupBadges()).MethodHandle;
-			}
-			if (this.NotificationArrived)
-			{
-				for (;;)
+				if (!(GameManager.Get() != null))
 				{
-					switch (7)
+					return;
+				}
+				while (true)
+				{
+					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (GameManager.Get() != null)
-				{
-					for (;;)
+					if (GameManager.Get().PlayerInfo != null && !m_results.BadgeAndParticipantsInfo.IsNullOrEmpty())
 					{
-						switch (2)
+						foreach (BadgeAndParticipantInfo item in m_results.BadgeAndParticipantsInfo)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (GameManager.Get().PlayerInfo != null && !this.m_results.BadgeAndParticipantsInfo.IsNullOrEmpty<BadgeAndParticipantInfo>())
-					{
-						foreach (BadgeAndParticipantInfo badgeAndParticipantInfo in this.m_results.BadgeAndParticipantsInfo)
-						{
-							if (badgeAndParticipantInfo.PlayerId == GameManager.Get().PlayerInfo.PlayerId)
+							if (item.PlayerId == GameManager.Get().PlayerInfo.PlayerId)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
 									case 0:
-										continue;
-									}
-									break;
-								}
-								if (badgeAndParticipantInfo.BadgesEarned != null)
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
 										break;
-									}
-									List<BadgeInfo> badgesEarned = badgeAndParticipantInfo.BadgesEarned;
-									if (UIGameOverScreen.<>f__am$cache1 == null)
-									{
-										for (;;)
+									default:
+										if (item.BadgesEarned != null)
 										{
-											switch (4)
+											while (true)
 											{
-											case 0:
-												continue;
+												switch (6)
+												{
+												case 0:
+													break;
+												default:
+												{
+													List<BadgeInfo> badgesEarned = item.BadgesEarned;
+													if (_003C_003Ef__am_0024cache1 == null)
+													{
+														while (true)
+														{
+															switch (4)
+															{
+															case 0:
+																continue;
+															}
+															break;
+														}
+														_003C_003Ef__am_0024cache1 = delegate(BadgeInfo x, BadgeInfo y)
+														{
+															if (x == null && y == null)
+															{
+																while (true)
+																{
+																	switch (6)
+																	{
+																	case 0:
+																		break;
+																	default:
+																		if (1 == 0)
+																		{
+																			/*OpCode not supported: LdMemberToken*/;
+																		}
+																		return 0;
+																	}
+																}
+															}
+															if (x == null)
+															{
+																return 1;
+															}
+															if (y == null)
+															{
+																return -1;
+															}
+															GameBalanceVars.GameResultBadge badgeInfo = GameResultBadgeData.Get().GetBadgeInfo(x.BadgeId);
+															GameBalanceVars.GameResultBadge badgeInfo2 = GameResultBadgeData.Get().GetBadgeInfo(y.BadgeId);
+															if (badgeInfo == null && badgeInfo2 == null)
+															{
+																return 0;
+															}
+															if (badgeInfo == null)
+															{
+																while (true)
+																{
+																	switch (6)
+																	{
+																	case 0:
+																		break;
+																	default:
+																		return 1;
+																	}
+																}
+															}
+															if (badgeInfo2 == null)
+															{
+																while (true)
+																{
+																	switch (4)
+																	{
+																	case 0:
+																		break;
+																	default:
+																		return -1;
+																	}
+																}
+															}
+															if (badgeInfo.Quality == badgeInfo2.Quality)
+															{
+																return 0;
+															}
+															if (badgeInfo.Quality > badgeInfo2.Quality)
+															{
+																while (true)
+																{
+																	switch (3)
+																	{
+																	case 0:
+																		break;
+																	default:
+																		return -1;
+																	}
+																}
+															}
+															return (badgeInfo.Quality < badgeInfo2.Quality) ? 1 : 0;
+														};
+													}
+													badgesEarned.Sort(_003C_003Ef__am_0024cache1);
+													for (int i = 0; i < item.BadgesEarned.Count; i++)
+													{
+														UIGameOverBadgeWidget uIGameOverBadgeWidget = UnityEngine.Object.Instantiate(m_BadgePrefab);
+														uIGameOverBadgeWidget.Setup(item.BadgesEarned[i], GameManager.Get().PlayerInfo.CharacterType, item.GlobalPercentiles);
+														UIManager.ReparentTransform(uIGameOverBadgeWidget.transform, m_PersonalHighlightBadgesContainer.transform);
+														UIGameOverBadgeWidget uIGameOverBadgeWidget2 = UnityEngine.Object.Instantiate(m_BadgePrefab);
+														uIGameOverBadgeWidget2.Setup(item.BadgesEarned[i], GameManager.Get().PlayerInfo.CharacterType, item.GlobalPercentiles);
+														UIManager.ReparentTransform(uIGameOverBadgeWidget2.transform, m_StatPadgeBadgesContainer.transform);
+													}
+													while (true)
+													{
+														switch (3)
+														{
+														case 0:
+															break;
+														default:
+															BadgesAreSet = true;
+															return;
+														}
+													}
+												}
+												}
 											}
-											break;
 										}
-										UIGameOverScreen.<>f__am$cache1 = delegate(BadgeInfo x, BadgeInfo y)
-										{
-											if (x == null && y == null)
-											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												if (!true)
-												{
-													RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameOverScreen.<SetupBadges>m__8(BadgeInfo, BadgeInfo)).MethodHandle;
-												}
-												return 0;
-											}
-											if (x == null)
-											{
-												return 1;
-											}
-											if (y == null)
-											{
-												return -1;
-											}
-											GameBalanceVars.GameResultBadge badgeInfo = GameResultBadgeData.Get().GetBadgeInfo(x.BadgeId);
-											GameBalanceVars.GameResultBadge badgeInfo2 = GameResultBadgeData.Get().GetBadgeInfo(y.BadgeId);
-											if (badgeInfo == null && badgeInfo2 == null)
-											{
-												return 0;
-											}
-											if (badgeInfo == null)
-											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												return 1;
-											}
-											if (badgeInfo2 == null)
-											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												return -1;
-											}
-											if (badgeInfo.Quality == badgeInfo2.Quality)
-											{
-												return 0;
-											}
-											if (badgeInfo.Quality > badgeInfo2.Quality)
-											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												return -1;
-											}
-											if (badgeInfo.Quality < badgeInfo2.Quality)
-											{
-												return 1;
-											}
-											return 0;
-										};
+										return;
 									}
-									badgesEarned.Sort(UIGameOverScreen.<>f__am$cache1);
-									for (int i = 0; i < badgeAndParticipantInfo.BadgesEarned.Count; i++)
-									{
-										UIGameOverBadgeWidget uigameOverBadgeWidget = UnityEngine.Object.Instantiate<UIGameOverBadgeWidget>(this.m_BadgePrefab);
-										uigameOverBadgeWidget.Setup(badgeAndParticipantInfo.BadgesEarned[i], GameManager.Get().PlayerInfo.CharacterType, badgeAndParticipantInfo.GlobalPercentiles);
-										UIManager.ReparentTransform(uigameOverBadgeWidget.transform, this.m_PersonalHighlightBadgesContainer.transform);
-										UIGameOverBadgeWidget uigameOverBadgeWidget2 = UnityEngine.Object.Instantiate<UIGameOverBadgeWidget>(this.m_BadgePrefab);
-										uigameOverBadgeWidget2.Setup(badgeAndParticipantInfo.BadgesEarned[i], GameManager.Get().PlayerInfo.CharacterType, badgeAndParticipantInfo.GlobalPercentiles);
-										UIManager.ReparentTransform(uigameOverBadgeWidget2.transform, this.m_StatPadgeBadgesContainer.transform);
-									}
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.BadgesAreSet = true;
 								}
-								break;
 							}
 						}
 					}
+					return;
 				}
 			}
 		}
@@ -2395,25 +3652,25 @@ public class UIGameOverScreen : UIScene
 
 	private void SetupTopParticipants()
 	{
-		if (this.NotificationArrived)
+		if (!NotificationArrived)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupTopParticipants()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			int num = 0;
-			if (!this.m_results.BadgeAndParticipantsInfo.IsNullOrEmpty<BadgeAndParticipantInfo>())
+			if (!m_results.BadgeAndParticipantsInfo.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -2428,8 +3685,7 @@ public class UIGameOverScreen : UIScene
 				{
 					while (enumerator.MoveNext())
 					{
-						object obj = enumerator.Current;
-						TopParticipantSlot item = (TopParticipantSlot)obj;
+						TopParticipantSlot item = (TopParticipantSlot)enumerator.Current;
 						list.Add(item);
 					}
 				}
@@ -2438,22 +3694,23 @@ public class UIGameOverScreen : UIScene
 					IDisposable disposable;
 					if ((disposable = (enumerator as IDisposable)) != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								disposable.Dispose();
+								goto end_IL_0083;
 							}
-							break;
 						}
-						disposable.Dispose();
 					}
+					end_IL_0083:;
 				}
-				List<TopParticipantSlot> list2 = list;
-				if (UIGameOverScreen.<>f__am$cache2 == null)
+				if (_003C_003Ef__am_0024cache2 == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -2462,54 +3719,66 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					UIGameOverScreen.<>f__am$cache2 = delegate(TopParticipantSlot x, TopParticipantSlot y)
+					_003C_003Ef__am_0024cache2 = delegate(TopParticipantSlot x, TopParticipantSlot y)
 					{
 						int num2 = BadgeAndParticipantInfo.ParticipantOrderDisplayPriority(x);
 						int num3 = BadgeAndParticipantInfo.ParticipantOrderDisplayPriority(y);
-						if (num2 == num3)
+						if (num2 != num3)
 						{
-							return 0;
-						}
-						int result;
-						if (num2 > num3)
-						{
-							for (;;)
+							int result;
+							if (num2 > num3)
 							{
-								switch (6)
+								while (true)
 								{
-								case 0:
-									continue;
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
 								}
-								break;
+								if (1 == 0)
+								{
+									/*OpCode not supported: LdMemberToken*/;
+								}
+								result = -1;
 							}
-							if (!true)
+							else
 							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameOverScreen.<SetupTopParticipants>m__9(TopParticipantSlot, TopParticipantSlot)).MethodHandle;
+								result = 1;
 							}
-							result = -1;
+							return result;
 						}
-						else
-						{
-							result = 1;
-						}
-						return result;
+						return 0;
 					};
 				}
-				list2.Sort(UIGameOverScreen.<>f__am$cache2);
+				list.Sort(_003C_003Ef__am_0024cache2);
 				using (List<TopParticipantSlot>.Enumerator enumerator2 = list.GetEnumerator())
 				{
-					IL_183:
 					while (enumerator2.MoveNext())
 					{
-						TopParticipantSlot topParticipantSlot = enumerator2.Current;
-						using (List<BadgeAndParticipantInfo>.Enumerator enumerator3 = this.m_results.BadgeAndParticipantsInfo.GetEnumerator())
+						TopParticipantSlot current = enumerator2.Current;
+						using (List<BadgeAndParticipantInfo>.Enumerator enumerator3 = m_results.BadgeAndParticipantsInfo.GetEnumerator())
 						{
-							while (enumerator3.MoveNext())
+							while (true)
 							{
-								BadgeAndParticipantInfo badgeAndParticipantInfo = enumerator3.Current;
-								if (!badgeAndParticipantInfo.TopParticipationEarned.IsNullOrEmpty<TopParticipantSlot>())
+								if (!enumerator3.MoveNext())
 								{
-									for (;;)
+									while (true)
+									{
+										switch (7)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									break;
+								}
+								BadgeAndParticipantInfo current2 = enumerator3.Current;
+								if (!current2.TopParticipationEarned.IsNullOrEmpty())
+								{
+									while (true)
 									{
 										switch (6)
 										{
@@ -2518,38 +3787,30 @@ public class UIGameOverScreen : UIScene
 										}
 										break;
 									}
-									if (badgeAndParticipantInfo.TopParticipationEarned.Contains(topParticipantSlot))
+									if (current2.TopParticipationEarned.Contains(current))
 									{
-										for (;;)
+										while (true)
 										{
 											switch (1)
 											{
 											case 0:
-												continue;
+												break;
+											default:
+												if (num < m_TopParticipantWidgets.Length)
+												{
+													m_TopParticipantWidgets[num].Setup(current, current2);
+													num++;
+												}
+												goto end_IL_00fb;
 											}
-											break;
 										}
-										if (num < this.m_TopParticipantWidgets.Length)
-										{
-											this.m_TopParticipantWidgets[num].Setup(topParticipantSlot, badgeAndParticipantInfo);
-											num++;
-										}
-										goto IL_183;
 									}
 								}
 							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
+							end_IL_00fb:;
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -2560,508 +3821,521 @@ public class UIGameOverScreen : UIScene
 					}
 				}
 			}
-			for (int i = num; i < this.m_TopParticipantWidgets.Length; i++)
+			for (int i = num; i < m_TopParticipantWidgets.Length; i++)
 			{
-				UIManager.SetGameObjectActive(this.m_TopParticipantWidgets[i], false, null);
+				UIManager.SetGameObjectActive(m_TopParticipantWidgets[i], false);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	private void SetupStatsScreen()
 	{
-		UIGameOverStatWidget[] componentsInChildren = this.m_freelancerStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
+		UIGameOverStatWidget[] componentsInChildren = m_freelancerStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
 			UnityEngine.Object.Destroy(componentsInChildren[i].gameObject);
 		}
-		componentsInChildren = this.m_generalStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
+		componentsInChildren = m_generalStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
 		for (int j = 0; j < componentsInChildren.Length; j++)
 		{
 			UnityEngine.Object.Destroy(componentsInChildren[j].gameObject);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupStatsScreen()).MethodHandle;
-		}
-		componentsInChildren = this.m_firepowerStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
-		for (int k = 0; k < componentsInChildren.Length; k++)
-		{
-			UnityEngine.Object.Destroy(componentsInChildren[k].gameObject);
-		}
-		for (;;)
-		{
-			switch (4)
+			if (1 == 0)
 			{
-			case 0:
-				continue;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			break;
-		}
-		componentsInChildren = this.m_supportStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
-		for (int l = 0; l < componentsInChildren.Length; l++)
-		{
-			UnityEngine.Object.Destroy(componentsInChildren[l].gameObject);
-		}
-		for (;;)
-		{
-			switch (1)
+			componentsInChildren = m_firepowerStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
+			for (int k = 0; k < componentsInChildren.Length; k++)
 			{
-			case 0:
-				continue;
+				UnityEngine.Object.Destroy(componentsInChildren[k].gameObject);
 			}
-			break;
-		}
-		componentsInChildren = this.m_frontlineStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
-		for (int m = 0; m < componentsInChildren.Length; m++)
-		{
-			UnityEngine.Object.Destroy(componentsInChildren[m].gameObject);
-		}
-		for (;;)
-		{
-			switch (3)
+			while (true)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (this.m_statsAtBeginningOfMatch == null)
-		{
-			for (;;)
-			{
-				switch (5)
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (ReplayPlayManager.Get() != null)
-			{
-				PersistedCharacterMatchData playbackMatchData = ReplayPlayManager.Get().GetPlaybackMatchData();
-				if (playbackMatchData != null)
+				componentsInChildren = m_supportStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
+				for (int l = 0; l < componentsInChildren.Length; l++)
 				{
-					CharacterType firstPlayerCharacter = playbackMatchData.MatchComponent.GetFirstPlayerCharacter();
-					CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(firstPlayerCharacter);
-					this.m_CharacterImage.sprite = characterResourceLink.GetCharacterSelectIcon();
-					for (int n = 0; n < 4; n++)
-					{
-						UIGameOverStatWidget uigameOverStatWidget = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_freelancerStatPrefab);
-						AbilityData component = characterResourceLink.ActorDataPrefab.GetComponent<AbilityData>();
-						uigameOverStatWidget.SetupReplayFreelancerStat(firstPlayerCharacter, playbackMatchData.MatchFreelancerStats, n, component);
-						UIManager.ReparentTransform(uigameOverStatWidget.transform, this.m_freelancerStatGrid.transform);
-						this.m_GameOverStatWidgets.Add(uigameOverStatWidget);
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					foreach (StatDisplaySettings.StatType typeOfStat in StatDisplaySettings.GeneralStats)
-					{
-						UIGameOverStatWidget uigameOverStatWidget2 = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_generalStatPrefab);
-						uigameOverStatWidget2.SetupReplayStat(playbackMatchData.MatchFreelancerStats, typeOfStat, firstPlayerCharacter);
-						UIManager.ReparentTransform(uigameOverStatWidget2.transform, this.m_generalStatGrid.transform);
-						this.m_GameOverStatWidgets.Add(uigameOverStatWidget2);
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					foreach (StatDisplaySettings.StatType typeOfStat2 in StatDisplaySettings.FirepowerStats)
-					{
-						UIGameOverStatWidget uigameOverStatWidget3 = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_generalStatPrefab);
-						uigameOverStatWidget3.SetupReplayStat(playbackMatchData.MatchFreelancerStats, typeOfStat2, firstPlayerCharacter);
-						UIManager.ReparentTransform(uigameOverStatWidget3.transform, this.m_firepowerStatGrid.transform);
-						this.m_GameOverStatWidgets.Add(uigameOverStatWidget3);
-					}
-					foreach (StatDisplaySettings.StatType typeOfStat3 in StatDisplaySettings.SupportStats)
-					{
-						UIGameOverStatWidget uigameOverStatWidget4 = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_generalStatPrefab);
-						uigameOverStatWidget4.SetupReplayStat(playbackMatchData.MatchFreelancerStats, typeOfStat3, firstPlayerCharacter);
-						UIManager.ReparentTransform(uigameOverStatWidget4.transform, this.m_supportStatGrid.transform);
-						this.m_GameOverStatWidgets.Add(uigameOverStatWidget4);
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					foreach (StatDisplaySettings.StatType typeOfStat4 in StatDisplaySettings.FrontlinerStats)
-					{
-						UIGameOverStatWidget uigameOverStatWidget5 = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_generalStatPrefab);
-						uigameOverStatWidget5.SetupReplayStat(playbackMatchData.MatchFreelancerStats, typeOfStat4, firstPlayerCharacter);
-						UIManager.ReparentTransform(uigameOverStatWidget5.transform, this.m_frontlineStatGrid.transform);
-						this.m_GameOverStatWidgets.Add(uigameOverStatWidget5);
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (playbackMatchData.MatchFreelancerStats == null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						return;
-					}
-					ClientGameManager.Get().CalculateFreelancerStats(playbackMatchData.MatchFreelancerStats.PersistedStatBucket, firstPlayerCharacter, playbackMatchData.MatchFreelancerStats, delegate(CalculateFreelancerStatsResponse response)
-					{
-						if (response.Success)
-						{
-							using (List<UIGameOverStatWidget>.Enumerator enumerator = this.m_GameOverStatWidgets.GetEnumerator())
-							{
-								while (enumerator.MoveNext())
-								{
-									UIGameOverStatWidget uigameOverStatWidget11 = enumerator.Current;
-									if (uigameOverStatWidget11.DisplayStatType == UIGameOverStatWidget.StatDisplayType.None)
-									{
-										uigameOverStatWidget11.UpdatePercentiles(null);
-									}
-									else if (uigameOverStatWidget11.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat && !response.GlobalPercentiles.IsNullOrEmpty<KeyValuePair<StatDisplaySettings.StatType, PercentileInfo>>())
-									{
-										uigameOverStatWidget11.UpdatePercentiles(response.GlobalPercentiles[uigameOverStatWidget11.GeneralStatType]);
-									}
-									else if (uigameOverStatWidget11.DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat && !response.FreelancerSpecificPercentiles.IsNullOrEmpty<KeyValuePair<int, PercentileInfo>>())
-									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (!true)
-										{
-											RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameOverScreen.<SetupStatsScreen>m__A(CalculateFreelancerStatsResponse)).MethodHandle;
-										}
-										uigameOverStatWidget11.UpdatePercentiles(response.FreelancerSpecificPercentiles[uigameOverStatWidget11.FreelancerStat]);
-									}
-								}
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-						}
-						else if (response.LocalizedFailure != null)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							TextConsole.Get().Write(response.LocalizedFailure.ToString(), ConsoleMessageType.SystemMessage);
-						}
-					});
-					return;
+					UnityEngine.Object.Destroy(componentsInChildren[l].gameObject);
 				}
-			}
-			return;
-		}
-		ActorData playersOriginalActorData = UIGameOverScreen.GetPlayersOriginalActorData();
-		if (playersOriginalActorData != null)
-		{
-			this.m_CharacterImage.sprite = playersOriginalActorData.\u000E().GetCharacterSelectIcon();
-			this.m_PersonalHighlightsCharacterImage.sprite = this.m_CharacterImage.sprite;
-		}
-		else
-		{
-			UIManager.SetGameObjectActive(this.m_PersonalHighlightsCharacterImage, false, null);
-			UIManager.SetGameObjectActive(this.m_CharacterImage, false, null);
-		}
-		this.m_GameOverStatWidgets.Clear();
-		ActorData playersOriginalActorData2 = UIGameOverScreen.GetPlayersOriginalActorData();
-		FreelancerStats freelancerStats = playersOriginalActorData2.\u000E();
-		ActorBehavior actorBehavior = playersOriginalActorData2.\u000E();
-		for (int num5 = 0; num5 < freelancerStats.GetNumStats(); num5++)
-		{
-			UIGameOverStatWidget uigameOverStatWidget6 = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_freelancerStatPrefab);
-			uigameOverStatWidget6.SetupForFreelancerStats(this.m_statsAtBeginningOfMatch, actorBehavior, freelancerStats, num5, playersOriginalActorData2.\u000E());
-			uigameOverStatWidget6.UpdatePercentiles(this.GetFreelancerStatPercentiles(num5));
-			UIManager.ReparentTransform(uigameOverStatWidget6.transform, this.m_freelancerStatGrid.transform);
-			this.m_GameOverStatWidgets.Add(uigameOverStatWidget6);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		foreach (StatDisplaySettings.StatType typeOfStat5 in StatDisplaySettings.GeneralStats)
-		{
-			UIGameOverStatWidget uigameOverStatWidget7 = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_generalStatPrefab);
-			uigameOverStatWidget7.SetupForAStat(this.m_statsAtBeginningOfMatch, actorBehavior, typeOfStat5);
-			uigameOverStatWidget7.UpdatePercentiles(this.GetStatPercentiles(uigameOverStatWidget7.GeneralStatType));
-			UIManager.ReparentTransform(uigameOverStatWidget7.transform, this.m_generalStatGrid.transform);
-			this.m_GameOverStatWidgets.Add(uigameOverStatWidget7);
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		foreach (StatDisplaySettings.StatType typeOfStat6 in StatDisplaySettings.FirepowerStats)
-		{
-			UIGameOverStatWidget uigameOverStatWidget8 = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_generalStatPrefab);
-			uigameOverStatWidget8.SetupForAStat(this.m_statsAtBeginningOfMatch, actorBehavior, typeOfStat6);
-			uigameOverStatWidget8.UpdatePercentiles(this.GetStatPercentiles(uigameOverStatWidget8.GeneralStatType));
-			UIManager.ReparentTransform(uigameOverStatWidget8.transform, this.m_firepowerStatGrid.transform);
-			this.m_GameOverStatWidgets.Add(uigameOverStatWidget8);
-		}
-		foreach (StatDisplaySettings.StatType typeOfStat7 in StatDisplaySettings.SupportStats)
-		{
-			UIGameOverStatWidget uigameOverStatWidget9 = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_generalStatPrefab);
-			uigameOverStatWidget9.SetupForAStat(this.m_statsAtBeginningOfMatch, actorBehavior, typeOfStat7);
-			uigameOverStatWidget9.UpdatePercentiles(this.GetStatPercentiles(uigameOverStatWidget9.GeneralStatType));
-			UIManager.ReparentTransform(uigameOverStatWidget9.transform, this.m_supportStatGrid.transform);
-			this.m_GameOverStatWidgets.Add(uigameOverStatWidget9);
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		foreach (StatDisplaySettings.StatType typeOfStat8 in StatDisplaySettings.FrontlinerStats)
-		{
-			UIGameOverStatWidget uigameOverStatWidget10 = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_generalStatPrefab);
-			uigameOverStatWidget10.SetupForAStat(this.m_statsAtBeginningOfMatch, actorBehavior, typeOfStat8);
-			uigameOverStatWidget10.UpdatePercentiles(this.GetStatPercentiles(uigameOverStatWidget10.GeneralStatType));
-			UIManager.ReparentTransform(uigameOverStatWidget10.transform, this.m_frontlineStatGrid.transform);
-			this.m_GameOverStatWidgets.Add(uigameOverStatWidget10);
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		List<UIGameOverStatWidget> list = new List<UIGameOverStatWidget>();
-		int num10 = 0;
-		while (list.Count < this.m_PersonalHighlightWidgets.Length)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (num10 >= 3)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_888;
-				}
-			}
-			else
-			{
-				for (int num11 = 0; num11 < this.m_GameOverStatWidgets.Count; num11++)
-				{
-					if (!list.Contains(this.m_GameOverStatWidgets[num11]))
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (num10 == 0)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_GameOverStatWidgets[num11].BeatRecord())
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								list.Add(this.m_GameOverStatWidgets[num11]);
-								goto IL_82F;
-							}
-						}
-						if (num10 == 1 && this.m_GameOverStatWidgets[num11].BeatAverage())
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							list.Add(this.m_GameOverStatWidgets[num11]);
-						}
-						else if (num10 >= 2)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							list.Add(this.m_GameOverStatWidgets[num11]);
-						}
-					}
-					IL_82F:;
-				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				num10++;
-			}
-		}
-		IL_888:
-		for (int num12 = 0; num12 < this.m_PersonalHighlightWidgets.Length; num12++)
-		{
-			if (num12 < list.Count)
-			{
-				for (;;)
-				{
-					switch (4)
+					componentsInChildren = m_frontlineStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
+					for (int m = 0; m < componentsInChildren.Length; m++)
 					{
-					case 0:
-						continue;
+						UnityEngine.Object.Destroy(componentsInChildren[m].gameObject);
 					}
-					break;
-				}
-				if (list[num12].DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat)
-				{
-					for (;;)
+					while (true)
 					{
-						switch (2)
+						switch (3)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					this.m_PersonalHighlightWidgets[num12].SetupForFreelancerStats(this.m_statsAtBeginningOfMatch, actorBehavior, freelancerStats, list[num12].FreelancerStat, playersOriginalActorData2.\u000E());
-				}
-				else if (list[num12].DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
-				{
-					for (;;)
-					{
-						switch (2)
+						if (m_statsAtBeginningOfMatch == null)
 						{
-						case 0:
-							continue;
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									break;
+								default:
+									if (ReplayPlayManager.Get() != null)
+									{
+										PersistedCharacterMatchData playbackMatchData = ReplayPlayManager.Get().GetPlaybackMatchData();
+										if (playbackMatchData != null)
+										{
+											CharacterType firstPlayerCharacter = playbackMatchData.MatchComponent.GetFirstPlayerCharacter();
+											CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(firstPlayerCharacter);
+											m_CharacterImage.sprite = characterResourceLink.GetCharacterSelectIcon();
+											for (int n = 0; n < 4; n++)
+											{
+												UIGameOverStatWidget uIGameOverStatWidget = UnityEngine.Object.Instantiate(m_freelancerStatPrefab);
+												AbilityData component = characterResourceLink.ActorDataPrefab.GetComponent<AbilityData>();
+												uIGameOverStatWidget.SetupReplayFreelancerStat(firstPlayerCharacter, playbackMatchData.MatchFreelancerStats, n, component);
+												UIManager.ReparentTransform(uIGameOverStatWidget.transform, m_freelancerStatGrid.transform);
+												m_GameOverStatWidgets.Add(uIGameOverStatWidget);
+											}
+											while (true)
+											{
+												switch (1)
+												{
+												case 0:
+													break;
+												default:
+												{
+													StatDisplaySettings.StatType[] generalStats = StatDisplaySettings.GeneralStats;
+													foreach (StatDisplaySettings.StatType typeOfStat in generalStats)
+													{
+														UIGameOverStatWidget uIGameOverStatWidget2 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+														uIGameOverStatWidget2.SetupReplayStat(playbackMatchData.MatchFreelancerStats, typeOfStat, firstPlayerCharacter);
+														UIManager.ReparentTransform(uIGameOverStatWidget2.transform, m_generalStatGrid.transform);
+														m_GameOverStatWidgets.Add(uIGameOverStatWidget2);
+													}
+													while (true)
+													{
+														switch (6)
+														{
+														case 0:
+															break;
+														default:
+														{
+															StatDisplaySettings.StatType[] firepowerStats = StatDisplaySettings.FirepowerStats;
+															foreach (StatDisplaySettings.StatType typeOfStat2 in firepowerStats)
+															{
+																UIGameOverStatWidget uIGameOverStatWidget3 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+																uIGameOverStatWidget3.SetupReplayStat(playbackMatchData.MatchFreelancerStats, typeOfStat2, firstPlayerCharacter);
+																UIManager.ReparentTransform(uIGameOverStatWidget3.transform, m_firepowerStatGrid.transform);
+																m_GameOverStatWidgets.Add(uIGameOverStatWidget3);
+															}
+															StatDisplaySettings.StatType[] supportStats = StatDisplaySettings.SupportStats;
+															foreach (StatDisplaySettings.StatType typeOfStat3 in supportStats)
+															{
+																UIGameOverStatWidget uIGameOverStatWidget4 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+																uIGameOverStatWidget4.SetupReplayStat(playbackMatchData.MatchFreelancerStats, typeOfStat3, firstPlayerCharacter);
+																UIManager.ReparentTransform(uIGameOverStatWidget4.transform, m_supportStatGrid.transform);
+																m_GameOverStatWidgets.Add(uIGameOverStatWidget4);
+															}
+															while (true)
+															{
+																switch (7)
+																{
+																case 0:
+																	break;
+																default:
+																{
+																	StatDisplaySettings.StatType[] frontlinerStats = StatDisplaySettings.FrontlinerStats;
+																	foreach (StatDisplaySettings.StatType typeOfStat4 in frontlinerStats)
+																	{
+																		UIGameOverStatWidget uIGameOverStatWidget5 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+																		uIGameOverStatWidget5.SetupReplayStat(playbackMatchData.MatchFreelancerStats, typeOfStat4, firstPlayerCharacter);
+																		UIManager.ReparentTransform(uIGameOverStatWidget5.transform, m_frontlineStatGrid.transform);
+																		m_GameOverStatWidgets.Add(uIGameOverStatWidget5);
+																	}
+																	while (true)
+																	{
+																		switch (2)
+																		{
+																		case 0:
+																			break;
+																		default:
+																			if (playbackMatchData.MatchFreelancerStats == null)
+																			{
+																				while (true)
+																				{
+																					switch (7)
+																					{
+																					default:
+																						return;
+																					case 0:
+																						break;
+																					}
+																				}
+																			}
+																			ClientGameManager.Get().CalculateFreelancerStats(playbackMatchData.MatchFreelancerStats.PersistedStatBucket, firstPlayerCharacter, playbackMatchData.MatchFreelancerStats, delegate(CalculateFreelancerStatsResponse response)
+																			{
+																				if (response.Success)
+																				{
+																					using (List<UIGameOverStatWidget>.Enumerator enumerator = m_GameOverStatWidgets.GetEnumerator())
+																					{
+																						while (enumerator.MoveNext())
+																						{
+																							UIGameOverStatWidget current = enumerator.Current;
+																							if (current.DisplayStatType == UIGameOverStatWidget.StatDisplayType.None)
+																							{
+																								current.UpdatePercentiles(null);
+																							}
+																							else if (current.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat && !response.GlobalPercentiles.IsNullOrEmpty())
+																							{
+																								current.UpdatePercentiles(response.GlobalPercentiles[current.GeneralStatType]);
+																							}
+																							else if (current.DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat && !response.FreelancerSpecificPercentiles.IsNullOrEmpty())
+																							{
+																								while (true)
+																								{
+																									switch (3)
+																									{
+																									case 0:
+																										continue;
+																									}
+																									break;
+																								}
+																								if (1 == 0)
+																								{
+																									/*OpCode not supported: LdMemberToken*/;
+																								}
+																								current.UpdatePercentiles(response.FreelancerSpecificPercentiles[current.FreelancerStat]);
+																							}
+																						}
+																						while (true)
+																						{
+																							switch (1)
+																							{
+																							default:
+																								return;
+																							case 0:
+																								break;
+																							}
+																						}
+																					}
+																				}
+																				if (response.LocalizedFailure != null)
+																				{
+																					while (true)
+																					{
+																						switch (6)
+																						{
+																						case 0:
+																							break;
+																						default:
+																							TextConsole.Get().Write(response.LocalizedFailure.ToString());
+																							return;
+																						}
+																					}
+																				}
+																			});
+																			return;
+																		}
+																	}
+																}
+																}
+															}
+														}
+														}
+													}
+												}
+												}
+											}
+										}
+									}
+									return;
+								}
+							}
 						}
-						break;
+						ActorData playersOriginalActorData = GetPlayersOriginalActorData();
+						if (playersOriginalActorData != null)
+						{
+							m_CharacterImage.sprite = playersOriginalActorData.GetCharacterResourceLink().GetCharacterSelectIcon();
+							m_PersonalHighlightsCharacterImage.sprite = m_CharacterImage.sprite;
+						}
+						else
+						{
+							UIManager.SetGameObjectActive(m_PersonalHighlightsCharacterImage, false);
+							UIManager.SetGameObjectActive(m_CharacterImage, false);
+						}
+						m_GameOverStatWidgets.Clear();
+						ActorData playersOriginalActorData2 = GetPlayersOriginalActorData();
+						FreelancerStats freelancerStats = playersOriginalActorData2.GetFreelancerStats();
+						ActorBehavior actorBehavior = playersOriginalActorData2.GetActorBehavior();
+						for (int num5 = 0; num5 < freelancerStats.GetNumStats(); num5++)
+						{
+							UIGameOverStatWidget uIGameOverStatWidget6 = UnityEngine.Object.Instantiate(m_freelancerStatPrefab);
+							uIGameOverStatWidget6.SetupForFreelancerStats(m_statsAtBeginningOfMatch, actorBehavior, freelancerStats, num5, playersOriginalActorData2.GetAbilityData());
+							uIGameOverStatWidget6.UpdatePercentiles(GetFreelancerStatPercentiles(num5));
+							UIManager.ReparentTransform(uIGameOverStatWidget6.transform, m_freelancerStatGrid.transform);
+							m_GameOverStatWidgets.Add(uIGameOverStatWidget6);
+						}
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							StatDisplaySettings.StatType[] generalStats2 = StatDisplaySettings.GeneralStats;
+							foreach (StatDisplaySettings.StatType typeOfStat5 in generalStats2)
+							{
+								UIGameOverStatWidget uIGameOverStatWidget7 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+								uIGameOverStatWidget7.SetupForAStat(m_statsAtBeginningOfMatch, actorBehavior, typeOfStat5);
+								uIGameOverStatWidget7.UpdatePercentiles(GetStatPercentiles(uIGameOverStatWidget7.GeneralStatType));
+								UIManager.ReparentTransform(uIGameOverStatWidget7.transform, m_generalStatGrid.transform);
+								m_GameOverStatWidgets.Add(uIGameOverStatWidget7);
+							}
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								StatDisplaySettings.StatType[] firepowerStats2 = StatDisplaySettings.FirepowerStats;
+								foreach (StatDisplaySettings.StatType typeOfStat6 in firepowerStats2)
+								{
+									UIGameOverStatWidget uIGameOverStatWidget8 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+									uIGameOverStatWidget8.SetupForAStat(m_statsAtBeginningOfMatch, actorBehavior, typeOfStat6);
+									uIGameOverStatWidget8.UpdatePercentiles(GetStatPercentiles(uIGameOverStatWidget8.GeneralStatType));
+									UIManager.ReparentTransform(uIGameOverStatWidget8.transform, m_firepowerStatGrid.transform);
+									m_GameOverStatWidgets.Add(uIGameOverStatWidget8);
+								}
+								StatDisplaySettings.StatType[] supportStats2 = StatDisplaySettings.SupportStats;
+								foreach (StatDisplaySettings.StatType typeOfStat7 in supportStats2)
+								{
+									UIGameOverStatWidget uIGameOverStatWidget9 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+									uIGameOverStatWidget9.SetupForAStat(m_statsAtBeginningOfMatch, actorBehavior, typeOfStat7);
+									uIGameOverStatWidget9.UpdatePercentiles(GetStatPercentiles(uIGameOverStatWidget9.GeneralStatType));
+									UIManager.ReparentTransform(uIGameOverStatWidget9.transform, m_supportStatGrid.transform);
+									m_GameOverStatWidgets.Add(uIGameOverStatWidget9);
+								}
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									StatDisplaySettings.StatType[] frontlinerStats2 = StatDisplaySettings.FrontlinerStats;
+									foreach (StatDisplaySettings.StatType typeOfStat8 in frontlinerStats2)
+									{
+										UIGameOverStatWidget uIGameOverStatWidget10 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+										uIGameOverStatWidget10.SetupForAStat(m_statsAtBeginningOfMatch, actorBehavior, typeOfStat8);
+										uIGameOverStatWidget10.UpdatePercentiles(GetStatPercentiles(uIGameOverStatWidget10.GeneralStatType));
+										UIManager.ReparentTransform(uIGameOverStatWidget10.transform, m_frontlineStatGrid.transform);
+										m_GameOverStatWidgets.Add(uIGameOverStatWidget10);
+									}
+									while (true)
+									{
+										switch (6)
+										{
+										case 0:
+											continue;
+										}
+										List<UIGameOverStatWidget> list = new List<UIGameOverStatWidget>();
+										int num10 = 0;
+										while (list.Count < m_PersonalHighlightWidgets.Length)
+										{
+											while (true)
+											{
+												switch (5)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											if (num10 < 3)
+											{
+												for (int num11 = 0; num11 < m_GameOverStatWidgets.Count; num11++)
+												{
+													if (list.Contains(m_GameOverStatWidgets[num11]))
+													{
+														continue;
+													}
+													while (true)
+													{
+														switch (3)
+														{
+														case 0:
+															continue;
+														}
+														break;
+													}
+													if (num10 == 0)
+													{
+														while (true)
+														{
+															switch (4)
+															{
+															case 0:
+																continue;
+															}
+															break;
+														}
+														if (m_GameOverStatWidgets[num11].BeatRecord())
+														{
+															while (true)
+															{
+																switch (3)
+																{
+																case 0:
+																	continue;
+																}
+																break;
+															}
+															list.Add(m_GameOverStatWidgets[num11]);
+															continue;
+														}
+													}
+													if (num10 == 1 && m_GameOverStatWidgets[num11].BeatAverage())
+													{
+														while (true)
+														{
+															switch (2)
+															{
+															case 0:
+																continue;
+															}
+															break;
+														}
+														list.Add(m_GameOverStatWidgets[num11]);
+													}
+													else if (num10 >= 2)
+													{
+														while (true)
+														{
+															switch (2)
+															{
+															case 0:
+																continue;
+															}
+															break;
+														}
+														list.Add(m_GameOverStatWidgets[num11]);
+													}
+												}
+												while (true)
+												{
+													switch (1)
+													{
+													case 0:
+														break;
+													default:
+														goto end_IL_0849;
+													}
+													continue;
+													end_IL_0849:
+													break;
+												}
+												num10++;
+												continue;
+											}
+											while (true)
+											{
+												switch (3)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											break;
+										}
+										for (int num12 = 0; num12 < m_PersonalHighlightWidgets.Length; num12++)
+										{
+											if (num12 < list.Count)
+											{
+												while (true)
+												{
+													switch (4)
+													{
+													case 0:
+														continue;
+													}
+													break;
+												}
+												if (list[num12].DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat)
+												{
+													while (true)
+													{
+														switch (2)
+														{
+														case 0:
+															continue;
+														}
+														break;
+													}
+													m_PersonalHighlightWidgets[num12].SetupForFreelancerStats(m_statsAtBeginningOfMatch, actorBehavior, freelancerStats, list[num12].FreelancerStat, playersOriginalActorData2.GetAbilityData());
+												}
+												else if (list[num12].DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
+												{
+													while (true)
+													{
+														switch (2)
+														{
+														case 0:
+															continue;
+														}
+														break;
+													}
+													m_PersonalHighlightWidgets[num12].SetupForAStat(m_statsAtBeginningOfMatch, actorBehavior, list[num12].GeneralStatType);
+												}
+											}
+											UIManager.SetGameObjectActive(m_PersonalHighlightWidgets[num12], false);
+										}
+										return;
+									}
+								}
+							}
+						}
 					}
-					this.m_PersonalHighlightWidgets[num12].SetupForAStat(this.m_statsAtBeginningOfMatch, actorBehavior, list[num12].GeneralStatType);
 				}
 			}
-			UIManager.SetGameObjectActive(this.m_PersonalHighlightWidgets[num12], false, null);
 		}
 	}
 
 	private void SetupRankMode()
 	{
-		bool flag = this.m_gameType == GameType.Ranked;
+		bool flag = m_gameType == GameType.Ranked;
 		bool flag2 = flag;
+		TierPlacement tierCurrent;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -3070,14 +4344,14 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupRankMode()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			TierPlacement tierCurrent = ClientGameManager.Get().TierCurrent;
+			tierCurrent = ClientGameManager.Get().TierCurrent;
 			if (tierCurrent != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -3088,9 +4362,9 @@ public class UIGameOverScreen : UIScene
 				}
 				if (tierCurrent.Tier != -1)
 				{
-					goto IL_57;
+					goto IL_0057;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -3101,69 +4375,77 @@ public class UIGameOverScreen : UIScene
 				}
 			}
 			flag2 = false;
-			IL_57:
-			if (flag2)
-			{
-				UIManager.SetGameObjectActive(this.m_rankModeLevelAnimator, false, null);
-				float fillAmount = this.GetRankFillAmt(tierCurrent.Points * 0.01f);
-				if (tierCurrent.Tier != 1)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (tierCurrent.Tier != 2)
-					{
-						goto IL_A0;
-					}
-				}
-				fillAmount = 1f;
-				IL_A0:
-				this.m_rankNormalBar.fillAmount = fillAmount;
-				this.m_rankDecreaseBar.fillAmount = fillAmount;
-				this.m_rankIncreaseBar.fillAmount = fillAmount;
-				int tier = tierCurrent.Tier;
-				this.SetupTierDisplay(tier, tierCurrent.Points);
-				this.m_rankPointsText.text = "0.0";
-				UIManager.SetGameObjectActive(this.m_rankDecreaseBar, !this.SelfWon, null);
-				UIManager.SetGameObjectActive(this.m_rankIncreaseBar, this.SelfWon, null);
-			}
+			goto IL_0057;
 		}
-		UIManager.SetGameObjectActive(this.m_rankModeLevelContainer, flag2, null);
+		goto IL_0118;
+		IL_0118:
+		UIManager.SetGameObjectActive(m_rankModeLevelContainer, flag2);
+		return;
+		IL_0057:
+		float fillAmount;
+		if (flag2)
+		{
+			UIManager.SetGameObjectActive(m_rankModeLevelAnimator, false);
+			fillAmount = GetRankFillAmt(tierCurrent.Points * 0.01f);
+			if (tierCurrent.Tier != 1)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (tierCurrent.Tier != 2)
+				{
+					goto IL_00a0;
+				}
+			}
+			fillAmount = 1f;
+			goto IL_00a0;
+		}
+		goto IL_0118;
+		IL_00a0:
+		m_rankNormalBar.fillAmount = fillAmount;
+		m_rankDecreaseBar.fillAmount = fillAmount;
+		m_rankIncreaseBar.fillAmount = fillAmount;
+		int tier = tierCurrent.Tier;
+		SetupTierDisplay(tier, tierCurrent.Points);
+		m_rankPointsText.text = "0.0";
+		UIManager.SetGameObjectActive(m_rankDecreaseBar, !SelfWon);
+		UIManager.SetGameObjectActive(m_rankIncreaseBar, SelfWon);
+		goto IL_0118;
 	}
 
 	private void SetupGGBoostScreen()
 	{
-		this.UpdateGGBoostPlayerList(false);
-		this.m_numSelfGGpacksUsed = HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumberGGPacksUsed(GameManager.Get().PlayerInfo.Handle);
-		for (int i = 0; i < this.m_ggButtonLevels.Length; i++)
+		UpdateGGBoostPlayerList(false);
+		m_numSelfGGpacksUsed = HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumberGGPacksUsed(GameManager.Get().PlayerInfo.Handle);
+		for (int i = 0; i < m_ggButtonLevels.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_ggButtonLevels[i], i == this.m_numSelfGGpacksUsed, null);
+			UIManager.SetGameObjectActive(m_ggButtonLevels[i], i == m_numSelfGGpacksUsed);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupGGBoostScreen()).MethodHandle;
-		}
-		int currentAmount = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack);
-		for (int j = 0; j < this.m_ggButtonLevelsAnims.Length; j++)
-		{
-			if (this.m_ggButtonLevelsAnims[j].gameObject.activeInHierarchy)
+			if (1 == 0)
 			{
-				for (;;)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			int currentAmount = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack);
+			for (int j = 0; j < m_ggButtonLevelsAnims.Length; j++)
+			{
+				if (!m_ggButtonLevelsAnims[j].gameObject.activeInHierarchy)
+				{
+					continue;
+				}
+				while (true)
 				{
 					switch (7)
 					{
@@ -3174,7 +4456,7 @@ public class UIGameOverScreen : UIScene
 				}
 				if (currentAmount > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -3183,15 +4465,16 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					UIAnimationEventManager.Get().PlayAnimation(this.m_ggButtonLevelsAnims[j], "GGBoostDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
+					UIAnimationEventManager.Get().PlayAnimation(m_ggButtonLevelsAnims[j], "GGBoostDefaultIN", null, string.Empty);
 				}
 				else
 				{
-					UIAnimationEventManager.Get().PlayAnimation(this.m_ggButtonLevelsAnims[j], "GGBoostNoMoreDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
+					UIAnimationEventManager.Get().PlayAnimation(m_ggButtonLevelsAnims[j], "GGBoostNoMoreDefaultIN", null, string.Empty);
 				}
 			}
+			HandleBankBalanceChange(null);
+			return;
 		}
-		this.HandleBankBalanceChange(null);
 	}
 
 	public void UpdateGGBoostPlayerList(bool setGGLevel = true)
@@ -3201,7 +4484,7 @@ public class UIGameOverScreen : UIScene
 		int num2 = 0;
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -3210,21 +4493,21 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateGGBoostPlayerList(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			using (List<LobbyPlayerInfo>.Enumerator enumerator = GameManager.Get().TeamInfo.TeamPlayerInfo.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
-					if (lobbyPlayerInfo.CharacterType != CharacterType.None)
+					LobbyPlayerInfo current = enumerator.Current;
+					if (current.CharacterType != 0)
 					{
-						int num3 = HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumberGGPacksUsed(lobbyPlayerInfo.Handle);
-						if (lobbyPlayerInfo.TeamId != teamId)
+						int num3 = HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumberGGPacksUsed(current.Handle);
+						if (current.TeamId != teamId)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -3233,23 +4516,11 @@ public class UIGameOverScreen : UIScene
 								}
 								break;
 							}
-							if (teamId == Team.Spectator && lobbyPlayerInfo.TeamId == Team.TeamA)
+							if (teamId != Team.Spectator || current.TeamId != 0)
 							{
-								for (;;)
+								if (num2 < m_redTeamGGProfiles.Length)
 								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-							else
-							{
-								if (num2 < this.m_redTeamGGProfiles.Length)
-								{
-									for (;;)
+									while (true)
 									{
 										switch (4)
 										{
@@ -3258,13 +4529,13 @@ public class UIGameOverScreen : UIScene
 										}
 										break;
 									}
-									UIManager.SetGameObjectActive(this.m_redTeamGGProfiles[num2], true, null);
-									this.m_redTeamGGProfiles[num2].Setup(GameWideData.Get().GetCharacterResourceLink(lobbyPlayerInfo.CharacterType), lobbyPlayerInfo, true, true);
-									UILoadscreenProfile uiloadscreenProfile = this.m_redTeamGGProfiles[num2];
-									int ggbuttonLevel;
+									UIManager.SetGameObjectActive(m_redTeamGGProfiles[num2], true);
+									m_redTeamGGProfiles[num2].Setup(GameWideData.Get().GetCharacterResourceLink(current.CharacterType), current, true, true);
+									UILoadscreenProfile obj = m_redTeamGGProfiles[num2];
+									int gGButtonLevel;
 									if (setGGLevel)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (3)
 											{
@@ -3273,22 +4544,30 @@ public class UIGameOverScreen : UIScene
 											}
 											break;
 										}
-										ggbuttonLevel = num3;
+										gGButtonLevel = num3;
 									}
 									else
 									{
-										ggbuttonLevel = 0;
+										gGButtonLevel = 0;
 									}
-									uiloadscreenProfile.SetGGButtonLevel(ggbuttonLevel);
+									obj.SetGGButtonLevel(gGButtonLevel);
 									num2++;
-									continue;
 								}
 								continue;
 							}
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
 						}
-						if (num < this.m_blueTeamGGProfiles.Length)
+						if (num < m_blueTeamGGProfiles.Length)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -3297,13 +4576,13 @@ public class UIGameOverScreen : UIScene
 								}
 								break;
 							}
-							UIManager.SetGameObjectActive(this.m_blueTeamGGProfiles[num], true, null);
-							this.m_blueTeamGGProfiles[num].Setup(GameWideData.Get().GetCharacterResourceLink(lobbyPlayerInfo.CharacterType), lobbyPlayerInfo, false, true);
-							UILoadscreenProfile uiloadscreenProfile2 = this.m_blueTeamGGProfiles[num];
-							int ggbuttonLevel2;
+							UIManager.SetGameObjectActive(m_blueTeamGGProfiles[num], true);
+							m_blueTeamGGProfiles[num].Setup(GameWideData.Get().GetCharacterResourceLink(current.CharacterType), current, false, true);
+							UILoadscreenProfile obj2 = m_blueTeamGGProfiles[num];
+							int gGButtonLevel2;
 							if (setGGLevel)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -3312,18 +4591,18 @@ public class UIGameOverScreen : UIScene
 									}
 									break;
 								}
-								ggbuttonLevel2 = num3;
+								gGButtonLevel2 = num3;
 							}
 							else
 							{
-								ggbuttonLevel2 = 0;
+								gGButtonLevel2 = 0;
 							}
-							uiloadscreenProfile2.SetGGButtonLevel(ggbuttonLevel2);
+							obj2.SetGGButtonLevel(gGButtonLevel2);
 							num++;
 						}
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -3334,22 +4613,23 @@ public class UIGameOverScreen : UIScene
 				}
 			}
 		}
-		for (int i = num; i < this.m_blueTeamGGProfiles.Length; i++)
+		for (int i = num; i < m_blueTeamGGProfiles.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_blueTeamGGProfiles[i], false, null);
+			UIManager.SetGameObjectActive(m_blueTeamGGProfiles[i], false);
 		}
-		for (int j = num2; j < this.m_redTeamGGProfiles.Length; j++)
+		for (int j = num2; j < m_redTeamGGProfiles.Length; j++)
 		{
-			UIManager.SetGameObjectActive(this.m_redTeamGGProfiles[j], false, null);
+			UIManager.SetGameObjectActive(m_redTeamGGProfiles[j], false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
@@ -3360,32 +4640,32 @@ public class UIGameOverScreen : UIScene
 
 	private bool SetupTierDisplay(int tier, float tierPoints)
 	{
-		if (this.LastRankTierDisplayed == tier)
+		if (LastRankTierDisplayed == tier)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupTierDisplay(int, float)).MethodHandle;
-			}
-			return false;
 		}
-		this.LastRankTierDisplayed = tier;
+		LastRankTierDisplayed = tier;
 		string tierIconResource = UIRankedModeSelectScreen.GetTierIconResource(tier);
 		string tierName = ClientGameManager.Get().GetTierName(GameType.Ranked, tier);
 		if (!tierIconResource.IsNullOrEmpty())
 		{
-			this.m_rankIcon.sprite = (Sprite)Resources.Load(tierIconResource, typeof(Sprite));
+			m_rankIcon.sprite = (Sprite)Resources.Load(tierIconResource, typeof(Sprite));
 			if (tierIconResource.ToLower().Contains("bronze"))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -3394,13 +4674,13 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				this.m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Bronze_decrease", typeof(Sprite));
-				this.m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Bronze_increase", typeof(Sprite));
-				this.m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Bronze_fill", typeof(Sprite));
+				m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Bronze_decrease", typeof(Sprite));
+				m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Bronze_increase", typeof(Sprite));
+				m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Bronze_fill", typeof(Sprite));
 			}
 			else if (tierIconResource.ToLower().Contains("silver"))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -3409,13 +4689,13 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				this.m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Silver_decrease", typeof(Sprite));
-				this.m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Silver_increase", typeof(Sprite));
-				this.m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Silver_fill", typeof(Sprite));
+				m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Silver_decrease", typeof(Sprite));
+				m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Silver_increase", typeof(Sprite));
+				m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Silver_fill", typeof(Sprite));
 			}
 			else if (tierIconResource.ToLower().Contains("gold"))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -3424,19 +4704,19 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				this.m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Gold_decrease", typeof(Sprite));
-				this.m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Gold_increase", typeof(Sprite));
-				this.m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Gold_fill", typeof(Sprite));
+				m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Gold_decrease", typeof(Sprite));
+				m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Gold_increase", typeof(Sprite));
+				m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Gold_fill", typeof(Sprite));
 			}
 			else if (tierIconResource.ToLower().Contains("platinum"))
 			{
-				this.m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Platinum_decrease", typeof(Sprite));
-				this.m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Platinum_increase", typeof(Sprite));
-				this.m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Platinum_fill", typeof(Sprite));
+				m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Platinum_decrease", typeof(Sprite));
+				m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Platinum_increase", typeof(Sprite));
+				m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Platinum_fill", typeof(Sprite));
 			}
 			else if (tierIconResource.ToLower().Contains("diamond"))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -3445,19 +4725,19 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				this.m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Diamond_decrease", typeof(Sprite));
-				this.m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Diamond_increase", typeof(Sprite));
-				this.m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Diamond_fill", typeof(Sprite));
+				m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Diamond_decrease", typeof(Sprite));
+				m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Diamond_increase", typeof(Sprite));
+				m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Diamond_fill", typeof(Sprite));
 			}
 			else if (tierIconResource.ToLower().Contains("master"))
 			{
-				this.m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Master_decrease", typeof(Sprite));
-				this.m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Master_increase", typeof(Sprite));
-				this.m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Master_fill", typeof(Sprite));
+				m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Master_decrease", typeof(Sprite));
+				m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Master_increase", typeof(Sprite));
+				m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Master_fill", typeof(Sprite));
 			}
 			else if (tierIconResource.ToLower().Contains("contender"))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -3466,22 +4746,19 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				this.m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Contender_decrease", typeof(Sprite));
-				this.m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Contender_increase", typeof(Sprite));
-				this.m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Contender_fill", typeof(Sprite));
+				m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Contender_decrease", typeof(Sprite));
+				m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Contender_increase", typeof(Sprite));
+				m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Contender_fill", typeof(Sprite));
 			}
 		}
 		else
 		{
-			Log.Warning("Did not find icon for tier: " + tier, new object[0]);
+			Log.Warning("Did not find icon for tier: " + tier);
 		}
-		string[] array = tierName.Split(new char[]
-		{
-			' '
-		});
+		string[] array = tierName.Split(' ');
 		if (array != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -3492,7 +4769,7 @@ public class UIGameOverScreen : UIScene
 			}
 			if (array.Length > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -3501,11 +4778,11 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				this.m_rankTeirText.text = array[0];
+				m_rankTeirText.text = array[0];
 			}
 			if (array.Length > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -3514,164 +4791,158 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				this.m_rankLevelText.text = array[1];
-				this.ShouldDisplayTierPoints = false;
+				m_rankLevelText.text = array[1];
+				ShouldDisplayTierPoints = false;
 			}
 			else
 			{
-				this.m_rankLevelText.text = Mathf.RoundToInt(tierPoints).ToString();
-				this.ShouldDisplayTierPoints = true;
+				m_rankLevelText.text = Mathf.RoundToInt(tierPoints).ToString();
+				ShouldDisplayTierPoints = true;
 			}
 		}
 		else
 		{
-			this.m_rankTeirText.text = tierName;
-			this.m_rankLevelText.text = string.Empty;
-			this.ShouldDisplayTierPoints = false;
+			m_rankTeirText.text = tierName;
+			m_rankLevelText.text = string.Empty;
+			ShouldDisplayTierPoints = false;
 		}
 		return true;
 	}
 
 	public void SetVisible(bool visible)
 	{
-		this.IsVisible = visible;
-		if (!this.IsVisible)
+		IsVisible = visible;
+		if (!IsVisible)
 		{
-			UIManager.SetGameObjectActive(this.m_GGBoostContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_TopBottomBarsContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_MouseClickContainer, false, null);
+			UIManager.SetGameObjectActive(m_GGBoostContainer, false);
+			UIManager.SetGameObjectActive(m_TopBottomBarsContainer, false);
+			UIManager.SetGameObjectActive(m_MouseClickContainer, false);
 		}
 	}
 
 	private void CheckPreGameStats()
 	{
-		if (GameManager.Get() != null)
+		if (!(GameManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (GameManager.Get().GameStatus != GameStatus.Started)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CheckPreGameStats()).MethodHandle;
-			}
-			if (GameManager.Get().GameStatus == GameStatus.Started)
-			{
-				for (;;)
+				if (GameManager.Get().GameInfo == null)
 				{
-					switch (7)
+					return;
+				}
+				while (true)
+				{
+					switch (6)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (GameManager.Get().GameInfo != null)
-				{
-					for (;;)
+					if (GameManager.Get().GameInfo.GameConfig == null)
+					{
+						return;
+					}
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					if (GameManager.Get().GameInfo.GameConfig != null)
-					{
-						for (;;)
+						if (GameManager.Get().GameInfo.GameConfig.InstanceSubType == null)
+						{
+							return;
+						}
+						while (true)
 						{
 							switch (6)
 							{
 							case 0:
 								continue;
 							}
-							break;
-						}
-						if (GameManager.Get().GameInfo.GameConfig.InstanceSubType != null)
-						{
-							for (;;)
+							if (GameManager.Get().PlayerInfo == null)
 							{
-								switch (6)
+								return;
+							}
+							while (true)
+							{
+								switch (3)
 								{
 								case 0:
 									continue;
 								}
-								break;
-							}
-							if (GameManager.Get().PlayerInfo != null)
-							{
-								for (;;)
+								if (GameManager.Get().PlayerInfo.IsSpectator)
 								{
-									switch (3)
+									return;
+								}
+								while (true)
+								{
+									switch (2)
 									{
 									case 0:
 										continue;
 									}
-									break;
-								}
-								if (!GameManager.Get().PlayerInfo.IsSpectator)
-								{
-									for (;;)
+									if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
 									{
-										switch (2)
+										return;
+									}
+									while (true)
+									{
+										switch (3)
 										{
 										case 0:
 											continue;
 										}
-										break;
-									}
-									if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
-									{
-										for (;;)
+										if (!ClientGameManager.Get().IsPlayerCharacterDataAvailable())
 										{
-											switch (3)
+											return;
+										}
+										while (true)
+										{
+											switch (5)
 											{
 											case 0:
 												continue;
 											}
-											break;
-										}
-										if (ClientGameManager.Get().IsPlayerCharacterDataAvailable(CharacterType.None))
-										{
-											for (;;)
+											if (m_statsAtBeginningOfMatch == null)
 											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											if (this.m_statsAtBeginningOfMatch == null)
-											{
-												for (;;)
+												while (true)
 												{
 													switch (7)
 													{
 													case 0:
 														continue;
 													}
-													break;
+													PersistedStatBucket persistedStatBucket = GameManager.Get().GameInfo.GameConfig.InstanceSubType.PersistedStatBucket;
+													Dictionary<PersistedStatBucket, PersistedStats> persistedStatsDictionary = ClientGameManager.Get().GetPlayerCharacterData(GameManager.Get().PlayerInfo.CharacterType).ExperienceComponent.PersistedStatsDictionary;
+													PersistedStats persistedStats = null;
+													persistedStats = ((!persistedStatsDictionary.ContainsKey(persistedStatBucket)) ? new PersistedStats() : persistedStatsDictionary[persistedStatBucket]);
+													m_statsAtBeginningOfMatch = (PersistedStats)persistedStats.Clone();
+													return;
 												}
-												PersistedStatBucket persistedStatBucket = GameManager.Get().GameInfo.GameConfig.InstanceSubType.PersistedStatBucket;
-												Dictionary<PersistedStatBucket, PersistedStats> persistedStatsDictionary = ClientGameManager.Get().GetPlayerCharacterData(GameManager.Get().PlayerInfo.CharacterType).ExperienceComponent.PersistedStatsDictionary;
-												PersistedStats persistedStats;
-												if (persistedStatsDictionary.ContainsKey(persistedStatBucket))
-												{
-													persistedStats = persistedStatsDictionary[persistedStatBucket];
-												}
-												else
-												{
-													persistedStats = new PersistedStats();
-												}
-												this.m_statsAtBeginningOfMatch = (PersistedStats)persistedStats.Clone();
 											}
+											return;
 										}
 									}
 								}
@@ -3685,15 +4956,15 @@ public class UIGameOverScreen : UIScene
 
 	public void HandleMatchResultsNotification(MatchResultsNotification notification)
 	{
-		this.m_results = notification;
-		if (this.m_results.FirstWinOccured)
+		m_results = notification;
+		if (m_results.FirstWinOccured)
 		{
 			QuestCompletePanel.Get().AddSpecialQuestNotification(GameBalanceVars.Get().FirstWinOfDayQuestId);
-			this.m_results.QuestXpGained += this.m_results.FirstWinXpGained;
+			m_results.QuestXpGained += m_results.FirstWinXpGained;
 		}
 		if (GameManager.Get().GameConfig != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -3702,100 +4973,100 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.HandleMatchResultsNotification(MatchResultsNotification)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			GameType gameType = GameManager.Get().GameConfig.GameType;
-			if (gameType != GameType.Custom)
+			if (gameType == GameType.Custom)
 			{
-				if (gameType == GameType.Tutorial)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_results.SeasonLevelAtStart > 1)
-					{
-						goto IL_108;
-					}
-				}
-				PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
-				SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(playerAccountData.QuestComponent.ActiveSeason);
-				if (seasonTemplate != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (seasonTemplate.IsTutorial)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UITutorialSeasonInterstitial.Get().Setup(seasonTemplate, playerAccountData.QuestComponent.SeasonLevel - 1, true);
-					}
-				}
-				goto IL_115;
+				goto IL_0108;
 			}
-			IL_108:
-			UITutorialSeasonInterstitial.Get().SetVisible(false);
-		}
-		IL_115:
-		if (!notification.BadgeAndParticipantsInfo.IsNullOrEmpty<BadgeAndParticipantInfo>())
-		{
-			for (;;)
+			if (gameType == GameType.Tutorial)
 			{
-				switch (1)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			int playerId = GameManager.Get().PlayerInfo.PlayerId;
-			BadgeAndParticipantInfo badgeAndParticipantInfo = notification.BadgeAndParticipantsInfo.Find((BadgeAndParticipantInfo p) => p.PlayerId == playerId);
-			if (badgeAndParticipantInfo != null)
-			{
-				for (;;)
-				{
-					switch (1)
+					switch (2)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!badgeAndParticipantInfo.GlobalPercentiles.IsNullOrEmpty<KeyValuePair<StatDisplaySettings.StatType, PercentileInfo>>())
+				if (m_results.SeasonLevelAtStart > 1)
+				{
+					goto IL_0108;
+				}
+			}
+			PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
+			SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(playerAccountData.QuestComponent.ActiveSeason);
+			if (seasonTemplate != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (seasonTemplate.IsTutorial)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					UITutorialSeasonInterstitial.Get().Setup(seasonTemplate, playerAccountData.QuestComponent.SeasonLevel - 1, true);
+				}
+			}
+		}
+		goto IL_0115;
+		IL_0115:
+		if (notification.BadgeAndParticipantsInfo.IsNullOrEmpty())
+		{
+			return;
+		}
+		int playerId;
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			playerId = GameManager.Get().PlayerInfo.PlayerId;
+			BadgeAndParticipantInfo badgeAndParticipantInfo = notification.BadgeAndParticipantsInfo.Find((BadgeAndParticipantInfo p) => p.PlayerId == playerId);
+			if (badgeAndParticipantInfo == null)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				if (!badgeAndParticipantInfo.GlobalPercentiles.IsNullOrEmpty())
 				{
 					using (Dictionary<StatDisplaySettings.StatType, PercentileInfo>.Enumerator enumerator = badgeAndParticipantInfo.GlobalPercentiles.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
 						{
 							KeyValuePair<StatDisplaySettings.StatType, PercentileInfo> kvPair = enumerator.Current;
-							UIGameOverStatWidget uigameOverStatWidget = this.m_GameOverStatWidgets.Find((UIGameOverStatWidget p) => p.GeneralStatType == kvPair.Key && p.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat);
-							if (uigameOverStatWidget != null)
+							UIGameOverStatWidget uIGameOverStatWidget = m_GameOverStatWidgets.Find((UIGameOverStatWidget p) => p.GeneralStatType == kvPair.Key && p.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat);
+							if (uIGameOverStatWidget != null)
 							{
-								uigameOverStatWidget.UpdatePercentiles(kvPair.Value);
+								uIGameOverStatWidget.UpdatePercentiles(kvPair.Value);
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -3806,28 +5077,49 @@ public class UIGameOverScreen : UIScene
 						}
 					}
 				}
-				if (!badgeAndParticipantInfo.FreelancerSpecificPercentiles.IsNullOrEmpty<KeyValuePair<int, PercentileInfo>>())
+				if (!badgeAndParticipantInfo.FreelancerSpecificPercentiles.IsNullOrEmpty())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					using (Dictionary<int, PercentileInfo>.Enumerator enumerator2 = badgeAndParticipantInfo.FreelancerSpecificPercentiles.GetEnumerator())
-					{
-						while (enumerator2.MoveNext())
+						using (Dictionary<int, PercentileInfo>.Enumerator enumerator2 = badgeAndParticipantInfo.FreelancerSpecificPercentiles.GetEnumerator())
 						{
-							KeyValuePair<int, PercentileInfo> ivPair = enumerator2.Current;
-							UIGameOverStatWidget uigameOverStatWidget2 = this.m_GameOverStatWidgets.Find(delegate(UIGameOverStatWidget p)
+							while (enumerator2.MoveNext())
 							{
-								bool result;
-								if (p.FreelancerStat == ivPair.Key)
+								KeyValuePair<int, PercentileInfo> ivPair = enumerator2.Current;
+								UIGameOverStatWidget uIGameOverStatWidget2 = m_GameOverStatWidgets.Find(delegate(UIGameOverStatWidget p)
 								{
-									for (;;)
+									int result;
+									if (p.FreelancerStat == ivPair.Key)
+									{
+										while (true)
+										{
+											switch (3)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										if (1 == 0)
+										{
+											/*OpCode not supported: LdMemberToken*/;
+										}
+										result = ((p.DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat) ? 1 : 0);
+									}
+									else
+									{
+										result = 0;
+									}
+									return (byte)result != 0;
+								});
+								if (uIGameOverStatWidget2 != null)
+								{
+									while (true)
 									{
 										switch (3)
 										{
@@ -3836,141 +5128,126 @@ public class UIGameOverScreen : UIScene
 										}
 										break;
 									}
-									if (!true)
-									{
-										RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameOverScreen.<HandleMatchResultsNotification>c__AnonStorey2.<>m__0(UIGameOverStatWidget)).MethodHandle;
-									}
-									result = (p.DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat);
+									uIGameOverStatWidget2.UpdatePercentiles(ivPair.Value);
 								}
-								else
-								{
-									result = false;
-								}
-								return result;
-							});
-							if (uigameOverStatWidget2 != null)
+							}
+							while (true)
 							{
-								for (;;)
+								switch (2)
 								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
+								default:
+									return;
+								case 0:
 									break;
 								}
-								uigameOverStatWidget2.UpdatePercentiles(ivPair.Value);
 							}
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
+				return;
 			}
 		}
+		IL_0108:
+		UITutorialSeasonInterstitial.Get().SetVisible(false);
+		goto IL_0115;
 	}
 
 	public void NotifySelfGGPackUsed()
 	{
-		this.RequestedToUseGGPack = false;
-		if (this.m_currentSubState != null)
+		RequestedToUseGGPack = false;
+		if (m_currentSubState == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.NotifySelfGGPackUsed()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.UpdateGGBoostPlayerList(true);
+			UpdateGGBoostPlayerList();
+			return;
 		}
 	}
 
 	private void HandleGGPackUsed(UseGGPackNotification notification)
 	{
-		if (this.m_currentSubState != null)
+		if (m_currentSubState == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.HandleGGPackUsed(UseGGPackNotification)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.UpdateGGBoostPlayerList(true);
+			UpdateGGBoostPlayerList();
+			return;
 		}
 	}
 
 	public void UpdateEndGameGGBonuses(int iso, float xp)
 	{
-		this.m_GGPack_XPMult = xp;
-		this.SetWorldGGPackText(string.Format(StringUtil.TR("EndGameGGBonuses", "GameOver"), Mathf.RoundToInt((this.m_GGPack_XPMult - 1f) * 100f)));
-		if (this.m_GGPack_XPMult < 2f)
+		m_GGPack_XPMult = xp;
+		SetWorldGGPackText(string.Format(StringUtil.TR("EndGameGGBonuses", "GameOver"), Mathf.RoundToInt((m_GGPack_XPMult - 1f) * 100f)));
+		if (m_GGPack_XPMult < 2f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					UIAnimationEventManager.Get().PlayAnimation(m_PercentageAnimator, "GGBoostBluePercentageDefaultIN", null, string.Empty);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateEndGameGGBonuses(int, float)).MethodHandle;
-			}
-			UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoostBluePercentageDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
 		}
-		else if (this.m_GGPack_XPMult < 3f)
+		if (m_GGPack_XPMult < 3f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIAnimationEventManager.Get().PlayAnimation(m_PercentageAnimator, "GGBoostSilverPercentageDefaultIN", null, string.Empty);
+					return;
 				}
-				break;
 			}
-			UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoostSilverPercentageDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
 		}
-		else if (this.m_GGPack_XPMult < 4f)
+		if (m_GGPack_XPMult < 4f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIAnimationEventManager.Get().PlayAnimation(m_PercentageAnimator, "GGBoostGoldPercentageDefaultIN", null, string.Empty);
+					return;
 				}
-				break;
 			}
-			UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoostGoldPercentageDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
 		}
-		else
-		{
-			UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoostMaxPercentageDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
-		}
+		UIAnimationEventManager.Get().PlayAnimation(m_PercentageAnimator, "GGBoostMaxPercentageDefaultIN", null, string.Empty);
 	}
 
 	public static void SetupTeamMemberList(MatchResultsStats stats)
@@ -3981,12 +5258,12 @@ public class UIGameOverScreen : UIScene
 
 	public void Setup(GameType gameType, GameResult gameResult, int myTeamScore, int enemyTeamScore)
 	{
-		this.m_gameResult = gameResult;
-		this.m_gameType = gameType;
-		ActorData playersOriginalActorData = UIGameOverScreen.GetPlayersOriginalActorData();
+		m_gameResult = gameResult;
+		m_gameType = gameType;
+		ActorData playersOriginalActorData = GetPlayersOriginalActorData();
 		if (playersOriginalActorData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -3995,16 +5272,16 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.Setup(GameType, GameResult, int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_characterExpBarImage.sprite = playersOriginalActorData.\u000E().GetCharacterSelectIcon();
+			m_characterExpBarImage.sprite = playersOriginalActorData.GetCharacterResourceLink().GetCharacterSelectIcon();
 		}
 		GameBalanceVars.PlayerBanner currentBackgroundBanner = ClientGameManager.Get().GetCurrentBackgroundBanner();
 		if (currentBackgroundBanner != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -4013,31 +5290,30 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			this.m_bannerBG.sprite = (Sprite)Resources.Load(currentBackgroundBanner.m_resourceString, typeof(Sprite));
+			m_bannerBG.sprite = (Sprite)Resources.Load(currentBackgroundBanner.m_resourceString, typeof(Sprite));
 		}
 		GameBalanceVars.PlayerBanner currentForegroundBanner = ClientGameManager.Get().GetCurrentForegroundBanner();
 		if (currentForegroundBanner != null)
 		{
-			this.m_bannerFG.sprite = (Sprite)Resources.Load(currentForegroundBanner.m_resourceString, typeof(Sprite));
+			m_bannerFG.sprite = (Sprite)Resources.Load(currentForegroundBanner.m_resourceString, typeof(Sprite));
 		}
 		if (UIGameStatsWindow.Get() != null)
 		{
 			UIGameStatsWindow.Get().SetVisible(false);
 		}
-		GameOverWorldObjects.Get().Setup(gameResult, this.FriendlyTeam, this.m_GGPack_XPMult);
-		UIManager.SetGameObjectActive(this.m_redTeamVictoryContainer, !this.SelfWon, null);
-		UIManager.SetGameObjectActive(this.m_blueTeamVictoryContainer, this.SelfWon, null);
-		LobbyGameplayOverrides gameplayOverrides = GameManager.Get().GameplayOverrides;
-		bool doActive = gameplayOverrides != null && gameplayOverrides.EnableFacebook;
-		UIManager.SetGameObjectActive(this.m_shareFacebookButton, doActive, null);
-		this.SetVisible(true);
-		this.SetupLabelText(myTeamScore, enemyTeamScore);
-		this.EstimatedNotificationArrivalTime = Time.unscaledTime + GameBalanceVars.Get().GGPackEndGameUsageTimer;
-		this.m_currentSubState = new UIGameOverScreen.GameOverSubState(UIGameOverScreen.GameOverScreenState.VictoryDefeat, this.VictoryDefeatDisplayTimeDuration);
-		this.ContinueBtnFailSafeTime = Time.unscaledTime;
+		GameOverWorldObjects.Get().Setup(gameResult, FriendlyTeam, m_GGPack_XPMult);
+		UIManager.SetGameObjectActive(m_redTeamVictoryContainer, !SelfWon);
+		UIManager.SetGameObjectActive(m_blueTeamVictoryContainer, SelfWon);
+		bool doActive = GameManager.Get().GameplayOverrides?.EnableFacebook ?? false;
+		UIManager.SetGameObjectActive(m_shareFacebookButton, doActive);
+		SetVisible(true);
+		SetupLabelText(myTeamScore, enemyTeamScore);
+		EstimatedNotificationArrivalTime = Time.unscaledTime + GameBalanceVars.Get().GGPackEndGameUsageTimer;
+		m_currentSubState = new GameOverSubState(GameOverScreenState.VictoryDefeat, VictoryDefeatDisplayTimeDuration);
+		ContinueBtnFailSafeTime = Time.unscaledTime;
 		if (GameOverWorldObjects.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -4048,17 +5324,17 @@ public class UIGameOverScreen : UIScene
 			}
 			GameOverWorldObjects.Get().SetVisible(true);
 		}
-		UIManager.SetGameObjectActive(this.m_ContinueBtn, false, null);
-		UIManager.SetGameObjectActive(UIChatBox.Get().m_overconsPanel, false, null);
+		UIManager.SetGameObjectActive(m_ContinueBtn, false);
+		UIManager.SetGameObjectActive(UIChatBox.Get().m_overconsPanel, false);
 		UIChatBox.Get().m_overconsPanel.SetPanelOpen(false);
 	}
 
 	private int GetTotalCurrencyGainedFromQuests()
 	{
 		int num = 0;
-		if (this.m_results.CurrencyRewards != null)
+		if (m_results.CurrencyRewards != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -4067,15 +5343,15 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GetTotalCurrencyGainedFromQuests()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (int i = 0; i < this.m_results.CurrencyRewards.Count; i++)
+			for (int i = 0; i < m_results.CurrencyRewards.Count; i++)
 			{
-				num += this.m_results.CurrencyRewards[i].QuestGained;
+				num += m_results.CurrencyRewards[i].QuestGained;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -4090,21 +5366,21 @@ public class UIGameOverScreen : UIScene
 
 	private int GetNormalBarXPTotal()
 	{
-		if (this.m_results != null)
+		if (m_results != null)
 		{
-			return this.m_results.BaseXpGained + this.m_results.EventBonusXpGained + this.m_results.PlayWithFriendXpGained + this.m_results.QueueTimeXpGained + this.m_results.WinXpGained + this.m_results.FreelancerOwnedXPGained;
+			return m_results.BaseXpGained + m_results.EventBonusXpGained + m_results.PlayWithFriendXpGained + m_results.QueueTimeXpGained + m_results.WinXpGained + m_results.FreelancerOwnedXPGained;
 		}
 		return 0;
 	}
 
-	private IEnumerable<UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo> HandleUpdateExpSubStateComplete(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
+	private IEnumerable<GameOverExperienceUpdateSubState.UpdatingInfo> HandleUpdateExpSubStateComplete(GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
 	{
 		UIScreenManager.Get().EndAllLoopSounds();
-		this.ContinueBtnFailSafeTime = Time.unscaledTime;
+		ContinueBtnFailSafeTime = Time.unscaledTime;
 		bool flag = false;
-		if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.InitialPause)
+		if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.InitialPause)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -4113,14 +5389,14 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.HandleUpdateExpSubStateComplete(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_ContinueBtn, true, null);
-			if (this.GetNormalBarXPTotal() <= 0)
+			UIManager.SetGameObjectActive(m_ContinueBtn, true);
+			if (GetNormalBarXPTotal() <= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -4129,152 +5405,22 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				if (!this.HasCurrencyToDisplay())
+				if (!HasCurrencyToDisplay())
 				{
 					flag = true;
-					goto IL_78;
+					goto IL_0078;
 				}
 			}
-			return new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo[]
+			return new GameOverExperienceUpdateSubState.UpdatingInfo[1]
 			{
-				new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar, 1.5f)
+				new GameOverExperienceUpdateSubState.UpdatingInfo(GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar, 1.5f)
 			};
 		}
-		IL_78:
+		goto IL_0078;
+		IL_0216:
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (UpdateInfo.UpdateType != UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
-			{
-				goto IL_10C;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		if (this.m_results.GGXpGained > 0)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_ggBonusXPAnimText.text = string.Format(StringUtil.TR("GGBonusXP", "GameOver"), this.m_results.GGXpGained);
-			this.m_ggBonusController.Play("ResultsBonusIconGGDefaultIN");
-			return new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo[]
-			{
-				new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpAnim, 0f)
-			};
-		}
-		flag = true;
-		IL_10C:
-		if (!flag)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (UpdateInfo.UpdateType != UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpAnim)
-			{
-				goto IL_15D;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		if (this.m_results.GGXpGained > 0)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo[]
-			{
-				new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpBar, 1.5f)
-			};
-		}
-		flag = true;
-		IL_15D:
-		if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_results.QuestXpGained <= 0)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.GetTotalCurrencyGainedFromQuests() <= 0)
-				{
-					flag = true;
-					goto IL_1B2;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			return new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo[]
-			{
-				new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestBarPause, 0f)
-			};
-		}
-		IL_1B2:
-		if (!flag)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -4283,70 +5429,14 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (UpdateInfo.UpdateType != UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestBarPause)
+			if (UpdateInfo.UpdateType != GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
 			{
-				goto IL_216;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_0301;
 			}
 		}
-		if (this.m_results.QuestXpGained <= 0)
+		if (IsRankedGame)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.GetTotalCurrencyGainedFromQuests() <= 0)
-			{
-				flag = true;
-				goto IL_216;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		return new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo[]
-		{
-			new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestExp, 1.5f)
-		};
-		IL_216:
-		if (!flag)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (UpdateInfo.UpdateType != UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
-			{
-				goto IL_301;
-			}
-		}
-		if (this.IsRankedGame)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -4357,7 +5447,7 @@ public class UIGameOverScreen : UIScene
 			}
 			if (ClientGameManager.Get().TierCurrent != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -4369,9 +5459,9 @@ public class UIGameOverScreen : UIScene
 				if (ClientGameManager.Get().TierCurrent.Tier != -1)
 				{
 					TierPlacement tierPlacement;
-					if (this.SelfWon)
+					if (SelfWon)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -4388,7 +5478,7 @@ public class UIGameOverScreen : UIScene
 					}
 					if (ClientGameManager.Get().TierCurrent.Tier == tierPlacement.Tier)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -4399,35 +5489,224 @@ public class UIGameOverScreen : UIScene
 						}
 						if (ClientGameManager.Get().TierCurrent.Points == tierPlacement.Points)
 						{
-							goto IL_301;
+							goto IL_0301;
 						}
 					}
-					return new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo[]
+					return new GameOverExperienceUpdateSubState.UpdatingInfo[1]
 					{
-						new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.RankPoints, 3f)
+						new GameOverExperienceUpdateSubState.UpdatingInfo(GameOverExperienceUpdateSubState.UpdatingType.RankPoints, 3f)
 					};
 				}
 			}
 		}
-		IL_301:
+		goto IL_0301;
+		IL_010c:
+		if (!flag)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (UpdateInfo.UpdateType != GameOverExperienceUpdateSubState.UpdatingType.GGExpAnim)
+			{
+				goto IL_015d;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		if (m_results.GGXpGained > 0)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				return new GameOverExperienceUpdateSubState.UpdatingInfo[1]
+				{
+					new GameOverExperienceUpdateSubState.UpdatingInfo(GameOverExperienceUpdateSubState.UpdatingType.GGExpBar, 1.5f)
+				};
+			}
+		}
+		flag = true;
+		goto IL_015d;
+		IL_01b2:
+		if (!flag)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (UpdateInfo.UpdateType != GameOverExperienceUpdateSubState.UpdatingType.QuestBarPause)
+			{
+				goto IL_0216;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		if (m_results.QuestXpGained <= 0)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (GetTotalCurrencyGainedFromQuests() <= 0)
+			{
+				flag = true;
+				goto IL_0216;
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		return new GameOverExperienceUpdateSubState.UpdatingInfo[1]
+		{
+			new GameOverExperienceUpdateSubState.UpdatingInfo(GameOverExperienceUpdateSubState.UpdatingType.QuestExp, 1.5f)
+		};
+		IL_0078:
+		if (!flag)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (UpdateInfo.UpdateType != GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
+			{
+				goto IL_010c;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		if (m_results.GGXpGained > 0)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				m_ggBonusXPAnimText.text = string.Format(StringUtil.TR("GGBonusXP", "GameOver"), m_results.GGXpGained);
+				m_ggBonusController.Play("ResultsBonusIconGGDefaultIN");
+				return new GameOverExperienceUpdateSubState.UpdatingInfo[1]
+				{
+					new GameOverExperienceUpdateSubState.UpdatingInfo(GameOverExperienceUpdateSubState.UpdatingType.GGExpAnim, 0f)
+				};
+			}
+		}
+		flag = true;
+		goto IL_010c;
+		IL_015d:
+		if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (m_results.QuestXpGained <= 0)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (GetTotalCurrencyGainedFromQuests() <= 0)
+				{
+					flag = true;
+					goto IL_01b2;
+				}
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			return new GameOverExperienceUpdateSubState.UpdatingInfo[1]
+			{
+				new GameOverExperienceUpdateSubState.UpdatingInfo(GameOverExperienceUpdateSubState.UpdatingType.QuestBarPause, 0f)
+			};
+		}
+		goto IL_01b2;
+		IL_0301:
 		return null;
 	}
 
-	private void HandleUpdateExpSubStateUpdate(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
+	private void HandleUpdateExpSubStateUpdate(GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
 	{
-		this.UpdateRankPoints(UpdateInfo);
-		this.UpdateInfluenceObjects(UpdateInfo);
-		this.UpdateCurrencyObjects(UpdateInfo);
-		this.UpdateExperienceObjects(UpdateInfo);
+		UpdateRankPoints(UpdateInfo);
+		UpdateInfluenceObjects(UpdateInfo);
+		UpdateCurrencyObjects(UpdateInfo);
+		UpdateExperienceObjects(UpdateInfo);
 	}
 
-	private void UpdateCurrencyHelper(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo, UIGameOverScreen.CurrencyDisplayInfo DisplayInfo, CurrencyType CurrencyType)
+	private void UpdateCurrencyHelper(GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo, CurrencyDisplayInfo DisplayInfo, CurrencyType CurrencyType)
 	{
 		int num = 0;
 		int num2 = 0;
-		if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
+		if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -4436,15 +5715,15 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateCurrencyHelper(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo, UIGameOverScreen.CurrencyDisplayInfo, CurrencyType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num2 = DisplayInfo.GetTotalNormalCurrencyReward(CurrencyType);
 		}
-		else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
+		else if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -4456,9 +5735,9 @@ public class UIGameOverScreen : UIScene
 			num = DisplayInfo.GetTotalNormalCurrencyReward(CurrencyType);
 			num2 = DisplayInfo.GetTotalGGBoostCurrencyReward(CurrencyType);
 		}
-		else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
+		else if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -4471,15 +5750,15 @@ public class UIGameOverScreen : UIScene
 			num2 = DisplayInfo.GetTotalQuestCurrencyReward(CurrencyType);
 		}
 		int num3 = num + (int)((float)num2 * UpdateInfo.PercentageProgress);
-		DisplayInfo.m_currencyGainText.text = "+" + num3.ToString();
+		DisplayInfo.m_currencyGainText.text = "+" + num3;
 	}
 
-	private void UpdateExpSubStateHelper(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo, UIGameOverScreen.XPDisplayInfo DisplayInfo, int TotalXPToGain, int XPGainFromPreviousState, int StartLevel, int XPGainedSoFar)
+	private void UpdateExpSubStateHelper(GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo, XPDisplayInfo DisplayInfo, int TotalXPToGain, int XPGainFromPreviousState, int StartLevel, int XPGainedSoFar)
 	{
 		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason);
 		if (seasonTemplate.IsTutorial)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -4488,595 +5767,45 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateExpSubStateHelper(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo, UIGameOverScreen.XPDisplayInfo, int, int, int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (DisplayInfo.XPBarType != UIGameOverScreen.XPDisplayInfo.BarXPType.Character)
+			if (DisplayInfo.XPBarType != XPDisplayInfo.BarXPType.Character)
 			{
 				return;
 			}
 		}
-		int i = XPGainFromPreviousState + XPGainedSoFar;
-		int num = StartLevel;
-		int xpforType = UIGameOverScreen.XPDisplayInfo.GetXPForType(DisplayInfo.XPBarType, num);
-		while (i >= xpforType)
+		int num = XPGainFromPreviousState + XPGainedSoFar;
+		int num2 = StartLevel;
+		int xPForType = XPDisplayInfo.GetXPForType(DisplayInfo.XPBarType, num2);
+		while (num >= xPForType)
 		{
-			i -= xpforType;
-			num++;
-			xpforType = UIGameOverScreen.XPDisplayInfo.GetXPForType(DisplayInfo.XPBarType, num);
+			num -= xPForType;
+			num2++;
+			xPForType = XPDisplayInfo.GetXPForType(DisplayInfo.XPBarType, num2);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (DisplayInfo.m_LastLevelDisplayed != num)
-		{
-			for (;;)
+			if (DisplayInfo.m_LastLevelDisplayed != num2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			int xpforType2 = UIGameOverScreen.XPDisplayInfo.GetXPForType(DisplayInfo.XPBarType, num - 1);
-			if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				DisplayInfo.m_NormalXPGainSlider.fillAmount = 1f;
-			}
-			else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				DisplayInfo.m_GGXPSlider.fillAmount = 1f;
-			}
-			else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				DisplayInfo.m_GGXPSlider.fillAmount = 1f;
-			}
-			DisplayInfo.m_barLevelLabel.text = (num - 1).ToString();
-			DisplayInfo.m_XPLabel.text = xpforType2 + " / " + xpforType2;
-			DisplayInfo.m_playingLevelUp = true;
-			UIAnimationEventManager.Get().PlayAnimation(DisplayInfo.m_barLevelUpAnimator, "resultsAccountLevelUpDefaultIN", new UIAnimationEventManager.AnimationDoneCallback(DisplayInfo.LevelUpAnimDone), "resultsAccountLevelUpDefaultIDLE", 0, 0f, true, false, null, null);
-			UpdateInfo.SetPaused(true);
-			DisplayInfo.m_LastLevelDisplayed = num;
-			DisplayInfo.CheckForRewardDisplay(num);
-		}
-		else
-		{
-			if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				DisplayInfo.m_NormalXPGainSlider.fillAmount = (float)i / (float)xpforType;
-			}
-			else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
-			{
-				DisplayInfo.m_GGXPSlider.fillAmount = (float)i / (float)xpforType;
-			}
-			else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				DisplayInfo.m_QuestXPSlider.fillAmount = (float)i / (float)xpforType;
-			}
-			DisplayInfo.m_barLevelLabel.text = num.ToString();
-			DisplayInfo.m_XPLabel.text = i + " / " + xpforType;
-		}
-	}
-
-	private void UpdateInfluenceObjects(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
-	{
-		if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateInfluenceObjects(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo)).MethodHandle;
-			}
-			if (this.m_results.FactionContributionAmounts != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!UpdateInfo.IsPaused)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					int num = 0;
-					using (Dictionary<string, int>.Enumerator enumerator = this.m_results.FactionContributionAmounts.GetEnumerator())
+					default:
 					{
-						while (enumerator.MoveNext())
+						int xPForType2 = XPDisplayInfo.GetXPForType(DisplayInfo.XPBarType, num2 - 1);
+						if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
 						{
-							KeyValuePair<string, int> keyValuePair = enumerator.Current;
-							num += keyValuePair.Value;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					int num2 = (int)((float)num * UpdateInfo.PercentageProgress);
-					this.m_influenceDisplay.m_currencyGainText.text = "+" + num2.ToString();
-				}
-			}
-		}
-	}
-
-	private int GetDisplayTotalCurrency(UIGameOverScreen.CurrencyDisplayInfo info, CurrencyType CurrencyType)
-	{
-		if (info != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GetDisplayTotalCurrency(UIGameOverScreen.CurrencyDisplayInfo, CurrencyType)).MethodHandle;
-			}
-			return info.GetTotalNormalCurrencyReward(CurrencyType) + info.GetTotalGGBoostCurrencyReward(CurrencyType) + info.GetTotalQuestCurrencyReward(CurrencyType);
-		}
-		return 0;
-	}
-
-	private bool HasCurrencyToDisplay()
-	{
-		return this.GetDisplayTotalCurrency(this.m_isoDisplay, CurrencyType.ISO) + this.GetDisplayTotalCurrency(this.m_freelancerCurrencyDisplay, CurrencyType.FreelancerCurrency) + this.GetDisplayTotalCurrency(this.m_rankedCurrencyDisplay, CurrencyType.RankedCurrency) > 0;
-	}
-
-	private void UpdateCurrencyObjects(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
-	{
-		if (UpdateInfo.UpdateType != UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateCurrencyObjects(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo)).MethodHandle;
-			}
-			if (UpdateInfo.UpdateType != UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (UpdateInfo.UpdateType != UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
-				{
-					return;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-		}
-		if (!UpdateInfo.IsPaused)
-		{
-			this.UpdateCurrencyHelper(UpdateInfo, this.m_isoDisplay, CurrencyType.ISO);
-			this.UpdateCurrencyHelper(UpdateInfo, this.m_freelancerCurrencyDisplay, CurrencyType.FreelancerCurrency);
-			this.UpdateCurrencyHelper(UpdateInfo, this.m_rankedCurrencyDisplay, CurrencyType.RankedCurrency);
-		}
-	}
-
-	private void UpdateExperienceObjects(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
-	{
-		if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateExperienceObjects(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo)).MethodHandle;
-			}
-			if (!UpdateInfo.IsPaused)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIScreenManager.Get().PlayNormalXPLoop(true);
-				int normalBarXPTotal = this.GetNormalBarXPTotal();
-				int num = normalBarXPTotal + this.m_results.ConsumableXpGained;
-				int xpgainedSoFar = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)normalBarXPTotal);
-				int num2 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)num);
-				this.m_expGain.text = "+" + xpgainedSoFar.ToString();
-				this.UpdateExpSubStateHelper(UpdateInfo, this.m_playerXPInfo, normalBarXPTotal, this.m_results.SeasonXpAtStart, this.m_results.SeasonLevelAtStart, xpgainedSoFar);
-				if (this.m_results.NumCharactersPlayed > 1)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num /= this.m_results.NumCharactersPlayed;
-					num2 /= this.m_results.NumCharactersPlayed;
-				}
-				this.UpdateExpSubStateHelper(UpdateInfo, this.m_characterXPInfo, num, this.m_results.CharacterXpAtStart, this.m_results.CharacterLevelAtStart, num2);
-			}
-			else
-			{
-				UIScreenManager.Get().EndNormalXPLoop();
-				if (!this.m_playerXPInfo.m_playingLevelUp)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_characterXPInfo.m_playingLevelUp && !UINewReward.Get().RewardIsBeingAnnounced())
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UpdateInfo.SetPaused(false);
-					}
-				}
-			}
-		}
-		else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!UpdateInfo.IsPaused)
-			{
-				UIScreenManager.Get().PlayGGBoostXPLoop(true);
-				int ggxpGained = this.m_results.GGXpGained;
-				int num3 = ggxpGained;
-				int normalBarXPTotal2 = this.GetNormalBarXPTotal();
-				int num4 = normalBarXPTotal2 + this.m_results.ConsumableXpGained;
-				int num5 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)ggxpGained);
-				this.m_expGain.text = "+" + (normalBarXPTotal2 + num5).ToString();
-				this.UpdateExpSubStateHelper(UpdateInfo, this.m_playerXPInfo, ggxpGained, this.m_results.SeasonXpAtStart + normalBarXPTotal2, this.m_results.SeasonLevelAtStart, num5);
-				if (this.m_results.NumCharactersPlayed > 1)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num3 += num4;
-					num3 /= this.m_results.NumCharactersPlayed;
-					num4 /= this.m_results.NumCharactersPlayed;
-					num3 -= num4;
-				}
-				int xpgainedSoFar2 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)num3);
-				this.UpdateExpSubStateHelper(UpdateInfo, this.m_characterXPInfo, num3, this.m_results.CharacterXpAtStart + num4, this.m_results.CharacterLevelAtStart, xpgainedSoFar2);
-			}
-			else
-			{
-				UIScreenManager.Get().EndGGXPLoop();
-				if (!this.m_playerXPInfo.m_playingLevelUp && !this.m_characterXPInfo.m_playingLevelUp)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!UINewReward.Get().RewardIsBeingAnnounced())
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UpdateInfo.SetPaused(false);
-					}
-				}
-			}
-		}
-		else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
-		{
-			if (!UpdateInfo.IsPaused)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIScreenManager.Get().PlayGGBoostXPLoop(true);
-				int questXpGained = this.m_results.QuestXpGained;
-				int num6 = this.GetNormalBarXPTotal() + this.m_results.GGXpGained;
-				int num7 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)questXpGained);
-				this.m_expGain.text = "+" + (num6 + num7).ToString();
-				this.UpdateExpSubStateHelper(UpdateInfo, this.m_playerXPInfo, questXpGained, this.m_results.SeasonXpAtStart + num6, this.m_results.SeasonLevelAtStart, num7);
-			}
-			else
-			{
-				UIScreenManager.Get().EndGGXPLoop();
-				if (!this.m_playerXPInfo.m_playingLevelUp)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_characterXPInfo.m_playingLevelUp)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!UINewReward.Get().RewardIsBeingAnnounced())
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							UpdateInfo.SetPaused(false);
-						}
-					}
-				}
-			}
-		}
-	}
-
-	private bool IsTierContenderOrMaster(int tier)
-	{
-		bool result;
-		if (tier != 0)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.IsTierContenderOrMaster(int)).MethodHandle;
-			}
-			result = (tier == 1);
-		}
-		else
-		{
-			result = true;
-		}
-		return result;
-	}
-
-	private void RankModeAnimDone()
-	{
-		this.RankLevelUpDownAnimating = false;
-		if (this.SelfWon)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.RankModeAnimDone()).MethodHandle;
-			}
-			this.m_rankNormalBar.fillAmount = 0f;
-			this.m_rankDecreaseBar.fillAmount = 0f;
-			this.m_rankIncreaseBar.fillAmount = 0f;
-		}
-		else
-		{
-			this.m_rankNormalBar.fillAmount = 1f;
-			this.m_rankDecreaseBar.fillAmount = 1f;
-			this.m_rankIncreaseBar.fillAmount = 1f;
-		}
-	}
-
-	private void UpdateRankPointsWin(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
-	{
-		if (!UpdateInfo.IsPaused && ClientGameManager.Get().TierCurrent != null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateRankPointsWin(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo)).MethodHandle;
-			}
-			TierPlacement tierCurrent = ClientGameManager.Get().TierCurrent;
-			TierPlacement tierChangeMax = ClientGameManager.Get().TierChangeMax;
-			float num = 0f;
-			if (tierChangeMax.Tier == tierCurrent.Tier)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num = tierChangeMax.Points - tierCurrent.Points;
-			}
-			else
-			{
-				int num2 = tierCurrent.Tier;
-				while (num2 != tierChangeMax.Tier)
-				{
-					if (num2 == tierCurrent.Tier)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.IsTierContenderOrMaster(num2))
-						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -5085,169 +5814,727 @@ public class UIGameOverScreen : UIScene
 								}
 								break;
 							}
-							throw new Exception("Increasing tiers from master or contender when winning doesn't make sense.");
+							DisplayInfo.m_NormalXPGainSlider.fillAmount = 1f;
 						}
-						num += Mathf.Abs(100f - tierCurrent.Points);
-					}
-					else
-					{
-						num += 100f;
-					}
-					if (tierCurrent.Tier < tierChangeMax.Tier)
-					{
-						for (;;)
+						else if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
 						{
-							switch (5)
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							DisplayInfo.m_GGXPSlider.fillAmount = 1f;
+						}
+						else if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							DisplayInfo.m_GGXPSlider.fillAmount = 1f;
+						}
+						DisplayInfo.m_barLevelLabel.text = (num2 - 1).ToString();
+						DisplayInfo.m_XPLabel.text = xPForType2 + " / " + xPForType2;
+						DisplayInfo.m_playingLevelUp = true;
+						UIAnimationEventManager.Get().PlayAnimation(DisplayInfo.m_barLevelUpAnimator, "resultsAccountLevelUpDefaultIN", DisplayInfo.LevelUpAnimDone, "resultsAccountLevelUpDefaultIDLE");
+						UpdateInfo.SetPaused(true);
+						DisplayInfo.m_LastLevelDisplayed = num2;
+						DisplayInfo.CheckForRewardDisplay(num2);
+						return;
+					}
+					}
+				}
+			}
+			if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				DisplayInfo.m_NormalXPGainSlider.fillAmount = (float)num / (float)xPForType;
+			}
+			else if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
+			{
+				DisplayInfo.m_GGXPSlider.fillAmount = (float)num / (float)xPForType;
+			}
+			else if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				DisplayInfo.m_QuestXPSlider.fillAmount = (float)num / (float)xPForType;
+			}
+			DisplayInfo.m_barLevelLabel.text = num2.ToString();
+			DisplayInfo.m_XPLabel.text = num + " / " + xPForType;
+			return;
+		}
+	}
+
+	private void UpdateInfluenceObjects(GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
+	{
+		if (UpdateInfo.UpdateType != GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_results.FactionContributionAmounts == null)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				if (!UpdateInfo.IsPaused)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						int num = 0;
+						using (Dictionary<string, int>.Enumerator enumerator = m_results.FactionContributionAmounts.GetEnumerator())
+						{
+							while (enumerator.MoveNext())
+							{
+								num += enumerator.Current.Value;
+							}
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+						int num2 = (int)((float)num * UpdateInfo.PercentageProgress);
+						m_influenceDisplay.m_currencyGainText.text = "+" + num2;
+						return;
+					}
+				}
+				return;
+			}
+		}
+	}
+
+	private int GetDisplayTotalCurrency(CurrencyDisplayInfo info, CurrencyType CurrencyType)
+	{
+		if (info != null)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return info.GetTotalNormalCurrencyReward(CurrencyType) + info.GetTotalGGBoostCurrencyReward(CurrencyType) + info.GetTotalQuestCurrencyReward(CurrencyType);
+				}
+			}
+		}
+		return 0;
+	}
+
+	private bool HasCurrencyToDisplay()
+	{
+		return GetDisplayTotalCurrency(m_isoDisplay, CurrencyType.ISO) + GetDisplayTotalCurrency(m_freelancerCurrencyDisplay, CurrencyType.FreelancerCurrency) + GetDisplayTotalCurrency(m_rankedCurrencyDisplay, CurrencyType.RankedCurrency) > 0;
+	}
+
+	private void UpdateCurrencyObjects(GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
+	{
+		if (UpdateInfo.UpdateType != GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (UpdateInfo.UpdateType != GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (UpdateInfo.UpdateType != GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+		}
+		if (!UpdateInfo.IsPaused)
+		{
+			UpdateCurrencyHelper(UpdateInfo, m_isoDisplay, CurrencyType.ISO);
+			UpdateCurrencyHelper(UpdateInfo, m_freelancerCurrencyDisplay, CurrencyType.FreelancerCurrency);
+			UpdateCurrencyHelper(UpdateInfo, m_rankedCurrencyDisplay, CurrencyType.RankedCurrency);
+		}
+	}
+
+	private void UpdateExperienceObjects(GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
+	{
+		if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (!UpdateInfo.IsPaused)
+					{
+						while (true)
+						{
+							switch (1)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+							{
+								UIScreenManager.Get().PlayNormalXPLoop(true);
+								int normalBarXPTotal = GetNormalBarXPTotal();
+								int num = normalBarXPTotal + m_results.ConsumableXpGained;
+								int xPGainedSoFar = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)normalBarXPTotal);
+								int num2 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)num);
+								m_expGain.text = "+" + xPGainedSoFar;
+								UpdateExpSubStateHelper(UpdateInfo, m_playerXPInfo, normalBarXPTotal, m_results.SeasonXpAtStart, m_results.SeasonLevelAtStart, xPGainedSoFar);
+								if (m_results.NumCharactersPlayed > 1)
+								{
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									num /= m_results.NumCharactersPlayed;
+									num2 /= m_results.NumCharactersPlayed;
+								}
+								UpdateExpSubStateHelper(UpdateInfo, m_characterXPInfo, num, m_results.CharacterXpAtStart, m_results.CharacterLevelAtStart, num2);
+								return;
 							}
-							break;
+							}
 						}
-						num2++;
+					}
+					UIScreenManager.Get().EndNormalXPLoop();
+					if (!m_playerXPInfo.m_playingLevelUp)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								break;
+							default:
+								if (!m_characterXPInfo.m_playingLevelUp && !UINewReward.Get().RewardIsBeingAnnounced())
+								{
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											break;
+										default:
+											UpdateInfo.SetPaused(false);
+											return;
+										}
+									}
+								}
+								return;
+							}
+						}
+					}
+					return;
+				}
+			}
+		}
+		if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					break;
+				default:
+					if (!UpdateInfo.IsPaused)
+					{
+						UIScreenManager.Get().PlayGGBoostXPLoop(true);
+						int gGXpGained = m_results.GGXpGained;
+						int num3 = gGXpGained;
+						int normalBarXPTotal2 = GetNormalBarXPTotal();
+						int num4 = normalBarXPTotal2 + m_results.ConsumableXpGained;
+						int num5 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)gGXpGained);
+						m_expGain.text = "+" + (normalBarXPTotal2 + num5);
+						UpdateExpSubStateHelper(UpdateInfo, m_playerXPInfo, gGXpGained, m_results.SeasonXpAtStart + normalBarXPTotal2, m_results.SeasonLevelAtStart, num5);
+						if (m_results.NumCharactersPlayed > 1)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num3 += num4;
+							num3 /= m_results.NumCharactersPlayed;
+							num4 /= m_results.NumCharactersPlayed;
+							num3 -= num4;
+						}
+						int xPGainedSoFar2 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)num3);
+						UpdateExpSubStateHelper(UpdateInfo, m_characterXPInfo, num3, m_results.CharacterXpAtStart + num4, m_results.CharacterLevelAtStart, xPGainedSoFar2);
 					}
 					else
 					{
-						num2--;
-					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num += tierChangeMax.Points;
-			}
-			float num3 = UpdateInfo.PercentageProgress * num;
-			float num4 = ClientGameManager.Get().TierCurrent.Points + num3;
-			int num5 = ClientGameManager.Get().TierCurrent.Tier;
-			float num6;
-			if (this.IsTierContenderOrMaster(num5))
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num6 = float.MaxValue;
-			}
-			else
-			{
-				num6 = 100f;
-			}
-			float num7 = num6;
-			while (num4 >= num7)
-			{
-				num4 -= num7;
-				if (tierCurrent.Tier < tierChangeMax.Tier)
-				{
-					for (;;)
-					{
-						switch (7)
+						UIScreenManager.Get().EndGGXPLoop();
+						if (!m_playerXPInfo.m_playingLevelUp && !m_characterXPInfo.m_playingLevelUp)
 						{
-						case 0:
-							continue;
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									break;
+								default:
+									if (!UINewReward.Get().RewardIsBeingAnnounced())
+									{
+										while (true)
+										{
+											switch (3)
+											{
+											case 0:
+												break;
+											default:
+												UpdateInfo.SetPaused(false);
+												return;
+											}
+										}
+									}
+									return;
+								}
+							}
 						}
-						break;
 					}
-					num5++;
+					return;
 				}
-				else
-				{
-					num5--;
-				}
-				float num8;
-				if (this.IsTierContenderOrMaster(num5))
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num8 = float.MaxValue;
-				}
-				else
-				{
-					num8 = 100f;
-				}
-				num7 = num8;
 			}
-			if (this.SetupTierDisplay(num5, num4))
+		}
+		if (UpdateInfo.UpdateType != GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
+		{
+			return;
+		}
+		if (!UpdateInfo.IsPaused)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (7)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
+				case 0:
 					break;
-				}
-				this.RankLevelUpDownAnimating = true;
-				UpdateInfo.SetPaused(true);
-				this.m_rankUpDownText.text = StringUtil.TR("RankUp", "GameOver");
-				UIAnimationEventManager.Get().PlayAnimation(this.m_rankModeLevelAnimator, "RankedLvlUp", new UIAnimationEventManager.AnimationDoneCallback(this.RankModeAnimDone), string.Empty, 0, 0f, true, false, null, null);
-			}
-			else
-			{
-				this.m_rankPointsText.text = "+" + num3.ToString("F1");
-				if (this.ShouldDisplayTierPoints)
+				default:
 				{
-					for (;;)
+					UIScreenManager.Get().PlayGGBoostXPLoop(true);
+					int questXpGained = m_results.QuestXpGained;
+					int num6 = GetNormalBarXPTotal() + m_results.GGXpGained;
+					int num7 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)questXpGained);
+					m_expGain.text = "+" + (num6 + num7);
+					UpdateExpSubStateHelper(UpdateInfo, m_playerXPInfo, questXpGained, m_results.SeasonXpAtStart + num6, m_results.SeasonLevelAtStart, num7);
+					return;
+				}
+				}
+			}
+		}
+		UIScreenManager.Get().EndGGXPLoop();
+		if (m_playerXPInfo.m_playingLevelUp)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (m_characterXPInfo.m_playingLevelUp)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				if (!UINewReward.Get().RewardIsBeingAnnounced())
+				{
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						UpdateInfo.SetPaused(false);
+						return;
 					}
-					this.m_rankLevelText.text = Mathf.RoundToInt(num4).ToString();
 				}
-				if (this.IsTierContenderOrMaster(num5))
-				{
-					this.m_rankIncreaseBar.fillAmount = 1f;
-				}
-				else
-				{
-					this.m_rankIncreaseBar.fillAmount = this.GetRankFillAmt(num4 / 100f);
-				}
+				return;
 			}
 		}
-		else if (!this.RankLevelUpDownAnimating)
+	}
+
+	private bool IsTierContenderOrMaster(int tier)
+	{
+		int result;
+		if (tier != 0)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (7)
+				switch (1)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			result = ((tier == 1) ? 1 : 0);
+		}
+		else
+		{
+			result = 1;
+		}
+		return (byte)result != 0;
+	}
+
+	private void RankModeAnimDone()
+	{
+		RankLevelUpDownAnimating = false;
+		if (SelfWon)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_rankNormalBar.fillAmount = 0f;
+					m_rankDecreaseBar.fillAmount = 0f;
+					m_rankIncreaseBar.fillAmount = 0f;
+					return;
+				}
+			}
+		}
+		m_rankNormalBar.fillAmount = 1f;
+		m_rankDecreaseBar.fillAmount = 1f;
+		m_rankIncreaseBar.fillAmount = 1f;
+	}
+
+	private void UpdateRankPointsWin(GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
+	{
+		if (!UpdateInfo.IsPaused && ClientGameManager.Get().TierCurrent != null)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					TierPlacement tierCurrent = ClientGameManager.Get().TierCurrent;
+					TierPlacement tierChangeMax = ClientGameManager.Get().TierChangeMax;
+					float num = 0f;
+					if (tierChangeMax.Tier == tierCurrent.Tier)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num = tierChangeMax.Points - tierCurrent.Points;
+					}
+					else
+					{
+						int num2 = tierCurrent.Tier;
+						while (num2 != tierChangeMax.Tier)
+						{
+							if (num2 == tierCurrent.Tier)
+							{
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (IsTierContenderOrMaster(num2))
+								{
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											break;
+										default:
+											throw new Exception("Increasing tiers from master or contender when winning doesn't make sense.");
+										}
+									}
+								}
+								num += Mathf.Abs(100f - tierCurrent.Points);
+							}
+							else
+							{
+								num += 100f;
+							}
+							if (tierCurrent.Tier < tierChangeMax.Tier)
+							{
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								num2++;
+							}
+							else
+							{
+								num2--;
+							}
+						}
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num += tierChangeMax.Points;
+					}
+					float num3 = UpdateInfo.PercentageProgress * num;
+					float num4 = ClientGameManager.Get().TierCurrent.Points + num3;
+					int num5 = ClientGameManager.Get().TierCurrent.Tier;
+					float num6;
+					if (IsTierContenderOrMaster(num5))
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num6 = float.MaxValue;
+					}
+					else
+					{
+						num6 = 100f;
+					}
+					float num7 = num6;
+					while (num4 >= num7)
+					{
+						num4 -= num7;
+						if (tierCurrent.Tier < tierChangeMax.Tier)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num5++;
+						}
+						else
+						{
+							num5--;
+						}
+						float num8;
+						if (IsTierContenderOrMaster(num5))
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num8 = float.MaxValue;
+						}
+						else
+						{
+							num8 = 100f;
+						}
+						num7 = num8;
+					}
+					if (SetupTierDisplay(num5, num4))
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								break;
+							default:
+								RankLevelUpDownAnimating = true;
+								UpdateInfo.SetPaused(true);
+								m_rankUpDownText.text = StringUtil.TR("RankUp", "GameOver");
+								UIAnimationEventManager.Get().PlayAnimation(m_rankModeLevelAnimator, "RankedLvlUp", RankModeAnimDone, string.Empty);
+								return;
+							}
+						}
+					}
+					m_rankPointsText.text = "+" + num3.ToString("F1");
+					if (ShouldDisplayTierPoints)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						m_rankLevelText.text = Mathf.RoundToInt(num4).ToString();
+					}
+					if (IsTierContenderOrMaster(num5))
+					{
+						m_rankIncreaseBar.fillAmount = 1f;
+					}
+					else
+					{
+						m_rankIncreaseBar.fillAmount = GetRankFillAmt(num4 / 100f);
+					}
+					return;
+				}
+				}
+			}
+		}
+		if (RankLevelUpDownAnimating)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
 			UpdateInfo.SetPaused(false);
+			return;
 		}
 	}
 
-	private void UpdateRankPointsLose(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
+	private void UpdateRankPointsLose(GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
 	{
 		TierPlacement tierCurrent = ClientGameManager.Get().TierCurrent;
 		TierPlacement tierChangeMin = ClientGameManager.Get().TierChangeMin;
 		if (!UpdateInfo.IsPaused)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -5256,13 +6543,13 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateRankPointsLose(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (tierCurrent != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -5273,145 +6560,146 @@ public class UIGameOverScreen : UIScene
 				}
 				if (tierChangeMin != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					float num = 0f;
-					if (tierChangeMin.Tier == tierCurrent.Tier)
-					{
-						num = tierCurrent.Points - tierChangeMin.Points;
-					}
-					else
-					{
-						int num2 = tierCurrent.Tier;
-						while (num2 != tierChangeMin.Tier)
-						{
-							if (num2 == tierCurrent.Tier)
-							{
-								num += tierCurrent.Points;
-							}
-							else
-							{
-								if (this.IsTierContenderOrMaster(num2))
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									throw new Exception("Decreasing tier to master or contender when losing doesn't make sense.");
-								}
-								num += 100f;
-							}
-							if (tierCurrent.Tier < tierChangeMin.Tier)
-							{
-								num2++;
-							}
-							else
-							{
-								num2--;
-							}
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						num += Mathf.Abs(100f - tierChangeMin.Points);
-					}
-					float num3 = UpdateInfo.PercentageProgress * num;
-					float num4 = ClientGameManager.Get().TierCurrent.Points - num3;
-					int num5 = ClientGameManager.Get().TierCurrent.Tier;
-					while (num4 <= 0f)
-					{
-						if (tierCurrent.Tier < tierChangeMin.Tier)
+						default:
 						{
-							if (UIRankedModeSelectScreen.IsRatchetTier(tierCurrent.Tier))
+							float num = 0f;
+							if (tierChangeMin.Tier == tierCurrent.Tier)
 							{
-								for (;;)
+								num = tierCurrent.Points - tierChangeMin.Points;
+							}
+							else
+							{
+								for (int num2 = tierCurrent.Tier; num2 != tierChangeMin.Tier; num2 = ((tierCurrent.Tier >= tierChangeMin.Tier) ? (num2 - 1) : (num2 + 1)))
 								{
-									switch (5)
+									if (num2 == tierCurrent.Tier)
+									{
+										num += tierCurrent.Points;
+									}
+									else
+									{
+										if (IsTierContenderOrMaster(num2))
+										{
+											while (true)
+											{
+												switch (6)
+												{
+												case 0:
+													break;
+												default:
+													throw new Exception("Decreasing tier to master or contender when losing doesn't make sense.");
+												}
+											}
+										}
+										num += 100f;
+									}
+								}
+								while (true)
+								{
+									switch (3)
 									{
 									case 0:
 										continue;
 									}
 									break;
 								}
-								num4 = 0f;
-								goto IL_1ED;
+								num += Mathf.Abs(100f - tierChangeMin.Points);
 							}
-							num5++;
-						}
-						else
-						{
-							if (tierCurrent.Tier <= tierChangeMin.Tier)
+							float num3 = UpdateInfo.PercentageProgress * num;
+							float num4 = ClientGameManager.Get().TierCurrent.Points - num3;
+							int num5 = ClientGameManager.Get().TierCurrent.Tier;
+							while (true)
 							{
-								num4 = 0f;
-								goto IL_1ED;
-							}
-							for (;;)
-							{
-								switch (1)
+								if (!(num4 <= 0f))
 								{
-								case 0:
-									continue;
+									while (true)
+									{
+										switch (7)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									break;
 								}
-								break;
-							}
-							num5--;
-						}
-						if (this.IsTierContenderOrMaster(num5))
-						{
-							for (;;)
-							{
-								switch (7)
+								if (tierCurrent.Tier < tierChangeMin.Tier)
 								{
-								case 0:
-									continue;
+									if (UIRankedModeSelectScreen.IsRatchetTier(tierCurrent.Tier))
+									{
+										while (true)
+										{
+											switch (5)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										num4 = 0f;
+										break;
+									}
+									num5++;
 								}
-								break;
-							}
-							Log.Error("How did this happen? Should have been caught in an exception earlier", new object[0]);
-						}
-						num4 += 100f;
-						continue;
-						IL_1ED:
-						if (this.SetupTierDisplay(num5, num4))
-						{
-							for (;;)
-							{
-								switch (7)
+								else
 								{
-								case 0:
-									continue;
+									if (tierCurrent.Tier <= tierChangeMin.Tier)
+									{
+										num4 = 0f;
+										break;
+									}
+									while (true)
+									{
+										switch (1)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									num5--;
 								}
-								break;
+								if (IsTierContenderOrMaster(num5))
+								{
+									while (true)
+									{
+										switch (7)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									Log.Error("How did this happen? Should have been caught in an exception earlier");
+								}
+								num4 += 100f;
 							}
-							this.RankLevelUpDownAnimating = true;
-							UpdateInfo.SetPaused(true);
-							this.m_rankUpDownText.text = StringUtil.TR("RankDown", "GameOver");
-							UIAnimationEventManager.Get().PlayAnimation(this.m_rankModeLevelAnimator, "RankedLvlDown", new UIAnimationEventManager.AnimationDoneCallback(this.RankModeAnimDone), string.Empty, 0, 0f, true, false, null, null);
-						}
-						else
-						{
-							this.m_rankPointsText.text = "-" + num3.ToString("F1");
-							if (this.ShouldDisplayTierPoints)
+							if (SetupTierDisplay(num5, num4))
 							{
-								for (;;)
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										break;
+									default:
+										RankLevelUpDownAnimating = true;
+										UpdateInfo.SetPaused(true);
+										m_rankUpDownText.text = StringUtil.TR("RankDown", "GameOver");
+										UIAnimationEventManager.Get().PlayAnimation(m_rankModeLevelAnimator, "RankedLvlDown", RankModeAnimDone, string.Empty);
+										return;
+									}
+								}
+							}
+							m_rankPointsText.text = "-" + num3.ToString("F1");
+							if (ShouldDisplayTierPoints)
+							{
+								while (true)
 								{
 									switch (6)
 									{
@@ -5420,103 +6708,142 @@ public class UIGameOverScreen : UIScene
 									}
 									break;
 								}
-								this.m_rankLevelText.text = Mathf.RoundToInt(num4).ToString();
+								m_rankLevelText.text = Mathf.RoundToInt(num4).ToString();
 							}
-							if (this.IsTierContenderOrMaster(num5))
+							if (IsTierContenderOrMaster(num5))
 							{
-								for (;;)
+								while (true)
 								{
 									switch (7)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+										m_rankNormalBar.fillAmount = 1f;
+										return;
 									}
-									break;
 								}
-								this.m_rankNormalBar.fillAmount = 1f;
 							}
-							else
-							{
-								this.m_rankNormalBar.fillAmount = this.GetRankFillAmt(num4 / 100f);
-							}
+							m_rankNormalBar.fillAmount = GetRankFillAmt(num4 / 100f);
+							return;
 						}
-						return;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
 						}
-						goto IL_1ED;
 					}
 				}
 			}
 		}
-		if (!this.RankLevelUpDownAnimating)
+		if (RankLevelUpDownAnimating)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			UpdateInfo.SetPaused(false);
+			return;
 		}
 	}
 
-	private void UpdateRankPoints(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
+	private void UpdateRankPoints(GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo)
 	{
-		if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.RankPoints)
+		if (UpdateInfo.UpdateType != GameOverExperienceUpdateSubState.UpdatingType.RankPoints)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateRankPoints(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (ClientGameManager.Get().TierCurrent != null && ClientGameManager.Get().TierCurrent.Tier > -1)
+			if (ClientGameManager.Get().TierCurrent == null || ClientGameManager.Get().TierCurrent.Tier <= -1)
 			{
-				if (this.SelfWon)
+				return;
+			}
+			if (SelfWon)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (6)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
+					case 0:
 						break;
+					default:
+						UpdateRankPointsWin(UpdateInfo);
+						return;
 					}
-					this.UpdateRankPointsWin(UpdateInfo);
-				}
-				else
-				{
-					this.UpdateRankPointsLose(UpdateInfo);
 				}
 			}
+			UpdateRankPointsLose(UpdateInfo);
+			return;
 		}
 	}
 
 	public bool DoNextGGBoostRecapDisplay()
 	{
 		bool flag = false;
-		for (int i = 0; i < this.m_blueTeamGGProfiles.Length; i++)
+		for (int i = 0; i < m_blueTeamGGProfiles.Length; i++)
 		{
-			if (this.m_blueTeamGGProfiles[i].GetPlayerInfo() != null)
+			if (m_blueTeamGGProfiles[i].GetPlayerInfo() == null)
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			int num = HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumberGGPacksUsed(m_blueTeamGGProfiles[i].GetPlayerInfo().Handle);
+			if (m_blueTeamGGProfiles[i].GetPlayerInfo().IsRemoteControlled)
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (num <= 0)
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (m_blueTeamGGProfiles[i].CurrentGGPackLevel != num)
+			{
+				if (flag)
+				{
+					return true;
+				}
+				while (true)
 				{
 					switch (3)
 					{
@@ -5525,159 +6852,17 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.DoNextGGBoostRecapDisplay()).MethodHandle;
-				}
-				int num = HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumberGGPacksUsed(this.m_blueTeamGGProfiles[i].GetPlayerInfo().Handle);
-				if (!this.m_blueTeamGGProfiles[i].GetPlayerInfo().IsRemoteControlled)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (num > 0)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_blueTeamGGProfiles[i].CurrentGGPackLevel != num)
-						{
-							if (flag)
-							{
-								return true;
-							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							flag = true;
-							this.m_blueTeamGGProfiles[i].SetGGButtonLevel(num);
-						}
-					}
-				}
+				flag = true;
+				m_blueTeamGGProfiles[i].SetGGButtonLevel(num);
 			}
 		}
-		for (int j = 0; j < this.m_redTeamGGProfiles.Length; j++)
+		for (int j = 0; j < m_redTeamGGProfiles.Length; j++)
 		{
-			if (this.m_redTeamGGProfiles[j].GetPlayerInfo() != null)
+			if (m_redTeamGGProfiles[j].GetPlayerInfo() == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				int num2 = HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumberGGPacksUsed(this.m_redTeamGGProfiles[j].GetPlayerInfo().Handle);
-				if (!this.m_redTeamGGProfiles[j].GetPlayerInfo().IsRemoteControlled && num2 > 0)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_redTeamGGProfiles[j].CurrentGGPackLevel != num2)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (flag)
-						{
-							return true;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag = true;
-						this.m_redTeamGGProfiles[j].SetGGButtonLevel(num2);
-					}
-				}
+				continue;
 			}
-		}
-		return false;
-	}
-
-	private void HandleGGBoostSubStateUpdate(UIGameOverScreen.GameOverGGSubState.GGBoosts CurrentSubState, float percentToDisplay)
-	{
-		if (CurrentSubState == UIGameOverScreen.GameOverGGSubState.GGBoosts.UsageTimer)
-		{
-			this.m_GGBoostTimer.fillAmount = percentToDisplay;
-		}
-	}
-
-	private void HandleNewGGBoostSubState(UIGameOverScreen.GameOverGGSubState SubState, UIGameOverScreen.GameOverGGSubState.GGBoosts NewSubState)
-	{
-		if (NewSubState == UIGameOverScreen.GameOverGGSubState.GGBoosts.UsageTimer)
-		{
-			this.GGBoostContainerAnimator.Play("GGBonusScreenDefaultIDLE");
-			int currentAmount = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack);
-			this.m_worldGGBtnHitBox.SetClickable(currentAmount > 0);
-		}
-		else if (NewSubState == UIGameOverScreen.GameOverGGSubState.GGBoosts.FadeOut)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.HandleNewGGBoostSubState(UIGameOverScreen.GameOverGGSubState, UIGameOverScreen.GameOverGGSubState.GGBoosts)).MethodHandle;
-			}
-			this.m_worldGGBtnHitBox.SetClickable(false);
-			UIAnimationEventManager.Get().PlayAnimation(this.GGBoostContainerAnimator, "GGBonusScreenDefaultOUT", new UIAnimationEventManager.AnimationDoneCallback(SubState.FadeoutAnimDone), string.Empty, 0, 0f, true, false, null, null);
-		}
-	}
-
-	public void UpdateGameOverSubStateObjects(UIGameOverScreen.GameOverSubState StateToBeUpdated)
-	{
-		if (StateToBeUpdated.SubStateType == UIGameOverScreen.GameOverScreenState.Stats)
-		{
-			int num = Mathf.FloorToInt((float)this.m_GameOverStatWidgets.Count * StateToBeUpdated.PercentageProgress);
-			for (int i = 0; i < num; i++)
-			{
-				this.m_GameOverStatWidgets[i].SetHighlight();
-			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -5686,14 +6871,118 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			int num2 = HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumberGGPacksUsed(m_redTeamGGProfiles[j].GetPlayerInfo().Handle);
+			if (m_redTeamGGProfiles[j].GetPlayerInfo().IsRemoteControlled || num2 <= 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateGameOverSubStateObjects(UIGameOverScreen.GameOverSubState)).MethodHandle;
+				continue;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (m_redTeamGGProfiles[j].CurrentGGPackLevel != num2)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (flag)
+				{
+					return true;
+				}
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				flag = true;
+				m_redTeamGGProfiles[j].SetGGButtonLevel(num2);
 			}
 		}
-		if (StateToBeUpdated.SubStateType == UIGameOverScreen.GameOverScreenState.Accolades)
+		return false;
+	}
+
+	private void HandleGGBoostSubStateUpdate(GameOverGGSubState.GGBoosts CurrentSubState, float percentToDisplay)
+	{
+		if (CurrentSubState == GameOverGGSubState.GGBoosts.UsageTimer)
 		{
-			for (;;)
+			m_GGBoostTimer.fillAmount = percentToDisplay;
+		}
+	}
+
+	private void HandleNewGGBoostSubState(GameOverGGSubState SubState, GameOverGGSubState.GGBoosts NewSubState)
+	{
+		switch (NewSubState)
+		{
+		default:
+			return;
+		case GameOverGGSubState.GGBoosts.UsageTimer:
+		{
+			GGBoostContainerAnimator.Play("GGBonusScreenDefaultIDLE");
+			int currentAmount = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack);
+			m_worldGGBtnHitBox.SetClickable(currentAmount > 0);
+			return;
+		}
+		case GameOverGGSubState.GGBoosts.FadeOut:
+			break;
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_worldGGBtnHitBox.SetClickable(false);
+			UIAnimationEventManager.Get().PlayAnimation(GGBoostContainerAnimator, "GGBonusScreenDefaultOUT", SubState.FadeoutAnimDone, string.Empty);
+			return;
+		}
+	}
+
+	public void UpdateGameOverSubStateObjects(GameOverSubState StateToBeUpdated)
+	{
+		if (StateToBeUpdated.SubStateType == GameOverScreenState.Stats)
+		{
+			int num = Mathf.FloorToInt((float)m_GameOverStatWidgets.Count * StateToBeUpdated.PercentageProgress);
+			for (int i = 0; i < num; i++)
+			{
+				m_GameOverStatWidgets[i].SetHighlight();
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+		}
+		if (StateToBeUpdated.SubStateType == GameOverScreenState.Accolades)
+		{
+			while (true)
 			{
 				switch (4)
 				{
@@ -5703,9 +6992,9 @@ public class UIGameOverScreen : UIScene
 				break;
 			}
 			int num2 = 0;
-			if (this.m_results.BadgeAndParticipantsInfo != null)
+			if (m_results.BadgeAndParticipantsInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -5715,9 +7004,9 @@ public class UIGameOverScreen : UIScene
 					break;
 				}
 				int num3 = 0;
-				if (!this.m_results.BadgeAndParticipantsInfo.IsNullOrEmpty<BadgeAndParticipantInfo>())
+				if (!m_results.BadgeAndParticipantsInfo.IsNullOrEmpty())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -5726,14 +7015,14 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					using (List<BadgeAndParticipantInfo>.Enumerator enumerator = this.m_results.BadgeAndParticipantsInfo.GetEnumerator())
+					using (List<BadgeAndParticipantInfo>.Enumerator enumerator = m_results.BadgeAndParticipantsInfo.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
 						{
-							BadgeAndParticipantInfo badgeAndParticipantInfo = enumerator.Current;
-							if (!badgeAndParticipantInfo.TopParticipationEarned.IsNullOrEmpty<TopParticipantSlot>())
+							BadgeAndParticipantInfo current = enumerator.Current;
+							if (!current.TopParticipationEarned.IsNullOrEmpty())
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -5742,10 +7031,10 @@ public class UIGameOverScreen : UIScene
 									}
 									break;
 								}
-								num3 += badgeAndParticipantInfo.TopParticipationEarned.Count;
+								num3 += current.TopParticipationEarned.Count;
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -5756,13 +7045,13 @@ public class UIGameOverScreen : UIScene
 						}
 					}
 				}
-				num2 = Mathf.FloorToInt((float)num3 * Mathf.Clamp01((StateToBeUpdated.PercentageProgress - this.TopPartipantFrontTimePadPercentage) / (1f - (this.TopPartipantFrontTimePadPercentage + this.TopPartipantEndTimePadPercentage))));
+				num2 = Mathf.FloorToInt((float)num3 * Mathf.Clamp01((StateToBeUpdated.PercentageProgress - TopPartipantFrontTimePadPercentage) / (1f - (TopPartipantFrontTimePadPercentage + TopPartipantEndTimePadPercentage))));
 			}
-			for (int j = 0; j < this.m_TopParticipantWidgets.Length; j++)
+			for (int j = 0; j < m_TopParticipantWidgets.Length; j++)
 			{
 				if (j < num2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -5771,18 +7060,18 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					if (!this.m_TopParticipantWidgets[j].gameObject.activeSelf)
+					if (!m_TopParticipantWidgets[j].gameObject.activeSelf)
 					{
 						UIFrontEnd.PlaySound(FrontEndButtonSounds.EndGameBadgeBasic);
 					}
-					UIManager.SetGameObjectActive(this.m_TopParticipantWidgets[j], true, null);
+					UIManager.SetGameObjectActive(m_TopParticipantWidgets[j], true);
 				}
 				else
 				{
-					UIManager.SetGameObjectActive(this.m_TopParticipantWidgets[j], false, null);
+					UIManager.SetGameObjectActive(m_TopParticipantWidgets[j], false);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -5792,9 +7081,9 @@ public class UIGameOverScreen : UIScene
 				break;
 			}
 		}
-		if (StateToBeUpdated.SubStateType == UIGameOverScreen.GameOverScreenState.PersonalHighlights)
+		if (StateToBeUpdated.SubStateType == GameOverScreenState.PersonalHighlights)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -5803,29 +7092,30 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			int num4 = Mathf.FloorToInt((float)this.m_PersonalHighlightWidgets.Length * Mathf.Clamp01((StateToBeUpdated.PercentageProgress - this.PersonalHighlightsFrontTimePadPercentage) / (1f - (this.PersonalHighlightsFrontTimePadPercentage + this.PersonalHighlightsEndTimePadPercentage))));
-			for (int k = 0; k < this.m_PersonalHighlightWidgets.Length; k++)
+			int num4 = Mathf.FloorToInt((float)m_PersonalHighlightWidgets.Length * Mathf.Clamp01((StateToBeUpdated.PercentageProgress - PersonalHighlightsFrontTimePadPercentage) / (1f - (PersonalHighlightsFrontTimePadPercentage + PersonalHighlightsEndTimePadPercentage))));
+			for (int k = 0; k < m_PersonalHighlightWidgets.Length; k++)
 			{
-				UIManager.SetGameObjectActive(this.m_PersonalHighlightWidgets[k], true, null);
-				if (k < num4)
+				UIManager.SetGameObjectActive(m_PersonalHighlightWidgets[k], true);
+				if (k >= num4)
 				{
-					if (!this.m_PersonalHighlightWidgets[k].HighlightDone)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIFrontEnd.PlaySound(FrontEndButtonSounds.EndGameBadgeAchievement);
-					}
-					this.m_PersonalHighlightWidgets[k].SetHighlight();
+					continue;
 				}
+				if (!m_PersonalHighlightWidgets[k].HighlightDone)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					UIFrontEnd.PlaySound(FrontEndButtonSounds.EndGameBadgeAchievement);
+				}
+				m_PersonalHighlightWidgets[k].SetHighlight();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -5835,21 +7125,22 @@ public class UIGameOverScreen : UIScene
 				break;
 			}
 		}
-		if (StateToBeUpdated.SubStateType == UIGameOverScreen.GameOverScreenState.MissionNotifications)
+		if (StateToBeUpdated.SubStateType == GameOverScreenState.MissionNotifications)
 		{
 			int num5 = Mathf.FloorToInt((float)QuestCompletePanel.Get().TotalQuestsToDisplayForGameOver() * StateToBeUpdated.PercentageProgress);
 			for (int l = 0; l < num5; l++)
 			{
 				QuestCompletePanel.Get().DisplayGameOverQuestComplete(l);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
@@ -5861,209 +7152,212 @@ public class UIGameOverScreen : UIScene
 
 	public void NotifySeasonTutorialScreenClosed()
 	{
-		if (this.m_currentSubState is UIGameOverScreen.GameOverTutorialGames)
+		if (m_currentSubState is GameOverTutorialGames)
 		{
-			(this.m_currentSubState as UIGameOverScreen.GameOverTutorialGames).NotifyCloseClicked();
+			(m_currentSubState as GameOverTutorialGames).NotifyCloseClicked();
 		}
 	}
 
 	private void DoGGBoostSubstate()
 	{
-		this.SetupGGBoostScreen();
-		this.HandleBankBalanceChange(null);
-		this.m_currentSubState = new UIGameOverScreen.GameOverGGSubState(this.EstimatedNotificationArrivalTime);
+		SetupGGBoostScreen();
+		HandleBankBalanceChange(null);
+		m_currentSubState = new GameOverGGSubState(EstimatedNotificationArrivalTime);
 	}
 
 	private void DoTutorialSeasonSubstate()
 	{
 		UITutorialSeasonInterstitial.Get().SetVisible(true);
-		this.m_currentSubState = new UIGameOverScreen.GameOverTutorialGames();
+		m_currentSubState = new GameOverTutorialGames();
 	}
 
 	private void DoAccoladesDisplay()
 	{
-		this.SetupStatRecapScreen();
-		this.SetupStatsScreen();
-		this.SetupTopParticipants();
-		this.SetupBadges();
-		this.m_currentSubState = new UIGameOverScreen.GameOverSubState(UIGameOverScreen.GameOverScreenState.ResultsScreenPause, 0.01f);
+		SetupStatRecapScreen();
+		SetupStatsScreen();
+		SetupTopParticipants();
+		SetupBadges();
+		m_currentSubState = new GameOverSubState(GameOverScreenState.ResultsScreenPause, 0.01f);
 	}
 
 	private void DoExperienceBarSubstate()
 	{
-		this.SetupStatRecapScreen();
-		this.m_currentSubState = new UIGameOverScreen.GameOverExperienceUpdateSubState(new List<UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo>
-		{
-			new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.InitialPause, 0.01f)
-		});
+		SetupStatRecapScreen();
+		List<GameOverExperienceUpdateSubState.UpdatingInfo> list = new List<GameOverExperienceUpdateSubState.UpdatingInfo>();
+		list.Add(new GameOverExperienceUpdateSubState.UpdatingInfo(GameOverExperienceUpdateSubState.UpdatingType.InitialPause, 0.01f));
+		m_currentSubState = new GameOverExperienceUpdateSubState(list);
 	}
 
 	private void RefreshHeaderButtonClickability()
 	{
-		if (this.m_currentSubState != null && this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.Done)
+		if (m_currentSubState != null && m_currentSubState.SubStateType == GameOverScreenState.Done)
 		{
-			for (;;)
+			while (true)
 			{
+				int num;
+				bool flag;
+				int num2;
+				int num3;
+				bool flag2;
+				bool flag3;
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.RefreshHeaderButtonClickability()).MethodHandle;
-			}
-			GameManager gameManager = GameManager.Get();
-			bool flag;
-			if (gameManager != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (gameManager.PlayerInfo != null)
-				{
-					for (;;)
+				default:
 					{
-						switch (3)
+						if (1 == 0)
 						{
-						case 0:
-							continue;
+							/*OpCode not supported: LdMemberToken*/;
 						}
-						break;
+						GameManager gameManager = GameManager.Get();
+						if (gameManager != null)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (gameManager.PlayerInfo != null)
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								num = (gameManager.PlayerInfo.IsSpectator ? 1 : 0);
+								goto IL_0075;
+							}
+						}
+						num = 0;
+						goto IL_0075;
 					}
-					flag = gameManager.PlayerInfo.IsSpectator;
-					goto IL_75;
-				}
-			}
-			flag = false;
-			IL_75:
-			bool flag2 = flag;
-			bool flag3;
-			if (ReplayPlayManager.Get() != null)
-			{
-				for (;;)
-				{
-					switch (7)
+					IL_0075:
+					flag = ((byte)num != 0);
+					if (ReplayPlayManager.Get() != null)
 					{
-					case 0:
-						continue;
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num2 = (ReplayPlayManager.Get().IsPlayback() ? 1 : 0);
 					}
-					break;
-				}
-				flag3 = ReplayPlayManager.Get().IsPlayback();
-			}
-			else
-			{
-				flag3 = false;
-			}
-			bool flag4;
-			if (!flag3)
-			{
-				for (;;)
-				{
-					switch (7)
+					else
 					{
-					case 0:
-						continue;
+						num2 = 0;
 					}
-					break;
-				}
-				flag4 = !flag2;
-			}
-			else
-			{
-				flag4 = true;
-			}
-			bool flag5 = flag4;
-			bool flag6 = this.NumRewardsEarned > 0;
-			if (this.BadgesAreActive)
-			{
-				for (;;)
-				{
-					switch (7)
+					if (num2 == 0)
 					{
-					case 0:
-						continue;
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num3 = ((!flag) ? 1 : 0);
 					}
-					break;
+					else
+					{
+						num3 = 1;
+					}
+					flag2 = ((byte)num3 != 0);
+					flag3 = (NumRewardsEarned > 0);
+					if (BadgesAreActive)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						m_AccoladesHeaderBtn.spriteController.SetClickable(true);
+						UIManager.SetGameObjectActive(m_AccoladesHeaderBtn.spriteController.m_defaultImage, true);
+					}
+					else
+					{
+						m_AccoladesHeaderBtn.spriteController.SetClickable(false);
+						UIManager.SetGameObjectActive(m_AccoladesHeaderBtn.spriteController.m_defaultImage, false);
+						UIManager.SetGameObjectActive(m_AccoladesHeaderBtn.spriteController.m_hoverImage, false);
+						UIManager.SetGameObjectActive(m_AccoladesHeaderBtn.spriteController.m_pressedImage, false);
+					}
+					m_StatsHeaderBtn.spriteController.SetClickable(flag2);
+					UIManager.SetGameObjectActive(m_StatsHeaderBtn.spriteController.m_defaultImage, flag2);
+					UIManager.SetGameObjectActive(m_StatsHeaderBtn.spriteController.m_hoverImage, flag2);
+					UIManager.SetGameObjectActive(m_StatsHeaderBtn.spriteController.m_pressedImage, flag2);
+					m_RewardsHeaderBtn.spriteController.SetClickable(flag3);
+					UIManager.SetGameObjectActive(m_RewardsHeaderBtn.spriteController.m_defaultImage, flag3);
+					UIManager.SetGameObjectActive(m_RewardsHeaderBtn.spriteController.m_hoverImage, flag3);
+					UIManager.SetGameObjectActive(m_RewardsHeaderBtn.spriteController.m_pressedImage, flag3);
+					m_ScoreHeaderBtn.spriteController.SetClickable(true);
+					UIManager.SetGameObjectActive(m_ScoreHeaderBtn.spriteController.m_defaultImage, true);
+					UIManager.SetGameObjectActive(m_ScoreHeaderBtn.spriteController.m_hoverImage, true);
+					UIManager.SetGameObjectActive(m_ScoreHeaderBtn.spriteController.m_pressedImage, true);
+					return;
 				}
-				this.m_AccoladesHeaderBtn.spriteController.SetClickable(true);
-				UIManager.SetGameObjectActive(this.m_AccoladesHeaderBtn.spriteController.m_defaultImage, true, null);
 			}
-			else
-			{
-				this.m_AccoladesHeaderBtn.spriteController.SetClickable(false);
-				UIManager.SetGameObjectActive(this.m_AccoladesHeaderBtn.spriteController.m_defaultImage, false, null);
-				UIManager.SetGameObjectActive(this.m_AccoladesHeaderBtn.spriteController.m_hoverImage, false, null);
-				UIManager.SetGameObjectActive(this.m_AccoladesHeaderBtn.spriteController.m_pressedImage, false, null);
-			}
-			this.m_StatsHeaderBtn.spriteController.SetClickable(flag5);
-			UIManager.SetGameObjectActive(this.m_StatsHeaderBtn.spriteController.m_defaultImage, flag5, null);
-			UIManager.SetGameObjectActive(this.m_StatsHeaderBtn.spriteController.m_hoverImage, flag5, null);
-			UIManager.SetGameObjectActive(this.m_StatsHeaderBtn.spriteController.m_pressedImage, flag5, null);
-			this.m_RewardsHeaderBtn.spriteController.SetClickable(flag6);
-			UIManager.SetGameObjectActive(this.m_RewardsHeaderBtn.spriteController.m_defaultImage, flag6, null);
-			UIManager.SetGameObjectActive(this.m_RewardsHeaderBtn.spriteController.m_hoverImage, flag6, null);
-			UIManager.SetGameObjectActive(this.m_RewardsHeaderBtn.spriteController.m_pressedImage, flag6, null);
-			this.m_ScoreHeaderBtn.spriteController.SetClickable(true);
-			UIManager.SetGameObjectActive(this.m_ScoreHeaderBtn.spriteController.m_defaultImage, true, null);
-			UIManager.SetGameObjectActive(this.m_ScoreHeaderBtn.spriteController.m_hoverImage, true, null);
-			UIManager.SetGameObjectActive(this.m_ScoreHeaderBtn.spriteController.m_pressedImage, true, null);
 		}
-		else
-		{
-			this.m_AccoladesHeaderBtn.spriteController.SetClickable(false);
-			UIManager.SetGameObjectActive(this.m_AccoladesHeaderBtn.spriteController.m_defaultImage, false, null);
-			UIManager.SetGameObjectActive(this.m_AccoladesHeaderBtn.spriteController.m_hoverImage, false, null);
-			UIManager.SetGameObjectActive(this.m_AccoladesHeaderBtn.spriteController.m_pressedImage, false, null);
-			this.m_StatsHeaderBtn.spriteController.SetClickable(false);
-			UIManager.SetGameObjectActive(this.m_StatsHeaderBtn.spriteController.m_defaultImage, false, null);
-			UIManager.SetGameObjectActive(this.m_StatsHeaderBtn.spriteController.m_hoverImage, false, null);
-			UIManager.SetGameObjectActive(this.m_StatsHeaderBtn.spriteController.m_pressedImage, false, null);
-			this.m_RewardsHeaderBtn.spriteController.SetClickable(false);
-			UIManager.SetGameObjectActive(this.m_RewardsHeaderBtn.spriteController.m_defaultImage, false, null);
-			UIManager.SetGameObjectActive(this.m_RewardsHeaderBtn.spriteController.m_hoverImage, false, null);
-			UIManager.SetGameObjectActive(this.m_RewardsHeaderBtn.spriteController.m_pressedImage, false, null);
-			this.m_ScoreHeaderBtn.spriteController.SetClickable(false);
-			UIManager.SetGameObjectActive(this.m_ScoreHeaderBtn.spriteController.m_defaultImage, false, null);
-			UIManager.SetGameObjectActive(this.m_ScoreHeaderBtn.spriteController.m_hoverImage, false, null);
-			UIManager.SetGameObjectActive(this.m_ScoreHeaderBtn.spriteController.m_pressedImage, false, null);
-		}
+		m_AccoladesHeaderBtn.spriteController.SetClickable(false);
+		UIManager.SetGameObjectActive(m_AccoladesHeaderBtn.spriteController.m_defaultImage, false);
+		UIManager.SetGameObjectActive(m_AccoladesHeaderBtn.spriteController.m_hoverImage, false);
+		UIManager.SetGameObjectActive(m_AccoladesHeaderBtn.spriteController.m_pressedImage, false);
+		m_StatsHeaderBtn.spriteController.SetClickable(false);
+		UIManager.SetGameObjectActive(m_StatsHeaderBtn.spriteController.m_defaultImage, false);
+		UIManager.SetGameObjectActive(m_StatsHeaderBtn.spriteController.m_hoverImage, false);
+		UIManager.SetGameObjectActive(m_StatsHeaderBtn.spriteController.m_pressedImage, false);
+		m_RewardsHeaderBtn.spriteController.SetClickable(false);
+		UIManager.SetGameObjectActive(m_RewardsHeaderBtn.spriteController.m_defaultImage, false);
+		UIManager.SetGameObjectActive(m_RewardsHeaderBtn.spriteController.m_hoverImage, false);
+		UIManager.SetGameObjectActive(m_RewardsHeaderBtn.spriteController.m_pressedImage, false);
+		m_ScoreHeaderBtn.spriteController.SetClickable(false);
+		UIManager.SetGameObjectActive(m_ScoreHeaderBtn.spriteController.m_defaultImage, false);
+		UIManager.SetGameObjectActive(m_ScoreHeaderBtn.spriteController.m_hoverImage, false);
+		UIManager.SetGameObjectActive(m_ScoreHeaderBtn.spriteController.m_pressedImage, false);
 	}
 
 	private void DoStatsSubstate()
 	{
-		this.SetupStatRecapScreen();
-		this.SetupStatsScreen();
-		this.SetupBadges();
-		this.m_currentSubState = new UIGameOverScreen.GameOverSubState(UIGameOverScreen.GameOverScreenState.Stats, this.StatsDisplayTimeDuration);
+		SetupStatRecapScreen();
+		SetupStatsScreen();
+		SetupBadges();
+		m_currentSubState = new GameOverSubState(GameOverScreenState.Stats, StatsDisplayTimeDuration);
 		UITutorialPanel.Get().HideTutorialPassedStamp();
 	}
 
 	private void CheckIfCurrentStateIsDone()
 	{
-		if (this.m_currentSubState.IsDone())
+		if (!m_currentSubState.IsDone())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CheckIfCurrentStateIsDone()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool visible = false;
 			bool doActive = false;
@@ -6074,10 +7368,10 @@ public class UIGameOverScreen : UIScene
 			bool flag4 = false;
 			bool flag5 = false;
 			GameManager gameManager = GameManager.Get();
-			bool flag6;
+			int num;
 			if (gameManager != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -6088,7 +7382,7 @@ public class UIGameOverScreen : UIScene
 				}
 				if (gameManager.PlayerInfo != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -6097,17 +7391,18 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					flag6 = gameManager.PlayerInfo.IsSpectator;
-					goto IL_76;
+					num = (gameManager.PlayerInfo.IsSpectator ? 1 : 0);
+					goto IL_0076;
 				}
 			}
-			flag6 = false;
-			IL_76:
-			bool flag7 = flag6;
-			bool flag8 = ReplayPlayManager.Get() != null && ReplayPlayManager.Get().IsPlayback();
-			if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.VictoryDefeat)
+			num = 0;
+			goto IL_0076;
+			IL_0076:
+			bool flag6 = (byte)num != 0;
+			bool flag7 = ReplayPlayManager.Get() != null && ReplayPlayManager.Get().IsPlayback();
+			if (m_currentSubState.SubStateType == GameOverScreenState.VictoryDefeat)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -6116,10 +7411,9 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				bool flag9 = GameManager.IsGameTypeValidForGGPack(this.m_gameType);
-				if (flag9)
+				if (GameManager.IsGameTypeValidForGGPack(m_gameType))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -6129,16 +7423,16 @@ public class UIGameOverScreen : UIScene
 						break;
 					}
 					doActive = true;
-					this.DoGGBoostSubstate();
+					DoGGBoostSubstate();
 				}
 				else
 				{
-					this.m_currentSubState = new UIGameOverScreen.GameOverVictoryDefeatWaitingSubState();
+					m_currentSubState = new GameOverVictoryDefeatWaitingSubState();
 				}
 			}
-			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.VictoryDefeatWaitingForNotification)
+			else if (m_currentSubState.SubStateType == GameOverScreenState.VictoryDefeatWaitingForNotification)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -6151,7 +7445,7 @@ public class UIGameOverScreen : UIScene
 				SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason);
 				if (seasonTemplate.IsTutorial)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -6160,11 +7454,11 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					this.DoTutorialSeasonSubstate();
+					DoTutorialSeasonSubstate();
 				}
-				else if (this.BadgesAreActive)
+				else if (BadgesAreActive)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -6174,19 +7468,19 @@ public class UIGameOverScreen : UIScene
 						break;
 					}
 					flag3 = true;
-					this.DoAccoladesDisplay();
+					DoAccoladesDisplay();
 				}
 				else
 				{
-					flag4 = (flag8 || !flag7);
+					flag4 = (flag7 || !flag6);
 					flag = true;
 					flag2 = true;
-					this.DoStatsSubstate();
+					DoStatsSubstate();
 				}
 			}
-			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.GGBoostUsage)
+			else if (m_currentSubState.SubStateType == GameOverScreenState.GGBoostUsage)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -6199,7 +7493,7 @@ public class UIGameOverScreen : UIScene
 				SeasonTemplate seasonTemplate2 = SeasonWideData.Get().GetSeasonTemplate(ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason);
 				if (seasonTemplate2.IsTutorial)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -6208,24 +7502,24 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					this.DoTutorialSeasonSubstate();
+					DoTutorialSeasonSubstate();
 				}
-				else if (this.BadgesAreActive)
+				else if (BadgesAreActive)
 				{
 					flag3 = true;
-					this.DoAccoladesDisplay();
+					DoAccoladesDisplay();
 				}
 				else
 				{
-					flag4 = (flag8 || !flag7);
+					flag4 = (flag7 || !flag6);
 					flag = true;
 					flag2 = true;
-					this.DoStatsSubstate();
+					DoStatsSubstate();
 				}
 			}
-			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.TutorialTenGames)
+			else if (m_currentSubState.SubStateType == GameOverScreenState.TutorialTenGames)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -6235,9 +7529,9 @@ public class UIGameOverScreen : UIScene
 					break;
 				}
 				doActive2 = true;
-				if (this.BadgesAreActive)
+				if (BadgesAreActive)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -6247,14 +7541,14 @@ public class UIGameOverScreen : UIScene
 						break;
 					}
 					flag3 = true;
-					this.DoAccoladesDisplay();
+					DoAccoladesDisplay();
 				}
 				else
 				{
-					bool flag10;
-					if (!flag8)
+					int num2;
+					if (!flag7)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -6263,21 +7557,21 @@ public class UIGameOverScreen : UIScene
 							}
 							break;
 						}
-						flag10 = !flag7;
+						num2 = ((!flag6) ? 1 : 0);
 					}
 					else
 					{
-						flag10 = true;
+						num2 = 1;
 					}
-					flag4 = flag10;
+					flag4 = ((byte)num2 != 0);
 					flag = true;
 					flag2 = true;
-					this.DoStatsSubstate();
+					DoStatsSubstate();
 				}
 			}
-			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.ResultsScreenPause)
+			else if (m_currentSubState.SubStateType == GameOverScreenState.ResultsScreenPause)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -6288,32 +7582,32 @@ public class UIGameOverScreen : UIScene
 				}
 				doActive2 = true;
 				flag3 = true;
-				UIManager.SetGameObjectActive(this.m_TopParticipantsAnimator, true, null);
-				this.m_AccoladesHeaderBtn.SetSelected(true, false, "SelectedIN", "SelectedOUT");
-				this.m_StatsHeaderBtn.SetSelected(false, false, "SelectedIN", "SelectedOUT");
-				this.m_RewardsHeaderBtn.SetSelected(false, false, "SelectedIN", "SelectedOUT");
-				this.m_ScoreHeaderBtn.SetSelected(false, false, "SelectedIN", "SelectedOUT");
-				this.m_currentSubState = new UIGameOverScreen.GameOverSubState(UIGameOverScreen.GameOverScreenState.Accolades, this.TopParticipantDisplayTimeDuration);
+				UIManager.SetGameObjectActive(m_TopParticipantsAnimator, true);
+				m_AccoladesHeaderBtn.SetSelected(true, false, "SelectedIN", "SelectedOUT");
+				m_StatsHeaderBtn.SetSelected(false, false, "SelectedIN", "SelectedOUT");
+				m_RewardsHeaderBtn.SetSelected(false, false, "SelectedIN", "SelectedOUT");
+				m_ScoreHeaderBtn.SetSelected(false, false, "SelectedIN", "SelectedOUT");
+				m_currentSubState = new GameOverSubState(GameOverScreenState.Accolades, TopParticipantDisplayTimeDuration);
 				UITutorialPanel.Get().HideTutorialPassedStamp();
 			}
-			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.Accolades)
+			else if (m_currentSubState.SubStateType == GameOverScreenState.Accolades)
 			{
 				doActive2 = true;
 				flag3 = true;
-				UIManager.SetGameObjectActive(this.m_PersonalHighlightsAnimator, true, null);
-				this.m_currentSubState = new UIGameOverScreen.GameOverSubState(UIGameOverScreen.GameOverScreenState.PersonalHighlights, this.PersonalHighlightsDisplayTimeDuration);
-				this.m_currentSubState.SetPercentageClickToSkip(this.PersonalHighlightsClickSkipPercentage);
+				UIManager.SetGameObjectActive(m_PersonalHighlightsAnimator, true);
+				m_currentSubState = new GameOverSubState(GameOverScreenState.PersonalHighlights, PersonalHighlightsDisplayTimeDuration);
+				m_currentSubState.SetPercentageClickToSkip(PersonalHighlightsClickSkipPercentage);
 			}
-			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.PersonalHighlights)
+			else if (m_currentSubState.SubStateType == GameOverScreenState.PersonalHighlights)
 			{
-				flag4 = (flag8 || !flag7);
+				flag4 = (flag7 || !flag6);
 				flag = true;
 				flag2 = true;
-				this.DoStatsSubstate();
+				DoStatsSubstate();
 			}
-			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.MissionNotifications)
+			else if (m_currentSubState.SubStateType == GameOverScreenState.MissionNotifications)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -6322,10 +7616,10 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				bool flag11;
-				if (!flag8)
+				int num3;
+				if (!flag7)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -6334,23 +7628,23 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					flag11 = !flag7;
+					num3 = ((!flag6) ? 1 : 0);
 				}
 				else
 				{
-					flag11 = true;
+					num3 = 1;
 				}
-				flag4 = flag11;
+				flag4 = ((byte)num3 != 0);
 				flag = true;
 				flag2 = true;
-				this.DoExperienceBarSubstate();
+				DoExperienceBarSubstate();
 			}
-			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.Stats)
+			else if (m_currentSubState.SubStateType == GameOverScreenState.Stats)
 			{
-				bool flag12;
-				if (!flag8)
+				int num4;
+				if (!flag7)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -6359,18 +7653,18 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					flag12 = !flag7;
+					num4 = ((!flag6) ? 1 : 0);
 				}
 				else
 				{
-					flag12 = true;
+					num4 = 1;
 				}
-				flag4 = flag12;
+				flag4 = ((byte)num4 != 0);
 				flag = true;
 				flag2 = true;
 				if (QuestCompletePanel.Get().TotalQuestsToDisplayForGameOver() > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -6379,16 +7673,16 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					this.m_currentSubState = new UIGameOverScreen.GameOverSubState(UIGameOverScreen.GameOverScreenState.MissionNotifications, 1f);
+					m_currentSubState = new GameOverSubState(GameOverScreenState.MissionNotifications, 1f);
 				}
 				else
 				{
-					this.DoExperienceBarSubstate();
+					DoExperienceBarSubstate();
 				}
 			}
-			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.ExperienceBars)
+			else if (m_currentSubState.SubStateType == GameOverScreenState.ExperienceBars)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -6399,10 +7693,10 @@ public class UIGameOverScreen : UIScene
 				}
 				flag = true;
 				flag2 = true;
-				bool flag13;
-				if (!flag8)
+				int num5;
+				if (!flag7)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -6411,25 +7705,25 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					flag13 = !flag7;
+					num5 = ((!flag6) ? 1 : 0);
 				}
 				else
 				{
-					flag13 = true;
+					num5 = 1;
 				}
-				flag4 = flag13;
+				flag4 = ((byte)num5 != 0);
 				flag5 = !flag4;
-				UIManager.SetGameObjectActive(this.m_ContinueBtn, true, null);
-				this.m_currentSubState = new UIGameOverScreen.GameOverSubState(UIGameOverScreen.GameOverScreenState.Done, 0f);
+				UIManager.SetGameObjectActive(m_ContinueBtn, true);
+				m_currentSubState = new GameOverSubState(GameOverScreenState.Done, 0f);
 			}
-			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.Rewards)
+			else if (m_currentSubState.SubStateType == GameOverScreenState.Rewards)
 			{
 				flag = true;
 				flag2 = true;
 			}
 			if (GameOverWorldObjects.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -6440,13 +7734,13 @@ public class UIGameOverScreen : UIScene
 				}
 				GameOverWorldObjects.Get().SetVisible(visible);
 			}
-			UIManager.SetGameObjectActive(this.m_GGBoostContainer, doActive, null);
-			UIManager.SetGameObjectActive(this.m_MouseClickContainer, doActive2, null);
-			Component topBottomBarsContainer = this.m_TopBottomBarsContainer;
-			bool doActive3;
+			UIManager.SetGameObjectActive(m_GGBoostContainer, doActive);
+			UIManager.SetGameObjectActive(m_MouseClickContainer, doActive2);
+			RectTransform topBottomBarsContainer = m_TopBottomBarsContainer;
+			int doActive3;
 			if (!flag2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -6455,33 +7749,34 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				doActive3 = flag;
+				doActive3 = (flag ? 1 : 0);
 			}
 			else
 			{
-				doActive3 = true;
+				doActive3 = 1;
 			}
-			UIManager.SetGameObjectActive(topBottomBarsContainer, doActive3, null);
-			UIManager.SetGameObjectActive(this.m_TopBarContainer, flag, null);
-			UIManager.SetGameObjectActive(this.m_BottomBarContainer, flag2, null);
-			UIManager.SetGameObjectActive(this.m_AccoladesAnimator, flag3, null);
-			UIManager.SetGameObjectActive(this.m_StatsContainer, flag4, null);
+			UIManager.SetGameObjectActive(topBottomBarsContainer, (byte)doActive3 != 0);
+			UIManager.SetGameObjectActive(m_TopBarContainer, flag);
+			UIManager.SetGameObjectActive(m_BottomBarContainer, flag2);
+			UIManager.SetGameObjectActive(m_AccoladesAnimator, flag3);
+			UIManager.SetGameObjectActive(m_StatsContainer, flag4);
 			UIGameStatsWindow.Get().SetToggleStatsVisible(flag5, false);
-			this.m_AccoladesHeaderBtn.SetSelected(flag3, false, "SelectedIN", "SelectedOUT");
-			this.m_StatsHeaderBtn.SetSelected(flag4, false, "SelectedIN", "SelectedOUT");
-			this.m_RewardsHeaderBtn.SetSelected(false, false, "SelectedIN", "SelectedOUT");
-			this.m_ScoreHeaderBtn.SetSelected(flag5, false, "SelectedIN", "SelectedOUT");
-			this.ContinueBtnFailSafeTime = Time.unscaledTime;
-			this.RefreshHeaderButtonClickability();
+			m_AccoladesHeaderBtn.SetSelected(flag3, false, "SelectedIN", "SelectedOUT");
+			m_StatsHeaderBtn.SetSelected(flag4, false, "SelectedIN", "SelectedOUT");
+			m_RewardsHeaderBtn.SetSelected(false, false, "SelectedIN", "SelectedOUT");
+			m_ScoreHeaderBtn.SetSelected(flag5, false, "SelectedIN", "SelectedOUT");
+			ContinueBtnFailSafeTime = Time.unscaledTime;
+			RefreshHeaderButtonClickability();
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		this.CheckPreGameStats();
-		if (this.m_currentSubState != null)
+		CheckPreGameStats();
+		if (m_currentSubState != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -6490,13 +7785,13 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_currentSubState.SubStateType != UIGameOverScreen.GameOverScreenState.Done)
+			if (m_currentSubState.SubStateType != GameOverScreenState.Done)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -6505,10 +7800,10 @@ public class UIGameOverScreen : UIScene
 					}
 					break;
 				}
-				this.m_currentSubState.Update();
+				m_currentSubState.Update();
 				if (Input.GetMouseButtonDown(0))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -6517,13 +7812,13 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					this.m_currentSubState.TryClickToSkip();
+					m_currentSubState.TryClickToSkip();
 				}
-				this.CheckIfCurrentStateIsDone();
+				CheckIfCurrentStateIsDone();
 				float num = 10f;
-				if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.GGBoostUsage)
+				if (m_currentSubState.SubStateType == GameOverScreenState.GGBoostUsage)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -6534,9 +7829,9 @@ public class UIGameOverScreen : UIScene
 					}
 					num = GameBalanceVars.Get().GGPackEndGameUsageTimer + 10f;
 				}
-				if (this.ContinueBtnFailSafeTime > 0f)
+				if (ContinueBtnFailSafeTime > 0f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -6545,9 +7840,9 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					if (Time.unscaledTime > this.ContinueBtnFailSafeTime + num)
+					if (Time.unscaledTime > ContinueBtnFailSafeTime + num)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -6556,13 +7851,13 @@ public class UIGameOverScreen : UIScene
 							}
 							break;
 						}
-						this.ContinueBtnFailSafeTime = -1f;
-						UIManager.SetGameObjectActive(this.m_ContinueBtn, true, null);
-						string text = string.Format("Failsafe triggered on state {0}", this.m_currentSubState.SubStateType);
-						UIGameOverScreen.GameOverExperienceUpdateSubState gameOverExperienceUpdateSubState = this.m_currentSubState as UIGameOverScreen.GameOverExperienceUpdateSubState;
+						ContinueBtnFailSafeTime = -1f;
+						UIManager.SetGameObjectActive(m_ContinueBtn, true);
+						string text = $"Failsafe triggered on state {m_currentSubState.SubStateType}";
+						GameOverExperienceUpdateSubState gameOverExperienceUpdateSubState = m_currentSubState as GameOverExperienceUpdateSubState;
 						if (gameOverExperienceUpdateSubState != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -6574,9 +7869,9 @@ public class UIGameOverScreen : UIScene
 							text += " - SubstateInfo updating ";
 							for (int i = 0; i < gameOverExperienceUpdateSubState.CurrentInfos.Count; i++)
 							{
-								text += string.Format("{0} stuck at {1} and is paused: {2} ", gameOverExperienceUpdateSubState.CurrentInfos[i].UpdateType.ToString(), gameOverExperienceUpdateSubState.CurrentInfos[i].PercentageProgress, gameOverExperienceUpdateSubState.CurrentInfos[i].IsPaused);
+								text += $"{gameOverExperienceUpdateSubState.CurrentInfos[i].UpdateType.ToString()} stuck at {gameOverExperienceUpdateSubState.CurrentInfos[i].PercentageProgress} and is paused: {gameOverExperienceUpdateSubState.CurrentInfos[i].IsPaused} ";
 							}
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -6588,7 +7883,7 @@ public class UIGameOverScreen : UIScene
 						}
 						else
 						{
-							text = text + " - SubstateInfo updating stuck at: " + this.m_currentSubState.PercentageProgress;
+							text = text + " - SubstateInfo updating stuck at: " + m_currentSubState.PercentageProgress;
 						}
 						Debug.LogError(text);
 					}
@@ -6597,7 +7892,7 @@ public class UIGameOverScreen : UIScene
 		}
 		if (Input.GetKeyDown(KeyCode.Tab))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -6606,35 +7901,36 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (this.m_TopBottomBarsContainer.gameObject.activeInHierarchy)
+			if (m_TopBottomBarsContainer.gameObject.activeInHierarchy)
 			{
 				UIGameStatsWindow.Get().ToggleStatsWindow();
 			}
 		}
-		if (this.m_ContinueBtn.gameObject.activeInHierarchy)
+		if (!m_ContinueBtn.gameObject.activeInHierarchy)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			if (InputManager.Get().GetAcceptButtonDown())
 			{
-				this.OnContinueClicked(null);
+				OnContinueClicked(null);
 			}
+			return;
 		}
 	}
 
 	private PercentileInfo GetStatPercentiles(StatDisplaySettings.StatType statType)
 	{
-		PercentileInfo result = null;
-		if (this.m_results != null)
+		PercentileInfo value = null;
+		if (m_results != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -6643,17 +7939,17 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GetStatPercentiles(StatDisplaySettings.StatType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_results.BadgeAndParticipantsInfo.IsNullOrEmpty<BadgeAndParticipantInfo>())
+			if (!m_results.BadgeAndParticipantsInfo.IsNullOrEmpty())
 			{
 				int playerId = GameManager.Get().PlayerInfo.PlayerId;
-				BadgeAndParticipantInfo badgeAndParticipantInfo = this.m_results.BadgeAndParticipantsInfo.Find((BadgeAndParticipantInfo p) => p.PlayerId == playerId);
+				BadgeAndParticipantInfo badgeAndParticipantInfo = m_results.BadgeAndParticipantsInfo.Find((BadgeAndParticipantInfo p) => p.PlayerId == playerId);
 				if (badgeAndParticipantInfo != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -6662,9 +7958,9 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					if (!badgeAndParticipantInfo.GlobalPercentiles.IsNullOrEmpty<KeyValuePair<StatDisplaySettings.StatType, PercentileInfo>>())
+					if (!badgeAndParticipantInfo.GlobalPercentiles.IsNullOrEmpty())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -6673,20 +7969,20 @@ public class UIGameOverScreen : UIScene
 							}
 							break;
 						}
-						badgeAndParticipantInfo.GlobalPercentiles.TryGetValue(statType, out result);
+						badgeAndParticipantInfo.GlobalPercentiles.TryGetValue(statType, out value);
 					}
 				}
 			}
 		}
-		return result;
+		return value;
 	}
 
 	private PercentileInfo GetFreelancerStatPercentiles(int index)
 	{
-		PercentileInfo result = null;
-		if (this.m_results != null)
+		PercentileInfo value = null;
+		if (m_results != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -6695,13 +7991,13 @@ public class UIGameOverScreen : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GetFreelancerStatPercentiles(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_results.BadgeAndParticipantsInfo.IsNullOrEmpty<BadgeAndParticipantInfo>())
+			if (!m_results.BadgeAndParticipantsInfo.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -6711,10 +8007,10 @@ public class UIGameOverScreen : UIScene
 					break;
 				}
 				int playerId = GameManager.Get().PlayerInfo.PlayerId;
-				BadgeAndParticipantInfo badgeAndParticipantInfo = this.m_results.BadgeAndParticipantsInfo.Find((BadgeAndParticipantInfo p) => p.PlayerId == playerId);
+				BadgeAndParticipantInfo badgeAndParticipantInfo = m_results.BadgeAndParticipantsInfo.Find((BadgeAndParticipantInfo p) => p.PlayerId == playerId);
 				if (badgeAndParticipantInfo != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -6723,9 +8019,9 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					if (!badgeAndParticipantInfo.FreelancerSpecificPercentiles.IsNullOrEmpty<KeyValuePair<int, PercentileInfo>>())
+					if (!badgeAndParticipantInfo.FreelancerSpecificPercentiles.IsNullOrEmpty())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -6734,1244 +8030,11 @@ public class UIGameOverScreen : UIScene
 							}
 							break;
 						}
-						badgeAndParticipantInfo.FreelancerSpecificPercentiles.TryGetValue(index, out result);
+						badgeAndParticipantInfo.FreelancerSpecificPercentiles.TryGetValue(index, out value);
 					}
 				}
 			}
 		}
-		return result;
-	}
-
-	public class GameOverAccoladesUpdateSubState : UIGameOverScreen.GameOverSubState
-	{
-		public GameOverAccoladesUpdateSubState(float AutoTransitionTime) : base(UIGameOverScreen.GameOverScreenState.Accolades, AutoTransitionTime)
-		{
-		}
-
-		public override void Update()
-		{
-		}
-	}
-
-	public class GameOverExperienceUpdateSubState : UIGameOverScreen.GameOverSubState
-	{
-		private List<UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo> TypesBeingUpdated = new List<UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo>();
-
-		public GameOverExperienceUpdateSubState(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo StartInfo)
-		{
-			base.SubStateType = UIGameOverScreen.GameOverScreenState.ExperienceBars;
-			this.TypesBeingUpdated.Add(StartInfo);
-		}
-
-		public GameOverExperienceUpdateSubState(IEnumerable<UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo> StartInfos)
-		{
-			base.SubStateType = UIGameOverScreen.GameOverScreenState.ExperienceBars;
-			this.TypesBeingUpdated.AddRange(StartInfos);
-		}
-
-		public List<UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo> CurrentInfos
-		{
-			get
-			{
-				return this.TypesBeingUpdated;
-			}
-		}
-
-		public override bool IsDone()
-		{
-			return this.TypesBeingUpdated.Count == 0;
-		}
-
-		public override void Update()
-		{
-			List<UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo> list = new List<UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo>();
-			for (int i = 0; i < this.TypesBeingUpdated.Count; i++)
-			{
-				UIGameOverScreen.Get().HandleUpdateExpSubStateUpdate(this.TypesBeingUpdated[i]);
-				if (!this.TypesBeingUpdated[i].IsPaused)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GameOverExperienceUpdateSubState.Update()).MethodHandle;
-					}
-					if (this.TypesBeingUpdated[i].PercentageProgress >= 1f)
-					{
-						UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo updateInfo = this.TypesBeingUpdated[i];
-						this.TypesBeingUpdated.RemoveAt(i);
-						i--;
-						IEnumerable<UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo> enumerable = UIGameOverScreen.Get().HandleUpdateExpSubStateComplete(updateInfo);
-						if (enumerable != null)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							list.AddRange(enumerable);
-						}
-					}
-				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (list.Count > 0)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.TypesBeingUpdated.AddRange(list);
-			}
-		}
-
-		public enum UpdatingType
-		{
-			None,
-			InitialPause,
-			NormalExpBar,
-			GGExpAnim,
-			GGExpBar,
-			QuestBarPause,
-			QuestExp,
-			RankPoints
-		}
-
-		public class UpdatingInfo
-		{
-			private float PauseStartTime = -1f;
-
-			private float PercentageFromPause;
-
-			public UpdatingInfo(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType Type, float TimeToDoUpdate)
-			{
-				this.UpdateType = Type;
-				this.TotalUpdateTime = TimeToDoUpdate;
-				this.UpdateStartTime = Time.unscaledTime;
-			}
-
-			public UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType UpdateType { get; private set; }
-
-			public float UpdateStartTime { get; private set; }
-
-			public float TotalUpdateTime { get; private set; }
-
-			public bool IsPaused { get; private set; }
-
-			public float PercentageProgress
-			{
-				get
-				{
-					if (this.IsPaused)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo.get_PercentageProgress()).MethodHandle;
-						}
-						return this.PercentageFromPause;
-					}
-					float num = Time.unscaledTime - this.UpdateStartTime;
-					float num2 = num / this.TotalUpdateTime;
-					float value = this.PercentageFromPause + (1f - this.PercentageFromPause) * num2;
-					return Mathf.Clamp01(value);
-				}
-			}
-
-			public void SetPaused(bool Paused)
-			{
-				if (Paused)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo.SetPaused(bool)).MethodHandle;
-					}
-					this.PauseStartTime = Time.unscaledTime;
-					this.PercentageFromPause = this.PercentageProgress;
-				}
-				else if (this.PauseStartTime != -1f)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.TotalUpdateTime -= this.PauseStartTime - this.UpdateStartTime;
-					this.UpdateStartTime = Time.unscaledTime;
-					this.PauseStartTime = -1f;
-				}
-				this.IsPaused = Paused;
-			}
-		}
-	}
-
-	public class GameOverTutorialGames : UIGameOverScreen.GameOverSubState
-	{
-		public GameOverTutorialGames()
-		{
-			base.SubStateType = UIGameOverScreen.GameOverScreenState.TutorialTenGames;
-			this.CloseClicked = false;
-		}
-
-		public bool CloseClicked { get; private set; }
-
-		public override bool IsDone()
-		{
-			return this.CloseClicked;
-		}
-
-		public void NotifyCloseClicked()
-		{
-			this.CloseClicked = true;
-		}
-	}
-
-	public class GameOverGGSubState : UIGameOverScreen.GameOverSubState
-	{
-		private UIGameOverScreen.GameOverGGSubState.GGBoosts CurrentGGBoostState;
-
-		private float NextRecapDisplay = -1f;
-
-		private float RecapDisplayInterval = 0.5f;
-
-		private float FadeOutTime = -1f;
-
-		private float StartTime = -1f;
-
-		private float StartWaitingForNotificationTime = -1f;
-
-		public GameOverGGSubState(float TimeToFadeOut)
-		{
-			base.SubStateType = UIGameOverScreen.GameOverScreenState.GGBoostUsage;
-			this.CurrentGGBoostState = UIGameOverScreen.GameOverGGSubState.GGBoosts.Recapping;
-			this.FadeOutTime = TimeToFadeOut;
-		}
-
-		public override bool IsDone()
-		{
-			if (base.SubStateType == UIGameOverScreen.GameOverScreenState.GGBoostUsage)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GameOverGGSubState.IsDone()).MethodHandle;
-				}
-				return this.CurrentGGBoostState == UIGameOverScreen.GameOverGGSubState.GGBoosts.Done;
-			}
-			return false;
-		}
-
-		public void FadeoutAnimDone()
-		{
-			this.SetNewGGBoostState(UIGameOverScreen.GameOverGGSubState.GGBoosts.WaitingForNotification);
-			this.StartWaitingForNotificationTime = Time.unscaledTime;
-		}
-
-		private void SetNewGGBoostState(UIGameOverScreen.GameOverGGSubState.GGBoosts newGGBoostState)
-		{
-			this.CurrentGGBoostState = newGGBoostState;
-			if (this.CurrentGGBoostState == UIGameOverScreen.GameOverGGSubState.GGBoosts.UsageTimer)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GameOverGGSubState.SetNewGGBoostState(UIGameOverScreen.GameOverGGSubState.GGBoosts)).MethodHandle;
-				}
-				this.StartTime = Time.unscaledTime;
-			}
-			UIGameOverScreen.Get().HandleNewGGBoostSubState(this, this.CurrentGGBoostState);
-		}
-
-		public override void Update()
-		{
-			if (this.CurrentGGBoostState == UIGameOverScreen.GameOverGGSubState.GGBoosts.Recapping)
-			{
-				if (Time.unscaledTime >= this.NextRecapDisplay)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GameOverGGSubState.Update()).MethodHandle;
-					}
-					if (UIGameOverScreen.Get().DoNextGGBoostRecapDisplay())
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.NextRecapDisplay = Time.unscaledTime + this.RecapDisplayInterval;
-					}
-					else
-					{
-						this.SetNewGGBoostState(UIGameOverScreen.GameOverGGSubState.GGBoosts.UsageTimer);
-					}
-				}
-			}
-			else if (this.CurrentGGBoostState == UIGameOverScreen.GameOverGGSubState.GGBoosts.UsageTimer)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (UIGameOverScreen.Get().NotificationArrived)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.FadeOutTime = Time.unscaledTime;
-				}
-				float num = 0f;
-				if (this.StartTime >= 0f)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num = (this.FadeOutTime - Time.unscaledTime) / (this.FadeOutTime - this.StartTime);
-				}
-				UIGameOverScreen.Get().HandleGGBoostSubStateUpdate(this.CurrentGGBoostState, num);
-				if (this.StartTime >= 0f)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (num <= 0f)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.SetNewGGBoostState(UIGameOverScreen.GameOverGGSubState.GGBoosts.FadeOut);
-					}
-				}
-			}
-			else if (this.CurrentGGBoostState == UIGameOverScreen.GameOverGGSubState.GGBoosts.WaitingForNotification)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (UIGameOverScreen.Get().NotificationArrived)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.SetNewGGBoostState(UIGameOverScreen.GameOverGGSubState.GGBoosts.Done);
-				}
-				else if (this.StartWaitingForNotificationTime > 0f)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (Time.unscaledTime - this.StartWaitingForNotificationTime > 15f)
-					{
-						this.StartWaitingForNotificationTime = -1f;
-						Log.Info("Timed out waiting for match result notification. forcing to open end game UI.", new object[0]);
-						UIDialogPopupManager.OpenOneButtonDialog(string.Empty, string.Format(StringUtil.TR("PressOkToExit", "Global"), StringUtil.TR("TimeoutWaitingForMatchResult", "Global")), StringUtil.TR("Ok", "Global"), delegate(UIDialogBox UIDialogBox)
-						{
-							UIGameOverScreen.Get().OnContinueClicked(null);
-						}, -1, false);
-					}
-				}
-			}
-		}
-
-		public enum GGBoosts
-		{
-			None,
-			Recapping,
-			UsageTimer,
-			FadeOut,
-			WaitingForNotification,
-			Done
-		}
-	}
-
-	public class GameOverVictoryDefeatWaitingSubState : UIGameOverScreen.GameOverSubState
-	{
-		public GameOverVictoryDefeatWaitingSubState()
-		{
-			base.SubStateType = UIGameOverScreen.GameOverScreenState.VictoryDefeatWaitingForNotification;
-		}
-
-		public override bool IsDone()
-		{
-			return UIGameOverScreen.Get().NotificationArrived;
-		}
-	}
-
-	public class GameOverSubState
-	{
-		protected float TimeToAutoTransition;
-
-		private bool DidClickSkip;
-
-		public GameOverSubState()
-		{
-			this.ProgressThatClickCanSkip = 2f;
-			this.SubStateType = UIGameOverScreen.GameOverScreenState.None;
-			this.SubStateStartTime = Time.unscaledTime;
-		}
-
-		public GameOverSubState(UIGameOverScreen.GameOverScreenState SubState, float AutoTransitionTime)
-		{
-			this.ProgressThatClickCanSkip = 2f;
-			this.SubStateType = SubState;
-			this.TimeToAutoTransition = Time.unscaledTime + AutoTransitionTime;
-			this.SubStateStartTime = Time.unscaledTime;
-		}
-
-		public UIGameOverScreen.GameOverScreenState SubStateType { get; protected set; }
-
-		private protected float SubStateStartTime { protected get; private set; }
-
-		public float ProgressThatClickCanSkip { get; private set; }
-
-		public float PercentageProgress
-		{
-			get
-			{
-				return Mathf.Clamp01((Time.unscaledTime - this.SubStateStartTime) / (this.TimeToAutoTransition - this.SubStateStartTime));
-			}
-		}
-
-		public void TryClickToSkip()
-		{
-			if (this.PercentageProgress >= this.ProgressThatClickCanSkip)
-			{
-				this.DidClickSkip = true;
-			}
-		}
-
-		public void SetPercentageClickToSkip(float percentage)
-		{
-			this.ProgressThatClickCanSkip = Mathf.Clamp01(percentage);
-		}
-
-		public virtual bool IsDone()
-		{
-			return Time.unscaledTime >= this.TimeToAutoTransition || this.DidClickSkip;
-		}
-
-		public virtual void Update()
-		{
-			UIGameOverScreen.Get().UpdateGameOverSubStateObjects(this);
-		}
-	}
-
-	[Serializable]
-	public class XPDisplayInfo
-	{
-		public TextMeshProUGUI m_XPLabel;
-
-		public TextMeshProUGUI m_barLevelLabel;
-
-		public Animator m_levelUpAnimController;
-
-		public Animator m_barLevelUpAnimator;
-
-		public ImageFilledSloped m_OldXPSlider;
-
-		public ImageFilledSloped m_NormalXPGainSlider;
-
-		public ImageFilledSloped m_GGXPSlider;
-
-		public ImageFilledSloped m_QuestXPSlider;
-
-		public Image m_NextRewardIcon;
-
-		public Image m_NextRewardFG;
-
-		public UITooltipHoverObject m_RewardBtn;
-
-		public UITooltipHoverObject m_tooltipHitBox;
-
-		[HideInInspector]
-		public int m_LastLevelDisplayed;
-
-		[HideInInspector]
-		public bool m_playingLevelUp;
-
-		[HideInInspector]
-		public UIGameOverScreen.XPDisplayInfo.BarXPType XPBarType;
-
-		public static int GetXPForType(UIGameOverScreen.XPDisplayInfo.BarXPType BarType, int Level)
-		{
-			if (BarType == UIGameOverScreen.XPDisplayInfo.BarXPType.Season)
-			{
-				int activeSeason = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
-				return SeasonWideData.Get().GetSeasonExperience(activeSeason, Level);
-			}
-			if (BarType == UIGameOverScreen.XPDisplayInfo.BarXPType.Character)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.XPDisplayInfo.GetXPForType(UIGameOverScreen.XPDisplayInfo.BarXPType, int)).MethodHandle;
-				}
-				return GameBalanceVars.Get().CharacterExperienceToLevel(Level);
-			}
-			return 0;
-		}
-
-		public string RewardTooltip { get; private set; }
-
-		public CharacterType LastCharType { get; private set; }
-
-		public void Init()
-		{
-			this.LastCharType = CharacterType.None;
-			this.m_RewardBtn.Setup(TooltipType.GameRewardItem, delegate(UITooltipBase tooltip)
-			{
-				if (this.RewardTooltip.IsNullOrEmpty())
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.XPDisplayInfo.<Init>m__0(UITooltipBase)).MethodHandle;
-					}
-					return false;
-				}
-				UIRewardItemTooltip uirewardItemTooltip = tooltip as UIRewardItemTooltip;
-				uirewardItemTooltip.Setup(this.RewardTooltip);
-				return true;
-			}, null);
-		}
-
-		public void PlayLevelUpAnimation(string name)
-		{
-			UIAnimationEventManager.Get().PlayAnimation(this.m_levelUpAnimController, name, null, string.Empty, 0, 0f, true, false, null, null);
-		}
-
-		public void CheckForRewardDisplay(int NewLevel)
-		{
-		}
-
-		public void PopulateRewardIcon(int CurrentLevel, bool IsInitialReward = false, CharacterResourceLink charLink = null)
-		{
-			int num = 0;
-			int num2 = 0;
-			if (this.XPBarType == UIGameOverScreen.XPDisplayInfo.BarXPType.Season)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.XPDisplayInfo.PopulateRewardIcon(int, bool, CharacterResourceLink)).MethodHandle;
-				}
-				List<SeasonReward> accountRewardsForNextLevel = UIGameOverScreen.GetAccountRewardsForNextLevel(CurrentLevel - 1);
-				List<SeasonReward> accountRewardsForNextLevel2 = UIGameOverScreen.GetAccountRewardsForNextLevel(CurrentLevel);
-				int num3 = 0;
-				int i = 0;
-				while (i < accountRewardsForNextLevel2.Count)
-				{
-					if (!(accountRewardsForNextLevel2[i] is SeasonItemReward))
-					{
-						goto IL_158;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (accountRewardsForNextLevel2[i].repeatEveryXLevels <= num3)
-					{
-						goto IL_158;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					SeasonItemReward seasonItemReward = accountRewardsForNextLevel2[i] as SeasonItemReward;
-					if (seasonItemReward.Conditions.IsNullOrEmpty<QuestCondition>())
-					{
-						goto IL_C7;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (QuestWideData.AreConditionsMet(seasonItemReward.Conditions, seasonItemReward.LogicStatement, false))
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_C7;
-						}
-					}
-					goto IL_203;
-					IL_C7:
-					InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate((accountRewardsForNextLevel2[i] as SeasonItemReward).ItemReward.ItemTemplateId);
-					Sprite sprite = (Sprite)Resources.Load(itemTemplate.IconPath, typeof(Sprite));
-					this.RewardTooltip = itemTemplate.GetDisplayName();
-					this.m_NextRewardIcon.sprite = sprite;
-					this.m_NextRewardFG.sprite = null;
-					UIManager.SetGameObjectActive(this.m_NextRewardFG, false, null);
-					num3 = accountRewardsForNextLevel2[i].repeatEveryXLevels;
-					IL_203:
-					i++;
-					continue;
-					IL_158:
-					if (accountRewardsForNextLevel2[i] is SeasonUnlockReward && accountRewardsForNextLevel2[i].repeatEveryXLevels > num3)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						QuestUnlockReward unlockReward = (accountRewardsForNextLevel2[i] as SeasonUnlockReward).UnlockReward;
-						Sprite sprite2 = (Sprite)Resources.Load(unlockReward.resourceString, typeof(Sprite));
-						this.RewardTooltip = string.Empty;
-						this.m_NextRewardIcon.sprite = sprite2;
-						this.m_NextRewardFG.sprite = null;
-						UIManager.SetGameObjectActive(this.m_NextRewardFG, false, null);
-						num3 = accountRewardsForNextLevel2[i].repeatEveryXLevels;
-						goto IL_203;
-					}
-					goto IL_203;
-				}
-				num = accountRewardsForNextLevel2.Count;
-				num2 = accountRewardsForNextLevel.Count;
-			}
-			else if (this.XPBarType == UIGameOverScreen.XPDisplayInfo.BarXPType.Character)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				List<RewardUtils.RewardData> list = new List<RewardUtils.RewardData>();
-				List<RewardUtils.RewardData> list2 = new List<RewardUtils.RewardData>();
-				if (charLink != null)
-				{
-					this.LastCharType = charLink.m_characterType;
-					if (CurrentLevel < GameBalanceVars.Get().MaxCharacterLevel)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						list2 = RewardUtils.GetNextCharacterRewards(charLink, CurrentLevel);
-					}
-					if (0 < CurrentLevel - 1 && CurrentLevel - 1 < GameBalanceVars.Get().MaxCharacterLevel)
-					{
-						list = RewardUtils.GetNextCharacterRewards(charLink, CurrentLevel - 1);
-					}
-				}
-				if (list2.Count > 0)
-				{
-					this.m_NextRewardIcon.sprite = UIGameOverScreen.GetRewardSprite(list2[0]);
-					this.m_NextRewardFG.sprite = list2[0].Foreground;
-					UIManager.SetGameObjectActive(this.m_NextRewardFG, this.m_NextRewardFG.sprite != null, null);
-				}
-				this.RewardTooltip = string.Empty;
-				for (int j = 0; j < list2.Count; j++)
-				{
-					if (!this.RewardTooltip.IsNullOrEmpty())
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.RewardTooltip += Environment.NewLine;
-					}
-					this.RewardTooltip += RewardUtils.GetDisplayString(list2[j], false);
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num = list2.Count;
-				num2 = list.Count;
-			}
-			if (num == 0)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (IsInitialReward)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.PlayLevelUpAnimation("resultsRewardIconNoIDLE");
-				}
-				else if (num2 > 0)
-				{
-					this.PlayLevelUpAnimation("resultsRewardIconYEStoNO");
-				}
-			}
-			else if (IsInitialReward)
-			{
-				this.PlayLevelUpAnimation("resultsRewardIconYesIDLE");
-			}
-			else if (num2 > 0)
-			{
-				this.PlayLevelUpAnimation("resultsRewardIconYEStoYES");
-			}
-			else
-			{
-				this.PlayLevelUpAnimation("resultsRewardIconNOtoYES");
-			}
-			this.m_RewardBtn.Refresh();
-		}
-
-		public void LevelUpAnimDone()
-		{
-			this.m_OldXPSlider.fillAmount = 0f;
-			this.m_NormalXPGainSlider.fillAmount = 0f;
-			this.m_QuestXPSlider.fillAmount = 0f;
-			this.m_GGXPSlider.fillAmount = 0f;
-			this.m_XPLabel.text = "0 / " + UIGameOverScreen.XPDisplayInfo.GetXPForType(this.XPBarType, this.m_LastLevelDisplayed);
-			this.m_playingLevelUp = false;
-			CharacterResourceLink charLink = null;
-			if (this.LastCharType != CharacterType.None)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.XPDisplayInfo.LevelUpAnimDone()).MethodHandle;
-				}
-				charLink = GameWideData.Get().GetCharacterResourceLink(this.LastCharType);
-			}
-			this.PopulateRewardIcon(this.m_LastLevelDisplayed, false, charLink);
-		}
-
-		public enum BarXPType
-		{
-			Season,
-			Character
-		}
-	}
-
-	[Serializable]
-	public class CurrencyDisplayInfo
-	{
-		public RectTransform m_container;
-
-		public TextMeshProUGUI m_currencyGainText;
-
-		public UITooltipHoverObject m_tooltipHitBox;
-
-		public Image m_displayIcon;
-
-		[HideInInspector]
-		public List<MatchResultsNotification.CurrencyReward> m_currencyReward = new List<MatchResultsNotification.CurrencyReward>();
-
-		public int GetTotalBaseGained(CurrencyType currencyType)
-		{
-			int num = 0;
-			for (int i = 0; i < this.m_currencyReward.Count; i++)
-			{
-				if (this.m_currencyReward[i].Type == currencyType)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalBaseGained(CurrencyType)).MethodHandle;
-					}
-					num += this.m_currencyReward[i].BaseGained;
-				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return num;
-		}
-
-		public int GetTotalEventGained(CurrencyType currencyType)
-		{
-			int num = 0;
-			for (int i = 0; i < this.m_currencyReward.Count; i++)
-			{
-				if (this.m_currencyReward[i].Type == currencyType)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalEventGained(CurrencyType)).MethodHandle;
-					}
-					num += this.m_currencyReward[i].EventGained;
-				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return num;
-		}
-
-		public int GetTotalWinGained(CurrencyType currencyType)
-		{
-			int num = 0;
-			for (int i = 0; i < this.m_currencyReward.Count; i++)
-			{
-				if (this.m_currencyReward[i].Type == currencyType)
-				{
-					num += this.m_currencyReward[i].WinGained;
-				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalWinGained(CurrencyType)).MethodHandle;
-			}
-			return num;
-		}
-
-		public int GetTotalQuestGained(CurrencyType currencyType)
-		{
-			int num = 0;
-			for (int i = 0; i < this.m_currencyReward.Count; i++)
-			{
-				if (this.m_currencyReward[i].Type == currencyType)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalQuestGained(CurrencyType)).MethodHandle;
-					}
-					num += this.m_currencyReward[i].QuestGained;
-				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return num;
-		}
-
-		public int GetTotalGGGained(CurrencyType currencyType)
-		{
-			int num = 0;
-			for (int i = 0; i < this.m_currencyReward.Count; i++)
-			{
-				if (this.m_currencyReward[i].Type == currencyType)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalGGGained(CurrencyType)).MethodHandle;
-					}
-					num += this.m_currencyReward[i].GGGained;
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return num;
-		}
-
-		public int GetTotalLevelUpGained(CurrencyType currencyType)
-		{
-			int num = 0;
-			for (int i = 0; i < this.m_currencyReward.Count; i++)
-			{
-				if (this.m_currencyReward[i].Type == currencyType)
-				{
-					num += this.m_currencyReward[i].LevelUpGained;
-				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalLevelUpGained(CurrencyType)).MethodHandle;
-			}
-			return num;
-		}
-
-		public int GetTotalNormalCurrencyReward(CurrencyType currencyType)
-		{
-			int num = 0;
-			for (int i = 0; i < this.m_currencyReward.Count; i++)
-			{
-				if (this.m_currencyReward[i].Type == currencyType)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalNormalCurrencyReward(CurrencyType)).MethodHandle;
-					}
-					num += this.m_currencyReward[i].BaseGained + this.m_currencyReward[i].WinGained + this.m_currencyReward[i].EventGained + this.m_currencyReward[i].LevelUpGained;
-				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return num;
-		}
-
-		public int GetTotalGGBoostCurrencyReward(CurrencyType currencyType)
-		{
-			int num = 0;
-			for (int i = 0; i < this.m_currencyReward.Count; i++)
-			{
-				if (this.m_currencyReward[i].Type == currencyType)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalGGBoostCurrencyReward(CurrencyType)).MethodHandle;
-					}
-					num += this.m_currencyReward[i].GGGained;
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return num;
-		}
-
-		public int GetTotalQuestCurrencyReward(CurrencyType currencyType)
-		{
-			int num = 0;
-			for (int i = 0; i < this.m_currencyReward.Count; i++)
-			{
-				if (this.m_currencyReward[i].Type == currencyType)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalQuestCurrencyReward(CurrencyType)).MethodHandle;
-					}
-					num += this.m_currencyReward[i].QuestGained;
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return num;
-		}
-	}
-
-	public enum GameOverScreenState
-	{
-		None,
-		VictoryDefeat,
-		VictoryDefeatWaitingForNotification,
-		GGBoostUsage,
-		TutorialTenGames,
-		ResultsScreenPause,
-		Accolades,
-		PersonalHighlights,
-		MissionNotifications,
-		ExperienceBars,
-		Stats,
-		Rewards,
-		Done
+		return value;
 	}
 }

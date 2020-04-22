@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,9 +25,9 @@ public class ThiefSafecracker : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -37,21 +36,21 @@ public class ThiefSafecracker : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSafecracker.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Safecracker";
+			m_abilityName = "Safecracker";
 		}
-		base.Targeter = new AbilityUtil_Targeter_KnockbackLaser(this, this.m_laserWidth, this.m_laserRange, this.m_laserPenetrateLos, -1, this.m_knockbackDistance, this.m_knockbackDistance, this.m_knockbackType, false);
+		base.Targeter = new AbilityUtil_Targeter_KnockbackLaser(this, m_laserWidth, m_laserRange, m_laserPenetrateLos, -1, m_knockbackDistance, m_knockbackDistance, m_knockbackType, false);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		if (this.m_damageAmount > 0)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		if (m_damageAmount > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -60,12 +59,12 @@ public class ThiefSafecracker : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSafecracker.CalculateAbilityTooltipNumbers()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_damageAmount);
+			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_damageAmount);
 		}
-		return result;
+		return numbers;
 	}
 }

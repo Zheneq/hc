@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,48 +50,47 @@ public class AbilityMod_FishManBubble : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		FishManBubble fishManBubble = targetAbility as FishManBubble;
-		if (fishManBubble != null)
+		if (!(fishManBubble != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FishManBubble.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnAlliesMod, "EffectOnAllies", fishManBubble.m_effectOnAllies, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnEnemiesMod, "EffectOnEnemies", fishManBubble.m_effectOnEnemies, true);
-			AbilityMod.AddToken(tokens, this.m_initialHitHealingToAlliesMod, "InitialHitHealingToAllies", string.Empty, fishManBubble.m_initialHitHealingToAllies, true, false);
-			AbilityMod.AddToken(tokens, this.m_initialHitDamageToEnemiesMod, "InitialHitDamageToEnemies", string.Empty, fishManBubble.m_initialHitDamageToEnemies, true, false);
-			AbilityMod.AddToken(tokens, this.m_numTurnsBeforeFirstExplosionMod, "NumTurnsBeforeFirstExplosionMod", string.Empty, fishManBubble.m_numTurnsBeforeFirstExplosion, true, false);
-			AbilityMod.AddToken(tokens, this.m_numExplosionsBeforeEndingMod, "NumExplosionsBeforeEndingMod", string.Empty, fishManBubble.m_numExplosionsBeforeEnding, true, false);
-			AbilityMod.AddToken(tokens, this.m_explosionHealingToAlliesMod, "ExplosionHealingToAllies", string.Empty, fishManBubble.m_explosionHealingToAllies, true, false);
-			AbilityMod.AddToken(tokens, this.m_explosionDamageToEnemiesMod, "ExplosionDamageToEnemies", string.Empty, fishManBubble.m_explosionDamageToEnemies, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_explosionEffectToAlliesMod, "ExplosionEffectToAllies", fishManBubble.m_explosionEffectToAllies, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_explosionEffectToEnemiesMod, "ExplosionEffectToEnemies", fishManBubble.m_explosionEffectToEnemies, true);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnAlliesMod, "EffectOnAllies", fishManBubble.m_effectOnAllies);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemiesMod, "EffectOnEnemies", fishManBubble.m_effectOnEnemies);
+			AbilityMod.AddToken(tokens, m_initialHitHealingToAlliesMod, "InitialHitHealingToAllies", string.Empty, fishManBubble.m_initialHitHealingToAllies);
+			AbilityMod.AddToken(tokens, m_initialHitDamageToEnemiesMod, "InitialHitDamageToEnemies", string.Empty, fishManBubble.m_initialHitDamageToEnemies);
+			AbilityMod.AddToken(tokens, m_numTurnsBeforeFirstExplosionMod, "NumTurnsBeforeFirstExplosionMod", string.Empty, fishManBubble.m_numTurnsBeforeFirstExplosion);
+			AbilityMod.AddToken(tokens, m_numExplosionsBeforeEndingMod, "NumExplosionsBeforeEndingMod", string.Empty, fishManBubble.m_numExplosionsBeforeEnding);
+			AbilityMod.AddToken(tokens, m_explosionHealingToAlliesMod, "ExplosionHealingToAllies", string.Empty, fishManBubble.m_explosionHealingToAllies);
+			AbilityMod.AddToken(tokens, m_explosionDamageToEnemiesMod, "ExplosionDamageToEnemies", string.Empty, fishManBubble.m_explosionDamageToEnemies);
+			AbilityMod.AddToken_EffectMod(tokens, m_explosionEffectToAlliesMod, "ExplosionEffectToAllies", fishManBubble.m_explosionEffectToAllies);
+			AbilityMod.AddToken_EffectMod(tokens, m_explosionEffectToEnemiesMod, "ExplosionEffectToEnemies", fishManBubble.m_explosionEffectToEnemies);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		FishManBubble fishManBubble = base.GetTargetAbilityOnAbilityData(abilityData) as FishManBubble;
+		FishManBubble fishManBubble = GetTargetAbilityOnAbilityData(abilityData) as FishManBubble;
 		bool flag = fishManBubble != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_targetShapeMod, "[TargetShape]", flag, (!flag) ? AbilityAreaShape.SingleSquare : fishManBubble.m_targetShape);
-		string str = text;
-		AbilityModPropertyBool canTargetEnemiesMod = this.m_canTargetEnemiesMod;
-		string prefix = "[CanTargetEnemies]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		string empty = string.Empty;
+		empty += PropDesc(m_targetShapeMod, "[TargetShape]", flag, flag ? fishManBubble.m_targetShape : AbilityAreaShape.SingleSquare);
+		string str = empty;
+		AbilityModPropertyBool canTargetEnemiesMod = m_canTargetEnemiesMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -100,25 +99,23 @@ public class AbilityMod_FishManBubble : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FishManBubble.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			baseVal = fishManBubble.m_canTargetEnemies;
+			baseVal = (fishManBubble.m_canTargetEnemies ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(canTargetEnemiesMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyBool canTargetAlliesMod = this.m_canTargetAlliesMod;
-		string prefix2 = "[CanTargetAllies]";
-		bool showBaseVal2 = flag;
-		bool baseVal2;
+		empty = str + PropDesc(canTargetEnemiesMod, "[CanTargetEnemies]", flag, (byte)baseVal != 0);
+		string str2 = empty;
+		AbilityModPropertyBool canTargetAlliesMod = m_canTargetAlliesMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -127,24 +124,22 @@ public class AbilityMod_FishManBubble : AbilityMod
 				}
 				break;
 			}
-			baseVal2 = fishManBubble.m_canTargetAllies;
+			baseVal2 = (fishManBubble.m_canTargetAllies ? 1 : 0);
 		}
 		else
 		{
-			baseVal2 = false;
+			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(canTargetAlliesMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_canTargetSelfMod, "[CanTargetSelf]", flag, flag && fishManBubble.m_canTargetSelf);
-		text += base.PropDesc(this.m_effectOnAlliesMod, "[EffectOnAllies]", flag, (!flag) ? null : fishManBubble.m_effectOnAllies);
-		text += base.PropDesc(this.m_effectOnEnemiesMod, "[EffectOnEnemies]", flag, (!flag) ? null : fishManBubble.m_effectOnEnemies);
-		string str3 = text;
-		AbilityModPropertyInt initialHitHealingToAlliesMod = this.m_initialHitHealingToAlliesMod;
-		string prefix3 = "[InitialHitHealingToAllies]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(canTargetAlliesMod, "[CanTargetAllies]", flag, (byte)baseVal2 != 0);
+		empty += PropDesc(m_canTargetSelfMod, "[CanTargetSelf]", flag, flag && fishManBubble.m_canTargetSelf);
+		empty += PropDesc(m_effectOnAlliesMod, "[EffectOnAllies]", flag, (!flag) ? null : fishManBubble.m_effectOnAllies);
+		empty += PropDesc(m_effectOnEnemiesMod, "[EffectOnEnemies]", flag, (!flag) ? null : fishManBubble.m_effectOnEnemies);
+		string str3 = empty;
+		AbilityModPropertyInt initialHitHealingToAlliesMod = m_initialHitHealingToAlliesMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -159,15 +154,13 @@ public class AbilityMod_FishManBubble : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(initialHitHealingToAlliesMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt initialHitDamageToEnemiesMod = this.m_initialHitDamageToEnemiesMod;
-		string prefix4 = "[InitialHitDamageToEnemies]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(initialHitHealingToAlliesMod, "[InitialHitHealingToAllies]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyInt initialHitDamageToEnemiesMod = m_initialHitDamageToEnemiesMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -182,15 +175,13 @@ public class AbilityMod_FishManBubble : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(initialHitDamageToEnemiesMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt numTurnsBeforeFirstExplosionMod = this.m_numTurnsBeforeFirstExplosionMod;
-		string prefix5 = "[NumTurnsBeforeFirstExplosionMod]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(initialHitDamageToEnemiesMod, "[InitialHitDamageToEnemies]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyInt numTurnsBeforeFirstExplosionMod = m_numTurnsBeforeFirstExplosionMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -205,15 +196,13 @@ public class AbilityMod_FishManBubble : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(numTurnsBeforeFirstExplosionMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt numExplosionsBeforeEndingMod = this.m_numExplosionsBeforeEndingMod;
-		string prefix6 = "[NumExplosionsBeforeEndingMod]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(numTurnsBeforeFirstExplosionMod, "[NumTurnsBeforeFirstExplosionMod]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt numExplosionsBeforeEndingMod = m_numExplosionsBeforeEndingMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -228,15 +217,13 @@ public class AbilityMod_FishManBubble : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(numExplosionsBeforeEndingMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyShape explosionShapeMod = this.m_explosionShapeMod;
-		string prefix7 = "[ExplosionShape]";
-		bool showBaseVal7 = flag;
-		AbilityAreaShape baseVal7;
+		empty = str6 + PropDesc(numExplosionsBeforeEndingMod, "[NumExplosionsBeforeEndingMod]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyShape explosionShapeMod = m_explosionShapeMod;
+		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -245,21 +232,19 @@ public class AbilityMod_FishManBubble : AbilityMod
 				}
 				break;
 			}
-			baseVal7 = fishManBubble.m_explosionShape;
+			baseVal7 = (int)fishManBubble.m_explosionShape;
 		}
 		else
 		{
-			baseVal7 = AbilityAreaShape.SingleSquare;
+			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(explosionShapeMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyBool explosionIgnoresLineOfSightMod = this.m_explosionIgnoresLineOfSightMod;
-		string prefix8 = "[ExplosionIgnoresLineOfSight]";
-		bool showBaseVal8 = flag;
-		bool baseVal8;
+		empty = str7 + PropDesc(explosionShapeMod, "[ExplosionShape]", flag, (AbilityAreaShape)baseVal7);
+		string str8 = empty;
+		AbilityModPropertyBool explosionIgnoresLineOfSightMod = m_explosionIgnoresLineOfSightMod;
+		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -268,21 +253,19 @@ public class AbilityMod_FishManBubble : AbilityMod
 				}
 				break;
 			}
-			baseVal8 = fishManBubble.m_explosionIgnoresLineOfSight;
+			baseVal8 = (fishManBubble.m_explosionIgnoresLineOfSight ? 1 : 0);
 		}
 		else
 		{
-			baseVal8 = false;
+			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(explosionIgnoresLineOfSightMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyBool explosionCanAffectEffectHolderMod = this.m_explosionCanAffectEffectHolderMod;
-		string prefix9 = "[ExplosionCanAffectEffectHolder]";
-		bool showBaseVal9 = flag;
-		bool baseVal9;
+		empty = str8 + PropDesc(explosionIgnoresLineOfSightMod, "[ExplosionIgnoresLineOfSight]", flag, (byte)baseVal8 != 0);
+		string str9 = empty;
+		AbilityModPropertyBool explosionCanAffectEffectHolderMod = m_explosionCanAffectEffectHolderMod;
+		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -291,22 +274,20 @@ public class AbilityMod_FishManBubble : AbilityMod
 				}
 				break;
 			}
-			baseVal9 = fishManBubble.m_explosionCanAffectEffectHolder;
+			baseVal9 = (fishManBubble.m_explosionCanAffectEffectHolder ? 1 : 0);
 		}
 		else
 		{
-			baseVal9 = false;
+			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(explosionCanAffectEffectHolderMod, prefix9, showBaseVal9, baseVal9);
-		text += base.PropDesc(this.m_explosionHealingToAlliesMod, "[ExplosionHealingToAllies]", flag, (!flag) ? 0 : fishManBubble.m_explosionHealingToAllies);
-		string str10 = text;
-		AbilityModPropertyInt explosionDamageToEnemiesMod = this.m_explosionDamageToEnemiesMod;
-		string prefix10 = "[ExplosionDamageToEnemies]";
-		bool showBaseVal10 = flag;
+		empty = str9 + PropDesc(explosionCanAffectEffectHolderMod, "[ExplosionCanAffectEffectHolder]", flag, (byte)baseVal9 != 0);
+		empty += PropDesc(m_explosionHealingToAlliesMod, "[ExplosionHealingToAllies]", flag, flag ? fishManBubble.m_explosionHealingToAllies : 0);
+		string str10 = empty;
+		AbilityModPropertyInt explosionDamageToEnemiesMod = m_explosionDamageToEnemiesMod;
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -321,16 +302,14 @@ public class AbilityMod_FishManBubble : AbilityMod
 		{
 			baseVal10 = 0;
 		}
-		text = str10 + base.PropDesc(explosionDamageToEnemiesMod, prefix10, showBaseVal10, baseVal10);
-		text += base.PropDesc(this.m_explosionEffectToAlliesMod, "[ExplosionEffectToAllies]", flag, (!flag) ? null : fishManBubble.m_explosionEffectToAllies);
-		string str11 = text;
-		AbilityModPropertyEffectInfo explosionEffectToEnemiesMod = this.m_explosionEffectToEnemiesMod;
-		string prefix11 = "[ExplosionEffectToEnemies]";
-		bool showBaseVal11 = flag;
-		StandardEffectInfo baseVal11;
+		empty = str10 + PropDesc(explosionDamageToEnemiesMod, "[ExplosionDamageToEnemies]", flag, baseVal10);
+		empty += PropDesc(m_explosionEffectToAlliesMod, "[ExplosionEffectToAllies]", flag, (!flag) ? null : fishManBubble.m_explosionEffectToAllies);
+		string str11 = empty;
+		AbilityModPropertyEffectInfo explosionEffectToEnemiesMod = m_explosionEffectToEnemiesMod;
+		object baseVal11;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -345,6 +324,6 @@ public class AbilityMod_FishManBubble : AbilityMod
 		{
 			baseVal11 = null;
 		}
-		return str11 + base.PropDesc(explosionEffectToEnemiesMod, prefix11, showBaseVal11, baseVal11);
+		return str11 + PropDesc(explosionEffectToEnemiesMod, "[ExplosionEffectToEnemies]", flag, (StandardEffectInfo)baseVal11);
 	}
 }

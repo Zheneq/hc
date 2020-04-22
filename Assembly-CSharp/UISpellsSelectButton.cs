@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -30,104 +30,105 @@ public class UISpellsSelectButton : MonoBehaviour
 
 	private void Start()
 	{
-		if (this.m_buttonHitBox != null)
+		if (!(m_buttonHitBox != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpellsSelectButton.Start()).MethodHandle;
-			}
-			this.m_buttonHitBox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.SpellClicked);
+			return;
 		}
-	}
-
-	public Card GetCard()
-	{
-		return this.m_card;
-	}
-
-	public AbilityRunPhase GetPhase()
-	{
-		return this.m_cardPhase;
-	}
-
-	public void SpellClicked(BaseEventData data)
-	{
-		UICharacterSelectScreenController.Get().m_charSettingsPanel.m_spellsSubPanel.SpellClicked(this, true);
-		if (UIRankedCharacterSelectSettingsPanel.Get() != null)
-		{
-			UIRankedCharacterSelectSettingsPanel.Get().m_spellsSubPanel.SpellClicked(this, true);
-		}
-		UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModAdd);
-	}
-
-	private void SetAbilityName(string text)
-	{
-		for (int i = 0; i < this.m_abilityName.Length; i++)
-		{
-			this.m_abilityName[i].text = text;
-		}
-	}
-
-	private void SetDescription(string text)
-	{
-		for (int i = 0; i < this.m_description.Length; i++)
-		{
-			this.m_description[i].text = text;
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISpellsSelectButton.SetDescription(string)).MethodHandle;
-		}
-	}
-
-	private void SetCatalystIcon(Sprite sprite)
-	{
-		for (int i = 0; i < this.m_abilityIcon.Length; i++)
-		{
-			this.m_abilityIcon[i].sprite = sprite;
-		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_buttonHitBox.callback = SpellClicked;
+			return;
 		}
-		if (!true)
+	}
+
+	public Card GetCard()
+	{
+		return m_card;
+	}
+
+	public AbilityRunPhase GetPhase()
+	{
+		return m_cardPhase;
+	}
+
+	public void SpellClicked(BaseEventData data)
+	{
+		UICharacterSelectScreenController.Get().m_charSettingsPanel.m_spellsSubPanel.SpellClicked(this);
+		if (UIRankedCharacterSelectSettingsPanel.Get() != null)
 		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISpellsSelectButton.SetCatalystIcon(Sprite)).MethodHandle;
+			UIRankedCharacterSelectSettingsPanel.Get().m_spellsSubPanel.SpellClicked(this);
+		}
+		UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModAdd);
+	}
+
+	private void SetAbilityName(string text)
+	{
+		for (int i = 0; i < m_abilityName.Length; i++)
+		{
+			m_abilityName[i].text = text;
+		}
+	}
+
+	private void SetDescription(string text)
+	{
+		for (int i = 0; i < m_description.Length; i++)
+		{
+			m_description[i].text = text;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
+		}
+	}
+
+	private void SetCatalystIcon(Sprite sprite)
+	{
+		for (int i = 0; i < m_abilityIcon.Length; i++)
+		{
+			m_abilityIcon[i].sprite = sprite;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	public void Setup(Card card)
 	{
-		this.m_card = card;
-		UIManager.SetGameObjectActive(base.gameObject, true, null);
-		this.SetAbilityName(card.GetDisplayName());
+		m_card = card;
+		UIManager.SetGameObjectActive(base.gameObject, true);
+		SetAbilityName(card.GetDisplayName());
 		string text = card.m_useAbility.GetFullTooltip();
 		if (!card.m_useAbility.m_flavorText.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -136,32 +137,25 @@ public class UISpellsSelectButton : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpellsSelectButton.Setup(Card)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			string text2 = text;
-			text = string.Concat(new string[]
-			{
-				text2,
-				Environment.NewLine,
-				"<i>",
-				card.m_useAbility.m_flavorText,
-				"</i>"
-			});
+			text = text2 + Environment.NewLine + "<i>" + card.m_useAbility.m_flavorText + "</i>";
 		}
-		this.SetDescription(text);
-		this.SetCatalystIcon(card.GetIconSprite());
-		this.SetSelectState(false);
-		UIManager.SetGameObjectActive(this.m_freeActionContainer, card.IsFreeAction(), null);
-		this.m_cardPhase = card.GetAbilityRunPhase();
+		SetDescription(text);
+		SetCatalystIcon(card.GetIconSprite());
+		SetSelectState();
+		UIManager.SetGameObjectActive(m_freeActionContainer, card.IsFreeAction());
+		m_cardPhase = card.GetAbilityRunPhase();
 	}
 
 	public void SetSelectState(bool forceAnimPlay = false)
 	{
-		if (this.selectBtn == null)
+		if (selectBtn == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -170,39 +164,37 @@ public class UISpellsSelectButton : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpellsSelectButton.SetSelectState(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.selectBtn = base.GetComponent<_SelectableBtn>();
+			selectBtn = GetComponent<_SelectableBtn>();
 		}
-		if (this.selectBtn != null)
+		if (selectBtn != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					selectBtn.SetSelected(m_selected, forceAnimPlay, string.Empty, string.Empty);
+					return;
 				}
-				break;
 			}
-			this.selectBtn.SetSelected(this.m_selected, forceAnimPlay, string.Empty, string.Empty);
 		}
-		else
-		{
-			UIManager.SetGameObjectActive(this.m_selectedContainer, this.m_selected, null);
-		}
+		UIManager.SetGameObjectActive(m_selectedContainer, m_selected);
 	}
 
 	public bool IsSelected()
 	{
-		return this.m_selected;
+		return m_selected;
 	}
 
 	public void SetSelected(bool selected)
 	{
-		this.m_selected = selected;
-		this.SetSelectState(false);
+		m_selected = selected;
+		SetSelectState();
 	}
 }

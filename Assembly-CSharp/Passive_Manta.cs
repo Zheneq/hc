@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class Passive_Manta : Passive
@@ -11,5 +10,9 @@ public class Passive_Manta : Passive
 
 	private List<BarrierPoseInfo> m_ultBarrierLocations;
 
-	public int DamageReceivedForRegeneration { get; private set; }
+	public int DamageReceivedForRegeneration
+	{
+		get;
+		private set;
+	}
 }

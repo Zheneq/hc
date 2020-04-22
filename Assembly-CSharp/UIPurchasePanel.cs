@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -24,15 +23,15 @@ public class UIPurchasePanel : MonoBehaviour
 
 	public void Awake()
 	{
-		if (this.m_isoButton != null)
+		if (m_isoButton != null)
 		{
-			this.m_isoButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.TooltipSetup), null);
-			this.m_isoButton.spriteController.SetForceHovercallback(true);
-			this.m_isoButton.spriteController.SetForceExitCallback(true);
+			m_isoButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, TooltipSetup);
+			m_isoButton.spriteController.SetForceHovercallback(true);
+			m_isoButton.spriteController.SetForceExitCallback(true);
 		}
-		if (this.m_freelancerCurrencyButton != null)
+		if (m_freelancerCurrencyButton != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -41,17 +40,43 @@ public class UIPurchasePanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPurchasePanel.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_freelancerCurrencyButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.TooltipSetup), null);
-			this.m_freelancerCurrencyButton.spriteController.SetForceHovercallback(true);
-			this.m_freelancerCurrencyButton.spriteController.SetForceExitCallback(true);
+			m_freelancerCurrencyButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, TooltipSetup);
+			m_freelancerCurrencyButton.spriteController.SetForceHovercallback(true);
+			m_freelancerCurrencyButton.spriteController.SetForceExitCallback(true);
 		}
-		if (this.m_realCurrencyButton != null)
+		if (!(m_realCurrencyButton != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			m_realCurrencyButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, TooltipSetup);
+			m_realCurrencyButton.spriteController.SetForceHovercallback(true);
+			m_realCurrencyButton.spriteController.SetForceExitCallback(true);
+			return;
+		}
+	}
+
+	private void OnEnable()
+	{
+		if (m_allowDuringGame)
+		{
+			return;
+		}
+		GameManager gameManager = GameManager.Get();
+		int num;
+		if (gameManager != null)
+		{
+			while (true)
 			{
 				switch (5)
 				{
@@ -60,52 +85,29 @@ public class UIPurchasePanel : MonoBehaviour
 				}
 				break;
 			}
-			this.m_realCurrencyButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.TooltipSetup), null);
-			this.m_realCurrencyButton.spriteController.SetForceHovercallback(true);
-			this.m_realCurrencyButton.spriteController.SetForceExitCallback(true);
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			num = ((gameManager.GameStatus < GameStatus.FreelancerSelecting || gameManager.GameStatus == GameStatus.Stopped) ? 1 : 0);
 		}
-	}
-
-	private void OnEnable()
-	{
-		if (!this.m_allowDuringGame)
+		else
 		{
-			GameManager gameManager = GameManager.Get();
-			bool flag;
-			if (gameManager != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPurchasePanel.OnEnable()).MethodHandle;
-				}
-				flag = (gameManager.GameStatus < GameStatus.FreelancerSelecting || gameManager.GameStatus == GameStatus.Stopped);
-			}
-			else
-			{
-				flag = false;
-			}
-			if (!flag && base.gameObject.activeSelf)
-			{
-				UIManager.SetGameObjectActive(base.gameObject, false, null);
-			}
+			num = 0;
+		}
+		if (num == 0 && base.gameObject.activeSelf)
+		{
+			UIManager.SetGameObjectActive(base.gameObject, false);
 		}
 	}
 
 	public void Setup(int isoPrice, int freelancerCurrencyPrice, float realCurrencyPrice, bool allowDuringGame = false)
 	{
-		this.m_allowDuringGame = allowDuringGame;
-		if (!this.m_allowDuringGame)
+		m_allowDuringGame = allowDuringGame;
+		int num;
+		if (!m_allowDuringGame)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -114,14 +116,13 @@ public class UIPurchasePanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPurchasePanel.Setup(int, int, float, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			bool flag;
 			if (isoPrice <= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -132,7 +133,7 @@ public class UIPurchasePanel : MonoBehaviour
 				}
 				if (freelancerCurrencyPrice <= 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -141,18 +142,32 @@ public class UIPurchasePanel : MonoBehaviour
 						}
 						break;
 					}
-					flag = (realCurrencyPrice > 0f);
-					goto IL_4D;
+					num = ((realCurrencyPrice > 0f) ? 1 : 0);
+					goto IL_004d;
 				}
 			}
-			flag = true;
-			IL_4D:
-			bool flag2 = flag;
-			GameManager gameManager = GameManager.Get();
-			bool flag3;
-			if (gameManager != null)
+			num = 1;
+			goto IL_004d;
+		}
+		goto IL_00a8;
+		IL_004d:
+		bool flag = (byte)num != 0;
+		GameManager gameManager = GameManager.Get();
+		int num2;
+		if (gameManager != null)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (gameManager.GameStatus >= GameStatus.FreelancerSelecting)
+			{
+				while (true)
 				{
 					switch (7)
 					{
@@ -161,39 +176,29 @@ public class UIPurchasePanel : MonoBehaviour
 					}
 					break;
 				}
-				if (gameManager.GameStatus >= GameStatus.FreelancerSelecting)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag3 = (gameManager.GameStatus == GameStatus.Stopped);
-				}
-				else
-				{
-					flag3 = true;
-				}
+				num2 = ((gameManager.GameStatus == GameStatus.Stopped) ? 1 : 0);
 			}
 			else
 			{
-				flag3 = false;
+				num2 = 1;
 			}
-			bool flag4 = flag3;
-			UIManager.SetGameObjectActive(base.gameObject, flag2 && flag4, null);
 		}
-		if (this.m_isoButton != null)
+		else
 		{
-			UIManager.SetGameObjectActive(this.m_isoButton, isoPrice > 0, null);
-			this.SetPriceLabels(this.m_isoCostTexts, isoPrice, "iso");
+			num2 = 0;
 		}
-		if (this.m_freelancerCurrencyButton != null)
+		bool flag2 = (byte)num2 != 0;
+		UIManager.SetGameObjectActive(base.gameObject, flag && flag2);
+		goto IL_00a8;
+		IL_00a8:
+		if (m_isoButton != null)
 		{
-			for (;;)
+			UIManager.SetGameObjectActive(m_isoButton, isoPrice > 0);
+			SetPriceLabels(m_isoCostTexts, isoPrice, "iso");
+		}
+		if (m_freelancerCurrencyButton != null)
+		{
+			while (true)
 			{
 				switch (1)
 				{
@@ -202,22 +207,23 @@ public class UIPurchasePanel : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_freelancerCurrencyButton, freelancerCurrencyPrice > 0, null);
-			this.SetPriceLabels(this.m_freelancerCurrencyCostTexts, freelancerCurrencyPrice, "credit");
+			UIManager.SetGameObjectActive(m_freelancerCurrencyButton, freelancerCurrencyPrice > 0);
+			SetPriceLabels(m_freelancerCurrencyCostTexts, freelancerCurrencyPrice, "credit");
 		}
-		if (this.m_realCurrencyButton != null)
+		if (!(m_realCurrencyButton != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			UIManager.SetGameObjectActive(this.m_realCurrencyButton, realCurrencyPrice > 0f, null);
-			this.SetRealPriceLabels(realCurrencyPrice);
+			UIManager.SetGameObjectActive(m_realCurrencyButton, realCurrencyPrice > 0f);
+			SetRealPriceLabels(realCurrencyPrice);
+			return;
 		}
 	}
 
@@ -228,48 +234,48 @@ public class UIPurchasePanel : MonoBehaviour
 		{
 			costLabels[i].text = text;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPurchasePanel.SetPriceLabels(TextMeshProUGUI[], int, string)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	private void SetRealPriceLabels(float cost)
 	{
 		string localizedPriceString = UIStorePanel.GetLocalizedPriceString(cost, HydrogenConfig.Get().Ticket.AccountCurrency);
-		for (int i = 0; i < this.m_realCurrencyCostText.Length; i++)
+		for (int i = 0; i < m_realCurrencyCostText.Length; i++)
 		{
-			this.m_realCurrencyCostText[i].text = localizedPriceString;
+			m_realCurrencyCostText[i].text = localizedPriceString;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPurchasePanel.SetRealPriceLabels(float)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	public void SetDisabled(bool isDisabled)
 	{
-		if (this.m_isoButton != null)
+		if (m_isoButton != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -278,19 +284,19 @@ public class UIPurchasePanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPurchasePanel.SetDisabled(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_isoButton.m_ignoreDefaultAnimationCall = isDisabled;
-			this.m_isoButton.m_ignoreHoverAnimationCall = isDisabled;
-			this.m_isoButton.m_ignorePressAnimationCall = isDisabled;
-			this.m_isoButton.spriteController.SetClickable(!isDisabled);
-			UIManager.SetGameObjectActive(this.m_isoButton.spriteController.m_defaultImage, !isDisabled, null);
+			m_isoButton.m_ignoreDefaultAnimationCall = isDisabled;
+			m_isoButton.m_ignoreHoverAnimationCall = isDisabled;
+			m_isoButton.m_ignorePressAnimationCall = isDisabled;
+			m_isoButton.spriteController.SetClickable(!isDisabled);
+			UIManager.SetGameObjectActive(m_isoButton.spriteController.m_defaultImage, !isDisabled);
 		}
-		if (this.m_freelancerCurrencyButton != null)
+		if (m_freelancerCurrencyButton != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -299,56 +305,59 @@ public class UIPurchasePanel : MonoBehaviour
 				}
 				break;
 			}
-			this.m_freelancerCurrencyButton.m_ignoreDefaultAnimationCall = isDisabled;
-			this.m_freelancerCurrencyButton.m_ignoreHoverAnimationCall = isDisabled;
-			this.m_freelancerCurrencyButton.m_ignorePressAnimationCall = isDisabled;
-			this.m_freelancerCurrencyButton.spriteController.SetClickable(!isDisabled);
-			UIManager.SetGameObjectActive(this.m_freelancerCurrencyButton.spriteController.m_defaultImage, !isDisabled, null);
+			m_freelancerCurrencyButton.m_ignoreDefaultAnimationCall = isDisabled;
+			m_freelancerCurrencyButton.m_ignoreHoverAnimationCall = isDisabled;
+			m_freelancerCurrencyButton.m_ignorePressAnimationCall = isDisabled;
+			m_freelancerCurrencyButton.spriteController.SetClickable(!isDisabled);
+			UIManager.SetGameObjectActive(m_freelancerCurrencyButton.spriteController.m_defaultImage, !isDisabled);
 		}
-		if (this.m_realCurrencyButton != null)
+		if (!(m_realCurrencyButton != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_realCurrencyButton.m_ignoreDefaultAnimationCall = isDisabled;
-			this.m_realCurrencyButton.m_ignoreHoverAnimationCall = isDisabled;
-			this.m_realCurrencyButton.m_ignorePressAnimationCall = isDisabled;
-			this.m_realCurrencyButton.spriteController.SetClickable(!isDisabled);
-			UIManager.SetGameObjectActive(this.m_realCurrencyButton.spriteController.m_defaultImage, !isDisabled, null);
+			m_realCurrencyButton.m_ignoreDefaultAnimationCall = isDisabled;
+			m_realCurrencyButton.m_ignoreHoverAnimationCall = isDisabled;
+			m_realCurrencyButton.m_ignorePressAnimationCall = isDisabled;
+			m_realCurrencyButton.spriteController.SetClickable(!isDisabled);
+			UIManager.SetGameObjectActive(m_realCurrencyButton.spriteController.m_defaultImage, !isDisabled);
+			return;
 		}
 	}
 
 	public void SetupTooltip(string tooltipDescription)
 	{
-		this.m_tooltipDescription = tooltipDescription;
+		m_tooltipDescription = tooltipDescription;
 	}
 
 	private bool TooltipSetup(UITooltipBase tooltip)
 	{
-		if (!this.m_tooltipDescription.IsNullOrEmpty())
+		if (!m_tooltipDescription.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+					uITitledTooltip.Setup(StringUtil.TR("Purchase", "Global"), m_tooltipDescription, string.Empty);
+					return true;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPurchasePanel.TooltipSetup(UITooltipBase)).MethodHandle;
-			}
-			UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-			uititledTooltip.Setup(StringUtil.TR("Purchase", "Global"), this.m_tooltipDescription, string.Empty);
-			return true;
 		}
 		return false;
 	}

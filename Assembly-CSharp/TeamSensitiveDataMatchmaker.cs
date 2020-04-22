@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 
@@ -12,15 +11,15 @@ public class TeamSensitiveDataMatchmaker
 
 	private TeamSensitiveDataMatchmaker()
 	{
-		this.m_actorIndexToFriendlyData = new Dictionary<int, ActorTeamSensitiveData>();
-		this.m_actorIndexToHostileData = new Dictionary<int, ActorTeamSensitiveData>();
+		m_actorIndexToFriendlyData = new Dictionary<int, ActorTeamSensitiveData>();
+		m_actorIndexToHostileData = new Dictionary<int, ActorTeamSensitiveData>();
 	}
 
 	public static TeamSensitiveDataMatchmaker Get()
 	{
-		if (TeamSensitiveDataMatchmaker.s_instance == null)
+		if (s_instance == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -29,37 +28,37 @@ public class TeamSensitiveDataMatchmaker
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamSensitiveDataMatchmaker.Get()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			TeamSensitiveDataMatchmaker.s_instance = new TeamSensitiveDataMatchmaker();
+			s_instance = new TeamSensitiveDataMatchmaker();
 		}
-		return TeamSensitiveDataMatchmaker.s_instance;
+		return s_instance;
 	}
 
 	public void SetTeamSensitiveDataForActor(ActorData actor)
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamSensitiveDataMatchmaker.SetTeamSensitiveDataForActor(ActorData)).MethodHandle;
-			}
-			return;
 		}
-		if (this.m_actorIndexToFriendlyData.ContainsKey(actor.ActorIndex))
+		if (m_actorIndexToFriendlyData.ContainsKey(actor.ActorIndex))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -68,46 +67,47 @@ public class TeamSensitiveDataMatchmaker
 				}
 				break;
 			}
-			actor.SetClientFriendlyTeamSensitiveData(this.m_actorIndexToFriendlyData[actor.ActorIndex]);
-			this.m_actorIndexToFriendlyData.Remove(actor.ActorIndex);
+			actor.SetClientFriendlyTeamSensitiveData(m_actorIndexToFriendlyData[actor.ActorIndex]);
+			m_actorIndexToFriendlyData.Remove(actor.ActorIndex);
 		}
-		if (this.m_actorIndexToHostileData.ContainsKey(actor.ActorIndex))
+		if (!m_actorIndexToHostileData.ContainsKey(actor.ActorIndex))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			actor.SetClientHostileTeamSensitiveData(this.m_actorIndexToHostileData[actor.ActorIndex]);
-			this.m_actorIndexToHostileData.Remove(actor.ActorIndex);
+			actor.SetClientHostileTeamSensitiveData(m_actorIndexToHostileData[actor.ActorIndex]);
+			m_actorIndexToHostileData.Remove(actor.ActorIndex);
+			return;
 		}
 	}
 
 	public void SetTeamSensitiveDataForUnhandledActors()
 	{
-		if (!NetworkServer.active)
+		if (NetworkServer.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamSensitiveDataMatchmaker.SetTeamSensitiveDataForUnhandledActors()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			bool flag;
-			if (this.m_actorIndexToFriendlyData != null)
+			int num;
+			if (m_actorIndexToFriendlyData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -116,12 +116,12 @@ public class TeamSensitiveDataMatchmaker
 					}
 					break;
 				}
-				if (this.m_actorIndexToFriendlyData.Count > 0)
+				if (m_actorIndexToFriendlyData.Count > 0)
 				{
-					flag = true;
-					goto IL_6F;
+					num = 1;
+					goto IL_006f;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -131,9 +131,9 @@ public class TeamSensitiveDataMatchmaker
 					break;
 				}
 			}
-			if (this.m_actorIndexToHostileData != null)
+			if (m_actorIndexToHostileData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -142,46 +142,49 @@ public class TeamSensitiveDataMatchmaker
 					}
 					break;
 				}
-				flag = (this.m_actorIndexToHostileData.Count > 0);
+				num = ((m_actorIndexToHostileData.Count > 0) ? 1 : 0);
 			}
 			else
 			{
-				flag = false;
+				num = 0;
 			}
-			IL_6F:
-			bool flag2 = flag;
-			if (GameFlowData.Get() != null)
+			goto IL_006f;
+			IL_006f:
+			bool flag = (byte)num != 0;
+			if (!(GameFlowData.Get() != null))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (3)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (flag2)
+				if (flag)
 				{
 					List<ActorData> actors = GameFlowData.Get().GetActors();
 					using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
 						{
-							ActorData teamSensitiveDataForActor = enumerator.Current;
-							this.SetTeamSensitiveDataForActor(teamSensitiveDataForActor);
+							ActorData current = enumerator.Current;
+							SetTeamSensitiveDataForActor(current);
 						}
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
+							default:
+								return;
 							case 0:
-								continue;
+								break;
 							}
-							break;
 						}
 					}
 				}
+				return;
 			}
 		}
 	}
@@ -190,25 +193,25 @@ public class TeamSensitiveDataMatchmaker
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamSensitiveDataMatchmaker.OnTeamSensitiveDataStarted(ActorTeamSensitiveData)).MethodHandle;
-			}
-			return;
 		}
 		Dictionary<int, ActorTeamSensitiveData> dictionary;
 		if (teamSensitiveData.m_typeObservingMe == ActorTeamSensitiveData.ObservedBy.Friendlies)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -217,11 +220,11 @@ public class TeamSensitiveDataMatchmaker
 				}
 				break;
 			}
-			dictionary = this.m_actorIndexToFriendlyData;
+			dictionary = m_actorIndexToFriendlyData;
 		}
 		else if (teamSensitiveData.m_typeObservingMe == ActorTeamSensitiveData.ObservedBy.Hostiles)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -230,24 +233,25 @@ public class TeamSensitiveDataMatchmaker
 				}
 				break;
 			}
-			dictionary = this.m_actorIndexToHostileData;
+			dictionary = m_actorIndexToHostileData;
 		}
 		else
 		{
 			dictionary = null;
 		}
-		if (dictionary != null && !dictionary.ContainsKey(teamSensitiveData.ActorIndex))
+		if (dictionary == null || dictionary.ContainsKey(teamSensitiveData.ActorIndex))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			dictionary.Add(teamSensitiveData.ActorIndex, teamSensitiveData);
+			return;
 		}
 	}
 }

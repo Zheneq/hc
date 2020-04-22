@@ -1,5 +1,3 @@
-﻿using System;
-
 public class SiegeBreakerBlackHole : Ability
 {
 	public int m_knockbackDistance = 4;
@@ -10,22 +8,23 @@ public class SiegeBreakerBlackHole : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (!(m_abilityName == "Base Ability"))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SiegeBreakerBlackHole.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Black Hole";
+			m_abilityName = "Black Hole";
+			return;
 		}
 	}
 }

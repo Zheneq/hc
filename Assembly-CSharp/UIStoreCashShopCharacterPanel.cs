@@ -1,32 +1,32 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class UIStoreCashShopCharacterPanel : UICashShopPanelBase
 {
 	protected override void Start()
 	{
-		ClientGameManager.Get().OnCharacterDataUpdated += this.RefreshOwnedCharacters;
+		ClientGameManager.Get().OnCharacterDataUpdated += RefreshOwnedCharacters;
 		base.Start();
 	}
 
 	private void OnDestroy()
 	{
-		if (ClientGameManager.Get() != null)
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreCashShopCharacterPanel.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ClientGameManager.Get().OnCharacterDataUpdated -= this.RefreshOwnedCharacters;
+			ClientGameManager.Get().OnCharacterDataUpdated -= RefreshOwnedCharacters;
+			return;
 		}
 	}
 
@@ -38,32 +38,30 @@ public class UIStoreCashShopCharacterPanel : UICashShopPanelBase
 		{
 			if (GameManager.Get().IsCharacterAllowedForPlayers(characterResourceLinks[i].m_characterType))
 			{
-				list.Add(new UIPurchaseableItem
-				{
-					m_purchaseForCash = true,
-					m_itemType = PurchaseItemType.Character,
-					m_charLink = characterResourceLinks[i]
-				});
+				UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+				uIPurchaseableItem.m_purchaseForCash = true;
+				uIPurchaseableItem.m_itemType = PurchaseItemType.Character;
+				uIPurchaseableItem.m_charLink = characterResourceLinks[i];
+				list.Add(uIPurchaseableItem);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return list.ToArray();
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreCashShopCharacterPanel.GetPurchasableItems()).MethodHandle;
-		}
-		return list.ToArray();
 	}
 
 	private void RefreshOwnedCharacters(PersistedCharacterData charData)
 	{
-		base.RefreshPage();
+		RefreshPage();
 	}
 }

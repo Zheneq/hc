@@ -1,12 +1,11 @@
-﻿using System;
-
 public static class InventoryItemTypeExtensions
 {
 	public static bool IsCharacterBound(this InventoryItemType type)
 	{
+		int result;
 		if (type != InventoryItemType.TitleID)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -15,13 +14,13 @@ public static class InventoryItemTypeExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryItemType.IsCharacterBound()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (type != InventoryItemType.BannerID)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -32,7 +31,7 @@ public static class InventoryItemTypeExtensions
 				}
 				if (type != InventoryItemType.Skin)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -43,7 +42,7 @@ public static class InventoryItemTypeExtensions
 					}
 					if (type != InventoryItemType.Texture)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -54,7 +53,7 @@ public static class InventoryItemTypeExtensions
 						}
 						if (type != InventoryItemType.Style)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -65,7 +64,7 @@ public static class InventoryItemTypeExtensions
 							}
 							if (type != InventoryItemType.Taunt)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (6)
 									{
@@ -76,7 +75,7 @@ public static class InventoryItemTypeExtensions
 								}
 								if (type != InventoryItemType.Mod)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (3)
 										{
@@ -85,7 +84,8 @@ public static class InventoryItemTypeExtensions
 										}
 										break;
 									}
-									return type == InventoryItemType.AbilityVfxSwap;
+									result = ((type == InventoryItemType.AbilityVfxSwap) ? 1 : 0);
+									goto IL_0076;
 								}
 							}
 						}
@@ -93,6 +93,9 @@ public static class InventoryItemTypeExtensions
 				}
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_0076;
+		IL_0076:
+		return (byte)result != 0;
 	}
 }

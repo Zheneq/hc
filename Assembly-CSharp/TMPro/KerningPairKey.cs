@@ -1,5 +1,3 @@
-﻿using System;
-
 namespace TMPro
 {
 	public struct KerningPairKey
@@ -12,9 +10,9 @@ namespace TMPro
 
 		public KerningPairKey(int ascii_left, int ascii_right)
 		{
-			this.ascii_Left = ascii_left;
-			this.ascii_Right = ascii_right;
-			this.key = (ascii_right << 0x10) + ascii_left;
+			ascii_Left = ascii_left;
+			ascii_Right = ascii_right;
+			key = (ascii_right << 16) + ascii_left;
 		}
 	}
 }

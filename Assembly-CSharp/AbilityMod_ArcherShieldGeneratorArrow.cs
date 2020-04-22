@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,46 +40,45 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ArcherShieldGeneratorArrow archerShieldGeneratorArrow = targetAbility as ArcherShieldGeneratorArrow;
-		if (archerShieldGeneratorArrow != null)
+		if (!(archerShieldGeneratorArrow != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ArcherShieldGeneratorArrow.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_lessAbsorbPerTurnMod, "LessAbsorbPerTurn", string.Empty, archerShieldGeneratorArrow.m_lessAbsorbPerTurn, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_directHitEnemyEffectMod, "DirectHitEnemyEffect", archerShieldGeneratorArrow.m_directHitEnemyEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_directHitAllyEffectMod, "DirectHitAllyEffect", archerShieldGeneratorArrow.m_directHitAllyEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_extraAllyHitEffectMod, "ExtraAllyHitEffect", archerShieldGeneratorArrow.m_extraAllyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_cooldownReductionOnDash, "CooldownReductionOnDashAbility", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraAbsorbPerEnemyHit, "ExtraAbsorbPerEnemyHit", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraAbsorbIfEnemyHit, "ExtraAbsorbIfAnyEnemyHit", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraAbsorbIfOnlyOneAllyHit, "ExtraAbsorbIfOnlyOneAllyHit", string.Empty, 0, true, false);
+			AbilityMod.AddToken(tokens, m_lessAbsorbPerTurnMod, "LessAbsorbPerTurn", string.Empty, archerShieldGeneratorArrow.m_lessAbsorbPerTurn);
+			AbilityMod.AddToken_EffectMod(tokens, m_directHitEnemyEffectMod, "DirectHitEnemyEffect", archerShieldGeneratorArrow.m_directHitEnemyEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_directHitAllyEffectMod, "DirectHitAllyEffect", archerShieldGeneratorArrow.m_directHitAllyEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_extraAllyHitEffectMod, "ExtraAllyHitEffect", archerShieldGeneratorArrow.m_extraAllyHitEffect);
+			AbilityMod.AddToken(tokens, m_cooldownReductionOnDash, "CooldownReductionOnDashAbility", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_extraAbsorbPerEnemyHit, "ExtraAbsorbPerEnemyHit", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_extraAbsorbIfEnemyHit, "ExtraAbsorbIfAnyEnemyHit", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_extraAbsorbIfOnlyOneAllyHit, "ExtraAbsorbIfOnlyOneAllyHit", string.Empty, 0);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ArcherShieldGeneratorArrow archerShieldGeneratorArrow = base.GetTargetAbilityOnAbilityData(abilityData) as ArcherShieldGeneratorArrow;
+		ArcherShieldGeneratorArrow archerShieldGeneratorArrow = GetTargetAbilityOnAbilityData(abilityData) as ArcherShieldGeneratorArrow;
 		bool flag = archerShieldGeneratorArrow != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_penetrateLoSMod, "[PenetrateLoS]", flag, flag && archerShieldGeneratorArrow.m_penetrateLoS);
-		string str = text;
-		AbilityModPropertyBool affectsEnemiesMod = this.m_affectsEnemiesMod;
-		string prefix = "[AffectsEnemies]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		string empty = string.Empty;
+		empty += PropDesc(m_penetrateLoSMod, "[PenetrateLoS]", flag, flag && archerShieldGeneratorArrow.m_penetrateLoS);
+		string str = empty;
+		AbilityModPropertyBool affectsEnemiesMod = m_affectsEnemiesMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -88,25 +87,23 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ArcherShieldGeneratorArrow.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			baseVal = archerShieldGeneratorArrow.m_affectsEnemies;
+			baseVal = (archerShieldGeneratorArrow.m_affectsEnemies ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(affectsEnemiesMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyBool affectsAlliesMod = this.m_affectsAlliesMod;
-		string prefix2 = "[AffectsAllies]";
-		bool showBaseVal2 = flag;
-		bool baseVal2;
+		empty = str + PropDesc(affectsEnemiesMod, "[AffectsEnemies]", flag, (byte)baseVal != 0);
+		string str2 = empty;
+		AbilityModPropertyBool affectsAlliesMod = m_affectsAlliesMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -115,21 +112,19 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 				}
 				break;
 			}
-			baseVal2 = archerShieldGeneratorArrow.m_affectsAllies;
+			baseVal2 = (archerShieldGeneratorArrow.m_affectsAllies ? 1 : 0);
 		}
 		else
 		{
-			baseVal2 = false;
+			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(affectsAlliesMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyBool affectsCasterMod = this.m_affectsCasterMod;
-		string prefix3 = "[AffectsCaster]";
-		bool showBaseVal3 = flag;
-		bool baseVal3;
+		empty = str2 + PropDesc(affectsAlliesMod, "[AffectsAllies]", flag, (byte)baseVal2 != 0);
+		string str3 = empty;
+		AbilityModPropertyBool affectsCasterMod = m_affectsCasterMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -138,21 +133,19 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 				}
 				break;
 			}
-			baseVal3 = archerShieldGeneratorArrow.m_affectsCaster;
+			baseVal3 = (archerShieldGeneratorArrow.m_affectsCaster ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(affectsCasterMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt lessAbsorbPerTurnMod = this.m_lessAbsorbPerTurnMod;
-		string prefix4 = "[LessAbsorbPerTurn]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(affectsCasterMod, "[AffectsCaster]", flag, (byte)baseVal3 != 0);
+		string str4 = empty;
+		AbilityModPropertyInt lessAbsorbPerTurnMod = m_lessAbsorbPerTurnMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -167,15 +160,13 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(lessAbsorbPerTurnMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyEffectInfo directHitEnemyEffectMod = this.m_directHitEnemyEffectMod;
-		string prefix5 = "[DirectHitEnemyEffect]";
-		bool showBaseVal5 = flag;
-		StandardEffectInfo baseVal5;
+		empty = str4 + PropDesc(lessAbsorbPerTurnMod, "[LessAbsorbPerTurn]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyEffectInfo directHitEnemyEffectMod = m_directHitEnemyEffectMod;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -190,15 +181,13 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		{
 			baseVal5 = null;
 		}
-		text = str5 + base.PropDesc(directHitEnemyEffectMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyEffectInfo directHitAllyEffectMod = this.m_directHitAllyEffectMod;
-		string prefix6 = "[DirectHitAllyEffect]";
-		bool showBaseVal6 = flag;
-		StandardEffectInfo baseVal6;
+		empty = str5 + PropDesc(directHitEnemyEffectMod, "[DirectHitEnemyEffect]", flag, (StandardEffectInfo)baseVal5);
+		string str6 = empty;
+		AbilityModPropertyEffectInfo directHitAllyEffectMod = m_directHitAllyEffectMod;
+		object baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -213,11 +202,11 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		{
 			baseVal6 = null;
 		}
-		text = str6 + base.PropDesc(directHitAllyEffectMod, prefix6, showBaseVal6, baseVal6);
-		text += base.PropDesc(this.m_extraAllyHitEffectMod, "[ExtraAllyHitEffect]", flag, (!flag) ? null : archerShieldGeneratorArrow.m_extraAllyHitEffect);
-		text += base.PropDesc(this.m_cooldownReductionOnDash, "[CooldownReductionOnDashAbility]", flag, 0);
-		text += base.PropDesc(this.m_extraAbsorbPerEnemyHit, "[ExtraAbsorbPerEnemyHit]", flag, 0);
-		text += base.PropDesc(this.m_extraAbsorbIfEnemyHit, "[ExtraAbsorbIfAnyEnemyHit]", flag, 0);
-		return text + base.PropDesc(this.m_extraAbsorbIfOnlyOneAllyHit, "[ExtraAbsorbIfOnlyOneAllyHit]", flag, 0);
+		empty = str6 + PropDesc(directHitAllyEffectMod, "[DirectHitAllyEffect]", flag, (StandardEffectInfo)baseVal6);
+		empty += PropDesc(m_extraAllyHitEffectMod, "[ExtraAllyHitEffect]", flag, (!flag) ? null : archerShieldGeneratorArrow.m_extraAllyHitEffect);
+		empty += PropDesc(m_cooldownReductionOnDash, "[CooldownReductionOnDashAbility]", flag);
+		empty += PropDesc(m_extraAbsorbPerEnemyHit, "[ExtraAbsorbPerEnemyHit]", flag);
+		empty += PropDesc(m_extraAbsorbIfEnemyHit, "[ExtraAbsorbIfAnyEnemyHit]", flag);
+		return empty + PropDesc(m_extraAbsorbIfOnlyOneAllyHit, "[ExtraAbsorbIfOnlyOneAllyHit]", flag);
 	}
 }

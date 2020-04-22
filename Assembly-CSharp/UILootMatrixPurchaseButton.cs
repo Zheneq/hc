@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -21,70 +20,78 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 
 	public _SelectableBtn m_viewContentBtn;
 
-	public LootMatrixPack PackRef { get; private set; }
+	public LootMatrixPack PackRef
+	{
+		get;
+		private set;
+	}
 
 	private void Awake()
 	{
-		this.m_viewContentBtn.spriteController.callback = delegate(BaseEventData contentData)
+		m_viewContentBtn.spriteController.callback = delegate
 		{
-			if (this.PackRef != null)
+			if (PackRef != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixPurchaseButton.<Awake>m__0(BaseEventData)).MethodHandle;
-				}
-				List<InventoryItemTemplate> list = new List<InventoryItemTemplate>();
-				if (this.PackRef.IsInEvent())
-				{
-					for (int i = 0; i < this.PackRef.BonusMatrixes.Length; i++)
+						break;
+					default:
 					{
-						InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(this.PackRef.BonusMatrixes[i].LootMatrixId);
-						if (itemTemplate.TypeSpecificData.Length > 1 && itemTemplate.TypeSpecificData[1] == 1)
+						if (1 == 0)
 						{
-							for (;;)
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						List<InventoryItemTemplate> list = new List<InventoryItemTemplate>();
+						if (PackRef.IsInEvent())
+						{
+							for (int i = 0; i < PackRef.BonusMatrixes.Length; i++)
 							{
-								switch (3)
+								InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(PackRef.BonusMatrixes[i].LootMatrixId);
+								if (itemTemplate.TypeSpecificData.Length > 1 && itemTemplate.TypeSpecificData[1] == 1)
+								{
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									list.Add(itemTemplate);
+								}
+							}
+							while (true)
+							{
+								switch (1)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							list.Add(itemTemplate);
 						}
-					}
-					for (;;)
-					{
-						switch (1)
+						if (list.Count > 0)
 						{
-						case 0:
-							continue;
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									break;
+								default:
+									UILootMatrixContentViewer.Get().Setup(list.ToArray());
+									UILootMatrixContentViewer.Get().SetVisible(true);
+									return;
+								}
+							}
 						}
-						break;
+						return;
 					}
-				}
-				if (list.Count > 0)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
-					UILootMatrixContentViewer.Get().Setup(list.ToArray(), false);
-					UILootMatrixContentViewer.Get().SetVisible(true);
 				}
 			}
 		};
@@ -93,18 +100,18 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 	public void ButtonClicked(BaseEventData data)
 	{
 		UILootMatrixPurchaseScreen.Get().PackClicked(this);
-		this.m_clickBtn.spriteController.ForceSetPointerEntered(false);
+		m_clickBtn.spriteController.ForceSetPointerEntered(false);
 	}
 
 	public void Setup(LootMatrixPack pack)
 	{
 		bool flag = pack.IsInEvent();
-		this.PackRef = pack;
-		this.m_clickBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ButtonClicked);
+		PackRef = pack;
+		m_clickBtn.spriteController.callback = ButtonClicked;
 		int num = pack.NumberOfMatrixes;
 		if (num == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -113,15 +120,15 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixPurchaseButton.Setup(LootMatrixPack)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			for (int i = 0; i < pack.BonusMatrixes.Length; i++)
 			{
 				num += pack.BonusMatrixes[i].NumberOfMatrixes;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -131,12 +138,12 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 				break;
 			}
 		}
-		this.m_packCount.text = num.ToString();
-		Image packImage = this.m_packImage;
+		m_packCount.text = num.ToString();
+		Image packImage = m_packImage;
 		Sprite sprite;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -154,53 +161,57 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 		packImage.sprite = sprite;
 		string accountCurrency = HydrogenConfig.Get().Ticket.AccountCurrency;
 		float lootMatrixPackPrice = CommerceClient.Get().GetLootMatrixPackPrice(pack.ProductCode, accountCurrency);
-		this.m_priceAmount.text = UIStorePanel.GetLocalizedPriceString(lootMatrixPackPrice, accountCurrency);
-		this.m_eventText.text = pack.GetEventText();
-		UIManager.SetGameObjectActive(this.m_eventText, flag, null);
+		m_priceAmount.text = UIStorePanel.GetLocalizedPriceString(lootMatrixPackPrice, accountCurrency);
+		m_eventText.text = pack.GetEventText();
+		UIManager.SetGameObjectActive(m_eventText, flag);
 		bool flag2 = false;
-		if (this.PackRef.IsInEvent())
+		if (PackRef.IsInEvent())
 		{
-			for (int j = 0; j < this.PackRef.BonusMatrixes.Length; j++)
+			int num2 = 0;
+			while (true)
 			{
-				InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(this.PackRef.BonusMatrixes[j].LootMatrixId);
-				if (itemTemplate.TypeSpecificData.Length > 1)
+				if (num2 < PackRef.BonusMatrixes.Length)
 				{
-					flag2 = (itemTemplate.TypeSpecificData[1] == 1);
-					if (flag2)
+					InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(PackRef.BonusMatrixes[num2].LootMatrixId);
+					if (itemTemplate.TypeSpecificData.Length > 1)
 					{
-						goto IL_191;
+						flag2 = (itemTemplate.TypeSpecificData[1] == 1);
+						if (flag2)
+						{
+							break;
+						}
 					}
-				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
+					num2++;
 					continue;
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
 				break;
 			}
 		}
-		IL_191:
-		UIManager.SetGameObjectActive(this.m_viewContentBtn, flag2, null);
+		UIManager.SetGameObjectActive(m_viewContentBtn, flag2);
 		float price = pack.Prices.GetPrice(accountCurrency);
 		if (price == lootMatrixPackPrice)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_discountedAmount.text = string.Empty;
+					return;
 				}
-				break;
 			}
-			this.m_discountedAmount.text = string.Empty;
 		}
-		else
-		{
-			this.m_discountedAmount.text = UIStorePanel.GetLocalizedPriceString(price, accountCurrency);
-		}
+		m_discountedAmount.text = UIStorePanel.GetLocalizedPriceString(price, accountCurrency);
 	}
 }

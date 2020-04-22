@@ -1,7 +1,5 @@
-﻿using System;
 using LobbyGameClientMessages;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class UIFactionsIntroduction : MonoBehaviour
 {
@@ -15,17 +13,17 @@ public class UIFactionsIntroduction : MonoBehaviour
 
 	public static UIFactionsIntroduction Get()
 	{
-		return UIFactionsIntroduction.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		UIFactionsIntroduction.s_instance = this;
-		UIManager.SetGameObjectActive(this.m_unlockNoticeContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_factionsDescriptionContainer, false, null);
-		this.m_noticeCloseBtn.callback = delegate(BaseEventData data)
+		s_instance = this;
+		UIManager.SetGameObjectActive(m_unlockNoticeContainer, false);
+		UIManager.SetGameObjectActive(m_factionsDescriptionContainer, false);
+		m_noticeCloseBtn.callback = delegate
 		{
-			UIManager.SetGameObjectActive(this.m_unlockNoticeContainer, false, null);
+			UIManager.SetGameObjectActive(m_unlockNoticeContainer, false);
 		};
 	}
 
@@ -33,7 +31,7 @@ public class UIFactionsIntroduction : MonoBehaviour
 	{
 		if (UIFrontEnd.Get().m_frontEndNavPanel.m_notificationsBtn.IsSelected())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -42,27 +40,27 @@ public class UIFactionsIntroduction : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFactionsIntroduction.CloseQuestListPanel()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UIFrontEnd.Get().m_frontEndNavPanel.m_notificationsBtn.SetSelected(false, false, string.Empty, string.Empty);
 		}
-		QuestListPanel.Get().SetVisible(false, false, false);
+		QuestListPanel.Get().SetVisible(false);
 	}
 
 	public void SetupIntro(QuestOfferNotification quests)
 	{
-		this.CloseQuestListPanel();
-		UIManager.SetGameObjectActive(this.m_unlockNoticeContainer, true, null);
+		CloseQuestListPanel();
+		UIManager.SetGameObjectActive(m_unlockNoticeContainer, true);
 	}
 
 	public bool IsActive()
 	{
-		bool result;
-		if (!this.m_unlockNoticeContainer.activeInHierarchy)
+		int result;
+		if (!m_unlockNoticeContainer.activeInHierarchy)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -71,16 +69,16 @@ public class UIFactionsIntroduction : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFactionsIntroduction.IsActive()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_factionsDescriptionContainer.activeInHierarchy;
+			result = (m_factionsDescriptionContainer.activeInHierarchy ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 }

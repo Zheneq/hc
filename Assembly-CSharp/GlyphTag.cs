@@ -1,13 +1,11 @@
-﻿using System;
-
 public static class GlyphTag
 {
 	public static bool IsHandleWithoutNumber(string handle)
 	{
-		bool result;
+		int result;
 		if (!handle.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -16,16 +14,16 @@ public static class GlyphTag
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GlyphTag.IsHandleWithoutNumber(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (handle.LastIndexOf("#") == -1);
+			result = ((handle.LastIndexOf("#") == -1) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,9 +16,9 @@ public class NekoBoomerangDisc : Ability
 	public float m_discReturnEndRadius;
 
 	[Separator("Damage stuff", true)]
-	public int m_directDamage = 0x19;
+	public int m_directDamage = 25;
 
-	public int m_returnTripDamage = 0xA;
+	public int m_returnTripDamage = 10;
 
 	public bool m_returnTripIgnoreCover = true;
 
@@ -48,9 +47,9 @@ public class NekoBoomerangDisc : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -59,31 +58,30 @@ public class NekoBoomerangDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Boomerang Disc";
+			m_abilityName = "Boomerang Disc";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.m_syncComp = base.GetComponent<Neko_SyncComponent>();
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_NekoDisc(this, this.GetLaserWidth(), this.GetLaserLength(), this.GetAoeRadiusAtEnd(), false, this.GetMaxTargets(), false, true)
-		{
-			m_affectCasterDelegate = new AbilityUtil_Targeter_Laser.IsAffectingCasterDelegate(this.TargeterIncludeCaster)
-		};
+		m_syncComp = GetComponent<Neko_SyncComponent>();
+		SetCachedFields();
+		AbilityUtil_Targeter_NekoDisc abilityUtil_Targeter_NekoDisc = new AbilityUtil_Targeter_NekoDisc(this, GetLaserWidth(), GetLaserLength(), GetAoeRadiusAtEnd(), false, GetMaxTargets(), false, true);
+		abilityUtil_Targeter_NekoDisc.m_affectCasterDelegate = TargeterIncludeCaster;
+		base.Targeter = abilityUtil_Targeter_NekoDisc;
 	}
 
 	private bool TargeterIncludeCaster(ActorData caster, List<ActorData> actorsSoFar)
 	{
-		bool result;
-		if (this.GetShieldPerTargetHitOnThrow() > 0)
+		int result;
+		if (GetShieldPerTargetHitOnThrow() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -92,25 +90,25 @@ public class NekoBoomerangDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.TargeterIncludeCaster(ActorData, List<ActorData>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (actorsSoFar.Count > 0);
+			result = ((actorsSoFar.Count > 0) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private void SetCachedFields()
 	{
 		StandardActorEffectData cachedShieldEffectData;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -119,30 +117,30 @@ public class NekoBoomerangDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedShieldEffectData = this.m_abilityMod.m_shieldEffectDataMod.GetModifiedValue(this.m_shieldEffectData);
+			cachedShieldEffectData = m_abilityMod.m_shieldEffectDataMod.GetModifiedValue(m_shieldEffectData);
 		}
 		else
 		{
-			cachedShieldEffectData = this.m_shieldEffectData;
+			cachedShieldEffectData = m_shieldEffectData;
 		}
-		this.m_cachedShieldEffectData = cachedShieldEffectData;
+		m_cachedShieldEffectData = cachedShieldEffectData;
 	}
 
 	public float GetLaserLength()
 	{
-		return (!this.m_abilityMod) ? this.m_laserLength : this.m_abilityMod.m_laserLengthMod.GetModifiedValue(this.m_laserLength);
+		return (!m_abilityMod) ? m_laserLength : m_abilityMod.m_laserLengthMod.GetModifiedValue(m_laserLength);
 	}
 
 	public float GetLaserWidth()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -151,15 +149,15 @@ public class NekoBoomerangDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetLaserWidth()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
+			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
 		{
-			result = this.m_laserWidth;
+			result = m_laserWidth;
 		}
 		return result;
 	}
@@ -167,9 +165,9 @@ public class NekoBoomerangDisc : Ability
 	public float GetAoeRadiusAtEnd()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -178,15 +176,15 @@ public class NekoBoomerangDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetAoeRadiusAtEnd()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_aoeRadiusAtEndMod.GetModifiedValue(this.m_aoeRadiusAtEnd);
+			result = m_abilityMod.m_aoeRadiusAtEndMod.GetModifiedValue(m_aoeRadiusAtEnd);
 		}
 		else
 		{
-			result = this.m_aoeRadiusAtEnd;
+			result = m_aoeRadiusAtEnd;
 		}
 		return result;
 	}
@@ -194,9 +192,9 @@ public class NekoBoomerangDisc : Ability
 	public int GetMaxTargets()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -205,15 +203,15 @@ public class NekoBoomerangDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetMaxTargets()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
+			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
 		{
-			result = this.m_maxTargets;
+			result = m_maxTargets;
 		}
 		return result;
 	}
@@ -221,9 +219,9 @@ public class NekoBoomerangDisc : Ability
 	public float GetDiscReturnEndRadius()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -232,15 +230,15 @@ public class NekoBoomerangDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetDiscReturnEndRadius()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(this.m_discReturnEndRadius);
+			result = m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(m_discReturnEndRadius);
 		}
 		else
 		{
-			result = this.m_discReturnEndRadius;
+			result = m_discReturnEndRadius;
 		}
 		return result;
 	}
@@ -248,9 +246,9 @@ public class NekoBoomerangDisc : Ability
 	public int GetDirectDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -259,30 +257,30 @@ public class NekoBoomerangDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetDirectDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_directDamageMod.GetModifiedValue(this.m_directDamage);
+			result = m_abilityMod.m_directDamageMod.GetModifiedValue(m_directDamage);
 		}
 		else
 		{
-			result = this.m_directDamage;
+			result = m_directDamage;
 		}
 		return result;
 	}
 
 	public int GetReturnTripDamage()
 	{
-		return (!this.m_abilityMod) ? this.m_returnTripDamage : this.m_abilityMod.m_returnTripDamageMod.GetModifiedValue(this.m_returnTripDamage);
+		return (!m_abilityMod) ? m_returnTripDamage : m_abilityMod.m_returnTripDamageMod.GetModifiedValue(m_returnTripDamage);
 	}
 
 	public bool ReturnTripIgnoreCover()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -291,30 +289,30 @@ public class NekoBoomerangDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.ReturnTripIgnoreCover()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_returnTripIgnoreCoverMod.GetModifiedValue(this.m_returnTripIgnoreCover);
+			result = m_abilityMod.m_returnTripIgnoreCoverMod.GetModifiedValue(m_returnTripIgnoreCover);
 		}
 		else
 		{
-			result = this.m_returnTripIgnoreCover;
+			result = m_returnTripIgnoreCover;
 		}
 		return result;
 	}
 
 	public int GetExtraDamageIfHitByReturnDisc()
 	{
-		return (!this.m_abilityMod) ? this.m_extraDamageIfHitByReturnDisc : this.m_abilityMod.m_extraDamageIfHitByReturnDiscMod.GetModifiedValue(this.m_extraDamageIfHitByReturnDisc);
+		return (!m_abilityMod) ? m_extraDamageIfHitByReturnDisc : m_abilityMod.m_extraDamageIfHitByReturnDiscMod.GetModifiedValue(m_extraDamageIfHitByReturnDisc);
 	}
 
 	public int GetExtraReturnDamageIfHitNoOne()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -323,15 +321,15 @@ public class NekoBoomerangDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetExtraReturnDamageIfHitNoOne()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraReturnDamageIfHitNoOneMod.GetModifiedValue(this.m_extraReturnDamageIfHitNoOne);
+			result = m_abilityMod.m_extraReturnDamageIfHitNoOneMod.GetModifiedValue(m_extraReturnDamageIfHitNoOne);
 		}
 		else
 		{
-			result = this.m_extraReturnDamageIfHitNoOne;
+			result = m_extraReturnDamageIfHitNoOne;
 		}
 		return result;
 	}
@@ -339,9 +337,9 @@ public class NekoBoomerangDisc : Ability
 	public int GetShieldPerTargetHitOnThrow()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -350,15 +348,15 @@ public class NekoBoomerangDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetShieldPerTargetHitOnThrow()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_shieldPerTargetHitOnThrowMod.GetModifiedValue(this.m_shieldPerTargetHitOnThrow);
+			result = m_abilityMod.m_shieldPerTargetHitOnThrowMod.GetModifiedValue(m_shieldPerTargetHitOnThrow);
 		}
 		else
 		{
-			result = this.m_shieldPerTargetHitOnThrow;
+			result = m_shieldPerTargetHitOnThrow;
 		}
 		return result;
 	}
@@ -366,9 +364,9 @@ public class NekoBoomerangDisc : Ability
 	public StandardActorEffectData GetShieldEffectData()
 	{
 		StandardActorEffectData result;
-		if (this.m_cachedShieldEffectData != null)
+		if (m_cachedShieldEffectData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -377,46 +375,46 @@ public class NekoBoomerangDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetShieldEffectData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedShieldEffectData;
+			result = m_cachedShieldEffectData;
 		}
 		else
 		{
-			result = this.m_shieldEffectData;
+			result = m_shieldEffectData;
 		}
 		return result;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "MaxTargets", string.Empty, this.m_maxTargets, false);
-		base.AddTokenInt(tokens, "DirectDamage", string.Empty, this.m_directDamage, false);
-		base.AddTokenInt(tokens, "ReturnTripDamage", string.Empty, this.m_returnTripDamage, false);
-		base.AddTokenInt(tokens, "ExtraDamageIfHitByReturnDisc", string.Empty, this.m_extraDamageIfHitByReturnDisc, false);
-		base.AddTokenInt(tokens, "ExtraReturnDamageIfHitNoOne", string.Empty, this.m_extraReturnDamageIfHitNoOne, false);
-		base.AddTokenInt(tokens, "ShieldPerTargetHitOnThrow", string.Empty, this.m_shieldPerTargetHitOnThrow, false);
-		this.m_shieldEffectData.AddTooltipTokens(tokens, "ShieldEffectData", false, null);
+		AddTokenInt(tokens, "MaxTargets", string.Empty, m_maxTargets);
+		AddTokenInt(tokens, "DirectDamage", string.Empty, m_directDamage);
+		AddTokenInt(tokens, "ReturnTripDamage", string.Empty, m_returnTripDamage);
+		AddTokenInt(tokens, "ExtraDamageIfHitByReturnDisc", string.Empty, m_extraDamageIfHitByReturnDisc);
+		AddTokenInt(tokens, "ExtraReturnDamageIfHitNoOne", string.Empty, m_extraReturnDamageIfHitNoOne);
+		AddTokenInt(tokens, "ShieldPerTargetHitOnThrow", string.Empty, m_shieldPerTargetHitOnThrow);
+		m_shieldEffectData.AddTooltipTokens(tokens, "ShieldEffectData");
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_directDamage);
-		AbilityTooltipHelper.ReportAbsorb(ref result, AbilityTooltipSubject.Self, 1);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_directDamage);
+		AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, 1);
+		return numbers;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			int num = this.GetDirectDamage();
-			if (this.m_syncComp != null)
+			int num = GetDirectDamage();
+			if (m_syncComp != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -425,13 +423,13 @@ public class NekoBoomerangDisc : Ability
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (this.GetExtraDamageIfHitByReturnDisc() > 0)
+				if (GetExtraDamageIfHitByReturnDisc() > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -440,9 +438,9 @@ public class NekoBoomerangDisc : Ability
 						}
 						break;
 					}
-					if (this.m_syncComp.IsActorTargetedByReturningDiscs(targetActor))
+					if (m_syncComp.IsActorTargetedByReturningDiscs(targetActor))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -451,7 +449,7 @@ public class NekoBoomerangDisc : Ability
 							}
 							break;
 						}
-						num += this.GetExtraDamageIfHitByReturnDisc();
+						num += GetExtraDamageIfHitByReturnDisc();
 					}
 				}
 			}
@@ -460,8 +458,7 @@ public class NekoBoomerangDisc : Ability
 		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
 		{
 			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-			int absorb = this.GetShieldPerTargetHitOnThrow() * visibleActorsCountByTooltipSubject;
-			results.m_absorb = absorb;
+			int num2 = results.m_absorb = GetShieldPerTargetHitOnThrow() * visibleActorsCountByTooltipSubject;
 		}
 		return true;
 	}
@@ -473,41 +470,42 @@ public class NekoBoomerangDisc : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetLaserLength() + this.GetAoeRadiusAtEnd();
+		return GetLaserLength() + GetAoeRadiusAtEnd();
 	}
 
 	public static BoardSquare GetDiscEndSquare(Vector3 startPos, Vector3 endPos)
 	{
 		Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(startPos, endPos);
-		return KnockbackUtils.GetLastValidBoardSquareInLine(startPos, coneLosCheckPos, true, true, float.MaxValue);
+		return KnockbackUtils.GetLastValidBoardSquareInLine(startPos, coneLosCheckPos, true, true);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_NekoBoomerangDisc))
+		if (abilityMod.GetType() != typeof(AbilityMod_NekoBoomerangDisc))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_NekoBoomerangDisc);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_NekoBoomerangDisc);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 
 	public override int GetTheatricsSortPriority(AbilityData.ActionType actionType)

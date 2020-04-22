@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,6 +7,14 @@ using UnityEngine.UI;
 
 public class UILootMatrixContentViewer : UIScene
 {
+	[Serializable]
+	public class PrefabContainerIndexPair
+	{
+		public int LootTableIndex;
+
+		public RectTransform PreviewObject;
+	}
+
 	public RectTransform m_Container;
 
 	public _SelectableBtn m_OKBtn;
@@ -31,7 +39,7 @@ public class UILootMatrixContentViewer : UIScene
 
 	public _SelectableBtn m_nextPageBtn;
 
-	public UILootMatrixContentViewer.PrefabContainerIndexPair[] LootTablePreviewMatches;
+	public PrefabContainerIndexPair[] LootTablePreviewMatches;
 
 	public List<UILockboxRewardItem> RareItemsListRowOne = new List<UILockboxRewardItem>();
 
@@ -43,25 +51,25 @@ public class UILootMatrixContentViewer : UIScene
 
 	private int CurrentPage = -1;
 
-	private const int MAX_PER_ROW = 0xC;
+	private const int MAX_PER_ROW = 12;
 
 	private static UILootMatrixContentViewer s_instance;
 
 	public static UILootMatrixContentViewer Get()
 	{
-		return UILootMatrixContentViewer.s_instance;
+		return s_instance;
 	}
 
 	public override void Awake()
 	{
-		UILootMatrixContentViewer.s_instance = this;
-		this.SetVisible(false);
-		this.m_OKBtn.spriteController.callback = delegate(BaseEventData data)
+		s_instance = this;
+		SetVisible(false);
+		m_OKBtn.spriteController.callback = delegate
 		{
-			this.SetVisible(false);
+			SetVisible(false);
 		};
-		this.m_previousPageBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PreviousPageClicked);
-		this.m_nextPageBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.NextPageClicked);
+		m_previousPageBtn.spriteController.callback = PreviousPageClicked;
+		m_nextPageBtn.spriteController.callback = NextPageClicked;
 		base.Awake();
 	}
 
@@ -72,7 +80,7 @@ public class UILootMatrixContentViewer : UIScene
 
 	public void Setup(InventoryItemTemplate Template, bool IsBundle = false)
 	{
-		this.Setup(new InventoryItemTemplate[]
+		Setup(new InventoryItemTemplate[1]
 		{
 			Template
 		}, IsBundle);
@@ -85,7 +93,7 @@ public class UILootMatrixContentViewer : UIScene
 		{
 			if (Templates[i] != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -94,9 +102,9 @@ public class UILootMatrixContentViewer : UIScene
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixContentViewer.Setup(InventoryItemTemplate[], bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (Templates[i].Type == InventoryItemType.Lockbox)
 				{
@@ -106,100 +114,147 @@ public class UILootMatrixContentViewer : UIScene
 		}
 		if (list.Count == 0)
 		{
-			Log.Error("Opening Loot Matrix Content Viewer with no valid item templates", new object[0]);
+			Log.Error("Opening Loot Matrix Content Viewer with no valid item templates");
 			return;
 		}
-		this.LootMatrixItemTemplates = list;
-		UIManager.SetGameObjectActive(this.m_Title, !IsBundle, null);
-		UIManager.SetGameObjectActive(this.m_DescriptionOne, !IsBundle, null);
-		UIManager.SetGameObjectActive(this.m_DescriptionTwo, !IsBundle, null);
+		LootMatrixItemTemplates = list;
+		UIManager.SetGameObjectActive(m_Title, !IsBundle);
+		UIManager.SetGameObjectActive(m_DescriptionOne, !IsBundle);
+		UIManager.SetGameObjectActive(m_DescriptionTwo, !IsBundle);
 	}
 
 	private void DisplayItems(List<LootTable> Tables)
 	{
-		if (Tables != null)
+		if (Tables == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (Tables.Count == 0)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixContentViewer.DisplayItems(List<LootTable>)).MethodHandle;
-			}
-			if (Tables.Count != 0)
-			{
-				for (;;)
+				if (Tables[0] == null)
 				{
-					switch (6)
+					return;
+				}
+				for (int i = 0; i < LootTablePreviewMatches.Length; i++)
+				{
+					UIManager.SetGameObjectActive(LootTablePreviewMatches[i].PreviewObject, LootTablePreviewMatches[i].LootTableIndex == Tables[0].Index);
+				}
+				List<int> list = new List<int>();
+				for (int j = 0; j < Tables.Count; j++)
+				{
+					list.AddRange(InventoryWideData.Get().GetAllItemTemplateIDsFromLootTable(Tables[j].Index));
+				}
+				while (true)
+				{
+					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (Tables[0] != null)
-				{
-					for (int i = 0; i < this.LootTablePreviewMatches.Length; i++)
+					int num = 0;
+					int num2 = 0;
+					int num3 = 0;
+					for (int num4 = 0; num4 < list.Count; num4++)
 					{
-						UIManager.SetGameObjectActive(this.LootTablePreviewMatches[i].PreviewObject, this.LootTablePreviewMatches[i].LootTableIndex == Tables[0].Index, null);
-					}
-					List<int> list = new List<int>();
-					for (int j = 0; j < Tables.Count; j++)
-					{
-						list.AddRange(InventoryWideData.Get().GetAllItemTemplateIDsFromLootTable(Tables[j].Index));
-					}
-					for (;;)
-					{
-						switch (4)
+						InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(list[num4]);
+						UILockboxRewardItem uILockboxRewardItem = null;
+						if (InventoryItemRarity.Rare <= itemTemplate.Rarity)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					int k = 0;
-					int l = 0;
-					int m = 0;
-					int n = 0;
-					while (n < list.Count)
-					{
-						InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(list[n]);
-						UILockboxRewardItem uilockboxRewardItem = null;
-						if (InventoryItemRarity.Rare > itemTemplate.Rarity)
-						{
-							goto IL_1FF;
-						}
-						for (;;)
-						{
-							switch (3)
+							while (true)
 							{
-							case 0:
-								continue;
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
 							}
-							break;
-						}
-						if (itemTemplate.Rarity > InventoryItemRarity.Epic)
-						{
-							goto IL_1FF;
-						}
-						for (;;)
-						{
-							switch (4)
+							if (itemTemplate.Rarity <= InventoryItemRarity.Epic)
 							{
-							case 0:
-								continue;
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (num < 12)
+								{
+									while (true)
+									{
+										switch (1)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									while (num >= RareItemsListRowOne.Count)
+									{
+										UILockboxRewardItem uILockboxRewardItem2 = UnityEngine.Object.Instantiate(m_LootMatrixRewardIconPrefab);
+										UIManager.ReparentTransform(uILockboxRewardItem2.transform, m_RareItemLayoutGroupOne.transform);
+										RareItemsListRowOne.Add(uILockboxRewardItem2);
+									}
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									uILockboxRewardItem = RareItemsListRowOne[num];
+									num++;
+								}
+								else if (num2 < 12)
+								{
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									while (num2 >= RareItemsListRowTwo.Count)
+									{
+										UILockboxRewardItem uILockboxRewardItem3 = UnityEngine.Object.Instantiate(m_LootMatrixRewardIconPrefab);
+										UIManager.ReparentTransform(uILockboxRewardItem3.transform, m_RareItemLayoutGroupTwo.transform);
+										RareItemsListRowTwo.Add(uILockboxRewardItem3);
+									}
+									uILockboxRewardItem = RareItemsListRowTwo[num2];
+									num2++;
+								}
+								goto IL_0291;
 							}
-							break;
 						}
-						if (k < 0xC)
+						if (itemTemplate.Rarity == InventoryItemRarity.Legendary)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -208,48 +263,41 @@ public class UILootMatrixContentViewer : UIScene
 								}
 								break;
 							}
-							while (k >= this.RareItemsListRowOne.Count)
+							if (num3 < 12)
 							{
-								UILockboxRewardItem uilockboxRewardItem2 = UnityEngine.Object.Instantiate<UILockboxRewardItem>(this.m_LootMatrixRewardIconPrefab);
-								UIManager.ReparentTransform(uilockboxRewardItem2.transform, this.m_RareItemLayoutGroupOne.transform);
-								this.RareItemsListRowOne.Add(uilockboxRewardItem2);
-							}
-							for (;;)
-							{
-								switch (3)
+								while (true)
 								{
-								case 0:
-									continue;
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									break;
 								}
-								break;
-							}
-							uilockboxRewardItem = this.RareItemsListRowOne[k];
-							k++;
-						}
-						else if (l < 0xC)
-						{
-							for (;;)
-							{
-								switch (3)
+								while (num3 >= BonusItems.Count)
 								{
-								case 0:
-									continue;
+									UILockboxRewardItem uILockboxRewardItem4 = UnityEngine.Object.Instantiate(m_LootMatrixRewardIconPrefab);
+									UIManager.ReparentTransform(uILockboxRewardItem4.transform, m_BonusItemLayoutGroup.transform);
+									BonusItems.Add(uILockboxRewardItem4);
 								}
-								break;
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								uILockboxRewardItem = BonusItems[num3];
+								num3++;
 							}
-							while (l >= this.RareItemsListRowTwo.Count)
-							{
-								UILockboxRewardItem uilockboxRewardItem3 = UnityEngine.Object.Instantiate<UILockboxRewardItem>(this.m_LootMatrixRewardIconPrefab);
-								UIManager.ReparentTransform(uilockboxRewardItem3.transform, this.m_RareItemLayoutGroupTwo.transform);
-								this.RareItemsListRowTwo.Add(uilockboxRewardItem3);
-							}
-							uilockboxRewardItem = this.RareItemsListRowTwo[l];
-							l++;
 						}
-						IL_291:
-						if (uilockboxRewardItem != null)
+						goto IL_0291;
+						IL_0291:
+						if (uILockboxRewardItem != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -261,7 +309,7 @@ public class UILootMatrixContentViewer : UIScene
 							bool isDuplicate = false;
 							if (ClientGameManager.Get() != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -272,7 +320,7 @@ public class UILootMatrixContentViewer : UIScene
 								}
 								if (ClientGameManager.Get().GetPlayerAccountData() != null)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (5)
 										{
@@ -283,7 +331,7 @@ public class UILootMatrixContentViewer : UIScene
 									}
 									if (ClientGameManager.Get().GetPlayerAccountData().InventoryComponent != null)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (4)
 											{
@@ -292,10 +340,10 @@ public class UILootMatrixContentViewer : UIScene
 											}
 											break;
 										}
-										bool flag;
-										if (!ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.HasItem(list[n]))
+										int num5;
+										if (!ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.HasItem(list[num4]))
 										{
-											for (;;)
+											while (true)
 											{
 												switch (6)
 												{
@@ -304,21 +352,21 @@ public class UILootMatrixContentViewer : UIScene
 												}
 												break;
 											}
-											flag = InventoryWideData.IsOwned(itemTemplate);
+											num5 = (InventoryWideData.IsOwned(itemTemplate) ? 1 : 0);
 										}
 										else
 										{
-											flag = true;
+											num5 = 1;
 										}
-										isDuplicate = flag;
+										isDuplicate = ((byte)num5 != 0);
 									}
 								}
 							}
-							UIManager.SetGameObjectActive(uilockboxRewardItem, true, null);
-							uilockboxRewardItem.Setup(new InventoryItem(), itemTemplate, isDuplicate, -1);
-							if (uilockboxRewardItem.m_rewardFgs != null)
+							UIManager.SetGameObjectActive(uILockboxRewardItem, true);
+							uILockboxRewardItem.Setup(new InventoryItem(), itemTemplate, isDuplicate, -1);
+							if (uILockboxRewardItem.m_rewardFgs != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (7)
 									{
@@ -328,101 +376,52 @@ public class UILootMatrixContentViewer : UIScene
 									break;
 								}
 								Sprite itemFg = InventoryWideData.GetItemFg(itemTemplate);
-								for (int num = 0; num < uilockboxRewardItem.m_rewardFgs.Length; num++)
+								for (int k = 0; k < uILockboxRewardItem.m_rewardFgs.Length; k++)
 								{
-									uilockboxRewardItem.m_rewardFgs[num].sprite = itemFg;
-									UIManager.SetGameObjectActive(uilockboxRewardItem.m_rewardFgs[num], itemFg != null, null);
+									uILockboxRewardItem.m_rewardFgs[k].sprite = itemFg;
+									UIManager.SetGameObjectActive(uILockboxRewardItem.m_rewardFgs[k], itemFg != null);
 								}
 							}
 						}
-						n++;
-						continue;
-						IL_1FF:
-						if (itemTemplate.Rarity != InventoryItemRarity.Legendary)
-						{
-							goto IL_291;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (m < 0xC)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							while (m >= this.BonusItems.Count)
-							{
-								UILockboxRewardItem uilockboxRewardItem4 = UnityEngine.Object.Instantiate<UILockboxRewardItem>(this.m_LootMatrixRewardIconPrefab);
-								UIManager.ReparentTransform(uilockboxRewardItem4.transform, this.m_BonusItemLayoutGroup.transform);
-								this.BonusItems.Add(uilockboxRewardItem4);
-							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							uilockboxRewardItem = this.BonusItems[m];
-							m++;
-							goto IL_291;
-						}
-						goto IL_291;
 					}
-					for (int num2 = k; num2 < this.RareItemsListRowOne.Count; num2++)
+					for (int l = num; l < RareItemsListRowOne.Count; l++)
 					{
-						UIManager.SetGameObjectActive(this.RareItemsListRowOne[num2], false, null);
+						UIManager.SetGameObjectActive(RareItemsListRowOne[l], false);
 					}
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					for (int num3 = l; num3 < this.RareItemsListRowTwo.Count; num3++)
-					{
-						UIManager.SetGameObjectActive(this.RareItemsListRowTwo[num3], false, null);
-					}
-					for (;;)
-					{
-						switch (5)
+						for (int m = num2; m < RareItemsListRowTwo.Count; m++)
 						{
-						case 0:
-							continue;
+							UIManager.SetGameObjectActive(RareItemsListRowTwo[m], false);
 						}
-						break;
-					}
-					for (int num4 = m; num4 < this.BonusItems.Count; num4++)
-					{
-						UIManager.SetGameObjectActive(this.BonusItems[num4], false, null);
-					}
-					for (;;)
-					{
-						switch (7)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							for (int n = num3; n < BonusItems.Count; n++)
+							{
+								UIManager.SetGameObjectActive(BonusItems[n], false);
+							}
+							while (true)
+							{
+								switch (7)
+								{
+								default:
+									return;
+								case 0:
+									break;
+								}
+							}
 						}
-						break;
 					}
-					return;
 				}
 			}
 		}
@@ -432,9 +431,9 @@ public class UILootMatrixContentViewer : UIScene
 	{
 		bool doActive = true;
 		bool doActive2 = true;
-		if (this.CurrentPage != -1)
+		if (CurrentPage != -1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -443,15 +442,15 @@ public class UILootMatrixContentViewer : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixContentViewer.UpdateButtons()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.LootMatrixItemTemplates.Count != 0)
+			if (LootMatrixItemTemplates.Count != 0)
 			{
-				goto IL_3D;
+				goto IL_003d;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -463,10 +462,11 @@ public class UILootMatrixContentViewer : UIScene
 		}
 		doActive = false;
 		doActive2 = false;
-		IL_3D:
-		if (this.CurrentPage == 0)
+		goto IL_003d;
+		IL_003d:
+		if (CurrentPage == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -477,9 +477,9 @@ public class UILootMatrixContentViewer : UIScene
 			}
 			doActive = false;
 		}
-		if (this.CurrentPage == this.LootMatrixItemTemplates.Count - 1)
+		if (CurrentPage == LootMatrixItemTemplates.Count - 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -490,26 +490,26 @@ public class UILootMatrixContentViewer : UIScene
 			}
 			doActive2 = false;
 		}
-		UIManager.SetGameObjectActive(this.m_previousPageBtn, doActive, null);
-		UIManager.SetGameObjectActive(this.m_nextPageBtn, doActive2, null);
+		UIManager.SetGameObjectActive(m_previousPageBtn, doActive);
+		UIManager.SetGameObjectActive(m_nextPageBtn, doActive2);
 	}
 
 	public void PreviousPageClicked(BaseEventData data)
 	{
-		this.DisplayPage(this.CurrentPage - 1);
+		DisplayPage(CurrentPage - 1);
 	}
 
 	public void NextPageClicked(BaseEventData data)
 	{
-		this.DisplayPage(this.CurrentPage + 1);
+		DisplayPage(CurrentPage + 1);
 	}
 
 	public void DisplayPage(int pageIndex)
 	{
-		int num = Mathf.Clamp(pageIndex, 0, this.LootMatrixItemTemplates.Count);
-		if (num < this.LootMatrixItemTemplates.Count)
+		int num = Mathf.Clamp(pageIndex, 0, LootMatrixItemTemplates.Count);
+		if (num < LootMatrixItemTemplates.Count)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -518,24 +518,23 @@ public class UILootMatrixContentViewer : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixContentViewer.DisplayPage(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.CurrentPage = num;
-			LootTable lootTable = InventoryWideData.Get().GetLootTable(this.LootMatrixItemTemplates[num].TypeSpecificData[0]);
-			this.DisplayItems(new List<LootTable>
-			{
-				lootTable
-			});
-			InventoryItem itemByTemplateId = ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.GetItemByTemplateId(this.LootMatrixItemTemplates[num].Index);
+			CurrentPage = num;
+			LootTable lootTable = InventoryWideData.Get().GetLootTable(LootMatrixItemTemplates[num].TypeSpecificData[0]);
+			List<LootTable> list = new List<LootTable>();
+			list.Add(lootTable);
+			DisplayItems(list);
+			InventoryItem itemByTemplateId = ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.GetItemByTemplateId(LootMatrixItemTemplates[num].Index);
 			List<InventoryItem> items = ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.Items;
-			List<int> list = new List<int>();
+			List<int> list2 = new List<int>();
 			for (int i = 0; i < items.Count; i++)
 			{
-				if (items[i].TemplateId == this.LootMatrixItemTemplates[num].Index)
+				if (items[i].TemplateId == LootMatrixItemTemplates[num].Index)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -544,41 +543,34 @@ public class UILootMatrixContentViewer : UIScene
 						}
 						break;
 					}
-					list.Add(items[i].Id);
+					list2.Add(items[i].Id);
 				}
 			}
-			this.m_thermoStat.UpdateThermostat(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent, itemByTemplateId, this.LootMatrixItemTemplates[num], list, false);
+			m_thermoStat.UpdateThermostat(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent, itemByTemplateId, LootMatrixItemTemplates[num], list2);
 		}
-		this.UpdateButtons();
+		UpdateButtons();
 	}
 
 	public void SetVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(this.m_Container, visible, null);
-		if (visible)
+		UIManager.SetGameObjectActive(m_Container, visible);
+		if (!visible)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixContentViewer.SetVisible(bool)).MethodHandle;
-			}
-			this.DisplayPage(0);
+			return;
 		}
-	}
-
-	[Serializable]
-	public class PrefabContainerIndexPair
-	{
-		public int LootTableIndex;
-
-		public RectTransform PreviewObject;
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			DisplayPage(0);
+			return;
+		}
 	}
 }

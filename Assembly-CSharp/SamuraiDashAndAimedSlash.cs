@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,9 +40,9 @@ public class SamuraiDashAndAimedSlash : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -51,23 +51,23 @@ public class SamuraiDashAndAimedSlash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "SamuraiDashAndAimedSlash";
+			m_abilityName = "SamuraiDashAndAimedSlash";
 		}
-		this.m_syncComponent = base.ActorData.GetComponent<Samurai_SyncComponent>();
-		this.Setup();
+		m_syncComponent = base.ActorData.GetComponent<Samurai_SyncComponent>();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		base.ClearTargeters();
-		for (int i = 0; i < this.GetExpectedNumberOfTargeters(); i++)
+		SetCachedFields();
+		ClearTargeters();
+		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 		{
-			AbilityUtil_Targeter_DashAndAim abilityUtil_Targeter_DashAndAim = new AbilityUtil_Targeter_DashAndAim(this, 0f, false, this.GetLaserWidth(), this.GetLaserRange(), this.GetMaxAngleForLaser(), new AbilityUtil_Targeter_DashAndAim.GetClampedLaserDirection(this.GetClampedLaserDirection), false, false, this.GetMaxTargets());
+			AbilityUtil_Targeter_DashAndAim abilityUtil_Targeter_DashAndAim = new AbilityUtil_Targeter_DashAndAim(this, 0f, false, GetLaserWidth(), GetLaserRange(), GetMaxAngleForLaser(), GetClampedLaserDirection, false, false, GetMaxTargets());
 			abilityUtil_Targeter_DashAndAim.SetUseMultiTargetUpdate(true);
 			abilityUtil_Targeter_DashAndAim.SetAffectedGroups(true, false, true);
 			abilityUtil_Targeter_DashAndAim.AllowChargeThroughInvalidSquares = false;
@@ -92,7 +92,7 @@ public class SamuraiDashAndAimedSlash : Ability
 
 	public override bool CanOverrideMoveStartSquare()
 	{
-		return this.m_canMoveAfterEvade;
+		return m_canMoveAfterEvade;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
@@ -100,7 +100,7 @@ public class SamuraiDashAndAimedSlash : Ability
 		bool flag = true;
 		if (targetIndex == 0)
 		{
-			flag = (KnockbackUtils.BuildStraightLineChargePath(caster, Board.\u000E().\u000E(target.GridPos), caster.\u0012(), false) != null);
+			flag = (KnockbackUtils.BuildStraightLineChargePath(caster, Board.Get().GetBoardSquareSafe(target.GridPos), caster.GetCurrentBoardSquare(), false) != null);
 		}
 		return flag && base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
 	}
@@ -111,9 +111,9 @@ public class SamuraiDashAndAimedSlash : Ability
 		vector.y = 0f;
 		neutralDir.y = 0f;
 		float num = Vector3.Angle(neutralDir, vector);
-		if (num > this.GetMaxAngleForLaser())
+		if (num > GetMaxAngleForLaser())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -122,11 +122,11 @@ public class SamuraiDashAndAimedSlash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.GetClampedLaserDirection(AbilityTarget, AbilityTarget, Vector3)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			vector = Vector3.RotateTowards(vector, neutralDir, (num - this.GetMaxAngleForLaser()) * 0.0174532924f, 0f);
+			vector = Vector3.RotateTowards(vector, neutralDir, (num - GetMaxAngleForLaser()) * ((float)Math.PI / 180f), 0f);
 		}
 		return vector.normalized;
 	}
@@ -134,9 +134,9 @@ public class SamuraiDashAndAimedSlash : Ability
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedTargetEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -145,21 +145,21 @@ public class SamuraiDashAndAimedSlash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedTargetEffect = this.m_abilityMod.m_targetEffectMod.GetModifiedValue(this.m_targetEffect);
+			cachedTargetEffect = m_abilityMod.m_targetEffectMod.GetModifiedValue(m_targetEffect);
 		}
 		else
 		{
-			cachedTargetEffect = this.m_targetEffect;
+			cachedTargetEffect = m_targetEffect;
 		}
-		this.m_cachedTargetEffect = cachedTargetEffect;
+		m_cachedTargetEffect = cachedTargetEffect;
 		StandardEffectInfo cachedEffectOnSelf;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -168,26 +168,26 @@ public class SamuraiDashAndAimedSlash : Ability
 				}
 				break;
 			}
-			cachedEffectOnSelf = this.m_abilityMod.m_effectOnSelfMod.GetModifiedValue(this.m_effectOnSelf);
+			cachedEffectOnSelf = m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
 		}
 		else
 		{
-			cachedEffectOnSelf = this.m_effectOnSelf;
+			cachedEffectOnSelf = m_effectOnSelf;
 		}
-		this.m_cachedEffectOnSelf = cachedEffectOnSelf;
+		m_cachedEffectOnSelf = cachedEffectOnSelf;
 	}
 
 	public float GetMaxAngleForLaser()
 	{
-		return (!this.m_abilityMod) ? this.m_maxAngleForLaser : this.m_abilityMod.m_maxAngleForLaserMod.GetModifiedValue(this.m_maxAngleForLaser);
+		return (!m_abilityMod) ? m_maxAngleForLaser : m_abilityMod.m_maxAngleForLaserMod.GetModifiedValue(m_maxAngleForLaser);
 	}
 
 	public float GetLaserWidth()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -196,15 +196,15 @@ public class SamuraiDashAndAimedSlash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.GetLaserWidth()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
+			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
 		{
-			result = this.m_laserWidth;
+			result = m_laserWidth;
 		}
 		return result;
 	}
@@ -212,9 +212,9 @@ public class SamuraiDashAndAimedSlash : Ability
 	public float GetLaserRange()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -223,15 +223,15 @@ public class SamuraiDashAndAimedSlash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.GetLaserRange()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_laserRangeMod.GetModifiedValue(this.m_laserRange);
+			result = m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange);
 		}
 		else
 		{
-			result = this.m_laserRange;
+			result = m_laserRange;
 		}
 		return result;
 	}
@@ -239,9 +239,9 @@ public class SamuraiDashAndAimedSlash : Ability
 	public int GetMaxTargets()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -250,30 +250,30 @@ public class SamuraiDashAndAimedSlash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.GetMaxTargets()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
+			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
 		{
-			result = this.m_maxTargets;
+			result = m_maxTargets;
 		}
 		return result;
 	}
 
 	public int GetDamageAmount()
 	{
-		return (!this.m_abilityMod) ? this.m_damageAmount : this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+		return (!m_abilityMod) ? m_damageAmount : m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 	}
 
 	public int GetExtraDamageIfSingleTarget()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -282,30 +282,30 @@ public class SamuraiDashAndAimedSlash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.GetExtraDamageIfSingleTarget()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageIfSingleTargetMod.GetModifiedValue(this.m_extraDamageIfSingleTarget);
+			result = m_abilityMod.m_extraDamageIfSingleTargetMod.GetModifiedValue(m_extraDamageIfSingleTarget);
 		}
 		else
 		{
-			result = this.m_extraDamageIfSingleTarget;
+			result = m_extraDamageIfSingleTarget;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetTargetEffect()
 	{
-		return (this.m_cachedTargetEffect == null) ? this.m_targetEffect : this.m_cachedTargetEffect;
+		return (m_cachedTargetEffect == null) ? m_targetEffect : m_cachedTargetEffect;
 	}
 
 	public StandardEffectInfo GetEffectOnSelf()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectOnSelf != null)
+		if (m_cachedEffectOnSelf != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -314,34 +314,34 @@ public class SamuraiDashAndAimedSlash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.GetEffectOnSelf()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEffectOnSelf;
+			result = m_cachedEffectOnSelf;
 		}
 		else
 		{
-			result = this.m_effectOnSelf;
+			result = m_effectOnSelf;
 		}
 		return result;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "MaxTargets", string.Empty, this.m_maxTargets, false);
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, this.m_damageAmount, false);
-		base.AddTokenInt(tokens, "ExtraDamageIfSingleTarget", string.Empty, this.m_extraDamageIfSingleTarget, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_targetEffect, "TargetEffect", this.m_targetEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnSelf, "EffectOnSelf", this.m_effectOnSelf, true);
+		AddTokenInt(tokens, "MaxTargets", string.Empty, m_maxTargets);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, m_damageAmount);
+		AddTokenInt(tokens, "ExtraDamageIfSingleTarget", string.Empty, m_extraDamageIfSingleTarget);
+		AbilityMod.AddToken_EffectInfo(tokens, m_targetEffect, "TargetEffect", m_targetEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnSelf, "EffectOnSelf", m_effectOnSelf);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, this.GetDamageAmount()));
-		this.GetEffectOnSelf().ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Self);
-		return list;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, GetDamageAmount()));
+		GetEffectOnSelf().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		return numbers;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
@@ -349,114 +349,115 @@ public class SamuraiDashAndAimedSlash : Ability
 		AbilityUtil_Targeter_DashAndAim abilityUtil_Targeter_DashAndAim = base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_DashAndAim;
 		if (abilityUtil_Targeter_DashAndAim != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
-			if (abilityUtil_Targeter_DashAndAim.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
-			{
-				results.m_damage = this.GetDamageAmount();
-				if (this.m_syncComponent != null)
-				{
-					for (;;)
+					break;
+				default:
+					if (1 == 0)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					results.m_damage += this.m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
-				}
-				if (this.GetExtraDamageIfSingleTarget() > 0)
-				{
-					int visibleActorsCountByTooltipSubject = abilityUtil_Targeter_DashAndAim.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-					if (visibleActorsCountByTooltipSubject == 1)
+					if (abilityUtil_Targeter_DashAndAim.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 					{
-						for (;;)
+						results.m_damage = GetDamageAmount();
+						if (m_syncComponent != null)
 						{
-							switch (1)
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							results.m_damage += m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
+						}
+						if (GetExtraDamageIfSingleTarget() > 0)
+						{
+							int visibleActorsCountByTooltipSubject = abilityUtil_Targeter_DashAndAim.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
+							if (visibleActorsCountByTooltipSubject == 1)
+							{
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								results.m_damage += GetExtraDamageIfSingleTarget();
+							}
+						}
+					}
+					else if (abilityUtil_Targeter_DashAndAim.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
+					{
+						while (true)
+						{
+							switch (4)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						results.m_damage += this.GetExtraDamageIfSingleTarget();
-					}
-				}
-			}
-			else if (abilityUtil_Targeter_DashAndAim.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				int absorb;
-				if (this.GetEffectOnSelf().m_applyEffect)
-				{
-					for (;;)
-					{
-						switch (6)
+						int absorb;
+						if (GetEffectOnSelf().m_applyEffect)
 						{
-						case 0:
-							continue;
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							absorb = GetEffectOnSelf().m_effectData.m_absorbAmount;
 						}
-						break;
+						else
+						{
+							absorb = 0;
+						}
+						results.m_absorb = absorb;
 					}
-					absorb = this.GetEffectOnSelf().m_effectData.m_absorbAmount;
+					return true;
 				}
-				else
-				{
-					absorb = 0;
-				}
-				results.m_absorb = absorb;
 			}
-			return true;
 		}
 		return false;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_SamuraiDashAndAimedSlash))
+		if (abilityMod.GetType() != typeof(AbilityMod_SamuraiDashAndAimedSlash))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_SamuraiDashAndAimedSlash);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_SamuraiDashAndAimedSlash);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

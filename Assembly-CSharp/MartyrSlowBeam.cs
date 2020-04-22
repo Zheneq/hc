@@ -1,11 +1,10 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class MartyrSlowBeam : MartyrLaserBase
 {
 	public StandardEffectInfo m_laserHitEffect;
 
-	public int m_baseDamage = 0xF;
+	public int m_baseDamage = 15;
 
 	public int m_additionalDamagePerCrystalSpent;
 
@@ -21,37 +20,37 @@ public class MartyrSlowBeam : MartyrLaserBase
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Martyr Slow Beam";
+			m_abilityName = "Martyr Slow Beam";
 		}
-		this.m_syncComponent = base.GetComponent<Martyr_SyncComponent>();
-		this.SetCachedFields();
-		this.SetupTargeter();
+		m_syncComponent = GetComponent<Martyr_SyncComponent>();
+		SetCachedFields();
+		SetupTargeter();
 	}
 
 	protected override Martyr_SyncComponent GetSyncComponent()
 	{
-		return this.m_syncComponent;
+		return m_syncComponent;
 	}
 
 	protected void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_MartyrSmoothAoE(this, this.GetCurrentTargetingRadius(), this.GetPenetrateLoS(), true, false, -1);
+		base.Targeter = new AbilityUtil_Targeter_MartyrSmoothAoE(this, GetCurrentTargetingRadius(), GetPenetrateLoS());
 		base.Targeter.ShowArcToShape = false;
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedLaserHitEffect = this.m_laserHitEffect;
+		m_cachedLaserHitEffect = m_laserHitEffect;
 	}
 
 	public StandardEffectInfo GetLaserHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedLaserHitEffect != null)
+		if (m_cachedLaserHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -60,41 +59,41 @@ public class MartyrSlowBeam : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSlowBeam.GetLaserHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedLaserHitEffect;
+			result = m_cachedLaserHitEffect;
 		}
 		else
 		{
-			result = this.m_laserHitEffect;
+			result = m_laserHitEffect;
 		}
 		return result;
 	}
 
 	public int GetBaseDamage()
 	{
-		return this.m_baseDamage;
+		return m_baseDamage;
 	}
 
 	public int GetBonusDamagePerCrystalSpent()
 	{
-		return this.m_additionalDamagePerCrystalSpent;
+		return m_additionalDamagePerCrystalSpent;
 	}
 
 	public bool GetPenetrateLoS()
 	{
-		return this.m_penetrateLoS;
+		return m_penetrateLoS;
 	}
 
 	public float GetCurrentTargetingRadius()
 	{
-		MartyrLaserThreshold currentPowerEntry = base.GetCurrentPowerEntry(base.ActorData);
+		MartyrLaserThreshold currentPowerEntry = GetCurrentPowerEntry(base.ActorData);
 		float num;
 		if (currentPowerEntry != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -103,9 +102,9 @@ public class MartyrSlowBeam : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSlowBeam.GetCurrentTargetingRadius()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = currentPowerEntry.m_additionalWidth;
 		}
@@ -114,52 +113,53 @@ public class MartyrSlowBeam : MartyrLaserBase
 			num = 0f;
 		}
 		float num2 = num;
-		return this.m_targetingRadius + (float)this.m_syncComponent.SpentDamageCrystals(base.ActorData) * base.GetBonusWidthPerCrystalSpent() + num2;
+		return m_targetingRadius + (float)m_syncComponent.SpentDamageCrystals(base.ActorData) * GetBonusWidthPerCrystalSpent() + num2;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_laserHitEffect, "LaserHitEffect", this.m_laserHitEffect, true);
-		tokens.Add(new TooltipTokenInt("BaseDamage", "Damage with no crystal bonus", this.GetBaseDamage()));
-		tokens.Add(new TooltipTokenInt("DamagePerCrystal", "Damage added per crystal spent", this.GetBonusDamagePerCrystalSpent()));
-		tokens.Add(new TooltipTokenFloat("RadiusPerCrystal", "Radius increase per crystal spent", base.GetBonusWidthPerCrystalSpent()));
+		AbilityMod.AddToken_EffectInfo(tokens, m_laserHitEffect, "LaserHitEffect", m_laserHitEffect);
+		tokens.Add(new TooltipTokenInt("BaseDamage", "Damage with no crystal bonus", GetBaseDamage()));
+		tokens.Add(new TooltipTokenInt("DamagePerCrystal", "Damage added per crystal spent", GetBonusDamagePerCrystalSpent()));
+		tokens.Add(new TooltipTokenFloat("RadiusPerCrystal", "Radius increase per crystal spent", GetBonusWidthPerCrystalSpent()));
 	}
 
 	protected override List<MartyrLaserThreshold> GetThresholdBasedCrystalBonusList()
 	{
 		List<MartyrLaserThreshold> list = new List<MartyrLaserThreshold>();
-		using (List<MartyrBasicAttackThreshold>.Enumerator enumerator = this.m_thresholdBasedCrystalBonuses.GetEnumerator())
+		using (List<MartyrBasicAttackThreshold>.Enumerator enumerator = m_thresholdBasedCrystalBonuses.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				MartyrBasicAttackThreshold item = enumerator.Current;
-				list.Add(item);
+				MartyrBasicAttackThreshold current = enumerator.Current;
+				list.Add(current);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (true)
+					{
+						return list;
+					}
+					/*OpCode not supported: LdMemberToken*/;
+					return list;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSlowBeam.GetThresholdBasedCrystalBonusList()).MethodHandle;
 			}
 		}
-		return list;
 	}
 
 	private int GetCurrentDamage(ActorData caster)
 	{
-		MartyrBasicAttackThreshold martyrBasicAttackThreshold = base.GetCurrentPowerEntry(caster) as MartyrBasicAttackThreshold;
+		MartyrBasicAttackThreshold martyrBasicAttackThreshold = GetCurrentPowerEntry(caster) as MartyrBasicAttackThreshold;
 		int num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -168,9 +168,9 @@ public class MartyrSlowBeam : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSlowBeam.GetCurrentDamage(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = martyrBasicAttackThreshold.m_additionalDamage;
 		}
@@ -179,21 +179,21 @@ public class MartyrSlowBeam : MartyrLaserBase
 			num = 0;
 		}
 		int num2 = num;
-		return this.GetBaseDamage() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetBonusDamagePerCrystalSpent() + num2;
+		return GetBaseDamage() + m_syncComponent.SpentDamageCrystals(caster) * GetBonusDamagePerCrystalSpent() + num2;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetBaseDamage());
-		this.m_laserHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetBaseDamage());
+		m_laserHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
-		Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, this.GetCurrentDamage(base.ActorData), AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
-		return result;
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
+		Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, GetCurrentDamage(base.ActorData));
+		return symbolToValue;
 	}
 }

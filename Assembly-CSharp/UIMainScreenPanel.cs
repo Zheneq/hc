@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UIMainScreenPanel : MonoBehaviour
@@ -51,60 +50,60 @@ public class UIMainScreenPanel : MonoBehaviour
 
 	internal static UIMainScreenPanel Get()
 	{
-		return UIMainScreenPanel.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		UIMainScreenPanel.s_instance = this;
-		UIManager.SetGameObjectActive(this.m_targetingCursor, false, null);
+		s_instance = this;
+		UIManager.SetGameObjectActive(m_targetingCursor, false);
 	}
 
 	private void OnDestroy()
 	{
-		UIMainScreenPanel.s_instance = null;
+		s_instance = null;
 	}
 
 	public void NotifyStartGame()
 	{
-		this.m_characterProfile.Setup();
-		this.m_sideNotificationsPanel.Setup();
+		m_characterProfile.Setup();
+		m_sideNotificationsPanel.Setup();
 	}
 
 	public void SetVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(base.gameObject, visible, null);
-		for (int i = 0; i < this.m_outsideHierachyContainers.Length; i++)
+		UIManager.SetGameObjectActive(base.gameObject, visible);
+		for (int i = 0; i < m_outsideHierachyContainers.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_outsideHierachyContainers[i], visible, null);
+			UIManager.SetGameObjectActive(m_outsideHierachyContainers[i], visible);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIMainScreenPanel.SetVisible(bool)).MethodHandle;
-		}
-		Log.Info("HEALTHBARCHECK: ENDPOINT " + visible, new object[0]);
-		UIManager.SetGameObjectActive(this.m_nameplatePanel, visible, null);
-		if (visible)
-		{
-			for (;;)
+			if (1 == 0)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_nameplatePanel.RefreshNameplates();
+			Log.Info("HEALTHBARCHECK: ENDPOINT " + visible);
+			UIManager.SetGameObjectActive(m_nameplatePanel, visible);
+			if (visible)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					m_nameplatePanel.RefreshNameplates();
+					return;
+				}
+			}
+			return;
 		}
 	}
 }

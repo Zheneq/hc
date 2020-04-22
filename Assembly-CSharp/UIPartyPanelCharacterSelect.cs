@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -37,32 +36,32 @@ public class UIPartyPanelCharacterSelect : MonoBehaviour
 
 	private void Start()
 	{
-		UIEventTriggerUtils.AddListener(this.m_buttonHitBox.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnButtonClicked));
-		UIEventTriggerUtils.AddListener(this.m_buttonHitBox.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnButtonEnter));
-		UIEventTriggerUtils.AddListener(this.m_buttonHitBox.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.OnButtonExit));
-		UIEventTriggerUtils.AddListener(this.m_buttonHitBox.gameObject, EventTriggerType.PointerUp, new UIEventTriggerUtils.EventDelegate(this.OnButtonUp));
-		UIEventTriggerUtils.AddListener(this.m_buttonHitBox.gameObject, EventTriggerType.PointerDown, new UIEventTriggerUtils.EventDelegate(this.OnButtonDown));
-		UIManager.SetGameObjectActive(this.m_selectedBG, false, null);
-		UIManager.SetGameObjectActive(this.m_border, false, null);
+		UIEventTriggerUtils.AddListener(m_buttonHitBox.gameObject, EventTriggerType.PointerClick, OnButtonClicked);
+		UIEventTriggerUtils.AddListener(m_buttonHitBox.gameObject, EventTriggerType.PointerEnter, OnButtonEnter);
+		UIEventTriggerUtils.AddListener(m_buttonHitBox.gameObject, EventTriggerType.PointerExit, OnButtonExit);
+		UIEventTriggerUtils.AddListener(m_buttonHitBox.gameObject, EventTriggerType.PointerUp, OnButtonUp);
+		UIEventTriggerUtils.AddListener(m_buttonHitBox.gameObject, EventTriggerType.PointerDown, OnButtonDown);
+		UIManager.SetGameObjectActive(m_selectedBG, false);
+		UIManager.SetGameObjectActive(m_border, false);
 	}
 
 	public CharacterResourceLink GetCharacterResourceLink()
 	{
-		return this.m_characterResourceLink;
+		return m_characterResourceLink;
 	}
 
 	public bool CanBePurchased()
 	{
-		return this.m_isDisabled;
+		return m_isDisabled;
 	}
 
 	public void Setup(bool isAvailable)
 	{
-		UIManager.SetGameObjectActive(base.gameObject, true, null);
+		UIManager.SetGameObjectActive(base.gameObject, true);
 		CharacterResourceLink characterResourceLink = null;
-		if (this.m_characterType != CharacterType.None)
+		if (m_characterType != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -71,146 +70,147 @@ public class UIPartyPanelCharacterSelect : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPartyPanelCharacterSelect.Setup(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			characterResourceLink = GameWideData.Get().GetCharacterResourceLink(this.m_characterType);
+			characterResourceLink = GameWideData.Get().GetCharacterResourceLink(m_characterType);
 		}
 		if (characterResourceLink != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_characterResourceLink = characterResourceLink;
+					UIManager.SetGameObjectActive(m_charImage, true);
+					if (isAvailable)
+					{
+						UIManager.SetGameObjectActive(m_freeRotation, true);
+						UIManager.SetGameObjectActive(m_TealBorder, true);
+						UIManager.SetGameObjectActive(m_disabled, false);
+						m_charImage.sprite = characterResourceLink.GetCharacterSelectIcon();
+						m_isDisabled = false;
+						UIManager.SetGameObjectActive(m_unavailable, false);
+					}
+					else
+					{
+						UIManager.SetGameObjectActive(m_freeRotation, false);
+						UIManager.SetGameObjectActive(m_TealBorder, false);
+						UIManager.SetGameObjectActive(m_disabled, true);
+						UIManager.SetGameObjectActive(m_unavailable, true);
+						m_isDisabled = true;
+						m_charImage.sprite = characterResourceLink.GetCharacterSelectIconBW();
+					}
+					return;
 				}
-				break;
-			}
-			this.m_characterResourceLink = characterResourceLink;
-			UIManager.SetGameObjectActive(this.m_charImage, true, null);
-			if (isAvailable)
-			{
-				UIManager.SetGameObjectActive(this.m_freeRotation, true, null);
-				UIManager.SetGameObjectActive(this.m_TealBorder, true, null);
-				UIManager.SetGameObjectActive(this.m_disabled, false, null);
-				this.m_charImage.sprite = characterResourceLink.GetCharacterSelectIcon();
-				this.m_isDisabled = false;
-				UIManager.SetGameObjectActive(this.m_unavailable, false, null);
-			}
-			else
-			{
-				UIManager.SetGameObjectActive(this.m_freeRotation, false, null);
-				UIManager.SetGameObjectActive(this.m_TealBorder, false, null);
-				UIManager.SetGameObjectActive(this.m_disabled, true, null);
-				UIManager.SetGameObjectActive(this.m_unavailable, true, null);
-				this.m_isDisabled = true;
-				this.m_charImage.sprite = characterResourceLink.GetCharacterSelectIconBW();
 			}
 		}
-		else
-		{
-			this.m_characterResourceLink = null;
-			UIManager.SetGameObjectActive(this.m_disabled, false, null);
-			UIManager.SetGameObjectActive(this.m_freeRotation, false, null);
-			UIManager.SetGameObjectActive(this.m_TealBorder, false, null);
-			UIManager.SetGameObjectActive(this.m_charImage, false, null);
-		}
+		m_characterResourceLink = null;
+		UIManager.SetGameObjectActive(m_disabled, false);
+		UIManager.SetGameObjectActive(m_freeRotation, false);
+		UIManager.SetGameObjectActive(m_TealBorder, false);
+		UIManager.SetGameObjectActive(m_charImage, false);
 	}
 
 	private void OnButtonClicked(BaseEventData data)
 	{
-		if (!this.m_buttonHitBox.interactable)
+		if (!m_buttonHitBox.interactable)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPartyPanelCharacterSelect.OnButtonClicked(BaseEventData)).MethodHandle;
-			}
-			return;
 		}
-		UICharacterScreen.Get().m_partyListPanel.SelectedBotCharacter(this.m_characterResourceLink);
-		this.m_pointerDown = false;
-		this.m_pointerEntered = false;
-		this.m_hover.gameObject.SetActive(false);
-		this.m_pressed.gameObject.SetActive(false);
+		UICharacterScreen.Get().m_partyListPanel.SelectedBotCharacter(m_characterResourceLink);
+		m_pointerDown = false;
+		m_pointerEntered = false;
+		m_hover.gameObject.SetActive(false);
+		m_pressed.gameObject.SetActive(false);
 	}
 
 	public void SetSelected(bool isSelected)
 	{
-		UIManager.SetGameObjectActive(this.m_selectedBG, isSelected, null);
-		UIManager.SetGameObjectActive(this.m_border, isSelected, null);
+		UIManager.SetGameObjectActive(m_selectedBG, isSelected);
+		UIManager.SetGameObjectActive(m_border, isSelected);
 	}
 
 	private void OnButtonEnter(BaseEventData data)
 	{
-		this.m_pointerEntered = true;
+		m_pointerEntered = true;
 	}
 
 	private void OnButtonExit(BaseEventData data)
 	{
-		this.m_pointerDown = false;
-		this.m_pointerEntered = false;
+		m_pointerDown = false;
+		m_pointerEntered = false;
 	}
 
 	private void OnButtonUp(BaseEventData data)
 	{
-		this.m_pointerDown = false;
+		m_pointerDown = false;
 	}
 
 	private void OnButtonDown(BaseEventData data)
 	{
-		this.m_pointerDown = true;
+		m_pointerDown = true;
 	}
 
 	private void Update()
 	{
-		base.transform.localPosition = new Vector3(base.transform.localPosition.x, base.transform.localPosition.y, 0f);
-		if (this.m_pointerDown)
+		Transform transform = base.transform;
+		Vector3 localPosition = base.transform.localPosition;
+		float x = localPosition.x;
+		Vector3 localPosition2 = base.transform.localPosition;
+		transform.localPosition = new Vector3(x, localPosition2.y, 0f);
+		if (m_pointerDown)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					UIManager.SetGameObjectActive(m_hover, false);
+					UIManager.SetGameObjectActive(m_pressed, true);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPartyPanelCharacterSelect.Update()).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_hover, false, null);
-			UIManager.SetGameObjectActive(this.m_pressed, true, null);
 		}
-		else if (this.m_pointerEntered)
+		if (m_pointerEntered)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIManager.SetGameObjectActive(m_hover, true);
+					UIManager.SetGameObjectActive(m_pressed, false);
+					return;
 				}
-				break;
 			}
-			UIManager.SetGameObjectActive(this.m_hover, true, null);
-			UIManager.SetGameObjectActive(this.m_pressed, false, null);
 		}
-		else
-		{
-			UIManager.SetGameObjectActive(this.m_hover, false, null);
-			UIManager.SetGameObjectActive(this.m_pressed, false, null);
-		}
+		UIManager.SetGameObjectActive(m_hover, false);
+		UIManager.SetGameObjectActive(m_pressed, false);
 	}
 }

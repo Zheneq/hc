@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,16 +21,16 @@ public class ClientMovementResults
 
 	public ClientMovementResults(ActorData triggeringMover, BoardSquarePathInfo triggeringPath, List<ServerClientUtils.SequenceStartData> seqStartDataList, ClientEffectResults effectResults, ClientBarrierResults barrierResults, ClientAbilityResults powerupResults, ClientAbilityResults gameModeResults)
 	{
-		this.m_triggeringMover = triggeringMover;
-		this.m_triggeringPath = triggeringPath;
-		this.m_seqStartDataList = seqStartDataList;
-		this.m_effectResults = effectResults;
-		this.m_barrierResults = barrierResults;
-		this.m_powerupResults = powerupResults;
-		this.m_gameModeResults = gameModeResults;
-		if (this.m_effectResults != null)
+		m_triggeringMover = triggeringMover;
+		m_triggeringPath = triggeringPath;
+		m_seqStartDataList = seqStartDataList;
+		m_effectResults = effectResults;
+		m_barrierResults = barrierResults;
+		m_powerupResults = powerupResults;
+		m_gameModeResults = gameModeResults;
+		if (m_effectResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -40,15 +39,15 @@ public class ClientMovementResults
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults..ctor(ActorData, BoardSquarePathInfo, List<ServerClientUtils.SequenceStartData>, ClientEffectResults, ClientBarrierResults, ClientAbilityResults, ClientAbilityResults)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_effectResults.MarkActorHitsAsMovementHits();
+			m_effectResults.MarkActorHitsAsMovementHits();
 		}
-		if (this.m_barrierResults != null)
+		if (m_barrierResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -57,11 +56,11 @@ public class ClientMovementResults
 				}
 				break;
 			}
-			this.m_barrierResults.MarkActorHitsAsMovementHits();
+			m_barrierResults.MarkActorHitsAsMovementHits();
 		}
-		if (this.m_powerupResults != null)
+		if (m_powerupResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -70,78 +69,78 @@ public class ClientMovementResults
 				}
 				break;
 			}
-			this.m_powerupResults.MarkActorHitsAsMovementHits();
+			m_powerupResults.MarkActorHitsAsMovementHits();
 		}
-		if (this.m_gameModeResults != null)
+		if (m_gameModeResults != null)
 		{
-			this.m_gameModeResults.MarkActorHitsAsMovementHits();
+			m_gameModeResults.MarkActorHitsAsMovementHits();
 		}
-		this.m_alreadyReacted = false;
+		m_alreadyReacted = false;
 	}
 
 	public bool TriggerMatchesMovement(ActorData mover, BoardSquarePathInfo curPath)
 	{
-		if (this.m_alreadyReacted)
+		if (m_alreadyReacted)
 		{
 			return false;
 		}
-		if (mover != this.m_triggeringMover)
+		if (mover != m_triggeringMover)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.TriggerMatchesMovement(ActorData, BoardSquarePathInfo)).MethodHandle;
-			}
-			return false;
 		}
-		return MovementUtils.ArePathSegmentsEquivalent_FromBeginning(this.m_triggeringPath, curPath);
+		return MovementUtils.ArePathSegmentsEquivalent_FromBeginning(m_triggeringPath, curPath);
 	}
 
 	public bool HasSequencesToStart()
 	{
-		if (this.m_seqStartDataList == null)
+		if (m_seqStartDataList == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.HasSequencesToStart()).MethodHandle;
-			}
-			return false;
 		}
-		if (this.m_seqStartDataList.Count == 0)
+		if (m_seqStartDataList.Count == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
-		foreach (ServerClientUtils.SequenceStartData sequenceStartData in this.m_seqStartDataList)
+		foreach (ServerClientUtils.SequenceStartData seqStartData in m_seqStartDataList)
 		{
-			if (sequenceStartData != null)
+			if (seqStartData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -150,18 +149,18 @@ public class ClientMovementResults
 					}
 					break;
 				}
-				if (sequenceStartData.HasSequencePrefab())
+				if (seqStartData.HasSequencePrefab())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return true;
 						}
-						break;
 					}
-					return true;
 				}
 			}
 		}
@@ -170,9 +169,9 @@ public class ClientMovementResults
 
 	public void ReactToMovement()
 	{
-		if (this.HasSequencesToStart())
+		if (HasSequencesToStart())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -181,18 +180,18 @@ public class ClientMovementResults
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.ReactToMovement()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = this.m_seqStartDataList.GetEnumerator())
+			using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = m_seqStartDataList.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					ServerClientUtils.SequenceStartData sequenceStartData = enumerator.Current;
-					sequenceStartData.CreateSequencesFromData(new SequenceSource.ActorDelegate(this.OnMoveResultsHitActor), new SequenceSource.Vector3Delegate(this.OnMoveResultsHitPosition));
+					ServerClientUtils.SequenceStartData current = enumerator.Current;
+					current.CreateSequencesFromData(OnMoveResultsHitActor, OnMoveResultsHitPosition);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -205,13 +204,13 @@ public class ClientMovementResults
 		}
 		else
 		{
-			if (ClientAbilityResults.\u001D)
+			if (ClientAbilityResults.LogMissingSequences)
 			{
-				Log.Warning(ClientAbilityResults.s_clientHitResultHeader + this.GetDebugDescription() + ": no Sequence to start, executing results directly", new object[0]);
+				Log.Warning(ClientAbilityResults.s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
 			}
-			if (this.m_effectResults != null)
+			if (m_effectResults != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -220,11 +219,11 @@ public class ClientMovementResults
 					}
 					break;
 				}
-				this.m_effectResults.RunClientEffectHits();
+				m_effectResults.RunClientEffectHits();
 			}
-			else if (this.m_barrierResults != null)
+			else if (m_barrierResults != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -233,11 +232,11 @@ public class ClientMovementResults
 					}
 					break;
 				}
-				this.m_barrierResults.RunClientBarrierHits();
+				m_barrierResults.RunClientBarrierHits();
 			}
-			else if (this.m_powerupResults != null)
+			else if (m_powerupResults != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -246,11 +245,11 @@ public class ClientMovementResults
 					}
 					break;
 				}
-				this.m_powerupResults.RunClientAbilityHits();
+				m_powerupResults.RunClientAbilityHits();
 			}
-			else if (this.m_gameModeResults != null)
+			else if (m_gameModeResults != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -259,178 +258,181 @@ public class ClientMovementResults
 					}
 					break;
 				}
-				this.m_gameModeResults.RunClientAbilityHits();
+				m_gameModeResults.RunClientAbilityHits();
 			}
 		}
-		this.m_alreadyReacted = true;
+		m_alreadyReacted = true;
 	}
 
 	internal void OnMoveResultsHitActor(ActorData target)
 	{
-		if (this.m_effectResults != null)
+		if (m_effectResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_effectResults.OnEffectHitActor(target);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.OnMoveResultsHitActor(ActorData)).MethodHandle;
-			}
-			this.m_effectResults.OnEffectHitActor(target);
 		}
-		else if (this.m_barrierResults != null)
+		if (m_barrierResults != null)
 		{
-			this.m_barrierResults.OnBarrierHitActor(target);
+			m_barrierResults.OnBarrierHitActor(target);
+			return;
 		}
-		else if (this.m_powerupResults != null)
+		if (m_powerupResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_powerupResults.OnAbilityHitActor(target);
+					return;
 				}
-				break;
 			}
-			this.m_powerupResults.OnAbilityHitActor(target);
 		}
-		else if (this.m_gameModeResults != null)
+		if (m_gameModeResults == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_gameModeResults.OnAbilityHitActor(target);
+			m_gameModeResults.OnAbilityHitActor(target);
+			return;
 		}
 	}
 
 	internal void OnMoveResultsHitPosition(Vector3 position)
 	{
-		if (this.m_effectResults != null)
+		if (m_effectResults != null)
 		{
-			this.m_effectResults.OnEffectHitPosition(position);
+			m_effectResults.OnEffectHitPosition(position);
+			return;
 		}
-		else if (this.m_barrierResults != null)
+		if (m_barrierResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_barrierResults.OnBarrierHitPosition(position);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.OnMoveResultsHitPosition(Vector3)).MethodHandle;
-			}
-			this.m_barrierResults.OnBarrierHitPosition(position);
 		}
-		else if (this.m_powerupResults != null)
+		if (m_powerupResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_powerupResults.OnAbilityHitPosition(position);
+					return;
 				}
-				break;
 			}
-			this.m_powerupResults.OnAbilityHitPosition(position);
 		}
-		else if (this.m_gameModeResults != null)
+		if (m_gameModeResults == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_gameModeResults.OnAbilityHitPosition(position);
+			m_gameModeResults.OnAbilityHitPosition(position);
+			return;
 		}
 	}
 
 	internal bool DoneHitting()
 	{
-		bool result;
-		if (this.m_effectResults != null)
+		if (m_effectResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_effectResults.DoneHitting();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.DoneHitting()).MethodHandle;
-			}
-			result = this.m_effectResults.DoneHitting();
 		}
-		else if (this.m_barrierResults != null)
+		if (m_barrierResults != null)
 		{
-			result = this.m_barrierResults.DoneHitting();
+			return m_barrierResults.DoneHitting();
 		}
-		else if (this.m_powerupResults != null)
+		if (m_powerupResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_powerupResults.DoneHitting();
 				}
-				break;
 			}
-			result = this.m_powerupResults.DoneHitting();
 		}
-		else if (this.m_gameModeResults != null)
+		if (m_gameModeResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_gameModeResults.DoneHitting();
 				}
-				break;
 			}
-			result = this.m_gameModeResults.DoneHitting();
 		}
-		else
-		{
-			Debug.LogError("ClientMovementResults has neither effect results nor barrier results nor powerup results.  Assuming it's done hitting...");
-			result = true;
-		}
-		return result;
+		Debug.LogError("ClientMovementResults has neither effect results nor barrier results nor powerup results.  Assuming it's done hitting...");
+		return true;
 	}
 
 	public bool HasUnexecutedHitOnActor(ActorData actor)
 	{
 		bool result = false;
-		if (this.m_effectResults != null)
+		if (m_effectResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -439,15 +441,15 @@ public class ClientMovementResults
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.HasUnexecutedHitOnActor(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_effectResults.HasUnexecutedHitOnActor(actor);
+			result = m_effectResults.HasUnexecutedHitOnActor(actor);
 		}
-		else if (this.m_barrierResults != null)
+		else if (m_barrierResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -456,11 +458,11 @@ public class ClientMovementResults
 				}
 				break;
 			}
-			result = this.m_barrierResults.HasUnexecutedHitOnActor(actor);
+			result = m_barrierResults.HasUnexecutedHitOnActor(actor);
 		}
-		else if (this.m_powerupResults != null)
+		else if (m_powerupResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -469,11 +471,11 @@ public class ClientMovementResults
 				}
 				break;
 			}
-			result = this.m_powerupResults.HasUnexecutedHitOnActor(actor);
+			result = m_powerupResults.HasUnexecutedHitOnActor(actor);
 		}
-		else if (this.m_gameModeResults != null)
+		else if (m_gameModeResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -482,42 +484,42 @@ public class ClientMovementResults
 				}
 				break;
 			}
-			result = this.m_gameModeResults.HasUnexecutedHitOnActor(actor);
+			result = m_gameModeResults.HasUnexecutedHitOnActor(actor);
 		}
 		return result;
 	}
 
 	public bool HasEffectHitResults()
 	{
-		return this.m_effectResults != null;
+		return m_effectResults != null;
 	}
 
 	public bool HasBarrierHitResults()
 	{
-		return this.m_barrierResults != null;
+		return m_barrierResults != null;
 	}
 
 	public bool HasPowerupHitResults()
 	{
-		return this.m_powerupResults != null;
+		return m_powerupResults != null;
 	}
 
 	public bool HasGameModeHitResults()
 	{
-		return this.m_gameModeResults != null;
+		return m_gameModeResults != null;
 	}
 
 	public bool ContainsSequenceSource(SequenceSource sequenceSource)
 	{
-		return sequenceSource != null && this.ContainsSequenceSourceID(sequenceSource.RootID);
+		return sequenceSource != null && ContainsSequenceSourceID(sequenceSource.RootID);
 	}
 
 	public bool ContainsSequenceSourceID(uint id)
 	{
 		bool result = false;
-		if (this.m_seqStartDataList != null)
+		if (m_seqStartDataList != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -526,32 +528,40 @@ public class ClientMovementResults
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.ContainsSequenceSourceID(uint)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (int i = 0; i < this.m_seqStartDataList.Count; i++)
+			int num = 0;
+			while (true)
 			{
-				if (this.m_seqStartDataList[i].ContainsSequenceSourceID(id))
+				if (num < m_seqStartDataList.Count)
 				{
-					for (;;)
+					if (m_seqStartDataList[num].ContainsSequenceSourceID(id))
 					{
-						switch (4)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
+						result = true;
 						break;
 					}
-					return true;
-				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
+					num++;
 					continue;
+				}
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
 				break;
 			}
@@ -562,13 +572,13 @@ public class ClientMovementResults
 	public string GetDebugDescription()
 	{
 		string str = string.Empty;
-		if (this.m_effectResults != null)
+		if (m_effectResults != null)
 		{
-			str = this.m_effectResults.GetDebugDescription();
+			str = m_effectResults.GetDebugDescription();
 		}
-		else if (this.m_barrierResults != null)
+		else if (m_barrierResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -577,15 +587,15 @@ public class ClientMovementResults
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.GetDebugDescription()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			str = this.m_barrierResults.GetDebugDescription();
+			str = m_barrierResults.GetDebugDescription();
 		}
-		else if (this.m_powerupResults != null)
+		else if (m_powerupResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -594,132 +604,140 @@ public class ClientMovementResults
 				}
 				break;
 			}
-			str = this.m_powerupResults.GetDebugDescription();
+			str = m_powerupResults.GetDebugDescription();
 		}
-		else if (this.m_gameModeResults != null)
+		else if (m_gameModeResults != null)
 		{
-			str = this.m_gameModeResults.GetDebugDescription();
+			str = m_gameModeResults.GetDebugDescription();
 		}
-		return str + " triggering on " + this.m_triggeringMover.\u0018();
+		return str + " triggering on " + m_triggeringMover.GetDebugName();
 	}
 
 	internal void ExecuteUnexecutedClientHits()
 	{
-		if (this.m_effectResults != null)
+		if (m_effectResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_effectResults.ExecuteUnexecutedClientHits();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.ExecuteUnexecutedClientHits()).MethodHandle;
-			}
-			this.m_effectResults.ExecuteUnexecutedClientHits();
 		}
-		else if (this.m_barrierResults != null)
+		if (m_barrierResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_barrierResults.ExecuteUnexecutedClientHits();
+					return;
 				}
-				break;
 			}
-			this.m_barrierResults.ExecuteUnexecutedClientHits();
 		}
-		else if (this.m_powerupResults != null)
+		if (m_powerupResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_powerupResults.ExecuteUnexecutedClientHits();
+					return;
 				}
-				break;
 			}
-			this.m_powerupResults.ExecuteUnexecutedClientHits();
 		}
-		else if (this.m_gameModeResults != null)
+		if (m_gameModeResults == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_gameModeResults.ExecuteUnexecutedClientHits();
+			m_gameModeResults.ExecuteUnexecutedClientHits();
+			return;
 		}
 	}
 
 	internal void ExecuteReactionHitsWithExtraFlagsOnActor(ActorData targetActor, ActorData caster, bool hasDamage, bool hasHealing)
 	{
-		if (this.m_effectResults != null)
+		if (m_effectResults != null)
 		{
-			this.m_effectResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
+			m_effectResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
+			return;
 		}
-		else if (this.m_barrierResults != null)
+		if (m_barrierResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_barrierResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.ExecuteReactionHitsWithExtraFlagsOnActor(ActorData, ActorData, bool, bool)).MethodHandle;
-			}
-			this.m_barrierResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
 		}
-		else if (this.m_powerupResults != null)
+		if (m_powerupResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_powerupResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
+					return;
 				}
-				break;
 			}
-			this.m_powerupResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
 		}
-		else if (this.m_gameModeResults != null)
+		if (m_gameModeResults == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_gameModeResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
+			m_gameModeResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
+			return;
 		}
 	}
 
 	internal string UnexecutedHitsDebugStr()
 	{
-		string text = "\n\tUnexecuted hits:\n\t\tMovement hit on " + this.m_triggeringMover.\u0018() + "\n";
-		if (this.m_effectResults != null)
+		string text = "\n\tUnexecuted hits:\n\t\tMovement hit on " + m_triggeringMover.GetDebugName() + "\n";
+		if (m_effectResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -728,19 +746,19 @@ public class ClientMovementResults
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.UnexecutedHitsDebugStr()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text += this.m_effectResults.UnexecutedHitsDebugStr();
+			text += m_effectResults.UnexecutedHitsDebugStr();
 		}
-		else if (this.m_barrierResults != null)
+		else if (m_barrierResults != null)
 		{
-			text += this.m_barrierResults.UnexecutedHitsDebugStr();
+			text += m_barrierResults.UnexecutedHitsDebugStr();
 		}
-		else if (this.m_powerupResults != null)
+		else if (m_powerupResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -749,11 +767,11 @@ public class ClientMovementResults
 				}
 				break;
 			}
-			text += this.m_powerupResults.UnexecutedHitsDebugStr();
+			text += m_powerupResults.UnexecutedHitsDebugStr();
 		}
-		else if (this.m_gameModeResults != null)
+		else if (m_gameModeResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -762,7 +780,7 @@ public class ClientMovementResults
 				}
 				break;
 			}
-			text += this.m_gameModeResults.UnexecutedHitsDebugStr();
+			text += m_gameModeResults.UnexecutedHitsDebugStr();
 		}
 		return text;
 	}

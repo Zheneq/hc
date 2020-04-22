@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class ActiveAlertMission : AlertMissionBase
@@ -11,11 +11,11 @@ public class ActiveAlertMission : AlertMissionBase
 
 	public ActiveAlertMission(AlertMission alert)
 	{
-		base.CopyBaseVariables(alert);
+		CopyBaseVariables(alert);
 	}
 
 	public ActiveAlertMission Clone()
 	{
-		return (ActiveAlertMission)base.MemberwiseClone();
+		return (ActiveAlertMission)MemberwiseClone();
 	}
 }

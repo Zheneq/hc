@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,55 +50,54 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ClericRangedHeal clericRangedHeal = targetAbility as ClericRangedHeal;
-		if (clericRangedHeal != null)
+		if (!(clericRangedHeal != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericRangedHeal.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_healAmountMod, "HealAmount", string.Empty, clericRangedHeal.m_healAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_selfHealIfTargetingAllyMod, "SelfHealIfTargetingAlly", string.Empty, clericRangedHeal.m_selfHealIfTargetingAlly, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_targetHitEffectMod, "TargetHitEffect", clericRangedHeal.m_targetHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_extraHealOnEnemyHitMod, "ExtraHealOnEnemyHit", string.Empty, clericRangedHeal.m_extraHealOnEnemyHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraHealOnSubseqEnemyHitMod, "ExtraHealOnSubseqEnemyHit", string.Empty, clericRangedHeal.m_extraHealOnSubseqEnemyHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraHealPerTargetDistanceMod, "ExtraHealPerTargetDistance", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_selfHealAdjustIfTargetingSelfMod, "SelfHealAdjustIfTargetingSelf", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_healPerPercentHealthLostMod, "HealPerPercentHealthLost", string.Empty, clericRangedHeal.m_healPerPercentHealthLost, true, false, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnSelfMod, "EffectOnSelf", clericRangedHeal.m_effectOnSelf, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_reactionEffectForHealTargetMod, "ReactionEffectForHealTarget", clericRangedHeal.m_reactionEffectForHealTarget, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_reactionEffectForCasterMod, "ReactionEffectForCaster", clericRangedHeal.m_reactionEffectForCaster, true);
-			AbilityMod.AddToken(tokens, this.m_techPointGainPerIncomingHitThisTurn, "EnergyPerIncomingHitThisTurn", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_enemyDebuffRadiusAroundTargetMod, "EnemyDebuffRadiusAroundTarget", string.Empty, clericRangedHeal.m_enemyDebuffRadiusAroundTarget, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_enemyDebuffRadiusAroundCasterMod, "EnemyDebuffRadiusAroundCaster", string.Empty, clericRangedHeal.m_enemyDebuffRadiusAroundCaster, true, false, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyDebuffInRadiusEffectMod, "EnemyDebuffInRadiusEffect", clericRangedHeal.m_enemyDebuffInRadiusEffect, true);
+			AbilityMod.AddToken(tokens, m_healAmountMod, "HealAmount", string.Empty, clericRangedHeal.m_healAmount);
+			AbilityMod.AddToken(tokens, m_selfHealIfTargetingAllyMod, "SelfHealIfTargetingAlly", string.Empty, clericRangedHeal.m_selfHealIfTargetingAlly);
+			AbilityMod.AddToken_EffectMod(tokens, m_targetHitEffectMod, "TargetHitEffect", clericRangedHeal.m_targetHitEffect);
+			AbilityMod.AddToken(tokens, m_extraHealOnEnemyHitMod, "ExtraHealOnEnemyHit", string.Empty, clericRangedHeal.m_extraHealOnEnemyHit);
+			AbilityMod.AddToken(tokens, m_extraHealOnSubseqEnemyHitMod, "ExtraHealOnSubseqEnemyHit", string.Empty, clericRangedHeal.m_extraHealOnSubseqEnemyHit);
+			AbilityMod.AddToken(tokens, m_extraHealPerTargetDistanceMod, "ExtraHealPerTargetDistance", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_selfHealAdjustIfTargetingSelfMod, "SelfHealAdjustIfTargetingSelf", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_healPerPercentHealthLostMod, "HealPerPercentHealthLost", string.Empty, clericRangedHeal.m_healPerPercentHealthLost);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnSelfMod, "EffectOnSelf", clericRangedHeal.m_effectOnSelf);
+			AbilityMod.AddToken_EffectMod(tokens, m_reactionEffectForHealTargetMod, "ReactionEffectForHealTarget", clericRangedHeal.m_reactionEffectForHealTarget);
+			AbilityMod.AddToken_EffectMod(tokens, m_reactionEffectForCasterMod, "ReactionEffectForCaster", clericRangedHeal.m_reactionEffectForCaster);
+			AbilityMod.AddToken(tokens, m_techPointGainPerIncomingHitThisTurn, "EnergyPerIncomingHitThisTurn", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_enemyDebuffRadiusAroundTargetMod, "EnemyDebuffRadiusAroundTarget", string.Empty, clericRangedHeal.m_enemyDebuffRadiusAroundTarget);
+			AbilityMod.AddToken(tokens, m_enemyDebuffRadiusAroundCasterMod, "EnemyDebuffRadiusAroundCaster", string.Empty, clericRangedHeal.m_enemyDebuffRadiusAroundCaster);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyDebuffInRadiusEffectMod, "EnemyDebuffInRadiusEffect", clericRangedHeal.m_enemyDebuffInRadiusEffect);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ClericRangedHeal clericRangedHeal = base.GetTargetAbilityOnAbilityData(abilityData) as ClericRangedHeal;
+		ClericRangedHeal clericRangedHeal = GetTargetAbilityOnAbilityData(abilityData) as ClericRangedHeal;
 		bool flag = clericRangedHeal != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_healAmountMod, "[HealAmount]", flag, (!flag) ? 0 : clericRangedHeal.m_healAmount);
-		text += base.PropDesc(this.m_selfHealIfTargetingAllyMod, "[SelfHealIfTargetingAlly]", flag, (!flag) ? 0 : clericRangedHeal.m_selfHealIfTargetingAlly);
-		text += base.PropDesc(this.m_targetHitEffectMod, "[TargetHitEffect]", flag, (!flag) ? null : clericRangedHeal.m_targetHitEffect);
-		string str = text;
-		AbilityModPropertyInt extraHealOnEnemyHitMod = this.m_extraHealOnEnemyHitMod;
-		string prefix = "[ExtraHealOnEnemyHit]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += PropDesc(m_healAmountMod, "[HealAmount]", flag, flag ? clericRangedHeal.m_healAmount : 0);
+		empty += PropDesc(m_selfHealIfTargetingAllyMod, "[SelfHealIfTargetingAlly]", flag, flag ? clericRangedHeal.m_selfHealIfTargetingAlly : 0);
+		empty += PropDesc(m_targetHitEffectMod, "[TargetHitEffect]", flag, (!flag) ? null : clericRangedHeal.m_targetHitEffect);
+		string str = empty;
+		AbilityModPropertyInt extraHealOnEnemyHitMod = m_extraHealOnEnemyHitMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -107,9 +106,9 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericRangedHeal.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = clericRangedHeal.m_extraHealOnEnemyHit;
 		}
@@ -117,15 +116,13 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + base.PropDesc(extraHealOnEnemyHitMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt extraHealOnSubseqEnemyHitMod = this.m_extraHealOnSubseqEnemyHitMod;
-		string prefix2 = "[ExtraHealOnSubseqEnemyHit]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(extraHealOnEnemyHitMod, "[ExtraHealOnEnemyHit]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyInt extraHealOnSubseqEnemyHitMod = m_extraHealOnSubseqEnemyHitMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -140,17 +137,15 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(extraHealOnSubseqEnemyHitMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_extraHealPerTargetDistanceMod, "[ExtraHealPerTargetDistance]", flag, 0);
-		text += base.PropDesc(this.m_selfHealAdjustIfTargetingSelfMod, "[SelfHealAdjustIfTargetingSelf]", flag, 0);
-		string str3 = text;
-		AbilityModPropertyFloat healPerPercentHealthLostMod = this.m_healPerPercentHealthLostMod;
-		string prefix3 = "[HealPerPercentHealthLost]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(extraHealOnSubseqEnemyHitMod, "[ExtraHealOnSubseqEnemyHit]", flag, baseVal2);
+		empty += PropDesc(m_extraHealPerTargetDistanceMod, "[ExtraHealPerTargetDistance]", flag);
+		empty += PropDesc(m_selfHealAdjustIfTargetingSelfMod, "[SelfHealAdjustIfTargetingSelf]", flag);
+		string str3 = empty;
+		AbilityModPropertyFloat healPerPercentHealthLostMod = m_healPerPercentHealthLostMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -165,15 +160,13 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(healPerPercentHealthLostMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyEffectInfo effectOnSelfMod = this.m_effectOnSelfMod;
-		string prefix4 = "[EffectOnSelf]";
-		bool showBaseVal4 = flag;
-		StandardEffectInfo baseVal4;
+		empty = str3 + PropDesc(healPerPercentHealthLostMod, "[HealPerPercentHealthLost]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyEffectInfo effectOnSelfMod = m_effectOnSelfMod;
+		object baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -188,15 +181,13 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		{
 			baseVal4 = null;
 		}
-		text = str4 + base.PropDesc(effectOnSelfMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyEffectInfo reactionEffectForHealTargetMod = this.m_reactionEffectForHealTargetMod;
-		string prefix5 = "[ReactionEffectForHealTarget]";
-		bool showBaseVal5 = flag;
-		StandardEffectInfo baseVal5;
+		empty = str4 + PropDesc(effectOnSelfMod, "[EffectOnSelf]", flag, (StandardEffectInfo)baseVal4);
+		string str5 = empty;
+		AbilityModPropertyEffectInfo reactionEffectForHealTargetMod = m_reactionEffectForHealTargetMod;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -211,15 +202,13 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		{
 			baseVal5 = null;
 		}
-		text = str5 + base.PropDesc(reactionEffectForHealTargetMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyEffectInfo reactionEffectForCasterMod = this.m_reactionEffectForCasterMod;
-		string prefix6 = "[ReactionEffectForCaster]";
-		bool showBaseVal6 = flag;
-		StandardEffectInfo baseVal6;
+		empty = str5 + PropDesc(reactionEffectForHealTargetMod, "[ReactionEffectForHealTarget]", flag, (StandardEffectInfo)baseVal5);
+		string str6 = empty;
+		AbilityModPropertyEffectInfo reactionEffectForCasterMod = m_reactionEffectForCasterMod;
+		object baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -234,18 +223,16 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		{
 			baseVal6 = null;
 		}
-		text = str6 + base.PropDesc(reactionEffectForCasterMod, prefix6, showBaseVal6, baseVal6);
-		text += base.PropDesc(this.m_techPointGainPerIncomingHitThisTurn, "[EnergyPerIncomingHitThisTurn]", flag, 0);
-		text += base.PropDesc(this.m_enemyDebuffRadiusAroundTargetMod, "[EnemyDebuffRadiusAroundTarget]", flag, (!flag) ? 0f : clericRangedHeal.m_enemyDebuffRadiusAroundTarget);
-		text += base.PropDesc(this.m_enemyDebuffRadiusAroundCasterMod, "[EnemyDebuffRadiusAroundCaster]", flag, (!flag) ? 0f : clericRangedHeal.m_enemyDebuffRadiusAroundCaster);
-		string str7 = text;
-		AbilityModPropertyEffectInfo enemyDebuffInRadiusEffectMod = this.m_enemyDebuffInRadiusEffectMod;
-		string prefix7 = "[EnemyDebuffInRadiusEffect]";
-		bool showBaseVal7 = flag;
-		StandardEffectInfo baseVal7;
+		empty = str6 + PropDesc(reactionEffectForCasterMod, "[ReactionEffectForCaster]", flag, (StandardEffectInfo)baseVal6);
+		empty += PropDesc(m_techPointGainPerIncomingHitThisTurn, "[EnergyPerIncomingHitThisTurn]", flag);
+		empty += PropDesc(m_enemyDebuffRadiusAroundTargetMod, "[EnemyDebuffRadiusAroundTarget]", flag, (!flag) ? 0f : clericRangedHeal.m_enemyDebuffRadiusAroundTarget);
+		empty += PropDesc(m_enemyDebuffRadiusAroundCasterMod, "[EnemyDebuffRadiusAroundCaster]", flag, (!flag) ? 0f : clericRangedHeal.m_enemyDebuffRadiusAroundCaster);
+		string str7 = empty;
+		AbilityModPropertyEffectInfo enemyDebuffInRadiusEffectMod = m_enemyDebuffInRadiusEffectMod;
+		object baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -260,6 +247,6 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		{
 			baseVal7 = null;
 		}
-		return str7 + base.PropDesc(enemyDebuffInRadiusEffectMod, prefix7, showBaseVal7, baseVal7);
+		return str7 + PropDesc(enemyDebuffInRadiusEffectMod, "[EnemyDebuffInRadiusEffect]", flag, (StandardEffectInfo)baseVal7);
 	}
 }

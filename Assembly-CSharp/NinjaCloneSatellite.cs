@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class NinjaCloneSatellite : TempSatellite
@@ -15,58 +14,58 @@ public class NinjaCloneSatellite : TempSatellite
 
 	private void SetRandomParameter()
 	{
-		this.m_modelAnimator.SetFloat("RandomValue", UnityEngine.Random.value);
+		m_modelAnimator.SetFloat("RandomValue", Random.value);
 	}
 
 	private void IncrementRandomParameter()
 	{
-		float value = (float)this.m_lastAttackIndex / 3f;
-		this.m_modelAnimator.SetFloat("RandomValue", value);
-		this.m_lastAttackIndex++;
-		this.m_lastAttackIndex %= 3;
+		float value = (float)m_lastAttackIndex / 3f;
+		m_modelAnimator.SetFloat("RandomValue", value);
+		m_lastAttackIndex++;
+		m_lastAttackIndex %= 3;
 	}
 
 	public void TriggerRandomAttack(GameObject attackTarget)
 	{
-		this.SetRandomParameter();
-		this.m_modelAnimator.SetTrigger("StartAttack");
-		this.m_attackTarget = attackTarget;
-		this.m_numAttacksLeft = 0;
-		this.m_attackDelay = 0f;
-		this.m_lastAttackTime = Time.time;
+		SetRandomParameter();
+		m_modelAnimator.SetTrigger("StartAttack");
+		m_attackTarget = attackTarget;
+		m_numAttacksLeft = 0;
+		m_attackDelay = 0f;
+		m_lastAttackTime = Time.time;
 	}
 
 	public void TriggerDeathMarkAttack()
 	{
-		this.m_modelAnimator.SetTrigger("StartDeathMark");
+		m_modelAnimator.SetTrigger("StartDeathMark");
 	}
 
 	public void TriggerMultiAttack(GameObject attackTarget, int numAttacks, float attackDelay)
 	{
-		this.IncrementRandomParameter();
-		this.m_modelAnimator.SetTrigger("StartAttack");
-		this.m_attackTarget = attackTarget;
-		this.m_numAttacksLeft = numAttacks - 1;
-		this.m_attackDelay = attackDelay;
-		this.m_lastAttackTime = Time.time;
+		IncrementRandomParameter();
+		m_modelAnimator.SetTrigger("StartAttack");
+		m_attackTarget = attackTarget;
+		m_numAttacksLeft = numAttacks - 1;
+		m_attackDelay = attackDelay;
+		m_lastAttackTime = Time.time;
 	}
 
 	public override void TriggerDespawn()
 	{
-		this.m_modelAnimator.SetTrigger("Despawn");
+		m_modelAnimator.SetTrigger("Despawn");
 	}
 
 	public bool IsDespawning()
 	{
-		return this.m_modelAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Despawn");
+		return m_modelAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Despawn");
 	}
 
 	private void Update()
 	{
-		AnimatorStateInfo currentAnimatorStateInfo = this.m_modelAnimator.GetCurrentAnimatorStateInfo(0);
+		AnimatorStateInfo currentAnimatorStateInfo = m_modelAnimator.GetCurrentAnimatorStateInfo(0);
 		if (currentAnimatorStateInfo.IsTag("Despawn"))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -75,80 +74,82 @@ public class NinjaCloneSatellite : TempSatellite
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaCloneSatellite.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (currentAnimatorStateInfo.normalizedTime >= 1f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						Object.Destroy(base.gameObject);
+						return;
 					}
-					break;
 				}
-				UnityEngine.Object.Destroy(base.gameObject);
-				return;
 			}
 		}
-		if (currentAnimatorStateInfo.IsTag("Attack"))
+		if (!currentAnimatorStateInfo.IsTag("Attack"))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.m_attackTarget != null)
+			if (m_attackTarget != null)
 			{
-				base.transform.rotation = Quaternion.LookRotation((this.m_attackTarget.transform.position - base.transform.position).normalized);
+				base.transform.rotation = Quaternion.LookRotation((m_attackTarget.transform.position - base.transform.position).normalized);
 			}
-			if (this.m_numAttacksLeft > 0 && Time.time > this.m_lastAttackTime + this.m_attackDelay)
+			if (m_numAttacksLeft > 0 && Time.time > m_lastAttackTime + m_attackDelay)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						IncrementRandomParameter();
+						m_modelAnimator.SetTrigger("StartAttack");
+						m_lastAttackTime = Time.time;
+						m_numAttacksLeft--;
+						return;
 					}
-					break;
 				}
-				this.IncrementRandomParameter();
-				this.m_modelAnimator.SetTrigger("StartAttack");
-				this.m_lastAttackTime = Time.time;
-				this.m_numAttacksLeft--;
 			}
-			else if (this.m_numAttacksLeft == 0)
+			if (m_numAttacksLeft != 0)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (3)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
 				if (currentAnimatorStateInfo.normalizedTime >= 1f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						TriggerDespawn();
+						return;
 					}
-					this.TriggerDespawn();
 				}
+				return;
 			}
 		}
 	}

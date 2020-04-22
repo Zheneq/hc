@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetSelect_BouncingLaser : GenericAbility_TargetSelectBase
@@ -29,7 +28,7 @@ public class TargetSelect_BouncingLaser : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr("HitOrder", "on every enemy, order in which they are hit.", true) + base.GetContextUsageStr("EndpointIndex", "on every enemy, 0-based index of which segment hit that enemy", true);
+		return GetContextUsageStr("HitOrder", "on every enemy, order in which they are hit.") + GetContextUsageStr("EndpointIndex", "on every enemy, 0-based index of which segment hit that enemy");
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
@@ -40,11 +39,10 @@ public class TargetSelect_BouncingLaser : GenericAbility_TargetSelectBase
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)
 	{
-		AbilityUtil_Targeter_BounceLaser abilityUtil_Targeter_BounceLaser = new AbilityUtil_Targeter_BounceLaser(ability, this.m_laserWidth, this.m_distPerBounce, this.m_maxTotalDist, this.m_maxBounces, this.m_maxTargets, false);
-		abilityUtil_Targeter_BounceLaser.SetAffectedGroups(this.m_includeEnemies, this.m_includeAllies, this.m_includeCaster);
-		return new List<AbilityUtil_Targeter>
-		{
-			abilityUtil_Targeter_BounceLaser
-		};
+		AbilityUtil_Targeter_BounceLaser abilityUtil_Targeter_BounceLaser = new AbilityUtil_Targeter_BounceLaser(ability, m_laserWidth, m_distPerBounce, m_maxTotalDist, m_maxBounces, m_maxTargets, false);
+		abilityUtil_Targeter_BounceLaser.SetAffectedGroups(m_includeEnemies, m_includeAllies, m_includeCaster);
+		List<AbilityUtil_Targeter> list = new List<AbilityUtil_Targeter>();
+		list.Add(abilityUtil_Targeter_BounceLaser);
+		return list;
 	}
 }

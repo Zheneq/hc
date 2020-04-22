@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,51 +54,50 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		TricksterCatchMeIfYouCan tricksterCatchMeIfYouCan = targetAbility as TricksterCatchMeIfYouCan;
-		if (tricksterCatchMeIfYouCan != null)
+		if (!(tricksterCatchMeIfYouCan != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TricksterCatchMeIfYouCan.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_pathRadiusMod, "PathRadius", string.Empty, tricksterCatchMeIfYouCan.m_pathRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_pathStartRadiusMod, "PathStartRadius", string.Empty, tricksterCatchMeIfYouCan.m_pathStartRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_pathEndRadiusMod, "PathEndRadius", string.Empty, tricksterCatchMeIfYouCan.m_pathEndRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, tricksterCatchMeIfYouCan.m_damageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_subsequentDamageAmountMod, "SubsequentDamageAmount", string.Empty, tricksterCatchMeIfYouCan.m_subsequentDamageAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", tricksterCatchMeIfYouCan.m_enemyHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyMultipleHitEffectMod, "EnemyMultipleHitEffect", tricksterCatchMeIfYouCan.m_enemyMultipleHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_allyHealingAmountMod, "AllyHealingAmount", string.Empty, tricksterCatchMeIfYouCan.m_allyHealingAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_subsequentHealingAmountMod, "SubsequentHealingAmount", string.Empty, tricksterCatchMeIfYouCan.m_subsequentHealingAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_allyEnergyGainMod, "AllyEnergyGain", string.Empty, tricksterCatchMeIfYouCan.m_allyEnergyGain, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_allyHitEffectMod, "AllyHitEffect", tricksterCatchMeIfYouCan.m_allyHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_allyMultipleHitEffectMod, "AllyMultipleHitEffect", tricksterCatchMeIfYouCan.m_allyMultipleHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_selfHealingAmountMod, "SelfHealingAmount", string.Empty, tricksterCatchMeIfYouCan.m_selfHealingAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_selfHitEffectMod, "SelfHitEffect", tricksterCatchMeIfYouCan.m_selfHitEffect, true);
+			AbilityMod.AddToken(tokens, m_pathRadiusMod, "PathRadius", string.Empty, tricksterCatchMeIfYouCan.m_pathRadius);
+			AbilityMod.AddToken(tokens, m_pathStartRadiusMod, "PathStartRadius", string.Empty, tricksterCatchMeIfYouCan.m_pathStartRadius);
+			AbilityMod.AddToken(tokens, m_pathEndRadiusMod, "PathEndRadius", string.Empty, tricksterCatchMeIfYouCan.m_pathEndRadius);
+			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, tricksterCatchMeIfYouCan.m_damageAmount);
+			AbilityMod.AddToken(tokens, m_subsequentDamageAmountMod, "SubsequentDamageAmount", string.Empty, tricksterCatchMeIfYouCan.m_subsequentDamageAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", tricksterCatchMeIfYouCan.m_enemyHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyMultipleHitEffectMod, "EnemyMultipleHitEffect", tricksterCatchMeIfYouCan.m_enemyMultipleHitEffect);
+			AbilityMod.AddToken(tokens, m_allyHealingAmountMod, "AllyHealingAmount", string.Empty, tricksterCatchMeIfYouCan.m_allyHealingAmount);
+			AbilityMod.AddToken(tokens, m_subsequentHealingAmountMod, "SubsequentHealingAmount", string.Empty, tricksterCatchMeIfYouCan.m_subsequentHealingAmount);
+			AbilityMod.AddToken(tokens, m_allyEnergyGainMod, "AllyEnergyGain", string.Empty, tricksterCatchMeIfYouCan.m_allyEnergyGain);
+			AbilityMod.AddToken_EffectMod(tokens, m_allyHitEffectMod, "AllyHitEffect", tricksterCatchMeIfYouCan.m_allyHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_allyMultipleHitEffectMod, "AllyMultipleHitEffect", tricksterCatchMeIfYouCan.m_allyMultipleHitEffect);
+			AbilityMod.AddToken(tokens, m_selfHealingAmountMod, "SelfHealingAmount", string.Empty, tricksterCatchMeIfYouCan.m_selfHealingAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_selfHitEffectMod, "SelfHitEffect", tricksterCatchMeIfYouCan.m_selfHitEffect);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		TricksterCatchMeIfYouCan tricksterCatchMeIfYouCan = base.GetTargetAbilityOnAbilityData(abilityData) as TricksterCatchMeIfYouCan;
+		TricksterCatchMeIfYouCan tricksterCatchMeIfYouCan = GetTargetAbilityOnAbilityData(abilityData) as TricksterCatchMeIfYouCan;
 		bool flag = tricksterCatchMeIfYouCan != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyBool hitActorsInPathMod = this.m_hitActorsInPathMod;
-		string prefix = "[HitActorsInPath]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyBool hitActorsInPathMod = m_hitActorsInPathMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -107,26 +106,24 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TricksterCatchMeIfYouCan.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			baseVal = tricksterCatchMeIfYouCan.m_hitActorsInPath;
+			baseVal = (tricksterCatchMeIfYouCan.m_hitActorsInPath ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(hitActorsInPathMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_pathRadiusMod, "[PathRadius]", flag, (!flag) ? 0f : tricksterCatchMeIfYouCan.m_pathRadius);
-		string str2 = text;
-		AbilityModPropertyFloat pathStartRadiusMod = this.m_pathStartRadiusMod;
-		string prefix2 = "[PathStartRadius]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(hitActorsInPathMod, "[HitActorsInPath]", flag, (byte)baseVal != 0);
+		empty += PropDesc(m_pathRadiusMod, "[PathRadius]", flag, (!flag) ? 0f : tricksterCatchMeIfYouCan.m_pathRadius);
+		string str2 = empty;
+		AbilityModPropertyFloat pathStartRadiusMod = m_pathStartRadiusMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -141,15 +138,13 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(pathStartRadiusMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyFloat pathEndRadiusMod = this.m_pathEndRadiusMod;
-		string prefix3 = "[PathEndRadius]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(pathStartRadiusMod, "[PathStartRadius]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyFloat pathEndRadiusMod = m_pathEndRadiusMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -164,15 +159,13 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(pathEndRadiusMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyBool penetrateLosMod = this.m_penetrateLosMod;
-		string prefix4 = "[PenetrateLos]";
-		bool showBaseVal4 = flag;
-		bool baseVal4;
+		empty = str3 + PropDesc(pathEndRadiusMod, "[PathEndRadius]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyBool penetrateLosMod = m_penetrateLosMod;
+		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -181,21 +174,19 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 				}
 				break;
 			}
-			baseVal4 = tricksterCatchMeIfYouCan.m_penetrateLos;
+			baseVal4 = (tricksterCatchMeIfYouCan.m_penetrateLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal4 = false;
+			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(penetrateLosMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt damageAmountMod = this.m_damageAmountMod;
-		string prefix5 = "[DamageAmount]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(penetrateLosMod, "[PenetrateLos]", flag, (byte)baseVal4 != 0);
+		string str5 = empty;
+		AbilityModPropertyInt damageAmountMod = m_damageAmountMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -210,15 +201,13 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(damageAmountMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt subsequentDamageAmountMod = this.m_subsequentDamageAmountMod;
-		string prefix6 = "[SubsequentDamageAmount]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(damageAmountMod, "[DamageAmount]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt subsequentDamageAmountMod = m_subsequentDamageAmountMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -233,15 +222,13 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(subsequentDamageAmountMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyEffectInfo enemyHitEffectMod = this.m_enemyHitEffectMod;
-		string prefix7 = "[EnemyHitEffect]";
-		bool showBaseVal7 = flag;
-		StandardEffectInfo baseVal7;
+		empty = str6 + PropDesc(subsequentDamageAmountMod, "[SubsequentDamageAmount]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyEffectInfo enemyHitEffectMod = m_enemyHitEffectMod;
+		object baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -256,15 +243,13 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		{
 			baseVal7 = null;
 		}
-		text = str7 + base.PropDesc(enemyHitEffectMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyBool useEnemyMultiHitEffectMod = this.m_useEnemyMultiHitEffectMod;
-		string prefix8 = "[UseEnemyMultiHitEffect]";
-		bool showBaseVal8 = flag;
-		bool baseVal8;
+		empty = str7 + PropDesc(enemyHitEffectMod, "[EnemyHitEffect]", flag, (StandardEffectInfo)baseVal7);
+		string str8 = empty;
+		AbilityModPropertyBool useEnemyMultiHitEffectMod = m_useEnemyMultiHitEffectMod;
+		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -273,21 +258,19 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 				}
 				break;
 			}
-			baseVal8 = tricksterCatchMeIfYouCan.m_useEnemyMultiHitEffect;
+			baseVal8 = (tricksterCatchMeIfYouCan.m_useEnemyMultiHitEffect ? 1 : 0);
 		}
 		else
 		{
-			baseVal8 = false;
+			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(useEnemyMultiHitEffectMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyEffectInfo enemyMultipleHitEffectMod = this.m_enemyMultipleHitEffectMod;
-		string prefix9 = "[EnemyMultipleHitEffect]";
-		bool showBaseVal9 = flag;
-		StandardEffectInfo baseVal9;
+		empty = str8 + PropDesc(useEnemyMultiHitEffectMod, "[UseEnemyMultiHitEffect]", flag, (byte)baseVal8 != 0);
+		string str9 = empty;
+		AbilityModPropertyEffectInfo enemyMultipleHitEffectMod = m_enemyMultipleHitEffectMod;
+		object baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -302,15 +285,13 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		{
 			baseVal9 = null;
 		}
-		text = str9 + base.PropDesc(enemyMultipleHitEffectMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyInt allyHealingAmountMod = this.m_allyHealingAmountMod;
-		string prefix10 = "[AllyHealingAmount]";
-		bool showBaseVal10 = flag;
+		empty = str9 + PropDesc(enemyMultipleHitEffectMod, "[EnemyMultipleHitEffect]", flag, (StandardEffectInfo)baseVal9);
+		string str10 = empty;
+		AbilityModPropertyInt allyHealingAmountMod = m_allyHealingAmountMod;
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -325,16 +306,14 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		{
 			baseVal10 = 0;
 		}
-		text = str10 + base.PropDesc(allyHealingAmountMod, prefix10, showBaseVal10, baseVal10);
-		text += base.PropDesc(this.m_allyEnergyGainMod, "[AllyEnergyGain]", flag, (!flag) ? 0 : tricksterCatchMeIfYouCan.m_allyEnergyGain);
-		string str11 = text;
-		AbilityModPropertyInt subsequentHealingAmountMod = this.m_subsequentHealingAmountMod;
-		string prefix11 = "[SubsequentHealingAmount]";
-		bool showBaseVal11 = flag;
+		empty = str10 + PropDesc(allyHealingAmountMod, "[AllyHealingAmount]", flag, baseVal10);
+		empty += PropDesc(m_allyEnergyGainMod, "[AllyEnergyGain]", flag, flag ? tricksterCatchMeIfYouCan.m_allyEnergyGain : 0);
+		string str11 = empty;
+		AbilityModPropertyInt subsequentHealingAmountMod = m_subsequentHealingAmountMod;
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -349,15 +328,13 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		{
 			baseVal11 = 0;
 		}
-		text = str11 + base.PropDesc(subsequentHealingAmountMod, prefix11, showBaseVal11, baseVal11);
-		string str12 = text;
-		AbilityModPropertyEffectInfo allyHitEffectMod = this.m_allyHitEffectMod;
-		string prefix12 = "[AllyHitEffect]";
-		bool showBaseVal12 = flag;
-		StandardEffectInfo baseVal12;
+		empty = str11 + PropDesc(subsequentHealingAmountMod, "[SubsequentHealingAmount]", flag, baseVal11);
+		string str12 = empty;
+		AbilityModPropertyEffectInfo allyHitEffectMod = m_allyHitEffectMod;
+		object baseVal12;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -372,16 +349,14 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		{
 			baseVal12 = null;
 		}
-		text = str12 + base.PropDesc(allyHitEffectMod, prefix12, showBaseVal12, baseVal12);
-		text += base.PropDesc(this.m_useAllyMultiHitEffectMod, "[UseAllyMultiHitEffect]", flag, flag && tricksterCatchMeIfYouCan.m_useAllyMultiHitEffect);
-		string str13 = text;
-		AbilityModPropertyEffectInfo allyMultipleHitEffectMod = this.m_allyMultipleHitEffectMod;
-		string prefix13 = "[AllyMultipleHitEffect]";
-		bool showBaseVal13 = flag;
-		StandardEffectInfo baseVal13;
+		empty = str12 + PropDesc(allyHitEffectMod, "[AllyHitEffect]", flag, (StandardEffectInfo)baseVal12);
+		empty += PropDesc(m_useAllyMultiHitEffectMod, "[UseAllyMultiHitEffect]", flag, flag && tricksterCatchMeIfYouCan.m_useAllyMultiHitEffect);
+		string str13 = empty;
+		AbilityModPropertyEffectInfo allyMultipleHitEffectMod = m_allyMultipleHitEffectMod;
+		object baseVal13;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -396,15 +371,13 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		{
 			baseVal13 = null;
 		}
-		text = str13 + base.PropDesc(allyMultipleHitEffectMod, prefix13, showBaseVal13, baseVal13);
-		string str14 = text;
-		AbilityModPropertyInt selfHealingAmountMod = this.m_selfHealingAmountMod;
-		string prefix14 = "[SelfHealingAmount]";
-		bool showBaseVal14 = flag;
+		empty = str13 + PropDesc(allyMultipleHitEffectMod, "[AllyMultipleHitEffect]", flag, (StandardEffectInfo)baseVal13);
+		string str14 = empty;
+		AbilityModPropertyInt selfHealingAmountMod = m_selfHealingAmountMod;
 		int baseVal14;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -419,15 +392,13 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		{
 			baseVal14 = 0;
 		}
-		text = str14 + base.PropDesc(selfHealingAmountMod, prefix14, showBaseVal14, baseVal14);
-		string str15 = text;
-		AbilityModPropertyEffectInfo selfHitEffectMod = this.m_selfHitEffectMod;
-		string prefix15 = "[SelfHitEffect]";
-		bool showBaseVal15 = flag;
-		StandardEffectInfo baseVal15;
+		empty = str14 + PropDesc(selfHealingAmountMod, "[SelfHealingAmount]", flag, baseVal14);
+		string str15 = empty;
+		AbilityModPropertyEffectInfo selfHitEffectMod = m_selfHitEffectMod;
+		object baseVal15;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -442,6 +413,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		{
 			baseVal15 = null;
 		}
-		return str15 + base.PropDesc(selfHitEffectMod, prefix15, showBaseVal15, baseVal15);
+		return str15 + PropDesc(selfHitEffectMod, "[SelfHitEffect]", flag, (StandardEffectInfo)baseVal15);
 	}
 }

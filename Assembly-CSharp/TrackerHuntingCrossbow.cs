@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,9 +16,9 @@ public class TrackerHuntingCrossbow : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -28,16 +27,16 @@ public class TrackerHuntingCrossbow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerHuntingCrossbow.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Hunting Crossbow";
+			m_abilityName = "Hunting Crossbow";
 		}
-		this.m_droneTracker = base.GetComponent<TrackerDroneTrackerComponent>();
-		if (this.m_droneTracker == null)
+		m_droneTracker = GetComponent<TrackerDroneTrackerComponent>();
+		if (m_droneTracker == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -48,12 +47,12 @@ public class TrackerHuntingCrossbow : Ability
 			}
 			Debug.LogError("No drone tracker component");
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Laser(this, this.GetLaserWidth(), this.GetLaserLength(), this.m_laserInfo.penetrateLos, this.GetLaserMaxTargets(), false, false);
+		base.Targeter = new AbilityUtil_Targeter_Laser(this, GetLaserWidth(), GetLaserLength(), m_laserInfo.penetrateLos, GetLaserMaxTargets());
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -63,16 +62,16 @@ public class TrackerHuntingCrossbow : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetLaserLength();
+		return GetLaserLength();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_TrackerHuntingCrossbow abilityMod_TrackerHuntingCrossbow = modAsBase as AbilityMod_TrackerHuntingCrossbow;
 		int num;
-		if (abilityMod_TrackerHuntingCrossbow)
+		if ((bool)abilityMod_TrackerHuntingCrossbow)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -81,27 +80,27 @@ public class TrackerHuntingCrossbow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerHuntingCrossbow.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = abilityMod_TrackerHuntingCrossbow.m_damageOnUntrackedMod.GetModifiedValue(this.m_laserDamageAmount);
+			num = abilityMod_TrackerHuntingCrossbow.m_damageOnUntrackedMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
 		{
-			num = this.m_laserDamageAmount;
+			num = m_laserDamageAmount;
 		}
 		int val = num;
 		tokens.Add(new TooltipTokenInt("Damage", "damage amount", val));
-		this.GetHuntedEffect().AddTooltipTokens(tokens, "TrackedEffect", false, null);
+		GetHuntedEffect().AddTooltipTokens(tokens, "TrackedEffect");
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_laserDamageAmount);
-		this.GetHuntedEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_laserDamageAmount);
+		GetHuntedEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -110,7 +109,7 @@ public class TrackerHuntingCrossbow : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -119,13 +118,13 @@ public class TrackerHuntingCrossbow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerHuntingCrossbow.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -134,9 +133,9 @@ public class TrackerHuntingCrossbow : Ability
 					}
 					break;
 				}
-				if (this.m_droneTracker != null)
+				if (m_droneTracker != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -146,11 +145,10 @@ public class TrackerHuntingCrossbow : Ability
 						break;
 					}
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-					bool flag = this.m_droneTracker.IsTrackingActor(targetActor.ActorIndex);
 					int num;
-					if (flag)
+					if (m_droneTracker.IsTrackingActor(targetActor.ActorIndex))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -159,16 +157,16 @@ public class TrackerHuntingCrossbow : Ability
 							}
 							break;
 						}
-						num = this.GetDamageOnTracked();
+						num = GetDamageOnTracked();
 					}
 					else
 					{
-						num = this.GetDamageOnUntracked();
+						num = GetDamageOnUntracked();
 					}
 					int num2 = num;
-					if (this.m_abilityMod != null)
+					if (m_abilityMod != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -178,10 +176,10 @@ public class TrackerHuntingCrossbow : Ability
 							break;
 						}
 						ActorData actorData = base.ActorData;
-						bool flag2;
-						if (this.m_abilityMod.m_requireFunctioningBrush)
+						bool num3;
+						if (m_abilityMod.m_requireFunctioningBrush)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -190,16 +188,15 @@ public class TrackerHuntingCrossbow : Ability
 								}
 								break;
 							}
-							flag2 = actorData.\u0016();
+							num3 = actorData.IsHiddenInBrush();
 						}
 						else
 						{
-							flag2 = actorData.\u0012().\u0012();
+							num3 = actorData.GetCurrentBoardSquare().IsInBrushRegion();
 						}
-						bool flag3 = flag2;
-						if (flag3)
+						if (num3)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -208,11 +205,11 @@ public class TrackerHuntingCrossbow : Ability
 								}
 								break;
 							}
-							num2 += this.GetExtraDamageWhileInBrush();
+							num2 += GetExtraDamageWhileInBrush();
 						}
-						if (this.GetDamageChangeAfterFirstHit() != 0)
+						if (GetDamageChangeAfterFirstHit() != 0)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -227,10 +224,10 @@ public class TrackerHuntingCrossbow : Ability
 							{
 								while (enumerator.MoveNext())
 								{
-									AbilityUtil_Targeter_Laser.HitActorContext hitActorContext2 = enumerator.Current;
-									if (hitActorContext2.actor == targetActor && hitActorContext2.hitOrderIndex != 0)
+									AbilityUtil_Targeter_Laser.HitActorContext current = enumerator.Current;
+									if (current.actor == targetActor && current.hitOrderIndex != 0)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (2)
 											{
@@ -239,10 +236,10 @@ public class TrackerHuntingCrossbow : Ability
 											}
 											break;
 										}
-										num2 += this.GetDamageChangeAfterFirstHit();
+										num2 += GetDamageChangeAfterFirstHit();
 									}
 								}
-								for (;;)
+								while (true)
 								{
 									switch (6)
 									{
@@ -263,38 +260,39 @@ public class TrackerHuntingCrossbow : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_TrackerHuntingCrossbow))
+		if (abilityMod.GetType() != typeof(AbilityMod_TrackerHuntingCrossbow))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerHuntingCrossbow.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_TrackerHuntingCrossbow);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_TrackerHuntingCrossbow);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	private int GetDamageOnUntracked()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -303,15 +301,15 @@ public class TrackerHuntingCrossbow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerHuntingCrossbow.GetDamageOnUntracked()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_laserDamageAmount;
+			result = m_laserDamageAmount;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_damageOnUntrackedMod.GetModifiedValue(this.m_laserDamageAmount);
+			result = m_abilityMod.m_damageOnUntrackedMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		return result;
 	}
@@ -319,9 +317,9 @@ public class TrackerHuntingCrossbow : Ability
 	private int GetDamageOnTracked()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -330,30 +328,30 @@ public class TrackerHuntingCrossbow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerHuntingCrossbow.GetDamageOnTracked()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_laserDamageAmount;
+			result = m_laserDamageAmount;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_damageOnTrackedMod.GetModifiedValue(this.m_laserDamageAmount);
+			result = m_abilityMod.m_damageOnTrackedMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		return result;
 	}
 
 	private int GetDamageChangeAfterFirstHit()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_damageChangeOnSubsequentTargets : 0;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_damageChangeOnSubsequentTargets : 0;
 	}
 
 	private int GetExtraDamageWhileInBrush()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -362,36 +360,36 @@ public class TrackerHuntingCrossbow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerHuntingCrossbow.GetExtraDamageWhileInBrush()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = 0;
 		}
 		else
 		{
-			result = Mathf.Max(0, this.m_abilityMod.m_extraDamageWhenInBrush);
+			result = Mathf.Max(0, m_abilityMod.m_extraDamageWhenInBrush);
 		}
 		return result;
 	}
 
 	private int GetLaserMaxTargets()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_laserMaxTargetsMod.GetModifiedValue(this.m_laserInfo.maxTargets) : this.m_laserInfo.maxTargets;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_laserMaxTargetsMod.GetModifiedValue(m_laserInfo.maxTargets) : m_laserInfo.maxTargets;
 	}
 
 	private float GetLaserWidth()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserInfo.width) : this.m_laserInfo.width;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserInfo.width) : m_laserInfo.width;
 	}
 
 	private float GetLaserLength()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_laserLengthMod.GetModifiedValue(this.m_laserInfo.range) : this.m_laserInfo.range;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_laserLengthMod.GetModifiedValue(m_laserInfo.range) : m_laserInfo.range;
 	}
 
 	public StandardActorEffectData GetHuntedEffect()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_huntedEffectDataOverride.GetModifiedValue(this.m_huntedEffectData) : this.m_huntedEffectData;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_huntedEffectDataOverride.GetModifiedValue(m_huntedEffectData) : m_huntedEffectData;
 	}
 }

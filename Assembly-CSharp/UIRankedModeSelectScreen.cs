@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
 using LobbyGameClientMessages;
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,6 +8,24 @@ using UnityEngine.UI;
 
 public class UIRankedModeSelectScreen : MonoBehaviour
 {
+	public enum RankedQueueRejectionReasons
+	{
+		None,
+		DoNotMeetRequirements,
+		IncorrectGroupSize,
+		ServerDisabled,
+		PenaltyTimeout,
+		GroupTimeout
+	}
+
+	public enum EmptyListReasons
+	{
+		None,
+		FailedToReceiveTeirInfo,
+		QueueIsDisabled,
+		NeedToPlayMoreGames
+	}
+
 	public RectTransform m_selectScreenContainer;
 
 	public UIPlayerProfileRankDisplay[] m_rankDisplays;
@@ -80,7 +98,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 
 	private int m_selectedRank;
 
-	private UIRankedModeSelectScreen.RankedQueueRejectionReasons m_cannotQueue;
+	private RankedQueueRejectionReasons m_cannotQueue;
 
 	private bool m_loadedData;
 
@@ -88,52 +106,46 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 
 	private int m_ourDivisionId = -1;
 
-	public static Dictionary<int, PerGroupSizeTierInfo> TierInfoPerGroupSize
-	{
-		get
-		{
-			return UIRankedModeSelectScreen.s_tierInfoPerGroupSize;
-		}
-	}
+	public static Dictionary<int, PerGroupSizeTierInfo> TierInfoPerGroupSize => s_tierInfoPerGroupSize;
 
 	internal static UIRankedModeSelectScreen Get()
 	{
-		return UIRankedModeSelectScreen.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		this.m_dropdownBtnTextLabels = this.m_filterListDropdownBtn.GetComponentsInChildren<TextMeshProUGUI>(true);
-		this.m_dropdownDivisionTextLabels = this.m_RankDropdownDivision.GetComponentsInChildren<TextMeshProUGUI>(true);
-		UIRankedModeSelectScreen.s_instance = this;
-		this.m_startQueueBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.StartQueueBtnClicked);
-		this.m_filterListDropdownBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.DropdownClicked);
-		this.m_filterListDropdownBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.RankDropdownClick;
-		this.m_soloRankTabButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.TabClicked);
-		this.m_duoRankTabButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.TabClicked);
-		this.m_teamRankTabButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.TabClicked);
-		this.m_rewardTabButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.TabClicked);
-		this.m_soloRankTabButton.spriteController.m_soundToPlay = FrontEndButtonSounds.RankTabClick;
-		this.m_duoRankTabButton.spriteController.m_soundToPlay = FrontEndButtonSounds.RankTabClick;
-		this.m_teamRankTabButton.spriteController.m_soundToPlay = FrontEndButtonSounds.RankTabClick;
-		this.m_rewardTabButton.spriteController.m_soundToPlay = FrontEndButtonSounds.RankTabClick;
-		this.m_RankDropdownDivision.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.RankListClicked);
-		this.m_RankDropdownFriends.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.RankListClicked);
-		this.m_RankDropdownTopPlayers.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.RankListClicked);
-		this.m_RankDropdownDivision.spriteController.m_soundToPlay = FrontEndButtonSounds.RankDropdownSelect;
-		this.m_RankDropdownFriends.spriteController.m_soundToPlay = FrontEndButtonSounds.RankDropdownSelect;
-		this.m_RankDropdownTopPlayers.spriteController.m_soundToPlay = FrontEndButtonSounds.RankDropdownSelect;
-		this.m_startQueueBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.QueueButtonTooltipSetup), null);
-		UIManager.SetGameObjectActive(this.m_rewardContainer, false, null);
-		this.DoFilterDropdownVisible(false);
-		this.SetDropdownDivisionText(StringUtil.TR("MyInstance", "RankMode"));
-		this.SetDropdownText(StringUtil.TR("MyInstance", "RankMode"));
-		ClientGameManager.Get().OnGroupUpdateNotification += this.HandleGroupUpdateNotification;
-		this.m_rankList.GetScrollRect().movementType = ScrollRect.MovementType.Clamped;
-		CanvasGroup component = this.m_rankList.GetComponent<CanvasGroup>();
+		m_dropdownBtnTextLabels = m_filterListDropdownBtn.GetComponentsInChildren<TextMeshProUGUI>(true);
+		m_dropdownDivisionTextLabels = m_RankDropdownDivision.GetComponentsInChildren<TextMeshProUGUI>(true);
+		s_instance = this;
+		m_startQueueBtn.spriteController.callback = StartQueueBtnClicked;
+		m_filterListDropdownBtn.spriteController.callback = DropdownClicked;
+		m_filterListDropdownBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.RankDropdownClick;
+		m_soloRankTabButton.spriteController.callback = TabClicked;
+		m_duoRankTabButton.spriteController.callback = TabClicked;
+		m_teamRankTabButton.spriteController.callback = TabClicked;
+		m_rewardTabButton.spriteController.callback = TabClicked;
+		m_soloRankTabButton.spriteController.m_soundToPlay = FrontEndButtonSounds.RankTabClick;
+		m_duoRankTabButton.spriteController.m_soundToPlay = FrontEndButtonSounds.RankTabClick;
+		m_teamRankTabButton.spriteController.m_soundToPlay = FrontEndButtonSounds.RankTabClick;
+		m_rewardTabButton.spriteController.m_soundToPlay = FrontEndButtonSounds.RankTabClick;
+		m_RankDropdownDivision.spriteController.callback = RankListClicked;
+		m_RankDropdownFriends.spriteController.callback = RankListClicked;
+		m_RankDropdownTopPlayers.spriteController.callback = RankListClicked;
+		m_RankDropdownDivision.spriteController.m_soundToPlay = FrontEndButtonSounds.RankDropdownSelect;
+		m_RankDropdownFriends.spriteController.m_soundToPlay = FrontEndButtonSounds.RankDropdownSelect;
+		m_RankDropdownTopPlayers.spriteController.m_soundToPlay = FrontEndButtonSounds.RankDropdownSelect;
+		m_startQueueBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, QueueButtonTooltipSetup);
+		UIManager.SetGameObjectActive(m_rewardContainer, false);
+		DoFilterDropdownVisible(false);
+		SetDropdownDivisionText(StringUtil.TR("MyInstance", "RankMode"));
+		SetDropdownText(StringUtil.TR("MyInstance", "RankMode"));
+		ClientGameManager.Get().OnGroupUpdateNotification += HandleGroupUpdateNotification;
+		m_rankList.GetScrollRect().movementType = ScrollRect.MovementType.Clamped;
+		CanvasGroup component = m_rankList.GetComponent<CanvasGroup>();
 		if (component != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -142,21 +154,21 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			component.blocksRaycasts = true;
 			component.interactable = true;
 		}
-		this.m_loadedData = false;
+		m_loadedData = false;
 	}
 
 	private void OnDestroy()
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -165,68 +177,68 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ClientGameManager.Get().OnGroupUpdateNotification -= this.HandleGroupUpdateNotification;
+			ClientGameManager.Get().OnGroupUpdateNotification -= HandleGroupUpdateNotification;
 		}
-		UIRankedModeSelectScreen.s_instance = null;
+		s_instance = null;
 	}
 
 	private void SetDropdownText(string text)
 	{
-		for (int i = 0; i < this.m_dropdownBtnTextLabels.Length; i++)
+		for (int i = 0; i < m_dropdownBtnTextLabels.Length; i++)
 		{
-			this.m_dropdownBtnTextLabels[i].text = text;
+			m_dropdownBtnTextLabels[i].text = text;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.SetDropdownText(string)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	private void SetDropdownDivisionText(string text)
 	{
-		for (int i = 0; i < this.m_dropdownDivisionTextLabels.Length; i++)
+		for (int i = 0; i < m_dropdownDivisionTextLabels.Length; i++)
 		{
-			this.m_dropdownDivisionTextLabels[i].text = text;
+			m_dropdownDivisionTextLabels[i].text = text;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.SetDropdownDivisionText(string)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	private void SelectRankFilter(int rank)
 	{
-		this.m_selectedRank = rank;
+		m_selectedRank = rank;
 		int num;
-		if (this.m_selectedViewTab == UIRankDisplayType.Solo)
+		if (m_selectedViewTab == UIRankDisplayType.Solo)
 		{
 			num = 1;
 		}
-		else if (this.m_selectedViewTab == UIRankDisplayType.Duo)
+		else if (m_selectedViewTab == UIRankDisplayType.Duo)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -235,9 +247,9 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.SelectRankFilter(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = 2;
 		}
@@ -246,15 +258,15 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 			num = 4;
 		}
 		int num2 = num;
-		if (this.m_selectedRank == 2)
+		if (m_selectedRank == 2)
 		{
-			this.RequestSetupFromLobby(GameType.Ranked, num2, RankedLeaderboardSpecificRequest.RequestSpecificationType.\u0012);
-			this.m_InstanceLabel.text = string.Empty;
-			UIManager.SetGameObjectActive(this.m_streakContainer, false, null);
+			RequestSetupFromLobby(GameType.Ranked, num2, RankedLeaderboardSpecificRequest.RequestSpecificationType._0012);
+			m_InstanceLabel.text = string.Empty;
+			UIManager.SetGameObjectActive(m_streakContainer, false);
 		}
-		else if (this.m_selectedRank == 0)
+		else if (m_selectedRank == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -263,11 +275,11 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			if (UIRankedModeSelectScreen.TierInfoPerGroupSize != null)
+			if (TierInfoPerGroupSize != null)
 			{
-				if (UIRankedModeSelectScreen.TierInfoPerGroupSize.ContainsKey(num2))
+				if (TierInfoPerGroupSize.ContainsKey(num2))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -276,18 +288,19 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						}
 						break;
 					}
-					if (UIRankedModeSelectScreen.TierInfoPerGroupSize[num2].OurEntry != null)
+					if (TierInfoPerGroupSize[num2].OurEntry.HasValue)
 					{
-						this.m_ourTier = UIRankedModeSelectScreen.TierInfoPerGroupSize[num2].OurEntry.Value.Tier;
-						this.m_ourDivisionId = UIRankedModeSelectScreen.TierInfoPerGroupSize[num2].OurEntry.Value.InstanceId;
-						string text;
-						string text2;
-						this.GetTierLocalizedName(this.m_ourTier, this.m_ourDivisionId, num2, out text, out text2);
-						this.m_InstanceLabel.text = text2;
-						int winStreak = UIRankedModeSelectScreen.TierInfoPerGroupSize[num2].OurEntry.Value.WinStreak;
+						RankedScoreboardEntry value = TierInfoPerGroupSize[num2].OurEntry.Value;
+						m_ourTier = value.Tier;
+						RankedScoreboardEntry value2 = TierInfoPerGroupSize[num2].OurEntry.Value;
+						m_ourDivisionId = value2.InstanceId;
+						GetTierLocalizedName(m_ourTier, m_ourDivisionId, num2, out string _, out string instanceName);
+						m_InstanceLabel.text = instanceName;
+						RankedScoreboardEntry value3 = TierInfoPerGroupSize[num2].OurEntry.Value;
+						int winStreak = value3.WinStreak;
 						if (winStreak != 0)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -296,10 +309,10 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 								}
 								break;
 							}
-							UIManager.SetGameObjectActive(this.m_streakContainer, false, null);
+							UIManager.SetGameObjectActive(m_streakContainer, false);
 							if (winStreak > 0)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -310,7 +323,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 								}
 								if (winStreak > 1)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (5)
 										{
@@ -319,16 +332,16 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 										}
 										break;
 									}
-									this.m_StreakLabel.text = string.Format(StringUtil.TR("RankedWinStreak", "RankMode"), winStreak.ToString());
+									m_StreakLabel.text = string.Format(StringUtil.TR("RankedWinStreak", "RankMode"), winStreak.ToString());
 								}
 								else
 								{
-									this.m_StreakLabel.text = StringUtil.TR("RankedOneWinStreak", "RankMode");
+									m_StreakLabel.text = StringUtil.TR("RankedOneWinStreak", "RankMode");
 								}
 							}
 							else if (winStreak < -1)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (7)
 									{
@@ -337,49 +350,49 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 									}
 									break;
 								}
-								this.m_StreakLabel.text = string.Format(StringUtil.TR("RankedLossStreak", "RankMode"), Mathf.Abs(winStreak).ToString());
+								m_StreakLabel.text = string.Format(StringUtil.TR("RankedLossStreak", "RankMode"), Mathf.Abs(winStreak).ToString());
 							}
 							else
 							{
-								this.m_StreakLabel.text = StringUtil.TR("RankedOneLossStreak", "RankMode");
+								m_StreakLabel.text = StringUtil.TR("RankedOneLossStreak", "RankMode");
 							}
 						}
 						else
 						{
-							UIManager.SetGameObjectActive(this.m_streakContainer, false, null);
+							UIManager.SetGameObjectActive(m_streakContainer, false);
 						}
-						this.RequestSetupFromLobby(GameType.Ranked, num2, RankedLeaderboardSpecificRequest.RequestSpecificationType.\u001D);
+						RequestSetupFromLobby(GameType.Ranked, num2, RankedLeaderboardSpecificRequest.RequestSpecificationType._001D);
 					}
 					else
 					{
-						this.DisplayEmptyList(true, UIRankedModeSelectScreen.EmptyListReasons.NeedToPlayMoreGames, null);
+						DisplayEmptyList(true, EmptyListReasons.NeedToPlayMoreGames);
 					}
 				}
 				else
 				{
-					this.DisplayEmptyList(true, UIRankedModeSelectScreen.EmptyListReasons.QueueIsDisabled, null);
+					DisplayEmptyList(true, EmptyListReasons.QueueIsDisabled);
 				}
 			}
 			else
 			{
-				this.DisplayEmptyList(true, UIRankedModeSelectScreen.EmptyListReasons.FailedToReceiveTeirInfo, null);
+				DisplayEmptyList(true, EmptyListReasons.FailedToReceiveTeirInfo);
 			}
 		}
 		else
 		{
-			this.RequestSetupFromLobby(GameType.Ranked, num2, RankedLeaderboardSpecificRequest.RequestSpecificationType.\u000E);
-			this.m_InstanceLabel.text = string.Empty;
-			UIManager.SetGameObjectActive(this.m_streakContainer, false, null);
+			RequestSetupFromLobby(GameType.Ranked, num2, RankedLeaderboardSpecificRequest.RequestSpecificationType._000E);
+			m_InstanceLabel.text = string.Empty;
+			UIManager.SetGameObjectActive(m_streakContainer, false);
 		}
-		this.m_RankDropdownDivision.SetSelected(this.m_selectedRank == 0, false, string.Empty, string.Empty);
-		this.m_RankDropdownFriends.SetSelected(this.m_selectedRank == 1, false, string.Empty, string.Empty);
-		this.m_RankDropdownTopPlayers.SetSelected(this.m_selectedRank == 2, false, string.Empty, string.Empty);
-		this.m_RankDropdownDivision.spriteController.SetClickable(this.m_selectedRank != 0);
-		this.m_RankDropdownFriends.spriteController.SetClickable(this.m_selectedRank != 1);
-		this.m_RankDropdownTopPlayers.spriteController.SetClickable(this.m_selectedRank != 2);
-		if (this.m_selectedRank == 0)
+		m_RankDropdownDivision.SetSelected(m_selectedRank == 0, false, string.Empty, string.Empty);
+		m_RankDropdownFriends.SetSelected(m_selectedRank == 1, false, string.Empty, string.Empty);
+		m_RankDropdownTopPlayers.SetSelected(m_selectedRank == 2, false, string.Empty, string.Empty);
+		m_RankDropdownDivision.spriteController.SetClickable(m_selectedRank != 0);
+		m_RankDropdownFriends.spriteController.SetClickable(m_selectedRank != 1);
+		m_RankDropdownTopPlayers.spriteController.SetClickable(m_selectedRank != 2);
+		if (m_selectedRank == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -388,11 +401,11 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			this.SetDropdownText(StringUtil.TR("MyInstance", "RankMode"));
+			SetDropdownText(StringUtil.TR("MyInstance", "RankMode"));
 		}
-		else if (this.m_selectedRank == 1)
+		else if (m_selectedRank == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -401,113 +414,116 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			this.SetDropdownText(StringUtil.TR("Friends", "Global"));
+			SetDropdownText(StringUtil.TR("Friends", "Global"));
 		}
-		else if (this.m_selectedRank == 2)
+		else if (m_selectedRank == 2)
 		{
-			this.SetDropdownText(StringUtil.TR("TopPlayers", "RankMode"));
+			SetDropdownText(StringUtil.TR("TopPlayers", "RankMode"));
 		}
-		this.SetFilterDropdownVisible(false);
+		SetFilterDropdownVisible(false);
 	}
 
 	public void RankListClicked(BaseEventData data)
 	{
 		PointerEventData pointerEventData = data as PointerEventData;
-		if (pointerEventData.selectedObject == this.m_RankDropdownDivision.spriteController.gameObject)
+		if (pointerEventData.selectedObject == m_RankDropdownDivision.spriteController.gameObject)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					SelectRankFilter(0);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.RankListClicked(BaseEventData)).MethodHandle;
-			}
-			this.SelectRankFilter(0);
 		}
-		else if (pointerEventData.selectedObject == this.m_RankDropdownFriends.spriteController.gameObject)
+		if (pointerEventData.selectedObject == m_RankDropdownFriends.spriteController.gameObject)
 		{
-			this.SelectRankFilter(1);
+			SelectRankFilter(1);
 		}
-		else if (pointerEventData.selectedObject == this.m_RankDropdownTopPlayers.spriteController.gameObject)
+		else if (pointerEventData.selectedObject == m_RankDropdownTopPlayers.spriteController.gameObject)
 		{
-			this.SelectRankFilter(2);
+			SelectRankFilter(2);
 		}
 	}
 
 	private void DoFilterDropdownVisible(bool visible)
 	{
-		this.filterDropdownOpen = visible;
-		UIManager.SetGameObjectActive(this.m_filterListDropdown, visible, null);
-		this.m_filterListDropdownBtn.SetSelected(visible, false, string.Empty, string.Empty);
-		if (!visible)
+		filterDropdownOpen = visible;
+		UIManager.SetGameObjectActive(m_filterListDropdown, visible);
+		m_filterListDropdownBtn.SetSelected(visible, false, string.Empty, string.Empty);
+		if (visible)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.DoFilterDropdownVisible(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_RankDropdownDivision.spriteController.ForceSetPointerEntered(false);
-			this.m_RankDropdownFriends.spriteController.ForceSetPointerEntered(false);
-			this.m_RankDropdownTopPlayers.spriteController.ForceSetPointerEntered(false);
+			m_RankDropdownDivision.spriteController.ForceSetPointerEntered(false);
+			m_RankDropdownFriends.spriteController.ForceSetPointerEntered(false);
+			m_RankDropdownTopPlayers.spriteController.ForceSetPointerEntered(false);
+			return;
 		}
 	}
 
 	public void SetFilterDropdownVisible(bool visible)
 	{
-		if (this.filterDropdownOpen != visible)
+		if (filterDropdownOpen == visible)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.SetFilterDropdownVisible(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.DoFilterDropdownVisible(visible);
+			DoFilterDropdownVisible(visible);
+			return;
 		}
 	}
 
 	public void ToggleFilterDropdown()
 	{
-		this.SetFilterDropdownVisible(!this.filterDropdownOpen);
+		SetFilterDropdownVisible(!filterDropdownOpen);
 	}
 
 	public void DropdownClicked(BaseEventData data)
 	{
-		this.ToggleFilterDropdown();
+		ToggleFilterDropdown();
 	}
 
 	public List<IDataEntry> GetRankListDisplayInfo(List<RankedScoreboardEntry> entries, int groupSize)
 	{
-		return this.GetRankingEntries(entries, groupSize).ConvertAll<IDataEntry>(new Converter<UIRankingDisplayEntry, IDataEntry>(UIRankedModeSelectScreen.RankingEntryToDataEntry));
+		return GetRankingEntries(entries, groupSize).ConvertAll<IDataEntry>(RankingEntryToDataEntry);
 	}
 
 	private int ConvertDisplayTypeToGroupSize(UIRankDisplayType type)
 	{
 		int result = 0;
-		if (this.m_selectedQueueType == UIRankDisplayType.Solo)
+		if (m_selectedQueueType == UIRankDisplayType.Solo)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -516,17 +532,17 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.ConvertDisplayTypeToGroupSize(UIRankDisplayType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = 1;
 		}
-		else if (this.m_selectedQueueType == UIRankDisplayType.Duo)
+		else if (m_selectedQueueType == UIRankDisplayType.Duo)
 		{
 			result = 2;
 		}
-		else if (this.m_selectedQueueType == UIRankDisplayType.FullTeam)
+		else if (m_selectedQueueType == UIRankDisplayType.FullTeam)
 		{
 			result = 4;
 		}
@@ -537,149 +553,11 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 	{
 		using (Dictionary<GameType, GameTypeAvailability>.Enumerator enumerator = ClientGameManager.Get().GameTypeAvailabilies.GetEnumerator())
 		{
-			while (enumerator.MoveNext())
+			while (true)
 			{
-				KeyValuePair<GameType, GameTypeAvailability> keyValuePair = enumerator.Current;
-				if (keyValuePair.Key == GameType.Ranked)
+				if (!enumerator.MoveNext())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.ServerAllowQueueRank()).MethodHandle;
-					}
-					if (keyValuePair.Value.IsActive)
-					{
-						return true;
-					}
-					return false;
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		return false;
-	}
-
-	private bool IsQueueTypeValidWithGroupSize()
-	{
-		using (Dictionary<GameType, GameTypeAvailability>.Enumerator enumerator = ClientGameManager.Get().GameTypeAvailabilies.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				KeyValuePair<GameType, GameTypeAvailability> keyValuePair = enumerator.Current;
-				if (keyValuePair.Key == GameType.Ranked)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.IsQueueTypeValidWithGroupSize()).MethodHandle;
-					}
-					int key = this.ConvertDisplayTypeToGroupSize(this.m_selectedQueueType);
-					if (!keyValuePair.Value.QueueableGroupSizes.IsNullOrEmpty<KeyValuePair<int, RequirementCollection>>())
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (keyValuePair.Value.QueueableGroupSizes.ContainsKey(key))
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							return true;
-						}
-					}
-					return false;
-				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		return false;
-	}
-
-	private void DisplayEmptyList(bool displayEmptyList, UIRankedModeSelectScreen.EmptyListReasons reason = UIRankedModeSelectScreen.EmptyListReasons.None, LocalizationPayload localizedReason = null)
-	{
-		UIManager.SetGameObjectActive(this.m_emptyRankList, displayEmptyList, null);
-		UIManager.SetGameObjectActive(this.m_rankList, !displayEmptyList, null);
-		if (this.m_emptyRankListText == null)
-		{
-			this.m_emptyRankListText = this.m_emptyRankList.GetComponentInChildren<TextMeshProUGUI>(true);
-		}
-		if (localizedReason != null)
-		{
-			this.m_emptyRankListText.text = localizedReason.ToString();
-		}
-		else if (reason == UIRankedModeSelectScreen.EmptyListReasons.None)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.DisplayEmptyList(bool, UIRankedModeSelectScreen.EmptyListReasons, LocalizationPayload)).MethodHandle;
-			}
-			if (this.m_emptyRankListText != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_selectedRank == 2)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -688,63 +566,217 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						}
 						break;
 					}
-					this.m_emptyRankListText.text = StringUtil.TR("NoPlayersRankedHighEnough", "RankMode");
+					break;
 				}
-				else
+				KeyValuePair<GameType, GameTypeAvailability> current = enumerator.Current;
+				if (current.Key == GameType.Ranked)
 				{
-					this.m_emptyRankListText.text = StringUtil.TR("PlayMoreToGetRanked", "RankMode");
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							if (current.Value.IsActive)
+							{
+								return true;
+							}
+							goto end_IL_0014;
+						}
+					}
 				}
 			}
+			end_IL_0014:;
 		}
-		else if (reason == UIRankedModeSelectScreen.EmptyListReasons.FailedToReceiveTeirInfo)
+		return false;
+	}
+
+	private bool IsQueueTypeValidWithGroupSize()
+	{
+		using (Dictionary<GameType, GameTypeAvailability>.Enumerator enumerator = ClientGameManager.Get().GameTypeAvailabilies.GetEnumerator())
 		{
-			for (;;)
+			while (true)
 			{
-				switch (4)
+				if (!enumerator.MoveNext())
 				{
-				case 0:
-					continue;
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					break;
 				}
-				break;
+				KeyValuePair<GameType, GameTypeAvailability> current = enumerator.Current;
+				if (current.Key == GameType.Ranked)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							break;
+						default:
+						{
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							int key = ConvertDisplayTypeToGroupSize(m_selectedQueueType);
+							if (!current.Value.QueueableGroupSizes.IsNullOrEmpty())
+							{
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										break;
+									default:
+										if (current.Value.QueueableGroupSizes.ContainsKey(key))
+										{
+											while (true)
+											{
+												switch (7)
+												{
+												case 0:
+													break;
+												default:
+													return true;
+												}
+											}
+										}
+										goto end_IL_0014;
+									}
+								}
+							}
+							goto end_IL_0014;
+						}
+						}
+					}
+				}
 			}
-			this.m_emptyRankListText.text = StringUtil.TR("FailedToRecieveRankData", "RankMode");
+			end_IL_0014:;
 		}
-		else if (reason == UIRankedModeSelectScreen.EmptyListReasons.QueueIsDisabled)
+		return false;
+	}
+
+	private void DisplayEmptyList(bool displayEmptyList, EmptyListReasons reason = EmptyListReasons.None, LocalizationPayload localizedReason = null)
+	{
+		UIManager.SetGameObjectActive(m_emptyRankList, displayEmptyList);
+		UIManager.SetGameObjectActive(m_rankList, !displayEmptyList);
+		if (m_emptyRankListText == null)
 		{
-			for (;;)
+			m_emptyRankListText = m_emptyRankList.GetComponentInChildren<TextMeshProUGUI>(true);
+		}
+		if (localizedReason != null)
+		{
+			m_emptyRankListText.text = localizedReason.ToString();
+			return;
+		}
+		if (reason == EmptyListReasons.None)
+		{
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (m_emptyRankListText != null)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								break;
+							default:
+								if (m_selectedRank == 2)
+								{
+									while (true)
+									{
+										switch (4)
+										{
+										case 0:
+											break;
+										default:
+											m_emptyRankListText.text = StringUtil.TR("NoPlayersRankedHighEnough", "RankMode");
+											return;
+										}
+									}
+								}
+								m_emptyRankListText.text = StringUtil.TR("PlayMoreToGetRanked", "RankMode");
+								return;
+							}
+						}
+					}
+					return;
 				}
-				break;
 			}
-			this.m_emptyRankListText.text = StringUtil.TR("QueSizeDisabled", "RankMode");
 		}
-		else if (reason == UIRankedModeSelectScreen.EmptyListReasons.NeedToPlayMoreGames)
+		if (reason == EmptyListReasons.FailedToReceiveTeirInfo)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (7)
+				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_emptyRankListText.text = StringUtil.TR("FailedToRecieveRankData", "RankMode");
+					return;
 				}
-				break;
 			}
-			this.m_emptyRankListText.text = StringUtil.TR("PlayMoreToGetRanked", "RankMode");
+		}
+		if (reason == EmptyListReasons.QueueIsDisabled)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					m_emptyRankListText.text = StringUtil.TR("QueSizeDisabled", "RankMode");
+					return;
+				}
+			}
+		}
+		if (reason != EmptyListReasons.NeedToPlayMoreGames)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			m_emptyRankListText.text = StringUtil.TR("PlayMoreToGetRanked", "RankMode");
+			return;
 		}
 	}
 
 	public void UpdateUnlockStatus()
 	{
-		QueueBlockOutReasonDetails queueBlockOutReasonDetails;
-		ClientGameManager.Get().GetBlockingQueueRestriction(GameType.Ranked, out queueBlockOutReasonDetails);
+		ClientGameManager.Get().GetBlockingQueueRestriction(GameType.Ranked, out QueueBlockOutReasonDetails Details);
 		bool flag = false;
-		if (queueBlockOutReasonDetails.RequirementTypeNotMet != null)
+		if (Details.RequirementTypeNotMet.HasValue)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -753,13 +785,13 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.UpdateUnlockStatus()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (queueBlockOutReasonDetails.RequirementTypeNotMet.Value == QueueRequirement.RequirementType.VsHumanMatches && queueBlockOutReasonDetails.CausedBySelf != null)
+			if (Details.RequirementTypeNotMet.Value == QueueRequirement.RequirementType.VsHumanMatches && Details.CausedBySelf.HasValue)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -768,9 +800,9 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					}
 					break;
 				}
-				if (queueBlockOutReasonDetails.CausedBySelf.Value)
+				if (Details.CausedBySelf.Value)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -779,9 +811,9 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						}
 						break;
 					}
-					if (queueBlockOutReasonDetails.NumGamesPlayed != null)
+					if (Details.NumGamesPlayed.HasValue)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -790,9 +822,9 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 							}
 							break;
 						}
-						if (queueBlockOutReasonDetails.NumGamesRequired != null)
+						if (Details.NumGamesRequired.HasValue)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -802,22 +834,22 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 								break;
 							}
 							flag = true;
-							this.m_UnlockText.text = string.Format("{0}/{1}", queueBlockOutReasonDetails.NumGamesPlayed.Value, queueBlockOutReasonDetails.NumGamesRequired.Value);
-							this.m_UnlockFillBar.fillAmount = UIPlayerProfileRankDisplay.GetRankFillAmt((float)queueBlockOutReasonDetails.NumGamesPlayed.Value / (float)queueBlockOutReasonDetails.NumGamesRequired.Value);
+							m_UnlockText.text = $"{Details.NumGamesPlayed.Value}/{Details.NumGamesRequired.Value}";
+							m_UnlockFillBar.fillAmount = UIPlayerProfileRankDisplay.GetRankFillAmt((float)Details.NumGamesPlayed.Value / (float)Details.NumGamesRequired.Value);
 						}
 					}
 				}
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_LockedRankedModeContainer, flag, null);
-		UIManager.SetGameObjectActive(this.m_UnlockedRankedModeContainer, !flag, null);
+		UIManager.SetGameObjectActive(m_LockedRankedModeContainer, flag);
+		UIManager.SetGameObjectActive(m_UnlockedRankedModeContainer, !flag);
 	}
 
 	private void DisplayLoading(bool displayLoading)
 	{
 		if (displayLoading)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -826,95 +858,87 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.DisplayLoading(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_rewardContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_LockedRankedModeContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_UnlockedRankedModeContainer, false, null);
+			UIManager.SetGameObjectActive(m_rewardContainer, false);
+			UIManager.SetGameObjectActive(m_LockedRankedModeContainer, false);
+			UIManager.SetGameObjectActive(m_UnlockedRankedModeContainer, false);
 		}
 		else
 		{
-			this.UpdateUnlockStatus();
+			UpdateUnlockStatus();
 		}
-		UIManager.SetGameObjectActive(this.m_loadingRankList, displayLoading, null);
-		UIManager.SetGameObjectActive(this.m_rankList, !displayLoading, null);
+		UIManager.SetGameObjectActive(m_loadingRankList, displayLoading);
+		UIManager.SetGameObjectActive(m_rankList, !displayLoading);
 	}
 
 	private void RequestSetupFromLobby(GameType gameType, int groupSize, RankedLeaderboardSpecificRequest.RequestSpecificationType specification)
 	{
-		this.DisplayLoading(true);
+		DisplayLoading(true);
 		ClientGameManager.Get().RequestRankedLeaderboardSpecific(gameType, groupSize, specification, delegate(RankedLeaderboardSpecificResponse specificResponse)
 		{
-			this.DisplayLoading(false);
+			DisplayLoading(false);
 			if (specificResponse.Success)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.<RequestSetupFromLobby>c__AnonStorey0.<>m__0(RankedLeaderboardSpecificResponse)).MethodHandle;
-				}
-				if (!specificResponse.Entries.IsNullOrEmpty<RankedScoreboardEntry>())
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						if (!specificResponse.Entries.IsNullOrEmpty())
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									break;
+								default:
+								{
+									DisplayEmptyList(false);
+									List<RankedScoreboardEntry> entries = specificResponse.Entries;
+									entries.Sort();
+									m_rankList.Setup(GetRankListDisplayInfo(entries, groupSize));
+									m_rankList.GetComponent<Mask>().enabled = false;
+									m_rankList.GetComponent<Mask>().enabled = true;
+									return;
+								}
+								}
+							}
+						}
+						DisplayEmptyList(true);
+						return;
 					}
-					this.DisplayEmptyList(false, UIRankedModeSelectScreen.EmptyListReasons.None, null);
-					List<RankedScoreboardEntry> entries = specificResponse.Entries;
-					entries.Sort();
-					this.m_rankList.Setup(this.GetRankListDisplayInfo(entries, groupSize), 0);
-					this.m_rankList.GetComponent<Mask>().enabled = false;
-					this.m_rankList.GetComponent<Mask>().enabled = true;
-				}
-				else
-				{
-					this.DisplayEmptyList(true, UIRankedModeSelectScreen.EmptyListReasons.None, null);
 				}
 			}
-			else
-			{
-				this.DisplayEmptyList(true, UIRankedModeSelectScreen.EmptyListReasons.QueueIsDisabled, specificResponse.LocalizedFailure);
-				Log.Error("Failed to load specific {0} Leaderboard info for {1}-player {2}: {3}", new object[]
-				{
-					gameType,
-					groupSize,
-					specification,
-					specificResponse.ErrorMessage
-				});
-			}
+			DisplayEmptyList(true, EmptyListReasons.QueueIsDisabled, specificResponse.LocalizedFailure);
+			Log.Error("Failed to load specific {0} Leaderboard info for {1}-player {2}: {3}", gameType, groupSize, specification, specificResponse.ErrorMessage);
 		});
 	}
 
 	public void OpenTab(UIRankDisplayType tab)
 	{
-		this.m_soloRankTabButton.SetSelected(tab == UIRankDisplayType.Solo, false, string.Empty, string.Empty);
-		this.m_duoRankTabButton.SetSelected(tab == UIRankDisplayType.Duo, false, string.Empty, string.Empty);
-		this.m_teamRankTabButton.SetSelected(tab == UIRankDisplayType.FullTeam, false, string.Empty, string.Empty);
-		this.m_rewardTabButton.SetSelected(tab == UIRankDisplayType.Reward, false, string.Empty, string.Empty);
-		UIManager.SetGameObjectActive(this.m_leaderboardContainer, tab != UIRankDisplayType.Reward, null);
-		UIManager.SetGameObjectActive(this.m_rewardContainer, tab == UIRankDisplayType.Reward, null);
+		m_soloRankTabButton.SetSelected(tab == UIRankDisplayType.Solo, false, string.Empty, string.Empty);
+		m_duoRankTabButton.SetSelected(tab == UIRankDisplayType.Duo, false, string.Empty, string.Empty);
+		m_teamRankTabButton.SetSelected(tab == UIRankDisplayType.FullTeam, false, string.Empty, string.Empty);
+		m_rewardTabButton.SetSelected(tab == UIRankDisplayType.Reward, false, string.Empty, string.Empty);
+		UIManager.SetGameObjectActive(m_leaderboardContainer, tab != UIRankDisplayType.Reward);
+		UIManager.SetGameObjectActive(m_rewardContainer, tab == UIRankDisplayType.Reward);
 		if (tab == UIRankDisplayType.Reward)
 		{
 			return;
 		}
-		if (this.m_selectedViewTab != tab)
+		if (m_selectedViewTab != tab)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -923,18 +947,18 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.OpenTab(UIRankDisplayType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_ourTier = -1;
-			this.m_ourDivisionId = -1;
+			m_ourTier = -1;
+			m_ourDivisionId = -1;
 		}
-		this.m_selectedViewTab = tab;
+		m_selectedViewTab = tab;
 		int key = 0;
 		if (tab == UIRankDisplayType.Solo)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -947,7 +971,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		}
 		else if (tab == UIRankDisplayType.Duo)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -960,7 +984,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		}
 		else if (tab == UIRankDisplayType.FullTeam)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -971,9 +995,9 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 			}
 			key = 4;
 		}
-		if (UIRankedModeSelectScreen.TierInfoPerGroupSize.ContainsKey(key) && this.m_selectedRank == 0)
+		if (TierInfoPerGroupSize.ContainsKey(key) && m_selectedRank == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -982,10 +1006,11 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			RankedScoreboardEntry? ourEntry = UIRankedModeSelectScreen.TierInfoPerGroupSize[key].OurEntry;
-			if (ourEntry != null)
+			PerGroupSizeTierInfo perGroupSizeTierInfo = TierInfoPerGroupSize[key];
+			RankedScoreboardEntry? ourEntry = perGroupSizeTierInfo.OurEntry;
+			if (ourEntry.HasValue)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -994,66 +1019,73 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					}
 					break;
 				}
-				if (UIRankedModeSelectScreen.TierInfoPerGroupSize[key].OurEntry != null)
+				if (TierInfoPerGroupSize[key].OurEntry.HasValue)
 				{
-					goto IL_16E;
+					goto IL_016e;
 				}
 			}
-			this.m_selectedRank = 2;
+			m_selectedRank = 2;
 		}
-		IL_16E:
-		this.SelectRankFilter(this.m_selectedRank);
+		goto IL_016e;
+		IL_016e:
+		SelectRankFilter(m_selectedRank);
 	}
 
 	public void TabClicked(BaseEventData data)
 	{
 		PointerEventData pointerEventData = data as PointerEventData;
-		if (pointerEventData.selectedObject == this.m_soloRankTabButton.spriteController.gameObject)
+		if (pointerEventData.selectedObject == m_soloRankTabButton.spriteController.gameObject)
 		{
-			this.OpenTab(UIRankDisplayType.Solo);
+			OpenTab(UIRankDisplayType.Solo);
+			return;
 		}
-		else if (pointerEventData.selectedObject == this.m_duoRankTabButton.spriteController.gameObject)
+		if (pointerEventData.selectedObject == m_duoRankTabButton.spriteController.gameObject)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					OpenTab(UIRankDisplayType.Duo);
+					return;
 				}
-				break;
 			}
-			if (!true)
+		}
+		if (pointerEventData.selectedObject == m_teamRankTabButton.spriteController.gameObject)
+		{
+			OpenTab(UIRankDisplayType.FullTeam);
+		}
+		else
+		{
+			if (!(pointerEventData.selectedObject == m_rewardTabButton.spriteController.gameObject))
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.TabClicked(BaseEventData)).MethodHandle;
+				return;
 			}
-			this.OpenTab(UIRankDisplayType.Duo);
-		}
-		else if (pointerEventData.selectedObject == this.m_teamRankTabButton.spriteController.gameObject)
-		{
-			this.OpenTab(UIRankDisplayType.FullTeam);
-		}
-		else if (pointerEventData.selectedObject == this.m_rewardTabButton.spriteController.gameObject)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				OpenTab(UIRankDisplayType.Reward);
+				return;
 			}
-			this.OpenTab(UIRankDisplayType.Reward);
 		}
 	}
 
 	private void HandleGroupUpdateNotification()
 	{
-		this.m_selectedQueueType = UIRankDisplayType.None;
+		m_selectedQueueType = UIRankDisplayType.None;
 		if (ClientGameManager.Get().GroupInfo.InAGroup)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1062,13 +1094,13 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.HandleGroupUpdateNotification()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (ClientGameManager.Get().GroupInfo.Members.Count == 2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1077,11 +1109,11 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					}
 					break;
 				}
-				this.m_selectedQueueType = UIRankDisplayType.Duo;
+				m_selectedQueueType = UIRankDisplayType.Duo;
 			}
 			else if (ClientGameManager.Get().GroupInfo.Members.Count == 4)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1090,33 +1122,33 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					}
 					break;
 				}
-				this.m_selectedQueueType = UIRankDisplayType.FullTeam;
+				m_selectedQueueType = UIRankDisplayType.FullTeam;
 			}
 		}
 		else
 		{
-			this.m_selectedQueueType = UIRankDisplayType.Solo;
+			m_selectedQueueType = UIRankDisplayType.Solo;
 		}
-		for (int i = 0; i < this.m_rankDisplays.Length; i++)
+		for (int i = 0; i < m_rankDisplays.Length; i++)
 		{
-			this.m_rankDisplays[i].SetAsActiveQueue(i == (int)this.m_selectedQueueType);
+			m_rankDisplays[i].SetAsActiveQueue(i == (int)m_selectedQueueType);
 		}
-		switch (this.m_selectedQueueType)
+		switch (m_selectedQueueType)
 		{
 		case UIRankDisplayType.Solo:
-			this.SetQueueButtonLabel(StringUtil.TR("StartSoloQueue", "OverlayScreensScene"));
+			SetQueueButtonLabel(StringUtil.TR("StartSoloQueue", "OverlayScreensScene"));
 			break;
 		case UIRankDisplayType.Duo:
-			this.SetQueueButtonLabel(StringUtil.TR("QueueDuoRanked", "RankMode"));
+			SetQueueButtonLabel(StringUtil.TR("QueueDuoRanked", "RankMode"));
 			break;
 		case UIRankDisplayType.FullTeam:
-			this.SetQueueButtonLabel(StringUtil.TR("QueueTeamRanked", "RankMode"));
+			SetQueueButtonLabel(StringUtil.TR("QueueTeamRanked", "RankMode"));
 			break;
 		default:
-			this.SetQueueButtonLabel(StringUtil.TR("UnableToQueue", "RankMode"));
+			SetQueueButtonLabel(StringUtil.TR("UnableToQueue", "RankMode"));
 			break;
 		}
-		this.CheckQueueButtonStatus();
+		CheckQueueButtonStatus();
 	}
 
 	private void CheckQueueButtonStatus()
@@ -1126,7 +1158,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		int num = clientGameManager.GroupInfo.Members.Count;
 		if (num < 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1135,18 +1167,18 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.CheckQueueButtonStatus()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = 1;
 		}
 		bool flag2 = clientGameManager.MeetsGroupSizeRequirement(GameType.Ranked, num);
-		bool flag3 = this.ServerAllowQueueRank();
-		bool flag4;
+		bool flag3 = ServerAllowQueueRank();
+		int num2;
 		if (clientGameManager.GameTypeAvailabilies.ContainsKey(GameType.Ranked))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1156,9 +1188,9 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				break;
 			}
 			DateTime? penaltyTimeout = clientGameManager.GameTypeAvailabilies[GameType.Ranked].PenaltyTimeout;
-			if (penaltyTimeout != null)
+			if (penaltyTimeout.HasValue)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1167,17 +1199,80 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					}
 					break;
 				}
-				flag4 = (DateTime.UtcNow < clientGameManager.GameTypeAvailabilies[GameType.Ranked].PenaltyTimeout.Value);
-				goto IL_BB;
+				num2 = ((DateTime.UtcNow < clientGameManager.GameTypeAvailabilies[GameType.Ranked].PenaltyTimeout.Value) ? 1 : 0);
+				goto IL_00bb;
 			}
 		}
-		flag4 = false;
-		IL_BB:
-		bool flag5 = flag4;
-		bool flag6 = false;
+		num2 = 0;
+		goto IL_00bb;
+		IL_01c8:
+		int num3;
+		bool flag4 = (byte)num3 != 0;
+		bool flag5;
+		bool flag6;
+		if (!flag4)
+		{
+			if (!flag3)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_cannotQueue = RankedQueueRejectionReasons.ServerDisabled;
+			}
+			else if (!flag2)
+			{
+				m_cannotQueue = RankedQueueRejectionReasons.IncorrectGroupSize;
+			}
+			else if (!flag)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_cannotQueue = RankedQueueRejectionReasons.DoNotMeetRequirements;
+			}
+			else if (flag5)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_cannotQueue = RankedQueueRejectionReasons.PenaltyTimeout;
+			}
+			else if (flag6)
+			{
+				m_cannotQueue = RankedQueueRejectionReasons.GroupTimeout;
+			}
+		}
+		else
+		{
+			m_cannotQueue = RankedQueueRejectionReasons.None;
+		}
+		SetQueueButtonClickable(flag4);
+		ForceQueueButtonCallback(m_cannotQueue != RankedQueueRejectionReasons.None);
+		return;
+		IL_00bb:
+		flag5 = ((byte)num2 != 0);
+		flag6 = false;
 		if (clientGameManager.GroupInfo.InAGroup)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1186,51 +1281,56 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			for (int i = 0; i < clientGameManager.GroupInfo.Members.Count; i++)
+			int num4 = 0;
+			while (true)
 			{
-				DateTime? penaltyTimeout2 = clientGameManager.GroupInfo.Members[i].PenaltyTimeout;
-				if (penaltyTimeout2 != null)
+				if (num4 < clientGameManager.GroupInfo.Members.Count)
 				{
-					for (;;)
+					DateTime? penaltyTimeout2 = clientGameManager.GroupInfo.Members[num4].PenaltyTimeout;
+					if (penaltyTimeout2.HasValue)
 					{
-						switch (2)
+						while (true)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (DateTime.UtcNow < clientGameManager.GroupInfo.Members[i].PenaltyTimeout.Value)
-					{
-						for (;;)
-						{
-							switch (1)
+							switch (2)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						flag6 = true;
-						goto IL_177;
+						if (DateTime.UtcNow < clientGameManager.GroupInfo.Members[num4].PenaltyTimeout.Value)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							flag6 = true;
+							break;
+						}
 					}
-				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
+					num4++;
 					continue;
+				}
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
 				break;
 			}
 		}
-		IL_177:
-		bool flag7;
-		if (this.m_selectedQueueType != UIRankDisplayType.None)
+		if (m_selectedQueueType != UIRankDisplayType.None)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1241,7 +1341,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1252,7 +1352,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				if (flag2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -1263,7 +1363,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					}
 					if (flag3)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -1274,7 +1374,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						}
 						if (!flag5)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -1283,93 +1383,36 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 								}
 								break;
 							}
-							flag7 = !flag6;
-							goto IL_1C8;
+							num3 = ((!flag6) ? 1 : 0);
+							goto IL_01c8;
 						}
 					}
 				}
 			}
 		}
-		flag7 = false;
-		IL_1C8:
-		bool flag8 = flag7;
-		if (!flag8)
-		{
-			if (!flag3)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_cannotQueue = UIRankedModeSelectScreen.RankedQueueRejectionReasons.ServerDisabled;
-			}
-			else if (!flag2)
-			{
-				this.m_cannotQueue = UIRankedModeSelectScreen.RankedQueueRejectionReasons.IncorrectGroupSize;
-			}
-			else if (!flag)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_cannotQueue = UIRankedModeSelectScreen.RankedQueueRejectionReasons.DoNotMeetRequirements;
-			}
-			else if (flag5)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_cannotQueue = UIRankedModeSelectScreen.RankedQueueRejectionReasons.PenaltyTimeout;
-			}
-			else if (flag6)
-			{
-				this.m_cannotQueue = UIRankedModeSelectScreen.RankedQueueRejectionReasons.GroupTimeout;
-			}
-		}
-		else
-		{
-			this.m_cannotQueue = UIRankedModeSelectScreen.RankedQueueRejectionReasons.None;
-		}
-		this.SetQueueButtonClickable(flag8);
-		this.ForceQueueButtonCallback(this.m_cannotQueue != UIRankedModeSelectScreen.RankedQueueRejectionReasons.None);
+		num3 = 0;
+		goto IL_01c8;
 	}
 
 	private void ForceQueueButtonCallback(bool forceCallback)
 	{
-		this.m_startQueueBtn.spriteController.SetForceHovercallback(forceCallback);
-		this.m_startQueueBtn.spriteController.SetForceExitCallback(forceCallback);
+		m_startQueueBtn.spriteController.SetForceHovercallback(forceCallback);
+		m_startQueueBtn.spriteController.SetForceExitCallback(forceCallback);
 	}
 
 	private void SetQueueButtonClickable(bool setQueueButtonClickable)
 	{
-		this.m_startQueueBtn.spriteController.SetClickable(setQueueButtonClickable);
-		UIManager.SetGameObjectActive(this.m_startQueueBtn.spriteController.m_defaultImage, setQueueButtonClickable, null);
-		UIManager.SetGameObjectActive(this.m_startQueueBtn.spriteController.m_hoverImage, setQueueButtonClickable, null);
-		UIManager.SetGameObjectActive(this.m_startQueueBtn.spriteController.m_pressedImage, setQueueButtonClickable, null);
+		m_startQueueBtn.spriteController.SetClickable(setQueueButtonClickable);
+		UIManager.SetGameObjectActive(m_startQueueBtn.spriteController.m_defaultImage, setQueueButtonClickable);
+		UIManager.SetGameObjectActive(m_startQueueBtn.spriteController.m_hoverImage, setQueueButtonClickable);
+		UIManager.SetGameObjectActive(m_startQueueBtn.spriteController.m_pressedImage, setQueueButtonClickable);
 	}
 
 	private bool QueueButtonTooltipSetup(UITooltipBase tooltip)
 	{
-		if (!this.m_startQueueBtn.spriteController.IsClickable())
+		if (!m_startQueueBtn.spriteController.IsClickable())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1378,131 +1421,63 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.QueueButtonTooltipSetup(UITooltipBase)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-			if (this.m_cannotQueue == UIRankedModeSelectScreen.RankedQueueRejectionReasons.DoNotMeetRequirements)
+			UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+			if (m_cannotQueue == RankedQueueRejectionReasons.DoNotMeetRequirements)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				ClientGameManager clientGameManager = ClientGameManager.Get();
-				LocalizationPayload blockingQueueRestriction = clientGameManager.GetBlockingQueueRestriction(GameType.Ranked);
-				string text;
-				if (blockingQueueRestriction == null)
-				{
-					for (;;)
+					ClientGameManager clientGameManager = ClientGameManager.Get();
+					LocalizationPayload blockingQueueRestriction = clientGameManager.GetBlockingQueueRestriction(GameType.Ranked);
+					string text;
+					if (blockingQueueRestriction == null)
 					{
-						switch (1)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
-						break;
+						text = StringUtil.TR("UnknownError", "Global");
 					}
-					text = StringUtil.TR("UnknownError", "Global");
+					else
+					{
+						text = blockingQueueRestriction.ToString();
+					}
+					string tooltipText = text;
+					uITitledTooltip.Setup(StringUtil.TR("DoNotMeetRequirements", "Ranked"), tooltipText, string.Empty);
+					return true;
 				}
-				else
-				{
-					text = blockingQueueRestriction.ToString();
-				}
-				string tooltipText = text;
-				uititledTooltip.Setup(StringUtil.TR("DoNotMeetRequirements", "Ranked"), tooltipText, string.Empty);
-				return true;
 			}
-			if (this.m_cannotQueue == UIRankedModeSelectScreen.RankedQueueRejectionReasons.IncorrectGroupSize)
+			if (m_cannotQueue == RankedQueueRejectionReasons.IncorrectGroupSize)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				int num = ClientGameManager.Get().GroupInfo.Members.Count;
-				if (num < 1)
-				{
-					num = 1;
-				}
-				LocalizationPayload localizationPayload = ClientGameManager.Get().GetReasonGroupSizeCantQueue(GameType.Ranked, num);
-				if (localizationPayload == null)
-				{
-					for (;;)
+					int num = ClientGameManager.Get().GroupInfo.Members.Count;
+					if (num < 1)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						num = 1;
 					}
-					localizationPayload = LocalizationPayload.Create("BadGroupSizeForQueue", "Matchmaking", new LocalizationArg[]
+					LocalizationPayload localizationPayload = ClientGameManager.Get().GetReasonGroupSizeCantQueue(GameType.Ranked, num);
+					if (localizationPayload == null)
 					{
-						LocalizationArg_Int32.Create(num)
-					});
-				}
-				uititledTooltip.Setup(StringUtil.TR("IncorrectGroupSizeTitle", "Ranked"), localizationPayload.ToString(), string.Empty);
-				return true;
-			}
-			if (this.m_cannotQueue == UIRankedModeSelectScreen.RankedQueueRejectionReasons.ServerDisabled)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				uititledTooltip.Setup(StringUtil.TR("Disabled", "Global"), string.Format(StringUtil.TR("RankedModeDisabled", "Ranked"), new object[0]), string.Empty);
-				return true;
-			}
-			if (this.m_cannotQueue == UIRankedModeSelectScreen.RankedQueueRejectionReasons.PenaltyTimeout)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ClientGameManager clientGameManager2 = ClientGameManager.Get();
-				TimeSpan difference = clientGameManager2.GameTypeAvailabilies[GameType.Ranked].PenaltyTimeout.Value - DateTime.UtcNow;
-				string timeDifferenceText = StringUtil.GetTimeDifferenceText(difference, false);
-				uititledTooltip.Setup(StringUtil.TR("YouHaveBeenPenalized", "Ranked"), string.Format(StringUtil.TR("CannotQueueUntilTimeout", "Ranked"), timeDifferenceText), string.Empty);
-				return true;
-			}
-			if (this.m_cannotQueue == UIRankedModeSelectScreen.RankedQueueRejectionReasons.GroupTimeout)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				string text2 = string.Empty;
-				for (int i = 0; i < ClientGameManager.Get().GroupInfo.Members.Count; i++)
-				{
-					DateTime? penaltyTimeout = ClientGameManager.Get().GroupInfo.Members[i].PenaltyTimeout;
-					if (penaltyTimeout != null)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -1511,20 +1486,83 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 							}
 							break;
 						}
-						text2 = text2 + ClientGameManager.Get().GroupInfo.Members[i].MemberDisplayName + " ";
+						localizationPayload = LocalizationPayload.Create("BadGroupSizeForQueue", "Matchmaking", LocalizationArg_Int32.Create(num));
 					}
+					uITitledTooltip.Setup(StringUtil.TR("IncorrectGroupSizeTitle", "Ranked"), localizationPayload.ToString(), string.Empty);
+					return true;
 				}
-				for (;;)
+			}
+			if (m_cannotQueue == RankedQueueRejectionReasons.ServerDisabled)
+			{
+				while (true)
 				{
-					switch (4)
+					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					uITitledTooltip.Setup(StringUtil.TR("Disabled", "Global"), string.Format(StringUtil.TR("RankedModeDisabled", "Ranked")), string.Empty);
+					return true;
 				}
-				uititledTooltip.Setup(StringUtil.TR("GroupMembersPenalized", "Ranked"), string.Format(StringUtil.TR("CannotQueueMembersPenalized", "Ranked"), text2), string.Empty);
-				return true;
+			}
+			if (m_cannotQueue == RankedQueueRejectionReasons.PenaltyTimeout)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					ClientGameManager clientGameManager2 = ClientGameManager.Get();
+					TimeSpan difference = clientGameManager2.GameTypeAvailabilies[GameType.Ranked].PenaltyTimeout.Value - DateTime.UtcNow;
+					string timeDifferenceText = StringUtil.GetTimeDifferenceText(difference);
+					uITitledTooltip.Setup(StringUtil.TR("YouHaveBeenPenalized", "Ranked"), string.Format(StringUtil.TR("CannotQueueUntilTimeout", "Ranked"), timeDifferenceText), string.Empty);
+					return true;
+				}
+			}
+			if (m_cannotQueue == RankedQueueRejectionReasons.GroupTimeout)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						break;
+					default:
+					{
+						string text2 = string.Empty;
+						for (int i = 0; i < ClientGameManager.Get().GroupInfo.Members.Count; i++)
+						{
+							DateTime? penaltyTimeout = ClientGameManager.Get().GroupInfo.Members[i].PenaltyTimeout;
+							if (penaltyTimeout.HasValue)
+							{
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								text2 = text2 + ClientGameManager.Get().GroupInfo.Members[i].MemberDisplayName + " ";
+							}
+						}
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								break;
+							default:
+								uITitledTooltip.Setup(StringUtil.TR("GroupMembersPenalized", "Ranked"), string.Format(StringUtil.TR("CannotQueueMembersPenalized", "Ranked"), text2), string.Empty);
+								return true;
+							}
+						}
+					}
+					}
+				}
 			}
 		}
 		return false;
@@ -1532,31 +1570,31 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 
 	public void SetQueueButtonLabel(string text)
 	{
-		for (int i = 0; i < this.m_queueButtonLabels.Length; i++)
+		for (int i = 0; i < m_queueButtonLabels.Length; i++)
 		{
-			this.m_queueButtonLabels[i].text = text;
+			m_queueButtonLabels[i].text = text;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.SetQueueButtonLabel(string)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	private List<UIRankingDisplayEntry> GetRankingEntries(List<RankedScoreboardEntry> entries, int groupSize)
 	{
 		List<UIRankingDisplayEntry> list = new List<UIRankingDisplayEntry>();
-		if (!entries.IsNullOrEmpty<RankedScoreboardEntry>())
+		if (!entries.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1565,16 +1603,16 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.GetRankingEntries(List<RankedScoreboardEntry>, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			for (int i = 0; i < entries.Count; i++)
 			{
 				UIRankingDisplayEntry item = new UIRankingDisplayEntry(entries[i], groupSize);
 				list.Add(item);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1589,16 +1627,16 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 
 	public void ProcessTierInfoPerGroupSize(Dictionary<int, PerGroupSizeTierInfo> tierInfoPerGroupSize)
 	{
-		if (UIRankedModeSelectScreen.s_tierInfoPerGroupSize != null)
+		if (s_tierInfoPerGroupSize != null)
 		{
-			using (Dictionary<int, PerGroupSizeTierInfo>.Enumerator enumerator = UIRankedModeSelectScreen.s_tierInfoPerGroupSize.GetEnumerator())
+			using (Dictionary<int, PerGroupSizeTierInfo>.Enumerator enumerator = s_tierInfoPerGroupSize.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					KeyValuePair<int, PerGroupSizeTierInfo> keyValuePair = enumerator.Current;
-					if (keyValuePair.Value.OurEntry != null)
+					KeyValuePair<int, PerGroupSizeTierInfo> current = enumerator.Current;
+					if (current.Value.OurEntry.HasValue)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -1607,16 +1645,16 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 							}
 							break;
 						}
-						if (!true)
+						if (1 == 0)
 						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.ProcessTierInfoPerGroupSize(Dictionary<int, PerGroupSizeTierInfo>)).MethodHandle;
+							/*OpCode not supported: LdMemberToken*/;
 						}
-						int key = keyValuePair.Key;
-						int tier = keyValuePair.Value.OurEntry.Value.Tier;
-						PerGroupSizeTierInfo perGroupSizeTierInfo;
-						if (tierInfoPerGroupSize.TryGetValue(key, out perGroupSizeTierInfo) && perGroupSizeTierInfo.OurEntry != null)
+						int key = current.Key;
+						RankedScoreboardEntry value = current.Value.OurEntry.Value;
+						int tier = value.Tier;
+						if (tierInfoPerGroupSize.TryGetValue(key, out PerGroupSizeTierInfo value2) && value2.OurEntry.HasValue)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -1626,14 +1664,15 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 								break;
 							}
 							string text = null;
-							int tier2 = perGroupSizeTierInfo.OurEntry.Value.Tier;
+							RankedScoreboardEntry value3 = value2.OurEntry.Value;
+							int tier2 = value3.Tier;
 							if (tier < 1 && tier2 != tier)
 							{
 								text = "TierPostPlacement";
 							}
 							else if (tier2 < tier)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -1646,7 +1685,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 							}
 							else if (tier2 > tier)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -1659,7 +1698,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 							}
 							if (text != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -1668,7 +1707,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 									}
 									break;
 								}
-								string[] array = new string[]
+								string[] array = new string[4]
 								{
 									"SoloGroup",
 									"DuoGroup",
@@ -1681,12 +1720,12 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 								{
 									Text = string.Format(StringUtil.TR(text, "RankMode"), tierName, arg),
 									MessageType = ConsoleMessageType.SystemMessage
-								}, null);
+								});
 							}
 						}
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1697,26 +1736,26 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 			}
 		}
-		UIRankedModeSelectScreen.s_tierInfoPerGroupSize = tierInfoPerGroupSize;
-		if (this.m_isVisible)
+		s_tierInfoPerGroupSize = tierInfoPerGroupSize;
+		if (!m_isVisible)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			for (int i = 0; i < this.m_rankDisplays.Length; i++)
+			for (int i = 0; i < m_rankDisplays.Length; i++)
 			{
-				this.m_rankDisplays[i].Setup((UIRankDisplayType)i, UIRankedModeSelectScreen.s_tierInfoPerGroupSize);
+				m_rankDisplays[i].Setup((UIRankDisplayType)i, s_tierInfoPerGroupSize);
 			}
 			UIRankDisplayType tab = UIRankDisplayType.Solo;
 			if (ClientGameManager.Get().GroupInfo.Members.Count == 2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1729,7 +1768,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 			}
 			else if (ClientGameManager.Get().GroupInfo.Members.Count == 4)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1740,21 +1779,72 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				tab = UIRankDisplayType.FullTeam;
 			}
-			this.OpenTab(tab);
-			this.HandleGroupUpdateNotification();
+			OpenTab(tab);
+			HandleGroupUpdateNotification();
+			return;
 		}
 	}
 
 	public void SetVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(this.m_selectScreenContainer, visible, null);
-		bool flag = this.m_isVisible != visible;
-		this.m_isVisible = visible;
-		if (visible)
+		UIManager.SetGameObjectActive(m_selectScreenContainer, visible);
+		bool flag = m_isVisible != visible;
+		m_isVisible = visible;
+		if (!visible)
 		{
-			if (flag)
+			return;
+		}
+		if (flag)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				UIManager.SetGameObjectActive(m_rankRewardDisabledNotice, !GameManager.Get().GameplayOverrides.RankedUpdatesEnabled);
+				m_rankRewardDisabledNotice.text = StringUtil.TR("RankRewardsDisabledDescription", "OverlayScreensScene");
+			}
+			else
+			{
+				UIManager.SetGameObjectActive(m_rankRewardDisabledNotice, false);
+			}
+			for (int i = 0; i < m_rankDisplays.Length; i++)
+			{
+				UIManager.SetGameObjectActive(m_rankDisplays[i].m_selectedQueueRankContainer, false);
+				UIManager.SetGameObjectActive(m_rankDisplays[i].m_InPlacementMatchesContainer, false);
+				UIManager.SetGameObjectActive(m_rankDisplays[i].m_HasRankAlreadyContainer, false);
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!m_loadedData)
+			{
+				while (true)
 				{
 					switch (4)
 					{
@@ -1763,110 +1853,59 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				m_soloRankTabButton.spriteController.SetClickable(false);
+				m_duoRankTabButton.spriteController.SetClickable(false);
+				m_teamRankTabButton.spriteController.SetClickable(false);
+				m_rewardTabButton.spriteController.SetClickable(false);
+				m_filterListDropdownBtn.spriteController.SetClickable(false);
+				m_InstanceLabel.text = string.Empty;
+			}
+			DisplayLoading(true);
+			ClientGameManager.Get().RequestRankedLeaderboardOverview(GameType.Ranked, delegate(RankedLeaderboardOverviewResponse overviewResponse)
+			{
+				DisplayLoading(false);
+				if (overviewResponse.Success)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.SetVisible(bool)).MethodHandle;
-				}
-				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIManager.SetGameObjectActive(this.m_rankRewardDisabledNotice, !GameManager.Get().GameplayOverrides.RankedUpdatesEnabled, null);
-					this.m_rankRewardDisabledNotice.text = StringUtil.TR("RankRewardsDisabledDescription", "OverlayScreensScene");
-				}
-				else
-				{
-					UIManager.SetGameObjectActive(this.m_rankRewardDisabledNotice, false, null);
-				}
-				for (int i = 0; i < this.m_rankDisplays.Length; i++)
-				{
-					UIManager.SetGameObjectActive(this.m_rankDisplays[i].m_selectedQueueRankContainer, false, null);
-					UIManager.SetGameObjectActive(this.m_rankDisplays[i].m_InPlacementMatchesContainer, false, null);
-					UIManager.SetGameObjectActive(this.m_rankDisplays[i].m_HasRankAlreadyContainer, false, null);
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!this.m_loadedData)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							m_loadedData = true;
+							m_soloRankTabButton.spriteController.SetClickable(true);
+							m_duoRankTabButton.spriteController.SetClickable(true);
+							m_teamRankTabButton.spriteController.SetClickable(true);
+							m_rewardTabButton.spriteController.SetClickable(true);
+							m_filterListDropdownBtn.spriteController.SetClickable(true);
+							ProcessTierInfoPerGroupSize(overviewResponse.TierInfoPerGroupSize);
+							return;
+						}
+					}
+				}
+				LobbyGameClientInterface lobbyInterface = ClientGameManager.Get().LobbyInterface;
+				if (lobbyInterface != null)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
 							continue;
 						}
 						break;
 					}
-					this.m_soloRankTabButton.spriteController.SetClickable(false);
-					this.m_duoRankTabButton.spriteController.SetClickable(false);
-					this.m_teamRankTabButton.spriteController.SetClickable(false);
-					this.m_rewardTabButton.spriteController.SetClickable(false);
-					this.m_filterListDropdownBtn.spriteController.SetClickable(false);
-					this.m_InstanceLabel.text = string.Empty;
+					lobbyInterface.WriteErrorToConsole(overviewResponse.LocalizedFailure, overviewResponse.ErrorMessage);
 				}
-				this.DisplayLoading(true);
-				ClientGameManager.Get().RequestRankedLeaderboardOverview(GameType.Ranked, delegate(RankedLeaderboardOverviewResponse overviewResponse)
-				{
-					this.DisplayLoading(false);
-					if (overviewResponse.Success)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIRankedModeSelectScreen.<SetVisible>m__0(RankedLeaderboardOverviewResponse)).MethodHandle;
-						}
-						this.m_loadedData = true;
-						this.m_soloRankTabButton.spriteController.SetClickable(true);
-						this.m_duoRankTabButton.spriteController.SetClickable(true);
-						this.m_teamRankTabButton.spriteController.SetClickable(true);
-						this.m_rewardTabButton.spriteController.SetClickable(true);
-						this.m_filterListDropdownBtn.spriteController.SetClickable(true);
-						this.ProcessTierInfoPerGroupSize(overviewResponse.TierInfoPerGroupSize);
-					}
-					else
-					{
-						LobbyGameClientInterface lobbyInterface = ClientGameManager.Get().LobbyInterface;
-						if (lobbyInterface != null)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							lobbyInterface.WriteErrorToConsole(overviewResponse.LocalizedFailure, overviewResponse.ErrorMessage);
-						}
-						Log.Error("Failed to load overall Ranked Leaderboard info: " + overviewResponse.ErrorMessage, new object[0]);
-					}
-				});
-			}
-			this.HandleGroupUpdateNotification();
+				Log.Error("Failed to load overall Ranked Leaderboard info: " + overviewResponse.ErrorMessage);
+			});
 		}
+		HandleGroupUpdateNotification();
 	}
 
 	public static IDataEntry RankingEntryToDataEntry(UIRankingDisplayEntry entry)
@@ -1878,25 +1917,23 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 	{
 		if (shouldBeOn)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					CheckQueueButtonStatus();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.UpdateReadyButton(bool)).MethodHandle;
-			}
-			this.CheckQueueButtonStatus();
 		}
-		else
-		{
-			this.SetQueueButtonClickable(false);
-		}
+		SetQueueButtonClickable(false);
 	}
 
 	public void StartQueueBtnClicked(BaseEventData data)
@@ -1906,25 +1943,25 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetMouseButtonDown(0))
+		if (!Input.GetMouseButtonDown(0))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool flag = true;
 			if (EventSystem.current != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -1938,7 +1975,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 					if (component != null && component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -1951,7 +1988,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						bool flag2 = false;
 						if (componentInParent == null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -1963,76 +2000,81 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 							_SelectableBtn componentInParent2 = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<_SelectableBtn>();
 							if (UIFrontEnd.Get() != null)
 							{
-								while (componentInParent2 != null)
+								while (true)
 								{
-									if (!(componentInParent2 == this.m_filterListDropdownBtn))
+									if (componentInParent2 != null)
 									{
-										for (;;)
+										if (!(componentInParent2 == m_filterListDropdownBtn))
 										{
-											switch (3)
+											while (true)
 											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (!(componentInParent2 == this.m_RankDropdownDivision))
-										{
-											for (;;)
-											{
-												switch (2)
+												switch (3)
 												{
 												case 0:
 													continue;
 												}
 												break;
 											}
-											if (!(componentInParent2 == this.m_RankDropdownFriends))
+											if (!(componentInParent2 == m_RankDropdownDivision))
 											{
-												for (;;)
+												while (true)
 												{
-													switch (4)
+													switch (2)
 													{
 													case 0:
 														continue;
 													}
 													break;
 												}
-												if (!(componentInParent2 == this.m_RankDropdownTopPlayers))
+												if (!(componentInParent2 == m_RankDropdownFriends))
 												{
-													componentInParent2 = componentInParent2.transform.parent.GetComponentInParent<_SelectableBtn>();
-													continue;
-												}
-												for (;;)
-												{
-													switch (1)
+													while (true)
 													{
-													case 0:
+														switch (4)
+														{
+														case 0:
+															continue;
+														}
+														break;
+													}
+													if (!(componentInParent2 == m_RankDropdownTopPlayers))
+													{
+														componentInParent2 = componentInParent2.transform.parent.GetComponentInParent<_SelectableBtn>();
 														continue;
 													}
-													break;
+													while (true)
+													{
+														switch (1)
+														{
+														case 0:
+															continue;
+														}
+														break;
+													}
 												}
 											}
 										}
+										flag2 = true;
 									}
-									flag2 = true;
-									goto IL_197;
-								}
-								for (;;)
-								{
-									switch (1)
+									else
 									{
-									case 0:
-										continue;
+										while (true)
+										{
+											switch (1)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
 									}
 									break;
 								}
 							}
 						}
-						IL_197:
 						if (!(componentInParent != null))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -2043,18 +2085,20 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 							}
 							if (!flag2)
 							{
-								goto IL_1B1;
+								goto IL_01b1;
 							}
 						}
 						flag = false;
 					}
 				}
 			}
-			IL_1B1:
+			goto IL_01b1;
+			IL_01b1:
 			if (flag)
 			{
-				this.DoFilterDropdownVisible(false);
+				DoFilterDropdownVisible(false);
 			}
+			return;
 		}
 	}
 
@@ -2062,7 +2106,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 	{
 		if (tier > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -2071,14 +2115,14 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.GetTierIconResource(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			ClientGameManager clientGameManager = ClientGameManager.Get();
 			if (clientGameManager != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -2088,10 +2132,9 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					break;
 				}
 				GameType key = GameType.Ranked;
-				GameTypeAvailability gameTypeAvailability;
-				if (clientGameManager.GameTypeAvailabilies.TryGetValue(key, out gameTypeAvailability))
+				if (clientGameManager.GameTypeAvailabilies.TryGetValue(key, out GameTypeAvailability value))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -2100,18 +2143,21 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						}
 						break;
 					}
-					if (tier <= gameTypeAvailability.PerTierDefinitions.Count)
+					if (tier <= value.PerTierDefinitions.Count)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+							{
+								TierDefinitions tierDefinitions = value.PerTierDefinitions[tier - 1];
+								return tierDefinitions.IconResource;
 							}
-							break;
+							}
 						}
-						return gameTypeAvailability.PerTierDefinitions[tier - 1].IconResource;
 					}
 				}
 			}
@@ -2123,7 +2169,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 	{
 		if (tier > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2132,14 +2178,14 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.IsRatchetTier(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			ClientGameManager clientGameManager = ClientGameManager.Get();
 			if (clientGameManager != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -2149,10 +2195,9 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					break;
 				}
 				GameType key = GameType.Ranked;
-				GameTypeAvailability gameTypeAvailability;
-				if (clientGameManager.GameTypeAvailabilies.TryGetValue(key, out gameTypeAvailability))
+				if (clientGameManager.GameTypeAvailabilies.TryGetValue(key, out GameTypeAvailability value))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -2161,18 +2206,21 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						}
 						break;
 					}
-					if (tier <= gameTypeAvailability.PerTierDefinitions.Count)
+					if (tier <= value.PerTierDefinitions.Count)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+							{
+								TierDefinitions tierDefinitions = value.PerTierDefinitions[tier - 1];
+								return tierDefinitions.IsRachet;
 							}
-							break;
+							}
 						}
-						return gameTypeAvailability.PerTierDefinitions[tier - 1].IsRachet;
 					}
 				}
 			}
@@ -2180,52 +2228,32 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		return false;
 	}
 
-	public unsafe void GetTierLocalizedName(int tier, int instanceId, int groupSize, out string tierName, out string instanceName)
+	public void GetTierLocalizedName(int tier, int instanceId, int groupSize, out string tierName, out string instanceName)
 	{
 		instanceName = null;
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (tier >= 2)
+					{
+						instanceName = clientGameManager.GetTierInstanceName(instanceId);
+					}
+					tierName = clientGameManager.GetTierName(GameType.Ranked, tier);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeSelectScreen.GetTierLocalizedName(int, int, int, string*, string*)).MethodHandle;
-			}
-			if (tier >= 2)
-			{
-				instanceName = clientGameManager.GetTierInstanceName(instanceId);
-			}
-			tierName = clientGameManager.GetTierName(GameType.Ranked, tier);
 		}
-		else
-		{
-			tierName = "[BadCGM]";
-		}
-	}
-
-	public enum RankedQueueRejectionReasons
-	{
-		None,
-		DoNotMeetRequirements,
-		IncorrectGroupSize,
-		ServerDisabled,
-		PenaltyTimeout,
-		GroupTimeout
-	}
-
-	public enum EmptyListReasons
-	{
-		None,
-		FailedToReceiveTeirInfo,
-		QueueIsDisabled,
-		NeedToPlayMoreGames
+		tierName = "[BadCGM]";
 	}
 }

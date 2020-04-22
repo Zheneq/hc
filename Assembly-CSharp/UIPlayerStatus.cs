@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -55,71 +54,65 @@ public class UIPlayerStatus : MonoBehaviour
 
 	public const int c_maxNumTargetingAbilityIndicators = 8;
 
-	public ActorData ActorDataRef
-	{
-		get
-		{
-			return this.m_actor;
-		}
-	}
+	public ActorData ActorDataRef => m_actor;
 
 	private void Start()
 	{
-		UIManager.SetGameObjectActive(this.m_lockIcon, false, null);
-		UIEventTriggerUtils.AddListener(this.m_hitbox.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.MouseEntered));
-		UIEventTriggerUtils.AddListener(this.m_hitbox.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.MouseExited));
-		GameFlowData.s_onGameStateChanged += this.OnGameStateChanged;
+		UIManager.SetGameObjectActive(m_lockIcon, false);
+		UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerEnter, MouseEntered);
+		UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerExit, MouseExited);
+		GameFlowData.s_onGameStateChanged += OnGameStateChanged;
 	}
 
 	private void OnDestroy()
 	{
-		GameFlowData.s_onGameStateChanged -= this.OnGameStateChanged;
+		GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
 	}
 
 	private void OnGameStateChanged(GameState newState)
 	{
 		if (newState == GameState.BothTeams_Resolve)
 		{
-			UIManager.SetGameObjectActive(this.m_targetingAbilityIconsGrid, false, null);
+			UIManager.SetGameObjectActive(m_targetingAbilityIconsGrid, false);
 		}
 	}
 
 	public void MouseEntered(BaseEventData data)
 	{
-		if (this.m_actor == null)
+		if (m_actor == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerStatus.MouseEntered(BaseEventData)).MethodHandle;
-			}
-			return;
 		}
-		AbilityData component = this.m_actor.GetComponent<AbilityData>();
+		AbilityData component = m_actor.GetComponent<AbilityData>();
 		if (component == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-			return;
 		}
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -135,18 +128,18 @@ public class UIPlayerStatus : MonoBehaviour
 		}
 		List<Ability> abilitiesAsList = component.GetAbilitiesAsList();
 		int i = 0;
-		UIManager.SetGameObjectActive(this.m_targetingAbilityIconsGrid, true, null);
+		UIManager.SetGameObjectActive(m_targetingAbilityIconsGrid, true);
 		using (List<Ability>.Enumerator enumerator = abilitiesAsList.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				Ability ability = enumerator.Current;
-				AbilityData.ActionType actionTypeOfAbility = component.GetActionTypeOfAbility(ability);
+				Ability current = enumerator.Current;
+				AbilityData.ActionType actionTypeOfAbility = component.GetActionTypeOfAbility(current);
 				bool flag = actionTypeOfAbility == AbilityData.ActionType.ABILITY_0;
-				bool flag2 = actionTypeOfAbility == AbilityData.ActionType.ABILITY_4 && ability.GetModdedCost() >= this.m_actor.\u0016();
+				bool flag2 = actionTypeOfAbility == AbilityData.ActionType.ABILITY_4 && current.GetModdedCost() >= m_actor.GetActualMaxTechPoints();
 				if (!component.HasQueuedAction(actionTypeOfAbility))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -155,13 +148,13 @@ public class UIPlayerStatus : MonoBehaviour
 						}
 						break;
 					}
-					if (!flag)
+					if (flag)
 					{
-						if (!flag2)
-						{
-							goto IL_FF;
-						}
-						for (;;)
+						continue;
+					}
+					if (flag2)
+					{
+						while (true)
 						{
 							switch (7)
 							{
@@ -170,14 +163,13 @@ public class UIPlayerStatus : MonoBehaviour
 							}
 							break;
 						}
+						continue;
 					}
-					continue;
 				}
-				IL_FF:
-				this.UpdateTargetingAbilityIndicator(ability, actionTypeOfAbility, i);
+				UpdateTargetingAbilityIndicator(current, actionTypeOfAbility, i);
 				i++;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -189,27 +181,24 @@ public class UIPlayerStatus : MonoBehaviour
 		}
 		for (int j = 0; j <= 3; j++)
 		{
-			AbilityData.ActionType actionType = AbilityData.ActionType.CARD_0 + j;
+			AbilityData.ActionType actionType = (AbilityData.ActionType)(7 + j);
 			Ability abilityOfActionType = component.GetAbilityOfActionType(actionType);
-			if (component.HasQueuedAction(actionType))
+			if (component.HasQueuedAction(actionType) && abilityOfActionType != null)
 			{
-				if (abilityOfActionType != null)
+				while (true)
 				{
-					for (;;)
+					switch (6)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					this.UpdateTargetingAbilityIndicator(abilityOfActionType, actionType, i);
-					i++;
+					break;
 				}
+				UpdateTargetingAbilityIndicator(abilityOfActionType, actionType, i);
+				i++;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
@@ -218,32 +207,31 @@ public class UIPlayerStatus : MonoBehaviour
 			}
 			break;
 		}
-		while (i < this.m_targetingAbilityIndicators.Count)
+		for (; i < m_targetingAbilityIndicators.Count; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_targetingAbilityIndicators[i], false, null);
-			i++;
+			UIManager.SetGameObjectActive(m_targetingAbilityIndicators[i], false);
 		}
-		this.UpdateCatalysts(component.GetCachedCardAbilities());
+		UpdateCatalysts(component.GetCachedCardAbilities());
 	}
 
 	public void UpdateCatalysts(List<Ability> cardAbilities)
 	{
-		if (this.m_catalsystPips == null)
+		if (m_catalsystPips == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerStatus.UpdateCatalysts(List<Ability>)).MethodHandle;
-			}
-			return;
 		}
 		bool doActive = false;
 		bool doActive2 = false;
@@ -251,9 +239,36 @@ public class UIPlayerStatus : MonoBehaviour
 		for (int i = 0; i < cardAbilities.Count; i++)
 		{
 			Ability ability = cardAbilities[i];
-			if (ability != null)
+			if (!(ability != null))
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			AbilityRunPhase abilityRunPhase = Card.AbilityPriorityToRunPhase(ability.GetRunPriority());
+			if (abilityRunPhase == AbilityRunPhase.Prep)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				doActive = true;
+			}
+			else if (abilityRunPhase == AbilityRunPhase.Dash)
+			{
+				while (true)
 				{
 					switch (1)
 					{
@@ -262,193 +277,168 @@ public class UIPlayerStatus : MonoBehaviour
 					}
 					break;
 				}
-				AbilityRunPhase abilityRunPhase = Card.AbilityPriorityToRunPhase(ability.GetRunPriority());
-				if (abilityRunPhase == AbilityRunPhase.Prep)
+				doActive2 = true;
+			}
+			else if (abilityRunPhase == AbilityRunPhase.Combat)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (7)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					doActive = true;
+					break;
 				}
-				else if (abilityRunPhase == AbilityRunPhase.Dash)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					doActive2 = true;
-				}
-				else if (abilityRunPhase == AbilityRunPhase.Combat)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					doActive3 = true;
-				}
+				doActive3 = true;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			UIManager.SetGameObjectActive(m_catalsystPips.m_PrepPhaseOn, doActive);
+			UIManager.SetGameObjectActive(m_catalsystPips.m_DashPhaseOn, doActive2);
+			UIManager.SetGameObjectActive(m_catalsystPips.m_BlastPhaseOn, doActive3);
+			UIUtils.SetAsLastSiblingIfNeeded(m_catalsystPips.transform);
+			return;
 		}
-		UIManager.SetGameObjectActive(this.m_catalsystPips.m_PrepPhaseOn, doActive, null);
-		UIManager.SetGameObjectActive(this.m_catalsystPips.m_DashPhaseOn, doActive2, null);
-		UIManager.SetGameObjectActive(this.m_catalsystPips.m_BlastPhaseOn, doActive3, null);
-		UIUtils.SetAsLastSiblingIfNeeded(this.m_catalsystPips.transform);
 	}
 
 	public void MouseExited(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_targetingAbilityIconsGrid, false, null);
+		UIManager.SetGameObjectActive(m_targetingAbilityIconsGrid, false);
 	}
 
 	public bool IsActiveDisplay()
 	{
-		return this.m_actor != null;
+		return m_actor != null;
 	}
 
 	public void Setup(ActorData actor)
 	{
-		this.m_actor = actor;
-		if (!this.IsActiveDisplay())
+		m_actor = actor;
+		if (!IsActiveDisplay())
 		{
-			UIManager.SetGameObjectActive(this, false, null);
+			UIManager.SetGameObjectActive(this, false);
 		}
 	}
 
 	public void NotifyLockedIn(bool isLocked)
 	{
-		if (this.m_lockStatus != isLocked)
+		if (m_lockStatus == isLocked)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerStatus.NotifyLockedIn(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!(this.m_actor == null))
+			if (m_actor == null)
 			{
-				ActorTurnSM component = this.m_actor.GetComponent<ActorTurnSM>();
-				if (component.AmStillDeciding())
+				while (true)
 				{
-					for (;;)
+					switch (5)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
+					default:
+						return;
+					case 0:
 						break;
 					}
-					UIManager.SetGameObjectActive(this.m_lockIcon, false, null);
 				}
-				else if (this.m_actor.\u000E())
-				{
-					UIManager.SetGameObjectActive(this.m_lockIcon, false, null);
-				}
-				else if (!this.m_lockIcon.gameObject.activeSelf)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIManager.SetGameObjectActive(this.m_lockIcon, true, null);
-					this.m_animationController.Play("PlayerStatusLockIn");
-				}
-				this.m_lockStatus = isLocked;
-				return;
 			}
-			for (;;)
+			ActorTurnSM component = m_actor.GetComponent<ActorTurnSM>();
+			if (component.AmStillDeciding())
 			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
-				break;
+				UIManager.SetGameObjectActive(m_lockIcon, false);
 			}
+			else if (m_actor.IsDead())
+			{
+				UIManager.SetGameObjectActive(m_lockIcon, false);
+			}
+			else if (!m_lockIcon.gameObject.activeSelf)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				UIManager.SetGameObjectActive(m_lockIcon, true);
+				m_animationController.Play("PlayerStatusLockIn");
+			}
+			m_lockStatus = isLocked;
+			return;
 		}
 	}
 
 	public Team GetTeam()
 	{
-		if (this.m_actor == null)
+		if (m_actor == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return Team.Invalid;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerStatus.GetTeam()).MethodHandle;
-			}
-			return Team.Invalid;
 		}
-		return this.m_actor.\u000E();
+		return m_actor.GetTeam();
 	}
 
 	private void Update()
 	{
-		if (this.m_actor == null)
+		if (m_actor == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					UIManager.SetGameObjectActive(this, false);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerStatus.Update()).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this, false, null);
-			return;
 		}
-		if (this.m_actor.\u000E())
+		if (m_actor.IsDead())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -457,41 +447,41 @@ public class UIPlayerStatus : MonoBehaviour
 				}
 				break;
 			}
-			this.m_deathText.text = string.Empty;
-			UIManager.SetGameObjectActive(this.m_border, true, null);
-			UIManager.SetGameObjectActive(this.m_overlay, true, null);
-			UIManager.SetGameObjectActive(this.m_skullIcon, true, null);
+			m_deathText.text = string.Empty;
+			UIManager.SetGameObjectActive(m_border, true);
+			UIManager.SetGameObjectActive(m_overlay, true);
+			UIManager.SetGameObjectActive(m_skullIcon, true);
 		}
 		else
 		{
-			this.m_deathText.text = string.Empty;
-			UIManager.SetGameObjectActive(this.m_border, false, null);
-			UIManager.SetGameObjectActive(this.m_overlay, false, null);
-			UIManager.SetGameObjectActive(this.m_skullIcon, false, null);
+			m_deathText.text = string.Empty;
+			UIManager.SetGameObjectActive(m_border, false);
+			UIManager.SetGameObjectActive(m_overlay, false);
+			UIManager.SetGameObjectActive(m_skullIcon, false);
 		}
-		this.UpdateInfo();
+		UpdateInfo();
 	}
 
 	private void UpdateInfo()
 	{
-		if (this.m_actor != null)
+		if (m_actor != null)
 		{
-			this.m_characterIcon.sprite = this.m_actor.\u000E().GetCharacterSelectIcon();
-			bool hasBotController = this.m_actor.HasBotController;
-			UIManager.SetGameObjectActive(this.m_botIndicator, hasBotController, null);
+			m_characterIcon.sprite = m_actor.GetCharacterResourceLink().GetCharacterSelectIcon();
+			bool hasBotController = m_actor.HasBotController;
+			UIManager.SetGameObjectActive(m_botIndicator, hasBotController);
 		}
 	}
 
 	private void OnEnable()
 	{
-		this.Update();
+		Update();
 	}
 
 	public void UpdateTargetingAbilityIndicator(Ability ability, AbilityData.ActionType action, int index)
 	{
 		if (index < 8)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -500,24 +490,24 @@ public class UIPlayerStatus : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerStatus.UpdateTargetingAbilityIndicator(Ability, AbilityData.ActionType, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			while (this.m_targetingAbilityIndicators.Count <= index)
+			while (m_targetingAbilityIndicators.Count <= index)
 			{
-				GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_targetingAbilityIndicatorPrefab);
+				GameObject gameObject = Object.Instantiate(m_targetingAbilityIndicatorPrefab);
 				UITargetingAbilityIndicator component = gameObject.GetComponent<UITargetingAbilityIndicator>();
-				component.transform.SetParent(this.m_targetingAbilityIconsGrid.transform);
+				component.transform.SetParent(m_targetingAbilityIconsGrid.transform);
 				component.transform.localScale = Vector3.one;
 				component.transform.localPosition = Vector3.zero;
 				component.transform.localEulerAngles = Vector3.zero;
-				this.m_targetingAbilityIndicators.Add(component);
+				m_targetingAbilityIndicators.Add(component);
 			}
-			this.m_targetingAbilityIndicators[index].Setup(this.m_actor, ability, action);
-			if (!this.m_targetingAbilityIndicators[index].gameObject.activeSelf)
+			m_targetingAbilityIndicators[index].Setup(m_actor, ability, action);
+			if (!m_targetingAbilityIndicators[index].gameObject.activeSelf)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -526,12 +516,12 @@ public class UIPlayerStatus : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_targetingAbilityIndicators[index], true, null);
+				UIManager.SetGameObjectActive(m_targetingAbilityIndicators[index], true);
 			}
 		}
-		if (this.m_catalsystPips == null)
+		if (m_catalsystPips == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -540,23 +530,23 @@ public class UIPlayerStatus : MonoBehaviour
 				}
 				break;
 			}
-			this.m_catalsystPips = UnityEngine.Object.Instantiate<UITargetingAbilityCatalystPipContainer>(this.m_catalystIndicatorPrefab);
-			this.m_catalsystPips.transform.SetParent(this.m_targetingAbilityIconsGrid.transform);
-			this.m_catalsystPips.transform.localScale = Vector3.one;
-			this.m_catalsystPips.transform.localPosition = Vector3.zero;
-			this.m_catalsystPips.transform.localEulerAngles = Vector3.zero;
+			m_catalsystPips = Object.Instantiate(m_catalystIndicatorPrefab);
+			m_catalsystPips.transform.SetParent(m_targetingAbilityIconsGrid.transform);
+			m_catalsystPips.transform.localScale = Vector3.one;
+			m_catalsystPips.transform.localPosition = Vector3.zero;
+			m_catalsystPips.transform.localEulerAngles = Vector3.zero;
 		}
-		UIManager.SetGameObjectActive(this.m_catalsystPips, true, null);
-		UIUtils.SetAsLastSiblingIfNeeded(this.m_catalsystPips.transform);
+		UIManager.SetGameObjectActive(m_catalsystPips, true);
+		UIUtils.SetAsLastSiblingIfNeeded(m_catalsystPips.transform);
 	}
 
 	public void TurnOffTargetingAbilityIndicator(int fromIndex)
 	{
-		for (int i = fromIndex; i < this.m_targetingAbilityIndicators.Count; i++)
+		for (int i = fromIndex; i < m_targetingAbilityIndicators.Count; i++)
 		{
-			if (this.m_targetingAbilityIndicators[i].gameObject.activeSelf)
+			if (m_targetingAbilityIndicators[i].gameObject.activeSelf)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -565,16 +555,16 @@ public class UIPlayerStatus : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerStatus.TurnOffTargetingAbilityIndicator(int)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				UIManager.SetGameObjectActive(this.m_targetingAbilityIndicators[i], false, null);
+				UIManager.SetGameObjectActive(m_targetingAbilityIndicators[i], false);
 			}
 		}
 		if (fromIndex == 0)
 		{
-			UIManager.SetGameObjectActive(this.m_catalsystPips, false, null);
+			UIManager.SetGameObjectActive(m_catalsystPips, false);
 		}
 	}
 }

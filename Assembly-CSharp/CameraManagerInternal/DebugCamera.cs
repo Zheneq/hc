@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 namespace CameraManagerInternal
@@ -17,7 +16,7 @@ namespace CameraManagerInternal
 
 		private void Start()
 		{
-			this.m_debugFOV = Camera.main.fieldOfView;
+			m_debugFOV = Camera.main.fieldOfView;
 		}
 
 		internal bool AllowCameraShake()
@@ -27,20 +26,20 @@ namespace CameraManagerInternal
 
 		internal float GetDebugFOV()
 		{
-			return this.m_debugFOV;
+			return m_debugFOV;
 		}
 
 		internal void SetDebugFOV(float fov)
 		{
-			this.m_debugFOV = fov;
+			m_debugFOV = fov;
 		}
 
 		private void Update()
 		{
 			bool flag = GameManager.IsEditorAndNotGame();
-			if (Camera.main.fieldOfView != this.m_debugFOV)
+			if (Camera.main.fieldOfView != m_debugFOV)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -49,16 +48,16 @@ namespace CameraManagerInternal
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCamera.Update()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				Camera.main.fieldOfView = this.m_debugFOV;
+				Camera.main.fieldOfView = m_debugFOV;
 			}
 			Vector3 position = base.transform.position;
 			if (!Input.GetMouseButton(2))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -69,9 +68,9 @@ namespace CameraManagerInternal
 				}
 				if (!flag)
 				{
-					goto IL_105;
+					goto IL_0105;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -82,7 +81,7 @@ namespace CameraManagerInternal
 				}
 				if (!Input.GetMouseButton(0))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -93,9 +92,9 @@ namespace CameraManagerInternal
 					}
 					if (!Input.GetMouseButton(1))
 					{
-						goto IL_105;
+						goto IL_0105;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -106,14 +105,102 @@ namespace CameraManagerInternal
 					}
 				}
 			}
-			float x = base.transform.localEulerAngles.x - Input.GetAxis("Mouse Y") * this.m_sensitivityX;
-			float y = base.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * this.m_sensitivityY;
+			Vector3 localEulerAngles = base.transform.localEulerAngles;
+			float x = localEulerAngles.x - Input.GetAxis("Mouse Y") * m_sensitivityX;
+			Vector3 localEulerAngles2 = base.transform.localEulerAngles;
+			float y = localEulerAngles2.y + Input.GetAxis("Mouse X") * m_sensitivityY;
 			base.transform.localEulerAngles = new Vector3(x, y, 0f);
-			IL_105:
-			Vector3 vector = Vector3.zero;
+			goto IL_0105;
+			IL_0142:
+			Vector3 zero;
+			if (Input.GetKey(KeyCode.W))
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				zero += base.transform.forward * m_translationSpeed;
+			}
+			if (Input.GetKey(KeyCode.A))
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				zero -= base.transform.right * m_translationSpeed;
+			}
+			if (Input.GetKey(KeyCode.S))
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				zero -= base.transform.forward * m_translationSpeed;
+			}
+			if (Input.GetKey(KeyCode.D))
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				zero += base.transform.right * m_translationSpeed;
+			}
+			if (Input.GetKey(KeyCode.R))
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				zero += base.transform.up * m_translationSpeed;
+			}
+			if (Input.GetKey(KeyCode.F))
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				zero -= base.transform.up * m_translationSpeed;
+			}
+			if (Input.GetKey(KeyCode.LeftShift))
+			{
+				zero *= m_fastSpeedMultiplier;
+			}
+			goto IL_02bd;
+			IL_0105:
+			zero = Vector3.zero;
 			if (!UIUtils.InputFieldHasFocus())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -124,9 +211,9 @@ namespace CameraManagerInternal
 				}
 				if (AccountPreferences.DoesApplicationHaveFocus())
 				{
-					goto IL_142;
+					goto IL_0142;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -136,75 +223,9 @@ namespace CameraManagerInternal
 					break;
 				}
 			}
-			if (!flag)
+			if (flag)
 			{
-				goto IL_2BD;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			IL_142:
-			if (Input.GetKey(KeyCode.W))
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				vector += base.transform.forward * this.m_translationSpeed;
-			}
-			if (Input.GetKey(KeyCode.A))
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				vector -= base.transform.right * this.m_translationSpeed;
-			}
-			if (Input.GetKey(KeyCode.S))
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				vector -= base.transform.forward * this.m_translationSpeed;
-			}
-			if (Input.GetKey(KeyCode.D))
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				vector += base.transform.right * this.m_translationSpeed;
-			}
-			if (Input.GetKey(KeyCode.R))
-			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -213,42 +234,27 @@ namespace CameraManagerInternal
 					}
 					break;
 				}
-				vector += base.transform.up * this.m_translationSpeed;
+				goto IL_0142;
 			}
-			if (Input.GetKey(KeyCode.F))
+			goto IL_02bd;
+			IL_02bd:
+			base.transform.position += zero;
+			if (!((position - base.transform.position).sqrMagnitude > float.Epsilon))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (5)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				vector -= base.transform.up * this.m_translationSpeed;
-			}
-			if (Input.GetKey(KeyCode.LeftShift))
-			{
-				vector *= this.m_fastSpeedMultiplier;
-			}
-			IL_2BD:
-			base.transform.position += vector;
-			if ((position - base.transform.position).sqrMagnitude > 1.401298E-45f)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
 				if (HUD_UI.Get() != null && HUD_UI.Get().m_mainScreenPanel != null && HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel != null)
 				{
 					HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.SortNameplates();
 				}
+				return;
 			}
 		}
 	}

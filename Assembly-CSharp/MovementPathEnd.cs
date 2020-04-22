@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class MovementPathEnd : MonoBehaviour
@@ -18,11 +17,12 @@ public class MovementPathEnd : MonoBehaviour
 	public void SetupColor(Color newColor)
 	{
 		MeshRenderer[] componentsInChildren = base.gameObject.GetComponentsInChildren<MeshRenderer>(true);
-		foreach (MeshRenderer meshRenderer in componentsInChildren)
+		MeshRenderer[] array = componentsInChildren;
+		foreach (MeshRenderer meshRenderer in array)
 		{
 			if (meshRenderer.materials.Length > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -31,9 +31,9 @@ public class MovementPathEnd : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathEnd.SetupColor(Color)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (meshRenderer.materials[0] != null)
 				{
@@ -47,7 +47,7 @@ public class MovementPathEnd : MonoBehaviour
 	{
 		if (!isChasing)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -56,19 +56,19 @@ public class MovementPathEnd : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathEnd.Setup(ActorData, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_IndicatorParent.SetActive(true);
-			this.m_animationController.Play("Initial");
+			m_IndicatorParent.SetActive(true);
+			m_animationController.Play("Initial");
 		}
 		else
 		{
-			this.m_IndicatorParent.SetActive(false);
+			m_IndicatorParent.SetActive(false);
 		}
-		this.m_movementLineParent.SetActive(!isChasing);
-		this.m_chasingParent.SetActive(isChasing);
+		m_movementLineParent.SetActive(!isChasing);
+		m_chasingParent.SetActive(isChasing);
 	}
 
 	public void Update()

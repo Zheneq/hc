@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,23 +16,24 @@ public class UISplash : MonoBehaviour
 
 	private void Update()
 	{
-		this.m_updateCount++;
-		if (this.m_updateCount == 5)
+		m_updateCount++;
+		if (m_updateCount != 5)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISplash.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_loadLevelOperation = SceneManager.LoadSceneAsync(this.m_sceneToLoad);
+			m_loadLevelOperation = SceneManager.LoadSceneAsync(m_sceneToLoad);
+			return;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,830 +7,6 @@ namespace TMPro
 {
 	public static class TMP_MaterialManager
 	{
-		private static List<TMP_MaterialManager.MaskingMaterial> m_materialList = new List<TMP_MaterialManager.MaskingMaterial>();
-
-		private static Dictionary<long, TMP_MaterialManager.FallbackMaterial> m_fallbackMaterials = new Dictionary<long, TMP_MaterialManager.FallbackMaterial>();
-
-		private static Dictionary<int, long> m_fallbackMaterialLookup = new Dictionary<int, long>();
-
-		private static List<TMP_MaterialManager.FallbackMaterial> m_fallbackCleanupList = new List<TMP_MaterialManager.FallbackMaterial>();
-
-		private static bool isFallbackListDirty;
-
-		static TMP_MaterialManager()
-		{
-			Camera.onPreRender = (Camera.CameraCallback)Delegate.Combine(Camera.onPreRender, new Camera.CameraCallback(TMP_MaterialManager.OnPreRender));
-			Canvas.willRenderCanvases += TMP_MaterialManager.OnPreRenderCanvas;
-		}
-
-		private static void OnPreRender(Camera cam)
-		{
-			if (TMP_MaterialManager.isFallbackListDirty)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.OnPreRender(Camera)).MethodHandle;
-				}
-				TMP_MaterialManager.CleanupFallbackMaterials();
-				TMP_MaterialManager.isFallbackListDirty = false;
-			}
-		}
-
-		private static void OnPreRenderCanvas()
-		{
-			if (TMP_MaterialManager.isFallbackListDirty)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.OnPreRenderCanvas()).MethodHandle;
-				}
-				TMP_MaterialManager.CleanupFallbackMaterials();
-				TMP_MaterialManager.isFallbackListDirty = false;
-			}
-		}
-
-		public static Material GetStencilMaterial(Material baseMaterial, int stencilID)
-		{
-			if (!baseMaterial.HasProperty(ShaderUtilities.ID_StencilID))
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.GetStencilMaterial(Material, int)).MethodHandle;
-				}
-				Debug.LogWarning("Selected Shader does not support Stencil Masking. Please select the Distance Field or Mobile Distance Field Shader.");
-				return baseMaterial;
-			}
-			int instanceID = baseMaterial.GetInstanceID();
-			for (int i = 0; i < TMP_MaterialManager.m_materialList.Count; i++)
-			{
-				if (TMP_MaterialManager.m_materialList[i].baseMaterial.GetInstanceID() == instanceID)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (TMP_MaterialManager.m_materialList[i].stencilID == stencilID)
-					{
-						TMP_MaterialManager.m_materialList[i].count++;
-						return TMP_MaterialManager.m_materialList[i].stencilMaterial;
-					}
-				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Material material = new Material(baseMaterial);
-			material.hideFlags = HideFlags.HideAndDontSave;
-			material.shaderKeywords = baseMaterial.shaderKeywords;
-			ShaderUtilities.GetShaderPropertyIDs();
-			material.SetFloat(ShaderUtilities.ID_StencilID, (float)stencilID);
-			material.SetFloat(ShaderUtilities.ID_StencilComp, 4f);
-			TMP_MaterialManager.MaskingMaterial maskingMaterial = new TMP_MaterialManager.MaskingMaterial();
-			maskingMaterial.baseMaterial = baseMaterial;
-			maskingMaterial.stencilMaterial = material;
-			maskingMaterial.stencilID = stencilID;
-			maskingMaterial.count = 1;
-			TMP_MaterialManager.m_materialList.Add(maskingMaterial);
-			return material;
-		}
-
-		public static void ReleaseStencilMaterial(Material stencilMaterial)
-		{
-			int instanceID = stencilMaterial.GetInstanceID();
-			for (int i = 0; i < TMP_MaterialManager.m_materialList.Count; i++)
-			{
-				if (TMP_MaterialManager.m_materialList[i].stencilMaterial.GetInstanceID() == instanceID)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.ReleaseStencilMaterial(Material)).MethodHandle;
-					}
-					if (TMP_MaterialManager.m_materialList[i].count > 1)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						TMP_MaterialManager.m_materialList[i].count--;
-					}
-					else
-					{
-						UnityEngine.Object.DestroyImmediate(TMP_MaterialManager.m_materialList[i].stencilMaterial);
-						TMP_MaterialManager.m_materialList.RemoveAt(i);
-						stencilMaterial = null;
-					}
-					return;
-				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				return;
-			}
-		}
-
-		public static Material GetBaseMaterial(Material stencilMaterial)
-		{
-			int num = TMP_MaterialManager.m_materialList.FindIndex((TMP_MaterialManager.MaskingMaterial item) => item.stencilMaterial == stencilMaterial);
-			if (num == -1)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.GetBaseMaterial(Material)).MethodHandle;
-				}
-				return null;
-			}
-			return TMP_MaterialManager.m_materialList[num].baseMaterial;
-		}
-
-		public static Material SetStencil(Material material, int stencilID)
-		{
-			material.SetFloat(ShaderUtilities.ID_StencilID, (float)stencilID);
-			if (stencilID == 0)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.SetStencil(Material, int)).MethodHandle;
-				}
-				material.SetFloat(ShaderUtilities.ID_StencilComp, 8f);
-			}
-			else
-			{
-				material.SetFloat(ShaderUtilities.ID_StencilComp, 4f);
-			}
-			return material;
-		}
-
-		public static void AddMaskingMaterial(Material baseMaterial, Material stencilMaterial, int stencilID)
-		{
-			int num = TMP_MaterialManager.m_materialList.FindIndex((TMP_MaterialManager.MaskingMaterial item) => item.stencilMaterial == stencilMaterial);
-			if (num == -1)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.AddMaskingMaterial(Material, Material, int)).MethodHandle;
-				}
-				TMP_MaterialManager.MaskingMaterial maskingMaterial = new TMP_MaterialManager.MaskingMaterial();
-				maskingMaterial.baseMaterial = baseMaterial;
-				maskingMaterial.stencilMaterial = stencilMaterial;
-				maskingMaterial.stencilID = stencilID;
-				maskingMaterial.count = 1;
-				TMP_MaterialManager.m_materialList.Add(maskingMaterial);
-			}
-			else
-			{
-				stencilMaterial = TMP_MaterialManager.m_materialList[num].stencilMaterial;
-				TMP_MaterialManager.m_materialList[num].count++;
-			}
-		}
-
-		public static void RemoveStencilMaterial(Material stencilMaterial)
-		{
-			int num = TMP_MaterialManager.m_materialList.FindIndex((TMP_MaterialManager.MaskingMaterial item) => item.stencilMaterial == stencilMaterial);
-			if (num != -1)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.RemoveStencilMaterial(Material)).MethodHandle;
-				}
-				TMP_MaterialManager.m_materialList.RemoveAt(num);
-			}
-		}
-
-		public static void ReleaseBaseMaterial(Material baseMaterial)
-		{
-			int num = TMP_MaterialManager.m_materialList.FindIndex((TMP_MaterialManager.MaskingMaterial item) => item.baseMaterial == baseMaterial);
-			if (num == -1)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.ReleaseBaseMaterial(Material)).MethodHandle;
-				}
-				Debug.Log("No Masking Material exists for " + baseMaterial.name);
-			}
-			else if (TMP_MaterialManager.m_materialList[num].count > 1)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				TMP_MaterialManager.m_materialList[num].count--;
-				Debug.Log(string.Concat(new object[]
-				{
-					"Removed (1) reference to ",
-					TMP_MaterialManager.m_materialList[num].stencilMaterial.name,
-					". There are ",
-					TMP_MaterialManager.m_materialList[num].count,
-					" references left."
-				}));
-			}
-			else
-			{
-				Debug.Log(string.Concat(new object[]
-				{
-					"Removed last reference to ",
-					TMP_MaterialManager.m_materialList[num].stencilMaterial.name,
-					" with ID ",
-					TMP_MaterialManager.m_materialList[num].stencilMaterial.GetInstanceID()
-				}));
-				UnityEngine.Object.DestroyImmediate(TMP_MaterialManager.m_materialList[num].stencilMaterial);
-				TMP_MaterialManager.m_materialList.RemoveAt(num);
-			}
-		}
-
-		public static void ClearMaterials()
-		{
-			if (TMP_MaterialManager.m_materialList.Count == 0)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.ClearMaterials()).MethodHandle;
-				}
-				Debug.Log("Material List has already been cleared.");
-				return;
-			}
-			for (int i = 0; i < TMP_MaterialManager.m_materialList.Count; i++)
-			{
-				Material stencilMaterial = TMP_MaterialManager.m_materialList[i].stencilMaterial;
-				UnityEngine.Object.DestroyImmediate(stencilMaterial);
-				TMP_MaterialManager.m_materialList.RemoveAt(i);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-
-		public static int GetStencilID(GameObject obj)
-		{
-			int num = 0;
-			Transform transform = obj.transform;
-			Transform y = TMP_MaterialManager.FindRootSortOverrideCanvas(transform);
-			if (transform == y)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.GetStencilID(GameObject)).MethodHandle;
-				}
-				return num;
-			}
-			Transform parent = transform.parent;
-			List<Mask> list = TMP_ListPool<Mask>.Get();
-			IL_CF:
-			while (parent != null)
-			{
-				parent.GetComponents<Mask>(list);
-				int i = 0;
-				while (i < list.Count)
-				{
-					Mask mask = list[i];
-					if (mask != null && mask.MaskEnabled() && mask.graphic.IsActive())
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num++;
-						IL_B1:
-						if (parent == y)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							goto IL_E7;
-						}
-						parent = parent.parent;
-						goto IL_CF;
-					}
-					else
-					{
-						i++;
-					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_B1;
-				}
-				IL_E7:
-				TMP_ListPool<Mask>.Release(list);
-				return Mathf.Min((1 << num) - 1, 0xFF);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_E7;
-			}
-		}
-
-		public static Material GetMaterialForRendering(MaskableGraphic graphic, Material baseMaterial)
-		{
-			if (baseMaterial == null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.GetMaterialForRendering(MaskableGraphic, Material)).MethodHandle;
-				}
-				return null;
-			}
-			List<IMaterialModifier> list = TMP_ListPool<IMaterialModifier>.Get();
-			graphic.GetComponents<IMaterialModifier>(list);
-			Material material = baseMaterial;
-			for (int i = 0; i < list.Count; i++)
-			{
-				material = list[i].GetModifiedMaterial(material);
-			}
-			TMP_ListPool<IMaterialModifier>.Release(list);
-			return material;
-		}
-
-		private static Transform FindRootSortOverrideCanvas(Transform start)
-		{
-			List<Canvas> list = TMP_ListPool<Canvas>.Get();
-			start.GetComponentsInParent<Canvas>(false, list);
-			Canvas canvas = null;
-			for (int i = 0; i < list.Count; i++)
-			{
-				canvas = list[i];
-				if (canvas.overrideSorting)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.FindRootSortOverrideCanvas(Transform)).MethodHandle;
-					}
-					IL_54:
-					TMP_ListPool<Canvas>.Release(list);
-					Transform result;
-					if (canvas != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						result = canvas.transform;
-					}
-					else
-					{
-						result = null;
-					}
-					return result;
-				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_54;
-			}
-		}
-
-		public static Material GetFallbackMaterial(Material sourceMaterial, Material targetMaterial)
-		{
-			int instanceID = sourceMaterial.GetInstanceID();
-			Texture texture = targetMaterial.GetTexture(ShaderUtilities.ID_MainTex);
-			int instanceID2 = texture.GetInstanceID();
-			long num = (long)instanceID << 0x20 | (long)((ulong)instanceID2);
-			TMP_MaterialManager.FallbackMaterial fallbackMaterial;
-			if (TMP_MaterialManager.m_fallbackMaterials.TryGetValue(num, out fallbackMaterial))
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.GetFallbackMaterial(Material, Material)).MethodHandle;
-				}
-				return fallbackMaterial.fallbackMaterial;
-			}
-			Material material;
-			if (sourceMaterial.HasProperty(ShaderUtilities.ID_GradientScale))
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (targetMaterial.HasProperty(ShaderUtilities.ID_GradientScale))
-				{
-					material = new Material(sourceMaterial);
-					material.hideFlags = HideFlags.HideAndDontSave;
-					material.SetTexture(ShaderUtilities.ID_MainTex, texture);
-					material.SetFloat(ShaderUtilities.ID_GradientScale, targetMaterial.GetFloat(ShaderUtilities.ID_GradientScale));
-					material.SetFloat(ShaderUtilities.ID_TextureWidth, targetMaterial.GetFloat(ShaderUtilities.ID_TextureWidth));
-					material.SetFloat(ShaderUtilities.ID_TextureHeight, targetMaterial.GetFloat(ShaderUtilities.ID_TextureHeight));
-					material.SetFloat(ShaderUtilities.ID_WeightNormal, targetMaterial.GetFloat(ShaderUtilities.ID_WeightNormal));
-					material.SetFloat(ShaderUtilities.ID_WeightBold, targetMaterial.GetFloat(ShaderUtilities.ID_WeightBold));
-					goto IL_129;
-				}
-			}
-			material = new Material(targetMaterial);
-			IL_129:
-			fallbackMaterial = new TMP_MaterialManager.FallbackMaterial();
-			fallbackMaterial.baseID = instanceID;
-			fallbackMaterial.baseMaterial = sourceMaterial;
-			fallbackMaterial.fallbackID = num;
-			fallbackMaterial.fallbackMaterial = material;
-			fallbackMaterial.count = 0;
-			TMP_MaterialManager.m_fallbackMaterials.Add(num, fallbackMaterial);
-			TMP_MaterialManager.m_fallbackMaterialLookup.Add(material.GetInstanceID(), num);
-			return material;
-		}
-
-		public static void AddFallbackMaterialReference(Material targetMaterial)
-		{
-			if (targetMaterial == null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.AddFallbackMaterialReference(Material)).MethodHandle;
-				}
-				return;
-			}
-			int instanceID = targetMaterial.GetInstanceID();
-			long key;
-			TMP_MaterialManager.FallbackMaterial fallbackMaterial;
-			if (TMP_MaterialManager.m_fallbackMaterialLookup.TryGetValue(instanceID, out key) && TMP_MaterialManager.m_fallbackMaterials.TryGetValue(key, out fallbackMaterial))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				fallbackMaterial.count++;
-			}
-		}
-
-		public static void RemoveFallbackMaterialReference(Material targetMaterial)
-		{
-			if (targetMaterial == null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.RemoveFallbackMaterialReference(Material)).MethodHandle;
-				}
-				return;
-			}
-			int instanceID = targetMaterial.GetInstanceID();
-			long key;
-			if (TMP_MaterialManager.m_fallbackMaterialLookup.TryGetValue(instanceID, out key))
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				TMP_MaterialManager.FallbackMaterial fallbackMaterial;
-				if (TMP_MaterialManager.m_fallbackMaterials.TryGetValue(key, out fallbackMaterial))
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					fallbackMaterial.count--;
-					if (fallbackMaterial.count < 1)
-					{
-						TMP_MaterialManager.m_fallbackCleanupList.Add(fallbackMaterial);
-					}
-				}
-			}
-		}
-
-		public static void CleanupFallbackMaterials()
-		{
-			if (TMP_MaterialManager.m_fallbackCleanupList.Count == 0)
-			{
-				return;
-			}
-			for (int i = 0; i < TMP_MaterialManager.m_fallbackCleanupList.Count; i++)
-			{
-				TMP_MaterialManager.FallbackMaterial fallbackMaterial = TMP_MaterialManager.m_fallbackCleanupList[i];
-				if (fallbackMaterial.count < 1)
-				{
-					Material fallbackMaterial2 = fallbackMaterial.fallbackMaterial;
-					TMP_MaterialManager.m_fallbackMaterials.Remove(fallbackMaterial.fallbackID);
-					TMP_MaterialManager.m_fallbackMaterialLookup.Remove(fallbackMaterial2.GetInstanceID());
-					UnityEngine.Object.DestroyImmediate(fallbackMaterial2);
-				}
-			}
-			TMP_MaterialManager.m_fallbackCleanupList.Clear();
-		}
-
-		public static void ReleaseFallbackMaterial(Material fallackMaterial)
-		{
-			if (fallackMaterial == null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.ReleaseFallbackMaterial(Material)).MethodHandle;
-				}
-				return;
-			}
-			int instanceID = fallackMaterial.GetInstanceID();
-			long key;
-			if (TMP_MaterialManager.m_fallbackMaterialLookup.TryGetValue(instanceID, out key))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				TMP_MaterialManager.FallbackMaterial fallbackMaterial;
-				if (TMP_MaterialManager.m_fallbackMaterials.TryGetValue(key, out fallbackMaterial))
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					fallbackMaterial.count--;
-					if (fallbackMaterial.count < 1)
-					{
-						TMP_MaterialManager.m_fallbackCleanupList.Add(fallbackMaterial);
-					}
-				}
-			}
-			TMP_MaterialManager.isFallbackListDirty = true;
-		}
-
-		public static void CopyMaterialPresetProperties(Material source, Material destination)
-		{
-			if (source.HasProperty(ShaderUtilities.ID_GradientScale))
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.CopyMaterialPresetProperties(Material, Material)).MethodHandle;
-				}
-				if (destination.HasProperty(ShaderUtilities.ID_GradientScale))
-				{
-					Texture texture = destination.GetTexture(ShaderUtilities.ID_MainTex);
-					float @float = destination.GetFloat(ShaderUtilities.ID_GradientScale);
-					float float2 = destination.GetFloat(ShaderUtilities.ID_TextureWidth);
-					float float3 = destination.GetFloat(ShaderUtilities.ID_TextureHeight);
-					float float4 = destination.GetFloat(ShaderUtilities.ID_WeightNormal);
-					float float5 = destination.GetFloat(ShaderUtilities.ID_WeightBold);
-					destination.CopyPropertiesFromMaterial(source);
-					destination.shaderKeywords = source.shaderKeywords;
-					destination.SetTexture(ShaderUtilities.ID_MainTex, texture);
-					destination.SetFloat(ShaderUtilities.ID_GradientScale, @float);
-					destination.SetFloat(ShaderUtilities.ID_TextureWidth, float2);
-					destination.SetFloat(ShaderUtilities.ID_TextureHeight, float3);
-					destination.SetFloat(ShaderUtilities.ID_WeightNormal, float4);
-					destination.SetFloat(ShaderUtilities.ID_WeightBold, float5);
-					return;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-		}
-
 		private class FallbackMaterial
 		{
 			public int baseID;
@@ -853,6 +29,830 @@ namespace TMPro
 			public int count;
 
 			public int stencilID;
+		}
+
+		private static List<MaskingMaterial> m_materialList;
+
+		private static Dictionary<long, FallbackMaterial> m_fallbackMaterials;
+
+		private static Dictionary<int, long> m_fallbackMaterialLookup;
+
+		private static List<FallbackMaterial> m_fallbackCleanupList;
+
+		private static bool isFallbackListDirty;
+
+		static TMP_MaterialManager()
+		{
+			m_materialList = new List<MaskingMaterial>();
+			m_fallbackMaterials = new Dictionary<long, FallbackMaterial>();
+			m_fallbackMaterialLookup = new Dictionary<int, long>();
+			m_fallbackCleanupList = new List<FallbackMaterial>();
+			Camera.onPreRender = (Camera.CameraCallback)Delegate.Combine(Camera.onPreRender, new Camera.CameraCallback(OnPreRender));
+			Canvas.willRenderCanvases += OnPreRenderCanvas;
+		}
+
+		private static void OnPreRender(Camera cam)
+		{
+			if (!isFallbackListDirty)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				CleanupFallbackMaterials();
+				isFallbackListDirty = false;
+				return;
+			}
+		}
+
+		private static void OnPreRenderCanvas()
+		{
+			if (!isFallbackListDirty)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				CleanupFallbackMaterials();
+				isFallbackListDirty = false;
+				return;
+			}
+		}
+
+		public static Material GetStencilMaterial(Material baseMaterial, int stencilID)
+		{
+			if (!baseMaterial.HasProperty(ShaderUtilities.ID_StencilID))
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						Debug.LogWarning("Selected Shader does not support Stencil Masking. Please select the Distance Field or Mobile Distance Field Shader.");
+						return baseMaterial;
+					}
+				}
+			}
+			int instanceID = baseMaterial.GetInstanceID();
+			for (int i = 0; i < m_materialList.Count; i++)
+			{
+				if (m_materialList[i].baseMaterial.GetInstanceID() == instanceID)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (m_materialList[i].stencilID == stencilID)
+					{
+						m_materialList[i].count++;
+						return m_materialList[i].stencilMaterial;
+					}
+				}
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				Material material = new Material(baseMaterial);
+				material.hideFlags = HideFlags.HideAndDontSave;
+				material.shaderKeywords = baseMaterial.shaderKeywords;
+				ShaderUtilities.GetShaderPropertyIDs();
+				material.SetFloat(ShaderUtilities.ID_StencilID, stencilID);
+				material.SetFloat(ShaderUtilities.ID_StencilComp, 4f);
+				MaskingMaterial maskingMaterial = new MaskingMaterial();
+				maskingMaterial.baseMaterial = baseMaterial;
+				maskingMaterial.stencilMaterial = material;
+				maskingMaterial.stencilID = stencilID;
+				maskingMaterial.count = 1;
+				m_materialList.Add(maskingMaterial);
+				return material;
+			}
+		}
+
+		public static void ReleaseStencilMaterial(Material stencilMaterial)
+		{
+			int instanceID = stencilMaterial.GetInstanceID();
+			for (int i = 0; i < m_materialList.Count; i++)
+			{
+				if (m_materialList[i].stencilMaterial.GetInstanceID() != instanceID)
+				{
+					continue;
+				}
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (m_materialList[i].count > 1)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								break;
+							default:
+								m_materialList[i].count--;
+								return;
+							}
+						}
+					}
+					UnityEngine.Object.DestroyImmediate(m_materialList[i].stencilMaterial);
+					m_materialList.RemoveAt(i);
+					stencilMaterial = null;
+					return;
+				}
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
+		}
+
+		public static Material GetBaseMaterial(Material stencilMaterial)
+		{
+			int num = m_materialList.FindIndex((MaskingMaterial item) => item.stencilMaterial == stencilMaterial);
+			if (num == -1)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return null;
+					}
+				}
+			}
+			return m_materialList[num].baseMaterial;
+		}
+
+		public static Material SetStencil(Material material, int stencilID)
+		{
+			material.SetFloat(ShaderUtilities.ID_StencilID, stencilID);
+			if (stencilID == 0)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				material.SetFloat(ShaderUtilities.ID_StencilComp, 8f);
+			}
+			else
+			{
+				material.SetFloat(ShaderUtilities.ID_StencilComp, 4f);
+			}
+			return material;
+		}
+
+		public static void AddMaskingMaterial(Material baseMaterial, Material stencilMaterial, int stencilID)
+		{
+			int num = m_materialList.FindIndex((MaskingMaterial item) => item.stencilMaterial == stencilMaterial);
+			if (num == -1)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						break;
+					default:
+					{
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						MaskingMaterial maskingMaterial = new MaskingMaterial();
+						maskingMaterial.baseMaterial = baseMaterial;
+						maskingMaterial.stencilMaterial = stencilMaterial;
+						maskingMaterial.stencilID = stencilID;
+						maskingMaterial.count = 1;
+						m_materialList.Add(maskingMaterial);
+						return;
+					}
+					}
+				}
+			}
+			stencilMaterial = m_materialList[num].stencilMaterial;
+			m_materialList[num].count++;
+		}
+
+		public static void RemoveStencilMaterial(Material stencilMaterial)
+		{
+			int num = m_materialList.FindIndex((MaskingMaterial item) => item.stencilMaterial == stencilMaterial);
+			if (num == -1)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				m_materialList.RemoveAt(num);
+				return;
+			}
+		}
+
+		public static void ReleaseBaseMaterial(Material baseMaterial)
+		{
+			int num = m_materialList.FindIndex((MaskingMaterial item) => item.baseMaterial == baseMaterial);
+			if (num == -1)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						Debug.Log("No Masking Material exists for " + baseMaterial.name);
+						return;
+					}
+				}
+			}
+			if (m_materialList[num].count > 1)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						break;
+					default:
+						m_materialList[num].count--;
+						Debug.Log("Removed (1) reference to " + m_materialList[num].stencilMaterial.name + ". There are " + m_materialList[num].count + " references left.");
+						return;
+					}
+				}
+			}
+			Debug.Log("Removed last reference to " + m_materialList[num].stencilMaterial.name + " with ID " + m_materialList[num].stencilMaterial.GetInstanceID());
+			UnityEngine.Object.DestroyImmediate(m_materialList[num].stencilMaterial);
+			m_materialList.RemoveAt(num);
+		}
+
+		public static void ClearMaterials()
+		{
+			if (m_materialList.Count == 0)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						Debug.Log("Material List has already been cleared.");
+						return;
+					}
+				}
+			}
+			for (int i = 0; i < m_materialList.Count; i++)
+			{
+				Material stencilMaterial = m_materialList[i].stencilMaterial;
+				UnityEngine.Object.DestroyImmediate(stencilMaterial);
+				m_materialList.RemoveAt(i);
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
+		}
+
+		public static int GetStencilID(GameObject obj)
+		{
+			int num = 0;
+			Transform transform = obj.transform;
+			Transform y = FindRootSortOverrideCanvas(transform);
+			if (transform == y)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return num;
+					}
+				}
+			}
+			Transform parent = transform.parent;
+			List<Mask> list = TMP_ListPool<Mask>.Get();
+			while (true)
+			{
+				if (parent != null)
+				{
+					parent.GetComponents(list);
+					int num2 = 0;
+					while (true)
+					{
+						if (num2 < list.Count)
+						{
+							Mask mask = list[num2];
+							if (mask != null && mask.MaskEnabled() && mask.graphic.IsActive())
+							{
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								num++;
+								break;
+							}
+							num2++;
+							continue;
+						}
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						break;
+					}
+					if (parent == y)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						break;
+					}
+					parent = parent.parent;
+					continue;
+				}
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				break;
+			}
+			TMP_ListPool<Mask>.Release(list);
+			return Mathf.Min((1 << num) - 1, 255);
+		}
+
+		public static Material GetMaterialForRendering(MaskableGraphic graphic, Material baseMaterial)
+		{
+			if (baseMaterial == null)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return null;
+					}
+				}
+			}
+			List<IMaterialModifier> list = TMP_ListPool<IMaterialModifier>.Get();
+			graphic.GetComponents(list);
+			Material material = baseMaterial;
+			for (int i = 0; i < list.Count; i++)
+			{
+				material = list[i].GetModifiedMaterial(material);
+			}
+			TMP_ListPool<IMaterialModifier>.Release(list);
+			return material;
+		}
+
+		private static Transform FindRootSortOverrideCanvas(Transform start)
+		{
+			List<Canvas> list = TMP_ListPool<Canvas>.Get();
+			start.GetComponentsInParent(false, list);
+			Canvas canvas = null;
+			int num = 0;
+			while (true)
+			{
+				if (num < list.Count)
+				{
+					canvas = list[num];
+					if (canvas.overrideSorting)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						break;
+					}
+					num++;
+					continue;
+				}
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				break;
+			}
+			TMP_ListPool<Canvas>.Release(list);
+			object result;
+			if (canvas != null)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				result = canvas.transform;
+			}
+			else
+			{
+				result = null;
+			}
+			return (Transform)result;
+		}
+
+		public static Material GetFallbackMaterial(Material sourceMaterial, Material targetMaterial)
+		{
+			int instanceID = sourceMaterial.GetInstanceID();
+			Texture texture = targetMaterial.GetTexture(ShaderUtilities.ID_MainTex);
+			int instanceID2 = texture.GetInstanceID();
+			long num = ((long)instanceID << 32) | (uint)instanceID2;
+			if (m_fallbackMaterials.TryGetValue(num, out FallbackMaterial value))
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return value.fallbackMaterial;
+				}
+			}
+			Material material = null;
+			if (sourceMaterial.HasProperty(ShaderUtilities.ID_GradientScale))
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (targetMaterial.HasProperty(ShaderUtilities.ID_GradientScale))
+				{
+					material = new Material(sourceMaterial);
+					material.hideFlags = HideFlags.HideAndDontSave;
+					material.SetTexture(ShaderUtilities.ID_MainTex, texture);
+					material.SetFloat(ShaderUtilities.ID_GradientScale, targetMaterial.GetFloat(ShaderUtilities.ID_GradientScale));
+					material.SetFloat(ShaderUtilities.ID_TextureWidth, targetMaterial.GetFloat(ShaderUtilities.ID_TextureWidth));
+					material.SetFloat(ShaderUtilities.ID_TextureHeight, targetMaterial.GetFloat(ShaderUtilities.ID_TextureHeight));
+					material.SetFloat(ShaderUtilities.ID_WeightNormal, targetMaterial.GetFloat(ShaderUtilities.ID_WeightNormal));
+					material.SetFloat(ShaderUtilities.ID_WeightBold, targetMaterial.GetFloat(ShaderUtilities.ID_WeightBold));
+					goto IL_0129;
+				}
+			}
+			material = new Material(targetMaterial);
+			goto IL_0129;
+			IL_0129:
+			value = new FallbackMaterial();
+			value.baseID = instanceID;
+			value.baseMaterial = sourceMaterial;
+			value.fallbackID = num;
+			value.fallbackMaterial = material;
+			value.count = 0;
+			m_fallbackMaterials.Add(num, value);
+			m_fallbackMaterialLookup.Add(material.GetInstanceID(), num);
+			return material;
+		}
+
+		public static void AddFallbackMaterialReference(Material targetMaterial)
+		{
+			if (targetMaterial == null)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return;
+					}
+				}
+			}
+			int instanceID = targetMaterial.GetInstanceID();
+			if (!m_fallbackMaterialLookup.TryGetValue(instanceID, out long value) || !m_fallbackMaterials.TryGetValue(value, out FallbackMaterial value2))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				value2.count++;
+				return;
+			}
+		}
+
+		public static void RemoveFallbackMaterialReference(Material targetMaterial)
+		{
+			if (targetMaterial == null)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return;
+					}
+				}
+			}
+			int instanceID = targetMaterial.GetInstanceID();
+			if (!m_fallbackMaterialLookup.TryGetValue(instanceID, out long value))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				if (!m_fallbackMaterials.TryGetValue(value, out FallbackMaterial value2))
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					value2.count--;
+					if (value2.count < 1)
+					{
+						m_fallbackCleanupList.Add(value2);
+					}
+					return;
+				}
+			}
+		}
+
+		public static void CleanupFallbackMaterials()
+		{
+			if (m_fallbackCleanupList.Count == 0)
+			{
+				return;
+			}
+			for (int i = 0; i < m_fallbackCleanupList.Count; i++)
+			{
+				FallbackMaterial fallbackMaterial = m_fallbackCleanupList[i];
+				if (fallbackMaterial.count < 1)
+				{
+					Material fallbackMaterial2 = fallbackMaterial.fallbackMaterial;
+					m_fallbackMaterials.Remove(fallbackMaterial.fallbackID);
+					m_fallbackMaterialLookup.Remove(fallbackMaterial2.GetInstanceID());
+					UnityEngine.Object.DestroyImmediate(fallbackMaterial2);
+					fallbackMaterial2 = null;
+				}
+			}
+			m_fallbackCleanupList.Clear();
+		}
+
+		public static void ReleaseFallbackMaterial(Material fallackMaterial)
+		{
+			if (fallackMaterial == null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return;
+					}
+				}
+			}
+			int instanceID = fallackMaterial.GetInstanceID();
+			if (m_fallbackMaterialLookup.TryGetValue(instanceID, out long value))
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (m_fallbackMaterials.TryGetValue(value, out FallbackMaterial value2))
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					value2.count--;
+					if (value2.count < 1)
+					{
+						m_fallbackCleanupList.Add(value2);
+					}
+				}
+			}
+			isFallbackListDirty = true;
+		}
+
+		public static void CopyMaterialPresetProperties(Material source, Material destination)
+		{
+			if (!source.HasProperty(ShaderUtilities.ID_GradientScale))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (!destination.HasProperty(ShaderUtilities.ID_GradientScale))
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						default:
+							return;
+						case 0:
+							break;
+						}
+					}
+				}
+				Texture texture = destination.GetTexture(ShaderUtilities.ID_MainTex);
+				float @float = destination.GetFloat(ShaderUtilities.ID_GradientScale);
+				float float2 = destination.GetFloat(ShaderUtilities.ID_TextureWidth);
+				float float3 = destination.GetFloat(ShaderUtilities.ID_TextureHeight);
+				float float4 = destination.GetFloat(ShaderUtilities.ID_WeightNormal);
+				float float5 = destination.GetFloat(ShaderUtilities.ID_WeightBold);
+				destination.CopyPropertiesFromMaterial(source);
+				destination.shaderKeywords = source.shaderKeywords;
+				destination.SetTexture(ShaderUtilities.ID_MainTex, texture);
+				destination.SetFloat(ShaderUtilities.ID_GradientScale, @float);
+				destination.SetFloat(ShaderUtilities.ID_TextureWidth, float2);
+				destination.SetFloat(ShaderUtilities.ID_TextureHeight, float3);
+				destination.SetFloat(ShaderUtilities.ID_WeightNormal, float4);
+				destination.SetFloat(ShaderUtilities.ID_WeightBold, float5);
+				return;
+			}
 		}
 	}
 }

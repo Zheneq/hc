@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public struct CharacterVisualInfo
@@ -11,53 +11,55 @@ public struct CharacterVisualInfo
 
 	public CharacterVisualInfo(int skin, int pattern, int color)
 	{
-		this.skinIndex = skin;
-		this.patternIndex = pattern;
-		this.colorIndex = color;
+		skinIndex = skin;
+		patternIndex = pattern;
+		colorIndex = color;
 	}
 
 	public override string ToString()
 	{
-		return string.Format("skin: {0}, pattern: {1}, color: {2}", this.skinIndex, this.patternIndex, this.colorIndex);
+		return $"skin: {skinIndex}, pattern: {patternIndex}, color: {colorIndex}";
 	}
 
 	public override bool Equals(object obj)
 	{
 		if (obj is CharacterVisualInfo)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterVisualInfo.Equals(object)).MethodHandle;
-			}
-			CharacterVisualInfo characterVisualInfo = (CharacterVisualInfo)obj;
-			bool result;
-			if (this.skinIndex == characterVisualInfo.skinIndex && this.patternIndex == characterVisualInfo.patternIndex)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					CharacterVisualInfo characterVisualInfo = (CharacterVisualInfo)obj;
+					int result;
+					if (skinIndex == characterVisualInfo.skinIndex && patternIndex == characterVisualInfo.patternIndex)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						result = ((colorIndex == characterVisualInfo.colorIndex) ? 1 : 0);
+					}
+					else
+					{
+						result = 0;
+					}
+					return (byte)result != 0;
 				}
-				result = (this.colorIndex == characterVisualInfo.colorIndex);
+				}
 			}
-			else
-			{
-				result = false;
-			}
-			return result;
 		}
 		return false;
 	}
@@ -69,16 +71,17 @@ public struct CharacterVisualInfo
 
 	public void ResetToDefault()
 	{
-		this.skinIndex = 0;
-		this.patternIndex = 0;
-		this.colorIndex = 0;
+		skinIndex = 0;
+		patternIndex = 0;
+		colorIndex = 0;
 	}
 
 	public bool IsDefaultSelection()
 	{
-		if (this.skinIndex == 0)
+		int result;
+		if (skinIndex == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -87,15 +90,19 @@ public struct CharacterVisualInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterVisualInfo.IsDefaultSelection()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.patternIndex == 0)
+			if (patternIndex == 0)
 			{
-				return this.colorIndex == 0;
+				result = ((colorIndex == 0) ? 1 : 0);
+				goto IL_002f;
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_002f;
+		IL_002f:
+		return (byte)result != 0;
 	}
 }

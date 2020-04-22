@@ -1,27 +1,26 @@
-﻿using System;
-
 public class PowerUp_Heal_Ability : Ability
 {
-	public int m_healAmount = 0x1E;
+	public int m_healAmount = 30;
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (!(m_abilityName == "Base Ability"))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp_Heal_Ability.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Heal PowerUp";
+			m_abilityName = "Heal PowerUp";
+			return;
 		}
 	}
 }

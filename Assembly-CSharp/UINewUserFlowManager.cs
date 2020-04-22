@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 public class UINewUserFlowManager
 {
@@ -14,28 +14,28 @@ public class UINewUserFlowManager
 
 	public static void MarkShowPlayHighlight(bool shouldShow)
 	{
-		UINewUserFlowManager.m_showPlayHighlight = shouldShow;
+		m_showPlayHighlight = shouldShow;
 	}
 
 	public static void MarkSeasonsNew(bool areSeasonsNew)
 	{
-		UINewUserFlowManager.m_areSeasonsNew = areSeasonsNew;
+		m_areSeasonsNew = areSeasonsNew;
 	}
 
 	public static void OnNavBarDisplayed()
 	{
-		UINewUserFlowManager.Highlight(UINewUserHighlightsController.DisplayState.PlayButton, UINewUserFlowManager.m_showPlayHighlight);
+		Highlight(UINewUserHighlightsController.DisplayState.PlayButton, m_showPlayHighlight);
 	}
 
 	public static void OnGameModeButtonDisplayed()
 	{
-		UINewUserFlowManager.Unhighlight(UINewUserFlowManager.m_showPlayHighlight);
-		UINewUserFlowManager.m_showPlayHighlight = false;
+		Unhighlight(m_showPlayHighlight);
+		m_showPlayHighlight = false;
 	}
 
 	public static void OnCharacterSelectDisplayed()
 	{
-		UINewUserFlowManager.Unhighlight(UINewUserFlowManager.m_showPlayHighlight);
+		Unhighlight(m_showPlayHighlight);
 	}
 
 	public static void OnDoneWithReadyButton()
@@ -45,94 +45,94 @@ public class UINewUserFlowManager
 	public static void OnHasLootMatrix()
 	{
 		AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.NumLootMatrixesOpened;
-		int uistate = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState);
-		UINewUserFlowManager.Highlight(UINewUserHighlightsController.DisplayState.LootMatrixNavButton, uistate == 0);
+		int uIState = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState);
+		Highlight(UINewUserHighlightsController.DisplayState.LootMatrixNavButton, uIState == 0);
 	}
 
 	public static void OnLootMatrixScreenVisible()
 	{
 		AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.NumLootMatrixesOpened;
-		int uistate = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState);
-		UINewUserFlowManager.Unhighlight(uistate == 0);
+		int uIState = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState);
+		Unhighlight(uIState == 0);
 	}
 
 	public static void OnMainLootMatrixDisplayed()
 	{
 		AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.NumLootMatrixesOpened;
-		int uistate = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState);
-		UINewUserFlowManager.Highlight(UINewUserHighlightsController.DisplayState.MainLootMatrixOpenButton, uistate == 0);
+		int uIState = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState);
+		Highlight(UINewUserHighlightsController.DisplayState.MainLootMatrixOpenButton, uIState == 0);
 	}
 
 	public static void OnSpecialLootMatrixDisplayed()
 	{
 		AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.NumLootMatrixesOpened;
-		int uistate = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState);
-		UINewUserFlowManager.Highlight(UINewUserHighlightsController.DisplayState.SpecialLootMatrixOpenButton, uistate == 0);
+		int uIState = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState);
+		Highlight(UINewUserHighlightsController.DisplayState.SpecialLootMatrixOpenButton, uIState == 0);
 	}
 
 	public static void OnMainLootMatrixOpenClicked()
 	{
 		AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.NumLootMatrixesOpened;
-		int uistate = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState);
-		UINewUserFlowManager.Unhighlight(uistate == 0);
+		int uIState = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState);
+		Unhighlight(uIState == 0);
 	}
 
 	public static void OnFreelancerCurrencyOwned()
 	{
 		AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.HasViewedFluxHighlight;
 		bool flag = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState) > 0;
-		UINewUserFlowManager.Highlight(UINewUserHighlightsController.DisplayState.FluxEarned, !flag);
+		Highlight(UINewUserHighlightsController.DisplayState.FluxEarned, !flag);
 	}
 
 	public static void OnFreelancerTokenOwned()
 	{
 		AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.HasViewedFreelancerTokenHighlight;
 		bool flag = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState) > 0;
-		UINewUserFlowManager.Highlight(UINewUserHighlightsController.DisplayState.FreelancerToken1, !flag);
+		Highlight(UINewUserHighlightsController.DisplayState.FreelancerToken1, !flag);
 	}
 
 	public static void OnGGBoostOwned()
 	{
 		AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.HasViewedGGHighlight;
 		bool flag = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState) > 0;
-		UINewUserFlowManager.Highlight(UINewUserHighlightsController.DisplayState.GGEarned, !flag);
+		Highlight(UINewUserHighlightsController.DisplayState.GGEarned, !flag);
 	}
 
 	public static void OnDailyMissionsViewed()
 	{
 		AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.NumDailiesChosen;
-		UINewUserFlowManager.m_areQuestsNew = (ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState) == 0);
-		UINewUserFlowManager.Highlight(UINewUserHighlightsController.DisplayState.DailyContracts, UINewUserFlowManager.m_areQuestsNew);
+		m_areQuestsNew = (ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState) == 0);
+		Highlight(UINewUserHighlightsController.DisplayState.DailyContracts, m_areQuestsNew);
 	}
 
 	public static void OnDailyMissionsSelected()
 	{
-		UINewUserFlowManager.Highlight(UINewUserHighlightsController.DisplayState.DailyContractsPowerUp, UINewUserFlowManager.m_areQuestsNew);
+		Highlight(UINewUserHighlightsController.DisplayState.DailyContractsPowerUp, m_areQuestsNew);
 	}
 
 	public static void OnDailyMissionsClosed()
 	{
-		UINewUserFlowManager.m_areQuestsNew = false;
+		m_areQuestsNew = false;
 	}
 
 	public static void OnTutorialSeasonEnded()
 	{
-		UINewUserFlowManager.Highlight(UINewUserHighlightsController.DisplayState.ChapterInfoButton, UINewUserFlowManager.m_areSeasonsNew);
+		Highlight(UINewUserHighlightsController.DisplayState.ChapterInfoButton, m_areSeasonsNew);
 	}
 
 	public static void OnChapterMoreInfoClicked()
 	{
-		UINewUserFlowManager.Unhighlight(UINewUserFlowManager.m_areSeasonsNew);
+		Unhighlight(m_areSeasonsNew);
 	}
 
 	public static void OnChapterMoreInfoClosed()
 	{
-		UINewUserFlowManager.Highlight(UINewUserHighlightsController.DisplayState.SeasonNavButton, UINewUserFlowManager.m_areSeasonsNew);
+		Highlight(UINewUserHighlightsController.DisplayState.SeasonNavButton, m_areSeasonsNew);
 	}
 
 	public static void OnSeasonsTabClicked()
 	{
-		UINewUserFlowManager.Highlight(UINewUserHighlightsController.DisplayState.SeasonsChapters, UINewUserFlowManager.m_areSeasonsNew);
+		Highlight(UINewUserHighlightsController.DisplayState.SeasonsChapters, m_areSeasonsNew);
 	}
 
 	public static UINewUserHighlightsController GetController()
@@ -142,116 +142,120 @@ public class UINewUserFlowManager
 
 	public static void HighlightQueued()
 	{
-		if (UINewUserFlowManager.m_queuedState != UINewUserHighlightsController.DisplayState.None)
+		if (m_queuedState != 0)
 		{
-			UINewUserFlowManager.Highlight(UINewUserFlowManager.m_queuedState, true);
+			Highlight(m_queuedState, true);
 		}
 	}
 
 	public static void HideDisplay()
 	{
-		UINewUserHighlightsController controller = UINewUserFlowManager.GetController();
-		if (controller)
+		UINewUserHighlightsController controller = GetController();
+		if (!controller)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewUserFlowManager.HideDisplay()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			controller.HideDisplay();
+			return;
 		}
 	}
 
 	private static bool IsDebugMode()
 	{
-		UINewUserHighlightsController controller = UINewUserFlowManager.GetController();
-		if (controller)
+		UINewUserHighlightsController controller = GetController();
+		if ((bool)controller)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return controller.m_debugMode;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewUserFlowManager.IsDebugMode()).MethodHandle;
-			}
-			return controller.m_debugMode;
 		}
 		return false;
 	}
 
 	private static void Highlight(UINewUserHighlightsController.DisplayState state, bool shouldShow)
 	{
-		if ((shouldShow && !UINewUserFlowManager.m_shown[(int)state]) || UINewUserFlowManager.IsDebugMode())
+		if ((!shouldShow || m_shown[(int)state]) && !IsDebugMode())
 		{
-			if (!(UINewUserFlowManager.GetController() == null))
+			return;
+		}
+		if (!(GetController() == null))
+		{
+			while (true)
 			{
-				for (;;)
+				switch (4)
 				{
-					switch (4)
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (UITutorialSeasonInterstitial.Get() != null)
+			{
+				while (true)
+				{
+					switch (7)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
+				if (UITutorialSeasonInterstitial.Get().IsVisible())
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UINewUserFlowManager.Highlight(UINewUserHighlightsController.DisplayState, bool)).MethodHandle;
-				}
-				if (UITutorialSeasonInterstitial.Get() != null)
-				{
-					for (;;)
+					while (true)
 					{
-						switch (7)
+						switch (5)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (UITutorialSeasonInterstitial.Get().IsVisible())
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_71;
-						}
-					}
+					goto IL_0071;
 				}
-				UINewUserFlowManager.GetController().SetDesiredDisplay(state);
-				UINewUserFlowManager.m_queuedState = UINewUserHighlightsController.DisplayState.None;
-				UINewUserFlowManager.m_shown[(int)state] = true;
-				return;
 			}
-			IL_71:
-			UINewUserFlowManager.m_queuedState = state;
+			GetController().SetDesiredDisplay(state);
+			m_queuedState = UINewUserHighlightsController.DisplayState.None;
+			m_shown[(int)state] = true;
+			return;
 		}
+		goto IL_0071;
+		IL_0071:
+		m_queuedState = state;
 	}
 
 	private static void Unhighlight(bool shouldShow)
 	{
-		UINewUserHighlightsController controller = UINewUserFlowManager.GetController();
+		UINewUserHighlightsController controller = GetController();
 		if (!shouldShow)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -260,15 +264,15 @@ public class UINewUserFlowManager
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewUserFlowManager.Unhighlight(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!UINewUserFlowManager.IsDebugMode())
+			if (!IsDebugMode())
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -278,18 +282,19 @@ public class UINewUserFlowManager
 				break;
 			}
 		}
-		if (controller)
+		if (!controller)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			controller.SetDesiredDisplay(UINewUserHighlightsController.DisplayState.None);
+			return;
 		}
 	}
 }

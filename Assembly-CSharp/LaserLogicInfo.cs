@@ -1,5 +1,3 @@
-﻿using System;
-
 public class LaserLogicInfo
 {
 	public float m_width = 1f;

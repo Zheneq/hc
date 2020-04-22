@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
@@ -23,41 +23,42 @@ public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 
 	public override void GenModImpl_SetTargetSelectMod(GenericAbility_TargetSelectBase targetSelect)
 	{
-		targetSelect.SetTargetSelectMod(this.m_targetSelectMod);
+		targetSelect.SetTargetSelectMod(m_targetSelectMod);
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		IceborgSelfShield iceborgSelfShield = targetAbility as IceborgSelfShield;
-		if (iceborgSelfShield != null)
+		if (!(iceborgSelfShield != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgSelfShield.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			AbilityMod.AddToken(tokens, this.m_lowHealthThreshMod, "LowHealthThresh", string.Empty, iceborgSelfShield.m_lowHealthThresh, true, false);
-			AbilityMod.AddToken(tokens, this.m_shieldOnNextTurnIfDepletedMod, "ShieldOnNextTurnIfDepleted", string.Empty, iceborgSelfShield.m_shieldOnNextTurnIfDepleted, true, false);
+			AbilityMod.AddToken(tokens, m_lowHealthThreshMod, "LowHealthThresh", string.Empty, iceborgSelfShield.m_lowHealthThresh);
+			AbilityMod.AddToken(tokens, m_shieldOnNextTurnIfDepletedMod, "ShieldOnNextTurnIfDepleted", string.Empty, iceborgSelfShield.m_shieldOnNextTurnIfDepleted);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		IceborgSelfShield iceborgSelfShield = base.GetTargetAbilityOnAbilityData(abilityData) as IceborgSelfShield;
+		IceborgSelfShield iceborgSelfShield = GetTargetAbilityOnAbilityData(abilityData) as IceborgSelfShield;
 		bool flag = iceborgSelfShield != null;
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (iceborgSelfShield != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -66,19 +67,17 @@ public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgSelfShield.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, iceborgSelfShield.m_targetSelectComp, "-- Target Select --");
+			text += GetTargetSelectModDesc(m_targetSelectMod, iceborgSelfShield.m_targetSelectComp, "-- Target Select --");
 			string str = text;
-			AbilityModPropertyInt lowHealthThreshMod = this.m_lowHealthThreshMod;
-			string prefix = "[LowHealthThresh]";
-			bool showBaseVal = flag;
+			AbilityModPropertyInt lowHealthThreshMod = m_lowHealthThreshMod;
 			int baseVal;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -93,10 +92,10 @@ public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 			{
 				baseVal = 0;
 			}
-			text = str + base.PropDesc(lowHealthThreshMod, prefix, showBaseVal, baseVal);
-			if (this.m_lowHealthUseStatusOverride)
+			text = str + PropDesc(lowHealthThreshMod, "[LowHealthThresh]", flag, baseVal);
+			if (m_lowHealthUseStatusOverride)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -105,9 +104,9 @@ public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 					}
 					break;
 				}
-				if (this.m_lowHealthStatusWhenRequested != null)
+				if (m_lowHealthStatusWhenRequested != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -117,14 +116,13 @@ public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 						break;
 					}
 					text += "Status to apply when ability is requested, if low health:\n";
-					using (List<StatusType>.Enumerator enumerator = this.m_lowHealthStatusWhenRequested.GetEnumerator())
+					using (List<StatusType>.Enumerator enumerator = m_lowHealthStatusWhenRequested.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
 						{
-							StatusType statusType = enumerator.Current;
-							text = text + "\t" + statusType.ToString() + "\n";
+							text = text + "\t" + enumerator.Current.ToString() + "\n";
 						}
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -137,13 +135,11 @@ public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 				}
 			}
 			string str2 = text;
-			AbilityModPropertyInt shieldOnNextTurnIfDepletedMod = this.m_shieldOnNextTurnIfDepletedMod;
-			string prefix2 = "[ShieldOnNextTurnIfDepleted]";
-			bool showBaseVal2 = flag;
+			AbilityModPropertyInt shieldOnNextTurnIfDepletedMod = m_shieldOnNextTurnIfDepletedMod;
 			int baseVal2;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -158,7 +154,7 @@ public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 			{
 				baseVal2 = 0;
 			}
-			text = str2 + base.PropDesc(shieldOnNextTurnIfDepletedMod, prefix2, showBaseVal2, baseVal2);
+			text = str2 + PropDesc(shieldOnNextTurnIfDepletedMod, "[ShieldOnNextTurnIfDepleted]", flag, baseVal2);
 		}
 		return text;
 	}

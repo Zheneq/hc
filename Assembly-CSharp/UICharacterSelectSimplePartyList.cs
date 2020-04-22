@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ public class UICharacterSelectSimplePartyList : MonoBehaviour
 		int i = 0;
 		if (playerInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -20,13 +19,13 @@ public class UICharacterSelectSimplePartyList : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectSimplePartyList.UpdateCharacterList(LobbyPlayerInfo, LobbyTeamInfo, LobbyGameInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (teamInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -41,10 +40,10 @@ public class UICharacterSelectSimplePartyList : MonoBehaviour
 					{
 						while (enumerator.MoveNext())
 						{
-							LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
-							if (i < this.m_simplePartyMembers.Length)
+							LobbyPlayerInfo current = enumerator.Current;
+							if (i < m_simplePartyMembers.Length)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -53,9 +52,9 @@ public class UICharacterSelectSimplePartyList : MonoBehaviour
 									}
 									break;
 								}
-								if (lobbyPlayerInfo.TeamId != playerInfo.TeamId)
+								if (current.TeamId != playerInfo.TeamId)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (7)
 										{
@@ -64,9 +63,9 @@ public class UICharacterSelectSimplePartyList : MonoBehaviour
 										}
 										break;
 									}
-									if (lobbyPlayerInfo.TeamId != Team.Spectator)
+									if (current.TeamId != Team.Spectator)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (3)
 											{
@@ -75,15 +74,15 @@ public class UICharacterSelectSimplePartyList : MonoBehaviour
 											}
 											break;
 										}
-										UIManager.SetGameObjectActive(this.m_simplePartyMembers[i], true, null);
-										UIManager.SetGameObjectActive(this.m_simplePartyMembers[i].m_checkmark, lobbyPlayerInfo.ReadyState == ReadyState.Ready || lobbyPlayerInfo.IsNPCBot, null);
-										this.m_simplePartyMembers[i].m_playerName.text = lobbyPlayerInfo.GetHandle();
+										UIManager.SetGameObjectActive(m_simplePartyMembers[i], true);
+										UIManager.SetGameObjectActive(m_simplePartyMembers[i].m_checkmark, current.ReadyState == ReadyState.Ready || current.IsNPCBot);
+										m_simplePartyMembers[i].m_playerName.text = current.GetHandle();
 										i++;
 									}
 								}
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -96,19 +95,19 @@ public class UICharacterSelectSimplePartyList : MonoBehaviour
 				}
 			}
 		}
-		while (i < this.m_simplePartyMembers.Length)
+		for (; i < m_simplePartyMembers.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_simplePartyMembers[i], false, null);
-			i++;
+			UIManager.SetGameObjectActive(m_simplePartyMembers[i], false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -22,65 +21,66 @@ public class UIStorePurchaseFreelancerItem : MonoBehaviour
 
 	public CharacterResourceLink GetCharLink()
 	{
-		return this.m_charLinkRef;
+		return m_charLinkRef;
 	}
 
 	public void Setup(CharacterResourceLink charLink, int currentProgress, int totalProgress)
 	{
-		this.m_charLinkRef = charLink;
+		m_charLinkRef = charLink;
 		if (charLink != null)
 		{
-			this.m_hitBox.SetClickable(true);
-			this.m_hitBox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.FreelancerSelected);
-			this.m_nameText.text = charLink.GetDisplayName();
+			m_hitBox.SetClickable(true);
+			m_hitBox.callback = FreelancerSelected;
+			m_nameText.text = charLink.GetDisplayName();
 			if (totalProgress > 0)
 			{
-				this.m_collectionProgressBar.fillAmount = (float)currentProgress / (float)totalProgress;
-				this.m_collectionProgressText.text = currentProgress + "/" + totalProgress;
-				UIManager.SetGameObjectActive(this.m_ownedCompleteContainer, currentProgress == totalProgress, null);
+				m_collectionProgressBar.fillAmount = (float)currentProgress / (float)totalProgress;
+				m_collectionProgressText.text = currentProgress + "/" + totalProgress;
+				UIManager.SetGameObjectActive(m_ownedCompleteContainer, currentProgress == totalProgress);
 			}
 			else
 			{
-				this.m_collectionProgressBar.fillAmount = 0f;
-				this.m_collectionProgressText.text = string.Empty;
-				UIManager.SetGameObjectActive(this.m_ownedCompleteContainer, false, null);
+				m_collectionProgressBar.fillAmount = 0f;
+				m_collectionProgressText.text = string.Empty;
+				UIManager.SetGameObjectActive(m_ownedCompleteContainer, false);
 			}
-			this.m_icon.sprite = Resources.Load<Sprite>(charLink.m_characterIconResourceString);
-			UIManager.SetGameObjectActive(this.m_nameText, true, null);
-			UIManager.SetGameObjectActive(this.m_collectionProgressBar, true, null);
-			UIManager.SetGameObjectActive(this.m_collectionProgressText, true, null);
-			UIManager.SetGameObjectActive(this.m_icon, true, null);
+			m_icon.sprite = Resources.Load<Sprite>(charLink.m_characterIconResourceString);
+			UIManager.SetGameObjectActive(m_nameText, true);
+			UIManager.SetGameObjectActive(m_collectionProgressBar, true);
+			UIManager.SetGameObjectActive(m_collectionProgressText, true);
+			UIManager.SetGameObjectActive(m_icon, true);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_nameText, false, null);
-			UIManager.SetGameObjectActive(this.m_collectionProgressBar, false, null);
-			UIManager.SetGameObjectActive(this.m_collectionProgressText, false, null);
-			UIManager.SetGameObjectActive(this.m_ownedCompleteContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_icon, false, null);
-			this.m_hitBox.SetClickable(false);
+			UIManager.SetGameObjectActive(m_nameText, false);
+			UIManager.SetGameObjectActive(m_collectionProgressBar, false);
+			UIManager.SetGameObjectActive(m_collectionProgressText, false);
+			UIManager.SetGameObjectActive(m_ownedCompleteContainer, false);
+			UIManager.SetGameObjectActive(m_icon, false);
+			m_hitBox.SetClickable(false);
 		}
 	}
 
 	public void FreelancerSelected(BaseEventData data)
 	{
-		this.m_hitBox.ResetMouseState();
-		if (this.m_charLinkRef != null)
+		m_hitBox.ResetMouseState();
+		if (!(m_charLinkRef != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseFreelancerItem.FreelancerSelected(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UIStorePanel.Get().m_freelancerPanel.FreeLancerClicked(this);
+			return;
 		}
 	}
 }

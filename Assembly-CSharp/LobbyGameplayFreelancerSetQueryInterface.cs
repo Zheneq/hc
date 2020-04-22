@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,20 +7,20 @@ internal class LobbyGameplayFreelancerSetQueryInterface : IFreelancerSetQueryInt
 
 	internal LobbyGameplayFreelancerSetQueryInterface(LobbyGameplayData lgd)
 	{
-		this.m_lgd = lgd;
+		m_lgd = lgd;
 	}
 
 	public HashSet<CharacterType> GetCharacterTypesFromRoles(List<CharacterRole> roles)
 	{
 		HashSet<CharacterType> hashSet = new HashSet<CharacterType>();
-		using (Dictionary<CharacterType, LobbyCharacterGameplayData>.Enumerator enumerator = this.m_lgd.CharacterData.GetEnumerator())
+		using (Dictionary<CharacterType, LobbyCharacterGameplayData>.Enumerator enumerator = m_lgd.CharacterData.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<CharacterType, LobbyCharacterGameplayData> keyValuePair = enumerator.Current;
-				if (!roles.IsNullOrEmpty<CharacterRole>())
+				KeyValuePair<CharacterType, LobbyCharacterGameplayData> current = enumerator.Current;
+				if (!roles.IsNullOrEmpty())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -30,13 +29,13 @@ internal class LobbyGameplayFreelancerSetQueryInterface : IFreelancerSetQueryInt
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayFreelancerSetQueryInterface.GetCharacterTypesFromRoles(List<CharacterRole>)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (roles.Contains(keyValuePair.Value.CharacterRole))
+					if (roles.Contains(current.Value.CharacterRole))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -45,52 +44,53 @@ internal class LobbyGameplayFreelancerSetQueryInterface : IFreelancerSetQueryInt
 							}
 							break;
 						}
-						hashSet.Add(keyValuePair.Key);
+						hashSet.Add(current.Key);
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return hashSet;
 				}
-				break;
 			}
 		}
-		return hashSet;
 	}
 
 	public bool DoesCharacterMatchRoles(CharacterType freelancer, List<CharacterRole> roles)
 	{
-		if (roles.IsNullOrEmpty<CharacterRole>())
+		if (roles.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayFreelancerSetQueryInterface.DoesCharacterMatchRoles(CharacterType, List<CharacterRole>)).MethodHandle;
-			}
+		}
+		if (!m_lgd.CharacterData.TryGetValue(freelancer, out LobbyCharacterGameplayData value))
+		{
 			return false;
 		}
-		LobbyCharacterGameplayData lobbyCharacterGameplayData;
-		return this.m_lgd.CharacterData.TryGetValue(freelancer, out lobbyCharacterGameplayData) && roles.Contains(lobbyCharacterGameplayData.CharacterRole);
+		return roles.Contains(value.CharacterRole);
 	}
 
 	public HashSet<CharacterType> GetCharacterTypesFromFractionGroupIds(List<int> groupIds)
 	{
 		HashSet<CharacterType> retVal = new HashSet<CharacterType>();
-		(from p in this.m_lgd.FactionData.m_factionGroups
-		where groupIds.Contains(p.FactionGroupID)
-		select p).ToList<FactionGroup>().ForEach(delegate(FactionGroup p)
+		m_lgd.FactionData.m_factionGroups.Where((FactionGroup p) => groupIds.Contains(p.FactionGroupID)).ToList().ForEach(delegate(FactionGroup p)
 		{
 			retVal.UnionWith(p.Characters);
 		});
@@ -99,12 +99,12 @@ internal class LobbyGameplayFreelancerSetQueryInterface : IFreelancerSetQueryInt
 
 	public bool DoesCharacterMatchFractionGroupIds(CharacterType freelancer, List<int> groupIds)
 	{
-		return this.m_lgd.FactionData.m_factionGroups.Exists(delegate(FactionGroup p)
+		return m_lgd.FactionData.m_factionGroups.Exists(delegate(FactionGroup p)
 		{
-			bool result;
+			int result;
 			if (groupIds.Contains(p.FactionGroupID))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -113,17 +113,17 @@ internal class LobbyGameplayFreelancerSetQueryInterface : IFreelancerSetQueryInt
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayFreelancerSetQueryInterface.<DoesCharacterMatchFractionGroupIds>c__AnonStorey1.<>m__0(FactionGroup)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = p.Characters.Contains(freelancer);
+				result = (p.Characters.Contains(freelancer) ? 1 : 0);
 			}
 			else
 			{
-				result = false;
+				result = 0;
 			}
-			return result;
+			return (byte)result != 0;
 		});
 	}
 }

@@ -1,8 +1,7 @@
-﻿using System;
-
 public class SlashCommand_UserReport : SlashCommand
 {
-	public SlashCommand_UserReport() : base("/report", SlashCommandType.Everywhere)
+	public SlashCommand_UserReport()
+		: base("/report", SlashCommandType.Everywhere)
 	{
 	}
 
@@ -10,7 +9,7 @@ public class SlashCommand_UserReport : SlashCommand
 	{
 		if (!arguments.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -19,16 +18,16 @@ public class SlashCommand_UserReport : SlashCommand
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_UserReport.OnSlashCommand(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!(ClientGameManager.Get() == null))
 			{
-				UILandingPageFullScreenMenus.Get().SetReportContainerVisible(true, arguments, 0L, false);
+				UILandingPageFullScreenMenus.Get().SetReportContainerVisible(true, arguments, 0L);
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -42,6 +41,6 @@ public class SlashCommand_UserReport : SlashCommand
 		{
 			Text = StringUtil.TR("ReportNameError", "SlashCommand"),
 			MessageType = ConsoleMessageType.SystemMessage
-		}, null);
+		});
 	}
 }

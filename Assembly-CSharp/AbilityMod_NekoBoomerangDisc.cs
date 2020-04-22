@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,34 +43,32 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		NekoBoomerangDisc nekoBoomerangDisc = targetAbility as NekoBoomerangDisc;
 		if (nekoBoomerangDisc != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_laserLengthMod, "LaserLength", string.Empty, nekoBoomerangDisc.m_laserLength, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", string.Empty, nekoBoomerangDisc.m_laserWidth, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_aoeRadiusAtEndMod, "AoeRadiusAtEnd", string.Empty, nekoBoomerangDisc.m_aoeRadiusAtEnd, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxTargetsMod, "MaxTargets", string.Empty, nekoBoomerangDisc.m_maxTargets, true, false);
-			AbilityMod.AddToken(tokens, this.m_discReturnEndRadiusMod, "DiscReturnEndRadius", string.Empty, nekoBoomerangDisc.m_discReturnEndRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_directDamageMod, "DirectDamage", string.Empty, nekoBoomerangDisc.m_directDamage, true, false);
-			AbilityMod.AddToken(tokens, this.m_returnTripDamageMod, "ReturnTripDamage", string.Empty, nekoBoomerangDisc.m_returnTripDamage, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageIfHitByReturnDiscMod, "ExtraDamageIfHitByReturnDisc", string.Empty, nekoBoomerangDisc.m_extraDamageIfHitByReturnDisc, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraReturnDamageIfHitNoOneMod, "ExtraReturnDamageIfHitNoOne", string.Empty, nekoBoomerangDisc.m_extraReturnDamageIfHitNoOne, true, false);
-			AbilityMod.AddToken(tokens, this.m_shieldPerTargetHitOnThrowMod, "ShieldPerTargetHitOnThrow", string.Empty, nekoBoomerangDisc.m_shieldPerTargetHitOnThrow, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_shieldEffectDataMod, "ShieldEffectData", nekoBoomerangDisc.m_shieldEffectData, true);
+			AbilityMod.AddToken(tokens, m_laserLengthMod, "LaserLength", string.Empty, nekoBoomerangDisc.m_laserLength);
+			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, nekoBoomerangDisc.m_laserWidth);
+			AbilityMod.AddToken(tokens, m_aoeRadiusAtEndMod, "AoeRadiusAtEnd", string.Empty, nekoBoomerangDisc.m_aoeRadiusAtEnd);
+			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, nekoBoomerangDisc.m_maxTargets);
+			AbilityMod.AddToken(tokens, m_discReturnEndRadiusMod, "DiscReturnEndRadius", string.Empty, nekoBoomerangDisc.m_discReturnEndRadius);
+			AbilityMod.AddToken(tokens, m_directDamageMod, "DirectDamage", string.Empty, nekoBoomerangDisc.m_directDamage);
+			AbilityMod.AddToken(tokens, m_returnTripDamageMod, "ReturnTripDamage", string.Empty, nekoBoomerangDisc.m_returnTripDamage);
+			AbilityMod.AddToken(tokens, m_extraDamageIfHitByReturnDiscMod, "ExtraDamageIfHitByReturnDisc", string.Empty, nekoBoomerangDisc.m_extraDamageIfHitByReturnDisc);
+			AbilityMod.AddToken(tokens, m_extraReturnDamageIfHitNoOneMod, "ExtraReturnDamageIfHitNoOne", string.Empty, nekoBoomerangDisc.m_extraReturnDamageIfHitNoOne);
+			AbilityMod.AddToken(tokens, m_shieldPerTargetHitOnThrowMod, "ShieldPerTargetHitOnThrow", string.Empty, nekoBoomerangDisc.m_shieldPerTargetHitOnThrow);
+			AbilityMod.AddToken_EffectMod(tokens, m_shieldEffectDataMod, "ShieldEffectData", nekoBoomerangDisc.m_shieldEffectData);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		NekoBoomerangDisc nekoBoomerangDisc = base.GetTargetAbilityOnAbilityData(abilityData) as NekoBoomerangDisc;
+		NekoBoomerangDisc nekoBoomerangDisc = GetTargetAbilityOnAbilityData(abilityData) as NekoBoomerangDisc;
 		bool flag = nekoBoomerangDisc != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_laserLengthMod, "[LaserLength]", flag, (!flag) ? 0f : nekoBoomerangDisc.m_laserLength);
-		string str = text;
-		AbilityModPropertyFloat laserWidthMod = this.m_laserWidthMod;
-		string prefix = "[LaserWidth]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += PropDesc(m_laserLengthMod, "[LaserLength]", flag, (!flag) ? 0f : nekoBoomerangDisc.m_laserLength);
+		string str = empty;
+		AbilityModPropertyFloat laserWidthMod = m_laserWidthMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -79,9 +77,9 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NekoBoomerangDisc.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = nekoBoomerangDisc.m_laserWidth;
 		}
@@ -89,15 +87,13 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(laserWidthMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat aoeRadiusAtEndMod = this.m_aoeRadiusAtEndMod;
-		string prefix2 = "[AoeRadiusAtEnd]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(laserWidthMod, "[LaserWidth]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat aoeRadiusAtEndMod = m_aoeRadiusAtEndMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -112,15 +108,13 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(aoeRadiusAtEndMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt maxTargetsMod = this.m_maxTargetsMod;
-		string prefix3 = "[MaxTargets]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(aoeRadiusAtEndMod, "[AoeRadiusAtEnd]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyInt maxTargetsMod = m_maxTargetsMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -135,15 +129,13 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(maxTargetsMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyFloat discReturnEndRadiusMod = this.m_discReturnEndRadiusMod;
-		string prefix4 = "[DiscReturnEndRadius]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(maxTargetsMod, "[MaxTargets]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyFloat discReturnEndRadiusMod = m_discReturnEndRadiusMod;
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -158,15 +150,13 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		{
 			baseVal4 = 0f;
 		}
-		text = str4 + base.PropDesc(discReturnEndRadiusMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt directDamageMod = this.m_directDamageMod;
-		string prefix5 = "[DirectDamage]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(discReturnEndRadiusMod, "[DiscReturnEndRadius]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyInt directDamageMod = m_directDamageMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -181,16 +171,14 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(directDamageMod, prefix5, showBaseVal5, baseVal5);
-		text += base.PropDesc(this.m_returnTripDamageMod, "[ReturnTripDamage]", flag, (!flag) ? 0 : nekoBoomerangDisc.m_returnTripDamage);
-		string str6 = text;
-		AbilityModPropertyBool returnTripIgnoreCoverMod = this.m_returnTripIgnoreCoverMod;
-		string prefix6 = "[ReturnTripIgnoreCover]";
-		bool showBaseVal6 = flag;
-		bool baseVal6;
+		empty = str5 + PropDesc(directDamageMod, "[DirectDamage]", flag, baseVal5);
+		empty += PropDesc(m_returnTripDamageMod, "[ReturnTripDamage]", flag, flag ? nekoBoomerangDisc.m_returnTripDamage : 0);
+		string str6 = empty;
+		AbilityModPropertyBool returnTripIgnoreCoverMod = m_returnTripIgnoreCoverMod;
+		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -199,21 +187,19 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 				}
 				break;
 			}
-			baseVal6 = nekoBoomerangDisc.m_returnTripIgnoreCover;
+			baseVal6 = (nekoBoomerangDisc.m_returnTripIgnoreCover ? 1 : 0);
 		}
 		else
 		{
-			baseVal6 = false;
+			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(returnTripIgnoreCoverMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyInt extraDamageIfHitByReturnDiscMod = this.m_extraDamageIfHitByReturnDiscMod;
-		string prefix7 = "[ExtraDamageIfHitByReturnDisc]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(returnTripIgnoreCoverMod, "[ReturnTripIgnoreCover]", flag, (byte)baseVal6 != 0);
+		string str7 = empty;
+		AbilityModPropertyInt extraDamageIfHitByReturnDiscMod = m_extraDamageIfHitByReturnDiscMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -228,15 +214,13 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		{
 			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(extraDamageIfHitByReturnDiscMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyInt extraReturnDamageIfHitNoOneMod = this.m_extraReturnDamageIfHitNoOneMod;
-		string prefix8 = "[ExtraReturnDamageIfHitNoOne]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(extraDamageIfHitByReturnDiscMod, "[ExtraDamageIfHitByReturnDisc]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyInt extraReturnDamageIfHitNoOneMod = m_extraReturnDamageIfHitNoOneMod;
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -251,15 +235,13 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		{
 			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(extraReturnDamageIfHitNoOneMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyInt shieldPerTargetHitOnThrowMod = this.m_shieldPerTargetHitOnThrowMod;
-		string prefix9 = "[ShieldPerTargetHitOnThrow]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(extraReturnDamageIfHitNoOneMod, "[ExtraReturnDamageIfHitNoOne]", flag, baseVal8);
+		string str9 = empty;
+		AbilityModPropertyInt shieldPerTargetHitOnThrowMod = m_shieldPerTargetHitOnThrowMod;
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -274,7 +256,7 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		{
 			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(shieldPerTargetHitOnThrowMod, prefix9, showBaseVal9, baseVal9);
-		return text + base.PropDesc(this.m_shieldEffectDataMod, "[ShieldEffectData]", flag, (!flag) ? null : nekoBoomerangDisc.m_shieldEffectData);
+		empty = str9 + PropDesc(shieldPerTargetHitOnThrowMod, "[ShieldPerTargetHitOnThrow]", flag, baseVal9);
+		return empty + PropDesc(m_shieldEffectDataMod, "[ShieldEffectData]", flag, (!flag) ? null : nekoBoomerangDisc.m_shieldEffectData);
 	}
 }

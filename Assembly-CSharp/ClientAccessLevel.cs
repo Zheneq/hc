@@ -1,14 +1,12 @@
-﻿using System;
-
 public enum ClientAccessLevel
 {
-	Unknown,
-	None,
-	Locked = 0xA,
-	Queued,
-	Free = 0x14,
-	Full = 0x16,
-	VIP = 0x19,
-	Agent = 0x1E,
-	Admin = 0x28
+	Unknown = 0,
+	None = 1,
+	Locked = 10,
+	Queued = 11,
+	Free = 20,
+	Full = 22,
+	VIP = 25,
+	Agent = 30,
+	Admin = 40
 }

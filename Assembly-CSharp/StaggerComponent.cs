@@ -1,30 +1,33 @@
-﻿using System;
 using UnityEngine;
 
 public class StaggerComponent : MonoBehaviour
 {
-	public bool DoActivateOnStagger { get; set; }
+	public bool DoActivateOnStagger
+	{
+		get;
+		set;
+	}
 
 	public static void SetStaggerComponent(GameObject obj, bool setActive, bool instantTurnOffIfInactive = true)
 	{
-		if (obj != null)
+		if (!(obj != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StaggerComponent.SetStaggerComponent(GameObject, bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (instantTurnOffIfInactive)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -35,7 +38,7 @@ public class StaggerComponent : MonoBehaviour
 				}
 				if (!setActive)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -44,12 +47,12 @@ public class StaggerComponent : MonoBehaviour
 						}
 						break;
 					}
-					UIManager.SetGameObjectActive(obj, false, null);
+					UIManager.SetGameObjectActive(obj, false);
 				}
 			}
 			if (obj.GetComponent<StaggerComponent>() == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -61,6 +64,7 @@ public class StaggerComponent : MonoBehaviour
 				obj.AddComponent<StaggerComponent>();
 			}
 			obj.GetComponent<StaggerComponent>().DoActivateOnStagger = setActive;
+			return;
 		}
 	}
 }

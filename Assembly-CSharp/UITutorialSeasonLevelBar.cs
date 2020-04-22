@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,10 +27,10 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 
 	public bool SetFilled(bool filled)
 	{
-		this.m_filled = filled;
-		if (this.m_animator == null)
+		m_filled = filled;
+		if (m_animator == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -40,24 +39,24 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialSeasonLevelBar.SetFilled(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_fillContainer, filled, null);
+			UIManager.SetGameObjectActive(m_fillContainer, filled);
 		}
 		else
 		{
-			if (!this.m_animator.isInitialized)
+			if (!m_animator.isInitialized)
 			{
 				return false;
 			}
-			Animator animator = this.m_animator;
-			string animationBaseString = this.m_animationBaseString;
-			string str;
+			Animator animator = m_animator;
+			string animationBaseString = m_animationBaseString;
+			object str;
 			if (filled)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -72,22 +71,22 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 			{
 				str = "DisabledIDLE";
 			}
-			animator.Play(animationBaseString + str);
+			animator.Play(animationBaseString + (string)str);
 		}
 		return true;
 	}
 
 	public bool AnimateFill()
 	{
-		return this.SetFilled(this.m_filled);
+		return SetFilled(m_filled);
 	}
 
 	public void SetReward(int level, RewardUtils.RewardData reward)
 	{
-		this.m_reward = reward;
-		if (this.m_tooltipHoverObj != null)
+		m_reward = reward;
+		if (m_tooltipHoverObj != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -96,13 +95,13 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialSeasonLevelBar.SetReward(int, RewardUtils.RewardData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (reward != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -113,7 +112,7 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 				}
 				if (reward.InventoryTemplate != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -122,47 +121,47 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 						}
 						break;
 					}
-					this.m_tooltipHoverObj.Setup(TooltipType.InventoryItem, delegate(UITooltipBase tooltip)
+					m_tooltipHoverObj.Setup(TooltipType.InventoryItem, delegate(UITooltipBase tooltip)
 					{
-						if (this.m_reward == null)
+						if (m_reward == null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									if (1 == 0)
+									{
+										/*OpCode not supported: LdMemberToken*/;
+									}
+									return false;
 								}
-								break;
 							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(UITutorialSeasonLevelBar.<SetReward>m__0(UITooltipBase)).MethodHandle;
-							}
-							return false;
 						}
-						(tooltip as UIInventoryItemTooltip).Setup(this.m_reward.InventoryTemplate);
+						(tooltip as UIInventoryItemTooltip).Setup(m_reward.InventoryTemplate);
 						return true;
-					}, null);
+					});
 				}
 				else
 				{
-					this.m_tooltipHoverObj.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
+					m_tooltipHoverObj.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
 					{
-						if (this.m_reward == null)
+						if (m_reward == null)
 						{
 							return false;
 						}
-						string name = this.m_reward.Name;
+						string name = m_reward.Name;
 						(tooltip as UISimpleTooltip).Setup(name);
 						return true;
-					}, null);
+					});
 				}
 			}
 		}
-		if (this.m_levelText != null)
+		if (m_levelText != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -171,29 +170,28 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 				}
 				break;
 			}
-			this.m_levelText.text = level.ToString();
+			m_levelText.text = level.ToString();
 		}
-		UIManager.SetGameObjectActive(this.m_rewardMarker, reward != null, null);
-		if (this.m_rewardContainer != null)
+		UIManager.SetGameObjectActive(m_rewardMarker, reward != null);
+		if (!(m_rewardContainer != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			if (reward == null || reward.SpritePath.IsNullOrEmpty())
 			{
-				UIManager.SetGameObjectActive(this.m_rewardContainer, false, null);
+				UIManager.SetGameObjectActive(m_rewardContainer, false);
+				return;
 			}
-			else
-			{
-				UIManager.SetGameObjectActive(this.m_rewardContainer, true, null);
-				this.m_rewardIcon.sprite = Resources.Load<Sprite>(reward.SpritePath);
-			}
+			UIManager.SetGameObjectActive(m_rewardContainer, true);
+			m_rewardIcon.sprite = Resources.Load<Sprite>(reward.SpritePath);
+			return;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class FadeObject : MonoBehaviour
@@ -37,30 +36,31 @@ public class FadeObject : MonoBehaviour
 
 	private void Awake()
 	{
-		FadeObject.materialColorProperty = Shader.PropertyToID("_Color");
-		FadeObject.materialSrcBlendProperty = Shader.PropertyToID("_SrcBlend");
-		FadeObject.materialDstBlendProperty = Shader.PropertyToID("_DstBlend");
-		FadeObject.materialZWriteProperty = Shader.PropertyToID("_ZWrite");
-		FadeObject.materialModeProperty = Shader.PropertyToID("_Mode");
-		FadeObject.materialAlphaProperty = Shader.PropertyToID("_VerticalFadeAlpha");
-		FadeObject.materialMaxWorldYProperty = Shader.PropertyToID("_MaxWorldY");
+		materialColorProperty = Shader.PropertyToID("_Color");
+		materialSrcBlendProperty = Shader.PropertyToID("_SrcBlend");
+		materialDstBlendProperty = Shader.PropertyToID("_DstBlend");
+		materialZWriteProperty = Shader.PropertyToID("_ZWrite");
+		materialModeProperty = Shader.PropertyToID("_Mode");
+		materialAlphaProperty = Shader.PropertyToID("_VerticalFadeAlpha");
+		materialMaxWorldYProperty = Shader.PropertyToID("_MaxWorldY");
 	}
 
 	internal bool ShouldProcessEvenIfRendererIsDisabled()
 	{
-		return this.m_alphaMultBottom == 0f;
+		return (float)m_alphaMultBottom == 0f;
 	}
 
 	private bool ShouldDoHeightFade()
 	{
-		return Camera.main.transform.position.y - (float)Board.\u000E().BaselineHeight <= FadeObjectsCameraComponent.Get().m_cameraHeightForVerticalFade;
+		Vector3 position = Camera.main.transform.position;
+		return position.y - (float)Board.Get().BaselineHeight <= FadeObjectsCameraComponent.Get().m_cameraHeightForVerticalFade;
 	}
 
 	internal void SetTargetTransparency(float transparency, float fadeOutDuration, float fadeInDuration, Shader transparentShader)
 	{
-		if (this.m_rendererComponent == null)
+		if (m_rendererComponent == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -69,19 +69,19 @@ public class FadeObject : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObject.SetTargetTransparency(float, float, float, Shader)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_rendererComponent = base.GetComponent<Renderer>();
+			m_rendererComponent = GetComponent<Renderer>();
 		}
-		this.m_setTargetTransparencyTime = Time.time;
-		this.m_alphaMultBottom.EaseTo(transparency, fadeOutDuration);
-		Eased<float> alphaMultTop = this.m_alphaMultTop;
+		m_setTargetTransparencyTime = Time.time;
+		m_alphaMultBottom.EaseTo(transparency, fadeOutDuration);
+		EasedFloatCubic alphaMultTop = m_alphaMultTop;
 		float endValue;
-		if (this.ShouldDoHeightFade())
+		if (ShouldDoHeightFade())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -97,12 +97,12 @@ public class FadeObject : MonoBehaviour
 			endValue = transparency;
 		}
 		alphaMultTop.EaseTo(endValue, fadeOutDuration);
-		this.m_fadeInDuration = fadeInDuration;
-		if (!base.enabled || this.m_originalMaterials == null)
+		m_fadeInDuration = fadeInDuration;
+		if (!base.enabled || m_originalMaterials == null)
 		{
-			if (this.m_originalMaterials == null)
+			if (m_originalMaterials == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -111,40 +111,36 @@ public class FadeObject : MonoBehaviour
 					}
 					break;
 				}
-				this.m_originalMaterials = (Material[])this.m_rendererComponent.sharedMaterials.Clone();
+				m_originalMaterials = (Material[])m_rendererComponent.sharedMaterials.Clone();
 			}
-			if (this.m_originalAlphas == null)
+			if (m_originalAlphas == null)
 			{
-				this.m_originalAlphas = new float[this.m_rendererComponent.sharedMaterials.Length];
-				int i = 0;
-				while (i < this.m_rendererComponent.sharedMaterials.Length)
+				m_originalAlphas = new float[m_rendererComponent.sharedMaterials.Length];
+				for (int i = 0; i < m_rendererComponent.sharedMaterials.Length; i++)
 				{
-					if (!(this.m_rendererComponent.sharedMaterials[i] != null))
+					if (m_rendererComponent.sharedMaterials[i] != null)
 					{
-						goto IL_154;
-					}
-					for (;;)
-					{
-						switch (3)
+						while (true)
 						{
-						case 0:
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (m_rendererComponent.sharedMaterials[i].HasProperty(materialColorProperty))
+						{
+							float[] originalAlphas = m_originalAlphas;
+							int num = i;
+							Color color = m_rendererComponent.sharedMaterials[i].color;
+							originalAlphas[num] = color.a;
 							continue;
 						}
-						break;
 					}
-					if (!this.m_rendererComponent.sharedMaterials[i].HasProperty(FadeObject.materialColorProperty))
-					{
-						goto IL_154;
-					}
-					this.m_originalAlphas[i] = this.m_rendererComponent.sharedMaterials[i].color.a;
-					IL_161:
-					i++;
-					continue;
-					IL_154:
-					this.m_originalAlphas[i] = 1f;
-					goto IL_161;
+					m_originalAlphas[i] = 1f;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -154,14 +150,14 @@ public class FadeObject : MonoBehaviour
 					break;
 				}
 			}
-			if (this.m_fadeMaterials == null)
+			if (m_fadeMaterials == null)
 			{
-				this.m_fadeMaterials = new Material[this.m_rendererComponent.sharedMaterials.Length];
-				for (int j = 0; j < this.m_rendererComponent.sharedMaterials.Length; j++)
+				m_fadeMaterials = new Material[m_rendererComponent.sharedMaterials.Length];
+				for (int j = 0; j < m_rendererComponent.sharedMaterials.Length; j++)
 				{
-					if (this.m_rendererComponent.sharedMaterials[j] != null)
+					if (m_rendererComponent.sharedMaterials[j] != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -170,24 +166,26 @@ public class FadeObject : MonoBehaviour
 							}
 							break;
 						}
-						Material material = new Material(this.m_rendererComponent.sharedMaterials[j]);
+						Material material = new Material(m_rendererComponent.sharedMaterials[j]);
 						material.shader = transparentShader;
 						material.SetOverrideTag("RenderType", "Transparent");
-						material.SetInt(FadeObject.materialSrcBlendProperty, 5);
-						material.SetInt(FadeObject.materialDstBlendProperty, 0xA);
-						material.SetInt(FadeObject.materialZWriteProperty, 0);
-						material.SetInt(FadeObject.materialModeProperty, 2);
-						material.shaderKeywords = this.m_rendererComponent.sharedMaterials[j].shaderKeywords;
+						material.SetInt(materialSrcBlendProperty, 5);
+						material.SetInt(materialDstBlendProperty, 10);
+						material.SetInt(materialZWriteProperty, 0);
+						material.SetInt(materialModeProperty, 2);
+						material.shaderKeywords = m_rendererComponent.sharedMaterials[j].shaderKeywords;
 						material.DisableKeyword("_ALPHATEST_ON");
 						material.EnableKeyword("_ALPHABLEND_ON");
 						material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-						material.renderQueue = 0xBB8;
-						material.SetFloat(FadeObject.materialAlphaProperty, material.color.a);
-						material.SetFloat(FadeObject.materialMaxWorldYProperty, 99999f);
-						this.m_fadeMaterials[j] = material;
+						material.renderQueue = 3000;
+						int nameID = materialAlphaProperty;
+						Color color2 = material.color;
+						material.SetFloat(nameID, color2.a);
+						material.SetFloat(materialMaxWorldYProperty, 99999f);
+						m_fadeMaterials[j] = material;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -197,241 +195,37 @@ public class FadeObject : MonoBehaviour
 					break;
 				}
 			}
-			this.m_rendererComponent.materials = this.m_fadeMaterials;
+			m_rendererComponent.materials = m_fadeMaterials;
 		}
 		base.enabled = true;
 	}
 
 	private void Update()
 	{
-		if (!(Board.\u000E() == null) && !(this.m_rendererComponent == null))
+		if (Board.Get() == null || m_rendererComponent == null)
 		{
-			if (!(FadeObjectsCameraComponent.Get() == null))
-			{
-				if (this.m_alphaMultBottom < 1f && this.m_originalAlphas != null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (Time.time - this.m_setTargetTransparencyTime > 0.25f)
-					{
-						this.m_alphaMultBottom.EaseTo(1f, this.m_fadeInDuration);
-						this.m_alphaMultTop.EaseTo(1f, this.m_fadeInDuration);
-					}
-					FadeObjectsCameraComponent fadeObjectsCameraComponent = FadeObjectsCameraComponent.Get();
-					this.m_needToDestroyOldMaterials = true;
-					for (int i = 0; i < this.m_rendererComponent.materials.Length; i++)
-					{
-						Material material = this.m_rendererComponent.materials[i];
-						if (material == null)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						else
-						{
-							this.m_rendererComponent.enabled = (this.m_alphaMultBottom * this.m_originalAlphas[i] > 0f);
-							material.SetFloat(FadeObject.materialAlphaProperty, this.m_alphaMultTop * this.m_originalAlphas[i]);
-							if (fadeObjectsCameraComponent != null)
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								Material material2 = material;
-								int nameID = FadeObject.materialMaxWorldYProperty;
-								float value;
-								if (this.m_alphaMultTop <= fadeObjectsCameraComponent.m_minAlphaTopDepth)
-								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									value = (float)Board.\u000E().BaselineHeight + fadeObjectsCameraComponent.m_fadeEndFloorOffset;
-								}
-								else
-								{
-									value = 99999f;
-								}
-								material2.SetFloat(nameID, value);
-							}
-						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else if (this.m_alphaMultBottom.EaseFinished())
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_originalMaterials != null)
-					{
-						Material[] materials = this.m_rendererComponent.materials;
-						this.m_rendererComponent.materials = this.m_originalMaterials;
-						if (this.m_needToDestroyOldMaterials)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (materials != null)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.DestroyMaterials(materials);
-							}
-							this.m_needToDestroyOldMaterials = false;
-						}
-					}
-					base.enabled = false;
-				}
-				if (this.m_alphaMultBottom == 0f)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_rendererComponent.enabled)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_rendererComponent.enabled = false;
-						return;
-					}
-				}
-				if (this.m_alphaMultBottom != 0f)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_rendererComponent.enabled)
-					{
-						this.m_rendererComponent.enabled = true;
-					}
-				}
-				return;
-			}
-			for (;;)
+			return;
+		}
+		if (FadeObjectsCameraComponent.Get() == null)
+		{
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObject.Update()).MethodHandle;
 			}
 		}
-	}
-
-	private void DestroyMaterials(Material[] mats)
-	{
-		if (mats != null)
+		if ((float)m_alphaMultBottom < 1f && m_originalAlphas != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObject.DestroyMaterials(Material[])).MethodHandle;
-			}
-			foreach (Material obj in mats)
-			{
-				UnityEngine.Object.Destroy(obj);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-	}
-
-	private void OnDestroy()
-	{
-		if (this.m_fadeMaterials != null)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -440,15 +234,66 @@ public class FadeObject : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (Time.time - m_setTargetTransparencyTime > 0.25f)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObject.OnDestroy()).MethodHandle;
+				m_alphaMultBottom.EaseTo(1f, m_fadeInDuration);
+				m_alphaMultTop.EaseTo(1f, m_fadeInDuration);
 			}
-			for (int i = 0; i < this.m_fadeMaterials.Length; i++)
+			FadeObjectsCameraComponent fadeObjectsCameraComponent = FadeObjectsCameraComponent.Get();
+			m_needToDestroyOldMaterials = true;
+			for (int i = 0; i < m_rendererComponent.materials.Length; i++)
 			{
-				UnityEngine.Object.Destroy(this.m_fadeMaterials[i]);
+				Material material = m_rendererComponent.materials[i];
+				if (material == null)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					continue;
+				}
+				m_rendererComponent.enabled = ((float)m_alphaMultBottom * m_originalAlphas[i] > 0f);
+				material.SetFloat(materialAlphaProperty, (float)m_alphaMultTop * m_originalAlphas[i]);
+				if (!(fadeObjectsCameraComponent != null))
+				{
+					continue;
+				}
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				int nameID = materialMaxWorldYProperty;
+				float value;
+				if ((float)m_alphaMultTop <= fadeObjectsCameraComponent.m_minAlphaTopDepth)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					value = (float)Board.Get().BaselineHeight + fadeObjectsCameraComponent.m_fadeEndFloorOffset;
+				}
+				else
+				{
+					value = 99999f;
+				}
+				material.SetFloat(nameID, value);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -457,12 +302,166 @@ public class FadeObject : MonoBehaviour
 				}
 				break;
 			}
-			this.m_fadeMaterials = null;
+		}
+		else if (m_alphaMultBottom.EaseFinished())
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (m_originalMaterials != null)
+			{
+				Material[] materials = m_rendererComponent.materials;
+				m_rendererComponent.materials = m_originalMaterials;
+				if (m_needToDestroyOldMaterials)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (materials != null)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						DestroyMaterials(materials);
+					}
+					m_needToDestroyOldMaterials = false;
+				}
+			}
+			base.enabled = false;
+		}
+		if ((float)m_alphaMultBottom == 0f)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (m_rendererComponent.enabled)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						break;
+					default:
+						m_rendererComponent.enabled = false;
+						return;
+					}
+				}
+			}
+		}
+		if ((float)m_alphaMultBottom == 0f)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			if (!m_rendererComponent.enabled)
+			{
+				m_rendererComponent.enabled = true;
+			}
+			return;
+		}
+	}
+
+	private void DestroyMaterials(Material[] mats)
+	{
+		if (mats == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			foreach (Material obj in mats)
+			{
+				Object.Destroy(obj);
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
+		}
+	}
+
+	private void OnDestroy()
+	{
+		if (m_fadeMaterials == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			for (int i = 0; i < m_fadeMaterials.Length; i++)
+			{
+				Object.Destroy(m_fadeMaterials[i]);
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				m_fadeMaterials = null;
+				return;
+			}
 		}
 	}
 
 	public float GetCurrentAlpha()
 	{
-		return this.m_alphaMultBottom;
+		return m_alphaMultBottom;
 	}
 }

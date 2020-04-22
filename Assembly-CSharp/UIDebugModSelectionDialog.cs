@@ -1,8 +1,6 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -40,39 +38,43 @@ public class UIDebugModSelectionDialog : UIDialogBox
 	[HideInInspector]
 	public int m_selectedAbilityIndex;
 
-	private UIDialogBox.DialogButtonCallback onAcceptButton;
+	private DialogButtonCallback onAcceptButton;
 
 	public void Update()
 	{
-		if (this.m_gridLayout != null)
+		if (!(m_gridLayout != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugModSelectionDialog.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			RectTransform component = this.m_gridLayout.GetComponent<RectTransform>();
+			RectTransform component = m_gridLayout.GetComponent<RectTransform>();
 			if (component != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					GridLayoutGroup gridLayout = m_gridLayout;
+					float width = component.rect.width;
+					Vector2 cellSize = m_gridLayout.cellSize;
+					gridLayout.cellSize = new Vector2(width, cellSize.y);
+					return;
 				}
-				this.m_gridLayout.cellSize = new Vector2(component.rect.width, this.m_gridLayout.cellSize.y);
 			}
+			return;
 		}
 	}
 
@@ -82,14 +84,14 @@ public class UIDebugModSelectionDialog : UIDialogBox
 
 	public override void ClearCallback()
 	{
-		this.onAcceptButton = null;
+		onAcceptButton = null;
 	}
 
 	public void OnAcceptClicked(BaseEventData data)
 	{
-		if (this.onAcceptButton != null)
+		if (onAcceptButton != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -98,52 +100,53 @@ public class UIDebugModSelectionDialog : UIDialogBox
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugModSelectionDialog.OnAcceptClicked(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.onAcceptButton(this);
+			onAcceptButton(this);
 		}
-		this.m_abilitiesPanel = null;
+		m_abilitiesPanel = null;
 		UIDialogPopupManager.Get().CloseDialog(this);
 	}
 
 	public void Start()
 	{
-		if (this.m_firstButton != null)
+		if (!(m_firstButton != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugModSelectionDialog.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIEventTriggerUtils.AddListener(this.m_firstButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnAcceptClicked));
+			UIEventTriggerUtils.AddListener(m_firstButton.gameObject, EventTriggerType.PointerClick, OnAcceptClicked);
+			return;
 		}
 	}
 
-	public void Setup(AbilityData.AbilityEntry inAbility, int inAbilityIndex, UICharacterAbilitiesPanel abilitiesPanel, UIDialogBox.DialogButtonCallback onAccept = null)
+	public void Setup(AbilityData.AbilityEntry inAbility, int inAbilityIndex, UICharacterAbilitiesPanel abilitiesPanel, DialogButtonCallback onAccept = null)
 	{
 		PersistedCharacterData characterData = ClientGameManager.Get().GetPlayerCharacterData(abilitiesPanel.m_selectedCharacter);
-		this.onAcceptButton = onAccept;
-		this.m_selectedAbilityIndex = inAbilityIndex;
-		this.m_abilitiesPanel = abilitiesPanel;
-		this.m_Title.text = inAbility.ability.m_abilityName;
-		this.m_abilitiesPanel.UpdateModEquipPointsLeft(this.m_modPointsDisplay);
-		this.reverseSort = new List<bool>();
-		for (int i = 0; i < this.columnHeaderButtons.Length; i++)
+		onAcceptButton = onAccept;
+		m_selectedAbilityIndex = inAbilityIndex;
+		m_abilitiesPanel = abilitiesPanel;
+		m_Title.text = inAbility.ability.m_abilityName;
+		m_abilitiesPanel.UpdateModEquipPointsLeft(m_modPointsDisplay);
+		reverseSort = new List<bool>();
+		for (int i = 0; i < columnHeaderButtons.Length; i++)
 		{
-			Button button = this.columnHeaderButtons[i];
+			Button button = columnHeaderButtons[i];
 			if (button != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -152,115 +155,132 @@ public class UIDebugModSelectionDialog : UIDialogBox
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugModSelectionDialog.Setup(AbilityData.AbilityEntry, int, UICharacterAbilitiesPanel, UIDialogBox.DialogButtonCallback)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				int closureCopy = i;
 				UIEventTriggerUtils.AddListener(button.gameObject, EventTriggerType.PointerClick, delegate(BaseEventData x)
 				{
-					this.SortByColumn(x, closureCopy);
+					SortByColumn(x, closureCopy);
 				});
-				this.reverseSort.Insert(i, false);
+				reverseSort.Insert(i, false);
 			}
 		}
-		for (;;)
+		int selectedAbilitiesModIndex;
+		float selectedY;
+		int counter;
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		List<UIModSelectionGridEntry> list = new List<UIModSelectionGridEntry>(this.m_gridLayout.GetComponentsInChildren<UIModSelectionGridEntry>(true));
-		List<AbilityMod> availableModsForAbility = AbilityModHelper.GetAvailableModsForAbility(inAbility.ability);
-		int selectedAbilitiesModIndex = this.m_abilitiesPanel.m_modInfo.GetModForAbility(inAbilityIndex);
-		float selectedY = 0f;
-		int counter = 0;
-		List<UIModSelectionGridEntry> list2 = list;
-		if (UIDebugModSelectionDialog.<>f__am$cache0 == null)
-		{
-			for (;;)
+			List<UIModSelectionGridEntry> list = new List<UIModSelectionGridEntry>(m_gridLayout.GetComponentsInChildren<UIModSelectionGridEntry>(true));
+			List<AbilityMod> availableModsForAbility = AbilityModHelper.GetAvailableModsForAbility(inAbility.ability);
+			selectedAbilitiesModIndex = m_abilitiesPanel.m_modInfo.GetModForAbility(inAbilityIndex);
+			selectedY = 0f;
+			counter = 0;
+			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIDebugModSelectionDialog.<>f__am$cache0 = delegate(UIModSelectionGridEntry x)
-			{
-				UnityEngine.Object.Destroy(x);
-			};
-		}
-		list2.ForEach(UIDebugModSelectionDialog.<>f__am$cache0);
-		availableModsForAbility.ForEach(delegate(AbilityMod x)
-		{
-			AbilityMod modForAbility = AbilityModHelper.GetModForAbility(inAbility.ability, selectedAbilitiesModIndex);
-			UIModSelectionGridEntry uimodSelectionGridEntry = UnityEngine.Object.Instantiate<UIModSelectionGridEntry>(this.m_modEntryPrefab);
-			uimodSelectionGridEntry.transform.SetParent(this.m_gridLayout.transform);
-			uimodSelectionGridEntry.transform.localPosition = new Vector3(uimodSelectionGridEntry.transform.localPosition.x, uimodSelectionGridEntry.transform.localPosition.y, 0f);
-			uimodSelectionGridEntry.transform.localScale = Vector3.one;
-			if (characterData == null)
-			{
-				for (;;)
-				{
-					switch (6)
+					switch (2)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
+				_003C_003Ef__am_0024cache0 = delegate(UIModSelectionGridEntry x)
 				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIDebugModSelectionDialog.<Setup>c__AnonStorey1.<>m__0(AbilityMod)).MethodHandle;
+					Object.Destroy(x);
+				};
+			}
+			list.ForEach(_003C_003Ef__am_0024cache0);
+			availableModsForAbility.ForEach(delegate(AbilityMod x)
+			{
+				AbilityMod modForAbility = AbilityModHelper.GetModForAbility(inAbility.ability, selectedAbilitiesModIndex);
+				UIModSelectionGridEntry uIModSelectionGridEntry = Object.Instantiate(m_modEntryPrefab);
+				uIModSelectionGridEntry.transform.SetParent(m_gridLayout.transform);
+				Transform transform = uIModSelectionGridEntry.transform;
+				Vector3 localPosition = uIModSelectionGridEntry.transform.localPosition;
+				float x3 = localPosition.x;
+				Vector3 localPosition2 = uIModSelectionGridEntry.transform.localPosition;
+				transform.localPosition = new Vector3(x3, localPosition2.y, 0f);
+				uIModSelectionGridEntry.transform.localScale = Vector3.one;
+				int num2;
+				if (characterData != null)
+				{
+					num2 = ((characterData.CharacterComponent.IsModUnlocked(inAbilityIndex, x.m_abilityScopeId) || GameManager.Get().GameplayOverrides.EnableAllMods) ? 1 : 0);
+				}
+				else
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					num2 = 1;
+				}
+				bool flag = (byte)num2 != 0;
+				bool flag2 = selectedAbilitiesModIndex == x.m_abilityScopeId && selectedAbilitiesModIndex != -1;
+				flag = GameManager.Get().GameplayOverrides.IsAbilityModAllowed(characterData.CharacterType, inAbilityIndex, x.m_abilityScopeId);
+				if (flag2)
+				{
+					m_currentSelectionTitle.text = x.m_name;
+					m_currentSelectionDetails.text = x.GetUnlocalizedFullTooltip(inAbility.ability);
+					m_selectedModIcon.sprite = ((!modForAbility) ? null : modForAbility.m_iconSprite);
+					float num3 = counter;
+					Vector2 cellSize2 = m_gridLayout.cellSize;
+					selectedY = num3 * cellSize2.y;
+				}
+				counter++;
+				uIModSelectionGridEntry.Setup(x, flag2, flag, OnSelected);
+			});
+			RectTransform component = m_gridLayout.GetComponent<RectTransform>();
+			Vector2 sizeDelta = component.sizeDelta;
+			float x2 = sizeDelta.x;
+			float num = availableModsForAbility.Count;
+			Vector2 cellSize = m_gridLayout.cellSize;
+			Vector2 sizeDelta2 = new Vector2(x2, num * cellSize.y);
+			float y = sizeDelta2.y;
+			Vector2 sizeDelta3 = component.sizeDelta;
+			if (y > sizeDelta3.y)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					component.sizeDelta = sizeDelta2;
+					m_scrollBarRef.value = Mathf.Abs(selectedY / sizeDelta2.y - 1f);
+					return;
 				}
 			}
-			else
-			{
-				bool flag = characterData.CharacterComponent.IsModUnlocked(inAbilityIndex, x.m_abilityScopeId) || GameManager.Get().GameplayOverrides.EnableAllMods;
-			}
-			bool flag2 = selectedAbilitiesModIndex == x.m_abilityScopeId && selectedAbilitiesModIndex != -1;
-			bool isUnlocked = GameManager.Get().GameplayOverrides.IsAbilityModAllowed(characterData.CharacterType, inAbilityIndex, x.m_abilityScopeId);
-			if (flag2)
-			{
-				this.m_currentSelectionTitle.text = x.m_name;
-				this.m_currentSelectionDetails.text = x.GetUnlocalizedFullTooltip(inAbility.ability);
-				this.m_selectedModIcon.sprite = ((!modForAbility) ? null : modForAbility.m_iconSprite);
-				selectedY = (float)counter * this.m_gridLayout.cellSize.y;
-			}
-			counter++;
-			uimodSelectionGridEntry.Setup(x, flag2, isUnlocked, new UnityAction<bool>(this.OnSelected));
-		});
-		RectTransform component = this.m_gridLayout.GetComponent<RectTransform>();
-		Vector2 sizeDelta = new Vector2(component.sizeDelta.x, (float)availableModsForAbility.Count * this.m_gridLayout.cellSize.y);
-		if (sizeDelta.y > component.sizeDelta.y)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			component.sizeDelta = sizeDelta;
-			this.m_scrollBarRef.value = Mathf.Abs(selectedY / sizeDelta.y - 1f);
+			return;
 		}
 	}
 
 	private void SortByColumn(BaseEventData baseEvent, int columnIndex)
 	{
 		List<UIModSelectionGridEntry> list = new List<UIModSelectionGridEntry>();
-		list.AddRange(this.m_gridLayout.GetComponentsInChildren<UIModSelectionGridEntry>());
+		list.AddRange(m_gridLayout.GetComponentsInChildren<UIModSelectionGridEntry>());
 		List<UIModSelectionGridEntry> list2;
 		if (columnIndex == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -269,14 +289,13 @@ public class UIDebugModSelectionDialog : UIDialogBox
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugModSelectionDialog.SortByColumn(BaseEventData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			IEnumerable<UIModSelectionGridEntry> source = list;
-			if (UIDebugModSelectionDialog.<>f__am$cache1 == null)
+			if (_003C_003Ef__am_0024cache1 == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -285,22 +304,20 @@ public class UIDebugModSelectionDialog : UIDialogBox
 					}
 					break;
 				}
-				UIDebugModSelectionDialog.<>f__am$cache1 = ((UIModSelectionGridEntry element) => element.m_ModName.text);
+				_003C_003Ef__am_0024cache1 = ((UIModSelectionGridEntry element) => element.m_ModName.text);
 			}
-			IOrderedEnumerable<UIModSelectionGridEntry> source2 = source.OrderBy(UIDebugModSelectionDialog.<>f__am$cache1);
-			list2 = source2.ToList<UIModSelectionGridEntry>();
+			IOrderedEnumerable<UIModSelectionGridEntry> source = list.OrderBy(_003C_003Ef__am_0024cache1);
+			list2 = source.ToList();
 		}
 		else
 		{
-			IOrderedEnumerable<UIModSelectionGridEntry> source3 = from element in list
-			orderby element.m_ModPoints.text
-			select element;
-			list2 = source3.ToList<UIModSelectionGridEntry>();
+			IOrderedEnumerable<UIModSelectionGridEntry> source2 = list.OrderBy((UIModSelectionGridEntry element) => element.m_ModPoints.text);
+			list2 = source2.ToList();
 		}
-		bool flag = this.reverseSort[columnIndex];
-		if (this.reverseSort[columnIndex])
+		bool flag = reverseSort[columnIndex];
+		if (reverseSort[columnIndex])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -311,10 +328,10 @@ public class UIDebugModSelectionDialog : UIDialogBox
 			}
 			list2.Reverse();
 		}
-		IEnumerable<bool> source4 = this.reverseSort;
-		if (UIDebugModSelectionDialog.<>f__am$cache3 == null)
+		List<bool> source3 = reverseSort;
+		if (_003C_003Ef__am_0024cache3 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -323,26 +340,26 @@ public class UIDebugModSelectionDialog : UIDialogBox
 				}
 				break;
 			}
-			UIDebugModSelectionDialog.<>f__am$cache3 = ((bool x) => false);
+			_003C_003Ef__am_0024cache3 = ((bool x) => x = false);
 		}
-		source4.All(UIDebugModSelectionDialog.<>f__am$cache3);
-		this.reverseSort[columnIndex] = !flag;
-		foreach (UIModSelectionGridEntry uimodSelectionGridEntry in list)
+		source3.All(_003C_003Ef__am_0024cache3);
+		reverseSort[columnIndex] = !flag;
+		foreach (UIModSelectionGridEntry item in list)
 		{
-			int siblingIndex = list2.IndexOf(uimodSelectionGridEntry);
-			uimodSelectionGridEntry.transform.SetSiblingIndex(siblingIndex);
-			uimodSelectionGridEntry.transform.SetParent(this.m_gridLayout.transform);
+			int siblingIndex = list2.IndexOf(item);
+			item.transform.SetSiblingIndex(siblingIndex);
+			item.transform.SetParent(m_gridLayout.transform);
 		}
-		this.m_gridLayout.gameObject.SetActive(false);
-		this.m_gridLayout.gameObject.SetActive(true);
+		m_gridLayout.gameObject.SetActive(false);
+		m_gridLayout.gameObject.SetActive(true);
 	}
 
 	public void OnSelected(bool enabledSomething)
 	{
-		List<UIModSelectionGridEntry> list = new List<UIModSelectionGridEntry>(this.m_gridLayout.GetComponentsInChildren<UIModSelectionGridEntry>(true));
+		List<UIModSelectionGridEntry> list = new List<UIModSelectionGridEntry>(m_gridLayout.GetComponentsInChildren<UIModSelectionGridEntry>(true));
 		if (enabledSomething)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -351,24 +368,24 @@ public class UIDebugModSelectionDialog : UIDialogBox
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugModSelectionDialog.OnSelected(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			using (List<UIModSelectionGridEntry>.Enumerator enumerator = list.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					UIModSelectionGridEntry uimodSelectionGridEntry = enumerator.Current;
-					if (uimodSelectionGridEntry.justSet && !this.m_abilitiesPanel.UnderTotalModEquipCost(uimodSelectionGridEntry.associatedAbilityMod))
+					UIModSelectionGridEntry current = enumerator.Current;
+					if (current.justSet && !m_abilitiesPanel.UnderTotalModEquipCost(current.associatedAbilityMod))
 					{
-						uimodSelectionGridEntry.justSet = false;
-						uimodSelectionGridEntry.m_ModEnabled.isOn = false;
-						this.m_abilitiesPanel.ShowOutOfModEquipPointsDialog();
+						current.justSet = false;
+						current.m_ModEnabled.isOn = false;
+						m_abilitiesPanel.ShowOutOfModEquipPointsDialog();
 						return;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -382,11 +399,11 @@ public class UIDebugModSelectionDialog : UIDialogBox
 			{
 				while (enumerator2.MoveNext())
 				{
-					UIModSelectionGridEntry uimodSelectionGridEntry2 = enumerator2.Current;
-					uimodSelectionGridEntry2.m_ModEnabled.isOn = uimodSelectionGridEntry2.justSet;
-					if (uimodSelectionGridEntry2.m_ModEnabled.isOn)
+					UIModSelectionGridEntry current2 = enumerator2.Current;
+					current2.m_ModEnabled.isOn = current2.justSet;
+					if (current2.m_ModEnabled.isOn)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -395,9 +412,9 @@ public class UIDebugModSelectionDialog : UIDialogBox
 							}
 							break;
 						}
-						if (!uimodSelectionGridEntry2.justSet)
+						if (!current2.justSet)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -406,15 +423,19 @@ public class UIDebugModSelectionDialog : UIDialogBox
 								}
 								break;
 							}
-							Graphic modPoints = uimodSelectionGridEntry2.m_ModPoints;
-							Color color = new Color(uimodSelectionGridEntry2.m_NotSelectedColor.r, uimodSelectionGridEntry2.m_NotSelectedColor.g, uimodSelectionGridEntry2.m_NotSelectedColor.b, uimodSelectionGridEntry2.m_ModPoints.color.a);
-							uimodSelectionGridEntry2.m_ModName.color = color;
-							modPoints.color = color;
+							Text modPoints = current2.m_ModPoints;
+							float r = current2.m_NotSelectedColor.r;
+							float g = current2.m_NotSelectedColor.g;
+							float b = current2.m_NotSelectedColor.b;
+							Color color = current2.m_ModPoints.color;
+							Color color2 = new Color(r, g, b, color.a);
+							current2.m_ModName.color = color2;
+							modPoints.color = color2;
 						}
 					}
-					if (uimodSelectionGridEntry2.justSet)
+					if (current2.justSet)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -423,18 +444,18 @@ public class UIDebugModSelectionDialog : UIDialogBox
 							}
 							break;
 						}
-						this.m_currentSelectionDetails.text = uimodSelectionGridEntry2.associatedAbilityMod.GetUnlocalizedFullTooltip(null);
-						this.m_currentSelectionTitle.text = uimodSelectionGridEntry2.associatedAbilityMod.m_name;
-						this.m_abilitiesPanel.m_selectedAbilityButton.SetSelectedMod(uimodSelectionGridEntry2.associatedAbilityMod);
-						this.m_abilitiesPanel.m_selectedAbilityButton.SetSelectedModIndex(uimodSelectionGridEntry2.associatedAbilityMod.m_abilityScopeId);
-						this.m_abilitiesPanel.m_modInfo.SetModForAbility(this.m_selectedAbilityIndex, uimodSelectionGridEntry2.associatedAbilityMod.m_abilityScopeId);
-						this.m_selectedModIcon.sprite = uimodSelectionGridEntry2.associatedAbilityMod.m_iconSprite;
-						AppState_CharacterSelect.Get().UpdateSelectedMods(this.m_abilitiesPanel.m_modInfo);
+						m_currentSelectionDetails.text = current2.associatedAbilityMod.GetUnlocalizedFullTooltip(null);
+						m_currentSelectionTitle.text = current2.associatedAbilityMod.m_name;
+						m_abilitiesPanel.m_selectedAbilityButton.SetSelectedMod(current2.associatedAbilityMod);
+						m_abilitiesPanel.m_selectedAbilityButton.SetSelectedModIndex(current2.associatedAbilityMod.m_abilityScopeId);
+						m_abilitiesPanel.m_modInfo.SetModForAbility(m_selectedAbilityIndex, current2.associatedAbilityMod.m_abilityScopeId);
+						m_selectedModIcon.sprite = current2.associatedAbilityMod.m_iconSprite;
+						AppState_CharacterSelect.Get().UpdateSelectedMods(m_abilitiesPanel.m_modInfo);
 						UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModAdd);
 					}
-					uimodSelectionGridEntry2.justSet = false;
+					current2.justSet = false;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -447,31 +468,31 @@ public class UIDebugModSelectionDialog : UIDialogBox
 		}
 		else
 		{
-			foreach (UIModSelectionGridEntry uimodSelectionGridEntry3 in list)
+			foreach (UIModSelectionGridEntry item in list)
 			{
-				if (uimodSelectionGridEntry3.m_ModEnabled.isOn)
+				if (item.m_ModEnabled.isOn)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
+						default:
+							return;
 						case 0:
-							continue;
+							break;
 						}
-						break;
 					}
-					return;
 				}
 			}
-			this.m_currentSelectionDetails.text = "No mod selected";
-			this.m_currentSelectionTitle.text = string.Empty;
-			this.m_abilitiesPanel.m_selectedAbilityButton.SetSelectedMod(null);
-			this.m_abilitiesPanel.m_selectedAbilityButton.SetSelectedModIndex(-1);
-			this.m_abilitiesPanel.m_modInfo.SetModForAbility(this.m_selectedAbilityIndex, -1);
+			m_currentSelectionDetails.text = "No mod selected";
+			m_currentSelectionTitle.text = string.Empty;
+			m_abilitiesPanel.m_selectedAbilityButton.SetSelectedMod(null);
+			m_abilitiesPanel.m_selectedAbilityButton.SetSelectedModIndex(-1);
+			m_abilitiesPanel.m_modInfo.SetModForAbility(m_selectedAbilityIndex, -1);
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModClear);
-			AppState_CharacterSelect.Get().UpdateSelectedMods(this.m_abilitiesPanel.m_modInfo);
+			AppState_CharacterSelect.Get().UpdateSelectedMods(m_abilitiesPanel.m_modInfo);
 		}
-		this.m_abilitiesPanel.UpdateModCounter();
-		this.m_abilitiesPanel.UpdateModEquipPointsLeft(this.m_modPointsDisplay);
+		m_abilitiesPanel.UpdateModCounter();
+		m_abilitiesPanel.UpdateModEquipPointsLeft(m_modPointsDisplay);
 	}
 }

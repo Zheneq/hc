@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class DurationActorVFXInfo
@@ -11,146 +10,144 @@ public class DurationActorVFXInfo
 
 	public DurationActorVFXInfo(GameObject vfxPrefab, float maxDuration, GameObject parentObject)
 	{
-		this.m_displayMaxDuration = maxDuration;
+		m_displayMaxDuration = maxDuration;
 		if (vfxPrefab != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DurationActorVFXInfo..ctor(GameObject, float, GameObject)).MethodHandle;
-			}
-			this.m_vfxInst = UnityEngine.Object.Instantiate<GameObject>(vfxPrefab);
-			if (this.m_vfxInst != null)
-			{
-				if (parentObject != null)
-				{
-					for (;;)
+					break;
+				default:
+					if (1 == 0)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					this.m_vfxInst.transform.parent = parentObject.transform;
+					m_vfxInst = Object.Instantiate(vfxPrefab);
+					if (m_vfxInst != null)
+					{
+						if (parentObject != null)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							m_vfxInst.transform.parent = parentObject.transform;
+						}
+						m_vfxInst.transform.localPosition = Vector3.zero;
+						m_vfxInst.transform.localRotation = Quaternion.identity;
+						m_vfxInst.SetActive(false);
+					}
+					return;
 				}
-				this.m_vfxInst.transform.localPosition = Vector3.zero;
-				this.m_vfxInst.transform.localRotation = Quaternion.identity;
-				this.m_vfxInst.SetActive(false);
 			}
 		}
-		else
-		{
-			this.m_vfxInst = null;
-		}
+		m_vfxInst = null;
 	}
 
 	public void OnUpdate()
 	{
-		if (this.m_vfxInst != null)
+		if (!(m_vfxInst != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_remainingDisplayTime > 0f)
+			{
+				m_remainingDisplayTime -= Time.deltaTime;
+				if (m_remainingDisplayTime <= 0f)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DurationActorVFXInfo.OnUpdate()).MethodHandle;
-			}
-			if (this.m_remainingDisplayTime > 0f)
-			{
-				this.m_remainingDisplayTime -= Time.deltaTime;
-				if (this.m_remainingDisplayTime <= 0f)
-				{
-					this.HideVfx();
+					HideVfx();
 				}
 			}
+			return;
 		}
 	}
 
 	public void ShowVfxAtPosition(Vector3 position, bool actorVisible, Vector3 lookDir)
 	{
-		if (this.m_vfxInst != null)
+		if (!(m_vfxInst != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DurationActorVFXInfo.ShowVfxAtPosition(Vector3, bool, Vector3)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_vfxInst.transform.position = position;
-			this.ShowVfx(actorVisible, lookDir);
+			m_vfxInst.transform.position = position;
+			ShowVfx(actorVisible, lookDir);
+			return;
 		}
 	}
 
 	public void ShowVfx(bool actorVisible, Vector3 lookDir)
 	{
-		if (this.m_vfxInst != null)
+		if (m_vfxInst != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DurationActorVFXInfo.ShowVfx(bool, Vector3)).MethodHandle;
-			}
-			if (actorVisible)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (actorVisible)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						m_vfxInst.SetActive(true);
+					}
+					if (lookDir != Vector3.zero)
+					{
+						m_vfxInst.transform.rotation = Quaternion.LookRotation(lookDir);
+					}
+					m_remainingDisplayTime = m_displayMaxDuration;
+					return;
 				}
-				this.m_vfxInst.SetActive(true);
 			}
-			if (lookDir != Vector3.zero)
-			{
-				this.m_vfxInst.transform.rotation = Quaternion.LookRotation(lookDir);
-			}
-			this.m_remainingDisplayTime = this.m_displayMaxDuration;
 		}
-		else
-		{
-			this.m_remainingDisplayTime = 0f;
-		}
+		m_remainingDisplayTime = 0f;
 	}
 
 	public void HideVfx()
 	{
-		if (this.m_vfxInst != null)
+		if (m_vfxInst != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -159,34 +156,35 @@ public class DurationActorVFXInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DurationActorVFXInfo.HideVfx()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_vfxInst.SetActive(false);
+			m_vfxInst.SetActive(false);
 		}
-		this.m_remainingDisplayTime = 0f;
+		m_remainingDisplayTime = 0f;
 	}
 
 	public void DestroyVfx()
 	{
-		if (this.m_vfxInst != null)
+		if (!(m_vfxInst != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DurationActorVFXInfo.DestroyVfx()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.Destroy(this.m_vfxInst);
-			this.m_vfxInst = null;
+			Object.Destroy(m_vfxInst);
+			m_vfxInst = null;
+			return;
 		}
 	}
 }

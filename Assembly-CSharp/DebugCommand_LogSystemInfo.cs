@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class DebugCommand_LogSystemInfo : DebugCommand
@@ -32,62 +31,26 @@ public class DebugCommand_LogSystemInfo : DebugCommand
 	{
 		string text = "VRAM: " + SystemInfo.graphicsMemorySize + "\n";
 		string text2 = text;
-		text = string.Concat(new object[]
-		{
-			text2,
-			"ShaderVersion: ",
-			SystemInfo.graphicsShaderLevel,
-			"\n"
-		});
+		text = text2 + "ShaderVersion: " + SystemInfo.graphicsShaderLevel + "\n";
 		text2 = text;
-		text = string.Concat(new object[]
-		{
-			text2,
-			"MaxTextureSize: ",
-			SystemInfo.maxTextureSize,
-			"\n"
-		});
+		text = text2 + "MaxTextureSize: " + SystemInfo.maxTextureSize + "\n";
 		text2 = text;
-		text = string.Concat(new object[]
-		{
-			text2,
-			"MaxCubemapSize: ",
-			SystemInfo.maxCubemapSize,
-			"\n"
-		});
+		text = text2 + "MaxCubemapSize: " + SystemInfo.maxCubemapSize + "\n";
 		text = text + "GraphicsDeviceVersion: " + SystemInfo.graphicsDeviceVersion + "\n";
-		TextConsole.Get().Write(text, ConsoleMessageType.SystemMessage);
+		TextConsole.Get().Write(text);
 	}
 
 	public override bool OnSlashCommand(string arguments)
 	{
 		string text = "VRAM: " + SystemInfo.graphicsMemorySize + "\n";
 		string text2 = text;
-		text = string.Concat(new object[]
-		{
-			text2,
-			"ShaderVersion: ",
-			SystemInfo.graphicsShaderLevel,
-			"\n"
-		});
+		text = text2 + "ShaderVersion: " + SystemInfo.graphicsShaderLevel + "\n";
 		text2 = text;
-		text = string.Concat(new object[]
-		{
-			text2,
-			"MaxTextureSize: ",
-			SystemInfo.maxTextureSize,
-			"\n"
-		});
+		text = text2 + "MaxTextureSize: " + SystemInfo.maxTextureSize + "\n";
 		text2 = text;
-		text = string.Concat(new object[]
-		{
-			text2,
-			"MaxCubemapSize: ",
-			SystemInfo.maxCubemapSize,
-			"\n"
-		});
+		text = text2 + "MaxCubemapSize: " + SystemInfo.maxCubemapSize + "\n";
 		text = text + "GraphicsDeviceVersion: " + SystemInfo.graphicsDeviceVersion + "\n";
-		TextConsole.Get().Write(text, ConsoleMessageType.SystemMessage);
+		TextConsole.Get().Write(text);
 		return true;
 	}
 }

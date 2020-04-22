@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,21 +34,21 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		TricksterMadeYouLook tricksterMadeYouLook = targetAbility as TricksterMadeYouLook;
 		if (tricksterMadeYouLook != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_radiusFromLineMod, "RadiusFromLine", string.Empty, tricksterMadeYouLook.m_radiusFromLine, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_radiusAroundEndsMod, "RadiusAroundEnds", string.Empty, tricksterMadeYouLook.m_radiusAroundEnds, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, tricksterMadeYouLook.m_damageAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyOnHitEffectMod, "EnemyOnHitEffect", tricksterMadeYouLook.m_enemyOnHitEffect, true);
+			AbilityMod.AddToken(tokens, m_radiusFromLineMod, "RadiusFromLine", string.Empty, tricksterMadeYouLook.m_radiusFromLine);
+			AbilityMod.AddToken(tokens, m_radiusAroundEndsMod, "RadiusAroundEnds", string.Empty, tricksterMadeYouLook.m_radiusAroundEnds);
+			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, tricksterMadeYouLook.m_damageAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyOnHitEffectMod, "EnemyOnHitEffect", tricksterMadeYouLook.m_enemyOnHitEffect);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		TricksterMadeYouLook tricksterMadeYouLook = base.GetTargetAbilityOnAbilityData(abilityData) as TricksterMadeYouLook;
+		TricksterMadeYouLook tricksterMadeYouLook = GetTargetAbilityOnAbilityData(abilityData) as TricksterMadeYouLook;
 		bool flag = tricksterMadeYouLook != null;
 		string text = string.Empty;
-		if (this.m_spoilsSpawnDataOnDisappear != null)
+		if (m_spoilsSpawnDataOnDisappear != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -57,20 +57,18 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TricksterMadeYouLook.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text += base.PropDesc(this.m_spoilsSpawnDataOnDisappear, "[SpoilSpawnDataOnDisappear]", false, null);
+			text += PropDesc(m_spoilsSpawnDataOnDisappear, "[SpoilSpawnDataOnDisappear]");
 		}
 		string str = text;
-		AbilityModPropertyBool hitActorsInBetweenMod = this.m_hitActorsInBetweenMod;
-		string prefix = "[HitActorsInBetween]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		AbilityModPropertyBool hitActorsInBetweenMod = m_hitActorsInBetweenMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -79,23 +77,21 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 				}
 				break;
 			}
-			baseVal = tricksterMadeYouLook.m_hitActorsInBetween;
+			baseVal = (tricksterMadeYouLook.m_hitActorsInBetween ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(hitActorsInBetweenMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_radiusFromLineMod, "[RadiusFromLine]", flag, (!flag) ? 0f : tricksterMadeYouLook.m_radiusFromLine);
-		text += base.PropDesc(this.m_radiusAroundEndsMod, "[RadiusAroundEnds]", flag, (!flag) ? 0f : tricksterMadeYouLook.m_radiusAroundEnds);
+		text = str + PropDesc(hitActorsInBetweenMod, "[HitActorsInBetween]", flag, (byte)baseVal != 0);
+		text += PropDesc(m_radiusFromLineMod, "[RadiusFromLine]", flag, (!flag) ? 0f : tricksterMadeYouLook.m_radiusFromLine);
+		text += PropDesc(m_radiusAroundEndsMod, "[RadiusAroundEnds]", flag, (!flag) ? 0f : tricksterMadeYouLook.m_radiusAroundEnds);
 		string str2 = text;
-		AbilityModPropertyBool penetrateLosMod = this.m_penetrateLosMod;
-		string prefix2 = "[PenetrateLos]";
-		bool showBaseVal2 = flag;
-		bool baseVal2;
+		AbilityModPropertyBool penetrateLosMod = m_penetrateLosMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -104,16 +100,16 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 				}
 				break;
 			}
-			baseVal2 = tricksterMadeYouLook.m_penetrateLos;
+			baseVal2 = (tricksterMadeYouLook.m_penetrateLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal2 = false;
+			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(penetrateLosMod, prefix2, showBaseVal2, baseVal2);
-		if (this.m_cooldownReductionForTravelHit != null)
+		text = str2 + PropDesc(penetrateLosMod, "[PenetrateLos]", flag, (byte)baseVal2 != 0);
+		if (m_cooldownReductionForTravelHit != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -122,9 +118,9 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 				}
 				break;
 			}
-			if (this.m_cooldownReductionForTravelHit.HasCooldownReduction())
+			if (m_cooldownReductionForTravelHit.HasCooldownReduction())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -134,17 +130,15 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 					break;
 				}
 				text += "Cooldown Reductions For Enemy Hit In Travel:\n";
-				text += this.m_cooldownReductionForTravelHit.GetDescription(abilityData);
+				text += m_cooldownReductionForTravelHit.GetDescription(abilityData);
 			}
 		}
 		string str3 = text;
-		AbilityModPropertyInt damageAmountMod = this.m_damageAmountMod;
-		string prefix3 = "[DamageAmount]";
-		bool showBaseVal3 = flag;
+		AbilityModPropertyInt damageAmountMod = m_damageAmountMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -159,15 +153,13 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(damageAmountMod, prefix3, showBaseVal3, baseVal3);
+		text = str3 + PropDesc(damageAmountMod, "[DamageAmount]", flag, baseVal3);
 		string str4 = text;
-		AbilityModPropertyEffectInfo enemyOnHitEffectMod = this.m_enemyOnHitEffectMod;
-		string prefix4 = "[EnemyOnHitEffect]";
-		bool showBaseVal4 = flag;
-		StandardEffectInfo baseVal4;
+		AbilityModPropertyEffectInfo enemyOnHitEffectMod = m_enemyOnHitEffectMod;
+		object baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -182,6 +174,6 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		{
 			baseVal4 = null;
 		}
-		return str4 + base.PropDesc(enemyOnHitEffectMod, prefix4, showBaseVal4, baseVal4);
+		return str4 + PropDesc(enemyOnHitEffectMod, "[EnemyOnHitEffect]", flag, (StandardEffectInfo)baseVal4);
 	}
 }

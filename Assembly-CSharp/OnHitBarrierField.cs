@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -26,14 +26,14 @@ public class OnHitBarrierField
 
 	public string GetIdentifier()
 	{
-		return this.m_identifier.Trim();
+		return m_identifier.Trim();
 	}
 
 	public int GetCenterPosContextKey(bool recalc = false)
 	{
-		if (this.m_centerPosContextKey != 0)
+		if (m_centerPosContextKey != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -42,15 +42,15 @@ public class OnHitBarrierField
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitBarrierField.GetCenterPosContextKey(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!recalc)
 			{
-				goto IL_3B;
+				goto IL_003b;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -60,16 +60,17 @@ public class OnHitBarrierField
 				break;
 			}
 		}
-		this.m_centerPosContextKey = ContextVars.\u0015(this.m_centerPosContextName);
-		IL_3B:
-		return this.m_centerPosContextKey;
+		m_centerPosContextKey = ContextVars.GetHash(m_centerPosContextName);
+		goto IL_003b;
+		IL_003b:
+		return m_centerPosContextKey;
 	}
 
 	public int GetFacingDirContextKey(bool recalc = false)
 	{
-		if (this.m_facingDirContextKey != 0)
+		if (m_facingDirContextKey != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -78,15 +79,15 @@ public class OnHitBarrierField
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitBarrierField.GetFacingDirContextKey(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!recalc)
 			{
-				goto IL_3B;
+				goto IL_003b;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -96,16 +97,17 @@ public class OnHitBarrierField
 				break;
 			}
 		}
-		this.m_facingDirContextKey = ContextVars.\u0015(this.m_facingDirContextName);
-		IL_3B:
-		return this.m_facingDirContextKey;
+		m_facingDirContextKey = ContextVars.GetHash(m_facingDirContextName);
+		goto IL_003b;
+		IL_003b:
+		return m_facingDirContextKey;
 	}
 
 	public int GetBarrierWidthContextKey(bool recalc = false)
 	{
-		if (this.m_barrierWidthContextKey != 0)
+		if (m_barrierWidthContextKey != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -114,15 +116,15 @@ public class OnHitBarrierField
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitBarrierField.GetBarrierWidthContextKey(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!recalc)
 			{
-				goto IL_39;
+				goto IL_0039;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -132,42 +134,44 @@ public class OnHitBarrierField
 				break;
 			}
 		}
-		this.m_barrierWidthContextKey = ContextVars.\u0015(this.m_barrierWidthContextName);
-		IL_39:
-		return this.m_barrierWidthContextKey;
+		m_barrierWidthContextKey = ContextVars.GetHash(m_barrierWidthContextName);
+		goto IL_0039;
+		IL_0039:
+		return m_barrierWidthContextKey;
 	}
 
 	public void AddTooltipTokens(List<TooltipTokenEntry> tokens)
 	{
-		string identifier = this.GetIdentifier();
-		if (!string.IsNullOrEmpty(identifier))
+		string identifier = GetIdentifier();
+		if (string.IsNullOrEmpty(identifier))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitBarrierField.AddTooltipTokens(List<TooltipTokenEntry>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_barrierData != null)
+			if (m_barrierData != null)
 			{
-				this.m_barrierData.AddTooltipTokens(tokens, identifier, false, null);
+				m_barrierData.AddTooltipTokens(tokens, identifier);
 			}
+			return;
 		}
 	}
 
 	public string GetInEditorDesc()
 	{
-		string text = string.Empty;
-		if (this.m_barrierData != null)
+		string result = string.Empty;
+		if (m_barrierData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -176,18 +180,18 @@ public class OnHitBarrierField
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitBarrierField.GetInEditorDesc()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text = "- Barrier To Spawn -\n";
-			if (!string.IsNullOrEmpty(this.m_identifier))
+			result = "- Barrier To Spawn -\n";
+			if (!string.IsNullOrEmpty(m_identifier))
 			{
-				text = text + "Identifier: " + InEditorDescHelper.ColoredString(this.m_identifier, "white", false) + "\n";
+				result = result + "Identifier: " + InEditorDescHelper.ColoredString(m_identifier, "white") + "\n";
 			}
-			if (!string.IsNullOrEmpty(this.m_centerPosContextName))
+			if (!string.IsNullOrEmpty(m_centerPosContextName))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -196,22 +200,15 @@ public class OnHitBarrierField
 					}
 					break;
 				}
-				text = text + "Center Pos Context Var = " + this.m_centerPosContextName + "\n";
+				result = result + "Center Pos Context Var = " + m_centerPosContextName + "\n";
 			}
 			else
 			{
-				text = text + InEditorDescHelper.ColoredString("Center Pos Context Var is empty, please specify one", "orange", false) + "\n";
+				result = result + InEditorDescHelper.ColoredString("Center Pos Context Var is empty, please specify one", "orange") + "\n";
 			}
-			if (!string.IsNullOrEmpty(this.m_facingDirContextName))
-			{
-				text = text + "Facing Dir Context Var = " + this.m_facingDirContextName + "\n";
-			}
-			else
-			{
-				text = text + InEditorDescHelper.ColoredString("Facing Dir Context Var is empty, please specify one", "orange", false) + "\n";
-			}
-			text = text + this.m_barrierData.GetInEditorDescription("Barrier Data", "    ", false, null) + "\n";
+			result = (string.IsNullOrEmpty(m_facingDirContextName) ? (result + InEditorDescHelper.ColoredString("Facing Dir Context Var is empty, please specify one", "orange") + "\n") : (result + "Facing Dir Context Var = " + m_facingDirContextName + "\n"));
+			result = result + m_barrierData.GetInEditorDescription() + "\n";
 		}
-		return text;
+		return result;
 	}
 }

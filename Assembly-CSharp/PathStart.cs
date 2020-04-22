@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class PathStart : MonoBehaviour
@@ -10,11 +9,29 @@ public class PathStart : MonoBehaviour
 	public virtual void SetColor(Color newColor)
 	{
 		MeshRenderer[] componentsInChildren = base.gameObject.GetComponentsInChildren<MeshRenderer>();
-		foreach (MeshRenderer meshRenderer in componentsInChildren)
+		MeshRenderer[] array = componentsInChildren;
+		foreach (MeshRenderer meshRenderer in array)
 		{
-			if (meshRenderer.materials.Length > 0)
+			if (meshRenderer.materials.Length <= 0)
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (meshRenderer.materials[0] != null)
+			{
+				while (true)
 				{
 					switch (3)
 					{
@@ -23,33 +40,18 @@ public class PathStart : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PathStart.SetColor(Color)).MethodHandle;
-				}
-				if (meshRenderer.materials[0] != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					meshRenderer.materials[0].SetColor("_TintColor", newColor);
-				}
+				meshRenderer.materials[0].SetColor("_TintColor", newColor);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 }

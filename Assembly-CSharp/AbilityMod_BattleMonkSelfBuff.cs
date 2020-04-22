@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,65 +31,64 @@ public class AbilityMod_BattleMonkSelfBuff : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		BattleMonkSelfBuff battleMonkSelfBuff = targetAbility as BattleMonkSelfBuff;
-		if (battleMonkSelfBuff != null)
+		if (!(battleMonkSelfBuff != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			AbilityMod.AddToken(tokens, m_absorbMod, "Absorb", string.Empty, battleMonkSelfBuff.m_standardActorEffectData.m_absorbAmount);
+			AbilityMod.AddToken(tokens, m_damageReturnMod, "DamagePerHit", string.Empty, battleMonkSelfBuff.m_damagePerHit);
+			AbilityMod.AddToken_EffectMod(tokens, m_returnEffectOnEnemyMod, "ReturnEffectOnEnemy", battleMonkSelfBuff.m_returnEffectOnEnemy);
+			if (m_hitNearbyAlliesMod == null)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkSelfBuff.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(tokens, this.m_absorbMod, "Absorb", string.Empty, battleMonkSelfBuff.m_standardActorEffectData.m_absorbAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageReturnMod, "DamagePerHit", string.Empty, battleMonkSelfBuff.m_damagePerHit, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_returnEffectOnEnemyMod, "ReturnEffectOnEnemy", battleMonkSelfBuff.m_returnEffectOnEnemy, true);
-			if (this.m_hitNearbyAlliesMod != null)
-			{
-				for (;;)
+				if (m_hitNearbyAlliesMod.GetModifiedValue(false))
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_hitNearbyAlliesMod.GetModifiedValue(false))
-				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						AbilityMod.AddToken_EffectInfo(tokens, m_effectOnAllyHit, "EffectOnAllyHit", null, false);
+						return;
 					}
-					AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnAllyHit, "EffectOnAllyHit", null, false);
 				}
+				return;
 			}
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		BattleMonkSelfBuff battleMonkSelfBuff = base.GetTargetAbilityOnAbilityData(abilityData) as BattleMonkSelfBuff;
+		BattleMonkSelfBuff battleMonkSelfBuff = GetTargetAbilityOnAbilityData(abilityData) as BattleMonkSelfBuff;
 		bool flag = battleMonkSelfBuff != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt absorbMod = this.m_absorbMod;
-		string prefix = "[Absorb]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt absorbMod = m_absorbMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -98,9 +97,9 @@ public class AbilityMod_BattleMonkSelfBuff : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkSelfBuff.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = battleMonkSelfBuff.m_standardActorEffectData.m_absorbAmount;
 		}
@@ -108,13 +107,13 @@ public class AbilityMod_BattleMonkSelfBuff : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(absorbMod, prefix, showBaseVal, baseVal);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_damageReturnMod, "[Damage Return]", flag, (!flag) ? 0 : battleMonkSelfBuff.m_damagePerHit);
-		text += base.PropDesc(this.m_returnEffectOnEnemyMod, "[ReturnEffectOnEnemy]", flag, (!flag) ? null : battleMonkSelfBuff.m_returnEffectOnEnemy);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_hitNearbyAlliesMod, "[Hit Nearby Allies?]", flag, false);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_allyTargetShapeMod, "[Ally Target Shape]", flag, AbilityAreaShape.SingleSquare);
-		text += AbilityModHelper.GetModEffectInfoDesc(this.m_effectOnAllyHit, "{ Effect on Ally Hit }", string.Empty, flag, null);
-		text += base.PropDesc(this.m_selfEffectDurationPerHit, "[Duration of Effect On Self Per Received Hit]", flag, 0);
-		return text + AbilityModHelper.GetModEffectInfoDesc(this.m_effectOnSelfNextTurn, "{ Effect on Self Next Turn }", string.Empty, flag, null);
+		empty = str + AbilityModHelper.GetModPropertyDesc(absorbMod, "[Absorb]", flag, baseVal);
+		empty += AbilityModHelper.GetModPropertyDesc(m_damageReturnMod, "[Damage Return]", flag, flag ? battleMonkSelfBuff.m_damagePerHit : 0);
+		empty += PropDesc(m_returnEffectOnEnemyMod, "[ReturnEffectOnEnemy]", flag, (!flag) ? null : battleMonkSelfBuff.m_returnEffectOnEnemy);
+		empty += AbilityModHelper.GetModPropertyDesc(m_hitNearbyAlliesMod, "[Hit Nearby Allies?]", flag);
+		empty += AbilityModHelper.GetModPropertyDesc(m_allyTargetShapeMod, "[Ally Target Shape]", flag);
+		empty += AbilityModHelper.GetModEffectInfoDesc(m_effectOnAllyHit, "{ Effect on Ally Hit }", string.Empty, flag);
+		empty += PropDesc(m_selfEffectDurationPerHit, "[Duration of Effect On Self Per Received Hit]", flag);
+		return empty + AbilityModHelper.GetModEffectInfoDesc(m_effectOnSelfNextTurn, "{ Effect on Self Next Turn }", string.Empty, flag);
 	}
 }

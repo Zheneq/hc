@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -8,15 +7,16 @@ public class Claymore_SyncComponent : NetworkBehaviour
 
 	private SyncListUInt m_dirtyFightingDamageList = new SyncListUInt();
 
-	private static int kListm_dirtyFightingActorIndexList = -0x2B0BC5CE;
+	private static int kListm_dirtyFightingActorIndexList;
 
 	private static int kListm_dirtyFightingDamageList;
 
 	static Claymore_SyncComponent()
 	{
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(Claymore_SyncComponent), Claymore_SyncComponent.kListm_dirtyFightingActorIndexList, new NetworkBehaviour.CmdDelegate(Claymore_SyncComponent.InvokeSyncListm_dirtyFightingActorIndexList));
-		Claymore_SyncComponent.kListm_dirtyFightingDamageList = 0x2BC6D044;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(Claymore_SyncComponent), Claymore_SyncComponent.kListm_dirtyFightingDamageList, new NetworkBehaviour.CmdDelegate(Claymore_SyncComponent.InvokeSyncListm_dirtyFightingDamageList));
+		kListm_dirtyFightingActorIndexList = -722191822;
+		NetworkBehaviour.RegisterSyncListDelegate(typeof(Claymore_SyncComponent), kListm_dirtyFightingActorIndexList, InvokeSyncListm_dirtyFightingActorIndexList);
+		kListm_dirtyFightingDamageList = 734449732;
+		NetworkBehaviour.RegisterSyncListDelegate(typeof(Claymore_SyncComponent), kListm_dirtyFightingDamageList, InvokeSyncListm_dirtyFightingDamageList);
 		NetworkCRC.RegisterBehaviour("Claymore_SyncComponent", 0);
 	}
 
@@ -24,8 +24,8 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			this.m_dirtyFightingActorIndexList.Clear();
-			this.m_dirtyFightingDamageList.Clear();
+			m_dirtyFightingActorIndexList.Clear();
+			m_dirtyFightingDamageList.Clear();
 		}
 	}
 
@@ -33,8 +33,8 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			this.m_dirtyFightingActorIndexList.Add((uint)actor.ActorIndex);
-			this.m_dirtyFightingDamageList.Add((uint)damage);
+			m_dirtyFightingActorIndexList.Add((uint)actor.ActorIndex);
+			m_dirtyFightingDamageList.Add((uint)damage);
 		}
 	}
 
@@ -42,27 +42,33 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		int result = 0;
 		uint actorIndex = (uint)target.ActorIndex;
-		for (int i = 0; i < this.m_dirtyFightingActorIndexList.Count; i++)
+		int num = 0;
+		while (true)
 		{
-			if (this.m_dirtyFightingActorIndexList[i] == actorIndex)
+			if (num < m_dirtyFightingActorIndexList.Count)
 			{
-				result = (int)this.m_dirtyFightingDamageList[i];
-				return result;
-			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
+				if (m_dirtyFightingActorIndexList[num] == actorIndex)
+				{
+					result = (int)m_dirtyFightingDamageList[num];
+					break;
+				}
+				num++;
 				continue;
 			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
 			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(Claymore_SyncComponent.GetDirtyFightingDamageOnActor(ActorData)).MethodHandle;
-			return result;
 		}
 		return result;
 	}
@@ -71,10 +77,10 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			int dirtyFightingDamageOnActor = this.GetDirtyFightingDamageOnActor(targetActor);
+			int dirtyFightingDamageOnActor = GetDirtyFightingDamageOnActor(targetActor);
 			if (dirtyFightingDamageOnActor > 0)
 			{
-				return "\n+ " + AbilityUtils.CalculateDamageForTargeter(caster, targetActor, ability, dirtyFightingDamageOnActor, false).ToString();
+				return "\n+ " + AbilityUtils.CalculateDamageForTargeter(caster, targetActor, ability, dirtyFightingDamageOnActor, false);
 			}
 		}
 		return null;
@@ -88,21 +94,21 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("SyncList m_dirtyFightingActorIndexList called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Claymore_SyncComponent.InvokeSyncListm_dirtyFightingActorIndexList(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("SyncList m_dirtyFightingActorIndexList called on server.");
-			return;
 		}
 		((Claymore_SyncComponent)obj).m_dirtyFightingActorIndexList.HandleMsg(reader);
 	}
@@ -111,56 +117,56 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("SyncList m_dirtyFightingDamageList called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Claymore_SyncComponent.InvokeSyncListm_dirtyFightingDamageList(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("SyncList m_dirtyFightingDamageList called on server.");
-			return;
 		}
 		((Claymore_SyncComponent)obj).m_dirtyFightingDamageList.HandleMsg(reader);
 	}
 
 	private void Awake()
 	{
-		this.m_dirtyFightingActorIndexList.InitializeBehaviour(this, Claymore_SyncComponent.kListm_dirtyFightingActorIndexList);
-		this.m_dirtyFightingDamageList.InitializeBehaviour(this, Claymore_SyncComponent.kListm_dirtyFightingDamageList);
+		m_dirtyFightingActorIndexList.InitializeBehaviour(this, kListm_dirtyFightingActorIndexList);
+		m_dirtyFightingDamageList.InitializeBehaviour(this, kListm_dirtyFightingDamageList);
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					SyncListUInt.WriteInstance(writer, m_dirtyFightingActorIndexList);
+					SyncListUInt.WriteInstance(writer, m_dirtyFightingDamageList);
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Claymore_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
-			SyncListUInt.WriteInstance(writer, this.m_dirtyFightingActorIndexList);
-			SyncListUInt.WriteInstance(writer, this.m_dirtyFightingDamageList);
-			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -171,7 +177,7 @@ public class Claymore_SyncComponent : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -183,11 +189,11 @@ public class Claymore_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			SyncListUInt.WriteInstance(writer, this.m_dirtyFightingActorIndexList);
+			SyncListUInt.WriteInstance(writer, m_dirtyFightingActorIndexList);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -198,7 +204,7 @@ public class Claymore_SyncComponent : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -210,11 +216,11 @@ public class Claymore_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			SyncListUInt.WriteInstance(writer, this.m_dirtyFightingDamageList);
+			SyncListUInt.WriteInstance(writer, m_dirtyFightingDamageList);
 		}
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -232,27 +238,27 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					SyncListUInt.ReadReference(reader, m_dirtyFightingActorIndexList);
+					SyncListUInt.ReadReference(reader, m_dirtyFightingDamageList);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Claymore_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
-			SyncListUInt.ReadReference(reader, this.m_dirtyFightingActorIndexList);
-			SyncListUInt.ReadReference(reader, this.m_dirtyFightingDamageList);
-			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -261,20 +267,21 @@ public class Claymore_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			SyncListUInt.ReadReference(reader, this.m_dirtyFightingActorIndexList);
+			SyncListUInt.ReadReference(reader, m_dirtyFightingActorIndexList);
 		}
-		if ((num & 2) != 0)
+		if ((num & 2) == 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			SyncListUInt.ReadReference(reader, this.m_dirtyFightingDamageList);
+			SyncListUInt.ReadReference(reader, m_dirtyFightingDamageList);
+			return;
 		}
 	}
 }

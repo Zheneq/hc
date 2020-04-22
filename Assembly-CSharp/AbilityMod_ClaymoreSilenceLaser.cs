@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,45 +37,44 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ClaymoreSilenceLaser claymoreSilenceLaser = targetAbility as ClaymoreSilenceLaser;
-		if (claymoreSilenceLaser != null)
+		if (!(claymoreSilenceLaser != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClaymoreSilenceLaser.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "LaserRange", string.Empty, claymoreSilenceLaser.m_laserRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", string.Empty, claymoreSilenceLaser.m_laserWidth, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserMaxTargetsMod, "LaserMaxTargets", string.Empty, claymoreSilenceLaser.m_laserMaxTargets, true, false);
-			AbilityMod.AddToken(tokens, this.m_onCastDamageAmountMod, "OnCastDamageAmount", string.Empty, claymoreSilenceLaser.m_onCastDamageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_effectExplosionDamageMod, "EffectExplosionDamage", string.Empty, claymoreSilenceLaser.m_effectExplosionDamage, true, false);
-			AbilityMod.AddToken(tokens, this.m_explosionDamageAfterFirstHitMod, "ExplosionDamageAfterFirstHit", string.Empty, claymoreSilenceLaser.m_explosionDamageAfterFirstHit, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectDataMod, "EnemyHitEffectData", claymoreSilenceLaser.m_enemyHitEffectData, true);
-			AbilityMod.AddToken(tokens, this.m_explosionCooldownReductionMod, "ExplosionCooldownReduction", string.Empty, claymoreSilenceLaser.m_explosionCooldownReduction, true, false);
+			AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, claymoreSilenceLaser.m_laserRange);
+			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, claymoreSilenceLaser.m_laserWidth);
+			AbilityMod.AddToken(tokens, m_laserMaxTargetsMod, "LaserMaxTargets", string.Empty, claymoreSilenceLaser.m_laserMaxTargets);
+			AbilityMod.AddToken(tokens, m_onCastDamageAmountMod, "OnCastDamageAmount", string.Empty, claymoreSilenceLaser.m_onCastDamageAmount);
+			AbilityMod.AddToken(tokens, m_effectExplosionDamageMod, "EffectExplosionDamage", string.Empty, claymoreSilenceLaser.m_effectExplosionDamage);
+			AbilityMod.AddToken(tokens, m_explosionDamageAfterFirstHitMod, "ExplosionDamageAfterFirstHit", string.Empty, claymoreSilenceLaser.m_explosionDamageAfterFirstHit);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectDataMod, "EnemyHitEffectData", claymoreSilenceLaser.m_enemyHitEffectData);
+			AbilityMod.AddToken(tokens, m_explosionCooldownReductionMod, "ExplosionCooldownReduction", string.Empty, claymoreSilenceLaser.m_explosionCooldownReduction);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ClaymoreSilenceLaser claymoreSilenceLaser = base.GetTargetAbilityOnAbilityData(abilityData) as ClaymoreSilenceLaser;
+		ClaymoreSilenceLaser claymoreSilenceLaser = GetTargetAbilityOnAbilityData(abilityData) as ClaymoreSilenceLaser;
 		bool flag = claymoreSilenceLaser != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat laserRangeMod = this.m_laserRangeMod;
-		string prefix = "[Laser Range]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat laserRangeMod = m_laserRangeMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -84,9 +83,9 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClaymoreSilenceLaser.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = claymoreSilenceLaser.m_laserRange;
 		}
@@ -94,16 +93,14 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(laserRangeMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_laserWidthMod, "[Laser Width]", flag, (!flag) ? 0f : claymoreSilenceLaser.m_laserWidth);
-		string str2 = text;
-		AbilityModPropertyInt laserMaxTargetsMod = this.m_laserMaxTargetsMod;
-		string prefix2 = "[Laser Max Targets]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(laserRangeMod, "[Laser Range]", flag, baseVal);
+		empty += PropDesc(m_laserWidthMod, "[Laser Width]", flag, (!flag) ? 0f : claymoreSilenceLaser.m_laserWidth);
+		string str2 = empty;
+		AbilityModPropertyInt laserMaxTargetsMod = m_laserMaxTargetsMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -118,15 +115,13 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(laserMaxTargetsMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyBool penetrateLosMod = this.m_penetrateLosMod;
-		string prefix3 = "[Penetrate Los]";
-		bool showBaseVal3 = flag;
-		bool baseVal3;
+		empty = str2 + PropDesc(laserMaxTargetsMod, "[Laser Max Targets]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyBool penetrateLosMod = m_penetrateLosMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -135,21 +130,19 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 				}
 				break;
 			}
-			baseVal3 = claymoreSilenceLaser.m_penetrateLos;
+			baseVal3 = (claymoreSilenceLaser.m_penetrateLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(penetrateLosMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt onCastDamageAmountMod = this.m_onCastDamageAmountMod;
-		string prefix4 = "[On Cast Damage Amount]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(penetrateLosMod, "[Penetrate Los]", flag, (byte)baseVal3 != 0);
+		string str4 = empty;
+		AbilityModPropertyInt onCastDamageAmountMod = m_onCastDamageAmountMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -164,16 +157,14 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(onCastDamageAmountMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_enemyHitEffectDataMod, "[Enemy Hit Effect Data]", flag, (!flag) ? null : claymoreSilenceLaser.m_enemyHitEffectData);
-		string str5 = text;
-		AbilityModPropertyInt effectExplosionDamageMod = this.m_effectExplosionDamageMod;
-		string prefix5 = "[Effect Explosion Damage]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(onCastDamageAmountMod, "[On Cast Damage Amount]", flag, baseVal4);
+		empty += PropDesc(m_enemyHitEffectDataMod, "[Enemy Hit Effect Data]", flag, (!flag) ? null : claymoreSilenceLaser.m_enemyHitEffectData);
+		string str5 = empty;
+		AbilityModPropertyInt effectExplosionDamageMod = m_effectExplosionDamageMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -188,15 +179,13 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(effectExplosionDamageMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt explosionDamageAfterFirstHitMod = this.m_explosionDamageAfterFirstHitMod;
-		string prefix6 = "[ExplosionDamageAfterFirstHit]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(effectExplosionDamageMod, "[Effect Explosion Damage]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt explosionDamageAfterFirstHitMod = m_explosionDamageAfterFirstHitMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -211,15 +200,13 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(explosionDamageAfterFirstHitMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyBool explosionReduceCooldownOnlyIfHitByAllyMod = this.m_explosionReduceCooldownOnlyIfHitByAllyMod;
-		string prefix7 = "[ExplosionReduceCooldownOnlyIfHitByAlly]";
-		bool showBaseVal7 = flag;
-		bool baseVal7;
+		empty = str6 + PropDesc(explosionDamageAfterFirstHitMod, "[ExplosionDamageAfterFirstHit]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyBool explosionReduceCooldownOnlyIfHitByAllyMod = m_explosionReduceCooldownOnlyIfHitByAllyMod;
+		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -228,21 +215,19 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 				}
 				break;
 			}
-			baseVal7 = claymoreSilenceLaser.m_explosionReduceCooldownOnlyIfHitByAlly;
+			baseVal7 = (claymoreSilenceLaser.m_explosionReduceCooldownOnlyIfHitByAlly ? 1 : 0);
 		}
 		else
 		{
-			baseVal7 = false;
+			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(explosionReduceCooldownOnlyIfHitByAllyMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyInt explosionCooldownReductionMod = this.m_explosionCooldownReductionMod;
-		string prefix8 = "[ExplosionCooldownReduction]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(explosionReduceCooldownOnlyIfHitByAllyMod, "[ExplosionReduceCooldownOnlyIfHitByAlly]", flag, (byte)baseVal7 != 0);
+		string str8 = empty;
+		AbilityModPropertyInt explosionCooldownReductionMod = m_explosionCooldownReductionMod;
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -257,7 +242,7 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		{
 			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(explosionCooldownReductionMod, prefix8, showBaseVal8, baseVal8);
-		return text + base.PropDesc(this.m_canExplodeOncePerTurnMod, "[ExplodeOncePerTurn]", flag, false);
+		empty = str8 + PropDesc(explosionCooldownReductionMod, "[ExplosionCooldownReduction]", flag, baseVal8);
+		return empty + PropDesc(m_canExplodeOncePerTurnMod, "[ExplodeOncePerTurn]", flag);
 	}
 }

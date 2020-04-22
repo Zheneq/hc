@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +17,7 @@ public class HealPBAoE : Ability
 
 	private void Start()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, this.m_shape, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, m_shape, true);
 	}
 
 	private int CalcHealPoints(ActorData aoeTarget, ActorData caster)
@@ -27,7 +26,7 @@ public class HealPBAoE : Ability
 		float num;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -36,22 +35,22 @@ public class HealPBAoE : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HealPBAoE.CalcHealPoints(ActorData, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = this.m_selfHitPointsPercentOfMax;
+			num = m_selfHitPointsPercentOfMax;
 		}
 		else
 		{
-			num = this.m_teamHitPointsPercentOfMax;
+			num = m_teamHitPointsPercentOfMax;
 		}
 		float num2 = num;
-		int num3 = Mathf.RoundToInt(num2 * aoeTarget.\u000E().GetModifiedStatFloat(StatType.MaxHitPoints));
+		int num3 = Mathf.RoundToInt(num2 * aoeTarget.GetActorStats().GetModifiedStatFloat(StatType.MaxHitPoints));
 		int num4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -60,11 +59,11 @@ public class HealPBAoE : Ability
 				}
 				break;
 			}
-			num4 = this.m_selfHitPoints;
+			num4 = m_selfHitPoints;
 		}
 		else
 		{
-			num4 = this.m_teamHitPoints;
+			num4 = m_teamHitPoints;
 		}
 		int num5 = num4;
 		return num5 + num3;
@@ -72,6 +71,6 @@ public class HealPBAoE : Ability
 
 	private List<ActorData> GetTargets(List<AbilityTarget> targets, ActorData caster)
 	{
-		return AreaEffectUtils.GetActorsInShape(this.m_shape, caster.\u0016(), caster.\u0012(), true, caster, caster.\u0012(), null);
+		return AreaEffectUtils.GetActorsInShape(m_shape, caster.GetTravelBoardSquareWorldPosition(), caster.GetCurrentBoardSquare(), true, caster, caster.GetTeams(), null);
 	}
 }

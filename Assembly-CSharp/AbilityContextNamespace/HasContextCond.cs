@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace AbilityContextNamespace
 {
@@ -11,11 +11,11 @@ namespace AbilityContextNamespace
 
 		private int m_contextKey;
 
-		public int \u001D()
+		public int _001D()
 		{
-			if (this.m_contextKey == 0)
+			if (m_contextKey == 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -24,13 +24,13 @@ namespace AbilityContextNamespace
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HasContextCond.\u001D()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_contextKey = ContextVars.\u0015(this.m_contextName);
+				m_contextKey = ContextVars.GetHash(m_contextName);
 			}
-			return this.m_contextKey;
+			return m_contextKey;
 		}
 	}
 }

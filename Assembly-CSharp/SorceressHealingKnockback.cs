@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,14 +31,14 @@ public class SorceressHealingKnockback : Ability
 
 	private void Start()
 	{
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
 		AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
 		AbilityUtil_Targeter.AffectsActor affectsBestTarget = AbilityUtil_Targeter.AffectsActor.Always;
-		base.Targeter = new AbilityUtil_Targeter_HealingKnockback(this, this.m_aoeShape, this.m_penetrateLoS, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, true, affectsCaster, affectsBestTarget, this.GetKnockbackDistance(), this.m_knockbackType);
+		base.Targeter = new AbilityUtil_Targeter_HealingKnockback(this, m_aoeShape, m_penetrateLoS, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, true, affectsCaster, affectsBestTarget, GetKnockbackDistance(), m_knockbackType);
 	}
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
@@ -50,13 +49,13 @@ public class SorceressHealingKnockback : Ability
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
 		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		if (this.m_onCastHealAmount > 0)
+		if (m_onCastHealAmount > 0)
 		{
-			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Primary, this.m_onCastHealAmount));
+			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Primary, m_onCastHealAmount));
 		}
-		if (this.m_onDetonateDamageAmount > 0)
+		if (m_onDetonateDamageAmount > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -65,21 +64,21 @@ public class SorceressHealingKnockback : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.CalculateAbilityTooltipNumbers()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.m_onDetonateDamageAmount));
+			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_onDetonateDamageAmount));
 		}
 		return list;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		if (this.m_onCastHealAmount > 0)
+		List<AbilityTooltipNumber> number = new List<AbilityTooltipNumber>();
+		if (m_onCastHealAmount > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -88,15 +87,15 @@ public class SorceressHealingKnockback : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.CalculateNameplateTargetingNumbers()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Primary, this.m_onCastHealAmount));
+			number.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Primary, m_onCastHealAmount));
 		}
-		if (this.GetDamageAmount() > 0)
+		if (GetDamageAmount() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -105,13 +104,13 @@ public class SorceressHealingKnockback : Ability
 				}
 				break;
 			}
-			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.GetDamageAmount()));
+			number.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, GetDamageAmount()));
 		}
-		if (this.GetOnCastAllyEnergyGain() > 0)
+		if (GetOnCastAllyEnergyGain() > 0)
 		{
-			AbilityTooltipHelper.ReportEnergy(ref list, AbilityTooltipSubject.Ally, this.GetOnCastAllyEnergyGain());
+			AbilityTooltipHelper.ReportEnergy(ref number, AbilityTooltipSubject.Ally, GetOnCastAllyEnergyGain());
 		}
-		return list;
+		return number;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -120,7 +119,7 @@ public class SorceressHealingKnockback : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -129,14 +128,14 @@ public class SorceressHealingKnockback : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -145,7 +144,7 @@ public class SorceressHealingKnockback : Ability
 					}
 					break;
 				}
-				dictionary[AbilityTooltipSymbol.Healing] = this.GetHealAmount(targetActor);
+				dictionary[AbilityTooltipSymbol.Healing] = GetHealAmount(targetActor);
 			}
 		}
 		return dictionary;
@@ -154,18 +153,17 @@ public class SorceressHealingKnockback : Ability
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-		return base.CanTargetActorInDecision(caster, currentBestActorTarget, false, true, true, Ability.ValidateCheckPath.Ignore, true, true, false);
+		return CanTargetActorInDecision(caster, currentBestActorTarget, false, true, true, ValidateCheckPath.Ignore, true, true);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SorceressHealingKnockback abilityMod_SorceressHealingKnockback = modAsBase as AbilityMod_SorceressHealingKnockback;
-		string name = "OnCastHealAmount_Normal";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_SorceressHealingKnockback)
+		if ((bool)abilityMod_SorceressHealingKnockback)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -174,23 +172,22 @@ public class SorceressHealingKnockback : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_SorceressHealingKnockback.m_normalHealingMod.GetModifiedValue(this.m_onCastHealAmount);
+			val = abilityMod_SorceressHealingKnockback.m_normalHealingMod.GetModifiedValue(m_onCastHealAmount);
 		}
 		else
 		{
-			val = this.m_onCastHealAmount;
+			val = m_onCastHealAmount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "OnCastHealAmount_LowHealth";
+		AddTokenInt(tokens, "OnCastHealAmount_Normal", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_SorceressHealingKnockback)
+		if ((bool)abilityMod_SorceressHealingKnockback)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -199,19 +196,18 @@ public class SorceressHealingKnockback : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_SorceressHealingKnockback.m_lowHealthHealingMod.GetModifiedValue(this.m_onCastHealAmount);
+			val2 = abilityMod_SorceressHealingKnockback.m_lowHealthHealingMod.GetModifiedValue(m_onCastHealAmount);
 		}
 		else
 		{
-			val2 = this.m_onCastHealAmount;
+			val2 = m_onCastHealAmount;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		string name3 = "OnCastAllyEnergyGain";
+		AddTokenInt(tokens, "OnCastHealAmount_LowHealth", empty2, val2);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_SorceressHealingKnockback)
+		if ((bool)abilityMod_SorceressHealingKnockback)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -220,19 +216,18 @@ public class SorceressHealingKnockback : Ability
 				}
 				break;
 			}
-			val3 = abilityMod_SorceressHealingKnockback.m_onCastAllyEnergyGainMod.GetModifiedValue(this.m_onCastAllyEnergyGain);
+			val3 = abilityMod_SorceressHealingKnockback.m_onCastAllyEnergyGainMod.GetModifiedValue(m_onCastAllyEnergyGain);
 		}
 		else
 		{
-			val3 = this.m_onCastAllyEnergyGain;
+			val3 = m_onCastAllyEnergyGain;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
-		string name4 = "OnDetonateDamageAmount";
+		AddTokenInt(tokens, "OnCastAllyEnergyGain", empty3, val3);
 		string empty4 = string.Empty;
 		int val4;
-		if (abilityMod_SorceressHealingKnockback)
+		if ((bool)abilityMod_SorceressHealingKnockback)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -241,17 +236,17 @@ public class SorceressHealingKnockback : Ability
 				}
 				break;
 			}
-			val4 = abilityMod_SorceressHealingKnockback.m_damageMod.GetModifiedValue(this.m_onDetonateDamageAmount);
+			val4 = abilityMod_SorceressHealingKnockback.m_damageMod.GetModifiedValue(m_onDetonateDamageAmount);
 		}
 		else
 		{
-			val4 = this.m_onDetonateDamageAmount;
+			val4 = m_onDetonateDamageAmount;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
+		AddTokenInt(tokens, "OnDetonateDamageAmount", empty4, val4);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_SorceressHealingKnockback)
+		if ((bool)abilityMod_SorceressHealingKnockback)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -260,21 +255,21 @@ public class SorceressHealingKnockback : Ability
 				}
 				break;
 			}
-			effectInfo = abilityMod_SorceressHealingKnockback.m_enemyHitEffectOverride.GetModifiedValue(this.m_onDetonateEnemyEffect);
+			effectInfo = abilityMod_SorceressHealingKnockback.m_enemyHitEffectOverride.GetModifiedValue(m_onDetonateEnemyEffect);
 		}
 		else
 		{
-			effectInfo = this.m_onDetonateEnemyEffect;
+			effectInfo = m_onDetonateEnemyEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "OnDetonateEnemyEffect", this.m_onDetonateEnemyEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "OnDetonateEnemyEffect", m_onDetonateEnemyEffect);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SorceressHealingKnockback))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_SorceressHealingKnockback);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_SorceressHealingKnockback);
+			SetupTargeter();
 		}
 		else
 		{
@@ -284,19 +279,19 @@ public class SorceressHealingKnockback : Ability
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	private int GetHealAmount(ActorData target)
 	{
-		int result = this.m_onCastHealAmount;
-		if (this.m_abilityMod != null)
+		int result = m_onCastHealAmount;
+		if (m_abilityMod != null)
 		{
-			float num = (float)target.HitPoints / (float)target.\u0012();
-			if (num < this.m_abilityMod.m_lowHealthThreshold)
+			float num = (float)target.HitPoints / (float)target.GetMaxHitPoints();
+			if (num < m_abilityMod.m_lowHealthThreshold)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -305,15 +300,15 @@ public class SorceressHealingKnockback : Ability
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.GetHealAmount(ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = this.m_abilityMod.m_lowHealthHealingMod.GetModifiedValue(this.m_onCastHealAmount);
+				result = m_abilityMod.m_lowHealthHealingMod.GetModifiedValue(m_onCastHealAmount);
 			}
 			else
 			{
-				result = this.m_abilityMod.m_normalHealingMod.GetModifiedValue(this.m_onCastHealAmount);
+				result = m_abilityMod.m_normalHealingMod.GetModifiedValue(m_onCastHealAmount);
 			}
 		}
 		return result;
@@ -322,9 +317,9 @@ public class SorceressHealingKnockback : Ability
 	public int GetOnCastAllyEnergyGain()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -333,15 +328,15 @@ public class SorceressHealingKnockback : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.GetOnCastAllyEnergyGain()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_onCastAllyEnergyGainMod.GetModifiedValue(this.m_onCastAllyEnergyGain);
+			result = m_abilityMod.m_onCastAllyEnergyGainMod.GetModifiedValue(m_onCastAllyEnergyGain);
 		}
 		else
 		{
-			result = this.m_onCastAllyEnergyGain;
+			result = m_onCastAllyEnergyGain;
 		}
 		return result;
 	}
@@ -349,9 +344,9 @@ public class SorceressHealingKnockback : Ability
 	private int GetDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -360,15 +355,15 @@ public class SorceressHealingKnockback : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.GetDamageAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_onDetonateDamageAmount;
+			result = m_onDetonateDamageAmount;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_onDetonateDamageAmount);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(m_onDetonateDamageAmount);
 		}
 		return result;
 	}
@@ -376,9 +371,9 @@ public class SorceressHealingKnockback : Ability
 	private StandardEffectInfo GetOnDetonateEnemyEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -387,15 +382,15 @@ public class SorceressHealingKnockback : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.GetOnDetonateEnemyEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_onDetonateEnemyEffect;
+			result = m_onDetonateEnemyEffect;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_enemyHitEffectOverride.GetModifiedValue(this.m_onDetonateEnemyEffect);
+			result = m_abilityMod.m_enemyHitEffectOverride.GetModifiedValue(m_onDetonateEnemyEffect);
 		}
 		return result;
 	}
@@ -403,9 +398,9 @@ public class SorceressHealingKnockback : Ability
 	private float GetKnockbackDistance()
 	{
 		float result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -414,15 +409,15 @@ public class SorceressHealingKnockback : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.GetKnockbackDistance()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_knockbackDistance;
+			result = m_knockbackDistance;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(this.m_knockbackDistance);
+			result = m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
 		}
 		return result;
 	}

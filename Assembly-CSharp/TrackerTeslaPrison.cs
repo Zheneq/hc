@@ -1,11 +1,16 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TrackerTeslaPrison : TrackerDrone
 {
+	public enum PrisonWallSegmentType
+	{
+		RegularPolygon,
+		SquareMadeOfCornersAndMidsection
+	}
+
 	[Header("-- Wall Config and Barrier Data")]
-	public TrackerTeslaPrison.PrisonWallSegmentType m_wallSegmentType = TrackerTeslaPrison.PrisonWallSegmentType.SquareMadeOfCornersAndMidsection;
+	public PrisonWallSegmentType m_wallSegmentType = PrisonWallSegmentType.SquareMadeOfCornersAndMidsection;
 
 	public bool m_targeterPenetrateLos = true;
 
@@ -47,14 +52,14 @@ public class TrackerTeslaPrison : TrackerDrone
 
 	public AbilityMod_TrackerTeslaPrison GetUltMod()
 	{
-		return this.m_ultAbilityMod;
+		return m_ultAbilityMod;
 	}
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -63,32 +68,15 @@ public class TrackerTeslaPrison : TrackerDrone
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTeslaPrison.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Tesla Prison";
+			m_abilityName = "Tesla Prison";
 		}
-		if (this.m_prisonSides < 3)
+		if (m_prisonSides < 3)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_prisonSides = 4;
-		}
-		if (this.m_squareCornerLength <= 0)
-		{
-			this.m_squareCornerLength = 1;
-		}
-		if (this.m_squareMidsectionLength < 0)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -97,18 +85,35 @@ public class TrackerTeslaPrison : TrackerDrone
 				}
 				break;
 			}
-			this.m_squareMidsectionLength = 0;
+			m_prisonSides = 4;
 		}
-		this.m_droneTracker = base.GetComponent<TrackerDroneTrackerComponent>();
-		if (this.m_droneTracker == null)
+		if (m_squareCornerLength <= 0)
+		{
+			m_squareCornerLength = 1;
+		}
+		if (m_squareMidsectionLength < 0)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			m_squareMidsectionLength = 0;
+		}
+		m_droneTracker = GetComponent<TrackerDroneTrackerComponent>();
+		if (m_droneTracker == null)
 		{
 			Debug.LogError("No drone tracker component");
-			this.m_moveDrone = false;
+			m_moveDrone = false;
 		}
-		this.m_visionProvider = base.GetComponent<ActorAdditionalVisionProviders>();
-		if (this.m_visionProvider == null)
+		m_visionProvider = GetComponent<ActorAdditionalVisionProviders>();
+		if (m_visionProvider == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -119,20 +124,20 @@ public class TrackerTeslaPrison : TrackerDrone
 			}
 			Debug.LogError("No additional vision provider component");
 		}
-		this.Setup();
-		base.ResetTooltipAndTargetingNumbers();
+		Setup();
+		ResetTooltipAndTargetingNumbers();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		if (this.m_droneInfoComp == null)
+		SetCachedFields();
+		if (m_droneInfoComp == null)
 		{
-			this.m_droneInfoComp = base.GetComponent<TrackerDroneInfoComponent>();
+			m_droneInfoComp = GetComponent<TrackerDroneInfoComponent>();
 		}
-		if (this.m_droneInfoComp == null)
+		if (m_droneInfoComp == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -141,15 +146,15 @@ public class TrackerTeslaPrison : TrackerDrone
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTeslaPrison.Setup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Debug.LogError("No Drone Info component");
 		}
-		if (this.m_droneTracker == null)
+		if (m_droneTracker == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -158,11 +163,11 @@ public class TrackerTeslaPrison : TrackerDrone
 				}
 				break;
 			}
-			this.m_droneTracker = base.GetComponent<TrackerDroneTrackerComponent>();
+			m_droneTracker = GetComponent<TrackerDroneTrackerComponent>();
 		}
-		if (this.m_droneTracker == null)
+		if (m_droneTracker == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -172,52 +177,52 @@ public class TrackerTeslaPrison : TrackerDrone
 				break;
 			}
 			Debug.LogError("No drone tracker component");
-			this.m_moveDrone = false;
+			m_moveDrone = false;
 		}
-		if (this.m_moveDrone)
+		if (m_moveDrone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			bool flag;
-			if (!this.m_droneInfoComp.GetUntrackedHitEffect().m_applyEffect)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					int num;
+					if (!m_droneInfoComp.GetUntrackedHitEffect().m_applyEffect)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num = ((m_droneInfoComp.GetDamageOnUntracked(true) > 0) ? 1 : 0);
+					}
+					else
+					{
+						num = 1;
+					}
+					bool hitUntrackedTargets = (byte)num != 0;
+					base.Targeter = new AbilityUtil_Targeter_TeslaPrison(this, m_wallSegmentType, m_squareCornerLength, m_squareMidsectionLength, m_prisonSides, m_prisonRadius, m_droneTracker, m_droneInfoComp.m_travelTargeterEndRadius, m_droneInfoComp.m_travelTargeterEndRadius, m_droneInfoComp.m_travelTargeterLineRadius, -1, false, m_droneInfoComp.m_targetingIgnoreLos, m_droneInfoComp.m_droneTravelHitTargets, hitUntrackedTargets);
+					return;
 				}
-				flag = (this.m_droneInfoComp.GetDamageOnUntracked(true) > 0);
+				}
 			}
-			else
-			{
-				flag = true;
-			}
-			bool hitUntrackedTargets = flag;
-			base.Targeter = new AbilityUtil_Targeter_TeslaPrison(this, this.m_wallSegmentType, this.m_squareCornerLength, this.m_squareMidsectionLength, this.m_prisonSides, this.m_prisonRadius, this.m_droneTracker, this.m_droneInfoComp.m_travelTargeterEndRadius, this.m_droneInfoComp.m_travelTargeterEndRadius, this.m_droneInfoComp.m_travelTargeterLineRadius, -1, false, this.m_droneInfoComp.m_targetingIgnoreLos, this.m_droneInfoComp.m_droneTravelHitTargets, hitUntrackedTargets);
 		}
-		else
-		{
-			base.Targeter = new AbilityUtil_Targeter_TeslaPrison(this, this.m_wallSegmentType, this.m_squareCornerLength, this.m_squareMidsectionLength, this.m_prisonSides, this.m_prisonRadius, AbilityAreaShape.SingleSquare, false);
-		}
+		base.Targeter = new AbilityUtil_Targeter_TeslaPrison(this, m_wallSegmentType, m_squareCornerLength, m_squareMidsectionLength, m_prisonSides, m_prisonRadius);
 	}
 
 	private void SetCachedFields()
 	{
 		StandardBarrierData cachedBarrierData;
-		if (this.m_ultAbilityMod)
+		if ((bool)m_ultAbilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -226,21 +231,21 @@ public class TrackerTeslaPrison : TrackerDrone
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTeslaPrison.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedBarrierData = this.m_ultAbilityMod.m_barrierDataMod.GetModifiedValue(this.m_prisonBarrierData);
+			cachedBarrierData = m_ultAbilityMod.m_barrierDataMod.GetModifiedValue(m_prisonBarrierData);
 		}
 		else
 		{
-			cachedBarrierData = this.m_prisonBarrierData;
+			cachedBarrierData = m_prisonBarrierData;
 		}
-		this.m_cachedBarrierData = cachedBarrierData;
+		m_cachedBarrierData = cachedBarrierData;
 		StandardEffectInfo cachedAdditionalEffectOnEnemiesInShape;
-		if (this.m_ultAbilityMod)
+		if ((bool)m_ultAbilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -249,21 +254,21 @@ public class TrackerTeslaPrison : TrackerDrone
 				}
 				break;
 			}
-			cachedAdditionalEffectOnEnemiesInShape = this.m_ultAbilityMod.m_additionalEffectOnEnemiesInShapeMod.GetModifiedValue(this.m_additionalEffectOnEnemiesInShape);
+			cachedAdditionalEffectOnEnemiesInShape = m_ultAbilityMod.m_additionalEffectOnEnemiesInShapeMod.GetModifiedValue(m_additionalEffectOnEnemiesInShape);
 		}
 		else
 		{
-			cachedAdditionalEffectOnEnemiesInShape = this.m_additionalEffectOnEnemiesInShape;
+			cachedAdditionalEffectOnEnemiesInShape = m_additionalEffectOnEnemiesInShape;
 		}
-		this.m_cachedAdditionalEffectOnEnemiesInShape = cachedAdditionalEffectOnEnemiesInShape;
+		m_cachedAdditionalEffectOnEnemiesInShape = cachedAdditionalEffectOnEnemiesInShape;
 	}
 
 	private StandardBarrierData GetPrisonBarrierData()
 	{
 		StandardBarrierData result;
-		if (this.m_ultAbilityMod == null)
+		if (m_ultAbilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -272,31 +277,31 @@ public class TrackerTeslaPrison : TrackerDrone
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTeslaPrison.GetPrisonBarrierData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_prisonBarrierData;
+			result = m_prisonBarrierData;
 		}
 		else
 		{
-			result = this.m_cachedBarrierData;
+			result = m_cachedBarrierData;
 		}
 		return result;
 	}
 
 	private StandardEffectInfo GetAdditionalEffectOnEnemiesInShape()
 	{
-		return (this.m_cachedAdditionalEffectOnEnemiesInShape == null) ? this.m_additionalEffectOnEnemiesInShape : this.m_cachedAdditionalEffectOnEnemiesInShape;
+		return (m_cachedAdditionalEffectOnEnemiesInShape == null) ? m_additionalEffectOnEnemiesInShape : m_cachedAdditionalEffectOnEnemiesInShape;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_TrackerTeslaPrison abilityMod_TrackerTeslaPrison = modAsBase as AbilityMod_TrackerTeslaPrison;
 		StandardBarrierData standardBarrierData;
-		if (abilityMod_TrackerTeslaPrison)
+		if ((bool)abilityMod_TrackerTeslaPrison)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -305,28 +310,28 @@ public class TrackerTeslaPrison : TrackerDrone
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTeslaPrison.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			standardBarrierData = abilityMod_TrackerTeslaPrison.m_barrierDataMod.GetModifiedValue(this.m_prisonBarrierData);
+			standardBarrierData = abilityMod_TrackerTeslaPrison.m_barrierDataMod.GetModifiedValue(m_prisonBarrierData);
 		}
 		else
 		{
-			standardBarrierData = this.m_prisonBarrierData;
+			standardBarrierData = m_prisonBarrierData;
 		}
 		StandardBarrierData standardBarrierData2 = standardBarrierData;
-		standardBarrierData2.AddTooltipTokens(tokens, "Wall", false, null);
+		standardBarrierData2.AddTooltipTokens(tokens, "Wall");
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		if (this.m_droneInfoComp != null)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		if (m_droneInfoComp != null)
 		{
-			if (this.m_moveDrone)
+			if (m_moveDrone)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -335,13 +340,13 @@ public class TrackerTeslaPrison : TrackerDrone
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTeslaPrison.CalculateAbilityTooltipNumbers()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (this.m_droneInfoComp != null)
+				if (m_droneInfoComp != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -350,63 +355,57 @@ public class TrackerTeslaPrison : TrackerDrone
 						}
 						break;
 					}
-					AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_droneInfoComp.GetDamageOnTracked(true));
-					this.m_droneInfoComp.m_droneHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-					AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Secondary, this.m_droneInfoComp.GetDamageOnUntracked(true));
-					this.m_droneInfoComp.m_untrackedDroneHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Secondary);
+					AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_droneInfoComp.GetDamageOnTracked(true));
+					m_droneInfoComp.m_droneHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+					AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_droneInfoComp.GetDamageOnUntracked(true));
+					m_droneInfoComp.m_untrackedDroneHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
 				}
 			}
-			this.m_prisonBarrierData.m_onEnemyMovedThrough.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Quaternary);
-			this.m_prisonBarrierData.m_onAllyMovedThrough.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
+			m_prisonBarrierData.m_onEnemyMovedThrough.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Quaternary);
+			m_prisonBarrierData.m_onAllyMovedThrough.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 		}
-		return result;
+		return numbers;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> list = this.CalculateAbilityTooltipNumbers();
-		int i = 0;
-		while (i < list.Count)
+		List<AbilityTooltipNumber> list = CalculateAbilityTooltipNumbers();
+		for (int i = 0; i < list.Count; i++)
 		{
 			AbilityTooltipNumber abilityTooltipNumber = list[i];
-			if (abilityTooltipNumber.m_subject != AbilityTooltipSubject.Primary)
+			if (abilityTooltipNumber.m_subject == AbilityTooltipSubject.Primary)
 			{
-				goto IL_66;
-			}
-			for (;;)
-			{
-				switch (5)
+				while (true)
 				{
-				case 0:
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (abilityTooltipNumber.m_symbol == AbilityTooltipSymbol.Damage)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					list[i].m_value = m_droneInfoComp.GetDamageOnTracked(true);
 					continue;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTeslaPrison.CalculateNameplateTargetingNumbers()).MethodHandle;
-			}
-			if (abilityTooltipNumber.m_symbol != AbilityTooltipSymbol.Damage)
-			{
-				goto IL_66;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			list[i].m_value = this.m_droneInfoComp.GetDamageOnTracked(true);
-			IL_9D:
-			i++;
-			continue;
-			IL_66:
 			if (abilityTooltipNumber.m_subject == AbilityTooltipSubject.Secondary && abilityTooltipNumber.m_symbol == AbilityTooltipSymbol.Damage)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -415,46 +414,44 @@ public class TrackerTeslaPrison : TrackerDrone
 					}
 					break;
 				}
-				list[i].m_value = this.m_droneInfoComp.GetDamageOnUntracked(true);
-				goto IL_9D;
+				list[i].m_value = m_droneInfoComp.GetDamageOnUntracked(true);
 			}
-			goto IL_9D;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return list;
 		}
-		return list;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		if (!this.m_moveDrone)
+		if (!m_moveDrone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTeslaPrison.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
-			return true;
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null && boardSquare.\u0016())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		int result;
+		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -463,14 +460,14 @@ public class TrackerTeslaPrison : TrackerDrone
 				}
 				break;
 			}
-			if (caster.\u0012() != null)
+			if (caster.GetCurrentBoardSquare() != null)
 			{
-				float num = this.m_droneInfoComp.m_targeterMaxRangeFromDrone * Board.\u000E().squareSize;
-				float num2 = this.m_droneInfoComp.GetTargeterMaxRangeFromCaster(true) * Board.\u000E().squareSize;
-				Vector3 b = caster.\u0016();
-				if (this.m_droneTracker.DroneIsActive())
+				float num = m_droneInfoComp.m_targeterMaxRangeFromDrone * Board.Get().squareSize;
+				float num2 = m_droneInfoComp.GetTargeterMaxRangeFromCaster(true) * Board.Get().squareSize;
+				Vector3 b = caster.GetTravelBoardSquareWorldPosition();
+				if (m_droneTracker.DroneIsActive())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -479,19 +476,19 @@ public class TrackerTeslaPrison : TrackerDrone
 						}
 						break;
 					}
-					BoardSquare boardSquare2 = Board.\u000E().\u0016(this.m_droneTracker.BoardX(), this.m_droneTracker.BoardY());
-					if (boardSquare2 != null)
+					BoardSquare boardSquare = Board.Get().GetBoardSquare(m_droneTracker.BoardX(), m_droneTracker.BoardY());
+					if (boardSquare != null)
 					{
-						if (boardSquare2 == boardSquare)
+						if (boardSquare == boardSquareSafe)
 						{
 							return false;
 						}
-						b = boardSquare2.ToVector3();
+						b = boardSquare.ToVector3();
 					}
 				}
-				if (num > 0f)
+				if (!(num <= 0f))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -500,11 +497,12 @@ public class TrackerTeslaPrison : TrackerDrone
 						}
 						break;
 					}
-					if (Vector3.Distance(boardSquare.ToVector3(), b) > num)
+					if (!(Vector3.Distance(boardSquareSafe.ToVector3(), b) <= num))
 					{
-						return false;
+						result = 0;
+						goto IL_016c;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -514,10 +512,9 @@ public class TrackerTeslaPrison : TrackerDrone
 						break;
 					}
 				}
-				bool result;
-				if (num2 > 0f)
+				if (!(num2 <= 0f))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -526,59 +523,56 @@ public class TrackerTeslaPrison : TrackerDrone
 						}
 						break;
 					}
-					result = (Vector3.Distance(boardSquare.ToVector3(), caster.\u0012().ToVector3()) <= num2);
+					result = ((Vector3.Distance(boardSquareSafe.ToVector3(), caster.GetCurrentBoardSquare().ToVector3()) <= num2) ? 1 : 0);
 				}
 				else
 				{
-					result = true;
+					result = 1;
 				}
-				return result;
+				goto IL_016c;
 			}
 		}
 		return false;
+		IL_016c:
+		return (byte)result != 0;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> _001D()
 	{
-		List<int> list = base.\u001D();
-		if (this.m_prisonBarrierData != null)
+		List<int> list = base._001D();
+		if (m_prisonBarrierData != null)
 		{
-			list.Add(this.m_prisonBarrierData.m_onEnemyMovedThrough.m_damage);
+			list.Add(m_prisonBarrierData.m_onEnemyMovedThrough.m_damage);
 		}
 		return list;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_TrackerTeslaPrison))
+		if (abilityMod.GetType() != typeof(AbilityMod_TrackerTeslaPrison))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTeslaPrison.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_ultAbilityMod = (abilityMod as AbilityMod_TrackerTeslaPrison);
-			this.Setup();
+			m_ultAbilityMod = (abilityMod as AbilityMod_TrackerTeslaPrison);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_ultAbilityMod = null;
-		this.Setup();
-	}
-
-	public enum PrisonWallSegmentType
-	{
-		RegularPolygon,
-		SquareMadeOfCornersAndMidsection
+		m_ultAbilityMod = null;
+		Setup();
 	}
 }

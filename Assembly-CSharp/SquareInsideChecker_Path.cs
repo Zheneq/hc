@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class SquareInsideChecker_Path : ISquareInsideChecker
@@ -7,25 +6,25 @@ public class SquareInsideChecker_Path : ISquareInsideChecker
 
 	public SquareInsideChecker_Path()
 	{
-		this.m_squaresInPath = new HashSet<BoardSquare>();
+		m_squaresInPath = new HashSet<BoardSquare>();
 	}
 
 	public void UpdateSquaresInPath(BoardSquarePathInfo path)
 	{
-		this.m_squaresInPath.Clear();
+		m_squaresInPath.Clear();
 		for (BoardSquarePathInfo boardSquarePathInfo = path; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 		{
-			this.m_squaresInPath.Add(boardSquarePathInfo.square);
+			m_squaresInPath.Add(boardSquarePathInfo.square);
 		}
 	}
 
-	public unsafe bool IsSquareInside(BoardSquare square, out bool inLos)
+	public bool IsSquareInside(BoardSquare square, out bool inLos)
 	{
 		bool result = false;
 		inLos = false;
-		if (this.m_squaresInPath.Contains(square))
+		if (m_squaresInPath.Contains(square))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -34,9 +33,9 @@ public class SquareInsideChecker_Path : ISquareInsideChecker
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SquareInsideChecker_Path.IsSquareInside(BoardSquare, bool*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			inLos = true;
 			result = true;

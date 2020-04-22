@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,43 +32,45 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 
 	private void Update()
 	{
-		if (this.m_checkLoad)
+		if (!m_checkLoad)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!m_loadingEntry.gameObject.activeSelf)
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressHistory.Update()).MethodHandle;
-			}
-			if (this.m_loadingEntry.gameObject.activeSelf)
-			{
-				for (;;)
+				RectTransform rectTransform = m_historyList.transform as RectTransform;
+				Vector2 sizeDelta = rectTransform.sizeDelta;
+				float num = sizeDelta.y - m_viewportHeight;
+				Vector2 anchoredPosition = rectTransform.anchoredPosition;
+				float y = anchoredPosition.y;
+				if (!(y > num))
 				{
-					switch (2)
+					if (m_chunkNumber != 0)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				RectTransform rectTransform = this.m_historyList.transform as RectTransform;
-				float num = rectTransform.sizeDelta.y - this.m_viewportHeight;
-				float y = rectTransform.anchoredPosition.y;
-				if (y <= num)
-				{
-					if (this.m_chunkNumber != 0)
-					{
-						this.m_checkLoad = false;
+						m_checkLoad = false;
 						return;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -78,74 +80,74 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 						break;
 					}
 				}
-				this.LoadNextChunk();
+				LoadNextChunk();
+				return;
 			}
 		}
 	}
 
 	public void SetMatchHistory(List<PersistedCharacterMatchData> matches)
 	{
-		if (this.m_matchData != null)
+		if (m_matchData != null)
 		{
 			return;
 		}
-		UIPlayerProgressHistoryEntry[] componentsInChildren = this.m_historyList.GetComponentsInChildren<UIPlayerProgressHistoryEntry>(true);
+		UIPlayerProgressHistoryEntry[] componentsInChildren = m_historyList.GetComponentsInChildren<UIPlayerProgressHistoryEntry>(true);
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
 			UnityEngine.Object.Destroy(componentsInChildren[i].gameObject);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressHistory.SetMatchHistory(List<PersistedCharacterMatchData>)).MethodHandle;
-		}
-		this.m_matchData = new List<PersistedCharacterMatchData>();
-		this.m_scrollArea = base.GetComponentInChildren<ScrollRect>();
-		this.selectedEntry = null;
-		IEnumerator<PersistedCharacterMatchData> enumerator = (from x in matches
-		orderby x.MatchComponent.MatchTime descending
-		select x).GetEnumerator();
-		try
-		{
-			while (enumerator.MoveNext())
+			if (1 == 0)
 			{
-				PersistedCharacterMatchData item = enumerator.Current;
-				this.m_matchData.Add(item);
+				/*OpCode not supported: LdMemberToken*/;
 			}
-		}
-		finally
-		{
-			if (enumerator != null)
+			m_matchData = new List<PersistedCharacterMatchData>();
+			m_scrollArea = GetComponentInChildren<ScrollRect>();
+			selectedEntry = null;
+			IEnumerator<PersistedCharacterMatchData> enumerator = matches.OrderByDescending((PersistedCharacterMatchData x) => x.MatchComponent.MatchTime).GetEnumerator();
+			try
 			{
-				for (;;)
+				while (enumerator.MoveNext())
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					PersistedCharacterMatchData current = enumerator.Current;
+					m_matchData.Add(current);
 				}
-				enumerator.Dispose();
 			}
+			finally
+			{
+				if (enumerator != null)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							break;
+						default:
+							enumerator.Dispose();
+							goto end_IL_00b6;
+						}
+					}
+				}
+				end_IL_00b6:;
+			}
+			UIManager.SetGameObjectActive(m_loadingEntry, true);
+			return;
 		}
-		UIManager.SetGameObjectActive(this.m_loadingEntry, true, null);
 	}
 
 	private void LoadNextChunk()
 	{
-		int i = 0;
-		while (i < 2)
+		for (int i = 0; i < 2; i++)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -154,39 +156,36 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressHistory.LoadNextChunk()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_chunkNumber * 2 + i >= this.m_matchData.Count)
+			if (m_chunkNumber * 2 + i < m_matchData.Count)
 			{
-				for (;;)
+				PersistedCharacterMatchData entry = m_matchData[m_chunkNumber * 2 + i];
+				UIPlayerProgressHistoryEntry uIPlayerProgressHistoryEntry = UnityEngine.Object.Instantiate(m_historyEntryPrefab);
+				uIPlayerProgressHistoryEntry.Setup(entry, this);
+				uIPlayerProgressHistoryEntry.transform.SetParent(m_historyList.transform);
+				uIPlayerProgressHistoryEntry.transform.localScale = Vector3.one;
+				uIPlayerProgressHistoryEntry.transform.localPosition = Vector3.zero;
+				uIPlayerProgressHistoryEntry.m_hitbox.RegisterScrollListener(OnScroll);
+				continue;
+			}
+			while (true)
+			{
+				switch (2)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_C7;
+				case 0:
+					continue;
 				}
+				break;
 			}
-			else
-			{
-				PersistedCharacterMatchData entry = this.m_matchData[this.m_chunkNumber * 2 + i];
-				UIPlayerProgressHistoryEntry uiplayerProgressHistoryEntry = UnityEngine.Object.Instantiate<UIPlayerProgressHistoryEntry>(this.m_historyEntryPrefab);
-				uiplayerProgressHistoryEntry.Setup(entry, this);
-				uiplayerProgressHistoryEntry.transform.SetParent(this.m_historyList.transform);
-				uiplayerProgressHistoryEntry.transform.localScale = Vector3.one;
-				uiplayerProgressHistoryEntry.transform.localPosition = Vector3.zero;
-				uiplayerProgressHistoryEntry.m_hitbox.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-				i++;
-			}
+			break;
 		}
-		IL_C7:
-		this.m_chunkNumber++;
-		if (this.m_chunkNumber * 2 >= this.m_matchData.Count)
+		m_chunkNumber++;
+		if (m_chunkNumber * 2 >= m_matchData.Count)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -195,29 +194,32 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_loadingEntry, false, null);
-			this.m_checkLoad = false;
+			UIManager.SetGameObjectActive(m_loadingEntry, false);
+			m_checkLoad = false;
 		}
 		else
 		{
-			this.m_loadingEntry.transform.SetAsLastSibling();
+			m_loadingEntry.transform.SetAsLastSibling();
 		}
-		RectTransform rectTransform = this.m_scrollArea.transform as RectTransform;
-		RectTransform rectTransform2 = this.m_loadingEntry.transform as RectTransform;
-		this.m_viewportHeight = rectTransform.sizeDelta.y + rectTransform2.sizeDelta.y;
+		RectTransform rectTransform = m_scrollArea.transform as RectTransform;
+		RectTransform rectTransform2 = m_loadingEntry.transform as RectTransform;
+		Vector2 sizeDelta = rectTransform.sizeDelta;
+		float y = sizeDelta.y;
+		Vector2 sizeDelta2 = rectTransform2.sizeDelta;
+		m_viewportHeight = y + sizeDelta2.y;
 	}
 
 	public void OnScroll(BaseEventData eventData)
 	{
-		this.m_scrollArea.SendMessage("OnScroll", eventData);
-		this.m_checkLoad = true;
+		m_scrollArea.SendMessage("OnScroll", eventData);
+		m_checkLoad = true;
 	}
 
 	public void MatchClicked(UIPlayerProgressHistoryEntry entry)
 	{
-		if (this.selectedEntry)
+		if ((bool)selectedEntry)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -226,39 +228,38 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressHistory.MatchClicked(UIPlayerProgressHistoryEntry)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.selectedEntry.SetSelected(false);
+			selectedEntry.SetSelected(false);
 		}
-		this.selectedEntry = entry;
+		selectedEntry = entry;
 	}
 
 	public void SelectMatch(PersistedCharacterMatchData matchData)
 	{
-		UIPlayerProgressHistoryEntry[] componentsInChildren = this.m_historyList.GetComponentsInChildren<UIPlayerProgressHistoryEntry>();
+		UIPlayerProgressHistoryEntry[] componentsInChildren = m_historyList.GetComponentsInChildren<UIPlayerProgressHistoryEntry>();
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
 			if (matchData.GameServerProcessCode == componentsInChildren[i].GameServerProcessCode)
 			{
 				componentsInChildren[i].SetSelected(true);
-				this.MatchClicked(componentsInChildren[i]);
+				MatchClicked(componentsInChildren[i]);
 				return;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressHistory.SelectMatch(PersistedCharacterMatchData)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
 			return;
 		}
 	}
@@ -267,10 +268,10 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 	{
 		try
 		{
-			string text2;
-			if (this.m_replayPaths == null)
+			string filename;
+			if (m_replayPaths == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -279,17 +280,18 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressHistory.GetReplayFilename(string)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				List<string> list = new List<string>();
 				list.AddRange(Directory.GetFiles(HydrogenConfig.Get().ReplaysPath));
-				foreach (string path in Directory.GetDirectories(HydrogenConfig.Get().ReplaysPath))
+				string[] directories = Directory.GetDirectories(HydrogenConfig.Get().ReplaysPath);
+				foreach (string path in directories)
 				{
 					list.AddRange(Directory.GetFiles(path));
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -299,28 +301,27 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 					break;
 				}
 				int startIndex = HydrogenConfig.Get().ReplaysPath.Length + 1;
-				this.m_replayPaths = new Dictionary<string, string>();
-				foreach (string text in list)
+				m_replayPaths = new Dictionary<string, string>();
+				foreach (string item in list)
 				{
-					text2 = text.Substring(startIndex);
-					text2 = ClientGameManager.RemoveTimeFromReplayFilename(text2);
-					this.m_replayPaths.Add(text2, text);
+					filename = item.Substring(startIndex);
+					filename = ClientGameManager.RemoveTimeFromReplayFilename(filename);
+					m_replayPaths.Add(filename, item);
 				}
 			}
-			text2 = ClientGameManager.FormReplayFilename(string.Empty, gameServerProcessCode, HydrogenConfig.Get().Ticket.Handle);
-			string result;
-			if (this.m_replayPaths.TryGetValue(text2, out result))
+			filename = ClientGameManager.FormReplayFilename(string.Empty, gameServerProcessCode, HydrogenConfig.Get().Ticket.Handle);
+			if (m_replayPaths.TryGetValue(filename, out string value))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return value;
 					}
-					break;
 				}
-				return result;
 			}
 		}
 		catch (Exception)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace AbilityContextNamespace
@@ -10,78 +10,70 @@ namespace AbilityContextNamespace
 
 		public List<NumericContextValueCompareCond> m_numCompareConditions = new List<NumericContextValueCompareCond>();
 
-		public TargetFilterConditions \u001D()
+		public TargetFilterConditions _001D()
 		{
-			TargetFilterConditions targetFilterConditions = base.MemberwiseClone() as TargetFilterConditions;
+			TargetFilterConditions targetFilterConditions = MemberwiseClone() as TargetFilterConditions;
 			targetFilterConditions.m_numCompareConditions = new List<NumericContextValueCompareCond>();
-			for (int i = 0; i < this.m_numCompareConditions.Count; i++)
+			for (int i = 0; i < m_numCompareConditions.Count; i++)
 			{
-				NumericContextValueCompareCond item = this.m_numCompareConditions[i].\u001D();
+				NumericContextValueCompareCond item = m_numCompareConditions[i].Clone();
 				targetFilterConditions.m_numCompareConditions.Add(item);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return targetFilterConditions;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetFilterConditions.\u001D()).MethodHandle;
-			}
-			return targetFilterConditions;
 		}
 
-		public void \u001D(List<TooltipTokenEntry> \u001D, string \u000E)
+		public void _001D(List<TooltipTokenEntry> _001D, string _000E)
 		{
 		}
 
-		public string \u001D(string \u001D)
+		public string _001D(string _001D)
 		{
-			string text = \u001D + "Team = " + this.m_teamFilter.ToString() + "\n";
-			if (this.m_numCompareConditions != null)
+			string text = _001D + "Team = " + m_teamFilter.ToString() + "\n";
+			if (m_numCompareConditions != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargetFilterConditions.\u001D(string)).MethodHandle;
-				}
-				foreach (NumericContextValueCompareCond numericContextValueCompareCond in this.m_numCompareConditions)
-				{
-					if (numericContextValueCompareCond.m_compareOp != ContextCompareOp.\u001D)
-					{
-						for (;;)
+						break;
+					default:
+						if (1 == 0)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							/*OpCode not supported: LdMemberToken*/;
 						}
-						string text2 = text;
-						text = string.Concat(new object[]
 						{
-							text2,
-							\u001D,
-							InEditorDescHelper.ContextVarName(numericContextValueCompareCond.m_contextName, !numericContextValueCompareCond.m_nonActorSpecificContext),
-							" is ",
-							numericContextValueCompareCond.m_compareOp,
-							" ",
-							InEditorDescHelper.ColoredString(numericContextValueCompareCond.m_testValue, "cyan", false),
-							"\n"
-						});
+							foreach (NumericContextValueCompareCond numCompareCondition in m_numCompareConditions)
+							{
+								if (numCompareCondition.m_compareOp != 0)
+								{
+									while (true)
+									{
+										switch (2)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									string text2 = text;
+									text = string.Concat(text2, _001D, InEditorDescHelper.ContextVarName(numCompareCondition.m_contextName, !numCompareCondition.m_nonActorSpecificContext), " is ", numCompareCondition.m_compareOp, " ", InEditorDescHelper.ColoredString(numCompareCondition.m_testValue), "\n");
+								}
+							}
+							return text;
+						}
 					}
 				}
 			}

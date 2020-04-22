@@ -1,5 +1,3 @@
-﻿using System;
-
 public struct TempCoverInfo
 {
 	public ActorCover.CoverDirections m_coverDir;
@@ -8,7 +6,7 @@ public struct TempCoverInfo
 
 	public TempCoverInfo(ActorCover.CoverDirections coverDir, bool ignoreMinDist)
 	{
-		this.m_coverDir = coverDir;
-		this.m_ignoreMinDist = ignoreMinDist;
+		m_coverDir = coverDir;
+		m_ignoreMinDist = ignoreMinDist;
 	}
 }

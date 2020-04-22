@@ -1,11 +1,192 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HitOnAnimationEventSequence : Sequence
 {
+	public class ExtraParams : IExtraSequenceParams
+	{
+		public List<List<ActorData>> hitTargetsList;
+
+		public List<Vector3> hitPositionsList;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			int num;
+			if (hitTargetsList != null)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				num = hitTargetsList.Count;
+			}
+			else
+			{
+				num = 0;
+			}
+			int value = num;
+			stream.Serialize(ref value);
+			for (int i = 0; i < value; i++)
+			{
+				List<ActorData> list = hitTargetsList[i];
+				int num2;
+				if (list != null)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num2 = list.Count;
+				}
+				else
+				{
+					num2 = 0;
+				}
+				int value2 = num2;
+				stream.Serialize(ref value2);
+				for (int j = 0; j < value2; j++)
+				{
+					ActorData actorData = list[j];
+					int num3;
+					if (actorData != null)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num3 = actorData.ActorIndex;
+					}
+					else
+					{
+						num3 = ActorData.s_invalidActorIndex;
+					}
+					int value3 = num3;
+					stream.Serialize(ref value3);
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						goto end_IL_00b3;
+					}
+					continue;
+					end_IL_00b3:
+					break;
+				}
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				int num4;
+				if (hitPositionsList != null)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num4 = hitPositionsList.Count;
+				}
+				else
+				{
+					num4 = 0;
+				}
+				int value4 = num4;
+				stream.Serialize(ref value4);
+				for (int k = 0; k < value4; k++)
+				{
+					Vector3 value5 = hitPositionsList[k];
+					stream.Serialize(ref value5);
+				}
+				return;
+			}
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			int value = 0;
+			stream.Serialize(ref value);
+			hitTargetsList = new List<List<ActorData>>(value);
+			for (int i = 0; i < value; i++)
+			{
+				int value2 = 0;
+				stream.Serialize(ref value2);
+				List<ActorData> list = new List<ActorData>(value2);
+				for (int j = 0; j < value2; j++)
+				{
+					int value3 = ActorData.s_invalidActorIndex;
+					stream.Serialize(ref value3);
+					ActorData item = GameFlowData.Get().FindActorByActorIndex(value3);
+					list.Add(item);
+				}
+				hitTargetsList.Add(list);
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				int value4 = 0;
+				stream.Serialize(ref value4);
+				hitPositionsList = new List<Vector3>(value4);
+				for (int k = 0; k < value4; k++)
+				{
+					Vector3 value5 = Vector3.zero;
+					stream.Serialize(ref value5);
+					hitPositionsList.Add(value5);
+				}
+				while (true)
+				{
+					switch (1)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
+			}
+		}
+	}
+
 	[AnimEventPicker]
-	public UnityEngine.Object m_hitEvent;
+	public Object m_hitEvent;
 
 	private int m_hitsSoFar;
 
@@ -13,74 +194,75 @@ public class HitOnAnimationEventSequence : Sequence
 
 	private List<Vector3> m_hitPositionsList;
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			HitOnAnimationEventSequence.ExtraParams extraParams2 = extraSequenceParams as HitOnAnimationEventSequence.ExtraParams;
+			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2 != null)
 			{
-				this.m_hitTargetsList = extraParams2.hitTargetsList;
-				this.m_hitPositionsList = extraParams2.hitPositionsList;
+				m_hitTargetsList = extraParams2.hitTargetsList;
+				m_hitPositionsList = extraParams2.hitPositionsList;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(HitOnAnimationEventSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (this.m_hitEvent != null)
+		if (!(m_hitEvent != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitOnAnimationEventSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_hitEvent == parameter)
+			if (m_hitEvent == parameter)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					HandleAnimationEvent();
+					return;
 				}
-				this.HandleAnimationEvent();
 			}
+			return;
 		}
 	}
 
 	private void HandleAnimationEvent()
 	{
-		if (this.m_hitPositionsList == null || this.m_hitTargetsList == null)
+		if (m_hitPositionsList == null || m_hitTargetsList == null)
 		{
 			return;
 		}
-		if (this.m_hitPositionsList.Count != this.m_hitTargetsList.Count)
+		if (m_hitPositionsList.Count != m_hitTargetsList.Count)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -89,34 +271,34 @@ public class HitOnAnimationEventSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitOnAnimationEventSequence.HandleAnimationEvent()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Debug.LogError("HitOnAnimationEventSequences: mismatch between targets list and positions list");
 		}
-		if (this.m_hitsSoFar < this.m_hitPositionsList.Count)
+		if (m_hitsSoFar >= m_hitPositionsList.Count)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.m_hitsSoFar < this.m_hitTargetsList.Count)
+			if (m_hitsSoFar < m_hitTargetsList.Count)
 			{
-				base.Source.OnSequenceHit(this, this.m_hitPositionsList[this.m_hitsSoFar], null);
-				using (List<ActorData>.Enumerator enumerator = this.m_hitTargetsList[this.m_hitsSoFar].GetEnumerator())
+				base.Source.OnSequenceHit(this, m_hitPositionsList[m_hitsSoFar]);
+				using (List<ActorData>.Enumerator enumerator = m_hitTargetsList[m_hitsSoFar].GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						ActorData actorData = enumerator.Current;
-						base.Source.OnSequenceHit(this, actorData, Sequence.CreateImpulseInfoWithActorForward(actorData), ActorModelData.RagdollActivation.HealthBased, true);
+						ActorData current = enumerator.Current;
+						base.Source.OnSequenceHit(this, current, Sequence.CreateImpulseInfoWithActorForward(current));
 					}
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -126,186 +308,9 @@ public class HitOnAnimationEventSequence : Sequence
 						break;
 					}
 				}
-				this.m_hitsSoFar++;
+				m_hitsSoFar++;
 			}
-		}
-	}
-
-	public class ExtraParams : Sequence.IExtraSequenceParams
-	{
-		public List<List<ActorData>> hitTargetsList;
-
-		public List<Vector3> hitPositionsList;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
-		{
-			int num;
-			if (this.hitTargetsList != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HitOnAnimationEventSequence.ExtraParams.XSP_SerializeToStream(IBitStream)).MethodHandle;
-				}
-				num = this.hitTargetsList.Count;
-			}
-			else
-			{
-				num = 0;
-			}
-			int num2 = num;
-			stream.Serialize(ref num2);
-			for (int i = 0; i < num2; i++)
-			{
-				List<ActorData> list = this.hitTargetsList[i];
-				int num3;
-				if (list != null)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num3 = list.Count;
-				}
-				else
-				{
-					num3 = 0;
-				}
-				int num4 = num3;
-				stream.Serialize(ref num4);
-				for (int j = 0; j < num4; j++)
-				{
-					ActorData actorData = list[j];
-					int num5;
-					if (actorData != null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num5 = actorData.ActorIndex;
-					}
-					else
-					{
-						num5 = ActorData.s_invalidActorIndex;
-					}
-					int num6 = num5;
-					stream.Serialize(ref num6);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			int num7;
-			if (this.hitPositionsList != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num7 = this.hitPositionsList.Count;
-			}
-			else
-			{
-				num7 = 0;
-			}
-			int num8 = num7;
-			stream.Serialize(ref num8);
-			for (int k = 0; k < num8; k++)
-			{
-				Vector3 vector = this.hitPositionsList[k];
-				stream.Serialize(ref vector);
-			}
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			int num = 0;
-			stream.Serialize(ref num);
-			this.hitTargetsList = new List<List<ActorData>>(num);
-			for (int i = 0; i < num; i++)
-			{
-				int num2 = 0;
-				stream.Serialize(ref num2);
-				List<ActorData> list = new List<ActorData>(num2);
-				for (int j = 0; j < num2; j++)
-				{
-					int s_invalidActorIndex = ActorData.s_invalidActorIndex;
-					stream.Serialize(ref s_invalidActorIndex);
-					ActorData item = GameFlowData.Get().FindActorByActorIndex(s_invalidActorIndex);
-					list.Add(item);
-				}
-				this.hitTargetsList.Add(list);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitOnAnimationEventSequence.ExtraParams.XSP_DeserializeFromStream(IBitStream)).MethodHandle;
-			}
-			int num3 = 0;
-			stream.Serialize(ref num3);
-			this.hitPositionsList = new List<Vector3>(num3);
-			for (int k = 0; k < num3; k++)
-			{
-				Vector3 zero = Vector3.zero;
-				stream.Serialize(ref zero);
-				this.hitPositionsList.Add(zero);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,28 +15,28 @@ public class UIAbilityUsed : MonoBehaviour
 
 	private bool ShowTooltip(UITooltipBase tooltip)
 	{
-		UIAbilityTooltip uiabilityTooltip = (UIAbilityTooltip)tooltip;
-		uiabilityTooltip.Setup(this.m_abilityRef);
+		UIAbilityTooltip uIAbilityTooltip = (UIAbilityTooltip)tooltip;
+		uIAbilityTooltip.Setup(m_abilityRef);
 		return true;
 	}
 
 	private void Awake()
 	{
-		this.m_tooltipHitBox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, new TooltipPopulateCall(this.ShowTooltip), null);
+		m_tooltipHitBox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, ShowTooltip);
 	}
 
 	public Ability GetAbilityRef()
 	{
-		return this.m_abilityRef;
+		return m_abilityRef;
 	}
 
 	public void Setup(Ability newAbility, ActorData theOwner)
 	{
-		this.m_abilityIcon.sprite = newAbility.sprite;
-		this.m_playerIcon.sprite = theOwner.\u000E();
+		m_abilityIcon.sprite = newAbility.sprite;
+		m_playerIcon.sprite = theOwner.GetAliveHUDIcon();
 		if (!(GameFlowData.Get().activeOwnedActorData == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -46,27 +45,15 @@ public class UIAbilityUsed : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityUsed.Setup(Ability, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (GameFlowData.Get().activeOwnedActorData == theOwner)
+			if (!(GameFlowData.Get().activeOwnedActorData == theOwner))
 			{
-				for (;;)
+				if (GameFlowData.Get().activeOwnedActorData.GetTeam() == theOwner.GetTeam())
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				if (GameFlowData.Get().activeOwnedActorData.\u000E() == theOwner.\u000E())
-				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -75,15 +62,27 @@ public class UIAbilityUsed : MonoBehaviour
 						}
 						break;
 					}
-					this.m_teamColorIndicator.sprite = HUD_UIResources.Get().m_teammateBorder;
-					goto IL_DF;
+					m_teamColorIndicator.sprite = HUD_UIResources.Get().m_teammateBorder;
 				}
-				this.m_teamColorIndicator.sprite = HUD_UIResources.Get().m_enemyBorder;
-				goto IL_DF;
+				else
+				{
+					m_teamColorIndicator.sprite = HUD_UIResources.Get().m_enemyBorder;
+				}
+				goto IL_00df;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
 			}
 		}
-		this.m_teamColorIndicator.sprite = HUD_UIResources.Get().m_selfBorder;
-		IL_DF:
-		this.m_abilityRef = newAbility;
+		m_teamColorIndicator.sprite = HUD_UIResources.Get().m_selfBorder;
+		goto IL_00df;
+		IL_00df:
+		m_abilityRef = newAbility;
 	}
 }

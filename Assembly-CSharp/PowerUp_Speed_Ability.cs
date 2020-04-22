@@ -1,5 +1,3 @@
-﻿using System;
-
 public class PowerUp_Speed_Ability : Ability
 {
 	public int m_duration = 4;
@@ -18,22 +16,23 @@ public class PowerUp_Speed_Ability : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (!(m_abilityName == "Base Ability"))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp_Speed_Ability.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "ANGER JUICE";
+			m_abilityName = "ANGER JUICE";
+			return;
 		}
 	}
 }

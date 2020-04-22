@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,68 +27,86 @@ public class BackgroundScroller : MonoBehaviour
 
 	private void Awake()
 	{
-		foreach (GameObject item in this.m_backgroundBlockPrefabs)
+		GameObject[] backgroundBlockPrefabs = m_backgroundBlockPrefabs;
+		foreach (GameObject item in backgroundBlockPrefabs)
 		{
-			this.m_uninstantiatedPrefabs.Add(item);
+			m_uninstantiatedPrefabs.Add(item);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			MakeNewVisibleBlock();
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(BackgroundScroller.Awake()).MethodHandle;
-		}
-		this.MakeNewVisibleBlock();
 	}
 
 	private void Update()
 	{
-		BoxCollider component = base.GetComponent<BoxCollider>();
+		BoxCollider component = GetComponent<BoxCollider>();
 		if (component == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Log.Error($"BackgroundScroller {base.name} does not have a collider");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BackgroundScroller.Update()).MethodHandle;
-			}
-			Log.Error(string.Format("BackgroundScroller {0} does not have a collider", base.name), new object[0]);
-			return;
 		}
-		if (this.IsVisibleWithCurrentSettings())
+		if (IsVisibleWithCurrentSettings())
 		{
 			bool flag = false;
-			for (int i = 0; i < this.m_visibleBlocks.Count; i++)
+			for (int i = 0; i < m_visibleBlocks.Count; i++)
 			{
-				GameObject gameObject = this.m_visibleBlocks[i];
+				GameObject gameObject = m_visibleBlocks[i];
 				gameObject.SetActive(true);
-				gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x + this.m_backgroundSpeed * Time.deltaTime, 0f, 0f);
+				Transform transform = gameObject.transform;
+				Vector3 localPosition = gameObject.transform.localPosition;
+				transform.localPosition = new Vector3(localPosition.x + m_backgroundSpeed * Time.deltaTime, 0f, 0f);
 				BoxCollider component2 = gameObject.GetComponent<BoxCollider>();
 				if (component2 == null)
 				{
-					Log.Error(string.Format("Block {0} in {1} does not have a collider", gameObject.name, base.name), new object[0]);
-					this.m_visibleBlocks.Remove(gameObject);
+					Log.Error($"Block {gameObject.name} in {base.name} does not have a collider");
+					m_visibleBlocks.Remove(gameObject);
 					return;
 				}
-				float num = gameObject.transform.localPosition.x + component2.center.x - component2.size.x * 0.5f;
-				float num2 = base.transform.localPosition.x + component.center.x - component.size.x * 0.5f;
-				float num3 = base.transform.localPosition.x + component.center.x + component.size.x * 0.5f;
-				if (num > num3)
+				Vector3 localPosition2 = gameObject.transform.localPosition;
+				float x = localPosition2.x;
+				Vector3 center = component2.center;
+				float num = x + center.x;
+				Vector3 size = component2.size;
+				float num2 = num - size.x * 0.5f;
+				Vector3 localPosition3 = base.transform.localPosition;
+				float x2 = localPosition3.x;
+				Vector3 center2 = component.center;
+				float num3 = x2 + center2.x;
+				Vector3 size2 = component.size;
+				float num4 = num3 - size2.x * 0.5f;
+				Vector3 localPosition4 = base.transform.localPosition;
+				float x3 = localPosition4.x;
+				Vector3 center3 = component.center;
+				float num5 = x3 + center3.x;
+				Vector3 size3 = component.size;
+				float num6 = num5 + size3.x * 0.5f;
+				if (num2 > num6)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -99,11 +116,11 @@ public class BackgroundScroller : MonoBehaviour
 						break;
 					}
 					gameObject.SetActive(false);
-					this.m_blocksToRetire.Add(gameObject);
+					m_blocksToRetire.Add(gameObject);
 				}
-				if (i == this.m_visibleBlocks.Count - 1)
+				if (i == m_visibleBlocks.Count - 1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -112,48 +129,47 @@ public class BackgroundScroller : MonoBehaviour
 						}
 						break;
 					}
-					if (num > num2)
+					if (num2 > num4)
 					{
 						flag = true;
 					}
 				}
 			}
-			foreach (GameObject item in this.m_blocksToRetire)
+			foreach (GameObject item in m_blocksToRetire)
 			{
-				this.m_visibleBlocks.Remove(item);
-				this.m_inVisibleBlocks.Add(item);
+				m_visibleBlocks.Remove(item);
+				m_inVisibleBlocks.Add(item);
 			}
-			this.m_blocksToRetire.Clear();
-			if (flag)
+			m_blocksToRetire.Clear();
+			if (!flag)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				this.MakeNewVisibleBlock();
+				MakeNewVisibleBlock();
+				return;
 			}
 		}
-		else
+		using (List<GameObject>.Enumerator enumerator2 = m_visibleBlocks.GetEnumerator())
 		{
-			using (List<GameObject>.Enumerator enumerator2 = this.m_visibleBlocks.GetEnumerator())
+			while (enumerator2.MoveNext())
 			{
-				while (enumerator2.MoveNext())
+				GameObject current2 = enumerator2.Current;
+				current2.SetActive(false);
+			}
+			while (true)
+			{
+				switch (4)
 				{
-					GameObject gameObject2 = enumerator2.Current;
-					gameObject2.SetActive(false);
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
+				default:
+					return;
+				case 0:
 					break;
 				}
 			}
@@ -165,51 +181,51 @@ public class BackgroundScroller : MonoBehaviour
 		Options_UI x = Options_UI.Get();
 		if (x == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BackgroundScroller.IsVisibleWithCurrentSettings()).MethodHandle;
-			}
-			return true;
 		}
 		GraphicsQuality currentGraphicsQuality = Options_UI.Get().GetCurrentGraphicsQuality();
 		if (currentGraphicsQuality == GraphicsQuality.High)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			return true;
 		}
-		if (currentGraphicsQuality == GraphicsQuality.Medium && !this.m_hideAtMediumQuality)
+		if (currentGraphicsQuality == GraphicsQuality.Medium && !m_hideAtMediumQuality)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			return true;
 		}
 		if (currentGraphicsQuality == GraphicsQuality.Low)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -218,7 +234,7 @@ public class BackgroundScroller : MonoBehaviour
 				}
 				break;
 			}
-			if (!this.m_hideAtLowQuality)
+			if (!m_hideAtLowQuality)
 			{
 				return true;
 			}
@@ -230,15 +246,15 @@ public class BackgroundScroller : MonoBehaviour
 	{
 		GameObject gameObject = null;
 		GameObject gameObject2 = null;
-		if (this.m_uninstantiatedPrefabs.Count > 0)
+		if (m_uninstantiatedPrefabs.Count > 0)
 		{
-			int index = UnityEngine.Random.Range(0, this.m_uninstantiatedPrefabs.Count);
-			gameObject = this.m_uninstantiatedPrefabs[index];
-			this.m_uninstantiatedPrefabs.RemoveAt(index);
+			int index = Random.Range(0, m_uninstantiatedPrefabs.Count);
+			gameObject = m_uninstantiatedPrefabs[index];
+			m_uninstantiatedPrefabs.RemoveAt(index);
 		}
-		else if (this.m_inVisibleBlocks.Count > 0)
+		else if (m_inVisibleBlocks.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -247,22 +263,22 @@ public class BackgroundScroller : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BackgroundScroller.MakeNewVisibleBlock()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			int index2 = UnityEngine.Random.Range(0, this.m_inVisibleBlocks.Count);
-			gameObject2 = this.m_inVisibleBlocks[index2];
-			this.m_inVisibleBlocks.RemoveAt(index2);
+			int index2 = Random.Range(0, m_inVisibleBlocks.Count);
+			gameObject2 = m_inVisibleBlocks[index2];
+			m_inVisibleBlocks.RemoveAt(index2);
 		}
-		else if (this.m_visibleBlocks.Count > 0)
+		else if (m_visibleBlocks.Count > 0)
 		{
-			int index3 = UnityEngine.Random.Range(0, this.m_visibleBlocks.Count);
-			gameObject = this.m_visibleBlocks[index3];
+			int index3 = Random.Range(0, m_visibleBlocks.Count);
+			gameObject = m_visibleBlocks[index3];
 		}
 		if (gameObject != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -271,13 +287,13 @@ public class BackgroundScroller : MonoBehaviour
 				}
 				break;
 			}
-			gameObject2 = UnityEngine.Object.Instantiate<GameObject>(gameObject);
+			gameObject2 = Object.Instantiate(gameObject);
 			gameObject2.transform.SetParent(base.transform);
 			gameObject2.transform.localPosition = Vector3.zero;
 		}
 		if (gameObject2 != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -286,12 +302,12 @@ public class BackgroundScroller : MonoBehaviour
 				}
 				break;
 			}
-			gameObject2.SetActive(this.IsVisibleWithCurrentSettings());
+			gameObject2.SetActive(IsVisibleWithCurrentSettings());
 			gameObject2.transform.localPosition = Vector3.zero;
 			gameObject2.transform.localRotation = Quaternion.identity;
-			if (this.m_randomRotation)
+			if (m_randomRotation)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -300,18 +316,27 @@ public class BackgroundScroller : MonoBehaviour
 					}
 					break;
 				}
-				if (UnityEngine.Random.value > 0.5f)
+				if (Random.value > 0.5f)
 				{
 					gameObject2.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
 				}
 			}
-			if (this.m_visibleBlocks.Count > 0)
+			if (m_visibleBlocks.Count > 0)
 			{
-				GameObject gameObject3 = this.m_visibleBlocks[this.m_visibleBlocks.Count - 1];
-				float x = gameObject3.transform.localPosition.x - gameObject3.GetComponent<BoxCollider>().size.x / 2f - gameObject2.GetComponent<BoxCollider>().size.x / 2f + gameObject3.GetComponent<BoxCollider>().center.x - gameObject2.GetComponent<BoxCollider>().center.x;
-				gameObject2.transform.localPosition = new Vector3(x, 0f, 0f);
+				GameObject gameObject3 = m_visibleBlocks[m_visibleBlocks.Count - 1];
+				Vector3 localPosition = gameObject3.transform.localPosition;
+				float x = localPosition.x;
+				Vector3 size = gameObject3.GetComponent<BoxCollider>().size;
+				float num = x - size.x / 2f;
+				Vector3 size2 = gameObject2.GetComponent<BoxCollider>().size;
+				float num2 = num - size2.x / 2f;
+				Vector3 center = gameObject3.GetComponent<BoxCollider>().center;
+				float num3 = num2 + center.x;
+				Vector3 center2 = gameObject2.GetComponent<BoxCollider>().center;
+				float x2 = num3 - center2.x;
+				gameObject2.transform.localPosition = new Vector3(x2, 0f, 0f);
 			}
-			this.m_visibleBlocks.Add(gameObject2);
+			m_visibleBlocks.Add(gameObject2);
 		}
 		return gameObject2;
 	}

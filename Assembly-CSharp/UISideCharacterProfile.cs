@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -30,48 +29,51 @@ public class UISideCharacterProfile : MonoBehaviour
 
 	public ActorData GetActor()
 	{
-		return this.m_actorData;
+		return m_actorData;
 	}
 
 	private void Awake()
 	{
-		this.SetCurrentActorArrowActive(false);
-		if (this.m_playerHandleText != null)
+		SetCurrentActorArrowActive(false);
+		if (m_playerHandleText != null)
 		{
-			this.m_playerHandleText.gameObject.SetActiveIfNeeded(false);
+			m_playerHandleText.gameObject.SetActiveIfNeeded(false);
 		}
-		if (this.m_hitbox != null)
+		if (m_hitbox != null)
 		{
-			UIEventTriggerUtils.AddListener(this.m_hitbox.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.DoClick));
+			UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerClick, DoClick);
 		}
 	}
 
 	public void DoClick(BaseEventData data)
 	{
-		if (this.m_actorData != null && GameFlowData.Get().SetActiveOwnedActor_FCFS(this.m_actorData))
+		if (!(m_actorData != null) || !GameFlowData.Get().SetActiveOwnedActor_FCFS(m_actorData))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.DoClick(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.HudLockIn);
+			return;
 		}
 	}
 
 	public void Update()
 	{
-		if (this.m_actorData != null)
+		ActorTurnSM actorTurnSM;
+		int num;
+		if (m_actorData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -80,13 +82,13 @@ public class UISideCharacterProfile : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -95,11 +97,11 @@ public class UISideCharacterProfile : MonoBehaviour
 					}
 					break;
 				}
-				ActorTurnSM actorTurnSM = this.m_actorData.\u000E();
+				actorTurnSM = m_actorData.GetActorTurnSM();
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (actorTurnSM != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -110,7 +112,7 @@ public class UISideCharacterProfile : MonoBehaviour
 					}
 					if (activeOwnedActorData != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -119,9 +121,9 @@ public class UISideCharacterProfile : MonoBehaviour
 							}
 							break;
 						}
-						if (this.m_actorData.\u000E() == activeOwnedActorData.\u000E())
+						if (m_actorData.GetTeam() == activeOwnedActorData.GetTeam())
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -130,10 +132,9 @@ public class UISideCharacterProfile : MonoBehaviour
 								}
 								break;
 							}
-							bool flag;
-							if (activeOwnedActorData == this.m_actorData)
+							if (activeOwnedActorData == m_actorData)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (1)
 									{
@@ -144,7 +145,7 @@ public class UISideCharacterProfile : MonoBehaviour
 								}
 								if (actorTurnSM.CurrentState != TurnStateEnum.RESOLVING)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (6)
 										{
@@ -153,21 +154,18 @@ public class UISideCharacterProfile : MonoBehaviour
 										}
 										break;
 									}
-									flag = (actorTurnSM.CurrentState != TurnStateEnum.WAITING);
-									goto IL_EC;
+									num = ((actorTurnSM.CurrentState != TurnStateEnum.WAITING) ? 1 : 0);
+									goto IL_00ec;
 								}
 							}
-							flag = false;
-							IL_EC:
-							bool currentActorArrowActive = flag;
-							this.SetCurrentActorArrowActive(currentActorArrowActive);
-							goto IL_125;
+							num = 0;
+							goto IL_00ec;
 						}
 					}
 				}
 				if (activeOwnedActorData != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -176,35 +174,44 @@ public class UISideCharacterProfile : MonoBehaviour
 						}
 						break;
 					}
-					if (this.m_actorData.\u000E() != activeOwnedActorData.\u000E())
+					if (m_actorData.GetTeam() != activeOwnedActorData.GetTeam())
 					{
-						this.SetCurrentActorArrowActive(false);
+						SetCurrentActorArrowActive(false);
 					}
 				}
-				IL_125:
-				UIManager.SetGameObjectActive(this.m_hasLockedInIndicator, actorTurnSM.CurrentState == TurnStateEnum.CONFIRMED, null);
+				goto IL_0125;
 			}
 		}
-		if (this.m_currentCharacterArrow != null && this.m_currentCharacterArrow.gameObject.activeSelf)
+		goto IL_013a;
+		IL_00ec:
+		bool currentActorArrowActive = (byte)num != 0;
+		SetCurrentActorArrowActive(currentActorArrowActive);
+		goto IL_0125;
+		IL_0125:
+		UIManager.SetGameObjectActive(m_hasLockedInIndicator, actorTurnSM.CurrentState == TurnStateEnum.CONFIRMED);
+		goto IL_013a;
+		IL_013a:
+		if (!(m_currentCharacterArrow != null) || !m_currentCharacterArrow.gameObject.activeSelf)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.SetAlphaForImage(this.m_currentCharacterArrow, 0.75f + 0.25f * Mathf.Cos(6f * Time.time));
+			SetAlphaForImage(m_currentCharacterArrow, 0.75f + 0.25f * Mathf.Cos(6f * Time.time));
+			return;
 		}
 	}
 
 	public void SetCurrentActorArrowActive(bool active)
 	{
-		if (this.m_currentCharacterArrow != null)
+		if (m_currentCharacterArrow != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -213,13 +220,13 @@ public class UISideCharacterProfile : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.SetCurrentActorArrowActive(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_currentCharacterArrow.gameObject.activeSelf != active)
+			if (m_currentCharacterArrow.gameObject.activeSelf != active)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -228,10 +235,10 @@ public class UISideCharacterProfile : MonoBehaviour
 					}
 					break;
 				}
-				this.m_currentCharacterArrow.gameObject.SetActive(active);
-				if (this.m_childAnchor != null)
+				m_currentCharacterArrow.gameObject.SetActive(active);
+				if (m_childAnchor != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -242,7 +249,7 @@ public class UISideCharacterProfile : MonoBehaviour
 					}
 					if (active)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -251,79 +258,80 @@ public class UISideCharacterProfile : MonoBehaviour
 							}
 							break;
 						}
-						Vector2 offsetMin = new Vector2(this.m_activeActorSideOffset, 0f);
-						Vector2 offsetMax = new Vector2(this.m_activeActorSideOffset, 0f);
-						this.m_childAnchor.offsetMin = offsetMin;
-						this.m_childAnchor.offsetMax = offsetMax;
+						Vector2 offsetMin = new Vector2(m_activeActorSideOffset, 0f);
+						Vector2 offsetMax = new Vector2(m_activeActorSideOffset, 0f);
+						m_childAnchor.offsetMin = offsetMin;
+						m_childAnchor.offsetMax = offsetMax;
 					}
 					else
 					{
-						this.m_childAnchor.offsetMin = Vector2.zero;
-						this.m_childAnchor.offsetMax = Vector2.zero;
+						m_childAnchor.offsetMin = Vector2.zero;
+						m_childAnchor.offsetMax = Vector2.zero;
 					}
 				}
 			}
 		}
-		if (this.m_sideHealthBar != null)
+		if (!(m_sideHealthBar != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_sideHealthBar.SetHealthBarColorForActiveActor(active);
+			m_sideHealthBar.SetHealthBarColorForActiveActor(active);
+			return;
 		}
 	}
 
 	public void SetAlpha(float newAlpha)
 	{
-		if (this.m_currentAlpha == Mathf.Clamp(newAlpha, 0f, 1f))
+		if (m_currentAlpha != Mathf.Clamp(newAlpha, 0f, 1f))
 		{
-			return;
+			m_currentAlpha = newAlpha;
+			m_currentAlpha = Mathf.Clamp(m_currentAlpha, 0f, 1f);
+			SetAlphaForImage(m_characterIcon, m_currentAlpha);
 		}
-		this.m_currentAlpha = newAlpha;
-		this.m_currentAlpha = Mathf.Clamp(this.m_currentAlpha, 0f, 1f);
-		this.SetAlphaForImage(this.m_characterIcon, this.m_currentAlpha);
 	}
 
 	private void SetAlphaForImage(Image uiImage, float alpha)
 	{
-		if (uiImage != null)
+		if (!(uiImage != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.SetAlphaForImage(Image, float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Color color = uiImage.color;
 			color.a = alpha;
 			uiImage.color = color;
+			return;
 		}
 	}
 
 	public void Setup(ActorData forActor, string hotKeyText, bool showNameLabel)
 	{
-		if (this.m_actorData == forActor && forActor != null)
+		if (m_actorData == forActor && forActor != null)
 		{
 			return;
 		}
-		this.m_actorData = forActor;
-		bool flag;
+		m_actorData = forActor;
+		int num;
 		if (forActor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -332,20 +340,20 @@ public class UISideCharacterProfile : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.Setup(ActorData, string, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = GameFlowData.Get().IsActorDataOwned(forActor);
+			num = (GameFlowData.Get().IsActorDataOwned(forActor) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
+		bool flag = (byte)num != 0;
 		if (forActor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -354,14 +362,14 @@ public class UISideCharacterProfile : MonoBehaviour
 				}
 				break;
 			}
-			if (this.m_playerHandleText != null)
+			if (m_playerHandleText != null)
 			{
-				this.m_playerHandleText.text = forActor.DisplayName;
-				Graphic playerHandleText = this.m_playerHandleText;
+				m_playerHandleText.text = forActor.DisplayName;
+				TextMeshProUGUI playerHandleText = m_playerHandleText;
 				Color color;
-				if (flag2)
+				if (flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -377,13 +385,13 @@ public class UISideCharacterProfile : MonoBehaviour
 					color = Color.cyan;
 				}
 				playerHandleText.color = color;
-				this.m_playerHandleText.gameObject.SetActiveIfNeeded(showNameLabel);
+				m_playerHandleText.gameObject.SetActiveIfNeeded(showNameLabel);
 			}
 		}
-		this.m_hotkeyText.text = hotKeyText;
-		if (this.m_hitbox != null)
+		m_hotkeyText.text = hotKeyText;
+		if (m_hitbox != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -392,11 +400,11 @@ public class UISideCharacterProfile : MonoBehaviour
 				}
 				break;
 			}
-			this.m_hitbox.gameObject.SetActiveIfNeeded(flag2);
+			m_hitbox.gameObject.SetActiveIfNeeded(flag);
 		}
-		if (this.m_characterIcon != null)
+		if (m_characterIcon != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -405,9 +413,9 @@ public class UISideCharacterProfile : MonoBehaviour
 				}
 				break;
 			}
-			if (this.m_actorData != null)
+			if (m_actorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -416,22 +424,23 @@ public class UISideCharacterProfile : MonoBehaviour
 					}
 					break;
 				}
-				this.m_characterIcon.sprite = this.m_actorData.\u000E();
+				m_characterIcon.sprite = m_actorData.GetAliveHUDIcon();
 			}
 		}
-		this.SetAlpha(1f);
-		if (this.m_sideHealthBar != null)
+		SetAlpha(1f);
+		if (!(m_sideHealthBar != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_sideHealthBar.SetActor(forActor);
+			m_sideHealthBar.SetActor(forActor);
+			return;
 		}
 	}
 }

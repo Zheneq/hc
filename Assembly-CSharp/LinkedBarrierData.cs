@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class LinkedBarrierData
@@ -13,19 +12,19 @@ public class LinkedBarrierData
 
 	public LinkedBarrierData()
 	{
-		this.m_actorsMovedThrough = new List<ActorData>();
-		this.m_actorsMovedThroughThisTurn = new List<ActorData>();
-		this.m_hitsOnAllies = 0;
-		this.m_hitsOnEnemies = 0;
+		m_actorsMovedThrough = new List<ActorData>();
+		m_actorsMovedThroughThisTurn = new List<ActorData>();
+		m_hitsOnAllies = 0;
+		m_hitsOnEnemies = 0;
 	}
 
 	public void OnTurnStart()
 	{
-		this.m_actorsMovedThroughThisTurn.Clear();
+		m_actorsMovedThroughThisTurn.Clear();
 	}
 
 	public int GetNumHits()
 	{
-		return this.m_hitsOnAllies + this.m_hitsOnEnemies;
+		return m_hitsOnAllies + m_hitsOnEnemies;
 	}
 }

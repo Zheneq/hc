@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class SpawnLocation : MonoBehaviour
@@ -7,20 +6,20 @@ public class SpawnLocation : MonoBehaviour
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpawnLocation.OnDrawGizmos()).MethodHandle;
-			}
-			return;
 		}
 		Gizmos.DrawIcon(base.transform.position, "icon_SpawnLocation.png");
 	}

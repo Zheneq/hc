@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine.UI;
 
@@ -13,12 +12,12 @@ public class UIBuffTooltip : UITooltipBase
 	public void Setup(StatusType status, int duration)
 	{
 		HUD_UIResources.StatusTypeIcon iconForStatusType = HUD_UIResources.GetIconForStatusType(status);
-		this.m_buffIcon.sprite = iconForStatusType.icon;
-		this.m_buffNameLabel.text = iconForStatusType.buffName;
+		m_buffIcon.sprite = iconForStatusType.icon;
+		m_buffNameLabel.text = iconForStatusType.buffName;
 		string text = iconForStatusType.buffDescription;
 		if (duration > 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -27,15 +26,15 @@ public class UIBuffTooltip : UITooltipBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBuffTooltip.Setup(StatusType, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			text = string.Format(StringUtil.TR("TurnsRemaining", "Buffs"), iconForStatusType.buffDescription, duration);
 		}
 		else if (duration == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -46,6 +45,6 @@ public class UIBuffTooltip : UITooltipBase
 			}
 			text = string.Format(StringUtil.TR("OneTurnRemaining", "Buffs"), iconForStatusType.buffDescription);
 		}
-		this.m_buffDescriptionLabel.text = text;
+		m_buffDescriptionLabel.text = text;
 	}
 }

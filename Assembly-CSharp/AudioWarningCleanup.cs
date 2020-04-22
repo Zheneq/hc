@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using Fabric;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioWarningCleanup : MonoBehaviour, IEventListener
@@ -10,12 +9,14 @@ public class AudioWarningCleanup : MonoBehaviour, IEventListener
 	[HideInInspector]
 	private bool m_registering;
 
+	bool IEventListener.IsDestroyed => !m_registering;
+
 	private void Start()
 	{
-		this.m_registering = true;
+		m_registering = true;
 		if (EventManager.Instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -24,15 +25,16 @@ public class AudioWarningCleanup : MonoBehaviour, IEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AudioWarningCleanup.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			foreach (string eventName in this.m_warningsToIgnore)
+			string[] warningsToIgnore = m_warningsToIgnore;
+			foreach (string eventName in warningsToIgnore)
 			{
 				EventManager.Instance.RegisterListener(this, eventName);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -42,19 +44,20 @@ public class AudioWarningCleanup : MonoBehaviour, IEventListener
 				break;
 			}
 		}
-		this.m_registering = false;
+		m_registering = false;
 	}
 
 	private void OnDestroy()
 	{
-		this.m_registering = true;
+		m_registering = true;
 		if (EventManager.Instance != null)
 		{
-			foreach (string eventName in this.m_warningsToIgnore)
+			string[] warningsToIgnore = m_warningsToIgnore;
+			foreach (string eventName in warningsToIgnore)
 			{
 				EventManager.Instance.UnregisterListener(this, eventName);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -63,20 +66,12 @@ public class AudioWarningCleanup : MonoBehaviour, IEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AudioWarningCleanup.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
-		this.m_registering = false;
-	}
-
-	bool IEventListener.IsDestroyed
-	{
-		get
-		{
-			return !this.m_registering;
-		}
+		m_registering = false;
 	}
 
 	bool IEventListener.GetEventInfo(GameObject parentGameObject, ref EventInfo eventInfo)

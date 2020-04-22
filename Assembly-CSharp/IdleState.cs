@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,7 +5,7 @@ public class IdleState : FSMState
 {
 	private void Start()
 	{
-		this.stateID = StateID.Idle;
+		stateID = StateID.Idle;
 	}
 
 	public override void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
@@ -16,21 +15,20 @@ public class IdleState : FSMState
 
 	public override IEnumerator OnTurn(NPCBrain thisBrain)
 	{
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			Debug.Log("Waiting!!");
+			yield break;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(IdleState.<OnTurn>c__Iterator0.MoveNext()).MethodHandle;
-		}
-		Debug.Log("Waiting!!");
-		yield break;
 	}
 
 	public override void OnEnter(NPCBrain thisBrain, StateID previousState)

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class TrackingEffectSequence : Sequence
@@ -13,9 +12,9 @@ public class TrackingEffectSequence : Sequence
 
 	private void Update()
 	{
-		if (this.m_trackingEffectPrefab && this.m_initialized)
+		if ((bool)m_trackingEffectPrefab && m_initialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -24,13 +23,13 @@ public class TrackingEffectSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackingEffectSequence.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_trackingEffectVFX == null && base.Target)
+			if (m_trackingEffectVFX == null && (bool)base.Target)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -39,64 +38,67 @@ public class TrackingEffectSequence : Sequence
 					}
 					break;
 				}
-				Vector3 position = base.Target.\u000E("upperRoot_JNT");
-				this.m_trackingEffectVFX = UnityEngine.Object.Instantiate<Transform>(this.m_trackingEffectPrefab, position, Quaternion.identity);
-				this.m_trackingEffectVFX.transform.parent = base.transform;
-				base.Target.GetComponent<AudioSource>().PlayOneShot(this.m_trackingStart);
+				Vector3 bonePosition = base.Target.GetBonePosition("upperRoot_JNT");
+				m_trackingEffectVFX = Object.Instantiate(m_trackingEffectPrefab, bonePosition, Quaternion.identity);
+				m_trackingEffectVFX.transform.parent = base.transform;
+				base.Target.GetComponent<AudioSource>().PlayOneShot(m_trackingStart);
 			}
 		}
-		if (this.m_trackingEffectVFX != null)
+		if (!(m_trackingEffectVFX != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (base.Target)
+			if ((bool)base.Target)
 			{
-				Renderer[] componentsInChildren = this.m_trackingEffectVFX.GetComponentsInChildren<Renderer>();
-				foreach (Renderer renderer in componentsInChildren)
+				Renderer[] componentsInChildren = m_trackingEffectVFX.GetComponentsInChildren<Renderer>();
+				Renderer[] array = componentsInChildren;
+				foreach (Renderer renderer in array)
 				{
-					renderer.enabled = base.Target.\u000E().enabled;
+					renderer.enabled = base.Target.GetActorModelDataRenderer().enabled;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					Vector3 bonePosition2 = base.Target.GetBonePosition("upperRoot_JNT");
+					m_trackingEffectVFX.position = bonePosition2;
+					return;
 				}
-				Vector3 position2 = base.Target.\u000E("upperRoot_JNT");
-				this.m_trackingEffectVFX.position = position2;
 			}
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_trackingEffectVFX)
+		if (!m_trackingEffectVFX)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackingEffectSequence.OnDisable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			base.Target.GetComponent<AudioSource>().PlayOneShot(this.m_trackingEnd);
-			UnityEngine.Object.Destroy(this.m_trackingEffectVFX.gameObject);
+			base.Target.GetComponent<AudioSource>().PlayOneShot(m_trackingEnd);
+			Object.Destroy(m_trackingEffectVFX.gameObject);
+			return;
 		}
 	}
 }

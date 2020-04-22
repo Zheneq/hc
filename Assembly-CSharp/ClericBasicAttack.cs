@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,9 +17,9 @@ public class ClericBasicAttack : Ability
 	public int m_maxTargets = 1;
 
 	[Header("-- On Hit Damage/Effect")]
-	public int m_damageAmountInner = 0x1C;
+	public int m_damageAmountInner = 28;
 
-	public int m_damageAmount = 0x14;
+	public int m_damageAmount = 20;
 
 	public StandardEffectInfo m_targetHitEffectInner;
 
@@ -41,9 +40,9 @@ public class ClericBasicAttack : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -52,61 +51,61 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Cleric Bash";
+			m_abilityName = "Cleric Bash";
 		}
-		this.m_syncComp = base.GetComponent<Cleric_SyncComponent>();
-		this.SetupTargeter();
+		m_syncComp = GetComponent<Cleric_SyncComponent>();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		float coneAngle = this.GetConeAngle();
-		base.Targeter = new AbilityUtil_Targeter_MultipleCones(this, new List<AbilityUtil_Targeter_MultipleCones.ConeDimensions>
-		{
-			new AbilityUtil_Targeter_MultipleCones.ConeDimensions(coneAngle, this.GetConeLengthInner()),
-			new AbilityUtil_Targeter_MultipleCones.ConeDimensions(coneAngle, this.GetConeLength())
-		}, this.m_coneBackwardOffset, this.PenetrateLineOfSight(), true, true, false, false);
+		SetCachedFields();
+		float coneAngle = GetConeAngle();
+		List<AbilityUtil_Targeter_MultipleCones.ConeDimensions> list = new List<AbilityUtil_Targeter_MultipleCones.ConeDimensions>();
+		list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(coneAngle, GetConeLengthInner()));
+		list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(coneAngle, GetConeLength()));
+		base.Targeter = new AbilityUtil_Targeter_MultipleCones(this, list, m_coneBackwardOffset, PenetrateLineOfSight(), true);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_ClericBasicAttack))
+		if (abilityMod.GetType() != typeof(AbilityMod_ClericBasicAttack))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_ClericBasicAttack);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_ClericBasicAttack);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedTargetHitEffectInner;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -115,21 +114,21 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedTargetHitEffectInner = this.m_abilityMod.m_targetHitEffectInnerMod.GetModifiedValue(this.m_targetHitEffectInner);
+			cachedTargetHitEffectInner = m_abilityMod.m_targetHitEffectInnerMod.GetModifiedValue(m_targetHitEffectInner);
 		}
 		else
 		{
-			cachedTargetHitEffectInner = this.m_targetHitEffectInner;
+			cachedTargetHitEffectInner = m_targetHitEffectInner;
 		}
-		this.m_cachedTargetHitEffectInner = cachedTargetHitEffectInner;
+		m_cachedTargetHitEffectInner = cachedTargetHitEffectInner;
 		StandardEffectInfo cachedTargetHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -138,21 +137,21 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			cachedTargetHitEffect = this.m_abilityMod.m_targetHitEffectMod.GetModifiedValue(this.m_targetHitEffect);
+			cachedTargetHitEffect = m_abilityMod.m_targetHitEffectMod.GetModifiedValue(m_targetHitEffect);
 		}
 		else
 		{
-			cachedTargetHitEffect = this.m_targetHitEffect;
+			cachedTargetHitEffect = m_targetHitEffect;
 		}
-		this.m_cachedTargetHitEffect = cachedTargetHitEffect;
+		m_cachedTargetHitEffect = cachedTargetHitEffect;
 	}
 
 	public bool PenetrateLineOfSight()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -161,15 +160,15 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.PenetrateLineOfSight()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(this.m_penetrateLineOfSight);
+			result = m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
 		}
 		else
 		{
-			result = this.m_penetrateLineOfSight;
+			result = m_penetrateLineOfSight;
 		}
 		return result;
 	}
@@ -177,9 +176,9 @@ public class ClericBasicAttack : Ability
 	public float GetConeAngle()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -188,15 +187,15 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetConeAngle()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneAngleMod.GetModifiedValue(this.m_coneAngle);
+			result = m_abilityMod.m_coneAngleMod.GetModifiedValue(m_coneAngle);
 		}
 		else
 		{
-			result = this.m_coneAngle;
+			result = m_coneAngle;
 		}
 		return result;
 	}
@@ -204,9 +203,9 @@ public class ClericBasicAttack : Ability
 	public float GetConeLengthInner()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -215,15 +214,15 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetConeLengthInner()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneLengthInnerMod.GetModifiedValue(this.m_coneLengthInner);
+			result = m_abilityMod.m_coneLengthInnerMod.GetModifiedValue(m_coneLengthInner);
 		}
 		else
 		{
-			result = this.m_coneLengthInner;
+			result = m_coneLengthInner;
 		}
 		return result;
 	}
@@ -231,9 +230,9 @@ public class ClericBasicAttack : Ability
 	public float GetConeLength()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -242,15 +241,15 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetConeLength()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneLengthMod.GetModifiedValue(this.m_coneLength);
+			result = m_abilityMod.m_coneLengthMod.GetModifiedValue(m_coneLength);
 		}
 		else
 		{
-			result = this.m_coneLength;
+			result = m_coneLength;
 		}
 		return result;
 	}
@@ -258,9 +257,9 @@ public class ClericBasicAttack : Ability
 	public float GetConeBackwardOffset()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -269,15 +268,15 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetConeBackwardOffset()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
+			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
 		}
 		else
 		{
-			result = this.m_coneBackwardOffset;
+			result = m_coneBackwardOffset;
 		}
 		return result;
 	}
@@ -285,9 +284,9 @@ public class ClericBasicAttack : Ability
 	public int GetMaxTargets()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -296,30 +295,30 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetMaxTargets()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
+			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
 		{
-			result = this.m_maxTargets;
+			result = m_maxTargets;
 		}
 		return result;
 	}
 
 	public int GetDamageAmountInner()
 	{
-		return (!this.m_abilityMod) ? this.m_damageAmountInner : this.m_abilityMod.m_damageAmountInnerMod.GetModifiedValue(this.m_damageAmountInner);
+		return (!m_abilityMod) ? m_damageAmountInner : m_abilityMod.m_damageAmountInnerMod.GetModifiedValue(m_damageAmountInner);
 	}
 
 	public int GetDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -328,35 +327,35 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetDamageAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
 		{
-			result = this.m_damageAmount;
+			result = m_damageAmount;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetTargetHitEffectInner()
 	{
-		return (this.m_cachedTargetHitEffectInner == null) ? this.m_targetHitEffectInner : this.m_cachedTargetHitEffectInner;
+		return (m_cachedTargetHitEffectInner == null) ? m_targetHitEffectInner : m_cachedTargetHitEffectInner;
 	}
 
 	public StandardEffectInfo GetTargetHitEffect()
 	{
-		return (this.m_cachedTargetHitEffect == null) ? this.m_targetHitEffect : this.m_cachedTargetHitEffect;
+		return (m_cachedTargetHitEffect == null) ? m_targetHitEffect : m_cachedTargetHitEffect;
 	}
 
 	public int GetExtraDamageToTargetsWhoEvaded()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -365,11 +364,11 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetExtraDamageToTargetsWhoEvaded()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageToTargetsWhoEvaded.GetModifiedValue(0);
+			result = m_abilityMod.m_extraDamageToTargetsWhoEvaded.GetModifiedValue(0);
 		}
 		else
 		{
@@ -380,9 +379,9 @@ public class ClericBasicAttack : Ability
 
 	public AbilityModCooldownReduction GetCooldownReduction()
 	{
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -391,32 +390,32 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetCooldownReduction()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_abilityMod.m_useCooldownReductionOverride)
+			if (m_abilityMod.m_useCooldownReductionOverride)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_abilityMod.m_cooldownReductionOverrideMod;
 					}
-					break;
 				}
-				return this.m_abilityMod.m_cooldownReductionOverrideMod;
 			}
 		}
-		return this.m_cooldownReduction;
+		return m_cooldownReduction;
 	}
 
 	public int GetHitsToIgnoreForCooldownReductionMultiplier()
 	{
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -425,13 +424,13 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetHitsToIgnoreForCooldownReductionMultiplier()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_abilityMod.m_useCooldownReductionOverride)
+			if (m_abilityMod.m_useCooldownReductionOverride)
 			{
-				return this.m_abilityMod.m_hitsToIgnoreForCooldownReductionMultiplier.GetModifiedValue(0);
+				return m_abilityMod.m_hitsToIgnoreForCooldownReductionMultiplier.GetModifiedValue(0);
 			}
 		}
 		return 0;
@@ -440,9 +439,9 @@ public class ClericBasicAttack : Ability
 	public int GetExtraTechPointGainInAreaBuff()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -451,11 +450,11 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetExtraTechPointGainInAreaBuff()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraTechPointGainInAreaBuff.GetModifiedValue(0);
+			result = m_abilityMod.m_extraTechPointGainInAreaBuff.GetModifiedValue(0);
 		}
 		else
 		{
@@ -466,31 +465,30 @@ public class ClericBasicAttack : Ability
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "MaxTargets", string.Empty, this.m_maxTargets, false);
-		base.AddTokenInt(tokens, "DamageAmountInner", string.Empty, this.m_damageAmountInner, false);
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, this.m_damageAmount, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_targetHitEffectInner, "TargetHitEffectInner", this.m_targetHitEffectInner, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_targetHitEffect, "TargetHitEffect", this.m_targetHitEffect, true);
+		AddTokenInt(tokens, "MaxTargets", string.Empty, m_maxTargets);
+		AddTokenInt(tokens, "DamageAmountInner", string.Empty, m_damageAmountInner);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, m_damageAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, m_targetHitEffectInner, "TargetHitEffectInner", m_targetHitEffectInner);
+		AbilityMod.AddToken_EffectInfo(tokens, m_targetHitEffect, "TargetHitEffect", m_targetHitEffect);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Near, this.GetDamageAmountInner()),
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Far, this.GetDamageAmount())
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Near, GetDamageAmountInner()));
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Far, GetDamageAmount()));
+		return list;
 	}
 
 	private bool InsideNearRadius(ActorData targetActor, Vector3 damageOrigin)
 	{
-		float num = this.GetConeLengthInner() * Board.\u000E().squareSize;
-		Vector3 vector = targetActor.\u0016() - damageOrigin;
+		float num = GetConeLengthInner() * Board.Get().squareSize;
+		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - damageOrigin;
 		vector.y = 0f;
 		float num2 = vector.magnitude;
 		if (GameWideData.Get().UseActorRadiusForCone())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -499,11 +497,11 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.InsideNearRadius(ActorData, Vector3)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num2 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.\u000E().squareSize;
+			num2 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 		}
 		return num2 <= num;
 	}
@@ -516,7 +514,7 @@ public class ClericBasicAttack : Ability
 			{
 				return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -525,50 +523,45 @@ public class ClericBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject, ActorData, Vector3, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
-		bool result;
-		if (this.InsideNearRadius(targetActor, damageOrigin))
+		if (InsideNearRadius(targetActor, damageOrigin))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return subjectType == AbilityTooltipSubject.Near;
 				}
-				break;
 			}
-			result = (subjectType == AbilityTooltipSubject.Near);
 		}
-		else
-		{
-			result = (subjectType == AbilityTooltipSubject.Far);
-		}
-		return result;
+		return subjectType == AbilityTooltipSubject.Far;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (caster.\u000E().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
+		if (caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return GetExtraTechPointGainInAreaBuff() * base.Targeter.GetNumActorsInRange();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
-			return this.GetExtraTechPointGainInAreaBuff() * base.Targeter.GetNumActorsInRange();
 		}
 		return base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
 	}

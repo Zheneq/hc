@@ -1,106 +1,76 @@
-﻿using System;
 using Newtonsoft.Json;
+using System;
 
 [Serializable]
 public class QueueRequirement_Character : QueueRequirement
 {
 	private CharacterType CharacterType;
 
-	private QueueRequirement.RequirementType m_requirementType = QueueRequirement.RequirementType.HasUnlockedCharacter;
+	private RequirementType m_requirementType = RequirementType.HasUnlockedCharacter;
 
 	private bool m_anyGroupMember;
 
-	public override QueueRequirement.RequirementType Requirement
-	{
-		get
-		{
-			return this.m_requirementType;
-		}
-	}
+	public override RequirementType Requirement => m_requirementType;
 
-	public override bool AnyGroupMember
-	{
-		get
-		{
-			return this.m_anyGroupMember;
-		}
-	}
+	public override bool AnyGroupMember => m_anyGroupMember;
 
 	public override bool DoesApplicantPass(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType)
 	{
 		bool result = false;
-		QueueRequirement.RequirementType requirementType = this.m_requirementType;
-		if (requirementType != QueueRequirement.RequirementType.HasUnlockedCharacter)
+		RequirementType requirementType = m_requirementType;
+		if (requirementType != RequirementType.HasUnlockedCharacter)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_Character.DoesApplicantPass(IQueueRequirementSystemInfo, IQueueRequirementApplicant, GameType, GameSubType)).MethodHandle;
-			}
-			throw new Exception(string.Format("Unknown QueueRequirement_Character requirement: {0}", this.Requirement));
-		}
-		for (int i = 0; i < 0x28; i++)
-		{
-			CharacterType characterType = (CharacterType)i;
-			if (applicant.IsCharacterTypeAvailable(characterType))
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (this.CharacterType == characterType)
-				{
-					for (;;)
+				default:
+					if (1 == 0)
 					{
-						switch (1)
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					throw new Exception($"Unknown QueueRequirement_Character requirement: {Requirement}");
+				}
+			}
+		}
+		int num = 0;
+		while (true)
+		{
+			if (num < 40)
+			{
+				CharacterType characterType = (CharacterType)num;
+				if (applicant.IsCharacterTypeAvailable(characterType))
+				{
+					while (true)
+					{
+						switch (4)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					result = true;
-					return result;
+					if (CharacterType == characterType)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						result = true;
+						break;
+					}
 				}
-			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
+				num++;
 				continue;
 			}
-			return result;
-		}
-	}
-
-	public override LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, RequirementMessageContext context)
-	{
-		QueueBlockOutReasonDetails queueBlockOutReasonDetails;
-		return this.GenerateFailure(systemInfo, applicant, context, out queueBlockOutReasonDetails);
-	}
-
-	public unsafe override LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, RequirementMessageContext context, out QueueBlockOutReasonDetails Details)
-	{
-		Details = new QueueBlockOutReasonDetails();
-		QueueRequirement.RequirementType requirement = this.Requirement;
-		if (requirement != QueueRequirement.RequirementType.HasUnlockedCharacter)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -109,45 +79,64 @@ public class QueueRequirement_Character : QueueRequirement
 				}
 				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_Character.GenerateFailure(IQueueRequirementSystemInfo, IQueueRequirementApplicant, RequirementMessageContext, QueueBlockOutReasonDetails*)).MethodHandle;
-			}
-			throw new Exception(string.Format("Unknown requirement is failed: {0}", this.Requirement));
+			break;
 		}
-		LocalizationArg_Freelancer localizationArg_Freelancer = LocalizationArg_Freelancer.Create(this.CharacterType);
+		return result;
+	}
+
+	public override LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, RequirementMessageContext context)
+	{
+		QueueBlockOutReasonDetails Details;
+		return GenerateFailure(systemInfo, applicant, context, out Details);
+	}
+
+	public override LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, RequirementMessageContext context, out QueueBlockOutReasonDetails Details)
+	{
+		Details = new QueueBlockOutReasonDetails();
+		RequirementType requirement = Requirement;
+		if (requirement != RequirementType.HasUnlockedCharacter)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					throw new Exception($"Unknown requirement is failed: {Requirement}");
+				}
+			}
+		}
+		LocalizationArg_Freelancer localizationArg_Freelancer = LocalizationArg_Freelancer.Create(CharacterType);
 		if (context == RequirementMessageContext.GroupQueueing)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return LocalizationPayload.Create("NoGroupMemberHasNotUnlockedFreelancerX", "Matchmaking", localizationArg_Freelancer);
 				}
-				break;
 			}
-			return LocalizationPayload.Create("NoGroupMemberHasNotUnlockedFreelancerX", "Matchmaking", new LocalizationArg[]
-			{
-				localizationArg_Freelancer
-			});
 		}
-		return LocalizationPayload.Create("UserXHasNotUnlockedFreelancerX", "Matchmaking", new LocalizationArg[]
-		{
-			applicant.LocalizedHandle,
-			localizationArg_Freelancer
-		});
+		return LocalizationPayload.Create("UserXHasNotUnlockedFreelancerX", "Matchmaking", applicant.LocalizedHandle, localizationArg_Freelancer);
 	}
 
 	public override void WriteToJson(JsonWriter writer)
 	{
 		writer.WritePropertyName("Character");
-		writer.WriteValue(this.CharacterType.ToString());
+		writer.WriteValue(CharacterType.ToString());
 		writer.WritePropertyName("AnyGroupMember");
-		writer.WriteValue(this.AnyGroupMember.ToString());
+		writer.WriteValue(AnyGroupMember.ToString());
 	}
 
-	public static QueueRequirement Create(QueueRequirement.RequirementType reqType, JsonReader reader)
+	public static QueueRequirement Create(RequirementType reqType, JsonReader reader)
 	{
 		QueueRequirement_Character queueRequirement_Character = new QueueRequirement_Character();
 		queueRequirement_Character.m_requirementType = reqType;
@@ -157,7 +146,7 @@ public class QueueRequirement_Character : QueueRequirement
 		reader.Read();
 		if (reader.TokenType == JsonToken.PropertyName)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -166,13 +155,13 @@ public class QueueRequirement_Character : QueueRequirement
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_Character.Create(QueueRequirement.RequirementType, JsonReader)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (reader.Value != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -183,7 +172,7 @@ public class QueueRequirement_Character : QueueRequirement
 				}
 				if (reader.Value.ToString() == "AnyGroupMember")
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -195,11 +184,13 @@ public class QueueRequirement_Character : QueueRequirement
 					reader.Read();
 					queueRequirement_Character.m_anyGroupMember = bool.Parse(reader.Value.ToString());
 					reader.Read();
-					return queueRequirement_Character;
+					goto IL_00da;
 				}
 			}
 		}
 		queueRequirement_Character.m_anyGroupMember = false;
+		goto IL_00da;
+		IL_00da:
 		return queueRequirement_Character;
 	}
 }

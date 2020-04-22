@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,42 +33,41 @@ public class AbilityMod_SparkDash : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SparkDash sparkDash = targetAbility as SparkDash;
-		if (sparkDash != null)
+		if (!(sparkDash != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkDash.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnEnemyMod, "ChargeEnemyEffect", sparkDash.m_effectOnTargetEnemy, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnAllyMod, "ChargeAllyEffect", sparkDash.m_effectOnTargetAlly, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnEnemyInBetweenMod, "EffectOnEnemyInBetween", sparkDash.m_effectOnEnemyInBetween, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnAllyInBetweenMod, "EffectOnAllyInBetween", sparkDash.m_effectOnAllyInBetween, true);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemyMod, "ChargeEnemyEffect", sparkDash.m_effectOnTargetEnemy);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnAllyMod, "ChargeAllyEffect", sparkDash.m_effectOnTargetAlly);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemyInBetweenMod, "EffectOnEnemyInBetween", sparkDash.m_effectOnEnemyInBetween);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnAllyInBetweenMod, "EffectOnAllyInBetween", sparkDash.m_effectOnAllyInBetween);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SparkDash sparkDash = base.GetTargetAbilityOnAbilityData(abilityData) as SparkDash;
+		SparkDash sparkDash = GetTargetAbilityOnAbilityData(abilityData) as SparkDash;
 		bool flag = sparkDash != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_chaseTargetActorMod, "[Chase Target Actor?]", flag, flag && sparkDash.m_chaseTargetActor);
-		string str = text;
-		AbilityModPropertyEffectInfo effectOnEnemyMod = this.m_effectOnEnemyMod;
-		string prefix = "[Effect on Target Enemy]";
-		bool showBaseVal = flag;
-		StandardEffectInfo baseVal;
+		string empty = string.Empty;
+		empty += PropDesc(m_chaseTargetActorMod, "[Chase Target Actor?]", flag, flag && sparkDash.m_chaseTargetActor);
+		string str = empty;
+		AbilityModPropertyEffectInfo effectOnEnemyMod = m_effectOnEnemyMod;
+		object baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -77,9 +76,9 @@ public class AbilityMod_SparkDash : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkDash.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = sparkDash.m_effectOnTargetEnemy;
 		}
@@ -87,15 +86,13 @@ public class AbilityMod_SparkDash : AbilityMod
 		{
 			baseVal = null;
 		}
-		text = str + base.PropDesc(effectOnEnemyMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyEffectInfo effectOnAllyMod = this.m_effectOnAllyMod;
-		string prefix2 = "[Effect on Target Ally]";
-		bool showBaseVal2 = flag;
-		StandardEffectInfo baseVal2;
+		empty = str + PropDesc(effectOnEnemyMod, "[Effect on Target Enemy]", flag, (StandardEffectInfo)baseVal);
+		string str2 = empty;
+		AbilityModPropertyEffectInfo effectOnAllyMod = m_effectOnAllyMod;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -110,16 +107,14 @@ public class AbilityMod_SparkDash : AbilityMod
 		{
 			baseVal2 = null;
 		}
-		text = str2 + base.PropDesc(effectOnAllyMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_chooseDestinationMod, "[Choose Destination?]", flag, flag && sparkDash.m_chooseDestination);
-		string str3 = text;
-		AbilityModPropertyShape chooseDestShapeMod = this.m_chooseDestShapeMod;
-		string prefix3 = "[Destination Shape]";
-		bool showBaseVal3 = flag;
-		AbilityAreaShape baseVal3;
+		empty = str2 + PropDesc(effectOnAllyMod, "[Effect on Target Ally]", flag, (StandardEffectInfo)baseVal2);
+		empty += PropDesc(m_chooseDestinationMod, "[Choose Destination?]", flag, flag && sparkDash.m_chooseDestination);
+		string str3 = empty;
+		AbilityModPropertyShape chooseDestShapeMod = m_chooseDestShapeMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -128,21 +123,19 @@ public class AbilityMod_SparkDash : AbilityMod
 				}
 				break;
 			}
-			baseVal3 = sparkDash.m_chooseDestinationShape;
+			baseVal3 = (int)sparkDash.m_chooseDestinationShape;
 		}
 		else
 		{
-			baseVal3 = AbilityAreaShape.SingleSquare;
+			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(chooseDestShapeMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyBool hitActorsInBetweenMod = this.m_hitActorsInBetweenMod;
-		string prefix4 = "[Hit Actors In Between?]";
-		bool showBaseVal4 = flag;
-		bool baseVal4;
+		empty = str3 + PropDesc(chooseDestShapeMod, "[Destination Shape]", flag, (AbilityAreaShape)baseVal3);
+		string str4 = empty;
+		AbilityModPropertyBool hitActorsInBetweenMod = m_hitActorsInBetweenMod;
+		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -151,21 +144,19 @@ public class AbilityMod_SparkDash : AbilityMod
 				}
 				break;
 			}
-			baseVal4 = sparkDash.m_hitActorsInBetween;
+			baseVal4 = (sparkDash.m_hitActorsInBetween ? 1 : 0);
 		}
 		else
 		{
-			baseVal4 = false;
+			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(hitActorsInBetweenMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyFloat chargeHitWidthMod = this.m_chargeHitWidthMod;
-		string prefix5 = "[Charge Width]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(hitActorsInBetweenMod, "[Hit Actors In Between?]", flag, (byte)baseVal4 != 0);
+		string str5 = empty;
+		AbilityModPropertyFloat chargeHitWidthMod = m_chargeHitWidthMod;
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -180,8 +171,8 @@ public class AbilityMod_SparkDash : AbilityMod
 		{
 			baseVal5 = 0f;
 		}
-		text = str5 + base.PropDesc(chargeHitWidthMod, prefix5, showBaseVal5, baseVal5);
-		text += base.PropDesc(this.m_effectOnEnemyInBetweenMod, "[Effect on Enemy In Between]", flag, (!flag) ? null : sparkDash.m_effectOnEnemyInBetween);
-		return text + base.PropDesc(this.m_effectOnAllyInBetweenMod, "[Effect on Ally In Between]", flag, (!flag) ? null : sparkDash.m_effectOnAllyInBetween);
+		empty = str5 + PropDesc(chargeHitWidthMod, "[Charge Width]", flag, baseVal5);
+		empty += PropDesc(m_effectOnEnemyInBetweenMod, "[Effect on Enemy In Between]", flag, (!flag) ? null : sparkDash.m_effectOnEnemyInBetween);
+		return empty + PropDesc(m_effectOnAllyInBetweenMod, "[Effect on Ally In Between]", flag, (!flag) ? null : sparkDash.m_effectOnAllyInBetween);
 	}
 }

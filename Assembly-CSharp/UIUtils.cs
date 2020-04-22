@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,32 +15,31 @@ public static class UIUtils
 
 	internal static void MarkInputFieldHasFocusDirty()
 	{
-		UIUtils.s_inputHasFocusLastSetTime = -1f;
+		s_inputHasFocusLastSetTime = -1f;
 	}
 
 	internal static bool InputFieldHasFocus()
 	{
-		if (Time.time == UIUtils.s_inputHasFocusLastSetTime)
+		if (Time.time == s_inputHasFocusLastSetTime)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return s_inputHasFocusValueThisFrame;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.InputFieldHasFocus()).MethodHandle;
-			}
-			return UIUtils.s_inputHasFocusValueThisFrame;
 		}
 		bool flag = false;
 		if (EventSystem.current != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -53,7 +51,7 @@ public static class UIUtils
 			GameObject currentSelectedGameObject = EventSystem.current.currentSelectedGameObject;
 			if (currentSelectedGameObject != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -62,9 +60,9 @@ public static class UIUtils
 					}
 					break;
 				}
-				if (UIUtils.s_prevSelectedGameObject == currentSelectedGameObject)
+				if (s_prevSelectedGameObject == currentSelectedGameObject)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -73,13 +71,13 @@ public static class UIUtils
 						}
 						break;
 					}
-					flag = UIUtils.s_prevHasInputField;
-					goto IL_D2;
+					flag = s_prevHasInputField;
+					goto IL_00d2;
 				}
 			}
 			if (currentSelectedGameObject != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -91,7 +89,7 @@ public static class UIUtils
 				flag = (currentSelectedGameObject.GetComponent<TMP_InputField>() != null);
 				if (!flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -102,58 +100,63 @@ public static class UIUtils
 					}
 					flag = (currentSelectedGameObject.GetComponent<InputField>() != null);
 				}
-				UIUtils.s_prevSelectedGameObject = currentSelectedGameObject;
-				UIUtils.s_prevHasInputField = flag;
+				s_prevSelectedGameObject = currentSelectedGameObject;
+				s_prevHasInputField = flag;
 			}
-			IL_D2:
-			if (!flag)
+			goto IL_00d2;
+		}
+		goto IL_0132;
+		IL_00d2:
+		if (!flag)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (3)
 				{
-					switch (3)
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (HUD_UI.Get() != null)
+			{
+				while (true)
+				{
+					switch (1)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (HUD_UI.Get() != null)
+				if (HUD_UI.Get().m_textConsole != null)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (1)
+						switch (6)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (HUD_UI.Get().m_textConsole != null)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag = HUD_UI.Get().m_textConsole.EscapeJustPressed();
-					}
+					flag = HUD_UI.Get().m_textConsole.EscapeJustPressed();
 				}
 			}
 		}
-		UIUtils.s_inputHasFocusLastSetTime = Time.time;
-		UIUtils.s_inputHasFocusValueThisFrame = flag;
+		goto IL_0132;
+		IL_0132:
+		s_inputHasFocusLastSetTime = Time.time;
+		s_inputHasFocusValueThisFrame = flag;
 		return flag;
 	}
 
 	internal static bool SettingKeybindCommand()
 	{
+		int result;
 		if (KeyBinding_UI.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -162,15 +165,16 @@ public static class UIUtils
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.SettingKeybindCommand()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (KeyBinding_UI.Get().IsSettingKeybindCommand())
 			{
-				return true;
+				result = 1;
+				goto IL_00a2;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -180,9 +184,9 @@ public static class UIUtils
 				break;
 			}
 		}
-		if (UIFrontEnd.Get())
+		if ((bool)UIFrontEnd.Get())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -193,7 +197,7 @@ public static class UIUtils
 			}
 			if (UIFrontEnd.Get().m_frontEndNavPanel != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -202,23 +206,27 @@ public static class UIUtils
 					}
 					break;
 				}
-				return UIFrontEnd.Get().m_frontEndNavPanel.m_voiceListMenu.m_pushToTalkClickBlocker.gameObject.activeSelf;
+				result = (UIFrontEnd.Get().m_frontEndNavPanel.m_voiceListMenu.m_pushToTalkClickBlocker.gameObject.activeSelf ? 1 : 0);
+				goto IL_00a2;
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_00a2;
+		IL_00a2:
+		return (byte)result != 0;
 	}
 
 	internal static bool IsMouseInGameWindow()
 	{
-		Rect rect = new Rect(1f, 1f, (float)(Screen.width - 1), (float)(Screen.height - 1));
-		return rect.Contains(Input.mousePosition);
+		bool flag = false;
+		return new Rect(1f, 1f, Screen.width - 1, Screen.height - 1).Contains(Input.mousePosition);
 	}
 
 	internal static bool IsFullScreenTakeoverVisible()
 	{
 		if (Options_UI.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -227,15 +235,15 @@ public static class UIUtils
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.IsFullScreenTakeoverVisible()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (Options_UI.Get().IsVisible())
 			{
-				goto IL_9B;
+				goto IL_009b;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -247,7 +255,7 @@ public static class UIUtils
 		}
 		if (KeyBinding_UI.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -258,9 +266,9 @@ public static class UIUtils
 			}
 			if (KeyBinding_UI.Get().IsVisible())
 			{
-				goto IL_9B;
+				goto IL_009b;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -273,7 +281,7 @@ public static class UIUtils
 		int result;
 		if (UISystemEscapeMenu.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -288,35 +296,37 @@ public static class UIUtils
 		{
 			result = 0;
 		}
-		return result != 0;
-		IL_9B:
+		goto IL_009c;
+		IL_009b:
 		result = 1;
-		return result != 0;
+		goto IL_009c;
+		IL_009c:
+		return (byte)result != 0;
 	}
 
 	internal static bool IsMouseOnGUI()
 	{
-		if (UIUtils.IsFullScreenTakeoverVisible())
+		if (IsFullScreenTakeoverVisible())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.IsMouseOnGUI()).MethodHandle;
-			}
-			return true;
 		}
 		bool result = false;
 		if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -328,7 +338,7 @@ public static class UIUtils
 			StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 			if (component != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -339,7 +349,7 @@ public static class UIUtils
 				}
 				if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -351,7 +361,7 @@ public static class UIUtils
 					Button componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<Button>();
 					if (componentInParent != null && UIEventTriggerUtils.HasTriggerOfType(componentInParent.gameObject, EventTriggerType.PointerClick))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -372,7 +382,7 @@ public static class UIUtils
 	{
 		Color textColor2 = style.normal.textColor;
 		style.normal.textColor = textColor;
-		UIUtils.TextWithOutline(layoutRect, text, style, outlineColor, outlineOffset);
+		TextWithOutline(layoutRect, text, style, outlineColor, outlineOffset);
 		style.normal.textColor = textColor2;
 	}
 
@@ -418,7 +428,7 @@ public static class UIUtils
 		string text2 = Mathf.RoundToInt(color.r * 255f).ToString("X");
 		if (text2.Length == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -427,9 +437,9 @@ public static class UIUtils
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.ColorToRichTextTag(Color)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			text2 = "0" + text2;
 		}
@@ -441,7 +451,7 @@ public static class UIUtils
 		string text4 = Mathf.RoundToInt(color.b * 255f).ToString("X");
 		if (text4.Length == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -458,15 +468,7 @@ public static class UIUtils
 			text5 = "0" + text5;
 		}
 		string text6 = text;
-		return string.Concat(new string[]
-		{
-			text6,
-			text2,
-			text3,
-			text4,
-			text5,
-			">"
-		});
+		return text6 + text2 + text3 + text4 + text5 + ">";
 	}
 
 	public static string ColorToNGUIRichTextTag(Color color)
@@ -480,7 +482,7 @@ public static class UIUtils
 		string text3 = Mathf.RoundToInt(color.g * 255f).ToString("X");
 		if (text3.Length == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -489,9 +491,9 @@ public static class UIUtils
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.ColorToNGUIRichTextTag(Color)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			text3 = "0" + text3;
 		}
@@ -501,22 +503,15 @@ public static class UIUtils
 			text4 = "0" + text4;
 		}
 		string text5 = text;
-		return string.Concat(new string[]
-		{
-			text5,
-			text2,
-			text3,
-			text4,
-			"]"
-		});
+		return text5 + text2 + text3 + text4 + "]";
 	}
 
-	public unsafe static void SweepRectRect(Rect rectA, Rect rectB, Vector2 velocity, out float hitTime)
+	public static void SweepRectRect(Rect rectA, Rect rectB, Vector2 velocity, out float hitTime)
 	{
 		float num = float.MaxValue;
 		if (velocity.x > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -525,13 +520,13 @@ public static class UIUtils
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.SweepRectRect(Rect, Rect, Vector2, float*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (rectA.xMax < rectB.xMin)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -544,7 +539,7 @@ public static class UIUtils
 			}
 			else if (rectA.xMax < rectB.xMax)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -560,7 +555,7 @@ public static class UIUtils
 		{
 			if (rectA.xMin > rectB.xMax)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -579,7 +574,7 @@ public static class UIUtils
 		float num2 = float.MaxValue;
 		if (velocity.y > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -601,7 +596,7 @@ public static class UIUtils
 		{
 			if (rectA.yMin > rectB.yMax)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -614,7 +609,7 @@ public static class UIUtils
 			}
 			else if (rectA.yMin > rectB.yMin)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -631,51 +626,53 @@ public static class UIUtils
 		{
 			hitTime = Mathf.Min(hitTime, num / Mathf.Abs(velocity.x));
 		}
-		if (velocity.y != 0f)
+		if (velocity.y == 0f)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			hitTime = Mathf.Min(hitTime, num2 / Mathf.Abs(velocity.y));
+			return;
 		}
 	}
 
 	internal static void SetAsLastSiblingIfNeeded(Transform transform)
 	{
-		if (transform != null && transform.parent != null)
+		if (!(transform != null) || !(transform.parent != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.SetAsLastSiblingIfNeeded(Transform)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (transform.GetSiblingIndex() != transform.parent.childCount - 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					transform.SetAsLastSibling();
+					return;
 				}
-				transform.SetAsLastSibling();
 			}
+			return;
 		}
 	}
 }

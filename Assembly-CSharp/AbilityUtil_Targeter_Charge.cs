@@ -1,69 +1,74 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class AbilityUtil_Targeter_Charge : AbilityUtil_Targeter_Shape
 {
 	public bool m_forceChase;
 
-	public AbilityUtil_Targeter_Charge(Ability ability, AbilityAreaShape shape, bool shapePenetratesLoS, AbilityUtil_Targeter_Shape.DamageOriginType damageOriginType, bool affectsEnemies = true, bool affectsAllies = false) : base(ability, shape, shapePenetratesLoS, damageOriginType, affectsEnemies, affectsAllies, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible)
+	public bool AllowChargeThroughInvalidSquares
 	{
-		this.m_showArcToShape = false;
-		this.AllowChargeThroughInvalidSquares = false;
+		get;
+		set;
 	}
 
-	public bool AllowChargeThroughInvalidSquares { get; set; }
+	public AbilityUtil_Targeter_Charge(Ability ability, AbilityAreaShape shape, bool shapePenetratesLoS, DamageOriginType damageOriginType, bool affectsEnemies = true, bool affectsAllies = false)
+		: base(ability, shape, shapePenetratesLoS, damageOriginType, affectsEnemies, affectsAllies)
+	{
+		m_showArcToShape = false;
+		AllowChargeThroughInvalidSquares = false;
+	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		this.UpdateTargetingMultiTargets(currentTarget, targetingActor, 0, null);
+		UpdateTargetingMultiTargets(currentTarget, targetingActor, 0, null);
 	}
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
 		base.UpdateTargetingMultiTargets(currentTarget, targetingActor, currentTargetIndex, targets);
 		BoardSquarePathInfo path = null;
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		if (!(boardSquareSafe != null))
 		{
-			if (currentTargetIndex != 0)
+			goto IL_0077;
+		}
+		if (currentTargetIndex != 0)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (1)
 				{
-					switch (1)
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (targets != null)
+			{
+				while (true)
+				{
+					switch (2)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
+				if (IsUsingMultiTargetUpdate())
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Charge.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-				}
-				if (targets != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.IsUsingMultiTargetUpdate())
-					{
-						goto IL_77;
-					}
+					goto IL_0077;
 				}
 			}
-			path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, targetingActor.\u0012(), this.AllowChargeThroughInvalidSquares);
-			goto IL_BB;
 		}
-		IL_77:
-		if (boardSquare != null)
+		path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe, targetingActor.GetCurrentBoardSquare(), AllowChargeThroughInvalidSquares);
+		goto IL_00bb;
+		IL_0077:
+		if (boardSquareSafe != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -72,12 +77,13 @@ public class AbilityUtil_Targeter_Charge : AbilityUtil_Targeter_Shape
 				}
 				break;
 			}
-			BoardSquare startSquare = Board.\u000E().\u000E(targets[currentTargetIndex - 1].GridPos);
-			path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, startSquare, this.AllowChargeThroughInvalidSquares);
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
+			path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe, boardSquareSafe2, AllowChargeThroughInvalidSquares);
 		}
-		IL_BB:
-		base.EnableAllMovementArrows();
-		int fromIndex = base.AddMovementArrowWithPrevious(targetingActor, path, AbilityUtil_Targeter.TargeterMovementType.Movement, 0, false);
-		base.SetMovementArrowEnabledFromIndex(fromIndex, false);
+		goto IL_00bb;
+		IL_00bb:
+		EnableAllMovementArrows();
+		int fromIndex = AddMovementArrowWithPrevious(targetingActor, path, TargeterMovementType.Movement, 0);
+		SetMovementArrowEnabledFromIndex(fromIndex, false);
 	}
 }

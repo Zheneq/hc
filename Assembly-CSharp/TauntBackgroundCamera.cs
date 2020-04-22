@@ -1,4 +1,3 @@
-﻿using System;
 using CameraManagerInternal;
 using UnityEngine;
 
@@ -12,24 +11,24 @@ public class TauntBackgroundCamera : MonoBehaviour
 
 	private void Awake()
 	{
-		this.m_animatedCameraComp = base.GetComponent<AnimatedCamera>();
-		this.m_fixedCasterAndTargetCam = base.GetComponent<Fixed_CasterAndTargetsCamera>();
-		this.m_camera = base.GetComponentInChildren<Camera>();
+		m_animatedCameraComp = GetComponent<AnimatedCamera>();
+		m_fixedCasterAndTargetCam = GetComponent<Fixed_CasterAndTargetsCamera>();
+		m_camera = GetComponentInChildren<Camera>();
 	}
 
 	public void SetAnimatedCameraTargetObj(GameObject obj)
 	{
-		if (this.m_animatedCameraComp != null)
+		if (m_animatedCameraComp != null)
 		{
-			this.m_animatedCameraComp.SetAnimator(obj);
+			m_animatedCameraComp.SetAnimator(obj);
 		}
 	}
 
-	public void OnCamShotStart(global::CameraType camType)
+	public void OnCamShotStart(CameraType camType)
 	{
-		if (camType == global::CameraType.Animated)
+		if (camType == CameraType.Animated)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -38,13 +37,13 @@ public class TauntBackgroundCamera : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TauntBackgroundCamera.OnCamShotStart(global::CameraType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_animatedCameraComp != null)
+			if (m_animatedCameraComp != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -53,32 +52,33 @@ public class TauntBackgroundCamera : MonoBehaviour
 					}
 					break;
 				}
-				this.m_animatedCameraComp.enabled = true;
+				m_animatedCameraComp.enabled = true;
 			}
 		}
-		if (camType == global::CameraType.Fixed_CasterAndTargets)
+		if (camType != CameraType.Fixed_CasterAndTargets)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.m_fixedCasterAndTargetCam != null)
+			if (m_fixedCasterAndTargetCam != null)
 			{
-				this.m_fixedCasterAndTargetCam.enabled = true;
+				m_fixedCasterAndTargetCam.enabled = true;
 			}
+			return;
 		}
 	}
 
 	public void OnCamShotStop()
 	{
-		if (this.m_animatedCameraComp != null)
+		if (m_animatedCameraComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -87,91 +87,94 @@ public class TauntBackgroundCamera : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TauntBackgroundCamera.OnCamShotStop()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_animatedCameraComp.SetAnimator(null);
-			this.m_animatedCameraComp.enabled = false;
+			m_animatedCameraComp.SetAnimator(null);
+			m_animatedCameraComp.enabled = false;
 		}
-		if (this.m_fixedCasterAndTargetCam != null)
+		if (!(m_fixedCasterAndTargetCam != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_fixedCasterAndTargetCam.SetAnimator(null);
-			this.m_fixedCasterAndTargetCam.enabled = false;
+			m_fixedCasterAndTargetCam.SetAnimator(null);
+			m_fixedCasterAndTargetCam.enabled = false;
+			return;
 		}
 	}
 
 	public void SetFixedCasterAndTargetObj(GameObject obj)
 	{
-		if (this.m_fixedCasterAndTargetCam != null)
+		if (!(m_fixedCasterAndTargetCam != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_fixedCasterAndTargetCam.SetAnimator(obj);
+			return;
+		}
+	}
+
+	private void LateUpdate()
+	{
+		if (!(m_camera != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(Camera.main != null) || !(CameraManager.Get() != null))
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TauntBackgroundCamera.SetFixedCasterAndTargetObj(GameObject)).MethodHandle;
-			}
-			this.m_fixedCasterAndTargetCam.SetAnimator(obj);
-		}
-	}
-
-	private void LateUpdate()
-	{
-		if (this.m_camera != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TauntBackgroundCamera.LateUpdate()).MethodHandle;
-			}
-			if (Camera.main != null && CameraManager.Get() != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (CameraManager.Get().ShotSequence != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						m_camera.fieldOfView = Camera.main.fieldOfView;
+						return;
 					}
-					this.m_camera.fieldOfView = Camera.main.fieldOfView;
 				}
+				return;
 			}
 		}
 	}

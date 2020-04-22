@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ public class AbilityCommon_LayeredRings
 	{
 		if (radiusToDataList != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -17,13 +16,13 @@ public class AbilityCommon_LayeredRings
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_LayeredRings.GetBestMatchingData(List<T>, BoardSquare, Vector3, ActorData, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (radiusToDataList.Count > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -34,7 +33,7 @@ public class AbilityCommon_LayeredRings
 				}
 				if (testSquare != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -45,57 +44,54 @@ public class AbilityCommon_LayeredRings
 					}
 					for (int i = 0; i < radiusToDataList.Count; i++)
 					{
-						T t = radiusToDataList[i];
+						T val = radiusToDataList[i];
 						if (useLastAsFailsafe && i == radiusToDataList.Count - 1)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return val;
 								}
-								break;
 							}
-							return t;
 						}
-						bool flag = AreaEffectUtils.IsSquareInConeByActorRadius(testSquare, centerPos, 0f, 360f, t.m_radius, 0f, true, caster, false, default(Vector3));
-						if (flag)
+						if (!AreaEffectUtils.IsSquareInConeByActorRadius(testSquare, centerPos, 0f, 360f, val.m_radius, 0f, true, caster))
 						{
-							for (;;)
+							continue;
+						}
+						while (true)
+						{
+							switch (2)
 							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
+							case 0:
+								continue;
 							}
-							return t;
+							return val;
 						}
 					}
 				}
 			}
 		}
-		return (T)((object)null);
+		return (T)null;
 	}
 
 	public static Sequence.IExtraSequenceParams[] GetAdjustableRingSequenceParams(float radiusInSquares)
 	{
-		return new Sequence.IExtraSequenceParams[]
+		Sequence.FxAttributeParam fxAttributeParam = new Sequence.FxAttributeParam();
+		fxAttributeParam.m_paramNameCode = Sequence.FxAttributeParam.ParamNameCode.ScaleControl;
+		fxAttributeParam.m_paramTarget = Sequence.FxAttributeParam.ParamTarget.MainVfx;
+		fxAttributeParam.m_paramValue = 2f * radiusInSquares;
+		Sequence.FxAttributeParam fxAttributeParam2 = new Sequence.FxAttributeParam();
+		fxAttributeParam2.m_paramNameCode = Sequence.FxAttributeParam.ParamNameCode.ScaleControl;
+		fxAttributeParam2.m_paramTarget = Sequence.FxAttributeParam.ParamTarget.ImpactVfx;
+		fxAttributeParam2.m_paramValue = 2f * radiusInSquares;
+		return new Sequence.IExtraSequenceParams[2]
 		{
-			new Sequence.FxAttributeParam
-			{
-				m_paramNameCode = Sequence.FxAttributeParam.ParamNameCode.ScaleControl,
-				m_paramTarget = Sequence.FxAttributeParam.ParamTarget.MainVfx,
-				m_paramValue = 2f * radiusInSquares
-			},
-			new Sequence.FxAttributeParam
-			{
-				m_paramNameCode = Sequence.FxAttributeParam.ParamNameCode.ScaleControl,
-				m_paramTarget = Sequence.FxAttributeParam.ParamTarget.ImpactVfx,
-				m_paramValue = 2f * radiusInSquares
-			}
+			fxAttributeParam,
+			fxAttributeParam2
 		};
 	}
 }

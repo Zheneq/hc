@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,5 +21,9 @@ public class UICombatTextItem : MonoBehaviour
 
 	public float m_moveTime = 0.75f;
 
-	internal ActorData Actor { get; private set; }
+	internal ActorData Actor
+	{
+		get;
+		private set;
+	}
 }

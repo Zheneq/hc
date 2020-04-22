@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,7 +13,7 @@ public class UIAutocompleteList : MonoBehaviour
 
 	public RectTransform m_selectionBox;
 
-	private const int kMaxViewportSize = 0xA;
+	private const int kMaxViewportSize = 10;
 
 	private UITextConsole m_parent;
 
@@ -36,43 +35,43 @@ public class UIAutocompleteList : MonoBehaviour
 
 	private void Initialize()
 	{
-		if (this.m_isInitialized)
+		if (m_isInitialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutocompleteList.Initialize()).MethodHandle;
-			}
-			return;
 		}
-		this.m_isInitialized = true;
-		this.m_rectTransform = (base.transform as RectTransform);
-		this.m_scrollRect = base.GetComponent<ScrollRect>();
-		this.m_visibilityQueue = new Queue<UIAutocompleteEntry>();
-		UIAutocompleteEntry[] componentsInChildren = this.m_gridContent.GetComponentsInChildren<UIAutocompleteEntry>(true);
+		m_isInitialized = true;
+		m_rectTransform = (base.transform as RectTransform);
+		m_scrollRect = GetComponent<ScrollRect>();
+		m_visibilityQueue = new Queue<UIAutocompleteEntry>();
+		UIAutocompleteEntry[] componentsInChildren = m_gridContent.GetComponentsInChildren<UIAutocompleteEntry>(true);
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
-			componentsInChildren[i].m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnClick);
-			componentsInChildren[i].m_hitbox.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
+			componentsInChildren[i].m_hitbox.callback = OnClick;
+			componentsInChildren[i].m_hitbox.RegisterScrollListener(OnScroll);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			m_slots = new List<UIAutocompleteEntry>(componentsInChildren);
+			return;
 		}
-		this.m_slots = new List<UIAutocompleteEntry>(componentsInChildren);
 	}
 
 	public void SetVisible(bool visible)
@@ -87,74 +86,76 @@ public class UIAutocompleteList : MonoBehaviour
 
 	public void Setup(UITextConsole parent, List<string> autocompleteEntries, string beforeAutocomplete)
 	{
-		this.m_parent = parent;
-		this.m_beforeAutocomplete = beforeAutocomplete;
-		this.m_caratPosition = this.m_parent.m_textInput.caretPosition;
-		this.Initialize();
-		for (int i = 0; i < this.m_slots.Count; i++)
+		m_parent = parent;
+		m_beforeAutocomplete = beforeAutocomplete;
+		m_caratPosition = m_parent.m_textInput.caretPosition;
+		Initialize();
+		for (int i = 0; i < m_slots.Count; i++)
 		{
-			this.m_slots[i].gameObject.SetActive(false);
+			m_slots[i].gameObject.SetActive(false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutocompleteList.Setup(UITextConsole, List<string>, string)).MethodHandle;
-		}
-		this.m_visibilityQueue.Clear();
-		this.m_scrollRect.verticalScrollbar.value = 1f;
-		for (int j = 0; j < autocompleteEntries.Count; j++)
-		{
-			UIAutocompleteEntry uiautocompleteEntry;
-			if (j < this.m_slots.Count)
+			if (1 == 0)
 			{
-				for (;;)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_visibilityQueue.Clear();
+			m_scrollRect.verticalScrollbar.value = 1f;
+			for (int j = 0; j < autocompleteEntries.Count; j++)
+			{
+				UIAutocompleteEntry uIAutocompleteEntry;
+				if (j < m_slots.Count)
 				{
-					switch (7)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
-					break;
+					uIAutocompleteEntry = m_slots[j];
 				}
-				uiautocompleteEntry = this.m_slots[j];
+				else
+				{
+					uIAutocompleteEntry = Object.Instantiate(m_entryPrefab);
+					uIAutocompleteEntry.transform.SetParent(m_gridContent.transform);
+					uIAutocompleteEntry.transform.localPosition = Vector3.zero;
+					uIAutocompleteEntry.transform.localScale = Vector3.one;
+					uIAutocompleteEntry.m_hitbox.callback = OnClick;
+					uIAutocompleteEntry.m_hitbox.RegisterScrollListener(OnScroll);
+					uIAutocompleteEntry.gameObject.SetActive(false);
+					m_slots.Add(uIAutocompleteEntry);
+				}
+				m_visibilityQueue.Enqueue(uIAutocompleteEntry);
+				uIAutocompleteEntry.m_hitbox.ResetMouseState();
+				uIAutocompleteEntry.Setup(autocompleteEntries[j], autocompleteEntries[j]);
 			}
-			else
-			{
-				uiautocompleteEntry = UnityEngine.Object.Instantiate<UIAutocompleteEntry>(this.m_entryPrefab);
-				uiautocompleteEntry.transform.SetParent(this.m_gridContent.transform);
-				uiautocompleteEntry.transform.localPosition = Vector3.zero;
-				uiautocompleteEntry.transform.localScale = Vector3.one;
-				uiautocompleteEntry.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnClick);
-				uiautocompleteEntry.m_hitbox.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-				uiautocompleteEntry.gameObject.SetActive(false);
-				this.m_slots.Add(uiautocompleteEntry);
-			}
-			this.m_visibilityQueue.Enqueue(uiautocompleteEntry);
-			uiautocompleteEntry.m_hitbox.ResetMouseState();
-			uiautocompleteEntry.Setup(autocompleteEntries[j], autocompleteEntries[j]);
+			Vector3 v = m_rectTransform.sizeDelta;
+			float num = m_gridContent.padding.vertical;
+			Vector2 cellSize = m_gridContent.cellSize;
+			v.y = num + cellSize.y * (float)Mathf.Min(autocompleteEntries.Count, 10);
+			m_rectTransform.sizeDelta = v;
+			m_selectionIndex = 0;
+			m_selectionBox.gameObject.SetActive(false);
+			return;
 		}
-		Vector3 v = this.m_rectTransform.sizeDelta;
-		v.y = (float)this.m_gridContent.padding.vertical + this.m_gridContent.cellSize.y * (float)Mathf.Min(autocompleteEntries.Count, 0xA);
-		this.m_rectTransform.sizeDelta = v;
-		this.m_selectionIndex = 0;
-		this.m_selectionBox.gameObject.SetActive(false);
 	}
 
 	private void SelectEntry(UIAutocompleteEntry entry)
 	{
-		string text = this.m_parent.m_textInput.text.Substring(this.m_parent.m_textInput.selectionFocusPosition);
-		string text2 = entry.GetTextValue().TrimEnd(new char[0]) + " " + text.Trim();
-		if (!this.m_beforeAutocomplete.IsNullOrEmpty())
+		string text = m_parent.m_textInput.text.Substring(m_parent.m_textInput.selectionFocusPosition);
+		string text2 = entry.GetTextValue().TrimEnd() + " " + text.Trim();
+		if (!m_beforeAutocomplete.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -163,136 +164,134 @@ public class UIAutocompleteList : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutocompleteList.SelectEntry(UIAutocompleteEntry)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text2 = this.m_beforeAutocomplete + " " + text2;
+			text2 = m_beforeAutocomplete + " " + text2;
 		}
-		this.m_parent.m_textInput.text = text2;
-		this.m_parent.m_textInput.Select();
-		this.m_parent.m_textInput.ActivateInputField();
-		this.m_parent.DehighlightTextAndPositionCarat();
-		this.m_parent.Show();
-		this.SetVisible(false);
+		m_parent.m_textInput.text = text2;
+		m_parent.m_textInput.Select();
+		m_parent.m_textInput.ActivateInputField();
+		m_parent.DehighlightTextAndPositionCarat();
+		m_parent.Show();
+		SetVisible(false);
 	}
 
 	public void SelectCurrent()
 	{
-		this.SelectEntry(this.m_slots[this.m_selectionIndex]);
+		SelectEntry(m_slots[m_selectionIndex]);
 	}
 
 	private void OnClick(BaseEventData data)
 	{
-		this.m_parent.m_textInput.Select();
-		this.m_parent.m_textInput.ActivateInputField();
-		this.m_parent.DehighlightTextAndPositionCarat();
-		this.m_parent.Show();
-		this.SetVisible(false);
+		m_parent.m_textInput.Select();
+		m_parent.m_textInput.ActivateInputField();
+		m_parent.DehighlightTextAndPositionCarat();
+		m_parent.Show();
+		SetVisible(false);
 	}
 
 	private void OnScroll(BaseEventData data)
 	{
-		this.m_scrollRect.OnScroll((PointerEventData)data);
+		m_scrollRect.OnScroll((PointerEventData)data);
 	}
 
 	private void Update()
 	{
-		if (!this.m_selectionBox.gameObject.activeSelf)
+		if (!m_selectionBox.gameObject.activeSelf)
 		{
-			this.m_selectionBox.gameObject.SetActive(true);
-			this.SetupCurrentSelection();
+			m_selectionBox.gameObject.SetActive(true);
+			SetupCurrentSelection();
 		}
 		int num = 3;
-		while (this.m_visibilityQueue.Count > 0)
+		while (m_visibilityQueue.Count > 0)
 		{
-			this.m_visibilityQueue.Dequeue().gameObject.SetActive(true);
+			m_visibilityQueue.Dequeue().gameObject.SetActive(true);
 			if (--num <= 0)
 			{
 				return;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutocompleteList.Update()).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	public void SelectUp()
 	{
-		if (--this.m_selectionIndex < 0)
+		if (--m_selectionIndex < 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_selectionIndex = 0;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutocompleteList.SelectUp()).MethodHandle;
-			}
-			this.m_selectionIndex = 0;
 		}
-		else
-		{
-			this.SetupCurrentSelection();
-		}
+		SetupCurrentSelection();
 	}
 
 	public void SelectDown()
 	{
-		if (++this.m_selectionIndex >= this.m_slots.Count)
+		if (++m_selectionIndex >= m_slots.Count)
 		{
-			this.m_selectionIndex = this.m_slots.Count - 1;
+			m_selectionIndex = m_slots.Count - 1;
 		}
-		while (!this.m_slots[this.m_selectionIndex].isActiveAndEnabled)
+		while (!m_slots[m_selectionIndex].isActiveAndEnabled)
 		{
-			this.m_selectionIndex--;
+			m_selectionIndex--;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			SetupCurrentSelection();
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutocompleteList.SelectDown()).MethodHandle;
-		}
-		this.SetupCurrentSelection();
 	}
 
 	private void SetupCurrentSelection()
 	{
-		UIAutocompleteEntry uiautocompleteEntry = this.m_slots[this.m_selectionIndex];
-		RectTransform rectTransform = uiautocompleteEntry.transform as RectTransform;
-		this.m_selectionBox.position = rectTransform.position;
-		this.m_selectionBox.sizeDelta = rectTransform.sizeDelta;
-		int num = this.m_caratPosition;
-		num = Mathf.Min(this.m_parent.m_textInput.text.Length, num);
-		string text = this.m_parent.m_textInput.text.Substring(0, num);
-		string str = this.m_parent.m_textInput.text.Substring(this.m_parent.m_textInput.selectionFocusPosition);
-		string text2 = uiautocompleteEntry.GetTextValue().Trim();
+		UIAutocompleteEntry uIAutocompleteEntry = m_slots[m_selectionIndex];
+		RectTransform rectTransform = uIAutocompleteEntry.transform as RectTransform;
+		m_selectionBox.position = rectTransform.position;
+		m_selectionBox.sizeDelta = rectTransform.sizeDelta;
+		int caratPosition = m_caratPosition;
+		caratPosition = Mathf.Min(m_parent.m_textInput.text.Length, caratPosition);
+		string text = m_parent.m_textInput.text.Substring(0, caratPosition);
+		string str = m_parent.m_textInput.text.Substring(m_parent.m_textInput.selectionFocusPosition);
+		string text2 = uIAutocompleteEntry.GetTextValue().Trim();
 		string text3 = string.Empty;
 		while (text2.Length > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -301,32 +300,30 @@ public class UIAutocompleteList : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutocompleteList.SetupCurrentSelection()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (text.ToLower().EndsWith(text2.ToLower()))
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_144;
-				}
-			}
-			else
+			if (!text.ToLower().EndsWith(text2.ToLower()))
 			{
 				text3 = text2[text2.Length - 1] + text3;
 				text2 = text2.Remove(text2.Length - 1, 1);
+				continue;
 			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			break;
 		}
-		IL_144:
-		this.m_parent.IgnoreNextTextChange();
-		this.m_parent.m_textInput.text = text + text3 + " " + str;
-		this.m_parent.m_textInput.selectionAnchorPosition = this.m_caratPosition;
-		this.m_parent.m_textInput.selectionFocusPosition = this.m_caratPosition + text3.Length + 1;
+		m_parent.IgnoreNextTextChange();
+		m_parent.m_textInput.text = text + text3 + " " + str;
+		m_parent.m_textInput.selectionAnchorPosition = m_caratPosition;
+		m_parent.m_textInput.selectionFocusPosition = m_caratPosition + text3.Length + 1;
 	}
 }

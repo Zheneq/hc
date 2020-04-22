@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine.Networking;
 
 internal class NetworkGroups
@@ -11,8 +10,7 @@ internal class NetworkGroups
 	{
 		if (!NetworkServer.active)
 		{
-			Log.Warning("Server only function called with no client is active", new object[0]);
-			return;
+			Log.Warning("Server only function called with no client is active");
 		}
 	}
 }

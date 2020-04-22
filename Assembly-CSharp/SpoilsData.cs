@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,41 +11,41 @@ public class SpoilsData : MonoBehaviour
 
 	public void SpawnSpoilOnDeath(BoardSquare desiredSquare)
 	{
-		if (SpoilsManager.Get() != null)
+		if (!(SpoilsManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(desiredSquare != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpoilsData.SpawnSpoilOnDeath(BoardSquare)).MethodHandle;
-			}
-			if (desiredSquare != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ActorData component = base.GetComponent<ActorData>();
+				ActorData component = GetComponent<ActorData>();
 				if (!GameplayUtils.IsPlayerControlled(component))
 				{
 					return;
 				}
-				List<BoardSquare> list = SpoilsManager.Get().FindSquaresToSpawnSpoil(desiredSquare, component.\u0012(), 1, true, true, 3, null);
+				List<BoardSquare> list = SpoilsManager.Get().FindSquaresToSpawnSpoil(desiredSquare, component.GetOpposingTeam(), 1, true, true, 3);
 				if (list.Count > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -55,27 +54,28 @@ public class SpoilsData : MonoBehaviour
 						}
 						break;
 					}
-					if (this.m_overrideSpoils != null)
+					if (m_overrideSpoils != null)
 					{
-						this.m_spawnedPowerUp = SpoilsManager.Get().SpawnSpoils(list[0], this.m_overrideSpoils, component.\u0012(), false);
+						m_spawnedPowerUp = SpoilsManager.Get().SpawnSpoils(list[0], m_overrideSpoils, component.GetOpposingTeam(), false);
 					}
 					else
 					{
-						this.m_spawnedPowerUp = SpoilsManager.Get().SpawnSpoils(list[0], this.m_spoilsType, component.\u0012());
+						m_spawnedPowerUp = SpoilsManager.Get().SpawnSpoils(list[0], m_spoilsType, component.GetOpposingTeam());
 					}
 				}
-				if (this.m_spawnedPowerUp)
+				if (!m_spawnedPowerUp)
 				{
-					for (;;)
+					return;
+				}
+				while (true)
+				{
+					switch (6)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					this.m_spawnedPowerUp.CalculateBoardSquare();
+					m_spawnedPowerUp.CalculateBoardSquare();
+					return;
 				}
 			}
 		}

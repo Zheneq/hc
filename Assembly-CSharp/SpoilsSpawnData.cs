@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -17,12 +17,12 @@ public class SpoilsSpawnData
 	public int m_duration;
 
 	[CompilerGenerated]
-	private static InEditorDescHelper.GetListEntryStrDelegate<GameObject> <>f__mg$cache0;
+	private static InEditorDescHelper.GetListEntryStrDelegate<GameObject> _003C_003Ef__mg_0024cache0;
 
 	public SpoilsSpawnData GetShallowCopy()
 	{
-		SpoilsSpawnData spoilsSpawnData = (SpoilsSpawnData)base.MemberwiseClone();
-		spoilsSpawnData.m_powerupPrefabs = new List<GameObject>(this.m_powerupPrefabs);
+		SpoilsSpawnData spoilsSpawnData = (SpoilsSpawnData)MemberwiseClone();
+		spoilsSpawnData.m_powerupPrefabs = new List<GameObject>(m_powerupPrefabs);
 		return spoilsSpawnData;
 	}
 
@@ -32,9 +32,10 @@ public class SpoilsSpawnData
 
 	public bool HasResponse()
 	{
-		if (this.m_numToSpawn > 0)
+		int result;
+		if (m_numToSpawn > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -43,13 +44,13 @@ public class SpoilsSpawnData
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpoilsSpawnData.HasResponse()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_powerupPrefabs != null)
+			if (m_powerupPrefabs != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -58,18 +59,22 @@ public class SpoilsSpawnData
 					}
 					break;
 				}
-				return this.m_powerupPrefabs.Count > 0;
+				result = ((m_powerupPrefabs.Count > 0) ? 1 : 0);
+				goto IL_003f;
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_003f;
+		IL_003f:
+		return (byte)result != 0;
 	}
 
 	public string GetInEditorDescription(string header = "Spoils Spawn Data", string indent = "    ", bool diff = false, SpoilsSpawnData other = null)
 	{
-		bool flag;
+		int num;
 		if (diff)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -78,168 +83,152 @@ public class SpoilsSpawnData
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpoilsSpawnData.GetInEditorDescription(string, string, bool, SpoilsSpawnData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = (other != null);
+			num = ((other != null) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
+		bool flag = (byte)num != 0;
 		string str = "\n";
-		string text = "\t        \t | in base  =";
-		string text2 = InEditorDescHelper.BoldedStirng(header) + str;
-		if (this.HasResponse())
+		string otherSep = "\t        \t | in base  =";
+		string text = InEditorDescHelper.BoldedStirng(header) + str;
+		if (HasResponse())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			string str2 = text2;
-			string header2 = "[ Num Spoils To Spawn ] = ";
-			string otherSep = text;
-			float myVal = (float)this.m_numToSpawn;
-			bool showOther = flag2;
-			float num;
-			if (flag2)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				num = (float)other.m_numToSpawn;
-			}
-			else
-			{
-				num = (float)0;
-			}
-			text2 = str2 + InEditorDescHelper.AssembleFieldWithDiff(header2, indent, otherSep, myVal, showOther, num, null);
-			string str3 = text2;
-			string header3 = "[ Can Spawn On Enemy Square ] = ";
-			string otherSep2 = text;
-			bool canSpawnOnEnemyOccupiedSquare = this.m_canSpawnOnEnemyOccupiedSquare;
-			bool showOther2 = flag2;
-			bool otherVal;
-			if (flag2)
-			{
-				for (;;)
+				default:
 				{
-					switch (5)
+					string str2 = text;
+					float myVal = m_numToSpawn;
+					int num2;
+					if (flag)
 					{
-					case 0:
-						continue;
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num2 = other.m_numToSpawn;
 					}
-					break;
-				}
-				otherVal = other.m_canSpawnOnEnemyOccupiedSquare;
-			}
-			else
-			{
-				otherVal = false;
-			}
-			text2 = str3 + InEditorDescHelper.AssembleFieldWithDiff(header3, indent, otherSep2, canSpawnOnEnemyOccupiedSquare, showOther2, otherVal, null);
-			string str4 = text2;
-			string header4 = "[ Can Spawn On Ally Square ] = ";
-			string otherSep3 = text;
-			bool canSpawnOnAllyOccupiedSquare = this.m_canSpawnOnAllyOccupiedSquare;
-			bool showOther3 = flag2;
-			bool otherVal2;
-			if (flag2)
-			{
-				for (;;)
-				{
-					switch (2)
+					else
 					{
-					case 0:
-						continue;
+						num2 = 0;
 					}
-					break;
-				}
-				otherVal2 = other.m_canSpawnOnAllyOccupiedSquare;
-			}
-			else
-			{
-				otherVal2 = false;
-			}
-			text2 = str4 + InEditorDescHelper.AssembleFieldWithDiff(header4, indent, otherSep3, canSpawnOnAllyOccupiedSquare, showOther3, otherVal2, null);
-			string str5 = text2;
-			string header5 = "[ Duration ] = ";
-			string otherSep4 = text;
-			float myVal2 = (float)this.m_duration;
-			bool showOther4 = flag2;
-			float num2;
-			if (flag2)
-			{
-				for (;;)
-				{
-					switch (7)
+					text = str2 + InEditorDescHelper.AssembleFieldWithDiff("[ Num Spoils To Spawn ] = ", indent, otherSep, myVal, flag, num2);
+					string str3 = text;
+					bool canSpawnOnEnemyOccupiedSquare = m_canSpawnOnEnemyOccupiedSquare;
+					int otherVal;
+					if (flag)
 					{
-					case 0:
-						continue;
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						otherVal = (other.m_canSpawnOnEnemyOccupiedSquare ? 1 : 0);
 					}
-					break;
-				}
-				num2 = (float)other.m_duration;
-			}
-			else
-			{
-				num2 = (float)0;
-			}
-			text2 = str5 + InEditorDescHelper.AssembleFieldWithDiff(header5, indent, otherSep4, myVal2, showOther4, num2, null);
-			string str6 = text2;
-			string header6 = "PowerupPrefabs:\t";
-			GameObject[] myObjList = this.m_powerupPrefabs.ToArray();
-			bool showDiff = flag2;
-			GameObject[] otherObjList;
-			if (flag2)
-			{
-				for (;;)
-				{
-					switch (4)
+					else
 					{
-					case 0:
-						continue;
+						otherVal = 0;
 					}
-					break;
-				}
-				otherObjList = other.m_powerupPrefabs.ToArray();
-			}
-			else
-			{
-				otherObjList = null;
-			}
-			if (SpoilsSpawnData.<>f__mg$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (3)
+					text = str3 + InEditorDescHelper.AssembleFieldWithDiff("[ Can Spawn On Enemy Square ] = ", indent, otherSep, canSpawnOnEnemyOccupiedSquare, flag, (byte)otherVal != 0);
+					string str4 = text;
+					bool canSpawnOnAllyOccupiedSquare = m_canSpawnOnAllyOccupiedSquare;
+					int otherVal2;
+					if (flag)
 					{
-					case 0:
-						continue;
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						otherVal2 = (other.m_canSpawnOnAllyOccupiedSquare ? 1 : 0);
 					}
-					break;
+					else
+					{
+						otherVal2 = 0;
+					}
+					text = str4 + InEditorDescHelper.AssembleFieldWithDiff("[ Can Spawn On Ally Square ] = ", indent, otherSep, canSpawnOnAllyOccupiedSquare, flag, (byte)otherVal2 != 0);
+					string str5 = text;
+					float myVal2 = m_duration;
+					int num3;
+					if (flag)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num3 = other.m_duration;
+					}
+					else
+					{
+						num3 = 0;
+					}
+					text = str5 + InEditorDescHelper.AssembleFieldWithDiff("[ Duration ] = ", indent, otherSep, myVal2, flag, num3);
+					string str6 = text;
+					GameObject[] myObjList = m_powerupPrefabs.ToArray();
+					object otherObjList;
+					if (flag)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						otherObjList = other.m_powerupPrefabs.ToArray();
+					}
+					else
+					{
+						otherObjList = null;
+					}
+					if (_003C_003Ef__mg_0024cache0 == null)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						_003C_003Ef__mg_0024cache0 = InEditorDescHelper.GetGameObjectEntryStr;
+					}
+					return str6 + InEditorDescHelper.GetListDiffString("PowerupPrefabs:\t", indent, myObjList, flag, (GameObject[])otherObjList, _003C_003Ef__mg_0024cache0);
 				}
-				SpoilsSpawnData.<>f__mg$cache0 = new InEditorDescHelper.GetListEntryStrDelegate<GameObject>(InEditorDescHelper.GetGameObjectEntryStr);
+				}
 			}
-			text2 = str6 + InEditorDescHelper.GetListDiffString<GameObject>(header6, indent, myObjList, showDiff, otherObjList, SpoilsSpawnData.<>f__mg$cache0);
 		}
-		else
-		{
-			text2 += "Not set to spawn spoils\n";
-		}
-		return text2;
+		return text + "Not set to spawn spoils\n";
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -43,70 +43,70 @@ public class InventoryItemTemplate
 
 	public InventoryItemTemplate()
 	{
-		this.Index = -1;
-		this.Enabled = true;
+		Index = -1;
+		Enabled = true;
 	}
 
 	public string GetDisplayName()
 	{
-		if (this.Index == -1)
+		if (Index == -1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return DisplayName;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryItemTemplate.GetDisplayName()).MethodHandle;
-			}
-			return this.DisplayName;
 		}
-		return StringUtil.TR_InventoryItemName(this.Index);
+		return StringUtil.TR_InventoryItemName(Index);
 	}
 
 	public string GetDescription()
 	{
-		return StringUtil.TR_InventoryItemDescription(this.Index);
+		return StringUtil.TR_InventoryItemDescription(Index);
 	}
 
 	public string GetObtainDescription()
 	{
-		return StringUtil.TR_InventoryObtainedDescription(this.Index);
+		return StringUtil.TR_InventoryObtainedDescription(Index);
 	}
 
 	public string GetFlavorText()
 	{
-		return StringUtil.TR_InventoryFlavorText(this.Index);
+		return StringUtil.TR_InventoryFlavorText(Index);
 	}
 
 	public InventoryItem Process()
 	{
-		return new InventoryItem(this.Index, 1, 0);
+		return new InventoryItem(Index);
 	}
 
 	public string GetProductCode()
 	{
-		return "INVENTORY_ITEM_" + this.Index;
+		return "INVENTORY_ITEM_" + Index;
 	}
 
 	public List<InventoryItem> Process(int count)
 	{
 		List<InventoryItem> list = new List<InventoryItem>();
-		if (this.IsStackable)
+		if (IsStackable)
 		{
-			InventoryItem item = new InventoryItem(this.Index, count, 0);
+			InventoryItem item = new InventoryItem(Index, count);
 			list.Add(item);
 		}
 		else
 		{
 			for (int i = 0; i < count; i++)
 			{
-				InventoryItem item2 = this.Process();
+				InventoryItem item2 = Process();
 				list.Add(item2);
 			}
 		}
@@ -115,30 +115,23 @@ public class InventoryItemTemplate
 
 	public override string ToString()
 	{
-		if (this.TypeSpecificData.IsNullOrEmpty<int>())
+		if (TypeSpecificData.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return $"[{Index}] {DisplayName}, {Type}";
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryItemTemplate.ToString()).MethodHandle;
-			}
-			return string.Format("[{0}] {1}, {2}", this.Index, this.DisplayName, this.Type);
 		}
-		string format = "[{0}] {1}, {2}, ({3})";
-		object[] array = new object[4];
-		array[0] = this.Index;
-		array[1] = this.DisplayName;
-		array[2] = this.Type;
-		array[3] = string.Join(",", (from p in this.TypeSpecificData
-		select p.ToString()).ToArray<string>());
-		return string.Format(format, array);
+		return string.Format("[{0}] {1}, {2}, ({3})", Index, DisplayName, Type, string.Join(",", TypeSpecificData.Select((int p) => p.ToString()).ToArray()));
 	}
 }

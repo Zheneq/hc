@@ -1,10 +1,9 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleMonkSelfBuff : Ability
 {
-	public int m_damagePerHit = 0xA;
+	public int m_damagePerHit = 10;
 
 	public StandardActorEffectData m_standardActorEffectData;
 
@@ -25,16 +24,16 @@ public class BattleMonkSelfBuff : Ability
 
 	private void Start()
 	{
-		this.Setup();
+		Setup();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_BattleMonkSelfBuff abilityMod_BattleMonkSelfBuff = modAsBase as AbilityMod_BattleMonkSelfBuff;
 		int num;
-		if (abilityMod_BattleMonkSelfBuff)
+		if ((bool)abilityMod_BattleMonkSelfBuff)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -43,21 +42,21 @@ public class BattleMonkSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkSelfBuff.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = abilityMod_BattleMonkSelfBuff.m_damageReturnMod.GetModifiedValue(this.m_damagePerHit);
+			num = abilityMod_BattleMonkSelfBuff.m_damageReturnMod.GetModifiedValue(m_damagePerHit);
 		}
 		else
 		{
-			num = this.m_damagePerHit;
+			num = m_damagePerHit;
 		}
 		int val = num;
 		int num2;
-		if (abilityMod_BattleMonkSelfBuff)
+		if ((bool)abilityMod_BattleMonkSelfBuff)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -66,11 +65,11 @@ public class BattleMonkSelfBuff : Ability
 				}
 				break;
 			}
-			num2 = abilityMod_BattleMonkSelfBuff.m_absorbMod.GetModifiedValue(this.m_standardActorEffectData.m_absorbAmount);
+			num2 = abilityMod_BattleMonkSelfBuff.m_absorbMod.GetModifiedValue(m_standardActorEffectData.m_absorbAmount);
 		}
 		else
 		{
-			num2 = this.m_standardActorEffectData.m_absorbAmount;
+			num2 = m_standardActorEffectData.m_absorbAmount;
 		}
 		int val2 = num2;
 		tokens.Add(new TooltipTokenInt("DamageReturn", "damage amount on revenge hit", val));
@@ -79,22 +78,22 @@ public class BattleMonkSelfBuff : Ability
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, (!this.CanTargetNearbyAllies()) ? AbilityAreaShape.SingleSquare : this.GetAllyTargetShape(), this.m_ignoreLos, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, this.CanTargetNearbyAllies(), AbilityUtil_Targeter.AffectsActor.Always, AbilityUtil_Targeter.AffectsActor.Possible);
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, CanTargetNearbyAllies() ? GetAllyTargetShape() : AbilityAreaShape.SingleSquare, m_ignoreLos, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, CanTargetNearbyAllies(), AbilityUtil_Targeter.AffectsActor.Always);
 		base.Targeter.ShowArcToShape = false;
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedReturnEffectOnEnemy = ((!this.m_abilityMod) ? this.m_returnEffectOnEnemy : this.m_abilityMod.m_returnEffectOnEnemyMod.GetModifiedValue(this.m_returnEffectOnEnemy));
+		m_cachedReturnEffectOnEnemy = ((!m_abilityMod) ? m_returnEffectOnEnemy : m_abilityMod.m_returnEffectOnEnemyMod.GetModifiedValue(m_returnEffectOnEnemy));
 	}
 
 	public int GetDamagePerHit()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -103,15 +102,15 @@ public class BattleMonkSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkSelfBuff.GetDamagePerHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_damagePerHit;
+			result = m_damagePerHit;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_damageReturnMod.GetModifiedValue(this.m_damagePerHit);
+			result = m_abilityMod.m_damageReturnMod.GetModifiedValue(m_damagePerHit);
 		}
 		return result;
 	}
@@ -119,9 +118,9 @@ public class BattleMonkSelfBuff : Ability
 	public StandardEffectInfo GetReturnEffectOnEnemy()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedReturnEffectOnEnemy != null)
+		if (m_cachedReturnEffectOnEnemy != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -130,15 +129,15 @@ public class BattleMonkSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkSelfBuff.GetReturnEffectOnEnemy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedReturnEffectOnEnemy;
+			result = m_cachedReturnEffectOnEnemy;
 		}
 		else
 		{
-			result = this.m_returnEffectOnEnemy;
+			result = m_returnEffectOnEnemy;
 		}
 		return result;
 	}
@@ -146,9 +145,9 @@ public class BattleMonkSelfBuff : Ability
 	public int GetAbsorbAmount()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -157,30 +156,30 @@ public class BattleMonkSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkSelfBuff.GetAbsorbAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_standardActorEffectData.m_absorbAmount;
+			result = m_standardActorEffectData.m_absorbAmount;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_absorbMod.GetModifiedValue(this.m_standardActorEffectData.m_absorbAmount);
+			result = m_abilityMod.m_absorbMod.GetModifiedValue(m_standardActorEffectData.m_absorbAmount);
 		}
 		return result;
 	}
 
 	public bool CanTargetNearbyAllies()
 	{
-		return !(this.m_abilityMod == null) && this.m_abilityMod.m_hitNearbyAlliesMod.GetModifiedValue(false);
+		return !(m_abilityMod == null) && m_abilityMod.m_hitNearbyAlliesMod.GetModifiedValue(false);
 	}
 
 	public AbilityAreaShape GetAllyTargetShape()
 	{
-		AbilityAreaShape result;
-		if (this.m_abilityMod == null)
+		int result;
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -189,25 +188,25 @@ public class BattleMonkSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkSelfBuff.GetAllyTargetShape()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = AbilityAreaShape.SingleSquare;
+			result = 0;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_allyTargetShapeMod.GetModifiedValue(AbilityAreaShape.SingleSquare);
+			result = (int)m_abilityMod.m_allyTargetShapeMod.GetModifiedValue(AbilityAreaShape.SingleSquare);
 		}
-		return result;
+		return (AbilityAreaShape)result;
 	}
 
 	public StandardEffectInfo GetSelfEffect()
 	{
-		StandardEffectInfo result;
-		if (this.m_abilityMod == null)
+		object result;
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -216,25 +215,25 @@ public class BattleMonkSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkSelfBuff.GetSelfEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = null;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_effectOnSelfNextTurn;
+			result = m_abilityMod.m_effectOnSelfNextTurn;
 		}
-		return result;
+		return (StandardEffectInfo)result;
 	}
 
 	public int GetDurationOfSelfEffect(int numHits)
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -243,25 +242,25 @@ public class BattleMonkSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkSelfBuff.GetDurationOfSelfEffect(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = 0;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_selfEffectDurationPerHit.GetModifiedValue(numHits);
+			result = m_abilityMod.m_selfEffectDurationPerHit.GetModifiedValue(numHits);
 		}
 		return result;
 	}
 
 	public bool HasEffectForStartOfNextTurn()
 	{
-		bool result;
-		if (this.GetSelfEffect() != null)
+		int result;
+		if (GetSelfEffect() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -270,35 +269,35 @@ public class BattleMonkSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkSelfBuff.HasEffectForStartOfNextTurn()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.GetSelfEffect().m_applyEffect;
+			result = (GetSelfEffect().m_applyEffect ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.m_damagePerHit));
-		this.m_standardActorEffectData.ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Self);
-		return list;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damagePerHit));
+		m_standardActorEffectData.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		return numbers;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		int absorbAmount = this.GetAbsorbAmount();
-		AbilityTooltipHelper.ReportAbsorb(ref result, AbilityTooltipSubject.Self, absorbAmount);
-		if (this.CanTargetNearbyAllies())
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		int absorbAmount = GetAbsorbAmount();
+		AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, absorbAmount);
+		if (CanTargetNearbyAllies())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -307,13 +306,13 @@ public class BattleMonkSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkSelfBuff.CalculateNameplateTargetingNumbers()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_abilityMod.m_effectOnAllyHit.m_applyEffect)
+			if (m_abilityMod.m_effectOnAllyHit.m_applyEffect)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -322,41 +321,39 @@ public class BattleMonkSelfBuff : Ability
 					}
 					break;
 				}
-				this.m_abilityMod.m_effectOnAllyHit.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
+				m_abilityMod.m_effectOnAllyHit.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 			}
 		}
-		return result;
+		return numbers;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_BattleMonkSelfBuff))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_abilityMod = (abilityMod as AbilityMod_BattleMonkSelfBuff);
+					Setup();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkSelfBuff.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_BattleMonkSelfBuff);
-			this.Setup();
 		}
-		else
-		{
-			Debug.LogError("Trying to apply wrong type of ability mod");
-		}
+		Debug.LogError("Trying to apply wrong type of ability mod");
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

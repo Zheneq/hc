@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityStandardAssets.ImageEffects;
 
@@ -47,7 +46,7 @@ public class SceneCameraFogSettings : MonoBehaviour
 		GameObject gameObject = null;
 		if (CameraManager.Get() == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -56,13 +55,13 @@ public class SceneCameraFogSettings : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SceneCameraFogSettings.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (UIManager.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -73,7 +72,7 @@ public class SceneCameraFogSettings : MonoBehaviour
 				}
 				if (UIManager.Get().GetEnvirontmentCamera() != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -90,56 +89,59 @@ public class SceneCameraFogSettings : MonoBehaviour
 		{
 			gameObject = Camera.main.gameObject;
 		}
-		if (gameObject != null)
+		if (!(gameObject != null))
 		{
-			if (!this.m_fogParametersSet)
+			return;
+		}
+		if (!m_fogParametersSet)
+		{
+			GlobalFog component = gameObject.GetComponent<GlobalFog>();
+			if (component != null)
 			{
-				GlobalFog component = gameObject.GetComponent<GlobalFog>();
-				if (component != null)
+				while (true)
 				{
-					for (;;)
+					switch (1)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					this.m_fogParametersSet = true;
-					component.distanceFog = this.m_distanceFog;
-					component.useRadialDistance = this.m_useRadialDistance;
-					component.heightFog = this.m_heightFog;
-					component.height = this.m_height;
-					component.heightDensity = this.m_heightDensity;
-					component.startDistance = this.m_startDistance;
-					component.fogShader = this.m_fogShader;
+					break;
 				}
+				m_fogParametersSet = true;
+				component.distanceFog = m_distanceFog;
+				component.useRadialDistance = m_useRadialDistance;
+				component.heightFog = m_heightFog;
+				component.height = m_height;
+				component.heightDensity = m_heightDensity;
+				component.startDistance = m_startDistance;
+				component.fogShader = m_fogShader;
 			}
-			if (!this.m_bloomParameterSet)
+		}
+		if (m_bloomParameterSet)
+		{
+			return;
+		}
+		Bloom component2 = gameObject.GetComponent<Bloom>();
+		if (!(component2 != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				Bloom component2 = gameObject.GetComponent<Bloom>();
-				if (component2 != null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_bloomParameterSet = true;
-					component2.quality = this.m_bloomQuality;
-					component2.tweakMode = this.m_bloomMode;
-					component2.screenBlendMode = this.m_bloomBlendMode;
-					component2.hdr = this.m_bloomHDR;
-					component2.bloomIntensity = this.m_bloomIntensity;
-					component2.bloomThreshold = this.m_bloomThreshold;
-					component2.sepBlurSpread = this.m_bloomSampleDistance;
-				}
+			case 0:
+				continue;
 			}
+			m_bloomParameterSet = true;
+			component2.quality = m_bloomQuality;
+			component2.tweakMode = m_bloomMode;
+			component2.screenBlendMode = m_bloomBlendMode;
+			component2.hdr = m_bloomHDR;
+			component2.bloomIntensity = m_bloomIntensity;
+			component2.bloomThreshold = m_bloomThreshold;
+			component2.sepBlurSpread = m_bloomSampleDistance;
+			return;
 		}
 	}
 }

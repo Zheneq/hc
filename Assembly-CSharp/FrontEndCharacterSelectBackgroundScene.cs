@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class FrontEndCharacterSelectBackgroundScene : UIScene
@@ -27,12 +26,12 @@ public class FrontEndCharacterSelectBackgroundScene : UIScene
 
 	public static FrontEndCharacterSelectBackgroundScene Get()
 	{
-		return FrontEndCharacterSelectBackgroundScene.s_instance;
+		return s_instance;
 	}
 
 	public override void Awake()
 	{
-		FrontEndCharacterSelectBackgroundScene.s_instance = this;
+		s_instance = this;
 		base.Awake();
 	}
 

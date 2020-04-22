@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,51 +57,50 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		NinjaShurikenOrDash ninjaShurikenOrDash = targetAbility as NinjaShurikenOrDash;
-		if (ninjaShurikenOrDash != null)
+		if (!(ninjaShurikenOrDash != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NinjaShurikenOrDash.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_dashRangeDefaultMod, "DashRangeDefault", string.Empty, ninjaShurikenOrDash.m_dashRangeDefault, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_dashRangeMarkedMod, "DashRangeMarked", string.Empty, ninjaShurikenOrDash.m_dashRangeMarked, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_dashToUnmarkedRangeMod, "DashToUnmarkedRange", string.Empty, ninjaShurikenOrDash.m_dashToUnmarkedRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_dashDamageMod, "DashDamage", string.Empty, ninjaShurikenOrDash.m_dashDamage, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageOnMarkedMod, "ExtraDamageOnMarked", string.Empty, ninjaShurikenOrDash.m_extraDamageOnMarked, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageIfNotMarkedMod, "ExtraDamageIfNotMarked", string.Empty, ninjaShurikenOrDash.m_extraDamageIfNotMarked, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_dashEnemyHitEffectMod, "DashEnemyHitEffect", ninjaShurikenOrDash.m_dashEnemyHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_extraEnemyEffectOnMarkedMod, "ExtraEnemyEffectOnMarked", ninjaShurikenOrDash.m_extraEnemyEffectOnMarked, true);
-			AbilityMod.AddToken(tokens, this.m_dashHealingMod, "DashHealing", string.Empty, ninjaShurikenOrDash.m_dashHealing, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_dashAllyHitEffectMod, "DashAllyHitEffect", ninjaShurikenOrDash.m_dashAllyHitEffect, true);
+			AbilityMod.AddToken(tokens, m_dashRangeDefaultMod, "DashRangeDefault", string.Empty, ninjaShurikenOrDash.m_dashRangeDefault);
+			AbilityMod.AddToken(tokens, m_dashRangeMarkedMod, "DashRangeMarked", string.Empty, ninjaShurikenOrDash.m_dashRangeMarked);
+			AbilityMod.AddToken(tokens, m_dashToUnmarkedRangeMod, "DashToUnmarkedRange", string.Empty, ninjaShurikenOrDash.m_dashToUnmarkedRange);
+			AbilityMod.AddToken(tokens, m_dashDamageMod, "DashDamage", string.Empty, ninjaShurikenOrDash.m_dashDamage);
+			AbilityMod.AddToken(tokens, m_extraDamageOnMarkedMod, "ExtraDamageOnMarked", string.Empty, ninjaShurikenOrDash.m_extraDamageOnMarked);
+			AbilityMod.AddToken(tokens, m_extraDamageIfNotMarkedMod, "ExtraDamageIfNotMarked", string.Empty, ninjaShurikenOrDash.m_extraDamageIfNotMarked);
+			AbilityMod.AddToken_EffectMod(tokens, m_dashEnemyHitEffectMod, "DashEnemyHitEffect", ninjaShurikenOrDash.m_dashEnemyHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_extraEnemyEffectOnMarkedMod, "ExtraEnemyEffectOnMarked", ninjaShurikenOrDash.m_extraEnemyEffectOnMarked);
+			AbilityMod.AddToken(tokens, m_dashHealingMod, "DashHealing", string.Empty, ninjaShurikenOrDash.m_dashHealing);
+			AbilityMod.AddToken_EffectMod(tokens, m_dashAllyHitEffectMod, "DashAllyHitEffect", ninjaShurikenOrDash.m_dashAllyHitEffect);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		NinjaShurikenOrDash ninjaShurikenOrDash = base.GetTargetAbilityOnAbilityData(abilityData) as NinjaShurikenOrDash;
+		NinjaShurikenOrDash ninjaShurikenOrDash = GetTargetAbilityOnAbilityData(abilityData) as NinjaShurikenOrDash;
 		bool flag = ninjaShurikenOrDash != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_isTeleportMod, "[IsTeleport]", flag, flag && ninjaShurikenOrDash.m_isTeleport);
-		text += base.PropDesc(this.m_dashRangeDefaultMod, "[DashRangeDefault]", flag, (!flag) ? 0f : ninjaShurikenOrDash.m_dashRangeDefault);
-		text += base.PropDesc(this.m_dashRangeMarkedMod, "[DashRangeMarked]", flag, (!flag) ? 0f : ninjaShurikenOrDash.m_dashRangeMarked);
-		text += base.PropDesc(this.m_dashRequireDeathmarkMod, "[DashRequireDeathmark]", flag, flag && ninjaShurikenOrDash.m_dashRequireDeathmark);
-		string str = text;
-		AbilityModPropertyFloat dashToUnmarkedRangeMod = this.m_dashToUnmarkedRangeMod;
-		string prefix = "[DashToUnmarkedRange]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += PropDesc(m_isTeleportMod, "[IsTeleport]", flag, flag && ninjaShurikenOrDash.m_isTeleport);
+		empty += PropDesc(m_dashRangeDefaultMod, "[DashRangeDefault]", flag, (!flag) ? 0f : ninjaShurikenOrDash.m_dashRangeDefault);
+		empty += PropDesc(m_dashRangeMarkedMod, "[DashRangeMarked]", flag, (!flag) ? 0f : ninjaShurikenOrDash.m_dashRangeMarked);
+		empty += PropDesc(m_dashRequireDeathmarkMod, "[DashRequireDeathmark]", flag, flag && ninjaShurikenOrDash.m_dashRequireDeathmark);
+		string str = empty;
+		AbilityModPropertyFloat dashToUnmarkedRangeMod = m_dashToUnmarkedRangeMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -110,9 +109,9 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NinjaShurikenOrDash.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = ninjaShurikenOrDash.m_dashToUnmarkedRange;
 		}
@@ -120,15 +119,13 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(dashToUnmarkedRangeMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyBool canDashToAllyMod = this.m_canDashToAllyMod;
-		string prefix2 = "[CanDashToAlly]";
-		bool showBaseVal2 = flag;
-		bool baseVal2;
+		empty = str + PropDesc(dashToUnmarkedRangeMod, "[DashToUnmarkedRange]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyBool canDashToAllyMod = m_canDashToAllyMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -137,21 +134,19 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 				}
 				break;
 			}
-			baseVal2 = ninjaShurikenOrDash.m_canDashToAlly;
+			baseVal2 = (ninjaShurikenOrDash.m_canDashToAlly ? 1 : 0);
 		}
 		else
 		{
-			baseVal2 = false;
+			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(canDashToAllyMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyBool canDashToEnemyMod = this.m_canDashToEnemyMod;
-		string prefix3 = "[CanDashToEnemy]";
-		bool showBaseVal3 = flag;
-		bool baseVal3;
+		empty = str2 + PropDesc(canDashToAllyMod, "[CanDashToAlly]", flag, (byte)baseVal2 != 0);
+		string str3 = empty;
+		AbilityModPropertyBool canDashToEnemyMod = m_canDashToEnemyMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -160,22 +155,20 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 				}
 				break;
 			}
-			baseVal3 = ninjaShurikenOrDash.m_canDashToEnemy;
+			baseVal3 = (ninjaShurikenOrDash.m_canDashToEnemy ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(canDashToEnemyMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_dashIgnoreLosMod, "[DashIgnoreLos]", flag, flag && ninjaShurikenOrDash.m_dashIgnoreLos);
-		string str4 = text;
-		AbilityModPropertyShape dashDestShapeMod = this.m_dashDestShapeMod;
-		string prefix4 = "[DashDestShape]";
-		bool showBaseVal4 = flag;
-		AbilityAreaShape baseVal4;
+		empty = str3 + PropDesc(canDashToEnemyMod, "[CanDashToEnemy]", flag, (byte)baseVal3 != 0);
+		empty += PropDesc(m_dashIgnoreLosMod, "[DashIgnoreLos]", flag, flag && ninjaShurikenOrDash.m_dashIgnoreLos);
+		string str4 = empty;
+		AbilityModPropertyShape dashDestShapeMod = m_dashDestShapeMod;
+		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -184,22 +177,20 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 				}
 				break;
 			}
-			baseVal4 = ninjaShurikenOrDash.m_dashDestShape;
+			baseVal4 = (int)ninjaShurikenOrDash.m_dashDestShape;
 		}
 		else
 		{
-			baseVal4 = AbilityAreaShape.SingleSquare;
+			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(dashDestShapeMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_dashDamageMod, "[DashDamage]", flag, (!flag) ? 0 : ninjaShurikenOrDash.m_dashDamage);
-		string str5 = text;
-		AbilityModPropertyInt extraDamageOnMarkedMod = this.m_extraDamageOnMarkedMod;
-		string prefix5 = "[ExtraDamageOnMarked]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(dashDestShapeMod, "[DashDestShape]", flag, (AbilityAreaShape)baseVal4);
+		empty += PropDesc(m_dashDamageMod, "[DashDamage]", flag, flag ? ninjaShurikenOrDash.m_dashDamage : 0);
+		string str5 = empty;
+		AbilityModPropertyInt extraDamageOnMarkedMod = m_extraDamageOnMarkedMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -214,15 +205,13 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(extraDamageOnMarkedMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt extraDamageIfNotMarkedMod = this.m_extraDamageIfNotMarkedMod;
-		string prefix6 = "[ExtraDamageIfNotMarked]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(extraDamageOnMarkedMod, "[ExtraDamageOnMarked]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt extraDamageIfNotMarkedMod = m_extraDamageIfNotMarkedMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -237,17 +226,15 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(extraDamageIfNotMarkedMod, prefix6, showBaseVal6, baseVal6);
-		text += base.PropDesc(this.m_dashEnemyHitEffectMod, "[DashEnemyHitEffect]", flag, (!flag) ? null : ninjaShurikenOrDash.m_dashEnemyHitEffect);
-		text += base.PropDesc(this.m_extraEnemyEffectOnMarkedMod, "[ExtraEnemyEffectOnMarked]", flag, (!flag) ? null : ninjaShurikenOrDash.m_extraEnemyEffectOnMarked);
-		string str7 = text;
-		AbilityModPropertyInt dashHealingMod = this.m_dashHealingMod;
-		string prefix7 = "[DashHealing]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(extraDamageIfNotMarkedMod, "[ExtraDamageIfNotMarked]", flag, baseVal6);
+		empty += PropDesc(m_dashEnemyHitEffectMod, "[DashEnemyHitEffect]", flag, (!flag) ? null : ninjaShurikenOrDash.m_dashEnemyHitEffect);
+		empty += PropDesc(m_extraEnemyEffectOnMarkedMod, "[ExtraEnemyEffectOnMarked]", flag, (!flag) ? null : ninjaShurikenOrDash.m_extraEnemyEffectOnMarked);
+		string str7 = empty;
+		AbilityModPropertyInt dashHealingMod = m_dashHealingMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -262,15 +249,13 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		{
 			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(dashHealingMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyEffectInfo dashAllyHitEffectMod = this.m_dashAllyHitEffectMod;
-		string prefix8 = "[DashAllyHitEffect]";
-		bool showBaseVal8 = flag;
-		StandardEffectInfo baseVal8;
+		empty = str7 + PropDesc(dashHealingMod, "[DashHealing]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyEffectInfo dashAllyHitEffectMod = m_dashAllyHitEffectMod;
+		object baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -285,15 +270,13 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		{
 			baseVal8 = null;
 		}
-		text = str8 + base.PropDesc(dashAllyHitEffectMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyBool dashApplyDeathmarkMod = this.m_dashApplyDeathmarkMod;
-		string prefix9 = "[DashApplyDeathmark]";
-		bool showBaseVal9 = flag;
-		bool baseVal9;
+		empty = str8 + PropDesc(dashAllyHitEffectMod, "[DashAllyHitEffect]", flag, (StandardEffectInfo)baseVal8);
+		string str9 = empty;
+		AbilityModPropertyBool dashApplyDeathmarkMod = m_dashApplyDeathmarkMod;
+		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -302,22 +285,20 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 				}
 				break;
 			}
-			baseVal9 = ninjaShurikenOrDash.m_dashApplyDeathmark;
+			baseVal9 = (ninjaShurikenOrDash.m_dashApplyDeathmark ? 1 : 0);
 		}
 		else
 		{
-			baseVal9 = false;
+			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(dashApplyDeathmarkMod, prefix9, showBaseVal9, baseVal9);
-		text += base.PropDesc(this.m_canTriggerDeathmarkMod, "[CanTriggerDeathmark]", flag, flag && ninjaShurikenOrDash.m_canTriggerDeathmark);
-		string str10 = text;
-		AbilityModPropertyBool canQueueMoveAfterEvadeMod = this.m_canQueueMoveAfterEvadeMod;
-		string prefix10 = "[CanQueueMoveAfterEvade]";
-		bool showBaseVal10 = flag;
-		bool baseVal10;
+		empty = str9 + PropDesc(dashApplyDeathmarkMod, "[DashApplyDeathmark]", flag, (byte)baseVal9 != 0);
+		empty += PropDesc(m_canTriggerDeathmarkMod, "[CanTriggerDeathmark]", flag, flag && ninjaShurikenOrDash.m_canTriggerDeathmark);
+		string str10 = empty;
+		AbilityModPropertyBool canQueueMoveAfterEvadeMod = m_canQueueMoveAfterEvadeMod;
+		int baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -326,12 +307,12 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 				}
 				break;
 			}
-			baseVal10 = ninjaShurikenOrDash.m_canQueueMoveAfterEvade;
+			baseVal10 = (ninjaShurikenOrDash.m_canQueueMoveAfterEvade ? 1 : 0);
 		}
 		else
 		{
-			baseVal10 = false;
+			baseVal10 = 0;
 		}
-		return str10 + base.PropDesc(canQueueMoveAfterEvadeMod, prefix10, showBaseVal10, baseVal10);
+		return str10 + PropDesc(canQueueMoveAfterEvadeMod, "[CanQueueMoveAfterEvade]", flag, (byte)baseVal10 != 0);
 	}
 }

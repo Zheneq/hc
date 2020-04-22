@@ -1,17 +1,43 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class InterfaceManager : NetworkBehaviour
 {
+	public class DisplayAlertMessage : MessageBase
+	{
+		public string alertText;
+
+		public float r;
+
+		public float g;
+
+		public float b;
+
+		public override void Serialize(NetworkWriter writer)
+		{
+			writer.Write(alertText);
+			writer.Write(r);
+			writer.Write(g);
+			writer.Write(b);
+		}
+
+		public override void Deserialize(NetworkReader reader)
+		{
+			alertText = reader.ReadString();
+			r = reader.ReadSingle();
+			g = reader.ReadSingle();
+			b = reader.ReadSingle();
+		}
+	}
+
 	public Texture2D m_backgroundTexture;
 
 	public float m_combatTextLifetime = 2f;
 
 	public float m_combatTextScrollSpeed = 0.5f;
 
-	public int m_combatTextSize = 0x10;
+	public int m_combatTextSize = 16;
 
 	private const float LOW_TIME_MIN = 5.4f;
 
@@ -23,24 +49,24 @@ public class InterfaceManager : NetworkBehaviour
 
 	public static InterfaceManager Get()
 	{
-		return InterfaceManager.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		InterfaceManager.s_instance = this;
+		s_instance = this;
 	}
 
 	public override void OnStartClient()
 	{
-		ClientGameManager.Get().Client.RegisterHandler(0x31, new NetworkMessageDelegate(this.MsgDisplayAlert));
+		ClientGameManager.Get().Client.RegisterHandler(49, MsgDisplayAlert);
 	}
 
 	private void OnDestroy()
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -49,14 +75,14 @@ public class InterfaceManager : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InterfaceManager.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			NetworkClient client = ClientGameManager.Get().Client;
 			if (client != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -65,10 +91,10 @@ public class InterfaceManager : NetworkBehaviour
 					}
 					break;
 				}
-				client.UnregisterHandler(0x31);
+				client.UnregisterHandler(49);
 			}
 		}
-		InterfaceManager.s_instance = null;
+		s_instance = null;
 	}
 
 	private void Update()
@@ -76,26 +102,26 @@ public class InterfaceManager : NetworkBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		ActorData actorData = null;
 		bool flag = false;
-		if (!InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.SwitchFreelancer))
+		if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.SwitchFreelancer))
 		{
-			for (;;)
+			goto IL_005a;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InterfaceManager.Update()).MethodHandle;
-			}
-			if (!Application.isEditor)
-			{
-				goto IL_69;
-			}
-			for (;;)
+			break;
+		}
+		if (1 == 0)
+		{
+			/*OpCode not supported: LdMemberToken*/;
+		}
+		if (Application.isEditor)
+		{
+			while (true)
 			{
 				switch (2)
 				{
@@ -104,17 +130,16 @@ public class InterfaceManager : NetworkBehaviour
 				}
 				break;
 			}
-			if (!Input.GetKeyDown(KeyCode.F11))
+			if (Input.GetKeyDown(KeyCode.F11))
 			{
-				goto IL_69;
+				goto IL_005a;
 			}
 		}
-		actorData = GameFlowData.Get().nextOwnedActorData;
-		flag = true;
-		IL_69:
+		goto IL_0069;
+		IL_0069:
 		if (activeOwnedActorData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -124,67 +149,69 @@ public class InterfaceManager : NetworkBehaviour
 				break;
 			}
 			List<ActorData> ownedActorDatas = GameFlowData.Get().m_ownedActorDatas;
-			Team team = activeOwnedActorData.\u000E();
+			Team team = activeOwnedActorData.GetTeam();
 			for (int i = 0; i < ownedActorDatas.Count; i++)
 			{
-				if (ownedActorDatas[i].\u000E() == team)
+				if (ownedActorDatas[i].GetTeam() != team)
 				{
-					for (;;)
+					continue;
+				}
+				while (true)
+				{
+					switch (1)
 					{
-						switch (1)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				KeyPreference keyPreference = KeyPreference.Freelancer1;
+				keyPreference += i;
+				if (!InputManager.Get().IsKeyBindingNewlyHeld(keyPreference))
+				{
+					continue;
+				}
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (actorData != ownedActorDatas[i])
+				{
+					while (true)
+					{
+						switch (6)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					KeyPreference keyPreference = KeyPreference.Freelancer1;
-					keyPreference += i;
-					if (InputManager.Get().IsKeyBindingNewlyHeld(keyPreference))
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (actorData != ownedActorDatas[i])
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							actorData = ownedActorDatas[i];
-							flag = true;
-						}
-						break;
-					}
-				}
-			}
-		}
-		if (actorData != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
+					actorData = ownedActorDatas[i];
+					flag = true;
 				}
 				break;
+			}
+		}
+		if (!(actorData != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
 			}
 			CameraManager.Get().SetTargetObject(actorData.gameObject, CameraManager.CameraTargetReason.UserFocusingOnActor);
 			if (GameFlowData.Get().IsActorDataOwned(actorData) && actorData != GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -197,40 +224,46 @@ public class InterfaceManager : NetworkBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					UIFrontEnd.PlaySound(FrontEndButtonSounds.HudLockIn);
+					return;
 				}
-				UIFrontEnd.PlaySound(FrontEndButtonSounds.HudLockIn);
 			}
+			return;
 		}
+		IL_005a:
+		actorData = GameFlowData.Get().nextOwnedActorData;
+		flag = true;
+		goto IL_0069;
 	}
 
 	public void OnTurnTick()
 	{
 		UISounds.GetUISounds().Play("ui_notification_turn_start");
 		UILoadingScreenPanel.Get().SetVisible(false);
-		if (UIFrontendLoadingScreen.Get().gameObject.activeSelf)
+		if (!UIFrontendLoadingScreen.Get().gameObject.activeSelf)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InterfaceManager.OnTurnTick()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UIFrontendLoadingScreen.Get().StartDisplayFadeOut();
+			return;
 		}
 	}
 
@@ -249,12 +282,12 @@ public class InterfaceManager : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void InterfaceManager::SendDisplayAlert(System.String,UnityEngine.Color,UnityEngine.Networking.NetworkConnection)' called on client");
 			return;
 		}
-		InterfaceManager.DisplayAlertMessage displayAlertMessage = new InterfaceManager.DisplayAlertMessage();
+		DisplayAlertMessage displayAlertMessage = new DisplayAlertMessage();
 		displayAlertMessage.alertText = alertText;
 		displayAlertMessage.r = alertColor.r;
 		displayAlertMessage.g = alertColor.g;
 		displayAlertMessage.b = alertColor.b;
-		NetworkServer.SendToClient(destinationConnection.connectionId, 0x31, displayAlertMessage);
+		NetworkServer.SendToClient(destinationConnection.connectionId, 49, displayAlertMessage);
 	}
 
 	[Client]
@@ -262,24 +295,24 @@ public class InterfaceManager : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Client] function 'System.Void InterfaceManager::MsgDisplayAlert(UnityEngine.Networking.NetworkMessage)' called on server");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InterfaceManager.MsgDisplayAlert(NetworkMessage)).MethodHandle;
-			}
-			Debug.LogWarning("[Client] function 'System.Void InterfaceManager::MsgDisplayAlert(UnityEngine.Networking.NetworkMessage)' called on server");
-			return;
 		}
-		InterfaceManager.DisplayAlertMessage displayAlertMessage = netMsg.ReadMessage<InterfaceManager.DisplayAlertMessage>();
-		this.DisplayAlert(displayAlertMessage.alertText, new Color(displayAlertMessage.r, displayAlertMessage.g, displayAlertMessage.b), 2f, false, 0);
+		DisplayAlertMessage displayAlertMessage = netMsg.ReadMessage<DisplayAlertMessage>();
+		DisplayAlert(displayAlertMessage.alertText, new Color(displayAlertMessage.r, displayAlertMessage.g, displayAlertMessage.b));
 	}
 
 	internal void DisplayAlert(string alertText, Color color, float messageTimeSeconds = 2f, bool showBackground = false, int displayIndex = 0)
@@ -298,38 +331,11 @@ public class InterfaceManager : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
+		bool result = default(bool);
 		return result;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
-	}
-
-	public class DisplayAlertMessage : MessageBase
-	{
-		public string alertText;
-
-		public float r;
-
-		public float g;
-
-		public float b;
-
-		public override void Serialize(NetworkWriter writer)
-		{
-			writer.Write(this.alertText);
-			writer.Write(this.r);
-			writer.Write(this.g);
-			writer.Write(this.b);
-		}
-
-		public override void Deserialize(NetworkReader reader)
-		{
-			this.alertText = reader.ReadString();
-			this.r = reader.ReadSingle();
-			this.g = reader.ReadSingle();
-			this.b = reader.ReadSingle();
-		}
 	}
 }

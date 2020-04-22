@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public static class MathUtil
@@ -11,7 +10,7 @@ public static class MathUtil
 		}
 		if (value < minValue)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -20,9 +19,9 @@ public static class MathUtil
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MathUtil.Clamp(int, int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			value = minValue;
 		}
@@ -33,7 +32,7 @@ public static class MathUtil
 	{
 		if (value > maxValue)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -42,15 +41,15 @@ public static class MathUtil
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MathUtil.Clamp(double, double, double)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			value = maxValue;
 		}
 		if (value < minValue)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{

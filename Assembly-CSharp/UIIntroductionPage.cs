@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UIIntroductionPage : MonoBehaviour
@@ -11,6 +10,6 @@ public class UIIntroductionPage : MonoBehaviour
 
 	public void SetVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(this.m_container, visible, null);
+		UIManager.SetGameObjectActive(m_container, visible);
 	}
 }

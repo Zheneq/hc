@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,22 +8,16 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 
 	private byte m_groupSize = 1;
 
-	public override ELOKeyComponent.KeyModeEnum KeyMode
-	{
-		get
-		{
-			return ELOKeyComponent.KeyModeEnum.SPECIFICSvsGENERAL;
-		}
-	}
+	public override KeyModeEnum KeyMode => KeyModeEnum.SPECIFICSvsGENERAL;
 
-	public override ELOKeyComponent.BinaryModePhaseEnum BinaryModePhase
+	public override BinaryModePhaseEnum BinaryModePhase
 	{
 		get
 		{
-			ELOKeyComponent.BinaryModePhaseEnum result;
-			if (this.m_isInGeneralMode)
+			int result;
+			if (m_isInGeneralMode)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -32,68 +26,56 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Coordination.get_BinaryModePhase()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = ELOKeyComponent.BinaryModePhaseEnum.PRIMARY;
+				result = 0;
 			}
 			else
 			{
-				result = ELOKeyComponent.BinaryModePhaseEnum.SECONDARY;
+				result = 1;
 			}
-			return result;
+			return (BinaryModePhaseEnum)result;
 		}
 	}
 
-	public static uint PhaseWidth
-	{
-		get
-		{
-			return 2U;
-		}
-	}
+	public static uint PhaseWidth => 2u;
+
+	public bool InGeneralMode => m_isInGeneralMode;
 
 	public override char GetComponentChar()
 	{
-		if (this.m_isInGeneralMode)
+		if (m_isInGeneralMode)
 		{
 			return '-';
 		}
-		if (this.m_groupSize == 1)
+		if (m_groupSize == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return 'S';
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Coordination.GetComponentChar()).MethodHandle;
-			}
-			return 'S';
 		}
-		return string.Format("{0}", this.m_groupSize).ToCharArray().ElementAt(0);
-	}
-
-	public bool InGeneralMode
-	{
-		get
-		{
-			return this.m_isInGeneralMode;
-		}
+		return $"{m_groupSize}".ToCharArray().ElementAt(0);
 	}
 
 	public override char GetPhaseChar()
 	{
-		char result;
-		if (this.m_isInGeneralMode)
+		int result;
+		if (m_isInGeneralMode)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -102,39 +84,39 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Coordination.GetPhaseChar()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = '0';
+			result = 48;
 		}
 		else
 		{
-			result = 'G';
+			result = 71;
 		}
-		return result;
+		return (char)result;
 	}
 
 	public override string GetPhaseDescription()
 	{
-		if (this.m_isInGeneralMode)
+		if (m_isInGeneralMode)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return "ignore";
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Coordination.GetPhaseDescription()).MethodHandle;
-			}
-			return "ignore";
 		}
-		switch (this.m_groupSize)
+		switch (m_groupSize)
 		{
 		case 1:
 			return "solo";
@@ -142,18 +124,19 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 			return "duo";
 		case 4:
 			return "four player";
+		default:
+			return $"{m_groupSize} player";
 		}
-		return string.Format("{0} player", this.m_groupSize);
 	}
 
-	public override void Initialize(ELOKeyComponent.BinaryModePhaseEnum phase, GameType gameType, bool isCasual)
+	public override void Initialize(BinaryModePhaseEnum phase, GameType gameType, bool isCasual)
 	{
-		this.m_isInGeneralMode = (phase == ELOKeyComponent.BinaryModePhaseEnum.PRIMARY);
+		m_isInGeneralMode = (phase == BinaryModePhaseEnum.PRIMARY);
 	}
 
 	public override void Initialize(List<MatchmakingQueueConfig.EloKeyFlags> flags, GameType gameType, bool isCasual)
 	{
-		this.m_isInGeneralMode = !flags.Contains(MatchmakingQueueConfig.EloKeyFlags.GROUP);
+		m_isInGeneralMode = !flags.Contains(MatchmakingQueueConfig.EloKeyFlags.GROUP);
 	}
 
 	public override bool MatchesFlag(MatchmakingQueueConfig.EloKeyFlags flag)
@@ -163,21 +146,21 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 
 	public override void InitializePerCharacter(byte groupSize)
 	{
-		this.m_groupSize = groupSize;
-		if (groupSize == 0)
+		m_groupSize = groupSize;
+		if (groupSize != 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Coordination.InitializePerCharacter(byte)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			throw new Exception("Illegal group size");
 		}

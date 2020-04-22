@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,116 +16,121 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 	public void AddNewHandler(IPointerEnterHandler newHandler)
 	{
-		if (newHandler != null)
+		if (newHandler == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.AddNewHandler(IPointerEnterHandler)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_PointerEnterHandlers.Add(newHandler);
+			m_PointerEnterHandlers.Add(newHandler);
+			return;
 		}
 	}
 
 	public void AddNewHandler(IPointerExitHandler newHandler)
 	{
-		if (newHandler != null)
+		if (newHandler == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.AddNewHandler(IPointerExitHandler)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_PointerExitHandlers.Add(newHandler);
+			m_PointerExitHandlers.Add(newHandler);
+			return;
 		}
 	}
 
 	public void AddNewHandler(IPointerClickHandler newHandler)
 	{
-		if (newHandler != null)
+		if (newHandler == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.AddNewHandler(IPointerClickHandler)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_PointerClickHandlers.Add(newHandler);
+			m_PointerClickHandlers.Add(newHandler);
+			return;
 		}
 	}
 
 	public void AddNewHandler(IPointerDownHandler newHandler)
 	{
-		if (newHandler != null)
+		if (newHandler == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.AddNewHandler(IPointerDownHandler)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_PointerDownHandlers.Add(newHandler);
+			m_PointerDownHandlers.Add(newHandler);
+			return;
 		}
 	}
 
 	public void AddNewHandler(IScrollHandler newHandler)
 	{
-		if (newHandler != null)
+		if (newHandler == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.AddNewHandler(IScrollHandler)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_PointerScrollHandlers.Add(newHandler);
+			m_PointerScrollHandlers.Add(newHandler);
+			return;
 		}
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		for (int i = 0; i < this.m_PointerEnterHandlers.Count; i++)
+		for (int i = 0; i < m_PointerEnterHandlers.Count; i++)
 		{
-			if (this.m_PointerEnterHandlers[i] != null)
+			if (m_PointerEnterHandlers[i] != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -135,22 +139,22 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.OnPointerEnter(PointerEventData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_PointerEnterHandlers[i].OnPointerEnter(eventData);
+				m_PointerEnterHandlers[i].OnPointerEnter(eventData);
 			}
 		}
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		for (int i = 0; i < this.m_PointerExitHandlers.Count; i++)
+		for (int i = 0; i < m_PointerExitHandlers.Count; i++)
 		{
-			if (this.m_PointerExitHandlers[i] != null)
+			if (m_PointerExitHandlers[i] != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -159,31 +163,32 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.OnPointerExit(PointerEventData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_PointerExitHandlers[i].OnPointerExit(eventData);
+				m_PointerExitHandlers[i].OnPointerExit(eventData);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
-		for (int i = 0; i < this.m_PointerDownHandlers.Count; i++)
+		for (int i = 0; i < m_PointerDownHandlers.Count; i++)
 		{
-			if (this.m_PointerDownHandlers[i] != null)
+			if (m_PointerDownHandlers[i] != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -192,22 +197,22 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.OnPointerDown(PointerEventData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_PointerDownHandlers[i].OnPointerDown(eventData);
+				m_PointerDownHandlers[i].OnPointerDown(eventData);
 			}
 		}
 	}
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		for (int i = 0; i < this.m_PointerClickHandlers.Count; i++)
+		for (int i = 0; i < m_PointerClickHandlers.Count; i++)
 		{
-			if (this.m_PointerClickHandlers[i] != null)
+			if (m_PointerClickHandlers[i] != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -216,22 +221,22 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.OnPointerClick(PointerEventData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_PointerClickHandlers[i].OnPointerClick(eventData);
+				m_PointerClickHandlers[i].OnPointerClick(eventData);
 			}
 		}
 	}
 
 	public void OnScroll(PointerEventData eventData)
 	{
-		for (int i = 0; i < this.m_PointerScrollHandlers.Count; i++)
+		for (int i = 0; i < m_PointerScrollHandlers.Count; i++)
 		{
-			if (this.m_PointerScrollHandlers[i] != null)
+			if (m_PointerScrollHandlers[i] != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -240,11 +245,11 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.OnScroll(PointerEventData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_PointerScrollHandlers[i].OnScroll(eventData);
+				m_PointerScrollHandlers[i].OnScroll(eventData);
 			}
 		}
 	}

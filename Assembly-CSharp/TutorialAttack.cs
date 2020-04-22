@@ -1,5 +1,3 @@
-﻿using System;
-
 public class TutorialAttack : Ability
 {
 	public float m_width = 1f;
@@ -8,7 +6,7 @@ public class TutorialAttack : Ability
 
 	public bool m_penetrateLineOfSight;
 
-	public int m_damageAmount = 0xA;
+	public int m_damageAmount = 10;
 
 	public int m_knockbackDistance = 3;
 
@@ -16,6 +14,6 @@ public class TutorialAttack : Ability
 
 	private void Start()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Laser(this, this.m_width, this.m_distance, this.m_penetrateLineOfSight, -1, false, false);
+		base.Targeter = new AbilityUtil_Targeter_Laser(this, m_width, m_distance, m_penetrateLineOfSight);
 	}
 }

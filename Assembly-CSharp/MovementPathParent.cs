@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class MovementPathParent : MonoBehaviour
@@ -6,23 +5,24 @@ public class MovementPathParent : MonoBehaviour
 	private void OnDestroy()
 	{
 		MeshRenderer[] componentsInChildren = base.gameObject.GetComponentsInChildren<MeshRenderer>(true);
-		foreach (MeshRenderer meshRenderer in componentsInChildren)
+		MeshRenderer[] array = componentsInChildren;
+		foreach (MeshRenderer meshRenderer in array)
 		{
-			UnityEngine.Object.Destroy(meshRenderer.material);
+			Object.Destroy(meshRenderer.material);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			HighlightUtils.DestroyMeshesOnObject(base.gameObject);
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathParent.OnDestroy()).MethodHandle;
-		}
-		HighlightUtils.DestroyMeshesOnObject(base.gameObject);
 	}
 }

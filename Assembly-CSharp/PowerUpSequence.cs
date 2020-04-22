@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class PowerUpSequence : Sequence
@@ -11,68 +10,70 @@ public class PowerUpSequence : Sequence
 
 	private void Update()
 	{
-		if (this.m_powerUpPrefab)
+		if (!m_powerUpPrefab)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!m_initialized)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSequence.Update()).MethodHandle;
-			}
-			if (this.m_initialized)
-			{
-				for (;;)
+				if (!m_created)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!this.m_created)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						m_created = true;
+						m_powerUpVFX = Object.Instantiate(m_powerUpPrefab, base.TargetSquare.ToVector3(), Quaternion.identity);
+						return;
 					}
-					this.m_created = true;
-					this.m_powerUpVFX = UnityEngine.Object.Instantiate<Transform>(this.m_powerUpPrefab, base.TargetSquare.ToVector3(), Quaternion.identity);
 				}
+				return;
 			}
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_powerUpVFX)
+		if (!m_powerUpVFX)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSequence.OnDisable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.Destroy(this.m_powerUpVFX.gameObject);
+			Object.Destroy(m_powerUpVFX.gameObject);
+			return;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class StockVFXController : CopyableVfxControllerComponent
@@ -15,24 +14,24 @@ public class StockVFXController : CopyableVfxControllerComponent
 
 	private void Start()
 	{
-		this.Initialize();
+		Initialize();
 	}
 
 	private void Update()
 	{
-		this.UpdateForStocks();
+		UpdateForStocks();
 	}
 
 	protected virtual void Initialize()
 	{
-		this.m_actorModelData = base.GetComponent<ActorModelData>();
+		m_actorModelData = GetComponent<ActorModelData>();
 	}
 
 	protected virtual void UpdateForStocks()
 	{
-		if (this.m_actorModelData != null)
+		if (m_actorModelData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -41,13 +40,13 @@ public class StockVFXController : CopyableVfxControllerComponent
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StockVFXController.UpdateForStocks()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_actorModelData.m_parentActorData != null)
+			if (m_actorModelData.m_parentActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -56,10 +55,10 @@ public class StockVFXController : CopyableVfxControllerComponent
 					}
 					break;
 				}
-				int stockAmount = this.GetStockAmount(this.m_actorModelData.m_parentActorData);
-				if (stockAmount != this.m_prevStockAmount)
+				int stockAmount = GetStockAmount(m_actorModelData.m_parentActorData);
+				if (stockAmount != m_prevStockAmount)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -68,14 +67,14 @@ public class StockVFXController : CopyableVfxControllerComponent
 						}
 						break;
 					}
-					this.m_prevStockAmount = stockAmount;
-					if (this.m_vfxInstance != null)
+					m_prevStockAmount = stockAmount;
+					if (m_vfxInstance != null)
 					{
-						UnityEngine.Object.Destroy(this.m_vfxInstance);
+						Object.Destroy(m_vfxInstance);
 					}
 					if (stockAmount > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -84,9 +83,9 @@ public class StockVFXController : CopyableVfxControllerComponent
 							}
 							break;
 						}
-						if (this.m_vfxs.Length > stockAmount - 1)
+						if (m_vfxs.Length > stockAmount - 1)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -95,17 +94,17 @@ public class StockVFXController : CopyableVfxControllerComponent
 								}
 								break;
 							}
-							this.m_vfxInstance = UnityEngine.Object.Instantiate<GameObject>(this.m_vfxs[stockAmount - 1], Vector3.zero, Quaternion.identity);
-							this.m_vfxInstance.transform.parent = base.transform;
+							m_vfxInstance = Object.Instantiate(m_vfxs[stockAmount - 1], Vector3.zero, Quaternion.identity);
+							m_vfxInstance.transform.parent = base.transform;
 						}
 					}
 				}
-				goto IL_16E;
+				goto IL_016e;
 			}
 		}
-		if (this.m_actorModelData == null && this.m_vfxInstance == null)
+		if (m_actorModelData == null && m_vfxInstance == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -114,29 +113,30 @@ public class StockVFXController : CopyableVfxControllerComponent
 				}
 				break;
 			}
-			if (this.m_vfxs.Length > 0)
+			if (m_vfxs.Length > 0)
 			{
-				this.m_vfxInstance = UnityEngine.Object.Instantiate<GameObject>(this.m_vfxs[this.m_vfxs.Length - 1], Vector3.zero, Quaternion.identity);
-				this.m_vfxInstance.transform.parent = base.transform;
+				m_vfxInstance = Object.Instantiate(m_vfxs[m_vfxs.Length - 1], Vector3.zero, Quaternion.identity);
+				m_vfxInstance.transform.parent = base.transform;
 			}
 		}
-		IL_16E:
-		if (this.m_vfxInstance != null)
+		goto IL_016e;
+		IL_016e:
+		if (!(m_vfxInstance != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			bool flag = true;
 			bool flag2 = true;
-			if (this.m_actorModelData != null)
+			if (m_actorModelData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -145,18 +145,19 @@ public class StockVFXController : CopyableVfxControllerComponent
 					}
 					break;
 				}
-				flag = this.m_actorModelData.IsVisibleToClient();
-				flag2 = (this.m_actorModelData.m_parentActorData == null || !this.m_actorModelData.m_parentActorData.\u000E());
+				flag = m_actorModelData.IsVisibleToClient();
+				flag2 = (m_actorModelData.m_parentActorData == null || !m_actorModelData.m_parentActorData.IsDead());
 			}
-			this.m_vfxInstance.SetActive(flag && flag2);
-			this.m_vfxInstance.transform.position = base.transform.position;
-			this.m_vfxInstance.transform.rotation = Quaternion.identity;
+			m_vfxInstance.SetActive(flag && flag2);
+			m_vfxInstance.transform.position = base.transform.position;
+			m_vfxInstance.transform.rotation = Quaternion.identity;
+			return;
 		}
 	}
 
 	protected virtual int GetStockAmount(ActorData actorData)
 	{
 		AbilityData component = actorData.GetComponent<AbilityData>();
-		return (!(component != null)) ? 0 : component.GetStocksRemaining(this.m_abilityType);
+		return (component != null) ? component.GetStocksRemaining(m_abilityType) : 0;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,11 +23,11 @@ public class DinoLayerCones : GenericAbility_Container
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Dino_SyncComponent>();
-		this.m_abilityData = base.GetComponent<AbilityData>();
-		if (this.m_abilityData != null)
+		m_syncComp = GetComponent<Dino_SyncComponent>();
+		m_abilityData = GetComponent<AbilityData>();
+		if (m_abilityData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -37,14 +36,14 @@ public class DinoLayerCones : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoLayerCones.SetupTargetersAndCachedVars()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_dashOrShieldAbility = this.m_abilityData.GetAbilityOfType<DinoDashOrShield>();
-			if (this.m_dashOrShieldAbility != null)
+			m_dashOrShieldAbility = m_abilityData.GetAbilityOfType<DinoDashOrShield>();
+			if (m_dashOrShieldAbility != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -53,43 +52,44 @@ public class DinoLayerCones : GenericAbility_Container
 					}
 					break;
 				}
-				this.m_dashOrShieldActionType = this.m_abilityData.GetActionTypeOfAbility(this.m_dashOrShieldAbility);
+				m_dashOrShieldActionType = m_abilityData.GetActionTypeOfAbility(m_dashOrShieldAbility);
 			}
 		}
 		base.SetupTargetersAndCachedVars();
-		GenericAbility_TargetSelectBase targetSelectComp = this.GetTargetSelectComp();
+		GenericAbility_TargetSelectBase targetSelectComp = GetTargetSelectComp();
 		if (targetSelectComp != null && targetSelectComp is TargetSelect_LayerCones)
 		{
 			TargetSelect_LayerCones targetSelect_LayerCones = targetSelectComp as TargetSelect_LayerCones;
-			targetSelect_LayerCones.m_delegateNumActiveLayers = new TargetSelect_LayerCones.NumActiveLayerDelegate(this.GetNumLayersActive);
+			targetSelect_LayerCones.m_delegateNumActiveLayers = GetNumLayersActive;
 		}
-		if (base.Targeter is AbilityUtil_Targeter_LayerCones)
+		if (!(base.Targeter is AbilityUtil_Targeter_LayerCones))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			AbilityUtil_Targeter_LayerCones abilityUtil_Targeter_LayerCones = base.Targeter as AbilityUtil_Targeter_LayerCones;
-			abilityUtil_Targeter_LayerCones.m_delegateNumActiveLayers = new AbilityUtil_Targeter_LayerCones.NumActiveLayerDelegate(this.GetNumLayersActive);
+			abilityUtil_Targeter_LayerCones.m_delegateNumActiveLayers = GetNumLayersActive;
+			return;
 		}
 	}
 
 	public int GetPowerLevelAdjustIfNoInnerHits()
 	{
-		return (!(this.m_abilityMod != null)) ? this.m_powerLevelAdjustIfNoInnerHits : this.m_abilityMod.m_powerLevelAdjustIfNoInnerHitsMod.GetModifiedValue(this.m_powerLevelAdjustIfNoInnerHits);
+		return (!(m_abilityMod != null)) ? m_powerLevelAdjustIfNoInnerHits : m_abilityMod.m_powerLevelAdjustIfNoInnerHitsMod.GetModifiedValue(m_powerLevelAdjustIfNoInnerHits);
 	}
 
 	public int GetLayerCount()
 	{
-		GenericAbility_TargetSelectBase targetSelectComp = this.GetTargetSelectComp();
+		GenericAbility_TargetSelectBase targetSelectComp = GetTargetSelectComp();
 		if (targetSelectComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -98,22 +98,22 @@ public class DinoLayerCones : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoLayerCones.GetLayerCount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (targetSelectComp is TargetSelect_LayerCones)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return (targetSelectComp as TargetSelect_LayerCones).GetLayerCount();
 					}
-					break;
 				}
-				return (targetSelectComp as TargetSelect_LayerCones).GetLayerCount();
 			}
 		}
 		return 1;
@@ -121,77 +121,79 @@ public class DinoLayerCones : GenericAbility_Container
 
 	public int GetNumLayersActive(int maxLayers)
 	{
-		if (!(this.m_syncComp != null))
+		if (m_syncComp != null)
 		{
-			return 0;
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(DinoLayerCones.GetNumLayersActive(int)).MethodHandle;
-		}
-		bool flag = false;
-		if (this.m_dashOrShieldAbility != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_dashOrShieldAbility.FullyChargeUpLayerCone() && !this.m_dashOrShieldAbility.IsInReadyStance())
-			{
-				flag = this.m_abilityData.HasQueuedAction(this.m_dashOrShieldActionType);
-			}
-		}
-		if (flag)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					bool flag = false;
+					if (m_dashOrShieldAbility != null)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (m_dashOrShieldAbility.FullyChargeUpLayerCone() && !m_dashOrShieldAbility.IsInReadyStance())
+						{
+							flag = m_abilityData.HasQueuedAction(m_dashOrShieldActionType);
+						}
+					}
+					if (flag)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								break;
+							default:
+								return maxLayers;
+							}
+						}
+					}
+					return Mathf.Min(maxLayers, m_syncComp.m_layerConePowerLevel + 1);
 				}
-				break;
+				}
 			}
-			return maxLayers;
 		}
-		return Mathf.Min(maxLayers, (int)(this.m_syncComp.m_layerConePowerLevel + 1));
+		return 0;
 	}
 
 	public bool IsAtMaxPowerLevel()
 	{
-		int layerCount = this.GetLayerCount();
-		int numLayersActive = this.GetNumLayersActive(layerCount);
+		int layerCount = GetLayerCount();
+		int numLayersActive = GetNumLayersActive(layerCount);
 		return numLayersActive >= layerCount;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		base.AddTokenInt(tokens, "PowerLevelAdjustIfNoInnerHits", string.Empty, this.m_powerLevelAdjustIfNoInnerHits, false);
+		AddTokenInt(tokens, "PowerLevelAdjustIfNoInnerHits", string.Empty, m_powerLevelAdjustIfNoInnerHits);
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		this.m_abilityMod = (abilityMod as AbilityMod_DinoLayerCones);
+		m_abilityMod = (abilityMod as AbilityMod_DinoLayerCones);
 	}
 
 	protected override void GenModImpl_ClearModRef()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 
 	protected override void SetTargetSelectModReference()

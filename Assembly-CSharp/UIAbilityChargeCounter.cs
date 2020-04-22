@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,23 +7,23 @@ public class UIAbilityChargeCounter : MonoBehaviour
 
 	public void SetTick(int tickCount)
 	{
-		int num = Mathf.Clamp(tickCount, 0, this.m_ticks.Length - 1);
-		for (int i = 0; i < this.m_ticks.Length; i++)
+		int num = Mathf.Clamp(tickCount, 0, m_ticks.Length - 1);
+		for (int i = 0; i < m_ticks.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_ticks[i], i == num, null);
+			UIManager.SetGameObjectActive(m_ticks[i], i == num);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityChargeCounter.SetTick(int)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 }

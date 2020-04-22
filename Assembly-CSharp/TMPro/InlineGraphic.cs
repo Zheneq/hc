@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,57 +17,58 @@ namespace TMPro
 		{
 			get
 			{
-				if (this.texture == null)
+				if (texture == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							return Graphic.s_WhiteTexture;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphic.get_mainTexture()).MethodHandle;
-					}
-					return Graphic.s_WhiteTexture;
 				}
-				return this.texture;
+				return texture;
 			}
 		}
 
 		protected override void Awake()
 		{
-			this.m_manager = base.GetComponentInParent<InlineGraphicManager>();
+			m_manager = GetComponentInParent<InlineGraphicManager>();
 		}
 
 		protected override void OnEnable()
 		{
-			if (this.m_RectTransform == null)
+			if (m_RectTransform == null)
 			{
-				this.m_RectTransform = base.gameObject.GetComponent<RectTransform>();
+				m_RectTransform = base.gameObject.GetComponent<RectTransform>();
 			}
-			if (this.m_manager != null)
+			if (!(m_manager != null))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphic.OnEnable()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (this.m_manager.spriteAsset != null)
+				if (m_manager.spriteAsset != null)
 				{
-					this.texture = this.m_manager.spriteAsset.spriteSheet;
+					texture = m_manager.spriteAsset.spriteSheet;
 				}
+				return;
 			}
 		}
 
@@ -83,9 +83,9 @@ namespace TMPro
 
 		protected override void OnRectTransformDimensionsChange()
 		{
-			if (this.m_RectTransform == null)
+			if (m_RectTransform == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -94,28 +94,29 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphic.OnRectTransformDimensionsChange()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_RectTransform = base.gameObject.GetComponent<RectTransform>();
+				m_RectTransform = base.gameObject.GetComponent<RectTransform>();
 			}
-			if (this.m_ParentRectTransform == null)
+			if (m_ParentRectTransform == null)
 			{
-				this.m_ParentRectTransform = this.m_RectTransform.parent.GetComponent<RectTransform>();
+				m_ParentRectTransform = m_RectTransform.parent.GetComponent<RectTransform>();
 			}
-			if (this.m_RectTransform.pivot != this.m_ParentRectTransform.pivot)
+			if (!(m_RectTransform.pivot != m_ParentRectTransform.pivot))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (2)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				this.m_RectTransform.pivot = this.m_ParentRectTransform.pivot;
+				m_RectTransform.pivot = m_ParentRectTransform.pivot;
+				return;
 			}
 		}
 

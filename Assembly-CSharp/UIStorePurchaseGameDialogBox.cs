@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using LobbyGameClientMessages;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -69,18 +68,18 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 	public override void Awake()
 	{
 		base.Awake();
-		this.m_closeBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseButton);
-		this.m_failBtnOkay.callback = new _ButtonSwapSprite.ButtonClickCallback(this.TryAgainButton);
-		this.m_successBtnOkay.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseButton);
-		this.m_closeBtn.m_ignoreDialogboxes = true;
-		UIManager.SetGameObjectActive(this.m_disableCloseBtn, false, null);
-		UIManager.SetGameObjectActive(this.m_addPaymentDisabledImage, false, null);
-		UIManager.SetGameObjectActive(this.m_confirmButtonDisabledImage, false, null);
-		UIManager.SetGameObjectActive(this.m_processingPurchaseContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_failToPurchaseContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_succeededToPurchaseContainer, false, null);
-		this.m_confirmPurchaseButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PurchaseButtonClicked);
-		this.m_addPaymentButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.AddPaymentMethodClicked);
+		m_closeBtn.callback = CloseButton;
+		m_failBtnOkay.callback = TryAgainButton;
+		m_successBtnOkay.callback = CloseButton;
+		m_closeBtn.m_ignoreDialogboxes = true;
+		UIManager.SetGameObjectActive(m_disableCloseBtn, false);
+		UIManager.SetGameObjectActive(m_addPaymentDisabledImage, false);
+		UIManager.SetGameObjectActive(m_confirmButtonDisabledImage, false);
+		UIManager.SetGameObjectActive(m_processingPurchaseContainer, false);
+		UIManager.SetGameObjectActive(m_failToPurchaseContainer, false);
+		UIManager.SetGameObjectActive(m_succeededToPurchaseContainer, false);
+		m_confirmPurchaseButton.callback = PurchaseButtonClicked;
+		m_addPaymentButton.callback = AddPaymentMethodClicked;
 	}
 
 	public override void ClearCallback()
@@ -94,15 +93,15 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 	public void AddPaymentMethodClicked(BaseEventData data)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.GeneralExternalWebsite);
-		this.m_openedURL = true;
+		m_openedURL = true;
 		string url = ClientGameManager.Get().CommerceURL + "/account/payment/add-payment-method-flow.action";
 		Application.OpenURL(url);
-		this.m_dropdownMenu.SetListContainerVisible(false);
+		m_dropdownMenu.SetListContainerVisible(false);
 	}
 
 	public override void Close()
 	{
-		if (!this.m_processingPayment)
+		if (!m_processingPayment)
 		{
 			base.Close();
 		}
@@ -110,238 +109,31 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 
 	public void NotifyPurchaseResponse(bool successful)
 	{
-		this.m_processingPayment = false;
-		UIManager.SetGameObjectActive(this.m_processingPurchaseContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_failToPurchaseContainer, !successful, null);
-		UIManager.SetGameObjectActive(this.m_succeededToPurchaseContainer, successful, null);
-		this.m_failPurchaseLabel.text = StringUtil.TR("PurchaseHasFailed", "Store");
+		m_processingPayment = false;
+		UIManager.SetGameObjectActive(m_processingPurchaseContainer, false);
+		UIManager.SetGameObjectActive(m_failToPurchaseContainer, !successful);
+		UIManager.SetGameObjectActive(m_succeededToPurchaseContainer, successful);
+		m_failPurchaseLabel.text = StringUtil.TR("PurchaseHasFailed", "Store");
 		if (successful)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseGameDialogBox.NotifyPurchaseResponse(bool)).MethodHandle;
-			}
-			this.Close();
-			UITakeoverManager.Get().ShowPurchaseGameTakeover();
-			bool flag = false;
-			if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				GameManager gameManager = GameManager.Get();
-				if (gameManager != null)
+				default:
 				{
-					for (;;)
+					if (1 == 0)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (gameManager.GameInfo != null)
+					Close();
+					UITakeoverManager.Get().ShowPurchaseGameTakeover();
+					bool flag = false;
+					if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (gameManager.GameInfo.GameConfig != null)
-						{
-							flag = gameManager.GameInfo.GameStatus.IsActiveStatus();
-						}
-					}
-				}
-			}
-			if (!flag)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIFrontEnd.Get().m_frontEndNavPanel.LandingPageBtnClicked(null);
-			}
-			else
-			{
-				UIFrontEnd.Get().m_frontEndNavPanel.PlayBtnClicked(null);
-			}
-		}
-		else
-		{
-			this.m_closeBtn.SetClickable(true);
-		}
-	}
-
-	public void PurchaseButtonClicked(BaseEventData data)
-	{
-		UIStorePanel.Get().RequestToPurchaseGame(this.m_packReference, this.m_selectedPaymentMethod);
-	}
-
-	private void TimeOutPurchase()
-	{
-		this.m_processingPayment = false;
-		UIManager.SetGameObjectActive(this.m_disableCloseBtn, false, null);
-		UIManager.SetGameObjectActive(this.m_processingPurchaseContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_failToPurchaseContainer, true, null);
-		this.m_failPurchaseLabel.text = StringUtil.TR("PurchaseHasTimedOut", "Store");
-		this.m_closeBtn.SetClickable(true);
-	}
-
-	private void SetProcessingPurchasing(bool processingPurchase)
-	{
-		if (this.m_processingPayment != processingPurchase)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseGameDialogBox.SetProcessingPurchasing(bool)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_confirmButtonDisabledImage, processingPurchase, null);
-			UIManager.SetGameObjectActive(this.m_disableCloseBtn, processingPurchase, null);
-			UIManager.SetGameObjectActive(this.m_processingPurchaseContainer, processingPurchase, null);
-			if (processingPurchase)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_processStartTime = Time.time;
-			}
-			this.m_processingPayment = processingPurchase;
-			if (this.m_processingPayment)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_closeBtn.m_hoverImage, !this.m_processingPayment, null);
-				UIManager.SetGameObjectActive(this.m_closeBtn.m_pressedImage, !this.m_processingPayment, null);
-				this.m_closeBtn.SetClickable(!this.m_processingPayment);
-			}
-		}
-	}
-
-	private void OnApplicationFocus(bool focusStatus)
-	{
-		if (focusStatus)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseGameDialogBox.OnApplicationFocus(bool)).MethodHandle;
-			}
-			if (this.m_openedURL)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_openedURL = false;
-				ClientGameManager.Get().RequestPaymentMethods(new Action<PaymentMethodsResponse>(UIStorePanel.Get().RefreshPayments));
-			}
-		}
-	}
-
-	public void Update()
-	{
-		this.SetProcessingPurchasing(UIStorePanel.Get().IsWaitingForPurchaseRequest);
-		if (SteamManager.UsingSteam)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseGameDialogBox.Update()).MethodHandle;
-			}
-			if (!UIStorePanel.Get().IsWaitingForSteamPurchaseResponse)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_processingPayment)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (Time.time - UIStorePanel.Get().TimeReceivedSteamPurchaseResponse > 30f)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -350,74 +142,287 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 							}
 							break;
 						}
-						this.TimeOutPurchase();
-						UIStorePanel.Get().TimeOutPurchase();
+						GameManager gameManager = GameManager.Get();
+						if (gameManager != null)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (gameManager.GameInfo != null)
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (gameManager.GameInfo.GameConfig != null)
+								{
+									flag = gameManager.GameInfo.GameStatus.IsActiveStatus();
+								}
+							}
+						}
 					}
+					if (!flag)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								break;
+							default:
+								UIFrontEnd.Get().m_frontEndNavPanel.LandingPageBtnClicked(null);
+								return;
+							}
+						}
+					}
+					UIFrontEnd.Get().m_frontEndNavPanel.PlayBtnClicked(null);
+					return;
+				}
 				}
 			}
 		}
-		else if (this.m_processingPayment)
+		m_closeBtn.SetClickable(true);
+	}
+
+	public void PurchaseButtonClicked(BaseEventData data)
+	{
+		UIStorePanel.Get().RequestToPurchaseGame(m_packReference, m_selectedPaymentMethod);
+	}
+
+	private void TimeOutPurchase()
+	{
+		m_processingPayment = false;
+		UIManager.SetGameObjectActive(m_disableCloseBtn, false);
+		UIManager.SetGameObjectActive(m_processingPurchaseContainer, false);
+		UIManager.SetGameObjectActive(m_failToPurchaseContainer, true);
+		m_failPurchaseLabel.text = StringUtil.TR("PurchaseHasTimedOut", "Store");
+		m_closeBtn.SetClickable(true);
+	}
+
+	private void SetProcessingPurchasing(bool processingPurchase)
+	{
+		if (m_processingPayment == processingPurchase)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (Time.time - this.m_processStartTime > 30f)
+			if (1 == 0)
 			{
-				for (;;)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			UIManager.SetGameObjectActive(m_confirmButtonDisabledImage, processingPurchase);
+			UIManager.SetGameObjectActive(m_disableCloseBtn, processingPurchase);
+			UIManager.SetGameObjectActive(m_processingPurchaseContainer, processingPurchase);
+			if (processingPurchase)
+			{
+				while (true)
 				{
-					switch (3)
+					switch (7)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				this.TimeOutPurchase();
-				UIStorePanel.Get().TimeOutPurchase();
+				m_processStartTime = Time.time;
 			}
+			m_processingPayment = processingPurchase;
+			if (m_processingPayment)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					UIManager.SetGameObjectActive(m_closeBtn.m_hoverImage, !m_processingPayment);
+					UIManager.SetGameObjectActive(m_closeBtn.m_pressedImage, !m_processingPayment);
+					m_closeBtn.SetClickable(!m_processingPayment);
+					return;
+				}
+			}
+			return;
+		}
+	}
+
+	private void OnApplicationFocus(bool focusStatus)
+	{
+		if (!focusStatus)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_openedURL)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					m_openedURL = false;
+					ClientGameManager.Get().RequestPaymentMethods(UIStorePanel.Get().RefreshPayments);
+					return;
+				}
+			}
+			return;
+		}
+	}
+
+	public void Update()
+	{
+		SetProcessingPurchasing(UIStorePanel.Get().IsWaitingForPurchaseRequest);
+		if (SteamManager.UsingSteam)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (!UIStorePanel.Get().IsWaitingForSteamPurchaseResponse)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								break;
+							default:
+								if (m_processingPayment)
+								{
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											break;
+										default:
+											if (Time.time - UIStorePanel.Get().TimeReceivedSteamPurchaseResponse > 30f)
+											{
+												while (true)
+												{
+													switch (1)
+													{
+													case 0:
+														break;
+													default:
+														TimeOutPurchase();
+														UIStorePanel.Get().TimeOutPurchase();
+														return;
+													}
+												}
+											}
+											return;
+										}
+									}
+								}
+								return;
+							}
+						}
+					}
+					return;
+				}
+			}
+		}
+		if (!m_processingPayment)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			if (Time.time - m_processStartTime > 30f)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					TimeOutPurchase();
+					UIStorePanel.Get().TimeOutPurchase();
+					return;
+				}
+			}
+			return;
 		}
 	}
 
 	public void RefreshPayments(PaymentMethodsResponse response)
 	{
-		if (response.Success)
+		if (!response.Success)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseGameDialogBox.RefreshPayments(PaymentMethodsResponse)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.ClearOldPaymentList();
-			this.HandleRequestPaymentResponse(response);
+			ClearOldPaymentList();
+			HandleRequestPaymentResponse(response);
+			return;
 		}
 	}
 
 	public void HandleRequestPaymentResponse(PaymentMethodsResponse response)
 	{
-		if (this.m_dropdownItems == null)
+		if (m_dropdownItems == null)
 		{
-			this.m_dropdownItems = new List<UIStorePaymentMethodDropdownItem>();
+			m_dropdownItems = new List<UIStorePaymentMethodDropdownItem>();
 		}
-		this.m_dropdownItems.Clear();
-		int num = 0;
+		m_dropdownItems.Clear();
+		int i = 0;
 		PaymentMethod paymentMethod = null;
 		if (response != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -426,13 +431,13 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseGameDialogBox.HandleRequestPaymentResponse(PaymentMethodsResponse)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (response.Success && response.PaymentMethodList != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -443,7 +448,7 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 				}
 				if (!response.PaymentMethodList.IsError)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -454,7 +459,7 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 					}
 					if (response.PaymentMethodList.PaymentMethods != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -463,46 +468,39 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 							}
 							break;
 						}
-						int i = 0;
-						while (i < response.PaymentMethodList.PaymentMethods.Count)
+						UIStorePaymentMethodDropdownItem uIStorePaymentMethodDropdownItem;
+						for (int j = 0; j < response.PaymentMethodList.PaymentMethods.Count; m_dropdownItems.Add(uIStorePaymentMethodDropdownItem), i++, j++)
 						{
-							PaymentMethod paymentMethod2 = response.PaymentMethodList.PaymentMethods[i];
-							UIStorePaymentMethodDropdownItem uistorePaymentMethodDropdownItem = UnityEngine.Object.Instantiate<UIStorePaymentMethodDropdownItem>(this.m_paymentPrefab);
-							uistorePaymentMethodDropdownItem.transform.SetParent(this.m_dropDownList.transform);
-							uistorePaymentMethodDropdownItem.transform.localPosition = Vector3.zero;
-							uistorePaymentMethodDropdownItem.transform.localScale = Vector3.one;
-							uistorePaymentMethodDropdownItem.SetPaymentMethod(paymentMethod2);
-							uistorePaymentMethodDropdownItem.m_hitbox.m_ignoreDialogboxes = true;
-							uistorePaymentMethodDropdownItem.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PaymentItemSelected);
-							if (!paymentMethod2.isDefault)
+							PaymentMethod paymentMethod2 = response.PaymentMethodList.PaymentMethods[j];
+							uIStorePaymentMethodDropdownItem = Object.Instantiate(m_paymentPrefab);
+							uIStorePaymentMethodDropdownItem.transform.SetParent(m_dropDownList.transform);
+							uIStorePaymentMethodDropdownItem.transform.localPosition = Vector3.zero;
+							uIStorePaymentMethodDropdownItem.transform.localScale = Vector3.one;
+							uIStorePaymentMethodDropdownItem.SetPaymentMethod(paymentMethod2);
+							uIStorePaymentMethodDropdownItem.m_hitbox.m_ignoreDialogboxes = true;
+							uIStorePaymentMethodDropdownItem.m_hitbox.callback = PaymentItemSelected;
+							if (paymentMethod2.isDefault)
 							{
-								goto IL_17A;
-							}
-							for (;;)
-							{
-								switch (3)
+								while (true)
 								{
-								case 0:
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (paymentMethod2.specificType != "Steam Wallet")
+								{
+									paymentMethod = paymentMethod2;
+									uIStorePaymentMethodDropdownItem.SetText(string.Format(StringUtil.TR("PaymentInfo", "Store"), paymentMethod2.specificType, paymentMethod2.maskedPaymentInfo));
 									continue;
 								}
-								break;
 							}
-							if (!(paymentMethod2.specificType != "Steam Wallet"))
-							{
-								goto IL_17A;
-							}
-							paymentMethod = paymentMethod2;
-							uistorePaymentMethodDropdownItem.SetText(string.Format(StringUtil.TR("PaymentInfo", "Store"), paymentMethod2.specificType, paymentMethod2.maskedPaymentInfo));
-							IL_1B7:
-							this.m_dropdownItems.Add(uistorePaymentMethodDropdownItem);
-							num++;
-							i++;
-							continue;
-							IL_17A:
-							uistorePaymentMethodDropdownItem.SetText(paymentMethod2.specificType + " " + paymentMethod2.maskedPaymentInfo);
+							uIStorePaymentMethodDropdownItem.SetText(paymentMethod2.specificType + " " + paymentMethod2.maskedPaymentInfo);
 							if (paymentMethod2.specificType == "Steam Wallet")
 							{
-								for (;;)
+								while (true)
 								{
 									switch (4)
 									{
@@ -512,11 +510,9 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 									break;
 								}
 								paymentMethod = paymentMethod2;
-								goto IL_1B7;
 							}
-							goto IL_1B7;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -527,17 +523,17 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 						}
 						if (!SteamManager.UsingSteam)
 						{
-							UIStorePaymentMethodDropdownItem uistorePaymentMethodDropdownItem2 = UnityEngine.Object.Instantiate<UIStorePaymentMethodDropdownItem>(this.m_paymentPrefab);
-							uistorePaymentMethodDropdownItem2.transform.SetParent(this.m_dropDownList.transform);
-							uistorePaymentMethodDropdownItem2.transform.localPosition = Vector3.zero;
-							uistorePaymentMethodDropdownItem2.transform.localScale = Vector3.one;
-							uistorePaymentMethodDropdownItem2.SetText(StringUtil.TR("AddNewPayment", "Store"));
-							uistorePaymentMethodDropdownItem2.m_hitbox.m_ignoreDialogboxes = true;
-							uistorePaymentMethodDropdownItem2.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.AddPaymentMethodClicked);
-							this.m_dropdownItems.Add(uistorePaymentMethodDropdownItem2);
-							if (this.m_addOrUpdatePaymentInfoLabel != null)
+							UIStorePaymentMethodDropdownItem uIStorePaymentMethodDropdownItem2 = Object.Instantiate(m_paymentPrefab);
+							uIStorePaymentMethodDropdownItem2.transform.SetParent(m_dropDownList.transform);
+							uIStorePaymentMethodDropdownItem2.transform.localPosition = Vector3.zero;
+							uIStorePaymentMethodDropdownItem2.transform.localScale = Vector3.one;
+							uIStorePaymentMethodDropdownItem2.SetText(StringUtil.TR("AddNewPayment", "Store"));
+							uIStorePaymentMethodDropdownItem2.m_hitbox.m_ignoreDialogboxes = true;
+							uIStorePaymentMethodDropdownItem2.m_hitbox.callback = AddPaymentMethodClicked;
+							m_dropdownItems.Add(uIStorePaymentMethodDropdownItem2);
+							if (m_addOrUpdatePaymentInfoLabel != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -546,12 +542,12 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 									}
 									break;
 								}
-								UIManager.SetGameObjectActive(this.m_addOrUpdatePaymentInfoLabel, true, null);
+								UIManager.SetGameObjectActive(m_addOrUpdatePaymentInfoLabel, true);
 							}
 						}
-						else if (this.m_addOrUpdatePaymentInfoLabel != null)
+						else if (m_addOrUpdatePaymentInfoLabel != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -560,18 +556,18 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 								}
 								break;
 							}
-							UIManager.SetGameObjectActive(this.m_addOrUpdatePaymentInfoLabel, false, null);
+							UIManager.SetGameObjectActive(m_addOrUpdatePaymentInfoLabel, false);
 						}
 					}
 				}
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_addPaymentBtnContainer, num == 0, null);
-		UIManager.SetGameObjectActive(this.m_dropDownContainer, num > 0, null);
+		UIManager.SetGameObjectActive(m_addPaymentBtnContainer, i == 0);
+		UIManager.SetGameObjectActive(m_dropDownContainer, i > 0);
 		string dropDownText = StringUtil.TR("None", "Global");
 		if (paymentMethod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -580,11 +576,11 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 				}
 				break;
 			}
-			this.m_selectedPaymentMethod = paymentMethod;
+			m_selectedPaymentMethod = paymentMethod;
 			string str = string.Empty;
-			if (this.m_selectedPaymentMethod.isDefault && this.m_selectedPaymentMethod.generalType != "Steam Wallet")
+			if (m_selectedPaymentMethod.isDefault && m_selectedPaymentMethod.generalType != "Steam Wallet")
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -595,58 +591,58 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 				}
 				str = StringUtil.TR("DefaultPaymentMethod", "Store");
 			}
-			dropDownText = this.m_selectedPaymentMethod.specificType + " " + this.m_selectedPaymentMethod.maskedPaymentInfo + str;
-			UIManager.SetGameObjectActive(this.m_confirmButtonDisabledImage, this.m_selectedPaymentMethod == null, null);
+			dropDownText = m_selectedPaymentMethod.specificType + " " + m_selectedPaymentMethod.maskedPaymentInfo + str;
+			UIManager.SetGameObjectActive(m_confirmButtonDisabledImage, m_selectedPaymentMethod == null);
 		}
-		this.SetDropDownText(dropDownText);
+		SetDropDownText(dropDownText);
 	}
 
 	public void SetDropDownText(string newText)
 	{
-		for (int i = 0; i < this.m_dropDownTextLabels.Length; i++)
+		for (int i = 0; i < m_dropDownTextLabels.Length; i++)
 		{
-			this.m_dropDownTextLabels[i].text = newText;
+			m_dropDownTextLabels[i].text = newText;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseGameDialogBox.SetDropDownText(string)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	public void PaymentItemSelected(BaseEventData data)
 	{
-		for (int i = 0; i < this.m_dropdownItems.Count; i++)
+		for (int i = 0; i < m_dropdownItems.Count; i++)
 		{
-			if (this.m_dropdownItems[i].m_hitbox.gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
+			if (!(m_dropdownItems[i].m_hitbox.gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject))
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (3)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseGameDialogBox.PaymentItemSelected(BaseEventData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_selectedPaymentMethod = this.m_dropdownItems[i].GetPaymentMethod();
-				this.m_dropdownItems[i].m_hitbox.ForceSetPointerEntered(false);
+				m_selectedPaymentMethod = m_dropdownItems[i].GetPaymentMethod();
+				m_dropdownItems[i].m_hitbox.ForceSetPointerEntered(false);
 				string str = string.Empty;
-				if (this.m_selectedPaymentMethod.isDefault && this.m_selectedPaymentMethod.generalType != "Steam Wallet")
+				if (m_selectedPaymentMethod.isDefault && m_selectedPaymentMethod.generalType != "Steam Wallet")
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -657,43 +653,44 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 					}
 					str = StringUtil.TR("DefaultPaymentMethod", "Store");
 				}
-				this.SetDropDownText(this.m_selectedPaymentMethod.specificType + " " + this.m_selectedPaymentMethod.maskedPaymentInfo + str);
-				this.m_dropdownMenu.ToggleListContainer(null);
-				UIManager.SetGameObjectActive(this.m_confirmButtonDisabledImage, this.m_selectedPaymentMethod == null, null);
+				SetDropDownText(m_selectedPaymentMethod.specificType + " " + m_selectedPaymentMethod.maskedPaymentInfo + str);
+				m_dropdownMenu.ToggleListContainer(null);
+				UIManager.SetGameObjectActive(m_confirmButtonDisabledImage, m_selectedPaymentMethod == null);
 				return;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			return;
 		}
 	}
 
 	private void ClearOldPaymentList()
 	{
-		UIStorePaymentMethodDropdownItem[] componentsInChildren = this.m_dropDownList.GetComponentsInChildren<UIStorePaymentMethodDropdownItem>(true);
+		UIStorePaymentMethodDropdownItem[] componentsInChildren = m_dropDownList.GetComponentsInChildren<UIStorePaymentMethodDropdownItem>(true);
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
-			UnityEngine.Object.Destroy(componentsInChildren[i].gameObject);
+			Object.Destroy(componentsInChildren[i].gameObject);
 		}
 	}
 
 	public void Setup(UIPurchaseableItem item, PaymentMethodsResponse response)
 	{
-		this.m_packReference = item.m_gamePack;
+		m_packReference = item.m_gamePack;
 		HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
 		string accountCurrency = hydrogenConfig.Ticket.AccountCurrency;
 		bool hasPurchasedGame = ClientGameManager.Get().HasPurchasedGame;
-		TMP_Text headerText = this.m_headerText;
-		string term;
+		TextMeshProUGUI headerText = m_headerText;
+		object term;
 		if (hasPurchasedGame)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -702,9 +699,9 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseGameDialogBox.Setup(UIPurchaseableItem, PaymentMethodsResponse)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			term = "PurchaseUpgrade";
 		}
@@ -712,11 +709,12 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 		{
 			term = "PurchaseGame";
 		}
-		headerText.text = StringUtil.TR(term, "Store");
-		float num;
+		headerText.text = StringUtil.TR((string)term, "Store");
+		float num2;
+		float originalPrice;
 		if (hasPurchasedGame)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -727,90 +725,87 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 			}
 			int highestPurchasedGamePack = ClientGameManager.Get().HighestPurchasedGamePack;
 			GamePackUpgrade gamePackUpgrade = null;
-			for (int i = 0; i < this.m_packReference.Upgrades.Length; i++)
+			int num = 0;
+			while (true)
 			{
-				if (this.m_packReference.Upgrades[i].AlreadyOwnedGamePack == highestPurchasedGamePack)
+				if (num < m_packReference.Upgrades.Length)
 				{
-					for (;;)
+					if (m_packReference.Upgrades[num].AlreadyOwnedGamePack == highestPurchasedGamePack)
 					{
-						switch (3)
+						while (true)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					gamePackUpgrade = this.m_packReference.Upgrades[i];
-					IL_E4:
-					if (gamePackUpgrade == null)
-					{
-						for (;;)
-						{
-							switch (1)
+							switch (3)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						Log.Error(string.Concat(new object[]
-						{
-							"No upgrade path specified from ",
-							highestPurchasedGamePack,
-							" to ",
-							this.m_packReference.Index
-						}), new object[0]);
-						num = 0f;
+						gamePackUpgrade = m_packReference.Upgrades[num];
+						break;
 					}
-					else
-					{
-						float num2;
-						num = CommerceClient.Get().GetGamePackPrice(gamePackUpgrade.ProductCode, accountCurrency, out num2);
-					}
-					goto IL_176;
-				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
+					num++;
 					continue;
 				}
-				goto IL_E4;
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				break;
+			}
+			if (gamePackUpgrade == null)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				Log.Error("No upgrade path specified from " + highestPurchasedGamePack + " to " + m_packReference.Index);
+				num2 = 0f;
+			}
+			else
+			{
+				num2 = CommerceClient.Get().GetGamePackPrice(gamePackUpgrade.ProductCode, accountCurrency, out originalPrice);
 			}
 		}
 		else
 		{
-			float num2;
-			num = CommerceClient.Get().GetGamePackPrice(this.m_packReference.ProductCode, accountCurrency, out num2);
+			num2 = CommerceClient.Get().GetGamePackPrice(m_packReference.ProductCode, accountCurrency, out originalPrice);
 		}
-		IL_176:
-		string text = UIStorePanel.GetLocalizedPriceString(num, accountCurrency);
-		if (num == 0f)
+		string text = UIStorePanel.GetLocalizedPriceString(num2, accountCurrency);
+		if (num2 == 0f)
 		{
 			text = "--";
 		}
-		this.m_descriptionTitle.text = string.Format(StringUtil.TR("Edition", "Store"), this.m_packReference.GetEditionName());
-		this.m_totalCost.text = text;
-		this.m_itemImage.sprite = this.m_packReference.Sprite;
-		UIManager.SetGameObjectActive(this.m_dropDownContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_addPaymentBtnContainer, true, null);
-		this.ClearOldPaymentList();
-		UIManager.SetGameObjectActive(this.m_confirmButtonDisabledImage, true, null);
-		this.HandleRequestPaymentResponse(response);
+		m_descriptionTitle.text = string.Format(StringUtil.TR("Edition", "Store"), m_packReference.GetEditionName());
+		m_totalCost.text = text;
+		m_itemImage.sprite = m_packReference.Sprite;
+		UIManager.SetGameObjectActive(m_dropDownContainer, false);
+		UIManager.SetGameObjectActive(m_addPaymentBtnContainer, true);
+		ClearOldPaymentList();
+		UIManager.SetGameObjectActive(m_confirmButtonDisabledImage, true);
+		HandleRequestPaymentResponse(response);
 	}
 
 	public void CloseButton(BaseEventData data)
 	{
-		if (!this.m_processingPayment)
+		if (!m_processingPayment)
 		{
-			this.Close();
+			Close();
 		}
 	}
 
 	public void TryAgainButton(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_failToPurchaseContainer, false, null);
+		UIManager.SetGameObjectActive(m_failToPurchaseContainer, false);
 	}
 }

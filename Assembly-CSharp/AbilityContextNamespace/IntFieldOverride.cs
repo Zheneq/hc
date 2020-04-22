@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace AbilityContextNamespace
@@ -11,9 +11,9 @@ namespace AbilityContextNamespace
 
 		public SingleOnHitIntFieldMod m_fieldOverride;
 
-		public string \u001D()
+		public string _001D()
 		{
-			return this.m_targetIdentifier.Trim();
+			return m_targetIdentifier.Trim();
 		}
 	}
 }

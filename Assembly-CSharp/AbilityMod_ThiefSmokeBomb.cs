@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,30 +39,28 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 		ThiefSmokeBomb thiefSmokeBomb = targetAbility as ThiefSmokeBomb;
 		if (thiefSmokeBomb != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_extraDamageOnCastMod, "ExtraDamageOnCast", string.Empty, thiefSmokeBomb.m_extraDamageOnCast, true, false);
-			AbilityMod.AddToken(tokens, this.m_maxAngleWithFirstSegmentMod, "MaxAngleWithFirstSegment", string.Empty, thiefSmokeBomb.m_maxAngleWithFirstSegment, true, false);
-			AbilityMod.AddToken(tokens, this.m_maxDistanceWithFirstMod, "MaxDistanceWithFirst", string.Empty, thiefSmokeBomb.m_maxDistanceWithFirst, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_minDistanceBetweenBombsMod, "MinDistanceBetweenBombs", string.Empty, thiefSmokeBomb.m_minDistanceBetweenBombs, true, false, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_bombHitEffectInfoMod, "BombHitEffectInfo", thiefSmokeBomb.m_bombHitEffectInfo, true);
-			AbilityMod.AddToken_GroundFieldMod(tokens, this.m_smokeFieldInfoMod, "SmokeFieldInfo", thiefSmokeBomb.m_smokeFieldInfo);
-			AbilityMod.AddToken(tokens, this.m_barrierSquareWidthMod, "BarrierSquareWidth", string.Empty, thiefSmokeBomb.m_barrierSquareWidth, true, false, false);
-			AbilityMod.AddToken_BarrierMod(tokens, this.m_barrierDataMod, "BarrierData", thiefSmokeBomb.m_barrierData);
+			AbilityMod.AddToken(tokens, m_extraDamageOnCastMod, "ExtraDamageOnCast", string.Empty, thiefSmokeBomb.m_extraDamageOnCast);
+			AbilityMod.AddToken(tokens, m_maxAngleWithFirstSegmentMod, "MaxAngleWithFirstSegment", string.Empty, thiefSmokeBomb.m_maxAngleWithFirstSegment);
+			AbilityMod.AddToken(tokens, m_maxDistanceWithFirstMod, "MaxDistanceWithFirst", string.Empty, thiefSmokeBomb.m_maxDistanceWithFirst);
+			AbilityMod.AddToken(tokens, m_minDistanceBetweenBombsMod, "MinDistanceBetweenBombs", string.Empty, thiefSmokeBomb.m_minDistanceBetweenBombs);
+			AbilityMod.AddToken_EffectMod(tokens, m_bombHitEffectInfoMod, "BombHitEffectInfo", thiefSmokeBomb.m_bombHitEffectInfo);
+			AbilityMod.AddToken_GroundFieldMod(tokens, m_smokeFieldInfoMod, "SmokeFieldInfo", thiefSmokeBomb.m_smokeFieldInfo);
+			AbilityMod.AddToken(tokens, m_barrierSquareWidthMod, "BarrierSquareWidth", string.Empty, thiefSmokeBomb.m_barrierSquareWidth);
+			AbilityMod.AddToken_BarrierMod(tokens, m_barrierDataMod, "BarrierData", thiefSmokeBomb.m_barrierData);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ThiefSmokeBomb thiefSmokeBomb = base.GetTargetAbilityOnAbilityData(abilityData) as ThiefSmokeBomb;
+		ThiefSmokeBomb thiefSmokeBomb = GetTargetAbilityOnAbilityData(abilityData) as ThiefSmokeBomb;
 		bool flag = thiefSmokeBomb != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt extraDamageOnCastMod = this.m_extraDamageOnCastMod;
-		string prefix = "[ExtraDamageonCast]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt extraDamageOnCastMod = m_extraDamageOnCastMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -71,9 +69,9 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ThiefSmokeBomb.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = thiefSmokeBomb.m_extraDamageOnCast;
 		}
@@ -81,15 +79,13 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + base.PropDesc(extraDamageOnCastMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyBool penetrateLosMod = this.m_penetrateLosMod;
-		string prefix2 = "[PenetrateLos]";
-		bool showBaseVal2 = flag;
-		bool baseVal2;
+		empty = str + PropDesc(extraDamageOnCastMod, "[ExtraDamageonCast]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyBool penetrateLosMod = m_penetrateLosMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -98,23 +94,21 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 				}
 				break;
 			}
-			baseVal2 = thiefSmokeBomb.m_penetrateLos;
+			baseVal2 = (thiefSmokeBomb.m_penetrateLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal2 = false;
+			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(penetrateLosMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_maxAngleWithFirstSegmentMod, "[MaxAngleWithFirstSegment]", flag, (!flag) ? 0 : thiefSmokeBomb.m_maxAngleWithFirstSegment);
-		text += base.PropDesc(this.m_maxDistanceWithFirstMod, "[MaxDistanceWithFirst]", flag, (!flag) ? 0f : thiefSmokeBomb.m_maxDistanceWithFirst);
-		string str3 = text;
-		AbilityModPropertyFloat minDistanceBetweenBombsMod = this.m_minDistanceBetweenBombsMod;
-		string prefix3 = "[MinDistanceBetweenBombs]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(penetrateLosMod, "[PenetrateLos]", flag, (byte)baseVal2 != 0);
+		empty += PropDesc(m_maxAngleWithFirstSegmentMod, "[MaxAngleWithFirstSegment]", flag, flag ? thiefSmokeBomb.m_maxAngleWithFirstSegment : 0);
+		empty += PropDesc(m_maxDistanceWithFirstMod, "[MaxDistanceWithFirst]", flag, (!flag) ? 0f : thiefSmokeBomb.m_maxDistanceWithFirst);
+		string str3 = empty;
+		AbilityModPropertyFloat minDistanceBetweenBombsMod = m_minDistanceBetweenBombsMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -129,15 +123,13 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(minDistanceBetweenBombsMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyEffectInfo bombHitEffectInfoMod = this.m_bombHitEffectInfoMod;
-		string prefix4 = "[BombHitEffectInfo]";
-		bool showBaseVal4 = flag;
-		StandardEffectInfo baseVal4;
+		empty = str3 + PropDesc(minDistanceBetweenBombsMod, "[MinDistanceBetweenBombs]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyEffectInfo bombHitEffectInfoMod = m_bombHitEffectInfoMod;
+		object baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -152,16 +144,14 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 		{
 			baseVal4 = null;
 		}
-		text = str4 + base.PropDesc(bombHitEffectInfoMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDescGroundFieldMod(this.m_smokeFieldInfoMod, "{ SmokeFieldInfo }", thiefSmokeBomb.m_smokeFieldInfo);
-		string str5 = text;
-		AbilityModPropertyBool addBarriersMod = this.m_addBarriersMod;
-		string prefix5 = "[AddBarriers]";
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		empty = str4 + PropDesc(bombHitEffectInfoMod, "[BombHitEffectInfo]", flag, (StandardEffectInfo)baseVal4);
+		empty += PropDescGroundFieldMod(m_smokeFieldInfoMod, "{ SmokeFieldInfo }", thiefSmokeBomb.m_smokeFieldInfo);
+		string str5 = empty;
+		AbilityModPropertyBool addBarriersMod = m_addBarriersMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -170,21 +160,19 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 				}
 				break;
 			}
-			baseVal5 = thiefSmokeBomb.m_addBarriers;
+			baseVal5 = (thiefSmokeBomb.m_addBarriers ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(addBarriersMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyFloat barrierSquareWidthMod = this.m_barrierSquareWidthMod;
-		string prefix6 = "[BarrierSquareWidth]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(addBarriersMod, "[AddBarriers]", flag, (byte)baseVal5 != 0);
+		string str6 = empty;
+		AbilityModPropertyFloat barrierSquareWidthMod = m_barrierSquareWidthMod;
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -199,7 +187,7 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 		{
 			baseVal6 = 0f;
 		}
-		text = str6 + base.PropDesc(barrierSquareWidthMod, prefix6, showBaseVal6, baseVal6);
-		return text + base.PropDescBarrierMod(this.m_barrierDataMod, "{ BarrierData }", thiefSmokeBomb.m_barrierData);
+		empty = str6 + PropDesc(barrierSquareWidthMod, "[BarrierSquareWidth]", flag, baseVal6);
+		return empty + PropDescBarrierMod(m_barrierDataMod, "{ BarrierData }", thiefSmokeBomb.m_barrierData);
 	}
 }

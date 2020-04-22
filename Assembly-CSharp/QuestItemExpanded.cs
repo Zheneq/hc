@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -56,100 +56,91 @@ public class QuestItemExpanded : MonoBehaviour
 
 	private void Start()
 	{
-		this.m_defaultSprite = this.m_contractIcon.sprite;
+		m_defaultSprite = m_contractIcon.sprite;
 	}
 
 	private void Awake()
 	{
-		base.GetComponent<_SelectableBtn>().spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.HandleCollapseClick);
-		this.m_trashButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.HandleTrashClick);
-		this.m_rejectAbandonButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.HandleRejectAbandonClick);
-		this.m_acceptAbandonButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.HandleAcceptAbandonClick);
+		GetComponent<_SelectableBtn>().spriteController.callback = HandleCollapseClick;
+		m_trashButton.spriteController.callback = HandleTrashClick;
+		m_rejectAbandonButton.spriteController.callback = HandleRejectAbandonClick;
+		m_acceptAbandonButton.spriteController.callback = HandleAcceptAbandonClick;
 	}
 
 	private void OnEnable()
 	{
-		if (this.m_questId > 0)
+		if (m_questId <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestItemExpanded.OnEnable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.SetQuestId(this.m_questId);
+			SetQuestId(m_questId);
+			return;
 		}
 	}
 
 	private void HandleCollapseClick(BaseEventData data)
 	{
-		QuestListPanel.Get().CollapseQuestId(this.m_questId);
+		QuestListPanel.Get().CollapseQuestId(m_questId);
 	}
 
 	private void HandleTrashClick(BaseEventData data)
 	{
-		this.m_trashButton.SetSelected(!this.m_trashButton.IsSelected(), false, string.Empty, string.Empty);
+		m_trashButton.SetSelected(!m_trashButton.IsSelected(), false, string.Empty, string.Empty);
 	}
 
 	private void HandleRejectAbandonClick(BaseEventData data)
 	{
-		this.m_trashButton.SetSelected(false, false, string.Empty, string.Empty);
+		m_trashButton.SetSelected(false, false, string.Empty, string.Empty);
 	}
 
 	private void HandleAcceptAbandonClick(BaseEventData data)
 	{
-		this.m_trashButton.SetSelected(false, false, string.Empty, string.Empty);
-		ClientGameManager.Get().AbandonDailyQuest(this.m_questId, null);
+		m_trashButton.SetSelected(false, false, string.Empty, string.Empty);
+		ClientGameManager.Get().AbandonDailyQuest(m_questId);
 	}
 
 	public void SetQuestId(int questId)
 	{
-		this.m_questId = questId;
+		m_questId = questId;
 		if (questId > QuestWideData.Get().m_quests.Count)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Log.Warning("Assigned quest id {0} that is missing data in QuestWideData.", questId);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestItemExpanded.SetQuestId(int)).MethodHandle;
-			}
-			Log.Warning("Assigned quest id {0} that is missing data in QuestWideData.", new object[]
-			{
-				questId
-			});
-			return;
 		}
 		QuestTemplate questTemplate = QuestWideData.Get().m_quests[questId - 1];
-		string text = string.Empty;
-		string text2 = StringUtil.TR_QuestName(questId);
-		string text3 = StringUtil.TR_QuestDescription(questId);
-		if (text2 != string.Empty)
-		{
-			text = string.Format("<size=20>{0}</size>\n<#a9a9a9>{1}", text2, text3);
-		}
-		else
-		{
-			text = text3;
-		}
-		this.m_nameText.text = text;
+		string empty = string.Empty;
+		string text = StringUtil.TR_QuestName(questId);
+		string text2 = StringUtil.TR_QuestDescription(questId);
+		empty = ((!(text != string.Empty)) ? text2 : $"<size=20>{text}</size>\n<#a9a9a9>{text2}");
+		m_nameText.text = empty;
 		Sprite sprite = (Sprite)Resources.Load(questTemplate.IconFilename, typeof(Sprite));
-		if (sprite)
+		if ((bool)sprite)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -158,11 +149,11 @@ public class QuestItemExpanded : MonoBehaviour
 				}
 				break;
 			}
-			this.m_contractIcon.sprite = sprite;
+			m_contractIcon.sprite = sprite;
 		}
 		else
 		{
-			this.m_contractIcon.sprite = this.m_defaultSprite;
+			m_contractIcon.sprite = m_defaultSprite;
 		}
 		int num = 0;
 		int num2 = 0;
@@ -174,100 +165,95 @@ public class QuestItemExpanded : MonoBehaviour
 			questComponent = playerAccountData.QuestComponent;
 			rejectedCount = questComponent.GetRejectedCount(questId);
 		}
-		string text4 = StringUtil.TR_QuestLongDescription(questId);
+		string text3 = StringUtil.TR_QuestLongDescription(questId);
 		int num3 = 0;
 		using (List<QuestObjective>.Enumerator enumerator = questTemplate.Objectives.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				QuestObjective questObjective = enumerator.Current;
-				if (!questObjective.SuperHidden)
+				QuestObjective current = enumerator.Current;
+				if (current.SuperHidden)
 				{
-					int maxCount = questObjective.MaxCount;
-					int num4 = 0;
-					if (questComponent.Progress[this.m_questId].ObjectiveProgress.ContainsKey(num3))
+					while (true)
 					{
-						num4 = questComponent.Progress[this.m_questId].ObjectiveProgress[num3];
-					}
-					string text5 = StringUtil.TR_QuestObjective(questId, num3 + 1);
-					if (num4 != 0)
-					{
-						goto IL_202;
-					}
-					if (!questObjective.Hidden)
-					{
-						for (;;)
+						switch (2)
 						{
-							switch (5)
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num3++;
+					continue;
+				}
+				int maxCount = current.MaxCount;
+				int num4 = 0;
+				if (questComponent.Progress[m_questId].ObjectiveProgress.ContainsKey(num3))
+				{
+					num4 = questComponent.Progress[m_questId].ObjectiveProgress[num3];
+				}
+				string text4 = StringUtil.TR_QuestObjective(questId, num3 + 1);
+				if (num4 == 0)
+				{
+					if (current.Hidden)
+					{
+						goto IL_02dd;
+					}
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+				if (!(text4 == string.Empty))
+				{
+					if (text3 != string.Empty)
+					{
+						text3 += "\n";
+					}
+					if (maxCount != 1)
+					{
+						text3 = ((num4 != maxCount) ? (text3 + $"    {text4} ({num4}/{maxCount})") : (text3 + $"    <color=white>{text4} ({num4}/{maxCount})</color>"));
+					}
+					else
+					{
+						while (true)
+						{
+							switch (7)
 							{
 							case 0:
 								continue;
 							}
-							goto IL_202;
+							break;
 						}
-					}
-					IL_2DD:
-					num3++;
-					continue;
-					IL_202:
-					if (!(text5 == string.Empty))
-					{
-						if (text4 != string.Empty)
+						if (num4 == 1)
 						{
-							text4 += "\n";
-						}
-						if (maxCount == 1)
-						{
-							for (;;)
+							while (true)
 							{
-								switch (7)
+								switch (6)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							if (num4 == 1)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								text4 += string.Format("    <color=white>{0}</color>", text5);
-							}
-							else
-							{
-								text4 += string.Format("    {0}", text5);
-							}
-						}
-						else if (num4 == maxCount)
-						{
-							text4 += string.Format("    <color=white>{0} ({1}/{2})</color>", text5, num4, maxCount);
+							text3 += $"    <color=white>{text4}</color>";
 						}
 						else
 						{
-							text4 += string.Format("    {0} ({1}/{2})", text5, num4, maxCount);
+							text3 += $"    {text4}";
 						}
 					}
-					goto IL_2DD;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				goto IL_02dd;
+				IL_02dd:
 				num3++;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -277,10 +263,10 @@ public class QuestItemExpanded : MonoBehaviour
 				break;
 			}
 		}
-		this.m_longDescription.text = text4;
+		m_longDescription.text = text3;
 		if (questTemplate.ObjectiveCountType == RequiredObjectiveCountType.SumObjectiveProgress)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -292,7 +278,7 @@ public class QuestItemExpanded : MonoBehaviour
 			num2 = QuestItem.GetRequiredObjectiveCount(questTemplate);
 			if (questComponent != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -308,12 +294,12 @@ public class QuestItemExpanded : MonoBehaviour
 					{
 						while (enumerator2.MoveNext())
 						{
-							KeyValuePair<int, int> keyValuePair = enumerator2.Current;
-							int value = keyValuePair.Value;
-							int key = keyValuePair.Key;
+							KeyValuePair<int, int> current2 = enumerator2.Current;
+							int value = current2.Value;
+							int key = current2.Key;
 							if (questTemplate.Objectives.Count <= key)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -325,7 +311,7 @@ public class QuestItemExpanded : MonoBehaviour
 							}
 							else if (questTemplate.Objectives[key].SuperHidden)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -340,7 +326,7 @@ public class QuestItemExpanded : MonoBehaviour
 								num += value;
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -355,7 +341,7 @@ public class QuestItemExpanded : MonoBehaviour
 		}
 		else if (questTemplate.Objectives.Count == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -367,7 +353,7 @@ public class QuestItemExpanded : MonoBehaviour
 			num2 = questTemplate.Objectives[0].MaxCount;
 			if (questComponent != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -378,7 +364,7 @@ public class QuestItemExpanded : MonoBehaviour
 				}
 				if (questComponent.Progress.ContainsKey(questId))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -390,7 +376,7 @@ public class QuestItemExpanded : MonoBehaviour
 					QuestProgress questProgress2 = questComponent.Progress[questId];
 					if (questProgress2.ObjectiveProgress.ContainsKey(0))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -401,7 +387,7 @@ public class QuestItemExpanded : MonoBehaviour
 						}
 						if (!questTemplate.Objectives[0].SuperHidden)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -421,7 +407,7 @@ public class QuestItemExpanded : MonoBehaviour
 			num2 = QuestItem.GetRequiredObjectiveCount(questTemplate);
 			if (questComponent != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -432,7 +418,7 @@ public class QuestItemExpanded : MonoBehaviour
 				}
 				if (questComponent.Progress.ContainsKey(questId))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -446,13 +432,13 @@ public class QuestItemExpanded : MonoBehaviour
 					{
 						while (enumerator3.MoveNext())
 						{
-							KeyValuePair<int, int> keyValuePair2 = enumerator3.Current;
-							int key2 = keyValuePair2.Key;
+							KeyValuePair<int, int> current3 = enumerator3.Current;
+							int key2 = current3.Key;
 							if (questTemplate.Objectives.Count > key2)
 							{
 								if (questTemplate.Objectives[key2].SuperHidden)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (2)
 										{
@@ -462,9 +448,9 @@ public class QuestItemExpanded : MonoBehaviour
 										break;
 									}
 								}
-								else if (questTemplate.Objectives[keyValuePair2.Key].MaxCount <= keyValuePair2.Value)
+								else if (questTemplate.Objectives[current3.Key].MaxCount <= current3.Value)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (1)
 										{
@@ -477,7 +463,7 @@ public class QuestItemExpanded : MonoBehaviour
 								}
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -491,19 +477,20 @@ public class QuestItemExpanded : MonoBehaviour
 			}
 		}
 		num = Mathf.Min(num, num2);
-		string text6 = string.Format("{0}/{1}", num, num2);
-		this.m_progressText.text = text6;
-		this.m_progressBar.fillAmount = (float)num / (1f * (float)num2);
+		string text5 = $"{num}/{num2}";
+		m_progressText.text = text5;
+		m_progressBar.fillAmount = (float)num / (1f * (float)num2);
 		int num5 = 0;
 		num5 += questTemplate.Rewards.CurrencyRewards.Count;
 		num5 += questTemplate.Rewards.UnlockRewards.Count;
 		num5 = Mathf.Max(0, Mathf.Min(3, num5));
 		int num6 = 0;
-		foreach (QuestReward questReward in this.m_questRewards)
+		QuestReward[] questRewards = m_questRewards;
+		foreach (QuestReward questReward in questRewards)
 		{
 			if (num6 >= num5)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -512,71 +499,71 @@ public class QuestItemExpanded : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(questReward, false, null);
+				UIManager.SetGameObjectActive(questReward, false);
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(questReward, true, null);
+				UIManager.SetGameObjectActive(questReward, true);
 				if (num6 < questTemplate.Rewards.CurrencyRewards.Count)
 				{
 					questReward.Setup(questTemplate.Rewards.CurrencyRewards[num6], rejectedCount);
 				}
 				else
 				{
-					questReward.SetupHack(questTemplate.Rewards.UnlockRewards[num6 - questTemplate.Rewards.CurrencyRewards.Count].resourceString, 0);
+					questReward.SetupHack(questTemplate.Rewards.UnlockRewards[num6 - questTemplate.Rewards.CurrencyRewards.Count].resourceString);
 				}
 				num6++;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (num5 == 0)
-		{
-			UIManager.SetGameObjectActive(this.m_rewardsContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_rewardsDivider, false, null);
-		}
-		else
-		{
-			UIManager.SetGameObjectActive(this.m_rewardsContainer, true, null);
-			UIManager.SetGameObjectActive(this.m_rewardsDivider, true, null);
-		}
-		if (text4.IsNullOrEmpty())
-		{
-			for (;;)
+			if (num5 == 0)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				UIManager.SetGameObjectActive(m_rewardsContainer, false);
+				UIManager.SetGameObjectActive(m_rewardsDivider, false);
 			}
-			UIManager.SetGameObjectActive(this.m_detailTextContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_detailsDivider, false, null);
+			else
+			{
+				UIManager.SetGameObjectActive(m_rewardsContainer, true);
+				UIManager.SetGameObjectActive(m_rewardsDivider, true);
+			}
+			if (text3.IsNullOrEmpty())
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				UIManager.SetGameObjectActive(m_detailTextContainer, false);
+				UIManager.SetGameObjectActive(m_detailsDivider, false);
+			}
+			else
+			{
+				UIManager.SetGameObjectActive(m_detailTextContainer, true);
+				UIManager.SetGameObjectActive(m_detailsDivider, true);
+			}
+			m_lateUpdateCount = 5;
+			UpdateHeight();
+			return;
 		}
-		else
-		{
-			UIManager.SetGameObjectActive(this.m_detailTextContainer, true, null);
-			UIManager.SetGameObjectActive(this.m_detailsDivider, true, null);
-		}
-		this.m_lateUpdateCount = 5;
-		this.UpdateHeight();
 	}
 
 	private void UpdateHeight()
 	{
-		if (this.m_detailTextContainer.gameObject.activeSelf)
+		if (m_detailTextContainer.gameObject.activeSelf)
 		{
-			if (this.m_longDescription.text == null)
+			if (m_longDescription.text == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -585,18 +572,18 @@ public class QuestItemExpanded : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestItemExpanded.UpdateHeight()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_longDescription.text = string.Empty;
+				m_longDescription.text = string.Empty;
 			}
-			this.m_longDescription.CalculateLayoutInputHorizontal();
-			this.m_longDescription.CalculateLayoutInputVertical();
+			m_longDescription.CalculateLayoutInputHorizontal();
+			m_longDescription.CalculateLayoutInputVertical();
 			float num = 0f;
-			if (this.m_longDescription.text != null)
+			if (m_longDescription.text != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -605,51 +592,52 @@ public class QuestItemExpanded : MonoBehaviour
 					}
 					break;
 				}
-				if (this.m_longDescription.text != string.Empty)
+				if (m_longDescription.text != string.Empty)
 				{
-					num = this.m_longDescription.preferredHeight + 20f;
+					num = m_longDescription.preferredHeight + 20f;
 				}
 			}
-			this.m_detailTextContainer.minHeight = num;
-			this.m_detailTextContainer.preferredHeight = num;
+			m_detailTextContainer.minHeight = num;
+			m_detailTextContainer.preferredHeight = num;
 		}
-		this.m_verticalLayoutGroup.CalculateLayoutInputHorizontal();
-		this.m_verticalLayoutGroup.CalculateLayoutInputVertical();
+		m_verticalLayoutGroup.CalculateLayoutInputHorizontal();
+		m_verticalLayoutGroup.CalculateLayoutInputVertical();
 		try
 		{
 			RectTransform rectTransform = (RectTransform)base.transform;
 			Vector2 sizeDelta = rectTransform.sizeDelta;
-			sizeDelta.y = this.m_verticalLayoutGroup.preferredHeight;
+			sizeDelta.y = m_verticalLayoutGroup.preferredHeight;
 			rectTransform.sizeDelta = sizeDelta;
-			LayoutElement component = base.GetComponent<LayoutElement>();
-			component.preferredHeight = this.m_verticalLayoutGroup.preferredHeight;
-			component.minHeight = this.m_verticalLayoutGroup.preferredHeight;
+			LayoutElement component = GetComponent<LayoutElement>();
+			component.preferredHeight = m_verticalLayoutGroup.preferredHeight;
+			component.minHeight = m_verticalLayoutGroup.preferredHeight;
 		}
 		catch (Exception ex)
 		{
-			Log.Info("Exception in UpdateHeight for QuestItemExpanded!" + ex.ToString(), new object[0]);
+			Log.Info("Exception in UpdateHeight for QuestItemExpanded!" + ex.ToString());
 		}
 	}
 
 	private void LateUpdate()
 	{
-		if (this.m_lateUpdateCount > 0)
+		if (m_lateUpdateCount <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestItemExpanded.LateUpdate()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_lateUpdateCount--;
-			this.UpdateHeight();
+			m_lateUpdateCount--;
+			UpdateHeight();
+			return;
 		}
 	}
 }

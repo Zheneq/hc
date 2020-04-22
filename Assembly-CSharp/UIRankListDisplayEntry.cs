@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -30,12 +29,12 @@ public class UIRankListDisplayEntry : MonoBehaviour
 
 	private void Awake()
 	{
-		this.m_theBtn.spriteController.GetComponent<UITooltipClickObject>().Setup(TooltipType.PlayerBannerMenu, new TooltipPopulateCall(this.EntryClicked), null);
+		m_theBtn.spriteController.GetComponent<UITooltipClickObject>().Setup(TooltipType.PlayerBannerMenu, EntryClicked);
 	}
 
 	private bool EntryClicked(UITooltipBase tooltip)
 	{
-		(tooltip as GameOverBannerMenu).Setup(this.AccountHandle, this.AccountID);
+		(tooltip as GameOverBannerMenu).Setup(AccountHandle, AccountID);
 		return true;
 	}
 }

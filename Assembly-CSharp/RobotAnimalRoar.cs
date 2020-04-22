@@ -1,10 +1,15 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RobotAnimalRoar : Ability
 {
-	public RobotAnimalRoar.TargetingMode m_targetingMode;
+	public enum TargetingMode
+	{
+		Shape,
+		Radius
+	}
+
+	public TargetingMode m_targetingMode;
 
 	public bool m_penetrateLineOfSight;
 
@@ -38,134 +43,111 @@ public class RobotAnimalRoar : Ability
 
 	private void Start()
 	{
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		bool flag = this.AffectEnemies();
-		bool flag2 = this.AffectAllies();
-		if (this.m_targetingMode == RobotAnimalRoar.TargetingMode.Shape)
+		bool flag = AffectEnemies();
+		bool flag2 = AffectAllies();
+		if (m_targetingMode == TargetingMode.Shape)
 		{
-			for (;;)
+			while (true)
 			{
+				AbilityUtil_Targeter.AffectsActor affectsCaster;
 				switch (1)
+				{
+				case 0:
+					break;
+				default:
+					{
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						if (!m_selfEffect.m_applyEffect)
+						{
+							if (!HasSelfEffectFromBaseMod())
+							{
+								if (m_allyEffect_includingMe.m_applyEffect)
+								{
+									while (true)
+									{
+										switch (1)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
+								}
+								else
+								{
+									affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
+								}
+								goto IL_0070;
+							}
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+						affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
+						goto IL_0070;
+					}
+					IL_0070:
+					if (UseInnerShape())
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								break;
+							default:
+							{
+								List<AbilityAreaShape> list = new List<AbilityAreaShape>();
+								list.Add(GetInnerShape());
+								list.Add(GetTargetingShape());
+								List<AbilityTooltipSubject> list2 = new List<AbilityTooltipSubject>();
+								list2.Add(AbilityTooltipSubject.Secondary);
+								list2.Add(AbilityTooltipSubject.Primary);
+								List<AbilityTooltipSubject> subjects = list2;
+								base.Targeter = new AbilityUtil_Targeter_MultipleShapes(this, list, subjects, GetPenetrateLos(), flag, flag2, m_selfEffect.m_applyEffect);
+								return;
+							}
+							}
+						}
+					}
+					base.Targeter = new AbilityUtil_Targeter_Shape(this, GetTargetingShape(), GetPenetrateLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, flag, flag2, affectsCaster);
+					(base.Targeter as AbilityUtil_Targeter_Shape).SetTooltipSubjectTypes(AbilityTooltipSubject.Primary, AbilityTooltipSubject.Ally);
+					return;
+				}
+			}
+		}
+		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, GetTargetingRadius(), GetPenetrateLos(), flag, flag2);
+		if (!m_selfEffect.m_applyEffect)
+		{
+			while (true)
+			{
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (!HasSelfEffectFromBaseMod())
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.SetupTargeter()).MethodHandle;
+				return;
 			}
-			AbilityUtil_Targeter.AffectsActor affectsCaster;
-			if (!this.m_selfEffect.m_applyEffect)
-			{
-				if (base.HasSelfEffectFromBaseMod())
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
-				{
-					if (this.m_allyEffect_includingMe.m_applyEffect)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
-						goto IL_70;
-					}
-					affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
-					goto IL_70;
-				}
-			}
-			affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
-			IL_70:
-			if (this.UseInnerShape())
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				List<AbilityAreaShape> list = new List<AbilityAreaShape>();
-				list.Add(this.GetInnerShape());
-				list.Add(this.GetTargetingShape());
-				List<AbilityTooltipSubject> subjects = new List<AbilityTooltipSubject>
-				{
-					AbilityTooltipSubject.Secondary,
-					AbilityTooltipSubject.Primary
-				};
-				base.Targeter = new AbilityUtil_Targeter_MultipleShapes(this, list, subjects, this.GetPenetrateLos(), flag, flag2, this.m_selfEffect.m_applyEffect);
-			}
-			else
-			{
-				base.Targeter = new AbilityUtil_Targeter_Shape(this, this.GetTargetingShape(), this.GetPenetrateLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, flag, flag2, affectsCaster, AbilityUtil_Targeter.AffectsActor.Possible);
-				(base.Targeter as AbilityUtil_Targeter_Shape).SetTooltipSubjectTypes(AbilityTooltipSubject.Primary, AbilityTooltipSubject.Ally, AbilityTooltipSubject.None);
-			}
-		}
-		else
-		{
-			base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, this.GetTargetingRadius(), this.GetPenetrateLos(), flag, flag2, -1);
-			if (!this.m_selfEffect.m_applyEffect)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!base.HasSelfEffectFromBaseMod())
-				{
-					return;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			base.Targeter.SetAffectedGroups(flag, flag2, true);
-		}
-	}
-
-	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
-	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		if (this.GetDamageAmount() != 0)
-		{
-			AbilityTooltipHelper.ReportDamage(ref list, AbilityTooltipSubject.Primary, this.GetDamageAmount());
-		}
-		if (this.UseInnerShape())
-		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -174,19 +156,41 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
-			AbilityTooltipHelper.ReportDamage(ref list, AbilityTooltipSubject.Secondary, this.GetInnerShapeDamage());
 		}
-		this.m_enemyEffect.ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Enemy);
-		this.m_allyEffect_includingMe.ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Ally);
-		this.m_allyEffect_excludingMe.ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Ally);
-		int moddedHealingForAllies = this.GetModdedHealingForAllies();
+		base.Targeter.SetAffectedGroups(flag, flag2, true);
+	}
+
+	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
+	{
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		if (GetDamageAmount() != 0)
+		{
+			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetDamageAmount());
+		}
+		if (UseInnerShape())
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, GetInnerShapeDamage());
+		}
+		m_enemyEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		m_allyEffect_includingMe.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
+		m_allyEffect_excludingMe.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
+		int moddedHealingForAllies = GetModdedHealingForAllies();
 		if (moddedHealingForAllies != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -195,12 +199,12 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, moddedHealingForAllies));
+			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, moddedHealingForAllies));
 		}
-		int moddedTechPointGainForAllies = this.GetModdedTechPointGainForAllies();
+		int moddedTechPointGainForAllies = GetModdedTechPointGainForAllies();
 		if (moddedTechPointGainForAllies != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -209,19 +213,19 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Energy, AbilityTooltipSubject.Ally, moddedTechPointGainForAllies));
+			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Energy, AbilityTooltipSubject.Ally, moddedTechPointGainForAllies));
 		}
-		this.m_selfEffect.ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Self);
-		base.AppendTooltipNumbersFromBaseModEffects(ref list, AbilityTooltipSubject.Enemy, AbilityTooltipSubject.Ally, AbilityTooltipSubject.Self);
-		return list;
+		m_selfEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		AppendTooltipNumbersFromBaseModEffects(ref numbers, AbilityTooltipSubject.Enemy);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
-		if (this.m_targetingMode == RobotAnimalRoar.TargetingMode.Shape)
+		if (m_targetingMode == TargetingMode.Shape)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -230,16 +234,16 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.UseInnerShape())
+			if (UseInnerShape())
 			{
 				List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeters[currentTargeterIndex].GetTooltipSubjectTypes(targetActor);
 				if (tooltipSubjectTypes != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -253,11 +257,10 @@ public class RobotAnimalRoar : Ability
 					if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 					{
 						Dictionary<AbilityTooltipSymbol, int> dictionary2 = dictionary;
-						AbilityTooltipSymbol key = AbilityTooltipSymbol.Damage;
 						int value;
 						if (flag)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -266,13 +269,13 @@ public class RobotAnimalRoar : Ability
 								}
 								break;
 							}
-							value = this.GetDamageAmount();
+							value = GetDamageAmount();
 						}
 						else
 						{
-							value = this.GetInnerShapeDamage();
+							value = GetInnerShapeDamage();
 						}
-						dictionary2[key] = value;
+						dictionary2[AbilityTooltipSymbol.Damage] = value;
 					}
 					else
 					{
@@ -281,9 +284,9 @@ public class RobotAnimalRoar : Ability
 				}
 			}
 		}
-		else if (this.GetInnerRadius() > 0f)
+		else if (GetInnerRadius() > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -296,7 +299,7 @@ public class RobotAnimalRoar : Ability
 			ActorData actorData = base.ActorData;
 			if (actorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -305,9 +308,9 @@ public class RobotAnimalRoar : Ability
 					}
 					break;
 				}
-				if (targetActor.\u0012() != null)
+				if (targetActor.GetCurrentBoardSquare() != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -319,13 +322,12 @@ public class RobotAnimalRoar : Ability
 					if (tooltipSubjectTypes2 != null && tooltipSubjectTypes2.Contains(AbilityTooltipSubject.Enemy))
 					{
 						dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-						bool flag2 = AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.\u0012(), actorData.\u0016(), 0f, 360f, this.GetInnerRadius(), 0f, this.GetPenetrateLos(), actorData, false, default(Vector3));
+						bool flag2 = AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.GetCurrentBoardSquare(), actorData.GetTravelBoardSquareWorldPosition(), 0f, 360f, GetInnerRadius(), 0f, GetPenetrateLos(), actorData);
 						Dictionary<AbilityTooltipSymbol, int> dictionary3 = dictionary;
-						AbilityTooltipSymbol key2 = AbilityTooltipSymbol.Damage;
 						int value2;
 						if (flag2)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -334,13 +336,13 @@ public class RobotAnimalRoar : Ability
 								}
 								break;
 							}
-							value2 = this.GetInnerShapeDamage();
+							value2 = GetInnerShapeDamage();
 						}
 						else
 						{
-							value2 = this.GetDamageAmount();
+							value2 = GetDamageAmount();
 						}
-						dictionary3[key2] = value2;
+						dictionary3[AbilityTooltipSymbol.Damage] = value2;
 					}
 				}
 			}
@@ -351,16 +353,15 @@ public class RobotAnimalRoar : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_RobotAnimalRoar abilityMod_RobotAnimalRoar = modAsBase as AbilityMod_RobotAnimalRoar;
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_allyEffect_includingMe, "AllyEffect_includingMe", this.m_allyEffect_includingMe, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_allyEffect_excludingMe, "AllyEffect_excludingMe", this.m_allyEffect_excludingMe, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyEffect, "EnemyEffect", this.m_enemyEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_selfEffect, "SelfEffect", this.m_selfEffect, true);
-		string name = "Damage";
+		AbilityMod.AddToken_EffectInfo(tokens, m_allyEffect_includingMe, "AllyEffect_includingMe", m_allyEffect_includingMe);
+		AbilityMod.AddToken_EffectInfo(tokens, m_allyEffect_excludingMe, "AllyEffect_excludingMe", m_allyEffect_excludingMe);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyEffect, "EnemyEffect", m_enemyEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_selfEffect, "SelfEffect", m_selfEffect);
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_RobotAnimalRoar)
+		if ((bool)abilityMod_RobotAnimalRoar)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -369,24 +370,23 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_RobotAnimalRoar.m_damageMod.GetModifiedValue(this.m_damage);
+			val = abilityMod_RobotAnimalRoar.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
 		{
-			val = this.m_damage;
+			val = m_damage;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		int input = (this.m_innerShapeDamage >= 0) ? this.m_innerShapeDamage : this.m_damage;
-		string name2 = "InnerShapeDamage";
+		AddTokenInt(tokens, "Damage", empty, val);
+		int input = (m_innerShapeDamage >= 0) ? m_innerShapeDamage : m_damage;
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_RobotAnimalRoar)
+		if ((bool)abilityMod_RobotAnimalRoar)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -399,49 +399,47 @@ public class RobotAnimalRoar : Ability
 		}
 		else
 		{
-			val2 = this.m_innerShapeDamage;
+			val2 = m_innerShapeDamage;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
+		AddTokenInt(tokens, "InnerShapeDamage", empty2, val2);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RobotAnimalRoar))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_abilityMod = (abilityMod as AbilityMod_RobotAnimalRoar);
+					SetupTargeter();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_RobotAnimalRoar);
-			this.SetupTargeter();
 		}
-		else
-		{
-			Debug.LogError("Trying to apply wrong type of ability mod");
-		}
+		Debug.LogError("Trying to apply wrong type of ability mod");
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	public AbilityAreaShape GetTargetingShape()
 	{
 		AbilityAreaShape result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -450,24 +448,24 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.GetTargetingShape()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_aoeShape;
+			result = m_aoeShape;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_shapeMod.GetModifiedValue(this.m_aoeShape);
+			result = m_abilityMod.m_shapeMod.GetModifiedValue(m_aoeShape);
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffectInfo()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -476,33 +474,33 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.GetEnemyHitEffectInfo()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_abilityMod.m_enemyHitEffectOverride.m_applyEffect)
+			if (m_abilityMod.m_enemyHitEffectOverride.m_applyEffect)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_abilityMod.m_enemyHitEffectOverride;
 					}
-					break;
 				}
-				return this.m_abilityMod.m_enemyHitEffectOverride;
 			}
 		}
-		return this.m_enemyEffect;
+		return m_enemyEffect;
 	}
 
 	public bool GetPenetrateLos()
 	{
 		bool result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -511,30 +509,30 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.GetPenetrateLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_penetrateLineOfSight;
+			result = m_penetrateLineOfSight;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLineOfSight);
+			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLineOfSight);
 		}
 		return result;
 	}
 
 	public int GetTechPointDamage()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_techPointDamageMod.GetModifiedValue(0) : 0;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_techPointDamageMod.GetModifiedValue(0) : 0;
 	}
 
 	public int GetDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -543,15 +541,15 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.GetDamageAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_damage;
+			result = m_damage;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damage);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
 		}
 		return result;
 	}
@@ -559,9 +557,9 @@ public class RobotAnimalRoar : Ability
 	public int GetModdedHealingForAllies()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -570,30 +568,30 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.GetModdedHealingForAllies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = 0;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_healAmountToTargetAllyOnHit;
+			result = m_abilityMod.m_healAmountToTargetAllyOnHit;
 		}
 		return result;
 	}
 
 	public int GetModdedTechPointGainForAllies()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_techPointGainToTargetAllyOnHit : 0;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_techPointGainToTargetAllyOnHit : 0;
 	}
 
 	public bool UseInnerShape()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -602,15 +600,15 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.UseInnerShape()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_useInnerShapeMod.GetModifiedValue(this.m_useInnerShape);
+			result = m_abilityMod.m_useInnerShapeMod.GetModifiedValue(m_useInnerShape);
 		}
 		else
 		{
-			result = this.m_useInnerShape;
+			result = m_useInnerShape;
 		}
 		return result;
 	}
@@ -618,9 +616,9 @@ public class RobotAnimalRoar : Ability
 	public AbilityAreaShape GetInnerShape()
 	{
 		AbilityAreaShape result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -629,15 +627,15 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.GetInnerShape()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_innerShapeMod.GetModifiedValue(this.m_innerShape);
+			result = m_abilityMod.m_innerShapeMod.GetModifiedValue(m_innerShape);
 		}
 		else
 		{
-			result = this.m_innerShape;
+			result = m_innerShape;
 		}
 		return result;
 	}
@@ -645,9 +643,9 @@ public class RobotAnimalRoar : Ability
 	public int GetInnerShapeDamage()
 	{
 		int num;
-		if (this.m_innerShapeDamage < 0)
+		if (m_innerShapeDamage < 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -656,21 +654,21 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.GetInnerShapeDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = this.m_damage;
+			num = m_damage;
 		}
 		else
 		{
-			num = this.m_innerShapeDamage;
+			num = m_innerShapeDamage;
 		}
 		int num2 = num;
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -679,7 +677,7 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			result = this.m_abilityMod.m_innerShapeDamageMod.GetModifiedValue(num2);
+			result = m_abilityMod.m_innerShapeDamageMod.GetModifiedValue(num2);
 		}
 		else
 		{
@@ -690,20 +688,21 @@ public class RobotAnimalRoar : Ability
 
 	public float GetTargetingRadius()
 	{
-		return (!this.m_abilityMod) ? this.m_targetingRadius : this.m_abilityMod.m_targetingRadiusMod.GetModifiedValue(this.m_targetingRadius);
+		return (!m_abilityMod) ? m_targetingRadius : m_abilityMod.m_targetingRadiusMod.GetModifiedValue(m_targetingRadius);
 	}
 
 	public float GetInnerRadius()
 	{
-		return (!this.m_abilityMod) ? this.m_innerRadius : this.m_abilityMod.m_innerRadiusMod.GetModifiedValue(this.m_innerRadius);
+		return (!m_abilityMod) ? m_innerRadius : m_abilityMod.m_innerRadiusMod.GetModifiedValue(m_innerRadius);
 	}
 
 	public bool AffectAllies()
 	{
-		StandardEffectInfo moddedEffectForAllies = base.GetModdedEffectForAllies();
-		if (!this.m_allyEffect_excludingMe.m_applyEffect)
+		StandardEffectInfo moddedEffectForAllies = GetModdedEffectForAllies();
+		int result;
+		if (!m_allyEffect_excludingMe.m_applyEffect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -712,13 +711,13 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.AffectAllies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_allyEffect_includingMe.m_applyEffect)
+			if (!m_allyEffect_includingMe.m_applyEffect)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -727,9 +726,9 @@ public class RobotAnimalRoar : Ability
 					}
 					break;
 				}
-				if ((moddedEffectForAllies == null || !moddedEffectForAllies.m_applyEffect) && this.GetModdedHealingForAllies() == 0)
+				if ((moddedEffectForAllies == null || !moddedEffectForAllies.m_applyEffect) && GetModdedHealingForAllies() == 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -738,18 +737,23 @@ public class RobotAnimalRoar : Ability
 						}
 						break;
 					}
-					return this.GetModdedTechPointGainForAllies() != 0;
+					result = ((GetModdedTechPointGainForAllies() != 0) ? 1 : 0);
+					goto IL_006e;
 				}
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_006e;
+		IL_006e:
+		return (byte)result != 0;
 	}
 
 	public bool AffectEnemies()
 	{
-		if (this.GetDamageAmount() <= 0)
+		int result;
+		if (GetDamageAmount() <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -758,13 +762,13 @@ public class RobotAnimalRoar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalRoar.AffectEnemies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.GetTechPointDamage() <= 0)
+			if (GetTechPointDamage() <= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -773,15 +777,13 @@ public class RobotAnimalRoar : Ability
 					}
 					break;
 				}
-				return this.GetEnemyHitEffectInfo().m_applyEffect;
+				result = (GetEnemyHitEffectInfo().m_applyEffect ? 1 : 0);
+				goto IL_0041;
 			}
 		}
-		return true;
-	}
-
-	public enum TargetingMode
-	{
-		Shape,
-		Radius
+		result = 1;
+		goto IL_0041;
+		IL_0041:
+		return (byte)result != 0;
 	}
 }

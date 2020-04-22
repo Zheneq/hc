@@ -1,4 +1,3 @@
-﻿using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -13,67 +12,16 @@ public class Cleric_SyncComponent : NetworkBehaviour
 
 	private static readonly int animAttackRange = Animator.StringToHash("AttackRange");
 
-	internal void MeleeKnockbackAnimRangeChanged(int value)
-	{
-		ActorData component = base.GetComponent<ActorData>();
-		if (component != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Cleric_SyncComponent.MeleeKnockbackAnimRangeChanged(int)).MethodHandle;
-			}
-			if (component.\u000E() != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (component.\u000E().HasAnimatorControllerParamater("AttackRange"))
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Animator modelAnimator = component.\u000E().GetModelAnimator();
-					modelAnimator.SetInteger(Cleric_SyncComponent.animAttackRange, value);
-				}
-			}
-		}
-	}
-
-	private void UNetVersion()
-	{
-	}
-
 	public int Networkm_turnsAreaBuffActive
 	{
 		get
 		{
-			return this.m_turnsAreaBuffActive;
+			return m_turnsAreaBuffActive;
 		}
 		[param: In]
 		set
 		{
-			base.SetSyncVar<int>(value, ref this.m_turnsAreaBuffActive, 1U);
+			SetSyncVar(value, ref m_turnsAreaBuffActive, 1u);
 		}
 	}
 
@@ -81,15 +29,15 @@ public class Cleric_SyncComponent : NetworkBehaviour
 	{
 		get
 		{
-			return this.m_meleeKnockbackAnimRange;
+			return m_meleeKnockbackAnimRange;
 		}
 		[param: In]
 		set
 		{
-			uint dirtyBit = 2U;
+			ref int meleeKnockbackAnimRange = ref m_meleeKnockbackAnimRange;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -98,13 +46,13 @@ public class Cleric_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Cleric_SyncComponent.set_Networkm_meleeKnockbackAnimRange(int)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (!base.syncVarHookGuard)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -114,26 +62,78 @@ public class Cleric_SyncComponent : NetworkBehaviour
 						break;
 					}
 					base.syncVarHookGuard = true;
-					this.MeleeKnockbackAnimRangeChanged(value);
+					MeleeKnockbackAnimRangeChanged(value);
 					base.syncVarHookGuard = false;
 				}
 			}
-			base.SetSyncVar<int>(value, ref this.m_meleeKnockbackAnimRange, dirtyBit);
+			SetSyncVar(value, ref meleeKnockbackAnimRange, 2u);
 		}
+	}
+
+	internal void MeleeKnockbackAnimRangeChanged(int value)
+	{
+		ActorData component = GetComponent<ActorData>();
+		if (!(component != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(component.GetActorModelData() != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				if (component.GetActorModelData().HasAnimatorControllerParamater("AttackRange"))
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						Animator modelAnimator = component.GetActorModelData().GetModelAnimator();
+						modelAnimator.SetInteger(animAttackRange, value);
+						return;
+					}
+				}
+				return;
+			}
+		}
+	}
+
+	private void UNetVersion()
+	{
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			writer.WritePackedUInt32((uint)this.m_turnsAreaBuffActive);
-			writer.WritePackedUInt32((uint)this.m_meleeKnockbackAnimRange);
+			writer.WritePackedUInt32((uint)m_turnsAreaBuffActive);
+			writer.WritePackedUInt32((uint)m_meleeKnockbackAnimRange);
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -142,13 +142,13 @@ public class Cleric_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Cleric_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -160,11 +160,11 @@ public class Cleric_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_turnsAreaBuffActive);
+			writer.WritePackedUInt32((uint)m_turnsAreaBuffActive);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -178,11 +178,11 @@ public class Cleric_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_meleeKnockbackAnimRange);
+			writer.WritePackedUInt32((uint)m_meleeKnockbackAnimRange);
 		}
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -200,31 +200,32 @@ public class Cleric_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			this.m_turnsAreaBuffActive = (int)reader.ReadPackedUInt32();
-			this.m_meleeKnockbackAnimRange = (int)reader.ReadPackedUInt32();
+			m_turnsAreaBuffActive = (int)reader.ReadPackedUInt32();
+			m_meleeKnockbackAnimRange = (int)reader.ReadPackedUInt32();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			this.m_turnsAreaBuffActive = (int)reader.ReadPackedUInt32();
+			m_turnsAreaBuffActive = (int)reader.ReadPackedUInt32();
 		}
-		if ((num & 2) != 0)
+		if ((num & 2) == 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Cleric_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.MeleeKnockbackAnimRangeChanged((int)reader.ReadPackedUInt32());
+			MeleeKnockbackAnimRangeChanged((int)reader.ReadPackedUInt32());
+			return;
 		}
 	}
 }

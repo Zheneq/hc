@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
 using LobbyGameClientMessages;
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class UIGameStatsWindow : UIScene, IGameEventListener
 {
+	public enum StatsPage
+	{
+		Numbers,
+		Mods
+	}
+
 	public RectTransform m_container;
 
 	public RectTransform m_resizePanel;
@@ -53,7 +59,7 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 
 	public TextMeshProUGUI m_frontendHeaderObjective;
 
-	private UIGameStatsWindow.StatsPage m_currentPage;
+	private StatsPage m_currentPage;
 
 	private float m_fullPanelHeight;
 
@@ -61,7 +67,7 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 
 	public static UIGameStatsWindow Get()
 	{
-		return UIGameStatsWindow.s_instance;
+		return s_instance;
 	}
 
 	public override SceneType GetSceneType()
@@ -71,13 +77,14 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 
 	public override void Awake()
 	{
-		UIGameStatsWindow.s_instance = this;
-		this.m_StatsBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnStatsBtnClicked);
-		this.m_ModsBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnModsBtnClicked);
-		this.m_closeBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnCloseBtnClicked);
-		this.m_closeBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.Close;
-		this.SetToggleStatsVisible(false, false);
-		this.m_fullPanelHeight = this.m_resizePanel.sizeDelta.y;
+		s_instance = this;
+		m_StatsBtn.spriteController.callback = OnStatsBtnClicked;
+		m_ModsBtn.spriteController.callback = OnModsBtnClicked;
+		m_closeBtn.spriteController.callback = OnCloseBtnClicked;
+		m_closeBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.Close;
+		SetToggleStatsVisible(false, false);
+		Vector2 sizeDelta = m_resizePanel.sizeDelta;
+		m_fullPanelHeight = sizeDelta.y;
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.GameTeardown);
 		base.Awake();
 	}
@@ -89,14 +96,14 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 
 	public void Refresh()
 	{
-		this.SetStatePage(this.m_currentPage);
+		SetStatePage(m_currentPage);
 	}
 
-	public void SetStatePage(UIGameStatsWindow.StatsPage page)
+	public void SetStatePage(StatsPage page)
 	{
-		if (page == UIGameStatsWindow.StatsPage.Mods)
+		if (page == StatsPage.Mods)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -105,18 +112,18 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameStatsWindow.SetStatePage(UIGameStatsWindow.StatsPage)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_StatsBtn.SetSelected(false, false, string.Empty, string.Empty);
-			this.m_ModsBtn.SetSelected(true, false, string.Empty, string.Empty);
-			UIManager.SetGameObjectActive(this.m_statsLabelHeaders, false, null);
-			UIManager.SetGameObjectActive(this.m_modLabelHeaders, true, null);
+			m_StatsBtn.SetSelected(false, false, string.Empty, string.Empty);
+			m_ModsBtn.SetSelected(true, false, string.Empty, string.Empty);
+			UIManager.SetGameObjectActive(m_statsLabelHeaders, false);
+			UIManager.SetGameObjectActive(m_modLabelHeaders, true);
 		}
-		else if (page == UIGameStatsWindow.StatsPage.Numbers)
+		else if (page == StatsPage.Numbers)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -125,86 +132,90 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				}
 				break;
 			}
-			this.m_StatsBtn.SetSelected(true, false, string.Empty, string.Empty);
-			this.m_ModsBtn.SetSelected(false, false, string.Empty, string.Empty);
-			UIManager.SetGameObjectActive(this.m_statsLabelHeaders, true, null);
-			UIManager.SetGameObjectActive(this.m_modLabelHeaders, false, null);
+			m_StatsBtn.SetSelected(true, false, string.Empty, string.Empty);
+			m_ModsBtn.SetSelected(false, false, string.Empty, string.Empty);
+			UIManager.SetGameObjectActive(m_statsLabelHeaders, true);
+			UIManager.SetGameObjectActive(m_modLabelHeaders, false);
 		}
-		this.m_currentPage = page;
-		foreach (UIGameOverPlayerEntry uigameOverPlayerEntry in this.m_friendlyTeam)
+		m_currentPage = page;
+		UIGameOverPlayerEntry[] friendlyTeam = m_friendlyTeam;
+		foreach (UIGameOverPlayerEntry uIGameOverPlayerEntry in friendlyTeam)
 		{
-			uigameOverPlayerEntry.SetStatPage(this.m_currentPage);
+			uIGameOverPlayerEntry.SetStatPage(m_currentPage);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		foreach (UIGameOverPlayerEntry uigameOverPlayerEntry2 in this.m_enemyTeam)
-		{
-			uigameOverPlayerEntry2.SetStatPage(this.m_currentPage);
-		}
-		for (;;)
-		{
-			switch (6)
+			UIGameOverPlayerEntry[] enemyTeam = m_enemyTeam;
+			foreach (UIGameOverPlayerEntry uIGameOverPlayerEntry2 in enemyTeam)
 			{
-			case 0:
-				continue;
+				uIGameOverPlayerEntry2.SetStatPage(m_currentPage);
 			}
-			break;
+			while (true)
+			{
+				switch (6)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
 		}
 	}
 
 	public void OnStatsBtnClicked(BaseEventData data)
 	{
-		this.SetStatePage(UIGameStatsWindow.StatsPage.Numbers);
+		SetStatePage(StatsPage.Numbers);
 	}
 
 	public void OnModsBtnClicked(BaseEventData data)
 	{
-		this.SetStatePage(UIGameStatsWindow.StatsPage.Mods);
+		SetStatePage(StatsPage.Mods);
 	}
 
 	public void OnCloseBtnClicked(BaseEventData data)
 	{
-		this.ToggleStatsWindow();
+		ToggleStatsWindow();
 	}
 
 	public void OnStatToggleClicked(BaseEventData data)
 	{
-		if (this.m_currentPage == UIGameStatsWindow.StatsPage.Mods)
+		if (m_currentPage == StatsPage.Mods)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					SetStatePage(StatsPage.Numbers);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameStatsWindow.OnStatToggleClicked(BaseEventData)).MethodHandle;
-			}
-			this.SetStatePage(UIGameStatsWindow.StatsPage.Numbers);
 		}
-		else if (this.m_currentPage == UIGameStatsWindow.StatsPage.Numbers)
+		if (m_currentPage != 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.SetStatePage(UIGameStatsWindow.StatsPage.Mods);
+			SetStatePage(StatsPage.Mods);
+			return;
 		}
 	}
 
@@ -212,88 +223,97 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 	{
 		if (matchData == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameStatsWindow.SetupTeamMemberList(PersistedCharacterMatchData)).MethodHandle;
-			}
-			return;
 		}
 		MatchResultsStats matchResults = matchData.MatchDetailsComponent.MatchResults;
-		this.SetupTeamMemberList(matchResults);
-		UIManager.SetGameObjectActive(this.m_frontendHeaderVictory, matchData.MatchComponent.Result == PlayerGameResult.Win, null);
-		UIManager.SetGameObjectActive(this.m_frontendHeaderDefeat, matchData.MatchComponent.Result == PlayerGameResult.Lose, null);
-		this.m_frontendHeaderStage.text = GameWideData.Get().GetMapDisplayName(matchData.MatchComponent.MapName);
+		SetupTeamMemberList(matchResults);
+		UIManager.SetGameObjectActive(m_frontendHeaderVictory, matchData.MatchComponent.Result == PlayerGameResult.Win);
+		UIManager.SetGameObjectActive(m_frontendHeaderDefeat, matchData.MatchComponent.Result == PlayerGameResult.Lose);
+		m_frontendHeaderStage.text = GameWideData.Get().GetMapDisplayName(matchData.MatchComponent.MapName);
 		if (matchResults.GameTime == 0f)
 		{
-			this.m_frontendHeaderTurnTime.text = string.Empty;
+			m_frontendHeaderTurnTime.text = string.Empty;
 		}
 		else
 		{
-			this.m_frontendHeaderTurnTime.text = string.Format(StringUtil.TR("StatsTurnTime", "Frontend"), matchData.MatchComponent.NumOfTurns, StringUtil.FormatTime((int)matchResults.GameTime));
+			m_frontendHeaderTurnTime.text = string.Format(StringUtil.TR("StatsTurnTime", "Frontend"), matchData.MatchComponent.NumOfTurns, StringUtil.FormatTime((int)matchResults.GameTime));
 		}
 	}
 
 	public void SetupTeamMemberList(MatchResultsStats stats)
 	{
-		if (stats != null && stats.FriendlyStatlines != null)
+		if (stats == null || stats.FriendlyStatlines == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (stats.EnemyStatlines == null)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
+			}
+			for (int i = 0; i < Math.Min(stats.FriendlyStatlines.Length, m_friendlyTeam.Length); i++)
+			{
+				UIManager.SetGameObjectActive(m_friendlyTeam[i], true);
+				m_friendlyTeam[i].Setup(stats.FriendlyStatlines[i]);
+			}
+			for (int j = Math.Min(stats.FriendlyStatlines.Length, m_friendlyTeam.Length); j < m_friendlyTeam.Length; j++)
+			{
+				UIManager.SetGameObjectActive(m_friendlyTeam[j], false);
+			}
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameStatsWindow.SetupTeamMemberList(MatchResultsStats)).MethodHandle;
-			}
-			if (stats.EnemyStatlines != null)
-			{
-				for (int i = 0; i < Math.Min(stats.FriendlyStatlines.Length, this.m_friendlyTeam.Length); i++)
+				for (int k = 0; k < Math.Min(stats.EnemyStatlines.Length, m_enemyTeam.Length); k++)
 				{
-					UIManager.SetGameObjectActive(this.m_friendlyTeam[i], true, null);
-					this.m_friendlyTeam[i].Setup(stats.FriendlyStatlines[i]);
+					UIManager.SetGameObjectActive(m_enemyTeam[k], true);
+					m_enemyTeam[k].Setup(stats.EnemyStatlines[k]);
 				}
-				for (int j = Math.Min(stats.FriendlyStatlines.Length, this.m_friendlyTeam.Length); j < this.m_friendlyTeam.Length; j++)
+				for (int l = Math.Min(stats.EnemyStatlines.Length, m_enemyTeam.Length); l < m_enemyTeam.Length; l++)
 				{
-					UIManager.SetGameObjectActive(this.m_friendlyTeam[j], false, null);
+					UIManager.SetGameObjectActive(m_enemyTeam[l], false);
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				for (int k = 0; k < Math.Min(stats.EnemyStatlines.Length, this.m_enemyTeam.Length); k++)
-				{
-					UIManager.SetGameObjectActive(this.m_enemyTeam[k], true, null);
-					this.m_enemyTeam[k].Setup(stats.EnemyStatlines[k]);
-				}
-				for (int l = Math.Min(stats.EnemyStatlines.Length, this.m_enemyTeam.Length); l < this.m_enemyTeam.Length; l++)
-				{
-					UIManager.SetGameObjectActive(this.m_enemyTeam[l], false, null);
-				}
-				Vector2 sizeDelta = this.m_resizePanel.sizeDelta;
-				sizeDelta.y = this.m_fullPanelHeight - 50f * (float)(5 - stats.EnemyStatlines.Length);
-				this.m_resizePanel.sizeDelta = sizeDelta;
+				Vector2 sizeDelta = m_resizePanel.sizeDelta;
+				sizeDelta.y = m_fullPanelHeight - 50f * (float)(5 - stats.EnemyStatlines.Length);
+				m_resizePanel.sizeDelta = sizeDelta;
 				if (stats.RedScore == 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -304,7 +324,7 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 					}
 					if (stats.BlueScore == 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -313,17 +333,18 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 							}
 							break;
 						}
-						this.m_frontendHeaderRedTeamScore.text = string.Empty;
-						this.m_frontendHeaderBlueTeamScore.text = string.Empty;
-						goto IL_21C;
+						m_frontendHeaderRedTeamScore.text = string.Empty;
+						m_frontendHeaderBlueTeamScore.text = string.Empty;
+						goto IL_021c;
 					}
 				}
-				this.m_frontendHeaderRedTeamScore.text = string.Format(StringUtil.TR("StatsRedTeamScore", "Frontend"), stats.RedScore.ToString());
-				this.m_frontendHeaderBlueTeamScore.text = string.Format(StringUtil.TR("StatsBlueTeamScore", "Frontend"), stats.BlueScore.ToString());
-				IL_21C:
-				if (this.m_frontendHeaderObjective != null)
+				m_frontendHeaderRedTeamScore.text = string.Format(StringUtil.TR("StatsRedTeamScore", "Frontend"), stats.RedScore.ToString());
+				m_frontendHeaderBlueTeamScore.text = string.Format(StringUtil.TR("StatsBlueTeamScore", "Frontend"), stats.BlueScore.ToString());
+				goto IL_021c;
+				IL_021c:
+				if (m_frontendHeaderObjective != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -334,7 +355,7 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 					}
 					if (stats.VictoryCondition.IsNullOrEmpty())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -343,25 +364,25 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 							}
 							break;
 						}
-						this.m_frontendHeaderObjective.text = string.Empty;
+						m_frontendHeaderObjective.text = string.Empty;
 					}
 					else
 					{
-						this.m_frontendHeaderObjective.text = string.Format(StringUtil.TR(stats.VictoryCondition), stats.VictoryConditionTurns);
+						m_frontendHeaderObjective.text = string.Format(StringUtil.TR(stats.VictoryCondition), stats.VictoryConditionTurns);
 					}
 				}
-				UIManager.SetGameObjectActive(this.m_frontendHeaderVictory, false, null);
-				UIManager.SetGameObjectActive(this.m_frontendHeaderDefeat, false, null);
-				this.m_frontendHeaderStage.text = string.Empty;
-				this.m_frontendHeaderTurnTime.text = string.Empty;
+				UIManager.SetGameObjectActive(m_frontendHeaderVictory, false);
+				UIManager.SetGameObjectActive(m_frontendHeaderDefeat, false);
+				m_frontendHeaderStage.text = string.Empty;
+				m_frontendHeaderTurnTime.text = string.Empty;
 				bool secretButtonClicked = Options_UI.Get().m_secretButtonClicked;
-				if (this.m_debugStatus)
+				if ((bool)m_debugStatus)
 				{
-					UIManager.SetGameObjectActive(this.m_debugStatus, secretButtonClicked, null);
+					UIManager.SetGameObjectActive(m_debugStatus, secretButtonClicked);
 				}
-				if (this.m_debugLabels)
+				if ((bool)m_debugLabels)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -370,35 +391,35 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 						}
 						break;
 					}
-					UIManager.SetGameObjectActive(this.m_debugLabels, secretButtonClicked, null);
+					UIManager.SetGameObjectActive(m_debugLabels, secretButtonClicked);
 				}
-				if (secretButtonClicked)
+				if (!secretButtonClicked)
 				{
-					for (;;)
+					return;
+				}
+				while (true)
+				{
+					switch (5)
 					{
-						switch (5)
+					case 0:
+						continue;
+					}
+					if (!m_debugStatusString)
+					{
+						return;
+					}
+					while (true)
+					{
+						switch (1)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					if (this.m_debugStatusString)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Team teamId = GameManager.Get().PlayerInfo.TeamId;
-						Team team;
+						int num;
 						if (teamId == Team.TeamB)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -407,19 +428,19 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 								}
 								break;
 							}
-							team = Team.TeamB;
+							num = 1;
 						}
 						else
 						{
-							team = Team.TeamA;
+							num = 0;
 						}
-						Team team2 = team;
-						Team team3 = team2.OtherTeam();
+						Team team = (Team)num;
+						Team team2 = team.OtherTeam();
 						string arg = string.Empty;
-						float num = -1f;
+						float num2 = -1f;
 						if (ObjectivePoints.Get() != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -428,11 +449,11 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 								}
 								break;
 							}
-							num = ObjectivePoints.Get().GetTotalMinutesOnMatchEnd() * 60f;
+							num2 = ObjectivePoints.Get().GetTotalMinutesOnMatchEnd() * 60f;
 						}
-						if (num > 0f)
+						if (num2 > 0f)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -441,11 +462,11 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 								}
 								break;
 							}
-							int num2 = (int)(num / 60f);
-							int num3 = (int)num % 0x3C;
-							if (num3 < 0xA)
+							int num3 = (int)(num2 / 60f);
+							int num4 = (int)num2 % 60;
+							if (num4 < 10)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (6)
 									{
@@ -454,16 +475,16 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 									}
 									break;
 								}
-								arg = string.Format("{0}:0{1}", num2, num3);
+								arg = $"{num3}:0{num4}";
 							}
 							else
 							{
-								arg = string.Format("{0}:{1}", num2, num3);
+								arg = $"{num3}:{num4}";
 							}
 						}
 						else if (UITimerPanel.Get() != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -475,11 +496,11 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 							arg = UITimerPanel.Get().m_timeLabel.text;
 						}
 						int currentTurn = GameFlowData.Get().CurrentTurn;
-						int num4 = 0;
 						int num5 = 0;
+						int num6 = 0;
 						if (ObjectivePoints.Get() != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -488,22 +509,22 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 								}
 								break;
 							}
-							num4 = ObjectivePoints.Get().GetPointsForTeam(team2);
-							num5 = ObjectivePoints.Get().GetPointsForTeam(team3);
+							num5 = ObjectivePoints.Get().GetPointsForTeam(team);
+							num6 = ObjectivePoints.Get().GetPointsForTeam(team2);
 						}
-						int num6 = 0;
 						int num7 = 0;
-						List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(team2);
-						List<ActorData> playerAndBotTeamMembers2 = GameFlowData.Get().GetPlayerAndBotTeamMembers(team3);
+						int num8 = 0;
+						List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(team);
+						List<ActorData> playerAndBotTeamMembers2 = GameFlowData.Get().GetPlayerAndBotTeamMembers(team2);
 						using (List<ActorData>.Enumerator enumerator = playerAndBotTeamMembers.GetEnumerator())
 						{
 							while (enumerator.MoveNext())
 							{
-								ActorData actorData = enumerator.Current;
-								ActorBehavior actorBehavior = actorData.\u000E();
-								num6 += actorBehavior.totalPlayerContribution;
+								ActorData current = enumerator.Current;
+								ActorBehavior actorBehavior = current.GetActorBehavior();
+								num7 += actorBehavior.totalPlayerContribution;
 							}
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -513,75 +534,57 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 								break;
 							}
 						}
-						foreach (ActorData actorData2 in playerAndBotTeamMembers2)
+						foreach (ActorData item in playerAndBotTeamMembers2)
 						{
-							ActorBehavior actorBehavior2 = actorData2.\u000E();
-							num7 += actorBehavior2.totalPlayerContribution;
+							ActorBehavior actorBehavior2 = item.GetActorBehavior();
+							num8 += actorBehavior2.totalPlayerContribution;
 						}
-						UIGameOverPanel.TeamELOs teamELOs;
-						UIGameOverPanel.TeamELOs teamELOs2;
-						UIGameOverPanel.TeamELOs teamELOs3;
-						this.GenerateTeamELOValues(teamId, out teamELOs, out teamELOs2, out teamELOs3);
-						this.m_debugStatusString.text = string.Format("<color=#cfcfcf>Time: <color=yellow>{0}</color>     Turn: <color=yellow>{1}</color>", arg, currentTurn);
-						TextMeshProUGUI debugStatusString = this.m_debugStatusString;
-						debugStatusString.text += string.Format("     Score: A: <color=#007fff>{0}</color> B: <color=#ff3f3f>{1}</color>", num4, num5);
-						TextMeshProUGUI debugStatusString2 = this.m_debugStatusString;
-						debugStatusString2.text += string.Format("     Contribution A: <color=#007fff>{0}</color> B: <color=#ff3f3f>{1}</color>", num6, num7);
-						TextMeshProUGUI debugStatusString3 = this.m_debugStatusString;
-						debugStatusString3.text += teamELOs.ToHTML("     Used");
-						TextMeshProUGUI debugStatusString4 = this.m_debugStatusString;
-						debugStatusString4.text += teamELOs2.ToHTML("     Acc");
-						TextMeshProUGUI debugStatusString5 = this.m_debugStatusString;
-						debugStatusString5.text += teamELOs3.ToHTML("     Char");
+						GenerateTeamELOValues(teamId, out UIGameOverPanel.TeamELOs matchmaking, out UIGameOverPanel.TeamELOs account, out UIGameOverPanel.TeamELOs character);
+						m_debugStatusString.text = $"<color=#cfcfcf>Time: <color=yellow>{arg}</color>     Turn: <color=yellow>{currentTurn}</color>";
+						m_debugStatusString.text += $"     Score: A: <color=#007fff>{num5}</color> B: <color=#ff3f3f>{num6}</color>";
+						m_debugStatusString.text += $"     Contribution A: <color=#007fff>{num7}</color> B: <color=#ff3f3f>{num8}</color>";
+						m_debugStatusString.text += matchmaking.ToHTML("     Used");
+						m_debugStatusString.text += account.ToHTML("     Acc");
+						m_debugStatusString.text += character.ToHTML("     Char");
+						return;
 					}
 				}
-				return;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
 
-	private unsafe void GenerateTeamELOValues(Team ourTeam, out UIGameOverPanel.TeamELOs matchmaking, out UIGameOverPanel.TeamELOs account, out UIGameOverPanel.TeamELOs character)
+	private void GenerateTeamELOValues(Team ourTeam, out UIGameOverPanel.TeamELOs matchmaking, out UIGameOverPanel.TeamELOs account, out UIGameOverPanel.TeamELOs character)
 	{
 		matchmaking = new UIGameOverPanel.TeamELOs(ourTeam);
 		account = new UIGameOverPanel.TeamELOs(ourTeam);
 		character = new UIGameOverPanel.TeamELOs(ourTeam);
 		Dictionary<int, ForbiddenDevKnowledge> forbiddenDevKnowledge = GameManager.Get().ForbiddenDevKnowledge;
-		if (forbiddenDevKnowledge.IsNullOrEmpty<KeyValuePair<int, ForbiddenDevKnowledge>>())
+		if (forbiddenDevKnowledge.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameStatsWindow.GenerateTeamELOValues(Team, UIGameOverPanel.TeamELOs*, UIGameOverPanel.TeamELOs*, UIGameOverPanel.TeamELOs*)).MethodHandle;
-			}
-			return;
 		}
 		LobbyTeamInfo teamInfo = GameManager.Get().TeamInfo;
 		using (List<LobbyPlayerInfo>.Enumerator enumerator = teamInfo.TeamPlayerInfo.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
-				ForbiddenDevKnowledge forbiddenDevKnowledge2;
-				if (forbiddenDevKnowledge.TryGetValue(lobbyPlayerInfo.PlayerId, out forbiddenDevKnowledge2))
+				LobbyPlayerInfo current = enumerator.Current;
+				if (forbiddenDevKnowledge.TryGetValue(current.PlayerId, out ForbiddenDevKnowledge value))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -590,34 +593,35 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 						}
 						break;
 					}
-					matchmaking.AddPlayer(lobbyPlayerInfo.TeamId, forbiddenDevKnowledge2.UsedMatchmakingElo);
-					account.AddPlayer(lobbyPlayerInfo.TeamId, forbiddenDevKnowledge2.AccMatchmakingElo);
-					character.AddPlayer(lobbyPlayerInfo.TeamId, forbiddenDevKnowledge2.CharMatchmakingElo);
+					matchmaking.AddPlayer(current.TeamId, value.UsedMatchmakingElo);
+					account.AddPlayer(current.TeamId, value.AccMatchmakingElo);
+					character.AddPlayer(current.TeamId, value.CharMatchmakingElo);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public void SetVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(this.m_container, visible, null);
+		UIManager.SetGameObjectActive(m_container, visible);
 	}
 
 	public void SetToggleStatsVisible(bool visible, bool playSound = true)
 	{
-		UIManager.SetGameObjectActive(this.m_container, visible, null);
+		UIManager.SetGameObjectActive(m_container, visible);
 		if (visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -626,15 +630,15 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameStatsWindow.SetToggleStatsVisible(bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.SetStatePage(this.m_currentPage);
+			SetStatePage(m_currentPage);
 		}
 		if (playSound)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -645,87 +649,82 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 			}
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.MenuChoice);
 		}
-		for (int i = 0; i < this.m_friendlyTeam.Length; i++)
+		for (int i = 0; i < m_friendlyTeam.Length; i++)
 		{
-			this.m_friendlyTeam[i].m_ContributionHitBoxTooltip.spriteController.ForceSetPointerEntered(false);
+			m_friendlyTeam[i].m_ContributionHitBoxTooltip.spriteController.ForceSetPointerEntered(false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		for (int j = 0; j < this.m_enemyTeam.Length; j++)
-		{
-			this.m_enemyTeam[j].m_ContributionHitBoxTooltip.spriteController.ForceSetPointerEntered(false);
-		}
-		for (;;)
-		{
-			switch (3)
+			for (int j = 0; j < m_enemyTeam.Length; j++)
 			{
-			case 0:
-				continue;
+				m_enemyTeam[j].m_ContributionHitBoxTooltip.spriteController.ForceSetPointerEntered(false);
 			}
-			break;
+			while (true)
+			{
+				switch (3)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
 		}
 	}
 
 	public void ToggleStatsWindow()
 	{
-		this.SetToggleStatsVisible(!this.m_container.gameObject.activeSelf, true);
+		SetToggleStatsVisible(!m_container.gameObject.activeSelf);
 	}
 
 	private void Update()
 	{
 		if (HUD_UI.Get() != null)
 		{
-			if (this.m_panelOuterContainer.parent != this.m_ingamePosition)
+			if (m_panelOuterContainer.parent != m_ingamePosition)
 			{
-				this.m_panelOuterContainer.SetParent(this.m_ingamePosition);
-				this.m_panelOuterContainer.localScale = Vector3.one;
-				this.m_panelOuterContainer.anchoredPosition = Vector3.zero;
-				this.m_panelOuterContainer.localEulerAngles = Vector3.zero;
-				this.m_panelOuterContainer.sizeDelta = Vector2.zero;
+				m_panelOuterContainer.SetParent(m_ingamePosition);
+				m_panelOuterContainer.localScale = Vector3.one;
+				m_panelOuterContainer.anchoredPosition = Vector3.zero;
+				m_panelOuterContainer.localEulerAngles = Vector3.zero;
+				m_panelOuterContainer.sizeDelta = Vector2.zero;
 			}
 		}
-		else if (this.m_panelOuterContainer.parent != this.m_frontendPosition)
+		else if (m_panelOuterContainer.parent != m_frontendPosition)
 		{
-			this.m_panelOuterContainer.SetParent(this.m_frontendPosition);
-			this.m_panelOuterContainer.localScale = Vector3.one;
-			this.m_panelOuterContainer.anchoredPosition = Vector3.zero;
-			this.m_panelOuterContainer.localEulerAngles = Vector3.zero;
-			this.m_panelOuterContainer.sizeDelta = Vector2.zero;
+			m_panelOuterContainer.SetParent(m_frontendPosition);
+			m_panelOuterContainer.localScale = Vector3.one;
+			m_panelOuterContainer.anchoredPosition = Vector3.zero;
+			m_panelOuterContainer.localEulerAngles = Vector3.zero;
+			m_panelOuterContainer.sizeDelta = Vector2.zero;
 		}
-		UIManager.SetGameObjectActive(this.m_frontendHeader, this.m_container.gameObject.activeSelf && HUD_UI.Get() == null, null);
+		UIManager.SetGameObjectActive(m_frontendHeader, m_container.gameObject.activeSelf && HUD_UI.Get() == null);
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType == GameEventManager.EventType.GameTeardown)
+		if (eventType != GameEventManager.EventType.GameTeardown)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameStatsWindow.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
-			this.SetToggleStatsVisible(false, true);
+			return;
 		}
-	}
-
-	public enum StatsPage
-	{
-		Numbers,
-		Mods
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			SetToggleStatsVisible(false);
+			return;
+		}
 	}
 }

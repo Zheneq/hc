@@ -1,13 +1,20 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace TMPro
 {
-	[ExecuteInEditMode]
 	[Serializable]
+	[ExecuteInEditMode]
 	public class TMP_Settings : ScriptableObject
 	{
+		public class LineBreakingTable
+		{
+			public Dictionary<int, char> leadingCharacters;
+
+			public Dictionary<int, char> followingCharacters;
+		}
+
 		private static TMP_Settings s_Instance;
 
 		[SerializeField]
@@ -80,205 +87,73 @@ namespace TMPro
 		private TextAsset m_followingCharacters;
 
 		[SerializeField]
-		private TMP_Settings.LineBreakingTable m_linebreakingRules;
+		private LineBreakingTable m_linebreakingRules;
 
-		public static bool enableWordWrapping
-		{
-			get
-			{
-				return TMP_Settings.instance.m_enableWordWrapping;
-			}
-		}
+		public static bool enableWordWrapping => instance.m_enableWordWrapping;
 
-		public static bool enableKerning
-		{
-			get
-			{
-				return TMP_Settings.instance.m_enableKerning;
-			}
-		}
+		public static bool enableKerning => instance.m_enableKerning;
 
-		public static bool enableExtraPadding
-		{
-			get
-			{
-				return TMP_Settings.instance.m_enableExtraPadding;
-			}
-		}
+		public static bool enableExtraPadding => instance.m_enableExtraPadding;
 
-		public static bool enableTintAllSprites
-		{
-			get
-			{
-				return TMP_Settings.instance.m_enableTintAllSprites;
-			}
-		}
+		public static bool enableTintAllSprites => instance.m_enableTintAllSprites;
 
-		public static bool enableParseEscapeCharacters
-		{
-			get
-			{
-				return TMP_Settings.instance.m_enableParseEscapeCharacters;
-			}
-		}
+		public static bool enableParseEscapeCharacters => instance.m_enableParseEscapeCharacters;
 
-		public static int missingGlyphCharacter
-		{
-			get
-			{
-				return TMP_Settings.instance.m_missingGlyphCharacter;
-			}
-		}
+		public static int missingGlyphCharacter => instance.m_missingGlyphCharacter;
 
-		public static bool warningsDisabled
-		{
-			get
-			{
-				return TMP_Settings.instance.m_warningsDisabled;
-			}
-		}
+		public static bool warningsDisabled => instance.m_warningsDisabled;
 
-		public static TMP_FontAsset defaultFontAsset
-		{
-			get
-			{
-				return TMP_Settings.instance.m_defaultFontAsset;
-			}
-		}
+		public static TMP_FontAsset defaultFontAsset => instance.m_defaultFontAsset;
 
-		public static string defaultFontAssetPath
-		{
-			get
-			{
-				return TMP_Settings.instance.m_defaultFontAssetPath;
-			}
-		}
+		public static string defaultFontAssetPath => instance.m_defaultFontAssetPath;
 
-		public static float defaultFontSize
-		{
-			get
-			{
-				return TMP_Settings.instance.m_defaultFontSize;
-			}
-		}
+		public static float defaultFontSize => instance.m_defaultFontSize;
 
-		public static float defaultTextAutoSizingMinRatio
-		{
-			get
-			{
-				return TMP_Settings.instance.m_defaultAutoSizeMinRatio;
-			}
-		}
+		public static float defaultTextAutoSizingMinRatio => instance.m_defaultAutoSizeMinRatio;
 
-		public static float defaultTextAutoSizingMaxRatio
-		{
-			get
-			{
-				return TMP_Settings.instance.m_defaultAutoSizeMaxRatio;
-			}
-		}
+		public static float defaultTextAutoSizingMaxRatio => instance.m_defaultAutoSizeMaxRatio;
 
-		public static Vector2 defaultTextMeshProTextContainerSize
-		{
-			get
-			{
-				return TMP_Settings.instance.m_defaultTextMeshProTextContainerSize;
-			}
-		}
+		public static Vector2 defaultTextMeshProTextContainerSize => instance.m_defaultTextMeshProTextContainerSize;
 
-		public static Vector2 defaultTextMeshProUITextContainerSize
-		{
-			get
-			{
-				return TMP_Settings.instance.m_defaultTextMeshProUITextContainerSize;
-			}
-		}
+		public static Vector2 defaultTextMeshProUITextContainerSize => instance.m_defaultTextMeshProUITextContainerSize;
 
-		public static bool autoSizeTextContainer
-		{
-			get
-			{
-				return TMP_Settings.instance.m_autoSizeTextContainer;
-			}
-		}
+		public static bool autoSizeTextContainer => instance.m_autoSizeTextContainer;
 
-		public static List<TMP_FontAsset> fallbackFontAssets
-		{
-			get
-			{
-				return TMP_Settings.instance.m_fallbackFontAssets;
-			}
-		}
+		public static List<TMP_FontAsset> fallbackFontAssets => instance.m_fallbackFontAssets;
 
-		public static bool matchMaterialPreset
-		{
-			get
-			{
-				return TMP_Settings.instance.m_matchMaterialPreset;
-			}
-		}
+		public static bool matchMaterialPreset => instance.m_matchMaterialPreset;
 
-		public static TMP_SpriteAsset defaultSpriteAsset
-		{
-			get
-			{
-				return TMP_Settings.instance.m_defaultSpriteAsset;
-			}
-		}
+		public static TMP_SpriteAsset defaultSpriteAsset => instance.m_defaultSpriteAsset;
 
-		public static string defaultSpriteAssetPath
-		{
-			get
-			{
-				return TMP_Settings.instance.m_defaultSpriteAssetPath;
-			}
-		}
+		public static string defaultSpriteAssetPath => instance.m_defaultSpriteAssetPath;
 
 		public static bool enableEmojiSupport
 		{
 			get
 			{
-				return TMP_Settings.instance.m_enableEmojiSupport;
+				return instance.m_enableEmojiSupport;
 			}
 			set
 			{
-				TMP_Settings.instance.m_enableEmojiSupport = value;
+				instance.m_enableEmojiSupport = value;
 			}
 		}
 
-		public static TMP_StyleSheet defaultStyleSheet
-		{
-			get
-			{
-				return TMP_Settings.instance.m_defaultStyleSheet;
-			}
-		}
+		public static TMP_StyleSheet defaultStyleSheet => instance.m_defaultStyleSheet;
 
-		public static TextAsset leadingCharacters
-		{
-			get
-			{
-				return TMP_Settings.instance.m_leadingCharacters;
-			}
-		}
+		public static TextAsset leadingCharacters => instance.m_leadingCharacters;
 
-		public static TextAsset followingCharacters
-		{
-			get
-			{
-				return TMP_Settings.instance.m_followingCharacters;
-			}
-		}
+		public static TextAsset followingCharacters => instance.m_followingCharacters;
 
-		public static TMP_Settings.LineBreakingTable linebreakingRules
+		public static LineBreakingTable linebreakingRules
 		{
 			get
 			{
-				if (TMP_Settings.instance.m_linebreakingRules == null)
+				if (instance.m_linebreakingRules == null)
 				{
-					TMP_Settings.LoadLinebreakingRules();
+					LoadLinebreakingRules();
 				}
-				return TMP_Settings.instance.m_linebreakingRules;
+				return instance.m_linebreakingRules;
 			}
 		}
 
@@ -286,9 +161,9 @@ namespace TMPro
 		{
 			get
 			{
-				if (TMP_Settings.s_Instance == null)
+				if (s_Instance == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -297,21 +172,21 @@ namespace TMPro
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Settings.get_instance()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					TMP_Settings.s_Instance = (Resources.Load("TMP Settings") as TMP_Settings);
+					s_Instance = (Resources.Load("TMP Settings") as TMP_Settings);
 				}
-				return TMP_Settings.s_Instance;
+				return s_Instance;
 			}
 		}
 
 		public static TMP_Settings LoadDefaultSettings()
 		{
-			if (TMP_Settings.s_Instance == null)
+			if (s_Instance == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -320,14 +195,14 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Settings.LoadDefaultSettings()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				TMP_Settings x = Resources.Load("TMP Settings") as TMP_Settings;
 				if (x != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -336,109 +211,109 @@ namespace TMPro
 						}
 						break;
 					}
-					TMP_Settings.s_Instance = x;
+					s_Instance = x;
 				}
 			}
-			return TMP_Settings.s_Instance;
+			return s_Instance;
 		}
 
 		public static TMP_Settings GetSettings()
 		{
-			if (TMP_Settings.instance == null)
+			if (instance == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return null;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Settings.GetSettings()).MethodHandle;
-				}
-				return null;
 			}
-			return TMP_Settings.instance;
+			return instance;
 		}
 
 		public static TMP_FontAsset GetFontAsset()
 		{
-			if (TMP_Settings.instance == null)
+			if (instance == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return null;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Settings.GetFontAsset()).MethodHandle;
-				}
-				return null;
 			}
-			return TMP_Settings.instance.m_defaultFontAsset;
+			return instance.m_defaultFontAsset;
 		}
 
 		public static TMP_SpriteAsset GetSpriteAsset()
 		{
-			if (TMP_Settings.instance == null)
+			if (instance == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return null;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Settings.GetSpriteAsset()).MethodHandle;
-				}
-				return null;
 			}
-			return TMP_Settings.instance.m_defaultSpriteAsset;
+			return instance.m_defaultSpriteAsset;
 		}
 
 		public static TMP_StyleSheet GetStyleSheet()
 		{
-			if (TMP_Settings.instance == null)
+			if (instance == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return null;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Settings.GetStyleSheet()).MethodHandle;
-				}
-				return null;
 			}
-			return TMP_Settings.instance.m_defaultStyleSheet;
+			return instance.m_defaultStyleSheet;
 		}
 
 		public static void LoadLinebreakingRules()
 		{
-			if (TMP_Settings.instance == null)
+			if (instance == null)
 			{
 				return;
 			}
-			if (TMP_Settings.s_Instance.m_linebreakingRules == null)
+			if (s_Instance.m_linebreakingRules == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -447,34 +322,28 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Settings.LoadLinebreakingRules()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				TMP_Settings.s_Instance.m_linebreakingRules = new TMP_Settings.LineBreakingTable();
+				s_Instance.m_linebreakingRules = new LineBreakingTable();
 			}
-			TMP_Settings.s_Instance.m_linebreakingRules.leadingCharacters = TMP_Settings.GetCharacters(TMP_Settings.s_Instance.m_leadingCharacters);
-			TMP_Settings.s_Instance.m_linebreakingRules.followingCharacters = TMP_Settings.GetCharacters(TMP_Settings.s_Instance.m_followingCharacters);
+			s_Instance.m_linebreakingRules.leadingCharacters = GetCharacters(s_Instance.m_leadingCharacters);
+			s_Instance.m_linebreakingRules.followingCharacters = GetCharacters(s_Instance.m_followingCharacters);
 		}
 
 		private static Dictionary<int, char> GetCharacters(TextAsset file)
 		{
 			Dictionary<int, char> dictionary = new Dictionary<int, char>();
-			foreach (char c in file.text)
+			string text = file.text;
+			foreach (char c in text)
 			{
-				if (!dictionary.ContainsKey((int)c))
+				if (!dictionary.ContainsKey(c))
 				{
-					dictionary.Add((int)c, c);
+					dictionary.Add(c, c);
 				}
 			}
 			return dictionary;
-		}
-
-		public class LineBreakingTable
-		{
-			public Dictionary<int, char> leadingCharacters;
-
-			public Dictionary<int, char> followingCharacters;
 		}
 	}
 }

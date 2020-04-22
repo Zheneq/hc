@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ScampDelayedAoe : GenericAbility_Container
@@ -39,7 +38,7 @@ public class ScampDelayedAoe : GenericAbility_Container
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetUsageForEditor() + ContextVars.\u0015(ScampDelayedAoe.s_cvarMissingShields.\u0012(), "amount of missing shield on Scamp", false);
+		return base.GetUsageForEditor() + ContextVars.GetDebugString(s_cvarMissingShields.GetName(), "amount of missing shield on Scamp", false);
 	}
 
 	public override List<string> GetContextNamesForEditor()
@@ -51,18 +50,18 @@ public class ScampDelayedAoe : GenericAbility_Container
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Scamp_SyncComponent>();
-		this.m_passive = base.GetPassiveOfType<Passive_Scamp>();
-		this.SetCachedFields();
+		m_syncComp = GetComponent<Scamp_SyncComponent>();
+		m_passive = GetPassiveOfType<Passive_Scamp>();
+		SetCachedFields();
 		base.SetupTargetersAndCachedVars();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardActorEffectData cachedDelayedEffectBase;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -71,30 +70,30 @@ public class ScampDelayedAoe : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDelayedAoe.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedDelayedEffectBase = this.m_abilityMod.m_delayedEffectBaseMod.GetModifiedValue(this.m_delayedEffectBase);
+			cachedDelayedEffectBase = m_abilityMod.m_delayedEffectBaseMod.GetModifiedValue(m_delayedEffectBase);
 		}
 		else
 		{
-			cachedDelayedEffectBase = this.m_delayedEffectBase;
+			cachedDelayedEffectBase = m_delayedEffectBase;
 		}
-		this.m_cachedDelayedEffectBase = cachedDelayedEffectBase;
+		m_cachedDelayedEffectBase = cachedDelayedEffectBase;
 	}
 
 	public StandardActorEffectData GetDelayedEffectBase()
 	{
-		return (this.m_cachedDelayedEffectBase == null) ? this.m_delayedEffectBase : this.m_cachedDelayedEffectBase;
+		return (m_cachedDelayedEffectBase == null) ? m_delayedEffectBase : m_cachedDelayedEffectBase;
 	}
 
 	public int GetExtraDamageIfShieldDownForm()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -103,15 +102,15 @@ public class ScampDelayedAoe : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDelayedAoe.GetExtraDamageIfShieldDownForm()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageIfShieldDownFormMod.GetModifiedValue(this.m_extraDamageIfShieldDownForm);
+			result = m_abilityMod.m_extraDamageIfShieldDownFormMod.GetModifiedValue(m_extraDamageIfShieldDownForm);
 		}
 		else
 		{
-			result = this.m_extraDamageIfShieldDownForm;
+			result = m_extraDamageIfShieldDownForm;
 		}
 		return result;
 	}
@@ -119,9 +118,9 @@ public class ScampDelayedAoe : GenericAbility_Container
 	public float GetSubseqTurnDamageMultiplier()
 	{
 		float result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -130,15 +129,15 @@ public class ScampDelayedAoe : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDelayedAoe.GetSubseqTurnDamageMultiplier()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_subseqTurnDamageMultiplierMod.GetModifiedValue(this.m_subseqTurnDamageMultiplier);
+			result = m_abilityMod.m_subseqTurnDamageMultiplierMod.GetModifiedValue(m_subseqTurnDamageMultiplier);
 		}
 		else
 		{
-			result = this.m_subseqTurnDamageMultiplier;
+			result = m_subseqTurnDamageMultiplier;
 		}
 		return result;
 	}
@@ -146,9 +145,9 @@ public class ScampDelayedAoe : GenericAbility_Container
 	public bool SubseqTurnNoEnergyGain()
 	{
 		bool result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -157,15 +156,15 @@ public class ScampDelayedAoe : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDelayedAoe.SubseqTurnNoEnergyGain()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_subseqTurnNoEnergyGainMod.GetModifiedValue(this.m_subseqTurnNoEnergyGain);
+			result = m_abilityMod.m_subseqTurnNoEnergyGainMod.GetModifiedValue(m_subseqTurnNoEnergyGain);
 		}
 		else
 		{
-			result = this.m_subseqTurnNoEnergyGain;
+			result = m_subseqTurnNoEnergyGain;
 		}
 		return result;
 	}
@@ -173,15 +172,15 @@ public class ScampDelayedAoe : GenericAbility_Container
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		this.m_delayedEffectBase.AddTooltipTokens(tokens, "DelayedEffectBase", false, null);
-		base.AddTokenInt(tokens, "ExtraDamageIfShieldDownForm", string.Empty, this.m_extraDamageIfShieldDownForm, false);
+		m_delayedEffectBase.AddTooltipTokens(tokens, "DelayedEffectBase");
+		AddTokenInt(tokens, "ExtraDamageIfShieldDownForm", string.Empty, m_extraDamageIfShieldDownForm);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -190,45 +189,45 @@ public class ScampDelayedAoe : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDelayedAoe.CustomCanCastValidation(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComp.m_suitWasActiveOnTurnStart)
+			if (m_syncComp.m_suitWasActiveOnTurnStart)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return true;
 					}
-					break;
 				}
-				return true;
 			}
 		}
-		return !this.m_disableIfShieldsDown;
+		return !m_disableIfShieldsDown;
 	}
 
 	public override void PreProcessTargetingNumbers(ActorData targetActor, int currentTargetIndex, Dictionary<ActorData, ActorHitContext> hitContext, ContextVars abilityContext)
 	{
-		int num = 0;
-		if (this.m_passive != null && this.m_syncComp != null)
+		int value = 0;
+		if (m_passive != null && m_syncComp != null)
 		{
-			num = this.m_passive.GetMaxSuitShield() - (int)this.m_syncComp.m_suitShieldingOnTurnStart;
-			num = Mathf.Max(0, num);
+			value = m_passive.GetMaxSuitShield() - (int)m_syncComp.m_suitShieldingOnTurnStart;
+			value = Mathf.Max(0, value);
 		}
-		abilityContext.\u0016(ScampDelayedAoe.s_cvarMissingShields.\u0012(), num);
+		abilityContext.SetInt(s_cvarMissingShields.GetHash(), value);
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		this.m_abilityMod = (abilityMod as AbilityMod_ScampDelayedAoe);
+		m_abilityMod = (abilityMod as AbilityMod_ScampDelayedAoe);
 	}
 
 	protected override void GenModImpl_ClearModRef()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 }

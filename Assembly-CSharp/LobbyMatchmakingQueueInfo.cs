@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class LobbyMatchmakingQueueInfo
@@ -15,19 +15,14 @@ public class LobbyMatchmakingQueueInfo
 
 	public QueueStatus QueueStatus;
 
-	public override string ToString()
-	{
-		return (this.GameConfig != null) ? this.GameConfig.ToString() : "unknown";
-	}
-
 	public GameType GameType
 	{
 		get
 		{
-			GameType result;
-			if (this.GameConfig == null)
+			int result;
+			if (GameConfig == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -36,57 +31,25 @@ public class LobbyMatchmakingQueueInfo
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyMatchmakingQueueInfo.get_GameType()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = GameType.None;
+				result = -1;
 			}
 			else
 			{
-				result = this.GameConfig.GameType;
+				result = (int)GameConfig.GameType;
 			}
-			return result;
+			return (GameType)result;
 		}
-	}
-
-	public LobbyMatchmakingQueueInfo Clone()
-	{
-		return (LobbyMatchmakingQueueInfo)base.MemberwiseClone();
-	}
-
-	public bool IsSame(GameType gameType)
-	{
-		bool result;
-		if (this.GameConfig == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyMatchmakingQueueInfo.IsSame(GameType)).MethodHandle;
-			}
-			result = false;
-		}
-		else
-		{
-			result = (this.GameConfig.GameType == gameType);
-		}
-		return result;
 	}
 
 	public string WhatQueueIsWaitingForToMakeNextGame
 	{
 		get
 		{
-			switch (this.QueueStatus)
+			switch (QueueStatus)
 			{
 			case QueueStatus.Idle:
 			case QueueStatus.Success:
@@ -95,6 +58,24 @@ public class LobbyMatchmakingQueueInfo
 			case QueueStatus.SubQueueConflict:
 			case QueueStatus.MultipleRegions:
 				return StringUtil.TR("AFewPlayers", "Global");
+			case QueueStatus.BlockedByExpertCollisions:
+			case QueueStatus.BlockedByNoobCollisions:
+				return StringUtil.TR("VarietyOfFreelancers", "Global");
+			case QueueStatus.TooManyWillFills:
+				return StringUtil.TR("TooManyWillFillFreelancers", "Global");
+			case QueueStatus.NotEnoughWillFills:
+				return StringUtil.TR("NotEnoughWillFillFreelancers", "Global");
+			case QueueStatus.WaitingForRoleAssassin:
+			case QueueStatus.WaitingOnImbalancedRoleAssassin:
+				return LocalizationPayload.Create("QueueNeedsMoreOfRoleX", "Global", LocalizationArg_LocalizationPayload.Create(CharacterRole.Assassin.GetLocalizedPayload())).ToString();
+			case QueueStatus.WaitingForRoleTank:
+			case QueueStatus.WaitingOnImbalancedRoleTank:
+				return LocalizationPayload.Create("QueueNeedsMoreOfRoleX", "Global", LocalizationArg_LocalizationPayload.Create(CharacterRole.Tank.GetLocalizedPayload())).ToString();
+			case QueueStatus.WaitingForRoleSupport:
+			case QueueStatus.WaitingOnImbalancedRoleSupport:
+				return LocalizationPayload.Create("QueueNeedsMoreOfRoleX", "Global", LocalizationArg_LocalizationPayload.Create(CharacterRole.Support.GetLocalizedPayload())).ToString();
+			case QueueStatus.WaitingOnImbalancedRoleGeneric:
+				return StringUtil.TR("VarietyOfRoles", "Global");
 			case QueueStatus.WontMixNoobAndExpert:
 			case QueueStatus.EloRangeTooExtreme:
 			case QueueStatus.TeamEloTooExtreme:
@@ -102,29 +83,6 @@ public class LobbyMatchmakingQueueInfo
 			case QueueStatus.TierTooHighForPlacementPlayers:
 			case QueueStatus.TierBreadthTooExtreme:
 				return StringUtil.TR("VarietyOfPlayersSkills", "Global");
-			case QueueStatus.WaitingForRoleAssassin:
-			case QueueStatus.WaitingOnImbalancedRoleAssassin:
-				return LocalizationPayload.Create("QueueNeedsMoreOfRoleX", "Global", new LocalizationArg[]
-				{
-					LocalizationArg_LocalizationPayload.Create(CharacterRole.Assassin.GetLocalizedPayload())
-				}).ToString();
-			case QueueStatus.WaitingForRoleTank:
-			case QueueStatus.WaitingOnImbalancedRoleTank:
-				return LocalizationPayload.Create("QueueNeedsMoreOfRoleX", "Global", new LocalizationArg[]
-				{
-					LocalizationArg_LocalizationPayload.Create(CharacterRole.Tank.GetLocalizedPayload())
-				}).ToString();
-			case QueueStatus.WaitingForRoleSupport:
-			case QueueStatus.WaitingOnImbalancedRoleSupport:
-				return LocalizationPayload.Create("QueueNeedsMoreOfRoleX", "Global", new LocalizationArg[]
-				{
-					LocalizationArg_LocalizationPayload.Create(CharacterRole.Support.GetLocalizedPayload())
-				}).ToString();
-			case QueueStatus.WaitingOnImbalancedRoleGeneric:
-				return StringUtil.TR("VarietyOfRoles", "Global");
-			case QueueStatus.BlockedByExpertCollisions:
-			case QueueStatus.BlockedByNoobCollisions:
-				return StringUtil.TR("VarietyOfFreelancers", "Global");
 			case QueueStatus.WaitingOnImbalancedGroups:
 			case QueueStatus.WaitingToBreakGroups:
 			case QueueStatus.WaitingOnPerfectGroupComposition:
@@ -133,12 +91,46 @@ public class LobbyMatchmakingQueueInfo
 				return StringUtil.TR("ServerResources", "Global");
 			case QueueStatus.NeedDifferentOpponents:
 				return StringUtil.TR("DifferentOpponents", "Global");
-			case QueueStatus.TooManyWillFills:
-				return StringUtil.TR("TooManyWillFillFreelancers", "Global");
-			case QueueStatus.NotEnoughWillFills:
-				return StringUtil.TR("NotEnoughWillFillFreelancers", "Global");
+			default:
+				return StringUtil.TR("BetterMatchmakingCode", "Global");
 			}
-			return StringUtil.TR("BetterMatchmakingCode", "Global");
 		}
+	}
+
+	public override string ToString()
+	{
+		return (GameConfig != null) ? GameConfig.ToString() : "unknown";
+	}
+
+	public LobbyMatchmakingQueueInfo Clone()
+	{
+		return (LobbyMatchmakingQueueInfo)MemberwiseClone();
+	}
+
+	public bool IsSame(GameType gameType)
+	{
+		int result;
+		if (GameConfig == null)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			result = 0;
+		}
+		else
+		{
+			result = ((GameConfig.GameType == gameType) ? 1 : 0);
+		}
+		return (byte)result != 0;
 	}
 }

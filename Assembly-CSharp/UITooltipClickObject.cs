@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine.EventSystems;
 
 public class UITooltipClickObject : UITooltipObject
@@ -11,33 +10,33 @@ public class UITooltipClickObject : UITooltipObject
 
 	private void Awake()
 	{
-		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnMouseClick));
+		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerClick, OnMouseClick);
 	}
 
 	private void OnMouseClick(BaseEventData data)
 	{
-		if (!base.IsSetup())
+		if (!IsSetup())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipClickObject.OnMouseClick(BaseEventData)).MethodHandle;
-			}
-			return;
 		}
 		PointerEventData pointerEventData = data as PointerEventData;
 		bool flag = false;
-		if (this.m_leftClickEnabled && pointerEventData.button == PointerEventData.InputButton.Left)
+		if (m_leftClickEnabled && pointerEventData.button == PointerEventData.InputButton.Left)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -48,13 +47,13 @@ public class UITooltipClickObject : UITooltipObject
 			}
 			flag = true;
 		}
-		else if (this.m_rightClickEnabled && pointerEventData.button == PointerEventData.InputButton.Right)
+		else if (m_rightClickEnabled && pointerEventData.button == PointerEventData.InputButton.Right)
 		{
 			flag = true;
 		}
-		else if (this.m_middleClickEnabled)
+		else if (m_middleClickEnabled)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -65,7 +64,7 @@ public class UITooltipClickObject : UITooltipObject
 			}
 			if (pointerEventData.button == PointerEventData.InputButton.Middle)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -79,16 +78,16 @@ public class UITooltipClickObject : UITooltipObject
 		}
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-			return;
 		}
 		UITooltipManager.Get().ShowMenu(this);
 	}

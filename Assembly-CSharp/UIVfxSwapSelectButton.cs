@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -20,38 +19,38 @@ public class UIVfxSwapSelectButton : MonoBehaviour
 
 	public CharacterAbilityVfxSwap GetSwap()
 	{
-		return this.m_swapReference;
+		return m_swapReference;
 	}
 
 	public void SetVfxSwap(CharacterAbilityVfxSwap theSwap, int swapNumber)
 	{
-		this.m_swapReference = theSwap;
+		m_swapReference = theSwap;
 		if (theSwap != null)
 		{
-			UIManager.SetGameObjectActive(base.gameObject, true, null);
+			UIManager.SetGameObjectActive(base.gameObject, true);
 		}
-		for (int i = 0; i < this.m_labels.Length; i++)
+		for (int i = 0; i < m_labels.Length; i++)
 		{
-			this.m_labels[i].text = swapNumber.ToString();
+			m_labels[i].text = swapNumber.ToString();
 		}
 	}
 
 	public void SetAsUnselected(UIVfxSwapSelectButton referenceButton)
 	{
-		this.m_swapReference = null;
-		UIManager.SetGameObjectActive(base.gameObject, true, null);
+		m_swapReference = null;
+		UIManager.SetGameObjectActive(base.gameObject, true);
 	}
 
 	public void SetCallback(_ButtonSwapSprite.ButtonClickCallback callbackFunc)
 	{
-		this.m_buttonHitBox.callback = callbackFunc;
+		m_buttonHitBox.callback = callbackFunc;
 	}
 
 	public void SetSelected(bool selected, bool forceAnimation = false)
 	{
-		if (this.m_SelectedContainer != null)
+		if (m_SelectedContainer != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -60,38 +59,40 @@ public class UIVfxSwapSelectButton : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIVfxSwapSelectButton.SetSelected(bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_SelectedContainer, selected, null);
+			UIManager.SetGameObjectActive(m_SelectedContainer, selected);
 		}
-		if (this.m_selectBtn != null)
+		if (!(m_selectBtn != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_selectBtn.SetSelected(selected, forceAnimation, string.Empty, string.Empty);
+			m_selectBtn.SetSelected(selected, forceAnimation, string.Empty, string.Empty);
+			return;
 		}
 	}
 
 	public void SetLocked(bool isLocked)
 	{
-		this.m_lockVisible = isLocked;
-		this.UpdateLocked();
+		m_lockVisible = isLocked;
+		UpdateLocked();
 	}
 
 	public void UpdateLocked()
 	{
-		foreach (RectTransform component in this.m_lockIcon)
+		RectTransform[] lockIcon = m_lockIcon;
+		foreach (RectTransform component in lockIcon)
 		{
-			UIManager.SetGameObjectActive(component, this.m_lockVisible, null);
+			UIManager.SetGameObjectActive(component, m_lockVisible);
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,23 +13,23 @@ public class FriendListMenuGroupChatEntry : MonoBehaviour
 
 	public void Start()
 	{
-		this.m_parent = base.GetComponentInParent<FriendListMenuGroupChat>();
-		UIEventTriggerUtils.AddListener(this.m_hitbox.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnGroupChatEntryClick));
-		UIEventTriggerUtils.AddListener(this.m_hitbox.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnGroupChatEntryEnter));
+		m_parent = GetComponentInParent<FriendListMenuGroupChat>();
+		UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerClick, OnGroupChatEntryClick);
+		UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerEnter, OnGroupChatEntryEnter);
 	}
 
 	public void OnGroupChatEntryClick(BaseEventData data)
 	{
-		this.m_parent.NotifyOnEntryClick(this);
+		m_parent.NotifyOnEntryClick(this);
 	}
 
 	public void OnGroupChatEntryEnter(BaseEventData data)
 	{
-		this.m_parent.NotifyOnEntryEnter(this);
+		m_parent.NotifyOnEntryEnter(this);
 	}
 
 	public void Setup(string roomName)
 	{
-		this.m_nameLabel.text = roomName;
+		m_nameLabel.text = roomName;
 	}
 }

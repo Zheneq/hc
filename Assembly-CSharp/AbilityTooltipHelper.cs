@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public static class AbilityTooltipHelper
@@ -11,24 +10,25 @@ public static class AbilityTooltipHelper
 		}
 	}
 
-	public unsafe static void ReportAbsorb(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject subject, int amount)
+	public static void ReportAbsorb(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject subject, int amount)
 	{
-		if (amount > 0)
+		if (amount <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTooltipHelper.ReportAbsorb(List<AbilityTooltipNumber>*, AbilityTooltipSubject, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Absorb, subject, amount));
+			return;
 		}
 	}
 
@@ -40,24 +40,25 @@ public static class AbilityTooltipHelper
 		}
 	}
 
-	public unsafe static void ReportEnergy(ref List<AbilityTooltipNumber> number, AbilityTooltipSubject subject, int amount)
+	public static void ReportEnergy(ref List<AbilityTooltipNumber> number, AbilityTooltipSubject subject, int amount)
 	{
-		if (amount != 0)
+		if (amount == 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTooltipHelper.ReportEnergy(List<AbilityTooltipNumber>*, AbilityTooltipSubject, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			number.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Energy, subject, amount));
+			return;
 		}
 	}
 }

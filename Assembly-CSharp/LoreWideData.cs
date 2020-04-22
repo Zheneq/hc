@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,14 +11,14 @@ public class LoreWideData : MonoBehaviour
 
 	public static LoreWideData Get()
 	{
-		return LoreWideData.s_instance;
+		return s_instance;
 	}
 
 	public LoreArticle GetArticleByIndex(int index)
 	{
-		if (this.m_loreArticles[index].Index != index)
+		if (m_loreArticles[index].Index != index)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -28,22 +27,22 @@ public class LoreWideData : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LoreWideData.GetArticleByIndex(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
-		return this.m_loreArticles[index];
+		return m_loreArticles[index];
 	}
 
 	public List<LoreArticle> GetArticlesByCharacter(CharacterType charType)
 	{
 		List<LoreArticle> list = new List<LoreArticle>();
-		for (int i = 0; i < this.m_loreArticles.Count; i++)
+		for (int i = 0; i < m_loreArticles.Count; i++)
 		{
-			if (this.m_loreArticles[i].RelatedCharacters.Contains(charType))
+			if (m_loreArticles[i].RelatedCharacters.Contains(charType))
 			{
-				list.Add(this.m_loreArticles[i]);
+				list.Add(m_loreArticles[i]);
 			}
 		}
 		return list;
@@ -51,11 +50,11 @@ public class LoreWideData : MonoBehaviour
 
 	private void Awake()
 	{
-		LoreWideData.s_instance = this;
+		s_instance = this;
 	}
 
 	private void OnDestroy()
 	{
-		LoreWideData.s_instance = null;
+		s_instance = null;
 	}
 }

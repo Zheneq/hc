@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class SpoilsSequence : Sequence
@@ -39,33 +38,33 @@ public class SpoilsSequence : Sequence
 
 	private void OnDisable()
 	{
-		if (this.m_fx != null)
+		if (m_fx != null)
 		{
-			UnityEngine.Object.Destroy(this.m_fx);
-			this.m_fx = null;
+			Object.Destroy(m_fx);
+			m_fx = null;
 		}
-		this.m_initialized = false;
+		m_initialized = false;
 	}
 
 	private void SpawnFX()
 	{
-		Vector3[] array = new Vector3[]
+		Vector3[] array = new Vector3[5]
 		{
-			base.TargetPos + Vector3.down * (this.m_maxHeight - this.m_startHeight),
-			base.TargetPos + Vector3.up * this.m_startHeight,
-			base.TargetPos + Vector3.up * this.m_maxHeight,
+			base.TargetPos + Vector3.down * (m_maxHeight - m_startHeight),
+			base.TargetPos + Vector3.up * m_startHeight,
+			base.TargetPos + Vector3.up * m_maxHeight,
 			base.TargetPos,
-			base.TargetPos + Vector3.down * this.m_maxHeight
+			base.TargetPos + Vector3.down * m_maxHeight
 		};
-		this.m_spline = new CRSpline(array);
+		m_spline = new CRSpline(array);
 		float num = (array[1] - array[2]).magnitude + (array[2] - array[3]).magnitude;
-		float num2 = num / this.m_projectileSpeed;
-		this.m_splineSpeed = 1f / num2;
-		this.m_splineAcceleration = this.m_projectileAcceleration * this.m_splineSpeed / this.m_projectileSpeed;
+		float num2 = num / m_projectileSpeed;
+		m_splineSpeed = 1f / num2;
+		m_splineAcceleration = m_projectileAcceleration * m_splineSpeed / m_projectileSpeed;
 		bool flag;
-		if (this.m_pickupTeam != Team.Objects)
+		if (m_pickupTeam != Team.Objects)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -74,13 +73,13 @@ public class SpoilsSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpoilsSequence.SpawnFX()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!(GameFlowData.Get() == null))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -91,7 +90,7 @@ public class SpoilsSequence : Sequence
 				}
 				if (!(GameFlowData.Get().activeOwnedActorData == null))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -100,12 +99,12 @@ public class SpoilsSequence : Sequence
 						}
 						break;
 					}
-					if (!(this.m_inaccessibleFxPrefab == null))
+					if (!(m_inaccessibleFxPrefab == null))
 					{
-						flag = (this.m_pickupTeam != GameFlowData.Get().activeOwnedActorData.\u000E());
-						goto IL_1F2;
+						flag = (m_pickupTeam != GameFlowData.Get().activeOwnedActorData.GetTeam());
+						goto IL_01f2;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -118,11 +117,12 @@ public class SpoilsSequence : Sequence
 			}
 		}
 		flag = false;
-		IL_1F2:
+		goto IL_01f2;
+		IL_01f2:
 		GameObject prefab;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -131,48 +131,49 @@ public class SpoilsSequence : Sequence
 				}
 				break;
 			}
-			prefab = this.m_inaccessibleFxPrefab;
+			prefab = m_inaccessibleFxPrefab;
 		}
 		else
 		{
-			prefab = this.m_fxPrefab;
+			prefab = m_fxPrefab;
 		}
-		this.m_fx = base.InstantiateFX(prefab, array[1], Quaternion.identity, true, true);
-		if (!string.IsNullOrEmpty(this.m_audioEvent))
+		m_fx = InstantiateFX(prefab, array[1], Quaternion.identity);
+		if (string.IsNullOrEmpty(m_audioEvent))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			AudioManager.PostEvent(this.m_audioEvent, (!base.Caster) ? null : base.Caster.gameObject);
+			AudioManager.PostEvent(m_audioEvent, (!base.Caster) ? null : base.Caster.gameObject);
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpoilsSequence.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_fx == null)
+			if (m_fx == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -181,11 +182,11 @@ public class SpoilsSequence : Sequence
 					}
 					break;
 				}
-				this.SpawnFX();
+				SpawnFX();
 			}
-			else if (!this.m_didSetFinalPos)
+			else if (!m_didSetFinalPos)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -194,14 +195,14 @@ public class SpoilsSequence : Sequence
 					}
 					break;
 				}
-				if (!this.m_ignoreSpawnSpline)
+				if (!m_ignoreSpawnSpline)
 				{
-					this.m_curSplineSpeed += this.m_splineAcceleration;
-					this.m_curSplineSpeed = Mathf.Min(this.m_splineSpeed, this.m_curSplineSpeed);
-					this.m_splineTraveled += this.m_curSplineSpeed * GameTime.deltaTime;
-					if (this.m_splineTraveled < 1f)
+					m_curSplineSpeed += m_splineAcceleration;
+					m_curSplineSpeed = Mathf.Min(m_splineSpeed, m_curSplineSpeed);
+					m_splineTraveled += m_curSplineSpeed * GameTime.deltaTime;
+					if (m_splineTraveled < 1f)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -210,33 +211,34 @@ public class SpoilsSequence : Sequence
 							}
 							break;
 						}
-						Vector3 position = this.m_spline.Interp(this.m_splineTraveled);
-						this.m_fx.transform.position = position;
+						Vector3 position = m_spline.Interp(m_splineTraveled);
+						m_fx.transform.position = position;
 					}
 					else
 					{
-						this.m_fx.transform.position = base.TargetPos;
-						this.m_didSetFinalPos = true;
+						m_fx.transform.position = base.TargetPos;
+						m_didSetFinalPos = true;
 					}
 				}
 				else
 				{
-					this.m_fx.transform.position = base.TargetPos;
-					this.m_didSetFinalPos = true;
+					m_fx.transform.position = base.TargetPos;
+					m_didSetFinalPos = true;
 				}
 			}
-			base.ProcessSequenceVisibility();
+			ProcessSequenceVisibility();
+			return;
 		}
 	}
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
 			PowerUp.ExtraParams extraParams2 = extraSequenceParams as PowerUp.ExtraParams;
 			if (extraParams2 != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -245,22 +247,23 @@ public class SpoilsSequence : Sequence
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SpoilsSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_pickupTeam = (Team)extraParams2.m_pickupTeamAsInt;
-				this.m_ignoreSpawnSpline = extraParams2.m_ignoreSpawnSpline;
+				m_pickupTeam = (Team)extraParams2.m_pickupTeamAsInt;
+				m_ignoreSpawnSpline = extraParams2.m_ignoreSpawnSpline;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class NekoDiscBuffNotifySequence : SimpleTimingSequence
@@ -12,34 +11,35 @@ public class NekoDiscBuffNotifySequence : SimpleTimingSequence
 	public override void FinishSetup()
 	{
 		base.FinishSetup();
-		this.m_syncComp = base.Caster.GetComponent<Neko_SyncComponent>();
-		if (this.m_syncComp == null)
+		m_syncComp = base.Caster.GetComponent<Neko_SyncComponent>();
+		if (!(m_syncComp == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoDiscBuffNotifySequence.FinishSetup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (Application.isEditor)
 			{
-				Debug.LogError(base.GetType() + " did not find sync component on caster");
+				Debug.LogError(string.Concat(GetType(), " did not find sync component on caster"));
 			}
+			return;
 		}
 	}
 
 	protected override void DoSequenceHits()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -48,13 +48,13 @@ public class NekoDiscBuffNotifySequence : SimpleTimingSequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoDiscBuffNotifySequence.DoSequenceHits()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -63,10 +63,10 @@ public class NekoDiscBuffNotifySequence : SimpleTimingSequence
 					}
 					break;
 				}
-				BoardSquare boardSquare = Board.\u000E().\u000E(base.TargetPos);
+				BoardSquare boardSquare = Board.Get().GetBoardSquare(base.TargetPos);
 				if (boardSquare != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -75,23 +75,24 @@ public class NekoDiscBuffNotifySequence : SimpleTimingSequence
 						}
 						break;
 					}
-					this.m_syncComp.m_clientLastDiscBuffTurn = GameFlowData.Get().CurrentTurn;
-					this.m_syncComp.m_clientDiscBuffTargetSquare = boardSquare;
+					m_syncComp.m_clientLastDiscBuffTurn = GameFlowData.Get().CurrentTurn;
+					m_syncComp.m_clientDiscBuffTargetSquare = boardSquare;
 				}
 			}
 		}
-		if (!string.IsNullOrEmpty(this.m_audioEventOnNotify))
+		if (string.IsNullOrEmpty(m_audioEventOnNotify))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			AudioManager.PostEvent(this.m_audioEventOnNotify, base.Caster.gameObject);
+			AudioManager.PostEvent(m_audioEventOnNotify, base.Caster.gameObject);
+			return;
 		}
 	}
 }

@@ -1,8 +1,13 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class PaymentMethod
 {
+	public enum PaymentMethodType : long
+	{
+		Steam = -1L
+	}
+
 	public long id;
 
 	public string specificType;
@@ -16,9 +21,4 @@ public class PaymentMethod
 	public string expirationDate;
 
 	public bool isDefault;
-
-	public enum PaymentMethodType : long
-	{
-		Steam = -1L
-	}
 }

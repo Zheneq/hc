@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -15,22 +14,23 @@ public class UIDropdownItem : MonoBehaviour
 
 	public void SetText(string newText)
 	{
-		foreach (TextMeshProUGUI textMeshProUGUI in this.m_textLabels)
+		TextMeshProUGUI[] textLabels = m_textLabels;
+		foreach (TextMeshProUGUI textMeshProUGUI in textLabels)
 		{
 			textMeshProUGUI.text = newText;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIDropdownItem.SetText(string)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 }

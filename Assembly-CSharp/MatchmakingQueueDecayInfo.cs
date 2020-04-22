@@ -1,24 +1,28 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 internal class MatchmakingQueueDecayInfo : IDecayInfo
 {
-	public bool IsActive
+	public bool IsActive => !m_leaderboardTiers.IsNullOrEmpty();
+
+	public DateTime UtcNow
 	{
-		get
-		{
-			return !this.m_leaderboardTiers.IsNullOrEmpty<TierInfo>();
-		}
+		get;
+		set;
 	}
 
-	public DateTime UtcNow { get; set; }
-
-	public unsafe bool GetDecayAmount(int tierIndex, out int amount, out TimeSpan start)
+	internal List<TierInfo> m_leaderboardTiers
 	{
-		if (!this.m_leaderboardTiers.IsNullOrEmpty<TierInfo>())
+		get;
+		set;
+	}
+
+	public bool GetDecayAmount(int tierIndex, out int amount, out TimeSpan start)
+	{
+		if (!m_leaderboardTiers.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -27,11 +31,11 @@ internal class MatchmakingQueueDecayInfo : IDecayInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchmakingQueueDecayInfo.GetDecayAmount(int, int*, TimeSpan*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			TierInfo tierInfo = this.m_leaderboardTiers.ElementAtOrDefault(tierIndex);
+			TierInfo tierInfo = m_leaderboardTiers.ElementAtOrDefault(tierIndex);
 			if (tierInfo != null && tierInfo.DecayAmount != 0)
 			{
 				amount = Math.Abs(tierInfo.DecayAmount);
@@ -46,9 +50,9 @@ internal class MatchmakingQueueDecayInfo : IDecayInfo
 
 	public bool DoesTierHaveLimitlessLesserNeighborTier(int tierIndex)
 	{
-		if (!this.m_leaderboardTiers.IsNullOrEmpty<TierInfo>())
+		if (!m_leaderboardTiers.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -57,14 +61,14 @@ internal class MatchmakingQueueDecayInfo : IDecayInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchmakingQueueDecayInfo.DoesTierHaveLimitlessLesserNeighborTier(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			TierInfo tierInfo = this.m_leaderboardTiers.ElementAtOrDefault(tierIndex);
+			TierInfo tierInfo = m_leaderboardTiers.ElementAtOrDefault(tierIndex);
 			if (tierInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -75,7 +79,7 @@ internal class MatchmakingQueueDecayInfo : IDecayInfo
 				}
 				if (tierInfo.PointType != TierPointsTypes.Limitless)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -86,9 +90,9 @@ internal class MatchmakingQueueDecayInfo : IDecayInfo
 					}
 					if (tierInfo.PointType != TierPointsTypes.DerivedFromMMR)
 					{
-						return false;
+						goto IL_00a7;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -98,42 +102,44 @@ internal class MatchmakingQueueDecayInfo : IDecayInfo
 						break;
 					}
 				}
-				TierInfo tierInfo2 = this.m_leaderboardTiers.ElementAtOrDefault(tierIndex + 1);
+				TierInfo tierInfo2 = m_leaderboardTiers.ElementAtOrDefault(tierIndex + 1);
 				if (tierInfo2 != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					bool result;
-					if (tierInfo2.PointType != TierPointsTypes.Limitless)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+						{
+							int result;
+							if (tierInfo2.PointType != TierPointsTypes.Limitless)
+							{
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								result = ((tierInfo2.PointType == TierPointsTypes.DerivedFromMMR) ? 1 : 0);
+							}
+							else
+							{
+								result = 1;
+							}
+							return (byte)result != 0;
 						}
-						result = (tierInfo2.PointType == TierPointsTypes.DerivedFromMMR);
+						}
 					}
-					else
-					{
-						result = true;
-					}
-					return result;
 				}
 			}
 		}
+		goto IL_00a7;
+		IL_00a7:
 		return false;
 	}
-
-	internal List<TierInfo> m_leaderboardTiers { get; set; }
 }

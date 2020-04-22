@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,124 +13,128 @@ public class UIClickListener : MonoBehaviour
 
 	public static UIClickListener Get()
 	{
-		return UIClickListener.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		UIClickListener.s_instance = this;
-		this.Disable();
+		s_instance = this;
+		Disable();
 	}
 
 	public void Enable(List<GameObject> hitboxes, Action closeAction)
 	{
-		this.m_hitboxes = hitboxes;
-		this.m_closeAction = closeAction;
+		m_hitboxes = hitboxes;
+		m_closeAction = closeAction;
 		base.gameObject.SetActive(true);
 	}
 
 	public void Disable()
 	{
 		base.gameObject.SetActive(false);
-		this.m_closeAction = null;
-		this.m_hitboxes = null;
+		m_closeAction = null;
+		m_hitboxes = null;
 	}
 
 	private void Update()
 	{
-		if (base.gameObject.activeInHierarchy)
+		if (!base.gameObject.activeInHierarchy)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIClickListener.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_closeAction != null)
+			if (m_closeAction == null)
 			{
-				if (!Input.GetMouseButtonDown(0))
+				while (true)
 				{
-					for (;;)
+					switch (4)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
+					default:
+						return;
+					case 0:
 						break;
 					}
-					if (!Input.GetMouseButtonDown(1))
+				}
+			}
+			if (!Input.GetMouseButtonDown(0))
+			{
+				while (true)
+				{
+					switch (4)
 					{
-						return;
+					case 0:
+						continue;
 					}
-					for (;;)
+					break;
+				}
+				if (!Input.GetMouseButtonDown(1))
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+			pointerEventData.pointerId = -1;
+			PointerEventData pointerEventData2 = pointerEventData;
+			pointerEventData2.position = Input.mousePosition;
+			if (m_hitboxes != null)
+			{
+				List<RaycastResult> list = new List<RaycastResult>();
+				EventSystem.current.RaycastAll(pointerEventData2, list);
+				for (int i = 0; i < list.Count; i++)
+				{
+					for (int j = 0; j < m_hitboxes.Count; j++)
+					{
+						if (list[i].gameObject.GetInstanceID() == m_hitboxes[j].GetInstanceID())
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								default:
+									return;
+								case 0:
+									break;
+								}
+							}
+						}
+					}
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							goto end_IL_00fd;
 						}
+						continue;
+						end_IL_00fd:
 						break;
 					}
 				}
-				PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
-				{
-					pointerId = -1
-				};
-				pointerEventData.position = Input.mousePosition;
-				if (this.m_hitboxes != null)
-				{
-					List<RaycastResult> list = new List<RaycastResult>();
-					EventSystem.current.RaycastAll(pointerEventData, list);
-					for (int i = 0; i < list.Count; i++)
-					{
-						for (int j = 0; j < this.m_hitboxes.Count; j++)
-						{
-							if (list[i].gameObject.GetInstanceID() == this.m_hitboxes[j].GetInstanceID())
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								return;
-							}
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-				}
-				this.m_closeAction();
-				base.gameObject.SetActive(false);
-				return;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			m_closeAction();
+			base.gameObject.SetActive(false);
+			return;
 		}
 	}
 }

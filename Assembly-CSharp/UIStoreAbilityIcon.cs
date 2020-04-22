@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,36 +18,36 @@ public class UIStoreAbilityIcon : MonoBehaviour
 
 	private void Start()
 	{
-		this.m_hoverObj.Setup(TooltipType.Titled, new TooltipPopulateCall(this.SetupTooltip), null);
+		m_hoverObj.Setup(TooltipType.Titled, SetupTooltip);
 	}
 
 	private bool SetupTooltip(UITooltipBase tooltip)
 	{
-		if (this.m_tooltipTitle.IsNullOrEmpty())
+		if (m_tooltipTitle.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAbilityIcon.SetupTooltip(UITooltipBase)).MethodHandle;
-			}
-			return false;
 		}
-		UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-		uititledTooltip.Setup(this.m_tooltipTitle, this.m_tooltipDescription, string.Empty);
+		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+		uITitledTooltip.Setup(m_tooltipTitle, m_tooltipDescription, string.Empty);
 		return true;
 	}
 
 	public void SetupTooltip(Ability ability)
 	{
-		this.m_tooltipTitle = ability.GetNameString();
-		this.m_tooltipDescription = ability.GetToolTipString(false);
+		m_tooltipTitle = ability.GetNameString();
+		m_tooltipDescription = ability.GetToolTipString();
 	}
 }

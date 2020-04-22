@@ -1,22 +1,70 @@
-﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Security.Principal;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 public class JsonConfig
 {
+	[JsonIgnore]
+	public bool EnablePostProcess
+	{
+		get;
+		set;
+	}
+
+	[JsonIgnore]
+	public bool EnablePatches
+	{
+		get;
+		set;
+	}
+
+	[JsonIgnore]
+	public string HostName
+	{
+		get;
+		private set;
+	}
+
+	[JsonIgnore]
+	public string ConfigPath
+	{
+		get;
+		set;
+	}
+
+	[JsonIgnore]
+	public string SystemUserName
+	{
+		get;
+		private set;
+	}
+
+	[JsonIgnore]
+	public List<FileInfo> LoadedFileInfo
+	{
+		get;
+		private set;
+	}
+
+	public List<string> Patches
+	{
+		get;
+		set;
+	}
+
 	public JsonConfig()
 	{
-		this.EnablePostProcess = true;
-		this.EnablePatches = true;
-		this.HostName = NetUtil.GetHostName().ToLower();
-		int num = this.HostName.IndexOf('.');
+		EnablePostProcess = true;
+		EnablePatches = true;
+		HostName = NetUtil.GetHostName().ToLower();
+		int num = HostName.IndexOf('.');
 		if (num >= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -25,11 +73,11 @@ public class JsonConfig
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(JsonConfig..ctor()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.HostName = this.HostName.Substring(0, num);
+			HostName = HostName.Substring(0, num);
 		}
 		string text = null;
 		try
@@ -45,7 +93,7 @@ public class JsonConfig
 		}
 		if (text == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -56,11 +104,11 @@ public class JsonConfig
 			}
 			text = "unknown";
 		}
-		this.SystemUserName = text.ToLower();
-		int num2 = this.SystemUserName.IndexOf('\\');
+		SystemUserName = text.ToLower();
+		int num2 = SystemUserName.IndexOf('\\');
 		if (num2 != -1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -69,41 +117,20 @@ public class JsonConfig
 				}
 				break;
 			}
-			this.SystemUserName = this.SystemUserName.Substring(num2 + 1);
+			SystemUserName = SystemUserName.Substring(num2 + 1);
 		}
-		this.LoadedFileInfo = new List<FileInfo>();
+		LoadedFileInfo = new List<FileInfo>();
 	}
-
-	[JsonIgnore]
-	public bool EnablePostProcess { get; set; }
-
-	[JsonIgnore]
-	public bool EnablePatches { get; set; }
-
-	[JsonIgnore]
-	public string HostName { get; private set; }
-
-	[JsonIgnore]
-	public string ConfigPath { get; set; }
-
-	[JsonIgnore]
-	public string SystemUserName { get; private set; }
-
-	[JsonIgnore]
-	public List<FileInfo> LoadedFileInfo { get; private set; }
-
-	public List<string> Patches { get; set; }
 
 	public virtual void Load(string data)
 	{
-		JsonSerializerSettings settings = new JsonSerializerSettings
-		{
-			ObjectCreationHandling = ObjectCreationHandling.Replace
-		};
+		JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
+		jsonSerializerSettings.ObjectCreationHandling = ObjectCreationHandling.Replace;
+		JsonSerializerSettings settings = jsonSerializerSettings;
 		JsonConvert.PopulateObject(data, this, settings);
-		if (this.EnablePostProcess)
+		if (EnablePostProcess)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -112,43 +139,41 @@ public class JsonConfig
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(JsonConfig.Load(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.PostProcess();
+			PostProcess();
 		}
-		if (this.EnablePatches)
+		if (!EnablePatches)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.ApplyPatches();
+			ApplyPatches();
+			return;
 		}
 	}
 
 	public virtual string SaveToString()
 	{
-		return JsonConvert.SerializeObject(this, Formatting.Indented, new JsonConverter[]
-		{
-			new StringEnumConverter()
-		});
+		return JsonConvert.SerializeObject(this, Formatting.Indented, new StringEnumConverter());
 	}
 
 	public virtual void LoadFromFile(string fileName, bool failIfNotFound = true)
 	{
-		this.ConfigPath = Path.GetDirectoryName(fileName);
+		ConfigPath = Path.GetDirectoryName(fileName);
 		string data = "{}";
 		FileInfo fileInfo = new FileInfo(fileName);
 		if (!fileInfo.Exists)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -157,15 +182,15 @@ public class JsonConfig
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(JsonConfig.LoadFromFile(string, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!failIfNotFound)
 			{
-				goto IL_4C;
+				goto IL_004c;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -176,43 +201,44 @@ public class JsonConfig
 			}
 		}
 		data = File.ReadAllText(fileName);
-		IL_4C:
-		this.LoadedFileInfo.Add(fileInfo);
-		this.Load(data);
+		goto IL_004c;
+		IL_004c:
+		LoadedFileInfo.Add(fileInfo);
+		Load(data);
 	}
 
 	public virtual void SaveToFile(string fileName)
 	{
-		string contents = this.SaveToString();
+		string contents = SaveToString();
 		File.WriteAllText(fileName, contents);
 	}
 
 	public bool HasBeenModified()
 	{
-		using (List<FileInfo>.Enumerator enumerator = this.LoadedFileInfo.GetEnumerator())
+		using (List<FileInfo>.Enumerator enumerator = LoadedFileInfo.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				FileInfo fileInfo = enumerator.Current;
-				if (fileInfo.HasBeenModified(null))
+				FileInfo current = enumerator.Current;
+				if (current.HasBeenModified())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							return true;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JsonConfig.HasBeenModified()).MethodHandle;
-					}
-					return true;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -236,11 +262,12 @@ public class JsonConfig
 	public static void StripSensitiveData(object obj)
 	{
 		FieldInfo[] fields = obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
-		foreach (FieldInfo fieldInfo in fields)
+		FieldInfo[] array = fields;
+		foreach (FieldInfo fieldInfo in array)
 		{
-			if ((fieldInfo.Attributes & FieldAttributes.NotSerialized) == FieldAttributes.PrivateScope)
+			if ((fieldInfo.Attributes & FieldAttributes.NotSerialized) == 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -249,9 +276,9 @@ public class JsonConfig
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(JsonConfig.StripSensitiveData(object)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (fieldInfo.GetCustomAttributes(typeof(SensitiveDataAttribute), false).Length > 0)
 				{
@@ -260,14 +287,15 @@ public class JsonConfig
 				}
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 }

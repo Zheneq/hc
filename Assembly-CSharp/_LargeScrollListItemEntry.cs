@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class _LargeScrollListItemEntry : MonoBehaviour
@@ -13,75 +12,79 @@ public class _LargeScrollListItemEntry : MonoBehaviour
 		rectTransform.anchorMin = new Vector2(0.5f, 1f);
 		rectTransform.anchorMax = new Vector2(0.5f, 1f);
 		rectTransform.pivot = new Vector2(0.5f, 1f);
-		MonoBehaviour[] components = base.GetComponents<MonoBehaviour>();
-		foreach (MonoBehaviour monoBehaviour in components)
+		MonoBehaviour[] components = GetComponents<MonoBehaviour>();
+		MonoBehaviour[] array = components;
+		foreach (MonoBehaviour monoBehaviour in array)
 		{
-			if (monoBehaviour is IUIDataEntry)
+			if (!(monoBehaviour is IUIDataEntry))
 			{
-				if (this.m_overrideDataEntryInterface == null)
+				continue;
+			}
+			if (m_overrideDataEntryInterface == null)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (5)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(_LargeScrollListItemEntry.Awake()).MethodHandle;
-					}
-					this.m_overrideDataEntryInterface = (monoBehaviour as IUIDataEntry);
+					break;
 				}
-				else
+				if (1 == 0)
 				{
-					Log.Warning("Scroll List Item Entry has multiple IUIDataEntry interfaces attached", new object[0]);
+					/*OpCode not supported: LdMemberToken*/;
 				}
+				m_overrideDataEntryInterface = (monoBehaviour as IUIDataEntry);
+			}
+			else
+			{
+				Log.Warning("Scroll List Item Entry has multiple IUIDataEntry interfaces attached");
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public IUIDataEntry GetDataEntryInterface()
 	{
-		return this.m_overrideDataEntryInterface;
+		return m_overrideDataEntryInterface;
 	}
 
 	public void SetVisible(bool visible)
 	{
-		this.m_isVisible = visible;
-		if (this.m_isVisible)
+		m_isVisible = visible;
+		if (!m_isVisible)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_LargeScrollListItemEntry.SetVisible(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(base.gameObject, this.m_isVisible, null);
+			UIManager.SetGameObjectActive(base.gameObject, m_isVisible);
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		UIManager.SetGameObjectActive(base.gameObject, this.m_isVisible, null);
+		UIManager.SetGameObjectActive(base.gameObject, m_isVisible);
 	}
 
 	public void SetParent(RectTransform rectTransform)
@@ -99,10 +102,11 @@ public class _LargeScrollListItemEntry : MonoBehaviour
 
 	public float GetHeight()
 	{
-		if (this.m_overrideDataEntryInterface != null)
+		if (m_overrideDataEntryInterface != null)
 		{
-			return this.m_overrideDataEntryInterface.GetHeight();
+			return m_overrideDataEntryInterface.GetHeight();
 		}
-		return (base.gameObject.transform as RectTransform).sizeDelta.y;
+		Vector2 sizeDelta = (base.gameObject.transform as RectTransform).sizeDelta;
+		return sizeDelta.y;
 	}
 }

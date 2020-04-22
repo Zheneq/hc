@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -8,91 +7,93 @@ public class Manta_SyncComponent : NetworkBehaviour
 
 	private MantaConeDirtyFighting m_dirtyFightingAbility;
 
-	private static int kListm_dirtyFightingActorIndices = -0x24697228;
+	private static int kListm_dirtyFightingActorIndices;
 
 	static Manta_SyncComponent()
 	{
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(Manta_SyncComponent), Manta_SyncComponent.kListm_dirtyFightingActorIndices, new NetworkBehaviour.CmdDelegate(Manta_SyncComponent.InvokeSyncListm_dirtyFightingActorIndices));
+		kListm_dirtyFightingActorIndices = -610890280;
+		NetworkBehaviour.RegisterSyncListDelegate(typeof(Manta_SyncComponent), kListm_dirtyFightingActorIndices, InvokeSyncListm_dirtyFightingActorIndices);
 		NetworkCRC.RegisterBehaviour("Manta_SyncComponent", 0);
 	}
 
 	public void Start()
 	{
-		ActorData component = base.GetComponent<ActorData>();
-		if (component != null)
+		ActorData component = GetComponent<ActorData>();
+		if (!(component != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (component.\u000E() != null)
+			if (component.GetAbilityData() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_dirtyFightingAbility = (component.GetAbilityData().GetAbilityOfType(typeof(MantaConeDirtyFighting)) as MantaConeDirtyFighting);
+					return;
 				}
-				this.m_dirtyFightingAbility = (component.\u000E().GetAbilityOfType(typeof(MantaConeDirtyFighting)) as MantaConeDirtyFighting);
 			}
+			return;
 		}
 	}
 
 	public void AddDirtyFightingActor(ActorData effectActor)
 	{
-		this.m_dirtyFightingActorIndices.Add((uint)effectActor.ActorIndex);
+		m_dirtyFightingActorIndices.Add((uint)effectActor.ActorIndex);
 	}
 
 	public void RemoveDirtyFightingActor(ActorData effectActor)
 	{
-		this.m_dirtyFightingActorIndices.Remove((uint)effectActor.ActorIndex);
+		m_dirtyFightingActorIndices.Remove((uint)effectActor.ActorIndex);
 	}
 
 	public bool HasDirtyFightingEffect(ActorData effectActor)
 	{
-		return this.m_dirtyFightingActorIndices.Contains((uint)effectActor.ActorIndex);
+		return m_dirtyFightingActorIndices.Contains((uint)effectActor.ActorIndex);
 	}
 
 	public string GetAccessoryStringForDamage(ActorData targetActor, ActorData caster, Ability ability)
 	{
-		int dirtyFightingExtraDamage = this.GetDirtyFightingExtraDamage(targetActor);
+		int dirtyFightingExtraDamage = GetDirtyFightingExtraDamage(targetActor);
 		if (dirtyFightingExtraDamage > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return "\n+ " + AbilityUtils.CalculateDamageForTargeter(caster, targetActor, ability, dirtyFightingExtraDamage, false);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.GetAccessoryStringForDamage(ActorData, ActorData, Ability)).MethodHandle;
-			}
-			return "\n+ " + AbilityUtils.CalculateDamageForTargeter(caster, targetActor, ability, dirtyFightingExtraDamage, false).ToString();
 		}
 		return null;
 	}
 
 	public int GetDirtyFightingExtraDamage(ActorData effectActor)
 	{
-		if (this.HasDirtyFightingEffect(effectActor))
+		if (HasDirtyFightingEffect(effectActor))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -101,22 +102,22 @@ public class Manta_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.GetDirtyFightingExtraDamage(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_dirtyFightingAbility != null)
+			if (m_dirtyFightingAbility != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_dirtyFightingAbility.GetEffectExplosionDamage();
 					}
-					break;
 				}
-				return this.m_dirtyFightingAbility.GetEffectExplosionDamage();
 			}
 		}
 		return 0;
@@ -124,9 +125,9 @@ public class Manta_SyncComponent : NetworkBehaviour
 
 	public int GetDirtyFightingExtraTP(ActorData effectActor)
 	{
-		if (this.HasDirtyFightingEffect(effectActor))
+		if (HasDirtyFightingEffect(effectActor))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -135,22 +136,22 @@ public class Manta_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.GetDirtyFightingExtraTP(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_dirtyFightingAbility != null)
+			if (m_dirtyFightingAbility != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_dirtyFightingAbility.GetTechPointGainPerExplosion();
 					}
-					break;
 				}
-				return this.m_dirtyFightingAbility.GetTechPointGainPerExplosion();
 			}
 		}
 		return 0;
@@ -164,54 +165,54 @@ public class Manta_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("SyncList m_dirtyFightingActorIndices called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.InvokeSyncListm_dirtyFightingActorIndices(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("SyncList m_dirtyFightingActorIndices called on server.");
-			return;
 		}
 		((Manta_SyncComponent)obj).m_dirtyFightingActorIndices.HandleMsg(reader);
 	}
 
 	private void Awake()
 	{
-		this.m_dirtyFightingActorIndices.InitializeBehaviour(this, Manta_SyncComponent.kListm_dirtyFightingActorIndices);
+		m_dirtyFightingActorIndices.InitializeBehaviour(this, kListm_dirtyFightingActorIndices);
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					SyncListUInt.WriteInstance(writer, m_dirtyFightingActorIndices);
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
-			SyncListUInt.WriteInstance(writer, this.m_dirtyFightingActorIndices);
-			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -222,7 +223,7 @@ public class Manta_SyncComponent : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -234,11 +235,11 @@ public class Manta_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			SyncListUInt.WriteInstance(writer, this.m_dirtyFightingActorIndices);
+			SyncListUInt.WriteInstance(writer, m_dirtyFightingActorIndices);
 		}
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -256,35 +257,36 @@ public class Manta_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					SyncListUInt.ReadReference(reader, m_dirtyFightingActorIndices);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
-			SyncListUInt.ReadReference(reader, this.m_dirtyFightingActorIndices);
-			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
-		if ((num & 1) != 0)
+		if ((num & 1) == 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			SyncListUInt.ReadReference(reader, this.m_dirtyFightingActorIndices);
+			SyncListUInt.ReadReference(reader, m_dirtyFightingActorIndices);
+			return;
 		}
 	}
 }

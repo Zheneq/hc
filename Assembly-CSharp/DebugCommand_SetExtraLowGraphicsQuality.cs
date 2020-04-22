@@ -1,5 +1,3 @@
-﻿using System;
-
 public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 {
 	public override string GetDebugItemName()
@@ -14,9 +12,10 @@ public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 
 	public override string GetDebugItemValue()
 	{
+		object result;
 		if (Options_UI.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -25,13 +24,13 @@ public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_SetExtraLowGraphicsQuality.GetDebugItemValue()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (Options_UI.Get().GetCurrentGraphicsQuality() == GraphicsQuality.VeryLow)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -40,10 +39,14 @@ public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 					}
 					break;
 				}
-				return "on";
+				result = "on";
+				goto IL_004c;
 			}
 		}
-		return "off";
+		result = "off";
+		goto IL_004c;
+		IL_004c:
+		return (string)result;
 	}
 
 	public override string GetSlashCommand()
@@ -58,27 +61,27 @@ public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 
 	public override void OnIncreaseClick()
 	{
-		if (base.CheatEnabled)
+		if (!base.CheatEnabled)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_SetExtraLowGraphicsQuality.OnIncreaseClick()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (Options_UI.Get() == null)
+			if (!(Options_UI.Get() == null))
 			{
-				return;
+				Options_UI.Get().SetPendingGraphicsQuality((Options_UI.Get().GetCurrentGraphicsQuality() != GraphicsQuality.VeryLow) ? GraphicsQuality.VeryLow : GraphicsQuality.Low);
+				Options_UI.Get().ApplyCurrentSettings();
 			}
-			Options_UI.Get().SetPendingGraphicsQuality((Options_UI.Get().GetCurrentGraphicsQuality() != GraphicsQuality.VeryLow) ? GraphicsQuality.VeryLow : GraphicsQuality.Low);
-			Options_UI.Get().ApplyCurrentSettings();
+			return;
 		}
 	}
 
@@ -86,21 +89,21 @@ public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 	{
 		if (arguments.EqualsIgnoreCase("lowgraphics"))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					OnIncreaseClick();
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_SetExtraLowGraphicsQuality.OnSlashCommand(string)).MethodHandle;
-			}
-			this.OnIncreaseClick();
-			return true;
 		}
 		return false;
 	}

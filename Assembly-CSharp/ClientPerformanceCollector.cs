@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
@@ -33,18 +32,18 @@ public class ClientPerformanceCollector : MonoBehaviour
 
 	internal static ClientPerformanceCollector Get()
 	{
-		return ClientPerformanceCollector.s_instance;
+		return s_instance;
 	}
 
 	private void Start()
 	{
-		ClientPerformanceCollector.s_instance = this;
-		this.m_performanceInfo = new LobbyGameClientPerformanceInfo();
-		this.m_lastFrameCount = Time.frameCount;
-		this.m_lastRealtimeSinceStartup = Time.realtimeSinceStartup;
-		this.m_cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-		this.m_ramCounter = new PerformanceCounter("Memory", "Available MBytes");
-		this.m_collectCoroutine = this.CollectInternal();
+		s_instance = this;
+		m_performanceInfo = new LobbyGameClientPerformanceInfo();
+		m_lastFrameCount = Time.frameCount;
+		m_lastRealtimeSinceStartup = Time.realtimeSinceStartup;
+		m_cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+		m_ramCounter = new PerformanceCounter("Memory", "Available MBytes");
+		m_collectCoroutine = CollectInternal();
 	}
 
 	private void OnDestroy()
@@ -53,70 +52,70 @@ public class ClientPerformanceCollector : MonoBehaviour
 
 	public void StartCollecting()
 	{
-		if (!this.m_collect)
+		if (!m_collect)
 		{
-			this.m_collect = true;
-			base.StartCoroutine(this.m_collectCoroutine);
+			m_collect = true;
+			StartCoroutine(m_collectCoroutine);
 		}
 	}
 
 	public void StopCollecting()
 	{
-		if (this.m_collect)
+		if (!m_collect)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientPerformanceCollector.StopCollecting()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_collect = false;
-			base.StopCoroutine(this.m_collectCoroutine);
+			m_collect = false;
+			StopCoroutine(m_collectCoroutine);
+			return;
 		}
 	}
 
 	private IEnumerator CollectInternal()
 	{
-		while (this.m_collect)
+		while (m_collect)
 		{
-			yield return new WaitForSeconds(ClientPerformanceCollector.c_collectFrequency);
-			int frameCount = Time.frameCount - this.m_lastFrameCount;
-			float timeSpan = Time.realtimeSinceStartup - this.m_lastRealtimeSinceStartup;
-			this.m_lastFrameCount = Time.frameCount;
-			this.m_lastRealtimeSinceStartup = Time.realtimeSinceStartup;
-			this.m_performanceInfo.AvgFPS = (float)Mathf.RoundToInt((float)frameCount / timeSpan);
-			this.m_performanceInfo.CurrentFPS = (float)Mathf.RoundToInt((float)Time.frameCount / Time.time);
-			this.m_performanceInfo.CurrentCpuUsage = this.m_cpuCounter.NextValue();
-			this.m_performanceInfo.CurrentMemoryUsage = this.m_ramCounter.NextValue();
-			this.m_performanceInfo.AvgCpuUsage = this.GetAverage(this.m_performanceInfo.AvgCpuUsage, this.m_cpuCounterSamples++, this.m_performanceInfo.CurrentCpuUsage);
-			this.m_performanceInfo.AvgMemoryUsage = this.GetAverage(this.m_performanceInfo.AvgMemoryUsage, this.m_ramCounterSamples++, this.m_performanceInfo.CurrentMemoryUsage);
-			if (this.m_observedWebSocket != null)
+			yield return new WaitForSeconds(c_collectFrequency);
+			int frameCount = Time.frameCount - m_lastFrameCount;
+			float timeSpan = Time.realtimeSinceStartup - m_lastRealtimeSinceStartup;
+			m_lastFrameCount = Time.frameCount;
+			m_lastRealtimeSinceStartup = Time.realtimeSinceStartup;
+			m_performanceInfo.AvgFPS = Mathf.RoundToInt((float)frameCount / timeSpan);
+			m_performanceInfo.CurrentFPS = Mathf.RoundToInt((float)Time.frameCount / Time.time);
+			m_performanceInfo.CurrentCpuUsage = m_cpuCounter.NextValue();
+			m_performanceInfo.CurrentMemoryUsage = m_ramCounter.NextValue();
+			m_performanceInfo.AvgCpuUsage = GetAverage(m_performanceInfo.AvgCpuUsage, m_cpuCounterSamples++, m_performanceInfo.CurrentCpuUsage);
+			m_performanceInfo.AvgMemoryUsage = GetAverage(m_performanceInfo.AvgMemoryUsage, m_ramCounterSamples++, m_performanceInfo.CurrentMemoryUsage);
+			if (m_observedWebSocket != null)
 			{
-				this.m_performanceInfo.CurrentLatency = (float)this.m_observedWebSocket.RoundtripTime;
-				this.m_performanceInfo.AvgLatency = this.GetAverage(this.m_performanceInfo.AvgLatency, this.m_roundtripSamples++, this.m_performanceInfo.CurrentLatency);
+				m_performanceInfo.CurrentLatency = m_observedWebSocket.RoundtripTime;
+				m_performanceInfo.AvgLatency = GetAverage(m_performanceInfo.AvgLatency, m_roundtripSamples++, m_performanceInfo.CurrentLatency);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			yield break;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ClientPerformanceCollector.<CollectInternal>c__Iterator0.MoveNext()).MethodHandle;
-		}
-		yield break;
 	}
 
 	private float GetAverage(float prevAvg, int prevTotalSamples, float newSampleVal)
@@ -126,30 +125,30 @@ public class ClientPerformanceCollector : MonoBehaviour
 
 	public void ObserveRTT(WebSocket webSocket)
 	{
-		this.m_observedWebSocket = webSocket;
+		m_observedWebSocket = webSocket;
 	}
 
 	public LobbyGameClientPerformanceInfo Collect()
 	{
-		if (this.m_collect)
+		if (m_collect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_cpuCounterSamples = 0;
+					m_ramCounterSamples = 0;
+					m_roundtripSamples = 0;
+					return m_performanceInfo;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientPerformanceCollector.Collect()).MethodHandle;
-			}
-			this.m_cpuCounterSamples = 0;
-			this.m_ramCounterSamples = 0;
-			this.m_roundtripSamples = 0;
-			return this.m_performanceInfo;
 		}
 		return null;
 	}

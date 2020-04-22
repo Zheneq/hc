@@ -1,11 +1,20 @@
-﻿using System;
+using System;
 
 namespace LobbyGameClientMessages
 {
 	[Serializable]
 	public class ClientStatusReport : WebSocketMessage
 	{
-		public ClientStatusReport.ClientStatusReportType Status;
+		public enum ClientStatusReportType
+		{
+			_001D,
+			_000E,
+			_0012,
+			_0015,
+			_0016
+		}
+
+		public ClientStatusReportType Status;
 
 		public string StatusDetails;
 
@@ -14,14 +23,5 @@ namespace LobbyGameClientMessages
 		public string UserMessage;
 
 		public string FileDateTime;
-
-		public enum ClientStatusReportType
-		{
-			\u001D,
-			\u000E,
-			\u0012,
-			\u0015,
-			\u0016
-		}
 	}
 }

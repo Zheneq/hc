@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 namespace Fabric
@@ -12,51 +11,52 @@ namespace Fabric
 
 		public FabricSpringBoard()
 		{
-			FabricSpringBoard._isPresent = true;
+			_isPresent = true;
 		}
 
 		private void OnEnable()
 		{
-			FabricSpringBoard._isPresent = true;
+			_isPresent = true;
 		}
 
 		private void Awake()
 		{
-			this.Load();
+			Load();
 		}
 
 		public void Load()
 		{
-			FabricManager fabricManagerInEditor = FabricSpringBoard.GetFabricManagerInEditor();
-			if (!fabricManagerInEditor)
+			FabricManager fabricManagerInEditor = GetFabricManagerInEditor();
+			if ((bool)fabricManagerInEditor)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FabricSpringBoard.Load()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				GameObject gameObject = Resources.Load(this._fabricManagerPrefabPath, typeof(GameObject)) as GameObject;
-				if (gameObject)
+				GameObject gameObject = Resources.Load(_fabricManagerPrefabPath, typeof(GameObject)) as GameObject;
+				if ((bool)gameObject)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						Object.Instantiate(gameObject);
+						return;
 					}
-					UnityEngine.Object.Instantiate<GameObject>(gameObject);
 				}
+				return;
 			}
 		}
 
@@ -67,7 +67,7 @@ namespace Fabric
 			{
 				if (array[i].gameObject != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -76,9 +76,9 @@ namespace Fabric
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FabricSpringBoard.GetFabricManagerInEditor()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					if (array[i].hideFlags != HideFlags.HideInHierarchy)
 					{

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class GrydDetonateBomb : Ability
@@ -8,22 +7,23 @@ public class GrydDetonateBomb : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (!(m_abilityName == "Base Ability"))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydDetonateBomb.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Detonate";
+			m_abilityName = "Detonate";
+			return;
 		}
 	}
 }

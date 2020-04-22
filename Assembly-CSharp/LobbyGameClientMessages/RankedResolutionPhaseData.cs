@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace LobbyGameClientMessages
@@ -24,11 +24,34 @@ namespace LobbyGameClientMessages
 
 		public List<int> PlayerIdByImporance;
 
-		public bool \u001D(int \u001D)
+		public bool _001D(int _001D)
 		{
-			RankedResolutionPhaseData.<IsPlayerOnDeck>c__AnonStorey0 <IsPlayerOnDeck>c__AnonStorey = new RankedResolutionPhaseData.<IsPlayerOnDeck>c__AnonStorey0();
-			<IsPlayerOnDeck>c__AnonStorey.\u001D = \u001D;
-			return this.PlayersOnDeck.Exists(new Predicate<RankedResolutionPlayerState>(<IsPlayerOnDeck>c__AnonStorey.\u000E));
+			return PlayersOnDeck.Exists(delegate(RankedResolutionPlayerState _001D)
+			{
+				int result;
+				if (_001D.PlayerId == _001D)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					result = ((_001D.OnDeckness == RankedResolutionPlayerState.ReadyState._0012) ? 1 : 0);
+				}
+				else
+				{
+					result = 0;
+				}
+				return (byte)result != 0;
+			});
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,14 +56,14 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 
 	public static ReactorCoreMapMonitorCoordinator Get()
 	{
-		return ReactorCoreMapMonitorCoordinator.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		if (ReactorCoreMapMonitorCoordinator.s_instance != null)
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -73,218 +72,219 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Log.Error(base.GetType() + " has existing instance in scene on Awake, may have duplicates", new object[0]);
+			Log.Error(string.Concat(GetType(), " has existing instance in scene on Awake, may have duplicates"));
 		}
-		ReactorCoreMapMonitorCoordinator.s_instance = this;
+		s_instance = this;
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.TurnTick);
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.UIPhaseStartedMovement);
-		this.m_portraitSwitchDuration = Mathf.Max(0.3f, this.m_portraitSwitchDuration);
+		m_portraitSwitchDuration = Mathf.Max(0.3f, m_portraitSwitchDuration);
 	}
 
 	private void Start()
 	{
-		if (this.m_largePortraitObject != null)
+		if (!(m_largePortraitObject != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_largePortraitObjectRenderer = this.m_largePortraitObject.GetComponent<Renderer>();
-			this.m_largePortraitObject.SetActive(false);
+			m_largePortraitObjectRenderer = m_largePortraitObject.GetComponent<Renderer>();
+			m_largePortraitObject.SetActive(false);
+			return;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		this.m_characterRespawning.Clear();
-		this.m_characterSprites.Clear();
+		m_characterRespawning.Clear();
+		m_characterSprites.Clear();
 		GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.TurnTick);
 		GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.UIPhaseStartedMovement);
-		ReactorCoreMapMonitorCoordinator.s_instance = null;
+		s_instance = null;
 	}
 
 	public void AddPortraitController(ReactorCoreMapRespawnMonitor controller)
 	{
-		if (controller != null)
+		if (!(controller != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.AddPortraitController(ReactorCoreMapRespawnMonitor)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_portraitControllers.Contains(controller))
+			if (!m_portraitControllers.Contains(controller))
 			{
-				this.m_portraitControllers.Add(controller);
+				m_portraitControllers.Add(controller);
 			}
+			return;
 		}
 	}
 
 	public void RemovePortraitController(ReactorCoreMapRespawnMonitor controller)
 	{
-		if (controller != null)
+		if (!(controller != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.RemovePortraitController(ReactorCoreMapRespawnMonitor)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_portraitControllers.Remove(controller);
+			m_portraitControllers.Remove(controller);
+			return;
 		}
 	}
 
-	public void \u000E()
+	public void _000E()
 	{
 		string text = "Respawning Actors:\n";
-		using (List<CharacterType>.Enumerator enumerator = this.m_characterRespawning.GetEnumerator())
+		using (List<CharacterType>.Enumerator enumerator = m_characterRespawning.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				CharacterType characterType = enumerator.Current;
+				CharacterType current = enumerator.Current;
 				string text2 = text;
-				text = string.Concat(new object[]
-				{
-					text2,
-					"\t",
-					characterType,
-					"\n"
-				});
+				text = string.Concat(text2, "\t", current, "\n");
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					goto end_IL_0014;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.\u000E()).MethodHandle;
-			}
+			end_IL_0014:;
 		}
 		Debug.LogWarning(text);
 	}
 
 	private void Update()
 	{
-		if (this.m_characterRespawning.Count > 0)
+		if (m_characterRespawning.Count <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_timeTillNextUpdate -= Time.deltaTime;
+			if (!(m_timeTillNextUpdate <= 0f))
+			{
+				return;
+			}
+			m_timeTillNextUpdate = m_portraitSwitchDuration;
+			m_currentIndex++;
+			if (m_currentIndex >= m_characterRespawning.Count)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_currentIndex = 0;
+			}
+			CharacterType key = m_characterRespawning[m_currentIndex];
+			if (!m_characterSprites.ContainsKey(key))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.Update()).MethodHandle;
-			}
-			this.m_timeTillNextUpdate -= Time.deltaTime;
-			if (this.m_timeTillNextUpdate <= 0f)
-			{
-				this.m_timeTillNextUpdate = this.m_portraitSwitchDuration;
-				this.m_currentIndex++;
-				if (this.m_currentIndex >= this.m_characterRespawning.Count)
+				Sprite respawnPortrait = m_characterSprites[key];
+				for (int i = 0; i < m_portraitControllers.Count; i++)
 				{
-					for (;;)
+					if (m_portraitControllers[i] != null)
 					{
-						switch (2)
+						while (true)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_currentIndex = 0;
-				}
-				CharacterType key = this.m_characterRespawning[this.m_currentIndex];
-				if (this.m_characterSprites.ContainsKey(key))
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Sprite respawnPortrait = this.m_characterSprites[key];
-					for (int i = 0; i < this.m_portraitControllers.Count; i++)
-					{
-						if (this.m_portraitControllers[i] != null)
-						{
-							for (;;)
+							switch (4)
 							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
+							case 0:
+								continue;
 							}
-							this.m_portraitControllers[i].SetRespawnPortrait(respawnPortrait);
+							break;
 						}
+						m_portraitControllers[i].SetRespawnPortrait(respawnPortrait);
 					}
 				}
+				return;
 			}
 		}
 	}
 
 	private void HidePortraits()
 	{
-		for (int i = 0; i < this.m_portraitControllers.Count; i++)
+		for (int i = 0; i < m_portraitControllers.Count; i++)
 		{
-			if (this.m_portraitControllers[i] != null)
+			if (m_portraitControllers[i] != null)
 			{
-				this.m_portraitControllers[i].HidePortrait();
+				m_portraitControllers[i].HidePortrait();
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.HidePortraits()).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
@@ -292,7 +292,7 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 	{
 		if (eventType == GameEventManager.EventType.TurnTick)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -301,13 +301,13 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_largePortraitObjectRenderer != null)
+			if (m_largePortraitObjectRenderer != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -317,28 +317,27 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 					break;
 				}
 			}
-			this.m_characterRespawning.Clear();
+			m_characterRespawning.Clear();
 			List<ActorData> actors = GameFlowData.Get().GetActors();
-			int i = 0;
-			while (i < actors.Count)
+			for (int i = 0; i < actors.Count; i++)
 			{
 				ActorData actorData = actors[i];
-				if (actorData.\u000E())
+				if (!actorData.IsDead())
 				{
-					goto IL_A9;
-				}
-				for (;;)
-				{
-					switch (4)
+					while (true)
 					{
-					case 0:
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (actorData.NextRespawnTurn <= 0)
+					{
 						continue;
 					}
-					break;
-				}
-				if (actorData.NextRespawnTurn > 0)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -347,28 +346,25 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 						}
 						break;
 					}
-					if (actorData.NextRespawnTurn == GameFlowData.Get().CurrentTurn)
+					if (actorData.NextRespawnTurn != GameFlowData.Get().CurrentTurn)
 					{
-						for (;;)
+						continue;
+					}
+					while (true)
+					{
+						switch (6)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_A9;
+						case 0:
+							continue;
 						}
+						break;
 					}
 				}
-				IL_111:
-				i++;
-				continue;
-				IL_A9:
-				if (this.m_characterRespawning.Contains(actorData.m_characterType))
+				if (m_characterRespawning.Contains(actorData.m_characterType))
 				{
-					goto IL_111;
+					continue;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -377,11 +373,11 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 					}
 					break;
 				}
-				this.m_characterRespawning.Add(actorData.m_characterType);
-				Sprite value = actorData.\u000E();
-				if (!this.m_characterSprites.ContainsKey(actorData.m_characterType))
+				m_characterRespawning.Add(actorData.m_characterType);
+				Sprite aliveHUDIcon = actorData.GetAliveHUDIcon();
+				if (!m_characterSprites.ContainsKey(actorData.m_characterType))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -390,15 +386,13 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 						}
 						break;
 					}
-					this.m_characterSprites.Add(actorData.m_characterType, value);
-					goto IL_111;
+					m_characterSprites.Add(actorData.m_characterType, aliveHUDIcon);
 				}
-				goto IL_111;
 			}
-			int count = this.m_characterRespawning.Count;
+			int count = m_characterRespawning.Count;
 			if (count > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -407,77 +401,80 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 					}
 					break;
 				}
-				this.m_timeTillNextUpdate = 0f;
+				m_timeTillNextUpdate = 0f;
 			}
 			else
 			{
-				this.HidePortraits();
+				HidePortraits();
 			}
 		}
-		if (eventType == GameEventManager.EventType.UIPhaseStartedMovement)
+		if (eventType != GameEventManager.EventType.UIPhaseStartedMovement)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_characterRespawning.Clear();
+			m_characterRespawning.Clear();
 			List<ActorData> actors2 = GameFlowData.Get().GetActors();
 			for (int j = 0; j < actors2.Count; j++)
 			{
 				ActorData actorData2 = actors2[j];
-				if (actorData2.\u000E())
+				if (!actorData2.IsDead())
 				{
-					for (;;)
+					continue;
+				}
+				while (true)
+				{
+					switch (1)
 					{
-						switch (1)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (m_characterRespawning.Contains(actorData2.m_characterType))
+				{
+					continue;
+				}
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_characterRespawning.Add(actorData2.m_characterType);
+				Sprite aliveHUDIcon2 = actorData2.GetAliveHUDIcon();
+				if (!m_characterSprites.ContainsKey(actorData2.m_characterType))
+				{
+					while (true)
+					{
+						switch (2)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (!this.m_characterRespawning.Contains(actorData2.m_characterType))
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_characterRespawning.Add(actorData2.m_characterType);
-						Sprite value2 = actorData2.\u000E();
-						if (!this.m_characterSprites.ContainsKey(actorData2.m_characterType))
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_characterSprites.Add(actorData2.m_characterType, value2);
-						}
-					}
+					m_characterSprites.Add(actorData2.m_characterType, aliveHUDIcon2);
 				}
 			}
-			if (this.m_characterRespawning.Count > 0)
+			if (m_characterRespawning.Count > 0)
 			{
-				this.m_timeTillNextUpdate = 0f;
+				m_timeTillNextUpdate = 0f;
 			}
 			else
 			{
-				this.HidePortraits();
+				HidePortraits();
 			}
+			return;
 		}
 	}
 }

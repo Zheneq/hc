@@ -1,68 +1,69 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class _DropdownMenuList : MonoBehaviour
 {
+	public delegate void CallBack();
+
 	public RectTransform m_listContainer;
 
 	public _ButtonSwapSprite m_listToggleBtn;
 
 	[HideInInspector]
-	public _DropdownMenuList.CallBack m_openCallback;
+	public CallBack m_openCallback;
 
 	[HideInInspector]
-	public _DropdownMenuList.CallBack m_closeCallback;
+	public CallBack m_closeCallback;
 
 	private bool m_listVisible;
 
 	private void Awake()
 	{
-		this.m_listVisible = false;
-		UIManager.SetGameObjectActive(this.m_listContainer, this.m_listVisible, null);
-		this.m_listToggleBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ToggleListContainer);
+		m_listVisible = false;
+		UIManager.SetGameObjectActive(m_listContainer, m_listVisible);
+		m_listToggleBtn.callback = ToggleListContainer;
 	}
 
 	public void SetListContainerVisible(bool visible)
 	{
-		this.m_listVisible = visible;
-		UIManager.SetGameObjectActive(this.m_listContainer, this.m_listVisible, null);
-		if (this.m_listVisible && this.m_openCallback != null)
+		m_listVisible = visible;
+		UIManager.SetGameObjectActive(m_listContainer, m_listVisible);
+		if (m_listVisible && m_openCallback != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_openCallback();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_DropdownMenuList.SetListContainerVisible(bool)).MethodHandle;
-			}
-			this.m_openCallback();
 		}
-		else if (!this.m_listVisible && this.m_closeCallback != null)
+		if (m_listVisible || m_closeCallback == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_closeCallback();
+			m_closeCallback();
+			return;
 		}
 	}
 
 	public void ToggleListContainer(BaseEventData data)
 	{
-		this.SetListContainerVisible(!this.m_listVisible);
+		SetListContainerVisible(!m_listVisible);
 	}
-
-	public delegate void CallBack();
 }

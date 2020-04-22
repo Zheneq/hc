@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class FriendInfo
@@ -27,19 +27,19 @@ public class FriendInfo
 
 	public FriendInfo()
 	{
-		this.BannerID = -1;
-		this.EmblemID = -1;
-		this.TitleID = -1;
-		this.TitleLevel = -1;
-		this.RibbonID = -1;
+		BannerID = -1;
+		EmblemID = -1;
+		TitleID = -1;
+		TitleLevel = -1;
+		RibbonID = -1;
 	}
 
 	public bool IsJoinable(LobbyGameplayOverrides GameplayOverrides)
 	{
-		bool result;
-		if (this.StatusString == "In Game")
+		int result;
+		if (StatusString == "In Game")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -48,21 +48,21 @@ public class FriendInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendInfo.IsJoinable(LobbyGameplayOverrides)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = GameplayOverrides.AllowSpectatorsOutsideCustom;
+			result = (GameplayOverrides.AllowSpectatorsOutsideCustom ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public override string ToString()
 	{
-		return string.Format("{0} ({1}) {2}", this.FriendHandle, this.FriendAccountId, this.FriendStatus.ToString());
+		return $"{FriendHandle} ({FriendAccountId}) {FriendStatus.ToString()}";
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class AbilityPreview : MonoBehaviour
@@ -9,63 +8,66 @@ public class AbilityPreview : MonoBehaviour
 
 	public void Play(string movieAssetName)
 	{
-		this.Stop();
-		if (this.m_comingSoonPanel && this.m_videoPanel)
+		Stop();
+		if (!m_comingSoonPanel || !m_videoPanel)
 		{
-			this.m_comingSoonPanel.SetActive(false);
-			this.m_videoPanel.SetActive(true);
-			PlayRawImageMovieTexture component = this.m_videoPanel.GetComponent<PlayRawImageMovieTexture>();
-			if (component)
+			return;
+		}
+		m_comingSoonPanel.SetActive(false);
+		m_videoPanel.SetActive(true);
+		PlayRawImageMovieTexture component = m_videoPanel.GetComponent<PlayRawImageMovieTexture>();
+		if (!component)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityPreview.Play(string)).MethodHandle;
-				}
-				component.Play(movieAssetName, true, false, true);
+			case 0:
+				continue;
 			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			component.Play(movieAssetName, true);
+			return;
 		}
 	}
 
 	public void Stop()
 	{
-		if (this.m_comingSoonPanel)
+		if (!m_comingSoonPanel)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityPreview.Stop()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_videoPanel)
+			if ((bool)m_videoPanel)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_videoPanel.SetActive(false);
+					m_comingSoonPanel.SetActive(true);
+					return;
 				}
-				this.m_videoPanel.SetActive(false);
-				this.m_comingSoonPanel.SetActive(true);
 			}
+			return;
 		}
 	}
 }

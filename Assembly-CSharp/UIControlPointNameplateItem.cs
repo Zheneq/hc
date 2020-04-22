@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,39 +21,31 @@ public class UIControlPointNameplateItem : MonoBehaviour
 		for (int i = 0; i < base.transform.childCount; i++)
 		{
 			GameObject gameObject = base.transform.GetChild(i).gameObject;
-			UIManager.SetGameObjectActive(gameObject, visible, null);
+			UIManager.SetGameObjectActive(gameObject, visible);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIControlPointNameplateItem.SetVisible(bool)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		Vector3 guiposition = this.m_controlPoint.GetGUIPosition(this.m_verticalOffset);
-		Vector3 vector;
-		if (Camera.main != null)
-		{
-			vector = Camera.main.WorldToViewportPoint(guiposition);
-		}
-		else
-		{
-			vector = guiposition;
-		}
+		Vector3 gUIPosition = m_controlPoint.GetGUIPosition(m_verticalOffset);
+		Vector3 vector = (!(Camera.main != null)) ? gUIPosition : Camera.main.WorldToViewportPoint(gUIPosition);
 		bool flag;
-		if (vector.z >= 0f)
+		if (!(vector.z < 0f))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -63,16 +54,16 @@ public class UIControlPointNameplateItem : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIControlPointNameplateItem.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_controlPoint.CurrentControlPointState != ControlPoint.State.Disabled)
+			if (m_controlPoint.CurrentControlPointState != ControlPoint.State.Disabled)
 			{
 				flag = true;
-				goto IL_76;
+				goto IL_0076;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -83,30 +74,41 @@ public class UIControlPointNameplateItem : MonoBehaviour
 			}
 		}
 		flag = false;
-		IL_76:
-		this.SetVisible(flag);
-		if (flag)
+		goto IL_0076;
+		IL_0076:
+		SetVisible(flag);
+		if (!flag)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			Canvas componentInParent = base.GetComponentInParent<Canvas>();
+			Canvas componentInParent = GetComponentInParent<Canvas>();
 			RectTransform rectTransform = componentInParent.transform as RectTransform;
-			Vector2 anchoredPosition = new Vector2(vector.x * rectTransform.sizeDelta.x - rectTransform.sizeDelta.x * 0.5f, vector.y * rectTransform.sizeDelta.y - rectTransform.sizeDelta.y * 0.5f);
+			float x = vector.x;
+			Vector2 sizeDelta = rectTransform.sizeDelta;
+			float num = x * sizeDelta.x;
+			Vector2 sizeDelta2 = rectTransform.sizeDelta;
+			float x2 = num - sizeDelta2.x * 0.5f;
+			float y = vector.y;
+			Vector2 sizeDelta3 = rectTransform.sizeDelta;
+			float num2 = y * sizeDelta3.y;
+			Vector2 sizeDelta4 = rectTransform.sizeDelta;
+			Vector2 anchoredPosition = new Vector2(x2, num2 - sizeDelta4.y * 0.5f);
 			(base.gameObject.transform as RectTransform).anchoredPosition = anchoredPosition;
-			this.m_controlPoint.SetupRectNameplate(ref this.m_controllerLabel, ref this.m_progressLabel, ref this.m_bar);
+			m_controlPoint.SetupRectNameplate(ref m_controllerLabel, ref m_progressLabel, ref m_bar);
+			return;
 		}
 	}
 
 	public void Setup(ControlPoint controlPoint)
 	{
-		this.m_controlPoint = controlPoint;
-		this.m_nameLabel.text = this.m_controlPoint.m_displayName;
+		m_controlPoint = controlPoint;
+		m_nameLabel.text = m_controlPoint.m_displayName;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 internal class Easing
@@ -6,7 +5,7 @@ internal class Easing
 	internal static float QuadEaseOut(float t, float b, float c, float d)
 	{
 		t = Mathf.Clamp(t, 0f, d);
-		return -c * (t /= d) * (t - 2f) + b;
+		return (0f - c) * (t /= d) * (t - 2f) + b;
 	}
 
 	internal static float QuadEaseIn(float t, float b, float c, float d)
@@ -20,22 +19,22 @@ internal class Easing
 		t = Mathf.Clamp(t, 0f, d);
 		if ((t /= d / 2f) < 1f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return c / 2f * t * t + b;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Easing.QuadEaseInOut(float, float, float, float)).MethodHandle;
-			}
-			return c / 2f * t * t + b;
 		}
-		return -c / 2f * ((t -= 1f) * (t - 2f) - 1f) + b;
+		return (0f - c) / 2f * ((t -= 1f) * (t - 2f) - 1f) + b;
 	}
 
 	public static float CubicEaseIn(float t, float b, float c, float d)
@@ -49,20 +48,20 @@ internal class Easing
 		t = Mathf.Clamp(t, 0f, d);
 		if ((t /= d / 2f) < 1f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return c / 2f * t * t * t + b;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Easing.CubicEaseInOut(float, float, float, float)).MethodHandle;
-			}
-			return c / 2f * t * t * t + b;
 		}
 		return c / 2f * ((t -= 2f) * t * t + 2f) + b;
 	}
@@ -70,7 +69,7 @@ internal class Easing
 	internal static float QuartEaseOut(float t, float b, float c, float d)
 	{
 		t = Mathf.Clamp(t, 0f, d);
-		return -c * ((t = t / d - 1f) * t * t * t - 1f) + b;
+		return (0f - c) * ((t = t / d - 1f) * t * t * t - 1f) + b;
 	}
 
 	internal static float QuartEaseIn(float t, float b, float c, float d)
@@ -84,22 +83,22 @@ internal class Easing
 		t = Mathf.Clamp(t, 0f, d);
 		if ((t /= d / 2f) < 1f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return c / 2f * t * t * t * t + b;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Easing.QuartEaseInOut(float, float, float, float)).MethodHandle;
-			}
-			return c / 2f * t * t * t * t + b;
 		}
-		return -c / 2f * ((t -= 2f) * t * t * t - 2f) + b;
+		return (0f - c) / 2f * ((t -= 2f) * t * t * t - 2f) + b;
 	}
 
 	internal static float QuintEaseInOut(float t, float b, float c, float d)
@@ -107,20 +106,20 @@ internal class Easing
 		t = Mathf.Clamp(t, 0f, d);
 		if ((t /= d / 2f) < 1f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return c / 2f * t * t * t * t * t + b;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Easing.QuintEaseInOut(float, float, float, float)).MethodHandle;
-			}
-			return c / 2f * t * t * t * t * t + b;
 		}
 		return c / 2f * ((t -= 2f) * t * t * t * t + 2f) + b;
 	}
@@ -130,48 +129,48 @@ internal class Easing
 		t = Mathf.Clamp(t, 0f, d);
 		if (t == 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return b;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Easing.ExpoEaseInOut(float, float, float, float)).MethodHandle;
-			}
-			return b;
 		}
 		if (t == d)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return b + c;
 				}
-				break;
 			}
-			return b + c;
 		}
 		if ((t /= d / 2f) < 1f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return c / 2f * Mathf.Pow(2f, 10f * (t - 1f)) + b;
 				}
-				break;
 			}
-			return c / 2f * Mathf.Pow(2f, 10f * (t - 1f)) + b;
 		}
-		return c / 2f * (-Mathf.Pow(2f, -10f * (t -= 1f)) + 2f) + b;
+		return c / 2f * (0f - Mathf.Pow(2f, -10f * (t -= 1f)) + 2f) + b;
 	}
 
 	internal static float ExpoEaseIn(float t, float b, float c, float d)
@@ -183,7 +182,7 @@ internal class Easing
 	internal static float ExpoEaseOut(float t, float b, float c, float d)
 	{
 		t = Mathf.Clamp(t, 0f, d);
-		return (t != d) ? (c * (-Mathf.Pow(2f, -10f * t / d) + 1f) + b) : (b + c);
+		return (t != d) ? (c * (0f - Mathf.Pow(2f, -10f * t / d) + 1f) + b) : (b + c);
 	}
 
 	internal static float SmoothStepEaseInOut(float t, float b, float c, float d)

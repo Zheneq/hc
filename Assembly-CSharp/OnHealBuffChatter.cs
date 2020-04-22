@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -10,7 +10,7 @@ public class OnHealBuffChatter : ScriptableObject, IChatterData
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_baseData;
+		return m_baseData;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()
@@ -22,39 +22,39 @@ public class OnHealBuffChatter : ScriptableObject, IChatterData
 	{
 		if (!ChatterData.ShouldPlayChatter(this, eventType, args, component))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHealBuffChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
-			return false;
 		}
 		GameEventManager.CharacterHealBuffArgs characterHealBuffArgs = args as GameEventManager.CharacterHealBuffArgs;
 		if (characterHealBuffArgs == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error("Missing args for heal/buff game event.");
+					return false;
 				}
-				break;
 			}
-			Log.Error("Missing args for heal/buff game event.", new object[0]);
-			return false;
 		}
 		if (!(characterHealBuffArgs.casterActor == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -65,9 +65,9 @@ public class OnHealBuffChatter : ScriptableObject, IChatterData
 			}
 			if (!(characterHealBuffArgs.casterActor == characterHealBuffArgs.targetCharacter))
 			{
-				if (this.m_onSelfBeingHealed)
+				if (m_onSelfBeingHealed)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -78,21 +78,21 @@ public class OnHealBuffChatter : ScriptableObject, IChatterData
 					}
 					if (characterHealBuffArgs.targetCharacter != component.gameObject.GetComponent<ActorData>())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return false;
 							}
-							break;
 						}
-						return false;
 					}
 				}
 				return true;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{

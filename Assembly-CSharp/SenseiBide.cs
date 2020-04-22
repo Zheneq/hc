@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +18,7 @@ public class SenseiBide : Ability
 	public bool m_ignoreLos;
 
 	[Header("-- Explosion Hit --")]
-	public int m_maxDamage = 0x32;
+	public int m_maxDamage = 50;
 
 	public int m_baseDamage;
 
@@ -55,9 +54,9 @@ public class SenseiBide : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -66,19 +65,19 @@ public class SenseiBide : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "SenseiBide";
+			m_abilityName = "SenseiBide";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		AbilityUtil_Targeter_AoE_AroundActor abilityUtil_Targeter_AoE_AroundActor = new AbilityUtil_Targeter_AoE_AroundActor(this, this.GetExplosionRadius(), this.IgnoreLos(), true, false, -1, false, true, true);
+		SetCachedFields();
+		AbilityUtil_Targeter_AoE_AroundActor abilityUtil_Targeter_AoE_AroundActor = new AbilityUtil_Targeter_AoE_AroundActor(this, GetExplosionRadius(), IgnoreLos());
 		abilityUtil_Targeter_AoE_AroundActor.SetAffectedGroups(true, false, false);
 		abilityUtil_Targeter_AoE_AroundActor.m_allyOccupantSubject = AbilityTooltipSubject.Tertiary;
 		abilityUtil_Targeter_AoE_AroundActor.m_enemyOccupantSubject = AbilityTooltipSubject.Quaternary;
@@ -99,9 +98,9 @@ public class SenseiBide : Ability
 	private void SetCachedFields()
 	{
 		StandardActorEffectData cachedOnCastTargetEffectData;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -110,21 +109,21 @@ public class SenseiBide : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedOnCastTargetEffectData = this.m_abilityMod.m_onCastTargetEffectDataMod.GetModifiedValue(this.m_onCastTargetEffectData);
+			cachedOnCastTargetEffectData = m_abilityMod.m_onCastTargetEffectDataMod.GetModifiedValue(m_onCastTargetEffectData);
 		}
 		else
 		{
-			cachedOnCastTargetEffectData = this.m_onCastTargetEffectData;
+			cachedOnCastTargetEffectData = m_onCastTargetEffectData;
 		}
-		this.m_cachedOnCastTargetEffectData = cachedOnCastTargetEffectData;
+		m_cachedOnCastTargetEffectData = cachedOnCastTargetEffectData;
 		StandardEffectInfo cachedAdditionalTargetHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -133,17 +132,17 @@ public class SenseiBide : Ability
 				}
 				break;
 			}
-			cachedAdditionalTargetHitEffect = this.m_abilityMod.m_additionalTargetHitEffectMod.GetModifiedValue(this.m_additionalTargetHitEffect);
+			cachedAdditionalTargetHitEffect = m_abilityMod.m_additionalTargetHitEffectMod.GetModifiedValue(m_additionalTargetHitEffect);
 		}
 		else
 		{
-			cachedAdditionalTargetHitEffect = this.m_additionalTargetHitEffect;
+			cachedAdditionalTargetHitEffect = m_additionalTargetHitEffect;
 		}
-		this.m_cachedAdditionalTargetHitEffect = cachedAdditionalTargetHitEffect;
+		m_cachedAdditionalTargetHitEffect = cachedAdditionalTargetHitEffect;
 		StandardEffectInfo cachedEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -152,21 +151,21 @@ public class SenseiBide : Ability
 				}
 				break;
 			}
-			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			cachedEnemyHitEffect = this.m_enemyHitEffect;
+			cachedEnemyHitEffect = m_enemyHitEffect;
 		}
-		this.m_cachedEnemyHitEffect = cachedEnemyHitEffect;
+		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
 	}
 
 	public bool TargetingIgnoreLos()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -175,35 +174,35 @@ public class SenseiBide : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.TargetingIgnoreLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_targetingIgnoreLosMod.GetModifiedValue(this.m_targetingIgnoreLos);
+			result = m_abilityMod.m_targetingIgnoreLosMod.GetModifiedValue(m_targetingIgnoreLos);
 		}
 		else
 		{
-			result = this.m_targetingIgnoreLos;
+			result = m_targetingIgnoreLos;
 		}
 		return result;
 	}
 
 	public StandardActorEffectData GetOnCastTargetEffectData()
 	{
-		return (this.m_cachedOnCastTargetEffectData == null) ? this.m_onCastTargetEffectData : this.m_cachedOnCastTargetEffectData;
+		return (m_cachedOnCastTargetEffectData == null) ? m_onCastTargetEffectData : m_cachedOnCastTargetEffectData;
 	}
 
 	public StandardEffectInfo GetAdditionalTargetHitEffect()
 	{
-		return (this.m_cachedAdditionalTargetHitEffect == null) ? this.m_additionalTargetHitEffect : this.m_cachedAdditionalTargetHitEffect;
+		return (m_cachedAdditionalTargetHitEffect == null) ? m_additionalTargetHitEffect : m_cachedAdditionalTargetHitEffect;
 	}
 
 	public float GetExplosionRadius()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -212,15 +211,15 @@ public class SenseiBide : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.GetExplosionRadius()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_explosionRadiusMod.GetModifiedValue(this.m_explosionRadius);
+			result = m_abilityMod.m_explosionRadiusMod.GetModifiedValue(m_explosionRadius);
 		}
 		else
 		{
-			result = this.m_explosionRadius;
+			result = m_explosionRadius;
 		}
 		return result;
 	}
@@ -228,9 +227,9 @@ public class SenseiBide : Ability
 	public bool IgnoreLos()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -239,35 +238,35 @@ public class SenseiBide : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.IgnoreLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_ignoreLosMod.GetModifiedValue(this.m_ignoreLos);
+			result = m_abilityMod.m_ignoreLosMod.GetModifiedValue(m_ignoreLos);
 		}
 		else
 		{
-			result = this.m_ignoreLos;
+			result = m_ignoreLos;
 		}
 		return result;
 	}
 
 	public int GetMaxDamage()
 	{
-		return (!this.m_abilityMod) ? this.m_maxDamage : this.m_abilityMod.m_maxDamageMod.GetModifiedValue(this.m_maxDamage);
+		return (!m_abilityMod) ? m_maxDamage : m_abilityMod.m_maxDamageMod.GetModifiedValue(m_maxDamage);
 	}
 
 	public int GetBaseDamage()
 	{
-		return (!this.m_abilityMod) ? this.m_baseDamage : this.m_abilityMod.m_baseDamageMod.GetModifiedValue(this.m_baseDamage);
+		return (!m_abilityMod) ? m_baseDamage : m_abilityMod.m_baseDamageMod.GetModifiedValue(m_baseDamage);
 	}
 
 	public float GetDamageMult()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -276,15 +275,15 @@ public class SenseiBide : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.GetDamageMult()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damageMultMod.GetModifiedValue(this.m_damageMult);
+			result = m_abilityMod.m_damageMultMod.GetModifiedValue(m_damageMult);
 		}
 		else
 		{
-			result = this.m_damageMult;
+			result = m_damageMult;
 		}
 		return result;
 	}
@@ -292,9 +291,9 @@ public class SenseiBide : Ability
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyHitEffect != null)
+		if (m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -303,15 +302,15 @@ public class SenseiBide : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.GetEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemyHitEffect;
+			result = m_cachedEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyHitEffect;
+			result = m_enemyHitEffect;
 		}
 		return result;
 	}
@@ -319,9 +318,9 @@ public class SenseiBide : Ability
 	public float GetAbsorbMultForHeal()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -330,15 +329,15 @@ public class SenseiBide : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.GetAbsorbMultForHeal()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_absorbMultForHealMod.GetModifiedValue(this.m_absorbMultForHeal);
+			result = m_abilityMod.m_absorbMultForHealMod.GetModifiedValue(m_absorbMultForHeal);
 		}
 		else
 		{
-			result = this.m_absorbMultForHeal;
+			result = m_absorbMultForHeal;
 		}
 		return result;
 	}
@@ -346,9 +345,9 @@ public class SenseiBide : Ability
 	public float GetMultOnInitialDamageForSubseqHits()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -357,15 +356,15 @@ public class SenseiBide : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.GetMultOnInitialDamageForSubseqHits()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_multOnInitialDamageForSubseqHitsMod.GetModifiedValue(this.m_multOnInitialDamageForSubseqHits);
+			result = m_abilityMod.m_multOnInitialDamageForSubseqHitsMod.GetModifiedValue(m_multOnInitialDamageForSubseqHits);
 		}
 		else
 		{
-			result = this.m_multOnInitialDamageForSubseqHits;
+			result = m_multOnInitialDamageForSubseqHits;
 		}
 		return result;
 	}
@@ -373,9 +372,9 @@ public class SenseiBide : Ability
 	public int GetExtraHealOnHealAoeIfQueued()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -384,68 +383,70 @@ public class SenseiBide : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.GetExtraHealOnHealAoeIfQueued()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraHealOnHealAoeIfQueuedMod.GetModifiedValue(this.m_extraHealOnHealAoeIfQueued);
+			result = m_abilityMod.m_extraHealOnHealAoeIfQueuedMod.GetModifiedValue(m_extraHealOnHealAoeIfQueued);
 		}
 		else
 		{
-			result = this.m_extraHealOnHealAoeIfQueued;
+			result = m_extraHealOnHealAoeIfQueued;
 		}
 		return result;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.GetOnCastTargetEffectData().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Tertiary);
-		this.GetAdditionalTargetHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Tertiary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		GetOnCastTargetEffectData().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Tertiary);
+		GetAdditionalTargetHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Tertiary);
+		return numbers;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		this.m_onCastTargetEffectData.AddTooltipTokens(tokens, "OnCastTargetEffectData", false, null);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_additionalTargetHitEffect, "AdditionalTargetHitEffect", this.m_additionalTargetHitEffect, true);
-		base.AddTokenInt(tokens, "MaxDamage", string.Empty, this.m_maxDamage, false);
-		base.AddTokenInt(tokens, "BaseDamage", string.Empty, this.m_baseDamage, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffect, "EnemyHitEffect", this.m_enemyHitEffect, true);
-		base.AddTokenInt(tokens, "ExtraHealOnHealAoeIfQueued", string.Empty, this.m_extraHealOnHealAoeIfQueued, false);
+		m_onCastTargetEffectData.AddTooltipTokens(tokens, "OnCastTargetEffectData");
+		AbilityMod.AddToken_EffectInfo(tokens, m_additionalTargetHitEffect, "AdditionalTargetHitEffect", m_additionalTargetHitEffect);
+		AddTokenInt(tokens, "MaxDamage", string.Empty, m_maxDamage);
+		AddTokenInt(tokens, "BaseDamage", string.Empty, m_baseDamage);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
+		AddTokenInt(tokens, "ExtraHealOnHealAoeIfQueued", string.Empty, m_extraHealOnHealAoeIfQueued);
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
+		bool flag = false;
 		ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-		return base.CanTargetActorInDecision(caster, currentBestActorTarget, false, true, true, Ability.ValidateCheckPath.Ignore, this.TargetingIgnoreLos(), true, false);
+		return CanTargetActorInDecision(caster, currentBestActorTarget, false, true, true, ValidateCheckPath.Ignore, TargetingIgnoreLos(), true);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_SenseiBide))
+		if (abilityMod.GetType() != typeof(AbilityMod_SenseiBide))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_SenseiBide);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_SenseiBide);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,50 +25,49 @@ public class AbilityMod_ScampDelayedAoe : GenericAbility_AbilityMod
 
 	public override void GenModImpl_SetTargetSelectMod(GenericAbility_TargetSelectBase targetSelect)
 	{
-		targetSelect.SetTargetSelectMod(this.m_targetSelectMod);
+		targetSelect.SetTargetSelectMod(m_targetSelectMod);
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ScampDelayedAoe scampDelayedAoe = targetAbility as ScampDelayedAoe;
-		if (scampDelayedAoe != null)
+		if (!(scampDelayedAoe != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampDelayedAoe.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken_EffectMod(tokens, this.m_delayedEffectBaseMod, "DelayedEffectBase", scampDelayedAoe.m_delayedEffectBase, true);
-			AbilityMod.AddToken(tokens, this.m_subseqTurnDamageMultiplierMod, "SubseqTurnDamageMultiplier", string.Empty, scampDelayedAoe.m_subseqTurnDamageMultiplier, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageIfShieldDownFormMod, "ExtraDamageIfShieldDownForm", string.Empty, scampDelayedAoe.m_extraDamageIfShieldDownForm, true, false);
+			AbilityMod.AddToken_EffectMod(tokens, m_delayedEffectBaseMod, "DelayedEffectBase", scampDelayedAoe.m_delayedEffectBase);
+			AbilityMod.AddToken(tokens, m_subseqTurnDamageMultiplierMod, "SubseqTurnDamageMultiplier", string.Empty, scampDelayedAoe.m_subseqTurnDamageMultiplier);
+			AbilityMod.AddToken(tokens, m_extraDamageIfShieldDownFormMod, "ExtraDamageIfShieldDownForm", string.Empty, scampDelayedAoe.m_extraDamageIfShieldDownForm);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ScampDelayedAoe scampDelayedAoe = base.GetTargetAbilityOnAbilityData(abilityData) as ScampDelayedAoe;
+		ScampDelayedAoe scampDelayedAoe = GetTargetAbilityOnAbilityData(abilityData) as ScampDelayedAoe;
 		bool flag = scampDelayedAoe != null;
-		string text = base.ModSpecificAutogenDesc(abilityData);
-		text += base.GetTargetSelectModDesc(this.m_targetSelectMod, scampDelayedAoe.m_targetSelectComp, "-- Target Select --");
-		text += base.PropDesc(this.m_delayedEffectBaseMod, "[DelayedEffectBase]", flag, (!flag) ? null : scampDelayedAoe.m_delayedEffectBase);
-		text += base.PropDesc(this.m_extraDamageIfShieldDownFormMod, "[ExtraDamageIfShieldDownForm]", flag, (!flag) ? 0 : scampDelayedAoe.m_extraDamageIfShieldDownForm);
-		text += base.PropDesc(this.m_subseqTurnDamageMultiplierMod, "[SubseqTurnDamageMultiplier]", flag, (!flag) ? 0f : scampDelayedAoe.m_subseqTurnDamageMultiplier);
-		string str = text;
-		AbilityModPropertyBool subseqTurnNoEnergyGainMod = this.m_subseqTurnNoEnergyGainMod;
-		string prefix = "[SubseqTurnNoEnergyGain]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		string str = base.ModSpecificAutogenDesc(abilityData);
+		str += GetTargetSelectModDesc(m_targetSelectMod, scampDelayedAoe.m_targetSelectComp, "-- Target Select --");
+		str += PropDesc(m_delayedEffectBaseMod, "[DelayedEffectBase]", flag, (!flag) ? null : scampDelayedAoe.m_delayedEffectBase);
+		str += PropDesc(m_extraDamageIfShieldDownFormMod, "[ExtraDamageIfShieldDownForm]", flag, flag ? scampDelayedAoe.m_extraDamageIfShieldDownForm : 0);
+		str += PropDesc(m_subseqTurnDamageMultiplierMod, "[SubseqTurnDamageMultiplier]", flag, (!flag) ? 0f : scampDelayedAoe.m_subseqTurnDamageMultiplier);
+		string str2 = str;
+		AbilityModPropertyBool subseqTurnNoEnergyGainMod = m_subseqTurnNoEnergyGainMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -77,16 +76,16 @@ public class AbilityMod_ScampDelayedAoe : GenericAbility_AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampDelayedAoe.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			baseVal = scampDelayedAoe.m_subseqTurnNoEnergyGain;
+			baseVal = (scampDelayedAoe.m_subseqTurnNoEnergyGain ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		return str + base.PropDesc(subseqTurnNoEnergyGainMod, prefix, showBaseVal, baseVal);
+		return str2 + PropDesc(subseqTurnNoEnergyGainMod, "[SubseqTurnNoEnergyGain]", flag, (byte)baseVal != 0);
 	}
 }

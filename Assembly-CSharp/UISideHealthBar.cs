@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -50,72 +49,73 @@ public class UISideHealthBar : MonoBehaviour
 
 	public void SetActor(ActorData actor)
 	{
-		this.m_actor = actor;
+		m_actor = actor;
 	}
 
 	public void SetHealthBarColorForActiveActor(bool activeNow)
 	{
-		if (activeNow != this.m_usingCurrentActiveActorColor)
+		if (activeNow == m_usingCurrentActiveActorColor)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideHealthBar.SetHealthBarColorForActiveActor(bool)).MethodHandle;
-			}
-			this.m_usingCurrentActiveActorColor = activeNow;
-			if (this.m_healthImage != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (activeNow)
-				{
-					this.m_healthImage.color = this.m_activeActorColor;
-				}
-				else
-				{
-					this.m_healthImage.color = Color.white;
-				}
-			}
+			return;
 		}
-	}
-
-	private void UpdatePendingHealthBar()
-	{
-		if (this.m_lastPendingHealthPercent == this.m_pendingHPPercent)
+		while (true)
 		{
-			for (;;)
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_usingCurrentActiveActorColor = activeNow;
+			if (!(m_healthImage != null))
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (activeNow)
+				{
+					m_healthImage.color = m_activeActorColor;
+				}
+				else
+				{
+					m_healthImage.color = Color.white;
+				}
+				return;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideHealthBar.UpdatePendingHealthBar()).MethodHandle;
-			}
-			return;
 		}
-		if (this.m_healthPercent > 0f)
+	}
+
+	private void UpdatePendingHealthBar()
+	{
+		if (m_lastPendingHealthPercent == m_pendingHPPercent)
 		{
-			for (;;)
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
+				}
+			}
+		}
+		if (m_healthPercent > 0f)
+		{
+			while (true)
 			{
 				switch (6)
 				{
@@ -124,21 +124,21 @@ public class UISideHealthBar : MonoBehaviour
 				}
 				break;
 			}
-			this.m_pendingHPImage.fillAmount = this.m_pendingHPPercent;
-			this.m_pendingHPImage.gameObject.SetActive(true);
+			m_pendingHPImage.fillAmount = m_pendingHPPercent;
+			m_pendingHPImage.gameObject.SetActive(true);
 		}
 		else
 		{
-			this.m_pendingHPImage.gameObject.SetActive(false);
+			m_pendingHPImage.gameObject.SetActive(false);
 		}
-		this.m_lastPendingHealthPercent = this.m_pendingHPPercent;
+		m_lastPendingHealthPercent = m_pendingHPPercent;
 	}
 
 	private void UpdateHealthBar()
 	{
-		if (!this.m_usingCurrentActiveActorColor)
+		if (!m_usingCurrentActiveActorColor)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -147,13 +147,13 @@ public class UISideHealthBar : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideHealthBar.UpdateHealthBar()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_actor != null)
+			if (m_actor != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -162,10 +162,10 @@ public class UISideHealthBar : MonoBehaviour
 					}
 					break;
 				}
-				TurnStateEnum currentState = this.m_actor.\u000E().CurrentState;
+				TurnStateEnum currentState = m_actor.GetActorTurnSM().CurrentState;
 				if (currentState != TurnStateEnum.CONFIRMED)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -176,10 +176,10 @@ public class UISideHealthBar : MonoBehaviour
 					}
 					if (currentState != TurnStateEnum.WAITING)
 					{
-						this.m_healthImage.color = Color.white;
-						goto IL_8C;
+						m_healthImage.color = Color.white;
+						goto IL_008c;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -189,57 +189,58 @@ public class UISideHealthBar : MonoBehaviour
 						break;
 					}
 				}
-				this.m_healthImage.color = this.m_confirmedActorColor;
+				m_healthImage.color = m_confirmedActorColor;
 			}
 		}
-		IL_8C:
-		if (this.m_lastHealthPercent == this.m_healthPercent)
+		goto IL_008c;
+		IL_008c:
+		if (m_lastHealthPercent == m_healthPercent)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-			return;
 		}
-		if (this.m_healthPercent > 0f)
+		if (m_healthPercent > 0f)
 		{
-			this.m_healthImage.fillAmount = this.m_healthPercent;
-			this.m_healthImage.gameObject.SetActive(true);
+			m_healthImage.fillAmount = m_healthPercent;
+			m_healthImage.gameObject.SetActive(true);
 		}
 		else
 		{
-			this.m_healthImage.gameObject.SetActive(false);
+			m_healthImage.gameObject.SetActive(false);
 		}
-		this.m_lastHealthPercent = this.m_healthPercent;
+		m_lastHealthPercent = m_healthPercent;
 	}
 
 	private void UpdateShieldBar()
 	{
-		if (this.m_lastShieldPercent == this.m_shieldPercent)
+		if (m_lastShieldPercent == m_shieldPercent)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideHealthBar.UpdateShieldBar()).MethodHandle;
-			}
-			return;
 		}
-		if (this.m_shieldPercent > 0f)
+		if (m_shieldPercent > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -248,52 +249,52 @@ public class UISideHealthBar : MonoBehaviour
 				}
 				break;
 			}
-			this.m_shieldBarImage.fillAmount = this.m_shieldPercent;
-			this.m_shieldBarImage.gameObject.SetActive(true);
+			m_shieldBarImage.fillAmount = m_shieldPercent;
+			m_shieldBarImage.gameObject.SetActive(true);
 		}
 		else
 		{
-			this.m_shieldBarImage.gameObject.SetActive(false);
+			m_shieldBarImage.gameObject.SetActive(false);
 		}
-		this.m_lastShieldPercent = this.m_shieldPercent;
+		m_lastShieldPercent = m_shieldPercent;
 	}
 
 	private void UpdateEnergyBar()
 	{
-		if (this.m_lastEnergyPercent == this.m_energyPercent)
+		if (m_lastEnergyPercent == m_energyPercent)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideHealthBar.UpdateEnergyBar()).MethodHandle;
-			}
-			return;
 		}
-		if (this.m_energyPercent > 0f)
+		if (m_energyPercent > 0f)
 		{
-			this.m_energyImage.fillAmount = this.m_energyPercent;
-			this.m_energyImage.gameObject.SetActive(true);
+			m_energyImage.fillAmount = m_energyPercent;
+			m_energyImage.gameObject.SetActive(true);
 		}
 		else
 		{
-			this.m_energyImage.gameObject.SetActive(false);
+			m_energyImage.gameObject.SetActive(false);
 		}
-		this.m_lastEnergyPercent = this.m_energyPercent;
+		m_lastEnergyPercent = m_energyPercent;
 	}
 
 	private void Update()
 	{
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -302,30 +303,30 @@ public class UISideHealthBar : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideHealthBar.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ActorData actor = this.m_actor;
+			ActorData actor = m_actor;
 			if (actor != null)
 			{
-				int num = actor.\u0009();
-				int num2 = actor.\u0012();
-				int num3 = actor.\u0019();
-				int num4 = actor.\u0016();
-				int num5 = actor.\u0004();
-				int num6 = actor.\u0011();
-				if (num6 > 0)
+				int hitPointsAfterResolution = actor.GetHitPointsAfterResolution();
+				int maxHitPoints = actor.GetMaxHitPoints();
+				int energyToDisplay = actor.GetEnergyToDisplay();
+				int actualMaxTechPoints = actor.GetActualMaxTechPoints();
+				int num = actor._0004();
+				int clientUnappliedHoTTotal_ToDisplay_zq = actor.GetClientUnappliedHoTTotal_ToDisplay_zq();
+				if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 				{
-					this.m_pendingHealthText.text = "+" + num6.ToString();
+					m_pendingHealthText.text = "+" + clientUnappliedHoTTotal_ToDisplay_zq;
 				}
 				else
 				{
-					this.m_pendingHealthText.text = string.Empty;
+					m_pendingHealthText.text = string.Empty;
 				}
-				if (num5 > 0)
+				if (num > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -334,29 +335,29 @@ public class UISideHealthBar : MonoBehaviour
 						}
 						break;
 					}
-					this.m_shieldText.text = "+" + num5.ToString();
+					m_shieldText.text = "+" + num;
 				}
 				else
 				{
-					this.m_shieldText.text = string.Empty;
+					m_shieldText.text = string.Empty;
 				}
-				this.m_healthText.text = num.ToString();
-				this.m_energyText.text = num3.ToString();
-				this.m_healthPercent = (float)num / (float)(num2 + num5);
-				this.m_shieldPercent = (float)(num + num5) / (float)(num2 + num5);
-				this.m_pendingHPPercent = (float)(num + num5 + num6) / (float)(num2 + num5);
-				this.m_energyPercent = (float)num3 / (float)num4;
+				m_healthText.text = hitPointsAfterResolution.ToString();
+				m_energyText.text = energyToDisplay.ToString();
+				m_healthPercent = (float)hitPointsAfterResolution / (float)(maxHitPoints + num);
+				m_shieldPercent = (float)(hitPointsAfterResolution + num) / (float)(maxHitPoints + num);
+				m_pendingHPPercent = (float)(hitPointsAfterResolution + num + clientUnappliedHoTTotal_ToDisplay_zq) / (float)(maxHitPoints + num);
+				m_energyPercent = (float)energyToDisplay / (float)actualMaxTechPoints;
 			}
 		}
-		this.UpdateEnergyBar();
-		this.UpdateHealthBar();
-		this.UpdateShieldBar();
-		this.UpdatePendingHealthBar();
+		UpdateEnergyBar();
+		UpdateHealthBar();
+		UpdateShieldBar();
+		UpdatePendingHealthBar();
 	}
 
 	private void OnEnable()
 	{
-		this.m_lastEnergyPercent = 1f;
-		this.Update();
+		m_lastEnergyPercent = 1f;
+		Update();
 	}
 }

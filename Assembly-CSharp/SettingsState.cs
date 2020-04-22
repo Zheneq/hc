@@ -1,21 +1,43 @@
-﻿using System;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
 public class SettingsState : ICloneable
 {
+	public enum WindowMode
+	{
+		Windowed,
+		Fullscreen,
+		WindowedFullscreen,
+		Inherit
+	}
+
+	public enum LockCursorMode
+	{
+		Off,
+		On,
+		Smart
+	}
+
+	public enum VoiceChatMode
+	{
+		None,
+		Group,
+		Team
+	}
+
 	private const GraphicsQuality GRAPHICS_QUALITY_DEFAULT = GraphicsQuality.Medium;
 
 	public GraphicsQuality graphicsQuality;
 
-	public SettingsState.WindowMode windowMode;
+	public WindowMode windowMode;
 
 	public int resolutionWidth;
 
 	public int resolutionHeight;
 
-	public SettingsState.WindowMode gameWindowMode;
+	public WindowMode gameWindowMode;
 
 	public int gameResolutionWidth;
 
@@ -29,7 +51,7 @@ public class SettingsState : ICloneable
 
 	public int ambianceVolume;
 
-	public SettingsState.LockCursorMode lockCursorMode;
+	public LockCursorMode lockCursorMode;
 
 	public bool enableChatter;
 
@@ -53,7 +75,7 @@ public class SettingsState : ICloneable
 
 	public float micVolume;
 
-	public SettingsState.VoiceChatMode gameModeVoiceChat;
+	public VoiceChatMode gameModeVoiceChat;
 
 	public bool hideTutorialVideos;
 
@@ -67,73 +89,73 @@ public class SettingsState : ICloneable
 
 	private bool m_isResolutionInitialized;
 
-	private const int OPTIONS_VERSION = 0xE;
+	private const int OPTIONS_VERSION = 14;
 
 	public object Clone()
 	{
-		return base.MemberwiseClone();
+		return MemberwiseClone();
 	}
 
 	public void InitToDefaults()
 	{
-		this.graphicsQuality = GraphicsQuality.Medium;
-		this.windowMode = SettingsState.WindowMode.Fullscreen;
-		this.gameWindowMode = SettingsState.WindowMode.Inherit;
-		this.resolutionWidth = Screen.currentResolution.width;
-		this.resolutionHeight = Screen.currentResolution.height;
-		this.gameResolutionWidth = -1;
-		this.gameResolutionHeight = -1;
+		graphicsQuality = GraphicsQuality.Medium;
+		windowMode = WindowMode.Fullscreen;
+		gameWindowMode = WindowMode.Inherit;
+		resolutionWidth = Screen.currentResolution.width;
+		resolutionHeight = Screen.currentResolution.height;
+		gameResolutionWidth = -1;
+		gameResolutionHeight = -1;
 		if (Application.isEditor)
 		{
-			this.resolutionWidth = 0x640;
-			this.resolutionHeight = 0x384;
+			resolutionWidth = 1600;
+			resolutionHeight = 900;
 		}
-		this.lockWindowSize = false;
-		this.masterVolume = 0x64;
-		this.musicVolume = 0x64;
-		this.ambianceVolume = 0x64;
-		this.lockCursorMode = SettingsState.LockCursorMode.Smart;
-		this.enableChatter = true;
-		this.rightClickingConfirmsAbilityTargets = false;
-		this.shiftClickForMovementWaypoints = true;
-		this.showGlobalChat = true;
-		this.showAllChat = false;
-		this.enableProfanityFilter = true;
-		this.autoJoinDiscord = false;
-		this.voicePushToTalk = false;
-		this.voiceMute = false;
-		this.voiceVolume = 100f;
-		this.micVolume = 100f;
-		this.region = Options_UI.GetDefaultRegion();
-		this.gameModeVoiceChat = SettingsState.VoiceChatMode.Group;
-		this.hideTutorialVideos = false;
-		this.allowCancelActionWhileConfirmed = true;
-		this.overrideGlyphLanguage = false;
-		this.overrideGlyphLanguageCode = string.Empty;
+		lockWindowSize = false;
+		masterVolume = 100;
+		musicVolume = 100;
+		ambianceVolume = 100;
+		lockCursorMode = LockCursorMode.Smart;
+		enableChatter = true;
+		rightClickingConfirmsAbilityTargets = false;
+		shiftClickForMovementWaypoints = true;
+		showGlobalChat = true;
+		showAllChat = false;
+		enableProfanityFilter = true;
+		autoJoinDiscord = false;
+		voicePushToTalk = false;
+		voiceMute = false;
+		voiceVolume = 100f;
+		micVolume = 100f;
+		region = Options_UI.GetDefaultRegion();
+		gameModeVoiceChat = VoiceChatMode.Group;
+		hideTutorialVideos = false;
+		allowCancelActionWhileConfirmed = true;
+		overrideGlyphLanguage = false;
+		overrideGlyphLanguageCode = string.Empty;
 	}
 
 	private void VersionPreferences(int version)
 	{
-		if (version >= 0xE)
+		if (version >= 14)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SettingsState.VersionPreferences(int)).MethodHandle;
-			}
-			return;
 		}
 		if (version < 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -142,16 +164,16 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			this.musicVolume = 0x64;
-			this.ambianceVolume = 0x64;
-			this.windowMode = SettingsState.WindowMode.Fullscreen;
+			musicVolume = 100;
+			ambianceVolume = 100;
+			windowMode = WindowMode.Fullscreen;
 		}
 		if (version < 2)
 		{
 		}
 		if (version < 3)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -160,14 +182,14 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			this.windowMode = SettingsState.WindowMode.WindowedFullscreen;
-			this.resolutionWidth = Screen.currentResolution.width;
-			this.resolutionHeight = Screen.currentResolution.height;
-			this.graphicsQuality = GraphicsQuality.Medium;
+			windowMode = WindowMode.WindowedFullscreen;
+			resolutionWidth = Screen.currentResolution.width;
+			resolutionHeight = Screen.currentResolution.height;
+			graphicsQuality = GraphicsQuality.Medium;
 		}
 		if (version < 4)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -176,11 +198,11 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			this.lockCursorMode = SettingsState.LockCursorMode.Smart;
+			lockCursorMode = LockCursorMode.Smart;
 		}
-		if (version < 5 && this.windowMode == SettingsState.WindowMode.WindowedFullscreen)
+		if (version < 5 && windowMode == WindowMode.WindowedFullscreen)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -189,13 +211,13 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			this.windowMode = SettingsState.WindowMode.Fullscreen;
-			this.resolutionWidth = Screen.currentResolution.width;
-			this.resolutionHeight = Screen.currentResolution.height;
+			windowMode = WindowMode.Fullscreen;
+			resolutionWidth = Screen.currentResolution.width;
+			resolutionHeight = Screen.currentResolution.height;
 		}
 		if (version < 6)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -204,11 +226,11 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			this.showAllChat = false;
+			showAllChat = false;
 		}
 		if (version < 7)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -217,15 +239,15 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			this.shiftClickForMovementWaypoints = false;
+			shiftClickForMovementWaypoints = false;
 		}
 		if (version < 8)
 		{
-			this.autoJoinDiscord = false;
+			autoJoinDiscord = false;
 		}
 		if (version < 9)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -234,11 +256,11 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			this.gameModeVoiceChat = SettingsState.VoiceChatMode.Group;
+			gameModeVoiceChat = VoiceChatMode.Group;
 		}
-		if (version < 0xA)
+		if (version < 10)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -247,19 +269,19 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			this.hideTutorialVideos = false;
+			hideTutorialVideos = false;
 		}
-		if (version < 0xB)
+		if (version < 11)
 		{
-			this.region = Options_UI.GetDefaultRegion();
+			region = Options_UI.GetDefaultRegion();
 		}
-		if (version < 0xC)
+		if (version < 12)
 		{
-			this.allowCancelActionWhileConfirmed = false;
+			allowCancelActionWhileConfirmed = false;
 		}
-		if (version < 0xD)
+		if (version < 13)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -268,12 +290,12 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			this.overrideGlyphLanguage = false;
-			this.overrideGlyphLanguageCode = string.Empty;
+			overrideGlyphLanguage = false;
+			overrideGlyphLanguageCode = string.Empty;
 		}
-		if (version < 0xE)
+		if (version < 14)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -282,35 +304,612 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			this.voicePushToTalk = false;
-			this.voiceMute = false;
-			this.voiceVolume = 100f;
-			this.micVolume = 100f;
+			voicePushToTalk = false;
+			voiceMute = false;
+			voiceVolume = 100f;
+			micVolume = 100f;
 		}
-		Log.Info(Log.Category.UI, string.Format("Versioned Options from {0} to {1}", version, 0xE), new object[0]);
-		PlayerPrefs.SetInt("OptionsVersion", 0xE);
-		this.ApplyToPlayerPrefs();
+		Log.Info(Log.Category.UI, $"Versioned Options from {version} to {14}");
+		PlayerPrefs.SetInt("OptionsVersion", 14);
+		ApplyToPlayerPrefs();
 	}
 
 	public void InitFromPlayerPrefs()
 	{
-		this.InitToDefaults();
-		int @int = PlayerPrefs.GetInt("OptionsGraphicsQuality", (int)this.graphicsQuality);
-		switch (@int)
+		InitToDefaults();
+		switch (PlayerPrefs.GetInt("OptionsGraphicsQuality", (int)graphicsQuality))
 		{
+		default:
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			graphicsQuality = GraphicsQuality.High;
+			break;
+		case -10:
+			graphicsQuality = GraphicsQuality.VeryLow;
+			break;
 		case 0:
-			this.graphicsQuality = GraphicsQuality.Low;
+			graphicsQuality = GraphicsQuality.Low;
 			break;
 		case 1:
-			this.graphicsQuality = GraphicsQuality.Medium;
+			graphicsQuality = GraphicsQuality.Medium;
 			break;
 		case 2:
-			this.graphicsQuality = GraphicsQuality.High;
+			graphicsQuality = GraphicsQuality.High;
+			break;
+		}
+		switch (PlayerPrefs.GetInt("OptionsWindowMode", (int)windowMode))
+		{
+		case 0:
+			windowMode = WindowMode.Windowed;
+			break;
+		case 1:
+			windowMode = WindowMode.Fullscreen;
+			break;
+		case 2:
+			windowMode = WindowMode.Fullscreen;
 			break;
 		default:
-			if (@int != -0xA)
+			windowMode = WindowMode.Windowed;
+			break;
+		}
+		resolutionWidth = PlayerPrefs.GetInt("OptionsResolutionWidth", resolutionWidth);
+		resolutionHeight = PlayerPrefs.GetInt("OptionsResolutionHeight", resolutionHeight);
+		switch (PlayerPrefs.GetInt("OptionsGameWindowMode", (int)gameWindowMode))
+		{
+		case 0:
+			gameWindowMode = WindowMode.Windowed;
+			break;
+		case 1:
+			gameWindowMode = WindowMode.Fullscreen;
+			break;
+		case 2:
+			gameWindowMode = WindowMode.Fullscreen;
+			break;
+		case 3:
+			gameWindowMode = WindowMode.Inherit;
+			break;
+		default:
+			gameWindowMode = WindowMode.Windowed;
+			break;
+		}
+		gameResolutionWidth = PlayerPrefs.GetInt("OptionsGameResolutionWidth", gameResolutionWidth);
+		gameResolutionHeight = PlayerPrefs.GetInt("OptionsGameResolutionHeight", gameResolutionHeight);
+		if (gameWindowMode == WindowMode.Inherit)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			gameResolutionWidth = -1;
+			gameResolutionHeight = -1;
+		}
+		lockWindowSize = false;
+		masterVolume = PlayerPrefs.GetInt("OptionsMasterVolume", masterVolume);
+		masterVolume = Mathf.Clamp(masterVolume, 0, 100);
+		musicVolume = PlayerPrefs.GetInt("OptionsMusicVolume", musicVolume);
+		musicVolume = Mathf.Clamp(musicVolume, 0, 100);
+		switch (PlayerPrefs.GetInt("OptionsLockCursor", (int)lockCursorMode))
+		{
+		case 0:
+			lockCursorMode = LockCursorMode.Off;
+			break;
+		case 1:
+			lockCursorMode = LockCursorMode.On;
+			break;
+		default:
+			lockCursorMode = LockCursorMode.Smart;
+			break;
+		}
+		int num;
+		if (PlayerPrefs.GetInt("OptionsEnableChatter", 1) == 0)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num = 0;
+		}
+		else
+		{
+			num = 1;
+		}
+		enableChatter = ((byte)num != 0);
+		int num2;
+		if (PlayerPrefs.GetInt("OptionsRightClickingConfirmsAbilityTargets", 1) == 0)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num2 = 0;
+		}
+		else
+		{
+			num2 = 1;
+		}
+		rightClickingConfirmsAbilityTargets = ((byte)num2 != 0);
+		shiftClickForMovementWaypoints = ((PlayerPrefs.GetInt("OptionsShiftClickForMovementWaypoints", 1) != 0) ? true : false);
+		int num3;
+		if (PlayerPrefs.GetInt("OptionsShowGlobalChat", 1) == 0)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num3 = 0;
+		}
+		else
+		{
+			num3 = 1;
+		}
+		showGlobalChat = ((byte)num3 != 0);
+		int num4;
+		if (PlayerPrefs.GetInt("OptionsShowAllChat", 1) == 0)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num4 = 0;
+		}
+		else
+		{
+			num4 = 1;
+		}
+		showAllChat = ((byte)num4 != 0);
+		int num5;
+		if (PlayerPrefs.GetInt("OptionsEnableProfanityFilter", 1) == 0)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num5 = 0;
+		}
+		else
+		{
+			num5 = 1;
+		}
+		enableProfanityFilter = ((byte)num5 != 0);
+		int num6;
+		if (PlayerPrefs.GetInt("AutoJoinDiscord", 0) == 0)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num6 = 0;
+		}
+		else
+		{
+			num6 = 1;
+		}
+		autoJoinDiscord = ((byte)num6 != 0);
+		int num7;
+		if (PlayerPrefs.GetInt("VoicePushToTalk", 0) == 0)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num7 = 0;
+		}
+		else
+		{
+			num7 = 1;
+		}
+		voicePushToTalk = ((byte)num7 != 0);
+		int num8;
+		if (PlayerPrefs.GetInt("VoiceMute", 0) == 0)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num8 = 0;
+		}
+		else
+		{
+			num8 = 1;
+		}
+		voiceMute = ((byte)num8 != 0);
+		voiceVolume = PlayerPrefs.GetFloat("VoiceVolume", 100f);
+		micVolume = PlayerPrefs.GetFloat("MicVolume", 100f);
+		region = (Region)PlayerPrefs.GetInt("Region", (int)Options_UI.GetDefaultRegion());
+		switch (PlayerPrefs.GetInt("OptionsGameModeVoiceChat", (int)gameModeVoiceChat))
+		{
+		case 0:
+			gameModeVoiceChat = VoiceChatMode.None;
+			break;
+		case 1:
+			gameModeVoiceChat = VoiceChatMode.Group;
+			break;
+		default:
+			gameModeVoiceChat = VoiceChatMode.Team;
+			break;
+		}
+		int num9;
+		if (PlayerPrefs.GetInt("HideTutorialVideos", 0) == 0)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num9 = 0;
+		}
+		else
+		{
+			num9 = 1;
+		}
+		hideTutorialVideos = ((byte)num9 != 0);
+		int num10;
+		if (PlayerPrefs.GetInt("AllowCancelActionWhileConfirmed", 0) == 0)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num10 = 0;
+		}
+		else
+		{
+			num10 = 1;
+		}
+		allowCancelActionWhileConfirmed = ((byte)num10 != 0);
+		int num11;
+		if (PlayerPrefs.GetInt("OptionsOverrideGlyphLanguage", 0) == 0)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num11 = 0;
+		}
+		else
+		{
+			num11 = 1;
+		}
+		overrideGlyphLanguage = ((byte)num11 != 0);
+		overrideGlyphLanguageCode = PlayerPrefs.GetString("OverrideGlyphLanguageCode", string.Empty);
+		int @int = PlayerPrefs.GetInt("OptionsVersion", 0);
+		VersionPreferences(@int);
+	}
+
+	public void RevertVolume()
+	{
+		AudioMixer audioMixer = AudioManager.mixSnapshotManager.snapshot_game.audioMixer;
+		float value = ConvertPercentToDb(masterVolume);
+		audioMixer.SetFloat("VolMaster", value);
+		float value2 = ConvertPercentToDb(musicVolume);
+		audioMixer.SetFloat("VolMusic", value2);
+		int percent = 100 - musicVolume;
+		float value3 = ConvertPercentToDb(percent);
+		audioMixer.SetFloat("VolUIAmbiance", value3);
+	}
+
+	public void ApplyPendingValues(SettingsState newState)
+	{
+		Options_UI.Get().StartCoroutine(ApplyPendingValuesInternal(newState));
+	}
+
+	public IEnumerator ReapplyPendingValues()
+	{
+		yield return Options_UI.Get().StartCoroutine(ApplyPendingValuesInternal(null));
+		/*Error: Unable to find new state assignment for yield return*/;
+	}
+
+	public void UpdateGameResolution()
+	{
+		WindowMode num;
+		if (AppState.IsInGame() && gameWindowMode != WindowMode.Inherit)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			num = gameWindowMode;
+		}
+		else
+		{
+			num = windowMode;
+		}
+		int num2;
+		if (num == WindowMode.Windowed)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num2 = 0;
+		}
+		else
+		{
+			num2 = 1;
+		}
+		bool flag = (byte)num2 != 0;
+		int num3;
+		if (AppState.IsInGame())
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (gameResolutionWidth != -1)
+			{
+				num3 = gameResolutionWidth;
+				goto IL_006e;
+			}
+		}
+		num3 = resolutionWidth;
+		goto IL_006e;
+		IL_00a1:
+		int num4;
+		int num5 = num4;
+		if (Application.isEditor)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
+		}
+		if (!m_isResolutionInitialized)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			m_isResolutionInitialized = true;
+			if (!UIFrontendLoadingScreen.Get().IsSameAsInitialResolution())
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						break;
+					default:
+						UpdateResolutionFromScreen();
+						return;
+					}
+				}
+			}
+		}
+		int num6;
+		if (flag == Screen.fullScreen)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (num6 == Screen.width)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (num5 == Screen.height)
+				{
+					return;
+				}
+			}
+		}
+		Screen.SetResolution(num6, num5, flag);
+		return;
+		IL_006e:
+		num6 = num3;
+		if (AppState.IsInGame())
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (gameResolutionHeight != -1)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num4 = gameResolutionHeight;
+				goto IL_00a1;
+			}
+		}
+		num4 = resolutionHeight;
+		goto IL_00a1;
+	}
+
+	public void UpdateResolutionFromScreen()
+	{
+		bool flag = AppState.IsInGame() && gameWindowMode != WindowMode.Inherit;
+		WindowMode windowMode = Screen.fullScreen ? WindowMode.Fullscreen : WindowMode.Windowed;
+		if (!flag)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (Screen.width == resolutionWidth)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (Screen.height == resolutionHeight)
+						{
+							if (windowMode == this.windowMode)
+							{
+								return;
+							}
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+					}
+					resolutionWidth = Screen.width;
+					resolutionHeight = Screen.height;
+					this.windowMode = windowMode;
+					ApplyToPlayerPrefs();
+					Cursor.lockState = CursorLockMode.None;
+					return;
+				}
+			}
+		}
+		if (Screen.width == gameResolutionWidth)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (Screen.height == gameResolutionHeight)
+			{
+				if (windowMode == gameWindowMode)
+				{
+					return;
+				}
+				while (true)
 				{
 					switch (1)
 					{
@@ -319,614 +918,22 @@ public class SettingsState : ICloneable
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SettingsState.InitFromPlayerPrefs()).MethodHandle;
-				}
-				this.graphicsQuality = GraphicsQuality.High;
-			}
-			else
-			{
-				this.graphicsQuality = GraphicsQuality.VeryLow;
-			}
-			break;
-		}
-		switch (PlayerPrefs.GetInt("OptionsWindowMode", (int)this.windowMode))
-		{
-		case 0:
-			this.windowMode = SettingsState.WindowMode.Windowed;
-			break;
-		case 1:
-			this.windowMode = SettingsState.WindowMode.Fullscreen;
-			break;
-		case 2:
-			this.windowMode = SettingsState.WindowMode.Fullscreen;
-			break;
-		default:
-			this.windowMode = SettingsState.WindowMode.Windowed;
-			break;
-		}
-		this.resolutionWidth = PlayerPrefs.GetInt("OptionsResolutionWidth", this.resolutionWidth);
-		this.resolutionHeight = PlayerPrefs.GetInt("OptionsResolutionHeight", this.resolutionHeight);
-		switch (PlayerPrefs.GetInt("OptionsGameWindowMode", (int)this.gameWindowMode))
-		{
-		case 0:
-			this.gameWindowMode = SettingsState.WindowMode.Windowed;
-			break;
-		case 1:
-			this.gameWindowMode = SettingsState.WindowMode.Fullscreen;
-			break;
-		case 2:
-			this.gameWindowMode = SettingsState.WindowMode.Fullscreen;
-			break;
-		case 3:
-			this.gameWindowMode = SettingsState.WindowMode.Inherit;
-			break;
-		default:
-			this.gameWindowMode = SettingsState.WindowMode.Windowed;
-			break;
-		}
-		this.gameResolutionWidth = PlayerPrefs.GetInt("OptionsGameResolutionWidth", this.gameResolutionWidth);
-		this.gameResolutionHeight = PlayerPrefs.GetInt("OptionsGameResolutionHeight", this.gameResolutionHeight);
-		if (this.gameWindowMode == SettingsState.WindowMode.Inherit)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.gameResolutionWidth = -1;
-			this.gameResolutionHeight = -1;
-		}
-		this.lockWindowSize = false;
-		this.masterVolume = PlayerPrefs.GetInt("OptionsMasterVolume", this.masterVolume);
-		this.masterVolume = Mathf.Clamp(this.masterVolume, 0, 0x64);
-		this.musicVolume = PlayerPrefs.GetInt("OptionsMusicVolume", this.musicVolume);
-		this.musicVolume = Mathf.Clamp(this.musicVolume, 0, 0x64);
-		switch (PlayerPrefs.GetInt("OptionsLockCursor", (int)this.lockCursorMode))
-		{
-		case 0:
-			this.lockCursorMode = SettingsState.LockCursorMode.Off;
-			goto IL_230;
-		case 1:
-			this.lockCursorMode = SettingsState.LockCursorMode.On;
-			goto IL_230;
-		}
-		this.lockCursorMode = SettingsState.LockCursorMode.Smart;
-		IL_230:
-		bool flag;
-		if (PlayerPrefs.GetInt("OptionsEnableChatter", 1) == 0)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag = false;
-		}
-		else
-		{
-			flag = true;
-		}
-		this.enableChatter = flag;
-		bool flag2;
-		if (PlayerPrefs.GetInt("OptionsRightClickingConfirmsAbilityTargets", 1) == 0)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag2 = false;
-		}
-		else
-		{
-			flag2 = true;
-		}
-		this.rightClickingConfirmsAbilityTargets = flag2;
-		this.shiftClickForMovementWaypoints = (PlayerPrefs.GetInt("OptionsShiftClickForMovementWaypoints", 1) != 0);
-		bool flag3;
-		if (PlayerPrefs.GetInt("OptionsShowGlobalChat", 1) == 0)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag3 = false;
-		}
-		else
-		{
-			flag3 = true;
-		}
-		this.showGlobalChat = flag3;
-		bool flag4;
-		if (PlayerPrefs.GetInt("OptionsShowAllChat", 1) == 0)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag4 = false;
-		}
-		else
-		{
-			flag4 = true;
-		}
-		this.showAllChat = flag4;
-		bool flag5;
-		if (PlayerPrefs.GetInt("OptionsEnableProfanityFilter", 1) == 0)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag5 = false;
-		}
-		else
-		{
-			flag5 = true;
-		}
-		this.enableProfanityFilter = flag5;
-		bool flag6;
-		if (PlayerPrefs.GetInt("AutoJoinDiscord", 0) == 0)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag6 = false;
-		}
-		else
-		{
-			flag6 = true;
-		}
-		this.autoJoinDiscord = flag6;
-		bool flag7;
-		if (PlayerPrefs.GetInt("VoicePushToTalk", 0) == 0)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag7 = false;
-		}
-		else
-		{
-			flag7 = true;
-		}
-		this.voicePushToTalk = flag7;
-		bool flag8;
-		if (PlayerPrefs.GetInt("VoiceMute", 0) == 0)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag8 = false;
-		}
-		else
-		{
-			flag8 = true;
-		}
-		this.voiceMute = flag8;
-		this.voiceVolume = PlayerPrefs.GetFloat("VoiceVolume", 100f);
-		this.micVolume = PlayerPrefs.GetFloat("MicVolume", 100f);
-		this.region = (Region)PlayerPrefs.GetInt("Region", (int)Options_UI.GetDefaultRegion());
-		switch (PlayerPrefs.GetInt("OptionsGameModeVoiceChat", (int)this.gameModeVoiceChat))
-		{
-		case 0:
-			this.gameModeVoiceChat = SettingsState.VoiceChatMode.None;
-			goto IL_3E4;
-		case 1:
-			this.gameModeVoiceChat = SettingsState.VoiceChatMode.Group;
-			goto IL_3E4;
-		}
-		this.gameModeVoiceChat = SettingsState.VoiceChatMode.Team;
-		IL_3E4:
-		bool flag9;
-		if (PlayerPrefs.GetInt("HideTutorialVideos", 0) == 0)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag9 = false;
-		}
-		else
-		{
-			flag9 = true;
-		}
-		this.hideTutorialVideos = flag9;
-		bool flag10;
-		if (PlayerPrefs.GetInt("AllowCancelActionWhileConfirmed", 0) == 0)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag10 = false;
-		}
-		else
-		{
-			flag10 = true;
-		}
-		this.allowCancelActionWhileConfirmed = flag10;
-		bool flag11;
-		if (PlayerPrefs.GetInt("OptionsOverrideGlyphLanguage", 0) == 0)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag11 = false;
-		}
-		else
-		{
-			flag11 = true;
-		}
-		this.overrideGlyphLanguage = flag11;
-		this.overrideGlyphLanguageCode = PlayerPrefs.GetString("OverrideGlyphLanguageCode", string.Empty);
-		int int2 = PlayerPrefs.GetInt("OptionsVersion", 0);
-		this.VersionPreferences(int2);
-	}
-
-	public void RevertVolume()
-	{
-		AudioMixer audioMixer = AudioManager.mixSnapshotManager.snapshot_game.audioMixer;
-		float value = this.ConvertPercentToDb(this.masterVolume);
-		audioMixer.SetFloat("VolMaster", value);
-		float value2 = this.ConvertPercentToDb(this.musicVolume);
-		audioMixer.SetFloat("VolMusic", value2);
-		int percent = 0x64 - this.musicVolume;
-		float value3 = this.ConvertPercentToDb(percent);
-		audioMixer.SetFloat("VolUIAmbiance", value3);
-	}
-
-	public void ApplyPendingValues(SettingsState newState)
-	{
-		Options_UI.Get().StartCoroutine(this.ApplyPendingValuesInternal(newState));
-	}
-
-	public IEnumerator ReapplyPendingValues()
-	{
-		yield return Options_UI.Get().StartCoroutine(this.ApplyPendingValuesInternal(null));
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(SettingsState.<ReapplyPendingValues>c__Iterator0.MoveNext()).MethodHandle;
-		}
-		yield break;
-	}
-
-	public void UpdateGameResolution()
-	{
-		bool flag;
-		if (AppState.IsInGame() && this.gameWindowMode != SettingsState.WindowMode.Inherit)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SettingsState.UpdateGameResolution()).MethodHandle;
-			}
-			flag = (this.gameWindowMode != SettingsState.WindowMode.Windowed);
-		}
-		else
-		{
-			flag = (this.windowMode != SettingsState.WindowMode.Windowed);
-		}
-		bool flag2;
-		if (!flag)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag2 = false;
-		}
-		else
-		{
-			flag2 = true;
-		}
-		bool flag3 = flag2;
-		int num;
-		if (AppState.IsInGame())
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.gameResolutionWidth != -1)
-			{
-				num = this.gameResolutionWidth;
-				goto IL_6E;
 			}
 		}
-		num = this.resolutionWidth;
-		IL_6E:
-		int num2 = num;
-		int num3;
-		if (AppState.IsInGame())
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.gameResolutionHeight != -1)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num3 = this.gameResolutionHeight;
-				goto IL_A1;
-			}
-		}
-		num3 = this.resolutionHeight;
-		IL_A1:
-		int num4 = num3;
-		if (Application.isEditor)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return;
-		}
-		if (!this.m_isResolutionInitialized)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_isResolutionInitialized = true;
-			if (!UIFrontendLoadingScreen.Get().IsSameAsInitialResolution())
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.UpdateResolutionFromScreen();
-				return;
-			}
-		}
-		if (flag3 == Screen.fullScreen)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (num2 == Screen.width)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (num4 == Screen.height)
-				{
-					return;
-				}
-			}
-		}
-		Screen.SetResolution(num2, num4, flag3);
-	}
-
-	public void UpdateResolutionFromScreen()
-	{
-		bool flag = AppState.IsInGame() && this.gameWindowMode != SettingsState.WindowMode.Inherit;
-		SettingsState.WindowMode windowMode = (!Screen.fullScreen) ? SettingsState.WindowMode.Windowed : SettingsState.WindowMode.Fullscreen;
-		if (!flag)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SettingsState.UpdateResolutionFromScreen()).MethodHandle;
-			}
-			if (Screen.width == this.resolutionWidth)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (Screen.height == this.resolutionHeight)
-				{
-					if (windowMode == this.windowMode)
-					{
-						goto IL_A4;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-			}
-			this.resolutionWidth = Screen.width;
-			this.resolutionHeight = Screen.height;
-			this.windowMode = windowMode;
-			this.ApplyToPlayerPrefs();
-			Cursor.lockState = CursorLockMode.None;
-			IL_A4:;
-		}
-		else
-		{
-			if (Screen.width == this.gameResolutionWidth)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (Screen.height == this.gameResolutionHeight)
-				{
-					if (windowMode == this.gameWindowMode)
-					{
-						return;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-			}
-			this.gameResolutionWidth = Screen.width;
-			this.gameResolutionHeight = Screen.height;
-			this.gameWindowMode = this.windowMode;
-			this.ApplyToPlayerPrefs();
-			Cursor.lockState = CursorLockMode.None;
-		}
+		gameResolutionWidth = Screen.width;
+		gameResolutionHeight = Screen.height;
+		gameWindowMode = this.windowMode;
+		ApplyToPlayerPrefs();
+		Cursor.lockState = CursorLockMode.None;
 	}
 
 	private IEnumerator ApplyPendingValuesInternal(SettingsState newState)
 	{
 		Options_UI.Get().m_pauseUpdate = true;
-		AudioMixer audioMixer;
+		object obj;
 		if (AudioManager.mixSnapshotManager != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -935,20 +942,20 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SettingsState.<ApplyPendingValuesInternal>c__Iterator1.MoveNext()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			audioMixer = AudioManager.mixSnapshotManager.snapshot_game.audioMixer;
+			obj = AudioManager.mixSnapshotManager.snapshot_game.audioMixer;
 		}
 		else
 		{
-			audioMixer = null;
+			obj = null;
 		}
-		AudioMixer mixer = audioMixer;
+		AudioMixer mixer = (AudioMixer)obj;
 		if (mixer != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -959,7 +966,7 @@ public class SettingsState : ICloneable
 			}
 			if (newState != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -968,11 +975,11 @@ public class SettingsState : ICloneable
 					}
 					break;
 				}
-				if (this.masterVolume == newState.masterVolume)
+				if (masterVolume == newState.masterVolume)
 				{
-					goto IL_156;
+					goto IL_0156;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -984,101 +991,17 @@ public class SettingsState : ICloneable
 			}
 			if (newState != null)
 			{
-				this.masterVolume = newState.masterVolume;
+				masterVolume = newState.masterVolume;
 			}
-			float value = this.ConvertPercentToDb(this.masterVolume);
+			float value = ConvertPercentToDb(masterVolume);
 			mixer.SetFloat("VolMaster", value);
-			IL_156:
-			if (newState != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.musicVolume == newState.musicVolume)
-				{
-					goto IL_219;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (newState != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.musicVolume = newState.musicVolume;
-			}
-			float value2 = this.ConvertPercentToDb(this.musicVolume);
-			mixer.SetFloat("VolMusic", value2);
-			int percent = 0x64 - this.musicVolume;
-			float value3 = this.ConvertPercentToDb(percent);
-			mixer.SetFloat("VolUIAmbiance", value3);
-			AudioManager.EnableMusicAtStartup();
-			IL_219:
-			AudioManager.EnableAmbianceAtStartup();
+			goto IL_0156;
 		}
-		while (Options_UI.s_hwnd == (IntPtr)0)
-		{
-			yield return null;
-			Options_UI.Get().TrySetupHwnd();
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		yield return null;
+		goto IL_0247;
+		IL_0156:
 		if (newState != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.graphicsQuality == newState.graphicsQuality)
-			{
-				goto IL_3E3;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		if (newState != null)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1087,25 +1010,117 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			this.graphicsQuality = newState.graphicsQuality;
-		}
-		GraphicsQuality graphicsQuality = this.graphicsQuality;
-		string qualityName;
-		switch (graphicsQuality)
-		{
-		case GraphicsQuality.Low:
-			qualityName = "Fast";
-			break;
-		case GraphicsQuality.Medium:
-			qualityName = "Simple";
-			break;
-		case GraphicsQuality.High:
-			qualityName = "Fantastic";
-			break;
-		default:
-			if (graphicsQuality != GraphicsQuality.VeryLow)
+			if (musicVolume == newState.musicVolume)
 			{
-				for (;;)
+				goto IL_0219;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		if (newState != null)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			musicVolume = newState.musicVolume;
+		}
+		float value2 = ConvertPercentToDb(musicVolume);
+		mixer.SetFloat("VolMusic", value2);
+		int percent = 100 - musicVolume;
+		float value3 = ConvertPercentToDb(percent);
+		mixer.SetFloat("VolUIAmbiance", value3);
+		AudioManager.EnableMusicAtStartup();
+		goto IL_0219;
+		IL_0247:
+		while (Options_UI.s_hwnd == (IntPtr)0)
+		{
+			yield return null;
+			Options_UI.Get().TrySetupHwnd();
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			yield return null;
+			if (newState != null)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (graphicsQuality == newState.graphicsQuality)
+				{
+					if (newState != null)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						resolutionWidth = newState.resolutionWidth;
+						resolutionHeight = newState.resolutionHeight;
+						windowMode = newState.windowMode;
+						gameResolutionWidth = newState.gameResolutionWidth;
+						gameResolutionHeight = newState.gameResolutionHeight;
+						gameWindowMode = newState.gameWindowMode;
+					}
+					UpdateGameResolution();
+					yield return null;
+					/*Error: Unable to find new state assignment for yield return*/;
+				}
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			if (newState != null)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				graphicsQuality = newState.graphicsQuality;
+			}
+			string qualityName;
+			switch (graphicsQuality)
+			{
+			default:
+				while (true)
 				{
 					switch (3)
 					{
@@ -1115,863 +1130,109 @@ public class SettingsState : ICloneable
 					break;
 				}
 				qualityName = "Fantastic";
-			}
-			else
-			{
+				break;
+			case GraphicsQuality.VeryLow:
 				qualityName = "Fastest";
+				break;
+			case GraphicsQuality.Low:
+				qualityName = "Fast";
+				break;
+			case GraphicsQuality.Medium:
+				qualityName = "Simple";
+				break;
+			case GraphicsQuality.High:
+				qualityName = "Fantastic";
+				break;
 			}
-			break;
-		}
-		string[] names = QualitySettings.names;
-		int i = 0;
-		while (i < names.Length)
-		{
-			if (names[i] == qualityName)
+			string[] names = QualitySettings.names;
+			int num = 0;
+			while (true)
 			{
-				for (;;)
+				if (num < names.Length)
 				{
-					switch (2)
+					if (names[num] == qualityName)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						QualitySettings.SetQualityLevel(num, true);
+						break;
+					}
+					num++;
+					continue;
+				}
+				while (true)
+				{
+					switch (6)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				QualitySettings.SetQualityLevel(i, true);
-				IL_3AC:
-				GameEventManager.Get().FireEvent(GameEventManager.EventType.GraphicsQualityChanged, null);
-				yield return null;
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_3E3;
-				}
-			}
-			else
-			{
-				i++;
-			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_3AC;
-		}
-		IL_3E3:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				break;
 			}
-			this.resolutionWidth = newState.resolutionWidth;
-			this.resolutionHeight = newState.resolutionHeight;
-			this.windowMode = newState.windowMode;
-			this.gameResolutionWidth = newState.gameResolutionWidth;
-			this.gameResolutionHeight = newState.gameResolutionHeight;
-			this.gameWindowMode = newState.gameWindowMode;
+			GameEventManager.Get().FireEvent(GameEventManager.EventType.GraphicsQualityChanged, null);
+			yield return null;
+			/*Error: Unable to find new state assignment for yield return*/;
 		}
-		this.UpdateGameResolution();
-		yield return null;
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.lockCursorMode = newState.lockCursorMode;
-		}
-		if (this.lockCursorMode != SettingsState.LockCursorMode.On)
-		{
-			if (this.lockCursorMode == SettingsState.LockCursorMode.Smart)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (GameFlowData.Get() != null)
-				{
-					goto IL_507;
-				}
-			}
-			Cursor.lockState = CursorLockMode.None;
-			goto IL_515;
-		}
-		IL_507:
-		Cursor.lockState = CursorLockMode.Confined;
-		IL_515:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.enableChatter == newState.enableChatter)
-			{
-				goto IL_596;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		yield return null;
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.enableChatter = newState.enableChatter;
-		}
-		IL_596:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.rightClickingConfirmsAbilityTargets == newState.rightClickingConfirmsAbilityTargets)
-			{
-				goto IL_617;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		yield return null;
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.rightClickingConfirmsAbilityTargets = newState.rightClickingConfirmsAbilityTargets;
-		}
-		IL_617:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.shiftClickForMovementWaypoints == newState.shiftClickForMovementWaypoints)
-			{
-				goto IL_698;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		yield return null;
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.shiftClickForMovementWaypoints = newState.shiftClickForMovementWaypoints;
-		}
-		IL_698:
-		if (newState != null)
-		{
-			if (this.showGlobalChat == newState.showGlobalChat)
-			{
-				goto IL_6FB;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		yield return null;
-		if (newState != null)
-		{
-			this.showGlobalChat = newState.showGlobalChat;
-		}
-		IL_6FB:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.showAllChat == newState.showAllChat)
-			{
-				goto IL_77D;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		yield return null;
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.showAllChat = newState.showAllChat;
-		}
-		IL_77D:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.enableProfanityFilter == newState.enableProfanityFilter)
-			{
-				goto IL_7F5;
-			}
-		}
-		yield return null;
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.enableProfanityFilter = newState.enableProfanityFilter;
-		}
-		IL_7F5:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.autoJoinDiscord == newState.autoJoinDiscord)
-			{
-				goto IL_86D;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		yield return null;
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.autoJoinDiscord = newState.autoJoinDiscord;
-		}
-		IL_86D:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.voicePushToTalk == newState.voicePushToTalk)
-			{
-				goto IL_8E5;
-			}
-		}
-		yield return null;
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.voicePushToTalk = newState.voicePushToTalk;
-		}
-		IL_8E5:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.voiceMute == newState.voiceMute)
-			{
-				goto IL_953;
-			}
-		}
-		yield return null;
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.voiceMute = newState.voiceMute;
-		}
-		IL_953:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.voiceVolume == newState.voiceVolume)
-			{
-				goto IL_9D5;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		yield return null;
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.voiceVolume = newState.voiceVolume;
-		}
-		IL_9D5:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.micVolume == newState.micVolume)
-			{
-				goto IL_A4D;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		yield return null;
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.micVolume = newState.micVolume;
-		}
-		IL_A4D:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.region == newState.region)
-			{
-				goto IL_ADC;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		yield return null;
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.region = newState.region;
-			ClientGameManager.Get().SendSetRegionRequest(this.region);
-		}
-		IL_ADC:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.gameModeVoiceChat == newState.gameModeVoiceChat)
-			{
-				goto IL_B5E;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		yield return null;
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.gameModeVoiceChat = newState.gameModeVoiceChat;
-		}
-		IL_B5E:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.hideTutorialVideos == newState.hideTutorialVideos)
-			{
-				goto IL_BD6;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		yield return null;
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.hideTutorialVideos = newState.hideTutorialVideos;
-		}
-		IL_BD6:
-		if (newState != null)
-		{
-			if (this.allowCancelActionWhileConfirmed == newState.allowCancelActionWhileConfirmed)
-			{
-				goto IL_C44;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		yield return null;
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.allowCancelActionWhileConfirmed = newState.allowCancelActionWhileConfirmed;
-		}
-		IL_C44:
-		if (newState != null)
-		{
-			if (this.overrideGlyphLanguage == newState.overrideGlyphLanguage)
-			{
-				goto IL_CA8;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		yield return null;
-		if (newState != null)
-		{
-			this.overrideGlyphLanguage = newState.overrideGlyphLanguage;
-		}
-		IL_CA8:
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!(this.overrideGlyphLanguageCode != newState.overrideGlyphLanguageCode))
-			{
-				goto IL_D1A;
-			}
-		}
-		yield return null;
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.overrideGlyphLanguageCode = newState.overrideGlyphLanguageCode;
-		}
-		IL_D1A:
-		Options_UI.Get().m_pauseUpdate = false;
-		if (newState != null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.ApplyToPlayerPrefs();
-		}
-		yield break;
+		IL_0219:
+		AudioManager.EnableAmbianceAtStartup();
+		goto IL_0247;
 	}
 
 	public void ApplyToOptionsUI()
 	{
-		GraphicsQuality graphicsQuality = this.graphicsQuality;
 		switch (graphicsQuality)
 		{
+		default:
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			break;
+		case GraphicsQuality.VeryLow:
 		case GraphicsQuality.Low:
+			Options_UI.Get().m_graphicsLowButton.SetSelected(true, false, string.Empty, string.Empty);
+			Options_UI.Get().m_graphicsMediumButton.SetSelected(false, false, string.Empty, string.Empty);
+			Options_UI.Get().m_graphicsHighButton.SetSelected(false, false, string.Empty, string.Empty);
 			break;
 		case GraphicsQuality.Medium:
 			Options_UI.Get().m_graphicsLowButton.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_graphicsMediumButton.SetSelected(true, false, string.Empty, string.Empty);
 			Options_UI.Get().m_graphicsHighButton.SetSelected(false, false, string.Empty, string.Empty);
-			goto IL_13E;
+			break;
 		case GraphicsQuality.High:
 			Options_UI.Get().m_graphicsLowButton.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_graphicsMediumButton.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_graphicsHighButton.SetSelected(true, false, string.Empty, string.Empty);
-			goto IL_13E;
-		default:
-			if (graphicsQuality != GraphicsQuality.VeryLow)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SettingsState.ApplyToOptionsUI()).MethodHandle;
-				}
-				goto IL_13E;
-			}
 			break;
 		}
-		Options_UI.Get().m_graphicsLowButton.SetSelected(true, false, string.Empty, string.Empty);
-		Options_UI.Get().m_graphicsMediumButton.SetSelected(false, false, string.Empty, string.Empty);
-		Options_UI.Get().m_graphicsHighButton.SetSelected(false, false, string.Empty, string.Empty);
-		IL_13E:
-		SettingsState.WindowMode thisWindowMode = this.windowMode;
-		int thisResolutionWidth = this.resolutionWidth;
-		int thisResolutionHeight = this.resolutionHeight;
+		WindowMode thisWindowMode = windowMode;
+		int thisResolutionWidth = resolutionWidth;
+		int thisResolutionHeight = resolutionHeight;
 		Action<string> setModeText = delegate(string modeText)
 		{
 			Options_UI.Get().SetWindowModeText(modeText);
 		};
-		if (SettingsState.<>f__am$cache1 == null)
+		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1980,22 +1241,22 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			SettingsState.<>f__am$cache1 = delegate(string resolutionText)
+			_003C_003Ef__am_0024cache1 = delegate(string resolutionText)
 			{
 				Options_UI.Get().SetResolutionText(resolutionText);
 			};
 		}
-		SettingsState.UpdateModeResolution(thisWindowMode, thisResolutionWidth, thisResolutionHeight, setModeText, SettingsState.<>f__am$cache1);
-		SettingsState.WindowMode thisWindowMode2 = this.gameWindowMode;
-		int thisResolutionWidth2 = this.gameResolutionWidth;
-		int thisResolutionHeight2 = this.gameResolutionHeight;
+		UpdateModeResolution(thisWindowMode, thisResolutionWidth, thisResolutionHeight, setModeText, _003C_003Ef__am_0024cache1);
+		WindowMode thisWindowMode2 = gameWindowMode;
+		int thisResolutionWidth2 = gameResolutionWidth;
+		int thisResolutionHeight2 = gameResolutionHeight;
 		Action<string> setModeText2 = delegate(string modeText)
 		{
 			Options_UI.Get().SetGameWindowModeText(modeText);
 		};
-		if (SettingsState.<>f__am$cache3 == null)
+		if (_003C_003Ef__am_0024cache3 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -2004,16 +1265,16 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			SettingsState.<>f__am$cache3 = delegate(string resolutionText)
+			_003C_003Ef__am_0024cache3 = delegate(string resolutionText)
 			{
 				Options_UI.Get().SetGameResolutionText(resolutionText);
 			};
 		}
-		SettingsState.UpdateModeResolution(thisWindowMode2, thisResolutionWidth2, thisResolutionHeight2, setModeText2, SettingsState.<>f__am$cache3);
+		UpdateModeResolution(thisWindowMode2, thisResolutionWidth2, thisResolutionHeight2, setModeText2, _003C_003Ef__am_0024cache3);
 		Region region = this.region;
-		if (region != Region.US)
+		if (region != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -2024,7 +1285,7 @@ public class SettingsState : ICloneable
 			}
 			if (region != Region.EU)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -2043,13 +1304,13 @@ public class SettingsState : ICloneable
 		{
 			Options_UI.Get().SetRegionText(StringUtil.TR("NorthAmerica", "Options"));
 		}
-		Options_UI.Get().m_masterVolumeLabel.text = Convert.ToString(this.masterVolume);
-		Options_UI.Get().m_masterVolumeSlider.value = (float)this.masterVolume / 100f;
-		Options_UI.Get().m_musicVolumeLabel.text = Convert.ToString(this.musicVolume);
-		Options_UI.Get().m_musicVolumeSlider.value = (float)this.musicVolume / 100f;
-		if (this.lockCursorMode == SettingsState.LockCursorMode.On)
+		Options_UI.Get().m_masterVolumeLabel.text = Convert.ToString(masterVolume);
+		Options_UI.Get().m_masterVolumeSlider.value = (float)masterVolume / 100f;
+		Options_UI.Get().m_musicVolumeLabel.text = Convert.ToString(musicVolume);
+		Options_UI.Get().m_musicVolumeSlider.value = (float)musicVolume / 100f;
+		if (lockCursorMode == LockCursorMode.On)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -2062,9 +1323,9 @@ public class SettingsState : ICloneable
 			Options_UI.Get().m_unlockCursorButton.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_smartLockCursorButton.SetSelected(false, false, string.Empty, string.Empty);
 		}
-		else if (this.lockCursorMode == SettingsState.LockCursorMode.Off)
+		else if (lockCursorMode == LockCursorMode.Off)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2083,9 +1344,9 @@ public class SettingsState : ICloneable
 			Options_UI.Get().m_unlockCursorButton.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_smartLockCursorButton.SetSelected(true, false, string.Empty, string.Empty);
 		}
-		if (this.enableChatter)
+		if (enableChatter)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -2102,9 +1363,9 @@ public class SettingsState : ICloneable
 			Options_UI.Get().m_enableChatterButton.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_disableChatterButton.SetSelected(true, false, string.Empty, string.Empty);
 		}
-		if (this.rightClickingConfirmsAbilityTargets)
+		if (rightClickingConfirmsAbilityTargets)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2121,7 +1382,7 @@ public class SettingsState : ICloneable
 			Options_UI.Get().m_rightClickTargetingConfirm.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_rightClickTargetingCancel.SetSelected(true, false, string.Empty, string.Empty);
 		}
-		if (this.shiftClickForMovementWaypoints)
+		if (shiftClickForMovementWaypoints)
 		{
 			Options_UI.Get().m_shiftClickForWaypoints.SetSelected(true, false, string.Empty, string.Empty);
 			Options_UI.Get().m_shiftClickForNewPath.SetSelected(false, false, string.Empty, string.Empty);
@@ -2131,9 +1392,9 @@ public class SettingsState : ICloneable
 			Options_UI.Get().m_shiftClickForWaypoints.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_shiftClickForNewPath.SetSelected(true, false, string.Empty, string.Empty);
 		}
-		if (this.showGlobalChat)
+		if (showGlobalChat)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2150,9 +1411,9 @@ public class SettingsState : ICloneable
 			Options_UI.Get().m_showGlobalChatButton.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_hideGlobalChatButton.SetSelected(true, false, string.Empty, string.Empty);
 		}
-		if (this.showAllChat)
+		if (showAllChat)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -2169,9 +1430,9 @@ public class SettingsState : ICloneable
 			Options_UI.Get().m_showAllChatButton.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_hideAllChatButton.SetSelected(true, false, string.Empty, string.Empty);
 		}
-		if (this.enableProfanityFilter)
+		if (enableProfanityFilter)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -2188,82 +1449,84 @@ public class SettingsState : ICloneable
 			Options_UI.Get().m_enableProfanityFilterButton.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_disableProfanityFilterButton.SetSelected(true, false, string.Empty, string.Empty);
 		}
-		if (DiscordClientInterface.IsEnabled)
+		if (!DiscordClientInterface.IsEnabled)
 		{
-			for (;;)
+			goto IL_0855;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
+			case 0:
+				continue;
+			}
+			break;
+		}
+		if (!DiscordClientInterface.IsSdkEnabled)
+		{
+			while (true)
+			{
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!DiscordClientInterface.IsSdkEnabled)
+			if (!DiscordClientInterface.IsInstalled)
 			{
-				for (;;)
+				goto IL_0855;
+			}
+			while (true)
+			{
+				switch (3)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!DiscordClientInterface.IsInstalled)
-				{
-					goto IL_855;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				break;
 			}
-			if (this.autoJoinDiscord)
-			{
-				Options_UI.Get().m_enableAutoJoinDiscordButton.SetSelected(true, false, string.Empty, string.Empty);
-				Options_UI.Get().m_disableAutoJoinDiscordButton.SetSelected(false, false, string.Empty, string.Empty);
-			}
-			else
-			{
-				Options_UI.Get().m_enableAutoJoinDiscordButton.SetSelected(false, false, string.Empty, string.Empty);
-				Options_UI.Get().m_disableAutoJoinDiscordButton.SetSelected(true, false, string.Empty, string.Empty);
-			}
-			if (this.gameModeVoiceChat == SettingsState.VoiceChatMode.Team)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Options_UI.Get().m_groupGameModeVoiceChatButton.SetSelected(false, false, string.Empty, string.Empty);
-				Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(true, false, string.Empty, string.Empty);
-			}
-			else
-			{
-				Options_UI.Get().m_groupGameModeVoiceChatButton.SetSelected(true, false, string.Empty, string.Empty);
-				Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(false, false, string.Empty, string.Empty);
-			}
-			goto IL_8C3;
 		}
-		IL_855:
+		if (autoJoinDiscord)
+		{
+			Options_UI.Get().m_enableAutoJoinDiscordButton.SetSelected(true, false, string.Empty, string.Empty);
+			Options_UI.Get().m_disableAutoJoinDiscordButton.SetSelected(false, false, string.Empty, string.Empty);
+		}
+		else
+		{
+			Options_UI.Get().m_enableAutoJoinDiscordButton.SetSelected(false, false, string.Empty, string.Empty);
+			Options_UI.Get().m_disableAutoJoinDiscordButton.SetSelected(true, false, string.Empty, string.Empty);
+		}
+		if (gameModeVoiceChat == VoiceChatMode.Team)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			Options_UI.Get().m_groupGameModeVoiceChatButton.SetSelected(false, false, string.Empty, string.Empty);
+			Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(true, false, string.Empty, string.Empty);
+		}
+		else
+		{
+			Options_UI.Get().m_groupGameModeVoiceChatButton.SetSelected(true, false, string.Empty, string.Empty);
+			Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(false, false, string.Empty, string.Empty);
+		}
+		goto IL_08c3;
+		IL_0855:
 		Options_UI.Get().m_enableAutoJoinDiscordButton.SetSelected(false, false, string.Empty, string.Empty);
 		Options_UI.Get().m_disableAutoJoinDiscordButton.SetSelected(false, false, string.Empty, string.Empty);
 		Options_UI.Get().m_groupGameModeVoiceChatButton.SetSelected(false, false, string.Empty, string.Empty);
 		Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(false, false, string.Empty, string.Empty);
-		IL_8C3:
-		if (this.hideTutorialVideos)
+		goto IL_08c3;
+		IL_08c3:
+		if (hideTutorialVideos)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2280,9 +1543,9 @@ public class SettingsState : ICloneable
 			Options_UI.Get().m_hideTutorialVideosButton.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_showTutorialVideosButton.SetSelected(true, false, string.Empty, string.Empty);
 		}
-		if (this.allowCancelActionWhileConfirmed)
+		if (allowCancelActionWhileConfirmed)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -2299,38 +1562,40 @@ public class SettingsState : ICloneable
 			Options_UI.Get().m_allowCancelActionWhileConfirmedButton.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_disallowCancelActionWhileConfirmedButton.SetSelected(true, false, string.Empty, string.Empty);
 		}
-		if (this.overrideGlyphLanguage)
+		if (overrideGlyphLanguage)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Options_UI.Get().SetLanguageText(StringUtil.TR(overrideGlyphLanguageCode, "LanguageSelection"));
+					return;
 				}
-				break;
 			}
-			Options_UI.Get().SetLanguageText(StringUtil.TR(this.overrideGlyphLanguageCode, "LanguageSelection"));
 		}
-		else
-		{
-			Options_UI.Get().SetLanguageText(StringUtil.TR(LanguageOptions.GlyphSettings.ToString(), "LanguageSelection"));
-		}
+		Options_UI.Get().SetLanguageText(StringUtil.TR(LanguageOptions.GlyphSettings.ToString(), "LanguageSelection"));
 	}
 
-	private static void UpdateModeResolution(SettingsState.WindowMode thisWindowMode, int thisResolutionWidth, int thisResolutionHeight, Action<string> setModeText, Action<string> setResolutionText)
+	private static void UpdateModeResolution(WindowMode thisWindowMode, int thisResolutionWidth, int thisResolutionHeight, Action<string> setModeText, Action<string> setResolutionText)
 	{
 		switch (thisWindowMode)
 		{
-		case SettingsState.WindowMode.Windowed:
+		case WindowMode.WindowedFullscreen:
+			break;
+		case WindowMode.Windowed:
 		{
 			setModeText(StringUtil.TR("Windowed", "Options"));
 			bool flag = false;
-			foreach (Resolution resolution in Screen.resolutions)
+			Resolution[] resolutions = Screen.resolutions;
+			for (int i = 0; i < resolutions.Length; i++)
 			{
+				Resolution resolution = resolutions[i];
 				if (resolution.width == thisResolutionWidth)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -2339,9 +1604,9 @@ public class SettingsState : ICloneable
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(SettingsState.UpdateModeResolution(SettingsState.WindowMode, int, int, Action<string>, Action<string>)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					if (resolution.height == thisResolutionHeight)
 					{
@@ -2351,28 +1616,26 @@ public class SettingsState : ICloneable
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						setResolutionText(thisResolutionWidth + " x " + thisResolutionHeight);
+						return;
 					}
-					break;
 				}
-				setResolutionText(thisResolutionWidth.ToString() + " x " + thisResolutionHeight.ToString());
 			}
-			else
-			{
-				setResolutionText(StringUtil.TR("Custom", "Options"));
-			}
+			setResolutionText(StringUtil.TR("Custom", "Options"));
 			break;
 		}
-		case SettingsState.WindowMode.Fullscreen:
+		case WindowMode.Fullscreen:
 			setModeText(StringUtil.TR("Fullscreen", "Options"));
-			setResolutionText(Screen.currentResolution.width.ToString() + " x " + Screen.currentResolution.height.ToString());
+			setResolutionText(Screen.currentResolution.width + " x " + Screen.currentResolution.height);
 			break;
-		case SettingsState.WindowMode.Inherit:
+		case WindowMode.Inherit:
 			setModeText(StringUtil.TR("Same as Menu", "Options"));
 			setResolutionText(StringUtil.TR("Same as Menu", "Options"));
 			break;
@@ -2381,10 +1644,10 @@ public class SettingsState : ICloneable
 
 	public void ApplyToPlayerPrefs()
 	{
-		PlayerPrefs.SetInt("OptionsGraphicsQuality", (int)this.graphicsQuality);
-		if (this.graphicsQuality != GraphicsQuality.Medium)
+		PlayerPrefs.SetInt("OptionsGraphicsQuality", (int)graphicsQuality);
+		if (graphicsQuality != GraphicsQuality.Medium)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -2393,26 +1656,25 @@ public class SettingsState : ICloneable
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SettingsState.ApplyToPlayerPrefs()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			PlayerPrefs.SetInt("OptionsGraphicsQualityEverSetManually", 1);
 		}
-		PlayerPrefs.SetInt("OptionsWindowMode", (int)this.windowMode);
-		PlayerPrefs.SetInt("OptionsResolutionWidth", this.resolutionWidth);
-		PlayerPrefs.SetInt("OptionsResolutionHeight", this.resolutionHeight);
-		PlayerPrefs.SetInt("OptionsGameWindowMode", (int)this.gameWindowMode);
-		PlayerPrefs.SetInt("OptionsGameResolutionWidth", this.gameResolutionWidth);
-		PlayerPrefs.SetInt("OptionsGameResolutionHeight", this.gameResolutionHeight);
-		PlayerPrefs.SetInt("OptionsMasterVolume", this.masterVolume);
-		PlayerPrefs.SetInt("OptionsMusicVolume", this.musicVolume);
-		PlayerPrefs.SetInt("OptionsLockCursor", (int)this.lockCursorMode);
-		string key = "OptionsEnableChatter";
+		PlayerPrefs.SetInt("OptionsWindowMode", (int)windowMode);
+		PlayerPrefs.SetInt("OptionsResolutionWidth", resolutionWidth);
+		PlayerPrefs.SetInt("OptionsResolutionHeight", resolutionHeight);
+		PlayerPrefs.SetInt("OptionsGameWindowMode", (int)gameWindowMode);
+		PlayerPrefs.SetInt("OptionsGameResolutionWidth", gameResolutionWidth);
+		PlayerPrefs.SetInt("OptionsGameResolutionHeight", gameResolutionHeight);
+		PlayerPrefs.SetInt("OptionsMasterVolume", masterVolume);
+		PlayerPrefs.SetInt("OptionsMusicVolume", musicVolume);
+		PlayerPrefs.SetInt("OptionsLockCursor", (int)lockCursorMode);
 		int value;
-		if (this.enableChatter)
+		if (enableChatter)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -2427,12 +1689,11 @@ public class SettingsState : ICloneable
 		{
 			value = 0;
 		}
-		PlayerPrefs.SetInt(key, value);
-		string key2 = "OptionsRightClickingConfirmsAbilityTargets";
+		PlayerPrefs.SetInt("OptionsEnableChatter", value);
 		int value2;
-		if (this.rightClickingConfirmsAbilityTargets)
+		if (rightClickingConfirmsAbilityTargets)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -2447,12 +1708,11 @@ public class SettingsState : ICloneable
 		{
 			value2 = 0;
 		}
-		PlayerPrefs.SetInt(key2, value2);
-		string key3 = "OptionsShiftClickForMovementWaypoints";
+		PlayerPrefs.SetInt("OptionsRightClickingConfirmsAbilityTargets", value2);
 		int value3;
-		if (this.shiftClickForMovementWaypoints)
+		if (shiftClickForMovementWaypoints)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -2467,12 +1727,11 @@ public class SettingsState : ICloneable
 		{
 			value3 = 0;
 		}
-		PlayerPrefs.SetInt(key3, value3);
-		string key4 = "OptionsShowGlobalChat";
+		PlayerPrefs.SetInt("OptionsShiftClickForMovementWaypoints", value3);
 		int value4;
-		if (this.showGlobalChat)
+		if (showGlobalChat)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -2487,13 +1746,12 @@ public class SettingsState : ICloneable
 		{
 			value4 = 0;
 		}
-		PlayerPrefs.SetInt(key4, value4);
-		PlayerPrefs.SetInt("OptionsShowAllChat", (!this.showAllChat) ? 0 : 1);
-		string key5 = "OptionsEnableProfanityFilter";
+		PlayerPrefs.SetInt("OptionsShowGlobalChat", value4);
+		PlayerPrefs.SetInt("OptionsShowAllChat", showAllChat ? 1 : 0);
 		int value5;
-		if (this.enableProfanityFilter)
+		if (enableProfanityFilter)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -2508,12 +1766,11 @@ public class SettingsState : ICloneable
 		{
 			value5 = 0;
 		}
-		PlayerPrefs.SetInt(key5, value5);
-		string key6 = "AutoJoinDiscord";
+		PlayerPrefs.SetInt("OptionsEnableProfanityFilter", value5);
 		int value6;
-		if (this.autoJoinDiscord)
+		if (autoJoinDiscord)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -2528,12 +1785,11 @@ public class SettingsState : ICloneable
 		{
 			value6 = 0;
 		}
-		PlayerPrefs.SetInt(key6, value6);
-		string key7 = "VoicePushToTalk";
+		PlayerPrefs.SetInt("AutoJoinDiscord", value6);
 		int value7;
-		if (this.voicePushToTalk)
+		if (voicePushToTalk)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -2548,12 +1804,11 @@ public class SettingsState : ICloneable
 		{
 			value7 = 0;
 		}
-		PlayerPrefs.SetInt(key7, value7);
-		string key8 = "VoiceMute";
+		PlayerPrefs.SetInt("VoicePushToTalk", value7);
 		int value8;
-		if (this.voiceMute)
+		if (voiceMute)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2568,16 +1823,15 @@ public class SettingsState : ICloneable
 		{
 			value8 = 0;
 		}
-		PlayerPrefs.SetInt(key8, value8);
-		PlayerPrefs.SetFloat("VoiceVolume", this.voiceVolume);
-		PlayerPrefs.SetFloat("MicVolume", this.micVolume);
-		PlayerPrefs.SetInt("Region", (int)this.region);
-		PlayerPrefs.SetInt("OptionsGameModeVoiceChat", (int)this.gameModeVoiceChat);
-		string key9 = "HideTutorialVideos";
+		PlayerPrefs.SetInt("VoiceMute", value8);
+		PlayerPrefs.SetFloat("VoiceVolume", voiceVolume);
+		PlayerPrefs.SetFloat("MicVolume", micVolume);
+		PlayerPrefs.SetInt("Region", (int)region);
+		PlayerPrefs.SetInt("OptionsGameModeVoiceChat", (int)gameModeVoiceChat);
 		int value9;
-		if (this.hideTutorialVideos)
+		if (hideTutorialVideos)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -2592,12 +1846,11 @@ public class SettingsState : ICloneable
 		{
 			value9 = 0;
 		}
-		PlayerPrefs.SetInt(key9, value9);
-		string key10 = "AllowCancelActionWhileConfirmed";
+		PlayerPrefs.SetInt("HideTutorialVideos", value9);
 		int value10;
-		if (this.allowCancelActionWhileConfirmed)
+		if (allowCancelActionWhileConfirmed)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2612,12 +1865,12 @@ public class SettingsState : ICloneable
 		{
 			value10 = 0;
 		}
-		PlayerPrefs.SetInt(key10, value10);
-		PlayerPrefs.SetInt("OptionsOverrideGlyphLanguage", (!this.overrideGlyphLanguage) ? 0 : 1);
-		PlayerPrefs.SetString("OverrideGlyphLanguageCode", this.overrideGlyphLanguageCode);
-		if (this.windowMode == SettingsState.WindowMode.Windowed)
+		PlayerPrefs.SetInt("AllowCancelActionWhileConfirmed", value10);
+		PlayerPrefs.SetInt("OptionsOverrideGlyphLanguage", overrideGlyphLanguage ? 1 : 0);
+		PlayerPrefs.SetString("OverrideGlyphLanguageCode", overrideGlyphLanguageCode);
+		if (windowMode == WindowMode.Windowed)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -2627,8 +1880,8 @@ public class SettingsState : ICloneable
 				break;
 			}
 			PlayerPrefs.SetInt("Screenmanager Is Fullscreen mode", 0);
-			PlayerPrefs.SetInt("Screenmanager Resolution Width", this.resolutionWidth);
-			PlayerPrefs.SetInt("Screenmanager Resolution Height", this.resolutionHeight);
+			PlayerPrefs.SetInt("Screenmanager Resolution Width", resolutionWidth);
+			PlayerPrefs.SetInt("Screenmanager Resolution Height", resolutionHeight);
 		}
 		else
 		{
@@ -2643,20 +1896,20 @@ public class SettingsState : ICloneable
 	{
 		if (percent == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return -80f;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SettingsState.ConvertPercentToDb(int)).MethodHandle;
-			}
-			return -80f;
 		}
 		float value = 20f * Mathf.Log((float)percent * 0.01f) / Mathf.Log(10f);
 		return Mathf.Clamp(value, -80f, 0f);
@@ -2666,44 +1919,22 @@ public class SettingsState : ICloneable
 	{
 		if (db <= -80f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return 0;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SettingsState.ConvertDbToPercent(float)).MethodHandle;
-			}
-			return 0;
 		}
 		int value = Convert.ToInt32(100f * Mathf.Pow(10f, db / 20f));
-		return Mathf.Clamp(value, 0, 0x64);
-	}
-
-	public enum WindowMode
-	{
-		Windowed,
-		Fullscreen,
-		WindowedFullscreen,
-		Inherit
-	}
-
-	public enum LockCursorMode
-	{
-		Off,
-		On,
-		Smart
-	}
-
-	public enum VoiceChatMode
-	{
-		None,
-		Group,
-		Team
+		return Mathf.Clamp(value, 0, 100);
 	}
 }

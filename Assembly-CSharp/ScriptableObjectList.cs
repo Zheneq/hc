@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,47 +11,41 @@ public class ScriptableObjectList
 
 	public readonly string AssetPath;
 
-	public ScriptableObjectList(Type subclassType, string assetPath)
-	{
-		this.values = new List<ScriptableObject>();
-		this.SubclassType = subclassType;
-		this.AssetPath = assetPath;
-	}
-
-	public ScriptableObjectList(ScriptableObjectList other)
-	{
-		this.values = new List<ScriptableObject>(other.values);
-		this.SubclassType = other.SubclassType;
-		this.AssetPath = other.AssetPath;
-	}
-
 	public object this[int i]
 	{
 		get
 		{
-			return this.values[i];
+			return values[i];
 		}
 		set
 		{
-			this.values[i] = (value as ScriptableObject);
+			values[i] = (value as ScriptableObject);
 		}
 	}
 
-	public int Length
+	public int Length => values.Count;
+
+	public ScriptableObjectList(Type subclassType, string assetPath)
 	{
-		get
-		{
-			return this.values.Count;
-		}
+		values = new List<ScriptableObject>();
+		SubclassType = subclassType;
+		AssetPath = assetPath;
+	}
+
+	public ScriptableObjectList(ScriptableObjectList other)
+	{
+		values = new List<ScriptableObject>(other.values);
+		SubclassType = other.SubclassType;
+		AssetPath = other.AssetPath;
 	}
 
 	public void AddItem(ScriptableObject newItem)
 	{
-		this.values.Add(newItem);
+		values.Add(newItem);
 	}
 
 	public void RemoveItem(ScriptableObject item)
 	{
-		this.values.Remove(item);
+		values.Remove(item);
 	}
 }

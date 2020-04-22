@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +14,7 @@ public class NanoSmithWeaponsOfWar : Ability
 	public StandardEffectInfo m_targetEnemyOnHitEffect;
 
 	[Header("-- Sweep Info")]
-	public int m_sweepDamageAmount = 0xA;
+	public int m_sweepDamageAmount = 10;
 
 	public int m_sweepDuration = 3;
 
@@ -52,12 +51,12 @@ public class NanoSmithWeaponsOfWar : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Weapons of War";
+			m_abilityName = "Weapons of War";
 		}
-		AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = new AbilityUtil_Targeter_Shape(this, this.m_sweepShape, this.m_sweepPenetrateLineOfSight, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Never, AbilityUtil_Targeter.AffectsActor.Always);
-		abilityUtil_Targeter_Shape.SetTooltipSubjectTypes(AbilityTooltipSubject.Primary, AbilityTooltipSubject.Secondary, AbilityTooltipSubject.None);
+		AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = new AbilityUtil_Targeter_Shape(this, m_sweepShape, m_sweepPenetrateLineOfSight, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Never, AbilityUtil_Targeter.AffectsActor.Always);
+		abilityUtil_Targeter_Shape.SetTooltipSubjectTypes(AbilityTooltipSubject.Primary, AbilityTooltipSubject.Secondary);
 		base.Targeter = abilityUtil_Targeter_Shape;
 	}
 
@@ -68,25 +67,25 @@ public class NanoSmithWeaponsOfWar : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.GetAllyTargetEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Secondary);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetSweepDamage());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		GetAllyTargetEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetSweepDamage());
+		return numbers;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-		return base.CanTargetActorInDecision(caster, currentBestActorTarget, this.m_canTargetEnemies, this.m_canTargetAllies, this.m_canTargetAllies, Ability.ValidateCheckPath.Ignore, true, true, false);
+		return CanTargetActorInDecision(caster, currentBestActorTarget, m_canTargetEnemies, m_canTargetAllies, m_canTargetAllies, ValidateCheckPath.Ignore, true, true);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_NanoSmithWeaponsOfWar abilityMod_NanoSmithWeaponsOfWar = modAsBase as AbilityMod_NanoSmithWeaponsOfWar;
 		StandardEffectInfo effectInfo;
-		if (abilityMod_NanoSmithWeaponsOfWar)
+		if ((bool)abilityMod_NanoSmithWeaponsOfWar)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -95,23 +94,22 @@ public class NanoSmithWeaponsOfWar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithWeaponsOfWar.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			effectInfo = abilityMod_NanoSmithWeaponsOfWar.m_allyTargetEffectOverride.GetModifiedValue(this.m_targetAllyOnHitEffect);
+			effectInfo = abilityMod_NanoSmithWeaponsOfWar.m_allyTargetEffectOverride.GetModifiedValue(m_targetAllyOnHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_targetAllyOnHitEffect;
+			effectInfo = m_targetAllyOnHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "TargetAllyOnHitEffect", this.m_targetAllyOnHitEffect, true);
-		string name = "SweepDamageAmount";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "TargetAllyOnHitEffect", m_targetAllyOnHitEffect);
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_NanoSmithWeaponsOfWar)
+		if ((bool)abilityMod_NanoSmithWeaponsOfWar)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -120,18 +118,18 @@ public class NanoSmithWeaponsOfWar : Ability
 				}
 				break;
 			}
-			val = abilityMod_NanoSmithWeaponsOfWar.m_sweepDamageMod.GetModifiedValue(this.m_sweepDamageAmount);
+			val = abilityMod_NanoSmithWeaponsOfWar.m_sweepDamageMod.GetModifiedValue(m_sweepDamageAmount);
 		}
 		else
 		{
-			val = this.m_sweepDamageAmount;
+			val = m_sweepDamageAmount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		base.AddTokenInt(tokens, "SweepDuration", string.Empty, (!abilityMod_NanoSmithWeaponsOfWar) ? this.m_sweepDuration : abilityMod_NanoSmithWeaponsOfWar.m_sweepDurationMod.GetModifiedValue(this.m_sweepDuration), false);
+		AddTokenInt(tokens, "SweepDamageAmount", empty, val);
+		AddTokenInt(tokens, "SweepDuration", string.Empty, (!abilityMod_NanoSmithWeaponsOfWar) ? m_sweepDuration : abilityMod_NanoSmithWeaponsOfWar.m_sweepDurationMod.GetModifiedValue(m_sweepDuration));
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_NanoSmithWeaponsOfWar)
+		if ((bool)abilityMod_NanoSmithWeaponsOfWar)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -140,17 +138,17 @@ public class NanoSmithWeaponsOfWar : Ability
 				}
 				break;
 			}
-			effectInfo2 = abilityMod_NanoSmithWeaponsOfWar.m_enemySweepOnHitEffectOverride.GetModifiedValue(this.m_enemySweepOnHitEffect);
+			effectInfo2 = abilityMod_NanoSmithWeaponsOfWar.m_enemySweepOnHitEffectOverride.GetModifiedValue(m_enemySweepOnHitEffect);
 		}
 		else
 		{
-			effectInfo2 = this.m_enemySweepOnHitEffect;
+			effectInfo2 = m_enemySweepOnHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EnemySweepOnHitEffect", this.m_enemySweepOnHitEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EnemySweepOnHitEffect", m_enemySweepOnHitEffect);
 		StandardEffectInfo effectInfo3;
-		if (abilityMod_NanoSmithWeaponsOfWar)
+		if ((bool)abilityMod_NanoSmithWeaponsOfWar)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -159,39 +157,39 @@ public class NanoSmithWeaponsOfWar : Ability
 				}
 				break;
 			}
-			effectInfo3 = abilityMod_NanoSmithWeaponsOfWar.m_allySweepOnHitEffectOverride.GetModifiedValue(this.m_allySweepOnHitEffect);
+			effectInfo3 = abilityMod_NanoSmithWeaponsOfWar.m_allySweepOnHitEffectOverride.GetModifiedValue(m_allySweepOnHitEffect);
 		}
 		else
 		{
-			effectInfo3 = this.m_allySweepOnHitEffect;
+			effectInfo3 = m_allySweepOnHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "AllySweepOnHitEffect", this.m_allySweepOnHitEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "AllySweepOnHitEffect", m_allySweepOnHitEffect);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_NanoSmithWeaponsOfWar))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_NanoSmithWeaponsOfWar);
+			m_abilityMod = (abilityMod as AbilityMod_NanoSmithWeaponsOfWar);
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 
 	private int GetSweepDuration()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_sweepDurationMod.GetModifiedValue(this.m_sweepDuration) : this.m_sweepDuration;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_sweepDurationMod.GetModifiedValue(m_sweepDuration) : m_sweepDuration;
 	}
 
 	private int GetSweepDamage()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -200,15 +198,15 @@ public class NanoSmithWeaponsOfWar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithWeaponsOfWar.GetSweepDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_sweepDamageAmount;
+			result = m_sweepDamageAmount;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_sweepDamageMod.GetModifiedValue(this.m_sweepDamageAmount);
+			result = m_abilityMod.m_sweepDamageMod.GetModifiedValue(m_sweepDamageAmount);
 		}
 		return result;
 	}
@@ -216,9 +214,9 @@ public class NanoSmithWeaponsOfWar : Ability
 	private int GetShieldGainPerTurn()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -227,15 +225,15 @@ public class NanoSmithWeaponsOfWar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithWeaponsOfWar.GetShieldGainPerTurn()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = 0;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_shieldGainPerTurnMod.GetModifiedValue(0);
+			result = m_abilityMod.m_shieldGainPerTurnMod.GetModifiedValue(0);
 		}
 		return result;
 	}
@@ -243,9 +241,9 @@ public class NanoSmithWeaponsOfWar : Ability
 	private StandardEffectInfo GetAllyTargetEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -254,15 +252,15 @@ public class NanoSmithWeaponsOfWar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithWeaponsOfWar.GetAllyTargetEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetAllyOnHitEffect;
+			result = m_targetAllyOnHitEffect;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_allyTargetEffectOverride.GetModifiedValue(this.m_targetAllyOnHitEffect);
+			result = m_abilityMod.m_allyTargetEffectOverride.GetModifiedValue(m_targetAllyOnHitEffect);
 		}
 		return result;
 	}
@@ -270,9 +268,9 @@ public class NanoSmithWeaponsOfWar : Ability
 	private StandardEffectInfo GetAllySweepEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -281,21 +279,21 @@ public class NanoSmithWeaponsOfWar : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithWeaponsOfWar.GetAllySweepEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_allySweepOnHitEffect;
+			result = m_allySweepOnHitEffect;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_allySweepOnHitEffectOverride.GetModifiedValue(this.m_allySweepOnHitEffect);
+			result = m_abilityMod.m_allySweepOnHitEffectOverride.GetModifiedValue(m_allySweepOnHitEffect);
 		}
 		return result;
 	}
 
 	private StandardEffectInfo GetEnemySweepEffect()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_enemySweepOnHitEffectOverride.GetModifiedValue(this.m_enemySweepOnHitEffect) : this.m_enemySweepOnHitEffect;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_enemySweepOnHitEffectOverride.GetModifiedValue(m_enemySweepOnHitEffect) : m_enemySweepOnHitEffect;
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public abstract class AlertMissionBase
@@ -15,10 +15,10 @@ public abstract class AlertMissionBase
 
 	protected void CopyBaseVariables(AlertMissionBase other)
 	{
-		this.Type = other.Type;
-		this.DurationHours = other.DurationHours;
-		this.QuestId = other.QuestId;
-		this.BonusType = other.BonusType;
-		this.BonusMultiplier = other.BonusMultiplier;
+		Type = other.Type;
+		DurationHours = other.DurationHours;
+		QuestId = other.QuestId;
+		BonusType = other.BonusType;
+		BonusMultiplier = other.BonusMultiplier;
 	}
 }

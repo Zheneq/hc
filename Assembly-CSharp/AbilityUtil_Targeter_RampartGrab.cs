@@ -1,9 +1,14 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 {
+	public enum DamageOriginType
+	{
+		CenterOfShape,
+		CasterPos
+	}
+
 	private AbilityAreaShape m_shape;
 
 	private float m_knockbackDistance;
@@ -28,38 +33,40 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 
 	private GridPos m_currentGridPos = GridPos.s_invalid;
 
-	public AbilityUtil_Targeter_RampartGrab(Ability ability, AbilityAreaShape shape, float knockbackDistance, KnockbackType knockbackType, float laserRange, float laserWidth, bool penetrateLos, int maxTargets) : base(ability)
+	public AbilityUtil_Targeter_RampartGrab(Ability ability, AbilityAreaShape shape, float knockbackDistance, KnockbackType knockbackType, float laserRange, float laserWidth, bool penetrateLos, int maxTargets)
+		: base(ability)
 	{
-		this.m_shape = shape;
-		this.m_knockbackDistance = knockbackDistance;
-		this.m_knockbackType = knockbackType;
-		this.m_laserRange = laserRange;
-		this.m_laserWidth = laserWidth;
-		this.m_penetrateLos = penetrateLos;
-		this.m_maxTargets = maxTargets;
-		this.m_enemyTooltipSubject = AbilityTooltipSubject.Primary;
-		this.m_allyTooltipSubject = AbilityTooltipSubject.Primary;
-		this.m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser();
+		m_shape = shape;
+		m_knockbackDistance = knockbackDistance;
+		m_knockbackType = knockbackType;
+		m_laserRange = laserRange;
+		m_laserWidth = laserWidth;
+		m_penetrateLos = penetrateLos;
+		m_maxTargets = maxTargets;
+		m_enemyTooltipSubject = AbilityTooltipSubject.Primary;
+		m_allyTooltipSubject = AbilityTooltipSubject.Primary;
+		m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser();
 	}
 
 	public GridPos GetCurrentGridPos()
 	{
-		return this.m_currentGridPos;
+		return m_currentGridPos;
 	}
 
 	public void SetTooltipSubjectTypes(AbilityTooltipSubject enemySubject = AbilityTooltipSubject.Primary, AbilityTooltipSubject allySubject = AbilityTooltipSubject.Primary)
 	{
-		this.m_enemyTooltipSubject = enemySubject;
-		this.m_allyTooltipSubject = allySubject;
+		m_enemyTooltipSubject = enemySubject;
+		m_allyTooltipSubject = allySubject;
 	}
 
 	protected Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		BoardSquare squareFromAbilityTarget = this.GetSquareFromAbilityTarget(currentTarget, targetingActor);
+		BoardSquare squareFromAbilityTarget = GetSquareFromAbilityTarget(currentTarget, targetingActor);
 		if (squareFromAbilityTarget != null)
 		{
-			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, currentTarget);
-			centerOfShape.y = targetingActor.\u0016().y + this.m_heightOffset;
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
+			Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+			centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
 			return centerOfShape;
 		}
 		return Vector3.zero;
@@ -67,40 +74,40 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 
 	protected BoardSquare GetSquareFromAbilityTarget(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		return Board.\u000E().\u000E(currentTarget.GridPos);
+		return Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 	}
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
-		this.m_currentGridPos = currentTarget.GridPos;
-		base.ClearActorsInRange();
-		if (currentTargetIndex > 0)
+		m_currentGridPos = currentTarget.GridPos;
+		ClearActorsInRange();
+		if (currentTargetIndex <= 0)
 		{
-			for (;;)
+			return;
+		}
+		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_RampartGrab.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			VectorUtils.LaserCoords laserCoords;
-			laserCoords.start = targetingActor.\u0015();
-			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[currentTargetIndex - 1].AimDirection, this.m_laserRange, this.m_laserWidth, targetingActor, targetingActor.\u0015(), this.m_penetrateLos, this.m_maxTargets, false, false, out laserCoords.end, null, null, false, true);
+			laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[currentTargetIndex - 1].AimDirection, m_laserRange, m_laserWidth, targetingActor, targetingActor.GetOpposingTeams(), m_penetrateLos, m_maxTargets, false, false, out laserCoords.end, null);
 			int num = 0;
-			base.EnableAllMovementArrows();
-			BoardSquare squareFromAbilityTarget = this.GetSquareFromAbilityTarget(currentTarget, targetingActor);
+			EnableAllMovementArrows();
+			BoardSquare squareFromAbilityTarget = GetSquareFromAbilityTarget(currentTarget, targetingActor);
 			if (squareFromAbilityTarget != null)
 			{
-				Vector3 highlightGoalPos = this.GetHighlightGoalPos(currentTarget, targetingActor);
+				Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
 				if (base.Highlight == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -109,23 +116,23 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 						}
 						break;
 					}
-					base.Highlight = HighlightUtils.Get().CreateShapeCursor(this.m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData);
+					base.Highlight = HighlightUtils.Get().CreateShapeCursor(m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData);
 					base.Highlight.transform.position = highlightGoalPos;
 				}
 				else
 				{
-					base.Highlight.transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos, base.Highlight, ref this.m_curSpeed);
+					base.Highlight.transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos, base.Highlight, ref m_curSpeed);
 				}
 				base.Highlight.SetActive(true);
 				using (List<ActorData>.Enumerator enumerator = actorsInLaser.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						ActorData actorData = enumerator.Current;
-						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, squareFromAbilityTarget.ToVector3(), this.m_knockbackDistance);
-						num = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
+						ActorData current = enumerator.Current;
+						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, currentTarget.AimDirection, squareFromAbilityTarget.ToVector3(), m_knockbackDistance);
+						num = AddMovementArrowWithPrevious(current, path, TargeterMovementType.Knockback, num);
 					}
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -136,13 +143,8 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 					}
 				}
 			}
-			base.SetMovementArrowEnabledFromIndex(num, false);
+			SetMovementArrowEnabledFromIndex(num, false);
+			return;
 		}
-	}
-
-	public enum DamageOriginType
-	{
-		CenterOfShape,
-		CasterPos
 	}
 }

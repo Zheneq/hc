@@ -1,4 +1,3 @@
-﻿using System;
 using I2.Loc;
 using TMPro;
 using UnityEngine;
@@ -53,89 +52,36 @@ public class UICashShopPanel : UIScene
 
 	public static UICashShopPanel Get()
 	{
-		return UICashShopPanel.s_instance;
+		return s_instance;
 	}
 
 	public override void Awake()
 	{
-		UICashShopPanel.s_instance = this;
-		UIManager.SetGameObjectActive(this.m_container, false, null);
-		this.m_isVisible = false;
+		s_instance = this;
+		UIManager.SetGameObjectActive(m_container, false);
+		m_isVisible = false;
 		base.Awake();
-		this.m_gameBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.HandleButtonClickEvent);
-		this.m_featuredBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.HandleButtonClickEvent);
-		this.m_ggBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.HandleButtonClickEvent);
-		this.m_lootMatrixBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.HandleButtonClickEvent);
-		this.m_characterBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.HandleButtonClickEvent);
-		this.m_miscBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.HandleButtonClickEvent);
-		UIManager.SetGameObjectActive(this.m_featuredPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_gamePanel, false, null);
-		UIManager.SetGameObjectActive(this.m_ggPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_lootMatrixPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_characterPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_miscPanel, false, null);
-		this.m_characterBrowser.SetVisible(false);
-		this.m_characterBrowser.m_closeBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseBtnClick);
+		m_gameBtn.spriteController.callback = HandleButtonClickEvent;
+		m_featuredBtn.spriteController.callback = HandleButtonClickEvent;
+		m_ggBtn.spriteController.callback = HandleButtonClickEvent;
+		m_lootMatrixBtn.spriteController.callback = HandleButtonClickEvent;
+		m_characterBtn.spriteController.callback = HandleButtonClickEvent;
+		m_miscBtn.spriteController.callback = HandleButtonClickEvent;
+		UIManager.SetGameObjectActive(m_featuredPanel, false);
+		UIManager.SetGameObjectActive(m_gamePanel, false);
+		UIManager.SetGameObjectActive(m_ggPanel, false);
+		UIManager.SetGameObjectActive(m_lootMatrixPanel, false);
+		UIManager.SetGameObjectActive(m_characterPanel, false);
+		UIManager.SetGameObjectActive(m_miscPanel, false);
+		m_characterBrowser.SetVisible(false);
+		m_characterBrowser.m_closeBtn.callback = CloseBtnClick;
 		for (CharacterType characterType = CharacterType.None; characterType < CharacterType.Last; characterType++)
 		{
-			if (characterType.IsValidForHumanGameplay())
+			if (!characterType.IsValidForHumanGameplay())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanel.Awake()).MethodHandle;
-				}
-				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(characterType);
-				if (!characterResourceLink.m_isHidden && characterResourceLink.m_allowForPlayers)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_numLancers++;
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-		UIManager.SetGameObjectActive(this.m_categoryContainer, true, null);
-	}
-
-	private void Start()
-	{
-		ClientGameManager.Get().OnCharacterDataUpdated += this.OnCharacterDataUpdated;
-		ClientGameManager.Get().OnAccountDataUpdated += this.OnAccountDataUpdated;
-		ClientGameManager.Get().OnLobbyServerClientAccessLevelChange += this.HandleLobbyServerClientAccessLevelChange;
-		this.HandleLobbyServerClientAccessLevelChange(ClientGameManager.Get().ClientAccessLevel, ClientGameManager.Get().ClientAccessLevel);
-		LocalizationManager.OnLocalizeEvent += this.Localize;
-		this.Localize();
-	}
-
-	private void OnDestroy()
-	{
-		if (ClientGameManager.Get() != null)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -144,15 +90,69 @@ public class UICashShopPanel : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanel.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ClientGameManager.Get().OnCharacterDataUpdated -= this.OnCharacterDataUpdated;
-			ClientGameManager.Get().OnAccountDataUpdated -= this.OnAccountDataUpdated;
-			ClientGameManager.Get().OnLobbyServerClientAccessLevelChange -= this.HandleLobbyServerClientAccessLevelChange;
+			CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(characterType);
+			if (!characterResourceLink.m_isHidden && characterResourceLink.m_allowForPlayers)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_numLancers++;
+			}
 		}
-		LocalizationManager.OnLocalizeEvent -= this.Localize;
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			UIManager.SetGameObjectActive(m_categoryContainer, true);
+			return;
+		}
+	}
+
+	private void Start()
+	{
+		ClientGameManager.Get().OnCharacterDataUpdated += OnCharacterDataUpdated;
+		ClientGameManager.Get().OnAccountDataUpdated += OnAccountDataUpdated;
+		ClientGameManager.Get().OnLobbyServerClientAccessLevelChange += HandleLobbyServerClientAccessLevelChange;
+		HandleLobbyServerClientAccessLevelChange(ClientGameManager.Get().ClientAccessLevel, ClientGameManager.Get().ClientAccessLevel);
+		LocalizationManager.OnLocalizeEvent += Localize;
+		Localize();
+	}
+
+	private void OnDestroy()
+	{
+		if (ClientGameManager.Get() != null)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterDataUpdated;
+			ClientGameManager.Get().OnAccountDataUpdated -= OnAccountDataUpdated;
+			ClientGameManager.Get().OnLobbyServerClientAccessLevelChange -= HandleLobbyServerClientAccessLevelChange;
+		}
+		LocalizationManager.OnLocalizeEvent -= Localize;
 	}
 
 	public override SceneType GetSceneType()
@@ -162,184 +162,179 @@ public class UICashShopPanel : UIScene
 
 	private void Localize()
 	{
-		this.m_getEveryFreelancer.text = string.Format(StringUtil.TR("NewGamePackFreelancerForever", "NewFrontEndScene"), this.m_numLancers);
-		this.HandleLobbyServerClientAccessLevelChange(ClientGameManager.Get().ClientAccessLevel, ClientGameManager.Get().ClientAccessLevel);
+		m_getEveryFreelancer.text = string.Format(StringUtil.TR("NewGamePackFreelancerForever", "NewFrontEndScene"), m_numLancers);
+		HandleLobbyServerClientAccessLevelChange(ClientGameManager.Get().ClientAccessLevel, ClientGameManager.Get().ClientAccessLevel);
 	}
 
 	public void SetVisible(bool visible)
 	{
-		if (visible == this.m_isVisible)
+		if (visible == m_isVisible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanel.SetVisible(bool)).MethodHandle;
-			}
+		}
+		m_isVisible = visible;
+		UIManager.SetGameObjectActive(m_container, visible);
+		m_characterBrowser.SetVisible(false);
+		ButtonClicked(m_featuredBtn);
+		if (!visible)
+		{
 			return;
 		}
-		this.m_isVisible = visible;
-		UIManager.SetGameObjectActive(this.m_container, visible, null);
-		this.m_characterBrowser.SetVisible(false);
-		this.ButtonClicked(this.m_featuredBtn);
-		if (visible)
+		while (true)
 		{
-			for (;;)
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			if (UICharacterSelectWorldObjects.Get().IsVisible())
 			{
 				UICharacterSelectWorldObjects.Get().SetVisible(false);
 			}
 			AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.CashShopFeaturedItemsVersionViewed;
-			int uistate = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState);
+			int uIState = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState);
 			int featuredItemsVersion = StoreWideData.Get().m_featuredItemsVersion;
-			if (uistate < featuredItemsVersion)
+			if (uIState < featuredItemsVersion)
 			{
 				ClientGameManager.Get().RequestUpdateUIState(uiState, featuredItemsVersion, null);
 			}
+			return;
 		}
 	}
 
 	private void HandleButtonClickEvent(BaseEventData data)
 	{
 		PointerEventData pointerEventData = data as PointerEventData;
-		if (pointerEventData != null)
+		if (pointerEventData == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(pointerEventData.pointerPress != null))
+			{
+				return;
+			}
+			_ButtonSwapSprite component = pointerEventData.pointerPress.GetComponent<_ButtonSwapSprite>();
+			if (!(component != null))
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanel.HandleButtonClickEvent(BaseEventData)).MethodHandle;
-			}
-			if (pointerEventData.pointerPress != null)
-			{
-				_ButtonSwapSprite component = pointerEventData.pointerPress.GetComponent<_ButtonSwapSprite>();
-				if (component != null)
+				if (!component.selectableButton.IsSelected())
 				{
-					for (;;)
+					while (true)
 					{
-						switch (6)
+						switch (4)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					if (!component.selectableButton.IsSelected())
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.ButtonClicked(component.selectableButton);
+						ButtonClicked(component.selectableButton);
+						return;
 					}
 				}
+				return;
 			}
 		}
 	}
 
 	public void HideAllPanels()
 	{
-		this.m_gamePanel.SetVisible(false);
-		this.m_featuredPanel.SetVisible(false);
-		this.m_ggPanel.SetVisible(false);
-		this.m_lootMatrixPanel.SetVisible(false);
-		this.m_characterPanel.SetVisible(false);
+		m_gamePanel.SetVisible(false);
+		m_featuredPanel.SetVisible(false);
+		m_ggPanel.SetVisible(false);
+		m_lootMatrixPanel.SetVisible(false);
+		m_characterPanel.SetVisible(false);
 	}
 
 	public void ButtonClicked(_SelectableBtn button)
 	{
-		this.m_selectedBtn = button;
-		this.m_gameBtn.SetSelected(button == this.m_gameBtn, false, string.Empty, string.Empty);
-		this.m_gamePanel.SetVisible(button == this.m_gameBtn);
-		this.m_featuredBtn.SetSelected(button == this.m_featuredBtn, false, string.Empty, string.Empty);
-		this.m_featuredPanel.SetVisible(button == this.m_featuredBtn);
-		this.m_ggBtn.SetSelected(button == this.m_ggBtn, false, string.Empty, string.Empty);
-		this.m_ggPanel.SetVisible(button == this.m_ggBtn);
-		this.m_lootMatrixBtn.SetSelected(button == this.m_lootMatrixBtn, false, string.Empty, string.Empty);
-		this.m_lootMatrixPanel.SetVisible(button == this.m_lootMatrixBtn);
-		this.m_characterBtn.SetSelected(button == this.m_characterBtn, false, string.Empty, string.Empty);
-		this.m_characterPanel.SetVisible(button == this.m_characterBtn);
-		this.m_characterBrowser.SetVisible(false);
-		this.m_miscBtn.SetSelected(button == this.m_miscBtn, false, string.Empty, string.Empty);
-		this.m_miscPanel.SetVisible(button == this.m_miscBtn);
+		m_selectedBtn = button;
+		m_gameBtn.SetSelected(button == m_gameBtn, false, string.Empty, string.Empty);
+		m_gamePanel.SetVisible(button == m_gameBtn);
+		m_featuredBtn.SetSelected(button == m_featuredBtn, false, string.Empty, string.Empty);
+		m_featuredPanel.SetVisible(button == m_featuredBtn);
+		m_ggBtn.SetSelected(button == m_ggBtn, false, string.Empty, string.Empty);
+		m_ggPanel.SetVisible(button == m_ggBtn);
+		m_lootMatrixBtn.SetSelected(button == m_lootMatrixBtn, false, string.Empty, string.Empty);
+		m_lootMatrixPanel.SetVisible(button == m_lootMatrixBtn);
+		m_characterBtn.SetSelected(button == m_characterBtn, false, string.Empty, string.Empty);
+		m_characterPanel.SetVisible(button == m_characterBtn);
+		m_characterBrowser.SetVisible(false);
+		m_miscBtn.SetSelected(button == m_miscBtn, false, string.Empty, string.Empty);
+		m_miscPanel.SetVisible(button == m_miscBtn);
 	}
 
 	private void HandleLobbyServerClientAccessLevelChange(ClientAccessLevel oldLevel, ClientAccessLevel newLevel)
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		UIManager.SetGameObjectActive(this.m_gameBtn, clientGameManager.HighestPurchasedGamePack < GameWideData.Get().m_gamePackData.m_gamePacks.Length - 1, null);
-		UIManager.SetGameObjectActive(this.m_characterBtn, !clientGameManager.HasPurchasedGame, null);
-		this.m_gamePanel.Setup();
-		this.m_featuredPanel.Refresh();
-		string text;
-		if (clientGameManager.HasPurchasedGame)
+		UIManager.SetGameObjectActive(m_gameBtn, clientGameManager.HighestPurchasedGamePack < GameWideData.Get().m_gamePackData.m_gamePacks.Length - 1);
+		UIManager.SetGameObjectActive(m_characterBtn, !clientGameManager.HasPurchasedGame);
+		m_gamePanel.Setup();
+		m_featuredPanel.Refresh();
+		string text = (!clientGameManager.HasPurchasedGame) ? StringUtil.TR("GamePack", "Store") : StringUtil.TR("Upgrade", "OverlayScreensScene");
+		for (int i = 0; i < m_gamepackTabTexts.Length; i++)
 		{
-			text = StringUtil.TR("Upgrade", "OverlayScreensScene");
-		}
-		else
-		{
-			text = StringUtil.TR("GamePack", "Store");
-		}
-		for (int i = 0; i < this.m_gamepackTabTexts.Length; i++)
-		{
-			this.m_gamepackTabTexts[i].text = text;
+			m_gamepackTabTexts[i].text = text;
 		}
 	}
 
 	public void OnCharacterDataUpdated(PersistedCharacterData newData)
 	{
-		this.m_featuredPanel.Refresh();
+		m_featuredPanel.Refresh();
 	}
 
 	public void OnAccountDataUpdated(PersistedAccountData newData)
 	{
-		this.m_featuredPanel.Refresh();
+		m_featuredPanel.Refresh();
 	}
 
 	public bool IsVisible()
 	{
-		return this.m_isVisible;
+		return m_isVisible;
 	}
 
 	public void NotifyLoseFocus()
 	{
-		UIManager.SetGameObjectActive(this.m_container, false, null);
+		UIManager.SetGameObjectActive(m_container, false);
 	}
 
 	public void NotifyGetFocus()
 	{
-		UIManager.SetGameObjectActive(this.m_container, true, null);
+		UIManager.SetGameObjectActive(m_container, true);
 	}
 
 	private void CloseBtnClick(BaseEventData data)
 	{
-		this.ButtonClicked(this.m_selectedBtn);
+		ButtonClicked(m_selectedBtn);
 	}
 }

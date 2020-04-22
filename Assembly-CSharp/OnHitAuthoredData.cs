@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,19 +20,19 @@ public class OnHitAuthoredData
 
 	public void AddTooltipTokens(List<TooltipTokenEntry> tokens)
 	{
-		OnHitAuthoredData.AddTooltipTokens_IntList(tokens, this.m_enemyHitIntFields);
-		OnHitAuthoredData.AddTooltipTokens_EffectFields(tokens, this.m_enemyHitEffectFields);
-		OnHitAuthoredData.AddTooltipTokens_IntList(tokens, this.m_allyHitIntFields);
-		OnHitAuthoredData.AddTooltipTokens_EffectFields(tokens, this.m_allyHitEffectFields);
-		OnHitAuthoredData.AddTooltipTokens_BarrierFields(tokens, this.m_barrierSpawnFields);
+		AddTooltipTokens_IntList(tokens, m_enemyHitIntFields);
+		AddTooltipTokens_EffectFields(tokens, m_enemyHitEffectFields);
+		AddTooltipTokens_IntList(tokens, m_allyHitIntFields);
+		AddTooltipTokens_EffectFields(tokens, m_allyHitEffectFields);
+		AddTooltipTokens_BarrierFields(tokens, m_barrierSpawnFields);
 	}
 
 	public int GetFirstDamageValue()
 	{
 		int result = 0;
-		if (this.m_enemyHitIntFields != null && this.m_enemyHitIntFields.Count > 0)
+		if (m_enemyHitIntFields != null && m_enemyHitIntFields.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -41,11 +41,11 @@ public class OnHitAuthoredData
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitAuthoredData.GetFirstDamageValue()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_enemyHitIntFields[0].m_baseValue;
+			result = m_enemyHitIntFields[0].m_baseValue;
 		}
 		return result;
 	}
@@ -56,18 +56,18 @@ public class OnHitAuthoredData
 		{
 			intFields[i].AddTooltipTokens(tokens);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitAuthoredData.AddTooltipTokens_IntList(List<TooltipTokenEntry>, List<OnHitIntField>)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
@@ -75,20 +75,20 @@ public class OnHitAuthoredData
 	{
 		for (int i = 0; i < effectFields.Count; i++)
 		{
-			effectFields[i].AddTooltipTokens(tokens, false, null, null);
+			effectFields[i].AddTooltipTokens(tokens, false, null);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitAuthoredData.AddTooltipTokens_EffectFields(List<TooltipTokenEntry>, List<OnHitEffecField>)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
@@ -98,64 +98,66 @@ public class OnHitAuthoredData
 		{
 			barrierFields[i].AddTooltipTokens(tokens);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitAuthoredData.AddTooltipTokens_BarrierFields(List<TooltipTokenEntry>, List<OnHitBarrierField>)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	public string GetInEditorDesc()
 	{
 		string text = string.Empty;
-		if (this.m_enemyHitIntFields.Count > 0)
+		if (m_enemyHitIntFields.Count > 0)
 		{
-			text += InEditorDescHelper.ColoredString("==== Enemy Hit Numeric Fields ====\n", "yellow", false);
-			using (List<OnHitIntField>.Enumerator enumerator = this.m_enemyHitIntFields.GetEnumerator())
+			text += InEditorDescHelper.ColoredString("==== Enemy Hit Numeric Fields ====\n", "yellow");
+			using (List<OnHitIntField>.Enumerator enumerator = m_enemyHitIntFields.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					OnHitIntField onHitIntField = enumerator.Current;
-					text += onHitIntField.GetInEditorDesc();
+					OnHitIntField current = enumerator.Current;
+					text += current.GetInEditorDesc();
 					text += "\n";
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						goto end_IL_0042;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitAuthoredData.GetInEditorDesc()).MethodHandle;
-				}
+				end_IL_0042:;
 			}
 			text += "\n";
 		}
-		if (this.m_enemyHitEffectFields.Count > 0)
+		if (m_enemyHitEffectFields.Count > 0)
 		{
-			text += InEditorDescHelper.ColoredString("==== Enemy Effects ====\n", "yellow", false);
-			foreach (OnHitEffecField onHitEffecField in this.m_enemyHitEffectFields)
+			text += InEditorDescHelper.ColoredString("==== Enemy Effects ====\n", "yellow");
+			foreach (OnHitEffecField enemyHitEffectField in m_enemyHitEffectFields)
 			{
-				text += onHitEffecField.GetInEditorDesc(false, null);
+				text += enemyHitEffectField.GetInEditorDesc(false, null);
 				text += "\n";
 			}
 			text += "\n";
 		}
-		if (this.m_allyHitIntFields.Count > 0)
+		if (m_allyHitIntFields.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -164,16 +166,16 @@ public class OnHitAuthoredData
 				}
 				break;
 			}
-			text += InEditorDescHelper.ColoredString("==== Ally Hit Numberic Fields ====\n", "yellow", false);
-			using (List<OnHitIntField>.Enumerator enumerator3 = this.m_allyHitIntFields.GetEnumerator())
+			text += InEditorDescHelper.ColoredString("==== Ally Hit Numberic Fields ====\n", "yellow");
+			using (List<OnHitIntField>.Enumerator enumerator3 = m_allyHitIntFields.GetEnumerator())
 			{
 				while (enumerator3.MoveNext())
 				{
-					OnHitIntField onHitIntField2 = enumerator3.Current;
-					text += onHitIntField2.GetInEditorDesc();
+					OnHitIntField current3 = enumerator3.Current;
+					text += current3.GetInEditorDesc();
 					text += "\n";
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -185,9 +187,9 @@ public class OnHitAuthoredData
 			}
 			text += "\n";
 		}
-		if (this.m_allyHitEffectFields.Count > 0)
+		if (m_allyHitEffectFields.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -196,16 +198,16 @@ public class OnHitAuthoredData
 				}
 				break;
 			}
-			text += InEditorDescHelper.ColoredString("==== Ally Effects ====\n", "yellow", false);
-			using (List<OnHitEffecField>.Enumerator enumerator4 = this.m_allyHitEffectFields.GetEnumerator())
+			text += InEditorDescHelper.ColoredString("==== Ally Effects ====\n", "yellow");
+			using (List<OnHitEffecField>.Enumerator enumerator4 = m_allyHitEffectFields.GetEnumerator())
 			{
 				while (enumerator4.MoveNext())
 				{
-					OnHitEffecField onHitEffecField2 = enumerator4.Current;
-					text += onHitEffecField2.GetInEditorDesc(false, null);
+					OnHitEffecField current4 = enumerator4.Current;
+					text += current4.GetInEditorDesc(false, null);
 					text += "\n";
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -217,9 +219,9 @@ public class OnHitAuthoredData
 			}
 			text += "\n";
 		}
-		if (this.m_barrierSpawnFields.Count > 0)
+		if (m_barrierSpawnFields.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -228,16 +230,16 @@ public class OnHitAuthoredData
 				}
 				break;
 			}
-			text += InEditorDescHelper.ColoredString("==== Barrier Fields ====\n", "yellow", false);
-			using (List<OnHitBarrierField>.Enumerator enumerator5 = this.m_barrierSpawnFields.GetEnumerator())
+			text += InEditorDescHelper.ColoredString("==== Barrier Fields ====\n", "yellow");
+			using (List<OnHitBarrierField>.Enumerator enumerator5 = m_barrierSpawnFields.GetEnumerator())
 			{
 				while (enumerator5.MoveNext())
 				{
-					OnHitBarrierField onHitBarrierField = enumerator5.Current;
-					text += onHitBarrierField.GetInEditorDesc();
+					OnHitBarrierField current5 = enumerator5.Current;
+					text += current5.GetInEditorDesc();
 					text += "\n";
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{

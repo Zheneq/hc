@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 public class DebugCommand_EndGameWithParams : DebugCommand
 {
@@ -19,7 +19,7 @@ public class DebugCommand_EndGameWithParams : DebugCommand
 
 	public override bool OnSlashCommand(string arguments)
 	{
-		string[] array = new string[]
+		string[] array = new string[3]
 		{
 			"win",
 			"loss",
@@ -33,114 +33,118 @@ public class DebugCommand_EndGameWithParams : DebugCommand
 				return false;
 			}
 			string[] array2 = arguments.Split(null);
-			if (!array2[0].IsNullOrEmpty() && !array2[0].EqualsIgnoreCase("help"))
+			if (array2[0].IsNullOrEmpty() || array2[0].EqualsIgnoreCase("help"))
 			{
-				for (;;)
+				goto IL_0081;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (7)
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (Array.IndexOf(array, array2[0].ToLower()) == -1)
+			{
+				goto IL_0081;
+			}
+			PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
+			Team team = localPlayerData.LookupDetails().m_team;
+			GameResult debugResult = GameResultExtensions.Parse(array2[0], team);
+			int num;
+			if (array2.Length > 1)
+			{
+				while (true)
+				{
+					switch (6)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_EndGameWithParams.OnSlashCommand(string)).MethodHandle;
-				}
-				if (Array.IndexOf<string>(array, array2[0].ToLower()) != -1)
-				{
-					PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
-					Team team = localPlayerData.LookupDetails().m_team;
-					GameResult debugResult = GameResultExtensions.Parse(array2[0], team);
-					int num;
-					if (array2.Length > 1)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num = int.Parse(array2[1]);
-					}
-					else
-					{
-						num = 0;
-					}
-					int matchSeconds = num;
-					int num2;
-					if (array2.Length > 2)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num2 = int.Parse(array2[2]);
-					}
-					else
-					{
-						num2 = 0;
-					}
-					int ggBoostUsedCount = num2;
-					bool ggBoostUsedToSelf = array2.Length > 3 && bool.Parse(array2[3]);
-					bool flag;
-					if (array2.Length > 4)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag = bool.Parse(array2[4]);
-					}
-					else
-					{
-						flag = false;
-					}
-					bool playWithFriendsBonus = flag;
-					bool flag2;
-					if (array2.Length > 5)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag2 = bool.Parse(array2[5]);
-					}
-					else
-					{
-						flag2 = true;
-					}
-					bool playedLastTurn = flag2;
-					ClientGameManager.Get().RequestToUseGGPack();
-					localPlayerData.CallCmdDebugEndGame(debugResult, matchSeconds, ggBoostUsedCount, ggBoostUsedToSelf, playWithFriendsBonus, playedLastTurn);
-					return true;
-				}
+				num = int.Parse(array2[1]);
 			}
-			TextConsole.Get().Write(text, ConsoleMessageType.SystemMessage);
+			else
+			{
+				num = 0;
+			}
+			int matchSeconds = num;
+			int num2;
+			if (array2.Length > 2)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num2 = int.Parse(array2[2]);
+			}
+			else
+			{
+				num2 = 0;
+			}
+			int ggBoostUsedCount = num2;
+			bool ggBoostUsedToSelf = array2.Length > 3 && bool.Parse(array2[3]);
+			int num3;
+			if (array2.Length > 4)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num3 = (bool.Parse(array2[4]) ? 1 : 0);
+			}
+			else
+			{
+				num3 = 0;
+			}
+			bool playWithFriendsBonus = (byte)num3 != 0;
+			int num4;
+			if (array2.Length > 5)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num4 = (bool.Parse(array2[5]) ? 1 : 0);
+			}
+			else
+			{
+				num4 = 1;
+			}
+			bool playedLastTurn = (byte)num4 != 0;
+			ClientGameManager.Get().RequestToUseGGPack();
+			localPlayerData.CallCmdDebugEndGame(debugResult, matchSeconds, ggBoostUsedCount, ggBoostUsedToSelf, playWithFriendsBonus, playedLastTurn);
+			goto end_IL_0025;
+			IL_0081:
+			TextConsole.Get().Write(text);
 			return false;
+			end_IL_0025:;
 		}
 		catch (Exception)
 		{
-			TextConsole.Get().Write(text, ConsoleMessageType.SystemMessage);
+			TextConsole.Get().Write(text);
 			return false;
 		}
 		return true;

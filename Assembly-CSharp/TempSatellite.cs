@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.IOwner
@@ -24,10 +23,10 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 
 	private void Awake()
 	{
-		this.m_modelAnimator = base.GetComponentInChildren<Animator>();
-		if (this.m_modelAnimator != null)
+		m_modelAnimator = GetComponentInChildren<Animator>();
+		if (m_modelAnimator != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -36,54 +35,55 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_modelAnimator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+			m_modelAnimator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
 		}
-		if (this.m_persistentVfxPrefab != null)
+		if (!(m_persistentVfxPrefab != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_persistentVfxJoint.Initialize(base.gameObject);
-			if (this.m_persistentVfxJoint.m_jointObject != null)
+			m_persistentVfxJoint.Initialize(base.gameObject);
+			if (m_persistentVfxJoint.m_jointObject != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_persistentVfxInstance = Object.Instantiate(m_persistentVfxPrefab);
+					m_persistentVfxInstance.transform.parent = m_persistentVfxJoint.m_jointObject.transform;
+					m_persistentVfxInstance.transform.localPosition = Vector3.zero;
+					m_persistentVfxInstance.transform.localRotation = Quaternion.identity;
+					m_persistentVfxInstance.transform.localScale = Vector3.one;
+					return;
 				}
-				this.m_persistentVfxInstance = UnityEngine.Object.Instantiate<GameObject>(this.m_persistentVfxPrefab);
-				this.m_persistentVfxInstance.transform.parent = this.m_persistentVfxJoint.m_jointObject.transform;
-				this.m_persistentVfxInstance.transform.localPosition = Vector3.zero;
-				this.m_persistentVfxInstance.transform.localRotation = Quaternion.identity;
-				this.m_persistentVfxInstance.transform.localScale = Vector3.one;
 			}
+			return;
 		}
 	}
 
 	private void Start()
 	{
-		this.Initialize();
+		Initialize();
 	}
 
 	private void OnDestroy()
 	{
-		if (this.m_persistentVfxInstance != null)
+		if (m_persistentVfxInstance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -92,13 +92,13 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.Destroy(this.m_persistentVfxInstance);
+			Object.Destroy(m_persistentVfxInstance);
 		}
-		this.OnTempSatelliteDestroy();
+		OnTempSatelliteDestroy();
 	}
 
 	public virtual void OnTempSatelliteDestroy()
@@ -109,129 +109,132 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 	{
 		GameObject gameObject = base.gameObject;
 		GameObject gameObject2 = gameObject.transform.GetChild(0).gameObject;
-		if (gameObject2.GetComponent<TempSatelliteAnimationEventReceiver>() == null)
+		if (!(gameObject2.GetComponent<TempSatelliteAnimationEventReceiver>() == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.Initialize()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			TempSatelliteAnimationEventReceiver tempSatelliteAnimationEventReceiver = gameObject2.AddComponent<TempSatelliteAnimationEventReceiver>();
 			tempSatelliteAnimationEventReceiver.Setup(this);
+			return;
 		}
 	}
 
 	public void Setup(Sequence owningSequence)
 	{
-		this.m_owningSequence = owningSequence;
+		m_owningSequence = owningSequence;
 	}
 
 	public ActorData GetOwner()
 	{
-		if (this.m_owningSequence != null)
+		if (m_owningSequence != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_owningSequence.Caster;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.GetOwner()).MethodHandle;
-			}
-			return this.m_owningSequence.Caster;
 		}
 		return null;
 	}
 
 	public void SetNotifyOwnerOnAnimEvent(bool notify)
 	{
-		this.m_notifyOwningSequenceOnAnimEvent = notify;
+		m_notifyOwningSequenceOnAnimEvent = notify;
 	}
 
 	public virtual void TriggerAttack(GameObject attackTarget)
 	{
-		if (this.m_modelAnimator != null)
+		if (m_modelAnimator != null)
 		{
-			this.m_modelAnimator.SetTrigger("StartAttack");
+			m_modelAnimator.SetTrigger("StartAttack");
 		}
 	}
 
 	public virtual void TriggerSpawn()
 	{
-		if (this.m_modelAnimator != null)
+		if (!(m_modelAnimator != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.TriggerSpawn()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_hasSpawnAnim)
+			if (m_hasSpawnAnim)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_modelAnimator.SetTrigger("Spawn");
+					return;
 				}
-				this.m_modelAnimator.SetTrigger("Spawn");
 			}
+			return;
 		}
 	}
 
 	public virtual void TriggerDespawn()
 	{
-		if (this.m_modelAnimator != null)
+		if (!(m_modelAnimator != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.TriggerDespawn()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_hasDespawnAnim)
+			if (m_hasDespawnAnim)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_modelAnimator.SetTrigger("Despawn");
+					return;
 				}
-				this.m_modelAnimator.SetTrigger("Despawn");
 			}
+			return;
 		}
 	}
 
@@ -250,12 +253,13 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 		return base.gameObject;
 	}
 
-	public void OnAnimationEvent(UnityEngine.Object eventObject)
+	public void OnAnimationEvent(Object eventObject)
 	{
-		bool flag;
-		if (this.m_onlyPassAnimEventsIfActorDead)
+		bool flag = true;
+		int num;
+		if (m_onlyPassAnimEventsIfActorDead)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -264,13 +268,13 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.OnAnimationEvent(UnityEngine.Object)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_owningSequence.Caster.\u0012())
+			if (!m_owningSequence.Caster.IsModelAnimatorDisabled())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -279,28 +283,30 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 					}
 					break;
 				}
-				flag = this.m_owningSequence.Caster.\u000E();
-				goto IL_52;
+				num = (m_owningSequence.Caster.IsDead() ? 1 : 0);
+				goto IL_0052;
 			}
 		}
-		flag = true;
-		IL_52:
-		bool flag2 = flag;
-		if (this.m_notifyOwningSequenceOnAnimEvent)
+		num = 1;
+		goto IL_0052;
+		IL_0052:
+		flag = ((byte)num != 0);
+		if (!m_notifyOwningSequenceOnAnimEvent)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (flag2)
+			if (flag)
 			{
-				SequenceManager.Get().OnAnimationEvent(this.m_owningSequence.Caster, eventObject, base.gameObject, this.m_owningSequence.Source);
+				SequenceManager.Get().OnAnimationEvent(m_owningSequence.Caster, eventObject, base.gameObject, m_owningSequence.Source);
 			}
+			return;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class LocalizationArg_FirstType : LocalizationArg
@@ -9,46 +9,47 @@ public class LocalizationArg_FirstType : LocalizationArg
 
 	public static LocalizationArg_FirstType Create(int firstType, int id)
 	{
-		return new LocalizationArg_FirstType
-		{
-			m_firstType = firstType,
-			m_id = id
-		};
+		LocalizationArg_FirstType localizationArg_FirstType = new LocalizationArg_FirstType();
+		localizationArg_FirstType.m_firstType = firstType;
+		localizationArg_FirstType.m_id = id;
+		return localizationArg_FirstType;
 	}
 
 	public override string TR()
 	{
-		if (this.m_firstType == -1)
+		if (m_firstType == -1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return StringUtil.TR_QuestDescription(m_id);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationArg_FirstType.TR()).MethodHandle;
-			}
-			return StringUtil.TR_QuestDescription(this.m_id);
 		}
-		if (this.m_firstType == -2)
+		if (m_firstType == -2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					CharacterType id = (CharacterType)m_id;
+					string arg = StringUtil.TR_CharacterName(id.ToString());
+					return string.Format(StringUtil.TR("ReachLevelTwenty", "FirstType"), arg);
 				}
-				break;
+				}
 			}
-			CharacterType id = (CharacterType)this.m_id;
-			string arg = StringUtil.TR_CharacterName(id.ToString());
-			return string.Format(StringUtil.TR("ReachLevelTwenty", "FirstType"), arg);
 		}
 		return "do the unknown";
 	}

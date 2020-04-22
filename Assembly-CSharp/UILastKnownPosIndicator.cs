@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UILastKnownPosIndicator : UIBaseIndicator
@@ -17,44 +16,45 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 
 	protected override void SetupCharacterIcons(ActorData actorData)
 	{
-		this.m_characterIcon.sprite = actorData.\u0015();
-		if (this.m_grayCharacterIcon != null)
+		m_characterIcon.sprite = actorData.GetScreenIndicatorIcon();
+		if (!(m_grayCharacterIcon != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILastKnownPosIndicator.SetupCharacterIcons(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_grayCharacterIcon.sprite = actorData.\u0016();
+			m_grayCharacterIcon.sprite = actorData.GetScreenIndicatorBWIcon();
+			return;
 		}
 	}
 
 	protected override bool ShouldGrayOutIndicator()
 	{
 		int num = 1;
-		return this.m_attachedToActor.\u000E() < GameFlowData.Get().CurrentTurn - num;
+		return m_attachedToActor.GetLastVisibleTurnToClient() < GameFlowData.Get().CurrentTurn - num;
 	}
 
 	protected override bool CalculateVisibility()
 	{
 		bool result;
-		if (this.m_attachedToActor == null)
+		if (m_attachedToActor == null)
 		{
 			result = false;
 		}
 		else
 		{
-			if (!this.m_attachedToActor.\u000E())
+			if (!m_attachedToActor.IsDead())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -63,27 +63,15 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILastKnownPosIndicator.CalculateVisibility()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (this.m_attachedToActor.\u0012())
+				if (!m_attachedToActor.IsModelAnimatorDisabled())
 				{
-					for (;;)
+					if (m_attachedToActor.IgnoreForAbilityHits)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
-				{
-					if (this.m_attachedToActor.IgnoreForAbilityHits)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -93,11 +81,14 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 							break;
 						}
 						result = false;
-						goto IL_AD;
 					}
-					if (this.m_attachedToActor.ClientLastKnownPosSquare == null)
+					else if (!(m_attachedToActor.ClientLastKnownPosSquare == null))
 					{
-						for (;;)
+						result = ((!m_attachedToActor.IsVisibleToClient()) ? true : false);
+					}
+					else
+					{
+						while (true)
 						{
 							switch (3)
 							{
@@ -107,18 +98,26 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 							break;
 						}
 						result = false;
-						goto IL_AD;
 					}
-					result = !this.m_attachedToActor.\u0018();
-					goto IL_AD;
+					goto IL_00ad;
+				}
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
 			}
 			result = false;
 		}
-		IL_AD:
+		goto IL_00ad;
+		IL_00ad:
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -129,7 +128,7 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -138,9 +137,9 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 					}
 					break;
 				}
-				if (this.m_lastActiveOwnedActor != GameFlowData.Get().activeOwnedActorData)
+				if (m_lastActiveOwnedActor != GameFlowData.Get().activeOwnedActorData)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -149,8 +148,8 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 						}
 						break;
 					}
-					this.m_lastActiveOwnedActor = GameFlowData.Get().activeOwnedActorData;
-					base.MarkGrayoutForUpdate();
+					m_lastActiveOwnedActor = GameFlowData.Get().activeOwnedActorData;
+					MarkGrayoutForUpdate();
 				}
 			}
 		}
@@ -159,8 +158,8 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 
 	protected override Vector2 CalculateScreenPos()
 	{
-		Vector3 worldPos = this.m_attachedToActor.\u000E();
-		return base.ScreenPosFromWorldPos(worldPos);
+		Vector3 clientLastKnownPos = m_attachedToActor.GetClientLastKnownPos();
+		return ScreenPosFromWorldPos(clientLastKnownPos);
 	}
 
 	protected override bool IsVisibleWhenOnScreen()

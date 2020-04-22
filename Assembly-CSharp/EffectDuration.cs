@@ -1,5 +1,3 @@
-﻿using System;
-
 public class EffectDuration
 {
 	public int duration;
@@ -9,9 +7,9 @@ public class EffectDuration
 	public bool ReadyToEnd()
 	{
 		bool result = false;
-		if (this.duration > 0)
+		if (duration > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -20,11 +18,11 @@ public class EffectDuration
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EffectDuration.ReadyToEnd()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (this.age >= this.duration);
+			result = (age >= duration);
 		}
 		return result;
 	}
@@ -32,9 +30,9 @@ public class EffectDuration
 	public string DisplayString()
 	{
 		string text = string.Empty;
-		if (this.duration > 0)
+		if (duration > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -43,13 +41,13 @@ public class EffectDuration
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EffectDuration.DisplayString()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.duration - this.age > 1)
+			if (duration - age > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -58,11 +56,11 @@ public class EffectDuration
 					}
 					break;
 				}
-				text += string.Format("{0} turns remaining", this.duration - this.age);
+				text += $"{duration - age} turns remaining";
 			}
-			else if (this.duration - this.age == 1)
+			else if (duration - age == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{

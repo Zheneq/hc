@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -12,28 +12,20 @@ public class AbilityStatMod
 
 	public AbilityStatMod GetShallowCopy()
 	{
-		return (AbilityStatMod)base.MemberwiseClone();
+		return (AbilityStatMod)MemberwiseClone();
 	}
 
 	public override string ToString()
 	{
-		return string.Concat(new string[]
-		{
-			"[",
-			this.stat.ToString(),
-			"] ",
-			this.modType.ToString(),
-			" ",
-			this.modValue.ToString()
-		});
+		return "[" + stat.ToString() + "] " + modType.ToString() + " " + modValue;
 	}
 
 	public string GetOperationsString()
 	{
 		char c;
-		if (this.modType == ModType.Multiplier)
+		if (modType == ModType.Multiplier)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -42,15 +34,15 @@ public class AbilityStatMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityStatMod.GetOperationsString()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			c = 'x';
 		}
-		else if (this.modValue >= 0f)
+		else if (modValue >= 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -66,9 +58,9 @@ public class AbilityStatMod
 			c = '-';
 		}
 		string text;
-		if (this.modType != ModType.BaseAdd)
+		if (modType != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -77,12 +69,12 @@ public class AbilityStatMod
 				}
 				break;
 			}
-			if (this.modType != ModType.BonusAdd)
+			if (modType != ModType.BonusAdd)
 			{
-				text = this.modValue.ToString("F2");
-				goto IL_97;
+				text = modValue.ToString("F2");
+				goto IL_0097;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -92,12 +84,13 @@ public class AbilityStatMod
 				break;
 			}
 		}
-		text = ((int)Mathf.Abs(this.modValue)).ToString();
-		IL_97:
+		text = ((int)Mathf.Abs(modValue)).ToString();
+		goto IL_0097;
+		IL_0097:
 		char c2;
-		if (this.modType == ModType.BonusAdd)
+		if (modType == ModType.BonusAdd)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -108,9 +101,9 @@ public class AbilityStatMod
 			}
 			c2 = '^';
 		}
-		else if (this.modType == ModType.BaseAdd)
+		else if (modType == ModType.BaseAdd)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -121,9 +114,9 @@ public class AbilityStatMod
 			}
 			c2 = '_';
 		}
-		else if (this.modType == ModType.PercentAdd)
+		else if (modType == ModType.PercentAdd)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -138,21 +131,15 @@ public class AbilityStatMod
 		{
 			c2 = '\0';
 		}
-		return string.Format("{0} {1}{2}{3}", new object[]
-		{
-			this.stat.ToString(),
-			c,
-			text,
-			c2
-		});
+		return $"{stat.ToString()} {c}{text}{c2}";
 	}
 
 	public string GetInEditorDescription(string header = "- StatMod -", string indent = "", bool showDiff = false, AbilityStatMod other = null)
 	{
-		bool flag;
+		int num;
 		if (showDiff)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -161,29 +148,27 @@ public class AbilityStatMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityStatMod.GetInEditorDescription(string, string, bool, AbilityStatMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = (other != null);
+			num = ((other != null) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
-		string text = "\t        \t | in base  =";
-		string text2 = "\n";
-		string text3 = InEditorDescHelper.BoldedStirng(header) + " " + this.modType.ToString() + text2;
-		string str = text3;
-		string header2 = "[ " + this.stat.ToString() + " ] = ";
-		string otherSep = text;
-		float myVal = this.modValue;
-		bool showOther = flag2;
+		bool flag = (byte)num != 0;
+		string otherSep = "\t        \t | in base  =";
+		string text = "\n";
+		string text2 = InEditorDescHelper.BoldedStirng(header) + " " + modType.ToString() + text;
+		string str = text2;
+		string header2 = "[ " + stat.ToString() + " ] = ";
+		float myVal = modValue;
 		float otherVal;
-		if (flag2)
+		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -198,9 +183,9 @@ public class AbilityStatMod
 		{
 			otherVal = 0f;
 		}
-		if (AbilityStatMod.<>f__am$cache0 == null)
+		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -209,9 +194,9 @@ public class AbilityStatMod
 				}
 				break;
 			}
-			AbilityStatMod.<>f__am$cache0 = ((float f) => f != 0f);
+			_003C_003Ef__am_0024cache0 = ((float f) => f != 0f);
 		}
-		text3 = str + InEditorDescHelper.AssembleFieldWithDiff(header2, indent, otherSep, myVal, showOther, otherVal, AbilityStatMod.<>f__am$cache0);
-		return text3 + text2;
+		text2 = str + InEditorDescHelper.AssembleFieldWithDiff(header2, indent, otherSep, myVal, flag, otherVal, _003C_003Ef__am_0024cache0);
+		return text2 + text;
 	}
 }

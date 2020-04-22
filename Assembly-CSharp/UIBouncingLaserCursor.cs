@@ -1,9 +1,430 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UIBouncingLaserCursor : MonoBehaviour
 {
+	public class BounceSegment
+	{
+		private Vector3 m_start;
+
+		private Vector3 m_end;
+
+		private UIBouncingLaserCursor m_parent;
+
+		public GameObject m_centerLine;
+
+		public GameObject m_lengthLine1;
+
+		public GameObject m_lengthLine2;
+
+		public GameObject m_interior;
+
+		public BounceSegment(Vector3 start, Vector3 end, bool isFirst, bool isLast, UIBouncingLaserCursor parent)
+		{
+			m_parent = parent;
+			if (m_parent.m_centerLinePrefab != null)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				m_centerLine = Object.Instantiate(m_parent.m_centerLinePrefab);
+				m_centerLine.transform.parent = m_parent.transform;
+			}
+			if (m_parent.m_lengthLine1Prefab != null)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_lengthLine1 = Object.Instantiate(m_parent.m_lengthLine1Prefab);
+				m_lengthLine1.transform.parent = m_parent.transform;
+			}
+			if (m_parent.m_lengthLine2Prefab != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_lengthLine2 = Object.Instantiate(m_parent.m_lengthLine2Prefab);
+				m_lengthLine2.transform.parent = m_parent.transform;
+			}
+			if (m_parent.m_interiorPrefab != null)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_interior = Object.Instantiate(m_parent.m_interiorPrefab);
+				m_interior.transform.parent = m_parent.transform;
+			}
+			UpdateSegment(start, end, isFirst, isLast);
+		}
+
+		public void UpdateSegment(Vector3 start, Vector3 end, bool isFirst, bool isLast)
+		{
+			float y = (float)Board.Get().BaselineHeight + m_parent.m_heightOffset;
+			m_start = new Vector3(start.x, y, start.z);
+			m_end = new Vector3(end.x, y, end.z);
+			Vector3 vector = m_end - m_start;
+			float magnitude = vector.magnitude;
+			vector.Normalize();
+			float num = m_parent.m_lengthPerCorner;
+			if (isLast)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (magnitude < num)
+				{
+					num = Mathf.Max(0.1f, magnitude);
+				}
+			}
+			Quaternion rotation = Quaternion.LookRotation(vector);
+			if (isFirst)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (m_parent.m_start != null)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_parent.m_start.transform.position = start + vector * m_parent.m_distCasterToStart;
+					m_parent.m_start.transform.rotation = rotation;
+				}
+			}
+			float num2 = 1f;
+			if (m_centerLine != null)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				Vector3 position;
+				if (isFirst)
+				{
+					position = m_start + vector * (m_parent.m_distCasterToStart + m_parent.m_distStartToCenterLine);
+					num2 = magnitude - (m_parent.m_distCasterToStart + m_parent.m_distStartToCenterLine);
+				}
+				else
+				{
+					position = m_start;
+					num2 = magnitude;
+				}
+				m_centerLine.transform.position = position;
+				m_centerLine.transform.rotation = rotation;
+				m_centerLine.transform.localScale = new Vector3(1f, 1f, num2);
+				UIManager.SetGameObjectActive(m_centerLine, true);
+			}
+			float d = m_parent.m_worldWidth / 2f;
+			Vector3 b = Vector3.Cross(vector, Vector3.up) * d;
+			if (m_lengthLine1 != null && m_lengthLine2 != null)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				Vector3 end2 = m_end;
+				float num3 = magnitude;
+				if (isLast)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					end2 -= vector * num;
+					num3 -= num;
+				}
+				if (isFirst)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num3 -= m_parent.m_distCasterToStart;
+				}
+				num3 = Mathf.Max(num3, 0f);
+				m_lengthLine1.transform.position = end2 + b;
+				m_lengthLine2.transform.position = end2 - b;
+				m_lengthLine1.transform.localScale = new Vector3(1f, 1f, num3);
+				m_lengthLine2.transform.localScale = new Vector3(1f, 1f, num3);
+				m_lengthLine1.transform.rotation = rotation;
+				m_lengthLine2.transform.rotation = rotation;
+				UIManager.SetGameObjectActive(m_lengthLine1, true);
+				UIManager.SetGameObjectActive(m_lengthLine2, true);
+			}
+			if (m_interior != null)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				float num4 = magnitude;
+				Vector3 position2;
+				if (isFirst)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					position2 = m_start + vector * m_parent.m_distCasterToInterior;
+					num4 -= m_parent.m_distCasterToInterior;
+				}
+				else
+				{
+					position2 = m_start;
+				}
+				if (isLast)
+				{
+					num4 -= num;
+				}
+				num4 = Mathf.Max(0.1f, num4);
+				m_interior.transform.position = position2;
+				m_interior.transform.localScale = new Vector3(m_parent.m_worldWidth, 1f, num4);
+				m_interior.transform.rotation = rotation;
+				UIManager.SetGameObjectActive(m_interior, true);
+			}
+			if (!isLast)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				float z = 1f;
+				if (!isFirst)
+				{
+					z = Mathf.Min(1f, num2 / m_parent.m_lengthPerCorner);
+				}
+				if (m_parent.m_corner1 != null && m_parent.m_corner2 != null)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_parent.m_corner1.transform.position = m_end + b;
+					m_parent.m_corner2.transform.position = m_end - b;
+					m_parent.m_corner1.transform.rotation = rotation;
+					m_parent.m_corner2.transform.rotation = rotation;
+					m_parent.m_corner1.transform.localScale = new Vector3(1f, 1f, z);
+					m_parent.m_corner2.transform.localScale = new Vector3(1f, 1f, z);
+				}
+				if (m_parent.m_endWidthLine != null)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						m_parent.m_endWidthLine.transform.position = m_end;
+						m_parent.m_endWidthLine.transform.rotation = rotation;
+						float x = m_parent.m_worldWidth - m_parent.m_widthPerCorner * 2f;
+						m_parent.m_endWidthLine.transform.localScale = new Vector3(x, 1f, z);
+						return;
+					}
+				}
+				return;
+			}
+		}
+
+		public void Disable()
+		{
+			if (m_centerLine != null)
+			{
+				UIManager.SetGameObjectActive(m_centerLine, false);
+			}
+			if (m_lengthLine1 != null)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				UIManager.SetGameObjectActive(m_lengthLine1, false);
+			}
+			if (m_lengthLine2 != null)
+			{
+				UIManager.SetGameObjectActive(m_lengthLine2, false);
+			}
+			if (!(m_interior != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				UIManager.SetGameObjectActive(m_interior, false);
+				return;
+			}
+		}
+
+		public void DestroySegment()
+		{
+			if (m_centerLine != null)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				Object.Destroy(m_centerLine);
+				m_centerLine = null;
+			}
+			if (m_lengthLine1 != null)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				Object.Destroy(m_lengthLine1);
+				m_lengthLine1 = null;
+			}
+			if (m_lengthLine2 != null)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				Object.Destroy(m_lengthLine2);
+				m_lengthLine2 = null;
+			}
+			if (!(m_interior != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				Object.Destroy(m_interior);
+				m_interior = null;
+				return;
+			}
+		}
+	}
+
 	public GameObject m_startPrefab;
 
 	public GameObject m_centerLinePrefab;
@@ -42,14 +463,14 @@ public class UIBouncingLaserCursor : MonoBehaviour
 
 	private GameObject m_endWidthLine;
 
-	public List<UIBouncingLaserCursor.BounceSegment> m_bounceSegments;
+	public List<BounceSegment> m_bounceSegments;
 
 	public void OnUpdated(Vector3 originalStart, List<Vector3> laserAnglePoints, float worldWidth)
 	{
-		this.m_worldWidth = worldWidth;
-		if (this.m_worldWidth > 0f)
+		m_worldWidth = worldWidth;
+		if (!(m_worldWidth <= 0f))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -58,29 +479,21 @@ public class UIBouncingLaserCursor : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBouncingLaserCursor.OnUpdated(Vector3, List<Vector3>, float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (laserAnglePoints.Count != 0)
 			{
 				for (int i = 0; i < laserAnglePoints.Count; i++)
 				{
-					Vector3 start;
-					if (i == 0)
-					{
-						start = originalStart;
-					}
-					else
-					{
-						start = laserAnglePoints[i - 1];
-					}
+					Vector3 start = (i != 0) ? laserAnglePoints[i - 1] : originalStart;
 					bool isFirst = i == 0;
 					bool isLast = i == laserAnglePoints.Count - 1;
 					Vector3 end = laserAnglePoints[i];
-					if (this.m_bounceSegments.Count < i + 1)
+					if (m_bounceSegments.Count < i + 1)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -89,39 +502,37 @@ public class UIBouncingLaserCursor : MonoBehaviour
 							}
 							break;
 						}
-						this.m_bounceSegments.Add(new UIBouncingLaserCursor.BounceSegment(start, end, isFirst, isLast, this));
+						m_bounceSegments.Add(new BounceSegment(start, end, isFirst, isLast, this));
 					}
 					else
 					{
-						this.m_bounceSegments[i].UpdateSegment(start, end, isFirst, isLast);
+						m_bounceSegments[i].UpdateSegment(start, end, isFirst, isLast);
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				for (int j = laserAnglePoints.Count; j < this.m_bounceSegments.Count; j++)
-				{
-					this.m_bounceSegments[j].Disable();
-				}
-				for (;;)
-				{
-					switch (4)
+					for (int j = laserAnglePoints.Count; j < m_bounceSegments.Count; j++)
 					{
-					case 0:
-						continue;
+						m_bounceSegments[j].Disable();
 					}
-					break;
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						UIManager.SetGameObjectActive(base.gameObject, true);
+						return;
+					}
 				}
-				UIManager.SetGameObjectActive(base.gameObject, true, null);
-				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -131,36 +542,29 @@ public class UIBouncingLaserCursor : MonoBehaviour
 				break;
 			}
 		}
-		Log.Error(string.Concat(new object[]
+		Log.Error("BouncingLaserCursor with invalid dimensions: numPoints = " + laserAnglePoints.Count + ", width = " + m_worldWidth + ".  Disabling...");
+		for (int k = 0; k < m_bounceSegments.Count; k++)
 		{
-			"BouncingLaserCursor with invalid dimensions: numPoints = ",
-			laserAnglePoints.Count,
-			", width = ",
-			this.m_worldWidth,
-			".  Disabling..."
-		}), new object[0]);
-		for (int k = 0; k < this.m_bounceSegments.Count; k++)
-		{
-			this.m_bounceSegments[k].Disable();
+			m_bounceSegments[k].Disable();
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			UIManager.SetGameObjectActive(base.gameObject, false);
+			return;
 		}
-		UIManager.SetGameObjectActive(base.gameObject, false, null);
 	}
 
 	private void Awake()
 	{
-		this.m_bounceSegments = new List<UIBouncingLaserCursor.BounceSegment>();
-		if (this.m_startPrefab != null)
+		m_bounceSegments = new List<BounceSegment>();
+		if (m_startPrefab != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -169,16 +573,16 @@ public class UIBouncingLaserCursor : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBouncingLaserCursor.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_start = UnityEngine.Object.Instantiate<GameObject>(this.m_startPrefab);
-			this.m_start.transform.parent = base.transform;
+			m_start = Object.Instantiate(m_startPrefab);
+			m_start.transform.parent = base.transform;
 		}
-		if (this.m_corner1Prefab != null)
+		if (m_corner1Prefab != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -187,12 +591,12 @@ public class UIBouncingLaserCursor : MonoBehaviour
 				}
 				break;
 			}
-			this.m_corner1 = UnityEngine.Object.Instantiate<GameObject>(this.m_corner1Prefab);
-			this.m_corner1.transform.parent = base.transform;
+			m_corner1 = Object.Instantiate(m_corner1Prefab);
+			m_corner1.transform.parent = base.transform;
 		}
-		if (this.m_corner2Prefab != null)
+		if (m_corner2Prefab != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -201,26 +605,45 @@ public class UIBouncingLaserCursor : MonoBehaviour
 				}
 				break;
 			}
-			this.m_corner2 = UnityEngine.Object.Instantiate<GameObject>(this.m_corner2Prefab);
-			this.m_corner2.transform.parent = base.transform;
+			m_corner2 = Object.Instantiate(m_corner2Prefab);
+			m_corner2.transform.parent = base.transform;
 		}
-		if (this.m_endWidthLinePrefab != null)
+		if (m_endWidthLinePrefab != null)
 		{
-			this.m_endWidthLine = UnityEngine.Object.Instantiate<GameObject>(this.m_endWidthLinePrefab);
-			this.m_endWidthLine.transform.parent = base.transform;
+			m_endWidthLine = Object.Instantiate(m_endWidthLinePrefab);
+			m_endWidthLine.transform.parent = base.transform;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		using (List<UIBouncingLaserCursor.BounceSegment>.Enumerator enumerator = this.m_bounceSegments.GetEnumerator())
+		using (List<BounceSegment>.Enumerator enumerator = m_bounceSegments.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				UIBouncingLaserCursor.BounceSegment bounceSegment = enumerator.Current;
-				bounceSegment.DestroySegment();
+				BounceSegment current = enumerator.Current;
+				current.DestroySegment();
 			}
-			for (;;)
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					goto end_IL_000e;
+				}
+			}
+			end_IL_000e:;
+		}
+		m_bounceSegments.Clear();
+		if (m_start != null)
+		{
+			while (true)
 			{
 				switch (4)
 				{
@@ -229,15 +652,12 @@ public class UIBouncingLaserCursor : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBouncingLaserCursor.OnDestroy()).MethodHandle;
-			}
+			Object.Destroy(m_start);
+			m_start = null;
 		}
-		this.m_bounceSegments.Clear();
-		if (this.m_start != null)
+		if (m_corner1 != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -246,451 +666,18 @@ public class UIBouncingLaserCursor : MonoBehaviour
 				}
 				break;
 			}
-			UnityEngine.Object.Destroy(this.m_start);
-			this.m_start = null;
+			Object.Destroy(m_corner1);
+			m_corner1 = null;
 		}
-		if (this.m_corner1 != null)
+		if (m_corner2 != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UnityEngine.Object.Destroy(this.m_corner1);
-			this.m_corner1 = null;
+			Object.Destroy(m_corner2);
+			m_corner2 = null;
 		}
-		if (this.m_corner2 != null)
+		if (m_endWidthLine != null)
 		{
-			UnityEngine.Object.Destroy(this.m_corner2);
-			this.m_corner2 = null;
-		}
-		if (this.m_endWidthLine != null)
-		{
-			UnityEngine.Object.Destroy(this.m_endWidthLine);
-			this.m_endWidthLine = null;
-		}
-	}
-
-	public class BounceSegment
-	{
-		private Vector3 m_start;
-
-		private Vector3 m_end;
-
-		private UIBouncingLaserCursor m_parent;
-
-		public GameObject m_centerLine;
-
-		public GameObject m_lengthLine1;
-
-		public GameObject m_lengthLine2;
-
-		public GameObject m_interior;
-
-		public BounceSegment(Vector3 start, Vector3 end, bool isFirst, bool isLast, UIBouncingLaserCursor parent)
-		{
-			this.m_parent = parent;
-			if (this.m_parent.m_centerLinePrefab != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIBouncingLaserCursor.BounceSegment..ctor(Vector3, Vector3, bool, bool, UIBouncingLaserCursor)).MethodHandle;
-				}
-				this.m_centerLine = UnityEngine.Object.Instantiate<GameObject>(this.m_parent.m_centerLinePrefab);
-				this.m_centerLine.transform.parent = this.m_parent.transform;
-			}
-			if (this.m_parent.m_lengthLine1Prefab != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_lengthLine1 = UnityEngine.Object.Instantiate<GameObject>(this.m_parent.m_lengthLine1Prefab);
-				this.m_lengthLine1.transform.parent = this.m_parent.transform;
-			}
-			if (this.m_parent.m_lengthLine2Prefab != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_lengthLine2 = UnityEngine.Object.Instantiate<GameObject>(this.m_parent.m_lengthLine2Prefab);
-				this.m_lengthLine2.transform.parent = this.m_parent.transform;
-			}
-			if (this.m_parent.m_interiorPrefab != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_interior = UnityEngine.Object.Instantiate<GameObject>(this.m_parent.m_interiorPrefab);
-				this.m_interior.transform.parent = this.m_parent.transform;
-			}
-			this.UpdateSegment(start, end, isFirst, isLast);
-		}
-
-		public void UpdateSegment(Vector3 start, Vector3 end, bool isFirst, bool isLast)
-		{
-			float y = (float)Board.\u000E().BaselineHeight + this.m_parent.m_heightOffset;
-			this.m_start = new Vector3(start.x, y, start.z);
-			this.m_end = new Vector3(end.x, y, end.z);
-			Vector3 vector = this.m_end - this.m_start;
-			float magnitude = vector.magnitude;
-			vector.Normalize();
-			float num = this.m_parent.m_lengthPerCorner;
-			if (isLast)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIBouncingLaserCursor.BounceSegment.UpdateSegment(Vector3, Vector3, bool, bool)).MethodHandle;
-				}
-				if (magnitude < num)
-				{
-					num = Mathf.Max(0.1f, magnitude);
-				}
-			}
-			Quaternion rotation = Quaternion.LookRotation(vector);
-			if (isFirst)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_parent.m_start != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_parent.m_start.transform.position = start + vector * this.m_parent.m_distCasterToStart;
-					this.m_parent.m_start.transform.rotation = rotation;
-				}
-			}
-			float num2 = 1f;
-			if (this.m_centerLine != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Vector3 position;
-				if (isFirst)
-				{
-					position = this.m_start + vector * (this.m_parent.m_distCasterToStart + this.m_parent.m_distStartToCenterLine);
-					num2 = magnitude - (this.m_parent.m_distCasterToStart + this.m_parent.m_distStartToCenterLine);
-				}
-				else
-				{
-					position = this.m_start;
-					num2 = magnitude;
-				}
-				this.m_centerLine.transform.position = position;
-				this.m_centerLine.transform.rotation = rotation;
-				this.m_centerLine.transform.localScale = new Vector3(1f, 1f, num2);
-				UIManager.SetGameObjectActive(this.m_centerLine, true, null);
-			}
-			float d = this.m_parent.m_worldWidth / 2f;
-			Vector3 b = Vector3.Cross(vector, Vector3.up) * d;
-			if (this.m_lengthLine1 != null && this.m_lengthLine2 != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Vector3 a = this.m_end;
-				float num3 = magnitude;
-				if (isLast)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					a -= vector * num;
-					num3 -= num;
-				}
-				if (isFirst)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num3 -= this.m_parent.m_distCasterToStart;
-				}
-				num3 = Mathf.Max(num3, 0f);
-				this.m_lengthLine1.transform.position = a + b;
-				this.m_lengthLine2.transform.position = a - b;
-				this.m_lengthLine1.transform.localScale = new Vector3(1f, 1f, num3);
-				this.m_lengthLine2.transform.localScale = new Vector3(1f, 1f, num3);
-				this.m_lengthLine1.transform.rotation = rotation;
-				this.m_lengthLine2.transform.rotation = rotation;
-				UIManager.SetGameObjectActive(this.m_lengthLine1, true, null);
-				UIManager.SetGameObjectActive(this.m_lengthLine2, true, null);
-			}
-			if (this.m_interior != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				float num4 = magnitude;
-				Vector3 position2;
-				if (isFirst)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					position2 = this.m_start + vector * this.m_parent.m_distCasterToInterior;
-					num4 -= this.m_parent.m_distCasterToInterior;
-				}
-				else
-				{
-					position2 = this.m_start;
-				}
-				if (isLast)
-				{
-					num4 -= num;
-				}
-				num4 = Mathf.Max(0.1f, num4);
-				this.m_interior.transform.position = position2;
-				this.m_interior.transform.localScale = new Vector3(this.m_parent.m_worldWidth, 1f, num4);
-				this.m_interior.transform.rotation = rotation;
-				UIManager.SetGameObjectActive(this.m_interior, true, null);
-			}
-			if (isLast)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				float z = 1f;
-				if (!isFirst)
-				{
-					z = Mathf.Min(1f, num2 / this.m_parent.m_lengthPerCorner);
-				}
-				if (this.m_parent.m_corner1 != null && this.m_parent.m_corner2 != null)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_parent.m_corner1.transform.position = this.m_end + b;
-					this.m_parent.m_corner2.transform.position = this.m_end - b;
-					this.m_parent.m_corner1.transform.rotation = rotation;
-					this.m_parent.m_corner2.transform.rotation = rotation;
-					this.m_parent.m_corner1.transform.localScale = new Vector3(1f, 1f, z);
-					this.m_parent.m_corner2.transform.localScale = new Vector3(1f, 1f, z);
-				}
-				if (this.m_parent.m_endWidthLine != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_parent.m_endWidthLine.transform.position = this.m_end;
-					this.m_parent.m_endWidthLine.transform.rotation = rotation;
-					float x = this.m_parent.m_worldWidth - this.m_parent.m_widthPerCorner * 2f;
-					this.m_parent.m_endWidthLine.transform.localScale = new Vector3(x, 1f, z);
-				}
-			}
-		}
-
-		public void Disable()
-		{
-			if (this.m_centerLine != null)
-			{
-				UIManager.SetGameObjectActive(this.m_centerLine, false, null);
-			}
-			if (this.m_lengthLine1 != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIBouncingLaserCursor.BounceSegment.Disable()).MethodHandle;
-				}
-				UIManager.SetGameObjectActive(this.m_lengthLine1, false, null);
-			}
-			if (this.m_lengthLine2 != null)
-			{
-				UIManager.SetGameObjectActive(this.m_lengthLine2, false, null);
-			}
-			if (this.m_interior != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_interior, false, null);
-			}
-		}
-
-		public void DestroySegment()
-		{
-			if (this.m_centerLine != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIBouncingLaserCursor.BounceSegment.DestroySegment()).MethodHandle;
-				}
-				UnityEngine.Object.Destroy(this.m_centerLine);
-				this.m_centerLine = null;
-			}
-			if (this.m_lengthLine1 != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UnityEngine.Object.Destroy(this.m_lengthLine1);
-				this.m_lengthLine1 = null;
-			}
-			if (this.m_lengthLine2 != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UnityEngine.Object.Destroy(this.m_lengthLine2);
-				this.m_lengthLine2 = null;
-			}
-			if (this.m_interior != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UnityEngine.Object.Destroy(this.m_interior);
-				this.m_interior = null;
-			}
+			Object.Destroy(m_endWidthLine);
+			m_endWidthLine = null;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,15 +10,9 @@ public class AbilityStatusEffectEntry : MonoBehaviour
 
 	public void Setup(StatusType type)
 	{
-		UIManager.SetGameObjectActive(base.gameObject, true, null);
+		UIManager.SetGameObjectActive(base.gameObject, true);
 		HUD_UIResources.StatusTypeIcon iconForStatusType = HUD_UIResources.GetIconForStatusType(type);
-		this.m_iconImage.sprite = iconForStatusType.icon;
-		this.m_statusText.text = string.Format("{2}{0}{3} - {1}", new object[]
-		{
-			iconForStatusType.buffName,
-			iconForStatusType.buffDescription,
-			"<color=#FFC000>",
-			"</color>"
-		});
+		m_iconImage.sprite = iconForStatusType.icon;
+		m_statusText.text = string.Format("{2}{0}{3} - {1}", iconForStatusType.buffName, iconForStatusType.buffDescription, "<color=#FFC000>", "</color>");
 	}
 }

@@ -1,5 +1,3 @@
-﻿using System;
-
 public class DebugCommand_ForceMatchmaking : DebugCommand
 {
 	private const string c_itemName = "Force Matchmaking";
@@ -21,7 +19,7 @@ public class DebugCommand_ForceMatchmaking : DebugCommand
 
 	public override void OnIncreaseClick()
 	{
-		this.DoWork();
+		DoWork();
 	}
 
 	public override string GetSlashCommand()
@@ -31,41 +29,42 @@ public class DebugCommand_ForceMatchmaking : DebugCommand
 
 	public override bool OnSlashCommand(string arguments)
 	{
-		this.DoWork();
+		DoWork();
 		return true;
 	}
 
 	private void DoWork()
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (clientGameManager != null)
+		if (!(clientGameManager != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_ForceMatchmaking.DoWork()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (clientGameManager.LobbyInterface != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					clientGameManager._000E();
+					return;
 				}
-				clientGameManager.\u000E();
 			}
+			return;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -14,37 +13,37 @@ public class Tutorial : NetworkBehaviour
 
 	public static Tutorial Get()
 	{
-		return Tutorial.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		Tutorial.s_instance = this;
-		this.m_startPending = false;
+		s_instance = this;
+		m_startPending = false;
 	}
 
 	private void Start()
 	{
-		if (this.m_gameModePanelPrefab != null)
+		if (!(m_gameModePanelPrefab != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Tutorial.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			RectTransform rectTransform = UnityEngine.Object.Instantiate<RectTransform>(this.m_gameModePanelPrefab);
-			this.m_tutorialPanel = rectTransform.GetComponent<UIObjectivePointsPanel>();
+			RectTransform rectTransform = Object.Instantiate(m_gameModePanelPrefab);
+			m_tutorialPanel = rectTransform.GetComponent<UIObjectivePointsPanel>();
 			if (HUD_UI.Get() != null && HUD_UI.Get().m_mainScreenPanel != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -55,62 +54,64 @@ public class Tutorial : NetworkBehaviour
 				}
 				if (HUD_UI.Get().m_mainScreenPanel.m_gameSpecificRectDisplay != null)
 				{
-					this.m_tutorialPanel.transform.SetParent(HUD_UI.Get().m_mainScreenPanel.m_gameSpecificRectDisplay.transform);
-					this.m_tutorialPanel.Setup(() => StringUtil.TR("Tutorial!", "GameModes"));
-					this.m_tutorialPanel.transform.localScale = Vector3.one;
+					m_tutorialPanel.transform.SetParent(HUD_UI.Get().m_mainScreenPanel.m_gameSpecificRectDisplay.transform);
+					m_tutorialPanel.Setup(() => StringUtil.TR("Tutorial!", "GameModes"));
+					m_tutorialPanel.transform.localScale = Vector3.one;
 					return;
 				}
 			}
-			this.m_startPending = true;
+			m_startPending = true;
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_startPending)
+		if (!m_startPending)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(HUD_UI.Get() != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Tutorial.Update()).MethodHandle;
-			}
-			if (HUD_UI.Get() != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (HUD_UI.Get().m_mainScreenPanel != null && HUD_UI.Get().m_mainScreenPanel.m_gameSpecificRectDisplay != null)
 				{
-					this.m_startPending = false;
-					RectTransform rectTransform = UnityEngine.Object.Instantiate<RectTransform>(this.m_gameModePanelPrefab);
-					this.m_tutorialPanel = rectTransform.GetComponent<UIObjectivePointsPanel>();
-					this.m_tutorialPanel.transform.SetParent(HUD_UI.Get().m_mainScreenPanel.m_gameSpecificRectDisplay.transform);
-					this.m_tutorialPanel.Setup(() => StringUtil.TR("Tutorial!", "GameModes"));
-					this.m_tutorialPanel.transform.localScale = Vector3.one;
+					m_startPending = false;
+					RectTransform rectTransform = Object.Instantiate(m_gameModePanelPrefab);
+					m_tutorialPanel = rectTransform.GetComponent<UIObjectivePointsPanel>();
+					m_tutorialPanel.transform.SetParent(HUD_UI.Get().m_mainScreenPanel.m_gameSpecificRectDisplay.transform);
+					m_tutorialPanel.Setup(() => StringUtil.TR("Tutorial!", "GameModes"));
+					m_tutorialPanel.transform.localScale = Vector3.one;
 				}
+				return;
 			}
 		}
 	}
 
 	private void OnDestroy()
 	{
-		if (this.m_tutorialPanel)
+		if ((bool)m_tutorialPanel)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -119,20 +120,20 @@ public class Tutorial : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Tutorial.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.Destroy(this.m_tutorialPanel.gameObject);
-			this.m_tutorialPanel = null;
+			Object.Destroy(m_tutorialPanel.gameObject);
+			m_tutorialPanel = null;
 		}
-		Tutorial.s_instance = null;
+		s_instance = null;
 	}
 
 	public void SetUpGameUI(UIGameModePanel UIPanel)
 	{
-		UIObjectivePointsPanel uiobjectivePointsPanel = UIPanel as UIObjectivePointsPanel;
-		if (uiobjectivePointsPanel == null)
+		UIObjectivePointsPanel uIObjectivePointsPanel = UIPanel as UIObjectivePointsPanel;
+		if (uIObjectivePointsPanel == null)
 		{
 			return;
 		}
@@ -140,7 +141,7 @@ public class Tutorial : NetworkBehaviour
 		int num = -1;
 		if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -149,16 +150,16 @@ public class Tutorial : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Tutorial.SetUpGameUI(UIGameModePanel)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = 0;
 			tutorialInMatchValue = StringUtil.TR("Decision", "Global");
 		}
 		else if (ServerClientUtils.GetCurrentActionPhase() == ActionBufferPhase.Abilities)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -167,10 +168,10 @@ public class Tutorial : NetworkBehaviour
 				}
 				break;
 			}
-			UIQueueListPanel.UIPhase uiphaseFromAbilityPriority = UIQueueListPanel.GetUIPhaseFromAbilityPriority(ServerClientUtils.GetCurrentAbilityPhase());
-			if (uiphaseFromAbilityPriority != UIQueueListPanel.UIPhase.Prep)
+			UIQueueListPanel.UIPhase uIPhaseFromAbilityPriority = UIQueueListPanel.GetUIPhaseFromAbilityPriority(ServerClientUtils.GetCurrentAbilityPhase());
+			if (uIPhaseFromAbilityPriority != 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -179,9 +180,9 @@ public class Tutorial : NetworkBehaviour
 					}
 					break;
 				}
-				if (uiphaseFromAbilityPriority != UIQueueListPanel.UIPhase.Evasion)
+				if (uIPhaseFromAbilityPriority != UIQueueListPanel.UIPhase.Evasion)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -190,9 +191,9 @@ public class Tutorial : NetworkBehaviour
 						}
 						break;
 					}
-					if (uiphaseFromAbilityPriority != UIQueueListPanel.UIPhase.Combat)
+					if (uIPhaseFromAbilityPriority != UIQueueListPanel.UIPhase.Combat)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -224,7 +225,7 @@ public class Tutorial : NetworkBehaviour
 		{
 			if (ServerClientUtils.GetCurrentActionPhase() != ActionBufferPhase.Movement)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -235,9 +236,9 @@ public class Tutorial : NetworkBehaviour
 				}
 				if (ServerClientUtils.GetCurrentActionPhase() != ActionBufferPhase.MovementChase)
 				{
-					goto IL_11A;
+					goto IL_011a;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -250,12 +251,13 @@ public class Tutorial : NetworkBehaviour
 			num = 4;
 			tutorialInMatchValue = StringUtil.TR("Movement", "Global");
 		}
-		IL_11A:
-		for (int i = 0; i < uiobjectivePointsPanel.PhaseIndicators.Length; i++)
+		goto IL_011a;
+		IL_011a:
+		for (int i = 0; i < uIObjectivePointsPanel.PhaseIndicators.Length; i++)
 		{
 			if (num == i)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -264,14 +266,14 @@ public class Tutorial : NetworkBehaviour
 					}
 					break;
 				}
-				uiobjectivePointsPanel.SetPhaseIndicatorActive(true, i);
+				uIObjectivePointsPanel.SetPhaseIndicatorActive(true, i);
 			}
 			else
 			{
-				uiobjectivePointsPanel.SetPhaseIndicatorActive(false, i);
+				uIObjectivePointsPanel.SetPhaseIndicatorActive(false, i);
 			}
 		}
-		uiobjectivePointsPanel.SetTutorialInMatchValue(tutorialInMatchValue);
+		uIObjectivePointsPanel.SetTutorialInMatchValue(tutorialInMatchValue);
 	}
 
 	private void UNetVersion()
@@ -280,7 +282,7 @@ public class Tutorial : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
+		bool result = default(bool);
 		return result;
 	}
 

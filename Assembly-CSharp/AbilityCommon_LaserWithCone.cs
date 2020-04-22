@@ -1,16 +1,14 @@
-﻿using System;
 using UnityEngine;
 
 public class AbilityCommon_LaserWithCone
 {
 	public static Vector3 GetConeLosCheckPos(Vector3 startPos, Vector3 endPos)
 	{
-		Vector3 vector;
-		AreaEffectUtils.GetEndPointForValidGameplaySquare(startPos, endPos, out vector);
-		BoardSquare boardSquare = Board.\u000E().\u000E(vector);
-		if (boardSquare != null && boardSquare.\u000E())
+		AreaEffectUtils.GetEndPointForValidGameplaySquare(startPos, endPos, out Vector3 adjustedEndPoint);
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(adjustedEndPoint);
+		if (boardSquare != null && boardSquare.HasFullCoverFromAnyDirection_zq())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -19,21 +17,19 @@ public class AbilityCommon_LaserWithCone
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_LaserWithCone.GetConeLosCheckPos(Vector3, Vector3)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Vector3 vector2 = vector - startPos;
-			vector2.y = 0f;
-			float maxDistance = vector2.magnitude + 0.1f;
-			vector2.Normalize();
-			Vector3 origin = vector - Board.SquareSizeStatic * 1.415f * vector2;
+			Vector3 vector = adjustedEndPoint - startPos;
+			vector.y = 0f;
+			float maxDistance = vector.magnitude + 0.1f;
+			vector.Normalize();
+			Vector3 origin = adjustedEndPoint - Board.SquareSizeStatic * 1.415f * vector;
 			LayerMask mask = 1 << VectorUtils.s_raycastLayerDynamicLineOfSight;
-			RaycastHit raycastHit;
-			bool flag = Physics.Raycast(origin, vector2, out raycastHit, maxDistance, mask);
-			if (flag)
+			if (Physics.Raycast(origin, vector, out RaycastHit hitInfo, maxDistance, mask))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -42,21 +38,21 @@ public class AbilityCommon_LaserWithCone
 					}
 					break;
 				}
-				if ((raycastHit.collider.gameObject.layer & VectorUtils.s_raycastLayerDynamicLineOfSight) != 0)
+				if ((hitInfo.collider.gameObject.layer & VectorUtils.s_raycastLayerDynamicLineOfSight) != 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return hitInfo.point - 0.1f * vector;
 						}
-						break;
 					}
-					vector = raycastHit.point - 0.1f * vector2;
 				}
 			}
 		}
-		return vector;
+		return adjustedEndPoint;
 	}
 }

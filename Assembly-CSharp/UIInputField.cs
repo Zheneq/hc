@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,68 +16,94 @@ public class UIInputField : InputField
 	protected override void Awake()
 	{
 		base.Awake();
-		if (this.m_textField != null)
+		if (!(m_textField != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInputField.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_textField.color = new Color(this.m_TextComponent.color.r, this.m_TextComponent.color.g, this.m_TextComponent.color.b, 1f);
-			this.m_TextComponent.color = new Color(this.m_TextComponent.color.r, this.m_TextComponent.color.g, this.m_TextComponent.color.b, 0f);
+			TextMeshProUGUI textField = m_textField;
+			Color color = m_TextComponent.color;
+			float r = color.r;
+			Color color2 = m_TextComponent.color;
+			float g = color2.g;
+			Color color3 = m_TextComponent.color;
+			textField.color = new Color(r, g, color3.b, 1f);
+			Text textComponent = m_TextComponent;
+			Color color4 = m_TextComponent.color;
+			float r2 = color4.r;
+			Color color5 = m_TextComponent.color;
+			float g2 = color5.g;
+			Color color6 = m_TextComponent.color;
+			textComponent.color = new Color(r2, g2, color6.b, 0f);
+			return;
 		}
 	}
 
 	public override void OnSelect(BaseEventData eventData)
 	{
 		base.OnSelect(eventData);
-		this.m_unhighlightEnteredText = true;
+		m_unhighlightEnteredText = true;
 	}
 
 	public void UpdateTextFieldProperties()
 	{
-		if (this.m_textField != null)
+		if (m_textField != null)
 		{
-			this.m_textField.color = new Color(this.m_TextComponent.color.r, this.m_TextComponent.color.g, this.m_TextComponent.color.b, 1f);
-			this.m_textField.text = this.m_TextComponent.text;
-			(this.m_textField.transform as RectTransform).anchoredPosition = (this.m_TextComponent.transform as RectTransform).anchoredPosition;
-			(this.m_textField.transform as RectTransform).sizeDelta = (this.m_TextComponent.transform as RectTransform).sizeDelta;
-			this.m_TextComponent.color = new Color(this.m_TextComponent.color.r, this.m_TextComponent.color.g, this.m_TextComponent.color.b, 0f);
+			TextMeshProUGUI textField = m_textField;
+			Color color = m_TextComponent.color;
+			float r = color.r;
+			Color color2 = m_TextComponent.color;
+			float g = color2.g;
+			Color color3 = m_TextComponent.color;
+			textField.color = new Color(r, g, color3.b, 1f);
+			m_textField.text = m_TextComponent.text;
+			(m_textField.transform as RectTransform).anchoredPosition = (m_TextComponent.transform as RectTransform).anchoredPosition;
+			(m_textField.transform as RectTransform).sizeDelta = (m_TextComponent.transform as RectTransform).sizeDelta;
+			Text textComponent = m_TextComponent;
+			Color color4 = m_TextComponent.color;
+			float r2 = color4.r;
+			Color color5 = m_TextComponent.color;
+			float g2 = color5.g;
+			Color color6 = m_TextComponent.color;
+			textComponent.color = new Color(r2, g2, color6.b, 0f);
 		}
-		if (this.m_placeholderField != null)
+		if (!(m_placeholderField != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInputField.UpdateTextFieldProperties()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			(this.m_placeholderField.transform as RectTransform).anchoredPosition = (this.m_Placeholder.transform as RectTransform).anchoredPosition;
-			(this.m_placeholderField.transform as RectTransform).sizeDelta = (this.m_Placeholder.transform as RectTransform).sizeDelta;
+			(m_placeholderField.transform as RectTransform).anchoredPosition = (m_Placeholder.transform as RectTransform).anchoredPosition;
+			(m_placeholderField.transform as RectTransform).sizeDelta = (m_Placeholder.transform as RectTransform).sizeDelta;
+			return;
 		}
 	}
 
 	protected override void LateUpdate()
 	{
 		base.LateUpdate();
-		if (this.m_unhighlightEnteredText)
+		if (m_unhighlightEnteredText)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -87,16 +112,16 @@ public class UIInputField : InputField
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInputField.LateUpdate()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			base.MoveTextEnd(false);
-			this.m_unhighlightEnteredText = false;
+			MoveTextEnd(false);
+			m_unhighlightEnteredText = false;
 		}
-		if (this.m_textField != null)
+		if (m_textField != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -105,24 +130,25 @@ public class UIInputField : InputField
 				}
 				break;
 			}
-			if (this.m_textField.text != this.m_TextComponent.text)
+			if (m_textField.text != m_TextComponent.text)
 			{
-				this.m_textField.text = this.m_TextComponent.text;
+				m_textField.text = m_TextComponent.text;
 			}
 		}
-		if (this.m_placeholderField != null && this.m_placeholderField.enabled != this.m_Placeholder.enabled)
+		if (!(m_placeholderField != null) || m_placeholderField.enabled == m_Placeholder.enabled)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_placeholderField.enabled = this.m_Placeholder.enabled;
-			this.m_Placeholder.color = Color.clear;
+			m_placeholderField.enabled = m_Placeholder.enabled;
+			m_Placeholder.color = Color.clear;
+			return;
 		}
 	}
 }

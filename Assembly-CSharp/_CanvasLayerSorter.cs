@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Canvas))]
@@ -10,39 +9,40 @@ public class _CanvasLayerSorter : MonoBehaviour
 
 	public Canvas GetCanvas()
 	{
-		return this.m_theCanvas;
+		return m_theCanvas;
 	}
 
 	private void Awake()
 	{
-		this.m_theCanvas = base.GetComponent<Canvas>();
+		m_theCanvas = GetComponent<Canvas>();
 		CanvasLayerManager.Get().AddCanvas(this);
 	}
 
 	private void OnEnable()
 	{
-		this.DoCanvasRefresh();
+		DoCanvasRefresh();
 	}
 
 	public void DoCanvasRefresh()
 	{
-		if (this.m_theCanvas != null)
+		if (!(m_theCanvas != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_CanvasLayerSorter.DoCanvasRefresh()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_theCanvas.overrideSorting = false;
-			this.m_theCanvas.overrideSorting = true;
+			m_theCanvas.overrideSorting = false;
+			m_theCanvas.overrideSorting = true;
+			return;
 		}
 	}
 }

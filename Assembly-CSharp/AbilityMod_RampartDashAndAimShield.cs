@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,109 +58,111 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		RampartDashAndAimShield rampartDashAndAimShield = targetAbility as RampartDashAndAimShield;
-		if (rampartDashAndAimShield != null)
+		if (!(rampartDashAndAimShield != null))
 		{
-			AbilityMod.AddToken(tokens, this.m_chargeRadiusMod, "ChargeRadius", string.Empty, rampartDashAndAimShield.m_chargeRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_radiusAroundStartMod, "RadiusAroundStart", string.Empty, rampartDashAndAimShield.m_radiusAroundStart, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_radiusAroundEndMod, "RadiusAroundEnd", string.Empty, rampartDashAndAimShield.m_radiusAroundEnd, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, rampartDashAndAimShield.m_damageAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", rampartDashAndAimShield.m_enemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_allyHealAmountMod, "AllyHealAmount", string.Empty, rampartDashAndAimShield.m_allyHealAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_allyHitEffectMod, "AllyHitEffect", rampartDashAndAimShield.m_allyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_minCooldownMod, "MinCooldown", string.Empty, rampartDashAndAimShield.m_minCooldown, true, false);
-			AbilityMod.AddToken(tokens, this.m_cooldownModifierAddMod, "CooldownModifierAdd", string.Empty, rampartDashAndAimShield.m_cooldownModifierAdd, true, false);
-			AbilityMod.AddToken(tokens, this.m_minEnergyToCastMod, "MinEnergyToCast", string.Empty, rampartDashAndAimShield.m_minEnergyToCast, true, false);
-			AbilityMod.AddToken(tokens, this.m_energyPerMoveMod, "EnergyPerMove", string.Empty, rampartDashAndAimShield.m_energyPerMove, true, false);
-			AbilityMod.AddToken(tokens, this.m_shieldFrontHitLengthMod, "ShieldFrontHitLength", string.Empty, rampartDashAndAimShield.m_shieldFrontHitLength, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_damageForShieldFrontMod, "DamageForShieldFront", string.Empty, rampartDashAndAimShield.m_damageForShieldFront, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_shieldFrontEnemyEffectMod, "ShieldFrontEnemyEffect", rampartDashAndAimShield.m_shieldFrontEnemyEffect, true);
-			if (this.m_useTargetDataOverrides)
+			return;
+		}
+		AbilityMod.AddToken(tokens, m_chargeRadiusMod, "ChargeRadius", string.Empty, rampartDashAndAimShield.m_chargeRadius);
+		AbilityMod.AddToken(tokens, m_radiusAroundStartMod, "RadiusAroundStart", string.Empty, rampartDashAndAimShield.m_radiusAroundStart);
+		AbilityMod.AddToken(tokens, m_radiusAroundEndMod, "RadiusAroundEnd", string.Empty, rampartDashAndAimShield.m_radiusAroundEnd);
+		AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, rampartDashAndAimShield.m_damageAmount);
+		AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", rampartDashAndAimShield.m_enemyHitEffect);
+		AbilityMod.AddToken(tokens, m_allyHealAmountMod, "AllyHealAmount", string.Empty, rampartDashAndAimShield.m_allyHealAmount);
+		AbilityMod.AddToken_EffectMod(tokens, m_allyHitEffectMod, "AllyHitEffect", rampartDashAndAimShield.m_allyHitEffect);
+		AbilityMod.AddToken(tokens, m_minCooldownMod, "MinCooldown", string.Empty, rampartDashAndAimShield.m_minCooldown);
+		AbilityMod.AddToken(tokens, m_cooldownModifierAddMod, "CooldownModifierAdd", string.Empty, rampartDashAndAimShield.m_cooldownModifierAdd);
+		AbilityMod.AddToken(tokens, m_minEnergyToCastMod, "MinEnergyToCast", string.Empty, rampartDashAndAimShield.m_minEnergyToCast);
+		AbilityMod.AddToken(tokens, m_energyPerMoveMod, "EnergyPerMove", string.Empty, rampartDashAndAimShield.m_energyPerMove);
+		AbilityMod.AddToken(tokens, m_shieldFrontHitLengthMod, "ShieldFrontHitLength", string.Empty, rampartDashAndAimShield.m_shieldFrontHitLength);
+		AbilityMod.AddToken(tokens, m_damageForShieldFrontMod, "DamageForShieldFront", string.Empty, rampartDashAndAimShield.m_damageForShieldFront);
+		AbilityMod.AddToken_EffectMod(tokens, m_shieldFrontEnemyEffectMod, "ShieldFrontEnemyEffect", rampartDashAndAimShield.m_shieldFrontEnemyEffect);
+		if (m_useTargetDataOverrides)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (5)
 				{
-					switch (5)
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_targetDataOverrides != null)
+			{
+				while (true)
+				{
+					switch (3)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
+				if (m_targetDataOverrides.Length > 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartDashAndAimShield.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-				}
-				if (this.m_targetDataOverrides != null)
-				{
-					for (;;)
+					while (true)
 					{
-						switch (3)
+						switch (6)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (this.m_targetDataOverrides.Length > 0)
+					if (rampartDashAndAimShield.m_targetData.Length > 0)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (6)
+							switch (3)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						if (rampartDashAndAimShield.m_targetData.Length > 0)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							AbilityMod.AddToken_IntDiff(tokens, "TargeterRange", string.Empty, Mathf.RoundToInt(this.m_targetDataOverrides[0].m_range), true, Mathf.RoundToInt(rampartDashAndAimShield.m_targetData[0].m_range));
-						}
+						AbilityMod.AddToken_IntDiff(tokens, "TargeterRange", string.Empty, Mathf.RoundToInt(m_targetDataOverrides[0].m_range), true, Mathf.RoundToInt(rampartDashAndAimShield.m_targetData[0].m_range));
 					}
 				}
 			}
-			if (this.m_statModsWhileEquipped != null)
+		}
+		if (m_statModsWhileEquipped == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				for (;;)
+			case 0:
+				continue;
+			}
+			if (m_statModsWhileEquipped.Length <= 0)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (this.m_statModsWhileEquipped.Length > 0)
+				for (int i = 0; i < m_statModsWhileEquipped.Length; i++)
 				{
-					for (;;)
+					AbilityStatMod abilityStatMod = m_statModsWhileEquipped[i];
+					AbilityMod.AddToken_IntDiff(tokens, "StatMod_" + abilityStatMod.stat, string.Empty, Mathf.RoundToInt(abilityStatMod.modValue), false, 0);
+				}
+				while (true)
+				{
+					switch (1)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					for (int i = 0; i < this.m_statModsWhileEquipped.Length; i++)
-					{
-						AbilityStatMod abilityStatMod = this.m_statModsWhileEquipped[i];
-						AbilityMod.AddToken_IntDiff(tokens, "StatMod_" + abilityStatMod.stat.ToString(), string.Empty, Mathf.RoundToInt(abilityStatMod.modValue), false, 0);
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
+					default:
+						return;
+					case 0:
 						break;
 					}
 				}
@@ -170,18 +172,16 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		RampartDashAndAimShield rampartDashAndAimShield = base.GetTargetAbilityOnAbilityData(abilityData) as RampartDashAndAimShield;
+		RampartDashAndAimShield rampartDashAndAimShield = GetTargetAbilityOnAbilityData(abilityData) as RampartDashAndAimShield;
 		bool flag = rampartDashAndAimShield != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_chargeRadiusMod, "[ChargeRadius]", flag, (!flag) ? 0f : rampartDashAndAimShield.m_chargeRadius);
-		string str = text;
-		AbilityModPropertyFloat radiusAroundStartMod = this.m_radiusAroundStartMod;
-		string prefix = "[RadiusAroundStart]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += PropDesc(m_chargeRadiusMod, "[ChargeRadius]", flag, (!flag) ? 0f : rampartDashAndAimShield.m_chargeRadius);
+		string str = empty;
+		AbilityModPropertyFloat radiusAroundStartMod = m_radiusAroundStartMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -190,9 +190,9 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartDashAndAimShield.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = rampartDashAndAimShield.m_radiusAroundStart;
 		}
@@ -200,15 +200,13 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(radiusAroundStartMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat radiusAroundEndMod = this.m_radiusAroundEndMod;
-		string prefix2 = "[RadiusAroundEnd]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(radiusAroundStartMod, "[RadiusAroundStart]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat radiusAroundEndMod = m_radiusAroundEndMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -223,15 +221,13 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(radiusAroundEndMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyBool chargePenetrateLosMod = this.m_chargePenetrateLosMod;
-		string prefix3 = "[ChargePenetrateLos]";
-		bool showBaseVal3 = flag;
-		bool baseVal3;
+		empty = str2 + PropDesc(radiusAroundEndMod, "[RadiusAroundEnd]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyBool chargePenetrateLosMod = m_chargePenetrateLosMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -240,21 +236,19 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 				}
 				break;
 			}
-			baseVal3 = rampartDashAndAimShield.m_chargePenetrateLos;
+			baseVal3 = (rampartDashAndAimShield.m_chargePenetrateLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(chargePenetrateLosMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt damageAmountMod = this.m_damageAmountMod;
-		string prefix4 = "[DamageAmount]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(chargePenetrateLosMod, "[ChargePenetrateLos]", flag, (byte)baseVal3 != 0);
+		string str4 = empty;
+		AbilityModPropertyInt damageAmountMod = m_damageAmountMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -269,15 +263,13 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(damageAmountMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyEffectInfo enemyHitEffectMod = this.m_enemyHitEffectMod;
-		string prefix5 = "[EnemyHitEffect]";
-		bool showBaseVal5 = flag;
-		StandardEffectInfo baseVal5;
+		empty = str4 + PropDesc(damageAmountMod, "[DamageAmount]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyEffectInfo enemyHitEffectMod = m_enemyHitEffectMod;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -292,15 +284,13 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		{
 			baseVal5 = null;
 		}
-		text = str5 + base.PropDesc(enemyHitEffectMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt allyHealAmountMod = this.m_allyHealAmountMod;
-		string prefix6 = "[AllyHealAmount]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(enemyHitEffectMod, "[EnemyHitEffect]", flag, (StandardEffectInfo)baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt allyHealAmountMod = m_allyHealAmountMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -315,15 +305,13 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(allyHealAmountMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyEffectInfo allyHitEffectMod = this.m_allyHitEffectMod;
-		string prefix7 = "[AllyHitEffect]";
-		bool showBaseVal7 = flag;
-		StandardEffectInfo baseVal7;
+		empty = str6 + PropDesc(allyHealAmountMod, "[AllyHealAmount]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyEffectInfo allyHitEffectMod = m_allyHitEffectMod;
+		object baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -338,15 +326,13 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		{
 			baseVal7 = null;
 		}
-		text = str7 + base.PropDesc(allyHitEffectMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyBool allowAimAtDiagonalsMod = this.m_allowAimAtDiagonalsMod;
-		string prefix8 = "[AllowAimAtDiagonals]";
-		bool showBaseVal8 = flag;
-		bool baseVal8;
+		empty = str7 + PropDesc(allyHitEffectMod, "[AllyHitEffect]", flag, (StandardEffectInfo)baseVal7);
+		string str8 = empty;
+		AbilityModPropertyBool allowAimAtDiagonalsMod = m_allowAimAtDiagonalsMod;
+		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -355,21 +341,19 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 				}
 				break;
 			}
-			baseVal8 = rampartDashAndAimShield.m_allowAimAtDiagonals;
+			baseVal8 = (rampartDashAndAimShield.m_allowAimAtDiagonals ? 1 : 0);
 		}
 		else
 		{
-			baseVal8 = false;
+			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(allowAimAtDiagonalsMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyBool setCooldownByDistanceMod = this.m_setCooldownByDistanceMod;
-		string prefix9 = "[SetCooldownByDistance]";
-		bool showBaseVal9 = flag;
-		bool baseVal9;
+		empty = str8 + PropDesc(allowAimAtDiagonalsMod, "[AllowAimAtDiagonals]", flag, (byte)baseVal8 != 0);
+		string str9 = empty;
+		AbilityModPropertyBool setCooldownByDistanceMod = m_setCooldownByDistanceMod;
+		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -378,21 +362,19 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 				}
 				break;
 			}
-			baseVal9 = rampartDashAndAimShield.m_setCooldownByDistance;
+			baseVal9 = (rampartDashAndAimShield.m_setCooldownByDistance ? 1 : 0);
 		}
 		else
 		{
-			baseVal9 = false;
+			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(setCooldownByDistanceMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyInt minCooldownMod = this.m_minCooldownMod;
-		string prefix10 = "[MinCooldown]";
-		bool showBaseVal10 = flag;
+		empty = str9 + PropDesc(setCooldownByDistanceMod, "[SetCooldownByDistance]", flag, (byte)baseVal9 != 0);
+		string str10 = empty;
+		AbilityModPropertyInt minCooldownMod = m_minCooldownMod;
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -407,16 +389,14 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		{
 			baseVal10 = 0;
 		}
-		text = str10 + base.PropDesc(minCooldownMod, prefix10, showBaseVal10, baseVal10);
-		text += base.PropDesc(this.m_cooldownModifierAddMod, "[CooldownModifierAdd]", flag, (!flag) ? 0 : rampartDashAndAimShield.m_cooldownModifierAdd);
-		string str11 = text;
-		AbilityModPropertyBool useEnergyForMoveDistanceMod = this.m_useEnergyForMoveDistanceMod;
-		string prefix11 = "[UseEnergyForMoveDistance]";
-		bool showBaseVal11 = flag;
-		bool baseVal11;
+		empty = str10 + PropDesc(minCooldownMod, "[MinCooldown]", flag, baseVal10);
+		empty += PropDesc(m_cooldownModifierAddMod, "[CooldownModifierAdd]", flag, flag ? rampartDashAndAimShield.m_cooldownModifierAdd : 0);
+		string str11 = empty;
+		AbilityModPropertyBool useEnergyForMoveDistanceMod = m_useEnergyForMoveDistanceMod;
+		int baseVal11;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -425,21 +405,19 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 				}
 				break;
 			}
-			baseVal11 = rampartDashAndAimShield.m_useEnergyForMoveDistance;
+			baseVal11 = (rampartDashAndAimShield.m_useEnergyForMoveDistance ? 1 : 0);
 		}
 		else
 		{
-			baseVal11 = false;
+			baseVal11 = 0;
 		}
-		text = str11 + base.PropDesc(useEnergyForMoveDistanceMod, prefix11, showBaseVal11, baseVal11);
-		string str12 = text;
-		AbilityModPropertyInt minEnergyToCastMod = this.m_minEnergyToCastMod;
-		string prefix12 = "[MinEnergyToCast]";
-		bool showBaseVal12 = flag;
+		empty = str11 + PropDesc(useEnergyForMoveDistanceMod, "[UseEnergyForMoveDistance]", flag, (byte)baseVal11 != 0);
+		string str12 = empty;
+		AbilityModPropertyInt minEnergyToCastMod = m_minEnergyToCastMod;
 		int baseVal12;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -454,16 +432,14 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		{
 			baseVal12 = 0;
 		}
-		text = str12 + base.PropDesc(minEnergyToCastMod, prefix12, showBaseVal12, baseVal12);
-		text += base.PropDesc(this.m_energyPerMoveMod, "[EnergyPerMove]", flag, (!flag) ? 0 : rampartDashAndAimShield.m_energyPerMove);
-		string str13 = text;
-		AbilityModPropertyBool useAllEnergyIfUsedForDistanceMod = this.m_useAllEnergyIfUsedForDistanceMod;
-		string prefix13 = "[UseAllEnergyIfUsedForDistance]";
-		bool showBaseVal13 = flag;
-		bool baseVal13;
+		empty = str12 + PropDesc(minEnergyToCastMod, "[MinEnergyToCast]", flag, baseVal12);
+		empty += PropDesc(m_energyPerMoveMod, "[EnergyPerMove]", flag, flag ? rampartDashAndAimShield.m_energyPerMove : 0);
+		string str13 = empty;
+		AbilityModPropertyBool useAllEnergyIfUsedForDistanceMod = m_useAllEnergyIfUsedForDistanceMod;
+		int baseVal13;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -472,21 +448,19 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 				}
 				break;
 			}
-			baseVal13 = rampartDashAndAimShield.m_useAllEnergyIfUsedForDistance;
+			baseVal13 = (rampartDashAndAimShield.m_useAllEnergyIfUsedForDistance ? 1 : 0);
 		}
 		else
 		{
-			baseVal13 = false;
+			baseVal13 = 0;
 		}
-		text = str13 + base.PropDesc(useAllEnergyIfUsedForDistanceMod, prefix13, showBaseVal13, baseVal13);
-		string str14 = text;
-		AbilityModPropertyBool hitInFrontOfShieldMod = this.m_hitInFrontOfShieldMod;
-		string prefix14 = "[HitInFrontOfShield]";
-		bool showBaseVal14 = flag;
-		bool baseVal14;
+		empty = str13 + PropDesc(useAllEnergyIfUsedForDistanceMod, "[UseAllEnergyIfUsedForDistance]", flag, (byte)baseVal13 != 0);
+		string str14 = empty;
+		AbilityModPropertyBool hitInFrontOfShieldMod = m_hitInFrontOfShieldMod;
+		int baseVal14;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -495,17 +469,17 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 				}
 				break;
 			}
-			baseVal14 = rampartDashAndAimShield.m_hitInFrontOfShield;
+			baseVal14 = (rampartDashAndAimShield.m_hitInFrontOfShield ? 1 : 0);
 		}
 		else
 		{
-			baseVal14 = false;
+			baseVal14 = 0;
 		}
-		text = str14 + base.PropDesc(hitInFrontOfShieldMod, prefix14, showBaseVal14, baseVal14);
-		bool flag2;
-		if (this.m_hitInFrontOfShieldMod != null)
+		empty = str14 + PropDesc(hitInFrontOfShieldMod, "[HitInFrontOfShield]", flag, (byte)baseVal14 != 0);
+		int num;
+		if (m_hitInFrontOfShieldMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -514,11 +488,11 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 				}
 				break;
 			}
-			AbilityModPropertyBool hitInFrontOfShieldMod2 = this.m_hitInFrontOfShieldMod;
-			bool input;
+			AbilityModPropertyBool hitInFrontOfShieldMod2 = m_hitInFrontOfShieldMod;
+			int input;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -527,29 +501,26 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 					}
 					break;
 				}
-				input = rampartDashAndAimShield.m_hitInFrontOfShield;
+				input = (rampartDashAndAimShield.m_hitInFrontOfShield ? 1 : 0);
 			}
 			else
 			{
-				input = false;
+				input = 0;
 			}
-			flag2 = hitInFrontOfShieldMod2.GetModifiedValue(input);
+			num = (hitInFrontOfShieldMod2.GetModifiedValue((byte)input != 0) ? 1 : 0);
 		}
 		else
 		{
-			flag2 = false;
+			num = 0;
 		}
-		bool flag3 = flag2;
-		if (flag3)
+		if (num != 0)
 		{
-			string str15 = text;
-			AbilityModPropertyFloat shieldFrontHitLengthMod = this.m_shieldFrontHitLengthMod;
-			string prefix15 = "[ShieldFrontHitLength]";
-			bool showBaseVal15 = flag;
+			string str15 = empty;
+			AbilityModPropertyFloat shieldFrontHitLengthMod = m_shieldFrontHitLengthMod;
 			float baseVal15;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -564,15 +535,13 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 			{
 				baseVal15 = 0f;
 			}
-			text = str15 + base.PropDesc(shieldFrontHitLengthMod, prefix15, showBaseVal15, baseVal15);
-			string str16 = text;
-			AbilityModPropertyInt damageForShieldFrontMod = this.m_damageForShieldFrontMod;
-			string prefix16 = "[DamageForShieldFront]";
-			bool showBaseVal16 = flag;
+			empty = str15 + PropDesc(shieldFrontHitLengthMod, "[ShieldFrontHitLength]", flag, baseVal15);
+			string str16 = empty;
+			AbilityModPropertyInt damageForShieldFrontMod = m_damageForShieldFrontMod;
 			int baseVal16;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -587,15 +556,13 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 			{
 				baseVal16 = 0;
 			}
-			text = str16 + base.PropDesc(damageForShieldFrontMod, prefix16, showBaseVal16, baseVal16);
-			string str17 = text;
-			AbilityModPropertyEffectInfo shieldFrontEnemyEffectMod = this.m_shieldFrontEnemyEffectMod;
-			string prefix17 = "[ShieldFrontEnemyEffect]";
-			bool showBaseVal17 = flag;
-			StandardEffectInfo baseVal17;
+			empty = str16 + PropDesc(damageForShieldFrontMod, "[DamageForShieldFront]", flag, baseVal16);
+			string str17 = empty;
+			AbilityModPropertyEffectInfo shieldFrontEnemyEffectMod = m_shieldFrontEnemyEffectMod;
+			object baseVal17;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -610,8 +577,8 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 			{
 				baseVal17 = null;
 			}
-			text = str17 + base.PropDesc(shieldFrontEnemyEffectMod, prefix17, showBaseVal17, baseVal17);
+			empty = str17 + PropDesc(shieldFrontEnemyEffectMod, "[ShieldFrontEnemyEffect]", flag, (StandardEffectInfo)baseVal17);
 		}
-		return text;
+		return empty;
 	}
 }

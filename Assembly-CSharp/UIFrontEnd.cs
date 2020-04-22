@@ -1,4 +1,3 @@
-﻿using System;
 using LobbyGameClientMessages;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -55,384 +54,353 @@ public class UIFrontEnd : MonoBehaviour
 
 	private bool m_attachedHandler;
 
-	public FrontEndNavPanel m_frontEndNavPanel
-	{
-		get
-		{
-			return FrontEndNavPanel.Get();
-		}
-	}
+	public FrontEndNavPanel m_frontEndNavPanel => FrontEndNavPanel.Get();
 
-	public UIPlayerNavPanel m_playerPanel
-	{
-		get
-		{
-			return UIPlayerNavPanel.Get();
-		}
-	}
+	public UIPlayerNavPanel m_playerPanel => UIPlayerNavPanel.Get();
 
-	public UILandingPageScreen m_landingPageScreen
-	{
-		get
-		{
-			return UILandingPageScreen.Get();
-		}
-	}
+	public UILandingPageScreen m_landingPageScreen => UILandingPageScreen.Get();
 
-	public UIJoinGameScreen m_joinGameScreen
-	{
-		get
-		{
-			return UIJoinGameScreen.Get();
-		}
-	}
+	public UIJoinGameScreen m_joinGameScreen => UIJoinGameScreen.Get();
 
-	public UICreateGameScreen m_createGameScreen
-	{
-		get
-		{
-			return UICreateGameScreen.Get();
-		}
-	}
+	public UICreateGameScreen m_createGameScreen => UICreateGameScreen.Get();
 
-	public UITextConsole m_frontEndChatConsole
-	{
-		get
-		{
-			return UIChatBox.GetChatBox(UIManager.ClientState.InFrontEnd);
-		}
-	}
+	public UITextConsole m_frontEndChatConsole => UIChatBox.GetChatBox(UIManager.ClientState.InFrontEnd);
 
 	public static UIFrontEnd Get()
 	{
-		return UIFrontEnd.s_instance;
+		return s_instance;
 	}
 
 	public static void PlaySound(FrontEndButtonSounds sound)
 	{
 		switch (sound)
 		{
+		case FrontEndButtonSounds.RankFreelancerSelectClick:
+			break;
+		case FrontEndButtonSounds.SeasonTransitionSeasonPoints:
+		case FrontEndButtonSounds.SeasonTransitionReactorPoints:
+			break;
 		case FrontEndButtonSounds.Back:
-			AudioManager.PostEvent("ui/frontend/v1/btn/back", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/back");
 			break;
 		case FrontEndButtonSounds.Cancel:
-			AudioManager.PostEvent("ui/frontend/v1/btn/cancel", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/cancel");
 			break;
 		case FrontEndButtonSounds.Generic:
-			AudioManager.PostEvent("ui/frontend/v1/btn/generic", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/generic");
 			break;
 		case FrontEndButtonSounds.GenericSmall:
-			AudioManager.PostEvent("ui/frontend/v1/btn/generic_small", null);
-			break;
-		case FrontEndButtonSounds.StartGameReady:
-			AudioManager.PostEvent("ui/frontend/btn_ready_start_game", null);
-			break;
-		case FrontEndButtonSounds.SelectChoice:
-			AudioManager.PostEvent("ui/frontend/v1/notify/teammember_select", null);
-			break;
-		case FrontEndButtonSounds.SelectColorChoice:
-			AudioManager.PostEvent("ui/frontend/v1/notify/teammember_select", null);
-			break;
-		case FrontEndButtonSounds.CharacterSelectCharacter:
-			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/character", null);
-			break;
-		case FrontEndButtonSounds.CharacterSelectClose:
-			AudioManager.PostEvent("ui/frontend/v1/wnd/charselect/close", null);
-			break;
-		case FrontEndButtonSounds.CharacterSelectOpen:
-			AudioManager.PostEvent("ui/frontend/v1/btn/menu/submenu/open", null);
-			AudioManager.PostEvent("ui/frontend/v1/wnd/charselect/open", null);
-			break;
-		case FrontEndButtonSounds.CharacterSelectOptions:
-			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/options", null);
-			break;
-		case FrontEndButtonSounds.CharacterSelectOptionsChoice:
-			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/options/choice", null);
-			break;
-		case FrontEndButtonSounds.CharacterSelectModAdd:
-			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add", null);
-			break;
-		case FrontEndButtonSounds.CharacterSelectModUnlocked:
-			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/unlock", null);
-			break;
-		case FrontEndButtonSounds.CharacterSelectModClear:
-			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/clear", null);
-			break;
-		case FrontEndButtonSounds.CharacterSelectNotifyCharLoaded:
-			AudioManager.PostEvent("ui/frontend/v1/notify/charselect/loaded", null);
-			break;
-		case FrontEndButtonSounds.CharacterSelectSkinChoice:
-			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add", null);
-			break;
-		case FrontEndButtonSounds.StoreCurrencySelect:
-			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add", null);
-			break;
-		case FrontEndButtonSounds.StoreGGPackSelect:
-			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add", null);
-			break;
-		case FrontEndButtonSounds.StorePurchased:
-			AudioManager.PostEvent("ui/frontend/v1/btn/menu/choice", null);
-			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/generic_small");
 			break;
 		case FrontEndButtonSounds.GameModeSelect:
-			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01", null);
-			AudioManager.PostEvent("ui/frontend/v1/btn/gamemode_select", null);
-			break;
-		case FrontEndButtonSounds.OptionsOK:
-			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/button", null);
-			break;
-		case FrontEndButtonSounds.OptionsCancel:
-			AudioManager.PostEvent("ui/frontend/v1/btn/options/cancel", null);
-			break;
-		case FrontEndButtonSounds.OptionsChoice:
-			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01", null);
+			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01");
+			AudioManager.PostEvent("ui/frontend/v1/btn/gamemode_select");
 			break;
 		case FrontEndButtonSounds.MenuOpen:
-			AudioManager.PostEvent("ui/frontend/v1/btn/menu/open", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/menu/open");
 			break;
 		case FrontEndButtonSounds.MenuChoice:
-			AudioManager.PostEvent("ui/frontend/v1/btn/menu/choice", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/menu/choice");
 			break;
 		case FrontEndButtonSounds.SubMenuOpen:
-			AudioManager.PostEvent("ui/frontend/v1/btn/menu/submenu/open", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/menu/submenu/open");
 			break;
-		case FrontEndButtonSounds.Close:
-			AudioManager.PostEvent("ui/frontend/v1/btn/close", null);
+		case FrontEndButtonSounds.SelectChoice:
+			AudioManager.PostEvent("ui/frontend/v1/notify/teammember_select");
+			break;
+		case FrontEndButtonSounds.SelectColorChoice:
+			AudioManager.PostEvent("ui/frontend/v1/notify/teammember_select");
 			break;
 		case FrontEndButtonSounds.TeamMemberSelect:
-			AudioManager.PostEvent("ui/frontend/v1/notify/teammember_select", null);
+			AudioManager.PostEvent("ui/frontend/v1/notify/teammember_select");
 			break;
 		case FrontEndButtonSounds.TeamMemberCancel:
-			AudioManager.PostEvent("ui/frontend/v1/notify/teammember_cancel", null);
+			AudioManager.PostEvent("ui/frontend/v1/notify/teammember_cancel");
 			break;
-		case FrontEndButtonSounds.MainMenuOpen:
-			AudioManager.PostEvent("ui/frontend/v2/menu/mainmenu_open", null);
-			break;
-		case FrontEndButtonSounds.MainMenuClose:
-			AudioManager.PostEvent("ui/frontend/v2/menu/mainmenu_close", null);
+		case FrontEndButtonSounds.StartGameReady:
+			AudioManager.PostEvent("ui/frontend/btn_ready_start_game");
 			break;
 		case FrontEndButtonSounds.PlayCategorySelect:
-			AudioManager.PostEvent("ui/frontend/v2/menu/tab/selection", null);
+			AudioManager.PostEvent("ui/frontend/v2/menu/tab/selection");
 			break;
-		case FrontEndButtonSounds.TutorialPhaseIconAppear:
-			AudioManager.PostEvent("ui/frontend/v2/menu/tutorial/phase/icon/appear", null);
-			break;
-		case FrontEndButtonSounds.TutorialPhaseIconImpact:
-			AudioManager.PostEvent("ui/frontend/v2/menu/tutorial/phase/icon/impact", null);
-			break;
-		case FrontEndButtonSounds.TutorialPhaseIconHighlight:
-			AudioManager.PostEvent("ui/frontend/v2/menu/tutorial/phase/icon/highlight", null);
-			break;
-		case FrontEndButtonSounds.DialogBoxOpen:
-			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/window/appear", null);
-			break;
-		case FrontEndButtonSounds.DialogBoxButton:
-			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/button", null);
-			break;
-		case FrontEndButtonSounds.GGButtonInGameUsed:
-			AudioManager.PostEvent("ui/ingame/ggboost_button", null);
-			break;
-		case FrontEndButtonSounds.GGButtonEndGameUsed:
-			AudioManager.PostEvent("ui/endgame/ggboost_button", null);
-			break;
-		case FrontEndButtonSounds.NotifyWarning:
-			AudioManager.PostEvent("ui/frontend/v2/notify/warning", null);
+		case FrontEndButtonSounds.OptionsChoice:
+			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01");
 			break;
 		case FrontEndButtonSounds.TopMenuSelect:
-			AudioManager.PostEvent("ui/frontend/v1/btn/menu/choice", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/menu/choice");
 			break;
-		case FrontEndButtonSounds.NotifyMatchFound:
-			AudioManager.PostEvent("ui/frontend/v1/notify/match_found", null);
+		case FrontEndButtonSounds.OptionsOK:
+			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/button");
+			break;
+		case FrontEndButtonSounds.OptionsCancel:
+			AudioManager.PostEvent("ui/frontend/v1/btn/options/cancel");
+			break;
+		case FrontEndButtonSounds.CharacterSelectCharacter:
+			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/character");
+			break;
+		case FrontEndButtonSounds.Close:
+			AudioManager.PostEvent("ui/frontend/v1/btn/close");
+			break;
+		case FrontEndButtonSounds.CharacterSelectOpen:
+			AudioManager.PostEvent("ui/frontend/v1/btn/menu/submenu/open");
+			AudioManager.PostEvent("ui/frontend/v1/wnd/charselect/open");
+			break;
+		case FrontEndButtonSounds.CharacterSelectClose:
+			AudioManager.PostEvent("ui/frontend/v1/wnd/charselect/close");
+			break;
+		case FrontEndButtonSounds.CharacterSelectOptions:
+			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/options");
+			break;
+		case FrontEndButtonSounds.CharacterSelectOptionsChoice:
+			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/options/choice");
+			break;
+		case FrontEndButtonSounds.CharacterSelectSkinChoice:
+			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add");
+			break;
+		case FrontEndButtonSounds.CharacterSelectModUnlocked:
+			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/unlock");
+			break;
+		case FrontEndButtonSounds.CharacterSelectModAdd:
+			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add");
+			break;
+		case FrontEndButtonSounds.CharacterSelectModClear:
+			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/clear");
+			break;
+		case FrontEndButtonSounds.CharacterSelectNotifyCharLoaded:
+			AudioManager.PostEvent("ui/frontend/v1/notify/charselect/loaded");
+			break;
+		case FrontEndButtonSounds.StorePurchased:
+			AudioManager.PostEvent("ui/frontend/v1/btn/menu/choice");
+			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add");
+			break;
+		case FrontEndButtonSounds.StoreCurrencySelect:
+			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add");
+			break;
+		case FrontEndButtonSounds.StoreGGPackSelect:
+			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add");
+			break;
+		case FrontEndButtonSounds.TutorialPhaseIconAppear:
+			AudioManager.PostEvent("ui/frontend/v2/menu/tutorial/phase/icon/appear");
+			break;
+		case FrontEndButtonSounds.TutorialPhaseIconImpact:
+			AudioManager.PostEvent("ui/frontend/v2/menu/tutorial/phase/icon/impact");
+			break;
+		case FrontEndButtonSounds.TutorialPhaseIconHighlight:
+			AudioManager.PostEvent("ui/frontend/v2/menu/tutorial/phase/icon/highlight");
+			break;
+		case FrontEndButtonSounds.DialogBoxOpen:
+			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/window/appear");
+			break;
+		case FrontEndButtonSounds.DialogBoxButton:
+			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/button");
+			break;
+		case FrontEndButtonSounds.GGButtonInGameUsed:
+			AudioManager.PostEvent("ui/ingame/ggboost_button");
 			break;
 		case FrontEndButtonSounds.GGPackUsedNotification:
-			AudioManager.PostEvent("ui/ingame/ggboost_button", null);
+			AudioManager.PostEvent("ui/ingame/ggboost_button");
+			break;
+		case FrontEndButtonSounds.GGButtonEndGameUsed:
+			AudioManager.PostEvent("ui/endgame/ggboost_button");
+			break;
+		case FrontEndButtonSounds.NotifyWarning:
+			AudioManager.PostEvent("ui/frontend/v2/notify/warning");
+			break;
+		case FrontEndButtonSounds.MainMenuOpen:
+			AudioManager.PostEvent("ui/frontend/v2/menu/mainmenu_open");
+			break;
+		case FrontEndButtonSounds.MainMenuClose:
+			AudioManager.PostEvent("ui/frontend/v2/menu/mainmenu_close");
+			break;
+		case FrontEndButtonSounds.NotifyMatchFound:
+			AudioManager.PostEvent("ui/frontend/v1/notify/match_found");
 			break;
 		case FrontEndButtonSounds.WhisperMessage:
-			AudioManager.PostEvent("ui/frontend/v1/chat/whisper_notify", null);
+			AudioManager.PostEvent("ui/frontend/v1/chat/whisper_notify");
 			break;
 		case FrontEndButtonSounds.LockboxAppear:
-			AudioManager.PostEvent("ui/lockbox/appear", null);
+			AudioManager.PostEvent("ui/lockbox/appear");
 			break;
 		case FrontEndButtonSounds.LockboxHit:
-			AudioManager.PostEvent("ui/lockbox/hit", null);
+			AudioManager.PostEvent("ui/lockbox/hit");
 			break;
 		case FrontEndButtonSounds.LockboxUnlock:
-			AudioManager.PostEvent("ui/lockbox/unlock", null);
+			AudioManager.PostEvent("ui/lockbox/unlock");
 			break;
 		case FrontEndButtonSounds.InventoryCraftClick:
-			AudioManager.PostEvent("ui_btn_menu_click", null);
+			AudioManager.PostEvent("ui_btn_menu_click");
 			break;
 		case FrontEndButtonSounds.InventorySalvage:
-			AudioManager.PostEvent("ui/lockbox/salvage", null);
+			AudioManager.PostEvent("ui/lockbox/salvage");
 			break;
 		case FrontEndButtonSounds.LockboxSelect:
-			AudioManager.PostEvent("ui/frontend/v1/btn/menu/choice", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/menu/choice");
 			break;
 		case FrontEndButtonSounds.InventoryFilterSelect:
-			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01", null);
+			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01");
 			break;
 		case FrontEndButtonSounds.CraftButtonClick:
-			AudioManager.PostEvent("ui_btn_menu_click", null);
+			AudioManager.PostEvent("ui_btn_menu_click");
 			break;
 		case FrontEndButtonSounds.SeasonChallengeButtonClick:
-			AudioManager.PostEvent("ui_btn_menu_click", null);
+			AudioManager.PostEvent("ui_btn_menu_click");
 			break;
 		case FrontEndButtonSounds.LockboxUnlockUncommon:
-			AudioManager.PostEvent("ui/lockbox/unlock_uncommon", null);
+			AudioManager.PostEvent("ui/lockbox/unlock_uncommon");
 			break;
 		case FrontEndButtonSounds.LockboxUnlockRare:
-			AudioManager.PostEvent("ui/lockbox/unlock_rare", null);
+			AudioManager.PostEvent("ui/lockbox/unlock_rare");
 			break;
 		case FrontEndButtonSounds.LockboxUnlockEpic:
-			AudioManager.PostEvent("ui/lockbox/unlock_epic", null);
+			AudioManager.PostEvent("ui/lockbox/unlock_epic");
 			break;
 		case FrontEndButtonSounds.LockboxUnlockLegendary:
-			AudioManager.PostEvent("ui/lockbox/unlock_legendary", null);
+			AudioManager.PostEvent("ui/lockbox/unlock_legendary");
 			break;
 		case FrontEndButtonSounds.LockboxOkCloseButton:
-			AudioManager.PostEvent("ui/frontend/v1/btn/options/ok", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/options/ok");
 			break;
 		case FrontEndButtonSounds.LockboxCancelButton:
-			AudioManager.PostEvent("ui/frontend/v1/btn/options/cancel", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/options/cancel");
 			break;
 		case FrontEndButtonSounds.GeneralGetMoreCredits:
-			AudioManager.PostEvent("ui_btn_menu_click", null);
+			AudioManager.PostEvent("ui_btn_menu_click");
 			break;
 		case FrontEndButtonSounds.GeneralExternalWebsite:
-			AudioManager.PostEvent("ui_btn_menu_click", null);
+			AudioManager.PostEvent("ui_btn_menu_click");
 			break;
 		case FrontEndButtonSounds.InventoryTab:
-			AudioManager.PostEvent("ui/frontend/v2/menu/tab/selection", null);
+			AudioManager.PostEvent("ui/frontend/v2/menu/tab/selection");
 			break;
 		case FrontEndButtonSounds.InventoryItemSelect:
-			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add");
 			break;
 		case FrontEndButtonSounds.InventorySchematicListSelect:
-			AudioManager.PostEvent("ui/frontend/v1/btn/menu/choice", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/menu/choice");
 			break;
 		case FrontEndButtonSounds.LockboxOpenClick:
-			AudioManager.PostEvent("ui_btn_menu_click", null);
-			AudioManager.PostEvent("ui/lockbox/hit", null);
+			AudioManager.PostEvent("ui_btn_menu_click");
+			AudioManager.PostEvent("ui/lockbox/hit");
 			break;
 		case FrontEndButtonSounds.InventoryCollectAllClick:
-			AudioManager.PostEvent("ui_btn_menu_click", null);
+			AudioManager.PostEvent("ui_btn_menu_click");
 			break;
 		case FrontEndButtonSounds.InventorySalvageAllClick:
-			AudioManager.PostEvent("ui_btn_menu_click", null);
+			AudioManager.PostEvent("ui_btn_menu_click");
 			break;
 		case FrontEndButtonSounds.InventoryCollect:
-			AudioManager.PostEvent("ui/lockbox/collect", null);
+			AudioManager.PostEvent("ui/lockbox/collect");
 			break;
 		case FrontEndButtonSounds.SeasonsChapterTab:
-			AudioManager.PostEvent("ui/frontend/v2/menu/tab/selection", null);
+			AudioManager.PostEvent("ui/frontend/v2/menu/tab/selection");
 			break;
 		case FrontEndButtonSounds.SeasonsBuyMoreLevels:
-			AudioManager.PostEvent("ui_btn_menu_click", null);
+			AudioManager.PostEvent("ui_btn_menu_click");
 			break;
 		case FrontEndButtonSounds.SeasonsBuyLevelsSelect:
-			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add");
 			break;
 		case FrontEndButtonSounds.SeasonsChallengeClickExpand:
-			AudioManager.PostEvent("ui/frontend/v1/btn/menu/choice", null);
-			AudioManager.PostEvent("ui/seasons/challenge_button_click_expand", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/menu/choice");
+			AudioManager.PostEvent("ui/seasons/challenge_button_click_expand");
 			break;
 		case FrontEndButtonSounds.SeasonsChallengeTrashcanClick:
-			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01", null);
+			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01");
 			break;
 		case FrontEndButtonSounds.SeasonsChallengeTrashcanYes:
-			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01", null);
-			AudioManager.PostEvent("ui_btn_menu_click", null);
+			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01");
+			AudioManager.PostEvent("ui_btn_menu_click");
 			break;
 		case FrontEndButtonSounds.SeasonsChallengeTrashcanNo:
-			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01", null);
-			AudioManager.PostEvent("ui/frontend/v1/btn/options/cancel", null);
+			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01");
+			AudioManager.PostEvent("ui/frontend/v1/btn/options/cancel");
 			break;
 		case FrontEndButtonSounds.ItemCrafting:
-			AudioManager.PostEvent("ui/lockbox/craft", null);
+			AudioManager.PostEvent("ui/lockbox/craft");
 			break;
 		case FrontEndButtonSounds.InGameTauntClick:
-			AudioManager.PostEvent("ui/ingame/v1/taunt_click", null);
+			AudioManager.PostEvent("ui/ingame/v1/taunt_click");
 			break;
 		case FrontEndButtonSounds.InGameTauntSelect:
-			AudioManager.PostEvent("ui/ingame/v1/taunt_select", null);
+			AudioManager.PostEvent("ui/ingame/v1/taunt_select");
 			break;
 		case FrontEndButtonSounds.DailyQuestChoice:
-			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add", null);
+			AudioManager.PostEvent("ui/frontend/v1/btn/charselect/mod/add");
 			break;
 		case FrontEndButtonSounds.DeploymentBegin:
-			AudioManager.PostEvent("ui/ingame/notify/match_start", null);
+			AudioManager.PostEvent("ui/ingame/notify/match_start");
 			break;
 		case FrontEndButtonSounds.MaxEnergyReached:
-			AudioManager.PostEvent("ui/ingame/v1/energy_max", null);
-			break;
-		case FrontEndButtonSounds.RankModeTimerTick:
-			AudioManager.PostEvent("ui/frontend/ranked/timer_tick", null);
-			break;
-		case FrontEndButtonSounds.RankModeBanPlayer:
-			AudioManager.PostEvent("ui/frontend/ranked/ban_player", null);
-			break;
-		case FrontEndButtonSounds.RankModePickPlayer:
-			AudioManager.PostEvent("ui/frontend/ranked/pick_player", null);
-			break;
-		case FrontEndButtonSounds.RankTabClick:
-			AudioManager.PostEvent("ui/frontend/v2/menu/tab/selection", null);
-			break;
-		case FrontEndButtonSounds.RankDropdownClick:
-			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01", null);
-			break;
-		case FrontEndButtonSounds.RankDropdownSelect:
-			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01", null);
-			break;
-		case FrontEndButtonSounds.RankQueueButtonClick:
-			AudioManager.PostEvent("ui/frontend/btn_ready_start_game", null);
-			break;
-		case FrontEndButtonSounds.RankFreelancerClick:
-			AudioManager.PostEvent("ui/frontend/v1/notify/teammember_select", null);
-			break;
-		case FrontEndButtonSounds.RankFreelancerSettingTab:
-			AudioManager.PostEvent("ui/frontend/v2/menu/tab/selection", null);
-			break;
-		case FrontEndButtonSounds.RankFreelancerLockin:
-			AudioManager.PostEvent("ui/frontend/ranked/lockin", null);
-			break;
-		case FrontEndButtonSounds.RankFreelancerSwapClick:
-			AudioManager.PostEvent("ui/frontend/v1/notify/teammember_select", null);
-			break;
-		case FrontEndButtonSounds.OverconUsed:
-			AudioManager.PostEvent("ui/ingame/v1/overcon_generic", null);
-			break;
-		case FrontEndButtonSounds.PurchaseComplete:
-			AudioManager.PostEvent("ui/frontend/store/purchasecomplete", null);
-			break;
-		case FrontEndButtonSounds.ContractsTab:
-			AudioManager.PostEvent("ui/frontend/v2/menu/tab/selection", null);
-			break;
-		case FrontEndButtonSounds.SeasonTransitionIntro:
-			AudioManager.PostEvent("ui/endgame/unlock", null);
-			break;
-		case FrontEndButtonSounds.SeasonTransitionRewardDisplay:
-			AudioManager.PostEvent("ui/seasons/endseason_SeasonTransitionRewardDisplay", null);
-			break;
-		case FrontEndButtonSounds.SeasonTransitionScoreCircle1:
-			AudioManager.PostEvent("ui/seasons/endseason_scorecircle_01", null);
-			break;
-		case FrontEndButtonSounds.SeasonTransitionScoreCircle2:
-			AudioManager.PostEvent("ui/seasons/endseason_scorecircle_02", null);
+			AudioManager.PostEvent("ui/ingame/v1/energy_max");
 			break;
 		case FrontEndButtonSounds.FirstTenGamesPregressComplete:
-			AudioManager.PostEvent("ui/endgame/firsttengames_progress_complete", null);
+			AudioManager.PostEvent("ui/endgame/firsttengames_progress_complete");
 			break;
 		case FrontEndButtonSounds.FirstTenGamesProgressIncrement:
-			AudioManager.PostEvent("ui/endgame/firsttengames_progress_increment", null);
-			break;
-		case FrontEndButtonSounds.EndGameBadgeBasic:
-			AudioManager.PostEvent("ui/endgame/badge/basic", null);
-			break;
-		case FrontEndButtonSounds.EndGameBadgeAchievement:
-			AudioManager.PostEvent("ui/endgame/badge/achievement", null);
+			AudioManager.PostEvent("ui/endgame/firsttengames_progress_increment");
 			break;
 		case FrontEndButtonSounds.HudLockIn:
-			AudioManager.PostEvent("ui/ingame/v1/hud/lockin", null);
+			AudioManager.PostEvent("ui/ingame/v1/hud/lockin");
+			break;
+		case FrontEndButtonSounds.RankModeTimerTick:
+			AudioManager.PostEvent("ui/frontend/ranked/timer_tick");
+			break;
+		case FrontEndButtonSounds.RankModeBanPlayer:
+			AudioManager.PostEvent("ui/frontend/ranked/ban_player");
+			break;
+		case FrontEndButtonSounds.RankModePickPlayer:
+			AudioManager.PostEvent("ui/frontend/ranked/pick_player");
+			break;
+		case FrontEndButtonSounds.RankDropdownClick:
+			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01");
+			break;
+		case FrontEndButtonSounds.RankDropdownSelect:
+			AudioManager.PostEvent("ui/frontend/v2/menu/dialog/option/01");
+			break;
+		case FrontEndButtonSounds.RankTabClick:
+			AudioManager.PostEvent("ui/frontend/v2/menu/tab/selection");
+			break;
+		case FrontEndButtonSounds.RankQueueButtonClick:
+			AudioManager.PostEvent("ui/frontend/btn_ready_start_game");
+			break;
+		case FrontEndButtonSounds.RankFreelancerClick:
+			AudioManager.PostEvent("ui/frontend/v1/notify/teammember_select");
+			break;
+		case FrontEndButtonSounds.RankFreelancerSettingTab:
+			AudioManager.PostEvent("ui/frontend/v2/menu/tab/selection");
+			break;
+		case FrontEndButtonSounds.RankFreelancerLockin:
+			AudioManager.PostEvent("ui/frontend/ranked/lockin");
+			break;
+		case FrontEndButtonSounds.RankFreelancerSwapClick:
+			AudioManager.PostEvent("ui/frontend/v1/notify/teammember_select");
+			break;
+		case FrontEndButtonSounds.OverconUsed:
+			AudioManager.PostEvent("ui/ingame/v1/overcon_generic");
+			break;
+		case FrontEndButtonSounds.PurchaseComplete:
+			AudioManager.PostEvent("ui/frontend/store/purchasecomplete");
+			break;
+		case FrontEndButtonSounds.ContractsTab:
+			AudioManager.PostEvent("ui/frontend/v2/menu/tab/selection");
+			break;
+		case FrontEndButtonSounds.SeasonTransitionIntro:
+			AudioManager.PostEvent("ui/endgame/unlock");
+			break;
+		case FrontEndButtonSounds.SeasonTransitionRewardDisplay:
+			AudioManager.PostEvent("ui/seasons/endseason_SeasonTransitionRewardDisplay");
+			break;
+		case FrontEndButtonSounds.SeasonTransitionScoreCircle1:
+			AudioManager.PostEvent("ui/seasons/endseason_scorecircle_01");
+			break;
+		case FrontEndButtonSounds.SeasonTransitionScoreCircle2:
+			AudioManager.PostEvent("ui/seasons/endseason_scorecircle_02");
+			break;
+		case FrontEndButtonSounds.EndGameBadgeBasic:
+			AudioManager.PostEvent("ui/endgame/badge/basic");
+			break;
+		case FrontEndButtonSounds.EndGameBadgeAchievement:
+			AudioManager.PostEvent("ui/endgame/badge/achievement");
 			break;
 		}
 	}
@@ -441,76 +409,71 @@ public class UIFrontEnd : MonoBehaviour
 	{
 		if (sound != FrontEndButtonSounds.SeasonTransitionSeasonPoints)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.PlayLoopingSound(FrontEndButtonSounds)).MethodHandle;
-			}
-			if (sound != FrontEndButtonSounds.SeasonTransitionReactorPoints)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (sound != FrontEndButtonSounds.SeasonTransitionReactorPoints)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							default:
+								return;
+							case 0:
+								break;
+							}
+						}
+					}
+					AudioManager.PostEvent("ui/endgame/points/counter_ggboost_loop", AudioManager.EventAction.PlaySound);
+					return;
 				}
 			}
-			else
-			{
-				AudioManager.PostEvent("ui/endgame/points/counter_ggboost_loop", AudioManager.EventAction.PlaySound, null, null);
-			}
 		}
-		else
-		{
-			AudioManager.PostEvent("ui/endgame/points/counter_normal_loop", AudioManager.EventAction.PlaySound, null, null);
-		}
+		AudioManager.PostEvent("ui/endgame/points/counter_normal_loop", AudioManager.EventAction.PlaySound);
 	}
 
 	public static void StopLoopingSound(FrontEndButtonSounds sound)
 	{
 		if (sound != FrontEndButtonSounds.SeasonTransitionSeasonPoints)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (sound == FrontEndButtonSounds.SeasonTransitionReactorPoints)
+					{
+						AudioManager.PostEvent("ui/endgame/points/counter_ggboost_loop", AudioManager.EventAction.StopSound);
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.StopLoopingSound(FrontEndButtonSounds)).MethodHandle;
-			}
-			if (sound == FrontEndButtonSounds.SeasonTransitionReactorPoints)
-			{
-				AudioManager.PostEvent("ui/endgame/points/counter_ggboost_loop", AudioManager.EventAction.StopSound, null, null);
 			}
 		}
-		else
-		{
-			AudioManager.PostEvent("ui/endgame/points/counter_normal_loop", AudioManager.EventAction.StopSound, null, null);
-		}
+		AudioManager.PostEvent("ui/endgame/points/counter_normal_loop", AudioManager.EventAction.StopSound);
 	}
 
 	public static bool IsMapTypeName(string name)
 	{
-		bool result;
-		if (!(name == "Practice") && !(name == "Tutorial") && !(name == "Deathmatch"))
+		int result;
+		switch (name)
 		{
-			for (;;)
+		default:
+			while (true)
 			{
 				switch (7)
 				{
@@ -519,77 +482,76 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.IsMapTypeName(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (name == "Testing");
+			result = ((name == "Testing") ? 1 : 0);
+			break;
+		case "Practice":
+		case "Tutorial":
+		case "Deathmatch":
+			result = 1;
+			break;
 		}
-		else
-		{
-			result = true;
-		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public static string GetSceneDescription(string sceneName)
 	{
 		if (sceneName.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.GetSceneDescription(string)).MethodHandle;
-			}
-			return null;
 		}
-		string[] array = sceneName.Split(new char[]
+		string[] array = sceneName.Split('_');
+		if (array.Length >= 2 && IsMapTypeName(array[1]))
 		{
-			'_'
-		});
-		if (array.Length < 2 || !UIFrontEnd.IsMapTypeName(array[1]))
-		{
-			return sceneName;
-		}
-		for (;;)
-		{
-			switch (4)
+			while (true)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (array.Length == 2)
-		{
-			for (;;)
-			{
-				switch (1)
+				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (array.Length == 2)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								break;
+							default:
+								return $"{array[0]} ({array[1]})";
+							}
+						}
+					}
+					return string.Format("{0} {2} ({1})", array[0], array[1], array[2]);
 				}
-				break;
 			}
-			return string.Format("{0} ({1})", array[0], array[1]);
 		}
-		return string.Format("{0} {2} ({1})", array[0], array[1], array[2]);
+		return sceneName;
 	}
 
 	private void Awake()
 	{
-		UIFrontEnd.s_instance = this;
+		s_instance = this;
 		if (base.gameObject.transform.parent == null)
 		{
-			UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+			Object.DontDestroyOnLoad(base.gameObject);
 		}
 	}
 
@@ -602,7 +564,7 @@ public class UIFrontEnd : MonoBehaviour
 	{
 		if (!enableEnvironment)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -611,18 +573,18 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.EnableFrontendEnvironment(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Log.Info(Log.Category.Loading, "PKFxManager.DeepReset leaving frontend", new object[0]);
+			Log.Info(Log.Category.Loading, "PKFxManager.DeepReset leaving frontend");
 			PKFxManager.DeepReset();
 		}
-		UIManager uimanager = UIManager.Get();
-		UIManager.ClientState gameState;
+		UIManager uIManager = UIManager.Get();
+		int gameState;
 		if (enableEnvironment)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -631,21 +593,21 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			gameState = UIManager.ClientState.InFrontEnd;
+			gameState = 0;
 		}
 		else
 		{
-			gameState = UIManager.ClientState.InGame;
+			gameState = 1;
 		}
-		uimanager.SetGameState(gameState);
+		uIManager.SetGameState((UIManager.ClientState)gameState);
 	}
 
 	public bool IsProgressScreenOpen()
 	{
-		bool result;
-		if (UIPlayerProgressPanel.Get() != null && UIPlayerProgressPanel.Get().gameObject)
+		int result;
+		if (UIPlayerProgressPanel.Get() != null && (bool)UIPlayerProgressPanel.Get().gameObject)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -654,25 +616,25 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.IsProgressScreenOpen()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = UIPlayerProgressPanel.Get().gameObject.activeInHierarchy;
+			result = (UIPlayerProgressPanel.Get().gameObject.activeInHierarchy ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool IsStoreOpen()
 	{
-		bool result;
+		int result;
 		if (!UIStoreViewHeroPage.Get().IsVisible())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -681,72 +643,74 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.IsStoreOpen()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = UIStorePanel.Get().IsVisible();
+			result = (UIStorePanel.Get().IsVisible() ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public void TogglePlayerProgressScreenVisibility(bool needToUpdatePlayerProgress = true)
 	{
 		if (UIMatchStartPanel.Get().IsVisible())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.TogglePlayerProgressScreenVisibility(bool)).MethodHandle;
-			}
+		}
+		bool flag = false;
+		flag = UIPlayerProgressPanel.Get().IsVisible();
+		UIPlayerProgressPanel.Get().SetVisible(!flag, needToUpdatePlayerProgress);
+		if (!flag)
+		{
 			return;
 		}
-		bool flag = UIPlayerProgressPanel.Get().IsVisible();
-		UIPlayerProgressPanel.Get().SetVisible(!flag, needToUpdatePlayerProgress);
-		if (flag)
+		while (true)
 		{
-			for (;;)
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			UIPlayerProgressPanel.Get().LogPlayerChanges();
+			return;
 		}
 	}
 
 	public void ToggleStoreVisibility()
 	{
 		UIStorePanel.Get().ToggleStore();
-		UIPlayerProgressPanel.Get().SetVisible(false, true);
+		UIPlayerProgressPanel.Get().SetVisible(false);
 	}
 
 	public void TogglePlayerFriendListVisibility()
 	{
-		FriendListPanel.Get().SetVisible(!FriendListPanel.Get().IsVisible(), false, false);
+		FriendListPanel.Get().SetVisible(!FriendListPanel.Get().IsVisible());
 	}
 
 	public void ShowScreen(FrontEndScreenState newScreen, bool refreshOnly = false)
 	{
-		this.m_currentScreen = newScreen;
+		m_currentScreen = newScreen;
 		if (UICharacterSelectScreenController.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -755,9 +719,9 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.ShowScreen(FrontEndScreenState, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UICharacterSelectScreenController.Get().SetupReadyButton();
 		}
@@ -768,6 +732,7 @@ public class UIFrontEnd : MonoBehaviour
 		bool visible5 = false;
 		bool doActive = false;
 		bool flag = false;
+		int num;
 		switch (newScreen)
 		{
 		case FrontEndScreenState.LandingPage:
@@ -775,17 +740,13 @@ public class UIFrontEnd : MonoBehaviour
 			doActive = true;
 			visible2 = true;
 			flag = true;
-			UIFrontEnd.Get().m_frontEndNavPanel.SetPlayMenuCatgeoryVisible(false);
-			break;
-		case FrontEndScreenState.GameTypeSelect:
-			doActive = true;
-			visible2 = true;
+			Get().m_frontEndNavPanel.SetPlayMenuCatgeoryVisible(false);
 			break;
 		case FrontEndScreenState.CharacterSelect:
 		case FrontEndScreenState.GroupCharacterSelect:
 			if (UILootMatrixScreen.Get() != null && !UILootMatrixScreen.Get().IsVisible && UIStorePanel.Get() != null && !UIStorePanel.Get().IsVisible())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -795,78 +756,60 @@ public class UIFrontEnd : MonoBehaviour
 					break;
 				}
 				visible = true;
+				goto IL_0173;
 			}
-			else
+			if (!AppState.IsInGame())
 			{
-				bool flag2;
-				if (!AppState.IsInGame())
+				while (true)
 				{
-					for (;;)
+					switch (5)
 					{
-						switch (5)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (GameManager.Get().GameInfo != null)
+				{
+					while (true)
+					{
+						switch (7)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (GameManager.Get().GameInfo != null)
+					if (GameManager.Get().GameInfo.IsCustomGame)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (7)
+							switch (3)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						if (GameManager.Get().GameInfo.IsCustomGame)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							flag2 = (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped);
-							goto IL_154;
-						}
+						num = ((GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped) ? 1 : 0);
+						goto IL_0154;
 					}
-				}
-				flag2 = false;
-				IL_154:
-				bool flag3 = flag2;
-				if (flag3)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					visible = true;
-					UILootMatrixScreen.Get().SetVisible(false);
 				}
 			}
+			num = 0;
+			goto IL_0154;
+		case FrontEndScreenState.RankedModeSelect:
 			visible2 = true;
 			doActive = true;
 			flag = true;
 			break;
-		case FrontEndScreenState.JoinGame:
-			visible4 = true;
-			this.m_joinGameScreen.Setup();
+		case FrontEndScreenState.GameTypeSelect:
 			doActive = true;
 			visible2 = true;
 			break;
-		case FrontEndScreenState.CreateGame:
-			visible5 = true;
+		case FrontEndScreenState.JoinGame:
+			visible4 = true;
+			m_joinGameScreen.Setup();
 			doActive = true;
 			visible2 = true;
 			break;
@@ -877,7 +820,30 @@ public class UIFrontEnd : MonoBehaviour
 		case FrontEndScreenState.FoundGame:
 			doActive = true;
 			break;
-		case FrontEndScreenState.RankedModeSelect:
+		case FrontEndScreenState.CreateGame:
+			{
+				visible5 = true;
+				doActive = true;
+				visible2 = true;
+				break;
+			}
+			IL_0154:
+			if (num != 0)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				visible = true;
+				UILootMatrixScreen.Get().SetVisible(false);
+			}
+			goto IL_0173;
+			IL_0173:
 			visible2 = true;
 			doActive = true;
 			flag = true;
@@ -887,9 +853,9 @@ public class UIFrontEnd : MonoBehaviour
 		{
 			visible2 = false;
 		}
-		if (this.m_playerPanel != null)
+		if (m_playerPanel != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -898,11 +864,11 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			this.m_playerPanel.SetVisible(visible2, refreshOnly);
+			m_playerPanel.SetVisible(visible2, refreshOnly);
 		}
-		if (this.m_joinGameScreen != null)
+		if (m_joinGameScreen != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -911,11 +877,11 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			this.m_joinGameScreen.SetVisible(visible4);
+			m_joinGameScreen.SetVisible(visible4);
 		}
-		if (this.m_createGameScreen != null)
+		if (m_createGameScreen != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -924,13 +890,13 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			this.m_createGameScreen.SetVisible(visible5);
+			m_createGameScreen.SetVisible(visible5);
 		}
 		if (!refreshOnly)
 		{
 			if (UIPlayerProgressPanel.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -939,11 +905,11 @@ public class UIFrontEnd : MonoBehaviour
 					}
 					break;
 				}
-				UIPlayerProgressPanel.Get().SetVisible(false, true);
+				UIPlayerProgressPanel.Get().SetVisible(false);
 			}
 			if (UICharacterSelectWorldObjects.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -954,9 +920,9 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				UICharacterSelectWorldObjects.Get().SetVisible(visible);
 			}
-			if (this.m_landingPageScreen != null)
+			if (m_landingPageScreen != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -965,11 +931,11 @@ public class UIFrontEnd : MonoBehaviour
 					}
 					break;
 				}
-				this.m_landingPageScreen.SetVisible(visible3);
+				m_landingPageScreen.SetVisible(visible3);
 			}
 			if (UICharacterSelectScreen.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -980,9 +946,9 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				UICharacterSelectScreen.Get().SetVisible(false);
 			}
-			if (this.m_frontEndChatConsole != null)
+			if (m_frontEndChatConsole != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -991,12 +957,12 @@ public class UIFrontEnd : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_frontEndChatConsole, doActive, null);
+				UIManager.SetGameObjectActive(m_frontEndChatConsole, doActive);
 			}
 		}
 		if (UICharacterSelectScreenController.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1007,27 +973,28 @@ public class UIFrontEnd : MonoBehaviour
 			}
 			UICharacterSelectScreenController.Get().SetVisible(visible, refreshOnly);
 		}
-		if (flag && this.m_frontEndChatConsole != null)
+		if (!flag || !(m_frontEndChatConsole != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_frontEndChatConsole.ChangeChatRoom();
+			m_frontEndChatConsole.ChangeChatRoom();
+			return;
 		}
 	}
 
 	public bool IsDraggingModel()
 	{
-		bool result;
-		if (!this.m_isDragging)
+		int result;
+		if (!m_isDragging)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1036,24 +1003,24 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.IsDraggingModel()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_justStoppedDragging;
+			result = (m_justStoppedDragging ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private void Start()
 	{
 		UIScreenManager.Get().ClearAllPanels();
-		this.m_currentCameraPosition = FrontEndScene.LobbyScreen;
-		this.SetVisible(false);
+		m_currentCameraPosition = FrontEndScene.LobbyScreen;
+		SetVisible(false);
 	}
 
 	private void OnDestroy()
@@ -1061,7 +1028,7 @@ public class UIFrontEnd : MonoBehaviour
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1070,25 +1037,26 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			clientGameManager.OnLobbyStatusNotification -= this.HandleLobbyStatusNotification;
+			clientGameManager.OnLobbyStatusNotification -= HandleLobbyStatusNotification;
 		}
-		if (UIFrontEnd.s_instance == this)
+		if (!(s_instance == this))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			Log.Info(base.GetType() + " OnDestroy, clearing singleton reference", new object[0]);
-			UIFrontEnd.s_instance = null;
+			Log.Info(string.Concat(GetType(), " OnDestroy, clearing singleton reference"));
+			s_instance = null;
+			return;
 		}
 	}
 
@@ -1096,7 +1064,7 @@ public class UIFrontEnd : MonoBehaviour
 	{
 		if (!(UIPlayerProgressPanel.Get() == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1105,15 +1073,15 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.HandleLobbyStatusNotification(LobbyStatusNotification)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (UIPlayerProgressPanel.Get().IsVisible())
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1123,7 +1091,7 @@ public class UIFrontEnd : MonoBehaviour
 				break;
 			}
 		}
-		this.ShowScreen(this.m_currentScreen, true);
+		ShowScreen(m_currentScreen, true);
 	}
 
 	public void ConfirmExit(UIDialogBox boxReference)
@@ -1133,20 +1101,20 @@ public class UIFrontEnd : MonoBehaviour
 
 	public void OnExitGameClick(BaseEventData data)
 	{
-		UIFrontEnd.PlaySound(FrontEndButtonSounds.MenuChoice);
-		UIDialogPopupManager.OpenTwoButtonDialog(StringUtil.TR("ExitGameTitle", "Global"), StringUtil.TR("ExitGamePrompt", "Global"), StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), new UIDialogBox.DialogButtonCallback(this.ConfirmExit), null, false, false);
+		PlaySound(FrontEndButtonSounds.MenuChoice);
+		UIDialogPopupManager.OpenTwoButtonDialog(StringUtil.TR("ExitGameTitle", "Global"), StringUtil.TR("ExitGamePrompt", "Global"), StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), ConfirmExit);
 	}
 
 	public void OnCreditsClick(BaseEventData data)
 	{
-		UIFrontEnd.PlaySound(FrontEndButtonSounds.MenuChoice);
+		PlaySound(FrontEndButtonSounds.MenuChoice);
 		if (UICreditsScreen.Get() != null)
 		{
 			UICreditsScreen.Get().SetVisible(true);
 		}
 		else
 		{
-			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("CreditsTitle", "Global"), StringUtil.TR("CreditsBody", "Global"), StringUtil.TR("Close", "Global"), null, 0x14, false);
+			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("CreditsTitle", "Global"), StringUtil.TR("CreditsBody", "Global"), StringUtil.TR("Close", "Global"), null, 20);
 		}
 	}
 
@@ -1155,7 +1123,7 @@ public class UIFrontEnd : MonoBehaviour
 		if (AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
 		{
 			AppState_LandingPage.Get().Enter(true);
-			UIFrontEnd.PlaySound(FrontEndButtonSounds.Back);
+			PlaySound(FrontEndButtonSounds.Back);
 		}
 		else
 		{
@@ -1165,89 +1133,89 @@ public class UIFrontEnd : MonoBehaviour
 
 	public void OnBackClick(BaseEventData data)
 	{
-		UIFrontEnd.PlaySound(FrontEndButtonSounds.MenuChoice);
+		PlaySound(FrontEndButtonSounds.MenuChoice);
 		if (AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					AppState_LandingPage.Get().Enter(true);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.OnBackClick(BaseEventData)).MethodHandle;
-			}
-			AppState_LandingPage.Get().Enter(true);
 		}
-		else
-		{
-			UIDialogPopupManager.OpenTwoButtonDialog(StringUtil.TR("LeavingGame", "Global"), StringUtil.TR("QuitGamePrompt", "Global"), StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), new UIDialogBox.DialogButtonCallback(this.ConfirmBack), null, false, false);
-		}
+		UIDialogPopupManager.OpenTwoButtonDialog(StringUtil.TR("LeavingGame", "Global"), StringUtil.TR("QuitGamePrompt", "Global"), StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), ConfirmBack);
 	}
 
 	public void Disable()
 	{
-		this.EnableFrontendEnvironment(false);
-		if (ClientQualityComponentEnabler.OptimizeForMemory())
+		EnableFrontendEnvironment(false);
+		if (!ClientQualityComponentEnabler.OptimizeForMemory())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.Disable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Resources.UnloadUnusedAssets();
+			return;
 		}
 	}
 
 	public void SetVisible(bool visible)
 	{
-		this.m_isVisible = visible;
-		if (UI_Persistent.Get() != null)
+		m_isVisible = visible;
+		if (!(UI_Persistent.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.SetVisible(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UI_Persistent.Get().NotifyFrontEndVisible(visible);
+			return;
 		}
 	}
 
 	public void ResetCharacterRotation()
 	{
-		this.m_currentRotationOffset = Vector3.zero;
+		m_currentRotationOffset = Vector3.zero;
 	}
 
 	public Vector3 GetRotationOffset()
 	{
-		return this.m_currentRotationOffset;
+		return m_currentRotationOffset;
 	}
 
 	public void Update()
 	{
-		if (!this.m_attachedHandler)
+		if (!m_attachedHandler)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1256,13 +1224,13 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1271,13 +1239,13 @@ public class UIFrontEnd : MonoBehaviour
 					}
 					break;
 				}
-				ClientGameManager.Get().OnLobbyStatusNotification += this.HandleLobbyStatusNotification;
-				this.m_attachedHandler = true;
+				ClientGameManager.Get().OnLobbyStatusNotification += HandleLobbyStatusNotification;
+				m_attachedHandler = true;
 			}
 		}
-		if (UIFrontEnd.s_firstLogInQuestCount != -1)
+		if (s_firstLogInQuestCount != -1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1288,7 +1256,7 @@ public class UIFrontEnd : MonoBehaviour
 			}
 			if (QuestOfferPanel.Get() != null && !QuestOfferPanel.Get().IsActive() && QuestListPanel.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1297,9 +1265,9 @@ public class UIFrontEnd : MonoBehaviour
 					}
 					break;
 				}
-				if (UIFrontEnd.Get().m_frontEndNavPanel != null)
+				if (Get().m_frontEndNavPanel != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -1308,25 +1276,25 @@ public class UIFrontEnd : MonoBehaviour
 						}
 						break;
 					}
-					UIFrontEnd.s_firstLogInQuestCount = -1;
-					UIFrontEnd.Get().m_frontEndNavPanel.NotificationBtnClicked(null);
+					s_firstLogInQuestCount = -1;
+					Get().m_frontEndNavPanel.NotificationBtnClicked(null);
 				}
 			}
 		}
-		if (this.m_isVisible && !(UIManager.Get().GetEnvirontmentCamera() == null))
+		if (!m_isVisible || UIManager.Get().GetEnvirontmentCamera() == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			if (DebugParameters.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1337,26 +1305,27 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				if (DebugParameters.Get().GetParameterAsBool("DebugCamera"))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
+						default:
+							return;
 						case 0:
-							continue;
+							break;
 						}
-						return;
 					}
 				}
 			}
-			float num = (Time.time - this.m_charCamStartTime) * this.m_cameraRotationSpeed;
+			float num = (Time.time - m_charCamStartTime) * m_cameraRotationSpeed;
 			float t = 0f;
-			if (this.m_rotationStartLength != 0f)
+			if (m_rotationStartLength != 0f)
 			{
-				t = num / this.m_rotationStartLength;
+				t = num / m_rotationStartLength;
 			}
-			if (this.m_lookAtOffset != this.m_cameraPositions[(int)this.m_currentCameraPosition].rotation)
+			if (m_lookAtOffset != m_cameraPositions[(int)m_currentCameraPosition].rotation)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1365,12 +1334,12 @@ public class UIFrontEnd : MonoBehaviour
 					}
 					break;
 				}
-				this.m_lookAtOffset = Vector3.Lerp(this.m_lookAtOffset, this.m_cameraPositions[(int)this.m_currentCameraPosition].rotation, t);
+				m_lookAtOffset = Vector3.Lerp(m_lookAtOffset, m_cameraPositions[(int)m_currentCameraPosition].rotation, t);
 			}
-			this.m_justStoppedDragging = false;
-			if (UIManager.Get().GetEnvirontmentCamera())
+			m_justStoppedDragging = false;
+			if ((bool)UIManager.Get().GetEnvirontmentCamera())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1384,7 +1353,7 @@ public class UIFrontEnd : MonoBehaviour
 					UIActorModelData componentInChildren = UICharacterSelectWorldObjects.Get().m_ringAnimations[0].GetComponentInChildren<UIActorModelData>();
 					if (Input.GetMouseButtonDown(0))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -1395,15 +1364,15 @@ public class UIFrontEnd : MonoBehaviour
 						}
 						if (componentInChildren != null && componentInChildren.MousedOver(UIManager.Get().GetEnvirontmentCamera()))
 						{
-							this.m_isStartDrag = true;
-							this.m_startDragPosition = Input.mousePosition;
-							this.m_startRotation = this.m_currentRotationOffset;
+							m_isStartDrag = true;
+							m_startDragPosition = Input.mousePosition;
+							m_startRotation = m_currentRotationOffset;
 						}
 					}
 				}
 				if (!UIUtils.InputFieldHasFocus())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -1414,7 +1383,7 @@ public class UIFrontEnd : MonoBehaviour
 					}
 					if (AccountPreferences.DoesApplicationHaveFocus())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -1425,11 +1394,11 @@ public class UIFrontEnd : MonoBehaviour
 						}
 						if (Input.GetKey(KeyCode.RightArrow))
 						{
-							this.m_currentRotationOffset -= new Vector3(0f, 5f, 0f);
+							m_currentRotationOffset -= new Vector3(0f, 5f, 0f);
 						}
 						if (Input.GetKey(KeyCode.LeftArrow))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -1438,14 +1407,14 @@ public class UIFrontEnd : MonoBehaviour
 								}
 								break;
 							}
-							this.m_currentRotationOffset += new Vector3(0f, 5f, 0f);
+							m_currentRotationOffset += new Vector3(0f, 5f, 0f);
 						}
 					}
 				}
 			}
 			if (UICharacterStoreAndProgressWorldObjects.Get() != null && UICharacterStoreAndProgressWorldObjects.Get().IsVisible())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1456,7 +1425,7 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				if (UICharacterStoreAndProgressWorldObjects.Get().m_ringAnimations[0] != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -1468,7 +1437,7 @@ public class UIFrontEnd : MonoBehaviour
 					UIActorModelData componentInChildren2 = UICharacterStoreAndProgressWorldObjects.Get().m_ringAnimations[0].GetComponentInChildren<UIActorModelData>();
 					if (Input.GetMouseButtonDown(0))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -1479,7 +1448,7 @@ public class UIFrontEnd : MonoBehaviour
 						}
 						if (componentInChildren2 != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -1490,7 +1459,7 @@ public class UIFrontEnd : MonoBehaviour
 							}
 							if (componentInChildren2.MousedOver(UIManager.Get().GetEnvirontmentCamera()))
 							{
-								for (;;)
+								while (true)
 								{
 									switch (6)
 									{
@@ -1499,17 +1468,17 @@ public class UIFrontEnd : MonoBehaviour
 									}
 									break;
 								}
-								this.m_isStartDrag = true;
-								this.m_startDragPosition = Input.mousePosition;
-								this.m_startRotation = this.m_currentRotationOffset;
+								m_isStartDrag = true;
+								m_startDragPosition = Input.mousePosition;
+								m_startRotation = m_currentRotationOffset;
 							}
 						}
 					}
 				}
 			}
-			if (this.m_isStartDrag)
+			if (m_isStartDrag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1518,16 +1487,16 @@ public class UIFrontEnd : MonoBehaviour
 					}
 					break;
 				}
-				if ((Input.mousePosition - this.m_startDragPosition).magnitude > 10f)
+				if ((Input.mousePosition - m_startDragPosition).magnitude > 10f)
 				{
-					this.m_startDragPosition = Input.mousePosition;
-					this.m_isStartDrag = false;
-					this.m_isDragging = true;
+					m_startDragPosition = Input.mousePosition;
+					m_isStartDrag = false;
+					m_isDragging = true;
 				}
 			}
-			if (this.m_isDragging)
+			if (m_isDragging)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1536,15 +1505,15 @@ public class UIFrontEnd : MonoBehaviour
 					}
 					break;
 				}
-				this.m_lastMouseLocation = Input.mousePosition;
-				Vector3 vector = this.m_startDragPosition - this.m_lastMouseLocation;
-				this.m_currentRotationOffset = this.m_startRotation + new Vector3(0f, vector.x / (float)Screen.width * 360f, 0f);
+				m_lastMouseLocation = Input.mousePosition;
+				Vector3 vector = m_startDragPosition - m_lastMouseLocation;
+				m_currentRotationOffset = m_startRotation + new Vector3(0f, vector.x / (float)Screen.width * 360f, 0f);
 			}
 			if (Input.GetMouseButtonUp(0))
 			{
-				if (this.m_isDragging)
+				if (m_isDragging)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -1553,51 +1522,51 @@ public class UIFrontEnd : MonoBehaviour
 						}
 						break;
 					}
-					this.m_justStoppedDragging = true;
+					m_justStoppedDragging = true;
 				}
-				this.m_isDragging = false;
-				this.m_isStartDrag = false;
+				m_isDragging = false;
+				m_isStartDrag = false;
 			}
-			if (GameManager.Get() != null)
+			if (!(GameManager.Get() != null))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (7)
+				case 0:
+					continue;
+				}
+				if (GameManager.Get().GameplayOverrides.DisableControlPadInput)
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (!GameManager.Get().GameplayOverrides.DisableControlPadInput)
-				{
-					for (;;)
+					if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.RightStickX) != 0f)
 					{
-						switch (2)
+						m_currentRotationOffset += new Vector3(0f, ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.RightStickX) * 10f, 0f);
+					}
+					if (!(UICharacterSelectScreenController.Get() != null))
+					{
+						return;
+					}
+					while (true)
+					{
+						switch (3)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.RightStickX) != 0f)
-					{
-						this.m_currentRotationOffset += new Vector3(0f, ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.RightStickX) * 10f, 0f);
-					}
-					if (UICharacterSelectScreenController.Get() != null)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.DpadX) > 0f)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -1613,7 +1582,7 @@ public class UIFrontEnd : MonoBehaviour
 								characterType++;
 								if (characterType >= CharacterType.Last)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (3)
 										{
@@ -1626,7 +1595,7 @@ public class UIFrontEnd : MonoBehaviour
 								}
 								flag = GameManager.Get().IsCharacterAllowedForPlayers(characterType);
 							}
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -1637,19 +1606,19 @@ public class UIFrontEnd : MonoBehaviour
 							}
 							UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 							{
-								ClientRequestToServerSelectCharacter = new CharacterType?(characterType)
+								ClientRequestToServerSelectCharacter = characterType
 							});
 						}
-						if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.DpadX) < 0f)
+						if (!(ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.DpadX) < 0f))
 						{
-							for (;;)
+							return;
+						}
+						while (true)
+						{
+							switch (3)
 							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
+							case 0:
+								continue;
 							}
 							CharacterType characterType2 = UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay;
 							bool flag2 = false;
@@ -1662,32 +1631,31 @@ public class UIFrontEnd : MonoBehaviour
 								}
 								flag2 = GameManager.Get().IsCharacterAllowedForPlayers(characterType2);
 							}
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
 								case 0:
 									continue;
 								}
-								break;
+								UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
+								{
+									ClientRequestToServerSelectCharacter = characterType2
+								});
+								return;
 							}
-							UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
-							{
-								ClientRequestToServerSelectCharacter = new CharacterType?(characterType2)
-							});
 						}
 					}
 				}
 			}
-			return;
 		}
 	}
 
 	public bool CanMenuEscape()
 	{
-		if (!this.IsProgressScreenOpen())
+		if (!IsProgressScreenOpen())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1696,13 +1664,13 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.CanMenuEscape()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (UIStorePanel.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1713,27 +1681,27 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				if (!UIStorePanel.Get().CanOpenMenu())
 				{
-					return false;
+					goto IL_0044;
 				}
 			}
 			if (AppState_RankModeDraft.Get() == AppState.GetCurrent())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return false;
 					}
-					break;
 				}
-				return false;
 			}
 			bool flag = UIDialogPopupManager.Get() != null && UIDialogPopupManager.Get().IsDialogBoxOpen();
-			bool result;
-			if (!this.IsChatWindowFocused())
+			int result;
+			if (!IsChatWindowFocused())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1742,22 +1710,25 @@ public class UIFrontEnd : MonoBehaviour
 					}
 					break;
 				}
-				result = !flag;
+				result = ((!flag) ? 1 : 0);
 			}
 			else
 			{
-				result = false;
+				result = 0;
 			}
-			return result;
+			return (byte)result != 0;
 		}
+		goto IL_0044;
+		IL_0044:
 		return false;
 	}
 
 	public bool IsChatWindowFocused()
 	{
-		if (this.m_frontEndChatConsole != null)
+		int result;
+		if (m_frontEndChatConsole != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1766,16 +1737,20 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.IsChatWindowFocused()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_frontEndChatConsole.IsVisible())
+			if (m_frontEndChatConsole.IsVisible())
 			{
-				return EventSystem.current.currentSelectedGameObject == this.m_frontEndChatConsole.m_textInput.gameObject || this.m_frontEndChatConsole.InputJustcleared();
+				result = ((EventSystem.current.currentSelectedGameObject == m_frontEndChatConsole.m_textInput.gameObject || m_frontEndChatConsole.InputJustcleared()) ? 1 : 0);
+				goto IL_0074;
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_0074;
+		IL_0074:
+		return (byte)result != 0;
 	}
 
 	public void NotifyGameLaunched()
@@ -1786,7 +1761,7 @@ public class UIFrontEnd : MonoBehaviour
 	{
 		if (UICharacterStoreAndProgressWorldObjects.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1795,27 +1770,27 @@ public class UIFrontEnd : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEnd.GetVisibleCharacters()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (UICharacterStoreAndProgressWorldObjects.Get().IsVisible())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return UICharacterStoreAndProgressWorldObjects.Get();
 					}
-					break;
 				}
-				return UICharacterStoreAndProgressWorldObjects.Get();
 			}
 		}
 		if (UICharacterSelectWorldObjects.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{

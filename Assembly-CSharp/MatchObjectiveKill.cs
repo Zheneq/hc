@@ -1,175 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class MatchObjectiveKill : MatchObjective
 {
-	public MatchObjectiveKill.KillObjectiveType killType = MatchObjectiveKill.KillObjectiveType.Player;
-
-	public string m_tag = string.Empty;
-
-	public int pointAdjustForKillingTeam = 1;
-
-	public int pointAdjustForDyingTeam;
-
-	public List<MatchObjectiveKill.CharacterKillPointAdjustOverride> m_characterTypeOverrides;
-
-	public bool IsActorRelevant(ActorData actor)
-	{
-		bool result;
-		switch (this.killType)
-		{
-		case MatchObjectiveKill.KillObjectiveType.Actor:
-			result = true;
-			break;
-		case MatchObjectiveKill.KillObjectiveType.NPC:
-			result = !GameplayUtils.IsPlayerControlled(actor);
-			break;
-		case MatchObjectiveKill.KillObjectiveType.Player:
-			result = GameplayUtils.IsPlayerControlled(actor);
-			break;
-		case MatchObjectiveKill.KillObjectiveType.Minion:
-			result = GameplayUtils.IsMinion(actor);
-			break;
-		case MatchObjectiveKill.KillObjectiveType.ActorWithTag:
-			result = actor.HasTag(this.m_tag);
-			break;
-		case MatchObjectiveKill.KillObjectiveType.ActorWithoutTag:
-			result = !actor.HasTag(this.m_tag);
-			break;
-		default:
-			result = false;
-			break;
-		}
-		return result;
-	}
-
-	private unsafe void GetPointAdjusts(ActorData actor, out int pointsForDyingTeam, out int pointsForKillingTeam)
-	{
-		pointsForDyingTeam = this.pointAdjustForDyingTeam;
-		pointsForKillingTeam = this.pointAdjustForKillingTeam;
-		if (this.m_characterTypeOverrides != null)
-		{
-			for (int i = 0; i < this.m_characterTypeOverrides.Count; i++)
-			{
-				if (this.m_characterTypeOverrides[i].IsOverrideRelevantForActor(actor))
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(MatchObjectiveKill.GetPointAdjusts(ActorData, int*, int*)).MethodHandle;
-					}
-					pointsForDyingTeam = this.m_characterTypeOverrides[i].m_pointAdjustOverrideForDyingTeam;
-					pointsForKillingTeam = this.m_characterTypeOverrides[i].m_pointAdjustOverrideForKillingTeam;
-					return;
-				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-	}
-
-	public override void Server_OnActorDeath(ActorData actor)
-	{
-		Log.Info(Log.Category.Temp, "MatchObjectiveKill.OnActorDeath", new object[0]);
-		ObjectivePoints objectivePoints = ObjectivePoints.Get();
-		if (objectivePoints != null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchObjectiveKill.Server_OnActorDeath(ActorData)).MethodHandle;
-			}
-			if (this.IsActorRelevant(actor))
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				int adjustAmount;
-				int adjustAmount2;
-				this.GetPointAdjusts(actor, out adjustAmount, out adjustAmount2);
-				Team team = actor.\u000E();
-				objectivePoints.AdjustPoints(adjustAmount, team);
-				objectivePoints.AdjustPoints(adjustAmount2, (team != Team.TeamA) ? Team.TeamA : Team.TeamB);
-			}
-		}
-	}
-
-	public override void Client_OnActorDeath(ActorData actor)
-	{
-		ObjectivePoints objectivePoints = ObjectivePoints.Get();
-		if (objectivePoints != null && this.IsActorRelevant(actor))
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchObjectiveKill.Client_OnActorDeath(ActorData)).MethodHandle;
-			}
-			int adjustAmount;
-			int num;
-			this.GetPointAdjusts(actor, out adjustAmount, out num);
-			Team team = actor.\u000E();
-			objectivePoints.AdjustUnresolvedPoints(adjustAmount, team);
-			ObjectivePoints objectivePoints2 = objectivePoints;
-			int adjustAmount2 = num;
-			Team teamToAdjust;
-			if (team == Team.TeamA)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				teamToAdjust = Team.TeamB;
-			}
-			else
-			{
-				teamToAdjust = Team.TeamA;
-			}
-			objectivePoints2.AdjustUnresolvedPoints(adjustAmount2, teamToAdjust);
-		}
-	}
-
 	[Serializable]
 	public class CharacterKillPointAdjustOverride
 	{
@@ -183,11 +16,15 @@ public class MatchObjectiveKill : MatchObjective
 		{
 			if (!(actor == null))
 			{
-				if (!(actor.\u000E() == null))
+				if (!(actor.GetCharacterResourceLink() == null))
 				{
-					return this.m_killedCharacterTypes.Contains(actor.\u000E().m_characterType);
+					if (!m_killedCharacterTypes.Contains(actor.GetCharacterResourceLink().m_characterType))
+					{
+						return false;
+					}
+					return true;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -196,9 +33,9 @@ public class MatchObjectiveKill : MatchObjective
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MatchObjectiveKill.CharacterKillPointAdjustOverride.IsOverrideRelevantForActor(ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 			}
 			return false;
@@ -213,5 +50,162 @@ public class MatchObjectiveKill : MatchObjective
 		Minion,
 		ActorWithTag,
 		ActorWithoutTag
+	}
+
+	public KillObjectiveType killType = KillObjectiveType.Player;
+
+	public string m_tag = string.Empty;
+
+	public int pointAdjustForKillingTeam = 1;
+
+	public int pointAdjustForDyingTeam;
+
+	public List<CharacterKillPointAdjustOverride> m_characterTypeOverrides;
+
+	public bool IsActorRelevant(ActorData actor)
+	{
+		switch (killType)
+		{
+		case KillObjectiveType.Actor:
+			return true;
+		case KillObjectiveType.NPC:
+			return !GameplayUtils.IsPlayerControlled(actor);
+		case KillObjectiveType.Player:
+			return GameplayUtils.IsPlayerControlled(actor);
+		case KillObjectiveType.Minion:
+			return GameplayUtils.IsMinion(actor);
+		case KillObjectiveType.ActorWithTag:
+			return actor.HasTag(m_tag);
+		case KillObjectiveType.ActorWithoutTag:
+			return !actor.HasTag(m_tag);
+		default:
+			return false;
+		}
+	}
+
+	private void GetPointAdjusts(ActorData actor, out int pointsForDyingTeam, out int pointsForKillingTeam)
+	{
+		pointsForDyingTeam = pointAdjustForDyingTeam;
+		pointsForKillingTeam = pointAdjustForKillingTeam;
+		if (m_characterTypeOverrides == null)
+		{
+			return;
+		}
+		for (int i = 0; i < m_characterTypeOverrides.Count; i++)
+		{
+			if (!m_characterTypeOverrides[i].IsOverrideRelevantForActor(actor))
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				pointsForDyingTeam = m_characterTypeOverrides[i].m_pointAdjustOverrideForDyingTeam;
+				pointsForKillingTeam = m_characterTypeOverrides[i].m_pointAdjustOverrideForKillingTeam;
+				return;
+			}
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			default:
+				return;
+			case 0:
+				break;
+			}
+		}
+	}
+
+	public override void Server_OnActorDeath(ActorData actor)
+	{
+		Log.Info(Log.Category.Temp, "MatchObjectiveKill.OnActorDeath");
+		ObjectivePoints objectivePoints = ObjectivePoints.Get();
+		if (!(objectivePoints != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (IsActorRelevant(actor))
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					GetPointAdjusts(actor, out int pointsForDyingTeam, out int pointsForKillingTeam);
+					Team team = actor.GetTeam();
+					objectivePoints.AdjustPoints(pointsForDyingTeam, team);
+					objectivePoints.AdjustPoints(pointsForKillingTeam, (team == Team.TeamA) ? Team.TeamB : Team.TeamA);
+					return;
+				}
+			}
+			return;
+		}
+	}
+
+	public override void Client_OnActorDeath(ActorData actor)
+	{
+		ObjectivePoints objectivePoints = ObjectivePoints.Get();
+		if (!(objectivePoints != null) || !IsActorRelevant(actor))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			GetPointAdjusts(actor, out int pointsForDyingTeam, out int pointsForKillingTeam);
+			Team team = actor.GetTeam();
+			objectivePoints.AdjustUnresolvedPoints(pointsForDyingTeam, team);
+			int adjustAmount = pointsForKillingTeam;
+			int teamToAdjust;
+			if (team == Team.TeamA)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				teamToAdjust = 1;
+			}
+			else
+			{
+				teamToAdjust = 0;
+			}
+			objectivePoints.AdjustUnresolvedPoints(adjustAmount, (Team)teamToAdjust);
+			return;
+		}
 	}
 }

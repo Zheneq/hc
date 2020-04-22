@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 
 public abstract class ThreadedJob
@@ -13,20 +13,16 @@ public abstract class ThreadedJob
 	{
 		get
 		{
-			object lockObject = this.m_lockObject;
-			bool threadFunctionReturned;
-			lock (lockObject)
+			lock (m_lockObject)
 			{
-				threadFunctionReturned = this.m_threadFunctionReturned;
+				return m_threadFunctionReturned;
 			}
-			return threadFunctionReturned;
 		}
 		set
 		{
-			object lockObject = this.m_lockObject;
-			lock (lockObject)
+			lock (m_lockObject)
 			{
-				this.m_threadFunctionReturned = value;
+				m_threadFunctionReturned = value;
 			}
 		}
 	}
@@ -35,10 +31,10 @@ public abstract class ThreadedJob
 	{
 		get
 		{
-			bool result;
-			if (this.m_thread != null)
+			int result;
+			if (m_thread != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -47,45 +43,46 @@ public abstract class ThreadedJob
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ThreadedJob.get_IsThreadAlive()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = this.m_thread.IsAlive;
+				result = (m_thread.IsAlive ? 1 : 0);
 			}
 			else
 			{
-				result = false;
+				result = 0;
 			}
-			return result;
+			return (byte)result != 0;
 		}
 	}
 
 	internal void StartThread()
 	{
-		this.ThreadFunctionReturned = false;
-		this.m_thread = new Thread(new ThreadStart(this.Run));
-		this.m_thread.Start();
+		ThreadFunctionReturned = false;
+		m_thread = new Thread(Run);
+		m_thread.Start();
 	}
 
 	internal void Abort()
 	{
-		if (this.m_thread != null)
+		if (m_thread == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThreadedJob.Abort()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_thread.Abort();
+			m_thread.Abort();
+			return;
 		}
 	}
 
@@ -97,23 +94,24 @@ public abstract class ThreadedJob
 
 	internal virtual void Update()
 	{
-		if (this.ThreadFunctionReturned)
+		if (!ThreadFunctionReturned)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThreadedJob.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.OnThreadFunctionReturned();
-			this.ThreadFunctionReturned = false;
+			OnThreadFunctionReturned();
+			ThreadFunctionReturned = false;
+			return;
 		}
 	}
 
@@ -121,7 +119,7 @@ public abstract class ThreadedJob
 	{
 		try
 		{
-			this.ThreadFunction();
+			ThreadFunction();
 		}
 		catch (ThreadAbortException exception)
 		{
@@ -131,6 +129,6 @@ public abstract class ThreadedJob
 		{
 			Log.Exception(exception2);
 		}
-		this.ThreadFunctionReturned = true;
+		ThreadFunctionReturned = true;
 	}
 }

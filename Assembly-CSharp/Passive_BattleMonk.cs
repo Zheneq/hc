@@ -1,5 +1,3 @@
-﻿using System;
-
 public class Passive_BattleMonk : Passive
 {
 	public StandardEffectInfo m_effectOnOwner_nearAllies;

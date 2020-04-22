@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class SquareInsideChecker_Shape : ISquareInsideChecker
@@ -13,23 +12,23 @@ public class SquareInsideChecker_Shape : ISquareInsideChecker
 
 	public SquareInsideChecker_Shape(AbilityAreaShape shape)
 	{
-		this.m_shape = shape;
+		m_shape = shape;
 	}
 
 	public void UpdateShapeProperties(Vector3 freePos, BoardSquare centerSquare, ActorData caster)
 	{
-		this.m_freePos = freePos;
-		this.m_centerSquare = centerSquare;
-		this.m_caster = caster;
+		m_freePos = freePos;
+		m_centerSquare = centerSquare;
+		m_caster = caster;
 	}
 
 	public bool IsSquareInside(BoardSquare square, out bool inLos)
 	{
 		inLos = false;
-		bool flag = AreaEffectUtils.IsSquareInShape(square, this.m_shape, this.m_freePos, this.m_centerSquare, true, this.m_caster);
+		bool flag = AreaEffectUtils.IsSquareInShape(square, m_shape, m_freePos, m_centerSquare, true, m_caster);
 		if (flag)
 		{
-			inLos = AreaEffectUtils.IsSquareInShape(square, this.m_shape, this.m_freePos, this.m_centerSquare, false, this.m_caster);
+			inLos = AreaEffectUtils.IsSquareInShape(square, m_shape, m_freePos, m_centerSquare, false, m_caster);
 		}
 		return flag;
 	}

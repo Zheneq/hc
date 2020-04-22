@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UIPlayerProgressSubPanel : MonoBehaviour
@@ -9,13 +8,7 @@ public class UIPlayerProgressSubPanel : MonoBehaviour
 
 	private bool m_active;
 
-	public bool IsActive
-	{
-		get
-		{
-			return this.m_active;
-		}
-	}
+	public bool IsActive => m_active;
 
 	public virtual void ClickedOnPageIndicator(UIPageIndicator pageIndicator)
 	{
@@ -23,10 +16,10 @@ public class UIPlayerProgressSubPanel : MonoBehaviour
 
 	public virtual void SetActive(bool visible)
 	{
-		this.m_active = visible;
+		m_active = visible;
 		if (visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -35,36 +28,37 @@ public class UIPlayerProgressSubPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressSubPanel.SetActive(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(base.gameObject, true, null);
+			UIManager.SetGameObjectActive(base.gameObject, true);
 		}
-		if (this.m_animator.isInitialized)
+		if (m_animator.isInitialized)
 		{
-			UIAnimationEventManager.Get().PlayAnimation(this.m_animator, this.m_animationPrefix + ((!visible) ? "OUT" : "IN"), new UIAnimationEventManager.AnimationDoneCallback(this.HandleAnimationEnd), string.Empty, 0, 0f, true, false, null, null);
+			UIAnimationEventManager.Get().PlayAnimation(m_animator, m_animationPrefix + ((!visible) ? "OUT" : "IN"), HandleAnimationEnd, string.Empty);
 		}
 	}
 
 	private void HandleAnimationEnd()
 	{
-		if (!this.m_active)
+		if (m_active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressSubPanel.HandleAnimationEnd()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(base.gameObject, false, null);
+			UIManager.SetGameObjectActive(base.gameObject, false);
+			return;
 		}
 	}
 }

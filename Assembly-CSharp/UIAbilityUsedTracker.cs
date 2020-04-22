@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,124 +14,126 @@ public class UIAbilityUsedTracker : MonoBehaviour
 
 	public void AddNewAbility(Ability newAbility, ActorData theOwner)
 	{
-		if (!(newAbility == null) && !(theOwner == null))
+		if (newAbility == null || theOwner == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityUsedTracker.AddNewAbility(Ability, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (theOwner.\u0018())
+			if (!theOwner.IsVisibleToClient())
 			{
-				UIAbilityUsed uiabilityUsed = UnityEngine.Object.Instantiate<UIAbilityUsed>(this.m_abilityPrefab);
-				uiabilityUsed.transform.SetParent(this.m_gridlayout.transform);
-				uiabilityUsed.transform.localPosition = Vector3.zero;
-				uiabilityUsed.transform.localScale = Vector3.one;
-				uiabilityUsed.Setup(newAbility, theOwner);
-				if (this.m_abilities == null)
+				return;
+			}
+			UIAbilityUsed uIAbilityUsed = Object.Instantiate(m_abilityPrefab);
+			uIAbilityUsed.transform.SetParent(m_gridlayout.transform);
+			uIAbilityUsed.transform.localPosition = Vector3.zero;
+			uIAbilityUsed.transform.localScale = Vector3.one;
+			uIAbilityUsed.Setup(newAbility, theOwner);
+			if (m_abilities == null)
+			{
+				while (true)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_abilities = new List<UIAbilityUsed>();
-				}
-				this.m_abilities.Add(uiabilityUsed);
-				while (this.m_abilities.Count > 8)
-				{
-					UnityEngine.Object.Destroy(this.m_abilities[0].gameObject);
-					this.m_abilities.RemoveAt(0);
-				}
-				for (;;)
-				{
-					switch (4)
+					switch (1)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				return;
+				m_abilities = new List<UIAbilityUsed>();
+			}
+			m_abilities.Add(uIAbilityUsed);
+			while (m_abilities.Count > 8)
+			{
+				Object.Destroy(m_abilities[0].gameObject);
+				m_abilities.RemoveAt(0);
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
 			}
 		}
 	}
 
 	public void ClearAllAbilties(UIQueueListPanel.UIPhase phaseToClear = UIQueueListPanel.UIPhase.None)
 	{
-		if (this.m_abilities.Count == 0)
+		if (m_abilities.Count == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityUsedTracker.ClearAllAbilties(UIQueueListPanel.UIPhase)).MethodHandle;
-			}
-			return;
 		}
 		if (phaseToClear != UIQueueListPanel.UIPhase.None)
 		{
-			for (int i = 0; i < this.m_abilities.Count; i++)
+			for (int i = 0; i < m_abilities.Count; i++)
 			{
-				if (phaseToClear != UIQueueListPanel.UIPhase.None)
+				if (phaseToClear == UIQueueListPanel.UIPhase.None)
 				{
-					for (;;)
+					continue;
+				}
+				while (true)
+				{
+					switch (1)
 					{
-						switch (1)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (phaseToClear == UIQueueListPanel.GetUIPhaseFromAbilityPriority(m_abilities[i].GetAbilityRef().RunPriority))
+				{
+					while (true)
+					{
+						switch (4)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (phaseToClear == UIQueueListPanel.GetUIPhaseFromAbilityPriority(this.m_abilities[i].GetAbilityRef().RunPriority))
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						GameObject gameObject = this.m_abilities[i].gameObject;
-						this.m_abilities.RemoveAt(i);
-						UnityEngine.Object.Destroy(gameObject);
-						i--;
-					}
+					GameObject gameObject = m_abilities[i].gameObject;
+					m_abilities.RemoveAt(i);
+					Object.Destroy(gameObject);
+					i--;
 				}
 			}
 		}
 		else
 		{
-			using (List<UIAbilityUsed>.Enumerator enumerator = this.m_abilities.GetEnumerator())
+			using (List<UIAbilityUsed>.Enumerator enumerator = m_abilities.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					UIAbilityUsed uiabilityUsed = enumerator.Current;
-					UnityEngine.Object.Destroy(uiabilityUsed.gameObject);
+					UIAbilityUsed current = enumerator.Current;
+					Object.Destroy(current.gameObject);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -142,7 +143,7 @@ public class UIAbilityUsedTracker : MonoBehaviour
 					break;
 				}
 			}
-			this.m_abilities.Clear();
+			m_abilities.Clear();
 		}
 	}
 }

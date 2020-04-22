@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -53,7 +52,7 @@ public class UISpectatorPenPanel : MonoBehaviour
 
 	private float RedrawTimeInterval = 0.1f;
 
-	private int PixelCountRedrawAmount = 0x64;
+	private int PixelCountRedrawAmount = 100;
 
 	private const string LineSizePrefName = "SpectatorLineSize";
 
@@ -63,25 +62,25 @@ public class UISpectatorPenPanel : MonoBehaviour
 
 	private void Awake()
 	{
-		this.screenWidth = Screen.width;
-		this.screenHeight = Screen.height;
-		this.m_clearColorArray = new Color32[(int)((float)Screen.width * 1f) * (int)((float)Screen.height * 1f)];
-		for (int i = 0; i < this.m_clearColorArray.Length; i++)
+		screenWidth = Screen.width;
+		screenHeight = Screen.height;
+		m_clearColorArray = new Color32[(int)((float)Screen.width * 1f) * (int)((float)Screen.height * 1f)];
+		for (int i = 0; i < m_clearColorArray.Length; i++)
 		{
-			this.m_clearColorArray[i] = this.m_clearColor32;
+			m_clearColorArray[i] = m_clearColor32;
 		}
-		this.theTexture = new Texture2D((int)((float)Screen.width * 1f), (int)((float)Screen.height * 1f));
-		this.m_drawColor = HUD_UIResources.Get().m_spectatorPenDrawColor;
-		this.m_drawMode.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.DrawModeClicked);
-		this.m_clearDrawing.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ClearDrawingClicked);
-		this.m_increaseLineThickness.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.IncreaseLineThickness);
-		this.m_decreaseLineThickness.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.DecreaseLineThickness);
-		this.m_toggleOptionsBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ToggleOptionsClicked);
-		UIManager.SetGameObjectActive(this.m_drawOptions, false, null);
-		UIManager.SetGameObjectActive(this.m_drawhitBox, false, null);
+		theTexture = new Texture2D((int)((float)Screen.width * 1f), (int)((float)Screen.height * 1f));
+		m_drawColor = HUD_UIResources.Get().m_spectatorPenDrawColor;
+		m_drawMode.spriteController.callback = DrawModeClicked;
+		m_clearDrawing.spriteController.callback = ClearDrawingClicked;
+		m_increaseLineThickness.spriteController.callback = IncreaseLineThickness;
+		m_decreaseLineThickness.spriteController.callback = DecreaseLineThickness;
+		m_toggleOptionsBtn.spriteController.callback = ToggleOptionsClicked;
+		UIManager.SetGameObjectActive(m_drawOptions, false);
+		UIManager.SetGameObjectActive(m_drawhitBox, false);
 		if (PlayerPrefs.HasKey("SpectatorLineSize"))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -90,211 +89,217 @@ public class UISpectatorPenPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorPenPanel.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.LineSize = PlayerPrefs.GetInt("SpectatorLineSize");
+			LineSize = PlayerPrefs.GetInt("SpectatorLineSize");
 		}
-		this.m_lineThicknessLabel.text = string.Format(StringUtil.TR("LineWidth", "SpectatorMode"), this.LineSize);
-		this.ClearDrawing(true);
+		m_lineThicknessLabel.text = string.Format(StringUtil.TR("LineWidth", "SpectatorMode"), LineSize);
+		ClearDrawing(true);
 	}
 
 	private void ResizeTexture()
 	{
-		UnityEngine.Object.Destroy(this.theTexture);
-		this.m_clearColorArray = new Color32[(int)((float)Screen.width * 1f) * (int)((float)Screen.height * 1f)];
-		for (int i = 0; i < this.m_clearColorArray.Length; i++)
+		Object.Destroy(theTexture);
+		m_clearColorArray = new Color32[(int)((float)Screen.width * 1f) * (int)((float)Screen.height * 1f)];
+		for (int i = 0; i < m_clearColorArray.Length; i++)
 		{
-			this.m_clearColorArray[i] = this.m_clearColor32;
+			m_clearColorArray[i] = m_clearColor32;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			theTexture = new Texture2D((int)((float)Screen.width * 1f), (int)((float)Screen.height * 1f));
+			screenWidth = Screen.width;
+			screenHeight = Screen.height;
+			ClearDrawing(true);
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorPenPanel.ResizeTexture()).MethodHandle;
-		}
-		this.theTexture = new Texture2D((int)((float)Screen.width * 1f), (int)((float)Screen.height * 1f));
-		this.screenWidth = Screen.width;
-		this.screenHeight = Screen.height;
-		this.ClearDrawing(true);
 	}
 
 	public void ToggleOptionsClicked(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_drawOptions, !this.m_drawOptions.gameObject.activeSelf, null);
-		this.m_toggleOptionsBtn.SetSelected(this.m_drawOptions.gameObject.activeSelf, false, string.Empty, string.Empty);
+		UIManager.SetGameObjectActive(m_drawOptions, !m_drawOptions.gameObject.activeSelf);
+		m_toggleOptionsBtn.SetSelected(m_drawOptions.gameObject.activeSelf, false, string.Empty, string.Empty);
 	}
 
 	public void IncreaseLineThickness(BaseEventData data)
 	{
-		this.LineSize++;
-		this.LineSize = Mathf.Clamp(this.LineSize, HUD_UIResources.Get().m_minLineWidth, HUD_UIResources.Get().m_maxLineWidth);
-		this.m_lineThicknessLabel.text = string.Format(StringUtil.TR("LineWidth", "SpectatorMode"), this.LineSize);
-		PlayerPrefs.SetInt("SpectatorLineSize", this.LineSize);
+		LineSize++;
+		LineSize = Mathf.Clamp(LineSize, HUD_UIResources.Get().m_minLineWidth, HUD_UIResources.Get().m_maxLineWidth);
+		m_lineThicknessLabel.text = string.Format(StringUtil.TR("LineWidth", "SpectatorMode"), LineSize);
+		PlayerPrefs.SetInt("SpectatorLineSize", LineSize);
 	}
 
 	public void DecreaseLineThickness(BaseEventData data)
 	{
-		this.LineSize--;
-		this.LineSize = Mathf.Clamp(this.LineSize, HUD_UIResources.Get().m_minLineWidth, HUD_UIResources.Get().m_maxLineWidth);
-		this.m_lineThicknessLabel.text = string.Format(StringUtil.TR("LineWidth", "SpectatorMode"), this.LineSize);
-		PlayerPrefs.SetInt("SpectatorLineSize", this.LineSize);
+		LineSize--;
+		LineSize = Mathf.Clamp(LineSize, HUD_UIResources.Get().m_minLineWidth, HUD_UIResources.Get().m_maxLineWidth);
+		m_lineThicknessLabel.text = string.Format(StringUtil.TR("LineWidth", "SpectatorMode"), LineSize);
+		PlayerPrefs.SetInt("SpectatorLineSize", LineSize);
 	}
 
 	public void DrawModeClicked(BaseEventData data)
 	{
-		this.m_isDrawing = !this.m_isDrawing;
-		this.m_drawMode.SetSelected(this.m_isDrawing, false, string.Empty, string.Empty);
-		UIManager.SetGameObjectActive(this.m_drawhitBox, this.m_isDrawing, null);
+		m_isDrawing = !m_isDrawing;
+		m_drawMode.SetSelected(m_isDrawing, false, string.Empty, string.Empty);
+		UIManager.SetGameObjectActive(m_drawhitBox, m_isDrawing);
 	}
 
 	public void ClearDrawingClicked(BaseEventData data)
 	{
-		this.ClearDrawing(false);
+		ClearDrawing();
 	}
 
 	public void ClearDrawing(bool hardClear = false)
 	{
 		if (hardClear)
 		{
-			this.theTexture.SetPixels32(this.m_clearColorArray);
-			this.theTexture.Apply();
-			this.m_drawhitBox.sprite = Sprite.Create(this.theTexture, new Rect(0f, 0f, (float)this.theTexture.width, (float)this.theTexture.height), new Vector2(0.5f, 0.5f));
-			this.m_drawhitBox.color = new Color(1f, 1f, 1f, 1f);
-			this.modifiedPixels.Clear();
-			this.LastNumModifiedPixelsDrawn = 0;
+			theTexture.SetPixels32(m_clearColorArray);
+			theTexture.Apply();
+			m_drawhitBox.sprite = Sprite.Create(theTexture, new Rect(0f, 0f, theTexture.width, theTexture.height), new Vector2(0.5f, 0.5f));
+			m_drawhitBox.color = new Color(1f, 1f, 1f, 1f);
+			modifiedPixels.Clear();
+			LastNumModifiedPixelsDrawn = 0;
 		}
 		else
 		{
-			foreach (KeyValuePair<Vector2, bool> keyValuePair in this.modifiedPixels)
+			foreach (KeyValuePair<Vector2, bool> modifiedPixel in modifiedPixels)
 			{
-				this.theTexture.SetPixel((int)keyValuePair.Key.x, (int)keyValuePair.Key.y, this.m_clearColor);
+				Texture2D texture2D = theTexture;
+				Vector2 key = modifiedPixel.Key;
+				int x = (int)key.x;
+				Vector2 key2 = modifiedPixel.Key;
+				texture2D.SetPixel(x, (int)key2.y, m_clearColor);
 			}
-			this.theTexture.Apply();
-			this.m_drawhitBox.sprite = Sprite.Create(this.theTexture, new Rect(0f, 0f, (float)this.theTexture.width, (float)this.theTexture.height), new Vector2(0.5f, 0.5f));
-			this.m_drawhitBox.color = new Color(1f, 1f, 1f, 1f);
-			this.modifiedPixels.Clear();
-			this.LastNumModifiedPixelsDrawn = 0;
+			theTexture.Apply();
+			m_drawhitBox.sprite = Sprite.Create(theTexture, new Rect(0f, 0f, theTexture.width, theTexture.height), new Vector2(0.5f, 0.5f));
+			m_drawhitBox.color = new Color(1f, 1f, 1f, 1f);
+			modifiedPixels.Clear();
+			LastNumModifiedPixelsDrawn = 0;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		UnityEngine.Object.Destroy(this.theTexture);
+		Object.Destroy(theTexture);
 	}
 
 	private void PadInMidpointsPoints(Vector2 previousPoint, Vector2 newPoint)
 	{
-		if (Vector2.Distance(previousPoint, newPoint) < (float)this.LineSize)
+		if (Vector2.Distance(previousPoint, newPoint) < (float)LineSize)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorPenPanel.PadInMidpointsPoints(Vector2, Vector2)).MethodHandle;
-			}
-			return;
 		}
 		Vector2 vector = (previousPoint + newPoint) * 0.5f;
-		int num = (int)vector.x - this.LineSize;
-		while ((float)num < vector.x + (float)this.LineSize)
+		for (int i = (int)vector.x - LineSize; (float)i < vector.x + (float)LineSize; i++)
 		{
-			int num2 = (int)vector.y - this.LineSize;
-			while ((float)num2 < vector.y + (float)this.LineSize)
+			for (int j = (int)vector.y - LineSize; (float)j < vector.y + (float)LineSize; j++)
 			{
-				Vector2 vector2 = new Vector2((float)num, (float)num2);
-				if (0f <= (float)num)
+				Vector2 vector2 = new Vector2(i, j);
+				if (!(0f <= (float)i))
 				{
-					for (;;)
+					continue;
+				}
+				while (true)
+				{
+					switch (4)
 					{
-						switch (4)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (i >= theTexture.width)
+				{
+					continue;
+				}
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (0f <= (float)j)
+				{
+					while (true)
+					{
+						switch (3)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (num < this.theTexture.width)
+					if (j < theTexture.height && Vector2.Distance(vector2, vector) < (float)LineSize)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (0f <= (float)num2)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (num2 < this.theTexture.height && Vector2.Distance(vector2, vector) < (float)this.LineSize)
-							{
-								this.theTexture.SetPixel(num, num2, this.m_drawColor);
-								this.modifiedPixels[vector2] = true;
-							}
-						}
+						theTexture.SetPixel(i, j, m_drawColor);
+						modifiedPixels[vector2] = true;
 					}
 				}
-				num2++;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_0110;
 				}
+				continue;
+				end_IL_0110:
 				break;
 			}
-			num++;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			PadInMidpointsPoints(previousPoint, vector);
+			PadInMidpointsPoints(vector, newPoint);
+			return;
 		}
-		this.PadInMidpointsPoints(previousPoint, vector);
-		this.PadInMidpointsPoints(vector, newPoint);
 	}
 
 	private void CheckRedrawTimeInterval()
 	{
-		this.RedrawTimeInterval = Mathf.Max(Time.unscaledDeltaTime, this.RedrawTimeInterval);
+		RedrawTimeInterval = Mathf.Max(Time.unscaledDeltaTime, RedrawTimeInterval);
 	}
 
 	private void Update()
 	{
-		if (this.screenWidth == Screen.width)
+		if (screenWidth == Screen.width)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -303,15 +308,15 @@ public class UISpectatorPenPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorPenPanel.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.screenHeight == Screen.height)
+			if (screenHeight == Screen.height)
 			{
-				goto IL_41;
+				goto IL_0041;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -321,12 +326,13 @@ public class UISpectatorPenPanel : MonoBehaviour
 				break;
 			}
 		}
-		this.ResizeTexture();
-		IL_41:
-		bool flag;
+		ResizeTexture();
+		goto IL_0041;
+		IL_0041:
+		int num;
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -337,7 +343,7 @@ public class UISpectatorPenPanel : MonoBehaviour
 			}
 			if (ClientGameManager.Get().PlayerInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -348,10 +354,10 @@ public class UISpectatorPenPanel : MonoBehaviour
 				}
 				if (ClientGameManager.Get().PlayerInfo.TeamId == Team.Spectator)
 				{
-					flag = true;
-					goto IL_D7;
+					num = 1;
+					goto IL_00d7;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -364,7 +370,7 @@ public class UISpectatorPenPanel : MonoBehaviour
 		}
 		if (GameManager.Get() != null && GameManager.Get().PlayerInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -373,29 +379,29 @@ public class UISpectatorPenPanel : MonoBehaviour
 				}
 				break;
 			}
-			flag = (GameManager.Get().PlayerInfo.TeamId == Team.Spectator);
+			num = ((GameManager.Get().PlayerInfo.TeamId == Team.Spectator) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		IL_D7:
-		bool flag2 = flag;
-		if (flag2)
+		goto IL_00d7;
+		IL_00d7:
+		if (num == 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			UIManager.SetGameObjectActive(this.m_container, true, null);
+			UIManager.SetGameObjectActive(m_container, true);
 			if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.ToggleSpectatorDrawMode))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -404,11 +410,11 @@ public class UISpectatorPenPanel : MonoBehaviour
 					}
 					break;
 				}
-				this.DrawModeClicked(null);
+				DrawModeClicked(null);
 			}
 			if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.ClearSpectatorDraw))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -417,82 +423,116 @@ public class UISpectatorPenPanel : MonoBehaviour
 					}
 					break;
 				}
-				this.ClearDrawing(false);
+				ClearDrawing();
 			}
-			if (this.m_isDrawing)
+			if (!m_isDrawing)
 			{
-				if (Input.GetMouseButton(0))
+				return;
+			}
+			if (Input.GetMouseButton(0))
+			{
+				while (true)
 				{
-					for (;;)
+					switch (3)
 					{
-						switch (3)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!UIUtils.IsMouseOnGUI())
+				{
+					while (true)
+					{
+						switch (2)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (!UIUtils.IsMouseOnGUI())
+					Vector2 vector = Input.mousePosition * 1f;
+					if (0f <= vector.x)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (2)
+							switch (3)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						Vector2 vector = Input.mousePosition * 1f;
-						if (0f <= vector.x)
+						if (vector.x < (float)theTexture.width)
 						{
-							for (;;)
+							while (true)
 							{
-								switch (3)
+								switch (1)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							if (vector.x < (float)this.theTexture.width)
+							if (0f <= vector.y * 1f)
 							{
-								for (;;)
+								while (true)
 								{
-									switch (1)
+									switch (7)
 									{
 									case 0:
 										continue;
 									}
 									break;
 								}
-								if (0f <= vector.y * 1f)
+								if (vector.y < (float)theTexture.height)
 								{
-									for (;;)
+									while (true)
 									{
-										switch (7)
+										switch (1)
 										{
 										case 0:
 											continue;
 										}
 										break;
 									}
-									if (vector.y < (float)this.theTexture.height)
+									int num2 = (int)vector.x;
+									int num3 = (int)vector.y;
+									if (LastXPos != -1)
 									{
-										for (;;)
+										while (true)
 										{
-											switch (1)
+											switch (2)
 											{
 											case 0:
 												continue;
 											}
 											break;
 										}
-										int num = (int)vector.x;
-										int num2 = (int)vector.y;
-										if (this.LastXPos != -1)
+										if (LastYPos != -1)
 										{
-											for (;;)
+											while (true)
+											{
+												switch (1)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											CheckRedrawTimeInterval();
+											PadInMidpointsPoints(new Vector2(LastXPos, LastYPos), new Vector2(num2, num3));
+										}
+									}
+									for (int i = num2 - LineSize; i < num2 + LineSize; i++)
+									{
+										for (int j = num3 - LineSize; j < num3 + LineSize; j++)
+										{
+											if (!(0f <= (float)i))
+											{
+												continue;
+											}
+											while (true)
 											{
 												switch (2)
 												{
@@ -501,120 +541,95 @@ public class UISpectatorPenPanel : MonoBehaviour
 												}
 												break;
 											}
-											if (this.LastYPos != -1)
+											if (i >= theTexture.width || !(0f <= (float)j))
 											{
-												for (;;)
+												continue;
+											}
+											while (true)
+											{
+												switch (4)
 												{
-													switch (1)
+												case 0:
+													continue;
+												}
+												break;
+											}
+											if (j >= theTexture.height)
+											{
+												continue;
+											}
+											while (true)
+											{
+												switch (4)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											Vector2 vector2 = new Vector2(i, j);
+											if (Vector2.Distance(vector2, new Vector2(num2, num3)) < (float)LineSize)
+											{
+												while (true)
+												{
+													switch (5)
 													{
 													case 0:
 														continue;
 													}
 													break;
 												}
-												this.CheckRedrawTimeInterval();
-												this.PadInMidpointsPoints(new Vector2((float)this.LastXPos, (float)this.LastYPos), new Vector2((float)num, (float)num2));
+												theTexture.SetPixel(i, j, m_drawColor);
+												modifiedPixels[vector2] = true;
 											}
 										}
-										for (int i = num - this.LineSize; i < num + this.LineSize; i++)
+										while (true)
 										{
-											for (int j = num2 - this.LineSize; j < num2 + this.LineSize; j++)
+											switch (3)
 											{
-												if (0f <= (float)i)
-												{
-													for (;;)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
-													if (i < this.theTexture.width && 0f <= (float)j)
-													{
-														for (;;)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
-														if (j < this.theTexture.height)
-														{
-															for (;;)
-															{
-																switch (4)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
-															Vector2 vector2 = new Vector2((float)i, (float)j);
-															if (Vector2.Distance(vector2, new Vector2((float)num, (float)num2)) < (float)this.LineSize)
-															{
-																for (;;)
-																{
-																	switch (5)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
-																this.theTexture.SetPixel(i, j, this.m_drawColor);
-																this.modifiedPixels[vector2] = true;
-															}
-														}
-													}
-												}
-											}
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
+											case 0:
 												break;
+											default:
+												goto end_IL_0355;
 											}
+											continue;
+											end_IL_0355:
+											break;
 										}
-										if (this.modifiedPixels.Count - this.LastNumModifiedPixelsDrawn > this.PixelCountRedrawAmount && Time.time > this.LastRedrawTime + this.RedrawTimeInterval)
-										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											this.LastRedrawTime = Time.time;
-											this.LastNumModifiedPixelsDrawn = this.modifiedPixels.Count;
-											this.theTexture.Apply();
-											this.m_drawhitBox.sprite = Sprite.Create(this.theTexture, new Rect(0f, 0f, (float)this.theTexture.width, (float)this.theTexture.height), new Vector2(0.5f, 0.5f));
-										}
-										this.LastXPos = num;
-										this.LastYPos = num2;
 									}
+									if (modifiedPixels.Count - LastNumModifiedPixelsDrawn > PixelCountRedrawAmount && Time.time > LastRedrawTime + RedrawTimeInterval)
+									{
+										while (true)
+										{
+											switch (3)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										LastRedrawTime = Time.time;
+										LastNumModifiedPixelsDrawn = modifiedPixels.Count;
+										theTexture.Apply();
+										m_drawhitBox.sprite = Sprite.Create(theTexture, new Rect(0f, 0f, theTexture.width, theTexture.height), new Vector2(0.5f, 0.5f));
+									}
+									LastXPos = num2;
+									LastYPos = num3;
 								}
 							}
 						}
 					}
 				}
-				if (Input.GetMouseButtonUp(0))
-				{
-					this.LastNumModifiedPixelsDrawn = this.modifiedPixels.Count;
-					this.LastXPos = -1;
-					this.LastYPos = -1;
-					this.theTexture.Apply();
-					this.m_drawhitBox.sprite = Sprite.Create(this.theTexture, new Rect(0f, 0f, (float)this.theTexture.width, (float)this.theTexture.height), new Vector2(0.5f, 0.5f));
-				}
 			}
+			if (Input.GetMouseButtonUp(0))
+			{
+				LastNumModifiedPixelsDrawn = modifiedPixels.Count;
+				LastXPos = -1;
+				LastYPos = -1;
+				theTexture.Apply();
+				m_drawhitBox.sprite = Sprite.Create(theTexture, new Rect(0f, 0f, theTexture.width, theTexture.height), new Vector2(0.5f, 0.5f));
+			}
+			return;
 		}
 	}
 }

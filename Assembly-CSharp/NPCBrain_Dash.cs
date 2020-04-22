@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class NPCBrain_Dash : NPCBrain
@@ -7,8 +6,8 @@ public class NPCBrain_Dash : NPCBrain
 
 	public override NPCBrain Create(BotController bot, Transform destination)
 	{
-		NPCBrain_Dash npcbrain_Dash = bot.gameObject.AddComponent<NPCBrain_Dash>();
-		npcbrain_Dash.m_dashLocations = this.m_dashLocations;
-		return npcbrain_Dash;
+		NPCBrain_Dash nPCBrain_Dash = bot.gameObject.AddComponent<NPCBrain_Dash>();
+		nPCBrain_Dash.m_dashLocations = m_dashLocations;
+		return nPCBrain_Dash;
 	}
 }

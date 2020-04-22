@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class LocalizationArg_Faction : LocalizationArg
@@ -9,15 +9,14 @@ public class LocalizationArg_Faction : LocalizationArg
 
 	public static LocalizationArg_Faction Create(int factionCompetition, int factionId)
 	{
-		return new LocalizationArg_Faction
-		{
-			m_factionCompetition = factionCompetition,
-			m_factionId = factionId
-		};
+		LocalizationArg_Faction localizationArg_Faction = new LocalizationArg_Faction();
+		localizationArg_Faction.m_factionCompetition = factionCompetition;
+		localizationArg_Faction.m_factionId = factionId;
+		return localizationArg_Faction;
 	}
 
 	public override string TR()
 	{
-		return Faction.GetDisplayName(this.m_factionCompetition, this.m_factionId);
+		return Faction.GetDisplayName(m_factionCompetition, m_factionId);
 	}
 }

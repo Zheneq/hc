@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,13 +13,12 @@ public class ChatterComponent : MonoBehaviour, IGameEventListener
 
 	public void Awake()
 	{
-		this.m_registeredEvents.Clear();
-		foreach (ScriptableObject scriptableObject in this.m_chatters)
+		m_registeredEvents.Clear();
+		foreach (IChatterData chatter in m_chatters)
 		{
-			IChatterData chatterData = (IChatterData)scriptableObject;
-			if (chatterData == null)
+			if (chatter == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -29,17 +27,17 @@ public class ChatterComponent : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ChatterComponent.Awake()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				Log.Error("Chatter component on " + base.gameObject.name + " contains a null chatter entry", new object[0]);
+				Log.Error("Chatter component on " + base.gameObject.name + " contains a null chatter entry");
 			}
 			else
 			{
-				if (!this.m_registeredEvents.Contains(chatterData.GetActivateOnEvent()))
+				if (!m_registeredEvents.Contains(chatter.GetActivateOnEvent()))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -48,11 +46,11 @@ public class ChatterComponent : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					this.m_registeredEvents.Add(chatterData.GetActivateOnEvent());
+					m_registeredEvents.Add(chatter.GetActivateOnEvent());
 				}
-				if (chatterData.GetCommonData().m_oncePerTurn)
+				if (chatter.GetCommonData().m_oncePerTurn)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -61,9 +59,9 @@ public class ChatterComponent : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (!this.m_registeredEvents.Contains(GameEventManager.EventType.TurnTick))
+					if (!m_registeredEvents.Contains(GameEventManager.EventType.TurnTick))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -72,40 +70,41 @@ public class ChatterComponent : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						this.m_registeredEvents.Add(GameEventManager.EventType.TurnTick);
+						m_registeredEvents.Add(GameEventManager.EventType.TurnTick);
 					}
 				}
 			}
 		}
-		foreach (GameEventManager.EventType eventType in this.m_registeredEvents)
+		foreach (GameEventManager.EventType registeredEvent in m_registeredEvents)
 		{
-			GameEventManager.Get().AddListener(this, eventType);
+			GameEventManager.Get().AddListener(this, registeredEvent);
 		}
 	}
 
 	private void OnDestroy()
 	{
-		if (this.m_registeredEvents != null)
+		if (m_registeredEvents != null)
 		{
-			using (List<GameEventManager.EventType>.Enumerator enumerator = this.m_registeredEvents.GetEnumerator())
+			using (List<GameEventManager.EventType>.Enumerator enumerator = m_registeredEvents.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					GameEventManager.EventType eventType = enumerator.Current;
-					GameEventManager.Get().RemoveListener(this, eventType);
+					GameEventManager.EventType current = enumerator.Current;
+					GameEventManager.Get().RemoveListener(this, current);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return;
 					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ChatterComponent.OnDestroy()).MethodHandle;
 				}
 			}
 		}
@@ -113,12 +112,11 @@ public class ChatterComponent : MonoBehaviour, IGameEventListener
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		foreach (ScriptableObject scriptableObject in this.m_chatters)
+		foreach (IChatterData chatter in m_chatters)
 		{
-			IChatterData chatterData = (IChatterData)scriptableObject;
-			if (chatterData != null)
+			if (chatter != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -127,20 +125,20 @@ public class ChatterComponent : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ChatterComponent.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (eventType == GameEventManager.EventType.TurnTick)
 				{
-					if (chatterData.GetCommonData().m_oncePerTurn)
+					if (chatter.GetCommonData().m_oncePerTurn)
 					{
-						chatterData.GetCommonData().OnTurnTick();
+						chatter.GetCommonData().OnTurnTick();
 					}
 				}
-				else if (chatterData.ShouldPlayChatter(eventType, args, this))
+				else if (chatter.ShouldPlayChatter(eventType, args, this))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -149,11 +147,11 @@ public class ChatterComponent : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (this.m_eventOverrider != null)
+					if (m_eventOverrider != null)
 					{
-						this.m_eventOverrider.OnSubmitChatter(chatterData, eventType, args);
+						m_eventOverrider.OnSubmitChatter(chatter, eventType, args);
 					}
-					ChatterManager.Get().SubmitChatter(chatterData, base.gameObject);
+					ChatterManager.Get().SubmitChatter(chatter, base.gameObject);
 				}
 			}
 		}
@@ -161,9 +159,9 @@ public class ChatterComponent : MonoBehaviour, IGameEventListener
 
 	public void SetCharacterResourceLink(CharacterResourceLink characterResourceLink)
 	{
-		if (this.m_characterResourceLink)
+		if ((bool)m_characterResourceLink)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -172,13 +170,13 @@ public class ChatterComponent : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ChatterComponent.SetCharacterResourceLink(CharacterResourceLink)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_characterResourceLink != characterResourceLink)
+			if (m_characterResourceLink != characterResourceLink)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -190,16 +188,16 @@ public class ChatterComponent : MonoBehaviour, IGameEventListener
 				Debug.LogError("Character resource link is being changed; this should never happen");
 			}
 		}
-		this.m_characterResourceLink = characterResourceLink;
+		m_characterResourceLink = characterResourceLink;
 	}
 
 	public CharacterResourceLink GetCharacterResourceLink()
 	{
-		return this.m_characterResourceLink;
+		return m_characterResourceLink;
 	}
 
 	public void SetEventOverrider(ChatterEventOverrider eventOverrider)
 	{
-		this.m_eventOverrider = eventOverrider;
+		m_eventOverrider = eventOverrider;
 	}
 }

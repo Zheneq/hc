@@ -1,9 +1,14 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BlasterStretchingCone : Ability
 {
+	public enum DamageChangeMode
+	{
+		IncreaseFromMin,
+		IncreaseFromMax
+	}
+
 	[Header("-- Cone Limits")]
 	public float m_minLength;
 
@@ -30,11 +35,11 @@ public class BlasterStretchingCone : Ability
 	public float m_extraDamagePerSquareDistanceFromEnemy;
 
 	[Header("-- Damage Change by Angle and distance")]
-	public BlasterStretchingCone.DamageChangeMode m_angleDamageChangeMode;
+	public DamageChangeMode m_angleDamageChangeMode;
 
 	public int m_anglesPerDamageChange;
 
-	public BlasterStretchingCone.DamageChangeMode m_distDamageChangeMode = BlasterStretchingCone.DamageChangeMode.IncreaseFromMax;
+	public DamageChangeMode m_distDamageChangeMode = DamageChangeMode.IncreaseFromMax;
 
 	public float m_distPerDamageChange;
 
@@ -68,9 +73,9 @@ public class BlasterStretchingCone : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -79,22 +84,22 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Stretching Cone";
+			m_abilityName = "Stretching Cone";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.m_syncComp = base.GetComponent<Blaster_SyncComponent>();
-		AbilityData component = base.GetComponent<AbilityData>();
+		m_syncComp = GetComponent<Blaster_SyncComponent>();
+		AbilityData component = GetComponent<AbilityData>();
 		if (component != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -103,15 +108,15 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.Setup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_overchargeAbility = (component.GetAbilityOfType(typeof(BlasterOvercharge)) as BlasterOvercharge);
-			this.m_dashAndBlastAbility = (component.GetAbilityOfType(typeof(BlasterDashAndBlast)) as BlasterDashAndBlast);
+			m_overchargeAbility = (component.GetAbilityOfType(typeof(BlasterOvercharge)) as BlasterOvercharge);
+			m_dashAndBlastAbility = (component.GetAbilityOfType(typeof(BlasterDashAndBlast)) as BlasterDashAndBlast);
 		}
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_StretchCone(this, this.GetMinLength(), this.GetMaxLength(), this.GetMinAngle(), this.GetMaxAngle(), this.m_stretchStyle, this.GetConeBackwardOffset(), this.PenetrateLineOfSight());
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_StretchCone(this, GetMinLength(), GetMaxLength(), GetMinAngle(), GetMaxAngle(), m_stretchStyle, GetConeBackwardOffset(), PenetrateLineOfSight());
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -121,15 +126,15 @@ public class BlasterStretchingCone : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetMaxLength();
+		return GetMaxLength();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedNormalEnemyEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -138,22 +143,22 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedNormalEnemyEffect = this.m_abilityMod.m_normalEnemyEffectMod.GetModifiedValue(this.m_normalEnemyEffect);
+			cachedNormalEnemyEffect = m_abilityMod.m_normalEnemyEffectMod.GetModifiedValue(m_normalEnemyEffect);
 		}
 		else
 		{
-			cachedNormalEnemyEffect = this.m_normalEnemyEffect;
+			cachedNormalEnemyEffect = m_normalEnemyEffect;
 		}
-		this.m_cachedNormalEnemyEffect = cachedNormalEnemyEffect;
-		this.m_cachedOverchargedEnemyEffect = ((!this.m_abilityMod) ? this.m_overchargedEnemyEffect : this.m_abilityMod.m_overchargedEnemyEffectMod.GetModifiedValue(this.m_overchargedEnemyEffect));
+		m_cachedNormalEnemyEffect = cachedNormalEnemyEffect;
+		m_cachedOverchargedEnemyEffect = ((!m_abilityMod) ? m_overchargedEnemyEffect : m_abilityMod.m_overchargedEnemyEffectMod.GetModifiedValue(m_overchargedEnemyEffect));
 		StandardEffectInfo cachedSingleEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -162,21 +167,21 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			cachedSingleEnemyHitEffect = this.m_abilityMod.m_singleEnemyHitEffectMod.GetModifiedValue(this.m_singleEnemyHitEffect);
+			cachedSingleEnemyHitEffect = m_abilityMod.m_singleEnemyHitEffectMod.GetModifiedValue(m_singleEnemyHitEffect);
 		}
 		else
 		{
-			cachedSingleEnemyHitEffect = this.m_singleEnemyHitEffect;
+			cachedSingleEnemyHitEffect = m_singleEnemyHitEffect;
 		}
-		this.m_cachedSingleEnemyHitEffect = cachedSingleEnemyHitEffect;
+		m_cachedSingleEnemyHitEffect = cachedSingleEnemyHitEffect;
 	}
 
 	public float GetMinLength()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -185,15 +190,15 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetMinLength()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_minLengthMod.GetModifiedValue(this.m_minLength);
+			result = m_abilityMod.m_minLengthMod.GetModifiedValue(m_minLength);
 		}
 		else
 		{
-			result = this.m_minLength;
+			result = m_minLength;
 		}
 		return result;
 	}
@@ -201,9 +206,9 @@ public class BlasterStretchingCone : Ability
 	public float GetMaxLength()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -212,15 +217,15 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetMaxLength()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_maxLengthMod.GetModifiedValue(this.m_maxLength);
+			result = m_abilityMod.m_maxLengthMod.GetModifiedValue(m_maxLength);
 		}
 		else
 		{
-			result = this.m_maxLength;
+			result = m_maxLength;
 		}
 		return result;
 	}
@@ -228,9 +233,9 @@ public class BlasterStretchingCone : Ability
 	public float GetMinAngle()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -239,15 +244,15 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetMinAngle()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_minAngleMod.GetModifiedValue(this.m_minAngle);
+			result = m_abilityMod.m_minAngleMod.GetModifiedValue(m_minAngle);
 		}
 		else
 		{
-			result = this.m_minAngle;
+			result = m_minAngle;
 		}
 		return result;
 	}
@@ -255,9 +260,9 @@ public class BlasterStretchingCone : Ability
 	public float GetMaxAngle()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -266,15 +271,15 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetMaxAngle()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_maxAngleMod.GetModifiedValue(this.m_maxAngle);
+			result = m_abilityMod.m_maxAngleMod.GetModifiedValue(m_maxAngle);
 		}
 		else
 		{
-			result = this.m_maxAngle;
+			result = m_maxAngle;
 		}
 		return result;
 	}
@@ -282,9 +287,9 @@ public class BlasterStretchingCone : Ability
 	public float GetConeBackwardOffset()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -293,15 +298,15 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetConeBackwardOffset()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
+			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
 		}
 		else
 		{
-			result = this.m_coneBackwardOffset;
+			result = m_coneBackwardOffset;
 		}
 		return result;
 	}
@@ -309,9 +314,9 @@ public class BlasterStretchingCone : Ability
 	public bool PenetrateLineOfSight()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -320,30 +325,30 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.PenetrateLineOfSight()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(this.m_penetrateLineOfSight);
+			result = m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
 		}
 		else
 		{
-			result = this.m_penetrateLineOfSight;
+			result = m_penetrateLineOfSight;
 		}
 		return result;
 	}
 
 	public int GetDamageAmountNormal()
 	{
-		return (!this.m_abilityMod) ? this.m_damageAmountNormal : this.m_abilityMod.m_damageAmountNormalMod.GetModifiedValue(this.m_damageAmountNormal);
+		return (!m_abilityMod) ? m_damageAmountNormal : m_abilityMod.m_damageAmountNormalMod.GetModifiedValue(m_damageAmountNormal);
 	}
 
 	public int GetExtraDamageForSingleHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -352,15 +357,15 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetExtraDamageForSingleHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageForSingleHitMod.GetModifiedValue(this.m_extraDamageForSingleHit);
+			result = m_abilityMod.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit);
 		}
 		else
 		{
-			result = this.m_extraDamageForSingleHit;
+			result = m_extraDamageForSingleHit;
 		}
 		return result;
 	}
@@ -368,9 +373,9 @@ public class BlasterStretchingCone : Ability
 	public float GetExtraDamagePerSquareDistanceFromEnemy()
 	{
 		float result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -379,15 +384,15 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetExtraDamagePerSquareDistanceFromEnemy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamagePerSquareDistanceFromEnemyMod.GetModifiedValue(this.m_extraDamagePerSquareDistanceFromEnemy);
+			result = m_abilityMod.m_extraDamagePerSquareDistanceFromEnemyMod.GetModifiedValue(m_extraDamagePerSquareDistanceFromEnemy);
 		}
 		else
 		{
-			result = this.m_extraDamagePerSquareDistanceFromEnemy;
+			result = m_extraDamagePerSquareDistanceFromEnemy;
 		}
 		return result;
 	}
@@ -395,9 +400,9 @@ public class BlasterStretchingCone : Ability
 	public int GetAnglesPerDamageChange()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -406,15 +411,15 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetAnglesPerDamageChange()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_anglesPerDamageChangeMod.GetModifiedValue(this.m_anglesPerDamageChange);
+			result = m_abilityMod.m_anglesPerDamageChangeMod.GetModifiedValue(m_anglesPerDamageChange);
 		}
 		else
 		{
-			result = this.m_anglesPerDamageChange;
+			result = m_anglesPerDamageChange;
 		}
 		return result;
 	}
@@ -422,9 +427,9 @@ public class BlasterStretchingCone : Ability
 	public float GetDistPerDamageChange()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -433,15 +438,15 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetDistPerDamageChange()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_distPerDamageChangeMod.GetModifiedValue(this.m_distPerDamageChange);
+			result = m_abilityMod.m_distPerDamageChangeMod.GetModifiedValue(m_distPerDamageChange);
 		}
 		else
 		{
-			result = this.m_distPerDamageChange;
+			result = m_distPerDamageChange;
 		}
 		return result;
 	}
@@ -449,9 +454,9 @@ public class BlasterStretchingCone : Ability
 	public int GetMaxDamageChange()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -460,15 +465,15 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetMaxDamageChange()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_maxDamageChangeMod.GetModifiedValue(this.m_maxDamageChange);
+			result = m_abilityMod.m_maxDamageChangeMod.GetModifiedValue(m_maxDamageChange);
 		}
 		else
 		{
-			result = this.m_maxDamageChange;
+			result = m_maxDamageChange;
 		}
 		return result;
 	}
@@ -476,9 +481,9 @@ public class BlasterStretchingCone : Ability
 	public StandardEffectInfo GetNormalEnemyEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedNormalEnemyEffect != null)
+		if (m_cachedNormalEnemyEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -487,15 +492,15 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetNormalEnemyEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedNormalEnemyEffect;
+			result = m_cachedNormalEnemyEffect;
 		}
 		else
 		{
-			result = this.m_normalEnemyEffect;
+			result = m_normalEnemyEffect;
 		}
 		return result;
 	}
@@ -503,9 +508,9 @@ public class BlasterStretchingCone : Ability
 	public StandardEffectInfo GetOverchargedEnemyEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedOverchargedEnemyEffect != null)
+		if (m_cachedOverchargedEnemyEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -514,29 +519,29 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetOverchargedEnemyEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedOverchargedEnemyEffect;
+			result = m_cachedOverchargedEnemyEffect;
 		}
 		else
 		{
-			result = this.m_overchargedEnemyEffect;
+			result = m_overchargedEnemyEffect;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetSingleEnemyHitEffect()
 	{
-		return (this.m_cachedSingleEnemyHitEffect == null) ? this.m_singleEnemyHitEffect : this.m_cachedSingleEnemyHitEffect;
+		return (m_cachedSingleEnemyHitEffect == null) ? m_singleEnemyHitEffect : m_cachedSingleEnemyHitEffect;
 	}
 
 	private bool AmOvercharged(ActorData caster)
 	{
-		if (this.m_syncComp == null)
+		if (m_syncComp == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -545,20 +550,20 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.AmOvercharged(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_syncComp = base.GetComponent<Blaster_SyncComponent>();
+			m_syncComp = GetComponent<Blaster_SyncComponent>();
 		}
-		return this.m_syncComp.m_overchargeBuffs > 0;
+		return m_syncComp.m_overchargeBuffs > 0;
 	}
 
 	private int GetMultiStackOverchargeDamage()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -567,13 +572,13 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetMultiStackOverchargeDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComp.m_overchargeBuffs > 1)
+			if (m_syncComp.m_overchargeBuffs > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -582,18 +587,18 @@ public class BlasterStretchingCone : Ability
 					}
 					break;
 				}
-				if (this.m_overchargeAbility != null && this.m_overchargeAbility.GetExtraDamageForMultiCast() > 0)
+				if (m_overchargeAbility != null && m_overchargeAbility.GetExtraDamageForMultiCast() > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return m_overchargeAbility.GetExtraDamageForMultiCast();
 						}
-						break;
 					}
-					return this.m_overchargeAbility.GetExtraDamageForMultiCast();
 				}
 			}
 		}
@@ -602,153 +607,159 @@ public class BlasterStretchingCone : Ability
 
 	public int GetCurrentModdedDamage()
 	{
-		if (this.AmOvercharged(base.ActorData))
+		if (AmOvercharged(base.ActorData))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return GetDamageAmountNormal() + m_overchargeAbility.GetExtraDamage() + GetMultiStackOverchargeDamage();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetCurrentModdedDamage()).MethodHandle;
-			}
-			return this.GetDamageAmountNormal() + this.m_overchargeAbility.GetExtraDamage() + this.GetMultiStackOverchargeDamage();
 		}
-		return this.GetDamageAmountNormal();
+		return GetDamageAmountNormal();
 	}
 
 	public int GetExtraDamageFromAngle(float angleNow)
 	{
-		if (this.GetAnglesPerDamageChange() > 0)
+		if (GetAnglesPerDamageChange() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetExtraDamageFromAngle(float)).MethodHandle;
-			}
-			int num;
-			if (this.m_angleDamageChangeMode == BlasterStretchingCone.DamageChangeMode.IncreaseFromMin)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				num = Mathf.Max((int)(angleNow - this.GetMinAngle()), 0);
-			}
-			else
-			{
-				num = Mathf.Max((int)(this.GetMaxAngle() - angleNow), 0);
-			}
-			int num2 = num / this.GetAnglesPerDamageChange();
-			if (this.GetMaxDamageChange() > 0)
-			{
-				for (;;)
+				default:
 				{
-					switch (4)
+					if (1 == 0)
 					{
-					case 0:
-						continue;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					break;
+					int num = 0;
+					if (m_angleDamageChangeMode == DamageChangeMode.IncreaseFromMin)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num = Mathf.Max((int)(angleNow - GetMinAngle()), 0);
+					}
+					else
+					{
+						num = Mathf.Max((int)(GetMaxAngle() - angleNow), 0);
+					}
+					int num2 = num / GetAnglesPerDamageChange();
+					if (GetMaxDamageChange() > 0)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num2 = Mathf.Clamp(num2, 0, GetMaxDamageChange());
+					}
+					return num2;
 				}
-				num2 = Mathf.Clamp(num2, 0, this.GetMaxDamageChange());
+				}
 			}
-			return num2;
 		}
 		return 0;
 	}
 
 	public int GetExtraDamageFromRadius(float radiusInSquares)
 	{
-		if (this.GetDistPerDamageChange() > 0.1f)
+		if (GetDistPerDamageChange() > 0.1f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetExtraDamageFromRadius(float)).MethodHandle;
-			}
-			float num;
-			if (this.m_distDamageChangeMode == BlasterStretchingCone.DamageChangeMode.IncreaseFromMin)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				num = Mathf.Max(radiusInSquares - this.GetMinLength(), 0f);
-			}
-			else
-			{
-				num = Mathf.Max(this.GetMaxLength() - radiusInSquares, 0f);
-			}
-			int num2 = Mathf.RoundToInt(num / this.GetDistPerDamageChange());
-			if (this.GetMaxDamageChange() > 0)
-			{
-				for (;;)
+				default:
 				{
-					switch (2)
+					if (1 == 0)
 					{
-					case 0:
-						continue;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					break;
+					float num = 0f;
+					if (m_distDamageChangeMode == DamageChangeMode.IncreaseFromMin)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num = Mathf.Max(radiusInSquares - GetMinLength(), 0f);
+					}
+					else
+					{
+						num = Mathf.Max(GetMaxLength() - radiusInSquares, 0f);
+					}
+					int num2 = Mathf.RoundToInt(num / GetDistPerDamageChange());
+					if (GetMaxDamageChange() > 0)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num2 = Mathf.Clamp(num2, 0, GetMaxDamageChange());
+					}
+					return num2;
 				}
-				num2 = Mathf.Clamp(num2, 0, this.GetMaxDamageChange());
+				}
 			}
-			return num2;
 		}
 		return 0;
 	}
 
 	public int GetExtraDamageForEnemy(ActorData caster, ActorData target)
 	{
-		if (this.GetExtraDamagePerSquareDistanceFromEnemy() > 0f)
+		if (GetExtraDamagePerSquareDistanceFromEnemy() > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					float num = VectorUtils.HorizontalPlaneDistInSquares(caster.GetTravelBoardSquareWorldPosition(), target.GetTravelBoardSquareWorldPosition()) - 1.4f;
+					return Mathf.RoundToInt(GetExtraDamagePerSquareDistanceFromEnemy() * num);
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetExtraDamageForEnemy(ActorData, ActorData)).MethodHandle;
-			}
-			float num = VectorUtils.HorizontalPlaneDistInSquares(caster.\u0016(), target.\u0016()) - 1.4f;
-			return Mathf.RoundToInt(this.GetExtraDamagePerSquareDistanceFromEnemy() * num);
 		}
 		return 0;
 	}
@@ -756,14 +767,13 @@ public class BlasterStretchingCone : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_BlasterStretchingCone abilityMod_BlasterStretchingCone = modAsBase as AbilityMod_BlasterStretchingCone;
-		base.AddTokenInt(tokens, "Damage", string.Empty, (!abilityMod_BlasterStretchingCone) ? this.m_damageAmountNormal : abilityMod_BlasterStretchingCone.m_damageAmountNormalMod.GetModifiedValue(this.m_damageAmountNormal), false);
-		base.AddTokenFloat(tokens, "ExtraDamagePerSquareDistanceFromEnemy", string.Empty, this.m_extraDamagePerSquareDistanceFromEnemy, false);
-		string name = "ExtraDamageForSingleHit";
+		AddTokenInt(tokens, "Damage", string.Empty, (!abilityMod_BlasterStretchingCone) ? m_damageAmountNormal : abilityMod_BlasterStretchingCone.m_damageAmountNormalMod.GetModifiedValue(m_damageAmountNormal));
+		AddTokenFloat(tokens, "ExtraDamagePerSquareDistanceFromEnemy", string.Empty, m_extraDamagePerSquareDistanceFromEnemy);
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_BlasterStretchingCone)
+		if ((bool)abilityMod_BlasterStretchingCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -772,23 +782,22 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_BlasterStretchingCone.m_extraDamageForSingleHitMod.GetModifiedValue(this.m_extraDamageForSingleHit);
+			val = abilityMod_BlasterStretchingCone.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit);
 		}
 		else
 		{
-			val = this.m_extraDamageForSingleHit;
+			val = m_extraDamageForSingleHit;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "AnglesPerDamageChange";
+		AddTokenInt(tokens, "ExtraDamageForSingleHit", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_BlasterStretchingCone)
+		if ((bool)abilityMod_BlasterStretchingCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -797,19 +806,18 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_BlasterStretchingCone.m_anglesPerDamageChangeMod.GetModifiedValue(this.m_anglesPerDamageChange);
+			val2 = abilityMod_BlasterStretchingCone.m_anglesPerDamageChangeMod.GetModifiedValue(m_anglesPerDamageChange);
 		}
 		else
 		{
-			val2 = this.m_anglesPerDamageChange;
+			val2 = m_anglesPerDamageChange;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		string name3 = "MaxDamageChange";
+		AddTokenInt(tokens, "AnglesPerDamageChange", empty2, val2);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_BlasterStretchingCone)
+		if ((bool)abilityMod_BlasterStretchingCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -818,18 +826,18 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			val3 = abilityMod_BlasterStretchingCone.m_maxDamageChangeMod.GetModifiedValue(this.m_maxDamageChange);
+			val3 = abilityMod_BlasterStretchingCone.m_maxDamageChangeMod.GetModifiedValue(m_maxDamageChange);
 		}
 		else
 		{
-			val3 = this.m_maxDamageChange;
+			val3 = m_maxDamageChange;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_BlasterStretchingCone) ? this.m_normalEnemyEffect : abilityMod_BlasterStretchingCone.m_normalEnemyEffectMod.GetModifiedValue(this.m_normalEnemyEffect), "NormalEnemyEffect", this.m_normalEnemyEffect, true);
+		AddTokenInt(tokens, "MaxDamageChange", empty3, val3);
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_BlasterStretchingCone) ? m_normalEnemyEffect : abilityMod_BlasterStretchingCone.m_normalEnemyEffectMod.GetModifiedValue(m_normalEnemyEffect), "NormalEnemyEffect", m_normalEnemyEffect);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_BlasterStretchingCone)
+		if ((bool)abilityMod_BlasterStretchingCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -838,17 +846,17 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			effectInfo = abilityMod_BlasterStretchingCone.m_overchargedEnemyEffectMod.GetModifiedValue(this.m_overchargedEnemyEffect);
+			effectInfo = abilityMod_BlasterStretchingCone.m_overchargedEnemyEffectMod.GetModifiedValue(m_overchargedEnemyEffect);
 		}
 		else
 		{
-			effectInfo = this.m_overchargedEnemyEffect;
+			effectInfo = m_overchargedEnemyEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "OverchargedEnemyEffect", this.m_overchargedEnemyEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "OverchargedEnemyEffect", m_overchargedEnemyEffect);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_BlasterStretchingCone)
+		if ((bool)abilityMod_BlasterStretchingCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -857,20 +865,20 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			effectInfo2 = abilityMod_BlasterStretchingCone.m_singleEnemyHitEffectMod.GetModifiedValue(this.m_singleEnemyHitEffect);
+			effectInfo2 = abilityMod_BlasterStretchingCone.m_singleEnemyHitEffectMod.GetModifiedValue(m_singleEnemyHitEffect);
 		}
 		else
 		{
-			effectInfo2 = this.m_singleEnemyHitEffect;
+			effectInfo2 = m_singleEnemyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "SingleEnemyHitEffect", this.m_singleEnemyHitEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "SingleEnemyHitEffect", m_singleEnemyHitEffect);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetCurrentModdedDamage());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetCurrentModdedDamage());
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -879,7 +887,7 @@ public class BlasterStretchingCone : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -888,22 +896,22 @@ public class BlasterStretchingCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = base.Targeter as AbilityUtil_Targeter_StretchCone;
 			int num = 0;
 			if (abilityUtil_Targeter_StretchCone != null)
 			{
-				num += this.GetExtraDamageFromAngle(abilityUtil_Targeter_StretchCone.LastConeAngle);
-				num += this.GetExtraDamageFromRadius(abilityUtil_Targeter_StretchCone.LastConeRadiusInSquares);
-				num += this.GetExtraDamageForEnemy(base.ActorData, targetActor);
+				num += GetExtraDamageFromAngle(abilityUtil_Targeter_StretchCone.LastConeAngle);
+				num += GetExtraDamageFromRadius(abilityUtil_Targeter_StretchCone.LastConeRadiusInSquares);
+				num += GetExtraDamageForEnemy(base.ActorData, targetActor);
 			}
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -913,10 +921,10 @@ public class BlasterStretchingCone : Ability
 					break;
 				}
 				int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-				int num2 = this.GetCurrentModdedDamage() + num;
+				int num2 = GetCurrentModdedDamage() + num;
 				if (visibleActorsCountByTooltipSubject == 1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -925,7 +933,7 @@ public class BlasterStretchingCone : Ability
 						}
 						break;
 					}
-					num2 += this.GetExtraDamageForSingleHit();
+					num2 += GetExtraDamageForSingleHit();
 				}
 				dictionary[AbilityTooltipSymbol.Damage] = num2;
 			}
@@ -935,96 +943,92 @@ public class BlasterStretchingCone : Ability
 
 	public override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
 	{
-		min = this.GetMinLength() * Board.\u000E().squareSize;
-		max = this.GetMaxLength() * Board.\u000E().squareSize;
+		min = GetMinLength() * Board.Get().squareSize;
+		max = GetMaxLength() * Board.Get().squareSize;
 		return true;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_BlasterStretchingCone))
+		if (abilityMod.GetType() != typeof(AbilityMod_BlasterStretchingCone))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_BlasterStretchingCone);
-			this.Setup();
-			if (this.m_dashAndBlastAbility != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_dashAndBlastAbility.m_useConeParamsFromPrimary)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_dashAndBlastAbility.OnPrimaryAttackModChange();
-				}
-			}
+			return;
 		}
-	}
-
-	protected override void OnRemoveAbilityMod()
-	{
-		this.m_abilityMod = null;
-		this.Setup();
-		if (this.m_dashAndBlastAbility != null)
+		while (true)
 		{
-			for (;;)
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_abilityMod = (abilityMod as AbilityMod_BlasterStretchingCone);
+			Setup();
+			if (!(m_dashAndBlastAbility != null))
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (m_dashAndBlastAbility.m_useConeParamsFromPrimary)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						m_dashAndBlastAbility.OnPrimaryAttackModChange();
+						return;
+					}
+				}
+				return;
 			}
-			if (!true)
+		}
+	}
+
+	protected override void OnRemoveAbilityMod()
+	{
+		m_abilityMod = null;
+		Setup();
+		if (!(m_dashAndBlastAbility != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.OnRemoveAbilityMod()).MethodHandle;
+			case 0:
+				continue;
 			}
-			if (this.m_dashAndBlastAbility.m_useConeParamsFromPrimary)
+			if (1 == 0)
 			{
-				for (;;)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_dashAndBlastAbility.m_useConeParamsFromPrimary)
+			{
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_dashAndBlastAbility.OnPrimaryAttackModChange();
+					return;
 				}
-				this.m_dashAndBlastAbility.OnPrimaryAttackModChange();
 			}
+			return;
 		}
-	}
-
-	public enum DamageChangeMode
-	{
-		IncreaseFromMin,
-		IncreaseFromMax
 	}
 }

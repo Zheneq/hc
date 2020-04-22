@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -63,20 +62,86 @@ public class Ninja_SyncComponent : NetworkBehaviour
 
 	private NinjaRewind m_rewindAbility;
 
-	private static int kListm_deathmarkedActorIndices = -0x12B1182F;
+	private static int kListm_deathmarkedActorIndices;
+
+	public short Networkm_rewindHToHp
+	{
+		get
+		{
+			return m_rewindHToHp;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_rewindHToHp, 1u);
+		}
+	}
+
+	public short Networkm_rewindToSquareX
+	{
+		get
+		{
+			return m_rewindToSquareX;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_rewindToSquareX, 2u);
+		}
+	}
+
+	public short Networkm_rewindToSquareY
+	{
+		get
+		{
+			return m_rewindToSquareY;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_rewindToSquareY, 4u);
+		}
+	}
+
+	public bool Networkm_shurikenDashingThisTurn
+	{
+		get
+		{
+			return m_shurikenDashingThisTurn;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_shurikenDashingThisTurn, 8u);
+		}
+	}
+
+	public int Networkm_totalDeathmarkDamage
+	{
+		get
+		{
+			return m_totalDeathmarkDamage;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_totalDeathmarkDamage, 16u);
+		}
+	}
 
 	static Ninja_SyncComponent()
 	{
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(Ninja_SyncComponent), Ninja_SyncComponent.kListm_deathmarkedActorIndices, new NetworkBehaviour.CmdDelegate(Ninja_SyncComponent.InvokeSyncListm_deathmarkedActorIndices));
+		kListm_deathmarkedActorIndices = -313595951;
+		NetworkBehaviour.RegisterSyncListDelegate(typeof(Ninja_SyncComponent), kListm_deathmarkedActorIndices, InvokeSyncListm_deathmarkedActorIndices);
 		NetworkCRC.RegisterBehaviour("Ninja_SyncComponent", 0);
 	}
 
 	private void Start()
 	{
-		this.m_owner = base.GetComponent<ActorData>();
-		if (this.m_owner != null && this.m_owner.\u000E() != null)
+		m_owner = GetComponent<ActorData>();
+		if (m_owner != null && m_owner.GetAbilityData() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -85,79 +150,81 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja_SyncComponent.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_shurikenOrDashAbility = (this.m_owner.\u000E().GetAbilityOfType(typeof(NinjaShurikenOrDash)) as NinjaShurikenOrDash);
-			this.m_shurikenOrDashActionType = this.m_owner.\u000E().GetActionTypeOfAbility(this.m_shurikenOrDashAbility);
-			this.m_rewindAbility = (this.m_owner.\u000E().GetAbilityOfType(typeof(NinjaRewind)) as NinjaRewind);
+			m_shurikenOrDashAbility = (m_owner.GetAbilityData().GetAbilityOfType(typeof(NinjaShurikenOrDash)) as NinjaShurikenOrDash);
+			m_shurikenOrDashActionType = m_owner.GetAbilityData().GetActionTypeOfAbility(m_shurikenOrDashAbility);
+			m_rewindAbility = (m_owner.GetAbilityData().GetAbilityOfType(typeof(NinjaRewind)) as NinjaRewind);
 		}
-		if (HighlightUtils.Get() != null)
+		if (!(HighlightUtils.Get() != null))
 		{
-			this.m_rangeIndicatorObj = HighlightUtils.Get().CreateDynamicConeMesh(1f, 360f, true, null);
-			UIDynamicCone uidynamicCone = (!this.m_rangeIndicatorObj) ? null : this.m_rangeIndicatorObj.GetComponent<UIDynamicCone>();
-			if (uidynamicCone != null)
+			return;
+		}
+		m_rangeIndicatorObj = HighlightUtils.Get().CreateDynamicConeMesh(1f, 360f, true);
+		UIDynamicCone uIDynamicCone = (!m_rangeIndicatorObj) ? null : m_rangeIndicatorObj.GetComponent<UIDynamicCone>();
+		if (uIDynamicCone != null)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (7)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				HighlightUtils.Get().AdjustDynamicConeMesh(this.m_rangeIndicatorObj, 1f, 360f);
-				uidynamicCone.SetConeObjectActive(false);
+				break;
 			}
-			if (this.m_rewindIndicatorVfxPrefab != null)
+			HighlightUtils.Get().AdjustDynamicConeMesh(m_rangeIndicatorObj, 1f, 360f);
+			uIDynamicCone.SetConeObjectActive(false);
+		}
+		if (!(m_rewindIndicatorVfxPrefab != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				for (;;)
+			case 0:
+				continue;
+			}
+			if (m_rewindAbility != null)
+			{
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (this.m_rewindAbility != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_rewindIndicatorObj = UnityEngine.Object.Instantiate<GameObject>(this.m_rewindIndicatorVfxPrefab, Vector3.zero, Quaternion.identity);
-					this.m_rewindIndicatorObj.SetActive(false);
-					this.m_rewindIndicatorFoFComp = this.m_rewindIndicatorObj.GetComponent<FriendlyEnemyVFXSelector>();
+					m_rewindIndicatorObj = Object.Instantiate(m_rewindIndicatorVfxPrefab, Vector3.zero, Quaternion.identity);
+					m_rewindIndicatorObj.SetActive(false);
+					m_rewindIndicatorFoFComp = m_rewindIndicatorObj.GetComponent<FriendlyEnemyVFXSelector>();
+					return;
 				}
 			}
+			return;
 		}
 	}
 
 	public BoardSquare GetSquareForRewind()
 	{
-		return Board.\u000E().\u0016((int)this.m_rewindToSquareX, (int)this.m_rewindToSquareY);
+		return Board.Get().GetBoardSquare(m_rewindToSquareX, m_rewindToSquareY);
 	}
 
 	public void ClearSquareForRewind()
 	{
-		this.Networkm_rewindToSquareX = -1;
-		this.Networkm_rewindToSquareY = -1;
+		Networkm_rewindToSquareX = -1;
+		Networkm_rewindToSquareY = -1;
 	}
 
 	public bool ActorHasDeathmark(ActorData actor)
 	{
-		bool result;
+		int result;
 		if (actor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -166,36 +233,36 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja_SyncComponent.ActorHasDeathmark(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_deathmarkedActorIndices.Contains((uint)actor.ActorIndex);
+			result = (m_deathmarkedActorIndices.Contains((uint)actor.ActorIndex) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool HasDeathmarkActor()
 	{
-		return this.m_deathmarkedActorIndices.Count > 0;
+		return m_deathmarkedActorIndices.Count > 0;
 	}
 
 	public int GetTotalDeathmarkDamage()
 	{
-		return this.m_totalDeathmarkDamage;
+		return m_totalDeathmarkDamage;
 	}
 
-	private unsafe bool ShouldShowRangeIndicator(out float dashToUnmarkedRange)
+	private bool ShouldShowRangeIndicator(out float dashToUnmarkedRange)
 	{
 		bool result = false;
 		dashToUnmarkedRange = 0f;
 		if (NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -204,13 +271,13 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja_SyncComponent.ShouldShowRangeIndicator(float*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_shurikenOrDashAbility != null && GameFlowData.Get() != null)
+			if (m_shurikenOrDashAbility != null && GameFlowData.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -224,7 +291,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 					if (activeOwnedActorData != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -233,9 +300,9 @@ public class Ninja_SyncComponent : NetworkBehaviour
 							}
 							break;
 						}
-						if (this.m_owner.\u0018())
+						if (m_owner.IsVisibleToClient())
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -244,10 +311,10 @@ public class Ninja_SyncComponent : NetworkBehaviour
 								}
 								break;
 							}
-							bool flag;
-							if (this.m_owner.\u000E() == activeOwnedActorData.\u000E())
+							bool flag = false;
+							if (m_owner.GetTeam() == activeOwnedActorData.GetTeam())
 							{
-								for (;;)
+								while (true)
 								{
 									switch (4)
 									{
@@ -256,15 +323,15 @@ public class Ninja_SyncComponent : NetworkBehaviour
 									}
 									break;
 								}
-								flag = this.m_owner.\u000E().ValidateActionIsRequestable(this.m_shurikenOrDashActionType);
+								flag = m_owner.GetAbilityData().ValidateActionIsRequestable(m_shurikenOrDashActionType);
 							}
 							else
 							{
-								flag = (this.m_owner.\u000E().GetCooldownRemaining(this.m_shurikenOrDashActionType) <= 0);
+								flag = (m_owner.GetAbilityData().GetCooldownRemaining(m_shurikenOrDashActionType) <= 0);
 							}
 							if (flag)
 							{
-								dashToUnmarkedRange = this.m_shurikenOrDashAbility.GetDashToUnmarkedRange();
+								dashToUnmarkedRange = m_shurikenOrDashAbility.GetDashToUnmarkedRange();
 								result = (dashToUnmarkedRange > 0f);
 							}
 						}
@@ -280,7 +347,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		bool result = false;
 		if (NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -289,13 +356,13 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja_SyncComponent.ShouldShowRevindIndicator()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -304,9 +371,9 @@ public class Ninja_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				if (this.m_rewindAbility != null)
+				if (m_rewindAbility != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -315,9 +382,9 @@ public class Ninja_SyncComponent : NetworkBehaviour
 						}
 						break;
 					}
-					if (this.m_owner != null)
+					if (m_owner != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -326,9 +393,9 @@ public class Ninja_SyncComponent : NetworkBehaviour
 							}
 							break;
 						}
-						if (!this.m_owner.\u000E() && FogOfWar.GetClientFog() != null)
+						if (!m_owner.IsDead() && FogOfWar.GetClientFog() != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -337,10 +404,10 @@ public class Ninja_SyncComponent : NetworkBehaviour
 								}
 								break;
 							}
-							BoardSquare squareForRewind = this.GetSquareForRewind();
+							BoardSquare squareForRewind = GetSquareForRewind();
 							if (squareForRewind != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -353,7 +420,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 								{
 									if (GameFlowData.Get().LocalPlayerData != null)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (7)
 											{
@@ -362,26 +429,24 @@ public class Ninja_SyncComponent : NetworkBehaviour
 											}
 											break;
 										}
-										if (GameFlowData.Get().LocalPlayerData.GetTeamViewing() == this.m_owner.\u000E())
+										if (GameFlowData.Get().LocalPlayerData.GetTeamViewing() == m_owner.GetTeam())
 										{
-											goto IL_130;
+											goto IL_0130;
 										}
 									}
-									if (!FogOfWar.GetClientFog().IsVisible(squareForRewind))
+									if (FogOfWar.GetClientFog().IsVisible(squareForRewind))
 									{
-										return result;
-									}
-									for (;;)
-									{
-										switch (4)
+										while (true)
 										{
-										case 0:
-											continue;
+											switch (4)
+											{
+											case 0:
+												continue;
+											}
+											break;
 										}
-										break;
+										goto IL_0130;
 									}
-									IL_130:
-									result = true;
 								}
 							}
 						}
@@ -389,29 +454,34 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				}
 			}
 		}
+		goto IL_0132;
+		IL_0130:
+		result = true;
+		goto IL_0132;
+		IL_0132:
 		return result;
 	}
 
 	private void Update()
 	{
-		if (NetworkClient.active)
+		if (!NetworkClient.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja_SyncComponent.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_rangeIndicatorObj != null)
+			if (m_rangeIndicatorObj != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -420,11 +490,11 @@ public class Ninja_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				float radiusInSquares;
-				bool flag = this.ShouldShowRangeIndicator(out radiusInSquares);
+				float dashToUnmarkedRange;
+				bool flag = ShouldShowRangeIndicator(out dashToUnmarkedRange);
 				if (flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -433,9 +503,9 @@ public class Ninja_SyncComponent : NetworkBehaviour
 						}
 						break;
 					}
-					if (!this.m_rangeIndicatorObj.activeSelf)
+					if (!m_rangeIndicatorObj.activeSelf)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -444,17 +514,17 @@ public class Ninja_SyncComponent : NetworkBehaviour
 							}
 							break;
 						}
-						this.m_rangeIndicatorObj.SetActive(true);
-						HighlightUtils.Get().AdjustDynamicConeMesh(this.m_rangeIndicatorObj, radiusInSquares, 360f);
-						Vector3 position = this.m_owner.\u0016();
-						position.y = HighlightUtils.GetHighlightHeight();
-						this.m_rangeIndicatorObj.transform.position = position;
-						goto IL_EE;
+						m_rangeIndicatorObj.SetActive(true);
+						HighlightUtils.Get().AdjustDynamicConeMesh(m_rangeIndicatorObj, dashToUnmarkedRange, 360f);
+						Vector3 travelBoardSquareWorldPosition = m_owner.GetTravelBoardSquareWorldPosition();
+						travelBoardSquareWorldPosition.y = HighlightUtils.GetHighlightHeight();
+						m_rangeIndicatorObj.transform.position = travelBoardSquareWorldPosition;
+						goto IL_00ee;
 					}
 				}
 				if (!flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -463,9 +533,9 @@ public class Ninja_SyncComponent : NetworkBehaviour
 						}
 						break;
 					}
-					if (this.m_rangeIndicatorObj.activeSelf)
+					if (m_rangeIndicatorObj.activeSelf)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -474,30 +544,31 @@ public class Ninja_SyncComponent : NetworkBehaviour
 							}
 							break;
 						}
-						this.m_rangeIndicatorObj.SetActive(false);
+						m_rangeIndicatorObj.SetActive(false);
 					}
 				}
 			}
-			IL_EE:
-			if (this.m_rewindIndicatorObj != null)
+			goto IL_00ee;
+			IL_00ee:
+			if (!(m_rewindIndicatorObj != null))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (5)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (this.m_rewindIndicatorFoFComp != null)
+				if (m_rewindIndicatorFoFComp != null)
 				{
-					this.m_rewindIndicatorFoFComp.Setup(this.m_owner.\u000E());
+					m_rewindIndicatorFoFComp.Setup(m_owner.GetTeam());
 				}
-				bool flag2 = this.ShouldShowRevindIndicator();
+				bool flag2 = ShouldShowRevindIndicator();
 				if (flag2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -506,40 +577,43 @@ public class Ninja_SyncComponent : NetworkBehaviour
 						}
 						break;
 					}
-					if (!this.m_rewindIndicatorObj.activeSelf)
+					if (!m_rewindIndicatorObj.activeSelf)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+							{
+								BoardSquare squareForRewind = GetSquareForRewind();
+								Vector3 position = squareForRewind.ToVector3();
+								position.y = HighlightUtils.GetHighlightHeight();
+								m_rewindIndicatorObj.transform.position = position;
+								m_rewindIndicatorObj.SetActive(true);
+								return;
 							}
-							break;
+							}
 						}
-						BoardSquare squareForRewind = this.GetSquareForRewind();
-						Vector3 position2 = squareForRewind.ToVector3();
-						position2.y = HighlightUtils.GetHighlightHeight();
-						this.m_rewindIndicatorObj.transform.position = position2;
-						this.m_rewindIndicatorObj.SetActive(true);
-						return;
 					}
 				}
-				if (!flag2)
+				if (flag2)
 				{
-					for (;;)
+					return;
+				}
+				while (true)
+				{
+					switch (6)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (this.m_rewindIndicatorObj.activeSelf)
+					if (m_rewindIndicatorObj.activeSelf)
 					{
-						this.m_rewindIndicatorObj.SetActive(false);
+						m_rewindIndicatorObj.SetActive(false);
 					}
+					return;
 				}
 			}
 		}
@@ -549,115 +623,50 @@ public class Ninja_SyncComponent : NetworkBehaviour
 	{
 	}
 
-	public short Networkm_rewindHToHp
-	{
-		get
-		{
-			return this.m_rewindHToHp;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<short>(value, ref this.m_rewindHToHp, 1U);
-		}
-	}
-
-	public short Networkm_rewindToSquareX
-	{
-		get
-		{
-			return this.m_rewindToSquareX;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<short>(value, ref this.m_rewindToSquareX, 2U);
-		}
-	}
-
-	public short Networkm_rewindToSquareY
-	{
-		get
-		{
-			return this.m_rewindToSquareY;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<short>(value, ref this.m_rewindToSquareY, 4U);
-		}
-	}
-
-	public bool Networkm_shurikenDashingThisTurn
-	{
-		get
-		{
-			return this.m_shurikenDashingThisTurn;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<bool>(value, ref this.m_shurikenDashingThisTurn, 8U);
-		}
-	}
-
-	public int Networkm_totalDeathmarkDamage
-	{
-		get
-		{
-			return this.m_totalDeathmarkDamage;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_totalDeathmarkDamage, 0x10U);
-		}
-	}
-
 	protected static void InvokeSyncListm_deathmarkedActorIndices(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("SyncList m_deathmarkedActorIndices called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja_SyncComponent.InvokeSyncListm_deathmarkedActorIndices(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("SyncList m_deathmarkedActorIndices called on server.");
-			return;
 		}
 		((Ninja_SyncComponent)obj).m_deathmarkedActorIndices.HandleMsg(reader);
 	}
 
 	private void Awake()
 	{
-		this.m_deathmarkedActorIndices.InitializeBehaviour(this, Ninja_SyncComponent.kListm_deathmarkedActorIndices);
+		m_deathmarkedActorIndices.InitializeBehaviour(this, kListm_deathmarkedActorIndices);
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			writer.WritePackedUInt32((uint)this.m_rewindHToHp);
-			writer.WritePackedUInt32((uint)this.m_rewindToSquareX);
-			writer.WritePackedUInt32((uint)this.m_rewindToSquareY);
-			writer.Write(this.m_shurikenDashingThisTurn);
-			writer.WritePackedUInt32((uint)this.m_totalDeathmarkDamage);
-			SyncListUInt.WriteInstance(writer, this.m_deathmarkedActorIndices);
+			writer.WritePackedUInt32((uint)m_rewindHToHp);
+			writer.WritePackedUInt32((uint)m_rewindToSquareX);
+			writer.WritePackedUInt32((uint)m_rewindToSquareY);
+			writer.Write(m_shurikenDashingThisTurn);
+			writer.WritePackedUInt32((uint)m_totalDeathmarkDamage);
+			SyncListUInt.WriteInstance(writer, m_deathmarkedActorIndices);
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -666,13 +675,13 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -684,11 +693,11 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_rewindHToHp);
+			writer.WritePackedUInt32((uint)m_rewindHToHp);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -699,7 +708,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -711,11 +720,11 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_rewindToSquareX);
+			writer.WritePackedUInt32((uint)m_rewindToSquareX);
 		}
-		if ((base.syncVarDirtyBits & 4U) != 0U)
+		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -726,7 +735,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -738,11 +747,11 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_rewindToSquareY);
+			writer.WritePackedUInt32((uint)m_rewindToSquareY);
 		}
-		if ((base.syncVarDirtyBits & 8U) != 0U)
+		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -753,7 +762,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -765,11 +774,11 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_shurikenDashingThisTurn);
+			writer.Write(m_shurikenDashingThisTurn);
 		}
-		if ((base.syncVarDirtyBits & 0x10U) != 0U)
+		if ((base.syncVarDirtyBits & 0x10) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -780,7 +789,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -792,11 +801,11 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_totalDeathmarkDamage);
+			writer.WritePackedUInt32((uint)m_totalDeathmarkDamage);
 		}
-		if ((base.syncVarDirtyBits & 0x20U) != 0U)
+		if ((base.syncVarDirtyBits & 0x20) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -810,11 +819,11 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			SyncListUInt.WriteInstance(writer, this.m_deathmarkedActorIndices);
+			SyncListUInt.WriteInstance(writer, m_deathmarkedActorIndices);
 		}
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -832,18 +841,18 @@ public class Ninja_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			this.m_rewindHToHp = (short)reader.ReadPackedUInt32();
-			this.m_rewindToSquareX = (short)reader.ReadPackedUInt32();
-			this.m_rewindToSquareY = (short)reader.ReadPackedUInt32();
-			this.m_shurikenDashingThisTurn = reader.ReadBoolean();
-			this.m_totalDeathmarkDamage = (int)reader.ReadPackedUInt32();
-			SyncListUInt.ReadReference(reader, this.m_deathmarkedActorIndices);
+			m_rewindHToHp = (short)reader.ReadPackedUInt32();
+			m_rewindToSquareX = (short)reader.ReadPackedUInt32();
+			m_rewindToSquareY = (short)reader.ReadPackedUInt32();
+			m_shurikenDashingThisTurn = reader.ReadBoolean();
+			m_totalDeathmarkDamage = (int)reader.ReadPackedUInt32();
+			SyncListUInt.ReadReference(reader, m_deathmarkedActorIndices);
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -852,15 +861,15 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_rewindHToHp = (short)reader.ReadPackedUInt32();
+			m_rewindHToHp = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -869,11 +878,11 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_rewindToSquareX = (short)reader.ReadPackedUInt32();
+			m_rewindToSquareX = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -882,28 +891,29 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_rewindToSquareY = (short)reader.ReadPackedUInt32();
+			m_rewindToSquareY = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)
 		{
-			this.m_shurikenDashingThisTurn = reader.ReadBoolean();
+			m_shurikenDashingThisTurn = reader.ReadBoolean();
 		}
 		if ((num & 0x10) != 0)
 		{
-			this.m_totalDeathmarkDamage = (int)reader.ReadPackedUInt32();
+			m_totalDeathmarkDamage = (int)reader.ReadPackedUInt32();
 		}
-		if ((num & 0x20) != 0)
+		if ((num & 0x20) == 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			SyncListUInt.ReadReference(reader, this.m_deathmarkedActorIndices);
+			SyncListUInt.ReadReference(reader, m_deathmarkedActorIndices);
+			return;
 		}
 	}
 }

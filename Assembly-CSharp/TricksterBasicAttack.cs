@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,9 +47,9 @@ public class TricksterBasicAttack : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -59,20 +58,20 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Trickster Laser";
+			m_abilityName = "Trickster Laser";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.m_afterImageSyncComp = base.GetComponent<TricksterAfterImageNetworkBehaviour>();
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_TricksterLaser(this, this.m_afterImageSyncComp, this.GetLaserInfo(), 2);
+		m_afterImageSyncComp = GetComponent<TricksterAfterImageNetworkBehaviour>();
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_TricksterLaser(this, m_afterImageSyncComp, GetLaserInfo(), 2);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -82,20 +81,20 @@ public class TricksterBasicAttack : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetLaserInfo().range;
+		return GetLaserInfo().range;
 	}
 
-	public override Ability.TargetingParadigm GetControlpadTargetingParadigm(int targetIndex)
+	public override TargetingParadigm GetControlpadTargetingParadigm(int targetIndex)
 	{
-		return Ability.TargetingParadigm.Position;
+		return TargetingParadigm.Position;
 	}
 
 	private void SetCachedFields()
 	{
 		LaserTargetingInfo cachedLaserInfo;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -104,21 +103,21 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedLaserInfo = this.m_abilityMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
+			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
 		{
-			cachedLaserInfo = this.m_laserInfo;
+			cachedLaserInfo = m_laserInfo;
 		}
-		this.m_cachedLaserInfo = cachedLaserInfo;
+		m_cachedLaserInfo = cachedLaserInfo;
 		StandardEffectInfo cachedEnemySingleHitHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -127,17 +126,17 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			cachedEnemySingleHitHitEffect = this.m_abilityMod.m_enemySingleHitHitEffectMod.GetModifiedValue(this.m_enemySingleHitHitEffect);
+			cachedEnemySingleHitHitEffect = m_abilityMod.m_enemySingleHitHitEffectMod.GetModifiedValue(m_enemySingleHitHitEffect);
 		}
 		else
 		{
-			cachedEnemySingleHitHitEffect = this.m_enemySingleHitHitEffect;
+			cachedEnemySingleHitHitEffect = m_enemySingleHitHitEffect;
 		}
-		this.m_cachedEnemySingleHitHitEffect = cachedEnemySingleHitHitEffect;
+		m_cachedEnemySingleHitHitEffect = cachedEnemySingleHitHitEffect;
 		StandardEffectInfo cachedEnemyMultiHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -146,17 +145,17 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			cachedEnemyMultiHitEffect = this.m_abilityMod.m_enemyMultiHitEffectMod.GetModifiedValue(this.m_enemyMultiHitEffect);
+			cachedEnemyMultiHitEffect = m_abilityMod.m_enemyMultiHitEffectMod.GetModifiedValue(m_enemyMultiHitEffect);
 		}
 		else
 		{
-			cachedEnemyMultiHitEffect = this.m_enemyMultiHitEffect;
+			cachedEnemyMultiHitEffect = m_enemyMultiHitEffect;
 		}
-		this.m_cachedEnemyMultiHitEffect = cachedEnemyMultiHitEffect;
+		m_cachedEnemyMultiHitEffect = cachedEnemyMultiHitEffect;
 		StandardEffectInfo cachedSelfEffectForMultiHit;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -165,17 +164,17 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			cachedSelfEffectForMultiHit = this.m_abilityMod.m_selfEffectForMultiHitMod.GetModifiedValue(this.m_selfEffectForMultiHit);
+			cachedSelfEffectForMultiHit = m_abilityMod.m_selfEffectForMultiHitMod.GetModifiedValue(m_selfEffectForMultiHit);
 		}
 		else
 		{
-			cachedSelfEffectForMultiHit = this.m_selfEffectForMultiHit;
+			cachedSelfEffectForMultiHit = m_selfEffectForMultiHit;
 		}
-		this.m_cachedSelfEffectForMultiHit = cachedSelfEffectForMultiHit;
+		m_cachedSelfEffectForMultiHit = cachedSelfEffectForMultiHit;
 		SpoilsSpawnData cachedSpoilSpawnInfo;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -184,21 +183,21 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			cachedSpoilSpawnInfo = this.m_abilityMod.m_spoilSpawnInfoMod.GetModifiedValue(this.m_spoilSpawnInfo);
+			cachedSpoilSpawnInfo = m_abilityMod.m_spoilSpawnInfoMod.GetModifiedValue(m_spoilSpawnInfo);
 		}
 		else
 		{
-			cachedSpoilSpawnInfo = this.m_spoilSpawnInfo;
+			cachedSpoilSpawnInfo = m_spoilSpawnInfo;
 		}
-		this.m_cachedSpoilSpawnInfo = cachedSpoilSpawnInfo;
+		m_cachedSpoilSpawnInfo = cachedSpoilSpawnInfo;
 	}
 
 	public LaserTargetingInfo GetLaserInfo()
 	{
 		LaserTargetingInfo result;
-		if (this.m_cachedLaserInfo != null)
+		if (m_cachedLaserInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -207,30 +206,30 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetLaserInfo()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedLaserInfo;
+			result = m_cachedLaserInfo;
 		}
 		else
 		{
-			result = this.m_laserInfo;
+			result = m_laserInfo;
 		}
 		return result;
 	}
 
 	public int GetLaserDamageAmount()
 	{
-		return (!this.m_abilityMod) ? this.m_laserDamageAmount : this.m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(this.m_laserDamageAmount);
+		return (!m_abilityMod) ? m_laserDamageAmount : m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount);
 	}
 
 	public int GetLaserSubsequentDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -239,15 +238,15 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetLaserSubsequentDamageAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_laserSubsequentDamageAmountMod.GetModifiedValue(this.m_laserSubsequentDamageAmount);
+			result = m_abilityMod.m_laserSubsequentDamageAmountMod.GetModifiedValue(m_laserSubsequentDamageAmount);
 		}
 		else
 		{
-			result = this.m_laserSubsequentDamageAmount;
+			result = m_laserSubsequentDamageAmount;
 		}
 		return result;
 	}
@@ -255,9 +254,9 @@ public class TricksterBasicAttack : Ability
 	public int GetExtraDamageForSingleHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -266,15 +265,15 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetExtraDamageForSingleHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageForSingleHitMod.GetModifiedValue(this.m_extraDamageForSingleHit);
+			result = m_abilityMod.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit);
 		}
 		else
 		{
-			result = this.m_extraDamageForSingleHit;
+			result = m_extraDamageForSingleHit;
 		}
 		return result;
 	}
@@ -282,9 +281,9 @@ public class TricksterBasicAttack : Ability
 	public StandardEffectInfo GetEnemySingleHitHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemySingleHitHitEffect != null)
+		if (m_cachedEnemySingleHitHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -293,15 +292,15 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetEnemySingleHitHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemySingleHitHitEffect;
+			result = m_cachedEnemySingleHitHitEffect;
 		}
 		else
 		{
-			result = this.m_enemySingleHitHitEffect;
+			result = m_enemySingleHitHitEffect;
 		}
 		return result;
 	}
@@ -309,9 +308,9 @@ public class TricksterBasicAttack : Ability
 	public StandardEffectInfo GetEnemyMultiHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyMultiHitEffect != null)
+		if (m_cachedEnemyMultiHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -320,15 +319,15 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetEnemyMultiHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemyMultiHitEffect;
+			result = m_cachedEnemyMultiHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyMultiHitEffect;
+			result = m_enemyMultiHitEffect;
 		}
 		return result;
 	}
@@ -336,9 +335,9 @@ public class TricksterBasicAttack : Ability
 	public StandardEffectInfo GetSelfEffectForMultiHit()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedSelfEffectForMultiHit != null)
+		if (m_cachedSelfEffectForMultiHit != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -347,15 +346,15 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetSelfEffectForMultiHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedSelfEffectForMultiHit;
+			result = m_cachedSelfEffectForMultiHit;
 		}
 		else
 		{
-			result = this.m_selfEffectForMultiHit;
+			result = m_selfEffectForMultiHit;
 		}
 		return result;
 	}
@@ -363,9 +362,9 @@ public class TricksterBasicAttack : Ability
 	public int GetEnergyGainPerLaserHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -374,15 +373,15 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetEnergyGainPerLaserHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_energyGainPerLaserHitMod.GetModifiedValue(this.m_energyGainPerLaserHit);
+			result = m_abilityMod.m_energyGainPerLaserHitMod.GetModifiedValue(m_energyGainPerLaserHit);
 		}
 		else
 		{
-			result = this.m_energyGainPerLaserHit;
+			result = m_energyGainPerLaserHit;
 		}
 		return result;
 	}
@@ -390,9 +389,9 @@ public class TricksterBasicAttack : Ability
 	public SpoilsSpawnData GetSpoilSpawnInfo()
 	{
 		SpoilsSpawnData result;
-		if (this.m_cachedSpoilSpawnInfo != null)
+		if (m_cachedSpoilSpawnInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -401,15 +400,15 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetSpoilSpawnInfo()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedSpoilSpawnInfo;
+			result = m_cachedSpoilSpawnInfo;
 		}
 		else
 		{
-			result = this.m_spoilSpawnInfo;
+			result = m_spoilSpawnInfo;
 		}
 		return result;
 	}
@@ -417,9 +416,9 @@ public class TricksterBasicAttack : Ability
 	public bool OnlySpawnSpoilOnMultiHit()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -428,36 +427,36 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.OnlySpawnSpoilOnMultiHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_onlySpawnSpoilOnMultiHitMod.GetModifiedValue(this.m_onlySpawnSpoilOnMultiHit);
+			result = m_abilityMod.m_onlySpawnSpoilOnMultiHitMod.GetModifiedValue(m_onlySpawnSpoilOnMultiHit);
 		}
 		else
 		{
-			result = this.m_onlySpawnSpoilOnMultiHit;
+			result = m_onlySpawnSpoilOnMultiHit;
 		}
 		return result;
 	}
 
 	private int CalcDamageFromNumHits(int numHits, int numFromCover)
 	{
-		return ActorMultiHitContext.CalcDamageFromNumHits(numHits, numFromCover, this.GetLaserDamageAmount(), this.GetLaserSubsequentDamageAmount());
+		return ActorMultiHitContext.CalcDamageFromNumHits(numHits, numFromCover, GetLaserDamageAmount(), GetLaserSubsequentDamageAmount());
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetLaserDamageAmount());
-		this.GetEnemySingleHitHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetLaserDamageAmount());
+		GetEnemySingleHitHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		return numbers;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> _001D()
 	{
-		List<int> list = base.\u001D();
-		list.Add(this.GetLaserSubsequentDamageAmount());
+		List<int> list = base._001D();
+		list.Add(GetLaserSubsequentDamageAmount());
 		return list;
 	}
 
@@ -467,7 +466,7 @@ public class TricksterBasicAttack : Ability
 		AbilityUtil_Targeter_TricksterLaser abilityUtil_Targeter_TricksterLaser = base.Targeter as AbilityUtil_Targeter_TricksterLaser;
 		if (abilityUtil_Targeter_TricksterLaser != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -476,13 +475,13 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (abilityUtil_Targeter_TricksterLaser.m_actorToHitCount.ContainsKey(targetActor))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -493,10 +492,10 @@ public class TricksterBasicAttack : Ability
 				}
 				int num = abilityUtil_Targeter_TricksterLaser.m_actorToHitCount[targetActor];
 				int numFromCover = abilityUtil_Targeter_TricksterLaser.m_actorToCoverCount[targetActor];
-				int num2 = this.CalcDamageFromNumHits(num, numFromCover);
+				int num2 = CalcDamageFromNumHits(num, numFromCover);
 				if (num == 1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -505,9 +504,9 @@ public class TricksterBasicAttack : Ability
 						}
 						break;
 					}
-					if (this.GetExtraDamageForSingleHit() > 0)
+					if (GetExtraDamageForSingleHit() > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -516,7 +515,7 @@ public class TricksterBasicAttack : Ability
 							}
 							break;
 						}
-						num2 += this.GetExtraDamageForSingleHit();
+						num2 += GetExtraDamageForSingleHit();
 					}
 				}
 				dictionary[AbilityTooltipSymbol.Damage] = num2;
@@ -527,23 +526,25 @@ public class TricksterBasicAttack : Ability
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (this.GetEnergyGainPerLaserHit() > 0)
+		if (GetEnergyGainPerLaserHit() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					int tooltipSubjectCountTotalWithDuplicates = base.Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject.Primary);
+					return tooltipSubjectCountTotalWithDuplicates * GetEnergyGainPerLaserHit();
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
-			int tooltipSubjectCountTotalWithDuplicates = base.Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject.Primary);
-			return tooltipSubjectCountTotalWithDuplicates * this.GetEnergyGainPerLaserHit();
 		}
 		return 0;
 	}
@@ -551,12 +552,11 @@ public class TricksterBasicAttack : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_TricksterBasicAttack abilityMod_TricksterBasicAttack = modAsBase as AbilityMod_TricksterBasicAttack;
-		string name = "LaserDamageAmount";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_TricksterBasicAttack)
+		if ((bool)abilityMod_TricksterBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -565,24 +565,23 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_TricksterBasicAttack.m_laserDamageAmountMod.GetModifiedValue(this.m_laserDamageAmount);
+			val = abilityMod_TricksterBasicAttack.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
 		{
-			val = this.m_laserDamageAmount;
+			val = m_laserDamageAmount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		base.AddTokenInt(tokens, "LaserSubsequentDamageAmount", string.Empty, (!abilityMod_TricksterBasicAttack) ? this.m_laserSubsequentDamageAmount : abilityMod_TricksterBasicAttack.m_laserSubsequentDamageAmountMod.GetModifiedValue(this.m_laserSubsequentDamageAmount), false);
-		string name2 = "ExtraDamageForSingleHit";
+		AddTokenInt(tokens, "LaserDamageAmount", empty, val);
+		AddTokenInt(tokens, "LaserSubsequentDamageAmount", string.Empty, (!abilityMod_TricksterBasicAttack) ? m_laserSubsequentDamageAmount : abilityMod_TricksterBasicAttack.m_laserSubsequentDamageAmountMod.GetModifiedValue(m_laserSubsequentDamageAmount));
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_TricksterBasicAttack)
+		if ((bool)abilityMod_TricksterBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -591,17 +590,17 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_TricksterBasicAttack.m_extraDamageForSingleHitMod.GetModifiedValue(this.m_extraDamageForSingleHit);
+			val2 = abilityMod_TricksterBasicAttack.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit);
 		}
 		else
 		{
-			val2 = this.m_extraDamageForSingleHit;
+			val2 = m_extraDamageForSingleHit;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
+		AddTokenInt(tokens, "ExtraDamageForSingleHit", empty2, val2);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_TricksterBasicAttack)
+		if ((bool)abilityMod_TricksterBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -610,18 +609,18 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			effectInfo = abilityMod_TricksterBasicAttack.m_enemySingleHitHitEffectMod.GetModifiedValue(this.m_enemySingleHitHitEffect);
+			effectInfo = abilityMod_TricksterBasicAttack.m_enemySingleHitHitEffectMod.GetModifiedValue(m_enemySingleHitHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_enemySingleHitHitEffect;
+			effectInfo = m_enemySingleHitHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemySingleHitHitEffect", this.m_enemySingleHitHitEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_TricksterBasicAttack) ? this.m_enemyMultiHitEffect : abilityMod_TricksterBasicAttack.m_enemyMultiHitEffectMod.GetModifiedValue(this.m_enemyMultiHitEffect), "EnemyMultiHitEffect", this.m_enemyMultiHitEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemySingleHitHitEffect", m_enemySingleHitHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_TricksterBasicAttack) ? m_enemyMultiHitEffect : abilityMod_TricksterBasicAttack.m_enemyMultiHitEffectMod.GetModifiedValue(m_enemyMultiHitEffect), "EnemyMultiHitEffect", m_enemyMultiHitEffect);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_TricksterBasicAttack)
+		if ((bool)abilityMod_TricksterBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -630,19 +629,18 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			effectInfo2 = abilityMod_TricksterBasicAttack.m_selfEffectForMultiHitMod.GetModifiedValue(this.m_selfEffectForMultiHit);
+			effectInfo2 = abilityMod_TricksterBasicAttack.m_selfEffectForMultiHitMod.GetModifiedValue(m_selfEffectForMultiHit);
 		}
 		else
 		{
-			effectInfo2 = this.m_selfEffectForMultiHit;
+			effectInfo2 = m_selfEffectForMultiHit;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "SelfEffectForMultiHit", this.m_selfEffectForMultiHit, true);
-		string name3 = "EnergyGainPerLaserHit";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "SelfEffectForMultiHit", m_selfEffectForMultiHit);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_TricksterBasicAttack)
+		if ((bool)abilityMod_TricksterBasicAttack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -651,26 +649,26 @@ public class TricksterBasicAttack : Ability
 				}
 				break;
 			}
-			val3 = abilityMod_TricksterBasicAttack.m_energyGainPerLaserHitMod.GetModifiedValue(this.m_energyGainPerLaserHit);
+			val3 = abilityMod_TricksterBasicAttack.m_energyGainPerLaserHitMod.GetModifiedValue(m_energyGainPerLaserHit);
 		}
 		else
 		{
-			val3 = this.m_energyGainPerLaserHit;
+			val3 = m_energyGainPerLaserHit;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
+		AddTokenInt(tokens, "EnergyGainPerLaserHit", empty3, val3);
 	}
 
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (actorData != null)
+				ActorData current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -679,13 +677,13 @@ public class TricksterBasicAttack : Ability
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (!actorData.\u000E())
+					if (!current.IsDead())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -694,34 +692,35 @@ public class TricksterBasicAttack : Ability
 							}
 							break;
 						}
-						this.m_afterImageSyncComp.TurnToPosition(actorData, targetPos);
-						Animator animator = actorData.\u000E();
-						animator.SetInteger("Attack", animationIndex);
-						animator.SetBool("CinematicCam", cinecam);
-						animator.SetTrigger("StartAttack");
+						m_afterImageSyncComp.TurnToPosition(current, targetPos);
+						Animator modelAnimator = current.GetModelAnimator();
+						modelAnimator.SetInteger("Attack", animationIndex);
+						modelAnimator.SetBool("CinematicCam", cinecam);
+						modelAnimator.SetTrigger("StartAttack");
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public override void OnAbilityAnimationRequestProcessed(ActorData caster)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
-		foreach (ActorData actorData in validAfterImages)
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
+		foreach (ActorData item in validAfterImages)
 		{
-			if (actorData != null)
+			if (item != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -730,13 +729,13 @@ public class TricksterBasicAttack : Ability
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (!actorData.\u000E())
+				if (!item.IsDead())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -745,9 +744,9 @@ public class TricksterBasicAttack : Ability
 						}
 						break;
 					}
-					Animator animator = actorData.\u000E();
-					animator.SetInteger("Attack", 0);
-					animator.SetBool("CinematicCam", false);
+					Animator modelAnimator = item.GetModelAnimator();
+					modelAnimator.SetInteger("Attack", 0);
+					modelAnimator.SetBool("CinematicCam", false);
 				}
 			}
 		}
@@ -757,14 +756,14 @@ public class TricksterBasicAttack : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_TricksterBasicAttack))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_TricksterBasicAttack);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_TricksterBasicAttack);
+			Setup();
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

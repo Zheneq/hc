@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,17 +34,15 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ScoundrelTrapWire scoundrelTrapWire = base.GetTargetAbilityOnAbilityData(abilityData) as ScoundrelTrapWire;
+		ScoundrelTrapWire scoundrelTrapWire = GetTargetAbilityOnAbilityData(abilityData) as ScoundrelTrapWire;
 		bool flag = scoundrelTrapWire != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat barrierScaleMod = this.m_barrierScaleMod;
-		string prefix = "[Barrier Scale]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat barrierScaleMod = m_barrierScaleMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -53,9 +51,9 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScoundrelTrapWire.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = scoundrelTrapWire.m_barrierData.m_width;
 		}
@@ -63,10 +61,10 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(barrierScaleMod, prefix, showBaseVal, baseVal);
-		if (this.m_barrierSequence != null)
+		empty = str + AbilityModHelper.GetModPropertyDesc(barrierScaleMod, "[Barrier Scale]", flag, baseVal);
+		if (m_barrierSequence != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -75,9 +73,9 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 				}
 				break;
 			}
-			if (this.m_barrierSequence.Count > 0)
+			if (m_barrierSequence.Count > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -86,12 +84,12 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 					}
 					break;
 				}
-				text += "Has Sequence Prefab overrides for Barrier\n";
+				empty += "Has Sequence Prefab overrides for Barrier\n";
 			}
 		}
-		if (this.m_useEnemyMovedThroughOverride)
+		if (m_useEnemyMovedThroughOverride)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -100,11 +98,11 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 				}
 				break;
 			}
-			text += this.m_enemyMovedThroughOverride.GetInEditorDescription("{ Enemy Moved Through Override }", "    ", flag, (!flag) ? null : scoundrelTrapWire.m_barrierData.m_onEnemyMovedThrough);
+			empty += m_enemyMovedThroughOverride.GetInEditorDescription("{ Enemy Moved Through Override }", "    ", flag, (!flag) ? null : scoundrelTrapWire.m_barrierData.m_onEnemyMovedThrough);
 		}
-		if (this.m_useAllyMovedThroughOverride)
+		if (m_useAllyMovedThroughOverride)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -113,15 +111,12 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 				}
 				break;
 			}
-			string str2 = text;
-			GameplayResponseForActor allyMovedThroughOverride = this.m_allyMovedThroughOverride;
-			string header = "{ Ally Moved Through Override }";
-			string indent = "    ";
-			bool showDiff = flag;
-			GameplayResponseForActor other;
+			string str2 = empty;
+			GameplayResponseForActor allyMovedThroughOverride = m_allyMovedThroughOverride;
+			object other;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -136,15 +131,14 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 			{
 				other = null;
 			}
-			text = str2 + allyMovedThroughOverride.GetInEditorDescription(header, indent, showDiff, other);
+			empty = str2 + allyMovedThroughOverride.GetInEditorDescription("{ Ally Moved Through Override }", "    ", flag, (GameplayResponseForActor)other);
 		}
-		string str3 = text;
-		AbilityModPropertyBarrierDataV2 barrierDataMod = this.m_barrierDataMod;
-		string prefix2 = "{ Barrier Data Mod }";
-		StandardBarrierData baseVal2;
+		string str3 = empty;
+		AbilityModPropertyBarrierDataV2 barrierDataMod = m_barrierDataMod;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -159,24 +153,23 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 		{
 			baseVal2 = null;
 		}
-		text = str3 + AbilityModHelper.GetModPropertyDesc(barrierDataMod, prefix2, baseVal2);
-		if (this.m_cooldownReductionsWhenNoHits.HasCooldownReduction())
+		empty = str3 + AbilityModHelper.GetModPropertyDesc(barrierDataMod, "{ Barrier Data Mod }", (StandardBarrierData)baseVal2);
+		if (m_cooldownReductionsWhenNoHits.HasCooldownReduction())
 		{
-			text += this.m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
+			empty += m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
 		}
-		return text + "\n";
+		return empty + "\n";
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ScoundrelTrapWire scoundrelTrapWire = targetAbility as ScoundrelTrapWire;
 		bool flag = scoundrelTrapWire != null;
-		AbilityModPropertyBarrierDataV2 barrierDataMod = this.m_barrierDataMod;
-		string tokenName = "Wall";
-		StandardBarrierData baseVal;
+		AbilityModPropertyBarrierDataV2 barrierDataMod = m_barrierDataMod;
+		object baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -185,9 +178,9 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScoundrelTrapWire.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = scoundrelTrapWire.m_barrierData;
 		}
@@ -195,7 +188,7 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 		{
 			baseVal = null;
 		}
-		AbilityMod.AddToken_BarrierMod(tokens, barrierDataMod, tokenName, baseVal);
-		this.m_cooldownReductionsWhenNoHits.AddTooltipTokens(tokens, "CooldownReductionOnMiss");
+		AbilityMod.AddToken_BarrierMod(tokens, barrierDataMod, "Wall", (StandardBarrierData)baseVal);
+		m_cooldownReductionsWhenNoHits.AddTooltipTokens(tokens, "CooldownReductionOnMiss");
 	}
 }

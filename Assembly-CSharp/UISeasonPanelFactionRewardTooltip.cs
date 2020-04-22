@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,10 +30,10 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 
 	private void Awake()
 	{
-		UIFactionRewardTooltipListItem[] componentsInChildren = this.m_factionRewardLayoutGroup.GetComponentsInChildren<UIFactionRewardTooltipListItem>(true);
-		this.m_tooltipItems.AddRange(componentsInChildren);
-		UIFactionPersonalReward[] componentsInChildren2 = this.m_personalRewardLayoutGroup.GetComponentsInChildren<UIFactionPersonalReward>(true);
-		this.m_personalTooltipItems.AddRange(componentsInChildren2);
+		UIFactionRewardTooltipListItem[] componentsInChildren = m_factionRewardLayoutGroup.GetComponentsInChildren<UIFactionRewardTooltipListItem>(true);
+		m_tooltipItems.AddRange(componentsInChildren);
+		UIFactionPersonalReward[] componentsInChildren2 = m_personalRewardLayoutGroup.GetComponentsInChildren<UIFactionPersonalReward>(true);
+		m_personalTooltipItems.AddRange(componentsInChildren2);
 	}
 
 	public void SetupPersonalReward(int currentPersonalLevel, Faction factionInfo)
@@ -50,10 +49,10 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 				{
 					while (enumerator.MoveNext())
 					{
-						FactionReward reward = enumerator.Current;
-						if (num >= this.m_personalTooltipItems.Count)
+						FactionReward current = enumerator.Current;
+						if (num >= m_personalTooltipItems.Count)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -62,22 +61,22 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 								}
 								break;
 							}
-							if (!true)
+							if (1 == 0)
 							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelFactionRewardTooltip.SetupPersonalReward(int, Faction)).MethodHandle;
+								/*OpCode not supported: LdMemberToken*/;
 							}
-							UIFactionPersonalReward uifactionPersonalReward = UnityEngine.Object.Instantiate<UIFactionPersonalReward>(this.m_personalRewardPrefab);
-							uifactionPersonalReward.transform.SetParent(this.m_personalRewardLayoutGroup.gameObject.transform);
-							uifactionPersonalReward.transform.localPosition = Vector3.zero;
-							uifactionPersonalReward.transform.localScale = Vector3.one;
-							uifactionPersonalReward.transform.localEulerAngles = Vector3.zero;
-							this.m_personalTooltipItems.Add(uifactionPersonalReward);
+							UIFactionPersonalReward uIFactionPersonalReward = Object.Instantiate(m_personalRewardPrefab);
+							uIFactionPersonalReward.transform.SetParent(m_personalRewardLayoutGroup.gameObject.transform);
+							uIFactionPersonalReward.transform.localPosition = Vector3.zero;
+							uIFactionPersonalReward.transform.localScale = Vector3.one;
+							uIFactionPersonalReward.transform.localEulerAngles = Vector3.zero;
+							m_personalTooltipItems.Add(uIFactionPersonalReward);
 						}
-						UIManager.SetGameObjectActive(this.m_personalTooltipItems[num], true, null);
-						this.m_personalTooltipItems[num].Setup(reward, i, currentPersonalLevel - 1 > i);
+						UIManager.SetGameObjectActive(m_personalTooltipItems[num], true);
+						m_personalTooltipItems[num].Setup(current, i, currentPersonalLevel - 1 > i);
 						num++;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -89,20 +88,23 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 				}
 			}
 		}
-		float num2 = (this.m_personalRewardLayoutGroup as VerticalLayoutGroup).spacing + this.m_personalRewardPrefab.GetComponent<LayoutElement>().preferredHeight;
-		this.m_personalRewardTooltipHeightObject.sizeDelta = new Vector2(this.m_personalRewardTooltipHeightObject.sizeDelta.x, this.m_personalTooltipHeightPadding + (float)num * num2);
-		for (int j = num; j < this.m_personalTooltipItems.Count; j++)
+		float num2 = (m_personalRewardLayoutGroup as VerticalLayoutGroup).spacing + m_personalRewardPrefab.GetComponent<LayoutElement>().preferredHeight;
+		RectTransform personalRewardTooltipHeightObject = m_personalRewardTooltipHeightObject;
+		Vector2 sizeDelta = m_personalRewardTooltipHeightObject.sizeDelta;
+		personalRewardTooltipHeightObject.sizeDelta = new Vector2(sizeDelta.x, m_personalTooltipHeightPadding + (float)num * num2);
+		for (int j = num; j < m_personalTooltipItems.Count; j++)
 		{
-			UIManager.SetGameObjectActive(this.m_personalTooltipItems[j], false, null);
+			UIManager.SetGameObjectActive(m_personalTooltipItems[j], false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
@@ -110,7 +112,7 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 	{
 		if (factionInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -119,15 +121,15 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelFactionRewardTooltip.SetupFactionReward(Faction, int, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (factionInfo.RewardLootTableID != 0)
 			{
 				if (currentLevel < 1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -157,7 +159,7 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 							{
 								if (conditions[k].ConditionType == QuestConditionType.FactionTierReached)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (5)
 										{
@@ -172,7 +174,7 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 									}
 								}
 							}
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -187,7 +189,7 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 							list.Add(lootTableEntry.Index);
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -196,45 +198,45 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 						}
 						break;
 					}
-					while (this.m_tooltipItems.Count <= num)
+					while (m_tooltipItems.Count <= num)
 					{
-						UIFactionRewardTooltipListItem uifactionRewardTooltipListItem = UnityEngine.Object.Instantiate<UIFactionRewardTooltipListItem>(this.m_factionRewardPrefab);
-						uifactionRewardTooltipListItem.transform.SetParent(this.m_factionRewardLayoutGroup.gameObject.transform);
-						uifactionRewardTooltipListItem.transform.localPosition = Vector3.zero;
-						uifactionRewardTooltipListItem.transform.localScale = Vector3.one;
-						uifactionRewardTooltipListItem.transform.localEulerAngles = Vector3.zero;
-						this.m_tooltipItems.Add(uifactionRewardTooltipListItem);
+						UIFactionRewardTooltipListItem uIFactionRewardTooltipListItem = Object.Instantiate(m_factionRewardPrefab);
+						uIFactionRewardTooltipListItem.transform.SetParent(m_factionRewardLayoutGroup.gameObject.transform);
+						uIFactionRewardTooltipListItem.transform.localPosition = Vector3.zero;
+						uIFactionRewardTooltipListItem.transform.localScale = Vector3.one;
+						uIFactionRewardTooltipListItem.transform.localEulerAngles = Vector3.zero;
+						m_tooltipItems.Add(uIFactionRewardTooltipListItem);
 					}
-					UIManager.SetGameObjectActive(this.m_tooltipItems[num], true, null);
-					this.m_tooltipItems[num].Setup(list, i, i < currentLevel);
+					UIManager.SetGameObjectActive(m_tooltipItems[num], true);
+					m_tooltipItems[num].Setup(list, i, i < currentLevel);
 					num++;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				this.m_rewardTooltipHeightObject.sizeDelta = new Vector2(this.m_rewardTooltipHeightObject.sizeDelta.x, this.m_tooltipHeightPadding + (float)num * this.m_factionRewardPrefab.GetComponent<LayoutElement>().preferredHeight);
-				for (int l = num; l < this.m_tooltipItems.Count; l++)
-				{
-					UIManager.SetGameObjectActive(this.m_tooltipItems[l], false, null);
-				}
-				for (;;)
-				{
-					switch (5)
+					RectTransform rewardTooltipHeightObject = m_rewardTooltipHeightObject;
+					Vector2 sizeDelta = m_rewardTooltipHeightObject.sizeDelta;
+					rewardTooltipHeightObject.sizeDelta = new Vector2(sizeDelta.x, m_tooltipHeightPadding + (float)num * m_factionRewardPrefab.GetComponent<LayoutElement>().preferredHeight);
+					for (int l = num; l < m_tooltipItems.Count; l++)
 					{
-					case 0:
-						continue;
+						UIManager.SetGameObjectActive(m_tooltipItems[l], false);
 					}
-					break;
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						return true;
+					}
 				}
-				return true;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -249,45 +251,47 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 
 	public void SetCommunityFactionVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(this.m_CommunityFactionTooltipContainer, visible, null);
-		if (visible)
+		UIManager.SetGameObjectActive(m_CommunityFactionTooltipContainer, visible);
+		if (!visible)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelFactionRewardTooltip.SetCommunityFactionVisible(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_PersonalTooltipContainer, false, null);
+			UIManager.SetGameObjectActive(m_PersonalTooltipContainer, false);
+			return;
 		}
 	}
 
 	public void SetPersonalRewardVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(this.m_PersonalTooltipContainer, visible, null);
-		if (visible)
+		UIManager.SetGameObjectActive(m_PersonalTooltipContainer, visible);
+		if (!visible)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelFactionRewardTooltip.SetPersonalRewardVisible(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_CommunityFactionTooltipContainer, false, null);
+			UIManager.SetGameObjectActive(m_CommunityFactionTooltipContainer, false);
+			return;
 		}
 	}
 }

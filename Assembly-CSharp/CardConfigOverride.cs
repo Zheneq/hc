@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class CardConfigOverride
@@ -9,6 +9,6 @@ public class CardConfigOverride
 
 	public CardConfigOverride Clone()
 	{
-		return (CardConfigOverride)base.MemberwiseClone();
+		return (CardConfigOverride)MemberwiseClone();
 	}
 }

@@ -1,5 +1,3 @@
-﻿using System;
-
 public class DebugCommand_Snapshot : DebugCommand
 {
 	public override bool AvailableInFrontEnd()
@@ -14,7 +12,7 @@ public class DebugCommand_Snapshot : DebugCommand
 
 	public override bool OnSlashCommand(string arguments)
 	{
-		ClientGameManager.Get().\u0012();
+		ClientGameManager.Get()._0012();
 		return true;
 	}
 }

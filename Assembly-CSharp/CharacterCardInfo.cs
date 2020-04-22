@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public struct CharacterCardInfo
@@ -11,39 +11,39 @@ public struct CharacterCardInfo
 
 	public void Reset()
 	{
-		this.PrepCard = CardType.None;
-		this.CombatCard = CardType.None;
-		this.DashCard = CardType.None;
+		PrepCard = CardType.None;
+		CombatCard = CardType.None;
+		DashCard = CardType.None;
 	}
 
 	public string ToIdString()
 	{
-		return string.Format("{0}/{1}/{2}", (int)this.PrepCard, (int)this.CombatCard, (int)this.DashCard);
+		return $"{(int)PrepCard}/{(int)CombatCard}/{(int)DashCard}";
 	}
 
 	public override bool Equals(object obj)
 	{
 		if (!(obj is CharacterCardInfo))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return false;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterCardInfo.Equals(object)).MethodHandle;
-			}
-			return false;
 		}
 		CharacterCardInfo characterCardInfo = (CharacterCardInfo)obj;
-		if (this.PrepCard == characterCardInfo.PrepCard)
+		int result;
+		if (PrepCard == characterCardInfo.PrepCard)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -52,19 +52,24 @@ public struct CharacterCardInfo
 				}
 				break;
 			}
-			if (this.CombatCard == characterCardInfo.CombatCard)
+			if (CombatCard == characterCardInfo.CombatCard)
 			{
-				return this.DashCard == characterCardInfo.DashCard;
+				result = ((DashCard == characterCardInfo.DashCard) ? 1 : 0);
+				goto IL_005e;
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_005e;
+		IL_005e:
+		return (byte)result != 0;
 	}
 
 	public bool HasEmptySelection()
 	{
-		if (this.PrepCard > CardType.NoOverride)
+		int result;
+		if (PrepCard > CardType.NoOverride)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -73,13 +78,13 @@ public struct CharacterCardInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterCardInfo.HasEmptySelection()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.DashCard > CardType.NoOverride)
+			if (DashCard > CardType.NoOverride)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -88,17 +93,22 @@ public struct CharacterCardInfo
 					}
 					break;
 				}
-				return this.CombatCard <= CardType.NoOverride;
+				result = ((CombatCard <= CardType.NoOverride) ? 1 : 0);
+				goto IL_003e;
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_003e;
+		IL_003e:
+		return (byte)result != 0;
 	}
 
 	public bool Uninitialized()
 	{
-		if (this.PrepCard == CardType.NoOverride)
+		int result;
+		if (PrepCard == CardType.NoOverride)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -107,20 +117,24 @@ public struct CharacterCardInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterCardInfo.Uninitialized()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.DashCard == CardType.NoOverride)
+			if (DashCard == CardType.NoOverride)
 			{
-				return this.CombatCard == CardType.NoOverride;
+				result = ((CombatCard == CardType.NoOverride) ? 1 : 0);
+				goto IL_002f;
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_002f;
+		IL_002f:
+		return (byte)result != 0;
 	}
 
 	public override int GetHashCode()
 	{
-		return this.PrepCard.GetHashCode() ^ this.CombatCard.GetHashCode() ^ this.DashCard.GetHashCode();
+		return PrepCard.GetHashCode() ^ CombatCard.GetHashCode() ^ DashCard.GetHashCode();
 	}
 }

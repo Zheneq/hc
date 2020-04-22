@@ -1,134 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
-[JsonConverter(typeof(EloValues.JsonConverter))]
 [Serializable]
+[JsonConverter(typeof(JsonConverter))]
 public class EloValues : ICloneable
 {
-	public EloValues()
-	{
-		this.Values = new Dictionary<string, EloDatum>();
-	}
-
-	public Dictionary<string, EloDatum> Values { get; private set; }
-
-	public void UpdateElo(string key, float value, int countDelta)
-	{
-		EloDatum eloDatum;
-		if (this.Values.TryGetValue(key, out eloDatum))
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EloValues.UpdateElo(string, float, int)).MethodHandle;
-			}
-			eloDatum.Elo = Math.Max(1f, value);
-			eloDatum.Count = Math.Max(0, eloDatum.Count + countDelta);
-		}
-		else
-		{
-			countDelta = Math.Max(0, countDelta);
-			this.Values.Add(key, new EloDatum
-			{
-				Elo = value,
-				Count = countDelta
-			});
-		}
-	}
-
-	public void ApplyDelta(string key, float eloDelta, int countDelta)
-	{
-		EloDatum eloDatum;
-		if (this.Values.TryGetValue(key, out eloDatum))
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EloValues.ApplyDelta(string, float, int)).MethodHandle;
-			}
-			eloDatum.Elo = Math.Max(1f, eloDatum.Elo + eloDelta);
-			eloDatum.Count = Math.Max(0, eloDatum.Count + countDelta);
-		}
-		else
-		{
-			countDelta = Math.Max(0, countDelta);
-			this.Values.Add(key, new EloDatum
-			{
-				Elo = 1500f + eloDelta,
-				Count = countDelta
-			});
-		}
-	}
-
-	public void GetElo(string key, out float elo, out int count)
-	{
-		EloDatum eloDatum;
-		if (this.Values.TryGetValue(key, out eloDatum))
-		{
-			elo = eloDatum.Elo;
-			count = eloDatum.Count;
-		}
-		else
-		{
-			elo = 1500f;
-			count = 0;
-		}
-	}
-
-	[JsonIgnore]
-	public float PlayerFacingElo
-	{
-		get
-		{
-			float result;
-			int num;
-			this.GetElo(ELOPlayerKey.PublicFacingKey.KeyText, out result, out num);
-			return result;
-		}
-		set
-		{
-			this.UpdateElo(ELOPlayerKey.PublicFacingKey.KeyText, value, 0);
-		}
-	}
-
-	[JsonIgnore]
-	public float InternalElo
-	{
-		get
-		{
-			float result;
-			int num;
-			this.GetElo(ELOPlayerKey.MatchmakingEloKey.KeyText, out result, out num);
-			return result;
-		}
-		set
-		{
-			this.UpdateElo(ELOPlayerKey.MatchmakingEloKey.KeyText, value, 0);
-		}
-	}
-
-	public object Clone()
-	{
-		return base.MemberwiseClone();
-	}
-
 	private class JsonConverter : Newtonsoft.Json.JsonConverter
 	{
 		public override bool CanConvert(Type objectType)
@@ -148,5 +25,121 @@ public class EloValues : ICloneable
 			serializer.Populate(reader, eloValues.Values);
 			return eloValues;
 		}
+	}
+
+	public Dictionary<string, EloDatum> Values
+	{
+		get;
+		private set;
+	}
+
+	[JsonIgnore]
+	public float PlayerFacingElo
+	{
+		get
+		{
+			GetElo(ELOPlayerKey.PublicFacingKey.KeyText, out float elo, out int _);
+			return elo;
+		}
+		set
+		{
+			UpdateElo(ELOPlayerKey.PublicFacingKey.KeyText, value, 0);
+		}
+	}
+
+	[JsonIgnore]
+	public float InternalElo
+	{
+		get
+		{
+			GetElo(ELOPlayerKey.MatchmakingEloKey.KeyText, out float elo, out int _);
+			return elo;
+		}
+		set
+		{
+			UpdateElo(ELOPlayerKey.MatchmakingEloKey.KeyText, value, 0);
+		}
+	}
+
+	public EloValues()
+	{
+		Values = new Dictionary<string, EloDatum>();
+	}
+
+	public void UpdateElo(string key, float value, int countDelta)
+	{
+		if (Values.TryGetValue(key, out EloDatum value2))
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					value2.Elo = Math.Max(1f, value);
+					value2.Count = Math.Max(0, value2.Count + countDelta);
+					return;
+				}
+			}
+		}
+		countDelta = Math.Max(0, countDelta);
+		Values.Add(key, new EloDatum
+		{
+			Elo = value,
+			Count = countDelta
+		});
+	}
+
+	public void ApplyDelta(string key, float eloDelta, int countDelta)
+	{
+		if (Values.TryGetValue(key, out EloDatum value))
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					value.Elo = Math.Max(1f, value.Elo + eloDelta);
+					value.Count = Math.Max(0, value.Count + countDelta);
+					return;
+				}
+			}
+		}
+		countDelta = Math.Max(0, countDelta);
+		Values.Add(key, new EloDatum
+		{
+			Elo = 1500f + eloDelta,
+			Count = countDelta
+		});
+	}
+
+	public void GetElo(string key, out float elo, out int count)
+	{
+		if (Values.TryGetValue(key, out EloDatum value))
+		{
+			elo = value.Elo;
+			count = value.Count;
+		}
+		else
+		{
+			elo = 1500f;
+			count = 0;
+		}
+	}
+
+	public object Clone()
+	{
+		return MemberwiseClone();
 	}
 }

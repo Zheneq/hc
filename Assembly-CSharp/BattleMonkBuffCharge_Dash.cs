@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ public class BattleMonkBuffCharge_Dash : Ability
 
 	public bool m_damageAoePenetratesLoS;
 
-	public int m_damage = 0x14;
+	public int m_damage = 20;
 
 	public StandardEffectInfo m_enemyDebuff;
 
@@ -20,31 +19,31 @@ public class BattleMonkBuffCharge_Dash : Ability
 
 	private void Start()
 	{
-		AbilityData component = base.GetComponent<AbilityData>();
-		if (component != null)
+		AbilityData component = GetComponent<AbilityData>();
+		if (!(component != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Dash.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			List<Ability> abilitiesAsList = component.GetAbilitiesAsList();
 			using (List<Ability>.Enumerator enumerator = abilitiesAsList.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					Ability ability = enumerator.Current;
-					if (ability is BattleMonkBuffCharge_Prep)
+					Ability current = enumerator.Current;
+					if (current is BattleMonkBuffCharge_Prep)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -53,17 +52,18 @@ public class BattleMonkBuffCharge_Dash : Ability
 							}
 							break;
 						}
-						this.m_prepAbility = (ability as BattleMonkBuffCharge_Prep);
+						m_prepAbility = (current as BattleMonkBuffCharge_Prep);
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}
@@ -71,10 +71,10 @@ public class BattleMonkBuffCharge_Dash : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		if (this.m_damage != 0)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		if (m_damage != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -83,14 +83,14 @@ public class BattleMonkBuffCharge_Dash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Dash.CalculateAbilityTooltipNumbers()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.m_damage));
+			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damage));
 		}
-		this.m_enemyDebuff.ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Enemy);
-		return list;
+		m_enemyDebuff.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		return numbers;
 	}
 
 	internal override ActorData.MovementType GetMovementType()
@@ -100,15 +100,15 @@ public class BattleMonkBuffCharge_Dash : Ability
 
 	public int GetModdedDamage()
 	{
-		return (!(this.m_prepAbility == null)) ? this.m_prepAbility.GetModdedDamage() : this.m_damage;
+		return (!(m_prepAbility == null)) ? m_prepAbility.GetModdedDamage() : m_damage;
 	}
 
 	public AbilityAreaShape GetEnemyHitShape()
 	{
 		AbilityAreaShape result;
-		if (this.m_prepAbility == null)
+		if (m_prepAbility == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -117,15 +117,15 @@ public class BattleMonkBuffCharge_Dash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Dash.GetEnemyHitShape()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_damageEnemiesShape;
+			result = m_damageEnemiesShape;
 		}
 		else
 		{
-			result = this.m_prepAbility.GetEnemyHitShape();
+			result = m_prepAbility.GetEnemyHitShape();
 		}
 		return result;
 	}

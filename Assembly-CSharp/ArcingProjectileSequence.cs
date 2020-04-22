@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class ArcingProjectileSequence : SplineProjectileSequence
@@ -32,58 +31,59 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 	public override void FinishSetup()
 	{
 		base.FinishSetup();
-		if (this.m_maxHeight != 0f)
+		if (m_maxHeight == 0f)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcingProjectileSequence.FinishSetup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_doHitsAsProjectileTravels = false;
+			m_doHitsAsProjectileTravels = false;
+			return;
 		}
 	}
 
 	internal override Vector3 GetSequencePos()
 	{
-		if (this.m_fx != null)
+		if (m_fx != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_fx.transform.position;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcingProjectileSequence.GetSequencePos()).MethodHandle;
-			}
-			return this.m_fx.transform.position;
 		}
 		return Vector3.zero;
 	}
 
 	internal virtual Vector3 GetStartPos()
 	{
-		return this.m_fxJoint.m_jointObject.transform.position;
+		return m_fxJoint.m_jointObject.transform.position;
 	}
 
 	internal override Vector3[] GetSplinePath(int curIndex, int maxIndex)
 	{
-		Vector3 vector = this.GetStartPos();
-		if (this.m_useOverrideStartPos)
+		Vector3 vector = GetStartPos();
+		if (m_useOverrideStartPos)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -92,20 +92,20 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcingProjectileSequence.GetSplinePath(int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			vector = this.m_overrideStartPos;
+			vector = m_overrideStartPos;
 		}
-		vector.y += this.m_startPosYOffset;
+		vector.y += m_startPosYOffset;
 		Vector3[] array = new Vector3[5];
-		if (this.m_maxHeight == 0f)
+		Vector3 vector2;
+		if (m_maxHeight == 0f)
 		{
-			Vector3 vector2;
-			if (this.m_useTargetHitPos)
+			if (m_useTargetHitPos)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -115,9 +115,9 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 					break;
 				}
 				int targetIndex = 0;
-				if (this.m_useLastTargetHitPos)
+				if (m_useLastTargetHitPos)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -128,16 +128,16 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 					}
 					targetIndex = Mathf.Max(0, base.Targets.Length - 1);
 				}
-				vector2 = base.GetTargetHitPosition(targetIndex, this.m_hitPosJoint);
+				vector2 = GetTargetHitPosition(targetIndex, m_hitPosJoint);
 			}
 			else
 			{
 				vector2 = base.TargetPos;
-				vector2.y += this.m_yOffset;
+				vector2.y += m_yOffset;
 			}
-			if (this.m_destPosUseSameHeightAsStart)
+			if (m_destPosUseSameHeightAsStart)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -148,9 +148,9 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 				}
 				vector2.y = vector.y;
 			}
-			if (this.m_destPosAlwaysUseGroundHeight)
+			if (m_destPosAlwaysUseGroundHeight)
 			{
-				vector2.y = (float)Board.\u000E().BaselineHeight + this.m_yOffset;
+				vector2.y = (float)Board.Get().BaselineHeight + m_yOffset;
 			}
 			else
 			{
@@ -158,9 +158,9 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 				{
 					if (base.Targets.Length != 0)
 					{
-						goto IL_168;
+						goto IL_0168;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -170,13 +170,13 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 						break;
 					}
 				}
-				if (this.m_destPosUseSameHeightIfNoTargets)
+				if (m_destPosUseSameHeightIfNoTargets)
 				{
 					vector2.y = vector.y;
 				}
-				else if (this.m_destPosUseGroundHeightIfNoTargets)
+				else if (m_destPosUseGroundHeightIfNoTargets)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -185,59 +185,60 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 						}
 						break;
 					}
-					vector2.y = (float)Board.\u000E().BaselineHeight + this.m_yOffset;
+					vector2.y = (float)Board.Get().BaselineHeight + m_yOffset;
 				}
 			}
-			IL_168:
-			Vector3 b = vector2 - vector;
-			array[0] = vector - b;
-			array[1] = vector;
-			array[2] = (vector + vector2) * 0.5f;
-			array[3] = vector2;
-			array[4] = vector2 + b;
+			goto IL_0168;
+		}
+		Vector3 vector3;
+		if (m_useTargetHitPos)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			vector3 = GetTargetHitPosition(0, m_hitPosJoint);
 		}
 		else
 		{
-			Vector3 vector3;
-			if (this.m_useTargetHitPos)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				vector3 = base.GetTargetHitPosition(0, this.m_hitPosJoint);
-			}
-			else
-			{
-				vector3 = base.TargetPos;
-			}
-			if (this.m_destPosUseSameHeightAsStart)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				vector3.y = vector.y;
-			}
-			array[0] = vector + Vector3.down * this.m_maxHeight;
-			array[1] = vector;
-			array[2] = (vector + vector3) * 0.5f + Vector3.up * this.m_maxHeight;
-			array[3] = vector3;
-			array[4] = vector3 + Vector3.down * this.m_maxHeight;
+			vector3 = base.TargetPos;
 		}
-		if (this.m_reverseDirection)
+		if (m_destPosUseSameHeightAsStart)
 		{
-			for (;;)
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			vector3.y = vector.y;
+		}
+		array[0] = vector + Vector3.down * m_maxHeight;
+		array[1] = vector;
+		array[2] = (vector + vector3) * 0.5f + Vector3.up * m_maxHeight;
+		array[3] = vector3;
+		array[4] = vector3 + Vector3.down * m_maxHeight;
+		goto IL_02cb;
+		IL_0168:
+		Vector3 b = vector2 - vector;
+		array[0] = vector - b;
+		array[1] = vector;
+		array[2] = (vector + vector2) * 0.5f;
+		array[3] = vector2;
+		array[4] = vector2 + b;
+		goto IL_02cb;
+		IL_02cb:
+		if (m_reverseDirection)
+		{
+			while (true)
 			{
 				switch (1)
 				{

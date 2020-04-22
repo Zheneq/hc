@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 
 public class UIContributionTooltip : UITooltipBase
@@ -9,7 +8,7 @@ public class UIContributionTooltip : UITooltipBase
 
 	public void Setup(string name, string description)
 	{
-		this.m_nameLabel.text = name;
-		this.m_descriptionLabel.text = description;
+		m_nameLabel.text = name;
+		m_descriptionLabel.text = description;
 	}
 }

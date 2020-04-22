@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -78,22 +77,56 @@ public class ClientActorHitResults
 
 	private List<int> m_overconIds;
 
-	public unsafe ClientActorHitResults(ref IBitStream stream)
+	public bool ExecutedHit
 	{
-		byte bitField = 0;
-		stream.Serialize(ref bitField);
-		ServerClientUtils.GetBoolsFromBitfield(bitField, out this.m_hasDamage, out this.m_hasHealing, out this.m_hasTechPointGain, out this.m_hasTechPointLoss, out this.m_hasTechPointGainOnCaster, out this.m_hasKnockback, out this.m_targetInCoverWrtDamage, out this.m_canBeReactedTo);
-		byte bitField2 = 0;
-		stream.Serialize(ref bitField2);
-		ServerClientUtils.GetBoolsFromBitfield(bitField2, out this.m_damageBoosted, out this.m_damageReduced, out this.m_updateCasterLastKnownPos, out this.m_updateTargetLastKnownPos, out this.m_updateEffectHolderLastKnownPos, out this.m_updateOtherLastKnownPos, out this.m_isPartOfHealOverTime, out this.m_triggerCasterVisOnHitVisualOnly);
-		short finalDamage = 0;
-		short finalHealing = 0;
-		short finalTechPointsGain = 0;
-		short finalTechPointsLoss = 0;
-		short finalTechPointGainOnCaster = 0;
-		if (this.m_hasDamage)
+		get;
+		private set;
+	}
+
+	public bool IsMovementHit
+	{
+		get;
+		set;
+	}
+
+	public bool HasKnockback
+	{
+		get
 		{
-			for (;;)
+			return m_hasKnockback;
+		}
+		private set
+		{
+		}
+	}
+
+	public ActorData KnockbackSourceActor
+	{
+		get
+		{
+			return m_knockbackSourceActor;
+		}
+		private set
+		{
+		}
+	}
+
+	public ClientActorHitResults(ref IBitStream stream)
+	{
+		byte value = 0;
+		stream.Serialize(ref value);
+		ServerClientUtils.GetBoolsFromBitfield(value, out m_hasDamage, out m_hasHealing, out m_hasTechPointGain, out m_hasTechPointLoss, out m_hasTechPointGainOnCaster, out m_hasKnockback, out m_targetInCoverWrtDamage, out m_canBeReactedTo);
+		byte value2 = 0;
+		stream.Serialize(ref value2);
+		ServerClientUtils.GetBoolsFromBitfield(value2, out m_damageBoosted, out m_damageReduced, out m_updateCasterLastKnownPos, out m_updateTargetLastKnownPos, out m_updateEffectHolderLastKnownPos, out m_updateOtherLastKnownPos, out m_isPartOfHealOverTime, out m_triggerCasterVisOnHitVisualOnly);
+		short value3 = 0;
+		short value4 = 0;
+		short value5 = 0;
+		short value6 = 0;
+		short value7 = 0;
+		if (m_hasDamage)
+		{
+			while (true)
 			{
 				switch (2)
 				{
@@ -102,16 +135,16 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActorHitResults..ctor(IBitStream*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			stream.Serialize(ref finalDamage);
-			this.m_finalDamage = (int)finalDamage;
+			stream.Serialize(ref value3);
+			m_finalDamage = value3;
 		}
-		if (this.m_hasHealing)
+		if (m_hasHealing)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -120,12 +153,12 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			stream.Serialize(ref finalHealing);
-			this.m_finalHealing = (int)finalHealing;
+			stream.Serialize(ref value4);
+			m_finalHealing = value4;
 		}
-		if (this.m_hasTechPointGain)
+		if (m_hasTechPointGain)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -134,12 +167,12 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			stream.Serialize(ref finalTechPointsGain);
-			this.m_finalTechPointsGain = (int)finalTechPointsGain;
+			stream.Serialize(ref value5);
+			m_finalTechPointsGain = value5;
 		}
-		if (this.m_hasTechPointLoss)
+		if (m_hasTechPointLoss)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -148,12 +181,12 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			stream.Serialize(ref finalTechPointsLoss);
-			this.m_finalTechPointsLoss = (int)finalTechPointsLoss;
+			stream.Serialize(ref value6);
+			m_finalTechPointsLoss = value6;
 		}
-		if (this.m_hasTechPointGainOnCaster)
+		if (m_hasTechPointGainOnCaster)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -162,12 +195,12 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			stream.Serialize(ref finalTechPointGainOnCaster);
-			this.m_finalTechPointGainOnCaster = (int)finalTechPointGainOnCaster;
+			stream.Serialize(ref value7);
+			m_finalTechPointGainOnCaster = value7;
 		}
-		if (this.m_hasKnockback)
+		if (m_hasKnockback)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -176,11 +209,11 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			short num = (short)ActorData.s_invalidActorIndex;
-			stream.Serialize(ref num);
-			if ((int)num != ActorData.s_invalidActorIndex)
+			short value8 = (short)ActorData.s_invalidActorIndex;
+			stream.Serialize(ref value8);
+			if (value8 != ActorData.s_invalidActorIndex)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -189,17 +222,17 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				this.m_knockbackSourceActor = GameFlowData.Get().FindActorByActorIndex((int)num);
+				m_knockbackSourceActor = GameFlowData.Get().FindActorByActorIndex(value8);
 			}
 			else
 			{
-				this.m_knockbackSourceActor = null;
+				m_knockbackSourceActor = null;
 			}
 		}
-		bool flag;
-		if (this.m_hasDamage)
+		int num;
+		if (m_hasDamage)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -208,12 +241,12 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			if (this.m_targetInCoverWrtDamage)
+			if (m_targetInCoverWrtDamage)
 			{
-				flag = true;
-				goto IL_1CB;
+				num = 1;
+				goto IL_01cb;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -223,26 +256,26 @@ public class ClientActorHitResults
 				break;
 			}
 		}
-		flag = this.m_hasKnockback;
-		IL_1CB:
-		bool flag2 = flag;
-		if (flag2)
+		num = (m_hasKnockback ? 1 : 0);
+		goto IL_01cb;
+		IL_01cb:
+		if (num != 0)
 		{
-			float x = 0f;
-			float z = 0f;
-			stream.Serialize(ref x);
-			stream.Serialize(ref z);
-			this.m_damageHitOrigin.x = x;
-			this.m_damageHitOrigin.y = 0f;
-			this.m_damageHitOrigin.z = z;
+			float value9 = 0f;
+			float value10 = 0f;
+			stream.Serialize(ref value9);
+			stream.Serialize(ref value10);
+			m_damageHitOrigin.x = value9;
+			m_damageHitOrigin.y = 0f;
+			m_damageHitOrigin.z = value10;
 		}
-		if (this.m_updateEffectHolderLastKnownPos)
+		if (m_updateEffectHolderLastKnownPos)
 		{
-			short num2 = (short)ActorData.s_invalidActorIndex;
-			stream.Serialize(ref num2);
-			if ((int)num2 != ActorData.s_invalidActorIndex)
+			short value11 = (short)ActorData.s_invalidActorIndex;
+			stream.Serialize(ref value11);
+			if (value11 != ActorData.s_invalidActorIndex)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -251,16 +284,16 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				this.m_effectHolderActor = GameFlowData.Get().FindActorByActorIndex((int)num2);
+				m_effectHolderActor = GameFlowData.Get().FindActorByActorIndex(value11);
 			}
 			else
 			{
-				this.m_effectHolderActor = null;
+				m_effectHolderActor = null;
 			}
 		}
-		if (this.m_updateOtherLastKnownPos)
+		if (m_updateOtherLastKnownPos)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -269,16 +302,16 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			byte b = 0;
-			stream.Serialize(ref b);
-			this.m_otherActorsToUpdateVisibility = new List<ActorData>((int)b);
-			for (int i = 0; i < (int)b; i++)
+			byte value12 = 0;
+			stream.Serialize(ref value12);
+			m_otherActorsToUpdateVisibility = new List<ActorData>(value12);
+			for (int i = 0; i < value12; i++)
 			{
-				short num3 = (short)ActorData.s_invalidActorIndex;
-				stream.Serialize(ref num3);
-				if ((int)num3 != ActorData.s_invalidActorIndex)
+				short value13 = (short)ActorData.s_invalidActorIndex;
+				stream.Serialize(ref value13);
+				if (value13 != ActorData.s_invalidActorIndex)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -287,14 +320,14 @@ public class ClientActorHitResults
 						}
 						break;
 					}
-					ActorData actorData = GameFlowData.Get().FindActorByActorIndex((int)num3);
+					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(value13);
 					if (actorData != null)
 					{
-						this.m_otherActorsToUpdateVisibility.Add(actorData);
+						m_otherActorsToUpdateVisibility.Add(actorData);
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -304,28 +337,28 @@ public class ClientActorHitResults
 				break;
 			}
 		}
-		bool flag3 = false;
-		bool flag4 = false;
-		bool flag5 = false;
-		bool flag6 = false;
-		bool flag7 = false;
-		bool flag8 = false;
-		bool flag9 = false;
-		bool flag10 = false;
-		bool flag11 = false;
-		bool flag12 = false;
-		bool isCharacterSpecificAbility = false;
-		bool flag13 = false;
-		byte bitField3 = 0;
-		byte bitField4 = 0;
-		stream.Serialize(ref bitField3);
-		stream.Serialize(ref bitField4);
-		ServerClientUtils.GetBoolsFromBitfield(bitField3, out flag3, out flag4, out flag6, out flag7, out flag8, out flag9, out flag10, out flag11);
-		ServerClientUtils.GetBoolsFromBitfield(bitField4, out flag12, out isCharacterSpecificAbility, out flag5, out flag13);
+		bool @out = false;
+		bool out2 = false;
+		bool out3 = false;
+		bool out4 = false;
+		bool out5 = false;
+		bool out6 = false;
+		bool out7 = false;
+		bool out8 = false;
+		bool out9 = false;
+		bool out10 = false;
+		bool out11 = false;
+		bool out12 = false;
+		byte value14 = 0;
+		byte value15 = 0;
+		stream.Serialize(ref value14);
+		stream.Serialize(ref value15);
+		ServerClientUtils.GetBoolsFromBitfield(value14, out @out, out out2, out out4, out out5, out out6, out out7, out out8, out out9);
+		ServerClientUtils.GetBoolsFromBitfield(value15, out out10, out out11, out out3, out out12);
 		List<ClientEffectStartData> effectsToStart;
-		if (flag3)
+		if (@out)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -340,12 +373,12 @@ public class ClientActorHitResults
 		{
 			effectsToStart = new List<ClientEffectStartData>();
 		}
-		this.m_effectsToStart = effectsToStart;
-		this.m_effectsToRemove = ((!flag4) ? new List<int>() : AbilityResultsUtils.DeSerializeEffectsForRemovalFromStream(ref stream));
+		m_effectsToStart = effectsToStart;
+		m_effectsToRemove = ((!out2) ? new List<int>() : AbilityResultsUtils.DeSerializeEffectsForRemovalFromStream(ref stream));
 		List<ClientBarrierStartData> barriersToAdd;
-		if (flag5)
+		if (out3)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -360,11 +393,11 @@ public class ClientActorHitResults
 		{
 			barriersToAdd = new List<ClientBarrierStartData>();
 		}
-		this.m_barriersToAdd = barriersToAdd;
+		m_barriersToAdd = barriersToAdd;
 		List<int> barriersToRemove;
-		if (flag6)
+		if (out4)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -379,11 +412,11 @@ public class ClientActorHitResults
 		{
 			barriersToRemove = new List<int>();
 		}
-		this.m_barriersToRemove = barriersToRemove;
+		m_barriersToRemove = barriersToRemove;
 		List<ServerClientUtils.SequenceEndData> sequencesToEnd;
-		if (flag7)
+		if (out5)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -398,11 +431,11 @@ public class ClientActorHitResults
 		{
 			sequencesToEnd = new List<ServerClientUtils.SequenceEndData>();
 		}
-		this.m_sequencesToEnd = sequencesToEnd;
+		m_sequencesToEnd = sequencesToEnd;
 		List<ClientReactionResults> reactions;
-		if (flag8)
+		if (out6)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -417,12 +450,12 @@ public class ClientActorHitResults
 		{
 			reactions = new List<ClientReactionResults>();
 		}
-		this.m_reactions = reactions;
-		this.m_powerupsToRemove = ((!flag9) ? new List<int>() : AbilityResultsUtils.DeSerializePowerupsToRemoveFromStream(ref stream));
+		m_reactions = reactions;
+		m_powerupsToRemove = ((!out7) ? new List<int>() : AbilityResultsUtils.DeSerializePowerupsToRemoveFromStream(ref stream));
 		List<ClientPowerupStealData> powerupsToSteal;
-		if (flag10)
+		if (out8)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -437,11 +470,11 @@ public class ClientActorHitResults
 		{
 			powerupsToSteal = new List<ClientPowerupStealData>();
 		}
-		this.m_powerupsToSteal = powerupsToSteal;
+		m_powerupsToSteal = powerupsToSteal;
 		List<ClientMovementResults> directPowerupHits;
-		if (flag11)
+		if (out9)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -456,11 +489,11 @@ public class ClientActorHitResults
 		{
 			directPowerupHits = new List<ClientMovementResults>();
 		}
-		this.m_directPowerupHits = directPowerupHits;
+		m_directPowerupHits = directPowerupHits;
 		List<ClientGameModeEvent> gameModeEvents;
-		if (flag12)
+		if (out10)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -475,47 +508,23 @@ public class ClientActorHitResults
 		{
 			gameModeEvents = new List<ClientGameModeEvent>();
 		}
-		this.m_gameModeEvents = gameModeEvents;
-		this.m_overconIds = ((!flag13) ? new List<int>() : AbilityResultsUtils.DeSerializeClientOverconListFromStream(ref stream));
-		this.m_isCharacterSpecificAbility = isCharacterSpecificAbility;
-		this.IsMovementHit = false;
-		this.ExecutedHit = false;
-	}
-
-	public bool ExecutedHit { get; private set; }
-
-	public bool IsMovementHit { get; set; }
-
-	public bool HasKnockback
-	{
-		get
-		{
-			return this.m_hasKnockback;
-		}
-		private set
-		{
-		}
-	}
-
-	public ActorData KnockbackSourceActor
-	{
-		get
-		{
-			return this.m_knockbackSourceActor;
-		}
-		private set
-		{
-		}
+		m_gameModeEvents = gameModeEvents;
+		m_overconIds = ((!out12) ? new List<int>() : AbilityResultsUtils.DeSerializeClientOverconListFromStream(ref stream));
+		m_isCharacterSpecificAbility = out11;
+		IsMovementHit = false;
+		ExecutedHit = false;
 	}
 
 	public bool HasUnexecutedReactionOnActor(ActorData actor)
 	{
 		bool flag = false;
-		int num = 0;
-		while (num < this.m_reactions.Count && !flag)
+		for (int i = 0; i < m_reactions.Count; i++)
 		{
-			flag = this.m_reactions[num].HasUnexecutedReactionOnActor(actor);
-			num++;
+			if (flag)
+			{
+				break;
+			}
+			flag = m_reactions[i].HasUnexecutedReactionOnActor(actor);
 		}
 		return flag;
 	}
@@ -523,10 +532,9 @@ public class ClientActorHitResults
 	public bool HasUnexecutedReactionHits()
 	{
 		bool flag = false;
-		int i = 0;
-		while (i < this.m_reactions.Count)
+		for (int i = 0; i < m_reactions.Count; i++)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -535,128 +543,127 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActorHitResults.HasUnexecutedReactionHits()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (flag)
+			if (!flag)
 			{
-				for (;;)
+				flag = !m_reactions[i].ReactionHitsDone();
+				continue;
+			}
+			while (true)
+			{
+				switch (2)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					return flag;
+				case 0:
+					continue;
 				}
+				break;
 			}
-			else
-			{
-				flag = !this.m_reactions[i].ReactionHitsDone();
-				i++;
-			}
+			break;
 		}
 		return flag;
 	}
 
 	public bool HasReactionHitByCaster(ActorData caster)
 	{
-		for (int i = 0; i < this.m_reactions.Count; i++)
+		for (int i = 0; i < m_reactions.Count; i++)
 		{
-			if (this.m_reactions[i].GetCaster() == caster)
+			if (!(m_reactions[i].GetCaster() == caster))
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (4)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActorHitResults.HasReactionHitByCaster(ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				return true;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return false;
 		}
-		return false;
 	}
 
-	public unsafe void GetReactionHitResultsByCaster(ActorData caster, out Dictionary<ActorData, ClientActorHitResults> actorHits, out Dictionary<Vector3, ClientPositionHitResults> posHits)
+	public void GetReactionHitResultsByCaster(ActorData caster, out Dictionary<ActorData, ClientActorHitResults> actorHits, out Dictionary<Vector3, ClientPositionHitResults> posHits)
 	{
 		actorHits = null;
 		posHits = null;
-		for (int i = 0; i < this.m_reactions.Count; i++)
+		for (int i = 0; i < m_reactions.Count; i++)
 		{
-			if (this.m_reactions[i].GetCaster() == caster)
+			if (!(m_reactions[i].GetCaster() == caster))
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (4)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActorHitResults.GetReactionHitResultsByCaster(ActorData, Dictionary<ActorData, ClientActorHitResults>*, Dictionary<Vector3, ClientPositionHitResults>*)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				actorHits = this.m_reactions[i].GetActorHitResults();
-				posHits = this.m_reactions[i].GetPosHitResults();
+				actorHits = m_reactions[i].GetActorHitResults();
+				posHits = m_reactions[i].GetPosHitResults();
 				return;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			return;
 		}
 	}
 
 	public void ExecuteReactionHitsWithExtraFlagsOnActor(ActorData targetActor, ActorData caster, bool hasDamage, bool hasHealing)
 	{
-		for (int i = 0; i < this.m_reactions.Count; i++)
+		for (int i = 0; i < m_reactions.Count; i++)
 		{
-			ClientReactionResults clientReactionResults = this.m_reactions[i];
+			ClientReactionResults clientReactionResults = m_reactions[i];
 			byte extraFlags = clientReactionResults.GetExtraFlags();
-			if (!clientReactionResults.PlayedReaction())
+			if (clientReactionResults.PlayedReaction())
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActorHitResults.ExecuteReactionHitsWithExtraFlagsOnActor(ActorData, ActorData, bool, bool)).MethodHandle;
-				}
-				if ((extraFlags & 1) == 0)
-				{
-					goto IL_62;
-				}
-				for (;;)
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			int num;
+			if ((extraFlags & 1) != 0)
+			{
+				while (true)
 				{
 					switch (5)
 					{
@@ -665,25 +672,39 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				if (!hasDamage)
+				if (hasDamage)
 				{
-					goto IL_62;
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num = (clientReactionResults.HasUnexecutedReactionOnActor(targetActor) ? 1 : 0);
+					goto IL_0063;
 				}
-				for (;;)
+			}
+			num = 0;
+			goto IL_0063;
+			IL_0063:
+			int num2;
+			if (num == 0)
+			{
+				while (true)
 				{
-					switch (2)
+					switch (6)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				bool flag = clientReactionResults.HasUnexecutedReactionOnActor(targetActor);
-				IL_63:
-				bool flag2;
-				if (!flag)
+				if ((extraFlags & 2) != 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -692,140 +713,118 @@ public class ClientActorHitResults
 						}
 						break;
 					}
-					if ((extraFlags & 2) == 0)
+					if (hasDamage)
 					{
-						goto IL_98;
-					}
-					for (;;)
-					{
-						switch (6)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
-						break;
+						num2 = (clientReactionResults.HasUnexecutedReactionOnActor(caster) ? 1 : 0);
+						goto IL_009c;
 					}
-					if (!hasDamage)
-					{
-						goto IL_98;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag2 = clientReactionResults.HasUnexecutedReactionOnActor(caster);
-					goto IL_9C;
-					IL_98:
-					flag2 = false;
 				}
-				else
-				{
-					flag2 = true;
-				}
-				IL_9C:
-				bool flag3;
-				if (!flag2)
-				{
-					if ((extraFlags & 4) == 0)
-					{
-						goto IL_CC;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!hasDamage)
-					{
-						goto IL_CC;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag3 = (clientReactionResults.GetCaster() == targetActor);
-					goto IL_D0;
-					IL_CC:
-					flag3 = false;
-				}
-				else
-				{
-					flag3 = true;
-				}
-				IL_D0:
-				bool flag4 = flag3;
-				if (flag4)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (ClientAbilityResults.\u001D)
-					{
-						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + clientReactionResults.GetDebugDescription() + " executing reaction hit on first damaging hit", new object[0]);
-					}
-					clientReactionResults.PlayReaction();
-					goto IL_111;
-				}
-				goto IL_111;
-				IL_62:
-				flag = false;
-				goto IL_63;
+				num2 = 0;
 			}
-			IL_111:;
+			else
+			{
+				num2 = 1;
+			}
+			goto IL_009c;
+			IL_009c:
+			int num3;
+			if (num2 == 0)
+			{
+				if ((extraFlags & 4) != 0)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (hasDamage)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num3 = ((clientReactionResults.GetCaster() == targetActor) ? 1 : 0);
+						goto IL_00d0;
+					}
+				}
+				num3 = 0;
+			}
+			else
+			{
+				num3 = 1;
+			}
+			goto IL_00d0;
+			IL_00d0:
+			if (num3 != 0)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (ClientAbilityResults.LogMissingSequences)
+				{
+					Log.Warning(ClientAbilityResults.s_clientHitResultHeader + clientReactionResults.GetDebugDescription() + " executing reaction hit on first damaging hit");
+				}
+				clientReactionResults.PlayReaction();
+			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public void ExecuteActorHit(ActorData target, ActorData caster)
 	{
-		if (this.ExecutedHit)
+		if (ExecutedHit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActorHitResults.ExecuteActorHit(ActorData, ActorData)).MethodHandle;
-			}
-			return;
 		}
-		if (ClientAbilityResults.\u001D)
+		if (ClientAbilityResults.LogMissingSequences)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -834,19 +833,12 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			Debug.LogWarning(string.Concat(new string[]
-			{
-				ClientAbilityResults.s_executeActorHitHeader,
-				" Target: ",
-				target.\u0018(),
-				" Caster: ",
-				caster.\u0018()
-			}));
+			Debug.LogWarning(ClientAbilityResults.s_executeActorHitHeader + " Target: " + target.GetDebugName() + " Caster: " + caster.GetDebugName());
 		}
 		bool flag = ClientResolutionManager.Get().IsInResolutionState();
-		if (this.m_triggerCasterVisOnHitVisualOnly)
+		if (m_triggerCasterVisOnHitVisualOnly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -855,9 +847,9 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			if (!this.m_updateCasterLastKnownPos)
+			if (!m_updateCasterLastKnownPos)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -866,12 +858,12 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				caster.TriggerVisibilityForHit(this.IsMovementHit, false);
+				caster.TriggerVisibilityForHit(IsMovementHit, false);
 			}
 		}
-		if (this.m_updateCasterLastKnownPos)
+		if (m_updateCasterLastKnownPos)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -880,11 +872,11 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			caster.TriggerVisibilityForHit(this.IsMovementHit, true);
+			caster.TriggerVisibilityForHit(IsMovementHit);
 		}
-		if (this.m_updateTargetLastKnownPos)
+		if (m_updateTargetLastKnownPos)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -893,11 +885,11 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			target.TriggerVisibilityForHit(this.IsMovementHit, true);
+			target.TriggerVisibilityForHit(IsMovementHit);
 		}
-		if (this.m_updateEffectHolderLastKnownPos)
+		if (m_updateEffectHolderLastKnownPos)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -906,9 +898,9 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			if (this.m_effectHolderActor != null)
+			if (m_effectHolderActor != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -917,12 +909,12 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				this.m_effectHolderActor.TriggerVisibilityForHit(this.IsMovementHit, true);
+				m_effectHolderActor.TriggerVisibilityForHit(IsMovementHit);
 			}
 		}
-		if (this.m_updateOtherLastKnownPos)
+		if (m_updateOtherLastKnownPos)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -931,9 +923,9 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			if (this.m_otherActorsToUpdateVisibility != null)
+			if (m_otherActorsToUpdateVisibility != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -942,15 +934,15 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				for (int i = 0; i < this.m_otherActorsToUpdateVisibility.Count; i++)
+				for (int i = 0; i < m_otherActorsToUpdateVisibility.Count; i++)
 				{
-					this.m_otherActorsToUpdateVisibility[i].TriggerVisibilityForHit(this.IsMovementHit, true);
+					m_otherActorsToUpdateVisibility[i].TriggerVisibilityForHit(IsMovementHit);
 				}
 			}
 		}
-		if (this.m_hasDamage)
+		if (m_hasDamage)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -961,7 +953,7 @@ public class ClientActorHitResults
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -970,13 +962,13 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				target.ClientUnresolvedDamage += this.m_finalDamage;
-				CaptureTheFlag.OnActorDamaged_Client(target, this.m_finalDamage);
+				target.ClientUnresolvedDamage += m_finalDamage;
+				CaptureTheFlag.OnActorDamaged_Client(target, m_finalDamage);
 			}
-			string text;
-			if (this.m_targetInCoverWrtDamage)
+			object obj;
+			if (m_targetInCoverWrtDamage)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -985,21 +977,21 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				text = "|C";
+				obj = "|C";
 			}
 			else
 			{
-				text = "|N";
+				obj = "|N";
 			}
-			string str = text;
+			string str = (string)obj;
 			BuffIconToDisplay icon = BuffIconToDisplay.None;
-			if (this.m_damageBoosted)
+			if (m_damageBoosted)
 			{
 				icon = BuffIconToDisplay.BoostedDamage;
 			}
-			else if (this.m_damageReduced)
+			else if (m_damageReduced)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1010,10 +1002,10 @@ public class ClientActorHitResults
 				}
 				icon = BuffIconToDisplay.ReducedDamage;
 			}
-			target.AddCombatText(this.m_finalDamage.ToString() + str, string.Empty, CombatTextCategory.Damage, icon);
-			if (this.m_targetInCoverWrtDamage)
+			target.AddCombatText(m_finalDamage + str, string.Empty, CombatTextCategory.Damage, icon);
+			if (m_targetInCoverWrtDamage)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1022,11 +1014,11 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				target.OnHitWhileInCover(this.m_damageHitOrigin, caster);
+				target.OnHitWhileInCover(m_damageHitOrigin, caster);
 			}
-			if (target.\u000E() != null)
+			if (target.GetActorBehavior() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1035,14 +1027,14 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				target.\u000E().Client_RecordDamageFromActor(caster);
+				target.GetActorBehavior().Client_RecordDamageFromActor(caster);
 			}
-			GameEventManager.ActorHitHealthChangeArgs args = new GameEventManager.ActorHitHealthChangeArgs(GameEventManager.ActorHitHealthChangeArgs.ChangeType.Damage, this.m_finalDamage, target, caster, this.m_isCharacterSpecificAbility);
+			GameEventManager.ActorHitHealthChangeArgs args = new GameEventManager.ActorHitHealthChangeArgs(GameEventManager.ActorHitHealthChangeArgs.ChangeType.Damage, m_finalDamage, target, caster, m_isCharacterSpecificAbility);
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.ActorDamaged_Client, args);
 		}
-		if (this.m_hasHealing)
+		if (m_hasHealing)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1053,7 +1045,7 @@ public class ClientActorHitResults
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1062,30 +1054,30 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				target.ClientUnresolvedHealing += this.m_finalHealing;
-				if (this.m_isPartOfHealOverTime)
+				target.ClientUnresolvedHealing += m_finalHealing;
+				if (m_isPartOfHealOverTime)
 				{
-					target.ClientAppliedHoTThisTurn += this.m_finalHealing;
+					target.ClientAppliedHoTThisTurn += m_finalHealing;
 				}
 			}
-			target.AddCombatText(this.m_finalHealing.ToString(), string.Empty, CombatTextCategory.Healing, BuffIconToDisplay.None);
-			if (target.\u000E() != null)
+			target.AddCombatText(m_finalHealing.ToString(), string.Empty, CombatTextCategory.Healing, BuffIconToDisplay.None);
+			if (target.GetActorBehavior() != null)
 			{
-				target.\u000E().Client_RecordHealingFromActor(caster);
+				target.GetActorBehavior().Client_RecordHealingFromActor(caster);
 			}
 			GameEventManager.CharacterHealBuffArgs characterHealBuffArgs = new GameEventManager.CharacterHealBuffArgs();
 			characterHealBuffArgs.targetCharacter = target;
 			characterHealBuffArgs.casterActor = caster;
 			characterHealBuffArgs.healed = true;
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.CharacterHealedOrBuffed, characterHealBuffArgs);
-			GameEventManager.ActorHitHealthChangeArgs args2 = new GameEventManager.ActorHitHealthChangeArgs(GameEventManager.ActorHitHealthChangeArgs.ChangeType.Healing, this.m_finalHealing, target, caster, this.m_isCharacterSpecificAbility);
+			GameEventManager.ActorHitHealthChangeArgs args2 = new GameEventManager.ActorHitHealthChangeArgs(GameEventManager.ActorHitHealthChangeArgs.ChangeType.Healing, m_finalHealing, target, caster, m_isCharacterSpecificAbility);
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.ActorHealed_Client, args2);
 		}
-		if (this.m_hasTechPointGain)
+		if (m_hasTechPointGain)
 		{
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1094,13 +1086,13 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				target.ClientUnresolvedTechPointGain += this.m_finalTechPointsGain;
+				target.ClientUnresolvedTechPointGain += m_finalTechPointsGain;
 			}
-			target.AddCombatText(this.m_finalTechPointsGain.ToString(), string.Empty, CombatTextCategory.TP_Recovery, BuffIconToDisplay.None);
+			target.AddCombatText(m_finalTechPointsGain.ToString(), string.Empty, CombatTextCategory.TP_Recovery, BuffIconToDisplay.None);
 		}
-		if (this.m_hasTechPointLoss)
+		if (m_hasTechPointLoss)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1111,7 +1103,7 @@ public class ClientActorHitResults
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1120,15 +1112,15 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				target.ClientUnresolvedTechPointLoss += this.m_finalTechPointsLoss;
+				target.ClientUnresolvedTechPointLoss += m_finalTechPointsLoss;
 			}
-			target.AddCombatText(this.m_finalTechPointsLoss.ToString(), string.Empty, CombatTextCategory.TP_Damage, BuffIconToDisplay.None);
+			target.AddCombatText(m_finalTechPointsLoss.ToString(), string.Empty, CombatTextCategory.TP_Damage, BuffIconToDisplay.None);
 		}
-		if (this.m_hasTechPointGainOnCaster)
+		if (m_hasTechPointGainOnCaster)
 		{
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1137,13 +1129,13 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				caster.ClientUnresolvedTechPointGain += this.m_finalTechPointGainOnCaster;
+				caster.ClientUnresolvedTechPointGain += m_finalTechPointGainOnCaster;
 			}
-			caster.AddCombatText(this.m_finalTechPointGainOnCaster.ToString(), string.Empty, CombatTextCategory.TP_Recovery, BuffIconToDisplay.None);
+			caster.AddCombatText(m_finalTechPointGainOnCaster.ToString(), string.Empty, CombatTextCategory.TP_Recovery, BuffIconToDisplay.None);
 		}
-		if (this.m_hasKnockback)
+		if (m_hasKnockback)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1152,10 +1144,10 @@ public class ClientActorHitResults
 				}
 				break;
 			}
-			ClientKnockbackManager.Get().OnKnockbackHit(this.m_knockbackSourceActor, target);
+			ClientKnockbackManager.Get().OnKnockbackHit(m_knockbackSourceActor, target);
 			if (caster != target)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1164,22 +1156,22 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				if (target.\u000E() != null && target.\u000E().IsKnockbackImmune(true))
+				if (target.GetActorStatus() != null && target.GetActorStatus().IsKnockbackImmune())
 				{
-					target.OnKnockbackWhileUnstoppable(this.m_damageHitOrigin, caster);
+					target.OnKnockbackWhileUnstoppable(m_damageHitOrigin, caster);
 				}
 			}
 		}
 		int num = 0;
-		using (List<ClientEffectStartData>.Enumerator enumerator = this.m_effectsToStart.GetEnumerator())
+		using (List<ClientEffectStartData>.Enumerator enumerator = m_effectsToStart.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ClientEffectStartData clientEffectStartData = enumerator.Current;
-				num += clientEffectStartData.m_absorb;
-				ClientEffectBarrierManager.Get().ExecuteEffectStart(clientEffectStartData);
+				ClientEffectStartData current = enumerator.Current;
+				num += current.m_absorb;
+				ClientEffectBarrierManager.Get().ExecuteEffectStart(current);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1192,25 +1184,25 @@ public class ClientActorHitResults
 		if (num > 0)
 		{
 			target.AddCombatText(num.ToString(), string.Empty, CombatTextCategory.Absorb, BuffIconToDisplay.None);
-			GameEventManager.ActorHitHealthChangeArgs args3 = new GameEventManager.ActorHitHealthChangeArgs(GameEventManager.ActorHitHealthChangeArgs.ChangeType.Absorb, num, target, caster, this.m_isCharacterSpecificAbility);
+			GameEventManager.ActorHitHealthChangeArgs args3 = new GameEventManager.ActorHitHealthChangeArgs(GameEventManager.ActorHitHealthChangeArgs.ChangeType.Absorb, num, target, caster, m_isCharacterSpecificAbility);
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.ActorGainedAbsorb_Client, args3);
 		}
-		foreach (int effectGuid in this.m_effectsToRemove)
+		foreach (int item in m_effectsToRemove)
 		{
-			ClientEffectBarrierManager.Get().EndEffect(effectGuid);
+			ClientEffectBarrierManager.Get().EndEffect(item);
 		}
-		foreach (ClientBarrierStartData barrierData in this.m_barriersToAdd)
+		foreach (ClientBarrierStartData item2 in m_barriersToAdd)
 		{
-			ClientEffectBarrierManager.Get().ExecuteBarrierStart(barrierData);
+			ClientEffectBarrierManager.Get().ExecuteBarrierStart(item2);
 		}
-		using (List<int>.Enumerator enumerator4 = this.m_barriersToRemove.GetEnumerator())
+		using (List<int>.Enumerator enumerator4 = m_barriersToRemove.GetEnumerator())
 		{
 			while (enumerator4.MoveNext())
 			{
-				int barrierGuid = enumerator4.Current;
-				ClientEffectBarrierManager.Get().EndBarrier(barrierGuid);
+				int current4 = enumerator4.Current;
+				ClientEffectBarrierManager.Get().EndBarrier(current4);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1220,14 +1212,14 @@ public class ClientActorHitResults
 				break;
 			}
 		}
-		using (List<ServerClientUtils.SequenceEndData>.Enumerator enumerator5 = this.m_sequencesToEnd.GetEnumerator())
+		using (List<ServerClientUtils.SequenceEndData>.Enumerator enumerator5 = m_sequencesToEnd.GetEnumerator())
 		{
 			while (enumerator5.MoveNext())
 			{
-				ServerClientUtils.SequenceEndData sequenceEndData = enumerator5.Current;
-				sequenceEndData.EndClientSequences();
+				ServerClientUtils.SequenceEndData current5 = enumerator5.Current;
+				current5.EndClientSequences();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1237,14 +1229,14 @@ public class ClientActorHitResults
 				break;
 			}
 		}
-		using (List<ClientReactionResults>.Enumerator enumerator6 = this.m_reactions.GetEnumerator())
+		using (List<ClientReactionResults>.Enumerator enumerator6 = m_reactions.GetEnumerator())
 		{
 			while (enumerator6.MoveNext())
 			{
-				ClientReactionResults clientReactionResults = enumerator6.Current;
-				clientReactionResults.PlayReaction();
+				ClientReactionResults current6 = enumerator6.Current;
+				current6.PlayReaction();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1254,15 +1246,15 @@ public class ClientActorHitResults
 				break;
 			}
 		}
-		using (List<int>.Enumerator enumerator7 = this.m_powerupsToRemove.GetEnumerator())
+		using (List<int>.Enumerator enumerator7 = m_powerupsToRemove.GetEnumerator())
 		{
 			while (enumerator7.MoveNext())
 			{
-				int guid = enumerator7.Current;
-				PowerUp powerUpOfGuid = PowerUpManager.Get().GetPowerUpOfGuid(guid);
+				int current7 = enumerator7.Current;
+				PowerUp powerUpOfGuid = PowerUpManager.Get().GetPowerUpOfGuid(current7);
 				if (powerUpOfGuid != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -1274,7 +1266,7 @@ public class ClientActorHitResults
 					powerUpOfGuid.Client_OnPickedUp(target.ActorIndex);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1284,19 +1276,19 @@ public class ClientActorHitResults
 				break;
 			}
 		}
-		using (List<ClientPowerupStealData>.Enumerator enumerator8 = this.m_powerupsToSteal.GetEnumerator())
+		using (List<ClientPowerupStealData>.Enumerator enumerator8 = m_powerupsToSteal.GetEnumerator())
 		{
 			while (enumerator8.MoveNext())
 			{
-				ClientPowerupStealData clientPowerupStealData = enumerator8.Current;
-				clientPowerupStealData.m_powerupResults.RunResults();
-				PowerUp powerUpOfGuid2 = PowerUpManager.Get().GetPowerUpOfGuid(clientPowerupStealData.m_powerupGuid);
+				ClientPowerupStealData current8 = enumerator8.Current;
+				current8.m_powerupResults.RunResults();
+				PowerUp powerUpOfGuid2 = PowerUpManager.Get().GetPowerUpOfGuid(current8.m_powerupGuid);
 				if (powerUpOfGuid2 != null)
 				{
 					powerUpOfGuid2.Client_OnSteal(target.ActorIndex);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1306,14 +1298,14 @@ public class ClientActorHitResults
 				break;
 			}
 		}
-		using (List<ClientMovementResults>.Enumerator enumerator9 = this.m_directPowerupHits.GetEnumerator())
+		using (List<ClientMovementResults>.Enumerator enumerator9 = m_directPowerupHits.GetEnumerator())
 		{
 			while (enumerator9.MoveNext())
 			{
-				ClientMovementResults clientMovementResults = enumerator9.Current;
-				clientMovementResults.ReactToMovement();
+				ClientMovementResults current9 = enumerator9.Current;
+				current9.ReactToMovement();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1323,14 +1315,14 @@ public class ClientActorHitResults
 				break;
 			}
 		}
-		using (List<ClientGameModeEvent>.Enumerator enumerator10 = this.m_gameModeEvents.GetEnumerator())
+		using (List<ClientGameModeEvent>.Enumerator enumerator10 = m_gameModeEvents.GetEnumerator())
 		{
 			while (enumerator10.MoveNext())
 			{
-				ClientGameModeEvent clientGameModeEvent = enumerator10.Current;
-				clientGameModeEvent.ExecuteClientGameModeEvent();
+				ClientGameModeEvent current10 = enumerator10.Current;
+				current10.ExecuteClientGameModeEvent();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1340,17 +1332,17 @@ public class ClientActorHitResults
 				break;
 			}
 		}
-		using (List<int>.Enumerator enumerator11 = this.m_overconIds.GetEnumerator())
+		using (List<int>.Enumerator enumerator11 = m_overconIds.GetEnumerator())
 		{
 			while (enumerator11.MoveNext())
 			{
-				int overconId = enumerator11.Current;
+				int current11 = enumerator11.Current;
 				if (UIOverconData.Get() != null)
 				{
-					UIOverconData.Get().UseOvercon(overconId, caster.ActorIndex, true);
+					UIOverconData.Get().UseOvercon(current11, caster.ActorIndex, true);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1360,9 +1352,9 @@ public class ClientActorHitResults
 				break;
 			}
 		}
-		this.ExecutedHit = true;
+		ExecutedHit = true;
 		ClientResolutionManager.Get().UpdateLastEventTime();
-		ClientResolutionManager.Get().OnHitExecutedOnActor(target, caster, this.m_hasDamage, this.m_hasHealing, this.m_canBeReactedTo);
+		ClientResolutionManager.Get().OnHitExecutedOnActor(target, caster, m_hasDamage, m_hasHealing, m_canBeReactedTo);
 	}
 
 	public void ShowDamage(ActorData target)
@@ -1373,13 +1365,13 @@ public class ClientActorHitResults
 
 	public int GetNumEffectsToStart()
 	{
-		return (this.m_effectsToStart == null) ? 0 : this.m_effectsToStart.Count;
+		return (m_effectsToStart != null) ? m_effectsToStart.Count : 0;
 	}
 
 	public void SwapEffectsToStart(ClientActorHitResults other)
 	{
-		List<ClientEffectStartData> effectsToStart = this.m_effectsToStart;
-		this.m_effectsToStart = other.m_effectsToStart;
+		List<ClientEffectStartData> effectsToStart = m_effectsToStart;
+		m_effectsToStart = other.m_effectsToStart;
 		other.m_effectsToStart = effectsToStart;
 	}
 }

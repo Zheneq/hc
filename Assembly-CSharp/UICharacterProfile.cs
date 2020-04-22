@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -89,93 +88,94 @@ public class UICharacterProfile : MonoBehaviour
 
 	private void Awake()
 	{
-		for (int i = 0; i < this.m_ggButtonLevelImages.Length; i++)
+		for (int i = 0; i < m_ggButtonLevelImages.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_ggButtonLevelImages[i], i == 0, null);
+			UIManager.SetGameObjectActive(m_ggButtonLevelImages[i], i == 0);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.Awake()).MethodHandle;
-		}
-		UIManager.SetGameObjectActive(this.m_tutorialEnergyGlow, false, null);
-		UIManager.SetGameObjectActive(this.m_tutorialEnergyArrows, false, null);
-		this.previousStatuses = new List<StatusType>();
-		if (this.m_useGGPackBtn != null)
-		{
-			this.m_useGGPackBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.UseGGPackBtnClicked);
-			this.m_useGGPackBtn.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, delegate(UITooltipBase tooltip)
+			if (1 == 0)
 			{
-				if (this.m_hasGgPacks)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			UIManager.SetGameObjectActive(m_tutorialEnergyGlow, false);
+			UIManager.SetGameObjectActive(m_tutorialEnergyArrows, false);
+			previousStatuses = new List<StatusType>();
+			if (m_useGGPackBtn != null)
+			{
+				m_useGGPackBtn.callback = UseGGPackBtnClicked;
+				m_useGGPackBtn.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, delegate(UITooltipBase tooltip)
 				{
-					for (;;)
+					if (m_hasGgPacks)
 					{
-						switch (4)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (4)
+							{
+							case 0:
+								break;
+							default:
+								if (1 == 0)
+								{
+									/*OpCode not supported: LdMemberToken*/;
+								}
+								return false;
+							}
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(UICharacterProfile.<Awake>m__0(UITooltipBase)).MethodHandle;
-					}
-					return false;
-				}
-				UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-				uititledTooltip.Setup(StringUtil.TR("OutOfGGBoosts", "Global"), StringUtil.TR("YouAreOutOfGGBoosts", "Global"), string.Empty);
-				return true;
-			}, null);
-			this.m_useGGPackBtn.pointerEnterCallback = new _ButtonSwapSprite.ButtonClickCallback(this.GGPackMouseOver);
-			this.m_useGGPackBtn.pointerExitCallback = new _ButtonSwapSprite.ButtonClickCallback(this.GGPackMouseExit);
+					UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+					uITitledTooltip.Setup(StringUtil.TR("OutOfGGBoosts", "Global"), StringUtil.TR("YouAreOutOfGGBoosts", "Global"), string.Empty);
+					return true;
+				});
+				m_useGGPackBtn.pointerEnterCallback = GGPackMouseOver;
+				m_useGGPackBtn.pointerExitCallback = GGPackMouseExit;
+			}
+			ClientGameManager.Get().OnBankBalanceChange += HandleBankBalanceChange;
+			HandleBankBalanceChange(null);
+			return;
 		}
-		ClientGameManager.Get().OnBankBalanceChange += this.HandleBankBalanceChange;
-		this.HandleBankBalanceChange(null);
 	}
 
 	private void OnDestroy()
 	{
-		if (ClientGameManager.Get() != null)
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ClientGameManager.Get().OnBankBalanceChange -= this.HandleBankBalanceChange;
+			ClientGameManager.Get().OnBankBalanceChange -= HandleBankBalanceChange;
+			return;
 		}
 	}
 
 	public void HandleBankBalanceChange(CurrencyData currencyData)
 	{
-		this.m_GGPackCount.text = string.Format("x{0}", ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack));
+		m_GGPackCount.text = $"x{ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack)}";
 	}
 
 	public void Setup()
 	{
 		GameType gameType = GameManager.Get().GameConfig.GameType;
 		int num = HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumSelfGGPacksUsed();
-		bool flag;
+		int num2;
 		if (GameManager.IsGameTypeValidForGGPack(gameType) && num < 3)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -184,113 +184,116 @@ public class UICharacterProfile : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.Setup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = !ReplayPlayManager.Get().IsPlayback();
+			num2 = ((!ReplayPlayManager.Get().IsPlayback()) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num2 = 0;
 		}
-		bool flag2 = flag;
-		this.m_hasGgPacks = (ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack) > 0);
-		this.m_useGGPackBtn.SetClickable(this.m_hasGgPacks);
-		this.m_useGGPackBtn.SetForceExitCallback(!this.m_hasGgPacks);
-		this.m_useGGPackBtn.SetForceHovercallback(!this.m_hasGgPacks);
-		UIManager.SetGameObjectActive(this.m_ggPackBtnAnimator, flag2, null);
-		this.m_waitingForGGPackUseResponse = false;
-		if (flag2)
+		bool flag = (byte)num2 != 0;
+		m_hasGgPacks = (ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack) > 0);
+		m_useGGPackBtn.SetClickable(m_hasGgPacks);
+		m_useGGPackBtn.SetForceExitCallback(!m_hasGgPacks);
+		m_useGGPackBtn.SetForceHovercallback(!m_hasGgPacks);
+		UIManager.SetGameObjectActive(m_ggPackBtnAnimator, flag);
+		m_waitingForGGPackUseResponse = false;
+		if (flag)
 		{
-			this.m_ggPackBtnAnimator.Play("HUDggPackIDLE");
+			m_ggPackBtnAnimator.Play("HUDggPackIDLE");
 		}
-		for (int i = 0; i < this.m_ggButtonLevelImages.Length; i++)
+		for (int i = 0; i < m_ggButtonLevelImages.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_ggButtonLevelImages[i], i == num, null);
+			UIManager.SetGameObjectActive(m_ggButtonLevelImages[i], i == num);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public void NotifyReceivedGGPackResponse()
 	{
-		this.m_waitingForGGPackUseResponse = false;
-		this.Setup();
+		m_waitingForGGPackUseResponse = false;
+		Setup();
 	}
 
 	public void GGPackAnimDone()
 	{
-		if (!this.m_waitingForGGPackUseResponse)
+		if (m_waitingForGGPackUseResponse)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.GGPackAnimDone()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.Setup();
+			Setup();
+			return;
 		}
 	}
 
 	public void GGPackMouseOver(BaseEventData data)
 	{
-		if (this.m_hasGgPacks)
+		if (!m_hasGgPacks)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!m_ggPackBtnAnimator.isActiveAndEnabled)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.GGPackMouseOver(BaseEventData)).MethodHandle;
-			}
-			if (this.m_ggPackBtnAnimator.isActiveAndEnabled)
-			{
-				for (;;)
+				AnimatorClipInfo[] currentAnimatorClipInfo = m_ggPackBtnAnimator.GetCurrentAnimatorClipInfo(0);
+				if (currentAnimatorClipInfo == null || currentAnimatorClipInfo.Length <= 0)
 				{
-					switch (4)
+					return;
+				}
+				while (true)
+				{
+					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				AnimatorClipInfo[] currentAnimatorClipInfo = this.m_ggPackBtnAnimator.GetCurrentAnimatorClipInfo(0);
-				if (currentAnimatorClipInfo != null && currentAnimatorClipInfo.Length > 0)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentAnimatorClipInfo[0].clip.name != "HUDggPackPRESS")
 					{
-						this.m_ggPackBtnAnimator.Play("HUDggPackHOVER");
+						m_ggPackBtnAnimator.Play("HUDggPackHOVER");
 					}
+					return;
 				}
 			}
 		}
@@ -298,51 +301,53 @@ public class UICharacterProfile : MonoBehaviour
 
 	public void GGPackMouseExit(BaseEventData data)
 	{
-		if (this.m_hasGgPacks)
+		if (!m_hasGgPacks)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!m_ggPackBtnAnimator.isActiveAndEnabled)
+			{
+				return;
+			}
+			AnimatorClipInfo[] currentAnimatorClipInfo = m_ggPackBtnAnimator.GetCurrentAnimatorClipInfo(0);
+			if (currentAnimatorClipInfo == null)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.GGPackMouseExit(BaseEventData)).MethodHandle;
-			}
-			if (this.m_ggPackBtnAnimator.isActiveAndEnabled)
-			{
-				AnimatorClipInfo[] currentAnimatorClipInfo = this.m_ggPackBtnAnimator.GetCurrentAnimatorClipInfo(0);
-				if (currentAnimatorClipInfo != null)
+				if (currentAnimatorClipInfo.Length <= 0)
 				{
-					for (;;)
+					return;
+				}
+				while (true)
+				{
+					switch (7)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (currentAnimatorClipInfo.Length > 0)
+					if (currentAnimatorClipInfo[0].clip.name != "HUDggPackPRESS")
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (currentAnimatorClipInfo[0].clip.name != "HUDggPackPRESS")
-						{
-							this.m_ggPackBtnAnimator.Play("HUDggPackIDLE");
-						}
+						m_ggPackBtnAnimator.Play("HUDggPackIDLE");
 					}
+					return;
 				}
 			}
 		}
@@ -350,24 +355,24 @@ public class UICharacterProfile : MonoBehaviour
 
 	public void UseGGPackBtnClicked(BaseEventData data)
 	{
-		if (Time.unscaledTime > this.m_ggPackTimeLastUsed + GameBalanceVars.Get().GGPackInGameCooldownTimer)
+		if (!(Time.unscaledTime > m_ggPackTimeLastUsed + GameBalanceVars.Get().GGPackInGameCooldownTimer))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.UseGGPackBtnClicked(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_ggPackTimeLastUsed = Time.unscaledTime;
-			this.m_useGGPackBtn.SetClickable(false);
-			this.m_ggPackBtnAnimator.Play("HUDggPackPRESS");
+			m_ggPackTimeLastUsed = Time.unscaledTime;
+			m_useGGPackBtn.SetClickable(false);
+			m_ggPackBtnAnimator.Play("HUDggPackPRESS");
 			int num = HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumSelfGGPacksUsed();
 			if (num == 0)
 			{
@@ -375,7 +380,7 @@ public class UICharacterProfile : MonoBehaviour
 			}
 			else if (num == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -384,34 +389,35 @@ public class UICharacterProfile : MonoBehaviour
 					}
 					break;
 				}
-				AudioManager.PostEvent("ui/endgame/ggboost_button_silver", null);
+				AudioManager.PostEvent("ui/endgame/ggboost_button_silver");
 			}
 			else if (num == 2)
 			{
-				AudioManager.PostEvent("ui/endgame/ggboost_button_gold", null);
+				AudioManager.PostEvent("ui/endgame/ggboost_button_gold");
 			}
-			if (this.m_hasGgPacks)
+			if (m_hasGgPacks)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					ClientGameManager.Get().RequestToUseGGPack();
+					m_waitingForGGPackUseResponse = true;
+					return;
 				}
-				ClientGameManager.Get().RequestToUseGGPack();
-				this.m_waitingForGGPackUseResponse = true;
 			}
+			return;
 		}
 	}
 
 	private void Start()
 	{
-		if (this.m_tauntButton != null)
+		if (m_tauntButton != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -420,73 +426,73 @@ public class UICharacterProfile : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIEventTriggerUtils.AddListener(this.m_tauntButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnTauntClick));
+			UIEventTriggerUtils.AddListener(m_tauntButton.gameObject, EventTriggerType.PointerClick, OnTauntClick);
 		}
-		if (this.m_tauntSelectionPanel.m_closeSelectionButton != null)
+		if (m_tauntSelectionPanel.m_closeSelectionButton != null)
 		{
-			UIEventTriggerUtils.AddListener(this.m_tauntSelectionPanel.m_closeSelectionButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnCloseSelectionClick));
+			UIEventTriggerUtils.AddListener(m_tauntSelectionPanel.m_closeSelectionButton.gameObject, EventTriggerType.PointerClick, OnCloseSelectionClick);
 		}
-		this.m_tauntIsEnabled = true;
-		this.ShowTaunt(false);
+		m_tauntIsEnabled = true;
+		ShowTaunt(false);
 	}
 
 	private void UpdatePendingHealthBar()
 	{
-		if (this.m_lastPendingHealthPercent == this.m_pendingHPPercent)
+		if (m_lastPendingHealthPercent == m_pendingHPPercent)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.UpdatePendingHealthBar()).MethodHandle;
-			}
-			return;
 		}
-		if (this.m_healthPercent > 0f)
+		if (m_healthPercent > 0f)
 		{
-			this.m_pendingHPImage.fillAmount = this.m_pendingHPPercent;
-			UIManager.SetGameObjectActive(this.m_pendingHPImage, true, null);
+			m_pendingHPImage.fillAmount = m_pendingHPPercent;
+			UIManager.SetGameObjectActive(m_pendingHPImage, true);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_pendingHPImage, false, null);
+			UIManager.SetGameObjectActive(m_pendingHPImage, false);
 		}
-		this.m_lastPendingHealthPercent = this.m_pendingHPPercent;
+		m_lastPendingHealthPercent = m_pendingHPPercent;
 	}
 
 	private void UpdateHealthBar()
 	{
-		if (this.m_lastHealthPercent == this.m_healthPercent)
+		if (m_lastHealthPercent == m_healthPercent)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.UpdateHealthBar()).MethodHandle;
-			}
-			return;
 		}
-		if (this.m_healthPercent > 0f)
+		if (m_healthPercent > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -495,38 +501,38 @@ public class UICharacterProfile : MonoBehaviour
 				}
 				break;
 			}
-			this.m_healthImage.fillAmount = this.m_healthPercent;
-			UIManager.SetGameObjectActive(this.m_healthImage, true, null);
+			m_healthImage.fillAmount = m_healthPercent;
+			UIManager.SetGameObjectActive(m_healthImage, true);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_healthImage, false, null);
+			UIManager.SetGameObjectActive(m_healthImage, false);
 		}
-		this.m_lastHealthPercent = this.m_healthPercent;
+		m_lastHealthPercent = m_healthPercent;
 	}
 
 	private void UpdateShieldBar()
 	{
-		if (this.m_lastShieldPercent == this.m_shieldPercent)
+		if (m_lastShieldPercent == m_shieldPercent)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.UpdateShieldBar()).MethodHandle;
-			}
-			return;
 		}
-		if (this.m_shieldPercent > 0f)
+		if (m_shieldPercent > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -535,25 +541,25 @@ public class UICharacterProfile : MonoBehaviour
 				}
 				break;
 			}
-			this.m_shieldBarImage.fillAmount = this.m_shieldPercent;
-			UIManager.SetGameObjectActive(this.m_shieldBarImage, true, null);
+			m_shieldBarImage.fillAmount = m_shieldPercent;
+			UIManager.SetGameObjectActive(m_shieldBarImage, true);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_shieldBarImage, false, null);
+			UIManager.SetGameObjectActive(m_shieldBarImage, false);
 		}
-		this.m_lastShieldPercent = this.m_shieldPercent;
+		m_lastShieldPercent = m_shieldPercent;
 	}
 
 	private void UpdateEnergyBar()
 	{
-		if (this.m_lastEnergyPercent == this.m_energyPercent)
+		if (m_lastEnergyPercent == m_energyPercent)
 		{
 			return;
 		}
-		if (this.m_energyPercent > 0f)
+		if (m_energyPercent > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -562,18 +568,18 @@ public class UICharacterProfile : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.UpdateEnergyBar()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_energyImage.fillAmount = this.m_energyPercent;
-			UIManager.SetGameObjectActive(this.m_energyImage, true, null);
+			m_energyImage.fillAmount = m_energyPercent;
+			UIManager.SetGameObjectActive(m_energyImage, true);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_energyImage, false, null);
+			UIManager.SetGameObjectActive(m_energyImage, false);
 		}
-		this.m_lastEnergyPercent = this.m_energyPercent;
+		m_lastEnergyPercent = m_energyPercent;
 	}
 
 	private bool CanTaunt(ActorData actor)
@@ -584,7 +590,7 @@ public class UICharacterProfile : MonoBehaviour
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -593,14 +599,14 @@ public class UICharacterProfile : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.CanTaunt(ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				TurnStateEnum currentState = activeOwnedActorData.\u000E().CurrentState;
-				if (currentState != TurnStateEnum.DECIDING && currentState != TurnStateEnum.CONFIRMED)
+				TurnStateEnum currentState = activeOwnedActorData.GetActorTurnSM().CurrentState;
+				if (currentState != 0 && currentState != TurnStateEnum.CONFIRMED)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -611,7 +617,7 @@ public class UICharacterProfile : MonoBehaviour
 					}
 					if (currentState != TurnStateEnum.VALIDATING_MOVE_REQUEST)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -622,9 +628,9 @@ public class UICharacterProfile : MonoBehaviour
 						}
 						if (currentState != TurnStateEnum.VALIDATING_ACTION_REQUEST)
 						{
-							return flag;
+							goto IL_0151;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -636,12 +642,12 @@ public class UICharacterProfile : MonoBehaviour
 					}
 				}
 				ActorCinematicRequests component = activeOwnedActorData.GetComponent<ActorCinematicRequests>();
-				AbilityData abilityData = activeOwnedActorData.\u000E();
-				List<AbilityData.ActionType> autoQueuedRequestActionTypes = activeOwnedActorData.\u000E().GetAutoQueuedRequestActionTypes();
+				AbilityData abilityData = activeOwnedActorData.GetAbilityData();
+				List<AbilityData.ActionType> autoQueuedRequestActionTypes = activeOwnedActorData.GetActorTurnSM().GetAutoQueuedRequestActionTypes();
 				int num = 0;
 				while (!flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -650,28 +656,26 @@ public class UICharacterProfile : MonoBehaviour
 						}
 						break;
 					}
-					if (num >= autoQueuedRequestActionTypes.Count)
+					if (num < autoQueuedRequestActionTypes.Count)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_EC;
-						}
-					}
-					else
-					{
-						flag = UICharacterProfile.CanTauntForAction(actor, abilityData, component, autoQueuedRequestActionTypes[num]);
+						flag = CanTauntForAction(actor, abilityData, component, autoQueuedRequestActionTypes[num]);
 						num++;
+						continue;
 					}
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					break;
 				}
-				IL_EC:
 				if (!flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -680,11 +684,11 @@ public class UICharacterProfile : MonoBehaviour
 						}
 						break;
 					}
-					List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.\u000E().GetRequestStackForUndo();
+					List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.GetActorTurnSM().GetRequestStackForUndo();
 					int num2 = 0;
 					while (!flag)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -693,38 +697,39 @@ public class UICharacterProfile : MonoBehaviour
 							}
 							break;
 						}
-						if (num2 >= requestStackForUndo.Count)
+						if (num2 < requestStackForUndo.Count)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								return flag;
-							}
-						}
-						else
-						{
-							flag = UICharacterProfile.CanTauntForAction(actor, abilityData, component, requestStackForUndo[num2].m_action);
+							flag = CanTauntForAction(actor, abilityData, component, requestStackForUndo[num2].m_action);
 							num2++;
+							continue;
 						}
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						break;
 					}
 				}
 			}
 		}
+		goto IL_0151;
+		IL_0151:
 		return flag;
 	}
 
 	public static bool CanTauntForAction(ActorData actor, AbilityData abilityData, ActorCinematicRequests cinematicRequests, AbilityData.ActionType actionType)
 	{
 		Ability abilityOfActionType = abilityData.GetAbilityOfActionType(actionType);
-		CharacterResourceLink character = GameFlowData.Get().activeOwnedActorData.\u000E();
+		CharacterResourceLink characterResourceLink = GameFlowData.Get().activeOwnedActorData.GetCharacterResourceLink();
 		PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(actor.m_characterType);
 		if (abilityOfActionType != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -733,13 +738,13 @@ public class UICharacterProfile : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.CanTauntForAction(ActorData, AbilityData, ActorCinematicRequests, AbilityData.ActionType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (playerCharacterData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -753,7 +758,7 @@ public class UICharacterProfile : MonoBehaviour
 					TauntCameraSet tauntCamSetData = abilityData.GetComponent<ActorData>().m_tauntCamSetData;
 					if (tauntCamSetData != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -765,32 +770,33 @@ public class UICharacterProfile : MonoBehaviour
 						for (int i = 0; i < tauntCamSetData.m_tauntCameraShotSequences.Length; i++)
 						{
 							CameraShotSequence cameraShotSequence = tauntCamSetData.m_tauntCameraShotSequences[i] as CameraShotSequence;
-							if (cameraShotSequence != null)
+							if (!(cameraShotSequence != null))
 							{
-								for (;;)
+								continue;
+							}
+							while (true)
+							{
+								switch (1)
 								{
-									switch (1)
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (abilityOfActionType.CanTriggerAnimAtIndexForTaunt(cameraShotSequence.m_animIndex) && cinematicRequests.NumRequestsLeft(cameraShotSequence.m_uniqueTauntID) > 0)
+							{
+								while (true)
+								{
+									switch (6)
 									{
 									case 0:
 										continue;
 									}
 									break;
 								}
-								if (abilityOfActionType.CanTriggerAnimAtIndexForTaunt(cameraShotSequence.m_animIndex) && cinematicRequests.NumRequestsLeft(cameraShotSequence.m_uniqueTauntID) > 0)
+								if (AbilityData.CanTauntForActionTypeForPlayer(playerCharacterData, characterResourceLink, actionType, true, cameraShotSequence.m_uniqueTauntID))
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (AbilityData.CanTauntForActionTypeForPlayer(playerCharacterData, character, actionType, true, cameraShotSequence.m_uniqueTauntID))
-									{
-										return true;
-									}
+									return true;
 								}
 							}
 						}
@@ -803,138 +809,114 @@ public class UICharacterProfile : MonoBehaviour
 
 	private void ShowTauntSelection(bool visible)
 	{
-		if (!this.m_tauntIsEnabled)
+		if (!m_tauntIsEnabled)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.ShowTauntSelection(bool)).MethodHandle;
-			}
-			return;
 		}
-		this.m_selectionMenuOpen = visible;
-		UIManager.SetGameObjectActive(this.m_tauntSelectionPanel, this.m_selectionMenuOpen, null);
-		int num = this.m_tauntSelectionPanel.SetupTauntList();
-		UIManager.SetGameObjectActive(this.m_tauntTransform, !this.m_selectionMenuOpen, null);
+		m_selectionMenuOpen = visible;
+		UIManager.SetGameObjectActive(m_tauntSelectionPanel, m_selectionMenuOpen);
+		int num = m_tauntSelectionPanel.SetupTauntList();
+		UIManager.SetGameObjectActive(m_tauntTransform, !m_selectionMenuOpen);
 		if (visible && num == 1)
 		{
-			this.m_tauntSelectionPanel.m_tauntButtons[0].SelectedTaunt(null);
+			m_tauntSelectionPanel.m_tauntButtons[0].SelectedTaunt(null);
 		}
 	}
 
 	public void OnTauntClick(BaseEventData data)
 	{
-		this.ShowTauntSelection(true);
+		ShowTauntSelection(true);
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.InGameTauntClick);
 	}
 
 	public void OnCloseSelectionClick(BaseEventData data)
 	{
-		this.ShowTauntSelection(false);
+		ShowTauntSelection(false);
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.InGameTauntSelect);
 	}
 
 	public void UpdateStatusDisplay(bool forceUpdate)
 	{
-		if (!(this.m_buffGrid == null))
+		if (m_buffGrid == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.UpdateStatusDisplay(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!(this.m_debuffGrid == null))
+			if (m_debuffGrid == null)
 			{
-				ActorStatus actorStatus = GameFlowData.Get().activeOwnedActorData.\u000E();
-				List<StatusType> list = new List<StatusType>();
-				bool flag = false;
-				if (actorStatus != null)
+				while (true)
 				{
-					for (;;)
+					switch (3)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					for (int i = 0; i < 0x3A; i++)
-					{
-						StatusType statusType = (StatusType)i;
-						if (actorStatus.HasStatus(statusType, false))
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (HUD_UIResources.GetIconForStatusType(statusType).displayIcon)
-							{
-								list.Add(statusType);
-								if (this.previousStatuses != null)
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!this.previousStatuses.Contains(statusType))
-									{
-										flag = true;
-									}
-								}
-							}
-						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
+					default:
+						return;
+					case 0:
 						break;
 					}
 				}
-				if (this.previousStatuses != null)
+			}
+			ActorStatus actorStatus = GameFlowData.Get().activeOwnedActorData.GetActorStatus();
+			List<StatusType> list = new List<StatusType>();
+			bool flag = false;
+			if (actorStatus != null)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (7)
 					{
-						switch (6)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				for (int i = 0; i < 58; i++)
+				{
+					StatusType statusType = (StatusType)i;
+					if (!actorStatus.HasStatus(statusType, false))
+					{
+						continue;
+					}
+					while (true)
+					{
+						switch (2)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (this.previousStatuses.Count != list.Count)
+					HUD_UIResources.StatusTypeIcon iconForStatusType = HUD_UIResources.GetIconForStatusType(statusType);
+					if (!iconForStatusType.displayIcon)
 					{
-						for (;;)
+						continue;
+					}
+					list.Add(statusType);
+					if (previousStatuses != null)
+					{
+						while (true)
 						{
 							switch (6)
 							{
@@ -943,57 +925,50 @@ public class UICharacterProfile : MonoBehaviour
 							}
 							break;
 						}
-						flag = true;
-					}
-				}
-				if (!flag)
-				{
-					for (;;)
-					{
-						switch (5)
+						if (!previousStatuses.Contains(statusType))
 						{
-						case 0:
-							continue;
+							flag = true;
 						}
-						break;
-					}
-					if (!forceUpdate)
-					{
-						return;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
-				UIBuffIndicator[] componentsInChildren = this.m_buffGrid.GetComponentsInChildren<UIBuffIndicator>(false);
-				UIBuffIndicator[] componentsInChildren2 = this.m_debuffGrid.GetComponentsInChildren<UIBuffIndicator>(false);
-				List<UIBuffIndicator> list2 = new List<UIBuffIndicator>(componentsInChildren);
-				for (int j = 0; j < componentsInChildren2.Length; j++)
+				while (true)
 				{
-					list2.Add(componentsInChildren2[j]);
-				}
-				for (;;)
-				{
-					switch (4)
+					switch (7)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				while (list2.Count > list.Count)
+			}
+			if (previousStatuses != null)
+			{
+				while (true)
 				{
-					UIManager.SetGameObjectActive(list2[0], false, null);
-					UnityEngine.Object.Destroy(list2[0].gameObject);
-					list2.RemoveAt(0);
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
-				for (;;)
+				if (previousStatuses.Count != list.Count)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					flag = true;
+				}
+			}
+			if (!flag)
+			{
+				while (true)
 				{
 					switch (5)
 					{
@@ -1002,88 +977,28 @@ public class UICharacterProfile : MonoBehaviour
 					}
 					break;
 				}
-				while (list2.Count < list.Count)
+				if (!forceUpdate)
 				{
-					UIBuffIndicator item = UnityEngine.Object.Instantiate<UIBuffIndicator>(this.m_buffIndicatorPrefab);
-					list2.Add(item);
+					return;
 				}
-				for (int k = 0; k < list.Count; k++)
+				while (true)
 				{
-					UIBuffIndicator uibuffIndicator = list2[k];
-					if (HUD_UIResources.GetIconForStatusType(list[k]).isDebuff)
+					switch (3)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						uibuffIndicator.transform.SetParent(this.m_debuffGrid.transform);
+					case 0:
+						continue;
 					}
-					else
-					{
-						uibuffIndicator.transform.SetParent(this.m_buffGrid.transform);
-					}
-					uibuffIndicator.transform.localScale = Vector3.one;
-					uibuffIndicator.transform.localPosition = Vector3.zero;
-					uibuffIndicator.transform.localEulerAngles = Vector3.zero;
-					list2[k].Setup(list[k], actorStatus.GetDurationOfStatus(list[k]));
+					break;
 				}
-				this.m_debuffGrid.enabled = false;
-				this.m_debuffGrid.enabled = true;
-				this.m_buffGrid.enabled = false;
-				this.m_buffGrid.enabled = true;
-				this.previousStatuses = list;
-				return;
 			}
-			for (;;)
+			UIBuffIndicator[] componentsInChildren = m_buffGrid.GetComponentsInChildren<UIBuffIndicator>(false);
+			UIBuffIndicator[] componentsInChildren2 = m_debuffGrid.GetComponentsInChildren<UIBuffIndicator>(false);
+			List<UIBuffIndicator> list2 = new List<UIBuffIndicator>(componentsInChildren);
+			for (int j = 0; j < componentsInChildren2.Length; j++)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				list2.Add(componentsInChildren2[j]);
 			}
-		}
-	}
-
-	private void ShowTaunt(bool visible)
-	{
-		if (this.m_tauntIsEnabled == visible)
-		{
-			return;
-		}
-		this.m_tauntIsEnabled = visible;
-		if (!visible)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.ShowTaunt(bool)).MethodHandle;
-			}
-			this.m_selectionMenuOpen = false;
-			UIManager.SetGameObjectActive(this.m_tauntSelectionPanel, this.m_selectionMenuOpen, null);
-		}
-		UIManager.SetGameObjectActive(this.m_tauntTransform, visible, null);
-	}
-
-	private void Update()
-	{
-		if (GameFlowData.Get() != null)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1092,14 +1007,110 @@ public class UICharacterProfile : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			while (list2.Count > list.Count)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.Update()).MethodHandle;
+				UIManager.SetGameObjectActive(list2[0], false);
+				Object.Destroy(list2[0].gameObject);
+				list2.RemoveAt(0);
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			while (list2.Count < list.Count)
+			{
+				UIBuffIndicator item = Object.Instantiate(m_buffIndicatorPrefab);
+				list2.Add(item);
+			}
+			for (int k = 0; k < list.Count; k++)
+			{
+				UIBuffIndicator uIBuffIndicator = list2[k];
+				HUD_UIResources.StatusTypeIcon iconForStatusType2 = HUD_UIResources.GetIconForStatusType(list[k]);
+				if (iconForStatusType2.isDebuff)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					uIBuffIndicator.transform.SetParent(m_debuffGrid.transform);
+				}
+				else
+				{
+					uIBuffIndicator.transform.SetParent(m_buffGrid.transform);
+				}
+				uIBuffIndicator.transform.localScale = Vector3.one;
+				uIBuffIndicator.transform.localPosition = Vector3.zero;
+				uIBuffIndicator.transform.localEulerAngles = Vector3.zero;
+				list2[k].Setup(list[k], actorStatus.GetDurationOfStatus(list[k]));
+			}
+			m_debuffGrid.enabled = false;
+			m_debuffGrid.enabled = true;
+			m_buffGrid.enabled = false;
+			m_buffGrid.enabled = true;
+			previousStatuses = list;
+			return;
+		}
+	}
+
+	private void ShowTaunt(bool visible)
+	{
+		if (m_tauntIsEnabled == visible)
+		{
+			return;
+		}
+		m_tauntIsEnabled = visible;
+		if (!visible)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_selectionMenuOpen = false;
+			UIManager.SetGameObjectActive(m_tauntSelectionPanel, m_selectionMenuOpen);
+		}
+		UIManager.SetGameObjectActive(m_tauntTransform, visible);
+	}
+
+	private void Update()
+	{
+		if (GameFlowData.Get() != null)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1110,9 +1121,9 @@ public class UICharacterProfile : MonoBehaviour
 				}
 				bool doActive = false;
 				bool doActive2 = false;
-				if (this.m_visualObject != null)
+				if (m_visualObject != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -1121,9 +1132,9 @@ public class UICharacterProfile : MonoBehaviour
 						}
 						break;
 					}
-					if (!this.m_visualObject.activeSelf)
+					if (!m_visualObject.activeSelf)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -1132,14 +1143,14 @@ public class UICharacterProfile : MonoBehaviour
 							}
 							break;
 						}
-						UIManager.SetGameObjectActive(this.m_visualObject, true, null);
+						UIManager.SetGameObjectActive(m_visualObject, true);
 					}
 				}
-				this.m_aliveProfileImage.sprite = activeOwnedActorData.\u000E();
-				this.m_deadProfileImage.sprite = activeOwnedActorData.\u0012();
-				if (activeOwnedActorData.\u000E())
+				m_aliveProfileImage.sprite = activeOwnedActorData.GetAliveHUDIcon();
+				m_deadProfileImage.sprite = activeOwnedActorData.GetDeadHUDIcon();
+				if (activeOwnedActorData.IsDead())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -1154,15 +1165,15 @@ public class UICharacterProfile : MonoBehaviour
 				{
 					doActive = true;
 				}
-				int num = activeOwnedActorData.\u0009();
-				int num2 = activeOwnedActorData.\u0012();
-				int num3 = activeOwnedActorData.\u0019();
-				int num4 = activeOwnedActorData.\u0016();
-				int num5 = activeOwnedActorData.\u0004();
-				int num6 = activeOwnedActorData.\u0011();
-				if (num6 > 0)
+				int hitPointsAfterResolution = activeOwnedActorData.GetHitPointsAfterResolution();
+				int maxHitPoints = activeOwnedActorData.GetMaxHitPoints();
+				int energyToDisplay = activeOwnedActorData.GetEnergyToDisplay();
+				int actualMaxTechPoints = activeOwnedActorData.GetActualMaxTechPoints();
+				int num = activeOwnedActorData._0004();
+				int clientUnappliedHoTTotal_ToDisplay_zq = activeOwnedActorData.GetClientUnappliedHoTTotal_ToDisplay_zq();
+				if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -1171,15 +1182,15 @@ public class UICharacterProfile : MonoBehaviour
 						}
 						break;
 					}
-					this.m_pendingHealthText.text = "+" + num6.ToString();
+					m_pendingHealthText.text = "+" + clientUnappliedHoTTotal_ToDisplay_zq;
 				}
 				else
 				{
-					this.m_pendingHealthText.text = string.Empty;
+					m_pendingHealthText.text = string.Empty;
 				}
-				if (num5 > 0)
+				if (num > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1188,32 +1199,32 @@ public class UICharacterProfile : MonoBehaviour
 						}
 						break;
 					}
-					this.m_shieldText.text = "+" + num5.ToString();
+					m_shieldText.text = "+" + num;
 				}
 				else
 				{
-					this.m_shieldText.text = string.Empty;
+					m_shieldText.text = string.Empty;
 				}
-				this.m_healthText.text = num.ToString();
-				this.m_energyText.text = num3.ToString();
-				this.m_healthPercent = (float)num / (float)(num2 + num5);
-				this.m_shieldPercent = (float)(num + num5) / (float)(num2 + num5);
-				this.m_pendingHPPercent = (float)(num + num5 + num6) / (float)(num2 + num5);
-				this.m_energyPercent = (float)num3 / (float)num4;
-				if (this.CanTaunt(activeOwnedActorData))
+				m_healthText.text = hitPointsAfterResolution.ToString();
+				m_energyText.text = energyToDisplay.ToString();
+				m_healthPercent = (float)hitPointsAfterResolution / (float)(maxHitPoints + num);
+				m_shieldPercent = (float)(hitPointsAfterResolution + num) / (float)(maxHitPoints + num);
+				m_pendingHPPercent = (float)(hitPointsAfterResolution + num + clientUnappliedHoTTotal_ToDisplay_zq) / (float)(maxHitPoints + num);
+				m_energyPercent = (float)energyToDisplay / (float)actualMaxTechPoints;
+				if (CanTaunt(activeOwnedActorData))
 				{
-					this.ShowTaunt(true);
+					ShowTaunt(true);
 				}
 				else
 				{
-					this.ShowTaunt(false);
+					ShowTaunt(false);
 				}
-				UIManager.SetGameObjectActive(this.m_aliveProfileImage, doActive, null);
-				UIManager.SetGameObjectActive(this.m_deadProfileImage, doActive2, null);
+				UIManager.SetGameObjectActive(m_aliveProfileImage, doActive);
+				UIManager.SetGameObjectActive(m_deadProfileImage, doActive2);
 			}
-			else if (this.m_visualObject != null && this.m_visualObject.activeSelf)
+			else if (m_visualObject != null && m_visualObject.activeSelf)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1222,25 +1233,25 @@ public class UICharacterProfile : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_visualObject, false, null);
+				UIManager.SetGameObjectActive(m_visualObject, false);
 			}
 		}
-		this.UpdateEnergyBar();
-		this.UpdateHealthBar();
-		this.UpdateShieldBar();
-		this.UpdatePendingHealthBar();
-		float num7 = 1f;
-		if (this.m_ggPackTimeLastUsed > 0f)
+		UpdateEnergyBar();
+		UpdateHealthBar();
+		UpdateShieldBar();
+		UpdatePendingHealthBar();
+		float num2 = 1f;
+		if (m_ggPackTimeLastUsed > 0f)
 		{
-			float num8 = Time.unscaledTime - this.m_ggPackTimeLastUsed;
-			num7 = Mathf.Clamp01(num8 / GameBalanceVars.Get().GGPackInGameCooldownTimer);
+			float num3 = Time.unscaledTime - m_ggPackTimeLastUsed;
+			num2 = Mathf.Clamp01(num3 / GameBalanceVars.Get().GGPackInGameCooldownTimer);
 		}
-		this.m_ggPackCooldown.fillAmount = 1f - num7;
+		m_ggPackCooldown.fillAmount = 1f - num2;
 	}
 
 	private void OnEnable()
 	{
-		this.m_lastEnergyPercent = 1f;
-		this.Update();
+		m_lastEnergyPercent = 1f;
+		Update();
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class SparkTetherDistanceMonitor : MonoBehaviour, IGameEventListener
@@ -13,46 +12,46 @@ public class SparkTetherDistanceMonitor : MonoBehaviour, IGameEventListener
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType == GameEventManager.EventType.TheatricsEvasionMoveStart && this.m_syncComp != null)
+		if (eventType != GameEventManager.EventType.TheatricsEvasionMoveStart || !(m_syncComp != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(m_targetActor != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkTetherDistanceMonitor.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
-			if (this.m_targetActor != null)
-			{
-				for (;;)
+				if (!m_syncComp.IsActorOutOfRangeForEvade(m_targetActor))
 				{
-					switch (1)
+					return;
+				}
+				while (true)
+				{
+					switch (3)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (this.m_syncComp.IsActorOutOfRangeForEvade(this.m_targetActor))
-				{
-					for (;;)
+					if (m_lineFromCasterSequence != null)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_lineFromCasterSequence != null)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -61,21 +60,22 @@ public class SparkTetherDistanceMonitor : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						this.m_lineFromCasterSequence.ForceHideLine();
+						m_lineFromCasterSequence.ForceHideLine();
 					}
-					if (this.m_lineFromTargetSequence != null)
+					if (m_lineFromTargetSequence != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
 							case 0:
 								continue;
 							}
-							break;
+							m_lineFromTargetSequence.ForceHideLine();
+							return;
 						}
-						this.m_lineFromTargetSequence.ForceHideLine();
 					}
+					return;
 				}
 			}
 		}
@@ -83,11 +83,11 @@ public class SparkTetherDistanceMonitor : MonoBehaviour, IGameEventListener
 
 	private void Start()
 	{
-		this.m_lineFromCasterSequence = base.GetComponent<ProjectileWithTetherSequence>();
-		this.m_lineFromTargetSequence = base.GetComponent<LineSequence>();
-		if (this.m_lineFromCasterSequence != null)
+		m_lineFromCasterSequence = GetComponent<ProjectileWithTetherSequence>();
+		m_lineFromTargetSequence = GetComponent<LineSequence>();
+		if (m_lineFromCasterSequence != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -96,13 +96,13 @@ public class SparkTetherDistanceMonitor : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkTetherDistanceMonitor.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_lineFromCasterSequence.Caster != null)
+			if (m_lineFromCasterSequence.Caster != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -111,8 +111,8 @@ public class SparkTetherDistanceMonitor : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				this.m_syncComp = this.m_lineFromCasterSequence.Caster.GetComponent<SparkBeamTrackerComponent>();
-				this.m_targetActor = this.m_lineFromCasterSequence.Target;
+				m_syncComp = m_lineFromCasterSequence.Caster.GetComponent<SparkBeamTrackerComponent>();
+				m_targetActor = m_lineFromCasterSequence.Target;
 			}
 		}
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.TheatricsEvasionMoveStart);

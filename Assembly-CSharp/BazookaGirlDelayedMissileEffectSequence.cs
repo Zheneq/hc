@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class BazookaGirlDelayedMissileEffectSequence : Sequence
@@ -17,71 +16,73 @@ public class BazookaGirlDelayedMissileEffectSequence : Sequence
 
 	protected override void OnStopVfxOnClient()
 	{
-		if (this.m_fx != null)
+		if (!(m_fx != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissileEffectSequence.OnStopVfxOnClient()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_fx.SetActive(false);
+			m_fx.SetActive(false);
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_fxPrefab)
+		if (!m_fxPrefab)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!m_initialized || !(m_fx == null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissileEffectSequence.Update()).MethodHandle;
-			}
-			if (this.m_initialized && this.m_fx == null)
-			{
-				for (;;)
+				if (!(base.Caster != null))
 				{
-					switch (6)
+					return;
+				}
+				while (true)
+				{
+					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (base.Caster != null)
-				{
-					for (;;)
+					m_fx = InstantiateFX(m_fxPrefab);
+					if (m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 					}
-					this.m_fx = base.InstantiateFX(this.m_fxPrefab);
-					if (this.m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
-					{
-						this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.\u000E());
-					}
-					this.m_fx.transform.position = base.TargetPos + Vector3.up * 0.12f;
-					this.m_fx.transform.localRotation = Quaternion.identity;
+					m_fx.transform.position = base.TargetPos + Vector3.up * 0.12f;
+					m_fx.transform.localRotation = Quaternion.identity;
+					return;
 				}
 			}
 		}
@@ -89,22 +90,23 @@ public class BazookaGirlDelayedMissileEffectSequence : Sequence
 
 	private void OnDisable()
 	{
-		if (this.m_fx)
+		if (!m_fx)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissileEffectSequence.OnDisable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.Destroy(this.m_fx);
+			Object.Destroy(m_fx);
+			return;
 		}
 	}
 }

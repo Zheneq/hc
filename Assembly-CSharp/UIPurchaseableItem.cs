@@ -1,5 +1,3 @@
-﻿using System;
-
 public class UIPurchaseableItem
 {
 	public PurchaseItemType m_itemType;
@@ -48,23 +46,23 @@ public class UIPurchaseableItem
 
 	public UIPurchaseableItem()
 	{
-		this.m_itemType = PurchaseItemType.None;
-		this.m_gamePack = null;
-		this.m_lootMatrixPack = null;
-		this.m_ggPack = null;
-		this.m_storeID = -1;
-		this.m_charLink = null;
-		this.m_skinIndex = -1;
-		this.m_textureIndex = -1;
-		this.m_tintIndex = -1;
-		this.m_tauntIndex = -1;
-		this.m_inventoryTemplateId = -1;
-		this.m_currencyType = CurrencyType.ISO;
-		this.m_titleID = -1;
-		this.m_bannerID = -1;
-		this.m_emoticonID = -1;
-		this.m_overconID = -1;
-		this.m_purchaseForCash = false;
-		this.m_overlayText = string.Empty;
+		m_itemType = PurchaseItemType.None;
+		m_gamePack = null;
+		m_lootMatrixPack = null;
+		m_ggPack = null;
+		m_storeID = -1;
+		m_charLink = null;
+		m_skinIndex = -1;
+		m_textureIndex = -1;
+		m_tintIndex = -1;
+		m_tauntIndex = -1;
+		m_inventoryTemplateId = -1;
+		m_currencyType = CurrencyType.ISO;
+		m_titleID = -1;
+		m_bannerID = -1;
+		m_emoticonID = -1;
+		m_overconID = -1;
+		m_purchaseForCash = false;
+		m_overlayText = string.Empty;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class BigPingPanel : MonoBehaviour
@@ -20,15 +19,15 @@ public class BigPingPanel : MonoBehaviour
 	public ActorController.PingType GetPingType()
 	{
 		ActorController.PingType result = ActorController.PingType.Default;
-		float alpha = this.m_closeButtonHover.alpha;
-		if (this.m_redEnemyButtonHover.alpha > alpha)
+		float alpha = m_closeButtonHover.alpha;
+		if (m_redEnemyButtonHover.alpha > alpha)
 		{
-			alpha = this.m_redEnemyButtonHover.alpha;
+			alpha = m_redEnemyButtonHover.alpha;
 			result = ActorController.PingType.Enemy;
 		}
-		if (this.m_blueMoveButtonHover.alpha > alpha)
+		if (m_blueMoveButtonHover.alpha > alpha)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -37,16 +36,16 @@ public class BigPingPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BigPingPanel.GetPingType()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			alpha = this.m_blueMoveButtonHover.alpha;
+			alpha = m_blueMoveButtonHover.alpha;
 			result = ActorController.PingType.Move;
 		}
-		if (this.m_yellowDefendButtonHover.alpha > alpha)
+		if (m_yellowDefendButtonHover.alpha > alpha)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -55,12 +54,12 @@ public class BigPingPanel : MonoBehaviour
 				}
 				break;
 			}
-			alpha = this.m_yellowDefendButtonHover.alpha;
+			alpha = m_yellowDefendButtonHover.alpha;
 			result = ActorController.PingType.Defend;
 		}
-		if (this.m_greenAssistButtonHover.alpha > alpha)
+		if (m_greenAssistButtonHover.alpha > alpha)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -69,7 +68,7 @@ public class BigPingPanel : MonoBehaviour
 				}
 				break;
 			}
-			alpha = this.m_greenAssistButtonHover.alpha;
+			alpha = m_greenAssistButtonHover.alpha;
 			result = ActorController.PingType.Assist;
 		}
 		return result;

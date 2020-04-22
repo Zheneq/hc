@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,7 +24,7 @@ public class MantaConeDirtyFighting : Ability
 	public StandardEffectInfo m_effectOnTargetFromExplosion;
 
 	[Header("-- On Reaction Hit/Explosion Triggered")]
-	public int m_effectExplosionDamage = 0x1E;
+	public int m_effectExplosionDamage = 30;
 
 	[Tooltip("whether allies other than yourself should be able to trigger the explosion")]
 	public bool m_explodeOnlyFromSelfDamage;
@@ -51,9 +50,9 @@ public class MantaConeDirtyFighting : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -62,13 +61,13 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Dirty Fighting Cone";
+			m_abilityName = "Dirty Fighting Cone";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -78,15 +77,15 @@ public class MantaConeDirtyFighting : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetConeRange();
+		return GetConeRange();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardActorEffectData cachedDirtyFightingEffectData;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -95,21 +94,21 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedDirtyFightingEffectData = this.m_abilityMod.m_dirtyFightingEffectDataMod.GetModifiedValue(this.m_dirtyFightingEffectData);
+			cachedDirtyFightingEffectData = m_abilityMod.m_dirtyFightingEffectDataMod.GetModifiedValue(m_dirtyFightingEffectData);
 		}
 		else
 		{
-			cachedDirtyFightingEffectData = this.m_dirtyFightingEffectData;
+			cachedDirtyFightingEffectData = m_dirtyFightingEffectData;
 		}
-		this.m_cachedDirtyFightingEffectData = cachedDirtyFightingEffectData;
+		m_cachedDirtyFightingEffectData = cachedDirtyFightingEffectData;
 		StandardEffectInfo cachedEnemyHitEffectData;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -118,17 +117,17 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			cachedEnemyHitEffectData = this.m_abilityMod.m_enemyHitEffectDataMod.GetModifiedValue(this.m_enemyHitEffectData);
+			cachedEnemyHitEffectData = m_abilityMod.m_enemyHitEffectDataMod.GetModifiedValue(m_enemyHitEffectData);
 		}
 		else
 		{
-			cachedEnemyHitEffectData = this.m_enemyHitEffectData;
+			cachedEnemyHitEffectData = m_enemyHitEffectData;
 		}
-		this.m_cachedEnemyHitEffectData = cachedEnemyHitEffectData;
+		m_cachedEnemyHitEffectData = cachedEnemyHitEffectData;
 		StandardEffectInfo cachedEffectOnTargetFromExplosion;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -137,22 +136,22 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			cachedEffectOnTargetFromExplosion = this.m_abilityMod.m_effectOnTargetFromExplosionMod.GetModifiedValue(this.m_effectOnTargetFromExplosion);
+			cachedEffectOnTargetFromExplosion = m_abilityMod.m_effectOnTargetFromExplosionMod.GetModifiedValue(m_effectOnTargetFromExplosion);
 		}
 		else
 		{
-			cachedEffectOnTargetFromExplosion = this.m_effectOnTargetFromExplosion;
+			cachedEffectOnTargetFromExplosion = m_effectOnTargetFromExplosion;
 		}
-		this.m_cachedEffectOnTargetFromExplosion = cachedEffectOnTargetFromExplosion;
-		this.m_cachedEffectOnTargetWhenExpiresWithoutExplosion = ((!this.m_abilityMod) ? null : this.m_abilityMod.m_effectOnTargetWhenExpiresWithoutExplosionMod.GetModifiedValue(null));
+		m_cachedEffectOnTargetFromExplosion = cachedEffectOnTargetFromExplosion;
+		m_cachedEffectOnTargetWhenExpiresWithoutExplosion = ((!m_abilityMod) ? null : m_abilityMod.m_effectOnTargetWhenExpiresWithoutExplosionMod.GetModifiedValue(null));
 	}
 
 	public float GetConeRange()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -161,15 +160,15 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetConeRange()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneRangeMod.GetModifiedValue(this.m_coneRange);
+			result = m_abilityMod.m_coneRangeMod.GetModifiedValue(m_coneRange);
 		}
 		else
 		{
-			result = this.m_coneRange;
+			result = m_coneRange;
 		}
 		return result;
 	}
@@ -177,9 +176,9 @@ public class MantaConeDirtyFighting : Ability
 	public float GetConeWidth()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -188,15 +187,15 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetConeWidth()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneWidthMod.GetModifiedValue(this.m_coneWidth);
+			result = m_abilityMod.m_coneWidthMod.GetModifiedValue(m_coneWidth);
 		}
 		else
 		{
-			result = this.m_coneWidth;
+			result = m_coneWidth;
 		}
 		return result;
 	}
@@ -204,9 +203,9 @@ public class MantaConeDirtyFighting : Ability
 	public bool PenetrateLoS()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -215,30 +214,30 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.PenetrateLoS()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_penetrateLoSMod.GetModifiedValue(this.m_penetrateLoS);
+			result = m_abilityMod.m_penetrateLoSMod.GetModifiedValue(m_penetrateLoS);
 		}
 		else
 		{
-			result = this.m_penetrateLoS;
+			result = m_penetrateLoS;
 		}
 		return result;
 	}
 
 	public int GetMaxTargets()
 	{
-		return (!this.m_abilityMod) ? this.m_maxTargets : this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
+		return (!m_abilityMod) ? m_maxTargets : m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 	}
 
 	public float GetConeBackwardOffset()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -247,15 +246,15 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetConeBackwardOffset()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
+			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
 		}
 		else
 		{
-			result = this.m_coneBackwardOffset;
+			result = m_coneBackwardOffset;
 		}
 		return result;
 	}
@@ -263,9 +262,9 @@ public class MantaConeDirtyFighting : Ability
 	public int GetOnCastDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -274,15 +273,15 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetOnCastDamageAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_onCastDamageAmountMod.GetModifiedValue(this.m_onCastDamageAmount);
+			result = m_abilityMod.m_onCastDamageAmountMod.GetModifiedValue(m_onCastDamageAmount);
 		}
 		else
 		{
-			result = this.m_onCastDamageAmount;
+			result = m_onCastDamageAmount;
 		}
 		return result;
 	}
@@ -290,9 +289,9 @@ public class MantaConeDirtyFighting : Ability
 	public StandardActorEffectData GetDirtyFightingEffectData()
 	{
 		StandardActorEffectData result;
-		if (this.m_cachedDirtyFightingEffectData != null)
+		if (m_cachedDirtyFightingEffectData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -301,15 +300,15 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetDirtyFightingEffectData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedDirtyFightingEffectData;
+			result = m_cachedDirtyFightingEffectData;
 		}
 		else
 		{
-			result = this.m_dirtyFightingEffectData;
+			result = m_dirtyFightingEffectData;
 		}
 		return result;
 	}
@@ -317,9 +316,9 @@ public class MantaConeDirtyFighting : Ability
 	public StandardEffectInfo GetEnemyHitEffectData()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyHitEffectData != null)
+		if (m_cachedEnemyHitEffectData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -328,15 +327,15 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetEnemyHitEffectData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemyHitEffectData;
+			result = m_cachedEnemyHitEffectData;
 		}
 		else
 		{
-			result = this.m_enemyHitEffectData;
+			result = m_enemyHitEffectData;
 		}
 		return result;
 	}
@@ -344,9 +343,9 @@ public class MantaConeDirtyFighting : Ability
 	public StandardEffectInfo GetEffectOnTargetFromExplosion()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectOnTargetFromExplosion != null)
+		if (m_cachedEffectOnTargetFromExplosion != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -355,24 +354,25 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetEffectOnTargetFromExplosion()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEffectOnTargetFromExplosion;
+			result = m_cachedEffectOnTargetFromExplosion;
 		}
 		else
 		{
-			result = this.m_effectOnTargetFromExplosion;
+			result = m_effectOnTargetFromExplosion;
 		}
 		return result;
 	}
 
 	public StandardActorEffectData GetEffectOnTargetWhenExpiresWithoutExplosion()
 	{
-		if (this.m_cachedEffectOnTargetWhenExpiresWithoutExplosion != null)
+		object result;
+		if (m_cachedEffectOnTargetWhenExpiresWithoutExplosion != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -381,24 +381,28 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetEffectOnTargetWhenExpiresWithoutExplosion()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_cachedEffectOnTargetWhenExpiresWithoutExplosion.m_applyEffect)
+			if (m_cachedEffectOnTargetWhenExpiresWithoutExplosion.m_applyEffect)
 			{
-				return this.m_cachedEffectOnTargetWhenExpiresWithoutExplosion.m_effectData;
+				result = m_cachedEffectOnTargetWhenExpiresWithoutExplosion.m_effectData;
+				goto IL_0036;
 			}
 		}
-		return null;
+		result = null;
+		goto IL_0036;
+		IL_0036:
+		return (StandardActorEffectData)result;
 	}
 
 	public int GetEffectExplosionDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -407,35 +411,35 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetEffectExplosionDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_effectExplosionDamageMod.GetModifiedValue(this.m_effectExplosionDamage);
+			result = m_abilityMod.m_effectExplosionDamageMod.GetModifiedValue(m_effectExplosionDamage);
 		}
 		else
 		{
-			result = this.m_effectExplosionDamage;
+			result = m_effectExplosionDamage;
 		}
 		return result;
 	}
 
 	public bool ExplodeOnlyFromSelfDamage()
 	{
-		return (!this.m_abilityMod) ? this.m_explodeOnlyFromSelfDamage : this.m_abilityMod.m_explodeOnlyFromSelfDamageMod.GetModifiedValue(this.m_explodeOnlyFromSelfDamage);
+		return (!m_abilityMod) ? m_explodeOnlyFromSelfDamage : m_abilityMod.m_explodeOnlyFromSelfDamageMod.GetModifiedValue(m_explodeOnlyFromSelfDamage);
 	}
 
 	public int GetTechPointGainPerExplosion()
 	{
-		return (!this.m_abilityMod) ? this.m_techPointGainPerExplosion : this.m_abilityMod.m_techPointGainPerExplosionMod.GetModifiedValue(this.m_techPointGainPerExplosion);
+		return (!m_abilityMod) ? m_techPointGainPerExplosion : m_abilityMod.m_techPointGainPerExplosionMod.GetModifiedValue(m_techPointGainPerExplosion);
 	}
 
 	public int GetHealAmountPerExplosion()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -444,70 +448,71 @@ public class MantaConeDirtyFighting : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetHealAmountPerExplosion()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_healPerExplosionMod.GetModifiedValue(this.m_healAmountPerExplosion);
+			result = m_abilityMod.m_healPerExplosionMod.GetModifiedValue(m_healAmountPerExplosion);
 		}
 		else
 		{
-			result = this.m_healAmountPerExplosion;
+			result = m_healAmountPerExplosion;
 		}
 		return result;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_MantaConeDirtyFighting))
+		if (abilityMod.GetType() != typeof(AbilityMod_MantaConeDirtyFighting))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_MantaConeDirtyFighting);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_MantaConeDirtyFighting);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, this.GetConeWidth(), this.GetConeRange(), this.m_coneBackwardOffset, this.PenetrateLoS(), true, true, false, false, this.GetMaxTargets(), false);
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, GetConeWidth(), GetConeRange(), m_coneBackwardOffset, PenetrateLoS(), true, true, false, false, GetMaxTargets());
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "MaxTargets", string.Empty, this.m_maxTargets, false);
-		base.AddTokenInt(tokens, "OnCastDamageAmount", string.Empty, this.m_onCastDamageAmount, false);
-		this.m_dirtyFightingEffectData.AddTooltipTokens(tokens, "DirtyFightingEffectData", false, null);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffectData, "EnemyHitEffectData", this.m_enemyHitEffectData, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnTargetFromExplosion, "EffectOnTargetFromExplosion", this.m_effectOnTargetFromExplosion, true);
-		base.AddTokenInt(tokens, "EffectExplosionDamage", string.Empty, this.m_effectExplosionDamage, false);
-		base.AddTokenInt(tokens, "TechPointGainPerExplosion", string.Empty, this.m_techPointGainPerExplosion, false);
+		AddTokenInt(tokens, "MaxTargets", string.Empty, m_maxTargets);
+		AddTokenInt(tokens, "OnCastDamageAmount", string.Empty, m_onCastDamageAmount);
+		m_dirtyFightingEffectData.AddTooltipTokens(tokens, "DirtyFightingEffectData");
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffectData, "EnemyHitEffectData", m_enemyHitEffectData);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnTargetFromExplosion, "EffectOnTargetFromExplosion", m_effectOnTargetFromExplosion);
+		AddTokenInt(tokens, "EffectExplosionDamage", string.Empty, m_effectExplosionDamage);
+		AddTokenInt(tokens, "TechPointGainPerExplosion", string.Empty, m_techPointGainPerExplosion);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetOnCastDamageAmount());
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Tertiary, this.GetEffectExplosionDamage());
-		this.GetEnemyHitEffectData().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Tertiary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetOnCastDamageAmount());
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Tertiary, GetEffectExplosionDamage());
+		GetEnemyHitEffectData().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Tertiary);
+		return numbers;
 	}
 }

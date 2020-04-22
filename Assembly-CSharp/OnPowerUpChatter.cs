@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -10,7 +10,7 @@ public class OnPowerUpChatter : ScriptableObject, IChatterData
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_baseData;
+		return m_baseData;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()
@@ -22,71 +22,73 @@ public class OnPowerUpChatter : ScriptableObject, IChatterData
 	{
 		if (args is GameEventManager.PowerUpActivatedArgs)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnPowerUpChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
-			GameEventManager.PowerUpActivatedArgs powerUpActivatedArgs = args as GameEventManager.PowerUpActivatedArgs;
-			if (!(powerUpActivatedArgs.byActor == null))
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (!(GameFlowData.Get().activeOwnedActorData != powerUpActivatedArgs.byActor))
+				default:
 				{
-					if (this.m_requiredPowerupType != PowerUp.PowerUpCategory.NoCategory)
+					if (1 == 0)
 					{
-						for (;;)
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					GameEventManager.PowerUpActivatedArgs powerUpActivatedArgs = args as GameEventManager.PowerUpActivatedArgs;
+					if (!(powerUpActivatedArgs.byActor == null))
+					{
+						while (true)
 						{
-							switch (3)
+							switch (1)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						if (this.m_requiredPowerupType != powerUpActivatedArgs.powerUp.m_chatterCategory)
+						if (!(GameFlowData.Get().activeOwnedActorData != powerUpActivatedArgs.byActor))
 						{
-							for (;;)
+							if (m_requiredPowerupType != 0)
 							{
-								switch (7)
+								while (true)
 								{
-								case 0:
-									continue;
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
 								}
-								break;
+								if (m_requiredPowerupType != powerUpActivatedArgs.powerUp.m_chatterCategory)
+								{
+									while (true)
+									{
+										switch (7)
+										{
+										case 0:
+											break;
+										default:
+											return false;
+										}
+									}
+								}
 							}
-							return false;
+							return ChatterData.ShouldPlayChatter(this, eventType, args, component);
+						}
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
 					}
-					return ChatterData.ShouldPlayChatter(this, eventType, args, component);
+					return false;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
-			return false;
 		}
 		return false;
 	}

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ public class SamuraiSelfBuff : Ability
 	public int m_extraDamageIfQueued;
 
 	[Header("-- Shielding")]
-	public int m_baseShielding = 0x1E;
+	public int m_baseShielding = 30;
 
 	public int m_extraShieldingIfOnlyAbility;
 
@@ -29,7 +28,7 @@ public class SamuraiSelfBuff : Ability
 	public bool m_penetrateLoS;
 
 	[Header("-- Damage reactions")]
-	public int m_damageIncreaseFirstHit = 0xA;
+	public int m_damageIncreaseFirstHit = 10;
 
 	public int m_damageIncreaseSubseqHits;
 
@@ -61,21 +60,21 @@ public class SamuraiSelfBuff : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Self Buff";
+			m_abilityName = "Self Buff";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.m_abilityData = base.GetComponent<AbilityData>();
-		this.m_myActionType = base.GetActionTypeOfAbility(this);
-		this.m_syncComponent = base.ActorData.GetComponent<Samurai_SyncComponent>();
-		this.SetCachedFields();
-		AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = new AbilityUtil_Targeter_StretchCone(this, this.GetAoeRadius(), this.GetAoeRadius(), 360f, 360f, AreaEffectUtils.StretchConeStyle.Linear, 0f, this.PenetrateLoS());
-		abilityUtil_Targeter_StretchCone.InitKnockbackData(this.GetKnockbackDist(), KnockbackType.AwayFromSource, 0f, KnockbackType.AwayFromSource);
+		m_abilityData = GetComponent<AbilityData>();
+		m_myActionType = GetActionTypeOfAbility(this);
+		m_syncComponent = base.ActorData.GetComponent<Samurai_SyncComponent>();
+		SetCachedFields();
+		AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = new AbilityUtil_Targeter_StretchCone(this, GetAoeRadius(), GetAoeRadius(), 360f, 360f, AreaEffectUtils.StretchConeStyle.Linear, 0f, PenetrateLoS());
+		abilityUtil_Targeter_StretchCone.InitKnockbackData(GetKnockbackDist(), KnockbackType.AwayFromSource, 0f, KnockbackType.AwayFromSource);
 		abilityUtil_Targeter_StretchCone.m_includeCaster = true;
 		base.Targeter = abilityUtil_Targeter_StretchCone;
 	}
@@ -83,9 +82,9 @@ public class SamuraiSelfBuff : Ability
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedSelfBuffEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -94,21 +93,21 @@ public class SamuraiSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedSelfBuffEffect = this.m_abilityMod.m_selfBuffEffectMod.GetModifiedValue(this.m_selfBuffEffect);
+			cachedSelfBuffEffect = m_abilityMod.m_selfBuffEffectMod.GetModifiedValue(m_selfBuffEffect);
 		}
 		else
 		{
-			cachedSelfBuffEffect = this.m_selfBuffEffect;
+			cachedSelfBuffEffect = m_selfBuffEffect;
 		}
-		this.m_cachedSelfBuffEffect = cachedSelfBuffEffect;
+		m_cachedSelfBuffEffect = cachedSelfBuffEffect;
 		StandardEffectInfo cachedGeneralEffectOnSelf;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -117,21 +116,21 @@ public class SamuraiSelfBuff : Ability
 				}
 				break;
 			}
-			cachedGeneralEffectOnSelf = this.m_abilityMod.m_generalEffectOnSelfMod.GetModifiedValue(this.m_generalEffectOnSelf);
+			cachedGeneralEffectOnSelf = m_abilityMod.m_generalEffectOnSelfMod.GetModifiedValue(m_generalEffectOnSelf);
 		}
 		else
 		{
-			cachedGeneralEffectOnSelf = this.m_generalEffectOnSelf;
+			cachedGeneralEffectOnSelf = m_generalEffectOnSelf;
 		}
-		this.m_cachedGeneralEffectOnSelf = cachedGeneralEffectOnSelf;
+		m_cachedGeneralEffectOnSelf = cachedGeneralEffectOnSelf;
 	}
 
 	public StandardEffectInfo GetSelfBuffEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedSelfBuffEffect != null)
+		if (m_cachedSelfBuffEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -140,15 +139,15 @@ public class SamuraiSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetSelfBuffEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedSelfBuffEffect;
+			result = m_cachedSelfBuffEffect;
 		}
 		else
 		{
-			result = this.m_selfBuffEffect;
+			result = m_selfBuffEffect;
 		}
 		return result;
 	}
@@ -156,9 +155,9 @@ public class SamuraiSelfBuff : Ability
 	public StandardEffectInfo GetGeneralEffectOnSelf()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedGeneralEffectOnSelf != null)
+		if (m_cachedGeneralEffectOnSelf != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -167,15 +166,15 @@ public class SamuraiSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetGeneralEffectOnSelf()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedGeneralEffectOnSelf;
+			result = m_cachedGeneralEffectOnSelf;
 		}
 		else
 		{
-			result = this.m_generalEffectOnSelf;
+			result = m_generalEffectOnSelf;
 		}
 		return result;
 	}
@@ -183,9 +182,9 @@ public class SamuraiSelfBuff : Ability
 	public int GetExtraDamageIfQueued()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -194,15 +193,15 @@ public class SamuraiSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetExtraDamageIfQueued()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageIfQueuedMod.GetModifiedValue(this.m_extraDamageIfQueued);
+			result = m_abilityMod.m_extraDamageIfQueuedMod.GetModifiedValue(m_extraDamageIfQueued);
 		}
 		else
 		{
-			result = this.m_extraDamageIfQueued;
+			result = m_extraDamageIfQueued;
 		}
 		return result;
 	}
@@ -210,9 +209,9 @@ public class SamuraiSelfBuff : Ability
 	public int GetBaseShielding()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -221,30 +220,30 @@ public class SamuraiSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetBaseShielding()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_baseShieldingMod.GetModifiedValue(this.m_baseShielding);
+			result = m_abilityMod.m_baseShieldingMod.GetModifiedValue(m_baseShielding);
 		}
 		else
 		{
-			result = this.m_baseShielding;
+			result = m_baseShielding;
 		}
 		return result;
 	}
 
 	public int GetExtraShieldingIfOnlyAbility()
 	{
-		return (!this.m_abilityMod) ? this.m_extraShieldingIfOnlyAbility : this.m_abilityMod.m_extraShieldingIfOnlyAbilityMod.GetModifiedValue(this.m_extraShieldingIfOnlyAbility);
+		return (!m_abilityMod) ? m_extraShieldingIfOnlyAbility : m_abilityMod.m_extraShieldingIfOnlyAbilityMod.GetModifiedValue(m_extraShieldingIfOnlyAbility);
 	}
 
 	public bool SelfBuffLastsUntilYouDealDamage()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -253,30 +252,30 @@ public class SamuraiSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.SelfBuffLastsUntilYouDealDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_selfBuffLastsUntilYouDealDamageMod.GetModifiedValue(this.m_selfBuffLastsUntilYouDealDamage);
+			result = m_abilityMod.m_selfBuffLastsUntilYouDealDamageMod.GetModifiedValue(m_selfBuffLastsUntilYouDealDamage);
 		}
 		else
 		{
-			result = this.m_selfBuffLastsUntilYouDealDamage;
+			result = m_selfBuffLastsUntilYouDealDamage;
 		}
 		return result;
 	}
 
 	public float GetAoeRadius()
 	{
-		return (!this.m_abilityMod) ? this.m_aoeRadius : this.m_abilityMod.m_aoeRadiusMod.GetModifiedValue(this.m_aoeRadius);
+		return (!m_abilityMod) ? m_aoeRadius : m_abilityMod.m_aoeRadiusMod.GetModifiedValue(m_aoeRadius);
 	}
 
 	public float GetKnockbackDist()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -285,35 +284,35 @@ public class SamuraiSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetKnockbackDist()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_knockbackDistMod.GetModifiedValue(this.m_knockbackDist);
+			result = m_abilityMod.m_knockbackDistMod.GetModifiedValue(m_knockbackDist);
 		}
 		else
 		{
-			result = this.m_knockbackDist;
+			result = m_knockbackDist;
 		}
 		return result;
 	}
 
 	public int GetDamageAmount()
 	{
-		return (!this.m_abilityMod) ? this.m_damageAmount : this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+		return (!m_abilityMod) ? m_damageAmount : m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 	}
 
 	public bool PenetrateLoS()
 	{
-		return (!this.m_abilityMod) ? this.m_penetrateLoS : this.m_abilityMod.m_penetrateLoSMod.GetModifiedValue(this.m_penetrateLoS);
+		return (!m_abilityMod) ? m_penetrateLoS : m_abilityMod.m_penetrateLoSMod.GetModifiedValue(m_penetrateLoS);
 	}
 
 	public int GetDamageIncreaseFirstHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -322,15 +321,15 @@ public class SamuraiSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetDamageIncreaseFirstHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damageIncreaseFirstHitMod.GetModifiedValue(this.m_damageIncreaseFirstHit);
+			result = m_abilityMod.m_damageIncreaseFirstHitMod.GetModifiedValue(m_damageIncreaseFirstHit);
 		}
 		else
 		{
-			result = this.m_damageIncreaseFirstHit;
+			result = m_damageIncreaseFirstHit;
 		}
 		return result;
 	}
@@ -338,9 +337,9 @@ public class SamuraiSelfBuff : Ability
 	public int GetDamageIncreaseSubseqHits()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -349,15 +348,15 @@ public class SamuraiSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetDamageIncreaseSubseqHits()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damageIncreaseSubseqHitsMod.GetModifiedValue(this.m_damageIncreaseSubseqHits);
+			result = m_abilityMod.m_damageIncreaseSubseqHitsMod.GetModifiedValue(m_damageIncreaseSubseqHits);
 		}
 		else
 		{
-			result = this.m_damageIncreaseSubseqHits;
+			result = m_damageIncreaseSubseqHits;
 		}
 		return result;
 	}
@@ -365,9 +364,9 @@ public class SamuraiSelfBuff : Ability
 	public int GetTechPointGainPerIncomingHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -376,15 +375,15 @@ public class SamuraiSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetTechPointGainPerIncomingHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_techPointGainPerIncomingHitMod.GetModifiedValue(this.m_techPointGainPerIncomingHit);
+			result = m_abilityMod.m_techPointGainPerIncomingHitMod.GetModifiedValue(m_techPointGainPerIncomingHit);
 		}
 		else
 		{
-			result = this.m_techPointGainPerIncomingHit;
+			result = m_techPointGainPerIncomingHit;
 		}
 		return result;
 	}
@@ -392,9 +391,9 @@ public class SamuraiSelfBuff : Ability
 	public bool BuffInResponseToIndirectDamage()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -403,15 +402,15 @@ public class SamuraiSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.BuffInResponseToIndirectDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_buffInResponseToIndirectDamageMod.GetModifiedValue(this.m_buffInResponseToIndirectDamage);
+			result = m_abilityMod.m_buffInResponseToIndirectDamageMod.GetModifiedValue(m_buffInResponseToIndirectDamage);
 		}
 		else
 		{
-			result = this.m_buffInResponseToIndirectDamage;
+			result = m_buffInResponseToIndirectDamage;
 		}
 		return result;
 	}
@@ -419,9 +418,9 @@ public class SamuraiSelfBuff : Ability
 	public int GetCdrIfNotHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -430,135 +429,138 @@ public class SamuraiSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetCdrIfNotHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_cdrIfNotHitMod.GetModifiedValue(this.m_cdrIfNotHit);
+			result = m_abilityMod.m_cdrIfNotHitMod.GetModifiedValue(m_cdrIfNotHit);
 		}
 		else
 		{
-			result = this.m_cdrIfNotHit;
+			result = m_cdrIfNotHit;
 		}
 		return result;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_selfBuffEffect, "SelfBuffEffect", this.m_selfBuffEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_generalEffectOnSelf, "GeneralEffectOnSelf", this.m_generalEffectOnSelf, true);
-		base.AddTokenInt(tokens, "ExtraDamageIfQueued", string.Empty, this.m_extraDamageIfQueued, false);
-		base.AddTokenInt(tokens, "BaseShielding", string.Empty, this.m_baseShielding, false);
-		base.AddTokenInt(tokens, "ExtraShieldingIfOnlyAbility", string.Empty, this.m_extraShieldingIfOnlyAbility, false);
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, this.m_damageAmount, false);
-		base.AddTokenInt(tokens, "DamageIncreaseFirstHit", string.Empty, this.m_damageIncreaseFirstHit, false);
-		base.AddTokenInt(tokens, "DamageIncreaseSubseqHits", string.Empty, this.m_damageIncreaseSubseqHits, false);
-		base.AddTokenInt(tokens, "TechPointGainPerIncomingHit", string.Empty, this.m_techPointGainPerIncomingHit, false);
-		base.AddTokenInt(tokens, "CdrIfNotHit", string.Empty, this.m_cdrIfNotHit, false);
+		AbilityMod.AddToken_EffectInfo(tokens, m_selfBuffEffect, "SelfBuffEffect", m_selfBuffEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_generalEffectOnSelf, "GeneralEffectOnSelf", m_generalEffectOnSelf);
+		AddTokenInt(tokens, "ExtraDamageIfQueued", string.Empty, m_extraDamageIfQueued);
+		AddTokenInt(tokens, "BaseShielding", string.Empty, m_baseShielding);
+		AddTokenInt(tokens, "ExtraShieldingIfOnlyAbility", string.Empty, m_extraShieldingIfOnlyAbility);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, m_damageAmount);
+		AddTokenInt(tokens, "DamageIncreaseFirstHit", string.Empty, m_damageIncreaseFirstHit);
+		AddTokenInt(tokens, "DamageIncreaseSubseqHits", string.Empty, m_damageIncreaseSubseqHits);
+		AddTokenInt(tokens, "TechPointGainPerIncomingHit", string.Empty, m_techPointGainPerIncomingHit);
+		AddTokenInt(tokens, "CdrIfNotHit", string.Empty, m_cdrIfNotHit);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = base.CalculateAbilityTooltipNumbers();
-		this.GetSelfBuffEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		this.GetGeneralEffectOnSelf().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetDamageAmount());
-		return result;
+		List<AbilityTooltipNumber> numbers = base.CalculateAbilityTooltipNumbers();
+		GetSelfBuffEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		GetGeneralEffectOnSelf().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetDamageAmount());
+		return numbers;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
 		if (targetActor == base.ActorData)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
-			int num = this.GetBaseShielding();
-			if (this.GetExtraShieldingIfOnlyAbility() > 0 && !this.HasOtherQueuedAbilities())
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					int num = GetBaseShielding();
+					if (GetExtraShieldingIfOnlyAbility() > 0 && !HasOtherQueuedAbilities())
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num += GetExtraShieldingIfOnlyAbility();
+					}
+					results.m_absorb = num;
+					return true;
 				}
-				num += this.GetExtraShieldingIfOnlyAbility();
+				}
 			}
-			results.m_absorb = num;
-			return true;
 		}
 		return false;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_syncComponent != null)
+		if (m_syncComponent != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_syncComponent.m_lastSelfBuffTurn == -1;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
-			return this.m_syncComponent.m_lastSelfBuffTurn == -1;
 		}
 		return base.CustomCanCastValidation(caster);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_SamuraiSelfBuff))
+		if (abilityMod.GetType() != typeof(AbilityMod_SamuraiSelfBuff))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_SamuraiSelfBuff);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_SamuraiSelfBuff);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	public bool HasOtherQueuedAbilities()
 	{
 		bool result = false;
-		if (this.m_abilityData != null)
+		if (m_abilityData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -567,32 +569,40 @@ public class SamuraiSelfBuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.HasOtherQueuedAbilities()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (int i = 0; i <= 4; i++)
+			int num = 0;
+			while (true)
 			{
-				if (i != (int)this.m_myActionType && this.m_abilityData.HasQueuedAction((AbilityData.ActionType)i))
+				if (num <= 4)
 				{
-					for (;;)
+					if (num != (int)m_myActionType && m_abilityData.HasQueuedAction((AbilityData.ActionType)num))
 					{
-						switch (2)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
+						result = true;
 						break;
 					}
-					return true;
-				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
+					num++;
 					continue;
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
 				break;
 			}

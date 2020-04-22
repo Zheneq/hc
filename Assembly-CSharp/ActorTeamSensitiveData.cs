@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using Unity;
 using UnityEngine;
@@ -6,7 +5,27 @@ using UnityEngine.Networking;
 
 public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 {
-	public ActorTeamSensitiveData.ObservedBy m_typeObservingMe;
+	public enum DirtyBit : uint
+	{
+		FacingDirection = 1u,
+		MoveFromBoardSquare = 2u,
+		LineData = 4u,
+		MovementCameraBound = 8u,
+		Respawn = 0x10u,
+		InitialMoveStartSquare = 0x20u,
+		QueuedAbilities = 0x40u,
+		ToggledOnAbilities = 0x80u,
+		AbilityRequestDataForTargeter = 0x100u,
+		All = uint.MaxValue
+	}
+
+	public enum ObservedBy
+	{
+		Friendlies,
+		Hostiles
+	}
+
+	public ObservedBy m_typeObservingMe;
 
 	private int m_actorIndex = ActorData.s_invalidActorIndex;
 
@@ -50,42 +69,32 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	private List<ActorTargeting.AbilityRequestData> m_abilityRequestData = new List<ActorTargeting.AbilityRequestData>();
 
-	private static int kRpcRpcMovement = 0x61B12293;
+	private static int kRpcRpcMovement;
 
 	private static int kRpcRpcReceivedPingInfo;
 
 	private static int kRpcRpcReceivedAbilityPingInfo;
 
-	static ActorTeamSensitiveData()
-	{
-		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), ActorTeamSensitiveData.kRpcRpcMovement, new NetworkBehaviour.CmdDelegate(ActorTeamSensitiveData.InvokeRpcRpcMovement));
-		ActorTeamSensitiveData.kRpcRpcReceivedPingInfo = 0x50692C25;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), ActorTeamSensitiveData.kRpcRpcReceivedPingInfo, new NetworkBehaviour.CmdDelegate(ActorTeamSensitiveData.InvokeRpcRpcReceivedPingInfo));
-		ActorTeamSensitiveData.kRpcRpcReceivedAbilityPingInfo = 0x12C6AA05;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), ActorTeamSensitiveData.kRpcRpcReceivedAbilityPingInfo, new NetworkBehaviour.CmdDelegate(ActorTeamSensitiveData.InvokeRpcRpcReceivedAbilityPingInfo));
-		NetworkCRC.RegisterBehaviour("ActorTeamSensitiveData", 0);
-	}
-
 	public Team ActorsTeam
 	{
 		get
 		{
-			if (this.Actor != null)
+			if (Actor != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return Actor.GetTeam();
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.get_ActorsTeam()).MethodHandle;
-				}
-				return this.Actor.\u000E();
 			}
 			return Team.Invalid;
 		}
@@ -95,9 +104,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			if (this.m_associatedActor == null && this.m_actorIndex != ActorData.s_invalidActorIndex)
+			if (m_associatedActor == null && m_actorIndex != ActorData.s_invalidActorIndex)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -106,13 +115,13 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.get_Actor()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (GameFlowData.Get() != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -121,82 +130,266 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(this.m_actorIndex);
+					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(m_actorIndex);
 					if (actorData != null)
 					{
-						this.m_associatedActor = actorData;
+						m_associatedActor = actorData;
 					}
 				}
 			}
-			return this.m_associatedActor;
+			return m_associatedActor;
 		}
 	}
 
-	public int ActorIndex
+	public int ActorIndex => m_actorIndex;
+
+	public Vector3 FacingDirAfterMovement
 	{
 		get
 		{
-			return this.m_actorIndex;
+			return m_facingDirAfterMovement;
+		}
+		set
+		{
+			if (!(m_facingDirAfterMovement != value))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				m_facingDirAfterMovement = value;
+				MarkAsDirty(DirtyBit.FacingDirection);
+				return;
+			}
 		}
 	}
 
-	private void SetActorIndex(int actorIndex)
+	public BoardSquare MoveFromBoardSquare
 	{
-		if (this.m_actorIndex != actorIndex || this.m_associatedActor == null)
+		get
 		{
-			this.m_actorIndex = actorIndex;
-			ActorData associatedActor;
-			if (GameFlowData.Get() != null)
+			return m_moveFromBoardSquare;
+		}
+		set
+		{
+			if (!(m_moveFromBoardSquare != value))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (2)
 				{
-					switch (6)
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				m_moveFromBoardSquare = value;
+				if (NetworkServer.active)
+				{
+					MarkAsDirty(DirtyBit.MoveFromBoardSquare);
+				}
+				return;
+			}
+		}
+	}
+
+	public BoardSquare InitialMoveStartSquare
+	{
+		get
+		{
+			return m_initialMoveStartSquare;
+		}
+		set
+		{
+			if (!(m_initialMoveStartSquare != value))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				m_initialMoveStartSquare = value;
+				if (NetworkServer.active)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						MarkAsDirty(DirtyBit.InitialMoveStartSquare);
+						return;
+					}
+				}
+				return;
+			}
+		}
+	}
+
+	public Bounds MovementCameraBounds
+	{
+		get
+		{
+			return m_movementCameraBounds;
+		}
+		set
+		{
+			if (m_movementCameraBounds != value)
+			{
+				while (true)
+				{
+					switch (7)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.SetActorIndex(int)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				associatedActor = GameFlowData.Get().FindActorByActorIndex(this.m_actorIndex);
+				m_movementCameraBounds = value;
 			}
-			else
+			if (NetworkServer.active)
 			{
-				associatedActor = null;
-			}
-			this.m_associatedActor = associatedActor;
-			if (!NetworkServer.active)
-			{
-				if (this.m_associatedActor != null)
+				while (true)
 				{
-					for (;;)
+					switch (5)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (this.m_typeObservingMe == ActorTeamSensitiveData.ObservedBy.Friendlies)
+					break;
+				}
+				MarkAsDirty(DirtyBit.MovementCameraBound);
+			}
+			if (!NetworkClient.active)
+			{
+				return;
+			}
+			ActionBufferPhase currentActionPhase = ClientActionBuffer.Get().CurrentActionPhase;
+			if (GameFlowData.Get().gameState != GameState.BothTeams_Resolve || GameManager.Get().GameConfig.GameType == GameType.Tutorial)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				if (!(ClientActionBuffer.Get() != null) || !(CameraManager.Get() != null))
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (2)
 					{
-						for (;;)
+					case 0:
+						continue;
+					}
+					if (!ClientGameManager.Get().IsSpectator)
+					{
+						object obj;
+						if (GameFlowData.Get() != null)
 						{
-							switch (4)
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							obj = GameFlowData.Get().activeOwnedActorData;
+						}
+						else
+						{
+							obj = null;
+						}
+						ActorData actorData = (ActorData)obj;
+						if (!(m_associatedActor != null) || !(actorData != null) || m_associatedActor.GetTeam() != actorData.GetTeam())
+						{
+							return;
+						}
+						while (true)
+						{
+							switch (3)
 							{
 							case 0:
 								continue;
 							}
-							break;
+							if (currentActionPhase != ActionBufferPhase.AbilitiesWait)
+							{
+								if (currentActionPhase != ActionBufferPhase.Movement)
+								{
+									if (currentActionPhase == ActionBufferPhase.Abilities)
+									{
+										while (true)
+										{
+											switch (5)
+											{
+											case 0:
+												continue;
+											}
+											CameraManager.Get().SaveMovementCameraBound(m_movementCameraBounds);
+											return;
+										}
+									}
+									return;
+								}
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							CameraManager.Get().SetTarget(m_movementCameraBounds);
+							return;
 						}
-						this.m_associatedActor.SetClientFriendlyTeamSensitiveData(this);
 					}
-					else if (this.m_typeObservingMe == ActorTeamSensitiveData.ObservedBy.Hostiles)
+					if (!(GameFlowData.Get().LocalPlayerData != null) || !(m_associatedActor != null))
 					{
-						for (;;)
+						return;
+					}
+					Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
+					if (teamViewing != m_associatedActor.GetTeam())
+					{
+						if (teamViewing != Team.Invalid)
+						{
+							return;
+						}
+						while (true)
 						{
 							switch (3)
 							{
@@ -205,67 +398,231 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						this.m_associatedActor.SetClientHostileTeamSensitiveData(this);
 					}
-				}
-				else if (this.m_actorIndex != ActorData.s_invalidActorIndex)
-				{
-					for (;;)
+					if (currentActionPhase != ActionBufferPhase.AbilitiesWait)
 					{
-						switch (7)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
-						break;
+						if (currentActionPhase != ActionBufferPhase.Movement)
+						{
+							if (currentActionPhase == ActionBufferPhase.Abilities)
+							{
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									CameraManager.Get().SaveMovementCameraBoundForSpectator(m_movementCameraBounds);
+									return;
+								}
+							}
+							return;
+						}
 					}
-					TeamSensitiveDataMatchmaker.Get().OnTeamSensitiveDataStarted(this);
+					CameraManager.Get().SaveMovementCameraBoundForSpectator(m_movementCameraBounds);
+					CameraManager.Get().SetTargetForMovementIfNeeded();
+					return;
 				}
 			}
 		}
 	}
 
-	public string GetDebugString()
+	public BoardSquare RespawnPickedSquare
 	{
-		string text;
-		if (this.Actor == null)
+		get
 		{
-			text = "[null] (actor index = " + this.m_actorIndex.ToString() + ")";
+			return m_respawnPickedSquare;
+		}
+		set
+		{
+			m_respawnPickedSquare = value;
+			if (!NetworkServer.active)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				MarkAsDirty(DirtyBit.Respawn);
+				return;
+			}
+		}
+	}
+
+	public List<BoardSquare> RespawnAvailableSquares
+	{
+		get
+		{
+			return m_respawnAvailableSquares;
+		}
+		set
+		{
+			m_respawnAvailableSquares = value;
+			if (!NetworkServer.active)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				MarkAsDirty(DirtyBit.Respawn);
+				return;
+			}
+		}
+	}
+
+	static ActorTeamSensitiveData()
+	{
+		kRpcRpcMovement = 1638998675;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcMovement, InvokeRpcRpcMovement);
+		kRpcRpcReceivedPingInfo = 1349069861;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcReceivedPingInfo, InvokeRpcRpcReceivedPingInfo);
+		kRpcRpcReceivedAbilityPingInfo = 315009541;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcReceivedAbilityPingInfo, InvokeRpcRpcReceivedAbilityPingInfo);
+		NetworkCRC.RegisterBehaviour("ActorTeamSensitiveData", 0);
+	}
+
+	private void SetActorIndex(int actorIndex)
+	{
+		if (m_actorIndex == actorIndex && !(m_associatedActor == null))
+		{
+			return;
+		}
+		m_actorIndex = actorIndex;
+		object associatedActor;
+		if (GameFlowData.Get() != null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			associatedActor = GameFlowData.Get().FindActorByActorIndex(m_actorIndex);
 		}
 		else
 		{
-			text = this.Actor.\u0018();
+			associatedActor = null;
 		}
-		return string.Concat(new string[]
+		m_associatedActor = (ActorData)associatedActor;
+		if (NetworkServer.active)
 		{
-			"ActorTeamSensitiveData-- team = ",
-			this.ActorsTeam.ToString(),
-			", actor = ",
-			text,
-			", observed by = ",
-			this.m_typeObservingMe.ToString()
-		});
+			return;
+		}
+		if (m_associatedActor != null)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					break;
+				default:
+					if (m_typeObservingMe == ObservedBy.Friendlies)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								break;
+							default:
+								m_associatedActor.SetClientFriendlyTeamSensitiveData(this);
+								return;
+							}
+						}
+					}
+					if (m_typeObservingMe == ObservedBy.Hostiles)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								break;
+							default:
+								m_associatedActor.SetClientHostileTeamSensitiveData(this);
+								return;
+							}
+						}
+					}
+					return;
+				}
+			}
+		}
+		if (m_actorIndex == ActorData.s_invalidActorIndex)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			TeamSensitiveDataMatchmaker.Get().OnTeamSensitiveDataStarted(this);
+			return;
+		}
+	}
+
+	public string GetDebugString()
+	{
+		string text = (!(Actor == null)) ? Actor.GetDebugName() : ("[null] (actor index = " + m_actorIndex + ")");
+		return "ActorTeamSensitiveData-- team = " + ActorsTeam.ToString() + ", actor = " + text + ", observed by = " + m_typeObservingMe;
 	}
 
 	private void Awake()
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 		{
-			this.m_queuedAbilities.Add(false);
-			this.m_abilityToggledOn.Add(false);
+			m_queuedAbilities.Add(false);
+			m_abilityToggledOn.Add(false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.Awake()).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
@@ -276,68 +633,69 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	private void OnDestroy()
 	{
-		if (GameEventManager.Get() != null)
+		if (GameEventManager.Get() == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.TheatricsEvasionMoveStart);
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (NetworkClient.active)
+		if (!NetworkClient.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (NetworkServer.active || !(Actor == null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.Update()).MethodHandle;
-			}
-			if (!NetworkServer.active && this.Actor == null)
-			{
-				for (;;)
+				if (m_actorIndex == ActorData.s_invalidActorIndex)
 				{
-					switch (1)
+					return;
+				}
+				while (true)
+				{
+					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (this.m_actorIndex != ActorData.s_invalidActorIndex)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					ActorData associatedActor;
+					object associatedActor;
 					if (GameFlowData.Get() != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -346,63 +704,65 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						associatedActor = GameFlowData.Get().FindActorByActorIndex(this.m_actorIndex);
+						associatedActor = GameFlowData.Get().FindActorByActorIndex(m_actorIndex);
 					}
 					else
 					{
 						associatedActor = null;
 					}
-					this.m_associatedActor = associatedActor;
-					if (this.Actor != null)
+					m_associatedActor = (ActorData)associatedActor;
+					if (!(Actor != null))
 					{
-						for (;;)
+						return;
+					}
+					while (true)
+					{
+						switch (5)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
+						case 0:
+							continue;
 						}
-						if (this.m_typeObservingMe == ActorTeamSensitiveData.ObservedBy.Friendlies)
+						if (m_typeObservingMe == ObservedBy.Friendlies)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									Actor.SetClientFriendlyTeamSensitiveData(this);
+									return;
 								}
-								break;
 							}
-							this.Actor.SetClientFriendlyTeamSensitiveData(this);
 						}
-						else if (this.m_typeObservingMe == ActorTeamSensitiveData.ObservedBy.Hostiles)
+						if (m_typeObservingMe == ObservedBy.Hostiles)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
 								case 0:
 									continue;
 								}
-								break;
+								Actor.SetClientHostileTeamSensitiveData(this);
+								return;
 							}
-							this.Actor.SetClientHostileTeamSensitiveData(this);
 						}
+						return;
 					}
 				}
 			}
 		}
 	}
 
-	public void MarkAsDirty(ActorTeamSensitiveData.DirtyBit bit)
+	public void MarkAsDirty(DirtyBit bit)
 	{
 	}
 
-	private bool IsBitDirty(uint setBits, ActorTeamSensitiveData.DirtyBit bitToTest)
+	private bool IsBitDirty(uint setBits, DirtyBit bitToTest)
 	{
-		return (setBits & (uint)bitToTest) != 0U;
+		return ((int)setBits & (int)bitToTest) != 0;
 	}
 
 	public void MarkAsRespawning()
@@ -412,33 +772,34 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	[ClientRpc]
 	private void RpcMovement(GameEventManager.EventType wait, GridPosProp start, GridPosProp end_grid, byte[] pathBytes, ActorData.MovementType type, bool disappearAfterMovement, bool respawning)
 	{
-		if (!NetworkServer.active)
+		if (NetworkServer.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.RpcMovement(GameEventManager.EventType, GridPosProp, GridPosProp, byte[], ActorData.MovementType, bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.ProcessMovement(wait, GridPos.FromGridPosProp(start), Board.\u000E().\u000E(GridPos.FromGridPosProp(end_grid)), MovementUtils.DeSerializePath(pathBytes), type, disappearAfterMovement, respawning);
+			ProcessMovement(wait, GridPos.FromGridPosProp(start), Board.Get().GetBoardSquareSafe(GridPos.FromGridPosProp(end_grid)), MovementUtils.DeSerializePath(pathBytes), type, disappearAfterMovement, respawning);
+			return;
 		}
 	}
 
 	private void ProcessMovement(GameEventManager.EventType wait, GridPos start, BoardSquare end, BoardSquarePathInfo path, ActorData.MovementType type, bool disappearAfterMovement, bool respawning)
 	{
-		this.FlushQueuedMovement();
+		FlushQueuedMovement();
 		bool flag = end != null;
-		bool flag2;
+		int num;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -447,21 +808,21 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.ProcessMovement(GameEventManager.EventType, GridPos, BoardSquare, BoardSquarePathInfo, ActorData.MovementType, bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag2 = (this.m_lastMovementDestination != end);
+			num = ((m_lastMovementDestination != end) ? 1 : 0);
 		}
 		else
 		{
-			flag2 = false;
+			num = 0;
 		}
-		bool flag3 = flag2;
-		bool flag4;
-		if (!(this.Actor == null))
+		bool flag2 = (byte)num != 0;
+		int num2;
+		if (!(Actor == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -470,17 +831,17 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			flag4 = (this.Actor.CurrentBoardSquare == null);
+			num2 = ((Actor.CurrentBoardSquare == null) ? 1 : 0);
 		}
 		else
 		{
-			flag4 = true;
+			num2 = 1;
 		}
-		bool flag5 = flag4;
-		bool flag6;
+		bool flag3 = (byte)num2 != 0;
+		int num3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -489,9 +850,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!flag3)
+			if (!flag2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -500,9 +861,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!flag5)
+				if (!flag3)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -513,24 +874,68 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					if (path != null)
 					{
-						flag6 = (path.GetPathEndpoint().square == this.Actor.CurrentBoardSquare);
-						goto IL_B7;
+						num3 = ((path.GetPathEndpoint().square == Actor.CurrentBoardSquare) ? 1 : 0);
+						goto IL_00b7;
 					}
 				}
 			}
 		}
-		flag6 = false;
-		IL_B7:
-		bool flag7 = flag6;
-		this.m_lastMovementDestination = end;
-		this.m_lastMovementPath = path;
-		this.m_lastMovementWaitForEvent = wait;
-		this.m_lastMovementType = type;
-		this.m_disappearingAfterMovement = disappearAfterMovement;
-		bool flag8 = false;
-		if (this.Actor != null)
+		num3 = 0;
+		goto IL_00b7;
+		IL_02a0:
+		if (m_assignedInitialBoardSquare)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			Actor.gameObject.SendMessage("OnAssignedToInitialBoardSquare", SendMessageOptions.DontRequireReceiver);
+			m_assignedInitialBoardSquare = true;
+			return;
+		}
+		IL_03b5:
+		if (!(Actor != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			if (respawning)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					HandleRespawnCharacterVisibility(Actor);
+					return;
+				}
+			}
+			return;
+		}
+		IL_00b7:
+		bool flag4 = (byte)num3 != 0;
+		m_lastMovementDestination = end;
+		m_lastMovementPath = path;
+		m_lastMovementWaitForEvent = wait;
+		m_lastMovementType = type;
+		m_disappearingAfterMovement = disappearAfterMovement;
+		bool flag5 = false;
+		if (Actor != null)
+		{
+			while (true)
 			{
 				switch (7)
 				{
@@ -539,9 +944,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (this.Actor.\u000E() != null)
+			if (Actor.GetActorMovement() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -550,13 +955,13 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				flag8 = this.Actor.\u000E().AmMoving();
+				flag5 = Actor.GetActorMovement().AmMoving();
 			}
 		}
-		int num = 0;
+		int num4 = 0;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -565,11 +970,11 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			num = GameFlowData.Get().CurrentTurn;
+			num4 = GameFlowData.Get().CurrentTurn;
 		}
-		if (!flag8)
+		if (!flag5)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -580,7 +985,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			}
 			if (wait == GameEventManager.EventType.Invalid)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -589,9 +994,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (this.Actor != null)
+				if (Actor != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -600,9 +1005,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (this.Actor.LastDeathTurn != num)
+					if (Actor.LastDeathTurn != num4)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -611,9 +1016,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (this.Actor.\u000E())
+						if (Actor.IsDead())
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -624,9 +1029,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 							}
 							if (!respawning)
 							{
-								goto IL_2D6;
+								goto IL_02d6;
 							}
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -636,11 +1041,11 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 								break;
 							}
 						}
-						if (!flag3)
+						if (!flag2)
 						{
-							if (flag5)
+							if (flag3)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
@@ -651,119 +1056,49 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 								}
 								if (flag)
 								{
-									goto IL_1FF;
+									goto IL_01ff;
 								}
 							}
-							if (!flag7)
+							if (!flag4)
 							{
-								if (flag)
+								if (!flag)
 								{
-									goto IL_2A0;
-								}
-								for (;;)
-								{
-									switch (7)
+									while (true)
 									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (disappearAfterMovement)
-								{
-									for (;;)
-									{
-										switch (6)
+										switch (7)
 										{
 										case 0:
 											continue;
 										}
 										break;
 									}
-									this.Actor.OnMovementWhileDisappeared(type);
-									goto IL_2A0;
-								}
-								goto IL_2A0;
-							}
-						}
-						IL_1FF:
-						if (path == null)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (type != ActorData.MovementType.Teleport)
-							{
-								for (;;)
-								{
-									switch (6)
+									if (disappearAfterMovement)
 									{
-									case 0:
-										continue;
+										while (true)
+										{
+											switch (6)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										Actor.OnMovementWhileDisappeared(type);
 									}
-									break;
 								}
-								this.Actor.MoveToBoardSquareLocal(end, ActorData.MovementType.Teleport, path, disappearAfterMovement);
-								goto IL_243;
+								goto IL_02a0;
 							}
 						}
-						this.Actor.MoveToBoardSquareLocal(end, type, path, disappearAfterMovement);
-						IL_243:
-						if (respawning)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (end != null)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.HandleRespawnCharacterVisibility(this.Actor);
-							}
-						}
-						IL_2A0:
-						if (!this.m_assignedInitialBoardSquare)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.Actor.gameObject.SendMessage("OnAssignedToInitialBoardSquare", SendMessageOptions.DontRequireReceiver);
-							this.m_assignedInitialBoardSquare = true;
-						}
-						return;
+						goto IL_01ff;
 					}
 				}
 			}
 		}
-		IL_2D6:
-		if (!flag8)
+		goto IL_02d6;
+		IL_02d6:
+		if (!flag5)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -772,9 +1107,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (wait != GameEventManager.EventType.Invalid)
+			if (wait != 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -783,9 +1118,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (this.Actor != null)
+				if (Actor != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -794,9 +1129,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (this.Actor.LastDeathTurn != num)
+					if (Actor.LastDeathTurn != num4)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -805,9 +1140,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (this.Actor.\u000E())
+						if (Actor.IsDead())
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -818,9 +1153,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 							}
 							if (!respawning)
 							{
-								goto IL_3B5;
+								goto IL_03b5;
 							}
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -830,150 +1165,42 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 								break;
 							}
 						}
-						BoardSquare boardSquare = Board.\u000E().\u000E(start);
-						if (boardSquare != null)
+						BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(start);
+						if (!(boardSquareSafe != null))
 						{
-							for (;;)
+							return;
+						}
+						while (true)
+						{
+							switch (4)
 							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
+							case 0:
+								continue;
 							}
-							if (boardSquare != this.Actor.CurrentBoardSquare)
+							if (boardSquareSafe != Actor.CurrentBoardSquare)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (1)
 									{
 									case 0:
 										continue;
 									}
-									break;
+									Actor.AppearAtBoardSquare(boardSquareSafe);
+									return;
 								}
-								this.Actor.AppearAtBoardSquare(boardSquare);
 							}
-						}
-						return;
-					}
-				}
-			}
-		}
-		IL_3B5:
-		if (this.Actor != null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (respawning)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.HandleRespawnCharacterVisibility(this.Actor);
-			}
-		}
-	}
-
-	private void HandleRespawnCharacterVisibility(ActorData actor)
-	{
-		if (FogOfWar.GetClientFog() != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.HandleRespawnCharacterVisibility(ActorData)).MethodHandle;
-			}
-			if (this.Actor.\u000E() != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.Actor.OnRespawnTeleport();
-				this.Actor.ForceUpdateIsVisibleToClientCache();
-				PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
-				if (localPlayerData != null && SpawnPointManager.Get() != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (SpawnPointManager.Get().m_spawnInDuringMovement)
-					{
-						ActorModelData actorModelData = this.Actor.\u000E();
-						if (actorModelData != null)
-						{
-							actorModelData.DisableAndHideRenderers();
-						}
-						if (HighlightUtils.Get().m_recentlySpawnedShader != null)
-						{
-							TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(this.Actor.\u000E(), localPlayerData.GetTeamViewing() == this.Actor.\u000E(), 0.5f, HighlightUtils.Get().m_recentlySpawnedShader, false);
+							return;
 						}
 					}
 				}
 			}
 		}
-	}
-
-	public unsafe void EncapsulateVisiblePathBound(ref Bounds bound)
-	{
-		if (this.m_lastMovementWaitForEvent != GameEventManager.EventType.Invalid && this.m_lastMovementPath != null && this.Actor != null)
+		goto IL_03b5;
+		IL_01ff:
+		if (path == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.EncapsulateVisiblePathBound(Bounds*)).MethodHandle;
-			}
-			TheatricsManager.EncapsulatePathInBound(ref bound, this.m_lastMovementPath, this.Actor);
-		}
-	}
-
-	public void ClearPreviousMovementInfo()
-	{
-		if (NetworkServer.active)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -982,22 +1209,27 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (type != ActorData.MovementType.Teleport)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.ClearPreviousMovementInfo()).MethodHandle;
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				Actor.MoveToBoardSquareLocal(end, ActorData.MovementType.Teleport, path, disappearAfterMovement);
+				goto IL_0243;
 			}
-			this.m_lastMovementDestination = null;
-			this.m_lastMovementPath = null;
-			this.m_lastMovementType = ActorData.MovementType.None;
-			this.m_lastMovementWaitForEvent = GameEventManager.EventType.Invalid;
 		}
-	}
-
-	public void FlushQueuedMovement()
-	{
-		if (NetworkClient.active)
+		Actor.MoveToBoardSquareLocal(end, type, path, disappearAfterMovement);
+		goto IL_0243;
+		IL_0243:
+		if (respawning)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1006,13 +1238,150 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (end != null)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.FlushQueuedMovement()).MethodHandle;
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				HandleRespawnCharacterVisibility(Actor);
 			}
-			if (this.Actor != null)
+		}
+		goto IL_02a0;
+	}
+
+	private void HandleRespawnCharacterVisibility(ActorData actor)
+	{
+		if (!(FogOfWar.GetClientFog() != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				for (;;)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(Actor.GetActorVFX() != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				Actor.OnRespawnTeleport();
+				Actor.ForceUpdateIsVisibleToClientCache();
+				PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
+				if (!(localPlayerData != null) || !(SpawnPointManager.Get() != null))
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					if (SpawnPointManager.Get().m_spawnInDuringMovement)
+					{
+						ActorModelData actorModelData = Actor.GetActorModelData();
+						if (actorModelData != null)
+						{
+							actorModelData.DisableAndHideRenderers();
+						}
+						if (HighlightUtils.Get().m_recentlySpawnedShader != null)
+						{
+							TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(Actor.GetActorModelData(), localPlayerData.GetTeamViewing() == Actor.GetTeam(), 0.5f, HighlightUtils.Get().m_recentlySpawnedShader, false);
+						}
+					}
+					return;
+				}
+			}
+		}
+	}
+
+	public void EncapsulateVisiblePathBound(ref Bounds bound)
+	{
+		if (m_lastMovementWaitForEvent == GameEventManager.EventType.Invalid || m_lastMovementPath == null || !(Actor != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			TheatricsManager.EncapsulatePathInBound(ref bound, m_lastMovementPath, Actor);
+			return;
+		}
+	}
+
+	public void ClearPreviousMovementInfo()
+	{
+		if (!NetworkServer.active)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_lastMovementDestination = null;
+			m_lastMovementPath = null;
+			m_lastMovementType = ActorData.MovementType.None;
+			m_lastMovementWaitForEvent = GameEventManager.EventType.Invalid;
+			return;
+		}
+	}
+
+	public void FlushQueuedMovement()
+	{
+		if (!NetworkClient.active)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (Actor != null)
+			{
+				while (true)
 				{
 					switch (3)
 					{
@@ -1021,13 +1390,13 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				bool flag = !this.Actor.\u000E();
-				bool flag2 = this.m_lastMovementDestination != null;
-				bool flag3 = this.Actor.CurrentBoardSquare == this.m_lastMovementDestination;
-				bool flag4;
-				if (this.Actor.CurrentBoardSquare == null)
+				bool flag = !Actor.IsDead();
+				bool flag2 = m_lastMovementDestination != null;
+				bool flag3 = Actor.CurrentBoardSquare == m_lastMovementDestination;
+				int num;
+				if (Actor.CurrentBoardSquare == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1036,16 +1405,16 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					flag4 = this.Actor.DisappearingAfterCurrentMovement;
+					num = (Actor.DisappearingAfterCurrentMovement ? 1 : 0);
 				}
 				else
 				{
-					flag4 = false;
+					num = 0;
 				}
-				bool flag5 = flag4;
+				bool flag4 = (byte)num != 0;
 				if (flag && flag2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -1056,7 +1425,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					if (!flag3)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -1065,9 +1434,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (!flag5)
+						if (!flag4)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -1076,13 +1445,14 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 								}
 								break;
 							}
-							this.Actor.MoveToBoardSquareLocal(this.m_lastMovementDestination, ActorData.MovementType.Teleport, null, this.m_disappearingAfterMovement);
+							Actor.MoveToBoardSquareLocal(m_lastMovementDestination, ActorData.MovementType.Teleport, null, m_disappearingAfterMovement);
 						}
 					}
 				}
 			}
-			this.m_lastMovementPath = null;
-			this.m_lastMovementWaitForEvent = GameEventManager.EventType.Invalid;
+			m_lastMovementPath = null;
+			m_lastMovementWaitForEvent = GameEventManager.EventType.Invalid;
+			return;
 		}
 	}
 
@@ -1093,11 +1463,12 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		{
 			setBits = reader.ReadPackedUInt32();
 		}
-		sbyte b = reader.ReadSByte();
-		this.SetActorIndex((int)b);
-		if (this.IsBitDirty(setBits, ActorTeamSensitiveData.DirtyBit.FacingDirection))
+		sbyte b = 0;
+		b = reader.ReadSByte();
+		SetActorIndex(b);
+		if (IsBitDirty(setBits, DirtyBit.FacingDirection))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1106,14 +1477,14 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.OnDeserialize(NetworkReader, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			short num = reader.ReadInt16();
 			if (num < 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1122,15 +1493,15 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				this.m_facingDirAfterMovement = Vector3.zero;
+				m_facingDirAfterMovement = Vector3.zero;
 			}
 			else
 			{
-				this.m_facingDirAfterMovement = VectorUtils.AngleDegreesToVector((float)num);
+				m_facingDirAfterMovement = VectorUtils.AngleDegreesToVector(num);
 			}
-			if (this.Actor != null)
+			if (Actor != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1139,12 +1510,12 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				this.Actor.SetFacingDirectionAfterMovement(this.m_facingDirAfterMovement);
+				Actor.SetFacingDirectionAfterMovement(m_facingDirAfterMovement);
 			}
 		}
-		if (this.IsBitDirty(setBits, ActorTeamSensitiveData.DirtyBit.MoveFromBoardSquare))
+		if (IsBitDirty(setBits, DirtyBit.MoveFromBoardSquare))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1153,12 +1524,12 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			short u001D = reader.ReadInt16();
-			short u000E = reader.ReadInt16();
-			BoardSquare boardSquare = Board.\u000E().\u0016((int)u001D, (int)u000E);
-			if (boardSquare != this.MoveFromBoardSquare)
+			short x = reader.ReadInt16();
+			short y = reader.ReadInt16();
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(x, y);
+			if (boardSquare != MoveFromBoardSquare)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1167,10 +1538,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				this.MoveFromBoardSquare = boardSquare;
-				if (this.Actor != null)
+				MoveFromBoardSquare = boardSquare;
+				if (Actor != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -1179,16 +1550,16 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (this.Actor.\u000E() != null)
+					if (Actor.GetActorMovement() != null)
 					{
-						this.Actor.\u000E().UpdateSquaresCanMoveTo();
+						Actor.GetActorMovement().UpdateSquaresCanMoveTo();
 					}
 				}
 			}
 		}
-		if (this.IsBitDirty(setBits, ActorTeamSensitiveData.DirtyBit.InitialMoveStartSquare))
+		if (IsBitDirty(setBits, DirtyBit.InitialMoveStartSquare))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1197,12 +1568,12 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			short u001D2 = reader.ReadInt16();
-			short u000E2 = reader.ReadInt16();
-			BoardSquare boardSquare2 = Board.\u000E().\u0016((int)u001D2, (int)u000E2);
-			if (this.InitialMoveStartSquare != boardSquare2)
+			short x2 = reader.ReadInt16();
+			short y2 = reader.ReadInt16();
+			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(x2, y2);
+			if (InitialMoveStartSquare != boardSquare2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1211,10 +1582,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				this.InitialMoveStartSquare = boardSquare2;
-				if (this.Actor != null)
+				InitialMoveStartSquare = boardSquare2;
+				if (Actor != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -1223,9 +1594,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (this.Actor.\u000E() != null)
+					if (Actor.GetActorMovement() != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -1234,14 +1605,14 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						this.Actor.\u000E().UpdateSquaresCanMoveTo();
+						Actor.GetActorMovement().UpdateSquaresCanMoveTo();
 					}
 				}
 			}
 		}
-		if (this.IsBitDirty(setBits, ActorTeamSensitiveData.DirtyBit.LineData))
+		if (IsBitDirty(setBits, DirtyBit.LineData))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1251,20 +1622,18 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				break;
 			}
 			byte bitField = reader.ReadByte();
-			bool flag;
-			bool flag2;
-			ServerClientUtils.GetBoolsFromBitfield(bitField, out flag, out flag2);
-			if (flag)
+			ServerClientUtils.GetBoolsFromBitfield(bitField, out bool @out, out bool out2);
+			if (@out)
 			{
-				this.m_movementLine = LineData.DeSerializeLine(reader);
+				m_movementLine = LineData.DeSerializeLine(reader);
 			}
 			else
 			{
-				this.m_movementLine = null;
+				m_movementLine = null;
 			}
-			if (flag2)
+			if (out2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1273,15 +1642,15 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				this.m_numNodesInSnaredLine = reader.ReadSByte();
+				m_numNodesInSnaredLine = reader.ReadSByte();
 			}
 			else
 			{
-				this.m_numNodesInSnaredLine = 0;
+				m_numNodesInSnaredLine = 0;
 			}
-			if (this.Actor != null)
+			if (Actor != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1290,10 +1659,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				LineData component = this.Actor.GetComponent<LineData>();
+				LineData component = Actor.GetComponent<LineData>();
 				if (component != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1302,13 +1671,13 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					component.OnDeserializedData(this.m_movementLine, this.m_numNodesInSnaredLine);
+					component.OnDeserializedData(m_movementLine, m_numNodesInSnaredLine);
 				}
 			}
 		}
-		if (this.IsBitDirty(setBits, ActorTeamSensitiveData.DirtyBit.MovementCameraBound))
+		if (IsBitDirty(setBits, DirtyBit.MovementCameraBound))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1321,13 +1690,13 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			short num3 = reader.ReadInt16();
 			short num4 = reader.ReadInt16();
 			short num5 = reader.ReadInt16();
-			Vector3 center = new Vector3((float)num2, 1.5f + (float)Board.\u000E().BaselineHeight, (float)num3);
-			Vector3 size = new Vector3((float)num4, 3f, (float)num5);
-			this.MovementCameraBounds = new Bounds(center, size);
+			Vector3 center = new Vector3(num2, 1.5f + (float)Board.Get().BaselineHeight, num3);
+			Vector3 size = new Vector3(num4, 3f, num5);
+			MovementCameraBounds = new Bounds(center, size);
 		}
-		if (this.IsBitDirty(setBits, ActorTeamSensitiveData.DirtyBit.Respawn))
+		if (IsBitDirty(setBits, DirtyBit.Respawn))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1336,14 +1705,13 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			short num6 = reader.ReadInt16();
-			short num7 = reader.ReadInt16();
-			BoardSquare boardSquare3 = Board.\u000E().\u0016((int)num6, (int)num7);
-			this.RespawnPickedSquare = boardSquare3;
-			bool flag3 = reader.ReadBoolean();
-			if (this.Actor != null)
+			short x3 = reader.ReadInt16();
+			short y3 = reader.ReadInt16();
+			BoardSquare boardSquare4 = RespawnPickedSquare = Board.Get().GetBoardSquare(x3, y3);
+			bool flag = reader.ReadBoolean();
+			if (Actor != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1352,13 +1720,13 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!(this.RespawnPickedSquare != null))
+				if (!(RespawnPickedSquare != null))
 				{
-					if (flag3)
+					if (flag)
 					{
-						goto IL_3D8;
+						goto IL_03d8;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -1368,32 +1736,127 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						break;
 					}
 				}
-				this.Actor.ShowRespawnFlare(this.RespawnPickedSquare, flag3);
+				Actor.ShowRespawnFlare(RespawnPickedSquare, flag);
 			}
-			IL_3D8:
-			short num8 = reader.ReadInt16();
-			this.m_respawnAvailableSquares.Clear();
-			for (int i = 0; i < (int)num8; i++)
+			goto IL_03d8;
+		}
+		goto IL_0532;
+		IL_03d8:
+		short num6 = reader.ReadInt16();
+		m_respawnAvailableSquares.Clear();
+		for (int i = 0; i < num6; i++)
+		{
+			short x3 = reader.ReadInt16();
+			short y3 = reader.ReadInt16();
+			BoardSquare boardSquare4 = Board.Get().GetBoardSquare(x3, y3);
+			if (boardSquare4 != null)
 			{
-				num6 = reader.ReadInt16();
-				num7 = reader.ReadInt16();
-				boardSquare3 = Board.\u000E().\u0016((int)num6, (int)num7);
-				if (boardSquare3 != null)
+				m_respawnAvailableSquares.Add(boardSquare4);
+			}
+			else
+			{
+				Log.Error("Invalid square received for respawn choices {0}, {1}", x3, y3);
+			}
+		}
+		if (m_respawnAvailableSquares.Count > 0 && RespawnPickedSquare == null)
+		{
+			while (true)
+			{
+				switch (2)
 				{
-					this.m_respawnAvailableSquares.Add(boardSquare3);
+				case 0:
+					continue;
 				}
-				else
+				break;
+			}
+			if (Actor != null)
+			{
+				while (true)
 				{
-					Log.Error("Invalid square received for respawn choices {0}, {1}", new object[]
+					switch (1)
 					{
-						num6,
-						num7
-					});
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (GameFlowData.Get() != null)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (Actor == GameFlowData.Get().activeOwnedActorData)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (Actor.GetActorTurnSM().AmStillDeciding())
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							Actor.ShowRespawnFlare(m_respawnAvailableSquares[0], false);
+						}
+					}
 				}
 			}
-			if (this.m_respawnAvailableSquares.Count > 0 && this.RespawnPickedSquare == null)
+		}
+		goto IL_0532;
+		IL_0564:
+		bool flag2;
+		if (flag2)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			bool flag3 = false;
+			short num7 = reader.ReadInt16();
+			for (int j = 0; j < 14; j++)
+			{
+				short num8 = (short)(1 << j);
+				bool flag4 = (num7 & num8) != 0;
+				if (m_queuedAbilities[j] != flag4)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_queuedAbilities[j] = flag4;
+					flag3 = true;
+				}
+			}
+			if (flag3)
+			{
+				while (true)
 				{
 					switch (2)
 					{
@@ -1402,65 +1865,83 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (this.Actor != null)
+				if (Actor != null)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (1)
+						switch (2)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (GameFlowData.Get() != null)
+					if (Actor.GetAbilityData() != null)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (4)
+							switch (2)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						if (this.Actor == GameFlowData.Get().activeOwnedActorData)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.Actor.\u000E().AmStillDeciding())
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.Actor.ShowRespawnFlare(this.m_respawnAvailableSquares[0], false);
-							}
-						}
+						Actor.GetAbilityData().OnQueuedAbilitiesChanged();
 					}
 				}
 			}
 		}
-		bool flag4 = this.IsBitDirty(setBits, ActorTeamSensitiveData.DirtyBit.QueuedAbilities);
-		if (!flag4)
+		if (!IsBitDirty(setBits, DirtyBit.ToggledOnAbilities))
 		{
-			if (!this.IsBitDirty(setBits, ActorTeamSensitiveData.DirtyBit.AbilityRequestDataForTargeter))
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				goto IL_564;
+			case 0:
+				continue;
 			}
-			for (;;)
+			short num9 = reader.ReadInt16();
+			for (int k = 0; k < 14; k++)
+			{
+				short num10 = (short)(1 << k);
+				bool flag5 = (num9 & num10) != 0;
+				if (m_abilityToggledOn[k] != flag5)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_abilityToggledOn[k] = flag5;
+				}
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
+		}
+		IL_0532:
+		flag2 = IsBitDirty(setBits, DirtyBit.QueuedAbilities);
+		if (!flag2)
+		{
+			if (!IsBitDirty(setBits, DirtyBit.AbilityRequestDataForTargeter))
+			{
+				goto IL_0564;
+			}
+			while (true)
 			{
 				switch (7)
 				{
@@ -1470,145 +1951,35 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				break;
 			}
 		}
-		this.DeSerializeAbilityRequestData(reader);
-		IL_564:
-		if (flag4)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			bool flag5 = false;
-			short num9 = reader.ReadInt16();
-			for (int j = 0; j < 0xE; j++)
-			{
-				short num10 = (short)(1 << j);
-				bool flag6 = (num9 & num10) != 0;
-				if (this.m_queuedAbilities[j] != flag6)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_queuedAbilities[j] = flag6;
-					flag5 = true;
-				}
-			}
-			if (flag5)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.Actor != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.Actor.\u000E() != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.Actor.\u000E().OnQueuedAbilitiesChanged();
-					}
-				}
-			}
-		}
-		if (this.IsBitDirty(setBits, ActorTeamSensitiveData.DirtyBit.ToggledOnAbilities))
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			short num11 = reader.ReadInt16();
-			for (int k = 0; k < 0xE; k++)
-			{
-				short num12 = (short)(1 << k);
-				bool flag7 = (num11 & num12) != 0;
-				if (this.m_abilityToggledOn[k] != flag7)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_abilityToggledOn[k] = flag7;
-				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
+		DeSerializeAbilityRequestData(reader);
+		goto IL_0564;
 	}
 
 	public void OnClientAssociatedWithActor(ActorData actor)
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.OnClientAssociatedWithActor(ActorData)).MethodHandle;
-			}
-			return;
 		}
-		this.m_associatedActor = actor;
-		if (this.m_lastMovementDestination != null)
+		m_associatedActor = actor;
+		if (m_lastMovementDestination != null)
 		{
-			if (this.m_lastMovementPath == null && this.m_lastMovementType != ActorData.MovementType.Teleport)
+			if (m_lastMovementPath == null && m_lastMovementType != ActorData.MovementType.Teleport)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1617,15 +1988,15 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				this.Actor.MoveToBoardSquareLocal(this.m_lastMovementDestination, ActorData.MovementType.Teleport, this.m_lastMovementPath, this.m_disappearingAfterMovement);
+				Actor.MoveToBoardSquareLocal(m_lastMovementDestination, ActorData.MovementType.Teleport, m_lastMovementPath, m_disappearingAfterMovement);
 			}
 			else
 			{
-				this.Actor.MoveToBoardSquareLocal(this.m_lastMovementDestination, this.m_lastMovementType, this.m_lastMovementPath, this.m_disappearingAfterMovement);
+				Actor.MoveToBoardSquareLocal(m_lastMovementDestination, m_lastMovementType, m_lastMovementPath, m_disappearingAfterMovement);
 			}
-			if (!this.m_assignedInitialBoardSquare)
+			if (!m_assignedInitialBoardSquare)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1634,410 +2005,62 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				this.Actor.gameObject.SendMessage("OnAssignedToInitialBoardSquare", SendMessageOptions.DontRequireReceiver);
-				this.m_assignedInitialBoardSquare = true;
+				Actor.gameObject.SendMessage("OnAssignedToInitialBoardSquare", SendMessageOptions.DontRequireReceiver);
+				m_assignedInitialBoardSquare = true;
 			}
 		}
-		this.Actor.\u000E().UpdateSquaresCanMoveTo();
-		if (this.m_typeObservingMe == ActorTeamSensitiveData.ObservedBy.Friendlies)
+		Actor.GetActorMovement().UpdateSquaresCanMoveTo();
+		if (m_typeObservingMe != 0)
 		{
-			LineData component = this.Actor.GetComponent<LineData>();
-			if (component != null)
+			return;
+		}
+		LineData component = Actor.GetComponent<LineData>();
+		if (!(component != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				component.OnDeserializedData(this.m_movementLine, this.m_numNodesInSnaredLine);
+			case 0:
+				continue;
 			}
+			component.OnDeserializedData(m_movementLine, m_numNodesInSnaredLine);
+			return;
 		}
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType == this.m_lastMovementWaitForEvent)
+		if (eventType != m_lastMovementWaitForEvent)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this == this.Actor.TeamSensitiveData_authority)
+			if (this == Actor.TeamSensitiveData_authority)
 			{
-				this.Actor.MoveToBoardSquareLocal(this.m_lastMovementDestination, this.m_lastMovementType, this.m_lastMovementPath, this.m_disappearingAfterMovement);
-				this.m_lastMovementPath = null;
-				this.m_lastMovementWaitForEvent = GameEventManager.EventType.Invalid;
+				Actor.MoveToBoardSquareLocal(m_lastMovementDestination, m_lastMovementType, m_lastMovementPath, m_disappearingAfterMovement);
+				m_lastMovementPath = null;
+				m_lastMovementWaitForEvent = GameEventManager.EventType.Invalid;
 			}
+			return;
 		}
 	}
 
 	public void OnTurnTick()
 	{
-		this.FlushQueuedMovement();
-	}
-
-	public Vector3 FacingDirAfterMovement
-	{
-		get
-		{
-			return this.m_facingDirAfterMovement;
-		}
-		set
-		{
-			if (this.m_facingDirAfterMovement != value)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.set_FacingDirAfterMovement(Vector3)).MethodHandle;
-				}
-				this.m_facingDirAfterMovement = value;
-				this.MarkAsDirty(ActorTeamSensitiveData.DirtyBit.FacingDirection);
-			}
-		}
-	}
-
-	public BoardSquare MoveFromBoardSquare
-	{
-		get
-		{
-			return this.m_moveFromBoardSquare;
-		}
-		set
-		{
-			if (this.m_moveFromBoardSquare != value)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.set_MoveFromBoardSquare(BoardSquare)).MethodHandle;
-				}
-				this.m_moveFromBoardSquare = value;
-				if (NetworkServer.active)
-				{
-					this.MarkAsDirty(ActorTeamSensitiveData.DirtyBit.MoveFromBoardSquare);
-				}
-			}
-		}
-	}
-
-	public BoardSquare InitialMoveStartSquare
-	{
-		get
-		{
-			return this.m_initialMoveStartSquare;
-		}
-		set
-		{
-			if (this.m_initialMoveStartSquare != value)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.set_InitialMoveStartSquare(BoardSquare)).MethodHandle;
-				}
-				this.m_initialMoveStartSquare = value;
-				if (NetworkServer.active)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.MarkAsDirty(ActorTeamSensitiveData.DirtyBit.InitialMoveStartSquare);
-				}
-			}
-		}
-	}
-
-	public Bounds MovementCameraBounds
-	{
-		get
-		{
-			return this.m_movementCameraBounds;
-		}
-		set
-		{
-			if (this.m_movementCameraBounds != value)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.set_MovementCameraBounds(Bounds)).MethodHandle;
-				}
-				this.m_movementCameraBounds = value;
-			}
-			if (NetworkServer.active)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.MarkAsDirty(ActorTeamSensitiveData.DirtyBit.MovementCameraBound);
-			}
-			if (NetworkClient.active)
-			{
-				ActionBufferPhase currentActionPhase = ClientActionBuffer.Get().CurrentActionPhase;
-				if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve && GameManager.Get().GameConfig.GameType != GameType.Tutorial)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (ClientActionBuffer.Get() != null && CameraManager.Get() != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!ClientGameManager.Get().IsSpectator)
-						{
-							ActorData actorData;
-							if (GameFlowData.Get() != null)
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								actorData = GameFlowData.Get().activeOwnedActorData;
-							}
-							else
-							{
-								actorData = null;
-							}
-							ActorData actorData2 = actorData;
-							bool flag = this.m_associatedActor != null && actorData2 != null && this.m_associatedActor.\u000E() == actorData2.\u000E();
-							if (flag)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (currentActionPhase != ActionBufferPhase.AbilitiesWait)
-								{
-									if (currentActionPhase == ActionBufferPhase.Movement)
-									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-									}
-									else
-									{
-										if (currentActionPhase == ActionBufferPhase.Abilities)
-										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											CameraManager.Get().SaveMovementCameraBound(this.m_movementCameraBounds);
-											goto IL_18A;
-										}
-										goto IL_18A;
-									}
-								}
-								CameraManager.Get().SetTarget(this.m_movementCameraBounds, false, false);
-							}
-							IL_18A:;
-						}
-						else if (GameFlowData.Get().LocalPlayerData != null && this.m_associatedActor != null)
-						{
-							Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
-							if (teamViewing != this.m_associatedActor.\u000E())
-							{
-								if (teamViewing != Team.Invalid)
-								{
-									return;
-								}
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-							if (currentActionPhase != ActionBufferPhase.AbilitiesWait)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (currentActionPhase != ActionBufferPhase.Movement)
-								{
-									if (currentActionPhase == ActionBufferPhase.Abilities)
-									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										CameraManager.Get().SaveMovementCameraBoundForSpectator(this.m_movementCameraBounds);
-										return;
-									}
-									return;
-								}
-							}
-							CameraManager.Get().SaveMovementCameraBoundForSpectator(this.m_movementCameraBounds);
-							CameraManager.Get().SetTargetForMovementIfNeeded();
-						}
-					}
-				}
-			}
-		}
-	}
-
-	public BoardSquare RespawnPickedSquare
-	{
-		get
-		{
-			return this.m_respawnPickedSquare;
-		}
-		set
-		{
-			this.m_respawnPickedSquare = value;
-			if (NetworkServer.active)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.set_RespawnPickedSquare(BoardSquare)).MethodHandle;
-				}
-				this.MarkAsDirty(ActorTeamSensitiveData.DirtyBit.Respawn);
-			}
-		}
-	}
-
-	public List<BoardSquare> RespawnAvailableSquares
-	{
-		get
-		{
-			return this.m_respawnAvailableSquares;
-		}
-		set
-		{
-			this.m_respawnAvailableSquares = value;
-			if (NetworkServer.active)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.set_RespawnAvailableSquares(List<BoardSquare>)).MethodHandle;
-				}
-				this.MarkAsDirty(ActorTeamSensitiveData.DirtyBit.Respawn);
-			}
-		}
+		FlushQueuedMovement();
 	}
 
 	public bool HasToggledAction(AbilityData.ActionType actionType)
@@ -2045,7 +2068,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		bool result = false;
 		if (actionType != AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -2054,13 +2077,13 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.HasToggledAction(AbilityData.ActionType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (actionType >= AbilityData.ActionType.ABILITY_0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -2069,9 +2092,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (actionType < (AbilityData.ActionType)this.m_abilityToggledOn.Count)
+				if ((int)actionType < m_abilityToggledOn.Count)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -2080,7 +2103,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					result = this.m_abilityToggledOn[(int)actionType];
+					result = m_abilityToggledOn[(int)actionType];
 				}
 			}
 		}
@@ -2092,56 +2115,58 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Server] function 'System.Void ActorTeamSensitiveData::SetToggledAction(AbilityData/ActionType,System.Boolean)' called on client");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.SetToggledAction(AbilityData.ActionType, bool)).MethodHandle;
-			}
-			Debug.LogWarning("[Server] function 'System.Void ActorTeamSensitiveData::SetToggledAction(AbilityData/ActionType,System.Boolean)' called on client");
+		}
+		if (actionType == AbilityData.ActionType.INVALID_ACTION || AbilityData.IsChain(actionType))
+		{
 			return;
 		}
-		if (actionType != AbilityData.ActionType.INVALID_ACTION && !AbilityData.IsChain(actionType))
+		while (true)
 		{
-			for (;;)
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.m_abilityToggledOn[(int)actionType] != toggledOn)
+			if (m_abilityToggledOn[(int)actionType] != toggledOn)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_abilityToggledOn[(int)actionType] = toggledOn;
+					MarkAsDirty(DirtyBit.ToggledOnAbilities);
+					return;
 				}
-				this.m_abilityToggledOn[(int)actionType] = toggledOn;
-				this.MarkAsDirty(ActorTeamSensitiveData.DirtyBit.ToggledOnAbilities);
 			}
+			return;
 		}
 	}
 
 	public bool HasQueuedAction(AbilityData.ActionType actionType)
 	{
 		bool result = false;
+		int num;
 		if (actionType != AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -2150,14 +2175,13 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.HasQueuedAction(AbilityData.ActionType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			bool flag;
 			if (actionType >= AbilityData.ActionType.ABILITY_0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -2166,9 +2190,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (actionType < (AbilityData.ActionType)this.m_queuedAbilities.Count)
+				if ((int)actionType < m_queuedAbilities.Count)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -2177,67 +2201,71 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					flag = this.m_queuedAbilities[(int)actionType];
-					goto IL_54;
+					num = (m_queuedAbilities[(int)actionType] ? 1 : 0);
+					goto IL_0054;
 				}
 			}
-			flag = false;
-			IL_54:
-			result = flag;
+			num = 0;
+			goto IL_0054;
 		}
+		goto IL_0055;
+		IL_0054:
+		result = ((byte)num != 0);
+		goto IL_0055;
+		IL_0055:
 		return result;
 	}
 
 	public bool HasQueuedAction(int actionTypeInt)
 	{
-		return this.HasQueuedAction((AbilityData.ActionType)actionTypeInt);
+		return HasQueuedAction((AbilityData.ActionType)actionTypeInt);
 	}
 
 	public bool HasQueuedAbilityInPhase(AbilityPriority phase)
 	{
-		for (int i = 0; i < this.m_queuedAbilities.Count; i++)
+		for (int i = 0; i < m_queuedAbilities.Count; i++)
 		{
-			if (this.m_queuedAbilities[i])
+			if (!m_queuedAbilities[i])
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (5)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			Ability abilityOfActionType = Actor.GetAbilityData().GetAbilityOfActionType((AbilityData.ActionType)i);
+			if (!(abilityOfActionType != null) || abilityOfActionType.RunPriority != phase)
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.HasQueuedAbilityInPhase(AbilityPriority)).MethodHandle;
+				case 0:
+					continue;
 				}
-				Ability abilityOfActionType = this.Actor.\u000E().GetAbilityOfActionType((AbilityData.ActionType)i);
-				if (abilityOfActionType != null && abilityOfActionType.RunPriority == phase)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return true;
-				}
+				return true;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return false;
 		}
-		return false;
 	}
 
 	[Server]
@@ -2245,47 +2273,48 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Server] function 'System.Void ActorTeamSensitiveData::SetQueuedAction(AbilityData/ActionType,System.Boolean)' called on client");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.SetQueuedAction(AbilityData.ActionType, bool)).MethodHandle;
-			}
-			Debug.LogWarning("[Server] function 'System.Void ActorTeamSensitiveData::SetQueuedAction(AbilityData/ActionType,System.Boolean)' called on client");
+		}
+		if (actionType == AbilityData.ActionType.INVALID_ACTION || AbilityData.IsChain(actionType))
+		{
 			return;
 		}
-		if (actionType != AbilityData.ActionType.INVALID_ACTION && !AbilityData.IsChain(actionType))
+		while (true)
 		{
-			for (;;)
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.HasQueuedAction(actionType) != queued)
+			if (HasQueuedAction(actionType) != queued)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_queuedAbilities[(int)actionType] = queued;
+					MarkAsDirty(DirtyBit.QueuedAbilities);
+					return;
 				}
-				this.m_queuedAbilities[(int)actionType] = queued;
-				this.MarkAsDirty(ActorTeamSensitiveData.DirtyBit.QueuedAbilities);
 			}
+			return;
 		}
 	}
 
@@ -2294,27 +2323,27 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Server] function 'System.Void ActorTeamSensitiveData::UnqueueActions()' called on client");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.UnqueueActions()).MethodHandle;
-			}
-			Debug.LogWarning("[Server] function 'System.Void ActorTeamSensitiveData::UnqueueActions()' called on client");
-			return;
 		}
-		for (int i = 0; i < this.m_queuedAbilities.Count; i++)
+		for (int i = 0; i < m_queuedAbilities.Count; i++)
 		{
-			if (this.m_queuedAbilities[i])
+			if (m_queuedAbilities[i])
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -2323,8 +2352,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				this.m_queuedAbilities[i] = false;
-				this.MarkAsDirty(ActorTeamSensitiveData.DirtyBit.QueuedAbilities);
+				m_queuedAbilities[i] = false;
+				MarkAsDirty(DirtyBit.QueuedAbilities);
 			}
 		}
 	}
@@ -2334,141 +2363,107 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	{
 		if (spam)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.RpcReceivedPingInfo(int, Vector3, ActorController.PingType, bool)).MethodHandle;
-			}
-			if (GameFlowData.Get() != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (GameFlowData.Get().activeOwnedActorData == this.Actor)
-				{
-					for (;;)
+				default:
+					if (1 == 0)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					TextConsole.Get().Write(new TextConsole.Message
+					if (GameFlowData.Get() != null)
 					{
-						Text = StringUtil.TR("TooManyPings", "Ping"),
-						MessageType = ConsoleMessageType.SystemMessage
-					}, null);
-				}
-			}
-			return;
-		}
-		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null && this.Actor != null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (GameFlowData.Get().activeOwnedActorData.\u000E() == (Team)teamIndex && HUD_UI.Get() != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (HUD_UI.Get().m_mainScreenPanel != null && HUD_UI.Get().m_mainScreenPanel.m_minimap != null)
-				{
-					Vector3 vector = new Vector3(worldPosition.x, (float)Board.\u000E().BaselineHeight, worldPosition.z);
-					ActorData actor = this.Actor;
-					string text = string.Empty;
-					UIWorldPing uiworldPing;
-					string eventName;
-					if (pingType == ActorController.PingType.Assist)
-					{
-						uiworldPing = UnityEngine.Object.Instantiate<UIWorldPing>(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingAssistPrefab);
-						eventName = "ui/ingame/ping/assist";
-						BoardSquare boardSquare = Board.\u000E().\u0015(vector.x, vector.z);
-						if (boardSquare.OccupantActor != null && boardSquare.OccupantActor.\u0018())
+						while (true)
 						{
-							if (boardSquare.OccupantActor.\u000E() != actor.\u000E())
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								string arg = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", (int)(CharacterType.BazookaGirl * boardSquare.OccupantActor.m_characterType + 1));
-								text = string.Format(StringUtil.TR("AssistEnemy", "Ping"), actor.\u000E(), arg, boardSquare.OccupantActor.\u000E());
-							}
-							else if (boardSquare.OccupantActor != actor)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								string arg2 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", (int)(CharacterType.BazookaGirl * boardSquare.OccupantActor.m_characterType));
-								text = string.Format(StringUtil.TR("AssistAlly", "Ping"), actor.\u000E(), arg2, boardSquare.OccupantActor.\u000E());
-							}
-							else
-							{
-								text = string.Format(StringUtil.TR("Assist", "Ping"), actor.\u000E());
-							}
-						}
-						else
-						{
-							text = string.Format(StringUtil.TR("Assist", "Ping"), actor.\u000E());
-						}
-					}
-					else if (pingType == ActorController.PingType.Defend)
-					{
-						for (;;)
-						{
-							switch (7)
+							switch (3)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								if (GameFlowData.Get().activeOwnedActorData == Actor)
+								{
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											break;
+										default:
+											TextConsole.Get().Write(new TextConsole.Message
+											{
+												Text = StringUtil.TR("TooManyPings", "Ping"),
+												MessageType = ConsoleMessageType.SystemMessage
+											});
+											return;
+										}
+									}
+								}
+								return;
 							}
-							break;
 						}
-						uiworldPing = UnityEngine.Object.Instantiate<UIWorldPing>(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingDefendPrefab);
-						eventName = "ui/ingame/ping/anger";
-						BoardSquare boardSquare2 = Board.\u000E().\u0015(vector.x, vector.z);
-						if (boardSquare2.OccupantActor != null)
+					}
+					return;
+				}
+			}
+		}
+		if (!(GameFlowData.Get() != null) || !(GameFlowData.Get().activeOwnedActorData != null) || !(Actor != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (GameFlowData.Get().activeOwnedActorData.GetTeam() != (Team)teamIndex || !(HUD_UI.Get() != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				if (!(HUD_UI.Get().m_mainScreenPanel != null) || !(HUD_UI.Get().m_mainScreenPanel.m_minimap != null))
+				{
+					return;
+				}
+				Vector3 vector = new Vector3(worldPosition.x, Board.Get().BaselineHeight, worldPosition.z);
+				ActorData actor = Actor;
+				string empty = string.Empty;
+				UIWorldPing uIWorldPing;
+				string eventName;
+				if (pingType == ActorController.PingType.Assist)
+				{
+					uIWorldPing = Object.Instantiate(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingAssistPrefab);
+					eventName = "ui/ingame/ping/assist";
+					BoardSquare boardSquareUnsafe = Board.Get().GetBoardSquareUnsafe(vector.x, vector.z);
+					if (boardSquareUnsafe.OccupantActor != null && boardSquareUnsafe.OccupantActor.IsVisibleToClient())
+					{
+						if (boardSquareUnsafe.OccupantActor.GetTeam() != actor.GetTeam())
 						{
-							for (;;)
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							string arg = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)boardSquareUnsafe.OccupantActor.m_characterType + 1}>\u200b</size>";
+							empty = string.Format(StringUtil.TR("AssistEnemy", "Ping"), actor.GetFancyDisplayName(), arg, boardSquareUnsafe.OccupantActor.GetFancyDisplayName());
+						}
+						else if (boardSquareUnsafe.OccupantActor != actor)
+						{
+							while (true)
 							{
 								switch (2)
 								{
@@ -2477,125 +2472,54 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 								}
 								break;
 							}
-							if (boardSquare2.OccupantActor.\u0018())
-							{
-								if (boardSquare2.OccupantActor.\u000E() != actor.\u000E())
-								{
-									string arg3 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", (int)(CharacterType.BazookaGirl * boardSquare2.OccupantActor.m_characterType + 1));
-									text = string.Format(StringUtil.TR("DangerEnemy", "Ping"), actor.\u000E(), arg3, boardSquare2.OccupantActor.\u000E());
-								}
-								else if (boardSquare2.OccupantActor != actor)
-								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									string arg4 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", (int)(CharacterType.BazookaGirl * boardSquare2.OccupantActor.m_characterType));
-									text = string.Format(StringUtil.TR("DangerAlly", "Ping"), actor.\u000E(), arg4, boardSquare2.OccupantActor.\u000E());
-								}
-								else
-								{
-									text = string.Format(StringUtil.TR("Danger", "Ping"), actor.\u000E());
-								}
-								goto IL_4D0;
-							}
+							string arg2 = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)boardSquareUnsafe.OccupantActor.m_characterType}>\u200b</size>";
+							empty = string.Format(StringUtil.TR("AssistAlly", "Ping"), actor.GetFancyDisplayName(), arg2, boardSquareUnsafe.OccupantActor.GetFancyDisplayName());
 						}
-						text = string.Format(StringUtil.TR("Danger", "Ping"), actor.\u000E());
-						IL_4D0:;
-					}
-					else if (pingType == ActorController.PingType.Enemy)
-					{
-						for (;;)
+						else
 						{
-							switch (3)
+							empty = string.Format(StringUtil.TR("Assist", "Ping"), actor.GetFancyDisplayName());
+						}
+					}
+					else
+					{
+						empty = string.Format(StringUtil.TR("Assist", "Ping"), actor.GetFancyDisplayName());
+					}
+				}
+				else if (pingType == ActorController.PingType.Defend)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					uIWorldPing = Object.Instantiate(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingDefendPrefab);
+					eventName = "ui/ingame/ping/anger";
+					BoardSquare boardSquareUnsafe2 = Board.Get().GetBoardSquareUnsafe(vector.x, vector.z);
+					if (boardSquareUnsafe2.OccupantActor != null)
+					{
+						while (true)
+						{
+							switch (2)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						uiworldPing = UnityEngine.Object.Instantiate<UIWorldPing>(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingEnemyPrefab);
-						eventName = "ui/ingame/ping/attack";
-						BoardSquare boardSquare3 = Board.\u000E().\u0015(vector.x, vector.z);
-						if (boardSquare3.OccupantActor != null)
+						if (boardSquareUnsafe2.OccupantActor.IsVisibleToClient())
 						{
-							for (;;)
+							if (boardSquareUnsafe2.OccupantActor.GetTeam() != actor.GetTeam())
 							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
+								string arg3 = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)boardSquareUnsafe2.OccupantActor.m_characterType + 1}>\u200b</size>";
+								empty = string.Format(StringUtil.TR("DangerEnemy", "Ping"), actor.GetFancyDisplayName(), arg3, boardSquareUnsafe2.OccupantActor.GetFancyDisplayName());
 							}
-							if (boardSquare3.OccupantActor.\u0018())
+							else if (boardSquareUnsafe2.OccupantActor != actor)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (boardSquare3.OccupantActor.\u000E() != actor.\u000E())
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									string arg5 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", (int)(CharacterType.BazookaGirl * boardSquare3.OccupantActor.m_characterType + 1));
-									text = string.Format(StringUtil.TR("AttackEnemy", "Ping"), actor.\u000E(), arg5, boardSquare3.OccupantActor.\u000E());
-								}
-								else
-								{
-									text = string.Format(StringUtil.TR("Attack", "Ping"), actor.\u000E());
-								}
-								goto IL_61B;
-							}
-						}
-						text = string.Format(StringUtil.TR("Attack", "Ping"), actor.\u000E());
-						IL_61B:;
-					}
-					else if (pingType == ActorController.PingType.Move)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						uiworldPing = UnityEngine.Object.Instantiate<UIWorldPing>(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingMovePrefab);
-						eventName = "ui/ingame/ping/move";
-						BoardSquare boardSquare4 = Board.\u000E().\u0015(vector.x, vector.z);
-						if (boardSquare4.OccupantActor != null)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (boardSquare4.OccupantActor.\u0018())
-							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -2604,39 +2528,46 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 									}
 									break;
 								}
-								if (boardSquare4.OccupantActor.\u000E() != actor.\u000E())
-								{
-									string arg6 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", (int)(CharacterType.BazookaGirl * boardSquare4.OccupantActor.m_characterType + 1));
-									text = string.Format(StringUtil.TR("MoveEnemy", "Ping"), actor.\u000E(), arg6, boardSquare4.OccupantActor.\u000E());
-								}
-								else if (boardSquare4.OccupantActor != actor)
-								{
-									string arg7 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", (int)(CharacterType.BazookaGirl * boardSquare4.OccupantActor.m_characterType));
-									text = string.Format(StringUtil.TR("MoveAlly", "Ping"), actor.\u000E(), arg7, boardSquare4.OccupantActor.\u000E());
-								}
-								else
-								{
-									text = string.Format(StringUtil.TR("Move", "Ping"), actor.\u000E());
-								}
-								goto IL_7C9;
+								string arg4 = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)boardSquareUnsafe2.OccupantActor.m_characterType}>\u200b</size>";
+								empty = string.Format(StringUtil.TR("DangerAlly", "Ping"), actor.GetFancyDisplayName(), arg4, boardSquareUnsafe2.OccupantActor.GetFancyDisplayName());
 							}
+							else
+							{
+								empty = string.Format(StringUtil.TR("Danger", "Ping"), actor.GetFancyDisplayName());
+							}
+							goto IL_07f5;
 						}
-						text = string.Format(StringUtil.TR("Move", "Ping"), actor.\u000E());
-						IL_7C9:;
 					}
-					else
+					empty = string.Format(StringUtil.TR("Danger", "Ping"), actor.GetFancyDisplayName());
+				}
+				else if (pingType == ActorController.PingType.Enemy)
+				{
+					while (true)
 					{
-						uiworldPing = UnityEngine.Object.Instantiate<UIWorldPing>(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingPrefab);
-						eventName = "ui/ingame/ping/generic";
-						text = string.Empty;
-					}
-					uiworldPing.transform.position = vector;
-					int i = 0;
-					while (i < this.m_oldPings.Count)
-					{
-						if (this.m_oldPings[i] == null)
+						switch (3)
 						{
-							for (;;)
+						case 0:
+							continue;
+						}
+						break;
+					}
+					uIWorldPing = Object.Instantiate(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingEnemyPrefab);
+					eventName = "ui/ingame/ping/attack";
+					BoardSquare boardSquareUnsafe3 = Board.Get().GetBoardSquareUnsafe(vector.x, vector.z);
+					if (boardSquareUnsafe3.OccupantActor != null)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (boardSquareUnsafe3.OccupantActor.IsVisibleToClient())
+						{
+							while (true)
 							{
 								switch (5)
 								{
@@ -2645,66 +2576,166 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 								}
 								break;
 							}
-							this.m_oldPings.RemoveAt(i);
-						}
-						else if (this.m_oldPings[i].transform.position == vector)
-						{
-							for (;;)
+							if (boardSquareUnsafe3.OccupantActor.GetTeam() != actor.GetTeam())
 							{
-								switch (6)
+								while (true)
 								{
-								case 0:
-									continue;
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
 								}
-								break;
+								string arg5 = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)boardSquareUnsafe3.OccupantActor.m_characterType + 1}>\u200b</size>";
+								empty = string.Format(StringUtil.TR("AttackEnemy", "Ping"), actor.GetFancyDisplayName(), arg5, boardSquareUnsafe3.OccupantActor.GetFancyDisplayName());
 							}
-							HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.RemovePing(this.m_oldPings[i].GetComponent<UIWorldPing>());
-							UnityEngine.Object.Destroy(this.m_oldPings[i]);
-							this.m_oldPings.RemoveAt(i);
-						}
-						else
-						{
-							i++;
+							else
+							{
+								empty = string.Format(StringUtil.TR("Attack", "Ping"), actor.GetFancyDisplayName());
+							}
+							goto IL_07f5;
 						}
 					}
-					for (;;)
+					empty = string.Format(StringUtil.TR("Attack", "Ping"), actor.GetFancyDisplayName());
+				}
+				else if (pingType == ActorController.PingType.Move)
+				{
+					while (true)
 					{
-						switch (6)
+						switch (1)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					this.m_oldPings.Add(uiworldPing.gameObject);
-					AudioManager.PostEvent(eventName, uiworldPing.gameObject);
-					HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.AddPing(uiworldPing, pingType, actor);
-					GameEventManager.ActorPingEventArgs actorPingEventArgs = new GameEventManager.ActorPingEventArgs();
-					actorPingEventArgs.byActor = this.Actor;
-					actorPingEventArgs.pingType = pingType;
-					GameEventManager.Get().FireEvent(GameEventManager.EventType.ActorPing, actorPingEventArgs);
-					if (text != string.Empty)
+					uIWorldPing = Object.Instantiate(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingMovePrefab);
+					eventName = "ui/ingame/ping/move";
+					BoardSquare boardSquareUnsafe4 = Board.Get().GetBoardSquareUnsafe(vector.x, vector.z);
+					if (boardSquareUnsafe4.OccupantActor != null)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (1)
+							switch (5)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						if (this.m_lastPingChatTime + 2f < Time.time)
+						if (boardSquareUnsafe4.OccupantActor.IsVisibleToClient())
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (boardSquareUnsafe4.OccupantActor.GetTeam() != actor.GetTeam())
+							{
+								string arg6 = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)boardSquareUnsafe4.OccupantActor.m_characterType + 1}>\u200b</size>";
+								empty = string.Format(StringUtil.TR("MoveEnemy", "Ping"), actor.GetFancyDisplayName(), arg6, boardSquareUnsafe4.OccupantActor.GetFancyDisplayName());
+							}
+							else if (boardSquareUnsafe4.OccupantActor != actor)
+							{
+								string arg7 = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)boardSquareUnsafe4.OccupantActor.m_characterType}>\u200b</size>";
+								empty = string.Format(StringUtil.TR("MoveAlly", "Ping"), actor.GetFancyDisplayName(), arg7, boardSquareUnsafe4.OccupantActor.GetFancyDisplayName());
+							}
+							else
+							{
+								empty = string.Format(StringUtil.TR("Move", "Ping"), actor.GetFancyDisplayName());
+							}
+							goto IL_07f5;
+						}
+					}
+					empty = string.Format(StringUtil.TR("Move", "Ping"), actor.GetFancyDisplayName());
+				}
+				else
+				{
+					uIWorldPing = Object.Instantiate(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingPrefab);
+					eventName = "ui/ingame/ping/generic";
+					empty = string.Empty;
+				}
+				goto IL_07f5;
+				IL_07f5:
+				uIWorldPing.transform.position = vector;
+				int num = 0;
+				while (num < m_oldPings.Count)
+				{
+					if (m_oldPings[num] == null)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						m_oldPings.RemoveAt(num);
+					}
+					else if (m_oldPings[num].transform.position == vector)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.RemovePing(m_oldPings[num].GetComponent<UIWorldPing>());
+						Object.Destroy(m_oldPings[num]);
+						m_oldPings.RemoveAt(num);
+					}
+					else
+					{
+						num++;
+					}
+				}
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					m_oldPings.Add(uIWorldPing.gameObject);
+					AudioManager.PostEvent(eventName, uIWorldPing.gameObject);
+					HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.AddPing(uIWorldPing, pingType, actor);
+					GameEventManager.ActorPingEventArgs actorPingEventArgs = new GameEventManager.ActorPingEventArgs();
+					actorPingEventArgs.byActor = Actor;
+					actorPingEventArgs.pingType = pingType;
+					GameEventManager.Get().FireEvent(GameEventManager.EventType.ActorPing, actorPingEventArgs);
+					if (!(empty != string.Empty))
+					{
+						return;
+					}
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						if (m_lastPingChatTime + 2f < Time.time)
 						{
 							TextConsole.Get().Write(new TextConsole.Message
 							{
-								Text = text,
+								Text = empty,
 								MessageType = ConsoleMessageType.PingChat,
 								CharacterType = actor.m_characterType,
-								SenderTeam = actor.\u000E()
-							}, null);
-							this.m_lastPingChatTime = Time.time;
+								SenderTeam = actor.GetTeam()
+							});
+							m_lastPingChatTime = Time.time;
 						}
+						return;
 					}
 				}
 			}
@@ -2716,54 +2747,55 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	{
 		if (spam)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.RpcReceivedAbilityPingInfo(int, LocalizationArg_AbilityPing, bool)).MethodHandle;
-			}
-			if (GameFlowData.Get() != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (GameFlowData.Get().activeOwnedActorData == this.Actor)
-				{
-					for (;;)
+				default:
+					if (1 == 0)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					TextConsole.Get().Write(new TextConsole.Message
+					if (GameFlowData.Get() != null)
 					{
-						Text = StringUtil.TR("TooManyPings", "Ping"),
-						MessageType = ConsoleMessageType.SystemMessage
-					}, null);
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								break;
+							default:
+								if (GameFlowData.Get().activeOwnedActorData == Actor)
+								{
+									while (true)
+									{
+										switch (4)
+										{
+										case 0:
+											break;
+										default:
+											TextConsole.Get().Write(new TextConsole.Message
+											{
+												Text = StringUtil.TR("TooManyPings", "Ping"),
+												MessageType = ConsoleMessageType.SystemMessage
+											});
+											return;
+										}
+									}
+								}
+								return;
+							}
+						}
+					}
+					return;
 				}
 			}
-			return;
 		}
-		FriendInfo friendInfo;
-		if (ClientGameManager.Get().FriendList.Friends.TryGetValue(this.Actor.\u000E(), out friendInfo))
+		if (ClientGameManager.Get().FriendList.Friends.TryGetValue(Actor.GetAccountIdWithSomeConditionA_zq(), out FriendInfo value))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -2772,7 +2804,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (friendInfo.FriendStatus == FriendStatus.Blocked)
+			if (value.FriendStatus == FriendStatus.Blocked)
 			{
 				return;
 			}
@@ -2781,79 +2813,80 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		{
 			Text = localizedPing.TR(),
 			MessageType = ConsoleMessageType.TeamChat
-		}, null);
+		});
 	}
 
 	public List<ActorTargeting.AbilityRequestData> GetAbilityRequestData()
 	{
-		return this.m_abilityRequestData;
+		return m_abilityRequestData;
 	}
 
 	private void SerializeAbilityRequestData(NetworkWriter writer)
 	{
-		byte b = (byte)this.m_abilityRequestData.Count;
+		byte b = (byte)m_abilityRequestData.Count;
 		writer.Write(b);
-		for (int i = 0; i < (int)b; i++)
+		for (int i = 0; i < b; i++)
 		{
-			sbyte value = (sbyte)this.m_abilityRequestData[i].m_actionType;
+			sbyte value = (sbyte)m_abilityRequestData[i].m_actionType;
 			writer.Write(value);
-			AbilityTarget.SerializeAbilityTargetList(this.m_abilityRequestData[i].m_targets, writer);
+			AbilityTarget.SerializeAbilityTargetList(m_abilityRequestData[i].m_targets, writer);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.SerializeAbilityRequestData(NetworkWriter)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	private void DeSerializeAbilityRequestData(NetworkReader reader)
 	{
-		this.m_abilityRequestData.Clear();
+		m_abilityRequestData.Clear();
 		byte b = reader.ReadByte();
-		for (int i = 0; i < (int)b; i++)
+		for (int i = 0; i < b; i++)
 		{
 			sbyte b2 = reader.ReadSByte();
 			List<AbilityTarget> targets = AbilityTarget.DeSerializeAbilityTargetList(reader);
 			AbilityData.ActionType actionType = (AbilityData.ActionType)b2;
-			this.m_abilityRequestData.Add(new ActorTargeting.AbilityRequestData(actionType, targets));
+			m_abilityRequestData.Add(new ActorTargeting.AbilityRequestData(actionType, targets));
 		}
-		if (this.Actor != null)
+		if (!(Actor != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.DeSerializeAbilityRequestData(NetworkReader)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.Actor.\u000E() != null)
+			if (Actor.GetActorTargeting() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					Actor.GetActorTargeting().OnRequestDataDeserialized();
+					Actor.OnClientQueuedActionChanged();
+					return;
 				}
-				this.Actor.\u000E().OnRequestDataDeserialized();
-				this.Actor.OnClientQueuedActionChanged();
 			}
+			return;
 		}
 	}
 
@@ -2866,9 +2899,11 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("RPC RpcMovement called on server.");
-			return;
 		}
-		((ActorTeamSensitiveData)obj).RpcMovement((GameEventManager.EventType)reader.ReadInt32(), GeneratedNetworkCode._ReadGridPosProp_None(reader), GeneratedNetworkCode._ReadGridPosProp_None(reader), reader.ReadBytesAndSize(), (ActorData.MovementType)reader.ReadInt32(), reader.ReadBoolean(), reader.ReadBoolean());
+		else
+		{
+			((ActorTeamSensitiveData)obj).RpcMovement((GameEventManager.EventType)reader.ReadInt32(), GeneratedNetworkCode._ReadGridPosProp_None(reader), GeneratedNetworkCode._ReadGridPosProp_None(reader), reader.ReadBytesAndSize(), (ActorData.MovementType)reader.ReadInt32(), reader.ReadBoolean(), reader.ReadBoolean());
+		}
 	}
 
 	protected static void InvokeRpcRpcReceivedPingInfo(NetworkBehaviour obj, NetworkReader reader)
@@ -2876,30 +2911,32 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("RPC RpcReceivedPingInfo called on server.");
-			return;
 		}
-		((ActorTeamSensitiveData)obj).RpcReceivedPingInfo((int)reader.ReadPackedUInt32(), reader.ReadVector3(), (ActorController.PingType)reader.ReadInt32(), reader.ReadBoolean());
+		else
+		{
+			((ActorTeamSensitiveData)obj).RpcReceivedPingInfo((int)reader.ReadPackedUInt32(), reader.ReadVector3(), (ActorController.PingType)reader.ReadInt32(), reader.ReadBoolean());
+		}
 	}
 
 	protected static void InvokeRpcRpcReceivedAbilityPingInfo(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("RPC RpcReceivedAbilityPingInfo called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.InvokeRpcRpcReceivedAbilityPingInfo(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("RPC RpcReceivedAbilityPingInfo called on server.");
-			return;
 		}
 		((ActorTeamSensitiveData)obj).RpcReceivedAbilityPingInfo((int)reader.ReadPackedUInt32(), GeneratedNetworkCode._ReadLocalizationArg_AbilityPing_None(reader), reader.ReadBoolean());
 	}
@@ -2908,27 +2945,27 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("RPC Function RpcMovement called on client.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.CallRpcMovement(GameEventManager.EventType, GridPosProp, GridPosProp, byte[], ActorData.MovementType, bool, bool)).MethodHandle;
-			}
-			Debug.LogError("RPC Function RpcMovement called on client.");
-			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)ActorTeamSensitiveData.kRpcRpcMovement);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcMovement);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.Write((int)wait);
 		GeneratedNetworkCode._WriteGridPosProp_None(networkWriter, start);
 		GeneratedNetworkCode._WriteGridPosProp_None(networkWriter, end_grid);
@@ -2936,7 +2973,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		networkWriter.Write((int)type);
 		networkWriter.Write(disappearAfterMovement);
 		networkWriter.Write(respawning);
-		this.SendRPCInternal(networkWriter, 0, "RpcMovement");
+		SendRPCInternal(networkWriter, 0, "RpcMovement");
 	}
 
 	public void CallRpcReceivedPingInfo(int teamIndex, Vector3 worldPosition, ActorController.PingType pingType, bool spam)
@@ -2947,71 +2984,51 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)ActorTeamSensitiveData.kRpcRpcReceivedPingInfo);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcReceivedPingInfo);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.WritePackedUInt32((uint)teamIndex);
 		networkWriter.Write(worldPosition);
 		networkWriter.Write((int)pingType);
 		networkWriter.Write(spam);
-		this.SendRPCInternal(networkWriter, 0, "RpcReceivedPingInfo");
+		SendRPCInternal(networkWriter, 0, "RpcReceivedPingInfo");
 	}
 
 	public void CallRpcReceivedAbilityPingInfo(int teamIndex, LocalizationArg_AbilityPing localizedPing, bool spam)
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("RPC Function RpcReceivedAbilityPingInfo called on client.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTeamSensitiveData.CallRpcReceivedAbilityPingInfo(int, LocalizationArg_AbilityPing, bool)).MethodHandle;
-			}
-			Debug.LogError("RPC Function RpcReceivedAbilityPingInfo called on client.");
-			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)ActorTeamSensitiveData.kRpcRpcReceivedAbilityPingInfo);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcReceivedAbilityPingInfo);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.WritePackedUInt32((uint)teamIndex);
 		GeneratedNetworkCode._WriteLocalizationArg_AbilityPing_None(networkWriter, localizedPing);
 		networkWriter.Write(spam);
-		this.SendRPCInternal(networkWriter, 0, "RpcReceivedAbilityPingInfo");
+		SendRPCInternal(networkWriter, 0, "RpcReceivedAbilityPingInfo");
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
+		bool result = default(bool);
 		return result;
-	}
-
-	public enum DirtyBit : uint
-	{
-		FacingDirection = 1U,
-		MoveFromBoardSquare,
-		LineData = 4U,
-		MovementCameraBound = 8U,
-		Respawn = 0x10U,
-		InitialMoveStartSquare = 0x20U,
-		QueuedAbilities = 0x40U,
-		ToggledOnAbilities = 0x80U,
-		AbilityRequestDataForTargeter = 0x100U,
-		All = 0xFFFFFFFFU
-	}
-
-	public enum ObservedBy
-	{
-		Friendlies,
-		Hostiles
 	}
 }

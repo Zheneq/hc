@@ -1,4 +1,3 @@
-﻿using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -20,94 +19,34 @@ public class Martyr_SyncComponent : NetworkBehaviour
 
 	internal int m_clientDamageThisTurn;
 
-	private static int kListm_syncAoeOnReactActors = 0x6851DC48;
+	private static int kListm_syncAoeOnReactActors;
 
-	static Martyr_SyncComponent()
+	public bool NetworkCrystalsSpentThisTurn
 	{
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(Martyr_SyncComponent), Martyr_SyncComponent.kListm_syncAoeOnReactActors, new NetworkBehaviour.CmdDelegate(Martyr_SyncComponent.InvokeSyncListm_syncAoeOnReactActors));
-		NetworkCRC.RegisterBehaviour("Martyr_SyncComponent", 0);
-	}
-
-	private void HookSetDamageCrystal(int value)
-	{
-		this.NetworkDamageCrystals = value;
-		this.m_clientCrystalAdjustment = 0;
-		this.m_clientDamageThisTurn = 0;
-	}
-
-	public void OnClientCrystalConsumed()
-	{
-		this.m_clientCrystalAdjustment = Mathf.Min(0, -this.DamageCrystals);
-	}
-
-	public bool IsBonusActive(ActorData owner)
-	{
-		return this.CrystalsSpentThisTurn || owner.\u000E().HasQueuedAbilityOfType(typeof(MartyrSpendCrystals));
-	}
-
-	public int SpentDamageCrystals(ActorData owner)
-	{
-		if (this.IsBonusActive(owner))
+		get
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Martyr_SyncComponent.SpentDamageCrystals(ActorData)).MethodHandle;
-			}
-			return this.DamageCrystals;
+			return CrystalsSpentThisTurn;
 		}
-		return 0;
-	}
-
-	public void AddAoeOnReactActor(ActorData actor)
-	{
-		if (actor != null && actor.ActorIndex >= 0)
+		[param: In]
+		set
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Martyr_SyncComponent.AddAoeOnReactActor(ActorData)).MethodHandle;
-			}
-			this.m_syncAoeOnReactActors.Add((uint)actor.ActorIndex);
+			SetSyncVar(value, ref CrystalsSpentThisTurn, 2u);
 		}
 	}
 
-	public void RemoveAoeOnReactActor(ActorData actor)
+	public int NetworkDamageCrystals
 	{
-		if (actor != null)
+		get
 		{
-			for (;;)
+			return DamageCrystals;
+		}
+		[param: In]
+		set
+		{
+			ref int damageCrystals = ref DamageCrystals;
+			if (NetworkServer.localClientActive)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Martyr_SyncComponent.RemoveAoeOnReactActor(ActorData)).MethodHandle;
-			}
-			if (actor.ActorIndex >= 0)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -116,8 +55,133 @@ public class Martyr_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				this.m_syncAoeOnReactActors.Remove((uint)actor.ActorIndex);
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (!base.syncVarHookGuard)
+				{
+					base.syncVarHookGuard = true;
+					HookSetDamageCrystal(value);
+					base.syncVarHookGuard = false;
+				}
 			}
+			SetSyncVar(value, ref damageCrystals, 4u);
+		}
+	}
+
+	public int Networkm_syncNumTurnsAtFullEnergy
+	{
+		get
+		{
+			return m_syncNumTurnsAtFullEnergy;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_syncNumTurnsAtFullEnergy, 8u);
+		}
+	}
+
+	static Martyr_SyncComponent()
+	{
+		kListm_syncAoeOnReactActors = 1750195272;
+		NetworkBehaviour.RegisterSyncListDelegate(typeof(Martyr_SyncComponent), kListm_syncAoeOnReactActors, InvokeSyncListm_syncAoeOnReactActors);
+		NetworkCRC.RegisterBehaviour("Martyr_SyncComponent", 0);
+	}
+
+	private void HookSetDamageCrystal(int value)
+	{
+		NetworkDamageCrystals = value;
+		m_clientCrystalAdjustment = 0;
+		m_clientDamageThisTurn = 0;
+	}
+
+	public void OnClientCrystalConsumed()
+	{
+		m_clientCrystalAdjustment = Mathf.Min(0, -DamageCrystals);
+	}
+
+	public bool IsBonusActive(ActorData owner)
+	{
+		return CrystalsSpentThisTurn || owner.GetAbilityData().HasQueuedAbilityOfType(typeof(MartyrSpendCrystals));
+	}
+
+	public int SpentDamageCrystals(ActorData owner)
+	{
+		if (IsBonusActive(owner))
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return DamageCrystals;
+				}
+			}
+		}
+		return 0;
+	}
+
+	public void AddAoeOnReactActor(ActorData actor)
+	{
+		if (!(actor != null) || actor.ActorIndex < 0)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_syncAoeOnReactActors.Add((uint)actor.ActorIndex);
+			return;
+		}
+	}
+
+	public void RemoveAoeOnReactActor(ActorData actor)
+	{
+		if (!(actor != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (actor.ActorIndex >= 0)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					m_syncAoeOnReactActors.Remove((uint)actor.ActorIndex);
+					return;
+				}
+			}
+			return;
 		}
 	}
 
@@ -126,7 +190,7 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		bool result = false;
 		if (actor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -135,13 +199,13 @@ public class Martyr_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Martyr_SyncComponent.ActorHasAoeOnReactEffect(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (actor.ActorIndex >= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -150,7 +214,7 @@ public class Martyr_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				result = this.m_syncAoeOnReactActors.Contains((uint)actor.ActorIndex);
+				result = m_syncAoeOnReactActors.Contains((uint)actor.ActorIndex);
 			}
 		}
 		return result;
@@ -160,112 +224,50 @@ public class Martyr_SyncComponent : NetworkBehaviour
 	{
 	}
 
-	public bool NetworkCrystalsSpentThisTurn
-	{
-		get
-		{
-			return this.CrystalsSpentThisTurn;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<bool>(value, ref this.CrystalsSpentThisTurn, 2U);
-		}
-	}
-
-	public int NetworkDamageCrystals
-	{
-		get
-		{
-			return this.DamageCrystals;
-		}
-		[param: In]
-		set
-		{
-			uint dirtyBit = 4U;
-			if (NetworkServer.localClientActive)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Martyr_SyncComponent.set_NetworkDamageCrystals(int)).MethodHandle;
-				}
-				if (!base.syncVarHookGuard)
-				{
-					base.syncVarHookGuard = true;
-					this.HookSetDamageCrystal(value);
-					base.syncVarHookGuard = false;
-				}
-			}
-			base.SetSyncVar<int>(value, ref this.DamageCrystals, dirtyBit);
-		}
-	}
-
-	public int Networkm_syncNumTurnsAtFullEnergy
-	{
-		get
-		{
-			return this.m_syncNumTurnsAtFullEnergy;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_syncNumTurnsAtFullEnergy, 8U);
-		}
-	}
-
 	protected static void InvokeSyncListm_syncAoeOnReactActors(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("SyncList m_syncAoeOnReactActors called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Martyr_SyncComponent.InvokeSyncListm_syncAoeOnReactActors(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("SyncList m_syncAoeOnReactActors called on server.");
-			return;
 		}
 		((Martyr_SyncComponent)obj).m_syncAoeOnReactActors.HandleMsg(reader);
 	}
 
 	private void Awake()
 	{
-		this.m_syncAoeOnReactActors.InitializeBehaviour(this, Martyr_SyncComponent.kListm_syncAoeOnReactActors);
+		m_syncAoeOnReactActors.InitializeBehaviour(this, kListm_syncAoeOnReactActors);
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			SyncListUInt.WriteInstance(writer, this.m_syncAoeOnReactActors);
-			writer.Write(this.CrystalsSpentThisTurn);
-			writer.WritePackedUInt32((uint)this.DamageCrystals);
-			writer.WritePackedUInt32((uint)this.m_syncNumTurnsAtFullEnergy);
+			SyncListUInt.WriteInstance(writer, m_syncAoeOnReactActors);
+			writer.Write(CrystalsSpentThisTurn);
+			writer.WritePackedUInt32((uint)DamageCrystals);
+			writer.WritePackedUInt32((uint)m_syncNumTurnsAtFullEnergy);
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -274,18 +276,18 @@ public class Martyr_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Martyr_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			SyncListUInt.WriteInstance(writer, this.m_syncAoeOnReactActors);
+			SyncListUInt.WriteInstance(writer, m_syncAoeOnReactActors);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -296,7 +298,7 @@ public class Martyr_SyncComponent : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -308,11 +310,11 @@ public class Martyr_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.CrystalsSpentThisTurn);
+			writer.Write(CrystalsSpentThisTurn);
 		}
-		if ((base.syncVarDirtyBits & 4U) != 0U)
+		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -326,13 +328,13 @@ public class Martyr_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.DamageCrystals);
+			writer.WritePackedUInt32((uint)DamageCrystals);
 		}
-		if ((base.syncVarDirtyBits & 8U) != 0U)
+		if ((base.syncVarDirtyBits & 8) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -344,7 +346,7 @@ public class Martyr_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_syncNumTurnsAtFullEnergy);
+			writer.WritePackedUInt32((uint)m_syncNumTurnsAtFullEnergy);
 		}
 		if (!flag)
 		{
@@ -357,29 +359,29 @@ public class Martyr_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					SyncListUInt.ReadReference(reader, m_syncAoeOnReactActors);
+					CrystalsSpentThisTurn = reader.ReadBoolean();
+					DamageCrystals = (int)reader.ReadPackedUInt32();
+					m_syncNumTurnsAtFullEnergy = (int)reader.ReadPackedUInt32();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Martyr_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
-			SyncListUInt.ReadReference(reader, this.m_syncAoeOnReactActors);
-			this.CrystalsSpentThisTurn = reader.ReadBoolean();
-			this.DamageCrystals = (int)reader.ReadPackedUInt32();
-			this.m_syncNumTurnsAtFullEnergy = (int)reader.ReadPackedUInt32();
-			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -388,11 +390,11 @@ public class Martyr_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			SyncListUInt.ReadReference(reader, this.m_syncAoeOnReactActors);
+			SyncListUInt.ReadReference(reader, m_syncAoeOnReactActors);
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -401,11 +403,11 @@ public class Martyr_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			this.CrystalsSpentThisTurn = reader.ReadBoolean();
+			CrystalsSpentThisTurn = reader.ReadBoolean();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -414,20 +416,21 @@ public class Martyr_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			this.HookSetDamageCrystal((int)reader.ReadPackedUInt32());
+			HookSetDamageCrystal((int)reader.ReadPackedUInt32());
 		}
-		if ((num & 8) != 0)
+		if ((num & 8) == 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_syncNumTurnsAtFullEnergy = (int)reader.ReadPackedUInt32();
+			m_syncNumTurnsAtFullEnergy = (int)reader.ReadPackedUInt32();
+			return;
 		}
 	}
 }

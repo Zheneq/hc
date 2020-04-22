@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -12,44 +12,46 @@ public class CheckKarma
 
 	public float GetChance(int quantity)
 	{
-		if (this.InteropValues.IsNullOrEmpty<CheckKarmaInteropValue>())
+		if (InteropValues.IsNullOrEmpty())
 		{
 			return 0f;
 		}
 		float result = 0f;
 		CheckKarmaInteropValue checkKarmaInteropValue = null;
 		CheckKarmaInteropValue checkKarmaInteropValue2 = null;
-		using (List<CheckKarmaInteropValue>.Enumerator enumerator = this.InteropValues.GetEnumerator())
+		using (List<CheckKarmaInteropValue>.Enumerator enumerator = InteropValues.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				CheckKarmaInteropValue checkKarmaInteropValue3 = enumerator.Current;
-				if (checkKarmaInteropValue3.KarmaValue <= quantity)
+				CheckKarmaInteropValue current = enumerator.Current;
+				if (current.KarmaValue <= quantity)
 				{
-					checkKarmaInteropValue = checkKarmaInteropValue3;
+					checkKarmaInteropValue = current;
 				}
-				if (quantity <= checkKarmaInteropValue3.KarmaValue)
+				if (quantity <= current.KarmaValue)
 				{
-					checkKarmaInteropValue2 = checkKarmaInteropValue3;
+					checkKarmaInteropValue2 = current;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					goto end_IL_002c;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CheckKarma.GetChance(int)).MethodHandle;
-			}
+			end_IL_002c:;
 		}
 		if (checkKarmaInteropValue2 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -65,7 +67,7 @@ public class CheckKarma
 		}
 		if (checkKarmaInteropValue != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -76,7 +78,7 @@ public class CheckKarma
 			}
 			if (checkKarmaInteropValue2 != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -93,8 +95,8 @@ public class CheckKarma
 
 	public bool Roll(int quantity)
 	{
-		float chance = this.GetChance(quantity);
-		return this.RollChance(chance);
+		float chance = GetChance(quantity);
+		return RollChance(chance);
 	}
 
 	private bool RollChance(float chance)
@@ -104,6 +106,6 @@ public class CheckKarma
 
 	public override string ToString()
 	{
-		return string.Format("KarmaTemplateId {0}, KarmaRewardEntry ({1}), InteropValues (count {2})", this.KarmaTemplateId, this.KarmaRewardEntry, this.InteropValues.Count);
+		return $"KarmaTemplateId {KarmaTemplateId}, KarmaRewardEntry ({KarmaRewardEntry}), InteropValues (count {InteropValues.Count})";
 	}
 }

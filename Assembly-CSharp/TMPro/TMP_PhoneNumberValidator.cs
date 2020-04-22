@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace TMPro
@@ -6,12 +6,12 @@ namespace TMPro
 	[Serializable]
 	public class TMP_PhoneNumberValidator : TMP_InputValidator
 	{
-		public unsafe override char Validate(ref string text, ref int pos, char ch)
+		public override char Validate(ref string text, ref int pos, char ch)
 		{
 			Debug.Log("Trying to validate...");
 			if (ch < '0')
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -20,22 +20,22 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_PhoneNumberValidator.Validate(string*, int*, char)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (ch > '9')
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return '\0';
 						}
-						break;
 					}
-					return '\0';
 				}
 			}
 			int length = text.Length;
@@ -46,7 +46,7 @@ namespace TMPro
 				case 0:
 					if (i == length)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -62,7 +62,7 @@ namespace TMPro
 				case 1:
 					if (i == length)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -78,7 +78,7 @@ namespace TMPro
 				case 2:
 					if (i == length)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -94,7 +94,7 @@ namespace TMPro
 				case 3:
 					if (i == length)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -110,7 +110,7 @@ namespace TMPro
 				case 4:
 					if (i == length)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -126,7 +126,7 @@ namespace TMPro
 				case 5:
 					if (i == length)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -142,7 +142,7 @@ namespace TMPro
 				case 6:
 					if (i == length)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -167,12 +167,12 @@ namespace TMPro
 					{
 						text = text + ch + "-";
 					}
-					pos = 0xA;
+					pos = 10;
 					break;
 				case 9:
 					if (i == length)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -183,19 +183,19 @@ namespace TMPro
 						}
 						text = text + "-" + ch;
 					}
-					pos = 0xB;
+					pos = 11;
 					break;
-				case 0xA:
+				case 10:
 					if (i == length)
 					{
 						text += ch;
 					}
-					pos = 0xB;
+					pos = 11;
 					break;
-				case 0xB:
+				case 11:
 					if (i == length)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -206,34 +206,33 @@ namespace TMPro
 						}
 						text += ch;
 					}
-					pos = 0xC;
+					pos = 12;
 					break;
-				case 0xC:
+				case 12:
 					if (i == length)
 					{
 						text += ch;
 					}
-					pos = 0xD;
+					pos = 13;
 					break;
-				case 0xD:
+				case 13:
 					if (i == length)
 					{
 						text += ch;
 					}
-					pos = 0xE;
+					pos = 14;
 					break;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				return ch;
 			}
-			return ch;
 		}
 	}
 }

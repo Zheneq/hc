@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.CompilerServices;
 using UnityEngine.Networking;
 
@@ -15,21 +15,21 @@ public struct Player
 	public long m_accountId;
 
 	[CompilerGenerated]
-	private static Action<GameState> <>f__mg$cache0;
+	private static Action<GameState> _003C_003Ef__mg_0024cache0;
 
 	[CompilerGenerated]
-	private static Action<GameState> <>f__mg$cache1;
+	private static Action<GameState> _003C_003Ef__mg_0024cache1;
+
+	public bool WasEverHuman => m_accountId > 0;
 
 	internal Player(NetworkConnection connection, long accountId)
 	{
-		this.m_valid = true;
-		byte b = Player.s_nextId;
-		Player.s_nextId = checked(b + 1);
-		this.m_id = b;
+		m_valid = true;
+		m_id = checked(s_nextId++);
 		int connectionId;
 		if (connection == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -38,9 +38,9 @@ public struct Player
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Player..ctor(NetworkConnection, long)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			connectionId = -1;
 		}
@@ -48,16 +48,12 @@ public struct Player
 		{
 			connectionId = connection.connectionId;
 		}
-		this.m_connectionId = connectionId;
-		this.m_accountId = accountId;
-		if (Player.<>f__mg$cache0 == null)
+		m_connectionId = connectionId;
+		m_accountId = accountId;
+		GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
+		if (_003C_003Ef__mg_0024cache1 == null)
 		{
-			Player.<>f__mg$cache0 = new Action<GameState>(Player.OnGameStateChanged);
-		}
-		GameFlowData.s_onGameStateChanged -= Player.<>f__mg$cache0;
-		if (Player.<>f__mg$cache1 == null)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -66,25 +62,17 @@ public struct Player
 				}
 				break;
 			}
-			Player.<>f__mg$cache1 = new Action<GameState>(Player.OnGameStateChanged);
+			_003C_003Ef__mg_0024cache1 = OnGameStateChanged;
 		}
-		GameFlowData.s_onGameStateChanged += Player.<>f__mg$cache1;
-	}
-
-	public bool WasEverHuman
-	{
-		get
-		{
-			return this.m_accountId > 0L;
-		}
+		GameFlowData.s_onGameStateChanged += _003C_003Ef__mg_0024cache1;
 	}
 
 	public override bool Equals(object obj)
 	{
-		bool result;
+		int result;
 		if (obj is Player)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -93,22 +81,22 @@ public struct Player
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Player.Equals(object)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (this == (Player)obj);
+			result = ((this == (Player)obj) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public override int GetHashCode()
 	{
-		return this.m_id.GetHashCode();
+		return m_id.GetHashCode();
 	}
 
 	public static bool operator ==(Player x, Player y)
@@ -123,48 +111,46 @@ public struct Player
 
 	internal void OnSerializeHelper(NetworkWriter stream)
 	{
-		this.OnSerializeHelper(new NetworkWriterAdapter(stream));
+		OnSerializeHelper(new NetworkWriterAdapter(stream));
 	}
 
 	internal void OnSerializeHelper(IBitStream stream)
 	{
-		bool valid = this.m_valid;
-		byte id = this.m_id;
-		sbyte b = checked((sbyte)this.m_connectionId);
-		stream.Serialize(ref valid);
-		stream.Serialize(ref id);
-		stream.Serialize(ref b);
-		this.m_valid = valid;
-		this.m_id = id;
-		this.m_connectionId = (int)b;
+		bool value = m_valid;
+		byte value2 = m_id;
+		sbyte value3 = checked((sbyte)m_connectionId);
+		stream.Serialize(ref value);
+		stream.Serialize(ref value2);
+		stream.Serialize(ref value3);
+		m_valid = value;
+		m_id = value2;
+		m_connectionId = value3;
 	}
 
 	private static void OnGameStateChanged(GameState newState)
 	{
 		if (newState != GameState.EndingGame)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Player.OnGameStateChanged(GameState)).MethodHandle;
 			}
 		}
-		else
-		{
-			Player.s_nextId = 0;
-		}
+		s_nextId = 0;
 	}
 
 	public override string ToString()
 	{
-		return string.Format("[Player: id={0}, connectionId={1}, accountId={2}]", this.m_id, this.m_connectionId, this.m_accountId);
+		return $"[Player: id={m_id}, connectionId={m_connectionId}, accountId={m_accountId}]";
 	}
 }

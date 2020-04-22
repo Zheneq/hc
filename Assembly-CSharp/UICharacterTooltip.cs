@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -27,12 +26,12 @@ public class UICharacterTooltip : UITooltipBase
 
 	public void Setup(CharacterResourceLink charLink, GameType gameType)
 	{
-		this.m_name.text = charLink.GetDisplayName();
+		m_name.text = charLink.GetDisplayName();
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		string text = string.Empty;
 		if (clientGameManager.IsCharacterInFreeRotation(charLink.m_characterType, gameType))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -41,331 +40,330 @@ public class UICharacterTooltip : UITooltipBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterTooltip.Setup(CharacterResourceLink, GameType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			text = StringUtil.TR("FreeRotation", "Global");
 		}
-		this.m_freeRotationLabel.text = text;
-		this.m_description.text = charLink.GetCharSelectTooltipDescription();
-		this.m_description.CalculateLayoutInputVertical();
-		this.m_roleIcon.sprite = charLink.GetCharacterRoleIcon();
-		this.m_healthFill.Setup(charLink.m_statHealth);
-		this.m_damageFill.Setup(charLink.m_statDamage);
-		this.m_survivalFill.Setup(charLink.m_statSurvival);
-		this.m_difficultyFill.Setup(charLink.m_statDifficulty);
+		m_freeRotationLabel.text = text;
+		m_description.text = charLink.GetCharSelectTooltipDescription();
+		m_description.CalculateLayoutInputVertical();
+		m_roleIcon.sprite = charLink.GetCharacterRoleIcon();
+		m_healthFill.Setup(charLink.m_statHealth);
+		m_damageFill.Setup(charLink.m_statDamage);
+		m_survivalFill.Setup(charLink.m_statSurvival);
+		m_difficultyFill.Setup(charLink.m_statDifficulty);
 		Queue<QuestItem> queue = new Queue<QuestItem>();
-		foreach (QuestItem questItem in base.GetComponentsInChildren<QuestItem>(true))
+		QuestItem[] componentsInChildren = GetComponentsInChildren<QuestItem>(true);
+		foreach (QuestItem questItem in componentsInChildren)
 		{
-			UIManager.SetGameObjectActive(questItem, false, null);
+			UIManager.SetGameObjectActive(questItem, false);
 			queue.Enqueue(questItem);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		QuestComponent questComponent = clientGameManager.GetPlayerAccountData().QuestComponent;
-		List<int> list = new List<int>(questComponent.Progress.Keys);
-		QuestComponent questComponent2 = clientGameManager.GetPlayerAccountData().QuestComponent;
-		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(questComponent2.ActiveSeason);
-		if (questComponent2.UnlockedSeasonChapters.ContainsKey(questComponent2.ActiveSeason))
-		{
-			for (;;)
+			QuestComponent questComponent = clientGameManager.GetPlayerAccountData().QuestComponent;
+			List<int> list = new List<int>(questComponent.Progress.Keys);
+			QuestComponent questComponent2 = clientGameManager.GetPlayerAccountData().QuestComponent;
+			SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(questComponent2.ActiveSeason);
+			if (questComponent2.UnlockedSeasonChapters.ContainsKey(questComponent2.ActiveSeason))
 			{
-				switch (4)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			int j = 0;
-			while (j < questComponent2.HighestSeasonChapter)
-			{
-				if (seasonTemplate.Chapters[j].NormalQuests.Count > 0)
-				{
-					goto IL_1F8;
-				}
-				for (;;)
-				{
-					switch (3)
+					switch (4)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (j == questComponent2.HighestSeasonChapter - 1)
+				for (int j = 0; j < questComponent2.HighestSeasonChapter; j++)
 				{
-					goto IL_1F8;
-				}
-				IL_21F:
-				j++;
-				continue;
-				IL_1F8:
-				list.AddRange(UISeasonsPanel.GetChapterQuests(seasonTemplate.Chapters[j], seasonTemplate.Index, j));
-				goto IL_21F;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		IEnumerator<int> enumerator = list.Distinct<int>().GetEnumerator();
-		try
-		{
-			while (enumerator.MoveNext())
-			{
-				int num = enumerator.Current;
-				if (questComponent.GetCompletedCount(num) > 0)
-				{
-					for (;;)
+					if (seasonTemplate.Chapters[j].NormalQuests.Count <= 0)
 					{
-						switch (7)
+						while (true)
 						{
-						case 0:
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (j != questComponent2.HighestSeasonChapter - 1)
+						{
 							continue;
 						}
-						break;
 					}
+					list.AddRange(UISeasonsPanel.GetChapterQuests(seasonTemplate.Chapters[j], seasonTemplate.Index, j));
 				}
-				else
+				while (true)
 				{
-					QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(num);
-					if (!questTemplate.HideCompletion && questTemplate.Enabled)
+					switch (7)
 					{
-						bool flag = false;
-						using (List<QuestObjective>.Enumerator enumerator2 = questTemplate.Objectives.GetEnumerator())
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			IEnumerator<int> enumerator = list.Distinct().GetEnumerator();
+			try
+			{
+				while (enumerator.MoveNext())
+				{
+					int current = enumerator.Current;
+					if (questComponent.GetCompletedCount(current) > 0)
+					{
+						while (true)
 						{
-							while (enumerator2.MoveNext())
+							switch (7)
 							{
-								QuestObjective questObjective = enumerator2.Current;
-								if (!questObjective.Hidden)
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+					else
+					{
+						QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(current);
+						if (!questTemplate.HideCompletion && questTemplate.Enabled)
+						{
+							bool flag = false;
+							using (List<QuestObjective>.Enumerator enumerator2 = questTemplate.Objectives.GetEnumerator())
+							{
+								while (true)
 								{
-									if (questObjective.SuperHidden)
+									if (!enumerator2.MoveNext())
 									{
-										for (;;)
+										while (true)
 										{
-											switch (7)
+											switch (5)
 											{
 											case 0:
 												continue;
 											}
 											break;
 										}
+										break;
 									}
-									else
+									QuestObjective current2 = enumerator2.Current;
+									if (!current2.Hidden)
 									{
-										foreach (QuestTrigger questTrigger in questObjective.Triggers)
+										if (current2.SuperHidden)
 										{
-											using (List<QuestCondition>.Enumerator enumerator4 = questTrigger.Conditions.GetEnumerator())
+											while (true)
 											{
-												while (enumerator4.MoveNext())
-												{
-													QuestCondition questCondition = enumerator4.Current;
-													if (questCondition.ConditionType == QuestConditionType.UsingCharacter)
-													{
-														for (;;)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
-														if (questCondition.typeSpecificData == (int)charLink.m_characterType)
-														{
-															for (;;)
-															{
-																switch (4)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
-															flag = true;
-															goto IL_434;
-														}
-													}
-													if (questCondition.ConditionType == QuestConditionType.UsingGameType)
-													{
-														flag = true;
-													}
-													else if (questCondition.ConditionType == QuestConditionType.UsingCharacterRole && questCondition.typeSpecificData == (int)charLink.m_characterRole)
-													{
-														for (;;)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
-														flag = true;
-													}
-													else
-													{
-														if (questCondition.ConditionType != QuestConditionType.UsingCharacterFaction)
-														{
-															continue;
-														}
-														for (;;)
-														{
-															switch (3)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
-														FactionCompetition factionCompetition = FactionWideData.Get().GetFactionCompetition(questCondition.typeSpecificData);
-														FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(factionCompetition.Factions[questCondition.typeSpecificData2].FactionGroupIDToUse);
-														flag = factionGroup.Characters.Exists((CharacterType x) => x == charLink.m_characterType);
-														if (!flag)
-														{
-															continue;
-														}
-														for (;;)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
-													}
-													IL_434:
-													goto IL_444;
-												}
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-											}
-											IL_444:
-											if (flag)
-											{
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												break;
-											}
-										}
-										if (flag)
-										{
-											for (;;)
-											{
-												switch (6)
+												switch (7)
 												{
 												case 0:
 													continue;
 												}
 												break;
 											}
-											goto IL_4A8;
+										}
+										else
+										{
+											foreach (QuestTrigger trigger in current2.Triggers)
+											{
+												using (List<QuestCondition>.Enumerator enumerator4 = trigger.Conditions.GetEnumerator())
+												{
+													while (true)
+													{
+														if (!enumerator4.MoveNext())
+														{
+															while (true)
+															{
+																switch (1)
+																{
+																case 0:
+																	continue;
+																}
+																break;
+															}
+															break;
+														}
+														QuestCondition current4 = enumerator4.Current;
+														if (current4.ConditionType == QuestConditionType.UsingCharacter)
+														{
+															while (true)
+															{
+																switch (6)
+																{
+																case 0:
+																	continue;
+																}
+																break;
+															}
+															if (current4.typeSpecificData == (int)charLink.m_characterType)
+															{
+																while (true)
+																{
+																	switch (4)
+																	{
+																	case 0:
+																		break;
+																	default:
+																		flag = true;
+																		goto end_IL_0310;
+																	}
+																}
+															}
+														}
+														if (current4.ConditionType == QuestConditionType.UsingGameType)
+														{
+															flag = true;
+															break;
+														}
+														if (current4.ConditionType == QuestConditionType.UsingCharacterRole && current4.typeSpecificData == (int)charLink.m_characterRole)
+														{
+															while (true)
+															{
+																switch (1)
+																{
+																case 0:
+																	break;
+																default:
+																	flag = true;
+																	goto end_IL_0310;
+																}
+															}
+														}
+														if (current4.ConditionType == QuestConditionType.UsingCharacterFaction)
+														{
+															while (true)
+															{
+																switch (3)
+																{
+																case 0:
+																	continue;
+																}
+																break;
+															}
+															FactionCompetition factionCompetition = FactionWideData.Get().GetFactionCompetition(current4.typeSpecificData);
+															FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(factionCompetition.Factions[current4.typeSpecificData2].FactionGroupIDToUse);
+															flag = factionGroup.Characters.Exists((CharacterType x) => x == charLink.m_characterType);
+															if (flag)
+															{
+																while (true)
+																{
+																	switch (6)
+																	{
+																	case 0:
+																		continue;
+																	}
+																	break;
+																}
+																break;
+															}
+														}
+													}
+													end_IL_0310:;
+												}
+												if (flag)
+												{
+													while (true)
+													{
+														switch (7)
+														{
+														case 0:
+															continue;
+														}
+														break;
+													}
+													break;
+												}
+											}
+											if (flag)
+											{
+												while (true)
+												{
+													switch (6)
+													{
+													case 0:
+														continue;
+													}
+													break;
+												}
+												break;
+											}
 										}
 									}
 								}
 							}
-							for (;;)
+							if (flag)
 							{
-								switch (5)
+								while (true)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						IL_4A8:
-						if (flag)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							QuestItem questItem2;
-							if (queue.Count > 0)
-							{
-								for (;;)
-								{
-									switch (7)
+									switch (4)
 									{
 									case 0:
 										continue;
 									}
 									break;
 								}
-								questItem2 = queue.Dequeue();
+								QuestItem questItem2;
+								if (queue.Count > 0)
+								{
+									while (true)
+									{
+										switch (7)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									questItem2 = queue.Dequeue();
+								}
+								else
+								{
+									questItem2 = Object.Instantiate(m_questPrefab);
+									questItem2.transform.SetParent(base.transform);
+									questItem2.transform.localScale = Vector3.one;
+									questItem2.transform.localPosition = Vector3.zero;
+								}
+								questItem2.SetQuestId(current);
+								UIManager.SetGameObjectActive(questItem2, true);
 							}
-							else
-							{
-								questItem2 = UnityEngine.Object.Instantiate<QuestItem>(this.m_questPrefab);
-								questItem2.transform.SetParent(base.transform);
-								questItem2.transform.localScale = Vector3.one;
-								questItem2.transform.localPosition = Vector3.zero;
-							}
-							questItem2.SetQuestId(num);
-							UIManager.SetGameObjectActive(questItem2, true, null);
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (1)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		finally
-		{
-			if (enumerator != null)
-			{
-				for (;;)
-				{
-					switch (2)
+					switch (1)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
-				enumerator.Dispose();
+			}
+			finally
+			{
+				if (enumerator != null)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							break;
+						default:
+							enumerator.Dispose();
+							goto end_IL_054d;
+						}
+					}
+				}
+				end_IL_054d:;
 			}
 		}
 	}

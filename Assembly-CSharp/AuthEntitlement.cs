@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 public struct AuthEntitlement
 {
@@ -14,11 +14,5 @@ public struct AuthEntitlement
 
 	public DateTime expirationDate;
 
-	public bool Expires
-	{
-		get
-		{
-			return this.expirationDate < DateTime.MaxValue;
-		}
-	}
+	public bool Expires => expirationDate < DateTime.MaxValue;
 }

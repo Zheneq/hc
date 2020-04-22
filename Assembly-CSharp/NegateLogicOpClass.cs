@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class NegateLogicOpClass : LogicOpClass
@@ -7,6 +6,6 @@ public class NegateLogicOpClass : LogicOpClass
 
 	public override bool GetValue(List<bool> constantVals)
 	{
-		return !this.m_target.GetValue(constantVals);
+		return !m_target.GetValue(constantVals);
 	}
 }

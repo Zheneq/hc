@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
@@ -8,12 +7,10 @@ public class UIStoreAccountEmoticonsPanel : UIStoreBaseInventoryPanel
 
 	private void Awake()
 	{
-		UITooltipHoverObject component = this.m_ownedToggle.GetComponent<UITooltipHoverObject>();
-		UITooltipObject uitooltipObject = component;
-		TooltipType tooltipType = TooltipType.Simple;
-		if (UIStoreAccountEmoticonsPanel.<>f__am$cache0 == null)
+		UITooltipHoverObject component = m_ownedToggle.GetComponent<UITooltipHoverObject>();
+		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -22,30 +19,30 @@ public class UIStoreAccountEmoticonsPanel : UIStoreBaseInventoryPanel
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountEmoticonsPanel.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIStoreAccountEmoticonsPanel.<>f__am$cache0 = delegate(UITooltipBase tooltip)
+			_003C_003Ef__am_0024cache0 = delegate(UITooltipBase tooltip)
 			{
-				UISimpleTooltip uisimpleTooltip = (UISimpleTooltip)tooltip;
-				uisimpleTooltip.Setup(StringUtil.TR("Owned", "Store"));
+				UISimpleTooltip uISimpleTooltip = (UISimpleTooltip)tooltip;
+				uISimpleTooltip.Setup(StringUtil.TR("Owned", "Store"));
 				return true;
 			};
 		}
-		uitooltipObject.Setup(tooltipType, UIStoreAccountEmoticonsPanel.<>f__am$cache0, null);
+		component.Setup(TooltipType.Simple, _003C_003Ef__am_0024cache0);
 	}
 
 	protected override GameBalanceVars.PlayerUnlockable[] GetRawItemsList()
 	{
-		return base.SortItems(new List<GameBalanceVars.PlayerUnlockable>(GameBalanceVars.Get().ChatEmojis)).ToArray();
+		return SortItems(new List<GameBalanceVars.PlayerUnlockable>(GameBalanceVars.Get().ChatEmojis)).ToArray();
 	}
 
 	protected override Toggle[] GetFilters()
 	{
-		return new Toggle[]
+		return new Toggle[1]
 		{
-			this.m_ownedToggle
+			m_ownedToggle
 		};
 	}
 
@@ -56,9 +53,9 @@ public class UIStoreAccountEmoticonsPanel : UIStoreBaseInventoryPanel
 
 	protected override bool ShouldFilter(GameBalanceVars.PlayerUnlockable item)
 	{
-		if (this.m_ownedToggle.isOn)
+		if (m_ownedToggle.isOn)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -67,66 +64,65 @@ public class UIStoreAccountEmoticonsPanel : UIStoreBaseInventoryPanel
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountEmoticonsPanel.ShouldFilter(GameBalanceVars.PlayerUnlockable)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!(ClientGameManager.Get() == null))
 			{
-				if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
+				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
 					if (!ClientGameManager.Get().GetPlayerAccountData().AccountComponent.IsChatEmojiUnlocked(item.ID))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
-					return false;
+					goto IL_007b;
+				}
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
 			}
 			return true;
 		}
+		goto IL_007b;
+		IL_007b:
 		return false;
 	}
 
 	public override TooltipType? GetItemTooltipType()
 	{
-		return new TooltipType?(TooltipType.Titled);
+		return TooltipType.Titled;
 	}
 
 	public override bool ItemTooltipPopulate(UITooltipBase tooltip, UIStoreItemBtn slot, GameBalanceVars.PlayerUnlockable item)
 	{
 		string tooltipText = string.Format(StringUtil.TR("ChatEmojiTagTooltip", "ChatEmoji"), StringUtil.TR_EmojiTag(item.ID));
-		UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-		uititledTooltip.Setup(StringUtil.TR_EmojiName(item.ID), tooltipText, string.Empty);
+		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+		uITitledTooltip.Setup(StringUtil.TR_EmojiName(item.ID), tooltipText, string.Empty);
 		return true;
 	}
 
 	protected override void PurchaseItem(GameBalanceVars.PlayerUnlockable item, CurrencyType type)
 	{
-		UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
-		uipurchaseableItem.m_itemType = PurchaseItemType.Emoticon;
-		uipurchaseableItem.m_emoticonID = item.ID;
-		uipurchaseableItem.m_currencyType = type;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+		uIPurchaseableItem.m_itemType = PurchaseItemType.Emoticon;
+		uIPurchaseableItem.m_emoticonID = item.ID;
+		uIPurchaseableItem.m_currencyType = type;
+		UIStorePanel.Get().OpenPurchaseDialog(uIPurchaseableItem);
 	}
 }

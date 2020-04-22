@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,16 +28,16 @@ public class SniperGhillieSuit : Ability
 
 	private void Start()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, true, AbilityUtil_Targeter.AffectsActor.Always, AbilityUtil_Targeter.AffectsActor.Possible);
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, true, AbilityUtil_Targeter.AffectsActor.Always);
 		base.Targeter.ShowArcToShape = false;
 	}
 
 	private int GetHealingAmountOnSelf()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -47,24 +46,24 @@ public class SniperGhillieSuit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperGhillieSuit.GetHealingAmountOnSelf()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = 0;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_healingOnSelf;
+			result = m_abilityMod.m_healingOnSelf;
 		}
 		return result;
 	}
 
 	private StandardActorEffectData GetStealthEffectData()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -73,33 +72,33 @@ public class SniperGhillieSuit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperGhillieSuit.GetStealthEffectData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_abilityMod.m_useStealthEffectDataOverride)
+			if (m_abilityMod.m_useStealthEffectDataOverride)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_abilityMod.m_stealthEffectDataOverride;
 					}
-					break;
 				}
-				return this.m_abilityMod.m_stealthEffectDataOverride;
 			}
 		}
-		return this.m_standardActorEffectData;
+		return m_standardActorEffectData;
 	}
 
 	public float GetCooldownResetHealthThreshold()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -108,48 +107,47 @@ public class SniperGhillieSuit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperGhillieSuit.GetCooldownResetHealthThreshold()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_cooldownResetHealthThresholdMod.GetModifiedValue(this.m_cooldownResetHealthThreshold);
+			result = m_abilityMod.m_cooldownResetHealthThresholdMod.GetModifiedValue(m_cooldownResetHealthThreshold);
 		}
 		else
 		{
-			result = this.m_cooldownResetHealthThreshold;
+			result = m_cooldownResetHealthThreshold;
 		}
 		return result;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.m_standardActorEffectData.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		m_standardActorEffectData.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		return numbers;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		if (this.GetHealingAmountOnSelf() > 0)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		if (GetHealingAmountOnSelf() > 0)
 		{
-			AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, this.GetHealingAmountOnSelf());
+			AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, GetHealingAmountOnSelf());
 		}
-		this.m_standardActorEffectData.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		return result;
+		m_standardActorEffectData.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		return numbers;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SniperGhillieSuit abilityMod_SniperGhillieSuit = modAsBase as AbilityMod_SniperGhillieSuit;
-		base.AddTokenInt(tokens, "CostPerTurn", string.Empty, this.m_costPerTurn, false);
-		this.m_standardActorEffectData.AddTooltipTokens(tokens, "StandardActorEffectData", false, null);
-		string name = "CooldownResetHealthThreshold_Pct";
+		AddTokenInt(tokens, "CostPerTurn", string.Empty, m_costPerTurn);
+		m_standardActorEffectData.AddTooltipTokens(tokens, "StandardActorEffectData");
 		string empty = string.Empty;
 		float val;
-		if (abilityMod_SniperGhillieSuit)
+		if ((bool)abilityMod_SniperGhillieSuit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -158,46 +156,44 @@ public class SniperGhillieSuit : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperGhillieSuit.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_SniperGhillieSuit.m_cooldownResetHealthThresholdMod.GetModifiedValue(this.m_cooldownResetHealthThreshold);
+			val = abilityMod_SniperGhillieSuit.m_cooldownResetHealthThresholdMod.GetModifiedValue(m_cooldownResetHealthThreshold);
 		}
 		else
 		{
-			val = this.m_cooldownResetHealthThreshold;
+			val = m_cooldownResetHealthThreshold;
 		}
-		base.AddTokenFloatAsPct(tokens, name, empty, val, false);
+		AddTokenFloatAsPct(tokens, "CooldownResetHealthThreshold_Pct", empty, val);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SniperGhillieSuit))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_abilityMod = (abilityMod as AbilityMod_SniperGhillieSuit);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperGhillieSuit.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_SniperGhillieSuit);
 		}
-		else
-		{
-			Debug.LogError("Trying to apply wrong type of ability mod");
-		}
+		Debug.LogError("Trying to apply wrong type of ability mod");
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 }

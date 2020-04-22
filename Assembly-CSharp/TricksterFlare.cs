@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,9 +57,9 @@ public class TricksterFlare : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -69,27 +68,27 @@ public class TricksterFlare : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterFlare.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Flare";
+			m_abilityName = "Flare";
 		}
-		this.m_afterImageSyncComp = base.GetComponent<TricksterAfterImageNetworkBehaviour>();
-		this.m_sequencePrefab = this.m_castSequencePrefab;
-		base.Targeter = new AbilityUtil_Targeter_TricksterFlare(this, this.m_afterImageSyncComp, this.m_flareShape, this.m_flarePenetrateLos, this.m_includeEnemies, this.m_includeAllies, this.m_flareAroundSelf);
+		m_afterImageSyncComp = GetComponent<TricksterAfterImageNetworkBehaviour>();
+		m_sequencePrefab = m_castSequencePrefab;
+		base.Targeter = new AbilityUtil_Targeter_TricksterFlare(this, m_afterImageSyncComp, m_flareShape, m_flarePenetrateLos, m_includeEnemies, m_includeAllies, m_flareAroundSelf);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_flareDamageAmount);
-		this.m_enemyHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Secondary, this.m_flareHealAmount);
-		this.m_allyHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Secondary);
-		if (this.m_flareSubsequentDamageAmount > 0)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_flareDamageAmount);
+		m_enemyHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Secondary, m_flareHealAmount);
+		m_allyHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
+		if (m_flareSubsequentDamageAmount > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -98,13 +97,13 @@ public class TricksterFlare : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterFlare.CalculateAbilityTooltipNumbers()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_flareSubsequentDamageAmount != this.m_flareDamageAmount)
+			if (m_flareSubsequentDamageAmount != m_flareDamageAmount)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -113,12 +112,12 @@ public class TricksterFlare : Ability
 					}
 					break;
 				}
-				AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Tertiary, this.m_flareSubsequentDamageAmount);
+				AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Tertiary, m_flareSubsequentDamageAmount);
 			}
 		}
-		if (this.m_flareSubsequentHealAmount > 0)
+		if (m_flareSubsequentHealAmount > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -127,9 +126,9 @@ public class TricksterFlare : Ability
 				}
 				break;
 			}
-			if (this.m_flareSubsequentHealAmount != this.m_flareHealAmount)
+			if (m_flareSubsequentHealAmount != m_flareHealAmount)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -138,17 +137,17 @@ public class TricksterFlare : Ability
 					}
 					break;
 				}
-				AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Quaternary, this.m_flareSubsequentHealAmount);
+				AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Quaternary, m_flareSubsequentHealAmount);
 			}
 		}
-		return result;
+		return numbers;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (!this.m_flareAroundSelf)
+		if (!m_flareAroundSelf)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -157,13 +156,13 @@ public class TricksterFlare : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterFlare.CustomCanCastValidation(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_afterImageSyncComp != null)
+			if (m_afterImageSyncComp != null)
 			{
-				return this.m_afterImageSyncComp.HasVaidAfterImages();
+				return m_afterImageSyncComp.HasVaidAfterImages();
 			}
 		}
 		return true;
@@ -171,14 +170,14 @@ public class TricksterFlare : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
-		if (this.m_includeEnemies)
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
+		if (m_includeEnemies)
 		{
-			Ability.AddNameplateValueForOverlap(ref result, base.Targeter, targetActor, currentTargeterIndex, this.m_flareDamageAmount, this.m_flareSubsequentDamageAmount, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
+			Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeter, targetActor, currentTargeterIndex, m_flareDamageAmount, m_flareSubsequentDamageAmount);
 		}
-		if (this.m_includeAllies)
+		if (m_includeAllies)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -187,23 +186,23 @@ public class TricksterFlare : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterFlare.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Ability.AddNameplateValueForOverlap(ref result, base.Targeter, targetActor, currentTargeterIndex, this.m_flareHealAmount, this.m_flareSubsequentHealAmount, AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Secondary);
+			Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeter, targetActor, currentTargeterIndex, m_flareHealAmount, m_flareSubsequentHealAmount, AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Secondary);
 		}
-		return result;
+		return symbolToValue;
 	}
 
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
-		foreach (ActorData actorData in validAfterImages)
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
+		foreach (ActorData item in validAfterImages)
 		{
-			if (actorData != null)
+			if (item != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -212,13 +211,13 @@ public class TricksterFlare : Ability
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterFlare.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (!actorData.\u000E())
+				if (!item.IsDead())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -227,11 +226,11 @@ public class TricksterFlare : Ability
 						}
 						break;
 					}
-					this.m_afterImageSyncComp.TurnToPosition(actorData, targetPos);
-					Animator animator = actorData.\u000E();
-					animator.SetInteger("Attack", animationIndex);
-					animator.SetBool("CinematicCam", cinecam);
-					animator.SetTrigger("StartAttack");
+					m_afterImageSyncComp.TurnToPosition(item, targetPos);
+					Animator modelAnimator = item.GetModelAnimator();
+					modelAnimator.SetInteger("Attack", animationIndex);
+					modelAnimator.SetBool("CinematicCam", cinecam);
+					modelAnimator.SetTrigger("StartAttack");
 				}
 			}
 		}
@@ -239,12 +238,12 @@ public class TricksterFlare : Ability
 
 	public override void OnAbilityAnimationRequestProcessed(ActorData caster)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
-		foreach (ActorData actorData in validAfterImages)
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
+		foreach (ActorData item in validAfterImages)
 		{
-			if (actorData != null && !actorData.\u000E())
+			if (item != null && !item.IsDead())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -253,13 +252,13 @@ public class TricksterFlare : Ability
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterFlare.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				Animator animator = actorData.\u000E();
-				animator.SetInteger("Attack", 0);
-				animator.SetBool("CinematicCam", false);
+				Animator modelAnimator = item.GetModelAnimator();
+				modelAnimator.SetInteger("Attack", 0);
+				modelAnimator.SetBool("CinematicCam", false);
 			}
 		}
 	}

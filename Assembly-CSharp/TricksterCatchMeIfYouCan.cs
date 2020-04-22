@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -21,9 +20,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public bool m_chargeThroughInvalidSquares;
 
 	[Header("-- Enemy Hit")]
-	public int m_damageAmount = 0xA;
+	public int m_damageAmount = 10;
 
-	public int m_subsequentDamageAmount = 0xA;
+	public int m_subsequentDamageAmount = 10;
 
 	public StandardEffectInfo m_enemyHitEffect;
 
@@ -85,105 +84,104 @@ public class TricksterCatchMeIfYouCan : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Catch Me If You Can";
+			m_abilityName = "Catch Me If You Can";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.m_afterImageSyncComp = base.GetComponent<TricksterAfterImageNetworkBehaviour>();
-		if (this.m_afterImageSyncComp == null)
+		m_afterImageSyncComp = GetComponent<TricksterAfterImageNetworkBehaviour>();
+		if (m_afterImageSyncComp == null)
 		{
 			Debug.LogError("TricksterAfterImageNetworkBehavior not found");
 		}
-		this.SetCachedFields();
-		int expectedNumberOfTargeters = this.GetExpectedNumberOfTargeters();
+		SetCachedFields();
+		int expectedNumberOfTargeters = GetExpectedNumberOfTargeters();
 		if (expectedNumberOfTargeters < 2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (HitActorsInPath())
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								break;
+							default:
+							{
+								AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, GetPathStartRadius(), GetPathEndRadius(), GetPathRadius(), -1, true, PenetrateLos());
+								abilityUtil_Targeter_ChargeAoE.SetAffectedGroups(IncludeEnemies(), IncludeAllies(), IncludeSelf());
+								abilityUtil_Targeter_ChargeAoE.AllowChargeThroughInvalidSquares = m_chargeThroughInvalidSquares;
+								base.Targeter = abilityUtil_Targeter_ChargeAoE;
+								return;
+							}
+							}
+						}
+					}
+					base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true);
+					return;
 				}
-				break;
 			}
-			if (!true)
+		}
+		ClearTargeters();
+		for (int i = 0; i < expectedNumberOfTargeters; i++)
+		{
+			if (HitActorsInPath())
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.Setup()).MethodHandle;
-			}
-			if (this.HitActorsInPath())
-			{
-				for (;;)
+				while (true)
 				{
-					switch (3)
+					switch (7)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, this.GetPathStartRadius(), this.GetPathEndRadius(), this.GetPathRadius(), -1, true, this.PenetrateLos());
-				abilityUtil_Targeter_ChargeAoE.SetAffectedGroups(this.IncludeEnemies(), this.IncludeAllies(), this.IncludeSelf());
-				abilityUtil_Targeter_ChargeAoE.AllowChargeThroughInvalidSquares = this.m_chargeThroughInvalidSquares;
-				base.Targeter = abilityUtil_Targeter_ChargeAoE;
-			}
-			else
-			{
-				base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
-			}
-		}
-		else
-		{
-			base.ClearTargeters();
-			for (int i = 0; i < expectedNumberOfTargeters; i++)
-			{
-				if (this.HitActorsInPath())
+				AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE2 = new AbilityUtil_Targeter_ChargeAoE(this, GetPathStartRadius(), GetPathEndRadius(), GetPathRadius(), -1, true, PenetrateLos());
+				abilityUtil_Targeter_ChargeAoE2.SetAffectedGroups(IncludeEnemies(), IncludeAllies(), IncludeSelf());
+				abilityUtil_Targeter_ChargeAoE2.AllowChargeThroughInvalidSquares = m_chargeThroughInvalidSquares;
+				if (i > 0)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (7)
+						switch (6)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE2 = new AbilityUtil_Targeter_ChargeAoE(this, this.GetPathStartRadius(), this.GetPathEndRadius(), this.GetPathRadius(), -1, true, this.PenetrateLos());
-					abilityUtil_Targeter_ChargeAoE2.SetAffectedGroups(this.IncludeEnemies(), this.IncludeAllies(), this.IncludeSelf());
-					abilityUtil_Targeter_ChargeAoE2.AllowChargeThroughInvalidSquares = this.m_chargeThroughInvalidSquares;
-					if (i > 0)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						abilityUtil_Targeter_ChargeAoE2.SkipEvadeMovementLines = true;
-					}
-					base.Targeters.Add(abilityUtil_Targeter_ChargeAoE2);
+					abilityUtil_Targeter_ChargeAoE2.SkipEvadeMovementLines = true;
 				}
-				else
-				{
-					base.Targeters.Add(new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible));
-				}
-				base.Targeters[i].SetUseMultiTargetUpdate(false);
+				base.Targeters.Add(abilityUtil_Targeter_ChargeAoE2);
 			}
-			for (;;)
+			else
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
+				base.Targeters.Add(new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true));
+			}
+			base.Targeters[i].SetUseMultiTargetUpdate(false);
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
@@ -191,17 +189,17 @@ public class TricksterCatchMeIfYouCan : Ability
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		return Mathf.Clamp(base.GetNumTargets(), 1, this.m_afterImageSyncComp.GetMaxAfterImageCount() + 1);
+		return Mathf.Clamp(GetNumTargets(), 1, m_afterImageSyncComp.GetMaxAfterImageCount() + 1);
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedEnemyHitEffect = ((!this.m_abilityMod) ? this.m_enemyHitEffect : this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect));
-		this.m_cachedEnemyMultipleHitEffect = ((!this.m_abilityMod) ? this.m_enemyMultipleHitEffect : this.m_abilityMod.m_enemyMultipleHitEffectMod.GetModifiedValue(this.m_enemyMultipleHitEffect));
+		m_cachedEnemyHitEffect = ((!m_abilityMod) ? m_enemyHitEffect : m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect));
+		m_cachedEnemyMultipleHitEffect = ((!m_abilityMod) ? m_enemyMultipleHitEffect : m_abilityMod.m_enemyMultipleHitEffectMod.GetModifiedValue(m_enemyMultipleHitEffect));
 		StandardEffectInfo cachedAllyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -210,22 +208,22 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedAllyHitEffect = this.m_abilityMod.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
+			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
 		{
-			cachedAllyHitEffect = this.m_allyHitEffect;
+			cachedAllyHitEffect = m_allyHitEffect;
 		}
-		this.m_cachedAllyHitEffect = cachedAllyHitEffect;
-		this.m_cachedAllyMultipleHitEffect = ((!this.m_abilityMod) ? this.m_allyMultipleHitEffect : this.m_abilityMod.m_allyMultipleHitEffectMod.GetModifiedValue(this.m_allyMultipleHitEffect));
+		m_cachedAllyHitEffect = cachedAllyHitEffect;
+		m_cachedAllyMultipleHitEffect = ((!m_abilityMod) ? m_allyMultipleHitEffect : m_abilityMod.m_allyMultipleHitEffectMod.GetModifiedValue(m_allyMultipleHitEffect));
 		StandardEffectInfo cachedSelfHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -234,21 +232,21 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			cachedSelfHitEffect = this.m_abilityMod.m_selfHitEffectMod.GetModifiedValue(this.m_selfHitEffect);
+			cachedSelfHitEffect = m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect);
 		}
 		else
 		{
-			cachedSelfHitEffect = this.m_selfHitEffect;
+			cachedSelfHitEffect = m_selfHitEffect;
 		}
-		this.m_cachedSelfHitEffect = cachedSelfHitEffect;
+		m_cachedSelfHitEffect = cachedSelfHitEffect;
 	}
 
 	public bool HitActorsInPath()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -257,15 +255,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.HitActorsInPath()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_hitActorsInPathMod.GetModifiedValue(this.m_hitActorsInPath);
+			result = m_abilityMod.m_hitActorsInPathMod.GetModifiedValue(m_hitActorsInPath);
 		}
 		else
 		{
-			result = this.m_hitActorsInPath;
+			result = m_hitActorsInPath;
 		}
 		return result;
 	}
@@ -273,9 +271,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public float GetPathRadius()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -284,30 +282,30 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetPathRadius()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_pathRadiusMod.GetModifiedValue(this.m_pathRadius);
+			result = m_abilityMod.m_pathRadiusMod.GetModifiedValue(m_pathRadius);
 		}
 		else
 		{
-			result = this.m_pathRadius;
+			result = m_pathRadius;
 		}
 		return result;
 	}
 
 	public float GetPathStartRadius()
 	{
-		return (!this.m_abilityMod) ? this.m_pathStartRadius : this.m_abilityMod.m_pathStartRadiusMod.GetModifiedValue(this.m_pathStartRadius);
+		return (!m_abilityMod) ? m_pathStartRadius : m_abilityMod.m_pathStartRadiusMod.GetModifiedValue(m_pathStartRadius);
 	}
 
 	public float GetPathEndRadius()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -316,15 +314,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetPathEndRadius()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_pathEndRadiusMod.GetModifiedValue(this.m_pathEndRadius);
+			result = m_abilityMod.m_pathEndRadiusMod.GetModifiedValue(m_pathEndRadius);
 		}
 		else
 		{
-			result = this.m_pathEndRadius;
+			result = m_pathEndRadius;
 		}
 		return result;
 	}
@@ -332,9 +330,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public bool PenetrateLos()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -343,15 +341,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.PenetrateLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
+			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
 		{
-			result = this.m_penetrateLos;
+			result = m_penetrateLos;
 		}
 		return result;
 	}
@@ -359,9 +357,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public int GetDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -370,15 +368,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetDamageAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
 		{
-			result = this.m_damageAmount;
+			result = m_damageAmount;
 		}
 		return result;
 	}
@@ -386,9 +384,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public int GetSubsequentDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -397,15 +395,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetSubsequentDamageAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_subsequentDamageAmountMod.GetModifiedValue(this.m_subsequentDamageAmount);
+			result = m_abilityMod.m_subsequentDamageAmountMod.GetModifiedValue(m_subsequentDamageAmount);
 		}
 		else
 		{
-			result = this.m_subsequentDamageAmount;
+			result = m_subsequentDamageAmount;
 		}
 		return result;
 	}
@@ -413,9 +411,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyHitEffect != null)
+		if (m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -424,15 +422,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemyHitEffect;
+			result = m_cachedEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyHitEffect;
+			result = m_enemyHitEffect;
 		}
 		return result;
 	}
@@ -440,9 +438,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public bool UseEnemyMultiHitEffect()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -451,15 +449,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.UseEnemyMultiHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_useEnemyMultiHitEffectMod.GetModifiedValue(this.m_useEnemyMultiHitEffect);
+			result = m_abilityMod.m_useEnemyMultiHitEffectMod.GetModifiedValue(m_useEnemyMultiHitEffect);
 		}
 		else
 		{
-			result = this.m_useEnemyMultiHitEffect;
+			result = m_useEnemyMultiHitEffect;
 		}
 		return result;
 	}
@@ -467,9 +465,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public StandardEffectInfo GetEnemyMultipleHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyMultipleHitEffect != null)
+		if (m_cachedEnemyMultipleHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -478,15 +476,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetEnemyMultipleHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemyMultipleHitEffect;
+			result = m_cachedEnemyMultipleHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyMultipleHitEffect;
+			result = m_enemyMultipleHitEffect;
 		}
 		return result;
 	}
@@ -494,9 +492,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public int GetAllyHealingAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -505,15 +503,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetAllyHealingAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_allyHealingAmountMod.GetModifiedValue(this.m_allyHealingAmount);
+			result = m_abilityMod.m_allyHealingAmountMod.GetModifiedValue(m_allyHealingAmount);
 		}
 		else
 		{
-			result = this.m_allyHealingAmount;
+			result = m_allyHealingAmount;
 		}
 		return result;
 	}
@@ -521,9 +519,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public int GetSubsequentHealingAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -532,15 +530,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetSubsequentHealingAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_subsequentHealingAmountMod.GetModifiedValue(this.m_subsequentHealingAmount);
+			result = m_abilityMod.m_subsequentHealingAmountMod.GetModifiedValue(m_subsequentHealingAmount);
 		}
 		else
 		{
-			result = this.m_subsequentHealingAmount;
+			result = m_subsequentHealingAmount;
 		}
 		return result;
 	}
@@ -548,9 +546,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public int GetAllyEnergyGain()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -559,15 +557,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetAllyEnergyGain()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_allyEnergyGainMod.GetModifiedValue(this.m_allyEnergyGain);
+			result = m_abilityMod.m_allyEnergyGainMod.GetModifiedValue(m_allyEnergyGain);
 		}
 		else
 		{
-			result = this.m_allyEnergyGain;
+			result = m_allyEnergyGain;
 		}
 		return result;
 	}
@@ -575,9 +573,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public StandardEffectInfo GetAllyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAllyHitEffect != null)
+		if (m_cachedAllyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -586,15 +584,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetAllyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedAllyHitEffect;
+			result = m_cachedAllyHitEffect;
 		}
 		else
 		{
-			result = this.m_allyHitEffect;
+			result = m_allyHitEffect;
 		}
 		return result;
 	}
@@ -602,9 +600,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public bool UseAllyMultiHitEffect()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -613,15 +611,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.UseAllyMultiHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_useAllyMultiHitEffectMod.GetModifiedValue(this.m_useAllyMultiHitEffect);
+			result = m_abilityMod.m_useAllyMultiHitEffectMod.GetModifiedValue(m_useAllyMultiHitEffect);
 		}
 		else
 		{
-			result = this.m_useAllyMultiHitEffect;
+			result = m_useAllyMultiHitEffect;
 		}
 		return result;
 	}
@@ -629,9 +627,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public StandardEffectInfo GetAllyMultipleHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAllyMultipleHitEffect != null)
+		if (m_cachedAllyMultipleHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -640,15 +638,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetAllyMultipleHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedAllyMultipleHitEffect;
+			result = m_cachedAllyMultipleHitEffect;
 		}
 		else
 		{
-			result = this.m_allyMultipleHitEffect;
+			result = m_allyMultipleHitEffect;
 		}
 		return result;
 	}
@@ -656,9 +654,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public int GetSelfHealingAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -667,15 +665,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetSelfHealingAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_selfHealingAmountMod.GetModifiedValue(this.m_selfHealingAmount);
+			result = m_abilityMod.m_selfHealingAmountMod.GetModifiedValue(m_selfHealingAmount);
 		}
 		else
 		{
-			result = this.m_selfHealingAmount;
+			result = m_selfHealingAmount;
 		}
 		return result;
 	}
@@ -683,9 +681,9 @@ public class TricksterCatchMeIfYouCan : Ability
 	public StandardEffectInfo GetSelfHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedSelfHitEffect != null)
+		if (m_cachedSelfHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -694,25 +692,25 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetSelfHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedSelfHitEffect;
+			result = m_cachedSelfHitEffect;
 		}
 		else
 		{
-			result = this.m_selfHitEffect;
+			result = m_selfHitEffect;
 		}
 		return result;
 	}
 
 	public bool IncludeSelf()
 	{
-		bool result;
-		if (this.GetSelfHealingAmount() <= 0)
+		int result;
+		if (GetSelfHealingAmount() <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -721,25 +719,25 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.IncludeSelf()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.GetSelfHitEffect().m_applyEffect;
+			result = (GetSelfHitEffect().m_applyEffect ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool IncludeAllies()
 	{
 		int result;
-		if (this.GetAllyHealingAmount() <= 0)
+		if (GetAllyHealingAmount() <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -748,15 +746,15 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.IncludeAllies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.GetAllyEnergyGain() <= 0)
+			if (GetAllyEnergyGain() <= 0)
 			{
-				if (this.GetAllyHitEffect() != null)
+				if (GetAllyHitEffect() != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -765,14 +763,14 @@ public class TricksterCatchMeIfYouCan : Ability
 						}
 						break;
 					}
-					if (this.GetAllyHitEffect().m_applyEffect)
+					if (GetAllyHitEffect().m_applyEffect)
 					{
-						goto IL_7D;
+						goto IL_007d;
 					}
 				}
-				if (this.UseAllyMultiHitEffect())
+				if (UseAllyMultiHitEffect())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -781,91 +779,96 @@ public class TricksterCatchMeIfYouCan : Ability
 						}
 						break;
 					}
-					if (this.GetAllyMultipleHitEffect() != null)
+					if (GetAllyMultipleHitEffect() != null)
 					{
-						result = (this.GetAllyMultipleHitEffect().m_applyEffect ? 1 : 0);
-						goto IL_7B;
+						result = (GetAllyMultipleHitEffect().m_applyEffect ? 1 : 0);
+						goto IL_007e;
 					}
 				}
 				result = 0;
-				IL_7B:
-				return result != 0;
+				goto IL_007e;
 			}
 		}
-		IL_7D:
+		goto IL_007d;
+		IL_007e:
+		return (byte)result != 0;
+		IL_007d:
 		result = 1;
-		return result != 0;
+		goto IL_007e;
 	}
 
 	public bool IncludeEnemies()
 	{
-		int result;
-		if (this.GetDamageAmount() <= 0)
+		if (GetDamageAmount() > 0)
 		{
-			for (;;)
+			goto IL_0069;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
+			case 0:
+				continue;
+			}
+			break;
+		}
+		if (1 == 0)
+		{
+			/*OpCode not supported: LdMemberToken*/;
+		}
+		if (GetEnemyHitEffect() != null)
+		{
+			if (GetEnemyHitEffect().m_applyEffect)
+			{
+				goto IL_0069;
+			}
+			while (true)
+			{
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.IncludeEnemies()).MethodHandle;
-			}
-			if (this.GetEnemyHitEffect() != null)
-			{
-				if (this.GetEnemyHitEffect().m_applyEffect)
-				{
-					goto IL_69;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (this.UseEnemyMultiHitEffect() && this.GetEnemyMultipleHitEffect() != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				result = (this.GetEnemyMultipleHitEffect().m_applyEffect ? 1 : 0);
-			}
-			else
-			{
-				result = 0;
-			}
-			return result != 0;
 		}
-		IL_69:
+		int result;
+		if (UseEnemyMultiHitEffect() && GetEnemyMultipleHitEffect() != null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			result = (GetEnemyMultipleHitEffect().m_applyEffect ? 1 : 0);
+		}
+		else
+		{
+			result = 0;
+		}
+		goto IL_006a;
+		IL_0069:
 		result = 1;
-		return result != 0;
+		goto IL_006a;
+		IL_006a:
+		return (byte)result != 0;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		if (this.IncludeEnemies())
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		if (IncludeEnemies())
 		{
-			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetDamageAmount());
-			this.GetEnemyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy);
+			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetDamageAmount());
+			GetEnemyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
 		}
-		if (this.IncludeAllies())
+		if (IncludeAllies())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -874,29 +877,29 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.CalculateAbilityTooltipNumbers()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, this.GetAllyHealingAmount());
-			AbilityTooltipHelper.ReportEnergy(ref result, AbilityTooltipSubject.Ally, this.GetAllyEnergyGain());
-			this.GetAllyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
+			AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, GetAllyHealingAmount());
+			AbilityTooltipHelper.ReportEnergy(ref numbers, AbilityTooltipSubject.Ally, GetAllyEnergyGain());
+			GetAllyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 		}
-		if (this.IncludeSelf())
+		if (IncludeSelf())
 		{
-			AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, this.GetSelfHealingAmount());
-			this.GetSelfHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
+			AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, GetSelfHealingAmount());
+			GetSelfHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		}
-		return result;
+		return numbers;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		bool flag = true;
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -905,13 +908,13 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -920,11 +923,11 @@ public class TricksterCatchMeIfYouCan : Ability
 					}
 					break;
 				}
-				if (!(boardSquare == caster.\u0012()))
+				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 				{
-					goto IL_67;
+					goto IL_0067;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -936,10 +939,11 @@ public class TricksterCatchMeIfYouCan : Ability
 			}
 		}
 		flag = false;
-		IL_67:
+		goto IL_0067;
+		IL_0067:
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -950,7 +954,7 @@ public class TricksterCatchMeIfYouCan : Ability
 			}
 			if (targetIndex > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -961,9 +965,9 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				for (int i = 0; i < targetIndex; i++)
 				{
-					if (Board.\u000E().\u000E(currentTargets[i].GridPos) == boardSquare)
+					if (Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos) == boardSquareSafe)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -975,7 +979,7 @@ public class TricksterCatchMeIfYouCan : Ability
 						flag = false;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -988,7 +992,7 @@ public class TricksterCatchMeIfYouCan : Ability
 		}
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -997,9 +1001,9 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (boardSquare.OccupantActor != null)
+			if (boardSquareSafe.OccupantActor != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -1008,9 +1012,9 @@ public class TricksterCatchMeIfYouCan : Ability
 					}
 					break;
 				}
-				if (!this.m_targeterAllowOccupiedSquares)
+				if (!m_targeterAllowOccupiedSquares)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -1019,11 +1023,11 @@ public class TricksterCatchMeIfYouCan : Ability
 						}
 						break;
 					}
-					ActorData occupantActor = boardSquare.OccupantActor;
-					bool flag2;
+					ActorData occupantActor = boardSquareSafe.OccupantActor;
+					int num;
 					if (NetworkClient.active)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -1032,47 +1036,49 @@ public class TricksterCatchMeIfYouCan : Ability
 							}
 							break;
 						}
-						flag2 = occupantActor.\u0018();
+						num = (occupantActor.IsVisibleToClient() ? 1 : 0);
 					}
 					else
 					{
-						flag2 = false;
+						num = 0;
 					}
-					bool flag3 = flag2;
-					if (flag3)
+					if (num != 0)
 					{
-						List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
-						bool flag4 = false;
+						List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
+						bool flag2 = false;
 						using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 						{
-							while (enumerator.MoveNext())
+							while (true)
 							{
-								ActorData x = enumerator.Current;
-								if (x == occupantActor)
+								if (!enumerator.MoveNext())
 								{
-									flag4 = true;
-									goto IL_199;
+									while (true)
+									{
+										switch (2)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									break;
 								}
-							}
-							for (;;)
-							{
-								switch (2)
+								ActorData current = enumerator.Current;
+								if (current == occupantActor)
 								{
-								case 0:
-									continue;
+									flag2 = true;
+									break;
 								}
-								break;
 							}
 						}
-						IL_199:
-						flag = flag4;
+						flag = flag2;
 					}
 				}
 			}
 		}
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1081,41 +1087,39 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			int num;
-			flag = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), this.m_chargeThroughInvalidSquares, out num);
+			flag = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), m_chargeThroughInvalidSquares, out int _);
 		}
 		return flag;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return !caster.\u000E().HasQueuedAbilityOfType(typeof(TricksterMadeYouLook));
+		return !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(TricksterMadeYouLook));
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		for (int i = 0; i <= currentTargeterIndex; i++)
 		{
-			Ability.AddNameplateValueForOverlap(ref result, base.Targeters[i], targetActor, currentTargeterIndex, this.GetDamageAmount(), this.GetSubsequentDamageAmount(), AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy);
+			Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeters[i], targetActor, currentTargeterIndex, GetDamageAmount(), GetSubsequentDamageAmount(), AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy);
 		}
 		for (int j = 0; j <= currentTargeterIndex; j++)
 		{
-			Ability.AddNameplateValueForOverlap(ref result, base.Targeters[j], targetActor, currentTargeterIndex, this.GetAllyHealingAmount(), this.GetSubsequentHealingAmount(), AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally);
+			Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeters[j], targetActor, currentTargeterIndex, GetAllyHealingAmount(), GetSubsequentHealingAmount(), AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally);
 		}
-		return result;
+		return symbolToValue;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_TricksterCatchMeIfYouCan abilityMod_TricksterCatchMeIfYouCan = modAsBase as AbilityMod_TricksterCatchMeIfYouCan;
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, (!abilityMod_TricksterCatchMeIfYouCan) ? this.m_damageAmount : abilityMod_TricksterCatchMeIfYouCan.m_damageAmountMod.GetModifiedValue(this.m_damageAmount), false);
-		string name = "SubsequentDamageAmount";
+		AddTokenInt(tokens, "DamageAmount", string.Empty, (!abilityMod_TricksterCatchMeIfYouCan) ? m_damageAmount : abilityMod_TricksterCatchMeIfYouCan.m_damageAmountMod.GetModifiedValue(m_damageAmount));
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_TricksterCatchMeIfYouCan)
+		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1124,21 +1128,21 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_TricksterCatchMeIfYouCan.m_subsequentDamageAmountMod.GetModifiedValue(this.m_subsequentDamageAmount);
+			val = abilityMod_TricksterCatchMeIfYouCan.m_subsequentDamageAmountMod.GetModifiedValue(m_subsequentDamageAmount);
 		}
 		else
 		{
-			val = this.m_subsequentDamageAmount;
+			val = m_subsequentDamageAmount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
+		AddTokenInt(tokens, "SubsequentDamageAmount", empty, val);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_TricksterCatchMeIfYouCan)
+		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1147,17 +1151,17 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			effectInfo = abilityMod_TricksterCatchMeIfYouCan.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			effectInfo = abilityMod_TricksterCatchMeIfYouCan.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_enemyHitEffect;
+			effectInfo = m_enemyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", this.m_enemyHitEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", m_enemyHitEffect);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_TricksterCatchMeIfYouCan)
+		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1166,19 +1170,18 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			effectInfo2 = abilityMod_TricksterCatchMeIfYouCan.m_enemyMultipleHitEffectMod.GetModifiedValue(this.m_enemyMultipleHitEffect);
+			effectInfo2 = abilityMod_TricksterCatchMeIfYouCan.m_enemyMultipleHitEffectMod.GetModifiedValue(m_enemyMultipleHitEffect);
 		}
 		else
 		{
-			effectInfo2 = this.m_enemyMultipleHitEffect;
+			effectInfo2 = m_enemyMultipleHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EnemyMultipleHitEffect", this.m_enemyMultipleHitEffect, true);
-		string name2 = "AllyHealingAmount";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EnemyMultipleHitEffect", m_enemyMultipleHitEffect);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_TricksterCatchMeIfYouCan)
+		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1187,19 +1190,18 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_TricksterCatchMeIfYouCan.m_allyHealingAmountMod.GetModifiedValue(this.m_allyHealingAmount);
+			val2 = abilityMod_TricksterCatchMeIfYouCan.m_allyHealingAmountMod.GetModifiedValue(m_allyHealingAmount);
 		}
 		else
 		{
-			val2 = this.m_allyHealingAmount;
+			val2 = m_allyHealingAmount;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		string name3 = "SubsequentHealingAmount";
+		AddTokenInt(tokens, "AllyHealingAmount", empty2, val2);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_TricksterCatchMeIfYouCan)
+		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1208,19 +1210,18 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			val3 = abilityMod_TricksterCatchMeIfYouCan.m_subsequentHealingAmountMod.GetModifiedValue(this.m_subsequentHealingAmount);
+			val3 = abilityMod_TricksterCatchMeIfYouCan.m_subsequentHealingAmountMod.GetModifiedValue(m_subsequentHealingAmount);
 		}
 		else
 		{
-			val3 = this.m_subsequentHealingAmount;
+			val3 = m_subsequentHealingAmount;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
-		string name4 = "AllyEnergyGain";
+		AddTokenInt(tokens, "SubsequentHealingAmount", empty3, val3);
 		string empty4 = string.Empty;
 		int val4;
-		if (abilityMod_TricksterCatchMeIfYouCan)
+		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1229,17 +1230,17 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			val4 = abilityMod_TricksterCatchMeIfYouCan.m_allyEnergyGainMod.GetModifiedValue(this.m_allyEnergyGain);
+			val4 = abilityMod_TricksterCatchMeIfYouCan.m_allyEnergyGainMod.GetModifiedValue(m_allyEnergyGain);
 		}
 		else
 		{
-			val4 = this.m_allyEnergyGain;
+			val4 = m_allyEnergyGain;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
+		AddTokenInt(tokens, "AllyEnergyGain", empty4, val4);
 		StandardEffectInfo effectInfo3;
-		if (abilityMod_TricksterCatchMeIfYouCan)
+		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1248,17 +1249,17 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			effectInfo3 = abilityMod_TricksterCatchMeIfYouCan.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
+			effectInfo3 = abilityMod_TricksterCatchMeIfYouCan.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
 		{
-			effectInfo3 = this.m_allyHitEffect;
+			effectInfo3 = m_allyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "AllyHitEffect", this.m_allyHitEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "AllyHitEffect", m_allyHitEffect);
 		StandardEffectInfo effectInfo4;
-		if (abilityMod_TricksterCatchMeIfYouCan)
+		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1267,19 +1268,18 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			effectInfo4 = abilityMod_TricksterCatchMeIfYouCan.m_allyMultipleHitEffectMod.GetModifiedValue(this.m_allyMultipleHitEffect);
+			effectInfo4 = abilityMod_TricksterCatchMeIfYouCan.m_allyMultipleHitEffectMod.GetModifiedValue(m_allyMultipleHitEffect);
 		}
 		else
 		{
-			effectInfo4 = this.m_allyMultipleHitEffect;
+			effectInfo4 = m_allyMultipleHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo4, "AllyMultipleHitEffect", this.m_allyMultipleHitEffect, true);
-		string name5 = "SelfHealingAmount";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo4, "AllyMultipleHitEffect", m_allyMultipleHitEffect);
 		string empty5 = string.Empty;
 		int val5;
-		if (abilityMod_TricksterCatchMeIfYouCan)
+		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1288,27 +1288,27 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			val5 = abilityMod_TricksterCatchMeIfYouCan.m_selfHealingAmountMod.GetModifiedValue(this.m_selfHealingAmount);
+			val5 = abilityMod_TricksterCatchMeIfYouCan.m_selfHealingAmountMod.GetModifiedValue(m_selfHealingAmount);
 		}
 		else
 		{
-			val5 = this.m_selfHealingAmount;
+			val5 = m_selfHealingAmount;
 		}
-		base.AddTokenInt(tokens, name5, empty5, val5, false);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_TricksterCatchMeIfYouCan) ? this.m_selfHitEffect : abilityMod_TricksterCatchMeIfYouCan.m_selfHitEffectMod.GetModifiedValue(this.m_selfHitEffect), "SelfHitEffect", this.m_selfHitEffect, true);
+		AddTokenInt(tokens, "SelfHealingAmount", empty5, val5);
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_TricksterCatchMeIfYouCan) ? m_selfHitEffect : abilityMod_TricksterCatchMeIfYouCan.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect), "SelfHitEffect", m_selfHitEffect);
 	}
 
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(false);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages(false);
 		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (actorData != null)
+				ActorData current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -1317,13 +1317,13 @@ public class TricksterCatchMeIfYouCan : Ability
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (!actorData.\u000E())
+					if (!current.IsDead())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -1332,38 +1332,39 @@ public class TricksterCatchMeIfYouCan : Ability
 							}
 							break;
 						}
-						Animator animator = actorData.\u000E();
-						animator.SetFloat(TricksterCatchMeIfYouCan.animDistToGoal, 10f);
-						animator.ResetTrigger(TricksterCatchMeIfYouCan.animStartDamageReaction);
-						animator.SetInteger(TricksterCatchMeIfYouCan.animAttack, animationIndex);
-						animator.SetBool(TricksterCatchMeIfYouCan.animCinematicCam, false);
-						animator.SetTrigger(TricksterCatchMeIfYouCan.animStartAttack);
+						Animator modelAnimator = current.GetModelAnimator();
+						modelAnimator.SetFloat(animDistToGoal, 10f);
+						modelAnimator.ResetTrigger(animStartDamageReaction);
+						modelAnimator.SetInteger(animAttack, animationIndex);
+						modelAnimator.SetBool(animCinematicCam, false);
+						modelAnimator.SetTrigger(animStartAttack);
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public override void OnAbilityAnimationRequestProcessed(ActorData caster)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(false);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages(false);
 		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (actorData != null)
+				ActorData current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -1372,13 +1373,13 @@ public class TricksterCatchMeIfYouCan : Ability
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (!actorData.\u000E())
+					if (!current.IsDead())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -1387,35 +1388,36 @@ public class TricksterCatchMeIfYouCan : Ability
 							}
 							break;
 						}
-						Animator animator = actorData.\u000E();
-						animator.SetInteger(TricksterCatchMeIfYouCan.animAttack, 0);
-						animator.SetBool(TricksterCatchMeIfYouCan.animCinematicCam, false);
+						Animator modelAnimator = current.GetModelAnimator();
+						modelAnimator.SetInteger(animAttack, 0);
+						modelAnimator.SetBool(animCinematicCam, false);
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public override void OnEvasionMoveStartEvent(ActorData caster)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(false);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages(false);
 		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (actorData != null && !actorData.\u000E())
+				ActorData current = enumerator.Current;
+				if (current != null && !current.IsDead())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -1424,13 +1426,13 @@ public class TricksterCatchMeIfYouCan : Ability
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.OnEvasionMoveStartEvent(ActorData)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (actorData.\u000E() != null)
+					if (current.GetActorModelData() != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -1439,20 +1441,21 @@ public class TricksterCatchMeIfYouCan : Ability
 							}
 							break;
 						}
-						actorData.\u000E().EnableRendererAndUpdateVisibility();
-						actorData.\u000E().gameObject.transform.localScale = Vector3.one;
-						TricksterAfterImageNetworkBehaviour.SetMaterialEnabledForAfterImage(caster, actorData, true);
+						current.GetActorModelData().EnableRendererAndUpdateVisibility();
+						current.GetActorModelData().gameObject.transform.localScale = Vector3.one;
+						TricksterAfterImageNetworkBehaviour.SetMaterialEnabledForAfterImage(caster, current, true);
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
@@ -1466,71 +1469,72 @@ public class TricksterCatchMeIfYouCan : Ability
 	{
 		if (hitCount > 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return GetAllyHealingAmount() + (hitCount - 1) * GetSubsequentHealingAmount();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetAllyHealAmountForHitCount(int)).MethodHandle;
-			}
-			return this.GetAllyHealingAmount() + (hitCount - 1) * this.GetSubsequentHealingAmount();
 		}
-		return this.GetAllyHealingAmount();
+		return GetAllyHealingAmount();
 	}
 
 	private int GetDamageAmountForHitCount(int hitCount)
 	{
 		if (hitCount > 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return GetDamageAmount() + (hitCount - 1) * GetSubsequentDamageAmount();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.GetDamageAmountForHitCount(int)).MethodHandle;
-			}
-			return this.GetDamageAmount() + (hitCount - 1) * this.GetSubsequentDamageAmount();
 		}
-		return this.GetDamageAmount();
+		return GetDamageAmount();
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_TricksterCatchMeIfYouCan))
+		if (abilityMod.GetType() != typeof(AbilityMod_TricksterCatchMeIfYouCan))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_TricksterCatchMeIfYouCan);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_TricksterCatchMeIfYouCan);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

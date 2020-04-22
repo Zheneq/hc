@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -65,9 +65,9 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 
 	private RenderTexture GetRenderTexture()
 	{
-		if (!this.m_renderTexture)
+		if (!m_renderTexture)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -76,62 +76,64 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.GetRenderTexture()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_renderTexture = new RenderTexture(0x200, 0x200, 0);
-			this.m_renderTexture.name = "FogOfWarRenderTexture";
-			this.m_renderTexture.hideFlags = HideFlags.HideAndDontSave;
-			this.m_renderTexture.isPowerOfTwo = true;
+			m_renderTexture = new RenderTexture(512, 512, 0);
+			m_renderTexture.name = "FogOfWarRenderTexture";
+			m_renderTexture.hideFlags = HideFlags.HideAndDontSave;
+			m_renderTexture.isPowerOfTwo = true;
 		}
-		return this.m_renderTexture;
+		return m_renderTexture;
 	}
 
 	private void CopySourceToBG(RenderTexture source)
 	{
-		Camera camera = this.GetPostCam();
-		if (camera)
+		Camera camera = GetPostCam();
+		if (!camera)
 		{
-			FogOfWarBackgroundEffect component = camera.GetComponent<FogOfWarBackgroundEffect>();
-			if (component)
+			return;
+		}
+		FogOfWarBackgroundEffect component = camera.GetComponent<FogOfWarBackgroundEffect>();
+		if (!component)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.CopySourceToBG(RenderTexture)).MethodHandle;
-				}
-				Graphics.Blit(source, component.GetSourceTexture());
+			case 0:
+				continue;
 			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			Graphics.Blit(source, component.GetSourceTexture());
+			return;
 		}
 	}
 
 	private RenderTexture GetPostTexture()
 	{
-		if (this.GetPostCam())
+		if ((bool)GetPostCam())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return GetPostCam().GetComponent<FogOfWarBackgroundEffect>().GetRenderTexture();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.GetPostTexture()).MethodHandle;
-			}
-			return this.GetPostCam().GetComponent<FogOfWarBackgroundEffect>().GetRenderTexture();
 		}
 		return null;
 	}
@@ -140,38 +142,38 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 	{
 		if (!Application.isPlaying)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.GetPostCam()).MethodHandle;
-			}
-			return null;
 		}
-		if (this.postCam)
+		if ((bool)postCam)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return postCam;
 				}
-				break;
 			}
-			return this.postCam;
 		}
-		this.CheckFogCamPrefab();
-		if (this.fogOfWarCameraSettings)
+		CheckFogCamPrefab();
+		if ((bool)fogOfWarCameraSettings)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -180,57 +182,59 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 				}
 				break;
 			}
-			this.postCam = this.fogOfWarCameraSettings.m_postCamera;
-			this.postCam.enabled = false;
+			postCam = fogOfWarCameraSettings.m_postCamera;
+			postCam.enabled = false;
 		}
-		return this.postCam;
+		return postCam;
 	}
 
 	private void CheckFogCamPrefab()
 	{
-		if (!this.fogOfWarCameraSettings)
+		if ((bool)fogOfWarCameraSettings)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.CheckFogCamPrefab()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (FogOfWarCameraSettings.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						fogOfWarCameraSettings = FogOfWarCameraSettings.Get();
+						m_usingDefaultFogOfWarCamSettings = false;
+						return;
 					}
-					break;
 				}
-				this.fogOfWarCameraSettings = FogOfWarCameraSettings.Get();
-				this.m_usingDefaultFogOfWarCamSettings = false;
 			}
-			else if (this.defaultFogOfWarCameraSettingsPrefab != null)
+			if (defaultFogOfWarCameraSettingsPrefab != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					fogOfWarCameraSettings = UnityEngine.Object.Instantiate(defaultFogOfWarCameraSettingsPrefab);
+					m_usingDefaultFogOfWarCamSettings = true;
+					return;
 				}
-				this.fogOfWarCameraSettings = UnityEngine.Object.Instantiate<FogOfWarCameraSettings>(this.defaultFogOfWarCameraSettingsPrefab);
-				this.m_usingDefaultFogOfWarCamSettings = true;
 			}
+			return;
 		}
 	}
 
@@ -240,64 +244,61 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 		{
 			return null;
 		}
-		if (this.fogOfWarCam)
+		if ((bool)fogOfWarCam)
 		{
-			return this.fogOfWarCam;
+			return fogOfWarCam;
 		}
-		this.CheckFogCamPrefab();
-		if (this.fogOfWarCameraSettings)
+		CheckFogCamPrefab();
+		if ((bool)fogOfWarCameraSettings)
 		{
-			this.fogOfWarCam = this.fogOfWarCameraSettings.m_camera;
-			this.fogOfWarCam.enabled = false;
+			fogOfWarCam = fogOfWarCameraSettings.m_camera;
+			fogOfWarCam.enabled = false;
 		}
-		return this.fogOfWarCam;
+		return fogOfWarCam;
 	}
 
 	private void CheckMinHeight()
 	{
-		if (Application.isPlaying)
+		if (!Application.isPlaying)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (minHeightSet)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.CheckMinHeight()).MethodHandle;
-			}
-			if (!this.minHeightSet)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameObject gameObject = GameObject.Find("LOSHighlights");
 				if (!gameObject)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							Log.Error("Design scene file {0} is missing LOSHighlights, Fog of War will not render!", SceneManager.GetActiveScene().name);
+							return;
 						}
-						break;
 					}
-					Log.Error("Design scene file {0} is missing LOSHighlights, Fog of War will not render!", new object[]
-					{
-						SceneManager.GetActiveScene().name
-					});
-					return;
 				}
 				float num = float.MaxValue;
 				IEnumerator enumerator = gameObject.transform.GetEnumerator();
@@ -305,12 +306,11 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 				{
 					while (enumerator.MoveNext())
 					{
-						object obj = enumerator.Current;
-						Transform transform = (Transform)obj;
+						Transform transform = (Transform)enumerator.Current;
 						MeshFilter component;
-						if (component = transform.GetComponent<MeshFilter>())
+						if ((bool)(component = transform.GetComponent<MeshFilter>()))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -336,21 +336,23 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 					IDisposable disposable;
 					if ((disposable = (enumerator as IDisposable)) != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								disposable.Dispose();
+								goto end_IL_0116;
 							}
-							break;
 						}
-						disposable.Dispose();
 					}
+					end_IL_0116:;
 				}
-				if (num < 3.40282347E+38f)
+				if (num < float.MaxValue)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -359,17 +361,15 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 						}
 						break;
 					}
-					this.minHeight = num;
+					minHeight = num;
 				}
 				else
 				{
-					Log.Error("Design scene file {0} has invalid LOSHighlights, Fog of War may not render!", new object[]
-					{
-						SceneManager.GetActiveScene().name
-					});
+					Log.Error("Design scene file {0} has invalid LOSHighlights, Fog of War may not render!", SceneManager.GetActiveScene().name);
 				}
-				this.minHeight -= 85f;
-				this.minHeightSet = true;
+				minHeight -= 85f;
+				minHeightSet = true;
+				return;
 			}
 		}
 	}
@@ -377,18 +377,18 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 	protected override void Start()
 	{
 		base.Start();
-		this.m_fogOfWarMatrixID = Shader.PropertyToID("_FogOfWarMatrix");
-		this.m_fogOfWarTexID = Shader.PropertyToID("_FogOfWarTex");
-		this.m_fogOfWarColorID = Shader.PropertyToID("_FogOfWarColor");
-		this.m_frustumCornersWSID = Shader.PropertyToID("_FrustumCornersWS");
-		this.m_originID = Shader.PropertyToID("_Origin");
-		this.m_minHeightID = Shader.PropertyToID("_MinHeight");
-		this.m_prepassTexID = Shader.PropertyToID("_PrepassTex");
-		this.m_fogOfWarMatrixID = Shader.PropertyToID("_FogOfWarMatrix");
-		this.Initialize();
+		m_fogOfWarMatrixID = Shader.PropertyToID("_FogOfWarMatrix");
+		m_fogOfWarTexID = Shader.PropertyToID("_FogOfWarTex");
+		m_fogOfWarColorID = Shader.PropertyToID("_FogOfWarColor");
+		m_frustumCornersWSID = Shader.PropertyToID("_FrustumCornersWS");
+		m_originID = Shader.PropertyToID("_Origin");
+		m_minHeightID = Shader.PropertyToID("_MinHeight");
+		m_prepassTexID = Shader.PropertyToID("_PrepassTex");
+		m_fogOfWarMatrixID = Shader.PropertyToID("_FogOfWarMatrix");
+		Initialize();
 		if (!GameManager.IsEditorAndNotGame())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -397,90 +397,93 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.BoardSquareVisibleShadeChanged);
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.GraphicsQualityChanged);
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.SystemEscapeMenuOnReturnToGameClick);
 		}
-		this.m_started = true;
+		m_started = true;
 	}
 
 	private void OnDestroy()
 	{
-		if (GameEventManager.Get() != null)
+		if (GameEventManager.Get() == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.BoardSquareVisibleShadeChanged);
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GraphicsQualityChanged);
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.SystemEscapeMenuOnReturnToGameClick);
+			return;
 		}
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		this.m_fogOfWarCamNeedsRender = true;
-		if (eventType == GameEventManager.EventType.GraphicsQualityChanged)
+		m_fogOfWarCamNeedsRender = true;
+		if (eventType != GameEventManager.EventType.GraphicsQualityChanged)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_fogOfWarCamForceRenderFrames = 2;
+			m_fogOfWarCamForceRenderFrames = 2;
+			return;
 		}
 	}
 
 	private void OnPreRender()
 	{
-		this.CheckMinHeight();
-		if (this.m_fogOfWarCamForceRenderFrames > 0)
+		CheckMinHeight();
+		if (m_fogOfWarCamForceRenderFrames > 0)
 		{
-			this.m_fogOfWarCamNeedsRender = true;
-			this.m_fogOfWarCamForceRenderFrames--;
+			m_fogOfWarCamNeedsRender = true;
+			m_fogOfWarCamForceRenderFrames--;
 		}
-		if (this.m_fogOfWarCamNeedsRender && this.GetFogOfWarCam())
+		if (!m_fogOfWarCamNeedsRender || !GetFogOfWarCam())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.OnPreRender()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.GetFogOfWarCam().Render();
-			this.m_fogOfWarCamNeedsRender = false;
-			this.m_fogOfWarCamRenderedScreenWidth = Screen.width;
-			this.m_fogOfWarCamRenderedScreenHeight = Screen.height;
-			this.m_fogOfWarCamRenderedScreenFullscreen = Screen.fullScreen;
+			GetFogOfWarCam().Render();
+			m_fogOfWarCamNeedsRender = false;
+			m_fogOfWarCamRenderedScreenWidth = Screen.width;
+			m_fogOfWarCamRenderedScreenHeight = Screen.height;
+			m_fogOfWarCamRenderedScreenFullscreen = Screen.fullScreen;
+			return;
 		}
 	}
 
@@ -490,34 +493,38 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 		{
 			base.enabled = false;
 		}
-		else if (this.m_started)
+		else
 		{
-			for (;;)
+			if (!m_started)
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				Initialize();
+				return;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.OnEnable()).MethodHandle;
-			}
-			this.Initialize();
 		}
 	}
 
 	private void Initialize()
 	{
-		this.camRenderPath = RenderingPath.Forward;
-		this.camRenderPass = 0;
+		camRenderPath = RenderingPath.Forward;
+		camRenderPass = 0;
 		base.material.SetPass(0);
 		Camera.main.depthTextureMode |= DepthTextureMode.Depth;
-		if (this.GetFogOfWarCam())
+		if ((bool)GetFogOfWarCam())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -526,34 +533,35 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.Initialize()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.GetFogOfWarCam().depth = Camera.main.depth - 1f;
-			this.GetFogOfWarCam().targetTexture = this.GetRenderTexture();
+			GetFogOfWarCam().depth = Camera.main.depth - 1f;
+			GetFogOfWarCam().targetTexture = GetRenderTexture();
 		}
-		if (this.GetPostCam())
+		if (!GetPostCam())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.GetPostCam().depth = Camera.main.depth - 2f;
+			GetPostCam().depth = Camera.main.depth - 2f;
+			return;
 		}
 	}
 
 	protected override void OnDisable()
 	{
 		base.OnDisable();
-		if (this.m_usingDefaultFogOfWarCamSettings)
+		if (m_usingDefaultFogOfWarCamSettings)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -562,13 +570,13 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.OnDisable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.fogOfWarCam)
+			if ((bool)fogOfWarCam)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -577,12 +585,12 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 					}
 					break;
 				}
-				this.fogOfWarCam.targetTexture = null;
-				this.fogOfWarCam = null;
+				fogOfWarCam.targetTexture = null;
+				fogOfWarCam = null;
 			}
-			if (this.fogOfWarCameraSettings)
+			if ((bool)fogOfWarCameraSettings)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -591,73 +599,72 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 					}
 					break;
 				}
-				UnityEngine.Object.DestroyObject(this.fogOfWarCameraSettings.gameObject);
-				this.fogOfWarCameraSettings = null;
+				UnityEngine.Object.DestroyObject(fogOfWarCameraSettings.gameObject);
+				fogOfWarCameraSettings = null;
 			}
 		}
-		if (this.m_renderTexture)
+		if ((bool)m_renderTexture)
 		{
-			UnityEngine.Object.DestroyImmediate(this.m_renderTexture);
-			this.m_renderTexture = null;
+			UnityEngine.Object.DestroyImmediate(m_renderTexture);
+			m_renderTexture = null;
 		}
-		this.minHeightSet = false;
+		minHeightSet = false;
 	}
 
 	private void UpdateRenderPath()
 	{
-		if (this.camRenderPath != Camera.main.actualRenderingPath)
+		if (camRenderPath == Camera.main.actualRenderingPath)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.UpdateRenderPath()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.camRenderPath = Camera.main.actualRenderingPath;
-			if (this.camRenderPath == RenderingPath.Forward)
+			camRenderPath = Camera.main.actualRenderingPath;
+			if (camRenderPath == RenderingPath.Forward)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						camRenderPass = 0;
+						return;
 					}
-					break;
 				}
-				this.camRenderPass = 0;
 			}
-			else
-			{
-				this.camRenderPass = 1;
-			}
+			camRenderPass = 1;
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		Camera camera = this.GetFogOfWarCam();
-		if (camera != null)
+		Camera camera = GetFogOfWarCam();
+		if (!(camera != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Transform transform = base.transform;
 			Vector3 vector = transform.position;
@@ -665,7 +672,7 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 			float num;
 			if (!GameManager.IsEditorAndNotGame())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -674,12 +681,12 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 					}
 					break;
 				}
-				if (!(Board.\u000E() == null))
+				if (!(Board.Get() == null))
 				{
-					num = (float)Board.\u000E().BaselineHeight;
-					goto IL_93;
+					num = Board.Get().BaselineHeight;
+					goto IL_0093;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -690,14 +697,14 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 				}
 			}
 			num = 0f;
-			IL_93:
+			goto IL_0093;
+			IL_0093:
 			float y = num;
 			Plane plane = new Plane(Vector3.up, new Vector3(0f, y, 0f));
-			float num2 = this.fogOfWarCam.orthographicSize / 2f;
-			float distance;
-			if (plane.Raycast(ray, out distance))
+			float num2 = fogOfWarCam.orthographicSize / 2f;
+			if (plane.Raycast(ray, out float enter))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -706,12 +713,12 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 					}
 					break;
 				}
-				Vector3 point = ray.GetPoint(distance);
+				Vector3 point = ray.GetPoint(enter);
 				Vector3 vector2 = point - transform.position;
 				vector2.y = 0f;
 				if (vector2.sqrMagnitude < num2 * num2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -723,10 +730,11 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 					vector = point;
 				}
 			}
-			vector.y = camera.transform.position.y;
+			Vector3 position = camera.transform.position;
+			vector.y = position.y;
 			if ((vector - camera.transform.position).sqrMagnitude > num2 * num2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -736,11 +744,11 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 					break;
 				}
 				camera.transform.position = vector;
-				this.m_fogOfWarCamNeedsRender = true;
+				m_fogOfWarCamNeedsRender = true;
 			}
-			if (this.m_fogOfWarCamRenderedScreenWidth == Screen.width)
+			if (m_fogOfWarCamRenderedScreenWidth == Screen.width)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -749,9 +757,9 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 					}
 					break;
 				}
-				if (this.m_fogOfWarCamRenderedScreenHeight == Screen.height)
+				if (m_fogOfWarCamRenderedScreenHeight == Screen.height)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -760,11 +768,11 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 						}
 						break;
 					}
-					if (this.m_fogOfWarCamRenderedScreenFullscreen == Screen.fullScreen)
+					if (m_fogOfWarCamRenderedScreenFullscreen == Screen.fullScreen)
 					{
 						return;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -775,86 +783,87 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 					}
 				}
 			}
-			this.m_fogOfWarCamNeedsRender = true;
+			m_fogOfWarCamNeedsRender = true;
+			return;
 		}
 	}
 
 	[ImageEffectOpaque]
 	private void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
-		if (!this.GetFogOfWarCam())
+		if (!GetFogOfWarCam())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarEffect.OnRenderImage(RenderTexture, RenderTexture)).MethodHandle;
-			}
-			return;
 		}
-		if (!this.GetPostCam())
+		if (!GetPostCam())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-			return;
 		}
-		this.UpdateRenderPath();
-		this.CopySourceToBG(source);
-		this.GetPostCam().Render();
-		this.CAMERA_NEAR = Camera.main.nearClipPlane;
-		this.CAMERA_FAR = Camera.main.farClipPlane;
-		this.CAMERA_FOV = Camera.main.fieldOfView;
-		this.CAMERA_ASPECT_RATIO = Camera.main.aspect;
+		UpdateRenderPath();
+		CopySourceToBG(source);
+		GetPostCam().Render();
+		CAMERA_NEAR = Camera.main.nearClipPlane;
+		CAMERA_FAR = Camera.main.farClipPlane;
+		CAMERA_FOV = Camera.main.fieldOfView;
+		CAMERA_ASPECT_RATIO = Camera.main.aspect;
 		Matrix4x4 identity = Matrix4x4.identity;
-		float num = this.CAMERA_FOV * 0.5f;
-		Vector3 b = Camera.main.transform.right * this.CAMERA_NEAR * Mathf.Tan(num * 0.0174532924f) * this.CAMERA_ASPECT_RATIO;
-		Vector3 b2 = Camera.main.transform.up * this.CAMERA_NEAR * Mathf.Tan(num * 0.0174532924f);
-		Vector3 vector = Camera.main.transform.forward * this.CAMERA_NEAR - b + b2;
-		float d = vector.magnitude * this.CAMERA_FAR / this.CAMERA_NEAR;
-		vector.Normalize();
-		vector *= d;
-		Vector3 vector2 = Camera.main.transform.forward * this.CAMERA_NEAR + b + b2;
-		vector2.Normalize();
-		vector2 *= d;
-		Vector3 vector3 = Camera.main.transform.forward * this.CAMERA_NEAR + b - b2;
-		vector3.Normalize();
-		vector3 *= d;
-		Vector3 vector4 = Camera.main.transform.forward * this.CAMERA_NEAR - b - b2;
-		vector4.Normalize();
-		vector4 *= d;
-		identity.SetRow(0, vector);
-		identity.SetRow(1, vector2);
-		identity.SetRow(2, vector3);
-		identity.SetRow(3, vector4);
-		Matrix4x4 worldToLocalMatrix = this.GetFogOfWarCam().transform.worldToLocalMatrix;
+		float num = CAMERA_FOV * 0.5f;
+		Vector3 b = Camera.main.transform.right * CAMERA_NEAR * Mathf.Tan(num * ((float)Math.PI / 180f)) * CAMERA_ASPECT_RATIO;
+		Vector3 b2 = Camera.main.transform.up * CAMERA_NEAR * Mathf.Tan(num * ((float)Math.PI / 180f));
+		Vector3 v = Camera.main.transform.forward * CAMERA_NEAR - b + b2;
+		float num2 = v.magnitude * CAMERA_FAR / CAMERA_NEAR;
+		v.Normalize();
+		v *= num2;
+		Vector3 v2 = Camera.main.transform.forward * CAMERA_NEAR + b + b2;
+		v2.Normalize();
+		v2 *= num2;
+		Vector3 v3 = Camera.main.transform.forward * CAMERA_NEAR + b - b2;
+		v3.Normalize();
+		v3 *= num2;
+		Vector3 v4 = Camera.main.transform.forward * CAMERA_NEAR - b - b2;
+		v4.Normalize();
+		v4 *= num2;
+		identity.SetRow(0, v);
+		identity.SetRow(1, v2);
+		identity.SetRow(2, v3);
+		identity.SetRow(3, v4);
+		Matrix4x4 worldToLocalMatrix = GetFogOfWarCam().transform.worldToLocalMatrix;
 		Vector3 position = Camera.main.transform.position;
-		Vector4 value;
+		Vector4 value = default(Vector4);
 		value.x = position.x;
 		value.y = position.y;
 		value.z = position.z;
 		value.w = 0f;
-		Shader.SetGlobalMatrix(this.m_fogOfWarMatrixID, worldToLocalMatrix);
-		Shader.SetGlobalTexture(this.m_fogOfWarTexID, this.GetRenderTexture());
-		Shader.SetGlobalColor(this.m_fogOfWarColorID, this.fogOfWarCameraSettings.fogColor);
+		Shader.SetGlobalMatrix(m_fogOfWarMatrixID, worldToLocalMatrix);
+		Shader.SetGlobalTexture(m_fogOfWarTexID, GetRenderTexture());
+		Shader.SetGlobalColor(m_fogOfWarColorID, fogOfWarCameraSettings.fogColor);
 		Material material = base.material;
-		material.SetMatrix(this.m_frustumCornersWSID, identity);
-		material.SetVector(this.m_originID, value);
-		material.SetFloat(this.m_minHeightID, this.minHeight + this.fogOfWarCameraSettings.minHeightOffset);
-		material.SetTexture(this.m_prepassTexID, this.GetPostTexture());
-		Graphics.Blit(source, destination, material, this.camRenderPass);
+		material.SetMatrix(m_frustumCornersWSID, identity);
+		material.SetVector(m_originID, value);
+		material.SetFloat(m_minHeightID, minHeight + fogOfWarCameraSettings.minHeightOffset);
+		material.SetTexture(m_prepassTexID, GetPostTexture());
+		Graphics.Blit(source, destination, material, camRenderPass);
 	}
 }

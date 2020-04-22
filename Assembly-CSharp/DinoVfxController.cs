@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,16 +22,16 @@ public class DinoVfxController : CopyableVfxControllerComponent
 
 	private void Start()
 	{
-		this.Initialize();
+		Initialize();
 	}
 
 	private void Initialize()
 	{
-		this.m_actorModelData = base.GetComponent<ActorModelData>();
-		this.m_spawnedVfxList = new List<AttachedActorVFXInfo>();
-		if (this.m_actorModelData != null)
+		m_actorModelData = GetComponent<ActorModelData>();
+		m_spawnedVfxList = new List<AttachedActorVFXInfo>();
+		if (m_actorModelData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -41,13 +40,13 @@ public class DinoVfxController : CopyableVfxControllerComponent
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoVfxController.Initialize()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_actorModelData.m_parentActorData != null)
+			if (m_actorModelData.m_parentActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -56,17 +55,17 @@ public class DinoVfxController : CopyableVfxControllerComponent
 					}
 					break;
 				}
-				this.m_syncComp = this.m_actorModelData.m_parentActorData.GetComponent<Dino_SyncComponent>();
-				this.m_owner = this.m_actorModelData.m_parentActorData;
+				m_syncComp = m_actorModelData.m_parentActorData.GetComponent<Dino_SyncComponent>();
+				m_owner = m_actorModelData.m_parentActorData;
 			}
 		}
-		bool flag = this.m_syncComp == null;
-		for (int i = 0; i < this.m_indicatorVfxPrefabs.Count; i++)
+		bool flag = m_syncComp == null;
+		for (int i = 0; i < m_indicatorVfxPrefabs.Count; i++)
 		{
-			GameObject vfxPrefab = this.m_indicatorVfxPrefabs[i];
-			if (this.m_frontEndCharSelectVfxPrefab != null)
+			GameObject vfxPrefab = m_indicatorVfxPrefabs[i];
+			if (m_frontEndCharSelectVfxPrefab != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -77,7 +76,7 @@ public class DinoVfxController : CopyableVfxControllerComponent
 				}
 				if (flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -86,13 +85,13 @@ public class DinoVfxController : CopyableVfxControllerComponent
 						}
 						break;
 					}
-					vfxPrefab = this.m_frontEndCharSelectVfxPrefab;
+					vfxPrefab = m_frontEndCharSelectVfxPrefab;
 				}
 			}
-			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(vfxPrefab, base.gameObject, this.m_fxJoint, false, "DinoPowerVfx", AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
+			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(vfxPrefab, base.gameObject, m_fxJoint, false, "DinoPowerVfx", AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -101,11 +100,11 @@ public class DinoVfxController : CopyableVfxControllerComponent
 					}
 					break;
 				}
-				this.m_spawnedVfxList.Add(attachedActorVFXInfo);
+				m_spawnedVfxList.Add(attachedActorVFXInfo);
 			}
 			else if (Application.isEditor)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -114,27 +113,28 @@ public class DinoVfxController : CopyableVfxControllerComponent
 					}
 					break;
 				}
-				Debug.LogWarning("Failed to spawn vfx on joint in " + base.GetType().ToString());
+				Debug.LogWarning("Failed to spawn vfx on joint in " + GetType().ToString());
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void LateUpdate()
 	{
-		ActorData owner = this.m_owner;
+		ActorData owner = m_owner;
 		bool flag = true;
 		if (owner != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -143,17 +143,17 @@ public class DinoVfxController : CopyableVfxControllerComponent
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoVfxController.LateUpdate()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = (owner.\u0018() && (owner.\u000E() == null || owner.\u000E().IsVisibleToClient()));
+			flag = (owner.IsVisibleToClient() && (owner.GetActorModelData() == null || owner.GetActorModelData().IsVisibleToClient()));
 		}
-		bool flag2 = owner != null && owner.\u0012();
+		bool flag2 = owner != null && owner.IsModelAnimatorDisabled();
 		int num = 0;
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -162,12 +162,12 @@ public class DinoVfxController : CopyableVfxControllerComponent
 				}
 				break;
 			}
-			num = (int)this.m_syncComp.m_layerConePowerLevel;
-			num = Mathf.Min(num, this.m_spawnedVfxList.Count - 1);
+			num = m_syncComp.m_layerConePowerLevel;
+			num = Mathf.Min(num, m_spawnedVfxList.Count - 1);
 		}
-		else if (this.m_spawnedVfxList.Count > 0)
+		else if (m_spawnedVfxList.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -176,17 +176,17 @@ public class DinoVfxController : CopyableVfxControllerComponent
 				}
 				break;
 			}
-			num = this.m_spawnedVfxList.Count - 1;
+			num = m_spawnedVfxList.Count - 1;
 		}
-		for (int i = 0; i < this.m_spawnedVfxList.Count; i++)
+		for (int i = 0; i < m_spawnedVfxList.Count; i++)
 		{
 			bool actorVisible = false;
 			if (num == i)
 			{
-				bool flag3;
+				int num2;
 				if (flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -195,58 +195,59 @@ public class DinoVfxController : CopyableVfxControllerComponent
 						}
 						break;
 					}
-					flag3 = !flag2;
+					num2 = ((!flag2) ? 1 : 0);
 				}
 				else
 				{
-					flag3 = false;
+					num2 = 0;
 				}
-				actorVisible = flag3;
+				actorVisible = ((byte)num2 != 0);
 			}
-			this.m_spawnedVfxList[i].UpdateVisibility(actorVisible, true);
+			m_spawnedVfxList[i].UpdateVisibility(actorVisible, true);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		if (this.m_spawnedVfxList != null)
+		if (m_spawnedVfxList == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoVfxController.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (int i = 0; i < this.m_spawnedVfxList.Count; i++)
+			for (int i = 0; i < m_spawnedVfxList.Count; i++)
 			{
-				this.m_spawnedVfxList[i].DestroyVfx();
+				m_spawnedVfxList[i].DestroyVfx();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				m_spawnedVfxList.Clear();
+				return;
 			}
-			this.m_spawnedVfxList.Clear();
 		}
 	}
 }

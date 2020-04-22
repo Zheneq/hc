@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,9 +47,9 @@ public class NekoEnlargeDisc : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -59,34 +58,34 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Enlarge Disc";
+			m_abilityName = "Enlarge Disc";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		AbilityUtil_Targeter_AoE_Smooth abilityUtil_Targeter_AoE_Smooth = new AbilityUtil_Targeter_AoE_Smooth(this, this.GetAoeRadius(), false, true, false, 0);
+		SetCachedFields();
+		AbilityUtil_Targeter_AoE_Smooth abilityUtil_Targeter_AoE_Smooth = new AbilityUtil_Targeter_AoE_Smooth(this, GetAoeRadius(), false, true, false, 0);
 		if (Neko_SyncComponent.HomingDiscStartFromCaster())
 		{
 			abilityUtil_Targeter_AoE_Smooth.m_adjustPosInConfirmedTargeting = true;
 		}
-		abilityUtil_Targeter_AoE_Smooth.m_customCenterPosDelegate = new AbilityUtil_Targeter_AoE_Smooth.CustomCenterPosDelegate(this.GetCenterPosForTargeter);
+		abilityUtil_Targeter_AoE_Smooth.m_customCenterPosDelegate = GetCenterPosForTargeter;
 		base.Targeters.Add(abilityUtil_Targeter_AoE_Smooth);
-		this.m_syncComp = base.GetComponent<Neko_SyncComponent>();
+		m_syncComp = GetComponent<Neko_SyncComponent>();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedEffectOnEnemies;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -95,21 +94,21 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedEffectOnEnemies = this.m_abilityMod.m_effectOnEnemiesMod.GetModifiedValue(this.m_effectOnEnemies);
+			cachedEffectOnEnemies = m_abilityMod.m_effectOnEnemiesMod.GetModifiedValue(m_effectOnEnemies);
 		}
 		else
 		{
-			cachedEffectOnEnemies = this.m_effectOnEnemies;
+			cachedEffectOnEnemies = m_effectOnEnemies;
 		}
-		this.m_cachedEffectOnEnemies = cachedEffectOnEnemies;
+		m_cachedEffectOnEnemies = cachedEffectOnEnemies;
 		StandardEffectInfo cachedAllyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -118,17 +117,17 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			cachedAllyHitEffect = this.m_abilityMod.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
+			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
 		{
-			cachedAllyHitEffect = this.m_allyHitEffect;
+			cachedAllyHitEffect = m_allyHitEffect;
 		}
-		this.m_cachedAllyHitEffect = cachedAllyHitEffect;
+		m_cachedAllyHitEffect = cachedAllyHitEffect;
 		StandardActorEffectData cachedShieldEffectData;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -137,21 +136,21 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			cachedShieldEffectData = this.m_abilityMod.m_shieldEffectDataMod.GetModifiedValue(this.m_shieldEffectData);
+			cachedShieldEffectData = m_abilityMod.m_shieldEffectDataMod.GetModifiedValue(m_shieldEffectData);
 		}
 		else
 		{
-			cachedShieldEffectData = this.m_shieldEffectData;
+			cachedShieldEffectData = m_shieldEffectData;
 		}
-		this.m_cachedShieldEffectData = cachedShieldEffectData;
+		m_cachedShieldEffectData = cachedShieldEffectData;
 	}
 
 	public float GetLaserWidth()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -160,55 +159,55 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.GetLaserWidth()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_laserWidthOverrideMod.GetModifiedValue(this.m_laserWidthOverride);
+			result = m_abilityMod.m_laserWidthOverrideMod.GetModifiedValue(m_laserWidthOverride);
 		}
 		else
 		{
-			result = this.m_laserWidthOverride;
+			result = m_laserWidthOverride;
 		}
 		return result;
 	}
 
 	public float GetAoeRadius()
 	{
-		return (!this.m_abilityMod) ? this.m_aoeRadiusOverride : this.m_abilityMod.m_aoeRadiusOverrideMod.GetModifiedValue(this.m_aoeRadiusOverride);
+		return (!m_abilityMod) ? m_aoeRadiusOverride : m_abilityMod.m_aoeRadiusOverrideMod.GetModifiedValue(m_aoeRadiusOverride);
 	}
 
 	public float GetReturnEndAoeRadius()
 	{
-		return (!this.m_abilityMod) ? this.m_returnEndRadiusOverride : this.m_abilityMod.m_returnEndRadiusOverrideMod.GetModifiedValue(this.m_returnEndRadiusOverride);
+		return (!m_abilityMod) ? m_returnEndRadiusOverride : m_abilityMod.m_returnEndRadiusOverrideMod.GetModifiedValue(m_returnEndRadiusOverride);
 	}
 
 	public int GetAdditionalDamageAmount()
 	{
-		return (!this.m_abilityMod) ? this.m_additionalDamageAmount : this.m_abilityMod.m_additionalDamageAmountMod.GetModifiedValue(this.m_additionalDamageAmount);
+		return (!m_abilityMod) ? m_additionalDamageAmount : m_abilityMod.m_additionalDamageAmountMod.GetModifiedValue(m_additionalDamageAmount);
 	}
 
 	public StandardEffectInfo GetEffectOnEnemies()
 	{
-		return (this.m_cachedEffectOnEnemies == null) ? this.m_effectOnEnemies : this.m_cachedEffectOnEnemies;
+		return (m_cachedEffectOnEnemies == null) ? m_effectOnEnemies : m_cachedEffectOnEnemies;
 	}
 
 	public int GetAllyHeal()
 	{
-		return (!this.m_abilityMod) ? this.m_allyHeal : this.m_abilityMod.m_allyHealMod.GetModifiedValue(this.m_allyHeal);
+		return (!m_abilityMod) ? m_allyHeal : m_abilityMod.m_allyHealMod.GetModifiedValue(m_allyHeal);
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
-		return (this.m_cachedAllyHitEffect == null) ? this.m_allyHitEffect : this.m_cachedAllyHitEffect;
+		return (m_cachedAllyHitEffect == null) ? m_allyHitEffect : m_cachedAllyHitEffect;
 	}
 
 	public int GetShieldPerTargetHitOnReturn()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -217,15 +216,15 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.GetShieldPerTargetHitOnReturn()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_shieldPerTargetHitOnReturnMod.GetModifiedValue(this.m_shieldPerTargetHitOnReturn);
+			result = m_abilityMod.m_shieldPerTargetHitOnReturnMod.GetModifiedValue(m_shieldPerTargetHitOnReturn);
 		}
 		else
 		{
-			result = this.m_shieldPerTargetHitOnReturn;
+			result = m_shieldPerTargetHitOnReturn;
 		}
 		return result;
 	}
@@ -233,9 +232,9 @@ public class NekoEnlargeDisc : Ability
 	public StandardActorEffectData GetShieldEffectData()
 	{
 		StandardActorEffectData result;
-		if (this.m_cachedShieldEffectData != null)
+		if (m_cachedShieldEffectData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -244,15 +243,15 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.GetShieldEffectData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedShieldEffectData;
+			result = m_cachedShieldEffectData;
 		}
 		else
 		{
-			result = this.m_shieldEffectData;
+			result = m_shieldEffectData;
 		}
 		return result;
 	}
@@ -260,9 +259,9 @@ public class NekoEnlargeDisc : Ability
 	public int GetCdrIfHitNoOne()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -271,25 +270,25 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.GetCdrIfHitNoOne()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_cdrIfHitNoOneMod.GetModifiedValue(this.m_cdrIfHitNoOne);
+			result = m_abilityMod.m_cdrIfHitNoOneMod.GetModifiedValue(m_cdrIfHitNoOne);
 		}
 		else
 		{
-			result = this.m_cdrIfHitNoOne;
+			result = m_cdrIfHitNoOne;
 		}
 		return result;
 	}
 
 	public bool CanIncludeAlliesOnReturn()
 	{
-		bool result;
-		if (this.GetAllyHeal() <= 0)
+		int result;
+		if (GetAllyHeal() <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -298,35 +297,35 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.CanIncludeAlliesOnReturn()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (this.GetAllyHitEffect() != null && this.GetAllyHitEffect().m_applyEffect);
+			result = ((GetAllyHitEffect() != null && GetAllyHitEffect().m_applyEffect) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "AdditionalDamageAmount", string.Empty, this.m_additionalDamageAmount, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnEnemies, "EffectOnEnemies", this.m_effectOnEnemies, true);
-		base.AddTokenInt(tokens, "AllyHeal", string.Empty, this.m_allyHeal, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_allyHitEffect, "AllyHitEffect", this.m_allyHitEffect, true);
-		base.AddTokenInt(tokens, "ShieldPerTargetHitOnThrow", string.Empty, this.m_shieldPerTargetHitOnReturn, false);
-		this.m_shieldEffectData.AddTooltipTokens(tokens, "ShieldEffectData", false, null);
-		base.AddTokenInt(tokens, "CdrIfHitNoOne", string.Empty, this.m_cdrIfHitNoOne, false);
+		AddTokenInt(tokens, "AdditionalDamageAmount", string.Empty, m_additionalDamageAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnEnemies, "EffectOnEnemies", m_effectOnEnemies);
+		AddTokenInt(tokens, "AllyHeal", string.Empty, m_allyHeal);
+		AbilityMod.AddToken_EffectInfo(tokens, m_allyHitEffect, "AllyHitEffect", m_allyHitEffect);
+		AddTokenInt(tokens, "ShieldPerTargetHitOnThrow", string.Empty, m_shieldPerTargetHitOnReturn);
+		m_shieldEffectData.AddTooltipTokens(tokens, "ShieldEffectData");
+		AddTokenInt(tokens, "CdrIfHitNoOne", string.Empty, m_cdrIfHitNoOne);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -335,13 +334,13 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.CustomCanCastValidation(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (caster.\u0012() != null)
+			if (caster.GetCurrentBoardSquare() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -350,19 +349,18 @@ public class NekoEnlargeDisc : Ability
 					}
 					break;
 				}
-				List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
+				List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
 				using (List<BoardSquare>.Enumerator enumerator = activeDiscSquares.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						BoardSquare boardSquare = enumerator.Current;
-						float minRange = this.m_targetData[0].m_minRange;
-						float range = this.m_targetData[0].m_range;
-						bool flag = caster.\u000E().IsTargetSquareInRangeOfAbilityFromSquare(boardSquare, caster.\u0012(), range, minRange);
-						bool flag2;
-						if (flag)
+						BoardSquare current = enumerator.Current;
+						float minRange = m_targetData[0].m_minRange;
+						float range = m_targetData[0].m_range;
+						int num;
+						if (caster.GetAbilityData().IsTargetSquareInRangeOfAbilityFromSquare(current, caster.GetCurrentBoardSquare(), range, minRange))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -371,9 +369,9 @@ public class NekoEnlargeDisc : Ability
 								}
 								break;
 							}
-							if (this.m_targetData[0].m_checkLineOfSight)
+							if (m_targetData[0].m_checkLineOfSight)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (6)
 									{
@@ -382,24 +380,23 @@ public class NekoEnlargeDisc : Ability
 									}
 									break;
 								}
-								flag2 = caster.\u0012().\u0013(boardSquare.x, boardSquare.y);
+								num = (caster.GetCurrentBoardSquare()._0013(current.x, current.y) ? 1 : 0);
 							}
 							else
 							{
-								flag2 = true;
+								num = 1;
 							}
 						}
 						else
 						{
-							flag2 = false;
+							num = 0;
 						}
-						flag = flag2;
-						if (flag)
+						if (num != 0)
 						{
 							return true;
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -409,7 +406,6 @@ public class NekoEnlargeDisc : Ability
 						break;
 					}
 				}
-				return false;
 			}
 		}
 		return false;
@@ -417,10 +413,10 @@ public class NekoEnlargeDisc : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare item = Board.\u000E().\u000E(target.GridPos);
-		if (this.m_syncComp != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -429,23 +425,23 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
-			if (activeDiscSquares.Contains(item))
+			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
+			if (activeDiscSquares.Contains(boardSquareSafe))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return true;
 					}
-					break;
 				}
-				return true;
 			}
 		}
 		return false;
@@ -458,9 +454,9 @@ public class NekoEnlargeDisc : Ability
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -469,11 +465,11 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.GetExpectedNumberOfTargeters()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
+			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Count > 1)
 			{
 				return 1;
@@ -484,9 +480,9 @@ public class NekoEnlargeDisc : Ability
 
 	public override TargetData[] GetTargetData()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -495,11 +491,11 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.GetTargetData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
+			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Count > 1)
 			{
 				return base.GetTargetData();
@@ -511,9 +507,9 @@ public class NekoEnlargeDisc : Ability
 	public override AbilityTarget CreateAbilityTargetForSimpleAction(ActorData caster)
 	{
 		AbilityTarget abilityTarget = base.CreateAbilityTargetForSimpleAction(caster);
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -522,14 +518,14 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.CreateAbilityTargetForSimpleAction(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
+			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Count == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -538,7 +534,7 @@ public class NekoEnlargeDisc : Ability
 					}
 					break;
 				}
-				abilityTarget.SetValuesFromBoardSquare(activeDiscSquares[0], activeDiscSquares[0].\u000E());
+				abilityTarget.SetValuesFromBoardSquare(activeDiscSquares[0], activeDiscSquares[0].GetWorldPositionForLoS());
 			}
 		}
 		return abilityTarget;
@@ -546,10 +542,10 @@ public class NekoEnlargeDisc : Ability
 
 	private Vector3 GetCenterPosForTargeter(ActorData caster, AbilityTarget currentTarget)
 	{
-		Vector3 result = this.ClampToSquareCenter(caster, currentTarget);
+		Vector3 result = ClampToSquareCenter(caster, currentTarget);
 		if (Neko_SyncComponent.HomingDiscStartFromCaster())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -558,13 +554,13 @@ public class NekoEnlargeDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.GetCenterPosForTargeter(ActorData, AbilityTarget)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComp != null)
+			if (m_syncComp != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -573,9 +569,9 @@ public class NekoEnlargeDisc : Ability
 					}
 					break;
 				}
-				if (this.m_syncComp.m_homingActorIndex > 0)
+				if (m_syncComp.m_homingActorIndex > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -584,12 +580,12 @@ public class NekoEnlargeDisc : Ability
 						}
 						break;
 					}
-					if (caster.\u000E() != null)
+					if (caster.GetActorTargeting() != null)
 					{
-						BoardSquare evadeDestinationForTargeter = caster.\u000E().GetEvadeDestinationForTargeter();
+						BoardSquare evadeDestinationForTargeter = caster.GetActorTargeting().GetEvadeDestinationForTargeter();
 						if (evadeDestinationForTargeter != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -609,8 +605,8 @@ public class NekoEnlargeDisc : Ability
 
 	public Vector3 ClampToSquareCenter(ActorData caster, AbilityTarget currentTarget)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		return boardSquare.\u000E();
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		return boardSquareSafe.GetWorldPositionForLoS();
 	}
 
 	public override int GetTheatricsSortPriority(AbilityData.ActionType actionType)
@@ -620,34 +616,35 @@ public class NekoEnlargeDisc : Ability
 
 	public override bool IgnoreCameraFraming()
 	{
-		return this.GetActionAnimType() == ActorModelData.ActionAnimationType.None;
+		return GetActionAnimType() == ActorModelData.ActionAnimationType.None;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_NekoEnlargeDisc))
+		if (abilityMod.GetType() != typeof(AbilityMod_NekoEnlargeDisc))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_NekoEnlargeDisc);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_NekoEnlargeDisc);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 }

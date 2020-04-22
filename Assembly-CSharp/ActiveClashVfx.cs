@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class ActiveClashVfx
@@ -13,46 +12,47 @@ public class ActiveClashVfx
 
 	public ActiveClashVfx(BoardSquare square, GameObject vfxPrefab, float timeToExpire, string audioEvent)
 	{
-		this.m_square = square;
-		this.m_vfxObj = UnityEngine.Object.Instantiate<GameObject>(vfxPrefab, square.\u001D(), Quaternion.identity);
-		this.m_timeCreated = Time.time;
-		this.m_timeToExpire = timeToExpire;
-		if (square != null)
+		m_square = square;
+		m_vfxObj = Object.Instantiate(vfxPrefab, square.GetWorldPosition(), Quaternion.identity);
+		m_timeCreated = Time.time;
+		m_timeToExpire = timeToExpire;
+		if (!(square != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActiveClashVfx..ctor(BoardSquare, GameObject, float, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!audioEvent.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					AudioManager.PostEvent(audioEvent, square.gameObject);
+					return;
 				}
-				AudioManager.PostEvent(audioEvent, square.gameObject);
 			}
+			return;
 		}
 	}
 
 	public void OnEnd()
 	{
-		if (this.m_vfxObj != null)
+		if (m_vfxObj != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -61,12 +61,12 @@ public class ActiveClashVfx
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActiveClashVfx.OnEnd()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.Destroy(this.m_vfxObj);
+			Object.Destroy(m_vfxObj);
 		}
-		this.m_vfxObj = null;
+		m_vfxObj = null;
 	}
 }

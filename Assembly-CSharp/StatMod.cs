@@ -1,5 +1,3 @@
-﻿using System;
-
 public class StatMod
 {
 	public ModType mod;

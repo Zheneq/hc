@@ -1,5 +1,3 @@
-﻿using System;
-
 public class DiscordAuthInfo
 {
 	public string ClientId;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,38 +52,36 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		FishManStaticCone fishManStaticCone = targetAbility as FishManStaticCone;
 		if (fishManStaticCone != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, fishManStaticCone.m_coneWidthAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneWidthAngleMod, "ConeWidthMinAngle", string.Empty, fishManStaticCone.m_coneWidthAngleMin, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneLengthMod, "ConeLength", string.Empty, fishManStaticCone.m_coneLength, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, fishManStaticCone.m_coneBackwardOffset, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_damageToEnemiesMod, "DamageToEnemies", string.Empty, fishManStaticCone.m_damageToEnemies, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageToEnemiesMaxMod, "DamageToEnemiesMax", string.Empty, fishManStaticCone.m_damageToEnemiesMax, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectToEnemiesMod, "EffectToEnemies", fishManStaticCone.m_effectToEnemies, true);
-			AbilityMod.AddToken(tokens, this.m_healingToAlliesMod, "HealingToAllies", string.Empty, fishManStaticCone.m_healingToAllies, true, false);
-			AbilityMod.AddToken(tokens, this.m_healingToAlliesMaxMod, "HealingToAlliesMax", string.Empty, fishManStaticCone.m_healingToAlliesMax, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectToAlliesMod, "EffectToAllies", fishManStaticCone.m_effectToAllies, true);
-			AbilityMod.AddToken(tokens, this.m_extraAllyHealForSingleHitMod, "ExtraAllyHealForSingleHit", string.Empty, fishManStaticCone.m_extraAllyHealForSingleHit, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_extraEffectOnClosestAllyMod, "ExtraEffectOnClosestAlly", fishManStaticCone.m_extraEffectOnClosestAlly, true);
-			AbilityMod.AddToken(tokens, this.m_maxTargetsMod, "MaxTargets", string.Empty, fishManStaticCone.m_maxTargets, true, false);
-			AbilityMod.AddToken(tokens, this.m_healToCasterOnCastMod, "HealToCasterOnCast", string.Empty, fishManStaticCone.m_healToCasterOnCast, true, false);
-			AbilityMod.AddToken(tokens, this.m_healToCasterPerEnemyHitMod, "HealToCasterPerEnemyHit", string.Empty, fishManStaticCone.m_healToCasterPerEnemyHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_healToCasterPerAllyHitMod, "HealToCasterPerAllyHit", string.Empty, fishManStaticCone.m_healToCasterPerAllyHit, true, false);
+			AbilityMod.AddToken(tokens, m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, fishManStaticCone.m_coneWidthAngle);
+			AbilityMod.AddToken(tokens, m_coneWidthAngleMod, "ConeWidthMinAngle", string.Empty, fishManStaticCone.m_coneWidthAngleMin);
+			AbilityMod.AddToken(tokens, m_coneLengthMod, "ConeLength", string.Empty, fishManStaticCone.m_coneLength);
+			AbilityMod.AddToken(tokens, m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, fishManStaticCone.m_coneBackwardOffset);
+			AbilityMod.AddToken(tokens, m_damageToEnemiesMod, "DamageToEnemies", string.Empty, fishManStaticCone.m_damageToEnemies);
+			AbilityMod.AddToken(tokens, m_damageToEnemiesMaxMod, "DamageToEnemiesMax", string.Empty, fishManStaticCone.m_damageToEnemiesMax);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectToEnemiesMod, "EffectToEnemies", fishManStaticCone.m_effectToEnemies);
+			AbilityMod.AddToken(tokens, m_healingToAlliesMod, "HealingToAllies", string.Empty, fishManStaticCone.m_healingToAllies);
+			AbilityMod.AddToken(tokens, m_healingToAlliesMaxMod, "HealingToAlliesMax", string.Empty, fishManStaticCone.m_healingToAlliesMax);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectToAlliesMod, "EffectToAllies", fishManStaticCone.m_effectToAllies);
+			AbilityMod.AddToken(tokens, m_extraAllyHealForSingleHitMod, "ExtraAllyHealForSingleHit", string.Empty, fishManStaticCone.m_extraAllyHealForSingleHit);
+			AbilityMod.AddToken_EffectMod(tokens, m_extraEffectOnClosestAllyMod, "ExtraEffectOnClosestAlly", fishManStaticCone.m_extraEffectOnClosestAlly);
+			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, fishManStaticCone.m_maxTargets);
+			AbilityMod.AddToken(tokens, m_healToCasterOnCastMod, "HealToCasterOnCast", string.Empty, fishManStaticCone.m_healToCasterOnCast);
+			AbilityMod.AddToken(tokens, m_healToCasterPerEnemyHitMod, "HealToCasterPerEnemyHit", string.Empty, fishManStaticCone.m_healToCasterPerEnemyHit);
+			AbilityMod.AddToken(tokens, m_healToCasterPerAllyHitMod, "HealToCasterPerAllyHit", string.Empty, fishManStaticCone.m_healToCasterPerAllyHit);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		FishManStaticCone fishManStaticCone = base.GetTargetAbilityOnAbilityData(abilityData) as FishManStaticCone;
+		FishManStaticCone fishManStaticCone = GetTargetAbilityOnAbilityData(abilityData) as FishManStaticCone;
 		bool flag = fishManStaticCone != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat coneWidthAngleMod = this.m_coneWidthAngleMod;
-		string prefix = "[ConeWidthAngle]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat coneWidthAngleMod = m_coneWidthAngleMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -92,9 +90,9 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FishManStaticCone.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = fishManStaticCone.m_coneWidthAngle;
 		}
@@ -102,15 +100,13 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(coneWidthAngleMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat coneWidthAngleMinMod = this.m_coneWidthAngleMinMod;
-		string prefix2 = "[ConeWidthMinAngle]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(coneWidthAngleMod, "[ConeWidthAngle]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat coneWidthAngleMinMod = m_coneWidthAngleMinMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -125,16 +121,14 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(coneWidthAngleMinMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_coneLengthMod, "[ConeLength]", flag, (!flag) ? 0f : fishManStaticCone.m_coneLength);
-		string str3 = text;
-		AbilityModPropertyFloat coneBackwardOffsetMod = this.m_coneBackwardOffsetMod;
-		string prefix3 = "[ConeBackwardOffset]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(coneWidthAngleMinMod, "[ConeWidthMinAngle]", flag, baseVal2);
+		empty += PropDesc(m_coneLengthMod, "[ConeLength]", flag, (!flag) ? 0f : fishManStaticCone.m_coneLength);
+		string str3 = empty;
+		AbilityModPropertyFloat coneBackwardOffsetMod = m_coneBackwardOffsetMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -149,15 +143,13 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(coneBackwardOffsetMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyBool penetrateLineOfSightMod = this.m_penetrateLineOfSightMod;
-		string prefix4 = "[PenetrateLineOfSight]";
-		bool showBaseVal4 = flag;
-		bool baseVal4;
+		empty = str3 + PropDesc(coneBackwardOffsetMod, "[ConeBackwardOffset]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyBool penetrateLineOfSightMod = m_penetrateLineOfSightMod;
+		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -166,21 +158,19 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 				}
 				break;
 			}
-			baseVal4 = fishManStaticCone.m_penetrateLineOfSight;
+			baseVal4 = (fishManStaticCone.m_penetrateLineOfSight ? 1 : 0);
 		}
 		else
 		{
-			baseVal4 = false;
+			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(penetrateLineOfSightMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt maxTargetsMod = this.m_maxTargetsMod;
-		string prefix5 = "[MaxTargets]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(penetrateLineOfSightMod, "[PenetrateLineOfSight]", flag, (byte)baseVal4 != 0);
+		string str5 = empty;
+		AbilityModPropertyInt maxTargetsMod = m_maxTargetsMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -195,16 +185,14 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(maxTargetsMod, prefix5, showBaseVal5, baseVal5);
-		text += base.PropDesc(this.m_damageToEnemiesMod, "[DamageToEnemies]", flag, (!flag) ? 0 : fishManStaticCone.m_damageToEnemies);
-		string str6 = text;
-		AbilityModPropertyInt damageToEnemiesMaxMod = this.m_damageToEnemiesMaxMod;
-		string prefix6 = "[DamageToEnemiesMax]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(maxTargetsMod, "[MaxTargets]", flag, baseVal5);
+		empty += PropDesc(m_damageToEnemiesMod, "[DamageToEnemies]", flag, flag ? fishManStaticCone.m_damageToEnemies : 0);
+		string str6 = empty;
+		AbilityModPropertyInt damageToEnemiesMaxMod = m_damageToEnemiesMaxMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -219,15 +207,13 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(damageToEnemiesMaxMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyEffectInfo effectToEnemiesMod = this.m_effectToEnemiesMod;
-		string prefix7 = "[EffectToEnemies]";
-		bool showBaseVal7 = flag;
-		StandardEffectInfo baseVal7;
+		empty = str6 + PropDesc(damageToEnemiesMaxMod, "[DamageToEnemiesMax]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyEffectInfo effectToEnemiesMod = m_effectToEnemiesMod;
+		object baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -242,16 +228,14 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		{
 			baseVal7 = null;
 		}
-		text = str7 + base.PropDesc(effectToEnemiesMod, prefix7, showBaseVal7, baseVal7);
-		text += base.PropDesc(this.m_healingToAlliesMod, "[HealingToAllies]", flag, (!flag) ? 0 : fishManStaticCone.m_healingToAllies);
-		string str8 = text;
-		AbilityModPropertyInt healingToAlliesMaxMod = this.m_healingToAlliesMaxMod;
-		string prefix8 = "[HealingToAlliesMax]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(effectToEnemiesMod, "[EffectToEnemies]", flag, (StandardEffectInfo)baseVal7);
+		empty += PropDesc(m_healingToAlliesMod, "[HealingToAllies]", flag, flag ? fishManStaticCone.m_healingToAllies : 0);
+		string str8 = empty;
+		AbilityModPropertyInt healingToAlliesMaxMod = m_healingToAlliesMaxMod;
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -266,15 +250,13 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		{
 			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(healingToAlliesMaxMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyEffectInfo effectToAlliesMod = this.m_effectToAlliesMod;
-		string prefix9 = "[EffectToAllies]";
-		bool showBaseVal9 = flag;
-		StandardEffectInfo baseVal9;
+		empty = str8 + PropDesc(healingToAlliesMaxMod, "[HealingToAlliesMax]", flag, baseVal8);
+		string str9 = empty;
+		AbilityModPropertyEffectInfo effectToAlliesMod = m_effectToAlliesMod;
+		object baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -289,15 +271,13 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		{
 			baseVal9 = null;
 		}
-		text = str9 + base.PropDesc(effectToAlliesMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyInt extraAllyHealForSingleHitMod = this.m_extraAllyHealForSingleHitMod;
-		string prefix10 = "[ExtraAllyHealForSingleHit]";
-		bool showBaseVal10 = flag;
+		empty = str9 + PropDesc(effectToAlliesMod, "[EffectToAllies]", flag, (StandardEffectInfo)baseVal9);
+		string str10 = empty;
+		AbilityModPropertyInt extraAllyHealForSingleHitMod = m_extraAllyHealForSingleHitMod;
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -312,15 +292,13 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		{
 			baseVal10 = 0;
 		}
-		text = str10 + base.PropDesc(extraAllyHealForSingleHitMod, prefix10, showBaseVal10, baseVal10);
-		string str11 = text;
-		AbilityModPropertyEffectInfo extraEffectOnClosestAllyMod = this.m_extraEffectOnClosestAllyMod;
-		string prefix11 = "[ExtraEffectOnClosestAlly]";
-		bool showBaseVal11 = flag;
-		StandardEffectInfo baseVal11;
+		empty = str10 + PropDesc(extraAllyHealForSingleHitMod, "[ExtraAllyHealForSingleHit]", flag, baseVal10);
+		string str11 = empty;
+		AbilityModPropertyEffectInfo extraEffectOnClosestAllyMod = m_extraEffectOnClosestAllyMod;
+		object baseVal11;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -335,16 +313,14 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		{
 			baseVal11 = null;
 		}
-		text = str11 + base.PropDesc(extraEffectOnClosestAllyMod, prefix11, showBaseVal11, baseVal11);
-		text += base.PropDesc(this.m_healToCasterOnCastMod, "[HealToCasterOnCast]", flag, (!flag) ? 0 : fishManStaticCone.m_healToCasterOnCast);
-		string str12 = text;
-		AbilityModPropertyInt healToCasterPerEnemyHitMod = this.m_healToCasterPerEnemyHitMod;
-		string prefix12 = "[HealToCasterPerEnemyHit]";
-		bool showBaseVal12 = flag;
+		empty = str11 + PropDesc(extraEffectOnClosestAllyMod, "[ExtraEffectOnClosestAlly]", flag, (StandardEffectInfo)baseVal11);
+		empty += PropDesc(m_healToCasterOnCastMod, "[HealToCasterOnCast]", flag, flag ? fishManStaticCone.m_healToCasterOnCast : 0);
+		string str12 = empty;
+		AbilityModPropertyInt healToCasterPerEnemyHitMod = m_healToCasterPerEnemyHitMod;
 		int baseVal12;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -359,15 +335,13 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		{
 			baseVal12 = 0;
 		}
-		text = str12 + base.PropDesc(healToCasterPerEnemyHitMod, prefix12, showBaseVal12, baseVal12);
-		string str13 = text;
-		AbilityModPropertyInt healToCasterPerAllyHitMod = this.m_healToCasterPerAllyHitMod;
-		string prefix13 = "[HealToCasterPerAllyHit]";
-		bool showBaseVal13 = flag;
+		empty = str12 + PropDesc(healToCasterPerEnemyHitMod, "[HealToCasterPerEnemyHit]", flag, baseVal12);
+		string str13 = empty;
+		AbilityModPropertyInt healToCasterPerAllyHitMod = m_healToCasterPerAllyHitMod;
 		int baseVal13;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -382,6 +356,6 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		{
 			baseVal13 = 0;
 		}
-		return str13 + base.PropDesc(healToCasterPerAllyHitMod, prefix13, showBaseVal13, baseVal13);
+		return str13 + PropDesc(healToCasterPerAllyHitMod, "[HealToCasterPerAllyHit]", flag, baseVal13);
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using CameraManagerInternal;
 using TMPro;
 using UnityEngine;
@@ -41,90 +40,94 @@ public class UIAutoCameraButton : MonoBehaviour
 
 	private void Start()
 	{
-		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnAutoCameraButtonClick));
-		UIEventTriggerUtils.AddListener(this.m_mouseHitBox.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnToggleClick));
-		UIEventTriggerUtils.AddListener(this.m_mouseHitBox.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnToggleEnter));
-		UIEventTriggerUtils.AddListener(this.m_clockwiseRotateHitbox, EventTriggerType.PointerDown, new UIEventTriggerUtils.EventDelegate(this.ToggleClockwiseDown));
-		UIEventTriggerUtils.AddListener(this.m_clockwiseRotateHitbox, EventTriggerType.PointerUp, new UIEventTriggerUtils.EventDelegate(this.ToggleClockwiseUp));
-		UIEventTriggerUtils.AddListener(this.m_clockwiseRotateHitbox, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.ToggleClockwiseUp));
-		UIEventTriggerUtils.AddListener(this.m_counterClockwiseRotateHitbox, EventTriggerType.PointerDown, new UIEventTriggerUtils.EventDelegate(this.ToggleCounterClockwiseDown));
-		UIEventTriggerUtils.AddListener(this.m_counterClockwiseRotateHitbox, EventTriggerType.PointerUp, new UIEventTriggerUtils.EventDelegate(this.ToggleCounterClockwiseUp));
-		UIEventTriggerUtils.AddListener(this.m_counterClockwiseRotateHitbox, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.ToggleCounterClockwiseUp));
+		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerClick, OnAutoCameraButtonClick);
+		UIEventTriggerUtils.AddListener(m_mouseHitBox.gameObject, EventTriggerType.PointerClick, OnToggleClick);
+		UIEventTriggerUtils.AddListener(m_mouseHitBox.gameObject, EventTriggerType.PointerEnter, OnToggleEnter);
+		UIEventTriggerUtils.AddListener(m_clockwiseRotateHitbox, EventTriggerType.PointerDown, ToggleClockwiseDown);
+		UIEventTriggerUtils.AddListener(m_clockwiseRotateHitbox, EventTriggerType.PointerUp, ToggleClockwiseUp);
+		UIEventTriggerUtils.AddListener(m_clockwiseRotateHitbox, EventTriggerType.PointerExit, ToggleClockwiseUp);
+		UIEventTriggerUtils.AddListener(m_counterClockwiseRotateHitbox, EventTriggerType.PointerDown, ToggleCounterClockwiseDown);
+		UIEventTriggerUtils.AddListener(m_counterClockwiseRotateHitbox, EventTriggerType.PointerUp, ToggleCounterClockwiseUp);
+		UIEventTriggerUtils.AddListener(m_counterClockwiseRotateHitbox, EventTriggerType.PointerExit, ToggleCounterClockwiseUp);
 		Graphic[] componentsInChildren = base.gameObject.GetComponentsInChildren<Graphic>(true);
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
-			if (componentsInChildren[i] != this.m_mouseHitBox)
+			if (!(componentsInChildren[i] != m_mouseHitBox))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutoCameraButton.Start()).MethodHandle;
-				}
-				if (componentsInChildren[i].gameObject != this.m_clockwiseRotateHitbox)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (componentsInChildren[i].gameObject != this.m_counterClockwiseRotateHitbox)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						componentsInChildren[i].raycastTarget = false;
-					}
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-	}
-
-	private void OnEnable()
-	{
-		this.RefreshAutoCameraButton();
-		if (GameFlowData.Get() != null)
-		{
-			for (;;)
+			while (true)
 			{
-				switch (6)
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutoCameraButton.OnEnable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.resolutionPhase = !GameFlowData.Get().IsInResolveState();
+			if (!(componentsInChildren[i].gameObject != m_clockwiseRotateHitbox))
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (componentsInChildren[i].gameObject != m_counterClockwiseRotateHitbox)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				componentsInChildren[i].raycastTarget = false;
+			}
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			default:
+				return;
+			case 0:
+				break;
+			}
+		}
+	}
+
+	private void OnEnable()
+	{
+		RefreshAutoCameraButton();
+		if (!(GameFlowData.Get() != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			resolutionPhase = !GameFlowData.Get().IsInResolveState();
+			return;
 		}
 	}
 
@@ -134,64 +137,64 @@ public class UIAutoCameraButton : MonoBehaviour
 		if (accountPreferences != null)
 		{
 			bool @bool = accountPreferences.GetBool(BoolPreference.AutoCameraCenter);
-			UIManager.SetGameObjectActive(this.m_autoCameraOnSprite, @bool, null);
-			UIManager.SetGameObjectActive(this.m_autoCameraOffSprite, !@bool, null);
+			UIManager.SetGameObjectActive(m_autoCameraOnSprite, @bool);
+			UIManager.SetGameObjectActive(m_autoCameraOffSprite, !@bool);
 		}
 	}
 
 	internal void OnPlayerMovedCamera()
 	{
-		if (GameFlowData.Get() != null)
+		if (!(GameFlowData.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!GameFlowData.Get().IsInResolveState())
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutoCameraButton.OnPlayerMovedCamera()).MethodHandle;
-			}
-			if (GameFlowData.Get().IsInResolveState())
-			{
-				for (;;)
+				if (!(GameManager.Get() != null))
 				{
-					switch (7)
+					return;
+				}
+				while (true)
+				{
+					switch (3)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (GameManager.Get() != null)
-				{
-					for (;;)
+					if (GameManager.Get().GameConfig.GameType == GameType.Tutorial)
+					{
+						return;
+					}
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					if (GameManager.Get().GameConfig.GameType != GameType.Tutorial)
-					{
-						for (;;)
+						if (m_visibleRemainingTime <= 0f)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_visibleRemainingTime <= 0f)
-						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -200,9 +203,9 @@ public class UIAutoCameraButton : MonoBehaviour
 								}
 								break;
 							}
-							if (!this.autoCenterCamera)
+							if (!autoCenterCamera)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (1)
 									{
@@ -211,23 +214,24 @@ public class UIAutoCameraButton : MonoBehaviour
 									}
 									break;
 								}
-								this.m_camAnimatorController.Play("CameraIn", 0, 0f);
+								m_camAnimatorController.Play("CameraIn", 0, 0f);
 							}
 						}
-						this.m_visibleRemainingTime = this.m_visibleDuration;
-						if (this.autoCenterCamera)
+						m_visibleRemainingTime = m_visibleDuration;
+						if (autoCenterCamera)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
 								case 0:
 									continue;
 								}
-								break;
+								m_camAnimatorController.Play("CameraWhiteStrip", 1, 0f);
+								return;
 							}
-							this.m_camAnimatorController.Play("CameraWhiteStrip", 1, 0f);
 						}
+						return;
 					}
 				}
 			}
@@ -236,32 +240,33 @@ public class UIAutoCameraButton : MonoBehaviour
 
 	public void OnToggleEnter(BaseEventData data)
 	{
-		this.m_camAnimatorController.Play("CameraWhiteStrip", 1, 0f);
+		m_camAnimatorController.Play("CameraWhiteStrip", 1, 0f);
 	}
 
 	public void OnToggleClick(BaseEventData data)
 	{
 		AccountPreferences accountPreferences = AccountPreferences.Get();
 		CameraManager cameraManager = CameraManager.Get();
-		if (accountPreferences != null & cameraManager != null)
+		if (!((accountPreferences != null) & (cameraManager != null)))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutoCameraButton.OnToggleClick(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool flag = CameraManager.Get().UseCameraToggleKey;
+			int num;
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -270,10 +275,9 @@ public class UIAutoCameraButton : MonoBehaviour
 					}
 					break;
 				}
-				bool flag2;
 				if (Input.GetMouseButtonUp(1))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -284,7 +288,7 @@ public class UIAutoCameraButton : MonoBehaviour
 					}
 					if (GameFlowData.Get() != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -297,7 +301,7 @@ public class UIAutoCameraButton : MonoBehaviour
 						{
 							if (!GameFlowData.Get().GetPause())
 							{
-								for (;;)
+								while (true)
 								{
 									switch (6)
 									{
@@ -306,61 +310,66 @@ public class UIAutoCameraButton : MonoBehaviour
 									}
 									break;
 								}
-								flag2 = (GameFlowData.Get().GetTimeInState() >= 1.5f);
+								num = ((GameFlowData.Get().GetTimeInState() >= 1.5f) ? 1 : 0);
 							}
 							else
 							{
-								flag2 = true;
+								num = 1;
 							}
-							goto IL_D0;
+							goto IL_00d0;
 						}
 					}
 				}
-				flag2 = false;
-				IL_D0:
-				flag = flag2;
+				num = 0;
+				goto IL_00d0;
 			}
-			if (flag)
+			goto IL_00d1;
+			IL_00d1:
+			if (!flag)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				bool flag2 = !accountPreferences.GetBool(BoolPreference.AutoCameraCenter);
+				accountPreferences.SetBool(BoolPreference.AutoCameraCenter, flag2);
+				RefreshAutoCameraButton();
+				AbilitiesCamera abilitiesCamera = cameraManager.GetAbilitiesCamera();
+				if (!flag2)
+				{
+					return;
+				}
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				bool flag3 = !accountPreferences.GetBool(BoolPreference.AutoCameraCenter);
-				accountPreferences.SetBool(BoolPreference.AutoCameraCenter, flag3);
-				this.RefreshAutoCameraButton();
-				AbilitiesCamera abilitiesCamera = cameraManager.GetAbilitiesCamera();
-				if (flag3)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilitiesCamera != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
 							case 0:
 								continue;
 							}
-							break;
+							abilitiesCamera.OnAutoCenterCameraPreferenceSet();
+							return;
 						}
-						abilitiesCamera.OnAutoCenterCameraPreferenceSet();
 					}
+					return;
 				}
 			}
+			IL_00d0:
+			flag = ((byte)num != 0);
+			goto IL_00d1;
 		}
 	}
 
@@ -389,152 +398,146 @@ public class UIAutoCameraButton : MonoBehaviour
 		AccountPreferences accountPreferences = AccountPreferences.Get();
 		bool value = !accountPreferences.GetBool(BoolPreference.AutoCameraCenter);
 		accountPreferences.SetBool(BoolPreference.AutoCameraCenter, value);
-		this.RefreshAutoCameraButton();
+		RefreshAutoCameraButton();
 	}
 
 	private void CamToggleAnimDone()
 	{
-		UIManager.SetGameObjectActive(this.m_autoCamLabelContainer, this.autoCenterCamera, null);
-		UIManager.SetGameObjectActive(this.m_manualCamLabelContainer, !this.autoCenterCamera, null);
-		if (!this.resolutionPhase)
+		UIManager.SetGameObjectActive(m_autoCamLabelContainer, autoCenterCamera);
+		UIManager.SetGameObjectActive(m_manualCamLabelContainer, !autoCenterCamera);
+		if (resolutionPhase)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutoCameraButton.CamToggleAnimDone()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_visibleRemainingTime = -1f;
-			this.m_camAnimatorController.Play("CameraOut");
+			m_visibleRemainingTime = -1f;
+			m_camAnimatorController.Play("CameraOut");
+			return;
 		}
 	}
 
 	private void SetAutoCamBtnVisuals(bool autoCam)
 	{
-		if (this.autoCenterCamera != autoCam && Time.time - this.m_lastToggleTime >= 0.1f)
+		if (autoCenterCamera == autoCam || !(Time.time - m_lastToggleTime >= 0.1f))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutoCameraButton.SetAutoCamBtnVisuals(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_lastToggleTime = Time.time;
-			bool flag = this.autoCenterCamera != autoCam;
-			this.autoCenterCamera = autoCam;
-			if (this.resolutionPhase)
+			m_lastToggleTime = Time.time;
+			bool flag = autoCenterCamera != autoCam;
+			autoCenterCamera = autoCam;
+			if (resolutionPhase)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
+						break;
+					default:
+						UIManager.SetGameObjectActive(m_autoCamLabelContainer, true);
+						UIManager.SetGameObjectActive(m_manualCamLabelContainer, true);
+						if (autoCenterCamera)
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									break;
+								default:
+									m_camAnimatorController.Play("CameraToAuto", 0, 0f);
+									return;
+								}
+							}
+						}
+						m_camAnimatorController.Play("CameraToManual", 0, 0f);
+						return;
+					}
+				}
+			}
+			UIManager.SetGameObjectActive(m_autoCamLabelContainer, autoCenterCamera);
+			UIManager.SetGameObjectActive(m_manualCamLabelContainer, !autoCenterCamera);
+			if (flag)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
 						continue;
 					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_autoCamLabelContainer, true, null);
-				UIManager.SetGameObjectActive(this.m_manualCamLabelContainer, true, null);
-				if (this.autoCenterCamera)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_camAnimatorController.Play("CameraToAuto", 0, 0f);
-				}
-				else
-				{
-					this.m_camAnimatorController.Play("CameraToManual", 0, 0f);
+					m_camAnimatorController.Play("CameraWhiteStrip", 1, 0f);
+					return;
 				}
 			}
-			else
-			{
-				UIManager.SetGameObjectActive(this.m_autoCamLabelContainer, this.autoCenterCamera, null);
-				UIManager.SetGameObjectActive(this.m_manualCamLabelContainer, !this.autoCenterCamera, null);
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_camAnimatorController.Play("CameraWhiteStrip", 1, 0f);
-				}
-			}
+			return;
 		}
 	}
 
 	private void CheckPhase()
 	{
-		if (this.resolutionPhase != GameFlowData.Get().IsInResolveState())
+		if (resolutionPhase != GameFlowData.Get().IsInResolveState())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutoCameraButton.CheckPhase()).MethodHandle;
-			}
-			this.resolutionPhase = GameFlowData.Get().IsInResolveState();
-			if (this.resolutionPhase)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					resolutionPhase = GameFlowData.Get().IsInResolveState();
+					if (resolutionPhase)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							default:
+								return;
+							case 0:
+								break;
+							}
+						}
+					}
+					m_visibleRemainingTime = -1f;
+					m_camAnimatorController.Play("CameraOut");
+					return;
 				}
 			}
-			else
-			{
-				this.m_visibleRemainingTime = -1f;
-				this.m_camAnimatorController.Play("CameraOut");
-			}
 		}
-		else
-		{
-			this.SetAutoCamBtnVisuals(AccountPreferences.Get().GetBool(BoolPreference.AutoCameraCenter));
-		}
+		SetAutoCamBtnVisuals(AccountPreferences.Get().GetBool(BoolPreference.AutoCameraCenter));
 	}
 
 	private void Update()
 	{
 		if (!(GameManager.Get() == null) && GameManager.Get().GameConfig != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -543,15 +546,15 @@ public class UIAutoCameraButton : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutoCameraButton.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!(GameFlowData.Get() == null))
 			{
 				if (GameManager.Get().GameConfig.GameType == GameType.Tutorial)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -560,16 +563,16 @@ public class UIAutoCameraButton : MonoBehaviour
 						}
 						break;
 					}
-					UIManager.SetGameObjectActive(this.m_container, false, null);
+					UIManager.SetGameObjectActive(m_container, false);
 				}
 				else
 				{
-					UIManager.SetGameObjectActive(this.m_container, true, null);
-					this.CheckPhase();
+					UIManager.SetGameObjectActive(m_container, true);
+					CheckPhase();
 				}
-				if (this.m_visibleRemainingTime > 0f)
+				if (m_visibleRemainingTime > 0f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -578,31 +581,31 @@ public class UIAutoCameraButton : MonoBehaviour
 						}
 						break;
 					}
-					this.m_visibleRemainingTime -= Time.deltaTime;
-					if (this.m_visibleRemainingTime <= 0f)
+					m_visibleRemainingTime -= Time.deltaTime;
+					if (m_visibleRemainingTime <= 0f)
 					{
-						this.m_camAnimatorController.Play("CameraOut");
+						m_camAnimatorController.Play("CameraOut");
 					}
 				}
 				GameFlowData gameFlowData = GameFlowData.Get();
-				if (gameFlowData != null && gameFlowData.IsOwnerTargeting() != this.lastIsTargeting)
+				if (!(gameFlowData != null) || gameFlowData.IsOwnerTargeting() == lastIsTargeting)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					base.GetComponent<CanvasGroup>().blocksRaycasts = this.lastIsTargeting;
-					this.lastIsTargeting = !this.lastIsTargeting;
+					return;
 				}
-				return;
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					GetComponent<CanvasGroup>().blocksRaycasts = lastIsTargeting;
+					lastIsTargeting = !lastIsTargeting;
+					return;
+				}
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_container, false, null);
-		this.m_visibleRemainingTime = -1f;
+		UIManager.SetGameObjectActive(m_container, false);
+		m_visibleRemainingTime = -1f;
 	}
 }

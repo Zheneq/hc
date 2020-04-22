@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UIMinimapPing : MonoBehaviour
@@ -11,38 +10,38 @@ public class UIMinimapPing : MonoBehaviour
 
 	private void Init()
 	{
-		if (this.m_initialized)
+		if (m_initialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIMinimapPing.Init()).MethodHandle;
-			}
-			return;
 		}
-		this.m_startTime = Time.time;
-		this.m_initialized = true;
+		m_startTime = Time.time;
+		m_initialized = true;
 	}
 
 	private void Awake()
 	{
-		this.Init();
+		Init();
 	}
 
 	private void Update()
 	{
-		this.Init();
-		if (Time.time - this.m_startTime > 5f)
+		Init();
+		if (Time.time - m_startTime > 5f)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			Object.Destroy(base.gameObject);
 		}
 	}
 }

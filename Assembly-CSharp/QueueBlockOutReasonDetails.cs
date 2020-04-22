@@ -1,5 +1,3 @@
-﻿using System;
-
 public class QueueBlockOutReasonDetails
 {
 	public QueueRequirement.RequirementType? RequirementTypeNotMet;

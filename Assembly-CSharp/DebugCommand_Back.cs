@@ -1,5 +1,3 @@
-﻿using System;
-
 public class DebugCommand_Back : DebugCommand
 {
 	public UIDebugMenu m_debugMenu;
@@ -16,6 +14,6 @@ public class DebugCommand_Back : DebugCommand
 
 	public override void OnIncreaseClick()
 	{
-		this.m_debugMenu.UpPathLevel();
+		m_debugMenu.UpPathLevel();
 	}
 }

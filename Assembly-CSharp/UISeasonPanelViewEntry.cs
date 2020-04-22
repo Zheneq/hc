@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -50,24 +49,24 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 
 	public int GetFactionDisplayIndex()
 	{
-		return this.m_displayIndex;
+		return m_displayIndex;
 	}
 
 	private void Awake()
 	{
-		this.m_factionRewardBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.FactionReward, new TooltipPopulateCall(this.FactionRewardTooltipSetup), null);
-		this.m_personalRewardBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.FactionReward, new TooltipPopulateCall(this.PersonalRewardTooltipSetup), null);
-		this.m_logo.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.SetupLogoTooltip), null);
+		m_factionRewardBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.FactionReward, FactionRewardTooltipSetup);
+		m_personalRewardBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.FactionReward, PersonalRewardTooltipSetup);
+		m_logo.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, SetupLogoTooltip);
 	}
 
 	private bool SetupLogoTooltip(UITooltipBase tooltip)
 	{
 		int activeFactionCompetition = ClientGameManager.Get().ActiveFactionCompetition;
-		string longName = Faction.GetLongName(activeFactionCompetition, this.m_displayIndex + 1);
-		string loreDescription = Faction.GetLoreDescription(activeFactionCompetition, this.m_displayIndex + 1);
+		string longName = Faction.GetLongName(activeFactionCompetition, m_displayIndex + 1);
+		string loreDescription = Faction.GetLoreDescription(activeFactionCompetition, m_displayIndex + 1);
 		if (!longName.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -76,9 +75,9 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelViewEntry.SetupLogoTooltip(UITooltipBase)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!loreDescription.IsNullOrEmpty())
 			{
@@ -91,391 +90,71 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 
 	private bool PersonalRewardTooltipSetup(UITooltipBase tooltip)
 	{
-		UISeasonPanelFactionRewardTooltip uiseasonPanelFactionRewardTooltip = tooltip as UISeasonPanelFactionRewardTooltip;
-		uiseasonPanelFactionRewardTooltip.SetPersonalRewardVisible(true);
-		uiseasonPanelFactionRewardTooltip.SetupPersonalReward(this.m_personalLevel, this.m_currentFaction);
+		UISeasonPanelFactionRewardTooltip uISeasonPanelFactionRewardTooltip = tooltip as UISeasonPanelFactionRewardTooltip;
+		uISeasonPanelFactionRewardTooltip.SetPersonalRewardVisible(true);
+		uISeasonPanelFactionRewardTooltip.SetupPersonalReward(m_personalLevel, m_currentFaction);
 		return true;
 	}
 
 	private bool FactionRewardTooltipSetup(UITooltipBase tooltip)
 	{
-		UISeasonPanelFactionRewardTooltip uiseasonPanelFactionRewardTooltip = tooltip as UISeasonPanelFactionRewardTooltip;
-		if (!uiseasonPanelFactionRewardTooltip.SetupFactionReward(this.m_currentFaction, this.m_currentFactionTier, this.m_isFactionComplete))
+		UISeasonPanelFactionRewardTooltip uISeasonPanelFactionRewardTooltip = tooltip as UISeasonPanelFactionRewardTooltip;
+		if (!uISeasonPanelFactionRewardTooltip.SetupFactionReward(m_currentFaction, m_currentFactionTier, m_isFactionComplete))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelViewEntry.FactionRewardTooltipSetup(UITooltipBase)).MethodHandle;
-			}
-			return false;
 		}
-		uiseasonPanelFactionRewardTooltip.SetCommunityFactionVisible(true);
+		uISeasonPanelFactionRewardTooltip.SetCommunityFactionVisible(true);
 		return true;
 	}
 
 	public void UpdateContributionBar(FactionPlayerData data)
 	{
-		if (this.m_currentFaction != null)
+		if (m_currentFaction == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelViewEntry.UpdateContributionBar(FactionPlayerData)).MethodHandle;
-			}
-			if (data != null)
-			{
-				int currentLevel = data.GetCurrentLevel(this.m_currentFaction.FactionPlayerProgressInfo, 0);
-				Sprite sprite = null;
-				if (currentLevel - 1 == this.m_currentFaction.FactionPlayerProgressInfo.Length)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_personalBar.m_ProgressFillBar.fillAmount = 1f;
-					this.m_personalLevelLabel.text = string.Format(StringUtil.TR("PersonalLevel", "TrustWar"), this.m_currentFaction.FactionPlayerProgressInfo.Length + 1);
-					UIManager.SetGameObjectActive(this.m_personalBar.m_CompletedBar, true, null);
-					this.m_personalExpLabel.text = data.TotalXP.ToString();
-				}
-				else
-				{
-					int xpthroughCurrentLevel = data.GetXPThroughCurrentLevel(this.m_currentFaction.FactionPlayerProgressInfo);
-					float fillAmount = 0f;
-					if (currentLevel - 1 < this.m_currentFaction.FactionPlayerProgressInfo.Length)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						fillAmount = (float)xpthroughCurrentLevel / (float)this.m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel;
-						this.m_personalExpLabel.text = string.Format("{0} / {1}", xpthroughCurrentLevel, this.m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel);
-					}
-					if (this.m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].LevelUpRewards != null)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						List<FactionReward> allRewards = this.m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].LevelUpRewards.GetAllRewards();
-						using (List<FactionReward>.Enumerator enumerator = allRewards.GetEnumerator())
-						{
-							while (enumerator.MoveNext())
-							{
-								FactionReward factionReward = enumerator.Current;
-								FactionItemReward factionItemReward = factionReward as FactionItemReward;
-								if (factionItemReward != null)
-								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(factionItemReward.ItemReward.ItemTemplateId);
-									sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate));
-								}
-								FactionCurrencyReward factionCurrencyReward = factionReward as FactionCurrencyReward;
-								if (factionCurrencyReward != null)
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									RewardUtils.RewardType rewardType;
-									string currencyIconPath = RewardUtils.GetCurrencyIconPath(factionCurrencyReward.CurrencyReward.Type, out rewardType);
-									sprite = Resources.Load<Sprite>(currencyIconPath);
-								}
-								FactionUnlockReward factionUnlockReward = factionReward as FactionUnlockReward;
-								if (factionUnlockReward != null)
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									sprite = Resources.Load<Sprite>(factionUnlockReward.UnlockReward.resourceString);
-								}
-								if (sprite != null)
-								{
-									goto IL_292;
-								}
-							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-					}
-					IL_292:
-					this.m_personalBar.m_ProgressFillBar.fillAmount = fillAmount;
-					this.m_personalLevelLabel.text = string.Format(StringUtil.TR("PersonalLevel", "TrustWar"), currentLevel);
-					UIManager.SetGameObjectActive(this.m_personalBar.m_CompletedBar, false, null);
-				}
-				this.m_personalLevel = currentLevel;
-				if (sprite != null)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIManager.SetGameObjectActive(this.m_personalRewardBtn, true, null);
-					this.m_personalRewardIcon.sprite = sprite;
-				}
-				else
-				{
-					UIManager.SetGameObjectActive(this.m_personalRewardBtn, false, null);
-				}
-				return;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
 		}
-	}
-
-	public void SetupBars(Faction faction, int tierIndex, long remainingScore, bool showText)
-	{
-		float fillAmount;
-		if (faction.Tiers[tierIndex].ContributionToComplete > remainingScore)
+		while (true)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelViewEntry.SetupBars(Faction, int, long, bool)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_factionBars[tierIndex].m_CompletedBar, false, null);
-			UIManager.SetGameObjectActive(this.m_factionBars[tierIndex].m_ProgressFillBar, true, null);
-			fillAmount = (float)remainingScore / (float)faction.Tiers[tierIndex].ContributionToComplete;
-			float[] rbga = FactionWideData.Get().GetRBGA(faction);
-			this.m_factionBars[tierIndex].m_ProgressFillBar.color = new Color(rbga[0], rbga[1], rbga[2], rbga[3]);
-		}
-		else
-		{
-			UIManager.SetGameObjectActive(this.m_factionBars[tierIndex].m_CompletedBar, true, null);
-			UIManager.SetGameObjectActive(this.m_factionBars[tierIndex].m_ProgressFillBar, false, null);
-			fillAmount = 1f;
-			float[] rbga2 = FactionWideData.Get().GetRBGA(faction);
-			this.m_factionBars[tierIndex].m_CompletedBar.color = new Color(rbga2[0], rbga2[1], rbga2[2], rbga2[3]);
-		}
-		this.m_factionBars[tierIndex].m_ProgressFillBar.fillAmount = fillAmount;
-	}
-
-	public void Setup(Faction faction, long score, int DisplayIndex)
-	{
-		this.m_currentFaction = faction;
-		this.m_displayIndex = DisplayIndex;
-		if (this.m_factionBars != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelViewEntry.Setup(Faction, long, int)).MethodHandle;
-			}
-			if (this.m_factionBars.Length == faction.Tiers.Count)
-			{
-				goto IL_22E;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		if (this.m_factionBars != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			for (int i = 0; i < this.m_factionBars.Length; i++)
-			{
-				UnityEngine.Object.Destroy(this.m_factionBars[i].gameObject);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		this.m_factionBars = new UIFactionProgressBar[faction.Tiers.Count];
-		float preferredWidth = (this.m_FactionLevelContainer.transform as RectTransform).sizeDelta.x / (float)this.m_factionBars.Length;
-		for (int j = 0; j < this.m_factionBars.Length; j++)
-		{
-			this.m_factionBars[j] = UnityEngine.Object.Instantiate<UIFactionProgressBar>(this.m_ProgressBarPrefab);
-			UIManager.ReparentTransform(this.m_factionBars[j].transform, this.m_FactionLevelContainer.gameObject.transform);
-			this.m_factionBars[j].m_LayoutElement.preferredWidth = preferredWidth;
-		}
-		for (;;)
-		{
-			switch (5)
+			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (this.m_factionBars.Length == 1)
-		{
-			for (;;)
+			if (1 == 0)
 			{
-				switch (6)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (data == null)
+			{
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (1)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
 				}
-				break;
 			}
-			this.m_factionBars[0].m_EmptyBar.type = Image.Type.Sliced;
-			this.m_factionBars[0].m_CompletedBar.type = Image.Type.Sliced;
-			this.m_factionBars[0].m_ProgressFillBar.fillSlope = 3.9f;
-			this.m_factionBars[0].m_ProgressFillBar.m_FillMin = 0.1f;
-			this.m_factionBars[0].m_ProgressFillBar.m_FillMax = 0.9f;
-			this.m_factionBars[0].m_ProgressFillBar.fillStart = 0f;
-			(this.m_factionBars[0].m_ProgressFillBar.gameObject.transform as RectTransform).sizeDelta = new Vector2(72f, (this.m_factionBars[0].m_ProgressFillBar.gameObject.transform as RectTransform).sizeDelta.y);
-		}
-		IL_22E:
-		if (this.m_personalBar == null)
-		{
-			this.m_personalBar = UnityEngine.Object.Instantiate<UIFactionProgressBar>(this.m_ProgressBarPrefab);
-			UIManager.ReparentTransform(this.m_personalBar.transform, this.m_PersonalLevelContainer.gameObject.transform);
-			this.m_personalBar.m_LayoutElement.preferredWidth = (this.m_PersonalLevelContainer.transform as RectTransform).sizeDelta.x;
-			this.m_personalBar.m_EmptyBar.type = Image.Type.Sliced;
-			this.m_personalBar.m_CompletedBar.type = Image.Type.Sliced;
-			this.m_personalBar.m_ProgressFillBar.fillSlope = 3.9f;
-			this.m_personalBar.m_ProgressFillBar.m_FillMin = 0.1f;
-			this.m_personalBar.m_ProgressFillBar.m_FillMax = 0.9f;
-			this.m_personalBar.m_ProgressFillBar.fillStart = 0f;
-			(this.m_personalBar.m_ProgressFillBar.gameObject.transform as RectTransform).sizeDelta = new Vector2(72f, (this.m_personalBar.m_ProgressFillBar.gameObject.transform as RectTransform).sizeDelta.y);
-		}
-		UIManager.SetGameObjectActive(this.m_PersonalInfoContainer, faction.DisplayPersonalContribution, null);
-		FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(faction.FactionGroupIDToUse);
-		this.m_logo.sprite = Resources.Load<Sprite>(factionGroup.BannerPath);
-		long num = score;
-		bool flag = false;
-		int k = 0;
-		while (k < faction.Tiers.Count)
-		{
-			if (k == faction.Tiers.Count - 1)
+			int currentLevel = data.GetCurrentLevel(m_currentFaction.FactionPlayerProgressInfo);
+			Sprite sprite = null;
+			if (currentLevel - 1 == m_currentFaction.FactionPlayerProgressInfo.Length)
 			{
-				goto IL_432;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (score < faction.Tiers[k].ContributionToComplete)
-			{
-				goto IL_432;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			bool flag2 = score < faction.Tiers[k].ContributionToComplete + faction.Tiers[k + 1].ContributionToComplete;
-			IL_433:
-			bool showText = flag2;
-			this.SetupBars(faction, k, (score >= 0L) ? score : 0L, showText);
-			if (score >= 0L)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -484,178 +163,18 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 					}
 					break;
 				}
-				if (score < faction.Tiers[k].ContributionToComplete)
-				{
-					this.m_currentFactionTier = k;
-					this.m_isFactionComplete = false;
-				}
-				else if (score >= faction.Tiers[k].ContributionToComplete)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_currentFactionTier = k;
-					this.m_isFactionComplete = true;
-				}
-			}
-			if (score >= 0L)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (score < faction.Tiers[k].ContributionToComplete)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_expLabel != null)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_expLabel != null)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_expLabel.text = score + " / " + faction.Tiers[k].ContributionToComplete;
-							flag = true;
-						}
-					}
-				}
-			}
-			score -= faction.Tiers[k].ContributionToComplete;
-			k++;
-			continue;
-			IL_432:
-			flag2 = true;
-			goto IL_433;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		int activeFactionCompetition = ClientGameManager.Get().ActiveFactionCompetition;
-		this.m_factionLevelLabel.text = string.Format(StringUtil.TR("FactionLevel", "TrustWar"), Faction.GetDisplayName(activeFactionCompetition, this.m_displayIndex + 1), (this.m_currentFactionTier + 1).ToString());
-		bool flag3 = false;
-		int l = this.m_currentFactionTier;
-		while (l < faction.Tiers.Count)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (flag3)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_7C7;
-				}
+				m_personalBar.m_ProgressFillBar.fillAmount = 1f;
+				m_personalLevelLabel.text = string.Format(StringUtil.TR("PersonalLevel", "TrustWar"), m_currentFaction.FactionPlayerProgressInfo.Length + 1);
+				UIManager.SetGameObjectActive(m_personalBar.m_CompletedBar, true);
+				m_personalExpLabel.text = data.TotalXP.ToString();
 			}
 			else
 			{
-				foreach (FactionItemReward factionItemReward in faction.Tiers[l].Rewards.ItemRewards)
+				int xPThroughCurrentLevel = data.GetXPThroughCurrentLevel(m_currentFaction.FactionPlayerProgressInfo);
+				float fillAmount = 0f;
+				if (currentLevel - 1 < m_currentFaction.FactionPlayerProgressInfo.Length)
 				{
-					InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(factionItemReward.ItemReward.ItemTemplateId);
-					if (!flag3)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_factionRewardIcon.sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate));
-						flag3 = true;
-						break;
-					}
-				}
-				if (!flag3)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					using (List<FactionCurrencyReward>.Enumerator enumerator2 = faction.Tiers[l].Rewards.CurrencyRewards.GetEnumerator())
-					{
-						if (!enumerator2.MoveNext())
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						else
-						{
-							FactionCurrencyReward factionCurrencyReward = enumerator2.Current;
-							RewardUtils.RewardType rewardType;
-							string currencyIconPath = RewardUtils.GetCurrencyIconPath(factionCurrencyReward.CurrencyReward.Type, out rewardType);
-							this.m_factionRewardIcon.sprite = Resources.Load<Sprite>(currencyIconPath);
-							flag3 = true;
-						}
-					}
-				}
-				if (!flag3)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -664,36 +183,119 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 						}
 						break;
 					}
-					using (List<FactionUnlockReward>.Enumerator enumerator3 = faction.Tiers[l].Rewards.UnlockRewards.GetEnumerator())
+					fillAmount = (float)xPThroughCurrentLevel / (float)m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel;
+					m_personalExpLabel.text = $"{xPThroughCurrentLevel} / {m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel}";
+				}
+				if (m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].LevelUpRewards != null)
+				{
+					while (true)
 					{
-						if (!enumerator3.MoveNext())
+						switch (3)
 						{
-							for (;;)
+						case 0:
+							continue;
+						}
+						break;
+					}
+					List<FactionReward> allRewards = m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].LevelUpRewards.GetAllRewards();
+					using (List<FactionReward>.Enumerator enumerator = allRewards.GetEnumerator())
+					{
+						do
+						{
+							if (!enumerator.MoveNext())
 							{
-								switch (4)
+								while (true)
 								{
-								case 0:
-									continue;
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
 								}
 								break;
 							}
+							FactionReward current = enumerator.Current;
+							FactionItemReward factionItemReward = current as FactionItemReward;
+							if (factionItemReward != null)
+							{
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(factionItemReward.ItemReward.ItemTemplateId);
+								sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate));
+							}
+							FactionCurrencyReward factionCurrencyReward = current as FactionCurrencyReward;
+							if (factionCurrencyReward != null)
+							{
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								RewardUtils.RewardType rewardType;
+								string currencyIconPath = RewardUtils.GetCurrencyIconPath(factionCurrencyReward.CurrencyReward.Type, out rewardType);
+								sprite = Resources.Load<Sprite>(currencyIconPath);
+							}
+							FactionUnlockReward factionUnlockReward = current as FactionUnlockReward;
+							if (factionUnlockReward != null)
+							{
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								sprite = Resources.Load<Sprite>(factionUnlockReward.UnlockReward.resourceString);
+							}
 						}
-						else
-						{
-							FactionUnlockReward factionUnlockReward = enumerator3.Current;
-							this.m_factionRewardIcon.sprite = Resources.Load<Sprite>(factionUnlockReward.UnlockReward.resourceString);
-							flag3 = true;
-						}
+						while (!(sprite != null));
 					}
 				}
-				l++;
+				m_personalBar.m_ProgressFillBar.fillAmount = fillAmount;
+				m_personalLevelLabel.text = string.Format(StringUtil.TR("PersonalLevel", "TrustWar"), currentLevel);
+				UIManager.SetGameObjectActive(m_personalBar.m_CompletedBar, false);
 			}
+			m_personalLevel = currentLevel;
+			if (sprite != null)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						break;
+					default:
+						UIManager.SetGameObjectActive(m_personalRewardBtn, true);
+						m_personalRewardIcon.sprite = sprite;
+						return;
+					}
+				}
+			}
+			UIManager.SetGameObjectActive(m_personalRewardBtn, false);
+			return;
 		}
-		IL_7C7:
-		UIManager.SetGameObjectActive(this.m_factionRewardBtn, flag3, null);
-		if (!flag)
+	}
+
+	public void SetupBars(Faction faction, int tierIndex, long remainingScore, bool showText)
+	{
+		float num = 0f;
+		if (faction.Tiers[tierIndex].ContributionToComplete > remainingScore)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -702,9 +304,405 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 				}
 				break;
 			}
-			if (this.m_expLabel != null)
+			if (1 == 0)
 			{
-				this.m_expLabel.text = num.ToString();
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			UIManager.SetGameObjectActive(m_factionBars[tierIndex].m_CompletedBar, false);
+			UIManager.SetGameObjectActive(m_factionBars[tierIndex].m_ProgressFillBar, true);
+			num = (float)remainingScore / (float)faction.Tiers[tierIndex].ContributionToComplete;
+			float[] rBGA = FactionWideData.Get().GetRBGA(faction);
+			m_factionBars[tierIndex].m_ProgressFillBar.color = new Color(rBGA[0], rBGA[1], rBGA[2], rBGA[3]);
+		}
+		else
+		{
+			UIManager.SetGameObjectActive(m_factionBars[tierIndex].m_CompletedBar, true);
+			UIManager.SetGameObjectActive(m_factionBars[tierIndex].m_ProgressFillBar, false);
+			num = 1f;
+			float[] rBGA2 = FactionWideData.Get().GetRBGA(faction);
+			m_factionBars[tierIndex].m_CompletedBar.color = new Color(rBGA2[0], rBGA2[1], rBGA2[2], rBGA2[3]);
+		}
+		m_factionBars[tierIndex].m_ProgressFillBar.fillAmount = num;
+	}
+
+	public void Setup(Faction faction, long score, int DisplayIndex)
+	{
+		m_currentFaction = faction;
+		m_displayIndex = DisplayIndex;
+		if (m_factionBars != null)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_factionBars.Length == faction.Tiers.Count)
+			{
+				goto IL_022e;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		if (m_factionBars != null)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			for (int i = 0; i < m_factionBars.Length; i++)
+			{
+				Object.Destroy(m_factionBars[i].gameObject);
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		m_factionBars = new UIFactionProgressBar[faction.Tiers.Count];
+		Vector2 sizeDelta = (m_FactionLevelContainer.transform as RectTransform).sizeDelta;
+		float preferredWidth = sizeDelta.x / (float)m_factionBars.Length;
+		for (int j = 0; j < m_factionBars.Length; j++)
+		{
+			m_factionBars[j] = Object.Instantiate(m_ProgressBarPrefab);
+			UIManager.ReparentTransform(m_factionBars[j].transform, m_FactionLevelContainer.gameObject.transform);
+			m_factionBars[j].m_LayoutElement.preferredWidth = preferredWidth;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			break;
+		}
+		if (m_factionBars.Length == 1)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			m_factionBars[0].m_EmptyBar.type = Image.Type.Sliced;
+			m_factionBars[0].m_CompletedBar.type = Image.Type.Sliced;
+			m_factionBars[0].m_ProgressFillBar.fillSlope = 3.9f;
+			m_factionBars[0].m_ProgressFillBar.m_FillMin = 0.1f;
+			m_factionBars[0].m_ProgressFillBar.m_FillMax = 0.9f;
+			m_factionBars[0].m_ProgressFillBar.fillStart = 0f;
+			RectTransform obj = m_factionBars[0].m_ProgressFillBar.gameObject.transform as RectTransform;
+			Vector2 sizeDelta2 = (m_factionBars[0].m_ProgressFillBar.gameObject.transform as RectTransform).sizeDelta;
+			obj.sizeDelta = new Vector2(72f, sizeDelta2.y);
+		}
+		goto IL_022e;
+		IL_022e:
+		if (m_personalBar == null)
+		{
+			m_personalBar = Object.Instantiate(m_ProgressBarPrefab);
+			UIManager.ReparentTransform(m_personalBar.transform, m_PersonalLevelContainer.gameObject.transform);
+			LayoutElement layoutElement = m_personalBar.m_LayoutElement;
+			Vector2 sizeDelta3 = (m_PersonalLevelContainer.transform as RectTransform).sizeDelta;
+			layoutElement.preferredWidth = sizeDelta3.x;
+			m_personalBar.m_EmptyBar.type = Image.Type.Sliced;
+			m_personalBar.m_CompletedBar.type = Image.Type.Sliced;
+			m_personalBar.m_ProgressFillBar.fillSlope = 3.9f;
+			m_personalBar.m_ProgressFillBar.m_FillMin = 0.1f;
+			m_personalBar.m_ProgressFillBar.m_FillMax = 0.9f;
+			m_personalBar.m_ProgressFillBar.fillStart = 0f;
+			RectTransform obj2 = m_personalBar.m_ProgressFillBar.gameObject.transform as RectTransform;
+			Vector2 sizeDelta4 = (m_personalBar.m_ProgressFillBar.gameObject.transform as RectTransform).sizeDelta;
+			obj2.sizeDelta = new Vector2(72f, sizeDelta4.y);
+		}
+		UIManager.SetGameObjectActive(m_PersonalInfoContainer, faction.DisplayPersonalContribution);
+		FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(faction.FactionGroupIDToUse);
+		m_logo.sprite = Resources.Load<Sprite>(factionGroup.BannerPath);
+		long num = score;
+		bool flag = false;
+		for (int num2 = 0; num2 < faction.Tiers.Count; num2++)
+		{
+			int num3;
+			if (num2 != faction.Tiers.Count - 1)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (score >= faction.Tiers[num2].ContributionToComplete)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num3 = ((score < faction.Tiers[num2].ContributionToComplete + faction.Tiers[num2 + 1].ContributionToComplete) ? 1 : 0);
+					goto IL_0433;
+				}
+			}
+			num3 = 1;
+			goto IL_0433;
+			IL_0433:
+			bool showText = (byte)num3 != 0;
+			SetupBars(faction, num2, (score >= 0) ? score : 0, showText);
+			if (score >= 0)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (score < faction.Tiers[num2].ContributionToComplete)
+				{
+					m_currentFactionTier = num2;
+					m_isFactionComplete = false;
+				}
+				else if (score >= faction.Tiers[num2].ContributionToComplete)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_currentFactionTier = num2;
+					m_isFactionComplete = true;
+				}
+			}
+			if (score >= 0)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (score < faction.Tiers[num2].ContributionToComplete)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (m_expLabel != null)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (m_expLabel != null)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							m_expLabel.text = score + " / " + faction.Tiers[num2].ContributionToComplete;
+							flag = true;
+						}
+					}
+				}
+			}
+			score -= faction.Tiers[num2].ContributionToComplete;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			int activeFactionCompetition = ClientGameManager.Get().ActiveFactionCompetition;
+			m_factionLevelLabel.text = string.Format(StringUtil.TR("FactionLevel", "TrustWar"), Faction.GetDisplayName(activeFactionCompetition, m_displayIndex + 1), (m_currentFactionTier + 1).ToString());
+			bool flag2 = false;
+			for (int k = m_currentFactionTier; k < faction.Tiers.Count; k++)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!flag2)
+				{
+					foreach (FactionItemReward itemReward in faction.Tiers[k].Rewards.ItemRewards)
+					{
+						InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(itemReward.ItemReward.ItemTemplateId);
+						if (!flag2)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									break;
+								default:
+									m_factionRewardIcon.sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate));
+									flag2 = true;
+									goto end_IL_0616;
+								}
+							}
+						}
+					}
+					if (!flag2)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						using (List<FactionCurrencyReward>.Enumerator enumerator2 = faction.Tiers[k].Rewards.CurrencyRewards.GetEnumerator())
+						{
+							if (enumerator2.MoveNext())
+							{
+								FactionCurrencyReward current2 = enumerator2.Current;
+								RewardUtils.RewardType rewardType;
+								string currencyIconPath = RewardUtils.GetCurrencyIconPath(current2.CurrencyReward.Type, out rewardType);
+								m_factionRewardIcon.sprite = Resources.Load<Sprite>(currencyIconPath);
+								flag2 = true;
+							}
+							else
+							{
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+						}
+					}
+					if (!flag2)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						using (List<FactionUnlockReward>.Enumerator enumerator3 = faction.Tiers[k].Rewards.UnlockRewards.GetEnumerator())
+						{
+							if (enumerator3.MoveNext())
+							{
+								FactionUnlockReward current3 = enumerator3.Current;
+								m_factionRewardIcon.sprite = Resources.Load<Sprite>(current3.UnlockReward.resourceString);
+								flag2 = true;
+							}
+							else
+							{
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+						}
+					}
+					continue;
+				}
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				break;
+			}
+			UIManager.SetGameObjectActive(m_factionRewardBtn, flag2);
+			if (flag)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				if (m_expLabel != null)
+				{
+					m_expLabel.text = num.ToString();
+				}
+				return;
 			}
 		}
 	}

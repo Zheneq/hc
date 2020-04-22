@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,53 +47,52 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ArcherBendingArrow archerBendingArrow = targetAbility as ArcherBendingArrow;
-		if (archerBendingArrow != null)
+		if (!(archerBendingArrow != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ArcherBendingArrow.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", string.Empty, archerBendingArrow.m_laserWidth, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_minRangeBeforeBendMod, "MinRangeBeforeBend", string.Empty, archerBendingArrow.m_minRangeBeforeBend, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxRangeBeforeBendMod, "MaxRangeBeforeBend", string.Empty, archerBendingArrow.m_maxRangeBeforeBend, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxTotalRangeMod, "MaxTotalRange", string.Empty, archerBendingArrow.m_maxTotalRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxBendAngleMod, "MaxBendAngle", string.Empty, archerBendingArrow.m_maxBendAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxTargetsMod, "MaxTargets", string.Empty, archerBendingArrow.m_maxTargets, true, false);
-			AbilityMod.AddToken(tokens, this.m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, archerBendingArrow.m_laserDamageAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_laserHitEffectMod, "LaserHitEffect", archerBendingArrow.m_laserHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_nextShieldGeneratorExtraAbsorbPerHit, "NextShieldGeneratorExtraAbsorbPerHit", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_nextShieldGeneratorExtraAbsorbMax, "NextShieldGeneratorExtraAbsorbMax", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageToHealingDebuffTarget, "ExtraDamageToHealingDebuffTarget", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageAfterBend, "ExtraDamageAfterBend", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageAfterPiercingMod, "DamageToSubsequentTargetsAfterPiercing", string.Empty, archerBendingArrow.m_laserDamageAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectToHealingDebuffTarget, "EffectToHealingDebuffTarget", null, true);
-			AbilityMod.AddToken(tokens, this.m_extraHealingFromHealingDebuffTarget, "ExtraHealingFromHealingDebuffTarget", string.Empty, 0, true, false);
+			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, archerBendingArrow.m_laserWidth);
+			AbilityMod.AddToken(tokens, m_minRangeBeforeBendMod, "MinRangeBeforeBend", string.Empty, archerBendingArrow.m_minRangeBeforeBend);
+			AbilityMod.AddToken(tokens, m_maxRangeBeforeBendMod, "MaxRangeBeforeBend", string.Empty, archerBendingArrow.m_maxRangeBeforeBend);
+			AbilityMod.AddToken(tokens, m_maxTotalRangeMod, "MaxTotalRange", string.Empty, archerBendingArrow.m_maxTotalRange);
+			AbilityMod.AddToken(tokens, m_maxBendAngleMod, "MaxBendAngle", string.Empty, archerBendingArrow.m_maxBendAngle);
+			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, archerBendingArrow.m_maxTargets);
+			AbilityMod.AddToken(tokens, m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, archerBendingArrow.m_laserDamageAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_laserHitEffectMod, "LaserHitEffect", archerBendingArrow.m_laserHitEffect);
+			AbilityMod.AddToken(tokens, m_nextShieldGeneratorExtraAbsorbPerHit, "NextShieldGeneratorExtraAbsorbPerHit", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_nextShieldGeneratorExtraAbsorbMax, "NextShieldGeneratorExtraAbsorbMax", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_extraDamageToHealingDebuffTarget, "ExtraDamageToHealingDebuffTarget", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_extraDamageAfterBend, "ExtraDamageAfterBend", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_damageAfterPiercingMod, "DamageToSubsequentTargetsAfterPiercing", string.Empty, archerBendingArrow.m_laserDamageAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectToHealingDebuffTarget, "EffectToHealingDebuffTarget");
+			AbilityMod.AddToken(tokens, m_extraHealingFromHealingDebuffTarget, "ExtraHealingFromHealingDebuffTarget", string.Empty, 0);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ArcherBendingArrow archerBendingArrow = base.GetTargetAbilityOnAbilityData(abilityData) as ArcherBendingArrow;
+		ArcherBendingArrow archerBendingArrow = GetTargetAbilityOnAbilityData(abilityData) as ArcherBendingArrow;
 		bool flag = archerBendingArrow != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_laserWidthMod, "[LaserWidth]", flag, (!flag) ? 0f : archerBendingArrow.m_laserWidth);
-		string str = text;
-		AbilityModPropertyFloat minRangeBeforeBendMod = this.m_minRangeBeforeBendMod;
-		string prefix = "[MinRangeBeforeBend]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += PropDesc(m_laserWidthMod, "[LaserWidth]", flag, (!flag) ? 0f : archerBendingArrow.m_laserWidth);
+		string str = empty;
+		AbilityModPropertyFloat minRangeBeforeBendMod = m_minRangeBeforeBendMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -102,9 +101,9 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ArcherBendingArrow.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = archerBendingArrow.m_minRangeBeforeBend;
 		}
@@ -112,15 +111,13 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(minRangeBeforeBendMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat maxRangeBeforeBendMod = this.m_maxRangeBeforeBendMod;
-		string prefix2 = "[MaxRangeBeforeBend]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(minRangeBeforeBendMod, "[MinRangeBeforeBend]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat maxRangeBeforeBendMod = m_maxRangeBeforeBendMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -135,15 +132,13 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(maxRangeBeforeBendMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyFloat maxTotalRangeMod = this.m_maxTotalRangeMod;
-		string prefix3 = "[MaxTotalRange]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(maxRangeBeforeBendMod, "[MaxRangeBeforeBend]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyFloat maxTotalRangeMod = m_maxTotalRangeMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -158,15 +153,13 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(maxTotalRangeMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyFloat maxBendAngleMod = this.m_maxBendAngleMod;
-		string prefix4 = "[MaxBendAngle]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(maxTotalRangeMod, "[MaxTotalRange]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyFloat maxBendAngleMod = m_maxBendAngleMod;
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -181,15 +174,13 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		{
 			baseVal4 = 0f;
 		}
-		text = str4 + base.PropDesc(maxBendAngleMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyBool penetrateLoSMod = this.m_penetrateLoSMod;
-		string prefix5 = "[PenetrateLoS]";
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		empty = str4 + PropDesc(maxBendAngleMod, "[MaxBendAngle]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyBool penetrateLoSMod = m_penetrateLoSMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -198,21 +189,19 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 				}
 				break;
 			}
-			baseVal5 = archerBendingArrow.m_penetrateLoS;
+			baseVal5 = (archerBendingArrow.m_penetrateLoS ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(penetrateLoSMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt maxTargetsMod = this.m_maxTargetsMod;
-		string prefix6 = "[MaxTargets]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(penetrateLoSMod, "[PenetrateLoS]", flag, (byte)baseVal5 != 0);
+		string str6 = empty;
+		AbilityModPropertyInt maxTargetsMod = m_maxTargetsMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -227,15 +216,13 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(maxTargetsMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyInt laserDamageAmountMod = this.m_laserDamageAmountMod;
-		string prefix7 = "[LaserDamageAmount]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(maxTargetsMod, "[MaxTargets]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyInt laserDamageAmountMod = m_laserDamageAmountMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -250,15 +237,13 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		{
 			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(laserDamageAmountMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyEffectInfo laserHitEffectMod = this.m_laserHitEffectMod;
-		string prefix8 = "[LaserHitEffect]";
-		bool showBaseVal8 = flag;
-		StandardEffectInfo baseVal8;
+		empty = str7 + PropDesc(laserDamageAmountMod, "[LaserDamageAmount]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyEffectInfo laserHitEffectMod = m_laserHitEffectMod;
+		object baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -273,19 +258,17 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		{
 			baseVal8 = null;
 		}
-		text = str8 + base.PropDesc(laserHitEffectMod, prefix8, showBaseVal8, baseVal8);
-		text += base.PropDesc(this.m_nextShieldGeneratorExtraAbsorbPerHit, "[NextShieldGeneratorExtraAbsorbPerHit]", flag, 0);
-		text += base.PropDesc(this.m_nextShieldGeneratorExtraAbsorbMax, "[NextShieldGeneratorExtraAbsorbMax]", flag, 0);
-		text += base.PropDesc(this.m_extraDamageToHealingDebuffTarget, "[ExtraDamageToHealingDebuffTarget]", flag, 0);
-		text += base.PropDesc(this.m_extraDamageAfterBend, "[ExtraDamageAfterBend]", flag, 0);
-		string str9 = text;
-		AbilityModPropertyInt damageAfterPiercingMod = this.m_damageAfterPiercingMod;
-		string prefix9 = "[DamageToSubsequentTargetsAfterPiercing]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(laserHitEffectMod, "[LaserHitEffect]", flag, (StandardEffectInfo)baseVal8);
+		empty += PropDesc(m_nextShieldGeneratorExtraAbsorbPerHit, "[NextShieldGeneratorExtraAbsorbPerHit]", flag);
+		empty += PropDesc(m_nextShieldGeneratorExtraAbsorbMax, "[NextShieldGeneratorExtraAbsorbMax]", flag);
+		empty += PropDesc(m_extraDamageToHealingDebuffTarget, "[ExtraDamageToHealingDebuffTarget]", flag);
+		empty += PropDesc(m_extraDamageAfterBend, "[ExtraDamageAfterBend]", flag);
+		string str9 = empty;
+		AbilityModPropertyInt damageAfterPiercingMod = m_damageAfterPiercingMod;
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -300,8 +283,8 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		{
 			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(damageAfterPiercingMod, prefix9, showBaseVal9, baseVal9);
-		text += base.PropDesc(this.m_effectToHealingDebuffTarget, "[EffectToHealingDebuffTarget]", false, null);
-		return text + base.PropDesc(this.m_extraHealingFromHealingDebuffTarget, "[ExtraHealingFromHealingDebuffTarget]", flag, 0);
+		empty = str9 + PropDesc(damageAfterPiercingMod, "[DamageToSubsequentTargetsAfterPiercing]", flag, baseVal9);
+		empty += PropDesc(m_effectToHealingDebuffTarget, "[EffectToHealingDebuffTarget]");
+		return empty + PropDesc(m_extraHealingFromHealingDebuffTarget, "[ExtraHealingFromHealingDebuffTarget]", flag);
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class AbilityTauntConfigOverride
@@ -15,6 +15,6 @@ public class AbilityTauntConfigOverride
 
 	public AbilityTauntConfigOverride Clone()
 	{
-		return (AbilityTauntConfigOverride)base.MemberwiseClone();
+		return (AbilityTauntConfigOverride)MemberwiseClone();
 	}
 }

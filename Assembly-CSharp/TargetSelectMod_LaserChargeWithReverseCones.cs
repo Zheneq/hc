@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -27,7 +27,7 @@ public class TargetSelectMod_LaserChargeWithReverseCones : TargetSelectModBase
 		TargetSelect_LaserChargeWithReverseCones targetSelect_LaserChargeWithReverseCones = targetSelectBase as TargetSelect_LaserChargeWithReverseCones;
 		if (targetSelect_LaserChargeWithReverseCones != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -36,17 +36,17 @@ public class TargetSelectMod_LaserChargeWithReverseCones : TargetSelectModBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelectMod_LaserChargeWithReverseCones.GetModSpecificInEditorDesc(GenericAbility_TargetSelectBase, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text += AbilityModHelper.GetModPropertyDesc(this.m_laserRangeMod, "[LaserRange]", true, targetSelect_LaserChargeWithReverseCones.m_laserRange);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_laserWidthMod, "[LaserWidth]", true, targetSelect_LaserChargeWithReverseCones.m_laserWidth);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_coneInfoMod, "[ConeInfo]", true, targetSelect_LaserChargeWithReverseCones.m_coneInfo);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_coneCountMod, "[ConeCount]", true, targetSelect_LaserChargeWithReverseCones.m_coneCount);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_coneStartOffsetMod, "[ConeStartOffset]", true, targetSelect_LaserChargeWithReverseCones.m_coneStartOffset);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_perConeHorizontalOffsetMod, "[PerConeHorizontalOffset]", true, targetSelect_LaserChargeWithReverseCones.m_perConeHorizontalOffset);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_angleInBetweenMod, "[AngleInBetween]", true, targetSelect_LaserChargeWithReverseCones.m_angleInBetween);
+			text += AbilityModHelper.GetModPropertyDesc(m_laserRangeMod, "[LaserRange]", true, targetSelect_LaserChargeWithReverseCones.m_laserRange);
+			text += AbilityModHelper.GetModPropertyDesc(m_laserWidthMod, "[LaserWidth]", true, targetSelect_LaserChargeWithReverseCones.m_laserWidth);
+			text += AbilityModHelper.GetModPropertyDesc(m_coneInfoMod, "[ConeInfo]", true, targetSelect_LaserChargeWithReverseCones.m_coneInfo);
+			text += AbilityModHelper.GetModPropertyDesc(m_coneCountMod, "[ConeCount]", true, targetSelect_LaserChargeWithReverseCones.m_coneCount);
+			text += AbilityModHelper.GetModPropertyDesc(m_coneStartOffsetMod, "[ConeStartOffset]", true, targetSelect_LaserChargeWithReverseCones.m_coneStartOffset);
+			text += AbilityModHelper.GetModPropertyDesc(m_perConeHorizontalOffsetMod, "[PerConeHorizontalOffset]", true, targetSelect_LaserChargeWithReverseCones.m_perConeHorizontalOffset);
+			text += AbilityModHelper.GetModPropertyDesc(m_angleInBetweenMod, "[AngleInBetween]", true, targetSelect_LaserChargeWithReverseCones.m_angleInBetween);
 		}
 		return text;
 	}

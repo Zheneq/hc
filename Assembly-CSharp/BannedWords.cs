@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 
 [Serializable]
@@ -15,54 +15,59 @@ public class BannedWords
 	{
 		if (phrase.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return phrase;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BannedWords.FilterPhrase(string, string)).MethodHandle;
-			}
-			return phrase;
 		}
 		StringBuilder stringBuilder = new StringBuilder(phrase);
 		char[] anyOf = " ,./?'<>:;\"[]{}-_+=!@#^&*()\\|".ToCharArray();
-		int num;
-		for (int i = 0; i < phrase.Length; i = num + 1)
+		int num = 0;
+		while (true)
 		{
-			num = phrase.IndexOfAny(anyOf, i);
-			int num2;
-			if (num < 0)
+			if (num < phrase.Length)
 			{
-				for (;;)
+				int num2 = phrase.IndexOfAny(anyOf, num);
+				int num3;
+				if (num2 < 0)
 				{
-					switch (2)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
-					break;
+					num3 = phrase.Length - num;
 				}
-				num2 = phrase.Length - i;
-			}
-			else
-			{
-				num2 = num - i;
-			}
-			int num3 = num2;
-			if (num3 > 0)
-			{
-				string text = phrase.Substring(i, num3).ToLower();
-				foreach (BannedWordsData bannedWordsData in this.m_bannedWords)
+				else
 				{
-					if (bannedWordsData.Name == languageCode)
+					num3 = num2 - num;
+				}
+				int num4 = num3;
+				if (num4 > 0)
+				{
+					string text = phrase.Substring(num, num4).ToLower();
+					BannedWordsData[] bannedWords = m_bannedWords;
+					foreach (BannedWordsData bannedWordsData in bannedWords)
 					{
-						for (;;)
+						if (!(bannedWordsData.Name == languageCode))
+						{
+							continue;
+						}
+						while (true)
 						{
 							switch (1)
 							{
@@ -71,11 +76,12 @@ public class BannedWords
 							}
 							break;
 						}
-						foreach (string b in bannedWordsData.m_fullStrings)
+						string[] fullStrings = bannedWordsData.m_fullStrings;
+						foreach (string b in fullStrings)
 						{
 							if (text == b)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (4)
 									{
@@ -84,38 +90,40 @@ public class BannedWords
 									}
 									break;
 								}
-								this.Mask(stringBuilder, i, num3);
+								Mask(stringBuilder, num, num4);
 							}
 						}
 						string[] subStrings = bannedWordsData.m_subStrings;
-						int l = 0;
-						IL_157:
-						while (l < subStrings.Length)
+						foreach (string text2 in subStrings)
 						{
-							string text2 = subStrings[l];
 							int length = text2.Length;
-							for (int m = 0; m < num3; m++)
+							int num5 = 0;
+							while (true)
 							{
-								m = text.IndexOf(text2, m);
-								if (m == -1)
+								if (num5 < num4)
 								{
-									IL_151:
-									l++;
-									goto IL_157;
-								}
-								this.Mask(stringBuilder, i + m, length);
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
+									num5 = text.IndexOf(text2, num5);
+									if (num5 == -1)
+									{
+										break;
+									}
+									Mask(stringBuilder, num + num5, length);
+									num5++;
 									continue;
 								}
-								goto IL_151;
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								break;
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -124,15 +132,16 @@ public class BannedWords
 							}
 							break;
 						}
-						foreach (string text3 in bannedWordsData.m_prefixStrings)
+						string[] prefixStrings = bannedWordsData.m_prefixStrings;
+						foreach (string text3 in prefixStrings)
 						{
 							int length2 = text3.Length;
 							if (text.StartsWith(text3))
 							{
-								this.Mask(stringBuilder, i, length2);
+								Mask(stringBuilder, num, length2);
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -141,12 +150,13 @@ public class BannedWords
 							}
 							break;
 						}
-						foreach (string text4 in bannedWordsData.m_suffixStrings)
+						string[] suffixStrings = bannedWordsData.m_suffixStrings;
+						foreach (string text4 in suffixStrings)
 						{
 							int length3 = text4.Length;
 							if (text.EndsWith(text4))
 							{
-								for (;;)
+								while (true)
 								{
 									switch (6)
 									{
@@ -155,10 +165,10 @@ public class BannedWords
 									}
 									break;
 								}
-								this.Mask(stringBuilder, i + num3 - length3, length3);
+								Mask(stringBuilder, num + num4 - length3, length3);
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -168,41 +178,44 @@ public class BannedWords
 							break;
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (7)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+				if (num2 < 0)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
 					break;
 				}
-			}
-			if (num < 0)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				IL_25A:
-				return stringBuilder.ToString();
-			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
+				num = num2 + 1;
 				continue;
 			}
-			goto IL_25A;
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			break;
 		}
+		return stringBuilder.ToString();
 	}
 
 	private void Mask(StringBuilder stringBuilder, int maskStartIndex, int maskLength)

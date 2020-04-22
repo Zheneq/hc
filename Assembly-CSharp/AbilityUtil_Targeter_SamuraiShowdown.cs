@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,28 +7,29 @@ public class AbilityUtil_Targeter_SamuraiShowdown : AbilityUtil_Targeter_ChargeA
 
 	private KnockbackType m_knockbackType;
 
-	public AbilityUtil_Targeter_SamuraiShowdown(Ability ability, float radiusAroundStart, float radiusAroundEnd, float rangeFromDir, int maxTargets, bool ignoreTargetsCover, bool penetrateLoS, float knockbackDist, KnockbackType knockbackType) : base(ability, radiusAroundStart, radiusAroundEnd, rangeFromDir, maxTargets, ignoreTargetsCover, penetrateLoS)
+	public AbilityUtil_Targeter_SamuraiShowdown(Ability ability, float radiusAroundStart, float radiusAroundEnd, float rangeFromDir, int maxTargets, bool ignoreTargetsCover, bool penetrateLoS, float knockbackDist, KnockbackType knockbackType)
+		: base(ability, radiusAroundStart, radiusAroundEnd, rangeFromDir, maxTargets, ignoreTargetsCover, penetrateLoS)
 	{
-		this.m_knockbackDist = knockbackDist;
-		this.m_knockbackType = knockbackType;
+		m_knockbackDist = knockbackDist;
+		m_knockbackType = knockbackType;
 	}
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
 		base.UpdateTargetingMultiTargets(currentTarget, targetingActor, currentTargetIndex, targets);
-		Vector3 vector = targetingActor.\u0016();
-		Vector3 normalized = (currentTarget.GetWorldGridPos() - vector).normalized;
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 normalized = (currentTarget.GetWorldGridPos() - travelBoardSquareWorldPosition).normalized;
 		int num = 1;
-		base.EnableAllMovementArrows();
-		List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.GetActorsInRange();
-		using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
+		EnableAllMovementArrows();
+		List<ActorTarget> actorsInRange = GetActorsInRange();
+		using (List<ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
-				if (actorTarget.m_actor.\u000E() != targetingActor.\u000E())
+				ActorTarget current = enumerator.Current;
+				if (current.m_actor.GetTeam() != targetingActor.GetTeam())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -38,15 +38,15 @@ public class AbilityUtil_Targeter_SamuraiShowdown : AbilityUtil_Targeter_ChargeA
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SamuraiShowdown.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorTarget.m_actor, this.m_knockbackType, normalized, vector, this.m_knockbackDist);
-					num = base.AddMovementArrowWithPrevious(actorTarget.m_actor, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
+					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current.m_actor, m_knockbackType, normalized, travelBoardSquareWorldPosition, m_knockbackDist);
+					num = AddMovementArrowWithPrevious(current.m_actor, path, TargeterMovementType.Knockback, num);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -56,6 +56,6 @@ public class AbilityUtil_Targeter_SamuraiShowdown : AbilityUtil_Targeter_ChargeA
 				break;
 			}
 		}
-		base.SetMovementArrowEnabledFromIndex(num, false);
+		SetMovementArrowEnabledFromIndex(num, false);
 	}
 }

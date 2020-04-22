@@ -1,12 +1,10 @@
-﻿using System;
-
 public static class CharacterTypeExtensions
 {
 	public static string GetNameForCharacterType(CharacterType characterType, string displayName)
 	{
 		if (characterType != CharacterType.BattleMonk && characterType != CharacterType.BazookaGirl)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -15,13 +13,13 @@ public static class CharacterTypeExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterTypeExtensions.GetNameForCharacterType(CharacterType, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (characterType != CharacterType.Blaster && characterType != CharacterType.Claymore)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -32,7 +30,7 @@ public static class CharacterTypeExtensions
 				}
 				if (characterType != CharacterType.DigitalSorceress)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -43,7 +41,7 @@ public static class CharacterTypeExtensions
 					}
 					if (characterType != CharacterType.Gremlins)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -54,7 +52,7 @@ public static class CharacterTypeExtensions
 						}
 						if (characterType != CharacterType.NanoSmith)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -65,7 +63,7 @@ public static class CharacterTypeExtensions
 							}
 							if (characterType != CharacterType.RageBeast)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -76,7 +74,7 @@ public static class CharacterTypeExtensions
 								}
 								if (characterType != CharacterType.RobotAnimal)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (7)
 										{
@@ -87,7 +85,7 @@ public static class CharacterTypeExtensions
 									}
 									if (characterType != CharacterType.Scoundrel && characterType != CharacterType.Sniper)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (6)
 											{
@@ -98,7 +96,7 @@ public static class CharacterTypeExtensions
 										}
 										if (characterType != CharacterType.SpaceMarine)
 										{
-											for (;;)
+											while (true)
 											{
 												switch (7)
 												{
@@ -109,7 +107,7 @@ public static class CharacterTypeExtensions
 											}
 											if (characterType != CharacterType.Spark && characterType != CharacterType.Tracker)
 											{
-												for (;;)
+												while (true)
 												{
 													switch (1)
 													{
@@ -137,9 +135,10 @@ public static class CharacterTypeExtensions
 
 	public static bool IsValidForHumanGameplay(this CharacterType characterType)
 	{
+		int result;
 		if (characterType > CharacterType.None)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -148,13 +147,13 @@ public static class CharacterTypeExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterType.IsValidForHumanGameplay()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!characterType.IsWillFill() && characterType != CharacterType.FemaleWillFill)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -165,7 +164,7 @@ public static class CharacterTypeExtensions
 				}
 				if (characterType != CharacterType.PunchingDummy)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -174,18 +173,23 @@ public static class CharacterTypeExtensions
 						}
 						break;
 					}
-					return characterType < CharacterType.Last;
+					result = ((characterType < CharacterType.Last) ? 1 : 0);
+					goto IL_0047;
 				}
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_0047;
+		IL_0047:
+		return (byte)result != 0;
 	}
 
 	public static bool IsValidForHumanPreGameSelection(this CharacterType characterType)
 	{
+		int result;
 		if (characterType > CharacterType.None && characterType != CharacterType.PunchingDummy)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -194,13 +198,13 @@ public static class CharacterTypeExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterType.IsValidForHumanPreGameSelection()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (characterType < CharacterType.Last)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -209,10 +213,14 @@ public static class CharacterTypeExtensions
 					}
 					break;
 				}
-				return characterType != CharacterType.FemaleWillFill;
+				result = ((characterType != CharacterType.FemaleWillFill) ? 1 : 0);
+				goto IL_0036;
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_0036;
+		IL_0036:
+		return (byte)result != 0;
 	}
 
 	public static bool IsWillFill(this CharacterType characterType)

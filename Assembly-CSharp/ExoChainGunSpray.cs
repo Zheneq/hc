@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,64 +21,64 @@ public class ExoChainGunSpray : Ability
 	public bool m_penetrateLineOfSight;
 
 	[Header("-- Damage and Effects")]
-	public int m_minDamageAmount = 0xF;
+	public int m_minDamageAmount = 15;
 
-	public int m_maxDamageAmount = 0x23;
+	public int m_maxDamageAmount = 35;
 
 	public StandardEffectInfo m_targetHitEffect;
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Old Painless";
+			m_abilityName = "Old Painless";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		if (this.GetExpectedNumberOfTargeters() > 1)
+		if (GetExpectedNumberOfTargeters() > 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoChainGunSpray.SetupTargeter()).MethodHandle;
-			}
-			base.ClearTargeters();
-			for (int i = 0; i < this.GetExpectedNumberOfTargeters(); i++)
-			{
-				AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone = new AbilityUtil_Targeter_SweepMultiClickCone(this, this.GetMinConeAngle(), this.GetMaxConeAngle(), this.GetConeLength(), this.m_coneBackwardOffset, this.m_multiClickConeEdgeWidth, this.m_penetrateLineOfSight, this.GetMaxTargets());
-				abilityUtil_Targeter_SweepMultiClickCone.SetAffectedGroups(true, false, false);
-				base.Targeters.Add(abilityUtil_Targeter_SweepMultiClickCone);
-			}
-			for (;;)
-			{
-				switch (5)
+					break;
+				default:
 				{
-				case 0:
-					continue;
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					ClearTargeters();
+					for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
+					{
+						AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone = new AbilityUtil_Targeter_SweepMultiClickCone(this, GetMinConeAngle(), GetMaxConeAngle(), GetConeLength(), m_coneBackwardOffset, m_multiClickConeEdgeWidth, m_penetrateLineOfSight, GetMaxTargets());
+						abilityUtil_Targeter_SweepMultiClickCone.SetAffectedGroups(true, false, false);
+						base.Targeters.Add(abilityUtil_Targeter_SweepMultiClickCone);
+					}
+					while (true)
+					{
+						switch (5)
+						{
+						default:
+							return;
+						case 0:
+							break;
+						}
+					}
 				}
-				break;
+				}
 			}
 		}
-		else
-		{
-			Log.Error("ExoChainGunSpray requires 2 targeters, please update the Target Data array in the character prefab.", new object[0]);
-		}
+		Log.Error("ExoChainGunSpray requires 2 targeters, please update the Target Data array in the character prefab.");
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		return Mathf.Max(1, base.GetNumTargets());
+		return Mathf.Max(1, GetNumTargets());
 	}
 
 	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
@@ -88,65 +88,64 @@ public class ExoChainGunSpray : Ability
 		{
 			list.Add(targets[i].FreePos);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return list;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ExoChainGunSpray.CalcPointsOfInterestForCamera(List<AbilityTarget>, ActorData)).MethodHandle;
-		}
-		return list;
 	}
 
 	private float GetMinConeAngle()
 	{
-		return this.m_minConeAngle;
+		return m_minConeAngle;
 	}
 
 	private float GetMaxConeAngle()
 	{
-		return this.m_maxConeAngle;
+		return m_maxConeAngle;
 	}
 
 	private float GetConeLength()
 	{
-		return this.m_coneLength;
+		return m_coneLength;
 	}
 
 	private int GetMaxTargets()
 	{
-		return this.m_maxTargets;
+		return m_maxTargets;
 	}
 
 	private int GetMinDamageAmount()
 	{
-		return this.m_minDamageAmount;
+		return m_minDamageAmount;
 	}
 
 	private int GetMaxDamageAmount()
 	{
-		return this.m_maxDamageAmount;
+		return m_maxDamageAmount;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetMinDamageAmount());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetMinDamageAmount());
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		if (currentTargeterIndex > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -155,35 +154,35 @@ public class ExoChainGunSpray : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoChainGunSpray.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone = base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SweepMultiClickCone;
-			int damageForSweepAngle = this.GetDamageForSweepAngle(abilityUtil_Targeter_SweepMultiClickCone.sweepAngle);
-			Ability.AddNameplateValueForSingleHit(ref result, abilityUtil_Targeter_SweepMultiClickCone, targetActor, damageForSweepAngle, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
+			int damageForSweepAngle = GetDamageForSweepAngle(abilityUtil_Targeter_SweepMultiClickCone.sweepAngle);
+			Ability.AddNameplateValueForSingleHit(ref symbolToValue, abilityUtil_Targeter_SweepMultiClickCone, targetActor, damageForSweepAngle);
 		}
-		return result;
+		return symbolToValue;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "Min_Damage", "damage dealt by the widest possible cone", this.GetMinDamageAmount(), false);
-		base.AddTokenInt(tokens, "Max_Damage", "damage dealt by the narrowest possible cone", this.GetMaxDamageAmount(), false);
-		base.AddTokenInt(tokens, "Min_Cone_Angle", "the narrowest cone", (int)this.GetMinConeAngle(), false);
-		base.AddTokenInt(tokens, "Max_Cone_Angle", "the widest cone", (int)this.GetMaxConeAngle(), false);
-		base.AddTokenInt(tokens, "Cone_Length", "range of the damage cone", Mathf.RoundToInt(this.GetConeLength()), false);
+		AddTokenInt(tokens, "Min_Damage", "damage dealt by the widest possible cone", GetMinDamageAmount());
+		AddTokenInt(tokens, "Max_Damage", "damage dealt by the narrowest possible cone", GetMaxDamageAmount());
+		AddTokenInt(tokens, "Min_Cone_Angle", "the narrowest cone", (int)GetMinConeAngle());
+		AddTokenInt(tokens, "Max_Cone_Angle", "the widest cone", (int)GetMaxConeAngle());
+		AddTokenInt(tokens, "Cone_Length", "range of the damage cone", Mathf.RoundToInt(GetConeLength()));
 	}
 
-	private unsafe Vector3 GetTargeterClampedAimDirection(Vector3 startAimDirection, Vector3 endAimDirection, out float sweepAngle, out float coneCenterDegrees)
+	private Vector3 GetTargeterClampedAimDirection(Vector3 startAimDirection, Vector3 endAimDirection, out float sweepAngle, out float coneCenterDegrees)
 	{
 		float num = VectorUtils.HorizontalAngle_Deg(startAimDirection);
 		sweepAngle = Vector3.Angle(startAimDirection, endAimDirection);
-		float maxConeAngle = this.GetMaxConeAngle();
-		float minConeAngle = this.GetMinConeAngle();
+		float maxConeAngle = GetMaxConeAngle();
+		float minConeAngle = GetMinConeAngle();
 		if (maxConeAngle > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -192,13 +191,13 @@ public class ExoChainGunSpray : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoChainGunSpray.GetTargeterClampedAimDirection(Vector3, Vector3, float*, float*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (sweepAngle > maxConeAngle)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -207,14 +206,14 @@ public class ExoChainGunSpray : Ability
 					}
 					break;
 				}
-				endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, 0.0174532924f * (sweepAngle - maxConeAngle), 0f);
+				endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, (float)Math.PI / 180f * (sweepAngle - maxConeAngle), 0f);
 				sweepAngle = maxConeAngle;
-				goto IL_A5;
+				goto IL_00a5;
 			}
 		}
 		if (minConeAngle > 0f && sweepAngle < minConeAngle)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -223,14 +222,16 @@ public class ExoChainGunSpray : Ability
 				}
 				break;
 			}
-			endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, 0.0174532924f * (sweepAngle - minConeAngle), 0f);
+			endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, (float)Math.PI / 180f * (sweepAngle - minConeAngle), 0f);
 			sweepAngle = minConeAngle;
 		}
-		IL_A5:
+		goto IL_00a5;
+		IL_00a5:
 		coneCenterDegrees = num;
-		if (Vector3.Cross(startAimDirection, endAimDirection).y > 0f)
+		Vector3 vector = Vector3.Cross(startAimDirection, endAimDirection);
+		if (vector.y > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -250,10 +251,10 @@ public class ExoChainGunSpray : Ability
 
 	private int GetDamageForSweepAngle(float sweepAngle)
 	{
-		float num = (float)(this.GetMaxDamageAmount() - this.GetMinDamageAmount());
-		float num2 = this.GetMaxConeAngle() - this.GetMinConeAngle();
-		float num3 = 1f - (sweepAngle - this.GetMinConeAngle()) / num2;
-		num3 = Mathf.Clamp(num3, 0f, 1f);
-		return this.GetMinDamageAmount() + Mathf.RoundToInt(num * num3);
+		float num = GetMaxDamageAmount() - GetMinDamageAmount();
+		float num2 = GetMaxConeAngle() - GetMinConeAngle();
+		float value = 1f - (sweepAngle - GetMinConeAngle()) / num2;
+		value = Mathf.Clamp(value, 0f, 1f);
+		return GetMinDamageAmount() + Mathf.RoundToInt(num * value);
 	}
 }

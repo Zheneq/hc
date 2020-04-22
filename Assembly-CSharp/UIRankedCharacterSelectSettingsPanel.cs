@@ -1,5 +1,3 @@
-﻿using System;
-
 public class UIRankedCharacterSelectSettingsPanel : UICharacterSelectCharacterSettingsPanel
 {
 	protected override FrontEndButtonSounds GetTabClickSound()
@@ -9,50 +7,51 @@ public class UIRankedCharacterSelectSettingsPanel : UICharacterSelectCharacterSe
 
 	protected override void Awake()
 	{
-		if (this.m_abilitiesSubPanel.m_modloadouts != null)
+		if (m_abilitiesSubPanel.m_modloadouts != null)
 		{
-			UIManager.SetGameObjectActive(this.m_abilitiesSubPanel.m_modloadouts.transform.parent, true, null);
+			UIManager.SetGameObjectActive(m_abilitiesSubPanel.m_modloadouts.transform.parent, true);
 		}
 		base.Awake();
 	}
 
 	public void Refresh()
 	{
-		if (UIRankedModeDraftScreen.Get().IsVisible)
+		if (!UIRankedModeDraftScreen.Get().IsVisible)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedCharacterSelectSettingsPanel.Refresh()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (UIRankedModeDraftScreen.Get().SelectedCharacter != CharacterType.None)
+			if (UIRankedModeDraftScreen.Get().SelectedCharacter != 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(UIRankedModeDraftScreen.Get().SelectedCharacter);
+					Refresh(characterResourceLink);
+					return;
 				}
-				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(UIRankedModeDraftScreen.Get().SelectedCharacter);
-				base.Refresh(characterResourceLink, false, false);
 			}
+			return;
 		}
 	}
 
 	public void UpdateSelectedCharType(CharacterType charType)
 	{
-		this.m_selectedCharType = charType;
+		m_selectedCharType = charType;
 	}
 
 	public new static UIRankedCharacterSelectSettingsPanel Get()
@@ -64,13 +63,13 @@ public class UIRankedCharacterSelectSettingsPanel : UICharacterSelectCharacterSe
 		return null;
 	}
 
-	protected override void DoVisible(bool visible, UICharacterSelectCharacterSettingsPanel.TabPanel tab = UICharacterSelectCharacterSettingsPanel.TabPanel.None)
+	protected override void DoVisible(bool visible, TabPanel tab = TabPanel.None)
 	{
-		this.m_isVisible = visible;
+		m_isVisible = visible;
 		float alpha = 0f;
 		if (visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -79,16 +78,16 @@ public class UIRankedCharacterSelectSettingsPanel : UICharacterSelectCharacterSe
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedCharacterSelectSettingsPanel.DoVisible(bool, UICharacterSelectCharacterSettingsPanel.TabPanel)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			base.OpenTab(tab, true);
+			OpenTab(tab, true);
 			alpha = 1f;
 		}
-		UIManager.SetGameObjectActive(this, visible, null);
-		this.m_CanvasGroup.alpha = alpha;
-		this.m_CanvasGroup.interactable = visible;
-		this.m_CanvasGroup.blocksRaycasts = visible;
+		UIManager.SetGameObjectActive(this, visible);
+		m_CanvasGroup.alpha = alpha;
+		m_CanvasGroup.interactable = visible;
+		m_CanvasGroup.blocksRaycasts = visible;
 	}
 }

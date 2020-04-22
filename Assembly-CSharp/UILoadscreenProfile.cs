@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -54,146 +53,44 @@ public class UILoadscreenProfile : MonoBehaviour
 
 	private int m_lastGGPackDisplay = -1;
 
-	public int CurrentGGPackLevel
-	{
-		get
-		{
-			return this.m_lastGGPackDisplay;
-		}
-	}
+	public int CurrentGGPackLevel => m_lastGGPackDisplay;
 
 	public CharacterType GetCharType()
 	{
-		return this.charType;
+		return charType;
 	}
 
 	public LobbyPlayerInfo GetPlayerInfo()
 	{
-		return this.playerInfoRef;
+		return playerInfoRef;
 	}
 
 	public void SetGGButtonLevel(int numGGpacks)
 	{
-		if (!this.m_isBot)
+		if (m_isBot)
 		{
-			if (!this.playerInfoRef.IsRemoteControlled)
+			return;
+		}
+		if (playerInfoRef.IsRemoteControlled)
+		{
+			while (true)
 			{
-				if (this.m_ggButtonLevelImages != null)
+				switch (1)
 				{
-					for (;;)
+				case 0:
+					break;
+				default:
+					if (1 == 0)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					for (int i = 0; i < this.m_ggButtonLevelImages.Length; i++)
-					{
-						UIManager.SetGameObjectActive(this.m_ggButtonLevelImages[i], i == numGGpacks - 1, null);
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					return;
 				}
-				if (this.m_animator != null)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					string arg = string.Empty;
-					if (this.m_isRed)
-					{
-						arg = "Red";
-					}
-					else
-					{
-						arg = "Blue";
-					}
-					if (this.m_lastGGPackDisplay != numGGpacks)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						string animToPlay = string.Empty;
-						if (numGGpacks == 0)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							animToPlay = string.Format("GGBoost{0}TeamItemEmptyIDLE", arg);
-						}
-						else if (numGGpacks == 1)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							animToPlay = string.Format("GGBoost{0}TeamItemBlueIN", arg);
-						}
-						else if (numGGpacks == 2)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							animToPlay = string.Format("GGBoost{0}TeamItemSilverIN", arg);
-						}
-						else if (numGGpacks == 3)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							animToPlay = string.Format("GGBoost{0}TeamItemGoldIN", arg);
-						}
-						UIAnimationEventManager.Get().PlayAnimation(this.m_animator, animToPlay, null, string.Empty, 0, 0f, true, false, null, null);
-						this.m_lastGGPackDisplay = numGGpacks;
-					}
-				}
-				return;
 			}
-			for (;;)
+		}
+		if (m_ggButtonLevelImages != null)
+		{
+			while (true)
 			{
 				switch (1)
 				{
@@ -202,27 +99,118 @@ public class UILoadscreenProfile : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			for (int i = 0; i < m_ggButtonLevelImages.Length; i++)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILoadscreenProfile.SetGGButtonLevel(int)).MethodHandle;
+				UIManager.SetGameObjectActive(m_ggButtonLevelImages[i], i == numGGpacks - 1);
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		if (!(m_animator != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			string empty = string.Empty;
+			empty = ((!m_isRed) ? "Blue" : "Red");
+			if (m_lastGGPackDisplay == numGGpacks)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				string animToPlay = string.Empty;
+				if (numGGpacks == 0)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					animToPlay = $"GGBoost{empty}TeamItemEmptyIDLE";
+				}
+				else if (numGGpacks == 1)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					animToPlay = $"GGBoost{empty}TeamItemBlueIN";
+				}
+				else if (numGGpacks == 2)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					animToPlay = $"GGBoost{empty}TeamItemSilverIN";
+				}
+				else if (numGGpacks == 3)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					animToPlay = $"GGBoost{empty}TeamItemGoldIN";
+				}
+				UIAnimationEventManager.Get().PlayAnimation(m_animator, animToPlay, null, string.Empty);
+				m_lastGGPackDisplay = numGGpacks;
+				return;
 			}
 		}
 	}
 
 	public void Setup(CharacterResourceLink charLink, LobbyPlayerInfo playerInfo, bool isRed, bool IgnoreReplaceWithBots = false)
 	{
-		this.charType = charLink.m_characterType;
-		this.playerInfoRef = playerInfo;
-		this.m_isRed = isRed;
-		UIManager.SetGameObjectActive(this, true, null);
-		this.m_profileImage.sprite = charLink.GetCharacterSelectIcon();
-		this.m_profileName.text = playerInfo.GetHandle();
-		this.m_playerTitle.text = GameBalanceVars.Get().GetTitle(playerInfo.TitleID, string.Empty, playerInfo.TitleLevel);
-		this.m_playerId = playerInfo.PlayerId;
-		bool isBot;
+		charType = charLink.m_characterType;
+		playerInfoRef = playerInfo;
+		m_isRed = isRed;
+		UIManager.SetGameObjectActive(this, true);
+		m_profileImage.sprite = charLink.GetCharacterSelectIcon();
+		m_profileName.text = playerInfo.GetHandle();
+		m_playerTitle.text = GameBalanceVars.Get().GetTitle(playerInfo.TitleID, string.Empty, playerInfo.TitleLevel);
+		m_playerId = playerInfo.PlayerId;
+		int isBot;
 		if (playerInfo.IsNPCBot)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -231,13 +219,13 @@ public class UILoadscreenProfile : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILoadscreenProfile.Setup(CharacterResourceLink, LobbyPlayerInfo, bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!playerInfo.BotsMasqueradeAsHumans)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -246,23 +234,24 @@ public class UILoadscreenProfile : MonoBehaviour
 					}
 					break;
 				}
-				isBot = (!IgnoreReplaceWithBots && !playerInfo.ReplacedWithBots);
-				goto IL_BD;
+				isBot = ((!IgnoreReplaceWithBots && !playerInfo.ReplacedWithBots) ? 1 : 0);
+				goto IL_00bd;
 			}
 		}
-		isBot = false;
-		IL_BD:
-		this.m_isBot = isBot;
+		isBot = 0;
+		goto IL_00bd;
+		IL_00bd:
+		m_isBot = ((byte)isBot != 0);
 		bool doActive = true;
 		int characterLevel = playerInfo.CharacterInfo.CharacterLevel;
-		if (this.m_botImage != null && !this.m_isRed)
+		if (m_botImage != null && !m_isRed)
 		{
-			UIManager.SetGameObjectActive(this.m_botImage, this.m_isBot, null);
-			doActive = !this.m_isBot;
+			UIManager.SetGameObjectActive(m_botImage, m_isBot);
+			doActive = !m_isBot;
 		}
-		if (!this.m_isBot)
+		if (!m_isBot)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -273,18 +262,19 @@ public class UILoadscreenProfile : MonoBehaviour
 			}
 			if (!playerInfo.IsRemoteControlled)
 			{
-				this.m_slider.fillAmount = 0f;
-				goto IL_140;
+				m_slider.fillAmount = 0f;
+				goto IL_0140;
 			}
 		}
-		this.m_slider.fillAmount = 1f;
-		IL_140:
+		m_slider.fillAmount = 1f;
+		goto IL_0140;
+		IL_0140:
 		int bannerID = -1;
 		int bannerID2 = -1;
 		int ribbonID = -1;
 		if (playerInfo.IsRemoteControlled)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -296,73 +286,81 @@ public class UILoadscreenProfile : MonoBehaviour
 			IEnumerator<LobbyPlayerInfo> enumerator = GameManager.Get().TeamInfo.TeamInfo(playerInfo.TeamId).GetEnumerator();
 			try
 			{
-				while (enumerator.MoveNext())
+				while (true)
 				{
-					LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
-					if (lobbyPlayerInfo.PlayerId == playerInfo.ControllingPlayerId)
+					if (!enumerator.MoveNext())
 					{
-						for (;;)
+						while (true)
 						{
-							switch (1)
+							switch (4)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						bannerID = lobbyPlayerInfo.BannerID;
-						bannerID2 = lobbyPlayerInfo.EmblemID;
-						ribbonID = lobbyPlayerInfo.RibbonID;
-						for (int i = 0; i < lobbyPlayerInfo.RemoteCharacterInfos.Count; i++)
+						break;
+					}
+					LobbyPlayerInfo current = enumerator.Current;
+					if (current.PlayerId == playerInfo.ControllingPlayerId)
+					{
+						while (true)
 						{
-							if (lobbyPlayerInfo.RemoteCharacterInfos[i] != null)
+							switch (1)
 							{
-								for (;;)
+							case 0:
+								break;
+							default:
+							{
+								bannerID = current.BannerID;
+								bannerID2 = current.EmblemID;
+								ribbonID = current.RibbonID;
+								for (int i = 0; i < current.RemoteCharacterInfos.Count; i++)
 								{
-									switch (2)
+									if (current.RemoteCharacterInfos[i] != null)
 									{
-									case 0:
-										continue;
+										while (true)
+										{
+											switch (2)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										if (current.RemoteCharacterInfos[i].CharacterType == playerInfo.CharacterType)
+										{
+											characterLevel = current.RemoteCharacterInfos[i].CharacterLevel;
+											break;
+										}
 									}
-									break;
 								}
-								if (lobbyPlayerInfo.RemoteCharacterInfos[i].CharacterType == playerInfo.CharacterType)
-								{
-									characterLevel = lobbyPlayerInfo.RemoteCharacterInfos[i].CharacterLevel;
-									break;
-								}
+								goto end_IL_0180;
+							}
 							}
 						}
-						goto IL_261;
 					}
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				end_IL_0180:;
 			}
 			finally
 			{
 				if (enumerator != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							enumerator.Dispose();
+							goto end_IL_024b;
 						}
-						break;
 					}
-					enumerator.Dispose();
 				}
+				end_IL_024b:;
 			}
-			IL_261:;
 		}
 		else
 		{
@@ -371,21 +369,13 @@ public class UILoadscreenProfile : MonoBehaviour
 			ribbonID = playerInfo.RibbonID;
 		}
 		GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(bannerID);
-		string path;
-		if (banner != null)
-		{
-			path = banner.m_resourceString;
-		}
-		else
-		{
-			path = "Banners/Background/02_blue";
-		}
-		this.m_bannerImage.sprite = Resources.Load<Sprite>(path);
+		string path = (banner == null) ? "Banners/Background/02_blue" : banner.m_resourceString;
+		m_bannerImage.sprite = Resources.Load<Sprite>(path);
 		GameBalanceVars.PlayerBanner banner2 = GameWideData.Get().m_gameBalanceVars.GetBanner(bannerID2);
 		string path2;
 		if (banner2 != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -400,12 +390,12 @@ public class UILoadscreenProfile : MonoBehaviour
 		{
 			path2 = "Banners/Emblems/Chest01";
 		}
-		this.m_emblemImage.sprite = Resources.Load<Sprite>(path2);
-		UIManager.SetGameObjectActive(this.m_emblemImage, doActive, null);
+		m_emblemImage.sprite = Resources.Load<Sprite>(path2);
+		UIManager.SetGameObjectActive(m_emblemImage, doActive);
 		GameBalanceVars.PlayerRibbon ribbon = GameWideData.Get().m_gameBalanceVars.GetRibbon(ribbonID);
 		if (ribbon != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -414,16 +404,16 @@ public class UILoadscreenProfile : MonoBehaviour
 				}
 				break;
 			}
-			this.m_ribbonImage.sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
-			UIManager.SetGameObjectActive(this.m_ribbonImage, this.m_ribbonImage.sprite != null, null);
+			m_ribbonImage.sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
+			UIManager.SetGameObjectActive(m_ribbonImage, m_ribbonImage.sprite != null);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_ribbonImage, false, null);
+			UIManager.SetGameObjectActive(m_ribbonImage, false);
 		}
-		if (this.m_partyImage != null)
+		if (m_partyImage != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -432,11 +422,11 @@ public class UILoadscreenProfile : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_partyImage, false, null);
+			UIManager.SetGameObjectActive(m_partyImage, false);
 		}
-		if (this.m_characterSilverFrame != null)
+		if (m_characterSilverFrame != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -445,11 +435,11 @@ public class UILoadscreenProfile : MonoBehaviour
 				}
 				break;
 			}
-			Component characterSilverFrame = this.m_characterSilverFrame;
-			bool doActive2;
+			RectTransform characterSilverFrame = m_characterSilverFrame;
+			int doActive2;
 			if (characterLevel >= GameBalanceVars.Get().CharacterSilverLevel)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -458,17 +448,17 @@ public class UILoadscreenProfile : MonoBehaviour
 					}
 					break;
 				}
-				doActive2 = (characterLevel < GameBalanceVars.Get().CharacterMasteryLevel);
+				doActive2 = ((characterLevel < GameBalanceVars.Get().CharacterMasteryLevel) ? 1 : 0);
 			}
 			else
 			{
-				doActive2 = false;
+				doActive2 = 0;
 			}
-			UIManager.SetGameObjectActive(characterSilverFrame, doActive2, null);
+			UIManager.SetGameObjectActive(characterSilverFrame, (byte)doActive2 != 0);
 		}
-		if (this.m_characterGoldFrame != null)
+		if (m_characterGoldFrame != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -477,11 +467,11 @@ public class UILoadscreenProfile : MonoBehaviour
 				}
 				break;
 			}
-			Component characterGoldFrame = this.m_characterGoldFrame;
-			bool doActive3;
+			RectTransform characterGoldFrame = m_characterGoldFrame;
+			int doActive3;
 			if (characterLevel >= GameBalanceVars.Get().CharacterMasteryLevel)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -490,21 +480,21 @@ public class UILoadscreenProfile : MonoBehaviour
 					}
 					break;
 				}
-				doActive3 = (characterLevel < GameBalanceVars.Get().CharacterPurpleLevel);
+				doActive3 = ((characterLevel < GameBalanceVars.Get().CharacterPurpleLevel) ? 1 : 0);
 			}
 			else
 			{
-				doActive3 = false;
+				doActive3 = 0;
 			}
-			UIManager.SetGameObjectActive(characterGoldFrame, doActive3, null);
+			UIManager.SetGameObjectActive(characterGoldFrame, (byte)doActive3 != 0);
 		}
-		if (this.m_characterPurpleFrame != null)
+		if (m_characterPurpleFrame != null)
 		{
-			Component characterPurpleFrame = this.m_characterPurpleFrame;
-			bool doActive4;
+			RectTransform characterPurpleFrame = m_characterPurpleFrame;
+			int doActive4;
 			if (characterLevel >= GameBalanceVars.Get().CharacterPurpleLevel)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -513,21 +503,21 @@ public class UILoadscreenProfile : MonoBehaviour
 					}
 					break;
 				}
-				doActive4 = (characterLevel < GameBalanceVars.Get().CharacterRedLevel);
+				doActive4 = ((characterLevel < GameBalanceVars.Get().CharacterRedLevel) ? 1 : 0);
 			}
 			else
 			{
-				doActive4 = false;
+				doActive4 = 0;
 			}
-			UIManager.SetGameObjectActive(characterPurpleFrame, doActive4, null);
+			UIManager.SetGameObjectActive(characterPurpleFrame, (byte)doActive4 != 0);
 		}
-		if (this.m_characterRedFrame != null)
+		if (m_characterRedFrame != null)
 		{
-			UIManager.SetGameObjectActive(this.m_characterRedFrame, characterLevel >= GameBalanceVars.Get().CharacterRedLevel && characterLevel < GameBalanceVars.Get().CharacterDiamondLevel, null);
+			UIManager.SetGameObjectActive(m_characterRedFrame, characterLevel >= GameBalanceVars.Get().CharacterRedLevel && characterLevel < GameBalanceVars.Get().CharacterDiamondLevel);
 		}
-		if (this.m_characterDiamondFrame != null)
+		if (m_characterDiamondFrame != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -536,20 +526,21 @@ public class UILoadscreenProfile : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_characterDiamondFrame, characterLevel >= GameBalanceVars.Get().CharacterDiamondLevel && characterLevel < GameBalanceVars.Get().CharacterRainbowLevel, null);
+			UIManager.SetGameObjectActive(m_characterDiamondFrame, characterLevel >= GameBalanceVars.Get().CharacterDiamondLevel && characterLevel < GameBalanceVars.Get().CharacterRainbowLevel);
 		}
-		if (this.m_characterRainbowFrame != null)
+		if (!(m_characterRainbowFrame != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			UIManager.SetGameObjectActive(this.m_characterRainbowFrame, characterLevel >= GameBalanceVars.Get().CharacterRainbowLevel, null);
+			UIManager.SetGameObjectActive(m_characterRainbowFrame, characterLevel >= GameBalanceVars.Get().CharacterRainbowLevel);
+			return;
 		}
 	}
 }

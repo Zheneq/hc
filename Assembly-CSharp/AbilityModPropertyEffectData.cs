@@ -1,9 +1,15 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class AbilityModPropertyEffectData
 {
-	public AbilityModPropertyEffectData.ModOp operation;
+	public enum ModOp
+	{
+		Ignore,
+		Override
+	}
+
+	public ModOp operation;
 
 	public bool useSequencesFromSource = true;
 
@@ -11,37 +17,33 @@ public class AbilityModPropertyEffectData
 
 	public StandardActorEffectData GetModifiedValue(StandardActorEffectData input)
 	{
-		if (this.operation == AbilityModPropertyEffectData.ModOp.Override)
+		if (operation == ModOp.Override)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					StandardActorEffectData result = effectData;
+					if (useSequencesFromSource)
+					{
+						StandardActorEffectData shallowCopy = effectData.GetShallowCopy();
+						shallowCopy.m_sequencePrefabs = input.m_sequencePrefabs;
+						shallowCopy.m_tickSequencePrefab = input.m_tickSequencePrefab;
+						result = shallowCopy;
+					}
+					return result;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyEffectData.GetModifiedValue(StandardActorEffectData)).MethodHandle;
-			}
-			StandardActorEffectData result = this.effectData;
-			if (this.useSequencesFromSource)
-			{
-				StandardActorEffectData shallowCopy = this.effectData.GetShallowCopy();
-				shallowCopy.m_sequencePrefabs = input.m_sequencePrefabs;
-				shallowCopy.m_tickSequencePrefab = input.m_tickSequencePrefab;
-				result = shallowCopy;
-			}
-			return result;
 		}
 		return input;
-	}
-
-	public enum ModOp
-	{
-		Ignore,
-		Override
 	}
 }

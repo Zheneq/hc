@@ -1,144 +1,8 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class GameSubTypeData : MonoBehaviour
 {
-	public GameSubTypeData.GameSubTypeInstructions[] Instructions;
-
-	private static GameSubTypeData s_instance;
-
-	public GameSubTypeData.GameSubTypeInstructionDisplayInfo GetDisplayPanelInfo(int setIndex, int displayIndex)
-	{
-		GameSubTypeData.GameSubTypeInstructions instructionSet = this.GetInstructionSet(setIndex);
-		if (instructionSet != null && -1 < displayIndex)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubTypeData.GetDisplayPanelInfo(int, int)).MethodHandle;
-			}
-			if (displayIndex < instructionSet.DisplayInfos.Length)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return instructionSet.DisplayInfos[displayIndex];
-			}
-		}
-		return null;
-	}
-
-	public GameSubTypeData.GameSubTypeInstructions GetInstructionSet(int setIndex)
-	{
-		if (-1 < setIndex && setIndex < this.Instructions.Length)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubTypeData.GetInstructionSet(int)).MethodHandle;
-			}
-			return this.Instructions[setIndex];
-		}
-		return null;
-	}
-
-	public GameSubTypeData.GameSubTypeInstructions GetInstructionSet(GameSubType.GameLoadScreenInstructions instructionType)
-	{
-		for (int i = 0; i < this.Instructions.Length; i++)
-		{
-			if (this.Instructions[i].InstructionType == instructionType)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubTypeData.GetInstructionSet(GameSubType.GameLoadScreenInstructions)).MethodHandle;
-				}
-				return this.Instructions[i];
-			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		return null;
-	}
-
-	private void Awake()
-	{
-		GameSubTypeData.s_instance = this;
-		for (int i = 0; i < this.Instructions.Length; i++)
-		{
-			GameSubTypeData.GameSubTypeInstructions gameSubTypeInstructions = this.Instructions[i];
-			for (int j = 0; j < gameSubTypeInstructions.DisplayInfos.Length; j++)
-			{
-				gameSubTypeInstructions.DisplayInfos[j].InstructionSetIndex = i;
-				gameSubTypeInstructions.DisplayInfos[j].DisplayIndex = j;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubTypeData.Awake()).MethodHandle;
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-	}
-
-	public static GameSubTypeData Get()
-	{
-		return GameSubTypeData.s_instance;
-	}
-
 	[Serializable]
 	public class GameSubTypeInstructionDisplayInfo
 	{
@@ -146,7 +10,7 @@ public class GameSubTypeData : MonoBehaviour
 
 		public string[] IconResourceStrings;
 
-		[TextArea(3, 0xA)]
+		[TextArea(3, 10)]
 		public string TooltipString;
 
 		[HideInInspector]
@@ -155,21 +19,9 @@ public class GameSubTypeData : MonoBehaviour
 		[HideInInspector]
 		public int DisplayIndex;
 
-		public string HeaderStringLocalized
-		{
-			get
-			{
-				return StringUtil.TR_GetLoadingHeader(this.InstructionSetIndex, this.DisplayIndex);
-			}
-		}
+		public string HeaderStringLocalized => StringUtil.TR_GetLoadingHeader(InstructionSetIndex, DisplayIndex);
 
-		public string TooltipStringLocalized
-		{
-			get
-			{
-				return StringUtil.TR_GetLoadingTooltip(this.InstructionSetIndex, this.DisplayIndex);
-			}
-		}
+		public string TooltipStringLocalized => StringUtil.TR_GetLoadingTooltip(InstructionSetIndex, DisplayIndex);
 	}
 
 	[Serializable]
@@ -177,6 +29,145 @@ public class GameSubTypeData : MonoBehaviour
 	{
 		public GameSubType.GameLoadScreenInstructions InstructionType;
 
-		public GameSubTypeData.GameSubTypeInstructionDisplayInfo[] DisplayInfos;
+		public GameSubTypeInstructionDisplayInfo[] DisplayInfos;
+	}
+
+	public GameSubTypeInstructions[] Instructions;
+
+	private static GameSubTypeData s_instance;
+
+	public GameSubTypeInstructionDisplayInfo GetDisplayPanelInfo(int setIndex, int displayIndex)
+	{
+		GameSubTypeInstructions instructionSet = GetInstructionSet(setIndex);
+		if (instructionSet != null && -1 < displayIndex)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (displayIndex < instructionSet.DisplayInfos.Length)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						break;
+					default:
+						return instructionSet.DisplayInfos[displayIndex];
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	public GameSubTypeInstructions GetInstructionSet(int setIndex)
+	{
+		if (-1 < setIndex && setIndex < Instructions.Length)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return Instructions[setIndex];
+				}
+			}
+		}
+		return null;
+	}
+
+	public GameSubTypeInstructions GetInstructionSet(GameSubType.GameLoadScreenInstructions instructionType)
+	{
+		for (int i = 0; i < Instructions.Length; i++)
+		{
+			if (Instructions[i].InstructionType != instructionType)
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return Instructions[i];
+			}
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			return null;
+		}
+	}
+
+	private void Awake()
+	{
+		s_instance = this;
+		int num = 0;
+		while (num < Instructions.Length)
+		{
+			GameSubTypeInstructions gameSubTypeInstructions = Instructions[num];
+			for (int i = 0; i < gameSubTypeInstructions.DisplayInfos.Length; i++)
+			{
+				gameSubTypeInstructions.DisplayInfos[i].InstructionSetIndex = num;
+				gameSubTypeInstructions.DisplayInfos[i].DisplayIndex = i;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				num++;
+				goto IL_0059;
+			}
+			IL_0059:;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			default:
+				return;
+			case 0:
+				break;
+			}
+		}
+	}
+
+	public static GameSubTypeData Get()
+	{
+		return s_instance;
 	}
 }

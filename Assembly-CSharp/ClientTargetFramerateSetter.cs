@@ -1,33 +1,32 @@
-﻿using System;
 using UnityEngine;
 
 public class ClientTargetFramerateSetter : MonoBehaviour
 {
-	public int m_ingameMaxFramerate = 0x78;
+	public int m_ingameMaxFramerate = 120;
 
-	public int m_frontendMaxFramerate = 0x3C;
+	public int m_frontendMaxFramerate = 60;
 
-	public int m_backgroundInGameMaxFramerate = 0x3C;
+	public int m_backgroundInGameMaxFramerate = 60;
 
-	public int m_backgroundFrontendMaxFramerate = 0xA;
+	public int m_backgroundFrontendMaxFramerate = 10;
 
 	private bool m_isGameInBackground;
 
 	private void Start()
 	{
-		Application.targetFrameRate = this.m_frontendMaxFramerate;
+		Application.targetFrameRate = m_frontendMaxFramerate;
 	}
 
 	private void OnApplicationFocus(bool focusStatus)
 	{
-		this.m_isGameInBackground = !focusStatus;
+		m_isGameInBackground = !focusStatus;
 	}
 
 	private void Update()
 	{
-		if (this.m_isGameInBackground)
+		if (m_isGameInBackground)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -36,13 +35,13 @@ public class ClientTargetFramerateSetter : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientTargetFramerateSetter.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (AppState.IsInGame())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -51,45 +50,46 @@ public class ClientTargetFramerateSetter : MonoBehaviour
 					}
 					break;
 				}
-				Application.targetFrameRate = this.m_backgroundInGameMaxFramerate;
+				Application.targetFrameRate = m_backgroundInGameMaxFramerate;
 			}
 			else
 			{
-				Application.targetFrameRate = this.m_backgroundFrontendMaxFramerate;
+				Application.targetFrameRate = m_backgroundFrontendMaxFramerate;
 			}
 		}
 		else if (AppState.IsInGame())
 		{
-			Application.targetFrameRate = this.m_ingameMaxFramerate;
+			Application.targetFrameRate = m_ingameMaxFramerate;
 		}
 		else
 		{
-			Application.targetFrameRate = this.m_frontendMaxFramerate;
+			Application.targetFrameRate = m_frontendMaxFramerate;
 		}
-		if (HydrogenConfig.Get().TargetFrameRate >= 0)
+		if (HydrogenConfig.Get().TargetFrameRate < 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			if (Application.targetFrameRate > HydrogenConfig.Get().TargetFrameRate)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					Application.targetFrameRate = HydrogenConfig.Get().TargetFrameRate;
+					return;
 				}
-				Application.targetFrameRate = HydrogenConfig.Get().TargetFrameRate;
 			}
+			return;
 		}
 	}
 }

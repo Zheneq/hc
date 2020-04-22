@@ -1,9 +1,16 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class ThinCover : MonoBehaviour, IGameEventListener
 {
-	public ThinCover.CoverType m_coverType;
+	public enum CoverType
+	{
+		None,
+		Half,
+		Full
+	}
+
+	public CoverType m_coverType;
 
 	private void Awake()
 	{
@@ -17,178 +24,182 @@ public class ThinCover : MonoBehaviour, IGameEventListener
 
 	void IGameEventListener.OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType == GameEventManager.EventType.GameFlowDataStarted)
+		if (eventType != GameEventManager.EventType.GameFlowDataStarted)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThinCover.IGameEventListener.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (base.transform == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						Debug.LogError("ThinCover recieving GameFlowDataStarted game event, but its transform is null.");
+						return;
 					}
-					break;
 				}
-				Debug.LogError("ThinCover recieving GameFlowDataStarted game event, but its transform is null.");
 			}
-			else if (GameFlowData.Get() == null)
+			if (GameFlowData.Get() == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						Debug.LogError("ThinCover recieving GameFlowDataStarted game event, but GameFlowData is null.");
+						return;
 					}
-					break;
 				}
-				Debug.LogError("ThinCover recieving GameFlowDataStarted game event, but GameFlowData is null.");
 			}
-			else if (GameFlowData.Get().GetThinCoverRoot() == null)
+			if (GameFlowData.Get().GetThinCoverRoot() == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						Debug.LogError("ThinCover recieving GameFlowDataStarted game event, but GameFlowData's ThinCoverRoot is null.");
+						return;
 					}
-					break;
 				}
-				Debug.LogError("ThinCover recieving GameFlowDataStarted game event, but GameFlowData's ThinCoverRoot is null.");
 			}
-			else
+			try
 			{
-				try
-				{
-					base.transform.parent = GameFlowData.Get().GetThinCoverRoot().transform;
-					this.UpdateBoardSquare();
-				}
-				catch (NullReferenceException)
-				{
-					Debug.LogError("Caught System.NullReferenceException for ThinCover receiving GameFlowDataStarted game event.  Highly unexpected!");
-				}
+				base.transform.parent = GameFlowData.Get().GetThinCoverRoot().transform;
+				UpdateBoardSquare();
 			}
+			catch (NullReferenceException)
+			{
+				Debug.LogError("Caught System.NullReferenceException for ThinCover receiving GameFlowDataStarted game event.  Highly unexpected!");
+			}
+			return;
 		}
 	}
 
 	private void UpdateBoardSquare()
 	{
 		Vector3 position = base.transform.position;
-		float squareSize = Board.\u000E().squareSize;
+		float squareSize = Board.Get().squareSize;
 		float num = position.x / squareSize;
 		float num2 = position.z / squareSize;
 		int num3 = Mathf.RoundToInt(num);
 		int num4 = Mathf.RoundToInt(num2);
 		float num5 = num - (float)num3;
 		float num6 = num2 - (float)num4;
-		Board board = Board.\u000E();
+		Board board = Board.Get();
 		if (Mathf.Abs(num5) > Mathf.Abs(num6))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThinCover.UpdateBoardSquare()).MethodHandle;
-			}
-			if (num5 > 0f)
-			{
-				board.SetThinCover(num3, num4, ActorCover.CoverDirections.X_POS, this.m_coverType);
-				if (num4 + 1 < board.\u0012())
-				{
-					for (;;)
+					break;
+				default:
+					if (1 == 0)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					board.SetThinCover(num3 + 1, num4, ActorCover.CoverDirections.X_NEG, this.m_coverType);
-				}
-			}
-			else
-			{
-				board.SetThinCover(num3, num4, ActorCover.CoverDirections.X_NEG, this.m_coverType);
-				if (num3 - 1 >= 0)
-				{
-					for (;;)
+					if (num5 > 0f)
 					{
-						switch (2)
+						board.SetThinCover(num3, num4, ActorCover.CoverDirections.X_POS, m_coverType);
+						if (num4 + 1 < board.GetMaxY())
 						{
-						case 0:
-							continue;
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									break;
+								default:
+									board.SetThinCover(num3 + 1, num4, ActorCover.CoverDirections.X_NEG, m_coverType);
+									return;
+								}
+							}
 						}
-						break;
 					}
-					board.SetThinCover(num3 - 1, num4, ActorCover.CoverDirections.X_POS, this.m_coverType);
+					else
+					{
+						board.SetThinCover(num3, num4, ActorCover.CoverDirections.X_NEG, m_coverType);
+						if (num3 - 1 >= 0)
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									break;
+								default:
+									board.SetThinCover(num3 - 1, num4, ActorCover.CoverDirections.X_POS, m_coverType);
+									return;
+								}
+							}
+						}
+					}
+					return;
 				}
 			}
 		}
-		else if (num6 > 0f)
+		if (num6 > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			board.SetThinCover(num3, num4, ActorCover.CoverDirections.Y_POS, this.m_coverType);
-			if (num4 + 1 < board.\u0012())
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					board.SetThinCover(num3, num4, ActorCover.CoverDirections.Y_POS, m_coverType);
+					if (num4 + 1 < board.GetMaxY())
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								break;
+							default:
+								board.SetThinCover(num3, num4 + 1, ActorCover.CoverDirections.Y_NEG, m_coverType);
+								return;
+							}
+						}
+					}
+					return;
 				}
-				board.SetThinCover(num3, num4 + 1, ActorCover.CoverDirections.Y_NEG, this.m_coverType);
 			}
 		}
-		else
+		board.SetThinCover(num3, num4, ActorCover.CoverDirections.Y_NEG, m_coverType);
+		if (num4 - 1 < 0)
 		{
-			board.SetThinCover(num3, num4, ActorCover.CoverDirections.Y_NEG, this.m_coverType);
-			if (num4 - 1 >= 0)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				board.SetThinCover(num3, num4 - 1, ActorCover.CoverDirections.Y_POS, this.m_coverType);
+			case 0:
+				continue;
 			}
+			board.SetThinCover(num3, num4 - 1, ActorCover.CoverDirections.Y_POS, m_coverType);
+			return;
 		}
 	}
 
@@ -196,25 +207,25 @@ public class ThinCover : MonoBehaviour, IGameEventListener
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThinCover.OnDrawGizmos()).MethodHandle;
-			}
-			return;
 		}
 		Gizmos.matrix = Matrix4x4.TRS(base.transform.position, base.transform.localRotation, Vector3.one);
-		if (this.m_coverType == ThinCover.CoverType.Half)
+		if (m_coverType == CoverType.Half)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -230,7 +241,7 @@ public class ThinCover : MonoBehaviour, IGameEventListener
 			Gizmos.DrawWireCube(Vector3.zero, new Vector3(1.5f, 2f, 0.1f));
 		}
 		Gizmos.matrix = Matrix4x4.identity;
-		if (this.m_coverType == ThinCover.CoverType.Half)
+		if (m_coverType == CoverType.Half)
 		{
 			Gizmos.DrawIcon(base.transform.position, "icon_HalfCover.png");
 		}
@@ -238,12 +249,5 @@ public class ThinCover : MonoBehaviour, IGameEventListener
 		{
 			Gizmos.DrawIcon(base.transform.position, "icon_FullCover.png");
 		}
-	}
-
-	public enum CoverType
-	{
-		None,
-		Half,
-		Full
 	}
 }

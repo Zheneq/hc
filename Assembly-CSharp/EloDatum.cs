@@ -1,20 +1,28 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class EloDatum : ICloneable
 {
-	public EloDatum()
+	public float Elo
 	{
-		this.Elo = 1500f;
-		this.Count = 0;
+		get;
+		set;
 	}
 
-	public float Elo { get; set; }
+	public int Count
+	{
+		get;
+		set;
+	}
 
-	public int Count { get; set; }
+	public EloDatum()
+	{
+		Elo = 1500f;
+		Count = 0;
+	}
 
 	public object Clone()
 	{
-		return base.MemberwiseClone();
+		return MemberwiseClone();
 	}
 }

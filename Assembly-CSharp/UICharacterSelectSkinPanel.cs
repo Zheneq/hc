@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UICharacterSelectSkinPanel : ISkinBrowserSelectHandler
@@ -30,25 +29,26 @@ public class UICharacterSelectSkinPanel : ISkinBrowserSelectHandler
 	{
 		UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 		{
-			ClientSelectedCharacter = new CharacterType?(selectedCharacter.m_characterType),
-			ClientSelectedVisualInfo = new CharacterVisualInfo?(selectedVisualInfo)
+			ClientSelectedCharacter = selectedCharacter.m_characterType,
+			ClientSelectedVisualInfo = selectedVisualInfo
 		});
-		if (isUnlocked)
+		if (!isUnlocked)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectSkinPanel.OnSelect(UISkinBrowserPanel, CharacterResourceLink, CharacterVisualInfo, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_lastUnlockedData = selectedVisualInfo;
+			m_lastUnlockedData = selectedVisualInfo;
+			return;
 		}
 	}
 
@@ -59,52 +59,53 @@ public class UICharacterSelectSkinPanel : ISkinBrowserSelectHandler
 
 	public void OnDisabled(UISkinBrowserPanel browserPanel)
 	{
-		if (UICharacterScreen.GetCurrentSpecificState().ClientSelectedVisualInfo != null)
+		if (!UICharacterScreen.GetCurrentSpecificState().ClientSelectedVisualInfo.HasValue)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (GetCharacterVisualInfo().Equals(m_lastUnlockedData))
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectSkinPanel.OnDisabled(UISkinBrowserPanel)).MethodHandle;
-			}
-			if (!this.GetCharacterVisualInfo().Equals(this.m_lastUnlockedData))
-			{
-				for (;;)
+				browserPanel.Select(m_lastUnlockedData);
+				if (UICharacterSelectScreenController.Get().IsCharacterSelectable(GetSelectedCharacter()))
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				browserPanel.Select(this.m_lastUnlockedData);
-				if (UICharacterSelectScreenController.Get().IsCharacterSelectable(this.GetSelectedCharacter()))
-				{
-					UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(this.GetSelectedCharacter(), 0, string.Empty, this.m_lastUnlockedData, false, true);
+					UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(GetSelectedCharacter(), 0, string.Empty, m_lastUnlockedData, false, true);
 				}
 				else
 				{
-					UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(this.GetSelectedCharacter(), 0, string.Empty, default(CharacterVisualInfo), false, true);
+					UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(GetSelectedCharacter(), 0, string.Empty, default(CharacterVisualInfo), false, true);
 				}
+				return;
 			}
 		}
 	}
 
 	public void OnSkinClick(UISkinBrowserPanel browserPanel, CharacterResourceLink selectedCharacter, CharacterVisualInfo selectedVisualInfo, bool isUnlocked)
 	{
-		selectedVisualInfo = this.ValidateVisualInfo(selectedCharacter.m_characterType, selectedVisualInfo);
-		bool flag;
+		selectedVisualInfo = ValidateVisualInfo(selectedCharacter.m_characterType, selectedVisualInfo);
+		int num;
 		if (!selectedCharacter.HasAudioEventReplacements(selectedVisualInfo))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -113,51 +114,52 @@ public class UICharacterSelectSkinPanel : ISkinBrowserSelectHandler
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectSkinPanel.OnSkinClick(UISkinBrowserPanel, CharacterResourceLink, CharacterVisualInfo, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = (UIFrontEnd.GetVisibleCharacters() != null && selectedCharacter.HasAudioEventReplacements(UIFrontEnd.GetVisibleCharacters().CharacterVisualInfoInSlot(0)));
+			num = ((UIFrontEnd.GetVisibleCharacters() != null && selectedCharacter.HasAudioEventReplacements(UIFrontEnd.GetVisibleCharacters().CharacterVisualInfoInSlot(0))) ? 1 : 0);
 		}
 		else
 		{
-			flag = true;
+			num = 1;
 		}
-		bool playSelectionChatterCue = flag;
+		bool playSelectionChatterCue = (byte)num != 0;
 		UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(selectedCharacter, 0, string.Empty, selectedVisualInfo, false, playSelectionChatterCue);
-		if (isUnlocked)
+		if (!isUnlocked)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			AppState_CharacterSelect.Get().UpdateSelectedSkin(selectedVisualInfo);
+			return;
 		}
 	}
 
 	public void OnColorClick(UISkinBrowserPanel browserPanel, CharacterResourceLink selectedCharacter, CharacterVisualInfo selectedVisualInfo, bool isUnlocked)
 	{
-		selectedVisualInfo = this.ValidateVisualInfo(selectedCharacter.m_characterType, selectedVisualInfo);
+		selectedVisualInfo = ValidateVisualInfo(selectedCharacter.m_characterType, selectedVisualInfo);
 		UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(selectedCharacter, 0, string.Empty, selectedVisualInfo, false, false);
-		if (isUnlocked)
+		if (!isUnlocked)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectSkinPanel.OnColorClick(UISkinBrowserPanel, CharacterResourceLink, CharacterVisualInfo, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			int playerCharacterLevel = ClientGameManager.Get().GetPlayerCharacterLevel(selectedCharacter.m_characterType);
 			int requiredLevelForEquip = selectedCharacter.m_skins[selectedVisualInfo.skinIndex].m_patterns[selectedVisualInfo.patternIndex].m_colors[selectedVisualInfo.colorIndex].m_requiredLevelForEquip;
@@ -165,6 +167,7 @@ public class UICharacterSelectSkinPanel : ISkinBrowserSelectHandler
 			{
 				AppState_CharacterSelect.Get().UpdateSelectedSkin(selectedVisualInfo);
 			}
+			return;
 		}
 	}
 
@@ -172,39 +175,41 @@ public class UICharacterSelectSkinPanel : ISkinBrowserSelectHandler
 	{
 		if (GameManager.Get() == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return new CharacterVisualInfo(0, 0, 0);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectSkinPanel.ValidateVisualInfo(CharacterType, CharacterVisualInfo)).MethodHandle;
-			}
-			return new CharacterVisualInfo(0, 0, 0);
 		}
 		LobbyGameplayOverrides gameplayOverrides = GameManager.Get().GameplayOverrides;
 		if (!gameplayOverrides.IsColorAllowed(charType, visualInfo.skinIndex, visualInfo.patternIndex, visualInfo.colorIndex))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return new CharacterVisualInfo(0, 0, 0);
 				}
-				break;
 			}
-			return new CharacterVisualInfo(0, 0, 0);
 		}
 		GameBalanceVars.CharacterUnlockData characterUnlockData = GameBalanceVars.Get().GetCharacterUnlockData(charType);
+		bool flag2;
+		GameBalanceVars.ColorUnlockData colorUnlockData;
 		if (visualInfo.skinIndex < characterUnlockData.skinUnlockData.Length && visualInfo.patternIndex < characterUnlockData.skinUnlockData[visualInfo.skinIndex].patternUnlockData.Length)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -213,38 +218,25 @@ public class UICharacterSelectSkinPanel : ISkinBrowserSelectHandler
 				}
 				break;
 			}
-			if (visualInfo.colorIndex >= characterUnlockData.skinUnlockData[visualInfo.skinIndex].patternUnlockData[visualInfo.patternIndex].colorUnlockData.Length)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
+			if (visualInfo.colorIndex < characterUnlockData.skinUnlockData[visualInfo.skinIndex].patternUnlockData[visualInfo.patternIndex].colorUnlockData.Length)
 			{
 				if (gameplayOverrides.EnableHiddenCharacters)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						return visualInfo;
 					}
-					return visualInfo;
 				}
 				bool flag = false;
-				bool flag2 = false;
+				flag2 = false;
 				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -259,48 +251,23 @@ public class UICharacterSelectSkinPanel : ISkinBrowserSelectHandler
 				}
 				GameBalanceVars.SkinUnlockData skinUnlockData = characterUnlockData.skinUnlockData[visualInfo.skinIndex];
 				GameBalanceVars.PatternUnlockData patternUnlockData = skinUnlockData.patternUnlockData[visualInfo.patternIndex];
-				GameBalanceVars.ColorUnlockData colorUnlockData = patternUnlockData.colorUnlockData[visualInfo.colorIndex];
-				if (!flag)
+				colorUnlockData = patternUnlockData.colorUnlockData[visualInfo.colorIndex];
+				if (flag)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (skinUnlockData.m_isHidden)
-					{
-						goto IL_239;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!GameBalanceVarsExtensions.MeetsVisibilityConditions(skinUnlockData))
-					{
-						goto IL_239;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					goto IL_0204;
 				}
-				if (!flag2)
+				while (true)
 				{
-					for (;;)
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!skinUnlockData.m_isHidden)
+				{
+					while (true)
 					{
 						switch (2)
 						{
@@ -309,37 +276,76 @@ public class UICharacterSelectSkinPanel : ISkinBrowserSelectHandler
 						}
 						break;
 					}
-					if (colorUnlockData.m_isHidden)
+					if (GameBalanceVarsExtensions.MeetsVisibilityConditions(skinUnlockData))
 					{
-						goto IL_239;
-					}
-					for (;;)
-					{
-						switch (5)
+						while (true)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!GameBalanceVarsExtensions.MeetsVisibilityConditions(colorUnlockData))
-					{
-						for (;;)
-						{
-							switch (3)
+							switch (7)
 							{
 							case 0:
 								continue;
 							}
-							goto IL_239;
+							break;
 						}
+						goto IL_0204;
 					}
 				}
-				return visualInfo;
-				IL_239:
-				return new CharacterVisualInfo(0, 0, 0);
+				goto IL_0239;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
 			}
 		}
 		return new CharacterVisualInfo(0, 0, 0);
+		IL_0204:
+		if (!flag2)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!colorUnlockData.m_isHidden)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (GameBalanceVarsExtensions.MeetsVisibilityConditions(colorUnlockData))
+				{
+					goto IL_0242;
+				}
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			goto IL_0239;
+		}
+		goto IL_0242;
+		IL_0239:
+		return new CharacterVisualInfo(0, 0, 0);
+		IL_0242:
+		return visualInfo;
 	}
 }

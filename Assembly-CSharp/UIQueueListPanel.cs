@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,6 +6,15 @@ using UnityEngine.UI;
 
 public class UIQueueListPanel : MonoBehaviour
 {
+	public enum UIPhase
+	{
+		Prep,
+		Evasion,
+		Combat,
+		Movement,
+		None
+	}
+
 	public Button m_CancelAllButton;
 
 	public Image m_CancelAllHover;
@@ -49,12 +57,12 @@ public class UIQueueListPanel : MonoBehaviour
 
 	private float m_colorDistance;
 
-	public static UIQueueListPanel.UIPhase GetUIPhaseFromAbilityPriority(AbilityPriority priority)
+	public static UIPhase GetUIPhaseFromAbilityPriority(AbilityPriority priority)
 	{
-		UIQueueListPanel.UIPhase result = UIQueueListPanel.UIPhase.None;
-		if (priority != AbilityPriority.Prep_Defense)
+		UIPhase result = UIPhase.None;
+		if (priority != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -63,15 +71,15 @@ public class UIQueueListPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.GetUIPhaseFromAbilityPriority(AbilityPriority)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (priority != AbilityPriority.Prep_Offense)
 			{
 				if (priority == AbilityPriority.Evasion)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -80,46 +88,24 @@ public class UIQueueListPanel : MonoBehaviour
 						}
 						break;
 					}
-					return UIQueueListPanel.UIPhase.Evasion;
+					result = UIPhase.Evasion;
 				}
-				if (priority != AbilityPriority.Combat_Damage)
+				else
 				{
-					for (;;)
+					if (priority != AbilityPriority.Combat_Damage)
 					{
-						switch (5)
+						while (true)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (priority != AbilityPriority.DEPRICATED_Combat_Charge)
-					{
-						for (;;)
-						{
-							switch (2)
+							switch (5)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						if (priority != AbilityPriority.Combat_Knockback)
+						if (priority != AbilityPriority.DEPRICATED_Combat_Charge)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (priority != AbilityPriority.Combat_Final)
-							{
-								return result;
-							}
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -128,39 +114,67 @@ public class UIQueueListPanel : MonoBehaviour
 								}
 								break;
 							}
+							if (priority != AbilityPriority.Combat_Knockback)
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (priority != AbilityPriority.Combat_Final)
+								{
+									goto IL_006c;
+								}
+								while (true)
+								{
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
 						}
 					}
+					result = UIPhase.Combat;
 				}
-				return UIQueueListPanel.UIPhase.Combat;
+				goto IL_006c;
 			}
 		}
-		result = UIQueueListPanel.UIPhase.Prep;
+		result = UIPhase.Prep;
+		goto IL_006c;
+		IL_006c:
 		return result;
 	}
 
 	private void SetQueueLineColor(Color c)
 	{
-		Color color = this.m_queueLabel.color;
+		Color color = m_queueLabel.color;
 		color.r = c.r;
 		color.g = c.g;
 		color.b = c.b;
-		this.m_queueLabel.color = color;
-		this.queueLabelColor = c;
+		m_queueLabel.color = color;
+		queueLabelColor = c;
 	}
 
 	private void SetQueueLineOpacity(float f)
 	{
-		Color color = this.m_queueLabel.color;
+		Color color = m_queueLabel.color;
 		color.a = f;
-		this.m_queueLabel.color = color;
-		this.queueLabelOpacity = f;
+		m_queueLabel.color = color;
+		queueLabelOpacity = f;
 	}
 
 	private void Start()
 	{
-		if (this.m_CancelAllButton != null)
+		if (m_CancelAllButton != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -169,17 +183,17 @@ public class UIQueueListPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIEventTriggerUtils.AddListener(this.m_CancelAllButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnCancelAllClick));
-			UIEventTriggerUtils.AddListener(this.m_CancelAllButton.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnCancelAllMouseEnter));
-			UIEventTriggerUtils.AddListener(this.m_CancelAllButton.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.OnCancelAllMouseExit));
+			UIEventTriggerUtils.AddListener(m_CancelAllButton.gameObject, EventTriggerType.PointerClick, OnCancelAllClick);
+			UIEventTriggerUtils.AddListener(m_CancelAllButton.gameObject, EventTriggerType.PointerEnter, OnCancelAllMouseEnter);
+			UIEventTriggerUtils.AddListener(m_CancelAllButton.gameObject, EventTriggerType.PointerExit, OnCancelAllMouseExit);
 		}
-		if (this.m_CancelAllHover != null)
+		if (m_CancelAllHover != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -188,37 +202,37 @@ public class UIQueueListPanel : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_CancelAllHover, false, null);
+			UIManager.SetGameObjectActive(m_CancelAllHover, false);
 		}
-		this.DoneQueueFadeAnim();
-		this.SetQueueLineColor(this.m_labelColor);
+		DoneQueueFadeAnim();
+		SetQueueLineColor(m_labelColor);
 	}
 
 	public void NotifyDecisionTimerShow()
 	{
-		this.OnCancelAllClick(null);
+		OnCancelAllClick(null);
 	}
 
 	public void OnCancelAllClick(BaseEventData data)
 	{
-		if (GameFlowData.Get().IsInDecisionState())
+		if (!GameFlowData.Get().IsInDecisionState())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.OnCancelAllClick(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -229,17 +243,16 @@ public class UIQueueListPanel : MonoBehaviour
 				}
 				AbilityData component = GameFlowData.Get().activeOwnedActorData.GetComponent<AbilityData>();
 				ActorTurnSM component2 = component.GetComponent<ActorTurnSM>();
-				for (int i = 0; i < 0xE; i++)
+				for (int i = 0; i < 14; i++)
 				{
 					AbilityData.ActionType actionType = (AbilityData.ActionType)i;
-					bool flag = component.HasQueuedAction(actionType);
-					if (flag)
+					if (component.HasQueuedAction(actionType))
 					{
 						HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.RemovedAbility(actionType);
 						component2.RequestCancelAction(actionType, false);
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -251,242 +264,163 @@ public class UIQueueListPanel : MonoBehaviour
 				component2.RequestCancelMovement();
 			}
 			HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.RefreshQueueList();
+			return;
 		}
 	}
 
 	public void OnCancelAllMouseEnter(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_CancelAllHover, true, null);
+		UIManager.SetGameObjectActive(m_CancelAllHover, true);
 	}
 
 	public void OnCancelAllMouseExit(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_CancelAllHover, false, null);
+		UIManager.SetGameObjectActive(m_CancelAllHover, false);
 	}
 
 	private void AddMovementToQueue()
 	{
 		for (int i = 0; i < 6; i++)
 		{
-			if (!this.m_queuedActions[i].IsActiveQueued())
+			if (m_queuedActions[i].IsActiveQueued())
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (4)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.AddMovementToQueue()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_queuedActions[i].SetUpMovement(this.m_clickCancelled);
-				this.m_movementQueueIndex = i;
-				this.m_movementQueueIndexToChangeTo = i;
-				this.m_changedDisplay = true;
+				m_queuedActions[i].SetUpMovement(m_clickCancelled);
+				m_movementQueueIndex = i;
+				m_movementQueueIndexToChangeTo = i;
+				m_changedDisplay = true;
 				return;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			return;
 		}
 	}
 
 	private void RemoveMovementFromQueue()
 	{
-		for (int i = 0; i < 6; i++)
+		int num = 0;
+		while (true)
 		{
-			if (this.m_queuedActions[i].IsMovement())
+			if (num < 6)
 			{
-				for (;;)
+				if (m_queuedActions[num].IsMovement())
 				{
-					switch (5)
+					break;
+				}
+				num++;
+				continue;
+			}
+			return;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			int num2;
+			if (num != 5)
+			{
+				while (true)
+				{
+					switch (3)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.RemoveMovementFromQueue()).MethodHandle;
-				}
-				bool flag;
-				if (i != 5)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag = !this.m_queuedActions[i + 1].IsActiveQueued();
-				}
-				else
-				{
-					flag = true;
-				}
-				bool flag2 = flag;
-				if (!flag2)
-				{
-					this.m_abilityListRefreshed = true;
-				}
-				this.m_abilityCancelRequested = true;
-				this.m_queuedActions[i].ClearAction(flag2, !flag2);
-				this.m_changedDisplay = true;
-				break;
+				num2 = ((!m_queuedActions[num + 1].IsActiveQueued()) ? 1 : 0);
 			}
+			else
+			{
+				num2 = 1;
+			}
+			bool flag = (byte)num2 != 0;
+			if (!flag)
+			{
+				m_abilityListRefreshed = true;
+			}
+			m_abilityCancelRequested = true;
+			m_queuedActions[num].ClearAction(flag, !flag);
+			m_changedDisplay = true;
+			return;
 		}
 	}
 
 	private void UpdateQueuedMovement()
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		if (activeOwnedActorData != null)
+		if (!(activeOwnedActorData != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.UpdateQueuedMovement()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (activeOwnedActorData.HasQueuedMovement())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!this.m_isMovementQueued)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					this.AddMovementToQueue();
-				}
-				this.m_isMovementQueued = true;
-			}
-			else
-			{
-				if (this.m_isMovementQueued)
-				{
-					for (;;)
-					{
-						switch (7)
+					default:
+						if (!m_isMovementQueued)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.RemoveMovementFromQueue();
-				}
-				this.m_isMovementQueued = false;
-			}
-		}
-	}
-
-	public void RemovedAbility(AbilityData.ActionType actionType)
-	{
-		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		if (activeOwnedActorData != null)
-		{
-			AbilityData abilityData = activeOwnedActorData.\u000E();
-			List<AbilityData.AbilityEntry> queuedOrAimingAbilities = abilityData.GetQueuedOrAimingAbilities();
-			for (int i = 0; i < queuedOrAimingAbilities.Count; i++)
-			{
-				if (abilityData.GetActionTypeOfAbility(queuedOrAimingAbilities[i].ability) == actionType)
-				{
-					if (this.m_isMovementQueued)
-					{
-						for (;;)
-						{
-							switch (2)
+							while (true)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.RemovedAbility(AbilityData.ActionType)).MethodHandle;
-						}
-						if (i < this.m_movementQueueIndex)
-						{
-							for (;;)
-							{
-								switch (7)
+								switch (4)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							this.m_movementQueueIndexToChangeTo = this.m_movementQueueIndex - 1;
+							AddMovementToQueue();
 						}
+						m_isMovementQueued = true;
+						return;
 					}
-					break;
 				}
 			}
-		}
-		this.m_changedDisplay = true;
-	}
-
-	public void NotifyLockedIn(bool isLockedIn)
-	{
-		for (int i = 0; i < 6; i++)
-		{
-			this.m_queuedActions[i].NotifyLockedIn(isLockedIn);
-		}
-		this.m_lockedIn = isLockedIn;
-		this.m_colorchangeStartTime = Time.time;
-		if (this.m_lockedIn)
-		{
-			this.m_colorDistance = Vector3.Distance(new Vector3(this.queueLabelColor.r, this.queueLabelColor.g, this.queueLabelColor.b), Vector3.one);
-		}
-		else
-		{
-			this.m_colorDistance = Vector3.Distance(new Vector3(this.queueLabelColor.r, this.queueLabelColor.g, this.queueLabelColor.b), new Vector3(this.m_labelColor.r, this.m_labelColor.g, this.m_labelColor.b));
-		}
-	}
-
-	public void SelectedTaunt(AbilityData.ActionType entry)
-	{
-		for (int i = 0; i < 6; i++)
-		{
-			if (this.m_queuedActions[i].IsActiveQueued())
+			if (m_isMovementQueued)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -495,25 +429,115 @@ public class UIQueueListPanel : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				RemoveMovementFromQueue();
+			}
+			m_isMovementQueued = false;
+			return;
+		}
+	}
+
+	public void RemovedAbility(AbilityData.ActionType actionType)
+	{
+		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+		if (activeOwnedActorData != null)
+		{
+			AbilityData abilityData = activeOwnedActorData.GetAbilityData();
+			List<AbilityData.AbilityEntry> queuedOrAimingAbilities = abilityData.GetQueuedOrAimingAbilities();
+			for (int i = 0; i < queuedOrAimingAbilities.Count; i++)
+			{
+				if (abilityData.GetActionTypeOfAbility(queuedOrAimingAbilities[i].ability) != actionType)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.SelectedTaunt(AbilityData.ActionType)).MethodHandle;
+					continue;
 				}
-				if (this.m_queuedActions[i].GetActionType() == entry)
+				if (!m_isMovementQueued)
 				{
-					this.m_queuedActions[i].EnabledCancelTauntButton(true);
+					break;
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (i < m_movementQueueIndex)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_movementQueueIndexToChangeTo = m_movementQueueIndex - 1;
+				}
+				break;
+			}
+		}
+		m_changedDisplay = true;
+	}
+
+	public void NotifyLockedIn(bool isLockedIn)
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			m_queuedActions[i].NotifyLockedIn(isLockedIn);
+		}
+		m_lockedIn = isLockedIn;
+		m_colorchangeStartTime = Time.time;
+		if (m_lockedIn)
+		{
+			m_colorDistance = Vector3.Distance(new Vector3(queueLabelColor.r, queueLabelColor.g, queueLabelColor.b), Vector3.one);
+		}
+		else
+		{
+			m_colorDistance = Vector3.Distance(new Vector3(queueLabelColor.r, queueLabelColor.g, queueLabelColor.b), new Vector3(m_labelColor.r, m_labelColor.g, m_labelColor.b));
+		}
+	}
+
+	public void SelectedTaunt(AbilityData.ActionType entry)
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			if (m_queuedActions[i].IsActiveQueued())
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (m_queuedActions[i].GetActionType() == entry)
+				{
+					m_queuedActions[i].EnabledCancelTauntButton(true);
 					return;
 				}
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			return;
 		}
 	}
 
@@ -521,11 +545,11 @@ public class UIQueueListPanel : MonoBehaviour
 	{
 		for (int i = 0; i < 6; i++)
 		{
-			this.m_queuedActions[i].ClearAction(true, this.m_clickCancelled);
+			m_queuedActions[i].ClearAction(true, m_clickCancelled);
 		}
-		if (this.m_isMovementQueued)
+		if (m_isMovementQueued)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -534,44 +558,44 @@ public class UIQueueListPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.RefreshQueueList()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_queuedActions[this.m_movementQueueIndex].SetUpMovement(this.m_clickCancelled);
+			m_queuedActions[m_movementQueueIndex].SetUpMovement(m_clickCancelled);
 		}
-		this.m_clickCancelled = false;
-		this.m_abilityListRefreshed = true;
-		this.m_changedDisplay = true;
+		m_clickCancelled = false;
+		m_abilityListRefreshed = true;
+		m_changedDisplay = true;
 	}
 
 	private void UpdateQueuedAbilities()
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		if (activeOwnedActorData != null)
+		if (!(activeOwnedActorData != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.UpdateQueuedAbilities()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityData abilityData = activeOwnedActorData.\u000E();
+			AbilityData abilityData = activeOwnedActorData.GetAbilityData();
 			List<AbilityData.AbilityEntry> list = new List<AbilityData.AbilityEntry>();
 			int num = 0;
-			List<AbilityData.ActionType> autoQueuedRequestActionTypes = activeOwnedActorData.\u000E().GetAutoQueuedRequestActionTypes();
+			List<AbilityData.ActionType> autoQueuedRequestActionTypes = activeOwnedActorData.GetActorTurnSM().GetAutoQueuedRequestActionTypes();
 			for (int i = 0; i < autoQueuedRequestActionTypes.Count; i++)
 			{
 				if (abilityData.GetAbilityEntryOfActionType(autoQueuedRequestActionTypes[i]) != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -584,63 +608,47 @@ public class UIQueueListPanel : MonoBehaviour
 				}
 				num++;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.\u000E().GetRequestStackForUndo();
-			for (int j = 0; j < requestStackForUndo.Count; j++)
-			{
-				if (abilityData.GetAbilityEntryOfActionType(requestStackForUndo[j].m_action) != null)
+				List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.GetActorTurnSM().GetRequestStackForUndo();
+				for (int j = 0; j < requestStackForUndo.Count; j++)
 				{
-					list.Add(abilityData.GetAbilityEntryOfActionType(requestStackForUndo[j].m_action));
-				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			int num2 = 0;
-			for (int k = 0; k < 6; k++)
-			{
-				if (this.m_queuedActions[k].IsMovement())
-				{
-					for (;;)
+					if (abilityData.GetAbilityEntryOfActionType(requestStackForUndo[j].m_action) != null)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						list.Add(abilityData.GetAbilityEntryOfActionType(requestStackForUndo[j].m_action));
 					}
 				}
-				else
+				while (true)
 				{
-					if (num2 < list.Count)
+					switch (7)
 					{
-						for (;;)
+					case 0:
+						continue;
+					}
+					int num2 = 0;
+					for (int k = 0; k < 6; k++)
+					{
+						if (m_queuedActions[k].IsMovement())
 						{
-							switch (1)
+							while (true)
 							{
-							case 0:
-								continue;
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
 							}
-							break;
+							continue;
 						}
-						if (this.m_queuedActions[k].GetQueuedAbility() != null)
+						if (num2 < list.Count)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -649,96 +657,106 @@ public class UIQueueListPanel : MonoBehaviour
 								}
 								break;
 							}
-							if (this.m_queuedActions[k].GetQueuedAbility().ability == list[num2].ability)
+							if (m_queuedActions[k].GetQueuedAbility() != null)
 							{
-								for (;;)
+								while (true)
 								{
-									switch (6)
+									switch (1)
 									{
 									case 0:
 										continue;
 									}
 									break;
 								}
-								num2++;
-								goto IL_2FC;
+								if (m_queuedActions[k].GetQueuedAbility().ability == list[num2].ability)
+								{
+									while (true)
+									{
+										switch (6)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									num2++;
+									continue;
+								}
 							}
 						}
-					}
-					if (num2 < list.Count)
-					{
-						if (this.m_queuedActions[k].GetQueuedAbility() == null)
+						if (num2 < list.Count)
 						{
-							goto IL_211;
-						}
-						for (;;)
-						{
-							switch (2)
+							if (m_queuedActions[k].GetQueuedAbility() != null)
 							{
-							case 0:
-								continue;
+								while (true)
+								{
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (!(m_queuedActions[k].GetQueuedAbility().ability != list[num2].ability))
+								{
+									if (m_queuedActions[k].GetQueuedAbility().ability != list[num2].ability)
+									{
+										while (true)
+										{
+											switch (6)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										m_queuedActions[k].ClearAction(true, m_abilityListRefreshed);
+										m_changedDisplay = true;
+									}
+									continue;
+								}
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
 							}
-							break;
+							m_queuedActions[k].SetupAbility(list[num2], abilityData.GetActionTypeOfAbility(list[num2].ability), abilityData, m_abilityListRefreshed);
+							m_queuedActions[k].m_abilityTransform.m_canCancel = (num2 >= num);
+							num2++;
+							m_changedDisplay = true;
 						}
-						if (this.m_queuedActions[k].GetQueuedAbility().ability != list[num2].ability)
+						else if (m_queuedActions[k].IsActiveQueued())
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
 								case 0:
 									continue;
 								}
-								goto IL_211;
-							}
-						}
-						else if (this.m_queuedActions[k].GetQueuedAbility().ability != list[num2].ability)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
 								break;
 							}
-							this.m_queuedActions[k].ClearAction(true, this.m_abilityListRefreshed);
-							this.m_changedDisplay = true;
+							m_changedDisplay = true;
+							m_queuedActions[k].ClearAction(true, m_abilityListRefreshed);
 						}
-						goto IL_2FC;
-						IL_211:
-						this.m_queuedActions[k].SetupAbility(list[num2], abilityData.GetActionTypeOfAbility(list[num2].ability), abilityData, this.m_abilityListRefreshed);
-						this.m_queuedActions[k].m_abilityTransform.m_canCancel = (num2 >= num);
-						num2++;
-						this.m_changedDisplay = true;
 					}
-					else if (this.m_queuedActions[k].IsActiveQueued())
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_changedDisplay = true;
-						this.m_queuedActions[k].ClearAction(true, this.m_abilityListRefreshed);
-					}
+					m_abilityListRefreshed = false;
+					return;
 				}
-				IL_2FC:;
 			}
-			this.m_abilityListRefreshed = false;
 		}
 	}
 
 	private void ProcessQueuedAbilities()
 	{
-		if (!this.m_abilityCancelRequested)
+		if (!m_abilityCancelRequested)
 		{
-			this.UpdateQueuedAbilities();
+			UpdateQueuedAbilities();
 		}
 	}
 
@@ -747,26 +765,27 @@ public class UIQueueListPanel : MonoBehaviour
 		bool doActive = false;
 		for (int i = 0; i < 6; i++)
 		{
-			if (this.m_queuedActions[i].IsActiveQueued())
+			if (m_queuedActions[i].IsActiveQueued())
 			{
 				doActive = true;
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_queueLabel, doActive, null);
+		UIManager.SetGameObjectActive(m_queueLabel, doActive);
 	}
 
 	public void JustClickCancelled()
 	{
-		this.m_clickCancelled = true;
+		m_clickCancelled = true;
 	}
 
 	public void AbilityCancelAnimDone()
 	{
-		this.m_abilityCancelRequested = false;
-		this.m_abilityListRefreshed = true;
-		if (this.m_movementQueueIndexToChangeTo != this.m_movementQueueIndex)
+		m_abilityCancelRequested = false;
+		m_abilityListRefreshed = true;
+		bool flag;
+		if (m_movementQueueIndexToChangeTo != m_movementQueueIndex)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -775,18 +794,18 @@ public class UIQueueListPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.AbilityCancelAnimDone()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_queuedActions[this.m_movementQueueIndex].ClearAction(false, true);
-			this.m_queuedActions[this.m_movementQueueIndex].SetCardTransformVisible(false);
-			this.m_queuedActions[this.m_movementQueueIndex].SetAbilityTransformVisible(false);
-			this.m_queuedActions[this.m_movementQueueIndexToChangeTo].SetUpMovement(true);
-			bool flag = false;
-			if (this.m_movementQueueIndexToChangeTo != this.m_queuedActions.Length - 1)
+			m_queuedActions[m_movementQueueIndex].ClearAction(false, true);
+			m_queuedActions[m_movementQueueIndex].SetCardTransformVisible(false);
+			m_queuedActions[m_movementQueueIndex].SetAbilityTransformVisible(false);
+			m_queuedActions[m_movementQueueIndexToChangeTo].SetUpMovement(true);
+			flag = false;
+			if (m_movementQueueIndexToChangeTo != m_queuedActions.Length - 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -795,11 +814,11 @@ public class UIQueueListPanel : MonoBehaviour
 					}
 					break;
 				}
-				if (this.m_queuedActions[this.m_movementQueueIndexToChangeTo + 1].IsActiveQueued())
+				if (m_queuedActions[m_movementQueueIndexToChangeTo + 1].IsActiveQueued())
 				{
-					goto IL_C1;
+					goto IL_00c1;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -810,216 +829,49 @@ public class UIQueueListPanel : MonoBehaviour
 				}
 			}
 			flag = true;
-			IL_C1:
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_queuedActions[this.m_movementQueueIndexToChangeTo].SetGlow(true);
-			}
-			this.m_movementQueueIndex = this.m_movementQueueIndexToChangeTo;
+			goto IL_00c1;
 		}
-		this.SetCancelAnimPlaying(false);
-	}
-
-	public bool IsAnimCancelPlaying()
-	{
-		return this.m_cancelAnimationPlaying;
-	}
-
-	public void SetCancelAnimPlaying(bool isPlaying)
-	{
-		this.m_cancelAnimationPlaying = isPlaying;
-	}
-
-	public void CancelAbilityRequest(AbilityData.ActionType actionType)
-	{
-		for (int i = 0; i < 6; i++)
+		goto IL_00ed;
+		IL_00c1:
+		if (flag)
 		{
-			this.m_queuedActions[i].SetGlow(false);
-			if (this.m_queuedActions[i].IsActiveQueued())
+			while (true)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.CancelAbilityRequest(AbilityData.ActionType)).MethodHandle;
-				}
-				if (this.m_queuedActions[i].GetActionType() == actionType)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_queuedActions[i].m_animationController.Play("QueueItem_LeaveQueue");
-					this.SetCancelAnimPlaying(true);
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.RemovedAbility(actionType);
-		this.m_abilityCancelRequested = true;
-	}
-
-	private void Update()
-	{
-		if (GameFlowData.Get() != null && GameFlowData.Get().IsInDecisionState())
-		{
-			for (;;)
-			{
-				switch (5)
+				switch (1)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.Update()).MethodHandle;
-			}
-			if (this.m_changedDisplay)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_changedDisplay = false;
-				bool flag = false;
-				int num = 0;
-				for (int i = 0; i < 6; i++)
-				{
-					this.m_queuedActions[i].SetGlow(false);
-					if (this.m_queuedActions[i].IsActiveQueued())
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (i != num + 1)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (i == 0)
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-							else
-							{
-								if (!this.m_cancelAnimationPlaying)
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.m_queuedActions[i].ClearAction();
-									goto IL_C5;
-								}
-								goto IL_C5;
-							}
-						}
-						flag = true;
-						num = i;
-					}
-					IL_C5:;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_queuedActions[num].SetGlow(true);
-				if (!flag)
-				{
-					this.m_animationController.Play("QueuePanel_EmptyQueue");
-					this.m_labelVisible = false;
-					this.queueLabelOpacity = 1f;
-					this.m_cancelAnimationPlaying = false;
-				}
-				else if (!this.m_queueLabel.gameObject.activeSelf)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIManager.SetGameObjectActive(this.m_queueLabel, true, null);
-					this.queueLabelOpacity = 0f;
-					this.m_labelVisible = true;
-					this.m_animationController.Play("QueuePanel_FirstQueue");
-				}
-			}
-			this.UpdateQueuedMovement();
-			this.ProcessQueuedAbilities();
+			m_queuedActions[m_movementQueueIndexToChangeTo].SetGlow(true);
 		}
-		if (this.m_labelVisible)
+		m_movementQueueIndex = m_movementQueueIndexToChangeTo;
+		goto IL_00ed;
+		IL_00ed:
+		SetCancelAnimPlaying(false);
+	}
+
+	public bool IsAnimCancelPlaying()
+	{
+		return m_cancelAnimationPlaying;
+	}
+
+	public void SetCancelAnimPlaying(bool isPlaying)
+	{
+		m_cancelAnimationPlaying = isPlaying;
+	}
+
+	public void CancelAbilityRequest(AbilityData.ActionType actionType)
+	{
+		for (int i = 0; i < 6; i++)
 		{
-			for (;;)
+			m_queuedActions[i].SetGlow(false);
+			if (!m_queuedActions[i].IsActiveQueued())
+			{
+				continue;
+			}
+			while (true)
 			{
 				switch (7)
 				{
@@ -1028,68 +880,229 @@ public class UIQueueListPanel : MonoBehaviour
 				}
 				break;
 			}
-			this.SetQueueLineOpacity(this.queueLabelOpacity + Time.deltaTime);
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_queuedActions[i].GetActionType() == actionType)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_queuedActions[i].m_animationController.Play("QueueItem_LeaveQueue");
+				SetCancelAnimPlaying(true);
+			}
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			RemovedAbility(actionType);
+			m_abilityCancelRequested = true;
+			return;
+		}
+	}
+
+	private void Update()
+	{
+		if (GameFlowData.Get() != null && GameFlowData.Get().IsInDecisionState())
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_changedDisplay)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_changedDisplay = false;
+				bool flag = false;
+				int num = 0;
+				for (int i = 0; i < 6; i++)
+				{
+					m_queuedActions[i].SetGlow(false);
+					if (!m_queuedActions[i].IsActiveQueued())
+					{
+						continue;
+					}
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (i != num + 1)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (i != 0)
+						{
+							if (!m_cancelAnimationPlaying)
+							{
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								m_queuedActions[i].ClearAction();
+							}
+							continue;
+						}
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+					flag = true;
+					num = i;
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_queuedActions[num].SetGlow(true);
+				if (!flag)
+				{
+					m_animationController.Play("QueuePanel_EmptyQueue");
+					m_labelVisible = false;
+					queueLabelOpacity = 1f;
+					m_cancelAnimationPlaying = false;
+				}
+				else if (!m_queueLabel.gameObject.activeSelf)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					UIManager.SetGameObjectActive(m_queueLabel, true);
+					queueLabelOpacity = 0f;
+					m_labelVisible = true;
+					m_animationController.Play("QueuePanel_FirstQueue");
+				}
+			}
+			UpdateQueuedMovement();
+			ProcessQueuedAbilities();
+		}
+		if (m_labelVisible)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			SetQueueLineOpacity(queueLabelOpacity + Time.deltaTime);
 		}
 		else
 		{
-			this.SetQueueLineOpacity(this.queueLabelOpacity - Time.deltaTime);
+			SetQueueLineOpacity(queueLabelOpacity - Time.deltaTime);
 		}
-		if (this.m_lockedIn)
+		if (m_lockedIn)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (m_colorDistance != 0f)
+					{
+						Vector3 a = new Vector3(queueLabelColor.r, queueLabelColor.g, queueLabelColor.b);
+						float num2 = Time.time - m_colorchangeStartTime;
+						float t = num2 / m_colorDistance;
+						a = Vector3.Lerp(a, Vector3.one, t);
+						queueLabelColor.r = a.x;
+						queueLabelColor.g = a.y;
+						queueLabelColor.b = a.z;
+						SetQueueLineColor(queueLabelColor);
+					}
+					return;
 				}
-				break;
-			}
-			if (this.m_colorDistance != 0f)
-			{
-				Vector3 a = new Vector3(this.queueLabelColor.r, this.queueLabelColor.g, this.queueLabelColor.b);
-				float num2 = Time.time - this.m_colorchangeStartTime;
-				float t = num2 / this.m_colorDistance;
-				a = Vector3.Lerp(a, Vector3.one, t);
-				this.queueLabelColor.r = a.x;
-				this.queueLabelColor.g = a.y;
-				this.queueLabelColor.b = a.z;
-				this.SetQueueLineColor(this.queueLabelColor);
 			}
 		}
-		else if (this.m_colorDistance != 0f)
+		if (m_colorDistance == 0f)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			Vector3 a2 = new Vector3(this.queueLabelColor.r, this.queueLabelColor.g, this.queueLabelColor.b);
-			float num3 = Time.time - this.m_colorchangeStartTime;
-			float t2 = num3 / this.m_colorDistance;
-			a2 = Vector3.Lerp(a2, new Vector3(this.m_labelColor.r, this.m_labelColor.g, this.m_labelColor.b), t2);
-			this.queueLabelColor.r = a2.x;
-			this.queueLabelColor.g = a2.y;
-			this.queueLabelColor.b = a2.z;
-			this.SetQueueLineColor(this.queueLabelColor);
+			Vector3 a2 = new Vector3(queueLabelColor.r, queueLabelColor.g, queueLabelColor.b);
+			float num3 = Time.time - m_colorchangeStartTime;
+			float t2 = num3 / m_colorDistance;
+			a2 = Vector3.Lerp(a2, new Vector3(m_labelColor.r, m_labelColor.g, m_labelColor.b), t2);
+			queueLabelColor.r = a2.x;
+			queueLabelColor.g = a2.y;
+			queueLabelColor.b = a2.z;
+			SetQueueLineColor(queueLabelColor);
+			return;
 		}
 	}
 
 	private void OnEnable()
 	{
-		this.Update();
-	}
-
-	public enum UIPhase
-	{
-		Prep,
-		Evasion,
-		Combat,
-		Movement,
-		None
+		Update();
 	}
 }

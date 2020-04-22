@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class StorePanelData
@@ -9,7 +9,7 @@ public class StorePanelData
 
 	public StorePanelData(UIStoreBaseInventoryPanel panel, UIStoreSideNavButton button)
 	{
-		this.Panel = panel;
-		this.Button = button;
+		Panel = panel;
+		Button = button;
 	}
 }

@@ -1,13 +1,11 @@
-﻿using System;
-
 namespace AbilityContextNamespace
 {
 	public enum TeamFilter
 	{
-		\u001D,
-		\u000E,
-		\u0012,
-		\u0015,
-		\u0016
+		_001D,
+		_000E,
+		_0012,
+		_0015,
+		_0016
 	}
 }

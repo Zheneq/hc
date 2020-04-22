@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -18,30 +18,24 @@ public class LobbyPlayerGroupInfo
 
 	public List<UpdateGroupMemberData> Members;
 
+	public LobbyCharacterInfo ChararacterInfo => m_ChararacterInfo;
+
 	public LobbyPlayerGroupInfo()
 	{
-		this.SelectedQueueType = GameType.PvP;
+		SelectedQueueType = GameType.PvP;
 	}
 
 	public LobbyPlayerGroupInfo Clone()
 	{
-		return (LobbyPlayerGroupInfo)base.MemberwiseClone();
-	}
-
-	public LobbyCharacterInfo ChararacterInfo
-	{
-		get
-		{
-			return this.m_ChararacterInfo;
-		}
+		return (LobbyPlayerGroupInfo)MemberwiseClone();
 	}
 
 	public void SetCharacterInfo(LobbyCharacterInfo newInfo, bool isFromServerResponse = false)
 	{
-		bool flag;
-		if (this.m_ChararacterInfo != null)
+		int num;
+		if (m_ChararacterInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -50,46 +44,47 @@ public class LobbyPlayerGroupInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerGroupInfo.SetCharacterInfo(LobbyCharacterInfo, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = (this.m_ChararacterInfo.CharacterType != newInfo.CharacterType);
+			num = ((m_ChararacterInfo.CharacterType != newInfo.CharacterType) ? 1 : 0);
 		}
 		else
 		{
-			flag = true;
+			num = 1;
 		}
-		bool switchedChars = flag;
-		this.m_ChararacterInfo = newInfo;
+		bool switchedChars = (byte)num != 0;
+		m_ChararacterInfo = newInfo;
 		UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 		{
-			ClientSelectedVisualInfo = new CharacterVisualInfo?(this.m_ChararacterInfo.CharacterSkin)
+			ClientSelectedVisualInfo = m_ChararacterInfo.CharacterSkin
 		});
-		if (AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
+		if (!(AppState.GetCurrent() == AppState_GroupCharacterSelect.Get()))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			if (UICharacterSelectScreenController.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					UICharacterSelectScreenController.Get().QuickPlayUpdateCharacters(GameManager.Get().GameplayOverrides, switchedChars, isFromServerResponse);
+					return;
 				}
-				UICharacterSelectScreenController.Get().QuickPlayUpdateCharacters(GameManager.Get().GameplayOverrides, switchedChars, isFromServerResponse);
 			}
+			return;
 		}
 	}
 }

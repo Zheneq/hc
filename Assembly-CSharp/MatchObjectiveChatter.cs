@@ -1,16 +1,24 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
 public class MatchObjectiveChatter : ScriptableObject, IChatterData
 {
+	public enum MatchObjectiveType
+	{
+		SelfPickedUpCoin,
+		SelfPickedUpFlag,
+		TeamCapturedControlPoint,
+		SelfPickedUpCase
+	}
+
 	public ChatterData m_baseData = new ChatterData();
 
-	public MatchObjectiveChatter.MatchObjectiveType m_matchObjective;
+	public MatchObjectiveType m_matchObjective;
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_baseData;
+		return m_baseData;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()
@@ -22,31 +30,30 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 	{
 		if (!ChatterData.ShouldPlayChatter(this, eventType, args, component))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return false;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchObjectiveChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
-			return false;
 		}
 		GameEventManager.MatchObjectiveEventArgs matchObjectiveEventArgs = args as GameEventManager.MatchObjectiveEventArgs;
 		if (matchObjectiveEventArgs == null)
 		{
-			Log.Error("Missing args for Match Objective game event.", new object[0]);
+			Log.Error("Missing args for Match Objective game event.");
 			return false;
 		}
 		ActorData component2 = component.gameObject.GetComponent<ActorData>();
-		if (this.m_matchObjective == MatchObjectiveChatter.MatchObjectiveType.SelfPickedUpCoin)
+		if (m_matchObjective == MatchObjectiveType.SelfPickedUpCoin)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -57,7 +64,7 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 			}
 			if (matchObjectiveEventArgs.objective == GameEventManager.MatchObjectiveEventArgs.ObjectiveType.CoinCollected)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -68,14 +75,14 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 				}
 				if (!(matchObjectiveEventArgs.activatingActor != component2))
 				{
-					return true;
+					goto IL_013c;
 				}
 			}
 			return false;
 		}
-		if (this.m_matchObjective == MatchObjectiveChatter.MatchObjectiveType.SelfPickedUpFlag)
+		if (m_matchObjective == MatchObjectiveType.SelfPickedUpFlag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -86,7 +93,7 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 			}
 			if (matchObjectiveEventArgs.objective == GameEventManager.MatchObjectiveEventArgs.ObjectiveType.FlagPickedUp_Client)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -97,9 +104,9 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 				}
 				if (!(matchObjectiveEventArgs.activatingActor != component2))
 				{
-					return true;
+					goto IL_013c;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -111,11 +118,11 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 			}
 			return false;
 		}
-		if (this.m_matchObjective == MatchObjectiveChatter.MatchObjectiveType.TeamCapturedControlPoint)
+		if (m_matchObjective == MatchObjectiveType.TeamCapturedControlPoint)
 		{
 			if (matchObjectiveEventArgs.objective == GameEventManager.MatchObjectiveEventArgs.ObjectiveType.ControlPointCaptured)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -124,11 +131,11 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 					}
 					break;
 				}
-				if (matchObjectiveEventArgs.team == component2.\u000E())
+				if (matchObjectiveEventArgs.team == component2.GetTeam())
 				{
-					return true;
+					goto IL_013c;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -140,9 +147,9 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 			}
 			return false;
 		}
-		if (this.m_matchObjective == MatchObjectiveChatter.MatchObjectiveType.SelfPickedUpCase)
+		if (m_matchObjective == MatchObjectiveType.SelfPickedUpCase)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -153,7 +160,7 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 			}
 			if (matchObjectiveEventArgs.objective == GameEventManager.MatchObjectiveEventArgs.ObjectiveType.CasePickedUp_Client)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -164,19 +171,13 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 				}
 				if (!(matchObjectiveEventArgs.activatingActor != component2))
 				{
-					return true;
+					goto IL_013c;
 				}
 			}
 			return false;
 		}
+		goto IL_013c;
+		IL_013c:
 		return true;
-	}
-
-	public enum MatchObjectiveType
-	{
-		SelfPickedUpCoin,
-		SelfPickedUpFlag,
-		TeamCapturedControlPoint,
-		SelfPickedUpCase
 	}
 }

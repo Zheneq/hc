@@ -1,10 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
 using Fabric;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ChatterManager : MonoBehaviour
 {
+	private struct SubmittedChatter
+	{
+		public IChatterData chatter;
+
+		public GameObject source;
+
+		public float calculatedPriority;
+
+		public float timeSubmitted;
+
+		public bool errorPrintCompleted;
+	}
+
 	private static ChatterManager s_instance;
 
 	[Tooltip("The amount of time to delay after one chatter finishes playing before new chatter submissions will be accepted.")]
@@ -20,7 +32,7 @@ public class ChatterManager : MonoBehaviour
 
 	private bool m_enableChatter = true;
 
-	private List<ChatterManager.SubmittedChatter> m_submittedChatter = new List<ChatterManager.SubmittedChatter>();
+	private List<SubmittedChatter> m_submittedChatter = new List<SubmittedChatter>();
 
 	private IChatterData m_currentlyPlayingChatter;
 
@@ -44,38 +56,38 @@ public class ChatterManager : MonoBehaviour
 
 	private const string c_rejectChatterDebugHeader = "<color=red>Rejecting chatter: </color>";
 
-	public static ChatterManager Get()
-	{
-		return ChatterManager.s_instance;
-	}
-
 	public bool EnableChatter
 	{
 		get
 		{
-			return this.m_enableChatter;
+			return m_enableChatter;
 		}
 		set
 		{
-			this.m_enableChatter = value;
+			m_enableChatter = value;
 		}
+	}
+
+	public static ChatterManager Get()
+	{
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		ChatterManager.s_instance = this;
+		s_instance = this;
 	}
 
 	private void OnDestroy()
 	{
-		ChatterManager.s_instance = null;
+		s_instance = null;
 	}
 
 	private void Update()
 	{
-		if (this.m_currentCooldownSec > 0f)
+		if (m_currentCooldownSec > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -84,16 +96,16 @@ public class ChatterManager : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ChatterManager.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_currentCooldownSec -= Time.deltaTime;
+			m_currentCooldownSec -= Time.deltaTime;
 		}
-		this.m_currentIntervalSec += Time.deltaTime;
-		if (this.m_currentlyPlayingChatter != null)
+		m_currentIntervalSec += Time.deltaTime;
+		if (m_currentlyPlayingChatter != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -102,10 +114,10 @@ public class ChatterManager : MonoBehaviour
 				}
 				break;
 			}
-			this.m_timeSinceLastChatterStart += Time.deltaTime;
-			if (this.m_timeSinceLastChatterStart > 20f)
+			m_timeSinceLastChatterStart += Time.deltaTime;
+			if (m_timeSinceLastChatterStart > 20f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -114,12 +126,12 @@ public class ChatterManager : MonoBehaviour
 					}
 					break;
 				}
-				this.ChatterDebugLog(string.Format("Current Chatter has been cleared - timeout has been exceeded waiting for an end event for audio event [{0}].", this.m_currentlyPlayingChatter.GetCommonData().m_audioEvent));
-				this.m_currentlyPlayingChatter = null;
-				this.m_currentlyPlayingChatterTarget = null;
-				if (this.m_chatterCooldownSec > 0f)
+				ChatterDebugLog($"Current Chatter has been cleared - timeout has been exceeded waiting for an end event for audio event [{m_currentlyPlayingChatter.GetCommonData().m_audioEvent}].");
+				m_currentlyPlayingChatter = null;
+				m_currentlyPlayingChatterTarget = null;
+				if (m_chatterCooldownSec > 0f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -128,113 +140,113 @@ public class ChatterManager : MonoBehaviour
 						}
 						break;
 					}
-					this.m_currentCooldownSec = this.m_chatterCooldownSec;
+					m_currentCooldownSec = m_chatterCooldownSec;
 				}
 			}
 		}
-		if (this.m_currentIntervalSec >= this.m_submissionIntervalSec && this.m_currentlyPlayingChatter == null)
+		if (!(m_currentIntervalSec >= m_submissionIntervalSec) || m_currentlyPlayingChatter != null)
 		{
-			this.m_currentIntervalSec %= this.m_submissionIntervalSec;
-			if (this.m_conversation != null)
+			return;
+		}
+		m_currentIntervalSec %= m_submissionIntervalSec;
+		if (m_conversation != null)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (1)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
+				case 0:
 					break;
-				}
-				this.PlayChatter(new ChatterManager.SubmittedChatter
-				{
-					chatter = new ChatterDataStub(this.m_conversation.m_lines[this.m_conversationIndex].m_line),
-					source = GameFlowData.Get().activeOwnedActorData.gameObject,
-					calculatedPriority = 1000f,
-					timeSubmitted = Time.time
-				});
-				this.m_conversationIndex++;
-				if (this.m_conversation.m_lines.Length <= this.m_conversationIndex)
-				{
-					for (;;)
+				default:
+					PlayChatter(new SubmittedChatter
 					{
-						switch (5)
+						chatter = new ChatterDataStub(m_conversation.m_lines[m_conversationIndex].m_line),
+						source = GameFlowData.Get().activeOwnedActorData.gameObject,
+						calculatedPriority = 1000f,
+						timeSubmitted = Time.time
+					});
+					m_conversationIndex++;
+					if (m_conversation.m_lines.Length <= m_conversationIndex)
+					{
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
-						break;
+						m_conversation = null;
+						m_conversationIndex = 0;
 					}
-					this.m_conversation = null;
-					this.m_conversationIndex = 0;
+					m_submittedChatter.Clear();
+					return;
 				}
-				this.m_submittedChatter.Clear();
 			}
-			else if (this.m_submittedChatter.Count > 0)
+		}
+		if (m_submittedChatter.Count <= 0)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (Time.time - this.m_submittedChatter[0].timeSubmitted >= this.m_submittedChatter[0].chatter.GetCommonData().m_chatterDelay)
-				{
-					this.m_submittedChatter.Sort((ChatterManager.SubmittedChatter a, ChatterManager.SubmittedChatter b) => -a.calculatedPriority.CompareTo(b.calculatedPriority));
-					this.PlayChatter(this.m_submittedChatter[0]);
-					this.m_submittedChatter.Clear();
-				}
+			case 0:
+				continue;
 			}
+			float time = Time.time;
+			SubmittedChatter submittedChatter = m_submittedChatter[0];
+			float num = time - submittedChatter.timeSubmitted;
+			SubmittedChatter submittedChatter2 = m_submittedChatter[0];
+			if (num >= submittedChatter2.chatter.GetCommonData().m_chatterDelay)
+			{
+				m_submittedChatter.Sort((SubmittedChatter a, SubmittedChatter b) => -a.calculatedPriority.CompareTo(b.calculatedPriority));
+				PlayChatter(m_submittedChatter[0]);
+				m_submittedChatter.Clear();
+			}
+			return;
 		}
 	}
 
 	public void SubmitChatter(IChatterData chatter, GameObject source)
 	{
-		if (this.m_currentlyPlayingChatter != null)
+		if (m_currentlyPlayingChatter != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					ChatterDebugLog("<color=red>Rejecting chatter: </color>" + chatter.GetCommonData().m_audioEvent + " due to existing chatter " + m_currentlyPlayingChatter.GetCommonData().m_audioEvent + " still playing");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ChatterManager.SubmitChatter(IChatterData, GameObject)).MethodHandle;
-			}
-			this.ChatterDebugLog(string.Concat(new string[]
-			{
-				"<color=red>Rejecting chatter: </color>",
-				chatter.GetCommonData().m_audioEvent,
-				" due to existing chatter ",
-				this.m_currentlyPlayingChatter.GetCommonData().m_audioEvent,
-				" still playing"
-			}));
-			return;
 		}
-		if (this.m_currentCooldownSec > 0f)
+		if (m_currentCooldownSec > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					ChatterDebugLog("<color=red>Rejecting chatter: </color>" + chatter.GetCommonData().m_audioEvent + " due to global chatter cooldown");
+					return;
 				}
-				break;
 			}
-			this.ChatterDebugLog("<color=red>Rejecting chatter: </color>" + chatter.GetCommonData().m_audioEvent + " due to global chatter cooldown");
-			return;
 		}
-		if (this.m_chatterAvailability.ContainsKey(chatter.GetCommonData().m_audioEvent))
+		if (m_chatterAvailability.ContainsKey(chatter.GetCommonData().m_audioEvent))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -243,15 +255,15 @@ public class ChatterManager : MonoBehaviour
 				}
 				break;
 			}
-			if (this.m_chatterAvailability[chatter.GetCommonData().m_audioEvent] > Time.time)
+			if (m_chatterAvailability[chatter.GetCommonData().m_audioEvent] > Time.time)
 			{
-				this.ChatterDebugLog("<color=red>Rejecting chatter: </color>" + chatter.GetCommonData().m_audioEvent + " due to individual chatter cooldown");
+				ChatterDebugLog("<color=red>Rejecting chatter: </color>" + chatter.GetCommonData().m_audioEvent + " due to individual chatter cooldown");
 				return;
 			}
 		}
-		if (this.m_chatterGroupAvailability.ContainsKey(chatter.GetCommonData().m_globalChatterGroup))
+		if (m_chatterGroupAvailability.ContainsKey(chatter.GetCommonData().m_globalChatterGroup))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -260,26 +272,26 @@ public class ChatterManager : MonoBehaviour
 				}
 				break;
 			}
-			if (this.m_chatterGroupAvailability[chatter.GetCommonData().m_globalChatterGroup] > Time.time)
+			if (m_chatterGroupAvailability[chatter.GetCommonData().m_globalChatterGroup] > Time.time)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						ChatterDebugLog("<color=red>Rejecting chatter: </color>" + chatter.GetCommonData().m_audioEvent + " due to group chatter cooldown");
+						return;
 					}
-					break;
 				}
-				this.ChatterDebugLog("<color=red>Rejecting chatter: </color>" + chatter.GetCommonData().m_audioEvent + " due to group chatter cooldown");
-				return;
 			}
 		}
-		this.ChatterDebugLog("<color=yellow>Submitted chatter: </color>" + chatter.GetCommonData().m_audioEvent);
-		float num = (float)chatter.GetCommonData().m_priority;
-		if (GameFlowData.Get())
+		ChatterDebugLog("<color=yellow>Submitted chatter: </color>" + chatter.GetCommonData().m_audioEvent);
+		float num = chatter.GetCommonData().m_priority;
+		if ((bool)GameFlowData.Get())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -290,7 +302,7 @@ public class ChatterManager : MonoBehaviour
 			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -301,11 +313,11 @@ public class ChatterManager : MonoBehaviour
 				}
 				if (GameFlowData.Get().activeOwnedActorData == source)
 				{
-					num *= this.m_localActorPriorityMultiplier;
+					num *= m_localActorPriorityMultiplier;
 				}
 			}
 		}
-		this.m_submittedChatter.Add(new ChatterManager.SubmittedChatter
+		m_submittedChatter.Add(new SubmittedChatter
 		{
 			chatter = chatter,
 			source = source,
@@ -316,42 +328,43 @@ public class ChatterManager : MonoBehaviour
 
 	public void SubmitConversation(ConversationTemplate conversation)
 	{
-		this.m_conversation = conversation;
-		this.m_conversationIndex = 0;
+		m_conversation = conversation;
+		m_conversationIndex = 0;
 	}
 
 	public void CancelActiveChatter()
 	{
-		this.m_submittedChatter.Clear();
-		if (this.m_currentlyPlayingChatter != null)
+		m_submittedChatter.Clear();
+		if (m_currentlyPlayingChatter == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ChatterManager.CancelActiveChatter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.PostChatterEvent(this.m_currentlyPlayingChatterTarget, this.m_currentlyPlayingChatter.GetCommonData().m_audioEvent, this.m_currentlyPlayingChatter, AudioManager.EventAction.StopSound);
+			PostChatterEvent(m_currentlyPlayingChatterTarget, m_currentlyPlayingChatter.GetCommonData().m_audioEvent, m_currentlyPlayingChatter, AudioManager.EventAction.StopSound);
+			return;
 		}
 	}
 
 	public void ForceCancelActiveChatter()
 	{
-		this.m_currentlyPlayingChatter = null;
+		m_currentlyPlayingChatter = null;
 	}
 
-	private void PlayChatter(ChatterManager.SubmittedChatter submission)
+	private void PlayChatter(SubmittedChatter submission)
 	{
 		if (Options_UI.Get().GetChatterEnabled())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -360,13 +373,13 @@ public class ChatterManager : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ChatterManager.PlayChatter(ChatterManager.SubmittedChatter)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.EnableChatter)
+			if (EnableChatter)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -379,7 +392,7 @@ public class ChatterManager : MonoBehaviour
 				string audioEventOverride = commonData.GetAudioEventOverride();
 				if (string.IsNullOrEmpty(audioEventOverride))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -388,16 +401,10 @@ public class ChatterManager : MonoBehaviour
 						}
 						break;
 					}
-					this.ChatterDebugLog(string.Concat(new object[]
+					ChatterDebugLog("<color=white>Playing chatter: </color>" + commonData.m_audioEvent + ", priority " + submission.calculatedPriority);
+					if (Random.Range(0f, 1f) > commonData.m_pctRatioVOToEmote)
 					{
-						"<color=white>Playing chatter: </color>",
-						commonData.m_audioEvent,
-						", priority ",
-						submission.calculatedPriority
-					}));
-					if (UnityEngine.Random.Range(0f, 1f) > commonData.m_pctRatioVOToEmote)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -406,29 +413,21 @@ public class ChatterManager : MonoBehaviour
 							}
 							break;
 						}
-						this.PostChatterEvent(submission.source.gameObject, commonData.m_audioEventEmote, submission.chatter, AudioManager.EventAction.PlaySound);
+						PostChatterEvent(submission.source.gameObject, commonData.m_audioEventEmote, submission.chatter);
 					}
 					else
 					{
-						this.PostChatterEvent(submission.source.gameObject, commonData.m_audioEvent, submission.chatter, AudioManager.EventAction.PlaySound);
+						PostChatterEvent(submission.source.gameObject, commonData.m_audioEvent, submission.chatter);
 					}
 				}
 				else
 				{
-					this.ChatterDebugLog(string.Concat(new object[]
-					{
-						"<color=white>Playing chatter: </color>",
-						commonData.m_audioEvent,
-						", with override: ",
-						audioEventOverride,
-						", priority ",
-						submission.calculatedPriority
-					}));
-					this.PostChatterEvent(submission.source.gameObject, audioEventOverride, submission.chatter, AudioManager.EventAction.PlaySound);
+					ChatterDebugLog("<color=white>Playing chatter: </color>" + commonData.m_audioEvent + ", with override: " + audioEventOverride + ", priority " + submission.calculatedPriority);
+					PostChatterEvent(submission.source.gameObject, audioEventOverride, submission.chatter);
 				}
 				if (commonData.m_cooldownTimeSeconds > 0f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -437,11 +436,11 @@ public class ChatterManager : MonoBehaviour
 						}
 						break;
 					}
-					this.m_chatterAvailability[commonData.m_audioEvent] = Time.time + commonData.m_cooldownTimeSeconds;
+					m_chatterAvailability[commonData.m_audioEvent] = Time.time + commonData.m_cooldownTimeSeconds;
 				}
-				if (commonData.m_globalChatterGroup != ChatterData.ChatterGroup.None)
+				if (commonData.m_globalChatterGroup != 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -450,18 +449,18 @@ public class ChatterManager : MonoBehaviour
 						}
 						break;
 					}
-					this.m_chatterGroupAvailability[commonData.m_globalChatterGroup] = Time.time + commonData.m_cooldownTimeSeconds;
+					m_chatterGroupAvailability[commonData.m_globalChatterGroup] = Time.time + commonData.m_cooldownTimeSeconds;
 				}
-				this.m_timeSinceLastChatterStart = 0f;
+				m_timeSinceLastChatterStart = 0f;
 				commonData.OnPlay();
-				this.m_currentlyPlayingChatter = submission.chatter;
-				this.m_currentlyPlayingChatterTarget = submission.source.gameObject;
-				goto IL_274;
+				m_currentlyPlayingChatter = submission.chatter;
+				m_currentlyPlayingChatterTarget = submission.source.gameObject;
+				goto IL_0274;
 			}
 		}
 		if (!submission.errorPrintCompleted)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -471,86 +470,85 @@ public class ChatterManager : MonoBehaviour
 				break;
 			}
 			submission.errorPrintCompleted = true;
-			this.ChatterDebugLog(string.Concat(new string[]
-			{
-				"Wanted to play chatter: ",
-				submission.chatter.GetCommonData().m_audioEvent,
-				" but the UI (state: ",
-				Options_UI.Get().ActiveStateName,
-				") has chatter disabled"
-			}));
+			ChatterDebugLog("Wanted to play chatter: " + submission.chatter.GetCommonData().m_audioEvent + " but the UI (state: " + Options_UI.Get().ActiveStateName + ") has chatter disabled");
 		}
-		IL_274:
-		using (Dictionary<string, float>.Enumerator enumerator = this.m_chatterAvailability.GetEnumerator())
+		goto IL_0274;
+		IL_0274:
+		using (Dictionary<string, float>.Enumerator enumerator = m_chatterAvailability.GetEnumerator())
 		{
-			while (enumerator.MoveNext())
+			while (true)
 			{
-				KeyValuePair<string, float> keyValuePair = enumerator.Current;
-				if (keyValuePair.Value <= Time.time)
+				if (!enumerator.MoveNext())
 				{
-					for (;;)
+					while (true)
 					{
-						switch (7)
+						switch (3)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					this.m_chatterAvailability.Remove(keyValuePair.Key);
-					goto IL_2E4;
+					break;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
+				KeyValuePair<string, float> current = enumerator.Current;
+				if (current.Value <= Time.time)
 				{
-				case 0:
-					continue;
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							break;
+						default:
+							m_chatterAvailability.Remove(current.Key);
+							goto end_IL_0282;
+						}
+					}
 				}
-				break;
 			}
+			end_IL_0282:;
 		}
-		IL_2E4:
-		if (this.m_chatterGroupAvailability.Count > 0)
+		if (m_chatterGroupAvailability.Count <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			using (Dictionary<ChatterData.ChatterGroup, float>.Enumerator enumerator2 = this.m_chatterGroupAvailability.GetEnumerator())
+			using (Dictionary<ChatterData.ChatterGroup, float>.Enumerator enumerator2 = m_chatterGroupAvailability.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
 				{
-					KeyValuePair<ChatterData.ChatterGroup, float> keyValuePair2 = enumerator2.Current;
-					if (keyValuePair2.Value <= Time.time)
+					KeyValuePair<ChatterData.ChatterGroup, float> current2 = enumerator2.Current;
+					if (current2.Value <= Time.time)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								m_chatterGroupAvailability.Remove(current2.Key);
+								return;
 							}
-							break;
 						}
-						this.m_chatterGroupAvailability.Remove(keyValuePair2.Key);
-						return;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}
@@ -560,7 +558,7 @@ public class ChatterManager : MonoBehaviour
 	{
 		return delegate(EventNotificationType type, string eventName, object info, GameObject gameObject)
 		{
-			this.OnFabricEventNotify(type, eventName, info, gameObject, chatterHandle);
+			OnFabricEventNotify(type, eventName, info, gameObject, chatterHandle);
 		};
 	}
 
@@ -568,41 +566,41 @@ public class ChatterManager : MonoBehaviour
 	{
 		if (!target)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					AudioManager.PostEventNotify(eventName, GenerateNotifyCallback(chatterHandle), target);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ChatterManager.PostChatterEvent(GameObject, string, IChatterData, AudioManager.EventAction)).MethodHandle;
-			}
-			AudioManager.PostEventNotify(eventName, this.GenerateNotifyCallback(chatterHandle), target);
-			return;
 		}
 		ActorData component = target.GetComponent<ActorData>();
-		if (component)
+		if ((bool)component)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					component.PostAudioEvent(eventName, GenerateNotifyCallback(chatterHandle), action);
+					return;
 				}
-				break;
 			}
-			component.PostAudioEvent(eventName, this.GenerateNotifyCallback(chatterHandle), action);
-			return;
 		}
 		ChatterComponent component2 = target.GetComponent<ChatterComponent>();
-		if (component2 && UIFrontEnd.GetVisibleCharacters())
+		if ((bool)component2 && (bool)UIFrontEnd.GetVisibleCharacters())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -613,118 +611,99 @@ public class ChatterManager : MonoBehaviour
 			}
 			if (component2.GetCharacterResourceLink() == UIFrontEnd.GetVisibleCharacters().CharacterResourceLinkInSlot(0))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				string text = UIFrontEnd.GetVisibleCharacters().CharacterResourceLinkInSlot(0).ReplaceAudioEvent(eventName, UICharacterSelectWorldObjects.Get().CharacterVisualInfoInSlot(0));
-				if (text != eventName)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						string text = UIFrontEnd.GetVisibleCharacters().CharacterResourceLinkInSlot(0).ReplaceAudioEvent(eventName, UICharacterSelectWorldObjects.Get().CharacterVisualInfoInSlot(0));
+						if (text != eventName)
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+						AudioManager.PostEventNotify(text, GenerateNotifyCallback(chatterHandle), base.gameObject);
+						return;
+					}
 					}
 				}
-				AudioManager.PostEventNotify(text, this.GenerateNotifyCallback(chatterHandle), base.gameObject);
-				return;
 			}
 		}
-		Log.Warning("Unknown chatter event source {0} while playing chatter {1}", new object[]
-		{
-			target,
-			eventName
-		});
+		Log.Warning("Unknown chatter event source {0} while playing chatter {1}", target, eventName);
 	}
 
 	private void OnFabricEventNotify(EventNotificationType type, string eventName, object info, GameObject gameObject, IChatterData chatterHandle)
 	{
-		if (type == EventNotificationType.OnFinished)
+		if (type != 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (chatterHandle != m_currentlyPlayingChatter)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ChatterManager.OnFabricEventNotify(EventNotificationType, string, object, GameObject, IChatterData)).MethodHandle;
-			}
-			if (chatterHandle == this.m_currentlyPlayingChatter)
-			{
-				for (;;)
+				ChatterDebugLog("Received finished callback from Fabric.");
+				m_currentlyPlayingChatter = null;
+				m_currentlyPlayingChatterTarget = null;
+				if (m_chatterCooldownSec > 0f)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_currentCooldownSec = m_chatterCooldownSec;
 				}
-				this.ChatterDebugLog("Received finished callback from Fabric.");
-				this.m_currentlyPlayingChatter = null;
-				this.m_currentlyPlayingChatterTarget = null;
-				if (this.m_chatterCooldownSec > 0f)
-				{
-					this.m_currentCooldownSec = this.m_chatterCooldownSec;
-				}
+				return;
 			}
 		}
 	}
 
 	private void ChatterDebugLog(string logStr)
 	{
-		if (Application.isEditor && ActorDebugUtils.Get() != null)
+		if (!Application.isEditor || !(ActorDebugUtils.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ChatterManager.ChatterDebugLog(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (ActorDebugUtils.Get().ShowingCategory(ActorDebugUtils.DebugCategory.Chatter, false))
 			{
-				Log.Warning(Log.Category.ChatterAudio, string.Concat(new object[]
-				{
-					"<color=orange>Chatter:</color> ",
-					logStr,
-					" @time ",
-					Time.time
-				}), new object[0]);
+				Log.Warning(Log.Category.ChatterAudio, "<color=orange>Chatter:</color> " + logStr + " @time " + Time.time);
 			}
+			return;
 		}
-	}
-
-	private struct SubmittedChatter
-	{
-		public IChatterData chatter;
-
-		public GameObject source;
-
-		public float calculatedPriority;
-
-		public float timeSubmitted;
-
-		public bool errorPrintCompleted;
 	}
 }

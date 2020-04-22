@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class TargetSelectMod_Cone : TargetSelectModBase
@@ -12,7 +12,7 @@ public class TargetSelectMod_Cone : TargetSelectModBase
 		TargetSelect_Cone targetSelect_Cone = targetSelectBase as TargetSelect_Cone;
 		if (targetSelect_Cone != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -21,11 +21,11 @@ public class TargetSelectMod_Cone : TargetSelectModBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelectMod_Cone.GetModSpecificInEditorDesc(GenericAbility_TargetSelectBase, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text += AbilityModHelper.GetModPropertyDesc(this.m_coneInfoMod, "[ConeInfo]", true, targetSelect_Cone.m_coneInfo);
+			text += AbilityModHelper.GetModPropertyDesc(m_coneInfoMod, "[ConeInfo]", true, targetSelect_Cone.m_coneInfo);
 		}
 		return text;
 	}

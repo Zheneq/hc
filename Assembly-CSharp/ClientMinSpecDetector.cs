@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -10,13 +10,13 @@ public class ClientMinSpecDetector : MonoBehaviour
 	public byte m_minProcessors = 4;
 
 	[Tooltip("TODO Test 3, 2, 1 GB")]
-	public short m_min_RAM_MB = 0xC00;
+	public short m_min_RAM_MB = 3072;
 
 	[Tooltip("In available not total MB. TODO test at 512MB to get 84% of PC Unity player install base for 2015.")]
-	public short m_min_GPU_MB = 0x200;
+	public short m_min_GPU_MB = 512;
 
 	[Tooltip("Use 30 for 3.0, which most of our shaders need, and the vast majority of Unity PC users have")]
-	public byte m_minGPUShaderVersion = 0x1E;
+	public byte m_minGPUShaderVersion = 30;
 
 	[Tooltip("Required for Fog of War, and lots of other image effects")]
 	public bool m_requireImageEffects = true;
@@ -28,7 +28,11 @@ public class ClientMinSpecDetector : MonoBehaviour
 
 	private const string c_windowsPrefixLower = "windows";
 
-	internal static bool BelowMinSpecDetected { get; private set; }
+	internal static bool BelowMinSpecDetected
+	{
+		get;
+		private set;
+	}
 
 	private void Awake()
 	{
@@ -36,9 +40,9 @@ public class ClientMinSpecDetector : MonoBehaviour
 		{
 			StringBuilder stringBuilder = new StringBuilder("Below Min Spec: ");
 			int length = stringBuilder.Length;
-			if (SystemInfo.processorCount < (int)this.m_minProcessors)
+			if (SystemInfo.processorCount < m_minProcessors)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -47,19 +51,19 @@ public class ClientMinSpecDetector : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMinSpecDetector.Awake()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				stringBuilder.Append("CPUs: ");
 				stringBuilder.Append(SystemInfo.processorCount);
 				stringBuilder.Append("/");
-				stringBuilder.Append(this.m_minProcessors);
+				stringBuilder.Append(m_minProcessors);
 				stringBuilder.Append(", ");
 			}
-			if (SystemInfo.systemMemorySize < (int)this.m_min_RAM_MB)
+			if (SystemInfo.systemMemorySize < m_min_RAM_MB)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -71,12 +75,12 @@ public class ClientMinSpecDetector : MonoBehaviour
 				stringBuilder.Append("RAM (MB): ");
 				stringBuilder.Append(SystemInfo.systemMemorySize);
 				stringBuilder.Append("/");
-				stringBuilder.Append(this.m_min_RAM_MB);
+				stringBuilder.Append(m_min_RAM_MB);
 				stringBuilder.Append(", ");
 			}
-			if (SystemInfo.graphicsMemorySize < (int)this.m_min_GPU_MB)
+			if (SystemInfo.graphicsMemorySize < m_min_GPU_MB)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -88,20 +92,20 @@ public class ClientMinSpecDetector : MonoBehaviour
 				stringBuilder.Append("VRAM (MB): ");
 				stringBuilder.Append(SystemInfo.graphicsMemorySize);
 				stringBuilder.Append("/");
-				stringBuilder.Append(this.m_min_GPU_MB);
+				stringBuilder.Append(m_min_GPU_MB);
 				stringBuilder.Append(", ");
 			}
-			if (SystemInfo.graphicsShaderLevel < (int)this.m_minGPUShaderVersion)
+			if (SystemInfo.graphicsShaderLevel < m_minGPUShaderVersion)
 			{
 				stringBuilder.Append("Shader Lvl: ");
 				stringBuilder.Append(SystemInfo.graphicsShaderLevel);
 				stringBuilder.Append("/");
-				stringBuilder.Append(this.m_minGPUShaderVersion);
+				stringBuilder.Append(m_minGPUShaderVersion);
 				stringBuilder.Append(", ");
 			}
-			if (this.m_requireImageEffects)
+			if (m_requireImageEffects)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -112,7 +116,7 @@ public class ClientMinSpecDetector : MonoBehaviour
 				}
 				if (!SystemInfo.supportsImageEffects)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -124,9 +128,9 @@ public class ClientMinSpecDetector : MonoBehaviour
 					stringBuilder.Append("Image effects unsupported, ");
 				}
 			}
-			if (this.m_requireDepthTextures)
+			if (m_requireDepthTextures)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -140,8 +144,8 @@ public class ClientMinSpecDetector : MonoBehaviour
 					stringBuilder.Append("Depth textures unsupported, ");
 				}
 			}
-			bool flag = SystemInfo.graphicsDeviceType == GraphicsDeviceType.Direct3D9;
-			if (flag)
+			bool flag;
+			if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Direct3D9)
 			{
 				stringBuilder.Append("Old D3D ");
 				stringBuilder.Append(SystemInfo.graphicsDeviceVersion);
@@ -155,7 +159,7 @@ public class ClientMinSpecDetector : MonoBehaviour
 			flag = !operatingSystem.ToLower().StartsWith("windows");
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -170,7 +174,7 @@ public class ClientMinSpecDetector : MonoBehaviour
 					Match match = regex.Match(operatingSystem);
 					Version version = new Version(match.Value);
 					version = new Version(version.Major, version.Minor, Mathf.Max(0, version.Build), Mathf.Max(0, version.Revision));
-					Version version2 = new Version(this.m_minWindowsVersion);
+					Version version2 = new Version(m_minWindowsVersion);
 					version2 = new Version(version2.Major, version2.Minor, Mathf.Max(0, version2.Build), Mathf.Max(0, version2.Revision));
 					flag = (version < version2);
 				}
@@ -181,7 +185,7 @@ public class ClientMinSpecDetector : MonoBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -195,22 +199,23 @@ public class ClientMinSpecDetector : MonoBehaviour
 				stringBuilder.Append("/");
 				stringBuilder.Append("windows");
 				stringBuilder.Append(" ");
-				stringBuilder.Append(this.m_minWindowsVersion);
+				stringBuilder.Append(m_minWindowsVersion);
 				flag = false;
 			}
 			if (stringBuilder.Length > length)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						Log.Error(stringBuilder.ToString());
+						BelowMinSpecDetected = true;
+						return;
 					}
-					break;
 				}
-				Log.Error(stringBuilder.ToString(), new object[0]);
-				ClientMinSpecDetector.BelowMinSpecDetected = true;
 			}
 		}
 		catch (Exception exception)

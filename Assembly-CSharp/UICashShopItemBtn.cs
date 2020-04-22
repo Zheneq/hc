@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -46,10 +45,10 @@ public class UICashShopItemBtn : MonoBehaviour
 
 	private void Awake()
 	{
-		this.m_selectableBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.Clicked);
-		if (this.m_viewContentBtn != null)
+		m_selectableBtn.spriteController.callback = Clicked;
+		if (m_viewContentBtn != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -58,48 +57,49 @@ public class UICashShopItemBtn : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopItemBtn.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_selectableBtn.spriteController.AddSubButton(this.m_viewContentBtn.spriteController);
-			this.m_viewContentBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ViewContentClicked);
+			m_selectableBtn.spriteController.AddSubButton(m_viewContentBtn.spriteController);
+			m_viewContentBtn.spriteController.callback = ViewContentClicked;
 		}
-		if (this.m_viewContentBundleBtn != null)
+		if (!(m_viewContentBundleBtn != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_selectableBtn.spriteController.AddSubButton(this.m_viewContentBundleBtn.spriteController);
-			this.m_viewContentBundleBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ViewContentClicked);
+			m_selectableBtn.spriteController.AddSubButton(m_viewContentBundleBtn.spriteController);
+			m_viewContentBundleBtn.spriteController.callback = ViewContentClicked;
+			return;
 		}
 	}
 
 	public void Setup(UIPurchaseableItem item)
 	{
-		UIManager.SetGameObjectActive(this.m_ownedContainer, false, null);
-		if (this.m_fluxCostText != null)
+		UIManager.SetGameObjectActive(m_ownedContainer, false);
+		if (m_fluxCostText != null)
 		{
-			UIManager.SetGameObjectActive(this.m_fluxCostText, false, null);
+			UIManager.SetGameObjectActive(m_fluxCostText, false);
 		}
 		HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
 		string accountCurrency = hydrogenConfig.Ticket.AccountCurrency;
 		float num = 0f;
-		float num2 = 0f;
+		float originalPrice = 0f;
 		string text = null;
-		if (this.m_lootMatrixIcon != null)
+		if (m_lootMatrixIcon != null)
 		{
-			UIManager.SetGameObjectActive(this.m_lootMatrixIcon, false, null);
+			UIManager.SetGameObjectActive(m_lootMatrixIcon, false);
 		}
-		if (this.m_lootMatrixTextLayout != null)
+		if (m_lootMatrixTextLayout != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -108,19 +108,19 @@ public class UICashShopItemBtn : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopItemBtn.Setup(UIPurchaseableItem)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_lootMatrixTextLayout, false, null);
+			UIManager.SetGameObjectActive(m_lootMatrixTextLayout, false);
 		}
-		if (this.m_eventText != null)
+		if (m_eventText != null)
 		{
-			UIManager.SetGameObjectActive(this.m_eventText, false, null);
+			UIManager.SetGameObjectActive(m_eventText, false);
 		}
-		if (this.m_viewContentBtn != null)
+		if (m_viewContentBtn != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -129,11 +129,11 @@ public class UICashShopItemBtn : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_viewContentBtn, false, null);
+			UIManager.SetGameObjectActive(m_viewContentBtn, false);
 		}
-		if (this.m_viewContentBundleBtn != null)
+		if (m_viewContentBundleBtn != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -142,11 +142,11 @@ public class UICashShopItemBtn : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_viewContentBundleBtn, false, null);
+			UIManager.SetGameObjectActive(m_viewContentBundleBtn, false);
 		}
-		if (this.m_iconFg != null)
+		if (m_iconFg != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -155,14 +155,14 @@ public class UICashShopItemBtn : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_iconFg, false, null);
+			UIManager.SetGameObjectActive(m_iconFg, false);
 		}
-		this.m_item = item;
+		m_item = item;
 		if (item == null)
 		{
-			if (this.m_icon != null)
+			if (m_icon != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -171,11 +171,11 @@ public class UICashShopItemBtn : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_icon, false, null);
+				UIManager.SetGameObjectActive(m_icon, false);
 			}
-			if (this.m_textLayout != null)
+			if (m_textLayout != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -184,15 +184,15 @@ public class UICashShopItemBtn : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_textLayout, false, null);
+				UIManager.SetGameObjectActive(m_textLayout, false);
 			}
-			UIManager.SetGameObjectActive(this.m_discountContainer, false, null);
-			this.m_selectableBtn.spriteController.SetClickable(false);
+			UIManager.SetGameObjectActive(m_discountContainer, false);
+			m_selectableBtn.spriteController.SetClickable(false);
 			return;
 		}
-		if (this.m_icon != null)
+		if (m_icon != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -201,11 +201,11 @@ public class UICashShopItemBtn : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_icon, true, null);
+			UIManager.SetGameObjectActive(m_icon, true);
 		}
-		if (this.m_textLayout != null)
+		if (m_textLayout != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -214,12 +214,12 @@ public class UICashShopItemBtn : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_textLayout, true, null);
+			UIManager.SetGameObjectActive(m_textLayout, true);
 		}
-		this.m_selectableBtn.spriteController.SetClickable(true);
-		if (this.m_eventText != null)
+		m_selectableBtn.spriteController.SetClickable(true);
+		if (m_eventText != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -228,12 +228,12 @@ public class UICashShopItemBtn : MonoBehaviour
 				}
 				break;
 			}
-			this.m_eventText.text = item.m_overlayText;
-			UIManager.SetGameObjectActive(this.m_eventText, !item.m_overlayText.IsNullOrEmpty(), null);
+			m_eventText.text = item.m_overlayText;
+			UIManager.SetGameObjectActive(m_eventText, !item.m_overlayText.IsNullOrEmpty());
 		}
 		if (item.m_itemType == PurchaseItemType.GGBoost)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -242,46 +242,52 @@ public class UICashShopItemBtn : MonoBehaviour
 				}
 				break;
 			}
-			num2 = item.m_ggPack.Prices.GetPrice(accountCurrency);
+			originalPrice = item.m_ggPack.Prices.GetPrice(accountCurrency);
 			num = CommerceClient.Get().GetGGPackPrice(item.m_ggPack.ProductCode, accountCurrency);
-			this.m_nameText.text = string.Format(StringUtil.TR("PurchaseGGBoostsDesc", "Store"), item.m_ggPack.NumberOfBoosts);
-			this.m_icon.sprite = item.m_ggPack.GGPackSprite;
+			m_nameText.text = string.Format(StringUtil.TR("PurchaseGGBoostsDesc", "Store"), item.m_ggPack.NumberOfBoosts);
+			m_icon.sprite = item.m_ggPack.GGPackSprite;
 			bool flag = true;
-			for (int i = 0; i < GameWideData.Get().m_ggPackData.m_ggPacks.Length; i++)
+			int num2 = 0;
+			while (true)
 			{
-				if (GameWideData.Get().m_ggPackData.m_ggPacks[i].SortOrder > item.m_ggPack.SortOrder)
+				if (num2 < GameWideData.Get().m_ggPackData.m_ggPacks.Length)
 				{
-					for (;;)
+					if (GameWideData.Get().m_ggPackData.m_ggPacks[num2].SortOrder > item.m_ggPack.SortOrder)
 					{
-						switch (4)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
+						flag = false;
 						break;
 					}
-					flag = false;
-					IL_32D:
-					if (flag)
-					{
-						text = StringUtil.TR("BestValue", "Store");
-					}
-					goto IL_B54;
-				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
+					num2++;
 					continue;
 				}
-				goto IL_32D;
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				break;
+			}
+			if (flag)
+			{
+				text = StringUtil.TR("BestValue", "Store");
 			}
 		}
 		else if (item.m_itemType == PurchaseItemType.LootMatrixPack)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -294,69 +300,20 @@ public class UICashShopItemBtn : MonoBehaviour
 			bool flag2 = lootMatrixPack.IsInEvent();
 			bool flag3 = false;
 			bool isBundle = lootMatrixPack.IsBundle;
-			num2 = lootMatrixPack.Prices.GetPrice(accountCurrency);
+			originalPrice = lootMatrixPack.Prices.GetPrice(accountCurrency);
 			num = CommerceClient.Get().GetLootMatrixPackPrice(lootMatrixPack.ProductCode, accountCurrency);
 			int num3 = lootMatrixPack.NumberOfMatrixes;
-			for (int j = 0; j < lootMatrixPack.BonusMatrixes.Length; j++)
+			for (int i = 0; i < lootMatrixPack.BonusMatrixes.Length; i++)
 			{
 				if (lootMatrixPack.NumberOfMatrixes == 0)
 				{
-					num3 += lootMatrixPack.BonusMatrixes[j].NumberOfMatrixes;
+					num3 += lootMatrixPack.BonusMatrixes[i].NumberOfMatrixes;
 				}
-				if (flag2)
+				if (!flag2)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!flag3)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(lootMatrixPack.BonusMatrixes[j].LootMatrixId);
-						if (itemTemplate.TypeSpecificData.Length > 1)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							flag3 = (itemTemplate.TypeSpecificData[1] == 1);
-						}
-					}
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
 					continue;
 				}
-				break;
-			}
-			this.m_lootMatrixNameText.text = num3.ToString();
-			this.m_eventText.text = lootMatrixPack.GetEventText();
-			UIManager.SetGameObjectActive(this.m_eventText, flag2, null);
-			if (this.m_nameText != null)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -365,15 +322,11 @@ public class UICashShopItemBtn : MonoBehaviour
 					}
 					break;
 				}
-				this.m_nameText.text = lootMatrixPack.GetDescription();
-			}
-			UIManager.SetGameObjectActive(this.m_viewContentBtn, flag3, null);
-			UIManager.SetGameObjectActive(this.m_viewContentBundleBtn, isBundle, null);
-			Sprite sprite = (!flag2) ? lootMatrixPack.LootMatrixPackSprite : lootMatrixPack.EventPackSprite;
-			this.m_lootMatrixIcon.sprite = sprite;
-			if (this.m_icon != null)
-			{
-				for (;;)
+				if (flag3)
+				{
+					continue;
+				}
+				while (true)
 				{
 					switch (7)
 					{
@@ -382,12 +335,67 @@ public class UICashShopItemBtn : MonoBehaviour
 					}
 					break;
 				}
-				this.m_icon.sprite = sprite;
+				InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(lootMatrixPack.BonusMatrixes[i].LootMatrixId);
+				if (itemTemplate.TypeSpecificData.Length > 1)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					flag3 = (itemTemplate.TypeSpecificData[1] == 1);
+				}
 			}
-			UIManager.SetGameObjectActive(this.m_lootMatrixIcon, !isBundle, null);
-			if (this.m_icon != null)
+			while (true)
 			{
-				for (;;)
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			m_lootMatrixNameText.text = num3.ToString();
+			m_eventText.text = lootMatrixPack.GetEventText();
+			UIManager.SetGameObjectActive(m_eventText, flag2);
+			if (m_nameText != null)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_nameText.text = lootMatrixPack.GetDescription();
+			}
+			UIManager.SetGameObjectActive(m_viewContentBtn, flag3);
+			UIManager.SetGameObjectActive(m_viewContentBundleBtn, isBundle);
+			Sprite sprite = (!flag2) ? lootMatrixPack.LootMatrixPackSprite : lootMatrixPack.EventPackSprite;
+			m_lootMatrixIcon.sprite = sprite;
+			if (m_icon != null)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_icon.sprite = sprite;
+			}
+			UIManager.SetGameObjectActive(m_lootMatrixIcon, !isBundle);
+			if (m_icon != null)
+			{
+				while (true)
 				{
 					switch (2)
 					{
@@ -396,11 +404,11 @@ public class UICashShopItemBtn : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_icon, isBundle, null);
+				UIManager.SetGameObjectActive(m_icon, isBundle);
 			}
-			if (this.m_textLayout != null)
+			if (m_textLayout != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -409,11 +417,11 @@ public class UICashShopItemBtn : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_textLayout, isBundle, null);
+				UIManager.SetGameObjectActive(m_textLayout, isBundle);
 			}
-			if (this.m_lootMatrixTextLayout != null)
+			if (m_lootMatrixTextLayout != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -422,12 +430,12 @@ public class UICashShopItemBtn : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_lootMatrixTextLayout, !isBundle, null);
+				UIManager.SetGameObjectActive(m_lootMatrixTextLayout, !isBundle);
 			}
 		}
 		else if (item.m_itemType == PurchaseItemType.Character)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -436,15 +444,15 @@ public class UICashShopItemBtn : MonoBehaviour
 				}
 				break;
 			}
-			num2 = item.m_charLink.Prices.GetPrice(accountCurrency);
+			originalPrice = item.m_charLink.Prices.GetPrice(accountCurrency);
 			num = CommerceClient.Get().GetFreelancerPrice(item.m_charLink.m_characterType, accountCurrency);
-			this.m_nameText.text = item.m_charLink.GetDisplayName();
-			this.m_icon.sprite = Resources.Load<Sprite>(item.m_charLink.m_characterIconResourceString);
+			m_nameText.text = item.m_charLink.GetDisplayName();
+			m_icon.sprite = Resources.Load<Sprite>(item.m_charLink.m_characterIconResourceString);
 			bool unlocked = ClientGameManager.Get().GetPlayerCharacterData(item.m_charLink.m_characterType).CharacterComponent.Unlocked;
-			UIManager.SetGameObjectActive(this.m_ownedContainer, unlocked, null);
-			if (this.m_fluxCostText != null)
+			UIManager.SetGameObjectActive(m_ownedContainer, unlocked);
+			if (m_fluxCostText != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -454,13 +462,13 @@ public class UICashShopItemBtn : MonoBehaviour
 					break;
 				}
 				int unlockFreelancerCurrencyPrice = item.m_charLink.m_charUnlockData.GetUnlockFreelancerCurrencyPrice();
-				UIManager.SetGameObjectActive(this.m_fluxCostText, unlockFreelancerCurrencyPrice > 0, null);
-				this.m_fluxCostText.text = "<sprite name=credit>" + UIStorePanel.FormatIntToString(unlockFreelancerCurrencyPrice, true);
+				UIManager.SetGameObjectActive(m_fluxCostText, unlockFreelancerCurrencyPrice > 0);
+				m_fluxCostText.text = "<sprite name=credit>" + UIStorePanel.FormatIntToString(unlockFreelancerCurrencyPrice, true);
 			}
 		}
 		else if (item.m_itemType == PurchaseItemType.Game)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -469,13 +477,13 @@ public class UICashShopItemBtn : MonoBehaviour
 				}
 				break;
 			}
-			num = CommerceClient.Get().GetGamePackPrice(item.m_gamePack.ProductCode, accountCurrency, out num2);
-			this.m_nameText.text = string.Format(StringUtil.TR("Edition", "Store"), item.m_gamePack.GetEditionName());
-			this.m_icon.sprite = item.m_gamePack.Sprite;
+			num = CommerceClient.Get().GetGamePackPrice(item.m_gamePack.ProductCode, accountCurrency, out originalPrice);
+			m_nameText.text = string.Format(StringUtil.TR("Edition", "Store"), item.m_gamePack.GetEditionName());
+			m_icon.sprite = item.m_gamePack.Sprite;
 		}
 		else if (item.m_itemType == PurchaseItemType.Overcon)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -486,13 +494,13 @@ public class UICashShopItemBtn : MonoBehaviour
 			}
 			UIOverconData.NameToOverconEntry overconEntryById = UIOverconData.Get().GetOverconEntryById(item.m_overconID);
 			num = 0f;
-			num2 = 0f;
-			this.m_nameText.text = overconEntryById.GetDisplayName();
-			this.m_icon.sprite = Resources.Load<Sprite>(overconEntryById.m_iconSpritePath);
+			originalPrice = 0f;
+			m_nameText.text = overconEntryById.GetDisplayName();
+			m_icon.sprite = Resources.Load<Sprite>(overconEntryById.m_iconSpritePath);
 		}
 		else if (item.m_itemType == PurchaseItemType.Tint)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -502,13 +510,13 @@ public class UICashShopItemBtn : MonoBehaviour
 				break;
 			}
 			num = 0f;
-			num2 = 0f;
-			this.m_nameText.text = item.m_charLink.GetPatternColorName(item.m_skinIndex, item.m_textureIndex, item.m_tintIndex);
-			this.m_icon.sprite = Resources.Load<Sprite>(item.m_charLink.m_skins[item.m_skinIndex].m_patterns[item.m_textureIndex].m_colors[item.m_tintIndex].m_iconResourceString);
+			originalPrice = 0f;
+			m_nameText.text = item.m_charLink.GetPatternColorName(item.m_skinIndex, item.m_textureIndex, item.m_tintIndex);
+			m_icon.sprite = Resources.Load<Sprite>(item.m_charLink.m_skins[item.m_skinIndex].m_patterns[item.m_textureIndex].m_colors[item.m_tintIndex].m_iconResourceString);
 		}
 		else if (item.m_itemType == PurchaseItemType.Taunt)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -519,15 +527,15 @@ public class UICashShopItemBtn : MonoBehaviour
 			}
 			GameBalanceVars.TauntUnlockData tauntUnlockData = item.m_charLink.m_taunts[item.m_tauntIndex].m_tauntUnlockData;
 			num = 0f;
-			num2 = 0f;
-			this.m_nameText.text = item.m_charLink.GetTauntName(item.m_tauntIndex);
-			this.m_icon.sprite = Resources.Load<Sprite>(tauntUnlockData.GetSpritePath());
-			UIManager.SetGameObjectActive(this.m_iconFg, true, null);
-			this.m_iconFg.sprite = tauntUnlockData.GetItemFg();
+			originalPrice = 0f;
+			m_nameText.text = item.m_charLink.GetTauntName(item.m_tauntIndex);
+			m_icon.sprite = Resources.Load<Sprite>(tauntUnlockData.GetSpritePath());
+			UIManager.SetGameObjectActive(m_iconFg, true);
+			m_iconFg.sprite = tauntUnlockData.GetItemFg();
 		}
 		else if (item.m_itemType == PurchaseItemType.InventoryItem)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -537,15 +545,15 @@ public class UICashShopItemBtn : MonoBehaviour
 				break;
 			}
 			InventoryItemTemplate itemTemplate2 = InventoryWideData.Get().GetItemTemplate(item.m_inventoryTemplateId);
-			num = CommerceClient.Get().GetStoreItemPrice(item.m_inventoryTemplateId, accountCurrency, out num2);
-			this.m_nameText.text = itemTemplate2.GetDisplayName();
-			this.m_icon.sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate2));
-			this.m_iconFg.sprite = InventoryWideData.GetItemFg(itemTemplate2);
-			UIManager.SetGameObjectActive(this.m_iconFg, this.m_iconFg.sprite != null, null);
+			num = CommerceClient.Get().GetStoreItemPrice(item.m_inventoryTemplateId, accountCurrency, out originalPrice);
+			m_nameText.text = itemTemplate2.GetDisplayName();
+			m_icon.sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate2));
+			m_iconFg.sprite = InventoryWideData.GetItemFg(itemTemplate2);
+			UIManager.SetGameObjectActive(m_iconFg, m_iconFg.sprite != null);
 		}
 		else if (item.m_itemType == PurchaseItemType.Banner)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -556,13 +564,13 @@ public class UICashShopItemBtn : MonoBehaviour
 			}
 			GameBalanceVars.PlayerBanner banner = GameBalanceVars.Get().GetBanner(item.m_bannerID);
 			num = 0f;
-			num2 = 0f;
-			this.m_nameText.text = banner.GetBannerName();
-			this.m_icon.sprite = Resources.Load<Sprite>(banner.m_iconResourceString);
+			originalPrice = 0f;
+			m_nameText.text = banner.GetBannerName();
+			m_icon.sprite = Resources.Load<Sprite>(banner.m_iconResourceString);
 		}
 		else if (item.m_itemType == PurchaseItemType.Title)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -572,13 +580,13 @@ public class UICashShopItemBtn : MonoBehaviour
 				break;
 			}
 			num = 0f;
-			num2 = 0f;
-			this.m_nameText.text = GameBalanceVars.Get().GetTitle(item.m_titleID, string.Empty, -1);
-			UIManager.SetGameObjectActive(this.m_icon, false, null);
+			originalPrice = 0f;
+			m_nameText.text = GameBalanceVars.Get().GetTitle(item.m_titleID, string.Empty);
+			UIManager.SetGameObjectActive(m_icon, false);
 		}
 		else if (item.m_itemType == PurchaseItemType.Emoticon)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -588,41 +596,47 @@ public class UICashShopItemBtn : MonoBehaviour
 				break;
 			}
 			GameBalanceVars.ChatEmoticon chatEmoticon = null;
-			for (int k = 0; k < GameBalanceVars.Get().ChatEmojis.Length; k++)
+			int num4 = 0;
+			while (true)
 			{
-				if (GameBalanceVars.Get().ChatEmojis[k].ID == item.m_emoticonID)
+				if (num4 < GameBalanceVars.Get().ChatEmojis.Length)
 				{
-					for (;;)
+					if (GameBalanceVars.Get().ChatEmojis[num4].ID == item.m_emoticonID)
 					{
-						switch (5)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
 						}
+						chatEmoticon = GameBalanceVars.Get().ChatEmojis[num4];
 						break;
 					}
-					chatEmoticon = GameBalanceVars.Get().ChatEmojis[k];
-					IL_AB4:
-					num = 0f;
-					num2 = 0f;
-					this.m_nameText.text = chatEmoticon.GetEmojiName();
-					this.m_icon.sprite = Resources.Load<Sprite>(chatEmoticon.GetSpritePath());
-					goto IL_B54;
-				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
+					num4++;
 					continue;
 				}
-				goto IL_AB4;
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				break;
 			}
+			num = 0f;
+			originalPrice = 0f;
+			m_nameText.text = chatEmoticon.GetEmojiName();
+			m_icon.sprite = Resources.Load<Sprite>(chatEmoticon.GetSpritePath());
 		}
 		else if (item.m_itemType == PurchaseItemType.LoadingScreenBackground)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -633,14 +647,13 @@ public class UICashShopItemBtn : MonoBehaviour
 			}
 			GameBalanceVars.LoadingScreenBackground loadingScreenBackground = GameBalanceVars.Get().GetLoadingScreenBackground(item.m_loadingScreenBackgroundId);
 			num = 0f;
-			num2 = 0f;
-			this.m_nameText.text = loadingScreenBackground.GetLoadingScreenBackgroundName();
-			this.m_icon.sprite = Resources.Load<Sprite>(loadingScreenBackground.m_iconPath);
+			originalPrice = 0f;
+			m_nameText.text = loadingScreenBackground.GetLoadingScreenBackgroundName();
+			m_icon.sprite = Resources.Load<Sprite>(loadingScreenBackground.m_iconPath);
 		}
-		IL_B54:
-		if (this.m_costText != null)
+		if (m_costText != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -651,7 +664,7 @@ public class UICashShopItemBtn : MonoBehaviour
 			}
 			if (num > 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -660,22 +673,22 @@ public class UICashShopItemBtn : MonoBehaviour
 					}
 					break;
 				}
-				this.m_costText.text = UIStorePanel.GetLocalizedPriceString(num, accountCurrency);
+				m_costText.text = UIStorePanel.GetLocalizedPriceString(num, accountCurrency);
 			}
 			else
 			{
-				this.m_costText.text = string.Empty;
+				m_costText.text = string.Empty;
 			}
 		}
-		if (this.m_lootMatrixCostText != null)
+		if (m_lootMatrixCostText != null)
 		{
-			this.m_lootMatrixCostText.text = UIStorePanel.GetLocalizedPriceString(num, accountCurrency);
+			m_lootMatrixCostText.text = UIStorePanel.GetLocalizedPriceString(num, accountCurrency);
 		}
-		Component discountContainer = this.m_discountContainer;
-		bool doActive;
-		if (num >= num2)
+		RectTransform discountContainer = m_discountContainer;
+		int doActive;
+		if (!(num < originalPrice))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -684,142 +697,90 @@ public class UICashShopItemBtn : MonoBehaviour
 				}
 				break;
 			}
-			doActive = !text.IsNullOrEmpty();
+			doActive = ((!text.IsNullOrEmpty()) ? 1 : 0);
 		}
 		else
 		{
-			doActive = true;
+			doActive = 1;
 		}
-		UIManager.SetGameObjectActive(discountContainer, doActive, null);
-		if (num < num2)
+		UIManager.SetGameObjectActive(discountContainer, (byte)doActive != 0);
+		if (num < originalPrice)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			int num4 = Mathf.RoundToInt((num2 - num) * 100f / num2);
-			this.m_discountedAmount.text = string.Format(StringUtil.TR("DiscountPercentOff", "Store"), num4);
-		}
-		else if (!text.IsNullOrEmpty())
-		{
-			for (;;)
-			{
-				switch (7)
+					break;
+				default:
 				{
-				case 0:
-					continue;
+					int num5 = Mathf.RoundToInt((originalPrice - num) * 100f / originalPrice);
+					m_discountedAmount.text = string.Format(StringUtil.TR("DiscountPercentOff", "Store"), num5);
+					return;
 				}
-				break;
+				}
 			}
-			this.m_discountedAmount.text = text;
+		}
+		if (text.IsNullOrEmpty())
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			m_discountedAmount.text = text;
+			return;
 		}
 	}
 
 	private void Clicked(BaseEventData data)
 	{
-		if (this.m_item == null)
+		if (m_item == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopItemBtn.Clicked(BaseEventData)).MethodHandle;
-			}
-			return;
 		}
-		if (this.m_item.m_itemType == PurchaseItemType.Character)
+		if (m_item.m_itemType == PurchaseItemType.Character)
 		{
-			CharacterType characterType = this.m_item.m_charLink.m_characterType;
-			UICashShopPanel uicashShopPanel = UICashShopPanel.Get();
-			UICharacterBrowsersPanel characterBrowser = uicashShopPanel.m_characterBrowser;
+			CharacterType characterType = m_item.m_charLink.m_characterType;
+			UICashShopPanel uICashShopPanel = UICashShopPanel.Get();
+			UICharacterBrowsersPanel characterBrowser = uICashShopPanel.m_characterBrowser;
 			characterBrowser.Setup(characterType, characterBrowser.m_generalBrowserPanel);
 			characterBrowser.SetVisible(true);
-			uicashShopPanel.HideAllPanels();
+			uICashShopPanel.HideAllPanels();
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.Generic);
+			return;
 		}
-		else
+		if (m_item.m_itemType != PurchaseItemType.Game)
 		{
-			if (this.m_item.m_itemType != PurchaseItemType.Game)
+			while (true)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_item.m_itemType != PurchaseItemType.GGBoost)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_item.m_itemType != PurchaseItemType.LootMatrixPack)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_item.m_itemType != PurchaseItemType.InventoryItem)
-						{
-							UIFrontEnd.Get().m_frontEndNavPanel.CollectionsBtnClicked(null);
-							UIStorePanel.Get().SelectItem(this.m_item);
-							UIFrontEnd.PlaySound(FrontEndButtonSounds.Generic);
-							return;
-						}
-					}
-				}
-			}
-			UIStorePanel.Get().OpenPurchaseDialog(this.m_item, null);
-			this.m_selectableBtn.spriteController.ResetMouseState();
-			UIFrontEnd.PlaySound(FrontEndButtonSounds.StorePurchased);
-		}
-	}
-
-	private void ViewContentClicked(BaseEventData data)
-	{
-		if (this.m_item != null)
-		{
-			for (;;)
-			{
-				switch (2)
+				switch (3)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (m_item.m_itemType != PurchaseItemType.GGBoost)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopItemBtn.ViewContentClicked(BaseEventData)).MethodHandle;
-			}
-			if (this.m_item.m_itemType == PurchaseItemType.LootMatrixPack)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -828,10 +789,64 @@ public class UICashShopItemBtn : MonoBehaviour
 					}
 					break;
 				}
-				List<InventoryItemTemplate> list = null;
-				if (!this.m_item.m_lootMatrixPack.IsInEvent())
+				if (m_item.m_itemType != PurchaseItemType.LootMatrixPack)
 				{
-					for (;;)
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (m_item.m_itemType != PurchaseItemType.InventoryItem)
+					{
+						UIFrontEnd.Get().m_frontEndNavPanel.CollectionsBtnClicked(null);
+						UIStorePanel.Get().SelectItem(m_item);
+						UIFrontEnd.PlaySound(FrontEndButtonSounds.Generic);
+						return;
+					}
+				}
+			}
+		}
+		UIStorePanel.Get().OpenPurchaseDialog(m_item);
+		m_selectableBtn.spriteController.ResetMouseState();
+		UIFrontEnd.PlaySound(FrontEndButtonSounds.StorePurchased);
+	}
+
+	private void ViewContentClicked(BaseEventData data)
+	{
+		if (m_item == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_item.m_itemType != PurchaseItemType.LootMatrixPack)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				List<InventoryItemTemplate> list = null;
+				if (!m_item.m_lootMatrixPack.IsInEvent())
+				{
+					while (true)
 					{
 						switch (3)
 						{
@@ -840,11 +855,11 @@ public class UICashShopItemBtn : MonoBehaviour
 						}
 						break;
 					}
-					if (!this.m_item.m_lootMatrixPack.IsBundle)
+					if (!m_item.m_lootMatrixPack.IsBundle)
 					{
-						goto IL_89;
+						goto IL_0089;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -854,12 +869,13 @@ public class UICashShopItemBtn : MonoBehaviour
 						break;
 					}
 				}
-				list = InventoryWideData.GetTemplatesFromLootMatrixPack(this.m_item.m_lootMatrixPack);
-				IL_89:
+				list = InventoryWideData.GetTemplatesFromLootMatrixPack(m_item.m_lootMatrixPack);
+				goto IL_0089;
+				IL_0089:
 				List<InventoryItemTemplate> list2 = list;
-				if (UICashShopItemBtn.<>f__am$cache0 == null)
+				if (_003C_003Ef__am_0024cache0 == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -868,34 +884,35 @@ public class UICashShopItemBtn : MonoBehaviour
 						}
 						break;
 					}
-					UICashShopItemBtn.<>f__am$cache0 = ((InventoryItemTemplate x) => x.TypeSpecificData.Length <= 1 || x.TypeSpecificData[1] != 1);
+					_003C_003Ef__am_0024cache0 = ((InventoryItemTemplate x) => x.TypeSpecificData.Length <= 1 || x.TypeSpecificData[1] != 1);
 				}
-				list2.RemoveAll(UICashShopItemBtn.<>f__am$cache0);
-				if (list != null)
+				list2.RemoveAll(_003C_003Ef__am_0024cache0);
+				if (list == null)
 				{
-					for (;;)
+					return;
+				}
+				while (true)
+				{
+					switch (6)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
 					if (list.Count > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
 							case 0:
 								continue;
 							}
-							break;
+							UILootMatrixContentViewer.Get().Setup(list.ToArray(), m_item.m_lootMatrixPack.IsBundle);
+							UILootMatrixContentViewer.Get().SetVisible(true);
+							return;
 						}
-						UILootMatrixContentViewer.Get().Setup(list.ToArray(), this.m_item.m_lootMatrixPack.IsBundle);
-						UILootMatrixContentViewer.Get().SetVisible(true);
 					}
+					return;
 				}
 			}
 		}

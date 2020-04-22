@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class AbilityMod_FireborgSuperheat : GenericAbility_AbilityMod
@@ -18,7 +18,7 @@ public class AbilityMod_FireborgSuperheat : GenericAbility_AbilityMod
 
 	public override void GenModImpl_SetTargetSelectMod(GenericAbility_TargetSelectBase targetSelect)
 	{
-		targetSelect.SetTargetSelectMod(this.m_targetSelectMod);
+		targetSelect.SetTargetSelectMod(m_targetSelectMod);
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
@@ -27,19 +27,19 @@ public class AbilityMod_FireborgSuperheat : GenericAbility_AbilityMod
 		if (fireborgSuperheat != null)
 		{
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			AbilityMod.AddToken(tokens, this.m_superheatDurationMod, "SuperheatDuration", string.Empty, fireborgSuperheat.m_superheatDuration, true, false);
-			AbilityMod.AddToken(tokens, this.m_igniteExtraDamageIfSuperheatedMod, "IgniteExtraDamageIfSuperheated", string.Empty, fireborgSuperheat.m_igniteExtraDamageIfSuperheated, true, false);
+			AbilityMod.AddToken(tokens, m_superheatDurationMod, "SuperheatDuration", string.Empty, fireborgSuperheat.m_superheatDuration);
+			AbilityMod.AddToken(tokens, m_igniteExtraDamageIfSuperheatedMod, "IgniteExtraDamageIfSuperheated", string.Empty, fireborgSuperheat.m_igniteExtraDamageIfSuperheated);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		FireborgSuperheat fireborgSuperheat = base.GetTargetAbilityOnAbilityData(abilityData) as FireborgSuperheat;
+		FireborgSuperheat fireborgSuperheat = GetTargetAbilityOnAbilityData(abilityData) as FireborgSuperheat;
 		bool flag = fireborgSuperheat != null;
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (fireborgSuperheat != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -48,19 +48,17 @@ public class AbilityMod_FireborgSuperheat : GenericAbility_AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FireborgSuperheat.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, fireborgSuperheat.m_targetSelectComp, "-- Target Select --");
+			text += GetTargetSelectModDesc(m_targetSelectMod, fireborgSuperheat.m_targetSelectComp, "-- Target Select --");
 			string str = text;
-			AbilityModPropertyInt superheatDurationMod = this.m_superheatDurationMod;
-			string prefix = "[SuperheatDuration]";
-			bool showBaseVal = flag;
+			AbilityModPropertyInt superheatDurationMod = m_superheatDurationMod;
 			int baseVal;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -75,15 +73,13 @@ public class AbilityMod_FireborgSuperheat : GenericAbility_AbilityMod
 			{
 				baseVal = 0;
 			}
-			text = str + base.PropDesc(superheatDurationMod, prefix, showBaseVal, baseVal);
+			text = str + PropDesc(superheatDurationMod, "[SuperheatDuration]", flag, baseVal);
 			string str2 = text;
-			AbilityModPropertyInt igniteExtraDamageIfSuperheatedMod = this.m_igniteExtraDamageIfSuperheatedMod;
-			string prefix2 = "[IgniteExtraDamageIfSuperheated]";
-			bool showBaseVal2 = flag;
+			AbilityModPropertyInt igniteExtraDamageIfSuperheatedMod = m_igniteExtraDamageIfSuperheatedMod;
 			int baseVal2;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -98,7 +94,7 @@ public class AbilityMod_FireborgSuperheat : GenericAbility_AbilityMod
 			{
 				baseVal2 = 0;
 			}
-			text = str2 + base.PropDesc(igniteExtraDamageIfSuperheatedMod, prefix2, showBaseVal2, baseVal2);
+			text = str2 + PropDesc(igniteExtraDamageIfSuperheatedMod, "[IgniteExtraDamageIfSuperheated]", flag, baseVal2);
 		}
 		return text;
 	}

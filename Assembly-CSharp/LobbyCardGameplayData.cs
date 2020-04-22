@@ -1,5 +1,5 @@
-﻿using System;
 using Newtonsoft.Json;
+using System;
 
 [Serializable]
 public class LobbyCardGameplayData
@@ -13,11 +13,5 @@ public class LobbyCardGameplayData
 	public bool IsDefault;
 
 	[JsonIgnore]
-	public string FullName
-	{
-		get
-		{
-			return string.Format("{0} ({1})", this.DisplayName, this.CardType.ToString());
-		}
-	}
+	public string FullName => $"{DisplayName} ({CardType.ToString()})";
 }

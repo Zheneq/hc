@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class IceborgWall : GenericAbility_Container
@@ -23,21 +22,21 @@ public class IceborgWall : GenericAbility_Container
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		return Mathf.Clamp(this.GetTargetData().Length, 1, 2);
+		return Mathf.Clamp(GetTargetData().Length, 1, 2);
 	}
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
+		m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		base.SetupTargetersAndCachedVars();
 	}
 
 	public override string GetOnHitDataDesc()
 	{
 		string text = base.GetOnHitDataDesc();
-		if (this.m_wallEffectOnHitData != null)
+		if (m_wallEffectOnHitData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -46,12 +45,12 @@ public class IceborgWall : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgWall.GetOnHitDataDesc()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			text += "-- On Hit Data for lasers from walls --\n";
-			text += this.m_wallEffectOnHitData.GetInEditorDesc();
+			text += m_wallEffectOnHitData.GetInEditorDesc();
 		}
 		return text;
 	}
@@ -59,14 +58,14 @@ public class IceborgWall : GenericAbility_Container
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		this.m_wallEffectOnHitData.AddTooltipTokens(tokens);
+		m_wallEffectOnHitData.AddTooltipTokens(tokens);
 	}
 
-	public unsafe override void GetHitContextForTargetingNumbers(int currentTargeterIndex, out Dictionary<ActorData, ActorHitContext> actorHitContext, out ContextVars abilityContext)
+	public override void GetHitContextForTargetingNumbers(int currentTargeterIndex, out Dictionary<ActorData, ActorHitContext> actorHitContext, out ContextVars abilityContext)
 	{
 		if (base.Targeters.Count > 0 && currentTargeterIndex > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -75,25 +74,27 @@ public class IceborgWall : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgWall.GetHitContextForTargetingNumbers(int, Dictionary<ActorData, ActorHitContext>*, ContextVars*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (currentTargeterIndex < base.Targeters.Count)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						AbilityUtil_Targeter abilityUtil_Targeter = base.Targeters[currentTargeterIndex];
+						actorHitContext = abilityUtil_Targeter.GetActorContextVars();
+						abilityContext = abilityUtil_Targeter.GetNonActorSpecificContext();
+						return;
 					}
-					break;
+					}
 				}
-				AbilityUtil_Targeter abilityUtil_Targeter = base.Targeters[currentTargeterIndex];
-				actorHitContext = abilityUtil_Targeter.GetActorContextVars();
-				abilityContext = abilityUtil_Targeter.GetNonActorSpecificContext();
-				return;
 			}
 		}
 		base.GetHitContextForTargetingNumbers(currentTargeterIndex, out actorHitContext, out abilityContext);
@@ -101,36 +102,37 @@ public class IceborgWall : GenericAbility_Container
 
 	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
 	{
-		if (actorHitContext.ContainsKey(targetActor))
+		if (!actorHitContext.ContainsKey(targetActor))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgWall.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (targetActor.\u000E() != caster.\u000E())
+			if (targetActor.GetTeam() != caster.GetTeam())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					ActorHitContext actorContext = actorHitContext[targetActor];
+					GenericAbility_Container.CalcIntFieldValues(targetActor, caster, actorContext, abilityContext, m_wallEffectOnHitData.m_enemyHitIntFields, m_calculatedValuesForTargeter);
+					results.m_damage = m_calculatedValuesForTargeter.m_damage;
+					return;
 				}
-				ActorHitContext actorContext = actorHitContext[targetActor];
-				GenericAbility_Container.CalcIntFieldValues(targetActor, caster, actorContext, abilityContext, this.m_wallEffectOnHitData.m_enemyHitIntFields, this.m_calculatedValuesForTargeter);
-				results.m_damage = this.m_calculatedValuesForTargeter.m_damage;
 			}
+			return;
 		}
 	}
 

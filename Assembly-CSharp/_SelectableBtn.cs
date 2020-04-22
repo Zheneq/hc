@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,6 +35,12 @@ public class _SelectableBtn : MonoBehaviour
 
 	private bool m_isDisabled;
 
+	public bool IsHover => m_isHover;
+
+	public bool IsPressed => m_isPressed;
+
+	public bool IsDisabled => m_isDisabled;
+
 	private GameObject CreateNewContainer(string name)
 	{
 		GameObject gameObject = new GameObject(name);
@@ -49,114 +54,92 @@ public class _SelectableBtn : MonoBehaviour
 
 	public void CreateChildren()
 	{
-		GameObject gameObject = this.CreateNewContainer("Default");
+		GameObject gameObject = CreateNewContainer("Default");
 		gameObject.AddComponent<Image>().color = Color.white;
-		this.m_selectedContainer = this.CreateNewContainer("Selected");
-		GameObject gameObject2 = this.CreateNewContainer("Hover");
+		m_selectedContainer = CreateNewContainer("Selected");
+		GameObject gameObject2 = CreateNewContainer("Hover");
 		gameObject2.AddComponent<Image>().color = Color.white;
-		GameObject gameObject3 = this.CreateNewContainer("Pressed");
+		GameObject gameObject3 = CreateNewContainer("Pressed");
 		gameObject3.AddComponent<Image>().color = Color.white;
-		GameObject gameObject4 = this.CreateNewContainer("HitBox");
+		GameObject gameObject4 = CreateNewContainer("HitBox");
 		Image image = gameObject4.AddComponent<Image>();
 		image.color = Color.clear;
 		Button button = gameObject4.AddComponent<Button>();
 		button.transition = Selectable.Transition.None;
-		this.spriteController = gameObject4.AddComponent<_ButtonSwapSprite>();
-		this.spriteController.m_defaultImage = gameObject.GetComponent<Image>();
-		this.spriteController.m_hoverImage = gameObject2.GetComponent<Image>();
-		this.spriteController.m_pressedImage = gameObject3.GetComponent<Image>();
-	}
-
-	public bool IsHover
-	{
-		get
-		{
-			return this.m_isHover;
-		}
-	}
-
-	public bool IsPressed
-	{
-		get
-		{
-			return this.m_isPressed;
-		}
-	}
-
-	public bool IsDisabled
-	{
-		get
-		{
-			return this.m_isDisabled;
-		}
+		spriteController = gameObject4.AddComponent<_ButtonSwapSprite>();
+		spriteController.m_defaultImage = gameObject.GetComponent<Image>();
+		spriteController.m_hoverImage = gameObject2.GetComponent<Image>();
+		spriteController.m_pressedImage = gameObject3.GetComponent<Image>();
 	}
 
 	private void OnEnable()
 	{
-		if (this.m_isSelected)
+		if (!m_isSelected)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_SelectableBtn.OnEnable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.DoSelect(this.m_isSelected, string.Empty, string.Empty);
+			DoSelect(m_isSelected, string.Empty, string.Empty);
+			return;
 		}
 	}
 
 	public void Awake()
 	{
-		if (this.m_animationController != null)
+		if (!(m_animationController != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_SelectableBtn.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_animPrefix.IsNullOrEmpty())
+			if (!m_animPrefix.IsNullOrEmpty())
 			{
-				this.spriteController.selectableButton = this;
+				spriteController.selectableButton = this;
 			}
+			return;
 		}
 	}
 
 	public void SetDisabled(bool disabled)
 	{
-		this.m_isDisabled = disabled;
-		if (this.spriteController != null)
+		m_isDisabled = disabled;
+		if (!(spriteController != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_SelectableBtn.SetDisabled(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.spriteController.m_defaultImage != null)
+			if (spriteController.m_defaultImage != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -165,62 +148,63 @@ public class _SelectableBtn : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.spriteController.m_defaultImage.gameObject, !disabled, null);
+				UIManager.SetGameObjectActive(spriteController.m_defaultImage.gameObject, !disabled);
 			}
-			if (this.spriteController.m_hoverImage != null)
+			if (spriteController.m_hoverImage != null)
 			{
-				UIManager.SetGameObjectActive(this.spriteController.m_hoverImage.gameObject, !disabled, null);
+				UIManager.SetGameObjectActive(spriteController.m_hoverImage.gameObject, !disabled);
 			}
-			if (this.spriteController.m_pressedImage != null)
+			if (spriteController.m_pressedImage != null)
 			{
-				UIManager.SetGameObjectActive(this.spriteController.m_pressedImage.gameObject, !disabled, null);
+				UIManager.SetGameObjectActive(spriteController.m_pressedImage.gameObject, !disabled);
 			}
-			this.spriteController.SetClickable(!disabled);
+			spriteController.SetClickable(!disabled);
+			return;
 		}
 	}
 
 	public void NotifyDefaultStatusChange(bool active)
 	{
-		if (!this.m_ignoreDefaultAnimationCall)
+		if (m_ignoreDefaultAnimationCall)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_isSelected)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_SelectableBtn.NotifyDefaultStatusChange(bool)).MethodHandle;
-			}
-			if (!this.m_isSelected)
-			{
-				for (;;)
+				if (!(m_animationController != null))
+				{
+					return;
+				}
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (this.m_animationController != null)
-				{
-					for (;;)
+					if (spriteController != null)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.spriteController != null)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -229,9 +213,9 @@ public class _SelectableBtn : MonoBehaviour
 							}
 							break;
 						}
-						if (this.spriteController.m_defaultImage != null)
+						if (spriteController.m_defaultImage != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -240,10 +224,11 @@ public class _SelectableBtn : MonoBehaviour
 								}
 								break;
 							}
-							UIManager.SetGameObjectActive(this.spriteController.m_defaultImage.gameObject, !this.m_isDisabled, null);
+							UIManager.SetGameObjectActive(spriteController.m_defaultImage.gameObject, !m_isDisabled);
 						}
 					}
-					this.PlayAnimation("Default", this.m_defaultAnimLayer, 0f);
+					PlayAnimation("Default", m_defaultAnimLayer, 0f);
+					return;
 				}
 			}
 		}
@@ -251,37 +236,99 @@ public class _SelectableBtn : MonoBehaviour
 
 	public void NotifyHoverStatusChange(bool active, bool forceAnim = false, float overrideNormalizedTime = 0f)
 	{
-		if (!this.m_ignoreHoverAnimationCall)
+		if (m_ignoreHoverAnimationCall)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_isSelected)
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_SelectableBtn.NotifyHoverStatusChange(bool, bool, float)).MethodHandle;
-			}
-			if (!this.m_isSelected)
-			{
-				for (;;)
+				if (!(m_animationController != null))
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (this.m_animationController != null)
+				if (spriteController != null)
 				{
-					if (this.spriteController != null)
+					while (true)
 					{
-						for (;;)
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (spriteController.m_hoverImage != null)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						UIManager.SetGameObjectActive(spriteController.m_hoverImage.gameObject, !m_isDisabled);
+					}
+				}
+				if (active)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					PlayAnimation("HoverIN", m_hoverAnimLayer, overrideNormalizedTime);
+				}
+				else
+				{
+					if (!forceAnim)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (m_isHover == active)
+						{
+							goto IL_00fc;
+						}
+					}
+					if (m_ignoreHoverOutAnimCall)
+					{
+						if (!forceAnim)
+						{
+							goto IL_00fc;
+						}
+						while (true)
 						{
 							switch (5)
 							{
@@ -290,118 +337,59 @@ public class _SelectableBtn : MonoBehaviour
 							}
 							break;
 						}
-						if (this.spriteController.m_hoverImage != null)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							UIManager.SetGameObjectActive(this.spriteController.m_hoverImage.gameObject, !this.m_isDisabled, null);
-						}
 					}
-					if (active)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.PlayAnimation("HoverIN", this.m_hoverAnimLayer, overrideNormalizedTime);
-					}
-					else
-					{
-						if (!forceAnim)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_isHover == active)
-							{
-								goto IL_FC;
-							}
-						}
-						if (this.m_ignoreHoverOutAnimCall)
-						{
-							if (!forceAnim)
-							{
-								goto IL_FC;
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						this.PlayAnimation("HoverOUT", this.m_hoverAnimLayer, overrideNormalizedTime);
-					}
-					IL_FC:
-					this.m_isHover = active;
+					PlayAnimation("HoverOUT", m_hoverAnimLayer, overrideNormalizedTime);
 				}
+				goto IL_00fc;
+				IL_00fc:
+				m_isHover = active;
+				return;
 			}
 		}
 	}
 
 	public void NotifyPressStatusChange(bool active, bool forceAnim = false)
 	{
-		if (!this.m_ignorePressAnimationCall)
+		if (m_ignorePressAnimationCall)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_isSelected)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_SelectableBtn.NotifyPressStatusChange(bool, bool)).MethodHandle;
-			}
-			if (!this.m_isSelected)
-			{
-				for (;;)
+				if (!(m_animationController != null))
 				{
-					switch (5)
+					return;
+				}
+				while (true)
+				{
+					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (this.m_animationController != null)
-				{
-					for (;;)
+					if (spriteController != null)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.spriteController != null)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -410,14 +398,14 @@ public class _SelectableBtn : MonoBehaviour
 							}
 							break;
 						}
-						if (this.spriteController.m_pressedImage != null)
+						if (spriteController.m_pressedImage != null)
 						{
-							UIManager.SetGameObjectActive(this.spriteController.m_pressedImage.gameObject, !this.m_isDisabled, null);
+							UIManager.SetGameObjectActive(spriteController.m_pressedImage.gameObject, !m_isDisabled);
 						}
 					}
 					if (active)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -426,13 +414,13 @@ public class _SelectableBtn : MonoBehaviour
 							}
 							break;
 						}
-						this.PlayAnimation("PressIN", this.m_pressAnimLayer, 0f);
+						PlayAnimation("PressIN", m_pressAnimLayer, 0f);
 					}
 					else
 					{
 						if (!forceAnim)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -441,11 +429,11 @@ public class _SelectableBtn : MonoBehaviour
 								}
 								break;
 							}
-							if (this.m_isPressed == active)
+							if (m_isPressed == active)
 							{
-								goto IL_13C;
+								goto IL_013c;
 							}
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -455,9 +443,9 @@ public class _SelectableBtn : MonoBehaviour
 								break;
 							}
 						}
-						if (this.spriteController != null)
+						if (spriteController != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -466,9 +454,9 @@ public class _SelectableBtn : MonoBehaviour
 								}
 								break;
 							}
-							if (this.spriteController.IsMouseHover())
+							if (spriteController.IsMouseHover())
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -477,14 +465,16 @@ public class _SelectableBtn : MonoBehaviour
 									}
 									break;
 								}
-								this.NotifyHoverStatusChange(true, false, 1f);
-								goto IL_13C;
+								NotifyHoverStatusChange(true, false, 1f);
+								goto IL_013c;
 							}
 						}
-						this.PlayAnimation("PressOUT", this.m_pressAnimLayer, 0f);
+						PlayAnimation("PressOUT", m_pressAnimLayer, 0f);
 					}
-					IL_13C:
-					this.m_isPressed = active;
+					goto IL_013c;
+					IL_013c:
+					m_isPressed = active;
+					return;
 				}
 			}
 		}
@@ -492,126 +482,127 @@ public class _SelectableBtn : MonoBehaviour
 
 	public void SelectOutAnimDone()
 	{
-		if (this.m_selectedContainer != null)
+		if (!(m_selectedContainer != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_SelectableBtn.SelectOutAnimDone()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_selectedContainer, false, null);
+			UIManager.SetGameObjectActive(m_selectedContainer, false);
+			return;
 		}
 	}
 
 	private void DoSelect(bool selected, string selectINSuffixOverride = "", string selectOutSuffixOverride = "")
 	{
-		this.m_isSelected = selected;
-		if (selected && this.m_selectedContainer != null)
+		m_isSelected = selected;
+		if (selected && m_selectedContainer != null)
 		{
-			UIManager.SetGameObjectActive(this.m_selectedContainer.gameObject, true, null);
+			UIManager.SetGameObjectActive(m_selectedContainer.gameObject, true);
 		}
-		if (this.m_animationController != null)
+		if (m_animationController != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_SelectableBtn.DoSelect(bool, string, string)).MethodHandle;
-			}
-			if (selected)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				string stateName;
-				if (selectINSuffixOverride.IsNullOrEmpty())
-				{
-					for (;;)
+				default:
+					if (1 == 0)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					stateName = "SelectIN";
-				}
-				else
-				{
-					stateName = selectINSuffixOverride;
-				}
-				this.PlayAnimation(stateName, this.m_selectAnimLayer, 0f);
-			}
-			else
-			{
-				if (this.spriteController != null)
-				{
-					for (;;)
+					if (selected)
 					{
-						switch (3)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (5)
+							{
+							case 0:
+								break;
+							default:
+							{
+								object stateName;
+								if (selectINSuffixOverride.IsNullOrEmpty())
+								{
+									while (true)
+									{
+										switch (4)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									stateName = "SelectIN";
+								}
+								else
+								{
+									stateName = selectINSuffixOverride;
+								}
+								PlayAnimation((string)stateName, m_selectAnimLayer, 0f);
+								return;
+							}
+							}
 						}
-						break;
 					}
-					if (this.spriteController.IsMouseHover())
+					if (spriteController != null)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (1)
+							switch (3)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						this.NotifyHoverStatusChange(true, false, 0f);
-						goto IL_F1;
+						if (spriteController.IsMouseHover())
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									break;
+								default:
+									NotifyHoverStatusChange(true);
+									return;
+								}
+							}
+						}
 					}
+					PlayAnimation((!selectOutSuffixOverride.IsNullOrEmpty()) ? selectOutSuffixOverride : "SelectOUT", m_selectAnimLayer, 0f);
+					return;
 				}
-				this.PlayAnimation((!selectOutSuffixOverride.IsNullOrEmpty()) ? selectOutSuffixOverride : "SelectOUT", this.m_selectAnimLayer, 0f);
 			}
-			IL_F1:;
 		}
-		else if (this.m_selectedContainer != null)
+		if (m_selectedContainer != null)
 		{
-			UIManager.SetGameObjectActive(this.m_selectedContainer.gameObject, selected, null);
+			UIManager.SetGameObjectActive(m_selectedContainer.gameObject, selected);
 		}
 	}
 
 	public bool IsSelected()
 	{
-		return this.m_isSelected;
+		return m_isSelected;
 	}
 
 	public void SetSelected(bool selected, bool forceReplayAnim = false, string selectINSuffixOverride = "", string selectOutSuffixOverride = "")
 	{
-		if (this.m_isSelected == selected)
+		if (m_isSelected == selected)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -620,15 +611,15 @@ public class _SelectableBtn : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_SelectableBtn.SetSelected(bool, bool, string, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!forceReplayAnim)
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -638,106 +629,107 @@ public class _SelectableBtn : MonoBehaviour
 				break;
 			}
 		}
-		this.DoSelect(selected, selectINSuffixOverride, selectOutSuffixOverride);
+		DoSelect(selected, selectINSuffixOverride, selectOutSuffixOverride);
 	}
 
 	public void ToggleSelected(bool forceReplayAnim = false)
 	{
-		this.SetSelected(!this.IsSelected(), forceReplayAnim, string.Empty, string.Empty);
+		SetSelected(!IsSelected(), forceReplayAnim, string.Empty, string.Empty);
 	}
 
 	public void PlayAnimation(string stateName, int layer, float normalizedTime)
 	{
-		if (this.m_animationController.gameObject.activeInHierarchy)
+		if (!m_animationController.gameObject.activeInHierarchy)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_SelectableBtn.PlayAnimation(string, int, float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_animationController.gameObject.activeSelf)
+			if (!m_animationController.gameObject.activeSelf)
 			{
-				string name = this.m_animPrefix + stateName;
-				int num = Animator.StringToHash(name);
-				bool flag = false;
-				if (layer < 0)
+				while (true)
 				{
-					for (;;)
+					switch (7)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
+					default:
+						return;
+					case 0:
 						break;
 					}
-					for (int i = 0; i < this.m_animationController.layerCount; i++)
+				}
+			}
+			string name = m_animPrefix + stateName;
+			int num = Animator.StringToHash(name);
+			bool flag = false;
+			if (layer < 0)
+			{
+				while (true)
+				{
+					switch (2)
 					{
-						if (this.m_animationController.HasState(i, num))
+					case 0:
+						continue;
+					}
+					break;
+				}
+				for (int i = 0; i < m_animationController.layerCount; i++)
+				{
+					if (m_animationController.HasState(i, num))
+					{
+						while (true)
 						{
-							for (;;)
+							switch (5)
 							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
+							case 0:
+								continue;
 							}
-							flag = true;
+							break;
 						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						flag = true;
 					}
 				}
-				else
+				while (true)
 				{
-					flag = this.m_animationController.HasState(layer, num);
-				}
-				if (flag)
-				{
-					for (;;)
+					switch (6)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					this.m_animationController.Play(num, layer, normalizedTime);
+					break;
 				}
-				return;
 			}
-			for (;;)
+			else
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				flag = m_animationController.HasState(layer, num);
 			}
+			if (flag)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					m_animationController.Play(num, layer, normalizedTime);
+					return;
+				}
+			}
+			return;
 		}
 	}
 
 	public void SetRecordMetricClick(bool doRecording, string context = "")
 	{
-		this.spriteController.SetRecordMetricClick(doRecording, context);
+		spriteController.SetRecordMetricClick(doRecording, context);
 	}
 }

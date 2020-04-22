@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,16 +42,16 @@ public class UIStorePurchaseBaseItem : MonoBehaviour
 
 	public bool IsSelected()
 	{
-		return this.m_selectedCurrent.gameObject.activeSelf;
+		return m_selectedCurrent.gameObject.activeSelf;
 	}
 
 	public void SetSelectedInUse(bool selected)
 	{
-		UIManager.SetGameObjectActive(this.m_selectedInUse, selected, null);
+		UIManager.SetGameObjectActive(m_selectedInUse, selected);
 	}
 
 	public void SetSelected(bool selected)
 	{
-		UIManager.SetGameObjectActive(this.m_selectedCurrent, selected, null);
+		UIManager.SetGameObjectActive(m_selectedCurrent, selected);
 	}
 }

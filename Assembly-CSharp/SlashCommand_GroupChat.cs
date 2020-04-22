@@ -1,9 +1,9 @@
-﻿using System;
 using LobbyGameClientMessages;
 
 public class SlashCommand_GroupChat : SlashCommand
 {
-	public SlashCommand_GroupChat() : base("/group", SlashCommandType.Everywhere)
+	public SlashCommand_GroupChat()
+		: base("/group", SlashCommandType.Everywhere)
 	{
 	}
 
@@ -11,7 +11,7 @@ public class SlashCommand_GroupChat : SlashCommand
 	{
 		if (!arguments.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -20,16 +20,16 @@ public class SlashCommand_GroupChat : SlashCommand
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_GroupChat.OnSlashCommand(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!(ClientGameManager.Get() == null))
 			{
 				ClientGameManager clientGameManager = ClientGameManager.Get();
-				if (SlashCommand_GroupChat.<>f__am$cache0 == null)
+				if (_003C_003Ef__am_0024cache0 == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -38,68 +38,71 @@ public class SlashCommand_GroupChat : SlashCommand
 						}
 						break;
 					}
-					SlashCommand_GroupChat.<>f__am$cache0 = delegate(GroupChatResponse r)
+					_003C_003Ef__am_0024cache0 = delegate(GroupChatResponse r)
 					{
 						if (!r.Success)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
 								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(SlashCommand_GroupChat.<OnSlashCommand>m__0(GroupChatResponse)).MethodHandle;
-							}
-							if (r.LocalizedFailure != null)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
 									break;
-								}
-								r.ErrorMessage = r.LocalizedFailure.ToString();
-							}
-							string format = StringUtil.TR("FailedMessage", "Global");
-							object arg;
-							if (r.ErrorMessage.IsNullOrEmpty())
-							{
-								for (;;)
+								default:
 								{
-									switch (6)
+									if (1 == 0)
 									{
-									case 0:
-										continue;
+										/*OpCode not supported: LdMemberToken*/;
 									}
-									break;
+									if (r.LocalizedFailure != null)
+									{
+										while (true)
+										{
+											switch (5)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										r.ErrorMessage = r.LocalizedFailure.ToString();
+									}
+									string format = StringUtil.TR("FailedMessage", "Global");
+									string arg;
+									if (r.ErrorMessage.IsNullOrEmpty())
+									{
+										while (true)
+										{
+											switch (6)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										arg = StringUtil.TR("UnknownError", "Global");
+									}
+									else
+									{
+										arg = r.ErrorMessage;
+									}
+									string text = string.Format(format, arg);
+									TextConsole.Get().Write(new TextConsole.Message
+									{
+										Text = text,
+										MessageType = ConsoleMessageType.SystemMessage
+									});
+									return;
 								}
-								arg = StringUtil.TR("UnknownError", "Global");
+								}
 							}
-							else
-							{
-								arg = r.ErrorMessage;
-							}
-							string text = string.Format(format, arg);
-							TextConsole.Get().Write(new TextConsole.Message
-							{
-								Text = text,
-								MessageType = ConsoleMessageType.SystemMessage
-							}, null);
 						}
 					};
 				}
-				clientGameManager.ChatToGroup(arguments, SlashCommand_GroupChat.<>f__am$cache0);
+				clientGameManager.ChatToGroup(arguments, _003C_003Ef__am_0024cache0);
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -113,6 +116,6 @@ public class SlashCommand_GroupChat : SlashCommand
 		{
 			Text = "Error: name who you wish to invite",
 			MessageType = ConsoleMessageType.SystemMessage
-		}, null);
+		});
 	}
 }

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
@@ -46,30 +45,30 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u0019.\u0012(), "on every hit actor, number of cone hits on target", true);
+		return GetContextUsageStr(ContextKeys._0019.GetName(), "on every hit actor, number of cone hits on target");
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u0019.\u0012());
+		names.Add(ContextKeys._0019.GetName());
 	}
 
 	public override void Initialize()
 	{
-		this.SetCachedFields();
-		ConeTargetingInfo coneInfo = this.GetConeInfo();
-		coneInfo.m_affectsAllies = base.IncludeAllies();
-		coneInfo.m_affectsEnemies = base.IncludeEnemies();
-		coneInfo.m_affectsCaster = base.IncludeCaster();
-		coneInfo.m_penetrateLos = base.IgnoreLos();
+		SetCachedFields();
+		ConeTargetingInfo coneInfo = GetConeInfo();
+		coneInfo.m_affectsAllies = IncludeAllies();
+		coneInfo.m_affectsEnemies = IncludeEnemies();
+		coneInfo.m_affectsCaster = IncludeCaster();
+		coneInfo.m_penetrateLos = IgnoreLos();
 	}
 
 	private void SetCachedFields()
 	{
 		ConeTargetingInfo cachedConeInfo;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -78,30 +77,30 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedConeInfo = this.m_targetSelMod.m_coneInfoMod.GetModifiedValue(this.m_coneInfo);
+			cachedConeInfo = m_targetSelMod.m_coneInfoMod.GetModifiedValue(m_coneInfo);
 		}
 		else
 		{
-			cachedConeInfo = this.m_coneInfo;
+			cachedConeInfo = m_coneInfo;
 		}
-		this.m_cachedConeInfo = cachedConeInfo;
+		m_cachedConeInfo = cachedConeInfo;
 	}
 
 	public ConeTargetingInfo GetConeInfo()
 	{
-		return (this.m_cachedConeInfo == null) ? this.m_coneInfo : this.m_cachedConeInfo;
+		return (m_cachedConeInfo == null) ? m_coneInfo : m_cachedConeInfo;
 	}
 
 	public int GetConeCount()
 	{
 		int result;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -110,15 +109,15 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetConeCount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetSelMod.m_coneCountMod.GetModifiedValue(this.m_coneCount);
+			result = m_targetSelMod.m_coneCountMod.GetModifiedValue(m_coneCount);
 		}
 		else
 		{
-			result = this.m_coneCount;
+			result = m_coneCount;
 		}
 		return result;
 	}
@@ -126,9 +125,9 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 	public float GetConeStartOffsetInAimDir()
 	{
 		float result;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -137,30 +136,30 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetConeStartOffsetInAimDir()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetSelMod.m_coneStartOffsetInAimDirMod.GetModifiedValue(this.m_coneStartOffsetInAimDir);
+			result = m_targetSelMod.m_coneStartOffsetInAimDirMod.GetModifiedValue(m_coneStartOffsetInAimDir);
 		}
 		else
 		{
-			result = this.m_coneStartOffsetInAimDir;
+			result = m_coneStartOffsetInAimDir;
 		}
 		return result;
 	}
 
 	public float GetConeStartOffsetToSides()
 	{
-		return (this.m_targetSelMod == null) ? this.m_coneStartOffsetToSides : this.m_targetSelMod.m_coneStartOffsetToSidesMod.GetModifiedValue(this.m_coneStartOffsetToSides);
+		return (m_targetSelMod == null) ? m_coneStartOffsetToSides : m_targetSelMod.m_coneStartOffsetToSidesMod.GetModifiedValue(m_coneStartOffsetToSides);
 	}
 
 	public float GetConeStartOffsetInConeDir()
 	{
 		float result;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -169,15 +168,15 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetConeStartOffsetInConeDir()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetSelMod.m_coneStartOffsetInConeDirMod.GetModifiedValue(this.m_coneStartOffsetInConeDir);
+			result = m_targetSelMod.m_coneStartOffsetInConeDirMod.GetModifiedValue(m_coneStartOffsetInConeDir);
 		}
 		else
 		{
-			result = this.m_coneStartOffsetInConeDir;
+			result = m_coneStartOffsetInConeDir;
 		}
 		return result;
 	}
@@ -185,9 +184,9 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 	public float GetAngleInBetween()
 	{
 		float result;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -196,15 +195,15 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetAngleInBetween()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetSelMod.m_angleInBetweenMod.GetModifiedValue(this.m_angleInBetween);
+			result = m_targetSelMod.m_angleInBetweenMod.GetModifiedValue(m_angleInBetween);
 		}
 		else
 		{
-			result = this.m_angleInBetween;
+			result = m_angleInBetween;
 		}
 		return result;
 	}
@@ -212,9 +211,9 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 	public bool ChangeAngleByCursorDistance()
 	{
 		bool result;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -223,15 +222,15 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.ChangeAngleByCursorDistance()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetSelMod.m_changeAngleByCursorDistanceMod.GetModifiedValue(this.m_changeAngleByCursorDistance);
+			result = m_targetSelMod.m_changeAngleByCursorDistanceMod.GetModifiedValue(m_changeAngleByCursorDistance);
 		}
 		else
 		{
-			result = this.m_changeAngleByCursorDistance;
+			result = m_changeAngleByCursorDistance;
 		}
 		return result;
 	}
@@ -239,9 +238,9 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 	public float GetTargeterMinAngle()
 	{
 		float result;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -250,15 +249,15 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetTargeterMinAngle()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetSelMod.m_targeterMinAngleMod.GetModifiedValue(this.m_targeterMinAngle);
+			result = m_targetSelMod.m_targeterMinAngleMod.GetModifiedValue(m_targeterMinAngle);
 		}
 		else
 		{
-			result = this.m_targeterMinAngle;
+			result = m_targeterMinAngle;
 		}
 		return result;
 	}
@@ -266,9 +265,9 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 	public float GetTargeterMaxAngle()
 	{
 		float result;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -277,15 +276,15 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetTargeterMaxAngle()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetSelMod.m_targeterMaxAngleMod.GetModifiedValue(this.m_targeterMaxAngle);
+			result = m_targetSelMod.m_targeterMaxAngleMod.GetModifiedValue(m_targeterMaxAngle);
 		}
 		else
 		{
-			result = this.m_targeterMaxAngle;
+			result = m_targeterMaxAngle;
 		}
 		return result;
 	}
@@ -293,9 +292,9 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 	public float GetStartAngleOffset()
 	{
 		float result;
-		if (this.m_targetSelMod != null)
+		if (m_targetSelMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -304,15 +303,15 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetStartAngleOffset()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_targetSelMod.m_startAngleOffsetMod.GetModifiedValue(this.m_startAngleOffset);
+			result = m_targetSelMod.m_startAngleOffsetMod.GetModifiedValue(m_startAngleOffset);
 		}
 		else
 		{
-			result = this.m_startAngleOffset;
+			result = m_startAngleOffset;
 		}
 		return result;
 	}
@@ -329,17 +328,16 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)
 	{
-		AbilityUtil_Targeter_TricksterCones abilityUtil_Targeter_TricksterCones = new AbilityUtil_Targeter_TricksterCones(ability, this.GetConeInfo(), this.GetConeCount(), new AbilityUtil_Targeter_TricksterCones.GetCurrentNumberOfConesDelegate(this.GetConeCount), new AbilityUtil_Targeter_TricksterCones.GetConeInfoDelegate(this.GetConeOrigins), new AbilityUtil_Targeter_TricksterCones.GetConeInfoDelegate(this.GetConeDirections), new AbilityUtil_Targeter_TricksterCones.GetClampedTargetPosDelegate(this.GetFreePosForAim), false, this.UseCasterPosForLoS());
-		abilityUtil_Targeter_TricksterCones.m_customDamageOriginDelegate = new AbilityUtil_Targeter_TricksterCones.DamageOriginDelegate(this.GetDamageOriginForTargeter);
-		return new List<AbilityUtil_Targeter>
-		{
-			abilityUtil_Targeter_TricksterCones
-		};
+		AbilityUtil_Targeter_TricksterCones abilityUtil_Targeter_TricksterCones = new AbilityUtil_Targeter_TricksterCones(ability, GetConeInfo(), GetConeCount(), GetConeCount, GetConeOrigins, GetConeDirections, GetFreePosForAim, false, UseCasterPosForLoS());
+		abilityUtil_Targeter_TricksterCones.m_customDamageOriginDelegate = GetDamageOriginForTargeter;
+		List<AbilityUtil_Targeter> list = new List<AbilityUtil_Targeter>();
+		list.Add(abilityUtil_Targeter_TricksterCones);
+		return list;
 	}
 
 	private Vector3 GetDamageOriginForTargeter(AbilityTarget currentTarget, Vector3 defaultOrigin, ActorData actorToAdd, ActorData caster)
 	{
-		return caster.\u0016();
+		return caster.GetTravelBoardSquareWorldPosition();
 	}
 
 	public Vector3 GetFreePosForAim(AbilityTarget currentTarget, ActorData caster)
@@ -350,20 +348,20 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 	public virtual List<Vector3> GetConeOrigins(AbilityTarget currentTarget, Vector3 targeterFreePos, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		Vector3 a = caster.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
 		Vector3 aimDirection = currentTarget.AimDirection;
 		Vector3 normalized = Vector3.Cross(aimDirection, Vector3.up).normalized;
-		int coneCount = this.GetConeCount();
+		int coneCount = GetConeCount();
 		int num = coneCount / 2;
 		bool flag = coneCount % 2 == 0;
-		float num2 = this.GetConeStartOffsetInAimDir() * Board.SquareSizeStatic;
-		float num3 = this.GetConeStartOffsetToSides() * Board.SquareSizeStatic;
+		float num2 = GetConeStartOffsetInAimDir() * Board.SquareSizeStatic;
+		float num3 = GetConeStartOffsetToSides() * Board.SquareSizeStatic;
 		for (int i = 0; i < coneCount; i++)
 		{
-			Vector3 vector = Vector3.zero;
+			Vector3 b = Vector3.zero;
 			if (num2 != 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -372,15 +370,15 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetConeOrigins(AbilityTarget, Vector3, ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				vector = num2 * aimDirection;
+				b = num2 * aimDirection;
 			}
 			if (num3 > 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -391,7 +389,7 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 				}
 				if (flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -402,7 +400,7 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 					}
 					if (i < num)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -411,16 +409,16 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 							}
 							break;
 						}
-						vector -= (float)(num - i) * num3 * normalized;
+						b -= (float)(num - i) * num3 * normalized;
 					}
 					else
 					{
-						vector += (float)(i - num + 1) * num3 * normalized;
+						b += (float)(i - num + 1) * num3 * normalized;
 					}
 				}
 				else if (i < num)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -429,11 +427,11 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 						}
 						break;
 					}
-					vector -= (float)(num - i) * num3 * normalized;
+					b -= (float)(num - i) * num3 * normalized;
 				}
 				else if (i > num)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -442,14 +440,14 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 						}
 						break;
 					}
-					vector += (float)(i - num) * num3 * normalized;
+					b += (float)(i - num) * num3 * normalized;
 				}
 			}
-			list.Add(a + vector);
+			list.Add(travelBoardSquareWorldPositionForLos + b);
 		}
-		if (this.GetConeStartOffsetInConeDir() > 0f)
+		if (GetConeStartOffsetInConeDir() > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -458,15 +456,13 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			List<Vector3> coneDirections = this.GetConeDirections(currentTarget, targeterFreePos, caster);
-			float d = this.GetConeStartOffsetInConeDir() * Board.SquareSizeStatic;
+			List<Vector3> coneDirections = GetConeDirections(currentTarget, targeterFreePos, caster);
+			float d = GetConeStartOffsetInConeDir() * Board.SquareSizeStatic;
 			for (int j = 0; j < coneDirections.Count; j++)
 			{
-				List<Vector3> list2;
-				int index;
-				(list2 = list)[index = j] = list2[index] + d * coneDirections[j];
+				list[j] += d * coneDirections[j];
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -482,11 +478,11 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 	public virtual List<Vector3> GetConeDirections(AbilityTarget currentTarget, Vector3 targeterFreePos, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		float num = this.GetAngleInBetween();
-		int coneCount = this.GetConeCount();
-		if (this.ChangeAngleByCursorDistance())
+		float num = GetAngleInBetween();
+		int coneCount = GetConeCount();
+		if (ChangeAngleByCursorDistance())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -495,14 +491,14 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetConeDirections(AbilityTarget, Vector3, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			float num2;
 			if (coneCount > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -511,7 +507,7 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 					}
 					break;
 				}
-				num2 = AbilityCommon_FanLaser.CalculateFanAngleDegrees(currentTarget, caster, this.GetTargeterMinAngle(), this.GetTargeterMaxAngle(), this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance, 0f);
+				num2 = AbilityCommon_FanLaser.CalculateFanAngleDegrees(currentTarget, caster, GetTargeterMinAngle(), GetTargeterMaxAngle(), m_targeterMinInterpDistance, m_targeterMaxInterpDistance, 0f);
 			}
 			else
 			{
@@ -521,7 +517,7 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 			float num4;
 			if (coneCount > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -538,7 +534,7 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 			}
 			num = num4;
 		}
-		float num5 = VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection) + this.GetStartAngleOffset();
+		float num5 = VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection) + GetStartAngleOffset();
 		float num6 = num5 - 0.5f * (float)(coneCount - 1) * num;
 		for (int i = 0; i < coneCount; i++)
 		{
@@ -549,11 +545,11 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 
 	protected override void OnTargetSelModApplied(TargetSelectModBase modBase)
 	{
-		this.m_targetSelMod = (modBase as TargetSelectMod_FanCones);
+		m_targetSelMod = (modBase as TargetSelectMod_FanCones);
 	}
 
 	protected override void OnTargetSelModRemoved()
 	{
-		this.m_targetSelMod = null;
+		m_targetSelMod = null;
 	}
 }

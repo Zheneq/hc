@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,44 +34,43 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		RobotAnimalDrag robotAnimalDrag = targetAbility as RobotAnimalDrag;
-		if (robotAnimalDrag != null)
+		if (!(robotAnimalDrag != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalDrag.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_distanceMod, "Distance", string.Empty, robotAnimalDrag.m_distance, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_widthMod, "Width", string.Empty, robotAnimalDrag.m_width, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, robotAnimalDrag.m_damage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_casterEffectMod, "CasterEffect", robotAnimalDrag.m_casterEffect, true);
-			AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffectOverride, "EnemyEffectOnHit", null, true);
-			AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyEffectOnNextTurnStart, "EnemyEffectOnTurnStart", null, true);
+			AbilityMod.AddToken(tokens, m_distanceMod, "Distance", string.Empty, robotAnimalDrag.m_distance);
+			AbilityMod.AddToken(tokens, m_widthMod, "Width", string.Empty, robotAnimalDrag.m_width);
+			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, robotAnimalDrag.m_damage);
+			AbilityMod.AddToken_EffectMod(tokens, m_casterEffectMod, "CasterEffect", robotAnimalDrag.m_casterEffect);
+			AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffectOverride, "EnemyEffectOnHit");
+			AbilityMod.AddToken_EffectInfo(tokens, m_enemyEffectOnNextTurnStart, "EnemyEffectOnTurnStart");
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		RobotAnimalDrag robotAnimalDrag = base.GetTargetAbilityOnAbilityData(abilityData) as RobotAnimalDrag;
+		RobotAnimalDrag robotAnimalDrag = GetTargetAbilityOnAbilityData(abilityData) as RobotAnimalDrag;
 		bool flag = robotAnimalDrag != null;
-		string text = string.Empty;
-		text += AbilityModHelper.GetModPropertyDesc(this.m_distanceMod, "[Targeting Distance]", flag, (!flag) ? 0f : robotAnimalDrag.m_distance);
-		string str = text;
-		AbilityModPropertyFloat widthMod = this.m_widthMod;
-		string prefix = "[Width]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += AbilityModHelper.GetModPropertyDesc(m_distanceMod, "[Targeting Distance]", flag, (!flag) ? 0f : robotAnimalDrag.m_distance);
+		string str = empty;
+		AbilityModPropertyFloat widthMod = m_widthMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -80,9 +79,9 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalDrag.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = robotAnimalDrag.m_width;
 		}
@@ -90,15 +89,13 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(widthMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix2 = "[Damage]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(widthMod, "[Width]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -113,17 +110,15 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(damageMod, prefix2, showBaseVal2, baseVal2);
-		text += AbilityModHelper.GetModEffectInfoDesc(this.m_enemyHitEffectOverride, "{ Effect on Enemy on Hit }", string.Empty, flag, null);
-		text += AbilityModHelper.GetModEffectInfoDesc(this.m_enemyEffectOnNextTurnStart, "{ Effect on Enemy on start of Next Turn }", string.Empty, flag, null);
-		string str3 = text;
-		AbilityModPropertyEffectInfo casterEffectMod = this.m_casterEffectMod;
-		string prefix3 = "[CasterEffect]";
-		bool showBaseVal3 = flag;
-		StandardEffectInfo baseVal3;
+		empty = str2 + PropDesc(damageMod, "[Damage]", flag, baseVal2);
+		empty += AbilityModHelper.GetModEffectInfoDesc(m_enemyHitEffectOverride, "{ Effect on Enemy on Hit }", string.Empty, flag);
+		empty += AbilityModHelper.GetModEffectInfoDesc(m_enemyEffectOnNextTurnStart, "{ Effect on Enemy on start of Next Turn }", string.Empty, flag);
+		string str3 = empty;
+		AbilityModPropertyEffectInfo casterEffectMod = m_casterEffectMod;
+		object baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -138,10 +133,10 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 		{
 			baseVal3 = null;
 		}
-		text = str3 + base.PropDesc(casterEffectMod, prefix3, showBaseVal3, baseVal3);
-		if (this.m_powerUpsToSpawn != null)
+		empty = str3 + PropDesc(casterEffectMod, "[CasterEffect]", flag, (StandardEffectInfo)baseVal3);
+		if (m_powerUpsToSpawn != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -150,9 +145,9 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 				}
 				break;
 			}
-			if (this.m_powerUpsToSpawn.Count > 0)
+			if (m_powerUpsToSpawn.Count > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -161,15 +156,15 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 					}
 					break;
 				}
-				text += "[Spoils to Spawn] = ";
-				using (List<PowerUp>.Enumerator enumerator = this.m_powerUpsToSpawn.GetEnumerator())
+				empty += "[Spoils to Spawn] = ";
+				using (List<PowerUp>.Enumerator enumerator = m_powerUpsToSpawn.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						PowerUp powerUp = enumerator.Current;
-						if (powerUp != null)
+						PowerUp current = enumerator.Current;
+						if (current != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -178,10 +173,10 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 								}
 								break;
 							}
-							text = text + powerUp.name + ", ";
+							empty = empty + current.name + ", ";
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -191,10 +186,10 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 						break;
 					}
 				}
-				text += "\n";
-				text = text + "     in shape " + this.m_powerUpsSpawnShape.ToString() + "\n";
+				empty += "\n";
+				empty = empty + "     in shape " + m_powerUpsSpawnShape.ToString() + "\n";
 			}
 		}
-		return text;
+		return empty;
 	}
 }

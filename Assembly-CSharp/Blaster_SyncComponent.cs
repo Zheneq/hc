@@ -1,10 +1,140 @@
-﻿using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class Blaster_SyncComponent : NetworkBehaviour
 {
+	internal class HitAreaIndicatorHighlight
+	{
+		public GameObject m_parentObj;
+
+		public GameObject m_sideA;
+
+		public GameObject m_sideB;
+
+		public GameObject m_front;
+
+		public Color m_color = Color.red;
+
+		public void AdjustLength(float lengthInSquares)
+		{
+			if (m_sideA != null)
+			{
+				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(m_sideA, lengthInSquares, m_color);
+			}
+			if (m_sideB != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(m_sideB, lengthInSquares, m_color);
+			}
+			if (!(m_front != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				Vector3 localPosition = m_front.transform.localPosition;
+				localPosition.z = lengthInSquares * Board.Get().squareSize;
+				m_front.transform.localPosition = localPosition;
+				return;
+			}
+		}
+
+		public void AdjustSize(float widthInSquares, float lengthInSquares)
+		{
+			float num = widthInSquares * Board.Get().squareSize;
+			if (m_sideA != null)
+			{
+				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(m_sideA, lengthInSquares, m_color);
+				m_sideA.transform.localPosition = new Vector3(0.5f * num, 0f, 0f);
+			}
+			if (m_sideB != null)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(m_sideB, lengthInSquares, m_color);
+				m_sideB.transform.localPosition = new Vector3(-0.5f * num, 0f, 0f);
+			}
+			if (!(m_front != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(m_front, widthInSquares, m_color);
+				m_front.transform.localPosition = new Vector3(-0.5f * num, 0f, lengthInSquares * Board.Get().squareSize);
+				return;
+			}
+		}
+
+		public void SetPose(Vector3 position, Vector3 lookRotation)
+		{
+			if (m_parentObj != null)
+			{
+				m_parentObj.transform.position = position;
+				m_parentObj.transform.localRotation = Quaternion.LookRotation(lookRotation);
+			}
+		}
+
+		public void SetVisible(bool visible)
+		{
+			if (!(m_parentObj != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (m_parentObj.activeSelf != visible)
+				{
+					m_parentObj.SetActive(visible);
+				}
+				return;
+			}
+		}
+	}
+
 	[SyncVar]
 	public int m_overchargeBuffs;
 
@@ -34,14 +164,105 @@ public class Blaster_SyncComponent : NetworkBehaviour
 
 	private BlasterDelayedLaser m_delayedLaserAbility;
 
-	private Blaster_SyncComponent.HitAreaIndicatorHighlight m_laserRangeMarkerForAlly;
+	private HitAreaIndicatorHighlight m_laserRangeMarkerForAlly;
+
+	public int Networkm_overchargeBuffs
+	{
+		get
+		{
+			return m_overchargeBuffs;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_overchargeBuffs, 1u);
+		}
+	}
+
+	public int Networkm_overchargeUses
+	{
+		get
+		{
+			return m_overchargeUses;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_overchargeUses, 2u);
+		}
+	}
+
+	public bool Networkm_canActivateDelayedLaser
+	{
+		get
+		{
+			return m_canActivateDelayedLaser;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_canActivateDelayedLaser, 4u);
+		}
+	}
+
+	public Vector3 Networkm_delayedLaserStartPos
+	{
+		get
+		{
+			return m_delayedLaserStartPos;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_delayedLaserStartPos, 8u);
+		}
+	}
+
+	public Vector3 Networkm_delayedLaserAimDir
+	{
+		get
+		{
+			return m_delayedLaserAimDir;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_delayedLaserAimDir, 16u);
+		}
+	}
+
+	public int Networkm_lastPlacementTurn
+	{
+		get
+		{
+			return m_lastPlacementTurn;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_lastPlacementTurn, 32u);
+		}
+	}
+
+	public int Networkm_lastUltCastTurn
+	{
+		get
+		{
+			return m_lastUltCastTurn;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_lastUltCastTurn, 64u);
+		}
+	}
 
 	private void Start()
 	{
-		this.m_delayedLaserAbility = (base.GetComponent<AbilityData>().GetAbilityOfType(typeof(BlasterDelayedLaser)) as BlasterDelayedLaser);
-		if (this.m_delayedLaserAbility != null)
+		m_delayedLaserAbility = (GetComponent<AbilityData>().GetAbilityOfType(typeof(BlasterDelayedLaser)) as BlasterDelayedLaser);
+		if (m_delayedLaserAbility != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -50,13 +271,13 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Blaster_SyncComponent.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (NetworkClient.active)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -65,16 +286,16 @@ public class Blaster_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				this.m_laserRangeMarkerForAlly = Blaster_SyncComponent.CreateHitAreaTemplate(this.m_delayedLaserAbility.GetWidth(), 0.5f * (Color.blue + Color.white), true, 0.1f);
-				this.m_laserRangeMarkerForAlly.m_parentObj.SetActive(false);
+				m_laserRangeMarkerForAlly = CreateHitAreaTemplate(m_delayedLaserAbility.GetWidth(), 0.5f * (Color.blue + Color.white), true);
+				m_laserRangeMarkerForAlly.m_parentObj.SetActive(false);
 			}
 		}
-		this.m_actorData = base.GetComponent<ActorData>();
+		m_actorData = GetComponent<ActorData>();
 	}
 
-	internal static Blaster_SyncComponent.HitAreaIndicatorHighlight CreateHitAreaTemplate(float widthInSquares, Color color, bool dotted, float lineWidth = 0.1f)
+	internal static HitAreaIndicatorHighlight CreateHitAreaTemplate(float widthInSquares, Color color, bool dotted, float lineWidth = 0.1f)
 	{
-		float num = widthInSquares * Board.\u000E().squareSize;
+		float num = widthInSquares * Board.Get().squareSize;
 		GameObject gameObject = new GameObject("Blaster_RangeIndicator");
 		gameObject.transform.position = Vector3.zero;
 		gameObject.transform.localRotation = Quaternion.identity;
@@ -90,38 +311,37 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		gameObject4.transform.parent = gameObject.transform;
 		gameObject4.transform.localPosition = new Vector3(-0.5f * num, 0f, 1f);
 		gameObject4.transform.localRotation = Quaternion.LookRotation(new Vector3(1f, 0f, 0f));
-		return new Blaster_SyncComponent.HitAreaIndicatorHighlight
-		{
-			m_parentObj = gameObject,
-			m_sideA = gameObject2,
-			m_sideB = gameObject3,
-			m_front = gameObject4,
-			m_color = color
-		};
+		HitAreaIndicatorHighlight hitAreaIndicatorHighlight = new HitAreaIndicatorHighlight();
+		hitAreaIndicatorHighlight.m_parentObj = gameObject;
+		hitAreaIndicatorHighlight.m_sideA = gameObject2;
+		hitAreaIndicatorHighlight.m_sideB = gameObject3;
+		hitAreaIndicatorHighlight.m_front = gameObject4;
+		hitAreaIndicatorHighlight.m_color = color;
+		return hitAreaIndicatorHighlight;
 	}
 
 	private void Update()
 	{
-		if (NetworkClient.active)
+		if (!NetworkClient.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Blaster_SyncComponent.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool flag = false;
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -130,9 +350,9 @@ public class Blaster_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				if (this.m_actorData.\u0012() != null)
+				if (m_actorData.GetCurrentBoardSquare() != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -143,7 +363,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 					}
 					if (GameFlowData.Get() != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -154,7 +374,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 						}
 						if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -163,9 +383,9 @@ public class Blaster_SyncComponent : NetworkBehaviour
 								}
 								break;
 							}
-							if (this.m_canActivateDelayedLaser)
+							if (m_canActivateDelayedLaser)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (1)
 									{
@@ -182,61 +402,62 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				bool visible = activeOwnedActorData.\u000E() == this.m_actorData.\u000E();
-				Vector3 vector = this.m_delayedLaserAimDir;
-				if (this.m_delayedLaserAbility.TriggerAimAtBlaster())
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					Vector3 vector2 = this.m_actorData.\u0012().ToVector3() - this.m_delayedLaserStartPos;
-					vector2.y = 0f;
-					vector2.Normalize();
-					if (vector2.magnitude > 0f)
+					default:
 					{
-						for (;;)
+						bool visible = activeOwnedActorData.GetTeam() == m_actorData.GetTeam();
+						Vector3 vector = m_delayedLaserAimDir;
+						if (m_delayedLaserAbility.TriggerAimAtBlaster())
 						{
-							switch (7)
+							while (true)
 							{
-							case 0:
-								continue;
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
 							}
-							break;
+							Vector3 vector2 = m_actorData.GetCurrentBoardSquare().ToVector3() - m_delayedLaserStartPos;
+							vector2.y = 0f;
+							vector2.Normalize();
+							if (vector2.magnitude > 0f)
+							{
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								vector = vector2;
+							}
 						}
-						vector = vector2;
+						Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(m_delayedLaserStartPos, vector, m_delayedLaserAbility.GetLength() * Board.Get().squareSize, m_delayedLaserAbility.m_penetrateLineOfSight, m_actorData);
+						Vector3 vector3 = m_delayedLaserStartPos;
+						float laserInitialOffsetInSquares = GameWideData.Get().m_laserInitialOffsetInSquares;
+						vector3 = VectorUtils.GetAdjustedStartPosWithOffset(vector3, laserEndPoint, laserInitialOffsetInSquares);
+						vector3.y = (float)Board.Get().BaselineHeight + 0.01f;
+						Vector3 vector4 = laserEndPoint - vector3;
+						vector4.y = 0f;
+						float magnitude = vector4.magnitude;
+						m_laserRangeMarkerForAlly.SetPose(vector3, vector);
+						m_laserRangeMarkerForAlly.AdjustSize(m_delayedLaserAbility.GetWidth(), magnitude / Board.Get().squareSize);
+						m_laserRangeMarkerForAlly.SetVisible(visible);
+						return;
+					}
 					}
 				}
-				Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(this.m_delayedLaserStartPos, vector, this.m_delayedLaserAbility.GetLength() * Board.\u000E().squareSize, this.m_delayedLaserAbility.m_penetrateLineOfSight, this.m_actorData, null, true);
-				Vector3 vector3 = this.m_delayedLaserStartPos;
-				float laserInitialOffsetInSquares = GameWideData.Get().m_laserInitialOffsetInSquares;
-				vector3 = VectorUtils.GetAdjustedStartPosWithOffset(vector3, laserEndPoint, laserInitialOffsetInSquares);
-				vector3.y = (float)Board.\u000E().BaselineHeight + 0.01f;
-				Vector3 vector4 = laserEndPoint - vector3;
-				vector4.y = 0f;
-				float magnitude = vector4.magnitude;
-				this.m_laserRangeMarkerForAlly.SetPose(vector3, vector);
-				this.m_laserRangeMarkerForAlly.AdjustSize(this.m_delayedLaserAbility.GetWidth(), magnitude / Board.\u000E().squareSize);
-				this.m_laserRangeMarkerForAlly.SetVisible(visible);
 			}
-			else
-			{
-				this.m_laserRangeMarkerForAlly.SetVisible(false);
-			}
+			m_laserRangeMarkerForAlly.SetVisible(false);
+			return;
 		}
 	}
 
@@ -244,127 +465,36 @@ public class Blaster_SyncComponent : NetworkBehaviour
 	{
 	}
 
-	public int Networkm_overchargeBuffs
-	{
-		get
-		{
-			return this.m_overchargeBuffs;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_overchargeBuffs, 1U);
-		}
-	}
-
-	public int Networkm_overchargeUses
-	{
-		get
-		{
-			return this.m_overchargeUses;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_overchargeUses, 2U);
-		}
-	}
-
-	public bool Networkm_canActivateDelayedLaser
-	{
-		get
-		{
-			return this.m_canActivateDelayedLaser;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<bool>(value, ref this.m_canActivateDelayedLaser, 4U);
-		}
-	}
-
-	public Vector3 Networkm_delayedLaserStartPos
-	{
-		get
-		{
-			return this.m_delayedLaserStartPos;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<Vector3>(value, ref this.m_delayedLaserStartPos, 8U);
-		}
-	}
-
-	public Vector3 Networkm_delayedLaserAimDir
-	{
-		get
-		{
-			return this.m_delayedLaserAimDir;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<Vector3>(value, ref this.m_delayedLaserAimDir, 0x10U);
-		}
-	}
-
-	public int Networkm_lastPlacementTurn
-	{
-		get
-		{
-			return this.m_lastPlacementTurn;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_lastPlacementTurn, 0x20U);
-		}
-	}
-
-	public int Networkm_lastUltCastTurn
-	{
-		get
-		{
-			return this.m_lastUltCastTurn;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_lastUltCastTurn, 0x40U);
-		}
-	}
-
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					writer.WritePackedUInt32((uint)m_overchargeBuffs);
+					writer.WritePackedUInt32((uint)m_overchargeUses);
+					writer.Write(m_canActivateDelayedLaser);
+					writer.Write(m_delayedLaserStartPos);
+					writer.Write(m_delayedLaserAimDir);
+					writer.WritePackedUInt32((uint)m_lastPlacementTurn);
+					writer.WritePackedUInt32((uint)m_lastUltCastTurn);
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Blaster_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
-			writer.WritePackedUInt32((uint)this.m_overchargeBuffs);
-			writer.WritePackedUInt32((uint)this.m_overchargeUses);
-			writer.Write(this.m_canActivateDelayedLaser);
-			writer.Write(this.m_delayedLaserStartPos);
-			writer.Write(this.m_delayedLaserAimDir);
-			writer.WritePackedUInt32((uint)this.m_lastPlacementTurn);
-			writer.WritePackedUInt32((uint)this.m_lastUltCastTurn);
-			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -375,7 +505,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -387,13 +517,13 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_overchargeBuffs);
+			writer.WritePackedUInt32((uint)m_overchargeBuffs);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -405,11 +535,11 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_overchargeUses);
+			writer.WritePackedUInt32((uint)m_overchargeUses);
 		}
-		if ((base.syncVarDirtyBits & 4U) != 0U)
+		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -420,7 +550,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -432,11 +562,11 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_canActivateDelayedLaser);
+			writer.Write(m_canActivateDelayedLaser);
 		}
-		if ((base.syncVarDirtyBits & 8U) != 0U)
+		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -450,11 +580,11 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_delayedLaserStartPos);
+			writer.Write(m_delayedLaserStartPos);
 		}
-		if ((base.syncVarDirtyBits & 0x10U) != 0U)
+		if ((base.syncVarDirtyBits & 0x10) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -468,11 +598,11 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_delayedLaserAimDir);
+			writer.Write(m_delayedLaserAimDir);
 		}
-		if ((base.syncVarDirtyBits & 0x20U) != 0U)
+		if ((base.syncVarDirtyBits & 0x20) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -486,11 +616,11 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_lastPlacementTurn);
+			writer.WritePackedUInt32((uint)m_lastPlacementTurn);
 		}
-		if ((base.syncVarDirtyBits & 0x40U) != 0U)
+		if ((base.syncVarDirtyBits & 0x40) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -501,7 +631,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -513,7 +643,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_lastUltCastTurn);
+			writer.WritePackedUInt32((uint)m_lastUltCastTurn);
 		}
 		if (!flag)
 		{
@@ -526,36 +656,36 @@ public class Blaster_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_overchargeBuffs = (int)reader.ReadPackedUInt32();
+					m_overchargeUses = (int)reader.ReadPackedUInt32();
+					m_canActivateDelayedLaser = reader.ReadBoolean();
+					m_delayedLaserStartPos = reader.ReadVector3();
+					m_delayedLaserAimDir = reader.ReadVector3();
+					m_lastPlacementTurn = (int)reader.ReadPackedUInt32();
+					m_lastUltCastTurn = (int)reader.ReadPackedUInt32();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Blaster_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
-			this.m_overchargeBuffs = (int)reader.ReadPackedUInt32();
-			this.m_overchargeUses = (int)reader.ReadPackedUInt32();
-			this.m_canActivateDelayedLaser = reader.ReadBoolean();
-			this.m_delayedLaserStartPos = reader.ReadVector3();
-			this.m_delayedLaserAimDir = reader.ReadVector3();
-			this.m_lastPlacementTurn = (int)reader.ReadPackedUInt32();
-			this.m_lastUltCastTurn = (int)reader.ReadPackedUInt32();
-			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			this.m_overchargeBuffs = (int)reader.ReadPackedUInt32();
+			m_overchargeBuffs = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -564,11 +694,11 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_overchargeUses = (int)reader.ReadPackedUInt32();
+			m_overchargeUses = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -577,11 +707,11 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_canActivateDelayedLaser = reader.ReadBoolean();
+			m_canActivateDelayedLaser = reader.ReadBoolean();
 		}
 		if ((num & 8) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -590,11 +720,11 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_delayedLaserStartPos = reader.ReadVector3();
+			m_delayedLaserStartPos = reader.ReadVector3();
 		}
 		if ((num & 0x10) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -603,11 +733,11 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_delayedLaserAimDir = reader.ReadVector3();
+			m_delayedLaserAimDir = reader.ReadVector3();
 		}
 		if ((num & 0x20) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -616,148 +746,21 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_lastPlacementTurn = (int)reader.ReadPackedUInt32();
+			m_lastPlacementTurn = (int)reader.ReadPackedUInt32();
 		}
-		if ((num & 0x40) != 0)
+		if ((num & 0x40) == 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_lastUltCastTurn = (int)reader.ReadPackedUInt32();
+			return;
 		}
-	}
-
-	internal class HitAreaIndicatorHighlight
-	{
-		public GameObject m_parentObj;
-
-		public GameObject m_sideA;
-
-		public GameObject m_sideB;
-
-		public GameObject m_front;
-
-		public Color m_color = Color.red;
-
-		public void AdjustLength(float lengthInSquares)
+		while (true)
 		{
-			if (this.m_sideA != null)
+			switch (2)
 			{
-				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_sideA, lengthInSquares, this.m_color);
+			case 0:
+				continue;
 			}
-			if (this.m_sideB != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Blaster_SyncComponent.HitAreaIndicatorHighlight.AdjustLength(float)).MethodHandle;
-				}
-				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_sideB, lengthInSquares, this.m_color);
-			}
-			if (this.m_front != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Vector3 localPosition = this.m_front.transform.localPosition;
-				localPosition.z = lengthInSquares * Board.\u000E().squareSize;
-				this.m_front.transform.localPosition = localPosition;
-			}
-		}
-
-		public void AdjustSize(float widthInSquares, float lengthInSquares)
-		{
-			float num = widthInSquares * Board.\u000E().squareSize;
-			if (this.m_sideA != null)
-			{
-				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_sideA, lengthInSquares, this.m_color);
-				this.m_sideA.transform.localPosition = new Vector3(0.5f * num, 0f, 0f);
-			}
-			if (this.m_sideB != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Blaster_SyncComponent.HitAreaIndicatorHighlight.AdjustSize(float, float)).MethodHandle;
-				}
-				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_sideB, lengthInSquares, this.m_color);
-				this.m_sideB.transform.localPosition = new Vector3(-0.5f * num, 0f, 0f);
-			}
-			if (this.m_front != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_front, widthInSquares, this.m_color);
-				this.m_front.transform.localPosition = new Vector3(-0.5f * num, 0f, lengthInSquares * Board.\u000E().squareSize);
-			}
-		}
-
-		public void SetPose(Vector3 position, Vector3 lookRotation)
-		{
-			if (this.m_parentObj != null)
-			{
-				this.m_parentObj.transform.position = position;
-				this.m_parentObj.transform.localRotation = Quaternion.LookRotation(lookRotation);
-			}
-		}
-
-		public void SetVisible(bool visible)
-		{
-			if (this.m_parentObj != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Blaster_SyncComponent.HitAreaIndicatorHighlight.SetVisible(bool)).MethodHandle;
-				}
-				if (this.m_parentObj.activeSelf != visible)
-				{
-					this.m_parentObj.SetActive(visible);
-				}
-			}
+			m_lastUltCastTurn = (int)reader.ReadPackedUInt32();
+			return;
 		}
 	}
 }

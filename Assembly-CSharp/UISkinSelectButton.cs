@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -19,9 +19,9 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 	protected override void Start()
 	{
 		base.Start();
-		if (this.m_progressionSlider != null)
+		if (m_progressionSlider != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -30,42 +30,43 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinSelectButton.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_progressionSlider.interactable = false;
+			m_progressionSlider.interactable = false;
 		}
-		if (this.m_theButton != null)
+		if (!(m_theButton != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_theButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnSkinClicked);
+			m_theButton.callback = OnSkinClicked;
+			return;
 		}
 	}
 
 	public void OnSkinClicked(BaseEventData data)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModAdd);
-		this.m_uiSkinBrowserPanel.SkinClicked(this);
+		m_uiSkinBrowserPanel.SkinClicked(this);
 	}
 
 	public void Setup(CharacterResourceLink m_theCharacter, UISkinData skinData, int skinIndex, UISkinBrowserPanel parent)
 	{
-		this.m_skinIndex = skinIndex;
-		this.m_skinData = skinData;
-		UIManager.SetGameObjectActive(this.m_lockedIcon, !skinData.m_isAvailable, null);
-		this.m_uiSkinBrowserPanel = parent;
-		if (this.m_characterIcon != null)
+		m_skinIndex = skinIndex;
+		m_skinData = skinData;
+		UIManager.SetGameObjectActive(m_lockedIcon, !skinData.m_isAvailable);
+		m_uiSkinBrowserPanel = parent;
+		if (m_characterIcon != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -74,13 +75,13 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinSelectButton.Setup(CharacterResourceLink, UISkinData, int, UISkinBrowserPanel)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (skinData.m_skinImage == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -89,16 +90,16 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 					}
 					break;
 				}
-				this.m_characterIcon.sprite = m_theCharacter.GetLoadingProfileIcon();
+				m_characterIcon.sprite = m_theCharacter.GetLoadingProfileIcon();
 			}
 			else
 			{
-				this.m_characterIcon.sprite = skinData.m_skinImage;
+				m_characterIcon.sprite = skinData.m_skinImage;
 			}
 		}
-		if (this.m_progressionSlider != null)
+		if (m_progressionSlider != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -107,15 +108,15 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 				}
 				break;
 			}
-			this.m_progressionSlider.minValue = 0f;
-			this.m_progressionSlider.maxValue = 1f;
-			this.m_progressionSlider.value = skinData.m_progressPct;
+			m_progressionSlider.minValue = 0f;
+			m_progressionSlider.maxValue = 1f;
+			m_progressionSlider.value = skinData.m_progressPct;
 		}
-		this.m_unlockTooltipTitle = string.Format(StringUtil.TR("SkinName", "Global"), m_theCharacter.GetSkinName(skinIndex));
-		this.m_unlockTooltipText = m_theCharacter.GetSkinDescription(skinIndex);
-		if (this.m_unlockTooltipText.IsNullOrEmpty())
+		m_unlockTooltipTitle = string.Format(StringUtil.TR("SkinName", "Global"), m_theCharacter.GetSkinName(skinIndex));
+		m_unlockTooltipText = m_theCharacter.GetSkinDescription(skinIndex);
+		if (m_unlockTooltipText.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -124,11 +125,11 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 				}
 				break;
 			}
-			this.m_unlockTooltipText = string.Empty;
+			m_unlockTooltipText = string.Empty;
 			int num = 0;
 			if (skinData.m_unlockCharacterLevel > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -137,12 +138,12 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 					}
 					break;
 				}
-				this.m_unlockTooltipText = this.m_unlockTooltipText + string.Format(StringUtil.TR("UnlockedAtCharacterLevel", "Global"), skinData.m_unlockCharacterLevel) + Environment.NewLine;
+				m_unlockTooltipText = m_unlockTooltipText + string.Format(StringUtil.TR("UnlockedAtCharacterLevel", "Global"), skinData.m_unlockCharacterLevel) + Environment.NewLine;
 				num++;
 			}
 			if (skinData.m_gameCurrencyCost > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -151,12 +152,12 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 					}
 					break;
 				}
-				this.m_unlockTooltipText = this.m_unlockTooltipText + string.Format(StringUtil.TR("BuyForNumberISO", "Global"), skinData.m_gameCurrencyCost) + Environment.NewLine;
+				m_unlockTooltipText = m_unlockTooltipText + string.Format(StringUtil.TR("BuyForNumberISO", "Global"), skinData.m_gameCurrencyCost) + Environment.NewLine;
 				num++;
 			}
 			if (num > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -165,25 +166,26 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 					}
 					break;
 				}
-				this.m_unlockTooltipText = StringUtil.TR("ObtainedByMethods", "Global") + Environment.NewLine + this.m_unlockTooltipText + Environment.NewLine;
+				m_unlockTooltipText = StringUtil.TR("ObtainedByMethods", "Global") + Environment.NewLine + m_unlockTooltipText + Environment.NewLine;
 			}
 		}
 		else
 		{
-			this.m_unlockTooltipText += Environment.NewLine;
+			m_unlockTooltipText += Environment.NewLine;
 		}
-		if (!skinData.m_flavorText.IsNullOrEmpty())
+		if (skinData.m_flavorText.IsNullOrEmpty())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_unlockTooltipText = this.m_unlockTooltipText + "<i>" + skinData.m_flavorText + "</i>";
+			m_unlockTooltipText = m_unlockTooltipText + "<i>" + skinData.m_flavorText + "</i>";
+			return;
 		}
 	}
 }

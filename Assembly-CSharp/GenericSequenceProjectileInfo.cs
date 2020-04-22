@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,20 +43,20 @@ public class GenericSequenceProjectileInfo
 
 	public GenericSequenceProjectileInfo(Sequence parent, GenericSequenceProjectileAuthoredInfo authoredInfo, Vector3 startPos, Vector3 endPos, ActorData[] targetActors)
 	{
-		this.m_parentSequence = parent;
-		this.m_authoredInfo = authoredInfo;
-		this.m_impactDuration = Sequence.GetFXDuration(this.m_authoredInfo.m_fxImpactPrefab);
-		this.m_startPos = startPos;
-		this.m_endPos = endPos;
-		this.m_positionForSequenceHit = endPos;
-		this.m_targetActors = targetActors;
+		m_parentSequence = parent;
+		m_authoredInfo = authoredInfo;
+		m_impactDuration = Sequence.GetFXDuration(m_authoredInfo.m_fxImpactPrefab);
+		m_startPos = startPos;
+		m_endPos = endPos;
+		m_positionForSequenceHit = endPos;
+		m_targetActors = targetActors;
 	}
 
 	public void OnSequenceDisable()
 	{
-		if (this.m_fx != null)
+		if (m_fx != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -66,16 +65,16 @@ public class GenericSequenceProjectileInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericSequenceProjectileInfo.OnSequenceDisable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.Destroy(this.m_fx);
-			this.m_fx = null;
+			Object.Destroy(m_fx);
+			m_fx = null;
 		}
-		if (this.m_fxImpact != null)
+		if (m_fxImpact != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -84,53 +83,54 @@ public class GenericSequenceProjectileInfo
 				}
 				break;
 			}
-			UnityEngine.Object.Destroy(this.m_fxImpact);
-			this.m_fxImpact = null;
+			Object.Destroy(m_fxImpact);
+			m_fxImpact = null;
 		}
-		if (this.m_targetHitFx != null && this.m_targetHitFx.Count > 0)
+		if (m_targetHitFx == null || m_targetHitFx.Count <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			for (int i = 0; i < this.m_targetHitFx.Count; i++)
+			for (int i = 0; i < m_targetHitFx.Count; i++)
 			{
-				UnityEngine.Object.Destroy(this.m_targetHitFx[i]);
+				Object.Destroy(m_targetHitFx[i]);
 			}
-			this.m_targetHitFx.Clear();
+			m_targetHitFx.Clear();
+			return;
 		}
 	}
 
 	private void SpawnFX()
 	{
-		Vector3[] splinePath = this.GetSplinePath();
-		this.m_spline = new CRSpline(splinePath);
-		Vector3 a = this.m_spline.Interp(0.05f);
+		Vector3[] splinePath = GetSplinePath();
+		m_spline = new CRSpline(splinePath);
+		Vector3 a = m_spline.Interp(0.05f);
 		(a - splinePath[1]).Normalize();
 		Quaternion rotation = default(Quaternion);
-		Debug.DrawLine(this.m_startPos, this.m_endPos, Color.red, 5f);
+		Debug.DrawLine(m_startPos, m_endPos, Color.red, 5f);
 		float num = (splinePath[1] - splinePath[2]).magnitude + (splinePath[2] - splinePath[3]).magnitude;
-		float num2 = num / this.m_authoredInfo.m_projectileSpeed;
-		this.m_splineSpeed = 1f / num2;
-		this.m_splineAcceleration = 0f;
-		this.m_curSplineSpeed = this.m_splineSpeed;
-		this.m_fx = this.m_parentSequence.InstantiateFX(this.m_authoredInfo.m_fxPrefab, splinePath[1], rotation, true, false);
-		if (!string.IsNullOrEmpty(this.m_authoredInfo.m_spawnAudioEvent))
+		float num2 = num / m_authoredInfo.m_projectileSpeed;
+		m_splineSpeed = 1f / num2;
+		m_splineAcceleration = 0f;
+		m_curSplineSpeed = m_splineSpeed;
+		m_fx = m_parentSequence.InstantiateFX(m_authoredInfo.m_fxPrefab, splinePath[1], rotation, true, false);
+		if (!string.IsNullOrEmpty(m_authoredInfo.m_spawnAudioEvent))
 		{
-			AudioManager.PostEvent(this.m_authoredInfo.m_spawnAudioEvent, this.m_parentSequence.Caster.gameObject);
+			AudioManager.PostEvent(m_authoredInfo.m_spawnAudioEvent, m_parentSequence.Caster.gameObject);
 		}
 	}
 
 	public void SpawnImpactFX(Vector3 impactPos, Quaternion impactRot)
 	{
-		if (this.m_authoredInfo.m_fxImpactPrefab)
+		if ((bool)m_authoredInfo.m_fxImpactPrefab)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -139,131 +139,133 @@ public class GenericSequenceProjectileInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericSequenceProjectileInfo.SpawnImpactFX(Vector3, Quaternion)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_fxImpact = this.m_parentSequence.InstantiateFX(this.m_authoredInfo.m_fxImpactPrefab, impactPos, impactRot, true, true);
-			this.m_impactDurationLeft = this.m_impactDuration;
+			m_fxImpact = m_parentSequence.InstantiateFX(m_authoredInfo.m_fxImpactPrefab, impactPos, impactRot);
+			m_impactDurationLeft = m_impactDuration;
 		}
-		if (!string.IsNullOrEmpty(this.m_authoredInfo.m_impactAudioEvent))
+		if (!string.IsNullOrEmpty(m_authoredInfo.m_impactAudioEvent))
 		{
-			AudioManager.PostEvent(this.m_authoredInfo.m_impactAudioEvent, this.m_fx.gameObject);
+			AudioManager.PostEvent(m_authoredInfo.m_impactAudioEvent, m_fx.gameObject);
 		}
 	}
 
 	protected virtual void SpawnTargetHitFx(ActorData target)
 	{
-		if (target != null)
+		if (!(target != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(m_fx != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericSequenceProjectileInfo.SpawnTargetHitFx(ActorData)).MethodHandle;
-			}
-			if (this.m_fx != null)
-			{
-				for (;;)
+				if (!m_parentSequence.IsHitFXVisibleWrtTeamFilter(target, m_authoredInfo.m_hitFxTeamFilter))
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (this.m_parentSequence.IsHitFXVisibleWrtTeamFilter(target, this.m_authoredInfo.m_hitFxTeamFilter))
+				if (m_authoredInfo.m_targetHitFxPrefab != null)
 				{
-					if (this.m_authoredInfo.m_targetHitFxPrefab != null)
+					while (true)
 					{
-						for (;;)
+						switch (1)
 						{
-							switch (1)
+						case 0:
+							continue;
+						}
+						break;
+					}
+					GameObject gameObject = m_authoredInfo.m_hitPosJoint.FindJointObject(target.gameObject);
+					Vector3 vector;
+					if (gameObject != null)
+					{
+						while (true)
+						{
+							switch (6)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						GameObject gameObject = this.m_authoredInfo.m_hitPosJoint.FindJointObject(target.gameObject);
-						Vector3 vector;
-						if (gameObject != null)
+						vector = gameObject.transform.position;
+					}
+					else
+					{
+						vector = target.GetTravelBoardSquareWorldPosition();
+					}
+					Vector3 position = vector;
+					GameObject gameObject2 = m_parentSequence.InstantiateFX(m_authoredInfo.m_targetHitFxPrefab, position, m_fx.transform.rotation);
+					if (gameObject2 != null)
+					{
+						while (true)
 						{
-							for (;;)
+							switch (6)
 							{
-								switch (6)
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (m_authoredInfo.m_targetHitFxAttachToJoint)
+						{
+							while (true)
+							{
+								switch (7)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							vector = gameObject.transform.position;
+							m_parentSequence.AttachToBone(gameObject2, gameObject);
+							gameObject2.transform.localPosition = Vector3.zero;
+							gameObject2.transform.localScale = Vector3.one;
+							gameObject2.transform.localRotation = Quaternion.identity;
 						}
 						else
 						{
-							vector = target.\u0016();
+							gameObject2.transform.parent = m_parentSequence.transform;
 						}
-						Vector3 position = vector;
-						GameObject gameObject2 = this.m_parentSequence.InstantiateFX(this.m_authoredInfo.m_targetHitFxPrefab, position, this.m_fx.transform.rotation, true, true);
-						if (gameObject2 != null)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_authoredInfo.m_targetHitFxAttachToJoint)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.m_parentSequence.AttachToBone(gameObject2, gameObject);
-								gameObject2.transform.localPosition = Vector3.zero;
-								gameObject2.transform.localScale = Vector3.one;
-								gameObject2.transform.localRotation = Quaternion.identity;
-							}
-							else
-							{
-								gameObject2.transform.parent = this.m_parentSequence.transform;
-							}
-							this.m_targetHitFx.Add(gameObject2);
-						}
-					}
-					if (!string.IsNullOrEmpty(this.m_authoredInfo.m_targetHitAudioEvent))
-					{
-						AudioManager.PostEvent(this.m_authoredInfo.m_targetHitAudioEvent, target.gameObject);
+						m_targetHitFx.Add(gameObject2);
 					}
 				}
+				if (!string.IsNullOrEmpty(m_authoredInfo.m_targetHitAudioEvent))
+				{
+					AudioManager.PostEvent(m_authoredInfo.m_targetHitAudioEvent, target.gameObject);
+				}
+				return;
 			}
 		}
 	}
 
 	public Vector3[] GetSplinePath()
 	{
-		Vector3 startPos = this.m_startPos;
+		Vector3 startPos = m_startPos;
 		Vector3[] array = new Vector3[5];
-		if (this.m_authoredInfo.m_maxHeight == 0f)
+		if (m_authoredInfo.m_maxHeight == 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -272,12 +274,12 @@ public class GenericSequenceProjectileInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericSequenceProjectileInfo.GetSplinePath()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Vector3 endPos = this.m_endPos;
-			endPos.y += this.m_authoredInfo.m_yOffset;
+			Vector3 endPos = m_endPos;
+			endPos.y += m_authoredInfo.m_yOffset;
 			Vector3 b = endPos - startPos;
 			array[0] = startPos - b;
 			array[1] = startPos;
@@ -287,14 +289,14 @@ public class GenericSequenceProjectileInfo
 		}
 		else
 		{
-			Vector3 endPos2 = this.m_endPos;
-			array[0] = startPos + Vector3.down * this.m_authoredInfo.m_maxHeight;
+			Vector3 endPos2 = m_endPos;
+			array[0] = startPos + Vector3.down * m_authoredInfo.m_maxHeight;
 			array[1] = startPos;
-			array[2] = (startPos + endPos2) * 0.5f + Vector3.up * this.m_authoredInfo.m_maxHeight;
+			array[2] = (startPos + endPos2) * 0.5f + Vector3.up * m_authoredInfo.m_maxHeight;
 			array[3] = endPos2;
-			array[4] = endPos2 + Vector3.down * this.m_authoredInfo.m_maxHeight;
+			array[4] = endPos2 + Vector3.down * m_authoredInfo.m_maxHeight;
 		}
-		if (this.m_authoredInfo.m_reverseDirection)
+		if (m_authoredInfo.m_reverseDirection)
 		{
 			Vector3 vector = array[0];
 			array[0] = array[4];
@@ -308,28 +310,28 @@ public class GenericSequenceProjectileInfo
 
 	public void OnUpdate()
 	{
-		if (this.m_fx == null)
+		if (m_fx == null)
 		{
-			this.m_startDelay -= GameTime.deltaTime;
-			if (this.m_startDelay <= 0f)
+			m_startDelay -= GameTime.deltaTime;
+			if (!(m_startDelay <= 0f))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (1)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GenericSequenceProjectileInfo.OnUpdate()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				GameObject referenceModel = this.m_parentSequence.GetReferenceModel(this.m_parentSequence.Caster, this.m_authoredInfo.m_jointReferenceType);
+				GameObject referenceModel = m_parentSequence.GetReferenceModel(m_parentSequence.Caster, m_authoredInfo.m_jointReferenceType);
 				if (referenceModel != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -338,159 +340,20 @@ public class GenericSequenceProjectileInfo
 						}
 						break;
 					}
-					this.m_authoredInfo.m_fxJoint.Initialize(referenceModel);
+					m_authoredInfo.m_fxJoint.Initialize(referenceModel);
 				}
-				this.SpawnFX();
+				SpawnFX();
+				return;
 			}
 		}
-		else
+		if (m_fx.activeSelf)
 		{
-			if (this.m_fx.activeSelf)
+			m_curSplineSpeed += m_splineAcceleration;
+			m_curSplineSpeed = Mathf.Min(m_splineSpeed, m_curSplineSpeed);
+			m_splineTraveled += m_curSplineSpeed * GameTime.deltaTime;
+			if (m_splineTraveled < m_authoredInfo.m_splineFractionUntilImpact)
 			{
-				this.m_curSplineSpeed += this.m_splineAcceleration;
-				this.m_curSplineSpeed = Mathf.Min(this.m_splineSpeed, this.m_curSplineSpeed);
-				this.m_splineTraveled += this.m_curSplineSpeed * GameTime.deltaTime;
-				if (this.m_splineTraveled < this.m_authoredInfo.m_splineFractionUntilImpact)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Vector3 vector = this.m_spline.Interp(this.m_splineTraveled);
-					Quaternion rotation = default(Quaternion);
-					rotation.SetLookRotation((vector - this.m_fx.transform.position).normalized);
-					Vector3 vector2 = vector - this.m_fx.transform.position;
-					vector2.Normalize();
-					this.m_fx.transform.position = vector;
-					this.m_fx.transform.rotation = rotation;
-					if (this.m_targetActors != null)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						foreach (ActorData actorData in this.m_targetActors)
-						{
-							if (actorData != null)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!this.m_actorsAlreadyHit.Contains(actorData))
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									Vector3 rhs = actorData.transform.position - this.m_fx.transform.position;
-									if (Vector3.Dot(vector2, rhs) < 0f)
-									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										Vector3 position = this.m_fx.transform.position;
-										ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(position, vector2);
-										this.m_parentSequence.Source.OnSequenceHit(this.m_parentSequence, actorData, impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
-										this.m_actorsAlreadyHit.Add(actorData);
-										this.SpawnTargetHitFx(actorData);
-									}
-								}
-							}
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-				}
-				else
-				{
-					if (this.m_authoredInfo.m_spawnImpactAtFXDespawn)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.SpawnImpactFX(this.m_fx.transform.position, this.m_fx.transform.rotation);
-					}
-					else
-					{
-						this.SpawnImpactFX(this.m_endPos, Quaternion.identity);
-					}
-					this.m_fx.SetActive(false);
-					this.m_finished = true;
-					if (this.m_targetActors != null)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						foreach (ActorData actorData2 in this.m_targetActors)
-						{
-							if (!this.m_actorsAlreadyHit.Contains(actorData2))
-							{
-								this.m_parentSequence.Source.OnSequenceHit(this.m_parentSequence, actorData2, Sequence.CreateImpulseInfoWithObjectPose(this.m_fx), ActorModelData.RagdollActivation.HealthBased, true);
-								this.SpawnTargetHitFx(actorData2);
-							}
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					this.m_parentSequence.Source.OnSequenceHit(this.m_parentSequence, this.m_positionForSequenceHit, null);
-				}
-			}
-			if (this.m_fxImpact != null)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -499,27 +362,168 @@ public class GenericSequenceProjectileInfo
 					}
 					break;
 				}
-				if (this.m_fxImpact.activeSelf)
+				Vector3 vector = m_spline.Interp(m_splineTraveled);
+				Quaternion rotation = default(Quaternion);
+				rotation.SetLookRotation((vector - m_fx.transform.position).normalized);
+				Vector3 vector2 = vector - m_fx.transform.position;
+				vector2.Normalize();
+				m_fx.transform.position = vector;
+				m_fx.transform.rotation = rotation;
+				if (m_targetActors != null)
 				{
-					if (this.m_impactDurationLeft > 0f)
+					while (true)
 					{
-						for (;;)
+						switch (5)
 						{
-							switch (2)
+						case 0:
+							continue;
+						}
+						break;
+					}
+					ActorData[] targetActors = m_targetActors;
+					foreach (ActorData actorData in targetActors)
+					{
+						if (!(actorData != null))
+						{
+							continue;
+						}
+						while (true)
+						{
+							switch (6)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						this.m_impactDurationLeft -= GameTime.deltaTime;
+						if (m_actorsAlreadyHit.Contains(actorData))
+						{
+							continue;
+						}
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						Vector3 rhs = actorData.transform.position - m_fx.transform.position;
+						if (Vector3.Dot(vector2, rhs) < 0f)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							Vector3 position = m_fx.transform.position;
+							ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(position, vector2);
+							m_parentSequence.Source.OnSequenceHit(m_parentSequence, actorData, impulseInfo);
+							m_actorsAlreadyHit.Add(actorData);
+							SpawnTargetHitFx(actorData);
+						}
 					}
-					else
+					while (true)
 					{
-						this.m_finished = true;
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
 				}
 			}
+			else
+			{
+				if (m_authoredInfo.m_spawnImpactAtFXDespawn)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					SpawnImpactFX(m_fx.transform.position, m_fx.transform.rotation);
+				}
+				else
+				{
+					SpawnImpactFX(m_endPos, Quaternion.identity);
+				}
+				m_fx.SetActive(false);
+				m_finished = true;
+				if (m_targetActors != null)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					ActorData[] targetActors2 = m_targetActors;
+					foreach (ActorData actorData2 in targetActors2)
+					{
+						if (!m_actorsAlreadyHit.Contains(actorData2))
+						{
+							m_parentSequence.Source.OnSequenceHit(m_parentSequence, actorData2, Sequence.CreateImpulseInfoWithObjectPose(m_fx));
+							SpawnTargetHitFx(actorData2);
+						}
+					}
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+				m_parentSequence.Source.OnSequenceHit(m_parentSequence, m_positionForSequenceHit);
+			}
+		}
+		if (!(m_fxImpact != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			if (!m_fxImpact.activeSelf)
+			{
+				return;
+			}
+			if (m_impactDurationLeft > 0f)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						m_impactDurationLeft -= GameTime.deltaTime;
+						return;
+					}
+				}
+			}
+			m_finished = true;
+			return;
 		}
 	}
 }

@@ -1,15 +1,32 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class PointCondition
 {
-	public PointCondition.PointRelationship m_pointsMustBe = PointCondition.PointRelationship.GreaterThanOrEqualTo;
+	public enum PointRelationship
+	{
+		GreaterThan,
+		LessThan,
+		GreaterThanOrEqualTo,
+		LessThanOrEqualTo,
+		EqualTo,
+		DontCare
+	}
+
+	public enum WhenRelationship
+	{
+		AllTheTime,
+		OnlyAfterTurnLimit,
+		OnlyBeforeTurnLimit
+	}
+
+	public PointRelationship m_pointsMustBe = PointRelationship.GreaterThanOrEqualTo;
 
 	public int threshold;
 
 	public bool subtractEnemyPoints;
 
-	public PointCondition.WhenRelationship whenRelationship = PointCondition.WhenRelationship.OnlyAfterTurnLimit;
+	public WhenRelationship whenRelationship = WhenRelationship.OnlyAfterTurnLimit;
 
 	public CaptureTheFlag.CTF_VictoryCondition[] m_CTF_conditions;
 
@@ -17,9 +34,9 @@ public class PointCondition
 
 	public bool IsConditionMet(int allyPoints, int enemyPoints, bool timeLimitExpired, Team team)
 	{
-		if (this.whenRelationship == PointCondition.WhenRelationship.OnlyAfterTurnLimit)
+		if (whenRelationship == WhenRelationship.OnlyAfterTurnLimit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -28,27 +45,27 @@ public class PointCondition
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PointCondition.IsConditionMet(int, int, bool, Team)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!timeLimitExpired)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return false;
 					}
-					break;
 				}
-				return false;
 			}
 		}
-		if (this.whenRelationship == PointCondition.WhenRelationship.OnlyBeforeTurnLimit)
+		if (whenRelationship == WhenRelationship.OnlyBeforeTurnLimit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -59,21 +76,21 @@ public class PointCondition
 			}
 			if (timeLimitExpired)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return false;
 					}
-					break;
 				}
-				return false;
 			}
 		}
-		if (this.subtractEnemyPoints)
+		if (subtractEnemyPoints)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -85,24 +102,24 @@ public class PointCondition
 			allyPoints -= enemyPoints;
 		}
 		bool flag;
-		switch (this.m_pointsMustBe)
+		switch (m_pointsMustBe)
 		{
-		case PointCondition.PointRelationship.GreaterThan:
-			flag = (allyPoints > this.threshold);
+		case PointRelationship.GreaterThan:
+			flag = (allyPoints > threshold);
 			break;
-		case PointCondition.PointRelationship.LessThan:
-			flag = (allyPoints < this.threshold);
+		case PointRelationship.LessThan:
+			flag = (allyPoints < threshold);
 			break;
-		case PointCondition.PointRelationship.GreaterThanOrEqualTo:
-			flag = (allyPoints >= this.threshold);
+		case PointRelationship.GreaterThanOrEqualTo:
+			flag = (allyPoints >= threshold);
 			break;
-		case PointCondition.PointRelationship.LessThanOrEqualTo:
-			flag = (allyPoints <= this.threshold);
+		case PointRelationship.LessThanOrEqualTo:
+			flag = (allyPoints <= threshold);
 			break;
-		case PointCondition.PointRelationship.EqualTo:
-			flag = (allyPoints == this.threshold);
+		case PointRelationship.EqualTo:
+			flag = (allyPoints == threshold);
 			break;
-		case PointCondition.PointRelationship.DontCare:
+		case PointRelationship.DontCare:
 			flag = true;
 			break;
 		default:
@@ -110,25 +127,13 @@ public class PointCondition
 			break;
 		}
 		bool flag2;
-		if (this.m_CTF_conditions != null)
+		if (m_CTF_conditions != null)
 		{
-			if (this.m_CTF_conditions.Length == 0)
+			if (m_CTF_conditions.Length != 0)
 			{
-				for (;;)
+				if (CaptureTheFlag.AreCtfVictoryConditionsMetForTeam(m_CTF_conditions, team))
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				if (CaptureTheFlag.AreCtfVictoryConditionsMetForTeam(this.m_CTF_conditions, team))
-				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -138,18 +143,30 @@ public class PointCondition
 						break;
 					}
 					flag2 = true;
-					goto IL_118;
 				}
-				flag2 = false;
-				goto IL_118;
+				else
+				{
+					flag2 = false;
+				}
+				goto IL_0118;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
 			}
 		}
 		flag2 = true;
-		IL_118:
+		goto IL_0118;
+		IL_0118:
 		bool flag3;
-		if (this.m_CTC_conditions != null)
+		if (m_CTC_conditions != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -158,23 +175,11 @@ public class PointCondition
 				}
 				break;
 			}
-			if (this.m_CTC_conditions.Length == 0)
+			if (m_CTC_conditions.Length != 0)
 			{
-				for (;;)
+				if (CollectTheCoins.AreCtcVictoryConditionsMetForTeam(m_CTC_conditions, team))
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				if (CollectTheCoins.AreCtcVictoryConditionsMetForTeam(this.m_CTC_conditions, team))
-				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -184,18 +189,30 @@ public class PointCondition
 						break;
 					}
 					flag3 = true;
-					goto IL_163;
 				}
-				flag3 = false;
-				goto IL_163;
+				else
+				{
+					flag3 = false;
+				}
+				goto IL_0163;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
 			}
 		}
 		flag3 = true;
-		IL_163:
-		bool result;
+		goto IL_0163;
+		IL_0163:
+		int result;
 		if (flag && flag2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -204,22 +221,22 @@ public class PointCondition
 				}
 				break;
 			}
-			result = flag3;
+			result = (flag3 ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	internal string GetVictoryLogString(int allyPoints, int enemyPoints, bool bTimeLimitExpired)
 	{
 		string text = string.Empty;
-		PointCondition.WhenRelationship whenRelationship = this.whenRelationship;
-		if (whenRelationship != PointCondition.WhenRelationship.OnlyAfterTurnLimit)
+		WhenRelationship whenRelationship = this.whenRelationship;
+		if (whenRelationship != WhenRelationship.OnlyAfterTurnLimit)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -228,15 +245,15 @@ public class PointCondition
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PointCondition.GetVictoryLogString(int, int, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (whenRelationship == PointCondition.WhenRelationship.OnlyBeforeTurnLimit)
+			if (whenRelationship == WhenRelationship.OnlyBeforeTurnLimit)
 			{
 				if (bTimeLimitExpired)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -255,7 +272,7 @@ public class PointCondition
 		}
 		else if (!bTimeLimitExpired)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -271,83 +288,59 @@ public class PointCondition
 			text = "Turn Limit Expired";
 		}
 		string str = "score(" + allyPoints + ")";
-		string str2 = (!this.subtractEnemyPoints) ? (string.Empty + this.threshold) : string.Concat(new object[]
-		{
-			"score(",
-			enemyPoints,
-			")+",
-			this.threshold
-		});
+		string str2 = (!subtractEnemyPoints) ? (string.Empty + threshold) : ("score(" + enemyPoints + ")+" + threshold);
 		string text2 = "ERROR(case)";
-		switch (this.m_pointsMustBe)
+		switch (m_pointsMustBe)
 		{
-		case PointCondition.PointRelationship.GreaterThan:
+		case PointRelationship.GreaterThan:
 			text2 = str + ">" + str2;
 			break;
-		case PointCondition.PointRelationship.LessThan:
+		case PointRelationship.LessThan:
 			text2 = str + "<" + str2;
 			break;
-		case PointCondition.PointRelationship.GreaterThanOrEqualTo:
+		case PointRelationship.GreaterThanOrEqualTo:
 			text2 = str + ">=" + str2;
 			break;
-		case PointCondition.PointRelationship.LessThanOrEqualTo:
+		case PointRelationship.LessThanOrEqualTo:
 			text2 = str + "<=" + str2;
 			break;
-		case PointCondition.PointRelationship.EqualTo:
+		case PointRelationship.EqualTo:
 			text2 = str + "=" + str2;
 			break;
-		case PointCondition.PointRelationship.DontCare:
+		case PointRelationship.DontCare:
 			text2 = string.Empty;
 			break;
 		}
-		for (int i = 0; i < this.m_CTF_conditions.Length; i++)
+		for (int i = 0; i < m_CTF_conditions.Length; i++)
 		{
-			text2 = text2 + this.m_CTF_conditions[i].ToString() + " ";
+			text2 = text2 + m_CTF_conditions[i].ToString() + " ";
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		string result;
-		if (text.Length > 0)
-		{
-			for (;;)
+			string result;
+			if (text.Length > 0)
 			{
-				switch (7)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
-				break;
+				result = text + " and " + text2;
 			}
-			result = text + " and " + text2;
+			else
+			{
+				result = text2;
+			}
+			return result;
 		}
-		else
-		{
-			result = text2;
-		}
-		return result;
-	}
-
-	public enum PointRelationship
-	{
-		GreaterThan,
-		LessThan,
-		GreaterThanOrEqualTo,
-		LessThanOrEqualTo,
-		EqualTo,
-		DontCare
-	}
-
-	public enum WhenRelationship
-	{
-		AllTheTime,
-		OnlyAfterTurnLimit,
-		OnlyBeforeTurnLimit
 	}
 }

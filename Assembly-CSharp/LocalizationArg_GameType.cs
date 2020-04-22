@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class LocalizationArg_GameType : LocalizationArg
@@ -7,14 +7,13 @@ public class LocalizationArg_GameType : LocalizationArg
 
 	public static LocalizationArg_GameType Create(GameType gameType)
 	{
-		return new LocalizationArg_GameType
-		{
-			m_gameType = gameType
-		};
+		LocalizationArg_GameType localizationArg_GameType = new LocalizationArg_GameType();
+		localizationArg_GameType.m_gameType = gameType;
+		return localizationArg_GameType;
 	}
 
 	public override string TR()
 	{
-		return this.m_gameType.GetDisplayName();
+		return m_gameType.GetDisplayName();
 	}
 }

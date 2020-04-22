@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -8,33 +8,33 @@ public class StandardEffectInfo
 
 	public StandardActorEffectData m_effectData;
 
-	public unsafe virtual void ReportAbilityTooltipNumbers(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject subject)
+	public virtual void ReportAbilityTooltipNumbers(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject subject)
 	{
-		if (this.m_applyEffect)
+		if (!m_applyEffect)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StandardEffectInfo.ReportAbilityTooltipNumbers(List<AbilityTooltipNumber>*, AbilityTooltipSubject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_effectData.ReportAbilityTooltipNumbers(ref numbers, subject);
+			m_effectData.ReportAbilityTooltipNumbers(ref numbers, subject);
+			return;
 		}
 	}
 
 	public StandardEffectInfo GetShallowCopy()
 	{
-		return new StandardEffectInfo
-		{
-			m_applyEffect = this.m_applyEffect,
-			m_effectData = this.m_effectData.GetShallowCopy()
-		};
+		StandardEffectInfo standardEffectInfo = new StandardEffectInfo();
+		standardEffectInfo.m_applyEffect = m_applyEffect;
+		standardEffectInfo.m_effectData = m_effectData.GetShallowCopy();
+		return standardEffectInfo;
 	}
 }

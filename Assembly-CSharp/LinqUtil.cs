@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public static class LinqUtil
@@ -10,26 +10,26 @@ public static class LinqUtil
 		{
 			while (enumerator.MoveNext())
 			{
-				T arg = enumerator.Current;
-				if (func(arg))
+				T current = enumerator.Current;
+				if (func(current))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							return true;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(IEnumerable<T>.ContainsWhere(Func<T, bool>)).MethodHandle;
-					}
-					return true;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -43,17 +43,19 @@ public static class LinqUtil
 		{
 			if (enumerator != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						enumerator.Dispose();
+						goto end_IL_004c;
 					}
-					break;
 				}
-				enumerator.Dispose();
 			}
+			end_IL_004c:;
 		}
 		return false;
 	}

@@ -1,12 +1,29 @@
-﻿using System;
+using LobbyGameClientMessages;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-using LobbyGameClientMessages;
 using UnityEngine;
 
 public class ClientExceptionDetector : MonoBehaviour
 {
+	private enum FileStringIndex
+	{
+		FileDateTime,
+		Log,
+		StackTraceToEOF
+	}
+
+	private enum QueueStringIndex
+	{
+		Log,
+		StackTrace,
+		DlgTitle,
+		DlgDescription,
+		FileDateTime,
+		Count
+	}
+
 	private string m_exceptionLogString;
 
 	private string m_exceptionStackTrace;
@@ -27,9 +44,9 @@ public class ClientExceptionDetector : MonoBehaviour
 
 	private int m_lastErrorReportBytes;
 
-	private const int MAX_ERROR_REPORT_BYTES_PER_SECOND = 0x80;
+	private const int MAX_ERROR_REPORT_BYTES_PER_SECOND = 128;
 
-	private const int MAX_ERROR_REPORTS_QUEUED = 0x80;
+	private const int MAX_ERROR_REPORTS_QUEUED = 128;
 
 	private Queue<ClientErrorReport> m_errorReportQueue = new Queue<ClientErrorReport>();
 
@@ -45,31 +62,28 @@ public class ClientExceptionDetector : MonoBehaviour
 
 	internal static ClientExceptionDetector Get()
 	{
-		return ClientExceptionDetector.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		ClientExceptionDetector.s_instance = this;
+		s_instance = this;
 		try
 		{
-			this.m_exceptionFilePath = Path.GetFullPath(Path.Combine(Application.dataPath, "../exception.txt"));
+			m_exceptionFilePath = Path.GetFullPath(Path.Combine(Application.dataPath, "../exception.txt"));
 		}
 		catch (Exception ex)
 		{
-			Debug.LogErrorFormat("Failed to create path for exception log, with new exception: {0}", new object[]
-			{
-				ex.ToString()
-			});
+			Debug.LogErrorFormat("Failed to create path for exception log, with new exception: {0}", ex.ToString());
 		}
-		Application.logMessageReceived += this.HandleUnityLogMessage;
+		Application.logMessageReceived += HandleUnityLogMessage;
 	}
 
 	private void Update()
 	{
-		if (this.m_crashServerReportThreadedJob != null)
+		if (m_crashServerReportThreadedJob != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -78,14 +92,14 @@ public class ClientExceptionDetector : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientExceptionDetector.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_crashServerReportThreadedJob.Update();
-			if (this.m_crashServerReportThreadedJob.IsFinished)
+			m_crashServerReportThreadedJob.Update();
+			if (m_crashServerReportThreadedJob.IsFinished)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -94,166 +108,168 @@ public class ClientExceptionDetector : MonoBehaviour
 					}
 					break;
 				}
-				this.m_crashServerReportThreadedJob = null;
+				m_crashServerReportThreadedJob = null;
 			}
 		}
-		if (ClientGameManager.Get() != null)
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (!ClientGameManager.Get().IsConnectedToLobbyServer)
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (ClientGameManager.Get().IsConnectedToLobbyServer)
-			{
-				for (;;)
+				if (!m_lobbyServerAndDialogReady && UIDialogPopupManager.Ready)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!this.m_lobbyServerAndDialogReady && UIDialogPopupManager.Ready)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
+						{
+						case 0:
+							break;
+						default:
+						{
+							m_lobbyServerAndDialogReady = true;
+							string[] array = new string[5];
+							try
+							{
+								if (File.Exists(m_exceptionFilePath))
+								{
+									while (true)
+									{
+										switch (7)
+										{
+										case 0:
+											break;
+										default:
+										{
+											string[] array2 = File.ReadAllLines(m_exceptionFilePath);
+											using (StreamReader streamReader = File.OpenText(m_exceptionFilePath))
+											{
+												array[4] = streamReader.ReadLine();
+												array[0] = streamReader.ReadLine();
+												array[1] = streamReader.ReadToEnd();
+											}
+											goto end_IL_00a8;
+										}
+										}
+									}
+								}
+								end_IL_00a8:;
+							}
+							catch (Exception ex)
+							{
+								Debug.LogErrorFormat("Reading of exception report cached in file failed, with new exception: {0}", ex.ToString());
+							}
+							if (!string.IsNullOrEmpty(array[4]))
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										break;
+									default:
+										if (UploadExceptionReport(array[0], array[1], string.Empty, string.Empty, array[4]))
+										{
+											while (true)
+											{
+												switch (2)
+												{
+												case 0:
+													break;
+												default:
+													try
+													{
+														File.Delete(m_exceptionFilePath);
+													}
+													catch (Exception ex2)
+													{
+														Debug.LogErrorFormat("Deletion of exception report cached in file failed, with new exception: {0}", ex2.ToString());
+													}
+													return;
+												}
+											}
+										}
+										return;
+									}
+								}
+							}
+							return;
+						}
+						}
+					}
+				}
+				if (m_errorReportQueue.Count <= 0)
+				{
+					while (true)
+					{
+						switch (2)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					this.m_lobbyServerAndDialogReady = true;
-					string[] array = new string[5];
-					try
+					if (m_errorUnsentCount.IsNullOrEmpty())
 					{
-						if (File.Exists(this.m_exceptionFilePath))
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							string[] array2 = File.ReadAllLines(this.m_exceptionFilePath);
-							using (StreamReader streamReader = File.OpenText(this.m_exceptionFilePath))
-							{
-								array[4] = streamReader.ReadLine();
-								array[0] = streamReader.ReadLine();
-								array[1] = streamReader.ReadToEnd();
-							}
-						}
-					}
-					catch (Exception ex)
-					{
-						Debug.LogErrorFormat("Reading of exception report cached in file failed, with new exception: {0}", new object[]
-						{
-							ex.ToString()
-						});
-					}
-					if (!string.IsNullOrEmpty(array[4]))
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.UploadExceptionReport(array[0], array[1], string.Empty, string.Empty, array[4], false))
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							try
-							{
-								File.Delete(this.m_exceptionFilePath);
-							}
-							catch (Exception ex2)
-							{
-								Debug.LogErrorFormat("Deletion of exception report cached in file failed, with new exception: {0}", new object[]
-								{
-									ex2.ToString()
-								});
-							}
-						}
+						return;
 					}
 				}
-				else
-				{
-					if (this.m_errorReportQueue.Count <= 0)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_errorUnsentCount.IsNullOrEmpty<KeyValuePair<uint, uint>>())
-						{
-							return;
-						}
-					}
-					this.UpdateLobbyWithErrors();
-				}
+				UpdateLobbyWithErrors();
+				return;
 			}
 		}
 	}
 
 	private void OnDestroy()
 	{
-		if (this.m_crashServerReportThreadedJob != null)
+		if (m_crashServerReportThreadedJob == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientExceptionDetector.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_crashServerReportThreadedJob.Cancel();
+			m_crashServerReportThreadedJob.Cancel();
+			return;
 		}
 	}
 
 	internal void HandleBelowMinSpec(string logString, string stackTrace)
 	{
-		this.UploadExceptionReport(logString, stackTrace, StringUtil.TR("SystemRequirementsNotMet", "Global"), StringUtil.TR("UploadGeneratedReport", "Global"), null, true);
+		UploadExceptionReport(logString, stackTrace, StringUtil.TR("SystemRequirementsNotMet", "Global"), StringUtil.TR("UploadGeneratedReport", "Global"), null, true);
 	}
 
 	private bool UploadExceptionReport(string logString, string stackTrace, string dlgTitle, string dlgDescription, string fileDateTime = null, bool belowMinSpecDialogNotException = false)
 	{
 		bool flag = !string.IsNullOrEmpty(fileDateTime);
-		bool realExceptionOccurred;
-		if (!this.m_realExceptionOccurred)
+		int realExceptionOccurred;
+		if (!m_realExceptionOccurred)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -262,21 +278,25 @@ public class ClientExceptionDetector : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientExceptionDetector.UploadExceptionReport(string, string, string, string, string, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			realExceptionOccurred = (!belowMinSpecDialogNotException && !flag);
+			realExceptionOccurred = ((!belowMinSpecDialogNotException && !flag) ? 1 : 0);
 		}
 		else
 		{
-			realExceptionOccurred = true;
+			realExceptionOccurred = 1;
 		}
-		this.m_realExceptionOccurred = realExceptionOccurred;
+		m_realExceptionOccurred = ((byte)realExceptionOccurred != 0);
 		bool flag2 = false;
-		if (!this.m_stopUploadingReports)
+		string text;
+		string crashDumpDirectoryPath;
+		object arg;
+		object arg2;
+		if (!m_stopUploadingReports)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -285,11 +305,11 @@ public class ClientExceptionDetector : MonoBehaviour
 				}
 				break;
 			}
-			this.m_exceptionLogString = logString.Trim().Replace("\r", string.Empty);
-			int num = this.m_exceptionLogString.IndexOf("\n");
+			m_exceptionLogString = logString.Trim().Replace("\r", string.Empty);
+			int num = m_exceptionLogString.IndexOf("\n");
 			if (num >= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -298,16 +318,16 @@ public class ClientExceptionDetector : MonoBehaviour
 					}
 					break;
 				}
-				this.m_exceptionLogString = this.m_exceptionLogString.Substring(0, num);
+				m_exceptionLogString = m_exceptionLogString.Substring(0, num);
 			}
-			this.m_exceptionStackTrace = stackTrace;
-			this.m_exceptionStackTrace = this.m_exceptionStackTrace.Trim();
-			this.m_exceptionStackTrace = ClientExceptionDetector.s_stackTraceSeparator + this.m_exceptionStackTrace.Replace("\n", ClientExceptionDetector.s_stackTraceSeparator);
-			this.m_exceptionDateTime = ((!flag) ? DateTime.Now.ToString("MM/dd/yy hh:mm:ss") : fileDateTime);
-			string text = string.Format("{0}\n{1}", this.m_exceptionLogString, this.m_exceptionStackTrace);
+			m_exceptionStackTrace = stackTrace;
+			m_exceptionStackTrace = m_exceptionStackTrace.Trim();
+			m_exceptionStackTrace = s_stackTraceSeparator + m_exceptionStackTrace.Replace("\n", s_stackTraceSeparator);
+			m_exceptionDateTime = ((!flag) ? DateTime.Now.ToString("MM/dd/yy hh:mm:ss") : fileDateTime);
+			text = $"{m_exceptionLogString}\n{m_exceptionStackTrace}";
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -318,7 +338,7 @@ public class ClientExceptionDetector : MonoBehaviour
 				}
 				if (ClientGameManager.Get().IsConnectedToLobbyServer)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -327,9 +347,9 @@ public class ClientExceptionDetector : MonoBehaviour
 						}
 						break;
 					}
-					if (this.m_crashServerReportThreadedJob == null)
+					if (m_crashServerReportThreadedJob == null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -338,14 +358,10 @@ public class ClientExceptionDetector : MonoBehaviour
 							}
 							break;
 						}
-						string crashDumpDirectoryPath = Path.Combine(Application.temporaryCachePath, Guid.NewGuid().ToString());
-						BugReportType bugReportType = BugReportType.Exception;
-						string userMessage = text;
-						string format = "{0}: {1}";
-						object arg;
+						crashDumpDirectoryPath = Path.Combine(Application.temporaryCachePath, Guid.NewGuid().ToString());
 						if (flag)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -360,10 +376,9 @@ public class ClientExceptionDetector : MonoBehaviour
 						{
 							arg = "SessionToken";
 						}
-						object arg2;
 						if (flag)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -378,7 +393,7 @@ public class ClientExceptionDetector : MonoBehaviour
 						{
 							if (ClientGameManager.Get() != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -390,90 +405,19 @@ public class ClientExceptionDetector : MonoBehaviour
 								if (ClientGameManager.Get().SessionInfo != null)
 								{
 									arg2 = ClientGameManager.Get().SessionInfo.SessionToken.ToString();
-									goto IL_219;
+									goto IL_0219;
 								}
 							}
 							arg2 = "unknown";
 						}
-						IL_219:
-						this.m_crashServerReportThreadedJob = new ClientCrashReportThreadedJob(crashDumpDirectoryPath, bugReportType, userMessage, string.Format(format, arg, arg2));
+						goto IL_0219;
 					}
-					ClientStatusReport clientStatusReport = new ClientStatusReport();
-					ClientStatusReport clientStatusReport2 = clientStatusReport;
-					ClientStatusReport.ClientStatusReportType status;
-					if (belowMinSpecDialogNotException)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						status = ClientStatusReport.ClientStatusReportType.\u0016;
-					}
-					else
-					{
-						status = ClientStatusReport.ClientStatusReportType.\u000E;
-					}
-					clientStatusReport2.Status = status;
-					clientStatusReport.StatusDetails = text;
-					clientStatusReport.DeviceIdentifier = SystemInfo.deviceUniqueIdentifier;
-					ClientStatusReport clientStatusReport3 = clientStatusReport;
-					string fileDateTime2;
-					if (flag)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						fileDateTime2 = fileDateTime;
-					}
-					else
-					{
-						fileDateTime2 = string.Empty;
-					}
-					clientStatusReport3.FileDateTime = fileDateTime2;
-					ClientGameManager.Get().SendStatusReport(clientStatusReport);
-					flag2 = true;
-					if (UIDialogPopupManager.Ready && !belowMinSpecDialogNotException)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!flag && UIDialogPopupManager.OpenReportBugDialog(dlgTitle, dlgDescription, StringUtil.TR("Ok", "Global"), StringUtil.TR("Cancel", "Global"), new UIDialogBox.DialogButtonCallback(this.HandleExceptionDialogOKButton), null) == null)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							Log.Error("Failed to create dialog", new object[0]);
-						}
-					}
-					goto IL_385;
+					goto IL_022a;
 				}
 			}
 			if (!belowMinSpecDialogNotException)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -484,7 +428,7 @@ public class ClientExceptionDetector : MonoBehaviour
 				}
 				if (!flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -495,29 +439,31 @@ public class ClientExceptionDetector : MonoBehaviour
 					}
 					try
 					{
-						StreamWriter streamWriter = File.CreateText(this.m_exceptionFilePath);
+						StreamWriter streamWriter = File.CreateText(m_exceptionFilePath);
 						try
 						{
-							streamWriter.WriteLine(this.m_exceptionDateTime);
-							streamWriter.WriteLine(this.m_exceptionLogString);
-							streamWriter.Write(this.m_exceptionStackTrace);
+							streamWriter.WriteLine(m_exceptionDateTime);
+							streamWriter.WriteLine(m_exceptionLogString);
+							streamWriter.Write(m_exceptionStackTrace);
 							streamWriter.Flush();
 						}
 						finally
 						{
 							if (streamWriter != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (4)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+										((IDisposable)streamWriter).Dispose();
+										goto end_IL_036a;
 									}
-									break;
 								}
-								((IDisposable)streamWriter).Dispose();
 							}
+							end_IL_036a:;
 						}
 					}
 					catch
@@ -526,11 +472,85 @@ public class ClientExceptionDetector : MonoBehaviour
 				}
 			}
 		}
-		IL_385:
-		bool stopUploadingReports;
-		if (!this.m_stopUploadingReports)
+		goto IL_0385;
+		IL_022a:
+		ClientStatusReport clientStatusReport = new ClientStatusReport();
+		int status;
+		if (belowMinSpecDialogNotException)
 		{
-			for (;;)
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			status = 4;
+		}
+		else
+		{
+			status = 1;
+		}
+		clientStatusReport.Status = (ClientStatusReport.ClientStatusReportType)status;
+		clientStatusReport.StatusDetails = text;
+		clientStatusReport.DeviceIdentifier = SystemInfo.deviceUniqueIdentifier;
+		string fileDateTime2;
+		if (flag)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			fileDateTime2 = fileDateTime;
+		}
+		else
+		{
+			fileDateTime2 = string.Empty;
+		}
+		clientStatusReport.FileDateTime = fileDateTime2;
+		ClientGameManager.Get().SendStatusReport(clientStatusReport);
+		flag2 = true;
+		if (UIDialogPopupManager.Ready && !belowMinSpecDialogNotException)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!flag && UIDialogPopupManager.OpenReportBugDialog(dlgTitle, dlgDescription, StringUtil.TR("Ok", "Global"), StringUtil.TR("Cancel", "Global"), HandleExceptionDialogOKButton) == null)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				Log.Error("Failed to create dialog");
+			}
+		}
+		goto IL_0385;
+		IL_0219:
+		m_crashServerReportThreadedJob = new ClientCrashReportThreadedJob(crashDumpDirectoryPath, BugReportType.Exception, text, $"{arg}: {arg2}");
+		goto IL_022a;
+		IL_0385:
+		int stopUploadingReports;
+		if (!m_stopUploadingReports)
+		{
+			while (true)
 			{
 				switch (6)
 				{
@@ -541,7 +561,7 @@ public class ClientExceptionDetector : MonoBehaviour
 			}
 			if (flag2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -550,65 +570,84 @@ public class ClientExceptionDetector : MonoBehaviour
 					}
 					break;
 				}
-				stopUploadingReports = !flag;
+				stopUploadingReports = ((!flag) ? 1 : 0);
 			}
 			else
 			{
-				stopUploadingReports = false;
+				stopUploadingReports = 0;
 			}
 		}
 		else
 		{
-			stopUploadingReports = true;
+			stopUploadingReports = 1;
 		}
-		this.m_stopUploadingReports = stopUploadingReports;
+		m_stopUploadingReports = ((byte)stopUploadingReports != 0);
 		return flag2;
 	}
 
 	private void HandleUnityLogMessage(string logString, string stackTrace, LogType type)
 	{
-		if (!this.m_realExceptionOccurred)
+		if (m_realExceptionOccurred)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (ClientMinSpecDetector.BelowMinSpecDetected)
+			{
+				return;
+			}
+			switch (type)
+			{
+			case LogType.Warning:
+			case LogType.Log:
 				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientExceptionDetector.HandleUnityLogMessage(string, string, LogType)).MethodHandle;
-			}
-			if (!ClientMinSpecDetector.BelowMinSpecDetected)
-			{
-				switch (type)
+			case LogType.Exception:
+				UploadExceptionReport(logString, stackTrace, StringUtil.TR("UnhandledException", "Global"), StringUtil.TR("SubmitBugReport", "Global"));
+				break;
+			case LogType.Error:
+			case LogType.Assert:
+				if (m_errorReportQueue.Count >= 128)
 				{
-				case LogType.Error:
-				case LogType.Assert:
-					if (this.m_errorReportQueue.Count < 0x80)
+					break;
+				}
+				while (true)
+				{
+					switch (6)
 					{
-						for (;;)
+					case 0:
+						continue;
+					}
+					ClientErrorReport clientErrorReport = new ClientErrorReport();
+					clientErrorReport.Time = Time.unscaledTime;
+					clientErrorReport.LogString = logString.Trim().Replace("\r", string.Empty);
+					string[] array = clientErrorReport.LogString.Split(new char[1]
+					{
+						'\n'
+					}, 2, StringSplitOptions.RemoveEmptyEntries);
+					if (array != null)
+					{
+						while (true)
 						{
-							switch (6)
+							switch (5)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						ClientErrorReport clientErrorReport = new ClientErrorReport();
-						clientErrorReport.Time = Time.unscaledTime;
-						clientErrorReport.LogString = logString.Trim().Replace("\r", string.Empty);
-						string[] array = clientErrorReport.LogString.Split(new char[]
+						if (array.Length == 2)
 						{
-							'\n'
-						}, 2, StringSplitOptions.RemoveEmptyEntries);
-						if (array != null)
-						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -617,34 +656,20 @@ public class ClientExceptionDetector : MonoBehaviour
 								}
 								break;
 							}
-							if (array.Length == 2)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								clientErrorReport.LogString = array[0].Trim();
-								clientErrorReport.StackTrace = array[1];
-								goto IL_11D;
-							}
+							clientErrorReport.LogString = array[0].Trim();
+							clientErrorReport.StackTrace = array[1];
+							goto IL_011d;
 						}
-						clientErrorReport.StackTrace = string.Empty;
-						IL_11D:
-						clientErrorReport.StackTraceHash = this.GenerateStackTraceHash(clientErrorReport);
-						this.m_errorReportQueue.Enqueue(clientErrorReport);
 					}
-					break;
-				case LogType.Exception:
-					this.UploadExceptionReport(logString, stackTrace, StringUtil.TR("UnhandledException", "Global"), StringUtil.TR("SubmitBugReport", "Global"), null, false);
-					break;
+					clientErrorReport.StackTrace = string.Empty;
+					goto IL_011d;
+					IL_011d:
+					clientErrorReport.StackTraceHash = GenerateStackTraceHash(clientErrorReport);
+					m_errorReportQueue.Enqueue(clientErrorReport);
+					return;
 				}
-				return;
 			}
+			return;
 		}
 	}
 
@@ -662,123 +687,91 @@ public class ClientExceptionDetector : MonoBehaviour
 	private void HandleExceptionDialogOKButton(UIDialogBox boxReference)
 	{
 		ClientStatusReport clientStatusReport = new ClientStatusReport();
-		clientStatusReport.Status = ClientStatusReport.ClientStatusReportType.\u0015;
-		clientStatusReport.StatusDetails = this.m_exceptionLogString;
+		clientStatusReport.Status = ClientStatusReport.ClientStatusReportType._0015;
+		clientStatusReport.StatusDetails = m_exceptionLogString;
 		clientStatusReport.UserMessage = ((UIReportBugDialogBox)boxReference).m_descriptionBoxInputField.text;
 		clientStatusReport.DeviceIdentifier = SystemInfo.deviceUniqueIdentifier;
 		ClientGameManager.Get().SendStatusReport(clientStatusReport);
-		this.m_stopUploadingReports = true;
+		m_stopUploadingReports = true;
 	}
 
 	private bool IsSendingErrorsToLobbyASAP()
 	{
-		return this.SecondsBetweenSendingErrorPackets <= 0f;
+		return SecondsBetweenSendingErrorPackets <= 0f;
 	}
 
 	private void UpdateLobbyWithErrors()
 	{
-		float num = Time.unscaledTime - this.m_lastErrorReportTime;
-		if (this.IsSendingErrorsToLobbyASAP())
+		float num = Time.unscaledTime - m_lastErrorReportTime;
+		if (IsSendingErrorsToLobbyASAP())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientExceptionDetector.UpdateLobbyWithErrors()).MethodHandle;
-			}
-			if (num > 1.401298E-45f)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if ((float)this.m_lastErrorReportBytes / num < 128f)
-				{
-					for (;;)
+				default:
+					if (1 == 0)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					ClientErrorReport clientErrorReport = this.m_errorReportQueue.Peek();
-					this.m_lastErrorReportTime = Time.unscaledTime;
-					this.m_lastErrorReportBytes = clientErrorReport.\u001D();
-					if (ClientGameManager.Get().SendErrorReport(clientErrorReport))
+					if (num > float.Epsilon)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								if ((float)m_lastErrorReportBytes / num < 128f)
+								{
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											break;
+										default:
+										{
+											ClientErrorReport clientErrorReport = m_errorReportQueue.Peek();
+											m_lastErrorReportTime = Time.unscaledTime;
+											m_lastErrorReportBytes = clientErrorReport._001D();
+											if (ClientGameManager.Get().SendErrorReport(clientErrorReport))
+											{
+												while (true)
+												{
+													switch (4)
+													{
+													case 0:
+														break;
+													default:
+														m_errorReportQueue.Dequeue();
+														return;
+													}
+												}
+											}
+											Log.Warning("Failed to send exception report");
+											return;
+										}
+										}
+									}
+								}
+								return;
 							}
-							break;
 						}
-						this.m_errorReportQueue.Dequeue();
 					}
-					else
-					{
-						Log.Warning("Failed to send exception report", new object[0]);
-					}
+					return;
 				}
 			}
 		}
-		else
+		foreach (ClientErrorReport item in m_errorReportQueue)
 		{
-			foreach (ClientErrorReport clientErrorReport2 in this.m_errorReportQueue)
+			uint stackTraceHash = item.StackTraceHash;
+			if (!m_errorBestiary.ContainsKey(stackTraceHash))
 			{
-				uint stackTraceHash = clientErrorReport2.StackTraceHash;
-				if (!this.m_errorBestiary.ContainsKey(stackTraceHash))
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_errorBestiary.Add(stackTraceHash, clientErrorReport2);
-				}
-				uint num2 = 0U;
-				if (this.m_errorUnsentCount.TryGetValue(stackTraceHash, out num2))
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_errorUnsentCount[stackTraceHash] = num2 + 1U;
-				}
-				else
-				{
-					this.m_errorUnsentCount.Add(stackTraceHash, 1U);
-				}
-			}
-			this.m_errorReportQueue.Clear();
-			if (num > this.SecondsBetweenSendingErrorPackets)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -787,50 +780,65 @@ public class ClientExceptionDetector : MonoBehaviour
 					}
 					break;
 				}
-				this.m_lastErrorReportTime = Time.unscaledTime;
-				this.FlushErrorsToLobby();
+				m_errorBestiary.Add(stackTraceHash, item);
 			}
+			uint value = 0u;
+			if (m_errorUnsentCount.TryGetValue(stackTraceHash, out value))
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_errorUnsentCount[stackTraceHash] = value + 1;
+			}
+			else
+			{
+				m_errorUnsentCount.Add(stackTraceHash, 1u);
+			}
+		}
+		m_errorReportQueue.Clear();
+		if (!(num > SecondsBetweenSendingErrorPackets))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			m_lastErrorReportTime = Time.unscaledTime;
+			FlushErrorsToLobby();
+			return;
 		}
 	}
 
 	public bool GetClientErrorReport(uint crashReportHash, out ClientErrorReport clientErrorReport)
 	{
-		return this.m_errorBestiary.TryGetValue(crashReportHash, out clientErrorReport);
+		return m_errorBestiary.TryGetValue(crashReportHash, out clientErrorReport);
 	}
 
 	public void FlushErrorsToLobby()
 	{
-		if (!this.m_errorUnsentCount.IsNullOrEmpty<KeyValuePair<uint, uint>>())
+		if (!m_errorUnsentCount.IsNullOrEmpty())
 		{
-			ClientErrorSummary summary = new ClientErrorSummary
-			{
-				ReportCount = this.m_errorUnsentCount
-			};
+			ClientErrorSummary clientErrorSummary = new ClientErrorSummary();
+			clientErrorSummary.ReportCount = m_errorUnsentCount;
+			ClientErrorSummary summary = clientErrorSummary;
 			if (ClientGameManager.Get().SendErrorSummary(summary))
 			{
-				this.m_errorUnsentCount.Clear();
+				m_errorUnsentCount.Clear();
 			}
 			else
 			{
-				Log.Warning("Failed to send exception summary", new object[0]);
+				Log.Warning("Failed to send exception summary");
 			}
 		}
-	}
-
-	private enum FileStringIndex
-	{
-		FileDateTime,
-		Log,
-		StackTraceToEOF
-	}
-
-	private enum QueueStringIndex
-	{
-		Log,
-		StackTrace,
-		DlgTitle,
-		DlgDescription,
-		FileDateTime,
-		Count
 	}
 }

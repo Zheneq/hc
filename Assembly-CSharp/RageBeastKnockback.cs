@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,9 +35,9 @@ public class RageBeastKnockback : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -47,18 +46,18 @@ public class RageBeastKnockback : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastKnockback.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Upheaval";
+			m_abilityName = "Upheaval";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_KnockbackLaser(this, this.ModdedLaserWidth(), this.ModdedLaserLength(), this.m_penetrateLineOfSight, this.ModdedMaxTargets(), this.ModdedKnockbackDistanceMin(), this.ModdedKnockbackDistanceMax(), this.m_knockbackType, false);
+		base.Targeter = new AbilityUtil_Targeter_KnockbackLaser(this, ModdedLaserWidth(), ModdedLaserLength(), m_penetrateLineOfSight, ModdedMaxTargets(), ModdedKnockbackDistanceMin(), ModdedKnockbackDistanceMax(), m_knockbackType, false);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -68,34 +67,31 @@ public class RageBeastKnockback : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.ModdedLaserLength();
+		return ModdedLaserLength();
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, this.m_damageAmount)
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_damageAmount));
+		return list;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, this.ModdedOnHitDamage())
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, ModdedOnHitDamage()));
+		return list;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_RageBeastKnockback abilityMod_RageBeastKnockback = modAsBase as AbilityMod_RageBeastKnockback;
-		string name = "MaxTargets";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_RageBeastKnockback)
+		if ((bool)abilityMod_RageBeastKnockback)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -104,23 +100,22 @@ public class RageBeastKnockback : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastKnockback.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_RageBeastKnockback.m_maxTargetMod.GetModifiedValue(this.m_maxTargets);
+			val = abilityMod_RageBeastKnockback.m_maxTargetMod.GetModifiedValue(m_maxTargets);
 		}
 		else
 		{
-			val = this.m_maxTargets;
+			val = m_maxTargets;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "DamageAmount";
+		AddTokenInt(tokens, "MaxTargets", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_RageBeastKnockback)
+		if ((bool)abilityMod_RageBeastKnockback)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -129,53 +124,51 @@ public class RageBeastKnockback : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_RageBeastKnockback.m_onHitDamageMod.GetModifiedValue(this.m_damageAmount);
+			val2 = abilityMod_RageBeastKnockback.m_onHitDamageMod.GetModifiedValue(m_damageAmount);
 		}
 		else
 		{
-			val2 = this.m_damageAmount;
+			val2 = m_damageAmount;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
+		AddTokenInt(tokens, "DamageAmount", empty2, val2);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RageBeastKnockback))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_abilityMod = (abilityMod as AbilityMod_RageBeastKnockback);
+					SetupTargeter();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastKnockback.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_RageBeastKnockback);
-			this.SetupTargeter();
 		}
-		else
-		{
-			Debug.LogError("Trying to apply wrong type of ability mod");
-		}
+		Debug.LogError("Trying to apply wrong type of ability mod");
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	public int ModdedMaxTargets()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -184,30 +177,30 @@ public class RageBeastKnockback : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastKnockback.ModdedMaxTargets()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_maxTargets;
+			result = m_maxTargets;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_maxTargetMod.GetModifiedValue(this.m_maxTargets);
+			result = m_abilityMod.m_maxTargetMod.GetModifiedValue(m_maxTargets);
 		}
 		return result;
 	}
 
 	public float ModdedLaserWidth()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_targeterWidthMod.GetModifiedValue(this.m_laserWidth) : this.m_laserWidth;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_targeterWidthMod.GetModifiedValue(m_laserWidth) : m_laserWidth;
 	}
 
 	public float ModdedLaserLength()
 	{
 		float result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -216,15 +209,15 @@ public class RageBeastKnockback : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastKnockback.ModdedLaserLength()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_laserDistance;
+			result = m_laserDistance;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_targeterLengthMod.GetModifiedValue(this.m_laserDistance);
+			result = m_abilityMod.m_targeterLengthMod.GetModifiedValue(m_laserDistance);
 		}
 		return result;
 	}
@@ -232,9 +225,9 @@ public class RageBeastKnockback : Ability
 	public int ModdedOnHitDamage()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -243,27 +236,27 @@ public class RageBeastKnockback : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastKnockback.ModdedOnHitDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_damageAmount;
+			result = m_damageAmount;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_onHitDamageMod.GetModifiedValue(this.m_damageAmount);
+			result = m_abilityMod.m_onHitDamageMod.GetModifiedValue(m_damageAmount);
 		}
 		return result;
 	}
 
 	public float ModdedKnockbackDistanceMin()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_knockbackDistanceMinMod.GetModifiedValue(this.m_knockbackDistanceMin) : this.m_knockbackDistanceMin;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_knockbackDistanceMinMod.GetModifiedValue(m_knockbackDistanceMin) : m_knockbackDistanceMin;
 	}
 
 	public float ModdedKnockbackDistanceMax()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_knockbackDistanceMaxMod.GetModifiedValue(this.m_knockbackDistanceMax) : this.m_knockbackDistanceMax;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_knockbackDistanceMaxMod.GetModifiedValue(m_knockbackDistanceMax) : m_knockbackDistanceMax;
 	}
 
 	private float GetKnockbackDist(AbilityTarget target, Vector3 casterPos, Vector3 knockbackStartPos)
@@ -273,28 +266,28 @@ public class RageBeastKnockback : Ability
 		vector.y = 0f;
 		vector2.y = 0f;
 		float num = (vector.magnitude - vector2.magnitude) / Board.SquareSizeStatic;
-		float num2 = this.ModdedKnockbackDistanceMin();
-		float num3 = this.ModdedKnockbackDistanceMax();
+		float num2 = ModdedKnockbackDistanceMin();
+		float num3 = ModdedKnockbackDistanceMax();
 		if (num < num2)
 		{
 			return num2;
 		}
 		if (num > num3)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return num3;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastKnockback.GetKnockbackDist(AbilityTarget, Vector3, Vector3)).MethodHandle;
-			}
-			return num3;
 		}
 		return num;
 	}

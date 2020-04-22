@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -26,38 +25,38 @@ public class CombatText : MonoBehaviour
 
 	public static Color GetColorOfCategory(CombatTextCategory category)
 	{
-		Color result = CombatText.s_invalidColor;
+		Color result = s_invalidColor;
 		switch (category)
 		{
 		case CombatTextCategory.Invalid:
-			result = CombatText.s_invalidColor;
+			result = s_invalidColor;
 			break;
 		case CombatTextCategory.Damage:
-			result = CombatText.s_damageColor;
+			result = s_damageColor;
 			break;
 		case CombatTextCategory.Healing:
-			result = CombatText.s_healingColor;
+			result = s_healingColor;
 			break;
 		case CombatTextCategory.TP_Damage:
-			result = CombatText.s_tpDamageColor;
+			result = s_tpDamageColor;
 			break;
 		case CombatTextCategory.TP_Recovery:
-			result = CombatText.s_tpRecoveryColor;
+			result = s_tpRecoveryColor;
 			break;
 		case CombatTextCategory.BuffGain:
-			result = CombatText.s_buffGainColor;
+			result = s_buffGainColor;
 			break;
 		case CombatTextCategory.BuffLoss:
-			result = CombatText.s_buffLossColor;
+			result = s_buffLossColor;
 			break;
 		case CombatTextCategory.DebuffGain:
-			result = CombatText.s_debuffGainColor;
+			result = s_debuffGainColor;
 			break;
 		case CombatTextCategory.DebuffLoss:
-			result = CombatText.s_debuffLossColor;
+			result = s_debuffLossColor;
 			break;
 		case CombatTextCategory.Other:
-			result = CombatText.s_otherColor;
+			result = s_otherColor;
 			break;
 		}
 		return result;
@@ -67,13 +66,13 @@ public class CombatText : MonoBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			Log.Warning("Client only function called with no client is active", new object[0]);
+			Log.Warning("Client only function called with no client is active");
 			return;
 		}
-		ActorData component = base.GetComponent<ActorData>();
-		if (component.\u0018())
+		ActorData component = GetComponent<ActorData>();
+		if (component.IsVisibleToClient())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -82,13 +81,13 @@ public class CombatText : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CombatText.Add(string, string, CombatTextCategory, BuffIconToDisplay)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!ClientGameManager.Get().IsFastForward)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -100,18 +99,19 @@ public class CombatText : MonoBehaviour
 				HUD_UI.Get().m_mainScreenPanel.m_combatTextPanel.QueueCombatText(component, combatText, category, icon);
 			}
 		}
-		if (NetworkServer.active)
+		if (!NetworkServer.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			MatchLogger.Get().Log(logText);
+			return;
 		}
 	}
 }

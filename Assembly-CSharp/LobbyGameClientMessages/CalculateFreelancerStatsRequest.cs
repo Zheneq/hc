@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace LobbyGameClientMessages
 {
@@ -15,52 +15,52 @@ namespace LobbyGameClientMessages
 
 		public float? GetStat(StatDisplaySettings.StatType Type)
 		{
-			if (this.PersistedStats != null)
+			if (PersistedStats != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return PersistedStats.GetGameplayStat(Type).Average();
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CalculateFreelancerStatsRequest.GetStat(StatDisplaySettings.StatType)).MethodHandle;
-				}
-				return new float?(this.PersistedStats.GetGameplayStat(Type).Average());
 			}
-			if (this.MatchFreelancerStats != null)
+			if (MatchFreelancerStats != null)
 			{
-				return this.MatchFreelancerStats.GetStat(Type);
+				return MatchFreelancerStats.GetStat(Type);
 			}
 			return null;
 		}
 
 		public float? GetFreelancerStat(int FreelancerStatIndex)
 		{
-			if (this.PersistedStats != null)
+			if (PersistedStats != null)
 			{
-				return new float?(this.PersistedStats.GetFreelancerStat(FreelancerStatIndex).Average());
+				return PersistedStats.GetFreelancerStat(FreelancerStatIndex).Average();
 			}
-			if (this.MatchFreelancerStats != null)
+			if (MatchFreelancerStats != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return MatchFreelancerStats.GetFreelancerStat(FreelancerStatIndex);
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CalculateFreelancerStatsRequest.GetFreelancerStat(int)).MethodHandle;
-				}
-				return this.MatchFreelancerStats.GetFreelancerStat(FreelancerStatIndex);
 			}
 			return null;
 		}

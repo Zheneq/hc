@@ -1,14 +1,19 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 {
+	public enum DamageOriginType
+	{
+		CenterOfShape,
+		CasterPos
+	}
+
 	public AbilityAreaShape m_shape;
 
 	public bool m_penetrateLoS;
 
-	public AbilityUtil_Targeter.AffectsActor m_affectsCaster;
+	public AffectsActor m_affectsCaster;
 
 	private float m_heightOffset = 0.1f;
 
@@ -18,54 +23,48 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 
 	protected AbilityTooltipSubject m_allyTooltipSubject;
 
-	public AbilityUtil_Targeter_ShapeOnHit.DamageOriginType m_damageOriginType;
+	public DamageOriginType m_damageOriginType;
 
 	private GridPos m_currentGridPos = GridPos.s_invalid;
 
-	public AbilityUtil_Targeter_ShapeOnHit(Ability ability, AbilityAreaShape shape, bool penetrateLoS, AbilityUtil_Targeter_ShapeOnHit.DamageOriginType damageOriginType = AbilityUtil_Targeter_ShapeOnHit.DamageOriginType.CenterOfShape, bool affectsEnemies = true, bool affectsAllies = false, AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible) : base(ability)
+	public AbilityUtil_Targeter_ShapeOnHit(Ability ability, AbilityAreaShape shape, bool penetrateLoS, DamageOriginType damageOriginType = DamageOriginType.CenterOfShape, bool affectsEnemies = true, bool affectsAllies = false, AffectsActor affectsCaster = AffectsActor.Possible)
+		: base(ability)
 	{
-		this.m_shape = shape;
-		this.m_penetrateLoS = penetrateLoS;
-		this.m_damageOriginType = damageOriginType;
-		this.m_affectsCaster = affectsCaster;
-		this.m_affectsEnemies = affectsEnemies;
-		this.m_affectsAllies = affectsAllies;
-		this.m_enemyTooltipSubject = AbilityTooltipSubject.Primary;
-		this.m_allyTooltipSubject = AbilityTooltipSubject.Primary;
+		m_shape = shape;
+		m_penetrateLoS = penetrateLoS;
+		m_damageOriginType = damageOriginType;
+		m_affectsCaster = affectsCaster;
+		m_affectsEnemies = affectsEnemies;
+		m_affectsAllies = affectsAllies;
+		m_enemyTooltipSubject = AbilityTooltipSubject.Primary;
+		m_allyTooltipSubject = AbilityTooltipSubject.Primary;
 	}
 
 	public GridPos GetCurrentGridPos()
 	{
-		return this.m_currentGridPos;
+		return m_currentGridPos;
 	}
 
 	public void SetTooltipSubjectTypes(AbilityTooltipSubject enemySubject = AbilityTooltipSubject.Primary, AbilityTooltipSubject allySubject = AbilityTooltipSubject.Primary)
 	{
-		this.m_enemyTooltipSubject = enemySubject;
-		this.m_allyTooltipSubject = allySubject;
+		m_enemyTooltipSubject = enemySubject;
+		m_allyTooltipSubject = allySubject;
 	}
 
 	protected BoardSquare GetGameplayRefSquare(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		GridPos u001D;
-		if (this.GetCurrentRangeInSquares() != 0f)
-		{
-			u001D = currentTarget.GridPos;
-		}
-		else
-		{
-			u001D = targetingActor.\u000E();
-		}
-		return Board.\u000E().\u000E(u001D);
+		GridPos gridPos = (GetCurrentRangeInSquares() == 0f) ? targetingActor.GetGridPosWithIncrementedHeight() : currentTarget.GridPos;
+		return Board.Get().GetBoardSquareSafe(gridPos);
 	}
 
 	protected Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		BoardSquare gameplayRefSquare = this.GetGameplayRefSquare(currentTarget, targetingActor);
+		BoardSquare gameplayRefSquare = GetGameplayRefSquare(currentTarget, targetingActor);
 		if (gameplayRefSquare != null)
 		{
-			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, currentTarget);
-			centerOfShape.y = targetingActor.\u0016().y + this.m_heightOffset;
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
+			Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+			centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
 			return centerOfShape;
 		}
 		return Vector3.zero;
@@ -73,27 +72,27 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 
 	private void SetHighlightPos(Vector3 pos)
 	{
-		foreach (GameObject gameObject in this.m_highlights)
+		foreach (GameObject highlight in m_highlights)
 		{
-			gameObject.transform.position = pos;
+			highlight.transform.position = pos;
 		}
 	}
 
 	private void MoveHighlightsTowardPos(Vector3 pos)
 	{
-		this.m_highlights[0].transform.position = TargeterUtils.MoveHighlightTowards(pos, this.m_highlights[0], ref this.m_curSpeed);
-		this.m_highlights[1].transform.position = this.m_highlights[0].transform.position;
+		m_highlights[0].transform.position = TargeterUtils.MoveHighlightTowards(pos, m_highlights[0], ref m_curSpeed);
+		m_highlights[1].transform.position = m_highlights[0].transform.position;
 	}
 
 	private bool MatchesTeam(ActorData targetActor, ActorData caster)
 	{
 		if (!(targetActor != caster))
 		{
-			if (this.m_affectsCaster == AbilityUtil_Targeter.AffectsActor.Never)
+			if (m_affectsCaster == AffectsActor.Never)
 			{
 				return false;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -102,42 +101,42 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ShapeOnHit.MatchesTeam(ActorData, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
-		if (targetActor.\u000E() == caster.\u000E())
+		if (targetActor.GetTeam() == caster.GetTeam())
 		{
-			return this.m_affectsAllies;
+			return m_affectsAllies;
 		}
-		return this.m_affectsEnemies;
+		return m_affectsEnemies;
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		this.m_currentGridPos = currentTarget.GridPos;
-		base.ClearActorsInRange();
-		BoardSquare gameplayRefSquare = this.GetGameplayRefSquare(currentTarget, targetingActor);
-		if (gameplayRefSquare != null)
+		m_currentGridPos = currentTarget.GridPos;
+		ClearActorsInRange();
+		BoardSquare gameplayRefSquare = GetGameplayRefSquare(currentTarget, targetingActor);
+		if (!(gameplayRefSquare != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ShapeOnHit.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Vector3 highlightGoalPos = this.GetHighlightGoalPos(currentTarget, targetingActor);
-			if (this.m_highlights != null)
+			Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
+			if (m_highlights != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -146,12 +145,12 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (this.m_highlights.Count >= 2)
+				if (m_highlights.Count >= 2)
 				{
-					this.MoveHighlightsTowardPos(highlightGoalPos);
-					goto IL_EB;
+					MoveHighlightsTowardPos(highlightGoalPos);
+					goto IL_00eb;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -161,17 +160,18 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 					break;
 				}
 			}
-			this.m_highlights = new List<GameObject>();
-			this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
-			this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
-			this.SetHighlightPos(highlightGoalPos);
-			IL_EB:
-			GameObject gameObject = this.m_highlights[0];
-			GameObject gameObject2 = this.m_highlights[1];
+			m_highlights = new List<GameObject>();
+			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
+			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
+			SetHighlightPos(highlightGoalPos);
+			goto IL_00eb;
+			IL_00eb:
+			GameObject gameObject = m_highlights[0];
+			GameObject gameObject2 = m_highlights[1];
 			Vector3 damageOrigin;
-			if (this.m_damageOriginType == AbilityUtil_Targeter_ShapeOnHit.DamageOriginType.CasterPos)
+			if (m_damageOriginType == DamageOriginType.CasterPos)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -180,16 +180,16 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 					}
 					break;
 				}
-				damageOrigin = targetingActor.\u0015();
+				damageOrigin = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			}
 			else
 			{
-				damageOrigin = AreaEffectUtils.GetCenterOfShape(this.m_shape, currentTarget);
+				damageOrigin = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
 			}
 			ActorData occupantActor = gameplayRefSquare.OccupantActor;
 			if (occupantActor != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -198,18 +198,18 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (this.MatchesTeam(occupantActor, targetingActor) && occupantActor.\u0018())
+				if (MatchesTeam(occupantActor, targetingActor) && occupantActor.IsVisibleToClient())
 				{
-					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_shape, currentTarget.FreePos, gameplayRefSquare, this.m_penetrateLoS, targetingActor, base.GetAffectedTeams(), null);
-					TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
-					using (List<ActorData>.Enumerator enumerator = actorsInShape.GetEnumerator())
+					List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, currentTarget.FreePos, gameplayRefSquare, m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
+					TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+					using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
 						{
-							ActorData potentialTarget = enumerator.Current;
-							this.HandleAddActorInShape(potentialTarget, targetingActor, currentTarget, damageOrigin);
+							ActorData current = enumerator.Current;
+							HandleAddActorInShape(current, targetingActor, currentTarget, damageOrigin);
 						}
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -221,16 +221,18 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 					}
 					gameObject.SetActive(true);
 					gameObject2.SetActive(false);
-					goto IL_20E;
+					goto IL_020e;
 				}
 			}
 			gameObject.SetActive(false);
 			gameObject2.SetActive(true);
-			IL_20E:
-			if (this.m_affectsCaster == AbilityUtil_Targeter.AffectsActor.Always)
+			goto IL_020e;
+			IL_020e:
+			if (m_affectsCaster == AffectsActor.Always)
 			{
-				base.AddActorInRange(targetingActor, damageOrigin, targetingActor, this.m_allyTooltipSubject, false);
+				AddActorInRange(targetingActor, damageOrigin, targetingActor, m_allyTooltipSubject);
 			}
+			return;
 		}
 	}
 
@@ -238,7 +240,7 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 	{
 		if (!(potentialTarget != targetingActor))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -247,15 +249,15 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ShapeOnHit.HandleAddActorInShape(ActorData, ActorData, AbilityTarget, Vector3)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_affectsCaster == AbilityUtil_Targeter.AffectsActor.Never)
+			if (m_affectsCaster == AffectsActor.Never)
 			{
 				return false;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -265,9 +267,9 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 				break;
 			}
 		}
-		if (potentialTarget.\u000E() == targetingActor.\u000E())
+		if (potentialTarget.GetTeam() == targetingActor.GetTeam())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -276,18 +278,12 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 				}
 				break;
 			}
-			base.AddActorInRange(potentialTarget, damageOrigin, targetingActor, this.m_allyTooltipSubject, false);
+			AddActorInRange(potentialTarget, damageOrigin, targetingActor, m_allyTooltipSubject);
 		}
 		else
 		{
-			base.AddActorInRange(potentialTarget, damageOrigin, targetingActor, this.m_enemyTooltipSubject, false);
+			AddActorInRange(potentialTarget, damageOrigin, targetingActor, m_enemyTooltipSubject);
 		}
 		return true;
-	}
-
-	public enum DamageOriginType
-	{
-		CenterOfShape,
-		CasterPos
 	}
 }

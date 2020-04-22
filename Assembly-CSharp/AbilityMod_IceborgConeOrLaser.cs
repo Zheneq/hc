@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
@@ -26,42 +26,43 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 
 	public override void GenModImpl_SetTargetSelectMod(GenericAbility_TargetSelectBase targetSelect)
 	{
-		targetSelect.SetTargetSelectMod(this.m_targetSelectMod);
+		targetSelect.SetTargetSelectMod(m_targetSelectMod);
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		IceborgConeOrLaser iceborgConeOrLaser = targetAbility as IceborgConeOrLaser;
-		if (iceborgConeOrLaser != null)
+		if (!(iceborgConeOrLaser != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgConeOrLaser.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			AbilityMod.AddToken(tokens, this.m_shieldPerEnemyHitMod, "ShieldPerEnemyHit", string.Empty, iceborgConeOrLaser.m_shieldPerEnemyHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_shieldDurationMod, "ShieldDuration", string.Empty, iceborgConeOrLaser.m_shieldDuration, true, false);
-			AbilityMod.AddToken(tokens, this.m_cdrPerEnemyWithNovaCoreMod, "CdrPerEnemyWithNovaCore", string.Empty, iceborgConeOrLaser.m_cdrPerEnemyWithNovaCore, true, false);
+			AbilityMod.AddToken(tokens, m_shieldPerEnemyHitMod, "ShieldPerEnemyHit", string.Empty, iceborgConeOrLaser.m_shieldPerEnemyHit);
+			AbilityMod.AddToken(tokens, m_shieldDurationMod, "ShieldDuration", string.Empty, iceborgConeOrLaser.m_shieldDuration);
+			AbilityMod.AddToken(tokens, m_cdrPerEnemyWithNovaCoreMod, "CdrPerEnemyWithNovaCore", string.Empty, iceborgConeOrLaser.m_cdrPerEnemyWithNovaCore);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		IceborgConeOrLaser iceborgConeOrLaser = base.GetTargetAbilityOnAbilityData(abilityData) as IceborgConeOrLaser;
+		IceborgConeOrLaser iceborgConeOrLaser = GetTargetAbilityOnAbilityData(abilityData) as IceborgConeOrLaser;
 		bool flag = iceborgConeOrLaser != null;
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (iceborgConeOrLaser != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -70,20 +71,18 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgConeOrLaser.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, iceborgConeOrLaser.m_targetSelectComp, "-- Target Select --");
-			text += base.PropDesc(this.m_shieldPerEnemyHitMod, "[ShieldPerEnemyHit]", flag, (!flag) ? 0 : iceborgConeOrLaser.m_shieldPerEnemyHit);
+			text += GetTargetSelectModDesc(m_targetSelectMod, iceborgConeOrLaser.m_targetSelectComp, "-- Target Select --");
+			text += PropDesc(m_shieldPerEnemyHitMod, "[ShieldPerEnemyHit]", flag, flag ? iceborgConeOrLaser.m_shieldPerEnemyHit : 0);
 			string str = text;
-			AbilityModPropertyInt shieldDurationMod = this.m_shieldDurationMod;
-			string prefix = "[ShieldDuration]";
-			bool showBaseVal = flag;
+			AbilityModPropertyInt shieldDurationMod = m_shieldDurationMod;
 			int baseVal;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -98,15 +97,13 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 			{
 				baseVal = 0;
 			}
-			text = str + base.PropDesc(shieldDurationMod, prefix, showBaseVal, baseVal);
+			text = str + PropDesc(shieldDurationMod, "[ShieldDuration]", flag, baseVal);
 			string str2 = text;
-			AbilityModPropertyBool applyDelayedAoeEffectMod = this.m_applyDelayedAoeEffectMod;
-			string prefix2 = "[ApplyDelayedAoeEffect]";
-			bool showBaseVal2 = flag;
-			bool baseVal2;
+			AbilityModPropertyBool applyDelayedAoeEffectMod = m_applyDelayedAoeEffectMod;
+			int baseVal2;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -115,21 +112,19 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 					}
 					break;
 				}
-				baseVal2 = iceborgConeOrLaser.m_applyDelayedAoeEffect;
+				baseVal2 = (iceborgConeOrLaser.m_applyDelayedAoeEffect ? 1 : 0);
 			}
 			else
 			{
-				baseVal2 = false;
+				baseVal2 = 0;
 			}
-			text = str2 + base.PropDesc(applyDelayedAoeEffectMod, prefix2, showBaseVal2, baseVal2);
+			text = str2 + PropDesc(applyDelayedAoeEffectMod, "[ApplyDelayedAoeEffect]", flag, (byte)baseVal2 != 0);
 			string str3 = text;
-			AbilityModPropertyBool skipDelayedAoeEffectIfHasExistingMod = this.m_skipDelayedAoeEffectIfHasExistingMod;
-			string prefix3 = "[SkipDelayedAoeEffectIfHasExisting]";
-			bool showBaseVal3 = flag;
-			bool baseVal3;
+			AbilityModPropertyBool skipDelayedAoeEffectIfHasExistingMod = m_skipDelayedAoeEffectIfHasExistingMod;
+			int baseVal3;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -138,14 +133,14 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 					}
 					break;
 				}
-				baseVal3 = iceborgConeOrLaser.m_skipDelayedAoeEffectIfHasExisting;
+				baseVal3 = (iceborgConeOrLaser.m_skipDelayedAoeEffectIfHasExisting ? 1 : 0);
 			}
 			else
 			{
-				baseVal3 = false;
+				baseVal3 = 0;
 			}
-			text = str3 + base.PropDesc(skipDelayedAoeEffectIfHasExistingMod, prefix3, showBaseVal3, baseVal3);
-			text += base.PropDesc(this.m_cdrPerEnemyWithNovaCoreMod, "[CdrPerEnemyWithNovaCore]", flag, (!flag) ? 0 : iceborgConeOrLaser.m_cdrPerEnemyWithNovaCore);
+			text = str3 + PropDesc(skipDelayedAoeEffectIfHasExistingMod, "[SkipDelayedAoeEffectIfHasExisting]", flag, (byte)baseVal3 != 0);
+			text += PropDesc(m_cdrPerEnemyWithNovaCoreMod, "[CdrPerEnemyWithNovaCore]", flag, flag ? iceborgConeOrLaser.m_cdrPerEnemyWithNovaCore : 0);
 		}
 		return text;
 	}

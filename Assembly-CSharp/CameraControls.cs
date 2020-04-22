@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class CameraControls : MonoBehaviour
@@ -86,9 +85,9 @@ public class CameraControls : MonoBehaviour
 		get
 		{
 			int result;
-			if (this.m_enabled)
+			if (m_enabled)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -97,13 +96,13 @@ public class CameraControls : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CameraControls.get_Enabled()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (AccountPreferences.DoesApplicationHaveFocus())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -116,7 +115,7 @@ public class CameraControls : MonoBehaviour
 					{
 						if (!(HUD_UI.Get().m_textConsole == null))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -125,11 +124,11 @@ public class CameraControls : MonoBehaviour
 								}
 								break;
 							}
-							if (HUD_UI.Get().m_textConsole.IsTextInputFocused(false))
+							if (HUD_UI.Get().m_textConsole.IsTextInputFocused())
 							{
-								goto IL_B0;
+								goto IL_00b0;
 							}
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -141,7 +140,7 @@ public class CameraControls : MonoBehaviour
 						}
 						if (!(UIDialogPopupManager.Get() == null))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -156,33 +155,36 @@ public class CameraControls : MonoBehaviour
 						{
 							result = 1;
 						}
-						return result != 0;
+						goto IL_00b1;
 					}
 				}
 			}
-			IL_B0:
+			goto IL_00b0;
+			IL_00b1:
+			return (byte)result != 0;
+			IL_00b0:
 			result = 0;
-			return result != 0;
+			goto IL_00b1;
 		}
 		set
 		{
-			this.m_enabled = value;
+			m_enabled = value;
 		}
 	}
 
 	internal static CameraControls Get()
 	{
-		return CameraControls.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		CameraControls.s_instance = this;
+		s_instance = this;
 	}
 
 	private void OnDestroy()
 	{
-		CameraControls.s_instance = null;
+		s_instance = null;
 	}
 
 	internal bool IsTiltUserControlled()
@@ -192,10 +194,10 @@ public class CameraControls : MonoBehaviour
 
 	internal bool IsMouseDragRotationRequested()
 	{
-		bool result;
-		if (this.IsTiltUserControlled())
+		int result;
+		if (IsTiltUserControlled())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -204,25 +206,25 @@ public class CameraControls : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraControls.IsMouseDragRotationRequested()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = Input.GetKey(KeyCode.G);
+			result = (Input.GetKey(KeyCode.G) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	internal bool IsMouseDragMoveRequested()
 	{
-		bool result;
-		if (!this.IsMouseDragRotationRequested())
+		int result;
+		if (!IsMouseDragRotationRequested())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -231,66 +233,63 @@ public class CameraControls : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraControls.IsMouseDragMoveRequested()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = Input.GetMouseButton(2);
+			result = (Input.GetMouseButton(2) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
-	internal unsafe void CalcDesiredTransform(Transform currentTransform, out Vector3 positionDelta, out Quaternion rotationThisFrame, out float zoomDelta)
+	internal void CalcDesiredTransform(Transform currentTransform, out Vector3 positionDelta, out Quaternion rotationThisFrame, out float zoomDelta)
 	{
-		bool flag;
-		Vector3 vector = this.CalcDesiredEulerAngles(out flag);
-		zoomDelta = this.CalcZoomVelocity() * Mathf.Min(Time.unscaledDeltaTime, 0.06f);
-		if (zoomDelta == 0f)
+		bool toggleInput;
+		Vector3 vector = CalcDesiredEulerAngles(out toggleInput);
+		zoomDelta = CalcZoomVelocity() * Mathf.Min(Time.unscaledDeltaTime, 0.06f);
+		if (zoomDelta == 0f && !Mathf.Approximately(vector.x, 0f))
 		{
-			if (!Mathf.Approximately(vector.x, 0f))
+			while (true)
 			{
-				for (;;)
+				switch (2)
 				{
-					switch (2)
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_rotationChangedTime = Time.time;
+			m_prevRotation = currentTransform.rotation;
+			m_desiredRotationEulerAngles.x += vector.x;
+			if (toggleInput)
+			{
+				while (true)
+				{
+					switch (3)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CameraControls.CalcDesiredTransform(Transform, Vector3*, Quaternion*, float*)).MethodHandle;
-				}
-				this.m_rotationChangedTime = Time.time;
-				this.m_prevRotation = currentTransform.rotation;
-				this.m_desiredRotationEulerAngles.x = this.m_desiredRotationEulerAngles.x + vector.x;
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					float num = Mathf.Abs(vector.x);
-					this.m_desiredRotationEulerAngles.x = (float)((int)(this.m_desiredRotationEulerAngles.x / num)) * num;
-				}
-				this.m_desiredRotationEulerAngles.x = Mathf.Clamp(this.m_desiredRotationEulerAngles.x, this.m_minPitch, this.m_maxPitch);
+				float num = Mathf.Abs(vector.x);
+				m_desiredRotationEulerAngles.x = (float)(int)(m_desiredRotationEulerAngles.x / num) * num;
 			}
+			m_desiredRotationEulerAngles.x = Mathf.Clamp(m_desiredRotationEulerAngles.x, m_minPitch, m_maxPitch);
 		}
 		if (!Mathf.Approximately(vector.y, 0f))
 		{
-			if (flag)
+			if (toggleInput)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -299,11 +298,11 @@ public class CameraControls : MonoBehaviour
 					}
 					break;
 				}
-				if (Time.time - this.m_keyboardRotationTime < this.m_keyboardRotationRepeatDelay)
+				if (!(Time.time - m_keyboardRotationTime >= m_keyboardRotationRepeatDelay))
 				{
-					goto IL_1C6;
+					goto IL_01c6;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -313,25 +312,26 @@ public class CameraControls : MonoBehaviour
 					break;
 				}
 			}
-			this.m_rotationChangedTime = Time.time;
-			this.m_prevRotation = currentTransform.rotation;
-			this.m_keyboardRotationTime = Time.time;
-			this.m_desiredRotationEulerAngles.y = this.m_desiredRotationEulerAngles.y + vector.y;
-			if (flag)
+			m_rotationChangedTime = Time.time;
+			m_prevRotation = currentTransform.rotation;
+			m_keyboardRotationTime = Time.time;
+			m_desiredRotationEulerAngles.y += vector.y;
+			if (toggleInput)
 			{
 				float num2 = Mathf.Abs(vector.y);
-				this.m_desiredRotationEulerAngles.y = (float)((int)(this.m_desiredRotationEulerAngles.y / num2)) * num2;
+				m_desiredRotationEulerAngles.y = (float)(int)(m_desiredRotationEulerAngles.y / num2) * num2;
 			}
-			this.m_desiredRotationEulerAngles.y = this.m_desiredRotationEulerAngles.y % 360f;
+			m_desiredRotationEulerAngles.y %= 360f;
 		}
-		IL_1C6:
-		rotationThisFrame = Quaternion.Euler(this.m_desiredRotationEulerAngles);
-		if (!this.IsMouseDragRotationRequested())
+		goto IL_01c6;
+		IL_01c6:
+		rotationThisFrame = Quaternion.Euler(m_desiredRotationEulerAngles);
+		if (!IsMouseDragRotationRequested())
 		{
-			float num3 = Easing.ExpoEaseOut(Time.time - this.m_rotationChangedTime, 0f, 1f, this.m_keyboardRotationDuration);
+			float num3 = Easing.ExpoEaseOut(Time.time - m_rotationChangedTime, 0f, 1f, m_keyboardRotationDuration);
 			if (num3 < 1f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -341,25 +341,29 @@ public class CameraControls : MonoBehaviour
 					break;
 				}
 				Vector3 eulerAngles = rotationThisFrame.eulerAngles;
-				rotationThisFrame = Quaternion.Euler(eulerAngles.x, Mathf.LerpAngle(this.m_prevRotation.eulerAngles.y, eulerAngles.y, num3), eulerAngles.z);
+				float x = eulerAngles.x;
+				Vector3 eulerAngles2 = m_prevRotation.eulerAngles;
+				rotationThisFrame = Quaternion.Euler(x, Mathf.LerpAngle(eulerAngles2.y, eulerAngles.y, num3), eulerAngles.z);
 			}
 		}
-		positionDelta = this.CalcVelocity() * Mathf.Min(Time.unscaledDeltaTime, 0.03333333f);
-		if (positionDelta.sqrMagnitude > 1.401298E-45f)
+		positionDelta = CalcVelocity() * Mathf.Min(Time.unscaledDeltaTime, 0.03333333f);
+		if (!(positionDelta.sqrMagnitude > float.Epsilon))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			Quaternion rotation = Quaternion.Euler(0f, rotationThisFrame.eulerAngles.y, 0f);
+			Vector3 eulerAngles3 = rotationThisFrame.eulerAngles;
+			Quaternion rotation = Quaternion.Euler(0f, eulerAngles3.y, 0f);
 			Vector3 a = rotation * -Vector3.forward;
 			Vector3 a2 = rotation * -Vector3.right;
 			positionDelta = positionDelta.x * a2 + positionDelta.z * a;
+			return;
 		}
 	}
 
@@ -368,7 +372,7 @@ public class CameraControls : MonoBehaviour
 		bool flag;
 		if (ControlpadGameplay.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -377,21 +381,22 @@ public class CameraControls : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraControls.CalcZoomVelocity()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (ControlpadGameplay.Get().UsingControllerInput)
 			{
 				flag = false;
-				goto IL_34;
+				goto IL_0034;
 			}
 		}
 		flag = true;
-		IL_34:
+		goto IL_0034;
+		IL_0034:
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -402,7 +407,7 @@ public class CameraControls : MonoBehaviour
 			}
 			if (!Input.GetMouseButton(2))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -411,9 +416,9 @@ public class CameraControls : MonoBehaviour
 					}
 					break;
 				}
-				if (this.Enabled)
+				if (Enabled)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -424,7 +429,7 @@ public class CameraControls : MonoBehaviour
 					}
 					if (!UIUtils.IsMouseOnGUI())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -437,9 +442,9 @@ public class CameraControls : MonoBehaviour
 						{
 							if (KeyBinding_UI.Get().IsVisible())
 							{
-								goto IL_E2;
+								goto IL_0163;
 							}
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -451,25 +456,24 @@ public class CameraControls : MonoBehaviour
 						}
 						if (!EmoticonPanel.IsMouseOverEmoticonPanel())
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return (0f - Input.GetAxis("Mouse ScrollWheel")) * 3f * m_mouseWheelZoomSpeed * 80f;
 								}
-								break;
 							}
-							return -Input.GetAxis("Mouse ScrollWheel") * 3f * this.m_mouseWheelZoomSpeed * 80f;
 						}
 					}
 				}
 			}
-			IL_E2:;
 		}
-		else if (this.Enabled)
+		else if (Enabled)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -480,7 +484,7 @@ public class CameraControls : MonoBehaviour
 			}
 			if (!UIUtils.IsMouseOnGUI())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -491,7 +495,7 @@ public class CameraControls : MonoBehaviour
 				}
 				if (!(KeyBinding_UI.Get() == null))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -502,9 +506,9 @@ public class CameraControls : MonoBehaviour
 					}
 					if (KeyBinding_UI.Get().IsVisible())
 					{
-						goto IL_163;
+						goto IL_0163;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -517,22 +521,23 @@ public class CameraControls : MonoBehaviour
 				if (!EmoticonPanel.IsMouseOverEmoticonPanel())
 				{
 					float axisValue = ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.DpadY);
-					return -axisValue * 3f;
+					return (0f - axisValue) * 3f;
 				}
 			}
 		}
-		IL_163:
+		goto IL_0163;
+		IL_0163:
 		return 0f;
 	}
 
-	private unsafe Vector3 CalcDesiredEulerAngles(out bool toggleInput)
+	private Vector3 CalcDesiredEulerAngles(out bool toggleInput)
 	{
 		toggleInput = false;
 		Vector3 zero = Vector3.zero;
 		bool flag = false;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -541,13 +546,13 @@ public class CameraControls : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraControls.CalcDesiredEulerAngles(bool*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameFlowData.Get().gameState == GameState.EndingGame)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -559,9 +564,9 @@ public class CameraControls : MonoBehaviour
 				flag = true;
 			}
 		}
-		if (SinglePlayerManager.Get())
+		if ((bool)SinglePlayerManager.Get())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -572,7 +577,7 @@ public class CameraControls : MonoBehaviour
 			}
 			if (SinglePlayerManager.Get().HasPendingCameraUpdate())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -584,7 +589,7 @@ public class CameraControls : MonoBehaviour
 				Vector3 position;
 				if (GameFlowData.Get().activeOwnedActorData == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -600,24 +605,27 @@ public class CameraControls : MonoBehaviour
 					position = GameFlowData.Get().activeOwnedActorData.transform.position;
 				}
 				Vector3 b = position;
-				Vector3 a = CameraManager.Get().CameraPositionBounds.center;
-				a = SinglePlayerManager.Get().GetCurrentState().m_cameraRotationTarget.transform.position;
-				Vector3 vector = a - b;
-				vector.y = 0f;
-				float magnitude = vector.magnitude;
+				Vector3 center = CameraManager.Get().CameraPositionBounds.center;
+				center = SinglePlayerManager.Get().GetCurrentState().m_cameraRotationTarget.transform.position;
+				Vector3 forward = center - b;
+				forward.y = 0f;
+				float magnitude = forward.magnitude;
 				float num = 0f;
 				if (!Mathf.Approximately(magnitude, 0f))
 				{
-					vector /= magnitude;
-					num = (float)((int)Quaternion.LookRotation(vector).eulerAngles.y / 0x2D * 0x2D);
+					forward /= magnitude;
+					Vector3 eulerAngles = Quaternion.LookRotation(forward).eulerAngles;
+					num = (int)eulerAngles.y / 45 * 45;
 				}
-				zero.y = num - this.m_desiredRotationEulerAngles.y;
-				return zero;
+				zero.y = num - m_desiredRotationEulerAngles.y;
+				goto IL_041f;
 			}
 		}
-		if (this.Enabled)
+		int num3;
+		int num4;
+		if (Enabled)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -628,7 +636,7 @@ public class CameraControls : MonoBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -637,10 +645,10 @@ public class CameraControls : MonoBehaviour
 					}
 					break;
 				}
-				bool flag2;
-				if (!this.CameraRotateClockwiseToggled)
+				int num2;
+				if (!CameraRotateClockwiseToggled)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -649,17 +657,17 @@ public class CameraControls : MonoBehaviour
 						}
 						break;
 					}
-					flag2 = InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraRotateClockwise);
+					num2 = (InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraRotateClockwise) ? 1 : 0);
 				}
 				else
 				{
-					flag2 = true;
+					num2 = 1;
 				}
-				bool flag3 = flag2;
-				bool flag4 = this.CameraRotateCounterClockwiseToggled || InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraRotateCounterClockwise);
+				bool flag2 = (byte)num2 != 0;
+				bool flag3 = CameraRotateCounterClockwiseToggled || InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraRotateCounterClockwise);
 				if (Input.GetKeyDown(KeyCode.V) && DebugParameters.Get() != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -670,7 +678,7 @@ public class CameraControls : MonoBehaviour
 					}
 					if (DebugParameters.Get().GetParameterAsBool("CameraTiltControl"))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -679,14 +687,14 @@ public class CameraControls : MonoBehaviour
 							}
 							break;
 						}
-						zero.x = this.m_keyboardPitchIncrement;
+						zero.x = m_keyboardPitchIncrement;
 						toggleInput = true;
-						return zero;
+						goto IL_041f;
 					}
 				}
 				if (Input.GetKeyDown(KeyCode.B))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -697,7 +705,7 @@ public class CameraControls : MonoBehaviour
 					}
 					if (DebugParameters.Get() != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -708,7 +716,7 @@ public class CameraControls : MonoBehaviour
 						}
 						if (DebugParameters.Get().GetParameterAsBool("CameraTiltControl"))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -717,15 +725,15 @@ public class CameraControls : MonoBehaviour
 								}
 								break;
 							}
-							zero.x = -this.m_keyboardPitchIncrement;
+							zero.x = 0f - m_keyboardPitchIncrement;
 							toggleInput = true;
-							return zero;
+							goto IL_041f;
 						}
 					}
 				}
-				if (flag3 ^ flag4)
+				if (flag2 ^ flag3)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -735,10 +743,9 @@ public class CameraControls : MonoBehaviour
 						break;
 					}
 					bool @bool = AccountPreferences.Get().GetBool(BoolPreference.InvertCameraRotationKbd);
-					bool flag5;
-					if (flag3)
+					if (flag2)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -749,10 +756,10 @@ public class CameraControls : MonoBehaviour
 						}
 						if (!@bool)
 						{
-							flag5 = true;
-							goto IL_2F0;
+							num3 = 1;
+							goto IL_02f0;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -762,9 +769,9 @@ public class CameraControls : MonoBehaviour
 							break;
 						}
 					}
-					if (flag4)
+					if (flag3)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -773,21 +780,17 @@ public class CameraControls : MonoBehaviour
 							}
 							break;
 						}
-						flag5 = @bool;
+						num3 = (@bool ? 1 : 0);
 					}
 					else
 					{
-						flag5 = false;
+						num3 = 0;
 					}
-					IL_2F0:
-					bool flag6 = flag5;
-					zero.y = this.m_keyboardRotationIncrement * ((!flag6) ? -1f : 1f);
-					toggleInput = true;
-					CameraManager.Get().OnPlayerMovedCamera();
+					goto IL_02f0;
 				}
-				else if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.DpadX) != 0f)
+				if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.DpadX) != 0f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -796,15 +799,14 @@ public class CameraControls : MonoBehaviour
 						}
 						break;
 					}
-					bool flag7;
 					if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.DpadX) < 0f)
 					{
 						if (!AccountPreferences.Get().GetBool(BoolPreference.InvertCameraRotationKbd))
 						{
-							flag7 = true;
-							goto IL_3A9;
+							num4 = 1;
+							goto IL_03a9;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -816,7 +818,7 @@ public class CameraControls : MonoBehaviour
 					}
 					if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.DpadX) > 0f)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -825,45 +827,55 @@ public class CameraControls : MonoBehaviour
 							}
 							break;
 						}
-						flag7 = AccountPreferences.Get().GetBool(BoolPreference.InvertCameraRotationKbd);
+						num4 = (AccountPreferences.Get().GetBool(BoolPreference.InvertCameraRotationKbd) ? 1 : 0);
 					}
 					else
 					{
-						flag7 = false;
+						num4 = 0;
 					}
-					IL_3A9:
-					bool flag8 = flag7;
-					float keyboardRotationIncrement = this.m_keyboardRotationIncrement;
-					float num2;
-					if (flag8)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num2 = 1f;
-					}
-					else
-					{
-						num2 = -1f;
-					}
-					zero.y = keyboardRotationIncrement * num2;
-					toggleInput = true;
-					CameraManager.Get().OnPlayerMovedCamera();
+					goto IL_03a9;
 				}
-				else if (this.IsMouseDragRotationRequested())
+				if (IsMouseDragRotationRequested())
 				{
-					zero.y = Input.GetAxis("Mouse X") * this.m_mouseRotationSpeed;
-					zero.x = -Input.GetAxis("Mouse Y") * this.m_mousePitchSpeed;
+					zero.y = Input.GetAxis("Mouse X") * m_mouseRotationSpeed;
+					zero.x = (0f - Input.GetAxis("Mouse Y")) * m_mousePitchSpeed;
 				}
 			}
 		}
+		goto IL_041f;
+		IL_02f0:
+		bool flag4 = (byte)num3 != 0;
+		zero.y = m_keyboardRotationIncrement * ((!flag4) ? (-1f) : 1f);
+		toggleInput = true;
+		CameraManager.Get().OnPlayerMovedCamera();
+		goto IL_041f;
+		IL_041f:
 		return zero;
+		IL_03a9:
+		bool flag5 = (byte)num4 != 0;
+		float keyboardRotationIncrement = m_keyboardRotationIncrement;
+		float num5;
+		if (flag5)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num5 = 1f;
+		}
+		else
+		{
+			num5 = -1f;
+		}
+		zero.y = keyboardRotationIncrement * num5;
+		toggleInput = true;
+		CameraManager.Get().OnPlayerMovedCamera();
+		goto IL_041f;
 	}
 
 	private Vector3 CalcVelocity()
@@ -872,7 +884,7 @@ public class CameraControls : MonoBehaviour
 		bool flag = false;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -881,13 +893,13 @@ public class CameraControls : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraControls.CalcVelocity()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameFlowData.Get().gameState == GameState.EndingGame)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -899,9 +911,12 @@ public class CameraControls : MonoBehaviour
 				flag = true;
 			}
 		}
-		if (this.Enabled)
+		float num;
+		float num2;
+		bool flag2;
+		if (Enabled)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -912,7 +927,7 @@ public class CameraControls : MonoBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -921,12 +936,11 @@ public class CameraControls : MonoBehaviour
 					}
 					break;
 				}
-				float num = 0f;
-				float num2 = 0f;
-				bool flag2;
+				num = 0f;
+				num2 = 0f;
 				if (ControlpadGameplay.Get() != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -937,7 +951,7 @@ public class CameraControls : MonoBehaviour
 					}
 					if (ControlpadGameplay.Get().UsingControllerInput)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -947,475 +961,16 @@ public class CameraControls : MonoBehaviour
 							break;
 						}
 						flag2 = false;
-						goto IL_B7;
+						goto IL_00b7;
 					}
 				}
 				flag2 = true;
-				IL_B7:
-				if (flag2)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraPanUp))
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num2 = 1f;
-					}
-					if (InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraPanLeft))
-					{
-						num = -1f;
-					}
-					if (InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraPanDown))
-					{
-						num2 = -1f;
-					}
-					if (InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraPanRight))
-					{
-						num = 1f;
-					}
-				}
-				else
-				{
-					num = ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.RightStickX);
-					num2 = ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.RightStickY);
-				}
-				HighlightUtils.ScrollCursorDirection scrollCursorDirection = HighlightUtils.ScrollCursorDirection.Undefined;
-				Vector2 vector = new Vector2(Input.mousePosition.x / (float)Screen.width, Input.mousePosition.y / (float)Screen.height);
-				Vector3 zero = Vector3.zero;
-				if (Cursor.lockState == CursorLockMode.Confined)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_mouseMoveFringeInEditor)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (Application.isEditor)
-						{
-							goto IL_2AD;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					if (vector.x <= this.m_mouseMoveFringeLeft)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						zero.x = this.m_mouseMoveFringeSpeed;
-						scrollCursorDirection = HighlightUtils.ScrollCursorDirection.W;
-					}
-					else if (vector.x >= 1f - this.m_mouseMoveFringeRight)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						zero.x = -this.m_mouseMoveFringeSpeed;
-						scrollCursorDirection = HighlightUtils.ScrollCursorDirection.E;
-					}
-					if (vector.y <= this.m_mouseMoveFringeBottom)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						zero.z = this.m_mouseMoveFringeSpeed;
-						HighlightUtils.ScrollCursorDirection scrollCursorDirection2;
-						if (scrollCursorDirection == HighlightUtils.ScrollCursorDirection.W)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							scrollCursorDirection2 = HighlightUtils.ScrollCursorDirection.SW;
-						}
-						else if (scrollCursorDirection == HighlightUtils.ScrollCursorDirection.E)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							scrollCursorDirection2 = HighlightUtils.ScrollCursorDirection.SE;
-						}
-						else
-						{
-							scrollCursorDirection2 = HighlightUtils.ScrollCursorDirection.S;
-						}
-						scrollCursorDirection = scrollCursorDirection2;
-					}
-					else if (vector.y >= 1f - this.m_mouseMoveFringeTop)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						zero.z = -this.m_mouseMoveFringeSpeed;
-						scrollCursorDirection = ((scrollCursorDirection != HighlightUtils.ScrollCursorDirection.W) ? ((scrollCursorDirection != HighlightUtils.ScrollCursorDirection.E) ? HighlightUtils.ScrollCursorDirection.N : HighlightUtils.ScrollCursorDirection.NE) : HighlightUtils.ScrollCursorDirection.NW);
-					}
-				}
-				IL_2AD:
-				bool flag3 = zero != Vector3.zero && !UIUtils.IsMouseOnGUI();
-				if (flag3)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_mouseMoveFringeSpeedEased.EaseTo(zero, this.m_mouseMoveFringeEaseIn, this.m_mouseMoveFringeEaseInTime);
-					HighlightUtils.Get().SetScrollCursor(scrollCursorDirection);
-					if (scrollCursorDirection != this.m_lastScrollCursorDirection)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_lastScrollCursorDirection = scrollCursorDirection;
-						this.m_timeLastScrollCursorStarted = Time.unscaledTime;
-					}
-					else if (Time.unscaledTime > this.m_timeLastScrollCursorStarted + this.m_secondsUntilScrollCursorStop)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						WinUtils.User32.POINT point = default(WinUtils.User32.POINT);
-						WinUtils.User32.GetCursorPos(out point);
-						if (this.m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.NE)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.E)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.SE)
-								{
-									goto IL_3AD;
-								}
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-						}
-						point.X -= 2;
-						IL_3AD:
-						if (this.m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.NW && this.m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.W)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.SW)
-							{
-								goto IL_3EB;
-							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						point.X += 2;
-						IL_3EB:
-						if (this.m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.NE && this.m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.N)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.NW)
-							{
-								goto IL_41E;
-							}
-						}
-						point.Y += 2;
-						IL_41E:
-						if (this.m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.SE)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.S)
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.SW)
-								{
-									goto IL_466;
-								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-						}
-						point.Y -= 2;
-						IL_466:
-						WinUtils.User32.SetCursorPos(point.X, point.Y);
-					}
-				}
-				else
-				{
-					this.m_mouseMoveFringeSpeedEased.EaseTo(Vector3.zero, this.m_mouseMoveFringeEaseOut, this.m_mouseMoveFringeEaseOutTime);
-					HighlightUtils.Get().SetScrollCursor(HighlightUtils.ScrollCursorDirection.Undefined);
-					this.m_lastScrollCursorDirection = HighlightUtils.ScrollCursorDirection.Undefined;
-					this.m_timeLastScrollCursorStarted = Time.unscaledTime;
-				}
-				if (this.IsMouseDragMoveRequested())
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					a.x = Input.GetAxis("Mouse X") * this.m_mouseMoveSpeed;
-					a.z = Input.GetAxis("Mouse Y") * this.m_mouseMoveSpeed;
-				}
-				else
-				{
-					if (num == 0f)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (num2 != 0f)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						else
-						{
-							if (flag3)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								Vector3 vector2;
-								if (this.m_mouseMoveFringeEaseInTime > 0f)
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									vector2 = this.m_mouseMoveFringeSpeedEased;
-								}
-								else
-								{
-									vector2 = zero;
-								}
-								a = vector2;
-								goto IL_5D7;
-							}
-							Vector3 vector3;
-							if (this.m_mouseMoveFringeEaseOutTime > 0f)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								vector3 = this.m_mouseMoveFringeSpeedEased;
-							}
-							else
-							{
-								vector3 = Vector3.zero;
-							}
-							a = vector3;
-							goto IL_5D7;
-						}
-					}
-					if (num2 != 0f)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						a.z += -(this.m_keyboardMoveSpeed * num2);
-					}
-					if (num != 0f)
-					{
-						a.x += -(this.m_keyboardMoveSpeed * num);
-					}
-				}
-				IL_5D7:
-				goto IL_5F0;
+				goto IL_00b7;
 			}
 		}
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1426,7 +981,493 @@ public class CameraControls : MonoBehaviour
 			}
 			HighlightUtils.Get().ResetCursor();
 		}
-		IL_5F0:
+		goto IL_05f0;
+		IL_02ad:
+		Vector3 zero;
+		bool flag3 = zero != Vector3.zero && !UIUtils.IsMouseOnGUI();
+		HighlightUtils.ScrollCursorDirection scrollCursorDirection;
+		WinUtils.User32.POINT lpPoint;
+		if (flag3)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			m_mouseMoveFringeSpeedEased.EaseTo(zero, m_mouseMoveFringeEaseIn, m_mouseMoveFringeEaseInTime);
+			HighlightUtils.Get().SetScrollCursor(scrollCursorDirection);
+			if (scrollCursorDirection != m_lastScrollCursorDirection)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_lastScrollCursorDirection = scrollCursorDirection;
+				m_timeLastScrollCursorStarted = Time.unscaledTime;
+			}
+			else if (Time.unscaledTime > m_timeLastScrollCursorStarted + m_secondsUntilScrollCursorStop)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				lpPoint = default(WinUtils.User32.POINT);
+				WinUtils.User32.GetCursorPos(out lpPoint);
+				if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.NE)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.E)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.SE)
+						{
+							goto IL_03ad;
+						}
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+				}
+				lpPoint.X -= 2;
+				goto IL_03ad;
+			}
+		}
+		else
+		{
+			m_mouseMoveFringeSpeedEased.EaseTo(Vector3.zero, m_mouseMoveFringeEaseOut, m_mouseMoveFringeEaseOutTime);
+			HighlightUtils.Get().SetScrollCursor(HighlightUtils.ScrollCursorDirection.Undefined);
+			m_lastScrollCursorDirection = HighlightUtils.ScrollCursorDirection.Undefined;
+			m_timeLastScrollCursorStarted = Time.unscaledTime;
+		}
+		goto IL_04bb;
+		IL_03ad:
+		if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.NW && m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.W)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.SW)
+			{
+				goto IL_03eb;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		lpPoint.X += 2;
+		goto IL_03eb;
+		IL_041e:
+		if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.SE)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.S)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.SW)
+				{
+					goto IL_0466;
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+		}
+		lpPoint.Y -= 2;
+		goto IL_0466;
+		IL_04bb:
+		if (IsMouseDragMoveRequested())
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			a.x = Input.GetAxis("Mouse X") * m_mouseMoveSpeed;
+			a.z = Input.GetAxis("Mouse Y") * m_mouseMoveSpeed;
+		}
+		else
+		{
+			if (num == 0f)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (num2 == 0f)
+				{
+					if (flag3)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						Vector3 vector;
+						if (m_mouseMoveFringeEaseInTime > 0f)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							vector = m_mouseMoveFringeSpeedEased;
+						}
+						else
+						{
+							vector = zero;
+						}
+						a = vector;
+					}
+					else
+					{
+						Vector3 vector2;
+						if (m_mouseMoveFringeEaseOutTime > 0f)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							vector2 = m_mouseMoveFringeSpeedEased;
+						}
+						else
+						{
+							vector2 = Vector3.zero;
+						}
+						a = vector2;
+					}
+					goto IL_05f0;
+				}
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			if (num2 != 0f)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				a.z += 0f - m_keyboardMoveSpeed * num2;
+			}
+			if (num != 0f)
+			{
+				a.x += 0f - m_keyboardMoveSpeed * num;
+			}
+		}
+		goto IL_05f0;
+		IL_0466:
+		WinUtils.User32.SetCursorPos(lpPoint.X, lpPoint.Y);
+		goto IL_04bb;
+		IL_05f0:
 		return a * 80f;
+		IL_03eb:
+		if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.NE && m_lastScrollCursorDirection != 0)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.NW)
+			{
+				goto IL_041e;
+			}
+		}
+		lpPoint.Y += 2;
+		goto IL_041e;
+		IL_00b7:
+		if (flag2)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraPanUp))
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num2 = 1f;
+			}
+			if (InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraPanLeft))
+			{
+				num = -1f;
+			}
+			if (InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraPanDown))
+			{
+				num2 = -1f;
+			}
+			if (InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraPanRight))
+			{
+				num = 1f;
+			}
+		}
+		else
+		{
+			num = ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.RightStickX);
+			num2 = ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.RightStickY);
+		}
+		scrollCursorDirection = HighlightUtils.ScrollCursorDirection.Undefined;
+		Vector3 mousePosition = Input.mousePosition;
+		float x = mousePosition.x / (float)Screen.width;
+		Vector3 mousePosition2 = Input.mousePosition;
+		Vector2 vector3 = new Vector2(x, mousePosition2.y / (float)Screen.height);
+		zero = Vector3.zero;
+		if (Cursor.lockState == CursorLockMode.Confined)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!m_mouseMoveFringeInEditor)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (Application.isEditor)
+				{
+					goto IL_02ad;
+				}
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			if (vector3.x <= m_mouseMoveFringeLeft)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				zero.x = m_mouseMoveFringeSpeed;
+				scrollCursorDirection = HighlightUtils.ScrollCursorDirection.W;
+			}
+			else if (vector3.x >= 1f - m_mouseMoveFringeRight)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				zero.x = 0f - m_mouseMoveFringeSpeed;
+				scrollCursorDirection = HighlightUtils.ScrollCursorDirection.E;
+			}
+			if (vector3.y <= m_mouseMoveFringeBottom)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				zero.z = m_mouseMoveFringeSpeed;
+				int num3;
+				if (scrollCursorDirection == HighlightUtils.ScrollCursorDirection.W)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num3 = 5;
+				}
+				else if (scrollCursorDirection == HighlightUtils.ScrollCursorDirection.E)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num3 = 3;
+				}
+				else
+				{
+					num3 = 4;
+				}
+				scrollCursorDirection = (HighlightUtils.ScrollCursorDirection)num3;
+			}
+			else if (vector3.y >= 1f - m_mouseMoveFringeTop)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				zero.z = 0f - m_mouseMoveFringeSpeed;
+				int num4;
+				switch (scrollCursorDirection)
+				{
+				case HighlightUtils.ScrollCursorDirection.W:
+					num4 = 7;
+					break;
+				case HighlightUtils.ScrollCursorDirection.E:
+					num4 = 1;
+					break;
+				default:
+					num4 = 0;
+					break;
+				}
+				scrollCursorDirection = (HighlightUtils.ScrollCursorDirection)num4;
+			}
+		}
+		goto IL_02ad;
 	}
 }

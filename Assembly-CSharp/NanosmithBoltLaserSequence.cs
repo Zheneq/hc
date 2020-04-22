@@ -1,9 +1,208 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NanosmithBoltLaserSequence : Sequence
 {
+	public class ExtraParams : IExtraSequenceParams
+	{
+		public float startDelay;
+
+		public int curIndex;
+
+		public int maxIndex;
+
+		public bool skipImpactFx;
+
+		public bool useOverrideStartPos;
+
+		public Vector3 overrideStartPos = Vector3.zero;
+
+		public Vector3[] boltEndPositions;
+
+		public List<ActorData[]> boltHitActors;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			stream.Serialize(ref startDelay);
+			stream.Serialize(ref curIndex);
+			stream.Serialize(ref maxIndex);
+			stream.Serialize(ref skipImpactFx);
+			stream.Serialize(ref useOverrideStartPos);
+			stream.Serialize(ref overrideStartPos);
+			int num;
+			if (boltEndPositions != null)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				num = boltEndPositions.Length;
+			}
+			else
+			{
+				num = 0;
+			}
+			int value = num;
+			stream.Serialize(ref value);
+			for (int i = 0; i < value; i++)
+			{
+				Vector3 value2 = boltEndPositions[i];
+				stream.Serialize(ref value2);
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				int num2;
+				if (boltHitActors != null)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num2 = boltHitActors.Count;
+				}
+				else
+				{
+					num2 = 0;
+				}
+				int value3 = num2;
+				stream.Serialize(ref value3);
+				for (int j = 0; j < value3; j++)
+				{
+					ActorData[] array = boltHitActors[j];
+					int value4 = (array != null) ? array.Length : 0;
+					stream.Serialize(ref value4);
+					for (int k = 0; k < value4; k++)
+					{
+						ActorData actorData = array[k];
+						int num3;
+						if (actorData != null)
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num3 = actorData.ActorIndex;
+						}
+						else
+						{
+							num3 = ActorData.s_invalidActorIndex;
+						}
+						int value5 = num3;
+						stream.Serialize(ref value5);
+					}
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							break;
+						default:
+							goto end_IL_0146;
+						}
+						continue;
+						end_IL_0146:
+						break;
+					}
+				}
+				return;
+			}
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			stream.Serialize(ref startDelay);
+			stream.Serialize(ref curIndex);
+			stream.Serialize(ref maxIndex);
+			stream.Serialize(ref skipImpactFx);
+			stream.Serialize(ref useOverrideStartPos);
+			stream.Serialize(ref overrideStartPos);
+			int value = 0;
+			stream.Serialize(ref value);
+			boltEndPositions = new Vector3[value];
+			for (int i = 0; i < value; i++)
+			{
+				Vector3 value2 = Vector3.zero;
+				stream.Serialize(ref value2);
+				boltEndPositions[i] = value2;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				int value3 = 0;
+				stream.Serialize(ref value3);
+				boltHitActors = new List<ActorData[]>(value3);
+				for (int j = 0; j < value3; j++)
+				{
+					int value4 = 0;
+					stream.Serialize(ref value4);
+					ActorData[] array = new ActorData[value4];
+					for (int k = 0; k < value4; k++)
+					{
+						int value5 = ActorData.s_invalidActorIndex;
+						stream.Serialize(ref value5);
+						ActorData actorData = array[k] = GameFlowData.Get().FindActorByActorIndex(value5);
+					}
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							break;
+						default:
+							goto end_IL_0107;
+						}
+						continue;
+						end_IL_0107:
+						break;
+					}
+					boltHitActors.Add(array);
+				}
+				while (true)
+				{
+					switch (1)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
+			}
+		}
+	}
+
 	[Tooltip("Main FX prefab.")]
 	public GameObject m_fxPrefab;
 
@@ -13,11 +212,11 @@ public class NanosmithBoltLaserSequence : Sequence
 	[JointPopup("Start position for projectile")]
 	public JointPopupProperty m_fxJoint;
 
-	public Sequence.ReferenceModelType m_jointReferenceType;
+	public ReferenceModelType m_jointReferenceType;
 
 	[AnimEventPicker]
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
 	[JointPopup("FX attach joint (or start position for projectiles).")]
 	public JointPopupProperty m_hitPosJoint;
@@ -92,10 +291,10 @@ public class NanosmithBoltLaserSequence : Sequence
 
 	public Vector3[] GetSplinePath(int curIndex, int maxIndex)
 	{
-		Vector3 vector = this.m_fxJoint.m_jointObject.transform.position;
-		if (this.m_useOverrideStartPos)
+		Vector3 vector = m_fxJoint.m_jointObject.transform.position;
+		if (m_useOverrideStartPos)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -104,16 +303,16 @@ public class NanosmithBoltLaserSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanosmithBoltLaserSequence.GetSplinePath(int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			vector = this.m_overrideStartPos;
+			vector = m_overrideStartPos;
 		}
 		Vector3[] array = new Vector3[5];
-		if (this.m_maxHeight == 0f)
+		if (m_maxHeight == 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -123,14 +322,14 @@ public class NanosmithBoltLaserSequence : Sequence
 				break;
 			}
 			Vector3 vector2;
-			if (this.m_useTargetHitPos)
+			if (m_useTargetHitPos)
 			{
-				vector2 = base.GetTargetHitPosition(0, this.m_hitPosJoint);
+				vector2 = GetTargetHitPosition(0, m_hitPosJoint);
 			}
 			else
 			{
 				vector2 = base.TargetPos;
-				vector2.y += this.m_yOffset;
+				vector2.y += m_yOffset;
 			}
 			Vector3 b = vector2 - vector;
 			array[0] = vector - b;
@@ -142,9 +341,9 @@ public class NanosmithBoltLaserSequence : Sequence
 		else
 		{
 			Vector3 vector3;
-			if (this.m_useTargetHitPos)
+			if (m_useTargetHitPos)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -153,21 +352,21 @@ public class NanosmithBoltLaserSequence : Sequence
 					}
 					break;
 				}
-				vector3 = base.GetTargetHitPosition(0, this.m_hitPosJoint);
+				vector3 = GetTargetHitPosition(0, m_hitPosJoint);
 			}
 			else
 			{
 				vector3 = base.TargetPos;
 			}
-			array[0] = vector + Vector3.down * this.m_maxHeight;
+			array[0] = vector + Vector3.down * m_maxHeight;
 			array[1] = vector;
-			array[2] = (vector + vector3) * 0.5f + Vector3.up * this.m_maxHeight;
+			array[2] = (vector + vector3) * 0.5f + Vector3.up * m_maxHeight;
 			array[3] = vector3;
-			array[4] = vector3 + Vector3.down * this.m_maxHeight;
+			array[4] = vector3 + Vector3.down * m_maxHeight;
 		}
-		if (this.m_reverseDirection)
+		if (m_reverseDirection)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -188,26 +387,26 @@ public class NanosmithBoltLaserSequence : Sequence
 
 	protected int GetCurrentSplineSegment()
 	{
-		return this.m_spline.Section(this.m_splineTraveled);
+		return m_spline.Section(m_splineTraveled);
 	}
 
 	public override void FinishSetup()
 	{
-		this.m_impactDuration = Sequence.GetFXDuration(this.m_fxImpactPrefab);
-		if (this.m_startEvent == null)
+		m_impactDuration = Sequence.GetFXDuration(m_fxImpactPrefab);
+		if (m_startEvent == null)
 		{
-			this.ScheduleFX();
+			ScheduleFX();
 		}
 	}
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			NanosmithBoltLaserSequence.ExtraParams extraParams2 = extraSequenceParams as NanosmithBoltLaserSequence.ExtraParams;
+			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2 != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -216,41 +415,42 @@ public class NanosmithBoltLaserSequence : Sequence
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NanosmithBoltLaserSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_curIndex = extraParams2.curIndex;
-				this.m_maxIndex = extraParams2.maxIndex;
-				this.m_startDelay = extraParams2.startDelay;
-				this.m_skipImpactFx = extraParams2.skipImpactFx;
-				this.m_useOverrideStartPos = extraParams2.useOverrideStartPos;
-				this.m_overrideStartPos = extraParams2.overrideStartPos;
-				this.m_boltEndPositions = extraParams2.boltEndPositions;
-				this.m_boltHitActors = extraParams2.boltHitActors;
+				m_curIndex = extraParams2.curIndex;
+				m_maxIndex = extraParams2.maxIndex;
+				m_startDelay = extraParams2.startDelay;
+				m_skipImpactFx = extraParams2.skipImpactFx;
+				m_useOverrideStartPos = extraParams2.useOverrideStartPos;
+				m_overrideStartPos = extraParams2.overrideStartPos;
+				m_boltEndPositions = extraParams2.boltEndPositions;
+				m_boltHitActors = extraParams2.boltHitActors;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void OnDisable()
 	{
-		using (List<GenericSequenceProjectileInfo>.Enumerator enumerator = this.m_boltProjectiles.GetEnumerator())
+		using (List<GenericSequenceProjectileInfo>.Enumerator enumerator = m_boltProjectiles.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				GenericSequenceProjectileInfo genericSequenceProjectileInfo = enumerator.Current;
-				if (genericSequenceProjectileInfo != null)
+				GenericSequenceProjectileInfo current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -259,14 +459,14 @@ public class NanosmithBoltLaserSequence : Sequence
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(NanosmithBoltLaserSequence.OnDisable()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					genericSequenceProjectileInfo.OnSequenceDisable();
+					current.OnSequenceDisable();
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -276,14 +476,14 @@ public class NanosmithBoltLaserSequence : Sequence
 				break;
 			}
 		}
-		this.OnSequenceDisable();
+		OnSequenceDisable();
 	}
 
 	protected virtual void OnSequenceDisable()
 	{
-		if (this.m_fx != null)
+		if (m_fx != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -292,16 +492,16 @@ public class NanosmithBoltLaserSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanosmithBoltLaserSequence.OnSequenceDisable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.Destroy(this.m_fx);
-			this.m_fx = null;
+			Object.Destroy(m_fx);
+			m_fx = null;
 		}
-		if (this.m_fxImpact != null)
+		if (m_fxImpact != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -310,17 +510,17 @@ public class NanosmithBoltLaserSequence : Sequence
 				}
 				break;
 			}
-			UnityEngine.Object.Destroy(this.m_fxImpact);
-			this.m_fxImpact = null;
+			Object.Destroy(m_fxImpact);
+			m_fxImpact = null;
 		}
-		this.m_initialized = false;
+		m_initialized = false;
 	}
 
 	protected virtual void SpawnImpactFX(Vector3 impactPos, Quaternion impactRot)
 	{
-		if (!this.m_skipImpactFx)
+		if (!m_skipImpactFx)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -329,13 +529,13 @@ public class NanosmithBoltLaserSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanosmithBoltLaserSequence.SpawnImpactFX(Vector3, Quaternion)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_fxImpactPrefab)
+			if ((bool)m_fxImpactPrefab)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -344,102 +544,104 @@ public class NanosmithBoltLaserSequence : Sequence
 					}
 					break;
 				}
-				this.m_fxImpact = base.InstantiateFX(this.m_fxImpactPrefab, impactPos, impactRot, true, true);
-				this.m_impactDurationLeft = this.m_impactDuration;
+				m_fxImpact = InstantiateFX(m_fxImpactPrefab, impactPos, impactRot);
+				m_impactDurationLeft = m_impactDuration;
 			}
-			if (!string.IsNullOrEmpty(this.m_impactAudioEvent))
+			if (!string.IsNullOrEmpty(m_impactAudioEvent))
 			{
-				AudioManager.PostEvent(this.m_impactAudioEvent, this.m_fx.gameObject);
+				AudioManager.PostEvent(m_impactAudioEvent, m_fx.gameObject);
 			}
 		}
-		base.CallHitSequenceOnTargets(impactPos, 1f, null, true);
-		this.SpawnBolts();
+		CallHitSequenceOnTargets(impactPos);
+		SpawnBolts();
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (this.m_startEvent == parameter)
+		if (!(m_startEvent == parameter))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanosmithBoltLaserSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.ScheduleFX();
+			ScheduleFX();
+			return;
 		}
 	}
 
 	private void ScheduleFX()
 	{
-		this.m_startEventHappened = true;
+		m_startEventHappened = true;
 	}
 
 	private void SpawnFX()
 	{
-		Vector3[] splinePath = this.GetSplinePath(this.m_curIndex, this.m_maxIndex);
-		this.m_spline = new CRSpline(splinePath);
-		Vector3 a = this.m_spline.Interp(0.05f);
+		Vector3[] splinePath = GetSplinePath(m_curIndex, m_maxIndex);
+		m_spline = new CRSpline(splinePath);
+		Vector3 a = m_spline.Interp(0.05f);
 		(a - splinePath[1]).Normalize();
 		Quaternion rotation = default(Quaternion);
 		float num = (splinePath[1] - splinePath[2]).magnitude + (splinePath[2] - splinePath[3]).magnitude;
-		float num2 = num / this.m_projectileSpeed;
-		this.m_splineSpeed = 1f / num2;
-		this.m_splineAcceleration = this.m_projectileAcceleration * this.m_splineSpeed / this.m_projectileSpeed;
-		if (this.m_projectileAcceleration == 0f)
+		float num2 = num / m_projectileSpeed;
+		m_splineSpeed = 1f / num2;
+		m_splineAcceleration = m_projectileAcceleration * m_splineSpeed / m_projectileSpeed;
+		if (m_projectileAcceleration == 0f)
 		{
-			this.m_curSplineSpeed = this.m_splineSpeed;
+			m_curSplineSpeed = m_splineSpeed;
 		}
 		else
 		{
-			this.m_curSplineSpeed = 0f;
+			m_curSplineSpeed = 0f;
 		}
-		this.m_fx = base.InstantiateFX(this.m_fxPrefab, splinePath[1], rotation, true, true);
-		if (!string.IsNullOrEmpty(this.m_audioEvent))
+		m_fx = InstantiateFX(m_fxPrefab, splinePath[1], rotation);
+		if (string.IsNullOrEmpty(m_audioEvent))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanosmithBoltLaserSequence.SpawnFX()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
+			AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		this.OnUpdate();
+		OnUpdate();
 	}
 
 	protected virtual void OnUpdate()
 	{
-		base.ProcessSequenceVisibility();
-		if (this.m_initialized && this.m_startEventHappened)
+		ProcessSequenceVisibility();
+		if (m_initialized && m_startEventHappened)
 		{
-			if (this.m_fx == null)
+			if (m_fx == null)
 			{
-				this.m_startDelay -= GameTime.deltaTime;
-				if (this.m_startDelay <= 0f)
+				m_startDelay -= GameTime.deltaTime;
+				if (m_startDelay <= 0f)
 				{
-					GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_jointReferenceType);
+					GameObject referenceModel = GetReferenceModel(base.Caster, m_jointReferenceType);
 					if (referenceModel != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -448,20 +650,20 @@ public class NanosmithBoltLaserSequence : Sequence
 							}
 							break;
 						}
-						if (!true)
+						if (1 == 0)
 						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(NanosmithBoltLaserSequence.OnUpdate()).MethodHandle;
+							/*OpCode not supported: LdMemberToken*/;
 						}
-						this.m_fxJoint.Initialize(referenceModel);
+						m_fxJoint.Initialize(referenceModel);
 					}
-					this.SpawnFX();
+					SpawnFX();
 				}
 			}
 			else
 			{
-				if (this.m_fx.activeSelf)
+				if (m_fx.activeSelf)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -470,22 +672,22 @@ public class NanosmithBoltLaserSequence : Sequence
 						}
 						break;
 					}
-					this.m_curSplineSpeed += this.m_splineAcceleration;
-					this.m_curSplineSpeed = Mathf.Min(this.m_splineSpeed, this.m_curSplineSpeed);
-					this.m_splineTraveled += this.m_curSplineSpeed * GameTime.deltaTime;
-					if (this.m_splineTraveled < this.m_splineFractionUntilImpact)
+					m_curSplineSpeed += m_splineAcceleration;
+					m_curSplineSpeed = Mathf.Min(m_splineSpeed, m_curSplineSpeed);
+					m_splineTraveled += m_curSplineSpeed * GameTime.deltaTime;
+					if (m_splineTraveled < m_splineFractionUntilImpact)
 					{
-						Vector3 vector = this.m_spline.Interp(this.m_splineTraveled);
+						Vector3 vector = m_spline.Interp(m_splineTraveled);
 						Quaternion rotation = default(Quaternion);
-						rotation.SetLookRotation((vector - this.m_fx.transform.position).normalized);
-						this.m_fx.transform.position = vector;
-						this.m_fx.transform.rotation = rotation;
+						rotation.SetLookRotation((vector - m_fx.transform.position).normalized);
+						m_fx.transform.position = vector;
+						m_fx.transform.rotation = rotation;
 					}
 					else
 					{
-						if (this.m_spawnImpactAtFXDespawn)
+						if (m_spawnImpactAtFXDespawn)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -494,16 +696,16 @@ public class NanosmithBoltLaserSequence : Sequence
 								}
 								break;
 							}
-							this.SpawnImpactFX(this.m_fx.transform.position, this.m_fx.transform.rotation);
+							SpawnImpactFX(m_fx.transform.position, m_fx.transform.rotation);
 						}
 						else
 						{
-							this.SpawnImpactFX(base.TargetPos, Quaternion.identity);
+							SpawnImpactFX(base.TargetPos, Quaternion.identity);
 						}
-						this.m_fx.SetActive(false);
-						if (this.m_fxImpactPrefab == null && this.m_markForRemovalAfterImpact)
+						m_fx.SetActive(false);
+						if (m_fxImpactPrefab == null && m_markForRemovalAfterImpact)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -515,9 +717,9 @@ public class NanosmithBoltLaserSequence : Sequence
 						}
 					}
 				}
-				if (this.m_fxImpact != null)
+				if (m_fxImpact != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -526,9 +728,9 @@ public class NanosmithBoltLaserSequence : Sequence
 						}
 						break;
 					}
-					if (this.m_fxImpact.activeSelf)
+					if (m_fxImpact.activeSelf)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -537,9 +739,9 @@ public class NanosmithBoltLaserSequence : Sequence
 							}
 							break;
 						}
-						if (this.m_impactDurationLeft > 0f)
+						if (m_impactDurationLeft > 0f)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -548,11 +750,11 @@ public class NanosmithBoltLaserSequence : Sequence
 								}
 								break;
 							}
-							this.m_impactDurationLeft -= GameTime.deltaTime;
+							m_impactDurationLeft -= GameTime.deltaTime;
 						}
-						else if (this.m_markForRemovalAfterImpact)
+						else if (m_markForRemovalAfterImpact)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -566,59 +768,60 @@ public class NanosmithBoltLaserSequence : Sequence
 				}
 			}
 		}
-		using (List<GenericSequenceProjectileInfo>.Enumerator enumerator = this.m_boltProjectiles.GetEnumerator())
+		using (List<GenericSequenceProjectileInfo>.Enumerator enumerator = m_boltProjectiles.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				GenericSequenceProjectileInfo genericSequenceProjectileInfo = enumerator.Current;
-				genericSequenceProjectileInfo.OnUpdate();
+				GenericSequenceProjectileInfo current = enumerator.Current;
+				current.OnUpdate();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	private void SpawnBolts()
 	{
-		if (!this.m_boltsSpawned)
+		if (m_boltsSpawned)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_boltEndPositions == null)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanosmithBoltLaserSequence.SpawnBolts()).MethodHandle;
-			}
-			if (this.m_boltEndPositions != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				for (int i = 0; i < this.m_boltEndPositions.Length; i++)
+				for (int i = 0; i < m_boltEndPositions.Length; i++)
 				{
 					ActorData[] targetActors = null;
-					if (this.m_boltHitActors.Count > i)
+					if (m_boltHitActors.Count > i)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -627,214 +830,21 @@ public class NanosmithBoltLaserSequence : Sequence
 							}
 							break;
 						}
-						targetActors = this.m_boltHitActors[i];
+						targetActors = m_boltHitActors[i];
 					}
-					GenericSequenceProjectileInfo item = new GenericSequenceProjectileInfo(this, this.m_boltProjectileInfo, base.TargetPos, this.m_boltEndPositions[i], targetActors);
-					this.m_boltProjectiles.Add(item);
+					GenericSequenceProjectileInfo item = new GenericSequenceProjectileInfo(this, m_boltProjectileInfo, base.TargetPos, m_boltEndPositions[i], targetActors);
+					m_boltProjectiles.Add(item);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_boltsSpawned = true;
+					return;
 				}
-				this.m_boltsSpawned = true;
-			}
-		}
-	}
-
-	public class ExtraParams : Sequence.IExtraSequenceParams
-	{
-		public float startDelay;
-
-		public int curIndex;
-
-		public int maxIndex;
-
-		public bool skipImpactFx;
-
-		public bool useOverrideStartPos;
-
-		public Vector3 overrideStartPos = Vector3.zero;
-
-		public Vector3[] boltEndPositions;
-
-		public List<ActorData[]> boltHitActors;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.startDelay);
-			stream.Serialize(ref this.curIndex);
-			stream.Serialize(ref this.maxIndex);
-			stream.Serialize(ref this.skipImpactFx);
-			stream.Serialize(ref this.useOverrideStartPos);
-			stream.Serialize(ref this.overrideStartPos);
-			int num;
-			if (this.boltEndPositions != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NanosmithBoltLaserSequence.ExtraParams.XSP_SerializeToStream(IBitStream)).MethodHandle;
-				}
-				num = this.boltEndPositions.Length;
-			}
-			else
-			{
-				num = 0;
-			}
-			int num2 = num;
-			stream.Serialize(ref num2);
-			for (int i = 0; i < num2; i++)
-			{
-				Vector3 vector = this.boltEndPositions[i];
-				stream.Serialize(ref vector);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			int num3;
-			if (this.boltHitActors != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num3 = this.boltHitActors.Count;
-			}
-			else
-			{
-				num3 = 0;
-			}
-			int num4 = num3;
-			stream.Serialize(ref num4);
-			for (int j = 0; j < num4; j++)
-			{
-				ActorData[] array = this.boltHitActors[j];
-				int num5 = (array == null) ? 0 : array.Length;
-				stream.Serialize(ref num5);
-				for (int k = 0; k < num5; k++)
-				{
-					ActorData actorData = array[k];
-					int num6;
-					if (actorData != null)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num6 = actorData.ActorIndex;
-					}
-					else
-					{
-						num6 = ActorData.s_invalidActorIndex;
-					}
-					int num7 = num6;
-					stream.Serialize(ref num7);
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.startDelay);
-			stream.Serialize(ref this.curIndex);
-			stream.Serialize(ref this.maxIndex);
-			stream.Serialize(ref this.skipImpactFx);
-			stream.Serialize(ref this.useOverrideStartPos);
-			stream.Serialize(ref this.overrideStartPos);
-			int num = 0;
-			stream.Serialize(ref num);
-			this.boltEndPositions = new Vector3[num];
-			for (int i = 0; i < num; i++)
-			{
-				Vector3 zero = Vector3.zero;
-				stream.Serialize(ref zero);
-				this.boltEndPositions[i] = zero;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanosmithBoltLaserSequence.ExtraParams.XSP_DeserializeFromStream(IBitStream)).MethodHandle;
-			}
-			int num2 = 0;
-			stream.Serialize(ref num2);
-			this.boltHitActors = new List<ActorData[]>(num2);
-			for (int j = 0; j < num2; j++)
-			{
-				int num3 = 0;
-				stream.Serialize(ref num3);
-				ActorData[] array = new ActorData[num3];
-				for (int k = 0; k < num3; k++)
-				{
-					int s_invalidActorIndex = ActorData.s_invalidActorIndex;
-					stream.Serialize(ref s_invalidActorIndex);
-					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(s_invalidActorIndex);
-					array[k] = actorData;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.boltHitActors.Add(array);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DinoMarkedAreaAttack : GenericAbility_Container
@@ -34,7 +33,7 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetUsageForEditor() + ContextVars.\u0015("InCenter", "value set to 1 if delayed hit actor is in center of a shape, not set explicitly otherwise", true);
+		return base.GetUsageForEditor() + ContextVars.GetDebugString("InCenter", "value set to 1 if delayed hit actor is in center of a shape, not set explicitly otherwise");
 	}
 
 	public override List<string> GetContextNamesForEditor()
@@ -46,95 +45,96 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 
 	public override string GetOnHitDataDesc()
 	{
-		return base.GetOnHitDataDesc() + "-- On Hit Data for Delayed Hits --\n" + this.m_delayedOnHitData.GetInEditorDesc();
+		return base.GetOnHitDataDesc() + "-- On Hit Data for Delayed Hits --\n" + m_delayedOnHitData.GetInEditorDesc();
 	}
 
 	public override void PreProcessTargetingNumbers(ActorData targetActor, int currentTargetIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext)
 	{
-		if (base.ActorData.\u000E() != targetActor.\u000E())
+		if (base.ActorData.GetTeam() == targetActor.GetTeam())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.PreProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (actorHitContext.ContainsKey(targetActor))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					actorHitContext[targetActor]._0015.SetInt(s_cvarInCenter.GetHash(), 1);
+					return;
 				}
-				actorHitContext[targetActor].\u0015.\u0016(DinoMarkedAreaAttack.s_cvarInCenter.\u0012(), 1);
 			}
+			return;
 		}
 	}
 
 	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
 	{
-		if (actorHitContext.ContainsKey(targetActor))
+		if (!actorHitContext.ContainsKey(targetActor))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (targetActor.GetTeam() == caster.GetTeam())
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
-			}
-			if (targetActor.\u000E() != caster.\u000E())
-			{
-				for (;;)
+				ActorHitContext actorContext = actorHitContext[targetActor];
+				GenericAbility_Container.CalcIntFieldValues(targetActor, caster, actorContext, abilityContext, m_delayedOnHitData.m_enemyHitIntFields, m_calculatedValuesForTargeter);
+				results.m_damage = m_calculatedValuesForTargeter.m_damage;
+				if (GetExtraDamageForSingleMark() <= 0)
 				{
-					switch (1)
+					return;
+				}
+				while (true)
+				{
+					switch (2)
 					{
 					case 0:
 						continue;
-					}
-					break;
-				}
-				ActorHitContext actorContext = actorHitContext[targetActor];
-				GenericAbility_Container.CalcIntFieldValues(targetActor, caster, actorContext, abilityContext, this.m_delayedOnHitData.m_enemyHitIntFields, this.m_calculatedValuesForTargeter);
-				results.m_damage = this.m_calculatedValuesForTargeter.m_damage;
-				if (this.GetExtraDamageForSingleMark() > 0)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					int num = 0;
 					using (Dictionary<ActorData, ActorHitContext>.Enumerator enumerator = actorHitContext.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
 						{
-							KeyValuePair<ActorData, ActorHitContext> keyValuePair = enumerator.Current;
-							ActorData key = keyValuePair.Key;
-							ActorHitContext value = keyValuePair.Value;
-							if (value.\u0012)
+							KeyValuePair<ActorData, ActorHitContext> current = enumerator.Current;
+							ActorData key = current.Key;
+							ActorHitContext value = current.Value;
+							if (value._0012)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (6)
 									{
@@ -143,9 +143,9 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 									}
 									break;
 								}
-								if (key.\u000E() != caster.\u000E())
+								if (key.GetTeam() != caster.GetTeam())
 								{
-									for (;;)
+									while (true)
 									{
 										switch (5)
 										{
@@ -158,7 +158,7 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 								}
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -170,17 +170,18 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 					}
 					if (num == 1)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
 							case 0:
 								continue;
 							}
-							break;
+							results.m_damage += GetExtraDamageForSingleMark();
+							return;
 						}
-						results.m_damage += this.GetExtraDamageForSingleMark();
 					}
+					return;
 				}
 			}
 		}
@@ -189,11 +190,11 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 	public int GetDelayedHitDamage()
 	{
 		int num = 0;
-		for (int i = 0; i < this.m_delayedOnHitData.m_enemyHitIntFields.Count; i++)
+		for (int i = 0; i < m_delayedOnHitData.m_enemyHitIntFields.Count; i++)
 		{
-			if (this.m_delayedOnHitData.m_enemyHitIntFields[i].m_hitType == OnHitIntField.HitType.Damage)
+			if (m_delayedOnHitData.m_enemyHitIntFields[i].m_hitType == OnHitIntField.HitType.Damage)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -202,31 +203,30 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.GetDelayedHitDamage()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				num += this.m_delayedOnHitData.m_enemyHitIntFields[i].m_baseValue;
+				num += m_delayedOnHitData.m_enemyHitIntFields[i].m_baseValue;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return num;
 		}
-		return num;
 	}
 
 	public int GetDelayTurns()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -235,15 +235,15 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.GetDelayTurns()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_delayTurnsMod.GetModifiedValue(this.m_delayTurns);
+			result = m_abilityMod.m_delayTurnsMod.GetModifiedValue(m_delayTurns);
 		}
 		else
 		{
-			result = this.m_delayTurns;
+			result = m_delayTurns;
 		}
 		return result;
 	}
@@ -251,9 +251,9 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 	public AbilityAreaShape GetShape()
 	{
 		AbilityAreaShape result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -262,15 +262,15 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.GetShape()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_shapeMod.GetModifiedValue(this.m_shape);
+			result = m_abilityMod.m_shapeMod.GetModifiedValue(m_shape);
 		}
 		else
 		{
-			result = this.m_shape;
+			result = m_shape;
 		}
 		return result;
 	}
@@ -278,9 +278,9 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 	public bool DelayedHitIgnoreLos()
 	{
 		bool result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -289,15 +289,15 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.DelayedHitIgnoreLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_delayedHitIgnoreLosMod.GetModifiedValue(this.m_delayedHitIgnoreLos);
+			result = m_abilityMod.m_delayedHitIgnoreLosMod.GetModifiedValue(m_delayedHitIgnoreLos);
 		}
 		else
 		{
-			result = this.m_delayedHitIgnoreLos;
+			result = m_delayedHitIgnoreLos;
 		}
 		return result;
 	}
@@ -305,9 +305,9 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 	public int GetExtraDamageForSingleMark()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -316,15 +316,15 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.GetExtraDamageForSingleMark()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageForSingleMarkMod.GetModifiedValue(this.m_extraDamageForSingleMark);
+			result = m_abilityMod.m_extraDamageForSingleMarkMod.GetModifiedValue(m_extraDamageForSingleMark);
 		}
 		else
 		{
-			result = this.m_extraDamageForSingleMark;
+			result = m_extraDamageForSingleMark;
 		}
 		return result;
 	}
@@ -332,9 +332,9 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 	public int GetEnergyToAllyOnDamageHit()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -343,15 +343,15 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.GetEnergyToAllyOnDamageHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_energyToAllyOnDamageHitMod.GetModifiedValue(this.m_energyToAllyOnDamageHit);
+			result = m_abilityMod.m_energyToAllyOnDamageHitMod.GetModifiedValue(m_energyToAllyOnDamageHit);
 		}
 		else
 		{
-			result = this.m_energyToAllyOnDamageHit;
+			result = m_energyToAllyOnDamageHit;
 		}
 		return result;
 	}
@@ -359,19 +359,19 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		this.m_delayedOnHitData.AddTooltipTokens(tokens);
-		base.AddTokenInt(tokens, "DelayTurns", string.Empty, this.m_delayTurns, false);
-		base.AddTokenInt(tokens, "ExtraDamageForSingleMark", string.Empty, this.m_extraDamageForSingleMark, false);
-		base.AddTokenInt(tokens, "EnergyToAllyOnDamageHit", string.Empty, this.m_energyToAllyOnDamageHit, false);
+		m_delayedOnHitData.AddTooltipTokens(tokens);
+		AddTokenInt(tokens, "DelayTurns", string.Empty, m_delayTurns);
+		AddTokenInt(tokens, "ExtraDamageForSingleMark", string.Empty, m_extraDamageForSingleMark);
+		AddTokenInt(tokens, "EnergyToAllyOnDamageHit", string.Empty, m_energyToAllyOnDamageHit);
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		this.m_abilityMod = (abilityMod as AbilityMod_DinoMarkedAreaAttack);
+		m_abilityMod = (abilityMod as AbilityMod_DinoMarkedAreaAttack);
 	}
 
 	protected override void GenModImpl_ClearModRef()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 }

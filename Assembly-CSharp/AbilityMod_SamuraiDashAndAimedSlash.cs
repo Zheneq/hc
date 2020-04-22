@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
@@ -30,45 +30,44 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SamuraiDashAndAimedSlash samuraiDashAndAimedSlash = targetAbility as SamuraiDashAndAimedSlash;
-		if (samuraiDashAndAimedSlash != null)
+		if (!(samuraiDashAndAimedSlash != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SamuraiDashAndAimedSlash.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_maxAngleForLaserMod, "MaxAngleForLaser", string.Empty, samuraiDashAndAimedSlash.m_maxAngleForLaser, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", string.Empty, samuraiDashAndAimedSlash.m_laserWidth, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "LaserRange", string.Empty, samuraiDashAndAimedSlash.m_laserRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxTargetsMod, "MaxTargets", string.Empty, samuraiDashAndAimedSlash.m_maxTargets, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, samuraiDashAndAimedSlash.m_damageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageIfSingleTargetMod, "ExtraDamageIfSingleTarget", string.Empty, samuraiDashAndAimedSlash.m_extraDamageIfSingleTarget, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_targetEffectMod, "TargetEffect", samuraiDashAndAimedSlash.m_targetEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnSelfMod, "EffectOnSelf", samuraiDashAndAimedSlash.m_effectOnSelf, true);
+			AbilityMod.AddToken(tokens, m_maxAngleForLaserMod, "MaxAngleForLaser", string.Empty, samuraiDashAndAimedSlash.m_maxAngleForLaser);
+			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, samuraiDashAndAimedSlash.m_laserWidth);
+			AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, samuraiDashAndAimedSlash.m_laserRange);
+			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, samuraiDashAndAimedSlash.m_maxTargets);
+			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, samuraiDashAndAimedSlash.m_damageAmount);
+			AbilityMod.AddToken(tokens, m_extraDamageIfSingleTargetMod, "ExtraDamageIfSingleTarget", string.Empty, samuraiDashAndAimedSlash.m_extraDamageIfSingleTarget);
+			AbilityMod.AddToken_EffectMod(tokens, m_targetEffectMod, "TargetEffect", samuraiDashAndAimedSlash.m_targetEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnSelfMod, "EffectOnSelf", samuraiDashAndAimedSlash.m_effectOnSelf);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SamuraiDashAndAimedSlash samuraiDashAndAimedSlash = base.GetTargetAbilityOnAbilityData(abilityData) as SamuraiDashAndAimedSlash;
+		SamuraiDashAndAimedSlash samuraiDashAndAimedSlash = GetTargetAbilityOnAbilityData(abilityData) as SamuraiDashAndAimedSlash;
 		bool flag = samuraiDashAndAimedSlash != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat maxAngleForLaserMod = this.m_maxAngleForLaserMod;
-		string prefix = "[MaxAngleForLaser]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat maxAngleForLaserMod = m_maxAngleForLaserMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -77,9 +76,9 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SamuraiDashAndAimedSlash.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = samuraiDashAndAimedSlash.m_maxAngleForLaser;
 		}
@@ -87,15 +86,13 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(maxAngleForLaserMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat laserWidthMod = this.m_laserWidthMod;
-		string prefix2 = "[LaserWidth]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(maxAngleForLaserMod, "[MaxAngleForLaser]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat laserWidthMod = m_laserWidthMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -110,15 +107,13 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(laserWidthMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyFloat laserRangeMod = this.m_laserRangeMod;
-		string prefix3 = "[LaserRange]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(laserWidthMod, "[LaserWidth]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyFloat laserRangeMod = m_laserRangeMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -133,17 +128,15 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(laserRangeMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_maxTargetsMod, "[MaxTargets]", flag, (!flag) ? 0 : samuraiDashAndAimedSlash.m_maxTargets);
-		text += base.PropDesc(this.m_damageAmountMod, "[DamageAmount]", flag, (!flag) ? 0 : samuraiDashAndAimedSlash.m_damageAmount);
-		string str4 = text;
-		AbilityModPropertyInt extraDamageIfSingleTargetMod = this.m_extraDamageIfSingleTargetMod;
-		string prefix4 = "[ExtraDamageIfSingleTarget]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(laserRangeMod, "[LaserRange]", flag, baseVal3);
+		empty += PropDesc(m_maxTargetsMod, "[MaxTargets]", flag, flag ? samuraiDashAndAimedSlash.m_maxTargets : 0);
+		empty += PropDesc(m_damageAmountMod, "[DamageAmount]", flag, flag ? samuraiDashAndAimedSlash.m_damageAmount : 0);
+		string str4 = empty;
+		AbilityModPropertyInt extraDamageIfSingleTargetMod = m_extraDamageIfSingleTargetMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -158,15 +151,13 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(extraDamageIfSingleTargetMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyEffectInfo targetEffectMod = this.m_targetEffectMod;
-		string prefix5 = "[TargetEffect]";
-		bool showBaseVal5 = flag;
-		StandardEffectInfo baseVal5;
+		empty = str4 + PropDesc(extraDamageIfSingleTargetMod, "[ExtraDamageIfSingleTarget]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyEffectInfo targetEffectMod = m_targetEffectMod;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -181,15 +172,13 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		{
 			baseVal5 = null;
 		}
-		text = str5 + base.PropDesc(targetEffectMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyEffectInfo effectOnSelfMod = this.m_effectOnSelfMod;
-		string prefix6 = "[EffectOnSelf]";
-		bool showBaseVal6 = flag;
-		StandardEffectInfo baseVal6;
+		empty = str5 + PropDesc(targetEffectMod, "[TargetEffect]", flag, (StandardEffectInfo)baseVal5);
+		string str6 = empty;
+		AbilityModPropertyEffectInfo effectOnSelfMod = m_effectOnSelfMod;
+		object baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -204,6 +193,6 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		{
 			baseVal6 = null;
 		}
-		return str6 + base.PropDesc(effectOnSelfMod, prefix6, showBaseVal6, baseVal6);
+		return str6 + PropDesc(effectOnSelfMod, "[EffectOnSelf]", flag, (StandardEffectInfo)baseVal6);
 	}
 }

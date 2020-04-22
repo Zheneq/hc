@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,83 +17,81 @@ public class AbilityUtil_Targeter_KnockbackRingAoE : AbilityUtil_Targeter_Shape
 
 	public AbilityAreaShape m_knockbackShape = AbilityAreaShape.Five_x_Five;
 
-	public AbilityUtil_Targeter_KnockbackRingAoE(Ability ability, AbilityAreaShape aoeShape, bool aoePenetrateLos, AbilityUtil_Targeter_Shape.DamageOriginType aoeOriginType, bool aoeAffectEnemies, bool aoeAffectAllies, AbilityUtil_Targeter.AffectsActor aoeAffectsCaster, AbilityUtil_Targeter.AffectsActor affectsTargetOnGridposSquare, AbilityAreaShape knockbackShape, float knockbackDistance, KnockbackType knockbackType, bool knockbackAdjacentActorsIfPull, bool knockbackEnemies) : base(ability, aoeShape, aoePenetrateLos, aoeOriginType, aoeAffectEnemies, aoeAffectAllies, aoeAffectsCaster, affectsTargetOnGridposSquare)
+	public AbilityUtil_Targeter_KnockbackRingAoE(Ability ability, AbilityAreaShape aoeShape, bool aoePenetrateLos, DamageOriginType aoeOriginType, bool aoeAffectEnemies, bool aoeAffectAllies, AffectsActor aoeAffectsCaster, AffectsActor affectsTargetOnGridposSquare, AbilityAreaShape knockbackShape, float knockbackDistance, KnockbackType knockbackType, bool knockbackAdjacentActorsIfPull, bool knockbackEnemies)
+		: base(ability, aoeShape, aoePenetrateLos, aoeOriginType, aoeAffectEnemies, aoeAffectAllies, aoeAffectsCaster, affectsTargetOnGridposSquare)
 	{
-		this.m_aoeShape = aoeShape;
-		this.m_penetrateLineOfSight = aoePenetrateLos;
-		this.m_knockbackType = knockbackType;
-		this.m_knockbackDistance = knockbackDistance;
-		this.m_knockbackAdjacentActorsIfPull = knockbackAdjacentActorsIfPull;
-		this.m_knockbackEnemies = knockbackEnemies;
-		this.m_knockbackShape = knockbackShape;
+		m_aoeShape = aoeShape;
+		m_penetrateLineOfSight = aoePenetrateLos;
+		m_knockbackType = knockbackType;
+		m_knockbackDistance = knockbackDistance;
+		m_knockbackAdjacentActorsIfPull = knockbackAdjacentActorsIfPull;
+		m_knockbackEnemies = knockbackEnemies;
+		m_knockbackShape = knockbackShape;
 	}
 
 	protected virtual float GetKnockbackDistance(List<ActorData> knockbackTargets)
 	{
-		return this.m_knockbackDistance;
+		return m_knockbackDistance;
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		List<ActorData> knockbackHitActors = this.GetKnockbackHitActors(currentTarget, targetingActor);
-		float knockbackDistance = this.GetKnockbackDistance(knockbackHitActors);
+		List<ActorData> knockbackHitActors = GetKnockbackHitActors(currentTarget, targetingActor);
+		float knockbackDistance = GetKnockbackDistance(knockbackHitActors);
 		if (knockbackDistance > 0f)
 		{
-			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, currentTarget);
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
 			int num = 0;
-			base.SetMovementArrowEnabledFromIndex(0, true);
+			SetMovementArrowEnabledFromIndex(0, true);
 			using (List<ActorData>.Enumerator enumerator = knockbackHitActors.GetEnumerator())
 			{
-				while (enumerator.MoveNext())
+				ActorData current;
+				BoardSquarePathInfo boardSquarePathInfo;
+				for (; enumerator.MoveNext(); num = AddMovementArrowWithPrevious(current, boardSquarePathInfo, TargeterMovementType.Knockback, num))
 				{
-					ActorData actorData = enumerator.Current;
-					if (this.m_knockbackType != KnockbackType.PullToSource || !this.m_knockbackAdjacentActorsIfPull)
+					current = enumerator.Current;
+					boardSquarePathInfo = null;
+					if (m_knockbackType == KnockbackType.PullToSource && m_knockbackAdjacentActorsIfPull)
 					{
-						goto IL_119;
-					}
-					for (;;)
-					{
-						switch (5)
+						while (true)
 						{
-						case 0:
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						if (Board.Get()._000E(current.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							Vector3 aimDir = targetingActor.GetTravelBoardSquareWorldPosition() - current.GetTravelBoardSquareWorldPosition();
+							aimDir.y = 0f;
+							float distance = 2f;
+							if (Board.Get()._0015(current.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))
+							{
+								distance = 2.82f;
+							}
+							boardSquarePathInfo = KnockbackUtils.BuildKnockbackPath(current, KnockbackType.ForwardAlongAimDir, aimDir, centerOfShape, distance);
 							continue;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_KnockbackRingAoE.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-					}
-					if (!Board.\u000E().\u000E(actorData.\u0012(), targetingActor.\u0012()))
-					{
-						goto IL_119;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Vector3 aimDir = targetingActor.\u0016() - actorData.\u0016();
-					aimDir.y = 0f;
-					float distance = 2f;
-					if (Board.\u000E().\u0015(actorData.\u0012(), targetingActor.\u0012()))
-					{
-						distance = 2.82f;
-					}
-					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, KnockbackType.ForwardAlongAimDir, aimDir, centerOfShape, distance);
-					IL_134:
-					num = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
-					continue;
-					IL_119:
-					path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, centerOfShape, knockbackDistance);
-					goto IL_134;
+					boardSquarePathInfo = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, currentTarget.AimDirection, centerOfShape, knockbackDistance);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -104,15 +101,15 @@ public class AbilityUtil_Targeter_KnockbackRingAoE : AbilityUtil_Targeter_Shape
 					break;
 				}
 			}
-			base.SetMovementArrowEnabledFromIndex(num, false);
+			SetMovementArrowEnabledFromIndex(num, false);
 		}
 	}
 
 	private List<ActorData> GetKnockbackHitActors(AbilityTarget targeterTarget, ActorData caster)
 	{
-		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, false, this.m_knockbackEnemies);
-		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_knockbackShape, targeterTarget, this.m_penetrateLineOfSight, caster, relevantTeams, null);
-		TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
-		return actorsInShape;
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, false, m_knockbackEnemies);
+		List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_knockbackShape, targeterTarget, m_penetrateLineOfSight, caster, relevantTeams, null);
+		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+		return actors;
 	}
 }

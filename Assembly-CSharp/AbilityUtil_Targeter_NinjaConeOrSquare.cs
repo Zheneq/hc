@@ -1,9 +1,10 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 {
+	public delegate bool IsAffectingCasterDelegate(ActorData caster, List<ActorData> actorsSoFar, bool casterInShape);
+
 	private Ninja_SyncComponent m_syncComp;
 
 	public ConeTargetingInfo m_coneInfo;
@@ -12,9 +13,9 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 
 	public bool m_penetrateLoS;
 
-	public AbilityUtil_Targeter.AffectsActor m_affectsCaster;
+	public AffectsActor m_affectsCaster;
 
-	public AbilityUtil_Targeter.AffectsActor m_affectsBestTarget;
+	public AffectsActor m_affectsBestTarget;
 
 	private bool m_dashOnlyMode;
 
@@ -32,84 +33,89 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 
 	public ActorData m_lastCenterSquareActor;
 
-	public AbilityUtil_Targeter_NinjaConeOrSquare.IsAffectingCasterDelegate m_affectCasterDelegate;
+	public IsAffectingCasterDelegate m_affectCasterDelegate;
 
 	private GridPos m_currentGridPos = GridPos.s_invalid;
 
-	public AbilityUtil_Targeter_NinjaConeOrSquare(Ability ability, Ninja_SyncComponent syncComp, ConeTargetingInfo coneInfo, AbilityAreaShape shape, bool penetrateLoS, bool dashOnlyMode, bool affectsEnemies = true, bool affectsAllies = false, AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor affectsBestTarget = AbilityUtil_Targeter.AffectsActor.Possible) : base(ability)
+	public bool ShowTeleportLines
 	{
-		this.m_syncComp = syncComp;
-		this.m_coneInfo = coneInfo;
-		this.m_shape = shape;
-		this.m_penetrateLoS = penetrateLoS;
-		this.m_dashOnlyMode = dashOnlyMode;
-		this.m_affectsCaster = affectsCaster;
-		this.m_affectsBestTarget = affectsBestTarget;
-		this.m_affectsEnemies = affectsEnemies;
-		this.m_affectsAllies = affectsAllies;
-		this.m_enemyTooltipSubject = AbilityTooltipSubject.Primary;
-		this.m_allyTooltipSubject = AbilityTooltipSubject.Primary;
-		this.m_showArcToShape = false;
-		this.m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
+		get;
+		set;
 	}
 
-	public bool ShowTeleportLines { get; set; }
+	public AbilityUtil_Targeter_NinjaConeOrSquare(Ability ability, Ninja_SyncComponent syncComp, ConeTargetingInfo coneInfo, AbilityAreaShape shape, bool penetrateLoS, bool dashOnlyMode, bool affectsEnemies = true, bool affectsAllies = false, AffectsActor affectsCaster = AffectsActor.Possible, AffectsActor affectsBestTarget = AffectsActor.Possible)
+		: base(ability)
+	{
+		m_syncComp = syncComp;
+		m_coneInfo = coneInfo;
+		m_shape = shape;
+		m_penetrateLoS = penetrateLoS;
+		m_dashOnlyMode = dashOnlyMode;
+		m_affectsCaster = affectsCaster;
+		m_affectsBestTarget = affectsBestTarget;
+		m_affectsEnemies = affectsEnemies;
+		m_affectsAllies = affectsAllies;
+		m_enemyTooltipSubject = AbilityTooltipSubject.Primary;
+		m_allyTooltipSubject = AbilityTooltipSubject.Primary;
+		m_showArcToShape = false;
+		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
+	}
 
 	public GridPos GetCurrentGridPos()
 	{
-		return this.m_currentGridPos;
+		return m_currentGridPos;
 	}
 
 	public void SetTooltipSubjectTypes(AbilityTooltipSubject enemySubject = AbilityTooltipSubject.Primary, AbilityTooltipSubject allySubject = AbilityTooltipSubject.Primary, AbilityTooltipSubject casterSubject = AbilityTooltipSubject.None)
 	{
-		this.m_enemyTooltipSubject = enemySubject;
-		this.m_allyTooltipSubject = allySubject;
-		this.m_casterTooltipSubject = casterSubject;
+		m_enemyTooltipSubject = enemySubject;
+		m_allyTooltipSubject = allySubject;
+		m_casterTooltipSubject = casterSubject;
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		this.UpdateTargetingMultiTargets(currentTarget, targetingActor, 0, null);
+		UpdateTargetingMultiTargets(currentTarget, targetingActor, 0, null);
 	}
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
-		this.m_currentGridPos = currentTarget.GridPos;
-		base.ClearActorsInRange();
-		this.CreateHighlightObjects(targetingActor);
-		GameObject gameObject = this.m_highlights[0];
-		GameObject gameObject2 = this.m_highlights[1];
-		this.m_lastCenterSquareActor = null;
-		if (this.m_syncComp == null)
+		m_currentGridPos = currentTarget.GridPos;
+		ClearActorsInRange();
+		CreateHighlightObjects(targetingActor);
+		GameObject gameObject = m_highlights[0];
+		GameObject gameObject2 = m_highlights[1];
+		m_lastCenterSquareActor = null;
+		if (m_syncComp == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_NinjaConeOrSquare.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
-			return;
 		}
-		if (!this.m_syncComp.m_shurikenDashingThisTurn)
+		if (!m_syncComp.m_shurikenDashingThisTurn)
 		{
-			if (!this.m_dashOnlyMode)
+			if (!m_dashOnlyMode)
 			{
 				gameObject2.SetActive(true);
 				gameObject.SetActive(false);
-				Vector3 vector = targetingActor.\u0015();
+				Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 				float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection);
-				List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(vector, coneCenterAngleDegrees, this.m_coneInfo.m_widthAngleDeg, this.m_coneInfo.m_radiusInSquares, this.m_coneInfo.m_backwardsOffset, this.m_penetrateLoS, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, this.m_affectsAllies, this.m_affectsEnemies), null, false, default(Vector3));
-				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
-				if (this.m_affectsTargetingActor && !actorsInCone.Contains(targetingActor))
+				List<ActorData> actors = AreaEffectUtils.GetActorsInCone(travelBoardSquareWorldPositionForLos, coneCenterAngleDegrees, m_coneInfo.m_widthAngleDeg, m_coneInfo.m_radiusInSquares, m_coneInfo.m_backwardsOffset, m_penetrateLoS, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, m_affectsAllies, m_affectsEnemies), null);
+				TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+				if (m_affectsTargetingActor && !actors.Contains(targetingActor))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -118,22 +124,22 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 						}
 						break;
 					}
-					actorsInCone.Add(targetingActor);
+					actors.Add(targetingActor);
 				}
-				for (int i = 0; i < actorsInCone.Count; i++)
+				for (int i = 0; i < actors.Count; i++)
 				{
-					ActorData actor = actorsInCone[i];
-					base.AddActorInRange(actor, vector, targetingActor, AbilityTooltipSubject.Primary, false);
+					ActorData actor = actors[i];
+					AddActorInRange(actor, travelBoardSquareWorldPositionForLos, targetingActor);
 				}
-				float d = this.m_coneInfo.m_backwardsOffset * Board.\u000E().squareSize;
-				Vector3 position = vector - currentTarget.AimDirection * d;
+				float d = m_coneInfo.m_backwardsOffset * Board.Get().squareSize;
+				Vector3 position = travelBoardSquareWorldPositionForLos - currentTarget.AimDirection * d;
 				position.y = HighlightUtils.GetHighlightHeight();
 				gameObject2.transform.position = position;
 				gameObject2.transform.rotation = Quaternion.LookRotation(currentTarget.AimDirection);
-				base.SetMovementArrowEnabledFromIndex(0, false);
+				SetMovementArrowEnabledFromIndex(0, false);
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -143,14 +149,14 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 				break;
 			}
 		}
-		base.ResetSquareIndicatorIndexToUse();
-		base.HideUnusedSquareIndicators();
+		ResetSquareIndicatorIndexToUse();
+		HideUnusedSquareIndicators();
 		int fromIndex = 0;
-		base.EnableAllMovementArrows();
-		BoardSquare gameplayRefSquare = this.GetGameplayRefSquare(currentTarget, targetingActor);
+		EnableAllMovementArrows();
+		BoardSquare gameplayRefSquare = GetGameplayRefSquare(currentTarget, targetingActor);
 		if (gameplayRefSquare != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -159,19 +165,19 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 				}
 				break;
 			}
-			Vector3 highlightGoalPos = this.GetHighlightGoalPos(currentTarget, targetingActor);
-			gameObject.transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos, base.Highlight, ref this.m_curSpeed);
+			Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
+			gameObject.transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos, base.Highlight, ref m_curSpeed);
 			gameObject.SetActive(true);
 			gameObject2.SetActive(false);
 			Vector3 freePos = currentTarget.FreePos;
-			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, freePos, gameplayRefSquare);
-			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_shape, freePos, gameplayRefSquare, this.m_penetrateLoS, targetingActor, base.GetAffectedTeams(), null);
-			actorsInShape.Remove(targetingActor);
-			bool flag = AreaEffectUtils.IsSquareInShape(targetingActor.\u0012(), this.m_shape, freePos, gameplayRefSquare, this.m_penetrateLoS, targetingActor);
-			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
-			if (this.m_affectsCaster == AbilityUtil_Targeter.AffectsActor.Possible)
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, freePos, gameplayRefSquare);
+			List<ActorData> actors2 = AreaEffectUtils.GetActorsInShape(m_shape, freePos, gameplayRefSquare, m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
+			actors2.Remove(targetingActor);
+			bool flag = AreaEffectUtils.IsSquareInShape(targetingActor.GetCurrentBoardSquare(), m_shape, freePos, gameplayRefSquare, m_penetrateLoS, targetingActor);
+			TargeterUtils.RemoveActorsInvisibleToClient(ref actors2);
+			if (m_affectsCaster == AffectsActor.Possible)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -180,10 +186,9 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 					}
 					break;
 				}
-				bool flag2 = (this.m_affectCasterDelegate != null) ? this.m_affectCasterDelegate(targetingActor, actorsInShape, flag) : flag;
-				if (flag2)
+				if ((m_affectCasterDelegate != null) ? m_affectCasterDelegate(targetingActor, actors2, flag) : flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -192,13 +197,13 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 						}
 						break;
 					}
-					actorsInShape.Add(targetingActor);
+					actors2.Add(targetingActor);
 				}
 			}
 			ActorData actorData = currentTarget.GetCurrentBestActorTarget();
 			if (actorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -207,9 +212,9 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (!actorData.\u0018())
+				if (!actorData.IsVisibleToClient())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -221,15 +226,15 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 					actorData = null;
 				}
 			}
-			this.m_lastCenterSquareActor = actorData;
-			using (List<ActorData>.Enumerator enumerator = actorsInShape.GetEnumerator())
+			m_lastCenterSquareActor = actorData;
+			using (List<ActorData>.Enumerator enumerator = actors2.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					ActorData potentialTarget = enumerator.Current;
-					this.HandleAddActorInShape(potentialTarget, targetingActor, currentTarget, centerOfShape, actorData);
+					ActorData current = enumerator.Current;
+					HandleAddActorInShape(current, targetingActor, currentTarget, centerOfShape, actorData);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -239,12 +244,12 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 					break;
 				}
 			}
-			if (this.m_affectsCaster == AbilityUtil_Targeter.AffectsActor.Always)
+			if (m_affectsCaster == AffectsActor.Always)
 			{
-				AbilityTooltipSubject abilityTooltipSubject = this.m_casterTooltipSubject;
+				AbilityTooltipSubject abilityTooltipSubject = m_casterTooltipSubject;
 				if (abilityTooltipSubject == AbilityTooltipSubject.None)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -253,13 +258,13 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 						}
 						break;
 					}
-					abilityTooltipSubject = this.m_allyTooltipSubject;
+					abilityTooltipSubject = m_allyTooltipSubject;
 				}
-				base.AddActorInRange(targetingActor, centerOfShape, targetingActor, abilityTooltipSubject, false);
+				AddActorInRange(targetingActor, centerOfShape, targetingActor, abilityTooltipSubject);
 			}
-			if (this.m_affectsBestTarget == AbilityUtil_Targeter.AffectsActor.Always)
+			if (m_affectsBestTarget == AffectsActor.Always)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -270,7 +275,7 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 				}
 				if (actorData != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -279,9 +284,9 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 						}
 						break;
 					}
-					if (actorData.\u000E() == targetingActor.\u000E())
+					if (actorData.GetTeam() == targetingActor.GetTeam())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -290,17 +295,17 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 							}
 							break;
 						}
-						base.AddActorInRange(actorData, centerOfShape, targetingActor, this.m_allyTooltipSubject, false);
+						AddActorInRange(actorData, centerOfShape, targetingActor, m_allyTooltipSubject);
 					}
 					else
 					{
-						base.AddActorInRange(actorData, centerOfShape, targetingActor, this.m_enemyTooltipSubject, false);
+						AddActorInRange(actorData, centerOfShape, targetingActor, m_enemyTooltipSubject);
 					}
 				}
 			}
-			if (this.ShowTeleportLines)
+			if (ShowTeleportLines)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -309,26 +314,26 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 					}
 					break;
 				}
-				base.InstantiateTeleportPathUIEffect();
-				base.UpdateEffectOnCaster(currentTarget, targetingActor);
-				base.UpdateTargetAreaEffect(currentTarget, targetingActor);
+				InstantiateTeleportPathUIEffect();
+				UpdateEffectOnCaster(currentTarget, targetingActor);
+				UpdateTargetAreaEffect(currentTarget, targetingActor);
 			}
 			else
 			{
-				BoardSquare startSquare = targetingActor.\u0012();
-				BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, gameplayRefSquare, startSquare, true);
-				fromIndex = base.AddMovementArrowWithPrevious(targetingActor, path, AbilityUtil_Targeter.TargeterMovementType.Movement, 0, false);
+				BoardSquare currentBoardSquare = targetingActor.GetCurrentBoardSquare();
+				BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, gameplayRefSquare, currentBoardSquare, true);
+				fromIndex = AddMovementArrowWithPrevious(targetingActor, path, TargeterMovementType.Movement, 0);
 			}
 		}
-		base.SetMovementArrowEnabledFromIndex(fromIndex, false);
+		SetMovementArrowEnabledFromIndex(fromIndex, false);
 	}
 
 	protected virtual bool HandleAddActorInShape(ActorData potentialTarget, ActorData targetingActor, AbilityTarget currentTarget, Vector3 damageOrigin, ActorData bestTarget)
 	{
-		bool flag;
+		int num;
 		if (!(potentialTarget != targetingActor))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -337,21 +342,21 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_NinjaConeOrSquare.HandleAddActorInShape(ActorData, ActorData, AbilityTarget, Vector3, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = (this.m_affectsCaster == AbilityUtil_Targeter.AffectsActor.Possible);
+			num = ((m_affectsCaster == AffectsActor.Possible) ? 1 : 0);
 		}
 		else
 		{
-			flag = true;
+			num = 1;
 		}
-		bool flag2 = flag;
-		bool flag3 = potentialTarget != bestTarget || this.m_affectsBestTarget == AbilityUtil_Targeter.AffectsActor.Possible;
-		if (flag2)
+		bool flag = (byte)num != 0;
+		bool flag2 = potentialTarget != bestTarget || m_affectsBestTarget == AffectsActor.Possible;
+		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -360,53 +365,53 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (flag3)
+			if (flag2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (potentialTarget == targetingActor)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					AbilityTooltipSubject abilityTooltipSubject = this.m_casterTooltipSubject;
-					if (abilityTooltipSubject == AbilityTooltipSubject.None)
-					{
-						for (;;)
+					default:
+						if (potentialTarget == targetingActor)
 						{
-							switch (3)
+							while (true)
 							{
-							case 0:
-								continue;
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
 							}
-							break;
+							AbilityTooltipSubject abilityTooltipSubject = m_casterTooltipSubject;
+							if (abilityTooltipSubject == AbilityTooltipSubject.None)
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								abilityTooltipSubject = m_allyTooltipSubject;
+							}
+							AddActorInRange(potentialTarget, damageOrigin, targetingActor, abilityTooltipSubject);
 						}
-						abilityTooltipSubject = this.m_allyTooltipSubject;
+						if (potentialTarget.GetTeam() == targetingActor.GetTeam())
+						{
+							AddActorInRange(potentialTarget, damageOrigin, targetingActor, m_allyTooltipSubject);
+						}
+						else
+						{
+							AddActorInRange(potentialTarget, damageOrigin, targetingActor, m_enemyTooltipSubject);
+						}
+						return true;
 					}
-					base.AddActorInRange(potentialTarget, damageOrigin, targetingActor, abilityTooltipSubject, false);
 				}
-				if (potentialTarget.\u000E() == targetingActor.\u000E())
-				{
-					base.AddActorInRange(potentialTarget, damageOrigin, targetingActor, this.m_allyTooltipSubject, false);
-				}
-				else
-				{
-					base.AddActorInRange(potentialTarget, damageOrigin, targetingActor, this.m_enemyTooltipSubject, false);
-				}
-				return true;
 			}
 		}
 		return false;
@@ -414,13 +419,13 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 
 	private void CreateHighlightObjects(ActorData targetingActor)
 	{
-		if (this.m_highlights != null)
+		if (m_highlights != null)
 		{
-			if (this.m_highlights.Count >= 2)
+			if (m_highlights.Count >= 2)
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -429,29 +434,30 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_NinjaConeOrSquare.CreateHighlightObjects(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
-		this.m_highlights = new List<GameObject>();
-		this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
-		this.m_highlights.Add(HighlightUtils.Get().CreateConeCursor(this.m_coneInfo.m_radiusInSquares * Board.\u000E().squareSize, this.m_coneInfo.m_widthAngleDeg));
+		m_highlights = new List<GameObject>();
+		m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
+		m_highlights.Add(HighlightUtils.Get().CreateConeCursor(m_coneInfo.m_radiusInSquares * Board.Get().squareSize, m_coneInfo.m_widthAngleDeg));
 	}
 
 	protected BoardSquare GetGameplayRefSquare(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		return Board.\u000E().\u000E(currentTarget.GridPos);
+		return Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 	}
 
 	protected Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		BoardSquare gameplayRefSquare = this.GetGameplayRefSquare(currentTarget, targetingActor);
+		BoardSquare gameplayRefSquare = GetGameplayRefSquare(currentTarget, targetingActor);
 		if (gameplayRefSquare != null)
 		{
 			Vector3 freePos = currentTarget.FreePos;
-			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, freePos, gameplayRefSquare);
-			centerOfShape.y = targetingActor.\u0016().y + this.m_heightOffset;
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, freePos, gameplayRefSquare);
+			Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+			centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
 			return centerOfShape;
 		}
 		return Vector3.zero;
@@ -461,12 +467,10 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 	{
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			base.ResetSquareIndicatorIndexToUse();
+			ResetSquareIndicatorIndexToUse();
 			float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(forwardDirection);
-			AreaEffectUtils.OperateOnSquaresInCone(this.m_indicatorHandler, coneStartPos, coneCenterAngleDegrees, this.m_coneInfo.m_widthAngleDeg, this.m_coneInfo.m_radiusInSquares, this.m_coneInfo.m_backwardsOffset, targetingActor, this.m_penetrateLoS, null);
-			base.HideUnusedSquareIndicators();
+			AreaEffectUtils.OperateOnSquaresInCone(m_indicatorHandler, coneStartPos, coneCenterAngleDegrees, m_coneInfo.m_widthAngleDeg, m_coneInfo.m_radiusInSquares, m_coneInfo.m_backwardsOffset, targetingActor, m_penetrateLoS);
+			HideUnusedSquareIndicators();
 		}
 	}
-
-	public delegate bool IsAffectingCasterDelegate(ActorData caster, List<ActorData> actorsSoFar, bool casterInShape);
 }

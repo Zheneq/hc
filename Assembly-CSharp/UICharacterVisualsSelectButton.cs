@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,36 +15,30 @@ public class UICharacterVisualsSelectButton : MonoBehaviour
 
 	protected bool m_IsSelected;
 
-	public bool isSelected
-	{
-		get
-		{
-			return this.m_IsSelected;
-		}
-	}
+	public bool isSelected => m_IsSelected;
 
 	protected virtual void Start()
 	{
-		base.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.TooltipSetup), null);
+		GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, TooltipSetup);
 	}
 
 	public void SetSelected(bool selected)
 	{
-		this.m_IsSelected = selected;
-		UIManager.SetGameObjectActive(this.m_selected, selected, null);
+		m_IsSelected = selected;
+		UIManager.SetGameObjectActive(m_selected, selected);
 	}
 
 	public void SetMainSelected(bool visible)
 	{
-		UIManager.SetGameObjectActive(this.m_selectedMain, visible, null);
+		UIManager.SetGameObjectActive(m_selectedMain, visible);
 	}
 
 	private bool TooltipSetup(UITooltipBase tooltip)
 	{
-		if (!string.IsNullOrEmpty(this.m_unlockTooltipTitle))
+		if (!string.IsNullOrEmpty(m_unlockTooltipTitle))
 		{
-			UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-			uititledTooltip.Setup(this.m_unlockTooltipTitle, (this.m_unlockTooltipText == null) ? string.Empty : this.m_unlockTooltipText, string.Empty);
+			UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+			uITitledTooltip.Setup(m_unlockTooltipTitle, (m_unlockTooltipText == null) ? string.Empty : m_unlockTooltipText, string.Empty);
 			return true;
 		}
 		return false;

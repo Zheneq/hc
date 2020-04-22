@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 namespace TMPro
@@ -9,20 +8,20 @@ namespace TMPro
 
 		public static TMP_FontAsset SearchForGlyph(TMP_FontAsset font, int character, out TMP_Glyph glyph)
 		{
-			if (TMP_FontUtilities.k_searchedFontAssets == null)
+			if (k_searchedFontAssets == null)
 			{
-				TMP_FontUtilities.k_searchedFontAssets = new List<int>();
+				k_searchedFontAssets = new List<int>();
 			}
-			TMP_FontUtilities.k_searchedFontAssets.Clear();
-			return TMP_FontUtilities.SearchForGlyphInternal(font, character, out glyph);
+			k_searchedFontAssets.Clear();
+			return SearchForGlyphInternal(font, character, out glyph);
 		}
 
 		public static TMP_FontAsset SearchForGlyph(List<TMP_FontAsset> fonts, int character, out TMP_Glyph glyph)
 		{
-			return TMP_FontUtilities.SearchForGlyphInternal(fonts, character, out glyph);
+			return SearchForGlyphInternal(fonts, character, out glyph);
 		}
 
-		private unsafe static TMP_FontAsset SearchForGlyphInternal(TMP_FontAsset font, int character, out TMP_Glyph glyph)
+		private static TMP_FontAsset SearchForGlyphInternal(TMP_FontAsset font, int character, out TMP_Glyph glyph)
 		{
 			glyph = null;
 			if (font == null)
@@ -31,24 +30,24 @@ namespace TMPro
 			}
 			if (font.characterDictionary.TryGetValue(character, out glyph))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return font;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontUtilities.SearchForGlyphInternal(TMP_FontAsset, int, TMP_Glyph*)).MethodHandle;
-				}
-				return font;
 			}
 			if (font.fallbackFontAssets != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -59,7 +58,7 @@ namespace TMPro
 				}
 				if (font.fallbackFontAssets.Count > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -70,7 +69,7 @@ namespace TMPro
 					}
 					for (int i = 0; i < font.fallbackFontAssets.Count; i++)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -83,10 +82,10 @@ namespace TMPro
 						{
 							break;
 						}
-						TMP_FontAsset tmp_FontAsset = font.fallbackFontAssets[i];
-						if (tmp_FontAsset == null)
+						TMP_FontAsset tMP_FontAsset = font.fallbackFontAssets[i];
+						if (tMP_FontAsset == null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -95,40 +94,36 @@ namespace TMPro
 								}
 								break;
 							}
+							continue;
 						}
-						else
+						int instanceID = tMP_FontAsset.GetInstanceID();
+						if (k_searchedFontAssets.Contains(instanceID))
 						{
-							int instanceID = tmp_FontAsset.GetInstanceID();
-							if (TMP_FontUtilities.k_searchedFontAssets.Contains(instanceID))
+							while (true)
 							{
-								for (;;)
+								switch (4)
 								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
+								case 0:
+									continue;
 								}
+								break;
 							}
-							else
+							continue;
+						}
+						k_searchedFontAssets.Add(instanceID);
+						tMP_FontAsset = SearchForGlyphInternal(tMP_FontAsset, character, out glyph);
+						if (!(tMP_FontAsset != null))
+						{
+							continue;
+						}
+						while (true)
+						{
+							switch (1)
 							{
-								TMP_FontUtilities.k_searchedFontAssets.Add(instanceID);
-								tmp_FontAsset = TMP_FontUtilities.SearchForGlyphInternal(tmp_FontAsset, character, out glyph);
-								if (tmp_FontAsset != null)
-								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									return tmp_FontAsset;
-								}
+							case 0:
+								continue;
 							}
+							return tMP_FontAsset;
 						}
 					}
 				}
@@ -136,12 +131,12 @@ namespace TMPro
 			return null;
 		}
 
-		private unsafe static TMP_FontAsset SearchForGlyphInternal(List<TMP_FontAsset> fonts, int character, out TMP_Glyph glyph)
+		private static TMP_FontAsset SearchForGlyphInternal(List<TMP_FontAsset> fonts, int character, out TMP_Glyph glyph)
 		{
 			glyph = null;
 			if (fonts != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -150,13 +145,13 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontUtilities.SearchForGlyphInternal(List<TMP_FontAsset>, int, TMP_Glyph*)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (fonts.Count > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -167,19 +162,19 @@ namespace TMPro
 					}
 					for (int i = 0; i < fonts.Count; i++)
 					{
-						TMP_FontAsset tmp_FontAsset = TMP_FontUtilities.SearchForGlyphInternal(fonts[i], character, out glyph);
-						if (tmp_FontAsset != null)
+						TMP_FontAsset tMP_FontAsset = SearchForGlyphInternal(fonts[i], character, out glyph);
+						if (!(tMP_FontAsset != null))
 						{
-							for (;;)
+							continue;
+						}
+						while (true)
+						{
+							switch (2)
 							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
+							case 0:
+								continue;
 							}
-							return tmp_FontAsset;
+							return tMP_FontAsset;
 						}
 					}
 				}

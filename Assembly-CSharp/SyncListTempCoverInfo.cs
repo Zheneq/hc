@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine.Networking;
 
 public class SyncListTempCoverInfo : SyncListStruct<TempCoverInfo>
@@ -11,10 +10,9 @@ public class SyncListTempCoverInfo : SyncListStruct<TempCoverInfo>
 
 	public override TempCoverInfo DeserializeItem(NetworkReader reader)
 	{
-		return new TempCoverInfo
-		{
-			m_coverDir = (ActorCover.CoverDirections)reader.ReadInt32(),
-			m_ignoreMinDist = reader.ReadBoolean()
-		};
+		TempCoverInfo result = default(TempCoverInfo);
+		result.m_coverDir = (ActorCover.CoverDirections)reader.ReadInt32();
+		result.m_ignoreMinDist = reader.ReadBoolean();
+		return result;
 	}
 }

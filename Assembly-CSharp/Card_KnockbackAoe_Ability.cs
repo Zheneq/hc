@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,18 +17,18 @@ public class Card_KnockbackAoe_Ability : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Knockback_Aoe_Catalyst";
+			m_abilityName = "Knockback_Aoe_Catalyst";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
 		AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
 		AbilityUtil_Targeter.AffectsActor affectsBestTarget = AbilityUtil_Targeter.AffectsActor.Possible;
-		base.Targeter = new AbilityUtil_Targeter_HealingKnockback(this, this.m_aoeShape, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, affectsCaster, affectsBestTarget, this.m_knockbackDist, this.m_knockbackType);
+		base.Targeter = new AbilityUtil_Targeter_HealingKnockback(this, m_aoeShape, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, affectsCaster, affectsBestTarget, m_knockbackDist, m_knockbackType);
 		base.Targeter.ShowArcToShape = false;
 	}
 
@@ -40,6 +39,6 @@ public class Card_KnockbackAoe_Ability : Ability
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffect, "EnemyHitEffect", this.m_enemyHitEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
 	}
 }

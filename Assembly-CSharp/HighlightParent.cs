@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class HighlightParent : MonoBehaviour
@@ -13,38 +12,40 @@ public class HighlightParent : MonoBehaviour
 
 	private void Update()
 	{
-		if (this.m_pulsing)
+		if (!m_pulsing)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightParent.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			float realtimeSinceStartup = Time.realtimeSinceStartup;
 			float num = Mathf.Sin(realtimeSinceStartup * 3f);
-			this.m_oscillatingAlpha = 0.5f + Mathf.Clamp(num * 0.2f, -0.2f, 0.2f);
-			foreach (Renderer renderer in base.GetComponentsInChildren<Renderer>())
+			m_oscillatingAlpha = 0.5f + Mathf.Clamp(num * 0.2f, -0.2f, 0.2f);
+			Renderer[] componentsInChildren = GetComponentsInChildren<Renderer>();
+			foreach (Renderer renderer in componentsInChildren)
 			{
 				Color color = renderer.material.GetColor("_TintColor");
-				Color value = new Color(color.r, color.g, color.b, this.m_oscillatingAlpha);
+				Color value = new Color(color.r, color.g, color.b, m_oscillatingAlpha);
 				renderer.material.SetColor("_TintColor", value);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}

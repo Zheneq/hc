@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class CharacterTaunt
@@ -20,12 +20,12 @@ public class CharacterTaunt
 
 	public GameBalanceVars.TauntUnlockData m_tauntUnlockData;
 
-	public int \u001D()
+	public int _001D()
 	{
 		int result = 0;
-		if (this.m_tauntUnlockData != null && this.m_tauntUnlockData.m_unlockData != null && this.m_tauntUnlockData.m_unlockData.UnlockConditions != null)
+		if (m_tauntUnlockData != null && m_tauntUnlockData.m_unlockData != null && m_tauntUnlockData.m_unlockData.UnlockConditions != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -34,27 +34,28 @@ public class CharacterTaunt
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterTaunt.\u001D()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			foreach (GameBalanceVars.UnlockCondition unlockCondition in this.m_tauntUnlockData.m_unlockData.UnlockConditions)
+			GameBalanceVars.UnlockCondition[] unlockConditions = m_tauntUnlockData.m_unlockData.UnlockConditions;
+			foreach (GameBalanceVars.UnlockCondition unlockCondition in unlockConditions)
 			{
-				if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.Purchase)
+				if (unlockCondition.ConditionType != GameBalanceVars.UnlockData.UnlockType.Purchase)
 				{
-					for (;;)
+					continue;
+				}
+				while (true)
+				{
+					switch (1)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
 					return unlockCondition.typeSpecificData2;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -67,11 +68,11 @@ public class CharacterTaunt
 		return result;
 	}
 
-	public int \u000E()
+	public int _000E()
 	{
-		if (this.m_tauntUnlockData != null)
+		if (m_tauntUnlockData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -80,54 +81,53 @@ public class CharacterTaunt
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterTaunt.\u000E()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			InventoryItemRarity rarity = this.m_tauntUnlockData.Rarity;
+			InventoryItemRarity rarity = m_tauntUnlockData.Rarity;
 			if (rarity == InventoryItemRarity.Uncommon)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					return 100;
 				}
-				return 0x64;
 			}
 			if (rarity == InventoryItemRarity.Rare)
 			{
-				return 0x12C;
+				return 300;
 			}
 			if (rarity == InventoryItemRarity.Epic)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					return 1200;
 				}
-				return 0x4B0;
 			}
 			if (rarity == InventoryItemRarity.Legendary)
 			{
-				return 0x5DC;
+				return 1500;
 			}
 		}
 		return 0;
 	}
 
-	public static bool \u001D(InventoryItemRarity \u001D)
+	public static bool _001D(InventoryItemRarity _001D)
 	{
-		if (\u001D != InventoryItemRarity.Uncommon)
+		int result;
+		if (_001D != InventoryItemRarity.Uncommon)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -136,13 +136,13 @@ public class CharacterTaunt
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterTaunt.\u001D(InventoryItemRarity)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (\u001D != InventoryItemRarity.Rare && \u001D != InventoryItemRarity.Epic)
+			if (_001D != InventoryItemRarity.Rare && _001D != InventoryItemRarity.Epic)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -151,9 +151,13 @@ public class CharacterTaunt
 					}
 					break;
 				}
-				return \u001D == InventoryItemRarity.Legendary;
+				result = ((_001D == InventoryItemRarity.Legendary) ? 1 : 0);
+				goto IL_0030;
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_0030;
+		IL_0030:
+		return (byte)result != 0;
 	}
 }

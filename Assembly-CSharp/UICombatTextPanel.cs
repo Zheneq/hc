@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,68 +13,67 @@ public class UICombatTextPanel : MonoBehaviour
 
 	public void QueueCombatText(ActorData actorData, string combatText, CombatTextCategory category, BuffIconToDisplay icon)
 	{
-		CombatTextEntry item = new CombatTextEntry(actorData, combatText, category, icon, this.m_combatTextVisibleDuration);
-		if (this.m_textEntries != null)
+		CombatTextEntry item = new CombatTextEntry(actorData, combatText, category, icon, m_combatTextVisibleDuration);
+		if (m_textEntries != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_textEntries.Add(item);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICombatTextPanel.QueueCombatText(ActorData, string, CombatTextCategory, BuffIconToDisplay)).MethodHandle;
-			}
-			this.m_textEntries.Add(item);
 		}
-		else
-		{
-			Log.Warning("Trying to queue combat text, but CombatTextPanel hasn't set up text entries.", new object[0]);
-		}
+		Log.Warning("Trying to queue combat text, but CombatTextPanel hasn't set up text entries.");
 	}
 
 	private void Awake()
 	{
-		this.m_textEntries = new List<CombatTextEntry>();
+		m_textEntries = new List<CombatTextEntry>();
 	}
 
 	private void RemoveExpiredEntries()
 	{
-		if (this.m_textEntries != null)
+		if (m_textEntries == null)
 		{
-			for (int i = this.m_textEntries.Count - 1; i >= 0; i--)
+			return;
+		}
+		for (int num = m_textEntries.Count - 1; num >= 0; num--)
+		{
+			if (m_textEntries[num].ShouldEnd())
 			{
-				if (this.m_textEntries[i].ShouldEnd())
+				while (true)
 				{
-					for (;;)
+					switch (3)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UICombatTextPanel.RemoveExpiredEntries()).MethodHandle;
-					}
-					this.m_textEntries.RemoveAt(i);
+					break;
 				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				m_textEntries.RemoveAt(num);
 			}
 		}
 	}
 
 	private void Update()
 	{
-		this.RemoveExpiredEntries();
-		if (this.m_lastTextCreatedTime >= 0f)
+		RemoveExpiredEntries();
+		if (!(m_lastTextCreatedTime < 0f))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -84,15 +82,15 @@ public class UICombatTextPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICombatTextPanel.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (Time.time - this.m_lastTextCreatedTime <= UICombatTextPanel.m_timeBetweenText)
+			if (!(Time.time - m_lastTextCreatedTime > m_timeBetweenText))
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -102,12 +100,18 @@ public class UICombatTextPanel : MonoBehaviour
 				break;
 			}
 		}
-		for (int i = 0; i < this.m_textEntries.Count; i++)
+		int num = 0;
+		CombatTextEntry combatTextEntry;
+		while (true)
 		{
-			CombatTextEntry combatTextEntry = this.m_textEntries[i];
+			if (num >= m_textEntries.Count)
+			{
+				return;
+			}
+			combatTextEntry = m_textEntries[num];
 			if (combatTextEntry.IsWaitingToActivate())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -116,22 +120,22 @@ public class UICombatTextPanel : MonoBehaviour
 					}
 					break;
 				}
-				if (!(CameraManager.Get() == null))
+				if (CameraManager.Get() == null)
 				{
-					for (;;)
+					break;
+				}
+				while (true)
+				{
+					switch (1)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (CameraManager.Get().InCinematic())
-					{
-						goto IL_B3;
-					}
-					for (;;)
+					break;
+				}
+				if (!CameraManager.Get().InCinematic())
+				{
+					while (true)
 					{
 						switch (2)
 						{
@@ -140,17 +144,17 @@ public class UICombatTextPanel : MonoBehaviour
 						}
 						break;
 					}
+					break;
 				}
-				combatTextEntry.Activate();
-				this.m_lastTextCreatedTime = Time.time;
-				break;
 			}
-			IL_B3:;
+			num++;
 		}
+		combatTextEntry.Activate();
+		m_lastTextCreatedTime = Time.time;
 	}
 
 	private void OnEnable()
 	{
-		this.Update();
+		Update();
 	}
 }

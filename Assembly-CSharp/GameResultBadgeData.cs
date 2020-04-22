@@ -1,174 +1,20 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class GameResultBadgeData : MonoBehaviour
 {
-	public Color BadgeGroupGoldRequirementColorHex = Color.yellow;
-
-	public Color BadgeGroupSilverRequirementColorHex = Color.gray;
-
-	public Color BadgeGroupBronzeRequirementColorHex = Color.magenta;
-
-	public GameResultBadgeData.StatDescription[] StatDescriptions;
-
-	public GameResultBadgeData.ConsolidatedBadgeGroup[] BadgeGroups;
-
-	public GameBalanceVars.GameResultBadge[] GameResultBadges;
-
-	private static GameResultBadgeData s_instance;
-
-	public bool IsStatLowerBetter(StatDisplaySettings.StatType StatType)
-	{
-		for (int i = 0; i < this.StatDescriptions.Length; i++)
-		{
-			if (this.StatDescriptions[i].m_StatType == StatType)
-			{
-				return this.StatDescriptions[i].LowerIsBetter;
-			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(GameResultBadgeData.IsStatLowerBetter(StatDisplaySettings.StatType)).MethodHandle;
-		}
-		return false;
-	}
-
-	public static string ReplaceBadgeStringTokens(string input, GameBalanceVars.GameResultBadge BadgeData, CharacterType characterType)
-	{
-		string text;
-		if (characterType.IsValidForHumanGameplay())
-		{
-			text = input.Replace("[FreelancerName]", characterType.GetDisplayName());
-			text = text.Replace("[FreelancerRole]", StringUtil.TR(GameWideData.Get().GetCharacterResourceLink(characterType).m_characterRole.ToString(), "Global"));
-		}
-		else
-		{
-			text = input.Replace("[FreelancerName]", StringUtil.TR("InvalidCharacterTypeForBadges", "Global"));
-			text = text.Replace("[FreelancerRole]", StringUtil.TR("InvalidCharacterRoleForBadges", "Global"));
-		}
-		return text.Replace("[PercentileToObtain]", BadgeData.GlobalPercentileToObtain.ToString());
-	}
-
-	public static string GetBadgeGroupRequirementDescription(GameBalanceVars.GameResultBadge BadgeData, CharacterType characterType)
-	{
-		string input = StringUtil.TR_BadgeGroupRequirementDescriptionKey(BadgeData.UniqueBadgeID);
-		return GameResultBadgeData.ReplaceBadgeStringTokens(input, BadgeData, characterType);
-	}
-
-	public static string GetBadgeDescription(GameBalanceVars.GameResultBadge BadgeData, CharacterType characterType)
-	{
-		string input = StringUtil.TR_BadgeDescription(BadgeData.UniqueBadgeID);
-		return GameResultBadgeData.ReplaceBadgeStringTokens(input, BadgeData, characterType);
-	}
-
-	public GameResultBadgeData.StatDescription GetStatDescription(StatDisplaySettings.StatType TypeOfStat)
-	{
-		for (int i = 0; i < this.StatDescriptions.Length; i++)
-		{
-			if (this.StatDescriptions[i].m_StatType == TypeOfStat)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameResultBadgeData.GetStatDescription(StatDisplaySettings.StatType)).MethodHandle;
-				}
-				return this.StatDescriptions[i];
-			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		return null;
-	}
-
-	public GameBalanceVars.LobbyStatSettings[] GetStatSettings()
-	{
-		GameBalanceVars.LobbyStatSettings[] array = new GameBalanceVars.LobbyStatSettings[this.StatDescriptions.Length];
-		for (int i = 0; i < this.StatDescriptions.Length; i++)
-		{
-			array[i] = new GameBalanceVars.LobbyStatSettings();
-			array[i].LowWatermark = this.StatDescriptions[i].LowWatermark;
-			array[i].m_StatType = this.StatDescriptions[i].m_StatType;
-			array[i].LowerIsBetter = this.StatDescriptions[i].LowerIsBetter;
-		}
-		return array;
-	}
-
-	public static GameResultBadgeData Get()
-	{
-		return GameResultBadgeData.s_instance;
-	}
-
-	public void Awake()
-	{
-		GameResultBadgeData.s_instance = this;
-	}
-
-	public GameBalanceVars.GameResultBadge GetBadgeInfo(int badgeID)
-	{
-		for (int i = 0; i < this.GameResultBadges.Length; i++)
-		{
-			if (this.GameResultBadges[i].UniqueBadgeID == badgeID)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameResultBadgeData.GetBadgeInfo(int)).MethodHandle;
-				}
-				return this.GameResultBadges[i];
-			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		return null;
-	}
-
-	private void OnValidate()
-	{
-		GameBalanceVars.EnsureUniqueIDs<GameBalanceVars.GameResultBadge>(this.GameResultBadges);
-	}
-
 	[Serializable]
 	public class StatDescription
 	{
+		public enum StatUnitType
+		{
+			None,
+			PerTurn,
+			PerLife,
+			PerTwentyLives,
+			Percentage
+		}
+
 		public string DisplayName;
 
 		public string Description;
@@ -177,15 +23,15 @@ public class GameResultBadgeData : MonoBehaviour
 
 		public float LowWatermark = float.MinValue;
 
-		public GameResultBadgeData.StatDescription.StatUnitType StatUnit;
+		public StatUnitType StatUnit;
 
 		public bool LowerIsBetter;
 
-		public static string GetStatUnit(GameResultBadgeData.StatDescription description)
+		public static string GetStatUnit(StatDescription description)
 		{
 			if (description != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -194,55 +40,44 @@ public class GameResultBadgeData : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameResultBadgeData.StatDescription.GetStatUnit(GameResultBadgeData.StatDescription)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (description.StatUnit == GameResultBadgeData.StatDescription.StatUnitType.PerTurn)
+				if (description.StatUnit == StatUnitType.PerTurn)
 				{
 					return StringUtil.TR("PerTurn", "Global");
 				}
-				if (description.StatUnit == GameResultBadgeData.StatDescription.StatUnitType.PerLife)
+				if (description.StatUnit == StatUnitType.PerLife)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						return StringUtil.TR("PerLife", "Global");
 					}
-					return StringUtil.TR("PerLife", "Global");
 				}
-				if (description.StatUnit == GameResultBadgeData.StatDescription.StatUnitType.PerTwentyLives)
+				if (description.StatUnit == StatUnitType.PerTwentyLives)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						return StringUtil.TR("PerTwentyLives", "Global");
 					}
-					return StringUtil.TR("PerTwentyLives", "Global");
 				}
-				if (description.StatUnit == GameResultBadgeData.StatDescription.StatUnitType.Percentage)
+				if (description.StatUnit == StatUnitType.Percentage)
 				{
 					return "%";
 				}
 			}
 			return string.Empty;
-		}
-
-		public enum StatUnitType
-		{
-			None,
-			PerTurn,
-			PerLife,
-			PerTwentyLives,
-			Percentage
 		}
 	}
 
@@ -257,5 +92,165 @@ public class GameResultBadgeData : MonoBehaviour
 		public GameBalanceVars.GameResultBadge.BadgeRole DisplayCategory;
 
 		public int[] BadgeIDs;
+	}
+
+	public Color BadgeGroupGoldRequirementColorHex = Color.yellow;
+
+	public Color BadgeGroupSilverRequirementColorHex = Color.gray;
+
+	public Color BadgeGroupBronzeRequirementColorHex = Color.magenta;
+
+	public StatDescription[] StatDescriptions;
+
+	public ConsolidatedBadgeGroup[] BadgeGroups;
+
+	public GameBalanceVars.GameResultBadge[] GameResultBadges;
+
+	private static GameResultBadgeData s_instance;
+
+	public bool IsStatLowerBetter(StatDisplaySettings.StatType StatType)
+	{
+		for (int i = 0; i < StatDescriptions.Length; i++)
+		{
+			if (StatDescriptions[i].m_StatType == StatType)
+			{
+				return StatDescriptions[i].LowerIsBetter;
+			}
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return false;
+		}
+	}
+
+	public static string ReplaceBadgeStringTokens(string input, GameBalanceVars.GameResultBadge BadgeData, CharacterType characterType)
+	{
+		string text = input;
+		if (characterType.IsValidForHumanGameplay())
+		{
+			text = text.Replace("[FreelancerName]", characterType.GetDisplayName());
+			text = text.Replace("[FreelancerRole]", StringUtil.TR(GameWideData.Get().GetCharacterResourceLink(characterType).m_characterRole.ToString(), "Global"));
+		}
+		else
+		{
+			text = text.Replace("[FreelancerName]", StringUtil.TR("InvalidCharacterTypeForBadges", "Global"));
+			text = text.Replace("[FreelancerRole]", StringUtil.TR("InvalidCharacterRoleForBadges", "Global"));
+		}
+		return text.Replace("[PercentileToObtain]", BadgeData.GlobalPercentileToObtain.ToString());
+	}
+
+	public static string GetBadgeGroupRequirementDescription(GameBalanceVars.GameResultBadge BadgeData, CharacterType characterType)
+	{
+		string input = StringUtil.TR_BadgeGroupRequirementDescriptionKey(BadgeData.UniqueBadgeID);
+		return ReplaceBadgeStringTokens(input, BadgeData, characterType);
+	}
+
+	public static string GetBadgeDescription(GameBalanceVars.GameResultBadge BadgeData, CharacterType characterType)
+	{
+		string input = StringUtil.TR_BadgeDescription(BadgeData.UniqueBadgeID);
+		return ReplaceBadgeStringTokens(input, BadgeData, characterType);
+	}
+
+	public StatDescription GetStatDescription(StatDisplaySettings.StatType TypeOfStat)
+	{
+		for (int i = 0; i < StatDescriptions.Length; i++)
+		{
+			if (StatDescriptions[i].m_StatType != TypeOfStat)
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return StatDescriptions[i];
+			}
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			return null;
+		}
+	}
+
+	public GameBalanceVars.LobbyStatSettings[] GetStatSettings()
+	{
+		GameBalanceVars.LobbyStatSettings[] array = new GameBalanceVars.LobbyStatSettings[StatDescriptions.Length];
+		for (int i = 0; i < StatDescriptions.Length; i++)
+		{
+			array[i] = new GameBalanceVars.LobbyStatSettings();
+			array[i].LowWatermark = StatDescriptions[i].LowWatermark;
+			array[i].m_StatType = StatDescriptions[i].m_StatType;
+			array[i].LowerIsBetter = StatDescriptions[i].LowerIsBetter;
+		}
+		return array;
+	}
+
+	public static GameResultBadgeData Get()
+	{
+		return s_instance;
+	}
+
+	public void Awake()
+	{
+		s_instance = this;
+	}
+
+	public GameBalanceVars.GameResultBadge GetBadgeInfo(int badgeID)
+	{
+		for (int i = 0; i < GameResultBadges.Length; i++)
+		{
+			if (GameResultBadges[i].UniqueBadgeID != badgeID)
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return GameResultBadges[i];
+			}
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			return null;
+		}
+	}
+
+	private void OnValidate()
+	{
+		GameBalanceVars.EnsureUniqueIDs(GameResultBadges);
 	}
 }

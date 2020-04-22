@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,41 +20,40 @@ public class AbilityMod_ThiefHiddenTrap : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ThiefHiddenTrap thiefHiddenTrap = targetAbility as ThiefHiddenTrap;
-		if (thiefHiddenTrap != null)
+		if (!(thiefHiddenTrap != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ThiefHiddenTrap.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken_GroundFieldMod(tokens, this.m_trapFieldInfoMod, "TrapFieldInfo", thiefHiddenTrap.m_trapFieldInfo);
-			AbilityMod.AddToken(tokens, this.m_extraDamagePerTurnMod, "ExtraDamagePerTurn", string.Empty, thiefHiddenTrap.m_extraDamagePerTurn, true, false);
-			AbilityMod.AddToken(tokens, this.m_maxExtraDamageMod, "MaxExtraDamage", string.Empty, thiefHiddenTrap.m_maxExtraDamage, true, false);
+			AbilityMod.AddToken_GroundFieldMod(tokens, m_trapFieldInfoMod, "TrapFieldInfo", thiefHiddenTrap.m_trapFieldInfo);
+			AbilityMod.AddToken(tokens, m_extraDamagePerTurnMod, "ExtraDamagePerTurn", string.Empty, thiefHiddenTrap.m_extraDamagePerTurn);
+			AbilityMod.AddToken(tokens, m_maxExtraDamageMod, "MaxExtraDamage", string.Empty, thiefHiddenTrap.m_maxExtraDamage);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ThiefHiddenTrap thiefHiddenTrap = base.GetTargetAbilityOnAbilityData(abilityData) as ThiefHiddenTrap;
+		ThiefHiddenTrap thiefHiddenTrap = GetTargetAbilityOnAbilityData(abilityData) as ThiefHiddenTrap;
 		bool flag = thiefHiddenTrap != null;
-		string text = string.Empty;
-		text += base.PropDescGroundFieldMod(this.m_trapFieldInfoMod, "{ TrapFieldInfo }", thiefHiddenTrap.m_trapFieldInfo);
-		string str = text;
-		AbilityModPropertyInt extraDamagePerTurnMod = this.m_extraDamagePerTurnMod;
-		string prefix = "[ExtraDamagePerTurn]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += PropDescGroundFieldMod(m_trapFieldInfoMod, "{ TrapFieldInfo }", thiefHiddenTrap.m_trapFieldInfo);
+		string str = empty;
+		AbilityModPropertyInt extraDamagePerTurnMod = m_extraDamagePerTurnMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -63,9 +62,9 @@ public class AbilityMod_ThiefHiddenTrap : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ThiefHiddenTrap.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = thiefHiddenTrap.m_extraDamagePerTurn;
 		}
@@ -73,15 +72,13 @@ public class AbilityMod_ThiefHiddenTrap : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + base.PropDesc(extraDamagePerTurnMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt maxExtraDamageMod = this.m_maxExtraDamageMod;
-		string prefix2 = "[MaxExtraDamage]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(extraDamagePerTurnMod, "[ExtraDamagePerTurn]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyInt maxExtraDamageMod = m_maxExtraDamageMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -96,6 +93,6 @@ public class AbilityMod_ThiefHiddenTrap : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		return str2 + base.PropDesc(maxExtraDamageMod, prefix2, showBaseVal2, baseVal2);
+		return str2 + PropDesc(maxExtraDamageMod, "[MaxExtraDamage]", flag, baseVal2);
 	}
 }

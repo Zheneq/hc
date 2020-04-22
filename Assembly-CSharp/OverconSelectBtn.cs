@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,33 +15,27 @@ public class OverconSelectBtn : MonoBehaviour
 
 	public Sprite m_inactiveHoverSprite;
 
-	private const float kLockedAlpha = 0.1953125f;
+	private const float kLockedAlpha = 25f / 128f;
 
 	private UIOverconData.NameToOverconEntry m_overconRef;
 
 	private bool m_isUnlocked;
 
-	public bool IsUnlocked
-	{
-		get
-		{
-			return this.m_isUnlocked;
-		}
-	}
+	public bool IsUnlocked => m_isUnlocked;
 
 	public UIOverconData.NameToOverconEntry GetOvercon()
 	{
-		return this.m_overconRef;
+		return m_overconRef;
 	}
 
 	public void Setup(UIOverconData.NameToOverconEntry overcon, bool unlocked)
 	{
-		this.m_isUnlocked = unlocked;
-		this.m_overconRef = overcon;
-		this.m_sprite.sprite = Resources.Load<Sprite>(overcon.m_iconSpritePath);
+		m_isUnlocked = unlocked;
+		m_overconRef = overcon;
+		m_sprite.sprite = Resources.Load<Sprite>(overcon.m_iconSpritePath);
 		if (unlocked)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -50,17 +44,17 @@ public class OverconSelectBtn : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconSelectBtn.Setup(UIOverconData.NameToOverconEntry, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_selectableBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OverconClicked);
+			m_selectableBtn.spriteController.callback = OverconClicked;
 		}
-		Color color = this.m_sprite.color;
+		Color color = m_sprite.color;
 		float a;
 		if (unlocked)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -73,15 +67,15 @@ public class OverconSelectBtn : MonoBehaviour
 		}
 		else
 		{
-			a = 0.1953125f;
+			a = 25f / 128f;
 		}
 		color.a = a;
-		this.m_sprite.color = color;
-		Image hoverImage = this.m_hoverImage;
+		m_sprite.color = color;
+		Image hoverImage = m_hoverImage;
 		Sprite sprite;
 		if (unlocked)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -90,75 +84,76 @@ public class OverconSelectBtn : MonoBehaviour
 				}
 				break;
 			}
-			sprite = this.m_activeHoverSprite;
+			sprite = m_activeHoverSprite;
 		}
 		else
 		{
-			sprite = this.m_inactiveHoverSprite;
+			sprite = m_inactiveHoverSprite;
 		}
 		hoverImage.sprite = sprite;
-		this.m_selectableBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.SetupTooltip), null);
+		m_selectableBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, SetupTooltip);
 	}
 
 	private bool SetupTooltip(UITooltipBase tooltip)
 	{
-		string text = StringUtil.TR("/overcon", "SlashCommand") + " " + this.m_overconRef.GetCommandName();
-		string text2 = this.m_overconRef.GetObtainedDescription().Trim();
+		string text = StringUtil.TR("/overcon", "SlashCommand") + " " + m_overconRef.GetCommandName();
+		string text2 = m_overconRef.GetObtainedDescription().Trim();
 		if (!text2.IsNullOrEmpty())
 		{
 			text = text + Environment.NewLine + text2;
 		}
-		UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-		uititledTooltip.Setup(this.m_overconRef.GetDisplayName(), text, string.Empty);
+		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+		uITitledTooltip.Setup(m_overconRef.GetDisplayName(), text, string.Empty);
 		return true;
 	}
 
 	public void OverconClicked(BaseEventData data)
 	{
 		ActorData actorData = (!(GameFlowData.Get() != null)) ? null : GameFlowData.Get().activeOwnedActorData;
-		if (actorData != null && actorData.\u000E() != null)
+		if (!(actorData != null) || !(actorData.GetActorController() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(HUD_UI.Get() != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconSelectBtn.OverconClicked(BaseEventData)).MethodHandle;
-			}
-			if (HUD_UI.Get() != null)
-			{
-				for (;;)
+				if (!(UIOverconData.Get() != null))
 				{
-					switch (2)
+					return;
+				}
+				while (true)
+				{
+					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (UIOverconData.Get() != null)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get() != null)
 					{
-						ClientGameManager.Get().SendUseOverconRequest(this.m_overconRef.m_overconId, this.m_overconRef.m_commandName, actorData.ActorIndex, GameFlowData.Get().CurrentTurn);
+						ClientGameManager.Get().SendUseOverconRequest(m_overconRef.m_overconId, m_overconRef.m_commandName, actorData.ActorIndex, GameFlowData.Get().CurrentTurn);
 						HUD_UI.Get().m_textConsole.Hide();
 						UIChatBox.Get().m_overconsPanel.SetPanelOpen(false);
 					}
+					return;
 				}
 			}
 		}

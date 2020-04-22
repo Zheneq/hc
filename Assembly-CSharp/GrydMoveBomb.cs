@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,9 +20,9 @@ public class GrydMoveBomb : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -32,22 +31,22 @@ public class GrydMoveBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydMoveBomb.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Move Bomb";
+			m_abilityName = "Move Bomb";
 		}
-		this.m_placeBombAbility = (base.ActorData.\u000E().GetAbilityOfType(typeof(GrydPlaceBomb)) as GrydPlaceBomb);
-		this.SetupTargeter();
+		m_placeBombAbility = (base.ActorData.GetAbilityData().GetAbilityOfType(typeof(GrydPlaceBomb)) as GrydPlaceBomb);
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
 		base.Targeters.Clear();
-		AbilityUtil_Targeter_Shape item = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, this.m_selectBombsThroughLoS, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
+		AbilityUtil_Targeter_Shape item = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, m_selectBombsThroughLoS);
 		base.Targeters.Add(item);
-		AbilityUtil_Targeter_Shape item2 = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, this.m_moveBombsThroughLoS, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
+		AbilityUtil_Targeter_Shape item2 = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, m_moveBombsThroughLoS);
 		base.Targeters.Add(item2);
 	}
 

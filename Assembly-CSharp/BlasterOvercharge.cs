@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ public class BlasterOvercharge : Ability
 	public int m_maxCastCount = 1;
 
 	[Header("-- Extra damage added for all attacks except Lurker Mine")]
-	public int m_extraDamage = 0xA;
+	public int m_extraDamage = 10;
 
 	[Header("-- Extra Damage for Lurker Mine")]
 	public int m_extraDamageForDelayedLaser;
@@ -45,14 +44,14 @@ public class BlasterOvercharge : Ability
 
 	private void Start()
 	{
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		if (this.m_syncComp == null)
+		if (m_syncComp == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -61,27 +60,27 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.SetupTargeter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_syncComp = base.GetComponent<Blaster_SyncComponent>();
+			m_syncComp = GetComponent<Blaster_SyncComponent>();
 		}
-		if (this.m_ultAbility == null)
+		if (m_ultAbility == null)
 		{
-			this.m_ultAbility = (base.GetComponent<AbilityData>().GetAbilityOfType(typeof(BlasterKnockbackCone)) as BlasterKnockbackCone);
+			m_ultAbility = (GetComponent<AbilityData>().GetAbilityOfType(typeof(BlasterKnockbackCone)) as BlasterKnockbackCone);
 		}
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Always, AbilityUtil_Targeter.AffectsActor.Possible);
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Always);
 		base.Targeter.ShowArcToShape = false;
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedEffectOnSelfOnCast;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -90,21 +89,21 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedEffectOnSelfOnCast = this.m_abilityMod.m_effectOnSelfOnCastMod.GetModifiedValue(this.m_effectOnSelfOnCast);
+			cachedEffectOnSelfOnCast = m_abilityMod.m_effectOnSelfOnCastMod.GetModifiedValue(m_effectOnSelfOnCast);
 		}
 		else
 		{
-			cachedEffectOnSelfOnCast = this.m_effectOnSelfOnCast;
+			cachedEffectOnSelfOnCast = m_effectOnSelfOnCast;
 		}
-		this.m_cachedEffectOnSelfOnCast = cachedEffectOnSelfOnCast;
+		m_cachedEffectOnSelfOnCast = cachedEffectOnSelfOnCast;
 		StandardEffectInfo cachedExtraEffectOnOtherAbilities;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -113,21 +112,21 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			cachedExtraEffectOnOtherAbilities = this.m_abilityMod.m_extraEffectOnOtherAbilitiesMod.GetModifiedValue(this.m_extraEffectOnOtherAbilities);
+			cachedExtraEffectOnOtherAbilities = m_abilityMod.m_extraEffectOnOtherAbilitiesMod.GetModifiedValue(m_extraEffectOnOtherAbilities);
 		}
 		else
 		{
-			cachedExtraEffectOnOtherAbilities = this.m_extraEffectOnOtherAbilities;
+			cachedExtraEffectOnOtherAbilities = m_extraEffectOnOtherAbilities;
 		}
-		this.m_cachedExtraEffectOnOtherAbilities = cachedExtraEffectOnOtherAbilities;
+		m_cachedExtraEffectOnOtherAbilities = cachedExtraEffectOnOtherAbilities;
 	}
 
 	public int GetMaxCastCount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -136,15 +135,15 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetMaxCastCount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_maxCastCountMod.GetModifiedValue(this.m_maxCastCount);
+			result = m_abilityMod.m_maxCastCountMod.GetModifiedValue(m_maxCastCount);
 		}
 		else
 		{
-			result = this.m_maxCastCount;
+			result = m_maxCastCount;
 		}
 		return result;
 	}
@@ -152,9 +151,9 @@ public class BlasterOvercharge : Ability
 	public int GetExtraDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -163,15 +162,15 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetExtraDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageMod.GetModifiedValue(this.m_extraDamage);
+			result = m_abilityMod.m_extraDamageMod.GetModifiedValue(m_extraDamage);
 		}
 		else
 		{
-			result = this.m_extraDamage;
+			result = m_extraDamage;
 		}
 		return result;
 	}
@@ -179,9 +178,9 @@ public class BlasterOvercharge : Ability
 	public int GetExtraDamageForDelayedLaser()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -190,15 +189,15 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetExtraDamageForDelayedLaser()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageForDelayedLaserMod.GetModifiedValue(this.m_extraDamageForDelayedLaser);
+			result = m_abilityMod.m_extraDamageForDelayedLaserMod.GetModifiedValue(m_extraDamageForDelayedLaser);
 		}
 		else
 		{
-			result = this.m_extraDamageForDelayedLaser;
+			result = m_extraDamageForDelayedLaser;
 		}
 		return result;
 	}
@@ -206,9 +205,9 @@ public class BlasterOvercharge : Ability
 	public int GetExtraDamageForMultiCast()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -217,15 +216,15 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetExtraDamageForMultiCast()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageForMultiCastMod.GetModifiedValue(this.m_extraDamageForMultiCast);
+			result = m_abilityMod.m_extraDamageForMultiCastMod.GetModifiedValue(m_extraDamageForMultiCast);
 		}
 		else
 		{
-			result = this.m_extraDamageForMultiCast;
+			result = m_extraDamageForMultiCast;
 		}
 		return result;
 	}
@@ -233,9 +232,9 @@ public class BlasterOvercharge : Ability
 	public int GetExtraDamageCount()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -244,15 +243,15 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetExtraDamageCount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageCountMod.GetModifiedValue(this.m_extraDamageCount);
+			result = m_abilityMod.m_extraDamageCountMod.GetModifiedValue(m_extraDamageCount);
 		}
 		else
 		{
-			result = this.m_extraDamageCount;
+			result = m_extraDamageCount;
 		}
 		return result;
 	}
@@ -260,9 +259,9 @@ public class BlasterOvercharge : Ability
 	public StandardEffectInfo GetEffectOnSelfOnCast()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectOnSelfOnCast != null)
+		if (m_cachedEffectOnSelfOnCast != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -271,15 +270,15 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetEffectOnSelfOnCast()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEffectOnSelfOnCast;
+			result = m_cachedEffectOnSelfOnCast;
 		}
 		else
 		{
-			result = this.m_effectOnSelfOnCast;
+			result = m_effectOnSelfOnCast;
 		}
 		return result;
 	}
@@ -287,9 +286,9 @@ public class BlasterOvercharge : Ability
 	public StandardEffectInfo GetExtraEffectOnOtherAbilities()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedExtraEffectOnOtherAbilities != null)
+		if (m_cachedExtraEffectOnOtherAbilities != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -298,24 +297,24 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetExtraEffectOnOtherAbilities()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedExtraEffectOnOtherAbilities;
+			result = m_cachedExtraEffectOnOtherAbilities;
 		}
 		else
 		{
-			result = this.m_extraEffectOnOtherAbilities;
+			result = m_extraEffectOnOtherAbilities;
 		}
 		return result;
 	}
 
 	public List<AbilityData.ActionType> GetExtraEffectTargetActionTypes()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -324,23 +323,23 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetExtraEffectTargetActionTypes()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_abilityMod.m_useExtraEffectActionTypeOverride)
+			if (m_abilityMod.m_useExtraEffectActionTypeOverride)
 			{
-				return this.m_abilityMod.m_extraEffectActionTypesOverride;
+				return m_abilityMod.m_extraEffectActionTypesOverride;
 			}
 		}
-		return this.m_extraEffectActionTypes;
+		return m_extraEffectActionTypes;
 	}
 
 	public override bool IsFreeAction()
 	{
-		if (this.m_ultAbility != null && this.m_ultAbility.OverchargeAsFreeActionAfterCast())
+		if (m_ultAbility != null && m_ultAbility.OverchargeAsFreeActionAfterCast())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -349,13 +348,13 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.IsFreeAction()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -364,18 +363,18 @@ public class BlasterOvercharge : Ability
 					}
 					break;
 				}
-				if (this.m_syncComp.m_lastUltCastTurn > 0)
+				if (m_syncComp.m_lastUltCastTurn > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return GameFlowData.Get().CurrentTurn > m_syncComp.m_lastUltCastTurn;
 						}
-						break;
 					}
-					return GameFlowData.Get().CurrentTurn > this.m_syncComp.m_lastUltCastTurn;
 				}
 			}
 		}
@@ -384,56 +383,57 @@ public class BlasterOvercharge : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.GetEffectOnSelfOnCast().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		GetEffectOnSelfOnCast().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		return numbers;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (!(this.m_syncComp != null))
+		if (m_syncComp != null)
 		{
-			return true;
-		}
-		for (;;)
-		{
-			switch (3)
+			while (true)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.CustomCanCastValidation(ActorData)).MethodHandle;
-		}
-		int maxCastCount = this.GetMaxCastCount();
-		if (maxCastCount > 0)
-		{
-			for (;;)
-			{
-				switch (6)
+				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					int maxCastCount = GetMaxCastCount();
+					if (maxCastCount > 0)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								break;
+							default:
+								return m_syncComp.m_overchargeBuffs < maxCastCount;
+							}
+						}
+					}
+					return m_syncComp.m_overchargeBuffs <= 0;
 				}
-				break;
+				}
 			}
-			return this.m_syncComp.m_overchargeBuffs < maxCastCount;
 		}
-		return this.m_syncComp.m_overchargeBuffs <= 0;
+		return true;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_BlasterOvercharge abilityMod_BlasterOvercharge = modAsBase as AbilityMod_BlasterOvercharge;
-		string name = "MaxCastCount";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_BlasterOvercharge)
+		if ((bool)abilityMod_BlasterOvercharge)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -442,23 +442,22 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_BlasterOvercharge.m_maxCastCountMod.GetModifiedValue(this.m_maxCastCount);
+			val = abilityMod_BlasterOvercharge.m_maxCastCountMod.GetModifiedValue(m_maxCastCount);
 		}
 		else
 		{
-			val = this.m_maxCastCount;
+			val = m_maxCastCount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "ExtraDamageForLurkerMine";
+		AddTokenInt(tokens, "MaxCastCount", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_BlasterOvercharge)
+		if ((bool)abilityMod_BlasterOvercharge)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -467,19 +466,18 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_BlasterOvercharge.m_extraDamageForDelayedLaserMod.GetModifiedValue(this.m_extraDamageForDelayedLaser);
+			val2 = abilityMod_BlasterOvercharge.m_extraDamageForDelayedLaserMod.GetModifiedValue(m_extraDamageForDelayedLaser);
 		}
 		else
 		{
-			val2 = this.m_extraDamageForDelayedLaser;
+			val2 = m_extraDamageForDelayedLaser;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		string name3 = "ExtraDamageForMultiCast";
+		AddTokenInt(tokens, "ExtraDamageForLurkerMine", empty2, val2);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_BlasterOvercharge)
+		if ((bool)abilityMod_BlasterOvercharge)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -488,17 +486,17 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			val3 = abilityMod_BlasterOvercharge.m_extraDamageForMultiCastMod.GetModifiedValue(this.m_extraDamageForMultiCast);
+			val3 = abilityMod_BlasterOvercharge.m_extraDamageForMultiCastMod.GetModifiedValue(m_extraDamageForMultiCast);
 		}
 		else
 		{
-			val3 = this.m_extraDamageForMultiCast;
+			val3 = m_extraDamageForMultiCast;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
+		AddTokenInt(tokens, "ExtraDamageForMultiCast", empty3, val3);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_BlasterOvercharge)
+		if ((bool)abilityMod_BlasterOvercharge)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -507,20 +505,19 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			effectInfo = abilityMod_BlasterOvercharge.m_effectOnSelfOnCastMod.GetModifiedValue(this.m_effectOnSelfOnCast);
+			effectInfo = abilityMod_BlasterOvercharge.m_effectOnSelfOnCastMod.GetModifiedValue(m_effectOnSelfOnCast);
 		}
 		else
 		{
-			effectInfo = this.m_effectOnSelfOnCast;
+			effectInfo = m_effectOnSelfOnCast;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnSelfOnCast", this.m_effectOnSelfOnCast, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_extraEffectOnOtherAbilities, "ExtraEffectOnOtherAbilities", this.m_extraEffectOnOtherAbilities, true);
-		string name4 = "OverchargeExtraDamage";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnSelfOnCast", m_effectOnSelfOnCast);
+		AbilityMod.AddToken_EffectInfo(tokens, m_extraEffectOnOtherAbilities, "ExtraEffectOnOtherAbilities", m_extraEffectOnOtherAbilities);
 		string empty4 = string.Empty;
 		int val4;
-		if (abilityMod_BlasterOvercharge)
+		if ((bool)abilityMod_BlasterOvercharge)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -529,40 +526,41 @@ public class BlasterOvercharge : Ability
 				}
 				break;
 			}
-			val4 = abilityMod_BlasterOvercharge.m_extraDamageMod.GetModifiedValue(this.m_extraDamage);
+			val4 = abilityMod_BlasterOvercharge.m_extraDamageMod.GetModifiedValue(m_extraDamage);
 		}
 		else
 		{
-			val4 = this.m_extraDamage;
+			val4 = m_extraDamage;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
+		AddTokenInt(tokens, "OverchargeExtraDamage", empty4, val4);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_BlasterOvercharge))
+		if (abilityMod.GetType() != typeof(AbilityMod_BlasterOvercharge))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_BlasterOvercharge);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_BlasterOvercharge);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 }

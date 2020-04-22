@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,9 +44,9 @@ public class ClaymoreAoeBuffDebuff : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -56,21 +55,21 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Thundering Roar";
+			m_abilityName = "Thundering Roar";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedSelfHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -79,21 +78,21 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedSelfHitEffect = this.m_abilityMod.m_selfHitEffectMod.GetModifiedValue(this.m_selfHitEffect);
+			cachedSelfHitEffect = m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect);
 		}
 		else
 		{
-			cachedSelfHitEffect = this.m_selfHitEffect;
+			cachedSelfHitEffect = m_selfHitEffect;
 		}
-		this.m_cachedSelfHitEffect = cachedSelfHitEffect;
+		m_cachedSelfHitEffect = cachedSelfHitEffect;
 		StandardEffectInfo cachedAllyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -102,17 +101,17 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			cachedAllyHitEffect = this.m_abilityMod.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
+			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
 		{
-			cachedAllyHitEffect = this.m_allyHitEffect;
+			cachedAllyHitEffect = m_allyHitEffect;
 		}
-		this.m_cachedAllyHitEffect = cachedAllyHitEffect;
+		m_cachedAllyHitEffect = cachedAllyHitEffect;
 		StandardEffectInfo cachedEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -121,26 +120,26 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			cachedEnemyHitEffect = this.m_enemyHitEffect;
+			cachedEnemyHitEffect = m_enemyHitEffect;
 		}
-		this.m_cachedEnemyHitEffect = cachedEnemyHitEffect;
+		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
 	}
 
 	public AbilityAreaShape GetShape()
 	{
-		return (!this.m_abilityMod) ? this.m_shape : this.m_abilityMod.m_shapeMod.GetModifiedValue(this.m_shape);
+		return (!m_abilityMod) ? m_shape : m_abilityMod.m_shapeMod.GetModifiedValue(m_shape);
 	}
 
 	public bool GetPenetrateLos()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -149,30 +148,30 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.GetPenetrateLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
+			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
 		{
-			result = this.m_penetrateLos;
+			result = m_penetrateLos;
 		}
 		return result;
 	}
 
 	public int GetBaseSelfHeal()
 	{
-		return (!this.m_abilityMod) ? this.m_baseSelfHeal : this.m_abilityMod.m_baseSelfHealMod.GetModifiedValue(this.m_baseSelfHeal);
+		return (!m_abilityMod) ? m_baseSelfHeal : m_abilityMod.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal);
 	}
 
 	public int GetSelfHealAmountPerHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -181,15 +180,15 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.GetSelfHealAmountPerHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_selfHealAmountPerHitMod.GetModifiedValue(this.m_selfHealAmountPerHit);
+			result = m_abilityMod.m_selfHealAmountPerHitMod.GetModifiedValue(m_selfHealAmountPerHit);
 		}
 		else
 		{
-			result = this.m_selfHealAmountPerHit;
+			result = m_selfHealAmountPerHit;
 		}
 		return result;
 	}
@@ -197,9 +196,9 @@ public class ClaymoreAoeBuffDebuff : Ability
 	public bool GetSelfHealCountEnemyHit()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -208,15 +207,15 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.GetSelfHealCountEnemyHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_selfHealCountEnemyHitMod.GetModifiedValue(this.m_selfHealCountEnemyHit);
+			result = m_abilityMod.m_selfHealCountEnemyHitMod.GetModifiedValue(m_selfHealCountEnemyHit);
 		}
 		else
 		{
-			result = this.m_selfHealCountEnemyHit;
+			result = m_selfHealCountEnemyHit;
 		}
 		return result;
 	}
@@ -224,9 +223,9 @@ public class ClaymoreAoeBuffDebuff : Ability
 	public bool GetSelfHealCountAllyHit()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -235,30 +234,30 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.GetSelfHealCountAllyHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_selfHealCountAllyHitMod.GetModifiedValue(this.m_selfHealCountAllyHit);
+			result = m_abilityMod.m_selfHealCountAllyHitMod.GetModifiedValue(m_selfHealCountAllyHit);
 		}
 		else
 		{
-			result = this.m_selfHealCountAllyHit;
+			result = m_selfHealCountAllyHit;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetSelfHitEffect()
 	{
-		return (this.m_cachedSelfHitEffect == null) ? this.m_selfHitEffect : this.m_cachedSelfHitEffect;
+		return (m_cachedSelfHitEffect == null) ? m_selfHitEffect : m_cachedSelfHitEffect;
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAllyHitEffect != null)
+		if (m_cachedAllyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -267,15 +266,15 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.GetAllyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedAllyHitEffect;
+			result = m_cachedAllyHitEffect;
 		}
 		else
 		{
-			result = this.m_allyHitEffect;
+			result = m_allyHitEffect;
 		}
 		return result;
 	}
@@ -283,9 +282,9 @@ public class ClaymoreAoeBuffDebuff : Ability
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyHitEffect != null)
+		if (m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -294,30 +293,30 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.GetEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemyHitEffect;
+			result = m_cachedEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyHitEffect;
+			result = m_enemyHitEffect;
 		}
 		return result;
 	}
 
 	public int GetAllyEnergyGain()
 	{
-		return (!this.m_abilityMod) ? this.m_allyEnergyGain : this.m_abilityMod.m_allyEnergyGainMod.GetModifiedValue(this.m_allyEnergyGain);
+		return (!m_abilityMod) ? m_allyEnergyGain : m_abilityMod.m_allyEnergyGainMod.GetModifiedValue(m_allyEnergyGain);
 	}
 
 	public int GetEnemyEnergyLoss()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -326,15 +325,15 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.GetEnemyEnergyLoss()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_enemyEnergyLossMod.GetModifiedValue(this.m_enemyEnergyLoss);
+			result = m_abilityMod.m_enemyEnergyLossMod.GetModifiedValue(m_enemyEnergyLoss);
 		}
 		else
 		{
-			result = this.m_enemyEnergyLoss;
+			result = m_enemyEnergyLoss;
 		}
 		return result;
 	}
@@ -342,9 +341,9 @@ public class ClaymoreAoeBuffDebuff : Ability
 	public bool GetEnergyChangeOnlyIfHasAdjacent()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -353,25 +352,25 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.GetEnergyChangeOnlyIfHasAdjacent()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_energyChangeOnlyIfHasAdjacentMod.GetModifiedValue(this.m_energyChangeOnlyIfHasAdjacent);
+			result = m_abilityMod.m_energyChangeOnlyIfHasAdjacentMod.GetModifiedValue(m_energyChangeOnlyIfHasAdjacent);
 		}
 		else
 		{
-			result = this.m_energyChangeOnlyIfHasAdjacent;
+			result = m_energyChangeOnlyIfHasAdjacent;
 		}
 		return result;
 	}
 
 	public bool IncludeCaster()
 	{
-		bool result;
-		if (!this.GetSelfHitEffect().m_applyEffect && this.GetBaseSelfHeal() <= 0)
+		int result;
+		if (!GetSelfHitEffect().m_applyEffect && GetBaseSelfHeal() <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -380,25 +379,25 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.IncludeCaster()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (this.GetSelfHealAmountPerHit() > 0);
+			result = ((GetSelfHealAmountPerHit() > 0) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool IncludeAllies()
 	{
-		bool result;
-		if (!this.GetAllyHitEffect().m_applyEffect)
+		int result;
+		if (!GetAllyHitEffect().m_applyEffect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -407,25 +406,25 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.IncludeAllies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (this.GetAllyEnergyGain() > 0);
+			result = ((GetAllyEnergyGain() > 0) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool IncludeEnemies()
 	{
-		bool result;
-		if (!this.GetEnemyHitEffect().m_applyEffect)
+		int result;
+		if (!GetEnemyHitEffect().m_applyEffect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -434,26 +433,26 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.IncludeEnemies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (this.GetEnemyEnergyLoss() > 0);
+			result = ((GetEnemyEnergyLoss() > 0) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
+		SetCachedFields();
 		AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
-		if (!this.IncludeCaster())
+		if (!IncludeCaster())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -462,25 +461,24 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.SetupTargeter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
 		}
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, this.GetShape(), this.GetPenetrateLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, this.IncludeEnemies(), this.IncludeAllies(), affectsCaster, AbilityUtil_Targeter.AffectsActor.Possible);
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, GetShape(), GetPenetrateLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, IncludeEnemies(), IncludeAllies(), affectsCaster);
 		base.Targeter.ShowArcToShape = false;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_ClaymoreAoeBuffDebuff abilityMod_ClaymoreAoeBuffDebuff = modAsBase as AbilityMod_ClaymoreAoeBuffDebuff;
-		string name = "BaseSelfHeal";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_ClaymoreAoeBuffDebuff)
+		if ((bool)abilityMod_ClaymoreAoeBuffDebuff)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -489,23 +487,23 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_ClaymoreAoeBuffDebuff.m_baseSelfHealMod.GetModifiedValue(this.m_baseSelfHeal);
+			val = abilityMod_ClaymoreAoeBuffDebuff.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal);
 		}
 		else
 		{
-			val = this.m_baseSelfHeal;
+			val = m_baseSelfHeal;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		base.AddTokenInt(tokens, "SelfHealAmountPerHit", string.Empty, (!abilityMod_ClaymoreAoeBuffDebuff) ? this.m_selfHealAmountPerHit : abilityMod_ClaymoreAoeBuffDebuff.m_selfHealAmountPerHitMod.GetModifiedValue(this.m_selfHealAmountPerHit), false);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_ClaymoreAoeBuffDebuff) ? this.m_selfHitEffect : abilityMod_ClaymoreAoeBuffDebuff.m_selfHitEffectMod.GetModifiedValue(this.m_selfHitEffect), "SelfHitEffect", this.m_selfHitEffect, true);
+		AddTokenInt(tokens, "BaseSelfHeal", empty, val);
+		AddTokenInt(tokens, "SelfHealAmountPerHit", string.Empty, (!abilityMod_ClaymoreAoeBuffDebuff) ? m_selfHealAmountPerHit : abilityMod_ClaymoreAoeBuffDebuff.m_selfHealAmountPerHitMod.GetModifiedValue(m_selfHealAmountPerHit));
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_ClaymoreAoeBuffDebuff) ? m_selfHitEffect : abilityMod_ClaymoreAoeBuffDebuff.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect), "SelfHitEffect", m_selfHitEffect);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_ClaymoreAoeBuffDebuff)
+		if ((bool)abilityMod_ClaymoreAoeBuffDebuff)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -514,21 +512,20 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			effectInfo = abilityMod_ClaymoreAoeBuffDebuff.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
+			effectInfo = abilityMod_ClaymoreAoeBuffDebuff.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_allyHitEffect;
+			effectInfo = m_allyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "AllyHitEffect", this.m_allyHitEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_ClaymoreAoeBuffDebuff) ? this.m_enemyHitEffect : abilityMod_ClaymoreAoeBuffDebuff.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect), "EnemyHitEffect", this.m_enemyHitEffect, true);
-		base.AddTokenInt(tokens, "AllyEnergyGain", string.Empty, (!abilityMod_ClaymoreAoeBuffDebuff) ? this.m_allyEnergyGain : abilityMod_ClaymoreAoeBuffDebuff.m_allyEnergyGainMod.GetModifiedValue(this.m_allyEnergyGain), false);
-		string name2 = "EnemyEnergyLoss";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "AllyHitEffect", m_allyHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_ClaymoreAoeBuffDebuff) ? m_enemyHitEffect : abilityMod_ClaymoreAoeBuffDebuff.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect), "EnemyHitEffect", m_enemyHitEffect);
+		AddTokenInt(tokens, "AllyEnergyGain", string.Empty, (!abilityMod_ClaymoreAoeBuffDebuff) ? m_allyEnergyGain : abilityMod_ClaymoreAoeBuffDebuff.m_allyEnergyGainMod.GetModifiedValue(m_allyEnergyGain));
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_ClaymoreAoeBuffDebuff)
+		if ((bool)abilityMod_ClaymoreAoeBuffDebuff)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -537,31 +534,31 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_ClaymoreAoeBuffDebuff.m_enemyEnergyLossMod.GetModifiedValue(this.m_enemyEnergyLoss);
+			val2 = abilityMod_ClaymoreAoeBuffDebuff.m_enemyEnergyLossMod.GetModifiedValue(m_enemyEnergyLoss);
 		}
 		else
 		{
-			val2 = this.m_enemyEnergyLoss;
+			val2 = m_enemyEnergyLoss;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
+		AddTokenInt(tokens, "EnemyEnergyLoss", empty2, val2);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.GetAllyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
-		this.GetEnemyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, this.GetBaseSelfHeal() + this.GetSelfHealAmountPerHit());
-		AbilityTooltipHelper.ReportEnergy(ref result, AbilityTooltipSubject.Ally, this.GetAllyEnergyGain());
-		AbilityTooltipHelper.ReportEnergy(ref result, AbilityTooltipSubject.Enemy, -1 * this.GetEnemyEnergyLoss());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		GetAllyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
+		GetEnemyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, GetBaseSelfHeal() + GetSelfHealAmountPerHit());
+		AbilityTooltipHelper.ReportEnergy(ref numbers, AbilityTooltipSubject.Ally, GetAllyEnergyGain());
+		AbilityTooltipHelper.ReportEnergy(ref numbers, AbilityTooltipSubject.Enemy, -1 * GetEnemyEnergyLoss());
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		if (this.GetSelfHealAmountPerHit() <= 0)
+		if (GetSelfHealAmountPerHit() <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -570,11 +567,11 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.GetBaseSelfHeal() <= 0)
+			if (GetBaseSelfHeal() <= 0)
 			{
 				return null;
 			}
@@ -583,7 +580,7 @@ public class ClaymoreAoeBuffDebuff : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -594,7 +591,7 @@ public class ClaymoreAoeBuffDebuff : Ability
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -608,9 +605,9 @@ public class ClaymoreAoeBuffDebuff : Ability
 				int num2 = 0;
 				for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
 				{
-					if (visibleActorsInRangeByTooltipSubject[i].\u000E() != targetActor.\u000E())
+					if (visibleActorsInRangeByTooltipSubject[i].GetTeam() != targetActor.GetTeam())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -626,7 +623,7 @@ public class ClaymoreAoeBuffDebuff : Ability
 						num2++;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -635,12 +632,11 @@ public class ClaymoreAoeBuffDebuff : Ability
 					}
 					break;
 				}
-				int value = this.CalcSelfHealAmountFromHits(num2, num);
-				dictionary[AbilityTooltipSymbol.Healing] = value;
+				int num4 = dictionary[AbilityTooltipSymbol.Healing] = CalcSelfHealAmountFromHits(num2, num);
 			}
-			else if (this.GetEnergyChangeOnlyIfHasAdjacent())
+			else if (GetEnergyChangeOnlyIfHasAdjacent())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -651,7 +647,7 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -660,9 +656,9 @@ public class ClaymoreAoeBuffDebuff : Ability
 						}
 						break;
 					}
-					if (this.GetEnemyEnergyLoss() > 0)
+					if (GetEnemyEnergyLoss() > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -671,12 +667,10 @@ public class ClaymoreAoeBuffDebuff : Ability
 							}
 							break;
 						}
-						Dictionary<AbilityTooltipSymbol, int> dictionary2 = dictionary;
-						AbilityTooltipSymbol key = AbilityTooltipSymbol.Energy;
-						int value2;
-						if (AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.\u0012()))
+						int value;
+						if (AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.GetTeams()))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -685,19 +679,19 @@ public class ClaymoreAoeBuffDebuff : Ability
 								}
 								break;
 							}
-							value2 = -1 * this.GetEnemyEnergyLoss();
+							value = -1 * GetEnemyEnergyLoss();
 						}
 						else
 						{
-							value2 = 0;
+							value = 0;
 						}
-						dictionary2[key] = value2;
-						return dictionary;
+						dictionary[AbilityTooltipSymbol.Energy] = value;
+						goto IL_01ba;
 					}
 				}
 				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -706,9 +700,9 @@ public class ClaymoreAoeBuffDebuff : Ability
 						}
 						break;
 					}
-					if (this.GetAllyEnergyGain() > 0)
+					if (GetAllyEnergyGain() > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -717,20 +711,22 @@ public class ClaymoreAoeBuffDebuff : Ability
 							}
 							break;
 						}
-						dictionary[AbilityTooltipSymbol.Energy] = ((!AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.\u0012())) ? 0 : this.GetAllyEnergyGain());
+						dictionary[AbilityTooltipSymbol.Energy] = (AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.GetTeams()) ? GetAllyEnergyGain() : 0);
 					}
 				}
 			}
 		}
+		goto IL_01ba;
+		IL_01ba:
 		return dictionary;
 	}
 
 	private int CalcSelfHealAmountFromHits(int allyHits, int enemyHits)
 	{
 		int result = 0;
-		if (this.GetSelfHealAmountPerHit() <= 0)
+		if (GetSelfHealAmountPerHit() <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -739,15 +735,15 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.CalcSelfHealAmountFromHits(int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.GetBaseSelfHeal() <= 0)
+			if (GetBaseSelfHeal() <= 0)
 			{
-				return result;
+				goto IL_0077;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -758,9 +754,9 @@ public class ClaymoreAoeBuffDebuff : Ability
 			}
 		}
 		int num = 0;
-		if (this.GetSelfHealCountAllyHit())
+		if (GetSelfHealCountAllyHit())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -771,9 +767,9 @@ public class ClaymoreAoeBuffDebuff : Ability
 			}
 			num += allyHits;
 		}
-		if (this.GetSelfHealCountEnemyHit())
+		if (GetSelfHealCountEnemyHit())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -784,35 +780,38 @@ public class ClaymoreAoeBuffDebuff : Ability
 			}
 			num += enemyHits;
 		}
-		result = this.GetBaseSelfHeal() + num * this.GetSelfHealAmountPerHit();
+		result = GetBaseSelfHeal() + num * GetSelfHealAmountPerHit();
+		goto IL_0077;
+		IL_0077:
 		return result;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_ClaymoreAoeBuffDebuff))
+		if (abilityMod.GetType() != typeof(AbilityMod_ClaymoreAoeBuffDebuff))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreAoeBuffDebuff.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_ClaymoreAoeBuffDebuff);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_ClaymoreAoeBuffDebuff);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 }

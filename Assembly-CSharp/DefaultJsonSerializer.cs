@@ -1,7 +1,6 @@
-﻿using System;
-using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.IO;
 
 public static class DefaultJsonSerializer
 {
@@ -9,9 +8,9 @@ public static class DefaultJsonSerializer
 
 	public static JsonSerializer Get()
 	{
-		if (DefaultJsonSerializer.s_serializer == null)
+		if (s_serializer == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -20,27 +19,27 @@ public static class DefaultJsonSerializer
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DefaultJsonSerializer.Get()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			DefaultJsonSerializer.s_serializer = new JsonSerializer();
-			DefaultJsonSerializer.s_serializer.NullValueHandling = NullValueHandling.Ignore;
-			DefaultJsonSerializer.s_serializer.Converters.Add(new StringEnumConverter());
+			s_serializer = new JsonSerializer();
+			s_serializer.NullValueHandling = NullValueHandling.Ignore;
+			s_serializer.Converters.Add(new StringEnumConverter());
 		}
-		return DefaultJsonSerializer.s_serializer;
+		return s_serializer;
 	}
 
 	public static string Serialize(object o)
 	{
 		StringWriter stringWriter = new StringWriter();
-		DefaultJsonSerializer.Get().Serialize(stringWriter, o);
+		Get().Serialize(stringWriter, o);
 		return stringWriter.ToString();
 	}
 
 	public static T Deserialize<T>(string json)
 	{
 		JsonTextReader reader = new JsonTextReader(new StringReader(json));
-		return DefaultJsonSerializer.Get().Deserialize<T>(reader);
+		return Get().Deserialize<T>(reader);
 	}
 }

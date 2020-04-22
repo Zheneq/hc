@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,14 +15,14 @@ public class UIArticleSelectButton : MonoBehaviour
 
 	public void Setup(LoreArticle article)
 	{
-		this.m_image.sprite = Resources.Load<Sprite>(article.ImagePath);
-		this.m_title.text = article.GetTitle();
-		this.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnClick);
-		this.m_article = article;
+		m_image.sprite = Resources.Load<Sprite>(article.ImagePath);
+		m_title.text = article.GetTitle();
+		m_hitbox.callback = OnClick;
+		m_article = article;
 	}
 
 	private void OnClick(BaseEventData data)
 	{
-		UILandingPageFullScreenMenus.Get().DisplayLoreArticle(this.m_article);
+		UILandingPageFullScreenMenus.Get().DisplayLoreArticle(m_article);
 	}
 }

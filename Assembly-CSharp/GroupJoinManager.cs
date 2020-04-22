@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
 using LobbyGameClientMessages;
+using System;
+using System.Collections.Generic;
 
 internal class GroupJoinManager
 {
@@ -12,9 +12,9 @@ internal class GroupJoinManager
 
 	public static GroupJoinManager Get()
 	{
-		if (GroupJoinManager.s_instance == null)
+		if (s_instance == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -23,24 +23,24 @@ internal class GroupJoinManager
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroupJoinManager.Get()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			GroupJoinManager.s_instance = new GroupJoinManager();
+			s_instance = new GroupJoinManager();
 		}
-		return GroupJoinManager.s_instance;
+		return s_instance;
 	}
 
 	public void Update()
 	{
 		DateTime utcNow = DateTime.UtcNow;
 		List<GroupRequestWindow> list = new List<GroupRequestWindow>();
-		foreach (GroupRequestWindow groupRequestWindow in this.m_pendingWindows.Values)
+		foreach (GroupRequestWindow value in m_pendingWindows.Values)
 		{
-			if (groupRequestWindow.HasExpired(utcNow))
+			if (value.HasExpired(utcNow))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -49,17 +49,16 @@ internal class GroupJoinManager
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GroupJoinManager.Update()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				list.Add(groupRequestWindow);
+				list.Add(value);
 			}
 		}
-		List<GroupRequestWindow> list2 = list;
-		if (GroupJoinManager.<>f__am$cache0 == null)
+		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -68,36 +67,36 @@ internal class GroupJoinManager
 				}
 				break;
 			}
-			GroupJoinManager.<>f__am$cache0 = delegate(GroupRequestWindow p)
+			_003C_003Ef__am_0024cache0 = delegate(GroupRequestWindow p)
 			{
 				p.CleanupWindow();
 			};
 		}
-		list2.ForEach(GroupJoinManager.<>f__am$cache0);
+		list.ForEach(_003C_003Ef__am_0024cache0);
 	}
 
 	internal void AddRequest(GroupConfirmationRequest request)
 	{
 		if (UIFrontEnd.Get() == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroupJoinManager.AddRequest(GroupConfirmationRequest)).MethodHandle;
-			}
-			return;
 		}
 		if (UIFrontEnd.Get().m_landingPageScreen != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -108,41 +107,40 @@ internal class GroupJoinManager
 			}
 			if (UIFrontEnd.Get().m_landingPageScreen.m_inCustomGame)
 			{
-				this.SendGroupConfirmation(GroupInviteResponseType.PlayerInCustomMatch, request);
+				SendGroupConfirmation(GroupInviteResponseType.PlayerInCustomMatch, request);
 				return;
 			}
 		}
-		if (this.m_pendingWindows.ContainsKey(request.LeaderFullHandle))
+		if (m_pendingWindows.ContainsKey(request.LeaderFullHandle))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					SendGroupConfirmation(GroupInviteResponseType.PlayerStillAwaitingPreviousQuery, request);
+					return;
 				}
-				break;
 			}
-			this.SendGroupConfirmation(GroupInviteResponseType.PlayerStillAwaitingPreviousQuery, request);
-			return;
 		}
 		if (request == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					throw new Exception("request is null");
 				}
-				break;
 			}
-			throw new Exception("request is null");
 		}
-		LeakyBucket leakyBucket;
-		if (this.m_restrictSpammers.TryGetValue(request.LeaderFullHandle, out leakyBucket) && leakyBucket != null)
+		if (m_restrictSpammers.TryGetValue(request.LeaderFullHandle, out LeakyBucket value) && value != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -151,34 +149,34 @@ internal class GroupJoinManager
 				}
 				break;
 			}
-			if (!leakyBucket.CanAdd(1.0))
+			if (!value.CanAdd())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						SendGroupConfirmation(GroupInviteResponseType.RequestorSpamming, request);
+						return;
 					}
-					break;
 				}
-				this.SendGroupConfirmation(GroupInviteResponseType.RequestorSpamming, request);
-				return;
 			}
 		}
-		this.m_pendingWindows.Add(request.LeaderFullHandle, new GroupRequestWindow(request));
+		m_pendingWindows.Add(request.LeaderFullHandle, new GroupRequestWindow(request));
 	}
 
 	internal void RemoveRequest(GroupConfirmationRequest request)
 	{
-		this.m_pendingWindows.Remove(request.LeaderFullHandle);
+		m_pendingWindows.Remove(request.LeaderFullHandle);
 	}
 
 	internal void SendGroupConfirmation(GroupInviteResponseType status, GroupConfirmationRequest request)
 	{
 		if (status == GroupInviteResponseType.PlayerRejected)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -187,17 +185,16 @@ internal class GroupJoinManager
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroupJoinManager.SendGroupConfirmation(GroupInviteResponseType, GroupConfirmationRequest)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			LeakyBucket leakyBucket;
-			if (!this.m_restrictSpammers.TryGetValue(request.LeaderFullHandle, out leakyBucket))
+			if (!m_restrictSpammers.TryGetValue(request.LeaderFullHandle, out LeakyBucket value))
 			{
-				leakyBucket = new LeakyBucket(2.0, TimeSpan.FromMinutes(10.0));
-				this.m_restrictSpammers.Add(request.LeaderFullHandle, leakyBucket);
+				value = new LeakyBucket(2.0, TimeSpan.FromMinutes(10.0));
+				m_restrictSpammers.Add(request.LeaderFullHandle, value);
 			}
-			leakyBucket.Add(1.0);
+			value.Add();
 		}
 		GroupConfirmationResponse groupConfirmationResponse = new GroupConfirmationResponse();
 		groupConfirmationResponse.Acceptance = status;

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,19 +32,19 @@ public class MantaDashThroughWall : Ability
 	public float m_coneBackwardOffset = 0.5f;
 
 	[Header("-- Normal On Hit Damage, Effect, etc")]
-	public int m_directHitDamage = 0x14;
+	public int m_directHitDamage = 20;
 
 	public StandardEffectInfo m_directEnemyHitEffect;
 
 	public bool m_directHitIgnoreCover = true;
 
 	[Space(10f)]
-	public int m_aoeDamage = 0xA;
+	public int m_aoeDamage = 10;
 
 	public StandardEffectInfo m_aoeEnemyHitEffect;
 
 	[Space(10f)]
-	public int m_aoeThroughWallsDamage = 0xA;
+	public int m_aoeThroughWallsDamage = 10;
 
 	public StandardEffectInfo m_aoeThroughWallsEffect;
 
@@ -68,9 +67,9 @@ public class MantaDashThroughWall : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -79,20 +78,20 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Dash Through Wall";
+			m_abilityName = "Dash Through Wall";
 		}
-		this.m_syncComp = base.GetComponent<Manta_SyncComponent>();
-		this.SetupTargeter();
+		m_syncComp = GetComponent<Manta_SyncComponent>();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_DashThroughWall(this, this.GetWidth(), this.GetMaxRange(), this.GetMaxWidthOfWall(), this.GetAoeConeWidth(), this.GetAoeThroughWallConeWidth(), this.GetAoeConeLength(), this.GetAoeThroughWallConeLength(), this.m_extraTotalDistanceIfThroughWalls, this.m_coneBackwardOffset, this.DirectHitIgnoreCover(), this.m_clampConeToWall, this.m_aoeWithMiss);
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_DashThroughWall(this, GetWidth(), GetMaxRange(), GetMaxWidthOfWall(), GetAoeConeWidth(), GetAoeThroughWallConeWidth(), GetAoeConeLength(), GetAoeThroughWallConeLength(), m_extraTotalDistanceIfThroughWalls, m_coneBackwardOffset, DirectHitIgnoreCover(), m_clampConeToWall, m_aoeWithMiss);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -102,16 +101,16 @@ public class MantaDashThroughWall : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetMaxRange();
+		return GetMaxRange();
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedDirectEnemyHitEffect = ((!this.m_abilityMod) ? this.m_directEnemyHitEffect : this.m_abilityMod.m_directEnemyHitEffectMod.GetModifiedValue(this.m_directEnemyHitEffect));
+		m_cachedDirectEnemyHitEffect = ((!m_abilityMod) ? m_directEnemyHitEffect : m_abilityMod.m_directEnemyHitEffectMod.GetModifiedValue(m_directEnemyHitEffect));
 		StandardEffectInfo cachedAoeEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -120,41 +119,41 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedAoeEnemyHitEffect = this.m_abilityMod.m_aoeEnemyHitEffectMod.GetModifiedValue(this.m_aoeEnemyHitEffect);
+			cachedAoeEnemyHitEffect = m_abilityMod.m_aoeEnemyHitEffectMod.GetModifiedValue(m_aoeEnemyHitEffect);
 		}
 		else
 		{
-			cachedAoeEnemyHitEffect = this.m_aoeEnemyHitEffect;
+			cachedAoeEnemyHitEffect = m_aoeEnemyHitEffect;
 		}
-		this.m_cachedAoeEnemyHitEffect = cachedAoeEnemyHitEffect;
-		this.m_cachedAoeThroughWallsEffect = ((!this.m_abilityMod) ? this.m_aoeThroughWallsEffect : this.m_abilityMod.m_aoeThroughWallsEffectMod.GetModifiedValue(this.m_aoeThroughWallsEffect));
+		m_cachedAoeEnemyHitEffect = cachedAoeEnemyHitEffect;
+		m_cachedAoeThroughWallsEffect = ((!m_abilityMod) ? m_aoeThroughWallsEffect : m_abilityMod.m_aoeThroughWallsEffectMod.GetModifiedValue(m_aoeThroughWallsEffect));
 	}
 
 	public float GetAoeConeWidth()
 	{
-		return (!this.m_abilityMod) ? this.m_aoeConeWidth : this.m_abilityMod.m_aoeConeWidthMod.GetModifiedValue(this.m_aoeConeWidth);
+		return (!m_abilityMod) ? m_aoeConeWidth : m_abilityMod.m_aoeConeWidthMod.GetModifiedValue(m_aoeConeWidth);
 	}
 
 	public float GetAoeConeLength()
 	{
-		return (!this.m_abilityMod) ? this.m_aoeConeLength : this.m_abilityMod.m_aoeConeLengthMod.GetModifiedValue(this.m_aoeConeLength);
+		return (!m_abilityMod) ? m_aoeConeLength : m_abilityMod.m_aoeConeLengthMod.GetModifiedValue(m_aoeConeLength);
 	}
 
 	public float GetAoeThroughWallConeWidth()
 	{
-		return (!this.m_abilityMod) ? this.m_aoeThroughWallConeWidth : this.m_abilityMod.m_aoeThroughWallConeWidthMod.GetModifiedValue(this.m_aoeThroughWallConeWidth);
+		return (!m_abilityMod) ? m_aoeThroughWallConeWidth : m_abilityMod.m_aoeThroughWallConeWidthMod.GetModifiedValue(m_aoeThroughWallConeWidth);
 	}
 
 	public float GetAoeThroughWallConeLength()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -163,15 +162,15 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetAoeThroughWallConeLength()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_aoeThroughWallConeLengthMod.GetModifiedValue(this.m_aoeThroughWallConeLength);
+			result = m_abilityMod.m_aoeThroughWallConeLengthMod.GetModifiedValue(m_aoeThroughWallConeLength);
 		}
 		else
 		{
-			result = this.m_aoeThroughWallConeLength;
+			result = m_aoeThroughWallConeLength;
 		}
 		return result;
 	}
@@ -179,9 +178,9 @@ public class MantaDashThroughWall : Ability
 	public float GetWidth()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -190,35 +189,35 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetWidth()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_widthMod.GetModifiedValue(this.m_width);
+			result = m_abilityMod.m_widthMod.GetModifiedValue(m_width);
 		}
 		else
 		{
-			result = this.m_width;
+			result = m_width;
 		}
 		return result;
 	}
 
 	public float GetMaxRange()
 	{
-		return (!this.m_abilityMod) ? this.m_maxRange : this.m_abilityMod.m_maxRangeMod.GetModifiedValue(this.m_maxRange);
+		return (!m_abilityMod) ? m_maxRange : m_abilityMod.m_maxRangeMod.GetModifiedValue(m_maxRange);
 	}
 
 	public float GetMaxWidthOfWall()
 	{
-		return (!this.m_abilityMod) ? this.m_maxWidthOfWall : this.m_abilityMod.m_maxWidthOfWallMod.GetModifiedValue(this.m_maxWidthOfWall);
+		return (!m_abilityMod) ? m_maxWidthOfWall : m_abilityMod.m_maxWidthOfWallMod.GetModifiedValue(m_maxWidthOfWall);
 	}
 
 	public float GetExtraTotalDistanceIfThroughWalls()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -227,15 +226,15 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetExtraTotalDistanceIfThroughWalls()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraTotalDistanceIfThroughWallsMod.GetModifiedValue(this.m_extraTotalDistanceIfThroughWalls);
+			result = m_abilityMod.m_extraTotalDistanceIfThroughWallsMod.GetModifiedValue(m_extraTotalDistanceIfThroughWalls);
 		}
 		else
 		{
-			result = this.m_extraTotalDistanceIfThroughWalls;
+			result = m_extraTotalDistanceIfThroughWalls;
 		}
 		return result;
 	}
@@ -243,9 +242,9 @@ public class MantaDashThroughWall : Ability
 	public bool ClampConeToWall()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -254,15 +253,15 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.ClampConeToWall()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_clampConeToWallMod.GetModifiedValue(this.m_clampConeToWall);
+			result = m_abilityMod.m_clampConeToWallMod.GetModifiedValue(m_clampConeToWall);
 		}
 		else
 		{
-			result = this.m_clampConeToWall;
+			result = m_clampConeToWall;
 		}
 		return result;
 	}
@@ -270,9 +269,9 @@ public class MantaDashThroughWall : Ability
 	public bool AoeWithMiss()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -281,15 +280,15 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.AoeWithMiss()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_aoeWithMissMod.GetModifiedValue(this.m_aoeWithMiss);
+			result = m_abilityMod.m_aoeWithMissMod.GetModifiedValue(m_aoeWithMiss);
 		}
 		else
 		{
-			result = this.m_aoeWithMiss;
+			result = m_aoeWithMiss;
 		}
 		return result;
 	}
@@ -297,9 +296,9 @@ public class MantaDashThroughWall : Ability
 	public float GetConeBackwardOffset()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -308,15 +307,15 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetConeBackwardOffset()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
+			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
 		}
 		else
 		{
-			result = this.m_coneBackwardOffset;
+			result = m_coneBackwardOffset;
 		}
 		return result;
 	}
@@ -324,9 +323,9 @@ public class MantaDashThroughWall : Ability
 	public int GetDirectHitDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -335,15 +334,15 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetDirectHitDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_directHitDamageMod.GetModifiedValue(this.m_directHitDamage);
+			result = m_abilityMod.m_directHitDamageMod.GetModifiedValue(m_directHitDamage);
 		}
 		else
 		{
-			result = this.m_directHitDamage;
+			result = m_directHitDamage;
 		}
 		return result;
 	}
@@ -351,9 +350,9 @@ public class MantaDashThroughWall : Ability
 	public StandardEffectInfo GetDirectEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedDirectEnemyHitEffect != null)
+		if (m_cachedDirectEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -362,15 +361,15 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetDirectEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedDirectEnemyHitEffect;
+			result = m_cachedDirectEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_directEnemyHitEffect;
+			result = m_directEnemyHitEffect;
 		}
 		return result;
 	}
@@ -378,9 +377,9 @@ public class MantaDashThroughWall : Ability
 	public bool DirectHitIgnoreCover()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -389,15 +388,15 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.DirectHitIgnoreCover()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_directHitIgnoreCoverMod.GetModifiedValue(this.m_directHitIgnoreCover);
+			result = m_abilityMod.m_directHitIgnoreCoverMod.GetModifiedValue(m_directHitIgnoreCover);
 		}
 		else
 		{
-			result = this.m_directHitIgnoreCover;
+			result = m_directHitIgnoreCover;
 		}
 		return result;
 	}
@@ -405,9 +404,9 @@ public class MantaDashThroughWall : Ability
 	public int GetAoeDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -416,15 +415,15 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetAoeDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_aoeDamageMod.GetModifiedValue(this.m_aoeDamage);
+			result = m_abilityMod.m_aoeDamageMod.GetModifiedValue(m_aoeDamage);
 		}
 		else
 		{
-			result = this.m_aoeDamage;
+			result = m_aoeDamage;
 		}
 		return result;
 	}
@@ -432,9 +431,9 @@ public class MantaDashThroughWall : Ability
 	public StandardEffectInfo GetAoeEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAoeEnemyHitEffect != null)
+		if (m_cachedAoeEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -443,47 +442,47 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetAoeEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedAoeEnemyHitEffect;
+			result = m_cachedAoeEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_aoeEnemyHitEffect;
+			result = m_aoeEnemyHitEffect;
 		}
 		return result;
 	}
 
 	public int GetAoeThroughWallsDamage()
 	{
-		return (!this.m_abilityMod) ? this.m_aoeThroughWallsDamage : this.m_abilityMod.m_aoeThroughWallsDamageMod.GetModifiedValue(this.m_aoeThroughWallsDamage);
+		return (!m_abilityMod) ? m_aoeThroughWallsDamage : m_abilityMod.m_aoeThroughWallsDamageMod.GetModifiedValue(m_aoeThroughWallsDamage);
 	}
 
 	public StandardEffectInfo GetAoeThroughWallsEffect()
 	{
-		return (this.m_cachedAoeThroughWallsEffect == null) ? this.m_aoeThroughWallsEffect : this.m_cachedAoeThroughWallsEffect;
+		return (m_cachedAoeThroughWallsEffect == null) ? m_aoeThroughWallsEffect : m_cachedAoeThroughWallsEffect;
 	}
 
 	public StandardEffectInfo GetAdditionalDirtyFightingExplosionEffect()
 	{
-		if (this.m_abilityMod && this.m_abilityMod.m_additionalDirtyFightingExplosionEffect.operation == AbilityModPropertyEffectInfo.ModOp.Override)
+		if ((bool)m_abilityMod && m_abilityMod.m_additionalDirtyFightingExplosionEffect.operation == AbilityModPropertyEffectInfo.ModOp.Override)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_abilityMod.m_additionalDirtyFightingExplosionEffect.effectInfo;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetAdditionalDirtyFightingExplosionEffect()).MethodHandle;
-			}
-			return this.m_abilityMod.m_additionalDirtyFightingExplosionEffect.effectInfo;
 		}
 		return null;
 	}
@@ -495,52 +494,53 @@ public class MantaDashThroughWall : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_MantaDashThroughWall))
+		if (abilityMod.GetType() != typeof(AbilityMod_MantaDashThroughWall))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_MantaDashThroughWall);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_MantaDashThroughWall);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "DirectHitDamage", string.Empty, this.m_directHitDamage, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_directEnemyHitEffect, "DirectEnemyHitEffect", this.m_directEnemyHitEffect, true);
-		base.AddTokenInt(tokens, "AoeDamage", string.Empty, this.m_aoeDamage, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_aoeEnemyHitEffect, "AoeEnemyHitEffect", this.m_aoeEnemyHitEffect, true);
-		base.AddTokenInt(tokens, "AoeThroughWallsDamage", string.Empty, this.m_aoeThroughWallsDamage, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_aoeThroughWallsEffect, "AoeThroughWallsEffect", this.m_aoeThroughWallsEffect, true);
+		AddTokenInt(tokens, "DirectHitDamage", string.Empty, m_directHitDamage);
+		AbilityMod.AddToken_EffectInfo(tokens, m_directEnemyHitEffect, "DirectEnemyHitEffect", m_directEnemyHitEffect);
+		AddTokenInt(tokens, "AoeDamage", string.Empty, m_aoeDamage);
+		AbilityMod.AddToken_EffectInfo(tokens, m_aoeEnemyHitEffect, "AoeEnemyHitEffect", m_aoeEnemyHitEffect);
+		AddTokenInt(tokens, "AoeThroughWallsDamage", string.Empty, m_aoeThroughWallsDamage);
+		AbilityMod.AddToken_EffectInfo(tokens, m_aoeThroughWallsEffect, "AoeThroughWallsEffect", m_aoeThroughWallsEffect);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetDirectHitDamage());
-		this.GetDirectEnemyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Secondary, this.GetAoeDamage());
-		this.GetAoeEnemyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Secondary);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Tertiary, this.GetAoeThroughWallsDamage());
-		this.GetAoeThroughWallsEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Tertiary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetDirectHitDamage());
+		GetDirectEnemyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, GetAoeDamage());
+		GetAoeEnemyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Tertiary, GetAoeThroughWallsDamage());
+		GetAoeThroughWallsEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Tertiary);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -549,7 +549,7 @@ public class MantaDashThroughWall : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -558,15 +558,15 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			int num = 0;
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -575,11 +575,11 @@ public class MantaDashThroughWall : Ability
 					}
 					break;
 				}
-				num += this.GetDirectHitDamage();
+				num += GetDirectHitDamage();
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -588,11 +588,11 @@ public class MantaDashThroughWall : Ability
 					}
 					break;
 				}
-				num += this.GetAoeDamage();
+				num += GetAoeDamage();
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Tertiary))
 			{
-				num += this.GetAoeThroughWallsDamage();
+				num += GetAoeThroughWallsDamage();
 			}
 			dictionary[AbilityTooltipSymbol.Damage] = num;
 		}
@@ -601,41 +601,43 @@ public class MantaDashThroughWall : Ability
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
-			int num = 0;
-			List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeters[currentTargeterIndex].GetActorsInRange();
-			using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
-					num += this.m_syncComp.GetDirtyFightingExtraTP(actorTarget.m_actor);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					int num = 0;
+					List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeters[currentTargeterIndex].GetActorsInRange();
+					using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
+					{
+						while (enumerator.MoveNext())
+						{
+							AbilityUtil_Targeter.ActorTarget current = enumerator.Current;
+							num += m_syncComp.GetDirtyFightingExtraTP(current.m_actor);
+						}
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								break;
+							default:
+								return num;
+							}
+						}
+					}
+				}
 				}
 			}
-			return num;
 		}
 		return base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
 	}
@@ -644,7 +646,7 @@ public class MantaDashThroughWall : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -653,13 +655,13 @@ public class MantaDashThroughWall : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComp != null)
+			if (m_syncComp != null)
 			{
-				return this.m_syncComp.GetAccessoryStringForDamage(targetActor, base.ActorData, this);
+				return m_syncComp.GetAccessoryStringForDamage(targetActor, base.ActorData, this);
 			}
 		}
 		return null;
@@ -670,24 +672,28 @@ public class MantaDashThroughWall : Ability
 		return ActorData.MovementType.Charge;
 	}
 
-	internal unsafe static BoardSquare GetSquareBeyondWall(Vector3 startPos, Vector3 endPos, ActorData targetingActor, float penetrationDistance, ref Vector3 coneStartPos, ref Vector3 perpendicularFromWall)
+	internal static BoardSquare GetSquareBeyondWall(Vector3 startPos, Vector3 endPos, ActorData targetingActor, float penetrationDistance, ref Vector3 coneStartPos, ref Vector3 perpendicularFromWall)
 	{
-		float num = 0.25f * Board.\u000E().squareSize;
+		float num = 0.25f * Board.Get().squareSize;
 		int num2 = Mathf.CeilToInt(penetrationDistance / num);
 		Vector3 vector = endPos - startPos;
 		float magnitude = vector.magnitude;
 		vector.Normalize();
-		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(startPos, vector, magnitude, false, targetingActor, null, true);
-		Vector3 vector2 = laserEndPoint;
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(startPos, vector, magnitude, false, targetingActor);
+		Vector3 vector2D = laserEndPoint;
 		BoardSquare boardSquare = null;
 		int num3 = 0;
-		while (boardSquare == null)
+		do
 		{
-			vector2 += num * vector;
-			boardSquare = Board.\u000E().\u000E(vector2);
-			if (boardSquare != null)
+			if (boardSquare == null)
 			{
-				for (;;)
+				vector2D += num * vector;
+				boardSquare = Board.Get().GetBoardSquare(vector2D);
+				if (!(boardSquare != null))
+				{
+					continue;
+				}
+				while (true)
 				{
 					switch (2)
 					{
@@ -696,13 +702,13 @@ public class MantaDashThroughWall : Ability
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetSquareBeyondWall(Vector3, Vector3, ActorData, float, Vector3*, Vector3*)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (!boardSquare.\u0016())
+				if (!boardSquare.IsBaselineHeight())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -713,55 +719,81 @@ public class MantaDashThroughWall : Ability
 					}
 					boardSquare = null;
 				}
+				continue;
 			}
-			if (++num3 > num2)
+			while (true)
 			{
-				IL_D0:
-				if (!(boardSquare == null))
+				switch (2)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (boardSquare.\u0016())
-					{
-						goto IL_113;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+				case 0:
+					continue;
 				}
-				boardSquare = Board.\u000E().\u000E(laserEndPoint);
-				coneStartPos = endPos;
-				IL_113:
-				if (boardSquare != null)
+				break;
+			}
+			break;
+		}
+		while (++num3 <= num2);
+		if (!(boardSquare == null))
+		{
+			while (true)
+			{
+				switch (6)
 				{
-					for (;;)
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (boardSquare.IsBaselineHeight())
+			{
+				goto IL_0113;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		boardSquare = Board.Get().GetBoardSquare(laserEndPoint);
+		coneStartPos = endPos;
+		goto IL_0113;
+		IL_0113:
+		if (boardSquare != null)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			Vector3 worldPositionForLoS = boardSquare.GetWorldPositionForLoS();
+			Vector3 normalized = (worldPositionForLoS - startPos).normalized;
+			normalized.y = 0f;
+			if (Mathf.Abs(normalized.x) > 0.3f)
+			{
+				while (true)
+				{
+					switch (5)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					Vector3 vector3 = boardSquare.\u000E();
-					Vector3 normalized = (vector3 - startPos).normalized;
-					normalized.y = 0f;
-					if (Mathf.Abs(normalized.x) > 0.3f)
+					break;
+				}
+				if (Mathf.Abs(normalized.z) > 0.3f)
+				{
+					float x = normalized.x;
+					normalized.x = 0f;
+					if (!VectorUtils.RaycastInDirection(worldPositionForLoS, -1f * normalized.normalized, Board.Get().squareSize, out RaycastHit hit))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -770,43 +802,16 @@ public class MantaDashThroughWall : Ability
 							}
 							break;
 						}
-						if (Mathf.Abs(normalized.z) > 0.3f)
-						{
-							float x = normalized.x;
-							normalized.x = 0f;
-							RaycastHit raycastHit;
-							if (!VectorUtils.RaycastInDirection(vector3, -1f * normalized.normalized, Board.\u000E().squareSize, out raycastHit))
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								normalized.z = 0f;
-								normalized.x = x;
-								bool flag = VectorUtils.RaycastInDirection(vector3, -1f * normalized.normalized, Board.\u000E().squareSize, out raycastHit);
-							}
-						}
+						normalized.z = 0f;
+						normalized.x = x;
+						bool flag = VectorUtils.RaycastInDirection(worldPositionForLoS, -1f * normalized.normalized, Board.Get().squareSize, out hit);
 					}
-					int angleWithHorizontal = Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(normalized));
-					perpendicularFromWall = VectorUtils.HorizontalAngleToClosestCardinalDirection(angleWithHorizontal);
-					coneStartPos = vector3 - perpendicularFromWall * 0.5f;
 				}
-				return boardSquare;
 			}
+			int angleWithHorizontal = Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(normalized));
+			perpendicularFromWall = VectorUtils.HorizontalAngleToClosestCardinalDirection(angleWithHorizontal);
+			coneStartPos = worldPositionForLoS - perpendicularFromWall * 0.5f;
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_D0;
-		}
+		return boardSquare;
 	}
 }

@@ -1,14 +1,14 @@
-﻿using System;
 using UnityEngine;
 
 internal class EasedInFloatQuad : Eased<float>
 {
-	internal EasedInFloatQuad(float startValue) : base(startValue)
+	internal EasedInFloatQuad(float startValue)
+		: base(startValue)
 	{
 	}
 
 	protected override float CalcValue()
 	{
-		return Easing.QuadEaseIn(Time.time - this.m_startTime, this.m_startValue, this.m_endValue - this.m_startValue, this.m_duration);
+		return Easing.QuadEaseIn(Time.time - m_startTime, m_startValue, m_endValue - m_startValue, m_duration);
 	}
 }

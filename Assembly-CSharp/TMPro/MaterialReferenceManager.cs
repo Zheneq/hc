@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,9 +17,9 @@ namespace TMPro
 		{
 			get
 			{
-				if (MaterialReferenceManager.s_Instance == null)
+				if (s_Instance == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -29,26 +28,26 @@ namespace TMPro
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(MaterialReferenceManager.get_instance()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					MaterialReferenceManager.s_Instance = new MaterialReferenceManager();
+					s_Instance = new MaterialReferenceManager();
 				}
-				return MaterialReferenceManager.s_Instance;
+				return s_Instance;
 			}
 		}
 
 		public static void AddFontAsset(TMP_FontAsset fontAsset)
 		{
-			MaterialReferenceManager.instance.AddFontAssetInternal(fontAsset);
+			instance.AddFontAssetInternal(fontAsset);
 		}
 
 		private void AddFontAssetInternal(TMP_FontAsset fontAsset)
 		{
-			if (!this.m_FontAssetReferenceLookup.ContainsKey(fontAsset.hashCode))
+			if (!m_FontAssetReferenceLookup.ContainsKey(fontAsset.hashCode))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -57,164 +56,182 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MaterialReferenceManager.AddFontAssetInternal(TMP_FontAsset)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_FontAssetReferenceLookup.Add(fontAsset.hashCode, fontAsset);
+				m_FontAssetReferenceLookup.Add(fontAsset.hashCode, fontAsset);
 			}
-			if (!this.m_FontMaterialReferenceLookup.ContainsKey(fontAsset.materialHashCode))
+			if (m_FontMaterialReferenceLookup.ContainsKey(fontAsset.materialHashCode))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (2)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				this.m_FontMaterialReferenceLookup.Add(fontAsset.materialHashCode, fontAsset.material);
+				m_FontMaterialReferenceLookup.Add(fontAsset.materialHashCode, fontAsset.material);
+				return;
 			}
 		}
 
 		public static void AddSpriteAsset(TMP_SpriteAsset spriteAsset)
 		{
-			MaterialReferenceManager.instance.AddSpriteAssetInternal(spriteAsset);
+			instance.AddSpriteAssetInternal(spriteAsset);
 		}
 
 		private void AddSpriteAssetInternal(TMP_SpriteAsset spriteAsset)
 		{
-			if (this.m_SpriteAssetReferenceLookup.ContainsKey(spriteAsset.hashCode))
+			if (m_SpriteAssetReferenceLookup.ContainsKey(spriteAsset.hashCode))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MaterialReferenceManager.AddSpriteAssetInternal(TMP_SpriteAsset)).MethodHandle;
-				}
-				return;
 			}
-			this.m_SpriteAssetReferenceLookup.Add(spriteAsset.hashCode, spriteAsset);
-			this.m_FontMaterialReferenceLookup.Add(spriteAsset.hashCode, spriteAsset.material);
+			m_SpriteAssetReferenceLookup.Add(spriteAsset.hashCode, spriteAsset);
+			m_FontMaterialReferenceLookup.Add(spriteAsset.hashCode, spriteAsset.material);
 		}
 
 		public static void AddSpriteAsset(int hashCode, TMP_SpriteAsset spriteAsset)
 		{
-			MaterialReferenceManager.instance.AddSpriteAssetInternal(hashCode, spriteAsset);
+			instance.AddSpriteAssetInternal(hashCode, spriteAsset);
 		}
 
 		private void AddSpriteAssetInternal(int hashCode, TMP_SpriteAsset spriteAsset)
 		{
-			if (this.m_SpriteAssetReferenceLookup.ContainsKey(hashCode))
+			if (m_SpriteAssetReferenceLookup.ContainsKey(hashCode))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MaterialReferenceManager.AddSpriteAssetInternal(int, TMP_SpriteAsset)).MethodHandle;
-				}
+			}
+			m_SpriteAssetReferenceLookup.Add(hashCode, spriteAsset);
+			m_FontMaterialReferenceLookup.Add(hashCode, spriteAsset.material);
+			if (spriteAsset.hashCode != 0)
+			{
 				return;
 			}
-			this.m_SpriteAssetReferenceLookup.Add(hashCode, spriteAsset);
-			this.m_FontMaterialReferenceLookup.Add(hashCode, spriteAsset.material);
-			if (spriteAsset.hashCode == 0)
+			while (true)
 			{
-				for (;;)
+				switch (5)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
 				spriteAsset.hashCode = hashCode;
+				return;
 			}
 		}
 
 		public static void AddFontMaterial(int hashCode, Material material)
 		{
-			MaterialReferenceManager.instance.AddFontMaterialInternal(hashCode, material);
+			instance.AddFontMaterialInternal(hashCode, material);
 		}
 
 		private void AddFontMaterialInternal(int hashCode, Material material)
 		{
-			this.m_FontMaterialReferenceLookup.Add(hashCode, material);
+			m_FontMaterialReferenceLookup.Add(hashCode, material);
 		}
 
 		public bool Contains(TMP_FontAsset font)
 		{
-			return this.m_FontAssetReferenceLookup.ContainsKey(font.hashCode);
+			if (m_FontAssetReferenceLookup.ContainsKey(font.hashCode))
+			{
+				return true;
+			}
+			return false;
 		}
 
 		public bool Contains(TMP_SpriteAsset sprite)
 		{
-			return this.m_FontAssetReferenceLookup.ContainsKey(sprite.hashCode);
+			if (m_FontAssetReferenceLookup.ContainsKey(sprite.hashCode))
+			{
+				return true;
+			}
+			return false;
 		}
 
 		public static bool TryGetFontAsset(int hashCode, out TMP_FontAsset fontAsset)
 		{
-			return MaterialReferenceManager.instance.TryGetFontAssetInternal(hashCode, out fontAsset);
+			return instance.TryGetFontAssetInternal(hashCode, out fontAsset);
 		}
 
 		private bool TryGetFontAssetInternal(int hashCode, out TMP_FontAsset fontAsset)
 		{
 			fontAsset = null;
-			return this.m_FontAssetReferenceLookup.TryGetValue(hashCode, out fontAsset);
+			if (m_FontAssetReferenceLookup.TryGetValue(hashCode, out fontAsset))
+			{
+				return true;
+			}
+			return false;
 		}
 
 		public static bool TryGetSpriteAsset(int hashCode, out TMP_SpriteAsset spriteAsset)
 		{
-			return MaterialReferenceManager.instance.TryGetSpriteAssetInternal(hashCode, out spriteAsset);
+			return instance.TryGetSpriteAssetInternal(hashCode, out spriteAsset);
 		}
 
-		private unsafe bool TryGetSpriteAssetInternal(int hashCode, out TMP_SpriteAsset spriteAsset)
+		private bool TryGetSpriteAssetInternal(int hashCode, out TMP_SpriteAsset spriteAsset)
 		{
 			spriteAsset = null;
-			if (this.m_SpriteAssetReferenceLookup.TryGetValue(hashCode, out spriteAsset))
+			if (m_SpriteAssetReferenceLookup.TryGetValue(hashCode, out spriteAsset))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return true;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MaterialReferenceManager.TryGetSpriteAssetInternal(int, TMP_SpriteAsset*)).MethodHandle;
-				}
-				return true;
 			}
 			return false;
 		}
 
 		public static bool TryGetMaterial(int hashCode, out Material material)
 		{
-			return MaterialReferenceManager.instance.TryGetMaterialInternal(hashCode, out material);
+			return instance.TryGetMaterialInternal(hashCode, out material);
 		}
 
 		private bool TryGetMaterialInternal(int hashCode, out Material material)
 		{
 			material = null;
-			return this.m_FontMaterialReferenceLookup.TryGetValue(hashCode, out material);
+			if (m_FontMaterialReferenceLookup.TryGetValue(hashCode, out material))
+			{
+				return true;
+			}
+			return false;
 		}
 	}
 }

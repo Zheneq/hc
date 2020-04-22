@@ -1,41 +1,38 @@
-﻿using System;
 using UnityEngine;
 
 public class GenericLocation : MonoBehaviour
 {
 	private BoardSquare m_boardSquare;
 
-	public BoardSquare boardSquare
-	{
-		get
-		{
-			return this.m_boardSquare;
-		}
-	}
+	public BoardSquare boardSquare => m_boardSquare;
 
 	public void Initialize()
 	{
-		this.m_boardSquare = Board.\u000E().\u0012(base.transform.position.x, base.transform.position.z);
+		Board board = Board.Get();
+		Vector3 position = base.transform.position;
+		float x = position.x;
+		Vector3 position2 = base.transform.position;
+		m_boardSquare = board.GetBoardSquareSafe(x, position2.z);
 	}
 
 	private void OnDrawGizmos()
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericLocation.OnDrawGizmos()).MethodHandle;
-			}
-			return;
 		}
 		Gizmos.DrawIcon(base.transform.position, "locationIcon.png");
 	}

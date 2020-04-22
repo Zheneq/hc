@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class LocalizationArg_TimeSpan : LocalizationArg
@@ -7,26 +7,25 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 
 	public static LocalizationArg_TimeSpan Create(TimeSpan span)
 	{
-		return new LocalizationArg_TimeSpan
-		{
-			m_span = span
-		};
+		LocalizationArg_TimeSpan localizationArg_TimeSpan = new LocalizationArg_TimeSpan();
+		localizationArg_TimeSpan.m_span = span;
+		return localizationArg_TimeSpan;
 	}
 
 	public override string TR()
 	{
 		string text = null;
 		int num = 0;
-		int num2;
-		string arg;
-		if (this.m_span.Days > 0)
+		string text2 = null;
+		int num2 = 0;
+		if (m_span.Days > 0)
 		{
-			num2 = this.m_span.Days;
-			num = this.m_span.Hours;
-			string text2;
-			if (this.m_span.Days == 1)
+			num = m_span.Days;
+			num2 = m_span.Hours;
+			object obj;
+			if (m_span.Days == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -35,23 +34,23 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationArg_TimeSpan.TR()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				text2 = "Day";
+				obj = "Day";
 			}
 			else
 			{
-				text2 = "Days";
+				obj = "Days";
 			}
-			arg = text2;
-			if (this.m_span.Hours > 0)
+			text = (string)obj;
+			if (m_span.Hours > 0)
 			{
-				string text3;
-				if (this.m_span.Hours == 1)
+				object obj2;
+				if (m_span.Hours == 1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -60,18 +59,18 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 						}
 						break;
 					}
-					text3 = "Hour";
+					obj2 = "Hour";
 				}
 				else
 				{
-					text3 = "Hours";
+					obj2 = "Hours";
 				}
-				text = text3;
+				text2 = (string)obj2;
 			}
 		}
-		else if (this.m_span.Hours > 0)
+		else if (m_span.Hours > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -80,12 +79,12 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 				}
 				break;
 			}
-			num2 = this.m_span.Hours;
-			num = this.m_span.Minutes;
-			string text4;
-			if (this.m_span.Hours == 1)
+			num = m_span.Hours;
+			num2 = m_span.Minutes;
+			object obj3;
+			if (m_span.Hours == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -94,16 +93,16 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 					}
 					break;
 				}
-				text4 = "Hour";
+				obj3 = "Hour";
 			}
 			else
 			{
-				text4 = "Hours";
+				obj3 = "Hours";
 			}
-			arg = text4;
-			if (this.m_span.Minutes > 0)
+			text = (string)obj3;
+			if (m_span.Minutes > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -112,10 +111,10 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 					}
 					break;
 				}
-				string text5;
-				if (this.m_span.Minutes == 1)
+				object obj4;
+				if (m_span.Minutes == 1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -124,18 +123,18 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 						}
 						break;
 					}
-					text5 = "Minute";
+					obj4 = "Minute";
 				}
 				else
 				{
-					text5 = "Minutes";
+					obj4 = "Minutes";
 				}
-				text = text5;
+				text2 = (string)obj4;
 			}
 		}
-		else if (this.m_span.Minutes > 0)
+		else if (m_span.Minutes > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -144,12 +143,12 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 				}
 				break;
 			}
-			num2 = this.m_span.Minutes;
-			num = this.m_span.Seconds;
-			string text6;
-			if (this.m_span.Minutes == 1)
+			num = m_span.Minutes;
+			num2 = m_span.Seconds;
+			object obj5;
+			if (m_span.Minutes == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -158,16 +157,16 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 					}
 					break;
 				}
-				text6 = "Minute";
+				obj5 = "Minute";
 			}
 			else
 			{
-				text6 = "Minutes";
+				obj5 = "Minutes";
 			}
-			arg = text6;
-			if (this.m_span.Seconds > 0)
+			text = (string)obj5;
+			if (m_span.Seconds > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -176,10 +175,10 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 					}
 					break;
 				}
-				string text7;
-				if (this.m_span.Seconds == 1)
+				object obj6;
+				if (m_span.Seconds == 1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -188,26 +187,26 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 						}
 						break;
 					}
-					text7 = "Second";
+					obj6 = "Second";
 				}
 				else
 				{
-					text7 = "Seconds";
+					obj6 = "Seconds";
 				}
-				text = text7;
+				text2 = (string)obj6;
 			}
 		}
 		else
 		{
-			if (this.m_span.Seconds <= 0)
+			if (m_span.Seconds <= 0)
 			{
 				return StringUtil.TR("Soon", "TimeSpanFragment");
 			}
-			num2 = this.m_span.Seconds;
-			string text8;
-			if (this.m_span.Seconds == 1)
+			num = m_span.Seconds;
+			object obj7;
+			if (m_span.Seconds == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -216,20 +215,20 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 					}
 					break;
 				}
-				text8 = "Second";
+				obj7 = "Second";
 			}
 			else
 			{
-				text8 = "Seconds";
+				obj7 = "Seconds";
 			}
-			arg = text8;
+			text = (string)obj7;
 		}
-		if (text == null)
+		if (text2 == null)
 		{
-			string term = string.Format("Just{0}", arg);
-			return string.Format(StringUtil.TR(term, "TimeSpanFragment"), num2);
+			string term = $"Just{text}";
+			return string.Format(StringUtil.TR(term, "TimeSpanFragment"), num);
 		}
-		string term2 = string.Format("{0}And{1}", arg, text);
-		return string.Format(StringUtil.TR(term2, "TimeSpanFragment"), num2, num);
+		string term2 = $"{text}And{text2}";
+		return string.Format(StringUtil.TR(term2, "TimeSpanFragment"), num, num2);
 	}
 }

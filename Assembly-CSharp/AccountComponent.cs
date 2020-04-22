@@ -1,10 +1,38 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 [Serializable]
 public class AccountComponent : ICloneable
 {
+	public enum UIStateIdentifier
+	{
+		HasResetMods = 0,
+		HasSeenTrustWarEndPopup = 1,
+		HasSeenSeasonTwoChapterTwo = 2,
+		HasSeenFactionWarSeasonTwoChapterTwo = 3,
+		TutorialOverview = 4,
+		TutorialPhases = 5,
+		TutorialMovement = 6,
+		TutorialCatalysts = 7,
+		TutorialCooldowns = 8,
+		TutorialPowerups = 9,
+		TutorialCover = 10,
+		TutorialFoW = 11,
+		TutorialRespawn = 12,
+		HasSeenSeasonTwoChapterThree = 13,
+		HasSeenSeasonTwoChapterFour = 14,
+		HasSeenSeasonTwoChapterFive = 0xF,
+		CashShopFeaturedItemsVersionViewed = 0x10,
+		NumLootMatrixesOpened = 17,
+		HasViewedFluxHighlight = 18,
+		HasViewedGGHighlight = 19,
+		NumDailiesChosen = 20,
+		HasSeenSeasonFourChapterOne = 21,
+		HasViewedFreelancerTokenHighlight = 22,
+		NONE = 10000
+	}
+
 	public Dictionary<int, int> TitleLevels;
 
 	public Dictionary<string, int> AppliedEntitlements;
@@ -15,96 +43,208 @@ public class AccountComponent : ICloneable
 
 	public string RAFReferralCode;
 
-	public AccountComponent()
+	public CharacterType LastCharacter
 	{
-		this.LastCharacter = CharacterType.Scoundrel;
-		this.LastRemoteCharacters = new List<CharacterType>();
-		this.UnlockedTitleIDs = new List<int>();
-		this.TitleLevels = new Dictionary<int, int>();
-		this.UnlockedBannerIDs = new List<int>();
-		this.UnlockedRibbonIDs = new List<int>();
-		this.UnlockedEmojiIDs = new List<int>();
-		this.UnlockedOverconIDs = new List<int>();
-		this.UnlockedLoadingScreenBackgroundIdsToActivatedState = new Dictionary<int, bool>();
-		this.NumGlobalCharacterLoadouts = 2;
-		this.SelectedTitleID = -1;
-		this.SelectedForegroundBannerID = -1;
-		this.SelectedBackgroundBannerID = -1;
-		this.SelectedRibbonID = -1;
-		this.AppliedEntitlements = new Dictionary<string, int>();
-		this.PendingPurchases = new List<PendingPurchaseDetails>();
-		this.KeyCodeMapping = new Dictionary<int, KeyCodeData>();
-		this.UIStates = new Dictionary<AccountComponent.UIStateIdentifier, int>();
-		this.RecentSoloGamesPlayed = new LeakyBucket();
-		this.RankedSortKarma = 0;
-		this.HighestRankedTierReached = new Dictionary<int, Dictionary<string, int>>();
-		this.FactionCompetitionData = new Dictionary<int, PlayerFactionCompetitionData>();
-		this.PushToTalkKeyType = 0;
-		this.PushToTalkKeyCode = 0;
-		this.PushToTalkKeyName = null;
+		get;
+		set;
 	}
 
-	public CharacterType LastCharacter { get; set; }
-
-	public List<CharacterType> LastRemoteCharacters { get; set; }
-
-	public List<int> UnlockedTitleIDs { get; set; }
-
-	public List<int> UnlockedEmojiIDs { get; set; }
-
-	public List<int> UnlockedOverconIDs { get; set; }
-
-	public List<int> UnlockedBannerIDs { get; set; }
-
-	public List<int> UnlockedRibbonIDs { get; set; }
-
-	public int SelectedTitleID { get; set; }
-
-	public int SelectedForegroundBannerID { get; set; }
-
-	public int SelectedBackgroundBannerID { get; set; }
-
-	public int SelectedRibbonID { get; set; }
-
-	public Dictionary<int, bool> UnlockedLoadingScreenBackgroundIdsToActivatedState { get; set; }
-
-	public List<PendingPurchaseDetails> PendingPurchases { get; set; }
-
-	public int NumGlobalCharacterLoadouts { get; set; }
-
-	public Dictionary<AccountComponent.UIStateIdentifier, int> UIStates { get; set; }
-
-	public int RankedSortKarma { get; set; }
-
-	public Dictionary<int, Dictionary<string, int>> HighestRankedTierReached { get; set; }
-
-	public Dictionary<int, PlayerFactionCompetitionData> FactionCompetitionData { get; set; }
-
-	public bool DisplayDevTag { get; set; }
-
-	public bool DailyQuestsAvailable { get; set; }
-
-	public CharacterType[] FreeRotationCharacters { get; set; }
-
-	public DateTime FreeRotationNextUpdateDate { get; set; }
-
-	public Dictionary<int, KeyCodeData> KeyCodeMapping { get; set; }
-
-	public int PushToTalkKeyType { get; set; }
-
-	public int PushToTalkKeyCode { get; set; }
-
-	public string PushToTalkKeyName { get; set; }
-
-	public int FreelancerExpBonusGames { get; set; }
-
-	public DateTime FreelancerExpBonusTime { get; set; }
-
-	public static bool IsUIStateTutorialVideo(AccountComponent.UIStateIdentifier state)
+	public List<CharacterType> LastRemoteCharacters
 	{
-		if (state != AccountComponent.UIStateIdentifier.TutorialCatalysts && state != AccountComponent.UIStateIdentifier.TutorialCooldowns)
+		get;
+		set;
+	}
+
+	public List<int> UnlockedTitleIDs
+	{
+		get;
+		set;
+	}
+
+	public List<int> UnlockedEmojiIDs
+	{
+		get;
+		set;
+	}
+
+	public List<int> UnlockedOverconIDs
+	{
+		get;
+		set;
+	}
+
+	public List<int> UnlockedBannerIDs
+	{
+		get;
+		set;
+	}
+
+	public List<int> UnlockedRibbonIDs
+	{
+		get;
+		set;
+	}
+
+	public int SelectedTitleID
+	{
+		get;
+		set;
+	}
+
+	public int SelectedForegroundBannerID
+	{
+		get;
+		set;
+	}
+
+	public int SelectedBackgroundBannerID
+	{
+		get;
+		set;
+	}
+
+	public int SelectedRibbonID
+	{
+		get;
+		set;
+	}
+
+	public Dictionary<int, bool> UnlockedLoadingScreenBackgroundIdsToActivatedState
+	{
+		get;
+		set;
+	}
+
+	public List<PendingPurchaseDetails> PendingPurchases
+	{
+		get;
+		set;
+	}
+
+	public int NumGlobalCharacterLoadouts
+	{
+		get;
+		set;
+	}
+
+	public Dictionary<UIStateIdentifier, int> UIStates
+	{
+		get;
+		set;
+	}
+
+	public int RankedSortKarma
+	{
+		get;
+		set;
+	}
+
+	public Dictionary<int, Dictionary<string, int>> HighestRankedTierReached
+	{
+		get;
+		set;
+	}
+
+	public Dictionary<int, PlayerFactionCompetitionData> FactionCompetitionData
+	{
+		get;
+		set;
+	}
+
+	public bool DisplayDevTag
+	{
+		get;
+		set;
+	}
+
+	public bool DailyQuestsAvailable
+	{
+		get;
+		set;
+	}
+
+	public CharacterType[] FreeRotationCharacters
+	{
+		get;
+		set;
+	}
+
+	public DateTime FreeRotationNextUpdateDate
+	{
+		get;
+		set;
+	}
+
+	public Dictionary<int, KeyCodeData> KeyCodeMapping
+	{
+		get;
+		set;
+	}
+
+	public int PushToTalkKeyType
+	{
+		get;
+		set;
+	}
+
+	public int PushToTalkKeyCode
+	{
+		get;
+		set;
+	}
+
+	public string PushToTalkKeyName
+	{
+		get;
+		set;
+	}
+
+	public int FreelancerExpBonusGames
+	{
+		get;
+		set;
+	}
+
+	public DateTime FreelancerExpBonusTime
+	{
+		get;
+		set;
+	}
+
+	public AccountComponent()
+	{
+		LastCharacter = CharacterType.Scoundrel;
+		LastRemoteCharacters = new List<CharacterType>();
+		UnlockedTitleIDs = new List<int>();
+		TitleLevels = new Dictionary<int, int>();
+		UnlockedBannerIDs = new List<int>();
+		UnlockedRibbonIDs = new List<int>();
+		UnlockedEmojiIDs = new List<int>();
+		UnlockedOverconIDs = new List<int>();
+		UnlockedLoadingScreenBackgroundIdsToActivatedState = new Dictionary<int, bool>();
+		NumGlobalCharacterLoadouts = 2;
+		SelectedTitleID = -1;
+		SelectedForegroundBannerID = -1;
+		SelectedBackgroundBannerID = -1;
+		SelectedRibbonID = -1;
+		AppliedEntitlements = new Dictionary<string, int>();
+		PendingPurchases = new List<PendingPurchaseDetails>();
+		KeyCodeMapping = new Dictionary<int, KeyCodeData>();
+		UIStates = new Dictionary<UIStateIdentifier, int>();
+		RecentSoloGamesPlayed = new LeakyBucket();
+		RankedSortKarma = 0;
+		HighestRankedTierReached = new Dictionary<int, Dictionary<string, int>>();
+		FactionCompetitionData = new Dictionary<int, PlayerFactionCompetitionData>();
+		PushToTalkKeyType = 0;
+		PushToTalkKeyCode = 0;
+		PushToTalkKeyName = null;
+	}
+
+	public static bool IsUIStateTutorialVideo(UIStateIdentifier state)
+	{
+		if (state != UIStateIdentifier.TutorialCatalysts && state != UIStateIdentifier.TutorialCooldowns)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -113,13 +253,13 @@ public class AccountComponent : ICloneable
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.IsUIStateTutorialVideo(AccountComponent.UIStateIdentifier)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (state != AccountComponent.UIStateIdentifier.TutorialCover)
+			if (state != UIStateIdentifier.TutorialCover)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -128,9 +268,9 @@ public class AccountComponent : ICloneable
 					}
 					break;
 				}
-				if (state != AccountComponent.UIStateIdentifier.TutorialFoW && state != AccountComponent.UIStateIdentifier.TutorialMovement)
+				if (state != UIStateIdentifier.TutorialFoW && state != UIStateIdentifier.TutorialMovement)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -139,9 +279,9 @@ public class AccountComponent : ICloneable
 						}
 						break;
 					}
-					if (state != AccountComponent.UIStateIdentifier.TutorialOverview && state != AccountComponent.UIStateIdentifier.TutorialPhases)
+					if (state != UIStateIdentifier.TutorialOverview && state != UIStateIdentifier.TutorialPhases)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -150,13 +290,13 @@ public class AccountComponent : ICloneable
 							}
 							break;
 						}
-						if (state != AccountComponent.UIStateIdentifier.TutorialPowerups)
+						if (state != UIStateIdentifier.TutorialPowerups)
 						{
-							if (state != AccountComponent.UIStateIdentifier.TutorialRespawn)
+							if (state != UIStateIdentifier.TutorialRespawn)
 							{
 								return false;
 							}
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -183,85 +323,83 @@ public class AccountComponent : ICloneable
 				list.Add(unlockedIDs[i]);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.ValidateExclusivityPool(GameBalanceVars.UnlockExlusivePool, List<int>)).MethodHandle;
-		}
-		if (list.Count > pool.TotalBannersAbleToBeUnlockedAtOnce)
-		{
-			for (;;)
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (list.Count <= pool.TotalBannersAbleToBeUnlockedAtOnce)
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			for (int j = 0; j < list.Count - pool.TotalBannersAbleToBeUnlockedAtOnce; j++)
-			{
-				Log.Info("Unlock Exclusivity Exceeded. Removing ID {0} from {1}", new object[]
+				for (int j = 0; j < list.Count - pool.TotalBannersAbleToBeUnlockedAtOnce; j++)
 				{
-					list[j],
-					pool.PoolType
-				});
-				unlockedIDs.Remove(list[j]);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
+					Log.Info("Unlock Exclusivity Exceeded. Removing ID {0} from {1}", list[j], pool.PoolType);
+					unlockedIDs.Remove(list[j]);
 				}
-				break;
+				while (true)
+				{
+					switch (7)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
 			}
 		}
 	}
 
 	public void ValidateSelectedBanner()
 	{
-		if (!this.UnlockedBannerIDs.Contains(this.SelectedBackgroundBannerID))
+		if (UnlockedBannerIDs.Contains(SelectedBackgroundBannerID))
 		{
-			this.SelectedBackgroundBannerID = -1;
-			for (int i = 0; i < this.UnlockedBannerIDs.Count; i++)
+			return;
+		}
+		SelectedBackgroundBannerID = -1;
+		for (int i = 0; i < UnlockedBannerIDs.Count; i++)
+		{
+			int num = UnlockedBannerIDs[i];
+			if (LobbyGameplayData.Get().GameBalanceVars.GetBanner(num).m_type != GameBalanceVars.PlayerBanner.BannerType.Background)
 			{
-				int num = this.UnlockedBannerIDs[i];
-				if (LobbyGameplayData.Get().GameBalanceVars.GetBanner(num).m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.ValidateSelectedBanner()).MethodHandle;
-					}
-					this.SelectedBackgroundBannerID = num;
-					return;
-				}
+				continue;
 			}
-			for (;;)
+			while (true)
 			{
-				switch (3)
+				switch (1)
 				{
 				case 0:
 					continue;
 				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				SelectedBackgroundBannerID = num;
+				return;
+			}
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
@@ -269,38 +407,40 @@ public class AccountComponent : ICloneable
 
 	public void ValidateSelectedEmblem()
 	{
-		if (!this.UnlockedBannerIDs.Contains(this.SelectedForegroundBannerID))
+		if (UnlockedBannerIDs.Contains(SelectedForegroundBannerID))
 		{
-			this.SelectedForegroundBannerID = -1;
-			for (int i = 0; i < this.UnlockedBannerIDs.Count; i++)
+			return;
+		}
+		SelectedForegroundBannerID = -1;
+		for (int i = 0; i < UnlockedBannerIDs.Count; i++)
+		{
+			int num = UnlockedBannerIDs[i];
+			if (LobbyGameplayData.Get().GameBalanceVars.GetBanner(num).m_type != 0)
 			{
-				int num = this.UnlockedBannerIDs[i];
-				if (LobbyGameplayData.Get().GameBalanceVars.GetBanner(num).m_type == GameBalanceVars.PlayerBanner.BannerType.Foreground)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.ValidateSelectedEmblem()).MethodHandle;
-					}
-					this.SelectedForegroundBannerID = num;
-					return;
-				}
+				continue;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				SelectedForegroundBannerID = num;
+				return;
+			}
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
@@ -308,24 +448,52 @@ public class AccountComponent : ICloneable
 
 	public void ValidateSelectedTitle()
 	{
-		if (!this.UnlockedTitleIDs.Contains(this.SelectedTitleID))
+		if (UnlockedTitleIDs.Contains(SelectedTitleID))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (UnlockedTitleIDs.Count > 0)
+			{
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (7)
+					{
+					case 0:
+						break;
+					default:
+						SelectedTitleID = UnlockedTitleIDs[0];
+						return;
+					}
 				}
-				break;
 			}
-			if (!true)
+			SelectedTitleID = -1;
+			return;
+		}
+	}
+
+	public void ValidateExclusivityPools()
+	{
+		if (LobbyGameplayData.Get() == null || LobbyGameplayData.Get().GameBalanceVars.ExclusivityPools == null)
+		{
+			return;
+		}
+		GameBalanceVars.UnlockExlusivePool[] exclusivityPools = LobbyGameplayData.Get().GameBalanceVars.ExclusivityPools;
+		foreach (GameBalanceVars.UnlockExlusivePool unlockExlusivePool in exclusivityPools)
+		{
+			if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Banner)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.ValidateSelectedTitle()).MethodHandle;
-			}
-			if (this.UnlockedTitleIDs.Count > 0)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -334,86 +502,46 @@ public class AccountComponent : ICloneable
 					}
 					break;
 				}
-				this.SelectedTitleID = this.UnlockedTitleIDs[0];
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				ValidateExclusivityPool(unlockExlusivePool, UnlockedBannerIDs);
+				ValidateSelectedBanner();
+				ValidateSelectedBanner();
 			}
-			else
+			else if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Emoticon)
 			{
-				this.SelectedTitleID = -1;
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				ValidateExclusivityPool(unlockExlusivePool, UnlockedEmojiIDs);
 			}
-		}
-	}
-
-	public void ValidateExclusivityPools()
-	{
-		if (LobbyGameplayData.Get() != null && LobbyGameplayData.Get().GameBalanceVars.ExclusivityPools != null)
-		{
-			foreach (GameBalanceVars.UnlockExlusivePool unlockExlusivePool in LobbyGameplayData.Get().GameBalanceVars.ExclusivityPools)
+			else if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Overcon)
 			{
-				if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Banner)
+				ValidateExclusivityPool(unlockExlusivePool, UnlockedOverconIDs);
+			}
+			else if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Ribbon)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (5)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.ValidateExclusivityPools()).MethodHandle;
-					}
-					this.ValidateExclusivityPool(unlockExlusivePool, this.UnlockedBannerIDs);
-					this.ValidateSelectedBanner();
-					this.ValidateSelectedBanner();
+					break;
 				}
-				else if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Emoticon)
+				ValidateExclusivityPool(unlockExlusivePool, UnlockedRibbonIDs);
+				if (!UnlockedRibbonIDs.Contains(SelectedRibbonID))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.ValidateExclusivityPool(unlockExlusivePool, this.UnlockedEmojiIDs);
-				}
-				else if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Overcon)
-				{
-					this.ValidateExclusivityPool(unlockExlusivePool, this.UnlockedOverconIDs);
-				}
-				else if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Ribbon)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.ValidateExclusivityPool(unlockExlusivePool, this.UnlockedRibbonIDs);
-					if (!this.UnlockedRibbonIDs.Contains(this.SelectedRibbonID))
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.SelectedRibbonID = -1;
-					}
-				}
-				else if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Title)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -422,20 +550,37 @@ public class AccountComponent : ICloneable
 						}
 						break;
 					}
-					this.ValidateExclusivityPool(unlockExlusivePool, this.UnlockedTitleIDs);
-					if (!this.UnlockedTitleIDs.Contains(this.SelectedTitleID))
+					SelectedRibbonID = -1;
+				}
+			}
+			else
+			{
+				if (unlockExlusivePool.PoolType != GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Title)
+				{
+					continue;
+				}
+				while (true)
+				{
+					switch (2)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.SelectedTitleID = -1;
+					case 0:
+						continue;
 					}
+					break;
+				}
+				ValidateExclusivityPool(unlockExlusivePool, UnlockedTitleIDs);
+				if (!UnlockedTitleIDs.Contains(SelectedTitleID))
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					SelectedTitleID = -1;
 				}
 			}
 		}
@@ -451,111 +596,129 @@ public class AccountComponent : ICloneable
 				list.Add(unlockedIDs[i]);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.ClearAllItemsInExclusivityPool(GameBalanceVars.UnlockExlusivePool, List<int>)).MethodHandle;
-		}
-		for (int j = 0; j < list.Count; j++)
-		{
-			Log.Info("Clearing Exclusivity Poos. Removing ID {0} from {1}", new object[]
+			if (1 == 0)
 			{
-				list[j],
-				pool.PoolType
-			});
-			unlockedIDs.Remove(list[j]);
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			for (int j = 0; j < list.Count; j++)
+			{
+				Log.Info("Clearing Exclusivity Poos. Removing ID {0} from {1}", list[j], pool.PoolType);
+				unlockedIDs.Remove(list[j]);
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
 		}
-		for (;;)
+	}
+
+	public void ClearAllItemsInExclusivityPool(string clearPoolName)
+	{
+		if (LobbyGameplayData.Get() == null)
+		{
+			return;
+		}
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-	}
-
-	public void ClearAllItemsInExclusivityPool(string clearPoolName)
-	{
-		if (LobbyGameplayData.Get() != null)
-		{
-			for (;;)
+			if (1 == 0)
 			{
-				switch (4)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (LobbyGameplayData.Get().GameBalanceVars.ExclusivityPools == null)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.ClearAllItemsInExclusivityPool(string)).MethodHandle;
-			}
-			if (LobbyGameplayData.Get().GameBalanceVars.ExclusivityPools != null)
-			{
-				for (;;)
+				GameBalanceVars.UnlockExlusivePool[] exclusivityPools = LobbyGameplayData.Get().GameBalanceVars.ExclusivityPools;
+				foreach (GameBalanceVars.UnlockExlusivePool unlockExlusivePool in exclusivityPools)
 				{
-					switch (6)
+					if (!(unlockExlusivePool.PoolName == clearPoolName))
 					{
-					case 0:
 						continue;
 					}
-					break;
-				}
-				foreach (GameBalanceVars.UnlockExlusivePool unlockExlusivePool in LobbyGameplayData.Get().GameBalanceVars.ExclusivityPools)
-				{
-					if (unlockExlusivePool.PoolName == clearPoolName)
+					while (true)
 					{
-						for (;;)
+						switch (2)
 						{
-							switch (2)
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Banner)
+					{
+						while (true)
+						{
+							switch (5)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Banner)
+						ClearAllItemsInExclusivityPool(unlockExlusivePool, UnlockedBannerIDs);
+						ValidateSelectedBanner();
+						ValidateSelectedBanner();
+						continue;
+					}
+					if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Emoticon)
+					{
+						while (true)
 						{
-							for (;;)
+							switch (5)
 							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
+							case 0:
+								continue;
 							}
-							this.ClearAllItemsInExclusivityPool(unlockExlusivePool, this.UnlockedBannerIDs);
-							this.ValidateSelectedBanner();
-							this.ValidateSelectedBanner();
+							break;
 						}
-						else if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Emoticon)
+						ClearAllItemsInExclusivityPool(unlockExlusivePool, UnlockedEmojiIDs);
+						continue;
+					}
+					if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Overcon)
+					{
+						while (true)
 						{
-							for (;;)
+							switch (7)
 							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
+							case 0:
+								continue;
 							}
-							this.ClearAllItemsInExclusivityPool(unlockExlusivePool, this.UnlockedEmojiIDs);
+							break;
 						}
-						else if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Overcon)
+						ClearAllItemsInExclusivityPool(unlockExlusivePool, UnlockedOverconIDs);
+						continue;
+					}
+					if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Ribbon)
+					{
+						ClearAllItemsInExclusivityPool(unlockExlusivePool, UnlockedRibbonIDs);
+						if (!UnlockedRibbonIDs.Contains(SelectedRibbonID))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -564,61 +727,47 @@ public class AccountComponent : ICloneable
 								}
 								break;
 							}
-							this.ClearAllItemsInExclusivityPool(unlockExlusivePool, this.UnlockedOverconIDs);
+							SelectedRibbonID = -1;
 						}
-						else if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Ribbon)
+						continue;
+					}
+					if (unlockExlusivePool.PoolType != GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Title)
+					{
+						continue;
+					}
+					while (true)
+					{
+						switch (3)
 						{
-							this.ClearAllItemsInExclusivityPool(unlockExlusivePool, this.UnlockedRibbonIDs);
-							if (!this.UnlockedRibbonIDs.Contains(this.SelectedRibbonID))
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.SelectedRibbonID = -1;
-							}
+						case 0:
+							continue;
 						}
-						else if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Title)
+						break;
+					}
+					ClearAllItemsInExclusivityPool(unlockExlusivePool, UnlockedTitleIDs);
+					if (!UnlockedTitleIDs.Contains(SelectedTitleID))
+					{
+						while (true)
 						{
-							for (;;)
+							switch (5)
 							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
+							case 0:
+								continue;
 							}
-							this.ClearAllItemsInExclusivityPool(unlockExlusivePool, this.UnlockedTitleIDs);
-							if (!this.UnlockedTitleIDs.Contains(this.SelectedTitleID))
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.SelectedTitleID = -1;
-							}
+							break;
 						}
+						SelectedTitleID = -1;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}
@@ -626,33 +775,33 @@ public class AccountComponent : ICloneable
 
 	public PlayerFactionCompetitionData GetPlayerCompetitionData(int competitionID)
 	{
-		if (this.FactionCompetitionData.ContainsKey(competitionID))
+		if (FactionCompetitionData.ContainsKey(competitionID))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return FactionCompetitionData[competitionID];
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.GetPlayerCompetitionData(int)).MethodHandle;
-			}
-			return this.FactionCompetitionData[competitionID];
 		}
 		PlayerFactionCompetitionData playerFactionCompetitionData = new PlayerFactionCompetitionData();
 		playerFactionCompetitionData.CompetitionID = competitionID;
 		playerFactionCompetitionData.Factions = new Dictionary<int, FactionPlayerData>();
-		this.FactionCompetitionData[competitionID] = playerFactionCompetitionData;
+		FactionCompetitionData[competitionID] = playerFactionCompetitionData;
 		return playerFactionCompetitionData;
 	}
 
 	public FactionPlayerData GetPlayerCompetitionFactionData(int competitionID, int factionID)
 	{
-		PlayerFactionCompetitionData playerCompetitionData = this.GetPlayerCompetitionData(competitionID);
+		PlayerFactionCompetitionData playerCompetitionData = GetPlayerCompetitionData(competitionID);
 		if (playerCompetitionData.Factions.ContainsKey(factionID))
 		{
 			return playerCompetitionData.Factions[factionID];
@@ -666,65 +815,65 @@ public class AccountComponent : ICloneable
 
 	public int GetAppliedEntitlementCount(string entitlement)
 	{
-		if (this.AppliedEntitlements.ContainsKey(entitlement))
+		if (AppliedEntitlements.ContainsKey(entitlement))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return AppliedEntitlements[entitlement];
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.GetAppliedEntitlementCount(string)).MethodHandle;
-			}
-			return this.AppliedEntitlements[entitlement];
 		}
 		return 0;
 	}
 
 	public int GetHighestRankedTierReached(int seasonIndex, string eloKey)
 	{
-		if (!this.HighestRankedTierReached.ContainsKey(seasonIndex) || !this.HighestRankedTierReached[seasonIndex].ContainsKey(eloKey))
+		if (!HighestRankedTierReached.ContainsKey(seasonIndex) || !HighestRankedTierReached[seasonIndex].ContainsKey(eloKey))
 		{
 			return -1;
 		}
-		return this.HighestRankedTierReached[seasonIndex][eloKey];
+		return HighestRankedTierReached[seasonIndex][eloKey];
 	}
 
 	public void SetHighestRankedTierReached(int seasonIndex, string eloKey, int newTier)
 	{
-		if (!this.HighestRankedTierReached.ContainsKey(seasonIndex))
+		if (!HighestRankedTierReached.ContainsKey(seasonIndex))
 		{
-			this.HighestRankedTierReached[seasonIndex] = new Dictionary<string, int>();
+			HighestRankedTierReached[seasonIndex] = new Dictionary<string, int>();
 		}
-		this.HighestRankedTierReached[seasonIndex][eloKey] = newTier;
+		HighestRankedTierReached[seasonIndex][eloKey] = newTier;
 	}
 
 	public void IncrementAppliedEntitlementCount(string entitlement, int quantity = 1)
 	{
-		this.AppliedEntitlements[entitlement] = this.GetAppliedEntitlementCount(entitlement) + quantity;
+		AppliedEntitlements[entitlement] = GetAppliedEntitlementCount(entitlement) + quantity;
 	}
 
 	public bool IsTitleUnlocked(int titleId)
 	{
-		return this.UnlockedTitleIDs.Contains(titleId);
+		return UnlockedTitleIDs.Contains(titleId);
 	}
 
 	public bool IsTitleUnlocked(GameBalanceVars.PlayerTitle title)
 	{
-		return this.UnlockedTitleIDs.Contains(title.ID);
+		return UnlockedTitleIDs.Contains(title.ID);
 	}
 
 	public int GetCurrentTitleLevel(int titleId)
 	{
 		int result = 1;
-		if (this.TitleLevels != null)
+		if (TitleLevels != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -733,13 +882,13 @@ public class AccountComponent : ICloneable
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.GetCurrentTitleLevel(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.TitleLevels.ContainsKey(titleId))
+			if (TitleLevels.ContainsKey(titleId))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -748,7 +897,7 @@ public class AccountComponent : ICloneable
 					}
 					break;
 				}
-				result = this.TitleLevels[titleId];
+				result = TitleLevels[titleId];
 			}
 		}
 		return result;
@@ -756,103 +905,102 @@ public class AccountComponent : ICloneable
 
 	public bool IsChatEmojiUnlocked(int emojiID)
 	{
-		return this.UnlockedEmojiIDs.Contains(emojiID);
+		return UnlockedEmojiIDs.Contains(emojiID);
 	}
 
 	public bool IsChatEmojiUnlocked(GameBalanceVars.ChatEmoticon emoji)
 	{
-		return this.UnlockedEmojiIDs.Contains(emoji.ID);
+		return UnlockedEmojiIDs.Contains(emoji.ID);
 	}
 
 	public bool IsOverconUnlocked(int overconID)
 	{
-		return this.UnlockedOverconIDs.Contains(overconID);
+		return UnlockedOverconIDs.Contains(overconID);
 	}
 
 	public bool IsBannerUnlocked(int bannerId)
 	{
-		return this.UnlockedBannerIDs.Contains(bannerId);
+		return UnlockedBannerIDs.Contains(bannerId);
 	}
 
 	public bool IsBannerUnlocked(GameBalanceVars.PlayerBanner banner)
 	{
-		return this.UnlockedBannerIDs.Contains(banner.ID);
+		return UnlockedBannerIDs.Contains(banner.ID);
 	}
 
 	public bool IsRibbonUnlocked(int ribbonId)
 	{
-		return this.UnlockedRibbonIDs.Contains(ribbonId);
+		return UnlockedRibbonIDs.Contains(ribbonId);
 	}
 
 	public bool IsRibbonUnlocked(GameBalanceVars.PlayerRibbon ribbon)
 	{
-		return this.UnlockedRibbonIDs.Contains(ribbon.ID);
+		return UnlockedRibbonIDs.Contains(ribbon.ID);
 	}
 
 	public bool IsLoadingScreenBackgroundUnlocked(int loadingScreenBackgroundId)
 	{
-		return this.UnlockedLoadingScreenBackgroundIdsToActivatedState.ContainsKey(loadingScreenBackgroundId);
+		return UnlockedLoadingScreenBackgroundIdsToActivatedState.ContainsKey(loadingScreenBackgroundId);
 	}
 
 	public bool IsLoadingScreenBackgroundActive(int loadingScreenBackgroundId)
 	{
-		bool result;
-		this.UnlockedLoadingScreenBackgroundIdsToActivatedState.TryGetValue(loadingScreenBackgroundId, out result);
-		return result;
+		UnlockedLoadingScreenBackgroundIdsToActivatedState.TryGetValue(loadingScreenBackgroundId, out bool value);
+		return value;
 	}
 
 	public bool ToggleLoadingScreenBackgroundActive(int loadingScreenBackgroundId, bool newState)
 	{
-		if (!this.IsLoadingScreenBackgroundUnlocked(loadingScreenBackgroundId))
+		if (!IsLoadingScreenBackgroundUnlocked(loadingScreenBackgroundId))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.ToggleLoadingScreenBackgroundActive(int, bool)).MethodHandle;
-			}
-			return false;
 		}
-		this.UnlockedLoadingScreenBackgroundIdsToActivatedState[loadingScreenBackgroundId] = newState;
+		UnlockedLoadingScreenBackgroundIdsToActivatedState[loadingScreenBackgroundId] = newState;
 		return true;
 	}
 
 	public bool UnlockLoadingScreenBackground(int loadingScreenBackgroundId)
 	{
-		if (this.IsLoadingScreenBackgroundUnlocked(loadingScreenBackgroundId))
+		if (IsLoadingScreenBackgroundUnlocked(loadingScreenBackgroundId))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.UnlockLoadingScreenBackground(int)).MethodHandle;
-			}
-			return false;
 		}
-		this.UnlockedLoadingScreenBackgroundIdsToActivatedState[loadingScreenBackgroundId] = true;
+		UnlockedLoadingScreenBackgroundIdsToActivatedState[loadingScreenBackgroundId] = true;
 		return true;
 	}
 
 	public bool IsCharacterInFreeRotation(CharacterType characterType)
 	{
-		bool result;
-		if (this.FreeRotationCharacters != null)
+		int result;
+		if (FreeRotationCharacters != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -861,84 +1009,56 @@ public class AccountComponent : ICloneable
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.IsCharacterInFreeRotation(CharacterType)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.FreeRotationCharacters.Contains(characterType);
+			result = (FreeRotationCharacters.Contains(characterType) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
-	public int GetUIState(AccountComponent.UIStateIdentifier uiState)
+	public int GetUIState(UIStateIdentifier uiState)
 	{
-		if (uiState == AccountComponent.UIStateIdentifier.NONE)
+		if (uiState == UIStateIdentifier.NONE)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					throw new Exception("UI State not specified!");
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AccountComponent.GetUIState(AccountComponent.UIStateIdentifier)).MethodHandle;
-			}
-			throw new Exception("UI State not specified!");
 		}
-		if (this.UIStates.ContainsKey(uiState))
+		if (UIStates.ContainsKey(uiState))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return UIStates[uiState];
 				}
-				break;
 			}
-			return this.UIStates[uiState];
 		}
 		return 0;
 	}
 
 	public object Clone()
 	{
-		return base.MemberwiseClone();
-	}
-
-	public enum UIStateIdentifier
-	{
-		HasResetMods,
-		HasSeenTrustWarEndPopup,
-		HasSeenSeasonTwoChapterTwo,
-		HasSeenFactionWarSeasonTwoChapterTwo,
-		TutorialOverview,
-		TutorialPhases,
-		TutorialMovement,
-		TutorialCatalysts,
-		TutorialCooldowns,
-		TutorialPowerups,
-		TutorialCover,
-		TutorialFoW,
-		TutorialRespawn,
-		HasSeenSeasonTwoChapterThree,
-		HasSeenSeasonTwoChapterFour,
-		HasSeenSeasonTwoChapterFive,
-		CashShopFeaturedItemsVersionViewed,
-		NumLootMatrixesOpened,
-		HasViewedFluxHighlight,
-		HasViewedGGHighlight,
-		NumDailiesChosen,
-		HasSeenSeasonFourChapterOne,
-		HasViewedFreelancerTokenHighlight,
-		NONE = 0x2710
+		return MemberwiseClone();
 	}
 }

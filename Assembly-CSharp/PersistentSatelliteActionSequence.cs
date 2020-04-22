@@ -1,18 +1,24 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PersistentSatelliteActionSequence : Sequence
 {
-	public PersistentSatelliteActionSequence.SatelliteAction m_action;
+	public enum SatelliteAction
+	{
+		Move,
+		Attack,
+		AltMove
+	}
+
+	public SatelliteAction m_action;
 
 	public int m_satelliteIndex;
 
 	[AnimEventPicker]
-	public UnityEngine.Object m_startActionEvent;
+	public Object m_startActionEvent;
 
 	[AnimEventPicker]
-	public UnityEngine.Object m_hitEvent;
+	public Object m_hitEvent;
 
 	public bool m_updateFogOfWarOnMovement;
 
@@ -34,33 +40,34 @@ public class PersistentSatelliteActionSequence : Sequence
 
 	public override void FinishSetup()
 	{
-		if (this.m_startActionEvent == null)
+		if (!(m_startActionEvent == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteActionSequence.FinishSetup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.ProcessAction();
+			ProcessAction();
+			return;
 		}
 	}
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
 		base.Initialize(extraParams);
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			if (extraSequenceParams is Sequence.GenericActorListParam)
+			if (extraSequenceParams is GenericActorListParam)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -69,83 +76,70 @@ public class PersistentSatelliteActionSequence : Sequence
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteActionSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				Sequence.GenericActorListParam genericActorListParam = extraSequenceParams as Sequence.GenericActorListParam;
-				this.m_actorToHitOnMoveEnd.AddRange(genericActorListParam.m_actors);
+				GenericActorListParam genericActorListParam = extraSequenceParams as GenericActorListParam;
+				m_actorToHitOnMoveEnd.AddRange(genericActorListParam.m_actors);
 			}
 		}
 	}
 
 	private bool Finished()
 	{
-		return this.m_hitDestination;
+		return m_hitDestination;
 	}
 
 	private void ProcessAction()
 	{
-		if (!this.m_processedAction)
+		if (m_processedAction)
 		{
-			this.m_processedAction = true;
-			SatelliteController component = base.Caster.GetComponent<SatelliteController>();
-			if (component != null)
+			return;
+		}
+		m_processedAction = true;
+		SatelliteController component = base.Caster.GetComponent<SatelliteController>();
+		if (!(component != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				for (;;)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_persistentSatellite = component.GetSatellite(m_satelliteIndex);
+			if (!(m_persistentSatellite != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (m_action == SatelliteAction.Attack)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteActionSequence.ProcessAction()).MethodHandle;
-				}
-				this.m_persistentSatellite = component.GetSatellite(this.m_satelliteIndex);
-				if (this.m_persistentSatellite != null)
-				{
-					for (;;)
+					while (true)
 					{
-						switch (7)
+						switch (2)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (this.m_action == PersistentSatelliteActionSequence.SatelliteAction.Attack)
+					if (base.Target != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (base.Target != null)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_persistentSatellite.TriggerAttack(base.Target.gameObject);
-							goto IL_109;
-						}
-					}
-					if (this.m_action == PersistentSatelliteActionSequence.SatelliteAction.Move)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -154,33 +148,89 @@ public class PersistentSatelliteActionSequence : Sequence
 							}
 							break;
 						}
-						this.m_persistentSatellite.MoveToPosition(base.TargetPos, PersistentSatellite.SatelliteMoveStartType.Normal);
+						m_persistentSatellite.TriggerAttack(base.Target.gameObject);
+						goto IL_0109;
 					}
-					else if (this.m_action == PersistentSatelliteActionSequence.SatelliteAction.AltMove)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_persistentSatellite.AltMoveToPosition(base.TargetPos);
-					}
-					IL_109:
-					this.m_lastBoardSquare = Board.\u000E().\u000E(this.m_persistentSatellite.transform.position);
 				}
+				if (m_action == SatelliteAction.Move)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_persistentSatellite.MoveToPosition(base.TargetPos);
+				}
+				else if (m_action == SatelliteAction.AltMove)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_persistentSatellite.AltMoveToPosition(base.TargetPos);
+				}
+				goto IL_0109;
+				IL_0109:
+				m_lastBoardSquare = Board.Get().GetBoardSquare(m_persistentSatellite.transform.position);
+				return;
 			}
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (parameter == this.m_startActionEvent)
+		if (parameter == m_startActionEvent)
 		{
-			for (;;)
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					ProcessAction();
+					return;
+				}
+			}
+		}
+		if (!(parameter == m_hitEvent))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			HandleOnDestinationHits();
+			return;
+		}
+	}
+
+	private void HandleOnDestinationAudio()
+	{
+		if (m_handledAudioEventOnMoveFinish)
+		{
+			return;
+		}
+		if (!string.IsNullOrEmpty(m_audioEventOnMoveFinish))
+		{
+			while (true)
 			{
 				switch (5)
 				{
@@ -189,133 +239,97 @@ public class PersistentSatelliteActionSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteActionSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.ProcessAction();
-		}
-		else if (parameter == this.m_hitEvent)
-		{
-			for (;;)
+			string audioEventOnMoveFinish = m_audioEventOnMoveFinish;
+			object parentGameObject;
+			if ((bool)base.Caster)
 			{
-				switch (7)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.HandleOnDestinationHits();
-		}
-	}
-
-	private void HandleOnDestinationAudio()
-	{
-		if (!this.m_handledAudioEventOnMoveFinish)
-		{
-			if (!string.IsNullOrEmpty(this.m_audioEventOnMoveFinish))
-			{
-				for (;;)
-				{
-					switch (5)
+					switch (1)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteActionSequence.HandleOnDestinationAudio()).MethodHandle;
-				}
-				string audioEventOnMoveFinish = this.m_audioEventOnMoveFinish;
-				GameObject parentGameObject;
-				if (base.Caster)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					parentGameObject = base.Caster.gameObject;
-				}
-				else
-				{
-					parentGameObject = null;
-				}
-				AudioManager.PostEvent(audioEventOnMoveFinish, parentGameObject);
+				parentGameObject = base.Caster.gameObject;
 			}
-			this.m_handledAudioEventOnMoveFinish = true;
+			else
+			{
+				parentGameObject = null;
+			}
+			AudioManager.PostEvent(audioEventOnMoveFinish, (GameObject)parentGameObject);
 		}
+		m_handledAudioEventOnMoveFinish = true;
 	}
 
 	private void HandleOnDestinationHits()
 	{
-		if (!this.m_hitDestination)
+		if (m_hitDestination)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteActionSequence.HandleOnDestinationHits()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(0f, base.TargetPos);
 			base.Source.OnSequenceHit(this, base.TargetPos, impulseInfo);
-			if (this.m_actorToHitOnMoveEnd != null)
+			if (m_actorToHitOnMoveEnd != null)
 			{
-				foreach (ActorData target in this.m_actorToHitOnMoveEnd)
+				foreach (ActorData item in m_actorToHitOnMoveEnd)
 				{
-					base.Source.OnSequenceHit(this, target, null, ActorModelData.RagdollActivation.HealthBased, true);
+					base.Source.OnSequenceHit(this, item, null);
 				}
 			}
-			this.m_hitDestination = true;
-			this.HandleOnDestinationAudio();
+			m_hitDestination = true;
+			HandleOnDestinationAudio();
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_processedAction)
+		if (!m_processedAction)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(m_persistentSatellite != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteActionSequence.Update()).MethodHandle;
-			}
-			if (this.m_persistentSatellite != null)
-			{
-				for (;;)
+				if (m_action != 0)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_action != PersistentSatelliteActionSequence.SatelliteAction.Move)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -324,11 +338,11 @@ public class PersistentSatelliteActionSequence : Sequence
 						}
 						break;
 					}
-					if (this.m_action != PersistentSatelliteActionSequence.SatelliteAction.AltMove)
+					if (m_action != SatelliteAction.AltMove)
 					{
 						return;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -338,20 +352,20 @@ public class PersistentSatelliteActionSequence : Sequence
 						break;
 					}
 				}
-				if (!this.m_hitDestination)
+				if (m_hitDestination)
 				{
-					for (;;)
+					return;
+				}
+				while (true)
+				{
+					switch (7)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (!this.m_persistentSatellite.IsMoving())
+					if (!m_persistentSatellite.IsMoving())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -360,9 +374,9 @@ public class PersistentSatelliteActionSequence : Sequence
 							}
 							break;
 						}
-						if (this.m_hitEvent == null)
+						if (m_hitEvent == null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -371,36 +385,30 @@ public class PersistentSatelliteActionSequence : Sequence
 								}
 								break;
 							}
-							this.HandleOnDestinationHits();
+							HandleOnDestinationHits();
 						}
 					}
-					if (this.m_updateFogOfWarOnMovement)
+					if (!m_updateFogOfWarOnMovement)
 					{
-						for (;;)
+						return;
+					}
+					while (true)
+					{
+						switch (3)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
+						case 0:
+							continue;
 						}
-						BoardSquare boardSquare = Board.\u000E().\u000E(this.m_persistentSatellite.transform.position);
-						if (boardSquare != this.m_lastBoardSquare)
+						BoardSquare boardSquare = Board.Get().GetBoardSquare(m_persistentSatellite.transform.position);
+						if (boardSquare != m_lastBoardSquare)
 						{
-							base.Caster.\u000E().MarkForRecalculateVisibility();
-							this.m_lastBoardSquare = boardSquare;
+							base.Caster.GetFogOfWar().MarkForRecalculateVisibility();
+							m_lastBoardSquare = boardSquare;
 						}
+						return;
 					}
 				}
 			}
 		}
-	}
-
-	public enum SatelliteAction
-	{
-		Move,
-		Attack,
-		AltMove
 	}
 }

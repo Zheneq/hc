@@ -1,12 +1,11 @@
-﻿using System;
-
 public static class GameResultExtensions
 {
 	public static bool IsCompletedResult(this GameResult value)
 	{
+		int result;
 		if (value != GameResult.TieGame)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -15,13 +14,13 @@ public static class GameResultExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameResult.IsCompletedResult()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (value != GameResult.TeamAWon)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -30,17 +29,22 @@ public static class GameResultExtensions
 					}
 					break;
 				}
-				return value == GameResult.TeamBWon;
+				result = ((value == GameResult.TeamBWon) ? 1 : 0);
+				goto IL_002c;
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_002c;
+		IL_002c:
+		return (byte)result != 0;
 	}
 
 	public static bool IsConnectionErrorResult(this GameResult gameResult)
 	{
+		int result;
 		if (gameResult != GameResult.ClientConnectionFailedToLobbyServer)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -49,13 +53,13 @@ public static class GameResultExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameResult.IsConnectionErrorResult()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (gameResult != GameResult.ClientConnectionFailedToGameServer)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -66,7 +70,7 @@ public static class GameResultExtensions
 				}
 				if (gameResult != GameResult.ClientNetworkErrorToLobbyServer && gameResult != GameResult.ClientNetworkErrorToGameServer)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -77,7 +81,7 @@ public static class GameResultExtensions
 					}
 					if (gameResult != GameResult.ClientHeartbeatTimeoutToLobbyServer)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -88,7 +92,7 @@ public static class GameResultExtensions
 						}
 						if (gameResult != GameResult.ClientHeartbeatTimeoutToGameServer)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -99,7 +103,7 @@ public static class GameResultExtensions
 							}
 							if (gameResult != GameResult.ClientLoginFailedToLobbyServer && gameResult != GameResult.ClientLoginFailedToGameServer)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
@@ -110,7 +114,7 @@ public static class GameResultExtensions
 								}
 								if (gameResult != GameResult.LobbyServerNetworkErrorToClient)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (2)
 										{
@@ -121,7 +125,7 @@ public static class GameResultExtensions
 									}
 									if (gameResult != GameResult.LobbyServerHeartbeatTimeoutToClient && gameResult != GameResult.GameServerNetworkErrorToClient)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (5)
 											{
@@ -130,7 +134,8 @@ public static class GameResultExtensions
 											}
 											break;
 										}
-										return gameResult == GameResult.GameServerHeartbeatTimeoutToClient;
+										result = ((gameResult == GameResult.GameServerHeartbeatTimeoutToClient) ? 1 : 0);
+										goto IL_00a1;
 									}
 								}
 							}
@@ -139,7 +144,10 @@ public static class GameResultExtensions
 				}
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_00a1;
+		IL_00a1:
+		return (byte)result != 0;
 	}
 
 	public static string GetErrorMessage(this GameResult gameResult)
@@ -183,7 +191,7 @@ public static class GameResultExtensions
 		GameResult result = GameResult.NoResult;
 		if (gameResultString.EqualsIgnoreCase("win"))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -192,14 +200,14 @@ public static class GameResultExtensions
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameResultExtensions.Parse(string, Team)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			GameResult gameResult;
+			int num;
 			if (selfTeam == Team.TeamA)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -208,20 +216,20 @@ public static class GameResultExtensions
 					}
 					break;
 				}
-				gameResult = GameResult.TeamAWon;
+				num = 2;
 			}
 			else
 			{
-				gameResult = GameResult.TeamBWon;
+				num = 3;
 			}
-			result = gameResult;
+			result = (GameResult)num;
 		}
 		else if (gameResultString.EqualsIgnoreCase("loss"))
 		{
-			GameResult gameResult2;
+			int num2;
 			if (selfTeam == Team.TeamA)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -230,13 +238,13 @@ public static class GameResultExtensions
 					}
 					break;
 				}
-				gameResult2 = GameResult.TeamBWon;
+				num2 = 3;
 			}
 			else
 			{
-				gameResult2 = GameResult.TeamAWon;
+				num2 = 2;
 			}
-			result = gameResult2;
+			result = (GameResult)num2;
 		}
 		else if (gameResultString.EqualsIgnoreCase("tie"))
 		{

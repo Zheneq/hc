@@ -1,5 +1,3 @@
-﻿using System;
-
 public interface IDataEntry
 {
 	int GetPrefabIndexToDisplay();

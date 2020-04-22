@@ -1,11 +1,17 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BazookaGirlStickyBomb : Ability
 {
+	public enum TargeterType
+	{
+		Shape,
+		Laser,
+		Cone
+	}
+
 	[Header("-- Targeting")]
-	public BazookaGirlStickyBomb.TargeterType m_targeterType = BazookaGirlStickyBomb.TargeterType.Laser;
+	public TargeterType m_targeterType = TargeterType.Laser;
 
 	public bool m_targeterPenetrateLos;
 
@@ -37,9 +43,9 @@ public class BazookaGirlStickyBomb : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -48,41 +54,42 @@ public class BazookaGirlStickyBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlStickyBomb.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Sticky Bomb";
+			m_abilityName = "Sticky Bomb";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		if (this.m_targeterType == BazookaGirlStickyBomb.TargeterType.Laser)
+		if (m_targeterType == TargeterType.Laser)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					base.Targeter = new AbilityUtil_Targeter_Laser(this, m_laserWidth, m_laserRange, m_targeterPenetrateLos, m_maxTargets);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlStickyBomb.SetupTargeter()).MethodHandle;
-			}
-			base.Targeter = new AbilityUtil_Targeter_Laser(this, this.m_laserWidth, this.m_laserRange, this.m_targeterPenetrateLos, this.m_maxTargets, false, false);
 		}
-		else if (this.m_targeterType == BazookaGirlStickyBomb.TargeterType.Shape)
+		if (m_targeterType == TargeterType.Shape)
 		{
-			base.Targeter = new AbilityUtil_Targeter_Shape(this, this.m_targeterShape, this.m_targeterPenetrateLos, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
+			base.Targeter = new AbilityUtil_Targeter_Shape(this, m_targeterShape, m_targeterPenetrateLos);
 		}
 		else
 		{
-			base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, this.m_coneWidthAngle, this.m_coneLength, 0f, this.m_targeterPenetrateLos, true, true, false, false, -1, false);
+			base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, m_coneWidthAngle, m_coneLength, 0f, m_targeterPenetrateLos, true);
 		}
 	}
 
@@ -93,15 +100,15 @@ public class BazookaGirlStickyBomb : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.m_coneLength;
+		return m_coneLength;
 	}
 
 	public int GetEnergyGainOnCastPerEnemyHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -110,34 +117,34 @@ public class BazookaGirlStickyBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlStickyBomb.GetEnergyGainOnCastPerEnemyHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_energyGainOnCastPerEnemyHitMod.GetModifiedValue(this.m_energyGainOnCastPerEnemyHit);
+			result = m_abilityMod.m_energyGainOnCastPerEnemyHitMod.GetModifiedValue(m_energyGainOnCastPerEnemyHit);
 		}
 		else
 		{
-			result = this.m_energyGainOnCastPerEnemyHit;
+			result = m_energyGainOnCastPerEnemyHit;
 		}
 		return result;
 	}
 
 	private StandardEffectInfo GetEnemyOnCastHitEffect()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_enemyOnCastHitEffectOverride.GetModifiedValue(this.m_enemyOnCastHitEffect) : this.m_enemyOnCastHitEffect;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_enemyOnCastHitEffectOverride.GetModifiedValue(m_enemyOnCastHitEffect) : m_enemyOnCastHitEffect;
 	}
 
 	private bool HasCooldownModification()
 	{
-		bool result;
-		if (this.m_abilityMod == null)
+		int result;
+		if (m_abilityMod == null)
 		{
-			result = false;
+			result = 0;
 		}
-		else if (this.m_abilityMod.m_cooldownModOnAction != AbilityData.ActionType.INVALID_ACTION)
+		else if (m_abilityMod.m_cooldownModOnAction != AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -146,36 +153,35 @@ public class BazookaGirlStickyBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlStickyBomb.HasCooldownModification()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (this.m_abilityMod.m_cooldownAddAmount != 0);
+			result = ((m_abilityMod.m_cooldownAddAmount != 0) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_bombInfo.damageAmount);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_bombInfo.damageAmount);
+		return numbers;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		AbilityMod_BazookaGirlStickyBomb abilityMod = this.m_abilityMod;
-		base.AddTokenInt(tokens, "Damage", string.Empty, this.m_bombInfo.damageAmount, false);
-		string name = "EnergyGainOnCastPerEnemyHit";
+		AbilityMod_BazookaGirlStickyBomb abilityMod = m_abilityMod;
+		AddTokenInt(tokens, "Damage", string.Empty, m_bombInfo.damageAmount);
 		string empty = string.Empty;
 		int val;
-		if (abilityMod)
+		if ((bool)abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -184,21 +190,21 @@ public class BazookaGirlStickyBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlStickyBomb.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod.m_energyGainOnCastPerEnemyHitMod.GetModifiedValue(this.m_energyGainOnCastPerEnemyHit);
+			val = abilityMod.m_energyGainOnCastPerEnemyHitMod.GetModifiedValue(m_energyGainOnCastPerEnemyHit);
 		}
 		else
 		{
-			val = this.m_energyGainOnCastPerEnemyHit;
+			val = m_energyGainOnCastPerEnemyHit;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
+		AddTokenInt(tokens, "EnergyGainOnCastPerEnemyHit", empty, val);
 		StandardEffectInfo effectInfo;
-		if (abilityMod)
+		if ((bool)abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -207,20 +213,20 @@ public class BazookaGirlStickyBomb : Ability
 				}
 				break;
 			}
-			effectInfo = abilityMod.m_enemyOnCastHitEffectOverride.GetModifiedValue(this.m_enemyOnCastHitEffect);
+			effectInfo = abilityMod.m_enemyOnCastHitEffectOverride.GetModifiedValue(m_enemyOnCastHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_enemyOnCastHitEffect;
+			effectInfo = m_enemyOnCastHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyOnCastHitEffect", this.m_enemyOnCastHitEffect, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyOnCastHitEffect", m_enemyOnCastHitEffect);
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
 		if (base.Targeter != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -229,23 +235,25 @@ public class BazookaGirlStickyBomb : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlStickyBomb.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.GetEnergyGainOnCastPerEnemyHit() > 0)
+			if (GetEnergyGainOnCastPerEnemyHit() > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Primary);
+						return GetEnergyGainOnCastPerEnemyHit() * visibleActorsCountByTooltipSubject;
 					}
-					break;
+					}
 				}
-				int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Primary);
-				return this.GetEnergyGainOnCastPerEnemyHit() * visibleActorsCountByTooltipSubject;
 			}
 		}
 		return 0;
@@ -253,34 +261,28 @@ public class BazookaGirlStickyBomb : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_BazookaGirlStickyBomb))
+		if (abilityMod.GetType() != typeof(AbilityMod_BazookaGirlStickyBomb))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlStickyBomb.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_BazookaGirlStickyBomb);
+			m_abilityMod = (abilityMod as AbilityMod_BazookaGirlStickyBomb);
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-	}
-
-	public enum TargeterType
-	{
-		Shape,
-		Laser,
-		Cone
+		m_abilityMod = null;
 	}
 }

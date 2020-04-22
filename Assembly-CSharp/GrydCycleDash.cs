@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,9 +20,9 @@ public class GrydCycleDash : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -32,15 +31,15 @@ public class GrydCycleDash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCycleDash.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Cycle Dash";
+			m_abilityName = "Cycle Dash";
 		}
-		if (this.m_targetData != null)
+		if (m_targetData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -49,72 +48,65 @@ public class GrydCycleDash : Ability
 				}
 				break;
 			}
-			if (this.m_targetData.Length >= this.GetExpectedNumberOfTargeters())
+			if (m_targetData.Length >= GetExpectedNumberOfTargeters())
 			{
-				goto IL_74;
+				goto IL_0074;
 			}
 		}
-		Debug.LogError("GrydCycleDash has wrong number of Target Data entries - to match Num Legs it should be " + this.GetExpectedNumberOfTargeters());
-		IL_74:
-		this.SetupTargeter();
+		Debug.LogError("GrydCycleDash has wrong number of Target Data entries - to match Num Legs it should be " + GetExpectedNumberOfTargeters());
+		goto IL_0074;
+		IL_0074:
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
 		base.Targeters.Clear();
-		for (int i = 0; i < this.GetExpectedNumberOfTargeters(); i++)
+		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 		{
-			AbilityUtil_Targeter_BombingRun abilityUtil_Targeter_BombingRun = new AbilityUtil_Targeter_BombingRun(this, AbilityAreaShape.SingleSquare, Mathf.RoundToInt(this.m_totalRange));
+			AbilityUtil_Targeter_BombingRun abilityUtil_Targeter_BombingRun = new AbilityUtil_Targeter_BombingRun(this, AbilityAreaShape.SingleSquare, Mathf.RoundToInt(m_totalRange));
 			abilityUtil_Targeter_BombingRun.SetShowArcToShape(false);
 			abilityUtil_Targeter_BombingRun.SetUseMultiTargetUpdate(true);
 			base.Targeters.Add(abilityUtil_Targeter_BombingRun);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCycleDash.SetupTargeter()).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		return this.m_numLegs;
+		return m_numLegs;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.m_groundTrail.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy, AbilityTooltipSubject.Ally);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		m_groundTrail.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy, AbilityTooltipSubject.Ally);
+		return numbers;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		this.m_groundTrail.m_groundEffectData.AddTooltipTokens(tokens, "GroundTrail", false, null);
+		m_groundTrail.m_groundEffectData.AddTooltipTokens(tokens, "GroundTrail");
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		GridPos gridPos;
-		if (targetIndex == 0)
+		GridPos gridPos = (targetIndex != 0) ? currentTargets[targetIndex - 1].GridPos : caster.GetGridPosWithIncrementedHeight();
+		if (m_lockToCardinalDirs)
 		{
-			gridPos = caster.\u000E();
-		}
-		else
-		{
-			gridPos = currentTargets[targetIndex - 1].GridPos;
-		}
-		if (this.m_lockToCardinalDirs)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -123,28 +115,28 @@ public class GrydCycleDash : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCycleDash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.CardinallyAligned(gridPos, target.GridPos))
+			if (!CardinallyAligned(gridPos, target.GridPos))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return false;
 					}
-					break;
 				}
-				return false;
 			}
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -153,37 +145,34 @@ public class GrydCycleDash : Ability
 				}
 				break;
 			}
-			if (!boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, Board.\u000E().\u000E(gridPos), false);
+				BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, Board.Get().GetBoardSquareSafe(gridPos), false);
 				if (boardSquarePathInfo == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return false;
 						}
-						break;
 					}
-					return false;
 				}
 				boardSquarePathInfo.CalcAndSetMoveCostToEnd();
 				float num = boardSquarePathInfo.FindMoveCostToEnd();
-				return num <= this.m_legRange * Board.\u000E().squareSize;
+				return num <= m_legRange * Board.Get().squareSize;
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
 			}
 		}
 		return false;
@@ -196,12 +185,12 @@ public class GrydCycleDash : Ability
 
 	private bool CardinallyAligned(GridPos start, GridPos end)
 	{
-		bool result;
+		int result;
 		if (!start.CoordsEqual(end))
 		{
 			if (start.x != end.x)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -210,21 +199,21 @@ public class GrydCycleDash : Ability
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCycleDash.CardinallyAligned(GridPos, GridPos)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = (start.y == end.y);
+				result = ((start.y == end.y) ? 1 : 0);
 			}
 			else
 			{
-				result = true;
+				result = 1;
 			}
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 }

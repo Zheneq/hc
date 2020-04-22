@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
 using LobbyGameClientMessages;
 using Steamworks;
+using System;
+using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using WebSocketSharp;
 
@@ -29,534 +28,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	protected WebSocketMessageDispatcher<LobbyGameClientInterface> m_messageDispatcher;
 
-	public LobbyGameClientInterface()
-	{
-		this.OnConnected = delegate(RegisterGameClientResponse A_0)
-		{
-		};
-		if (LobbyGameClientInterface.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface..ctor()).MethodHandle;
-			}
-			LobbyGameClientInterface.<>f__am$cache1 = delegate(string A_0, bool A_1, CloseStatusCode A_2)
-			{
-			};
-		}
-		this.OnDisconnected = LobbyGameClientInterface.<>f__am$cache1;
-		this.OnLobbyServerReadyNotification = delegate(LobbyServerReadyNotification A_0)
-		{
-		};
-		if (LobbyGameClientInterface.<>f__am$cache3 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache3 = delegate(LobbyStatusNotification A_0)
-			{
-			};
-		}
-		this.OnLobbyStatusNotification = LobbyGameClientInterface.<>f__am$cache3;
-		if (LobbyGameClientInterface.<>f__am$cache4 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache4 = delegate(LobbyGameplayOverridesNotification A_0)
-			{
-			};
-		}
-		this.OnLobbyGameplayOverridesNotification = LobbyGameClientInterface.<>f__am$cache4;
-		if (LobbyGameClientInterface.<>f__am$cache5 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache5 = delegate(LobbyCustomGamesNotification A_0)
-			{
-			};
-		}
-		this.OnLobbyCustomGamesNotification = LobbyGameClientInterface.<>f__am$cache5;
-		this.OnQueueAssignmentNotification = delegate(MatchmakingQueueAssignmentNotification A_0)
-		{
-		};
-		if (LobbyGameClientInterface.<>f__am$cache7 == null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache7 = delegate(MatchmakingQueueStatusNotification A_0)
-			{
-			};
-		}
-		this.OnQueueStatusNotification = LobbyGameClientInterface.<>f__am$cache7;
-		if (LobbyGameClientInterface.<>f__am$cache8 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache8 = delegate(GameAssignmentNotification A_0)
-			{
-			};
-		}
-		this.OnGameAssignmentNotification = LobbyGameClientInterface.<>f__am$cache8;
-		if (LobbyGameClientInterface.<>f__am$cache9 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache9 = delegate(GameInfoNotification A_0)
-			{
-			};
-		}
-		this.OnGameInfoNotification = LobbyGameClientInterface.<>f__am$cache9;
-		if (LobbyGameClientInterface.<>f__am$cacheA == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cacheA = delegate(GameStatusNotification A_0)
-			{
-			};
-		}
-		this.OnGameStatusNotification = LobbyGameClientInterface.<>f__am$cacheA;
-		if (LobbyGameClientInterface.<>f__am$cacheB == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cacheB = delegate(PlayerAccountDataUpdateNotification A_0)
-			{
-			};
-		}
-		this.OnAccountDataUpdated = LobbyGameClientInterface.<>f__am$cacheB;
-		if (LobbyGameClientInterface.<>f__am$cacheC == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cacheC = delegate(ForcedCharacterChangeFromServerNotification A_0)
-			{
-			};
-		}
-		this.OnForcedCharacterChangeFromServerNotification = LobbyGameClientInterface.<>f__am$cacheC;
-		if (LobbyGameClientInterface.<>f__am$cacheD == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cacheD = delegate(PlayerCharacterDataUpdateNotification A_0)
-			{
-			};
-		}
-		this.OnCharacterDataUpdateNotification = LobbyGameClientInterface.<>f__am$cacheD;
-		if (LobbyGameClientInterface.<>f__am$cacheE == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cacheE = delegate(InventoryComponentUpdateNotification A_0)
-			{
-			};
-		}
-		this.OnInventoryComponentUpdateNotification = LobbyGameClientInterface.<>f__am$cacheE;
-		if (LobbyGameClientInterface.<>f__am$cacheF == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cacheF = delegate(BankBalanceChangeNotification A_0)
-			{
-			};
-		}
-		this.OnBankBalanceChangeNotification = LobbyGameClientInterface.<>f__am$cacheF;
-		if (LobbyGameClientInterface.<>f__am$cache10 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache10 = delegate(SeasonStatusNotification A_0)
-			{
-			};
-		}
-		this.OnSeasonStatusNotification = LobbyGameClientInterface.<>f__am$cache10;
-		this.OnChapterStatusNotification = delegate(ChapterStatusNotification A_0)
-		{
-		};
-		if (LobbyGameClientInterface.<>f__am$cache12 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache12 = delegate(GroupUpdateNotification A_0)
-			{
-			};
-		}
-		this.OnGroupUpdateNotification = LobbyGameClientInterface.<>f__am$cache12;
-		if (LobbyGameClientInterface.<>f__am$cache13 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache13 = delegate(UseGGPackNotification A_0)
-			{
-			};
-		}
-		this.OnUseGGPackNotification = LobbyGameClientInterface.<>f__am$cache13;
-		if (LobbyGameClientInterface.<>f__am$cache14 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache14 = delegate(ChatNotification A_0)
-			{
-			};
-		}
-		this.OnChatNotification = LobbyGameClientInterface.<>f__am$cache14;
-		if (LobbyGameClientInterface.<>f__am$cache15 == null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache15 = delegate(UseOverconResponse A_0)
-			{
-			};
-		}
-		this.OnUseOverconNotification = LobbyGameClientInterface.<>f__am$cache15;
-		if (LobbyGameClientInterface.<>f__am$cache16 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache16 = delegate(FriendStatusNotification A_0)
-			{
-			};
-		}
-		this.OnFriendStatusNotification = LobbyGameClientInterface.<>f__am$cache16;
-		this.OnGroupConfirmation = delegate(GroupConfirmationRequest A_0)
-		{
-		};
-		if (LobbyGameClientInterface.<>f__am$cache18 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache18 = delegate(GroupSuggestionRequest A_0)
-			{
-			};
-		}
-		this.OnGroupSuggestion = LobbyGameClientInterface.<>f__am$cache18;
-		if (LobbyGameClientInterface.<>f__am$cache19 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache19 = delegate(ForceMatchmakingQueueNotification A_0)
-			{
-			};
-		}
-		this.OnForceQueueNotification = LobbyGameClientInterface.<>f__am$cache19;
-		if (LobbyGameClientInterface.<>f__am$cache1A == null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache1A = delegate(GameInviteConfirmationRequest A_0)
-			{
-			};
-		}
-		this.OnGameInviteConfirmationRequest = LobbyGameClientInterface.<>f__am$cache1A;
-		if (LobbyGameClientInterface.<>f__am$cache1B == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache1B = delegate(QuestCompleteNotification A_0)
-			{
-			};
-		}
-		this.OnQuestCompleteNotification = LobbyGameClientInterface.<>f__am$cache1B;
-		if (LobbyGameClientInterface.<>f__am$cache1C == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache1C = delegate(MatchResultsNotification A_0)
-			{
-			};
-		}
-		this.OnMatchResultsNotification = LobbyGameClientInterface.<>f__am$cache1C;
-		if (LobbyGameClientInterface.<>f__am$cache1D == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache1D = delegate(ServerQueueConfigurationUpdateNotification A_0)
-			{
-			};
-		}
-		this.OnServerQueueConfigurationUpdateNotification = LobbyGameClientInterface.<>f__am$cache1D;
-		if (LobbyGameClientInterface.<>f__am$cache1E == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache1E = delegate(RankedOverviewChangeNotification A_0)
-			{
-			};
-		}
-		this.OnRankedOverviewChangeNotification = LobbyGameClientInterface.<>f__am$cache1E;
-		this.OnFactionCompetitionNotification = delegate(FactionCompetitionNotification A_0)
-		{
-		};
-		this.OnTrustBoostUsedNotification = delegate(TrustBoostUsedNotification A_0)
-		{
-		};
-		if (LobbyGameClientInterface.<>f__am$cache21 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache21 = delegate(FacebookAccessTokenNotification A_0)
-			{
-			};
-		}
-		this.OnFacebookAccessTokenNotification = LobbyGameClientInterface.<>f__am$cache21;
-		if (LobbyGameClientInterface.<>f__am$cache22 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache22 = delegate(PlayerFactionContributionChangeNotification A_0)
-			{
-			};
-		}
-		this.OnPlayerFactionContributionChange = LobbyGameClientInterface.<>f__am$cache22;
-		if (LobbyGameClientInterface.<>f__am$cache23 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache23 = delegate(FactionLoginRewardNotification A_0)
-			{
-			};
-		}
-		this.OnFactionLoginRewardNotification = LobbyGameClientInterface.<>f__am$cache23;
-		if (LobbyGameClientInterface.<>f__am$cache24 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache24 = delegate(LobbyAlertMissionDataNotification A_0)
-			{
-			};
-		}
-		this.OnLobbyAlertMissionDataNotification = LobbyGameClientInterface.<>f__am$cache24;
-		if (LobbyGameClientInterface.<>f__am$cache25 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache25 = delegate(LobbySeasonQuestDataNotification A_0)
-			{
-			};
-		}
-		this.OnLobbySeasonQuestDataNotification = LobbyGameClientInterface.<>f__am$cache25;
-		base..ctor(Factory.\u000E());
-		this.m_registered = false;
-		this.m_sessionInfo = new LobbySessionInfo();
-		base.ConnectionTimeout = 30f;
-	}
+	public bool IsConnected => base.State == WebSocket.SocketState.Open && m_registered;
+
+	public LobbySessionInfo SessionInfo => m_sessionInfo;
 
 	public event Action<RegisterGameClientResponse> OnConnected
 	{
@@ -567,9 +41,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<RegisterGameClientResponse>>(ref this.OnConnected, (Action<RegisterGameClientResponse>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnConnected, (Action<RegisterGameClientResponse>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 		remove
 		{
@@ -578,21 +52,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<RegisterGameClientResponse>>(ref this.OnConnected, (Action<RegisterGameClientResponse>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnConnected, (Action<RegisterGameClientResponse>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnConnected(Action<RegisterGameClientResponse>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -606,21 +80,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<string, bool, CloseStatusCode>>(ref this.OnDisconnected, (Action<string, bool, CloseStatusCode>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnDisconnected, (Action<string, bool, CloseStatusCode>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnDisconnected(Action<string, bool, CloseStatusCode>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -630,9 +104,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<string, bool, CloseStatusCode>>(ref this.OnDisconnected, (Action<string, bool, CloseStatusCode>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnDisconnected, (Action<string, bool, CloseStatusCode>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 	}
 
@@ -645,21 +119,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyServerReadyNotification>>(ref this.OnLobbyServerReadyNotification, (Action<LobbyServerReadyNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyServerReadyNotification, (Action<LobbyServerReadyNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnLobbyServerReadyNotification(Action<LobbyServerReadyNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -669,9 +143,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyServerReadyNotification>>(ref this.OnLobbyServerReadyNotification, (Action<LobbyServerReadyNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyServerReadyNotification, (Action<LobbyServerReadyNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 	}
 
@@ -684,9 +158,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyStatusNotification>>(ref this.OnLobbyStatusNotification, (Action<LobbyStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyStatusNotification, (Action<LobbyStatusNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 		remove
 		{
@@ -695,21 +169,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyStatusNotification>>(ref this.OnLobbyStatusNotification, (Action<LobbyStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyStatusNotification, (Action<LobbyStatusNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnLobbyStatusNotification(Action<LobbyStatusNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -723,21 +197,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyGameplayOverridesNotification>>(ref this.OnLobbyGameplayOverridesNotification, (Action<LobbyGameplayOverridesNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyGameplayOverridesNotification, (Action<LobbyGameplayOverridesNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnLobbyGameplayOverridesNotification(Action<LobbyGameplayOverridesNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -747,21 +221,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyGameplayOverridesNotification>>(ref this.OnLobbyGameplayOverridesNotification, (Action<LobbyGameplayOverridesNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyGameplayOverridesNotification, (Action<LobbyGameplayOverridesNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnLobbyGameplayOverridesNotification(Action<LobbyGameplayOverridesNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -775,21 +249,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyCustomGamesNotification>>(ref this.OnLobbyCustomGamesNotification, (Action<LobbyCustomGamesNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyCustomGamesNotification, (Action<LobbyCustomGamesNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnLobbyCustomGamesNotification(Action<LobbyCustomGamesNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -799,21 +273,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyCustomGamesNotification>>(ref this.OnLobbyCustomGamesNotification, (Action<LobbyCustomGamesNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyCustomGamesNotification, (Action<LobbyCustomGamesNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnLobbyCustomGamesNotification(Action<LobbyCustomGamesNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -827,9 +301,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<MatchmakingQueueAssignmentNotification>>(ref this.OnQueueAssignmentNotification, (Action<MatchmakingQueueAssignmentNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQueueAssignmentNotification, (Action<MatchmakingQueueAssignmentNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 		remove
 		{
@@ -838,21 +312,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<MatchmakingQueueAssignmentNotification>>(ref this.OnQueueAssignmentNotification, (Action<MatchmakingQueueAssignmentNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQueueAssignmentNotification, (Action<MatchmakingQueueAssignmentNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnQueueAssignmentNotification(Action<MatchmakingQueueAssignmentNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -866,21 +340,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<MatchmakingQueueStatusNotification>>(ref this.OnQueueStatusNotification, (Action<MatchmakingQueueStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQueueStatusNotification, (Action<MatchmakingQueueStatusNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnQueueStatusNotification(Action<MatchmakingQueueStatusNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -890,21 +364,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<MatchmakingQueueStatusNotification>>(ref this.OnQueueStatusNotification, (Action<MatchmakingQueueStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQueueStatusNotification, (Action<MatchmakingQueueStatusNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnQueueStatusNotification(Action<MatchmakingQueueStatusNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -918,21 +392,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameAssignmentNotification>>(ref this.OnGameAssignmentNotification, (Action<GameAssignmentNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameAssignmentNotification, (Action<GameAssignmentNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnGameAssignmentNotification(Action<GameAssignmentNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -942,21 +416,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameAssignmentNotification>>(ref this.OnGameAssignmentNotification, (Action<GameAssignmentNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameAssignmentNotification, (Action<GameAssignmentNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnGameAssignmentNotification(Action<GameAssignmentNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -970,9 +444,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameInfoNotification>>(ref this.OnGameInfoNotification, (Action<GameInfoNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameInfoNotification, (Action<GameInfoNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 		remove
 		{
@@ -981,21 +455,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameInfoNotification>>(ref this.OnGameInfoNotification, (Action<GameInfoNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameInfoNotification, (Action<GameInfoNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnGameInfoNotification(Action<GameInfoNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1009,21 +483,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameStatusNotification>>(ref this.OnGameStatusNotification, (Action<GameStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameStatusNotification, (Action<GameStatusNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnGameStatusNotification(Action<GameStatusNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1033,9 +507,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameStatusNotification>>(ref this.OnGameStatusNotification, (Action<GameStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameStatusNotification, (Action<GameStatusNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 	}
 
@@ -1048,9 +522,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<PlayerAccountDataUpdateNotification>>(ref this.OnAccountDataUpdated, (Action<PlayerAccountDataUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnAccountDataUpdated, (Action<PlayerAccountDataUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 		remove
 		{
@@ -1059,26 +533,25 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<PlayerAccountDataUpdateNotification>>(ref this.OnAccountDataUpdated, (Action<PlayerAccountDataUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnAccountDataUpdated, (Action<PlayerAccountDataUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnAccountDataUpdated(Action<PlayerAccountDataUpdateNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
 
-	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public event Action<ForcedCharacterChangeFromServerNotification> OnForcedCharacterChangeFromServerNotification;
 
 	public event Action<PlayerCharacterDataUpdateNotification> OnCharacterDataUpdateNotification
@@ -1090,21 +563,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<PlayerCharacterDataUpdateNotification>>(ref this.OnCharacterDataUpdateNotification, (Action<PlayerCharacterDataUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnCharacterDataUpdateNotification, (Action<PlayerCharacterDataUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnCharacterDataUpdateNotification(Action<PlayerCharacterDataUpdateNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1114,21 +587,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<PlayerCharacterDataUpdateNotification>>(ref this.OnCharacterDataUpdateNotification, (Action<PlayerCharacterDataUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnCharacterDataUpdateNotification, (Action<PlayerCharacterDataUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnCharacterDataUpdateNotification(Action<PlayerCharacterDataUpdateNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1142,21 +615,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<InventoryComponentUpdateNotification>>(ref this.OnInventoryComponentUpdateNotification, (Action<InventoryComponentUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnInventoryComponentUpdateNotification, (Action<InventoryComponentUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnInventoryComponentUpdateNotification(Action<InventoryComponentUpdateNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1166,9 +639,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<InventoryComponentUpdateNotification>>(ref this.OnInventoryComponentUpdateNotification, (Action<InventoryComponentUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnInventoryComponentUpdateNotification, (Action<InventoryComponentUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 	}
 
@@ -1181,21 +654,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<BankBalanceChangeNotification>>(ref this.OnBankBalanceChangeNotification, (Action<BankBalanceChangeNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnBankBalanceChangeNotification, (Action<BankBalanceChangeNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnBankBalanceChangeNotification(Action<BankBalanceChangeNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1205,21 +678,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<BankBalanceChangeNotification>>(ref this.OnBankBalanceChangeNotification, (Action<BankBalanceChangeNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnBankBalanceChangeNotification, (Action<BankBalanceChangeNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnBankBalanceChangeNotification(Action<BankBalanceChangeNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1233,21 +706,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<SeasonStatusNotification>>(ref this.OnSeasonStatusNotification, (Action<SeasonStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnSeasonStatusNotification, (Action<SeasonStatusNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnSeasonStatusNotification(Action<SeasonStatusNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1257,21 +730,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<SeasonStatusNotification>>(ref this.OnSeasonStatusNotification, (Action<SeasonStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnSeasonStatusNotification, (Action<SeasonStatusNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnSeasonStatusNotification(Action<SeasonStatusNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1285,9 +758,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ChapterStatusNotification>>(ref this.OnChapterStatusNotification, (Action<ChapterStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnChapterStatusNotification, (Action<ChapterStatusNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 		remove
 		{
@@ -1296,21 +769,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ChapterStatusNotification>>(ref this.OnChapterStatusNotification, (Action<ChapterStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnChapterStatusNotification, (Action<ChapterStatusNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnChapterStatusNotification(Action<ChapterStatusNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1324,21 +797,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GroupUpdateNotification>>(ref this.OnGroupUpdateNotification, (Action<GroupUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGroupUpdateNotification, (Action<GroupUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnGroupUpdateNotification(Action<GroupUpdateNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1348,9 +821,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GroupUpdateNotification>>(ref this.OnGroupUpdateNotification, (Action<GroupUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGroupUpdateNotification, (Action<GroupUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 	}
 
@@ -1363,21 +836,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<UseGGPackNotification>>(ref this.OnUseGGPackNotification, (Action<UseGGPackNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnUseGGPackNotification, (Action<UseGGPackNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnUseGGPackNotification(Action<UseGGPackNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1387,9 +860,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<UseGGPackNotification>>(ref this.OnUseGGPackNotification, (Action<UseGGPackNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnUseGGPackNotification, (Action<UseGGPackNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 	}
 
@@ -1402,21 +875,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ChatNotification>>(ref this.OnChatNotification, (Action<ChatNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnChatNotification, (Action<ChatNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnChatNotification(Action<ChatNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1426,21 +899,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ChatNotification>>(ref this.OnChatNotification, (Action<ChatNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnChatNotification, (Action<ChatNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnChatNotification(Action<ChatNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1454,21 +927,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<UseOverconResponse>>(ref this.OnUseOverconNotification, (Action<UseOverconResponse>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnUseOverconNotification, (Action<UseOverconResponse>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnUseOverconNotification(Action<UseOverconResponse>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1478,21 +951,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<UseOverconResponse>>(ref this.OnUseOverconNotification, (Action<UseOverconResponse>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnUseOverconNotification, (Action<UseOverconResponse>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnUseOverconNotification(Action<UseOverconResponse>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1506,9 +979,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FriendStatusNotification>>(ref this.OnFriendStatusNotification, (Action<FriendStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFriendStatusNotification, (Action<FriendStatusNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 		remove
 		{
@@ -1517,21 +990,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FriendStatusNotification>>(ref this.OnFriendStatusNotification, (Action<FriendStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFriendStatusNotification, (Action<FriendStatusNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnFriendStatusNotification(Action<FriendStatusNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1545,21 +1018,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GroupConfirmationRequest>>(ref this.OnGroupConfirmation, (Action<GroupConfirmationRequest>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGroupConfirmation, (Action<GroupConfirmationRequest>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnGroupConfirmation(Action<GroupConfirmationRequest>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1569,21 +1042,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GroupConfirmationRequest>>(ref this.OnGroupConfirmation, (Action<GroupConfirmationRequest>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGroupConfirmation, (Action<GroupConfirmationRequest>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnGroupConfirmation(Action<GroupConfirmationRequest>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1597,21 +1070,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GroupSuggestionRequest>>(ref this.OnGroupSuggestion, (Action<GroupSuggestionRequest>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGroupSuggestion, (Action<GroupSuggestionRequest>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnGroupSuggestion(Action<GroupSuggestionRequest>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1621,21 +1094,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GroupSuggestionRequest>>(ref this.OnGroupSuggestion, (Action<GroupSuggestionRequest>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGroupSuggestion, (Action<GroupSuggestionRequest>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnGroupSuggestion(Action<GroupSuggestionRequest>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1649,21 +1122,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ForceMatchmakingQueueNotification>>(ref this.OnForceQueueNotification, (Action<ForceMatchmakingQueueNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnForceQueueNotification, (Action<ForceMatchmakingQueueNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnForceQueueNotification(Action<ForceMatchmakingQueueNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1673,13 +1146,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ForceMatchmakingQueueNotification>>(ref this.OnForceQueueNotification, (Action<ForceMatchmakingQueueNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnForceQueueNotification, (Action<ForceMatchmakingQueueNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 	}
 
-	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public event Action<GameInviteConfirmationRequest> OnGameInviteConfirmationRequest;
 
 	public event Action<QuestCompleteNotification> OnQuestCompleteNotification
@@ -1691,21 +1163,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<QuestCompleteNotification>>(ref this.OnQuestCompleteNotification, (Action<QuestCompleteNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQuestCompleteNotification, (Action<QuestCompleteNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnQuestCompleteNotification(Action<QuestCompleteNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1715,21 +1187,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<QuestCompleteNotification>>(ref this.OnQuestCompleteNotification, (Action<QuestCompleteNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQuestCompleteNotification, (Action<QuestCompleteNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnQuestCompleteNotification(Action<QuestCompleteNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1743,21 +1215,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<MatchResultsNotification>>(ref this.OnMatchResultsNotification, (Action<MatchResultsNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnMatchResultsNotification, (Action<MatchResultsNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnMatchResultsNotification(Action<MatchResultsNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1767,9 +1239,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<MatchResultsNotification>>(ref this.OnMatchResultsNotification, (Action<MatchResultsNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnMatchResultsNotification, (Action<MatchResultsNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 	}
 
@@ -1782,21 +1254,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ServerQueueConfigurationUpdateNotification>>(ref this.OnServerQueueConfigurationUpdateNotification, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnServerQueueConfigurationUpdateNotification, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnServerQueueConfigurationUpdateNotification(Action<ServerQueueConfigurationUpdateNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1806,21 +1278,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ServerQueueConfigurationUpdateNotification>>(ref this.OnServerQueueConfigurationUpdateNotification, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnServerQueueConfigurationUpdateNotification, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnServerQueueConfigurationUpdateNotification(Action<ServerQueueConfigurationUpdateNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1834,21 +1306,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<RankedOverviewChangeNotification>>(ref this.OnRankedOverviewChangeNotification, (Action<RankedOverviewChangeNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnRankedOverviewChangeNotification, (Action<RankedOverviewChangeNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnRankedOverviewChangeNotification(Action<RankedOverviewChangeNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1858,21 +1330,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<RankedOverviewChangeNotification>>(ref this.OnRankedOverviewChangeNotification, (Action<RankedOverviewChangeNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnRankedOverviewChangeNotification, (Action<RankedOverviewChangeNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnRankedOverviewChangeNotification(Action<RankedOverviewChangeNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1886,21 +1358,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FactionCompetitionNotification>>(ref this.OnFactionCompetitionNotification, (Action<FactionCompetitionNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFactionCompetitionNotification, (Action<FactionCompetitionNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnFactionCompetitionNotification(Action<FactionCompetitionNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1910,21 +1382,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FactionCompetitionNotification>>(ref this.OnFactionCompetitionNotification, (Action<FactionCompetitionNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFactionCompetitionNotification, (Action<FactionCompetitionNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnFactionCompetitionNotification(Action<FactionCompetitionNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1938,21 +1410,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<TrustBoostUsedNotification>>(ref this.OnTrustBoostUsedNotification, (Action<TrustBoostUsedNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnTrustBoostUsedNotification, (Action<TrustBoostUsedNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnTrustBoostUsedNotification(Action<TrustBoostUsedNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -1962,21 +1434,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<TrustBoostUsedNotification>>(ref this.OnTrustBoostUsedNotification, (Action<TrustBoostUsedNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnTrustBoostUsedNotification, (Action<TrustBoostUsedNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnTrustBoostUsedNotification(Action<TrustBoostUsedNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -1990,21 +1462,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FacebookAccessTokenNotification>>(ref this.OnFacebookAccessTokenNotification, (Action<FacebookAccessTokenNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFacebookAccessTokenNotification, (Action<FacebookAccessTokenNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnFacebookAccessTokenNotification(Action<FacebookAccessTokenNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -2014,21 +1486,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FacebookAccessTokenNotification>>(ref this.OnFacebookAccessTokenNotification, (Action<FacebookAccessTokenNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFacebookAccessTokenNotification, (Action<FacebookAccessTokenNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnFacebookAccessTokenNotification(Action<FacebookAccessTokenNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -2042,21 +1514,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<PlayerFactionContributionChangeNotification>>(ref this.OnPlayerFactionContributionChange, (Action<PlayerFactionContributionChangeNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnPlayerFactionContributionChange, (Action<PlayerFactionContributionChangeNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnPlayerFactionContributionChange(Action<PlayerFactionContributionChangeNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -2066,21 +1538,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<PlayerFactionContributionChangeNotification>>(ref this.OnPlayerFactionContributionChange, (Action<PlayerFactionContributionChangeNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnPlayerFactionContributionChange, (Action<PlayerFactionContributionChangeNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnPlayerFactionContributionChange(Action<PlayerFactionContributionChangeNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -2094,21 +1566,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FactionLoginRewardNotification>>(ref this.OnFactionLoginRewardNotification, (Action<FactionLoginRewardNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFactionLoginRewardNotification, (Action<FactionLoginRewardNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnFactionLoginRewardNotification(Action<FactionLoginRewardNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -2118,21 +1590,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FactionLoginRewardNotification>>(ref this.OnFactionLoginRewardNotification, (Action<FactionLoginRewardNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFactionLoginRewardNotification, (Action<FactionLoginRewardNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnFactionLoginRewardNotification(Action<FactionLoginRewardNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -2146,21 +1618,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyAlertMissionDataNotification>>(ref this.OnLobbyAlertMissionDataNotification, (Action<LobbyAlertMissionDataNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyAlertMissionDataNotification, (Action<LobbyAlertMissionDataNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnLobbyAlertMissionDataNotification(Action<LobbyAlertMissionDataNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -2170,21 +1642,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyAlertMissionDataNotification>>(ref this.OnLobbyAlertMissionDataNotification, (Action<LobbyAlertMissionDataNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyAlertMissionDataNotification, (Action<LobbyAlertMissionDataNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnLobbyAlertMissionDataNotification(Action<LobbyAlertMissionDataNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}
@@ -2198,21 +1670,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbySeasonQuestDataNotification>>(ref this.OnLobbySeasonQuestDataNotification, (Action<LobbySeasonQuestDataNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbySeasonQuestDataNotification, (Action<LobbySeasonQuestDataNotification>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnLobbySeasonQuestDataNotification(Action<LobbySeasonQuestDataNotification>)).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 		remove
@@ -2222,10 +1694,203 @@ public class LobbyGameClientInterface : WebSocketInterface
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbySeasonQuestDataNotification>>(ref this.OnLobbySeasonQuestDataNotification, (Action<LobbySeasonQuestDataNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbySeasonQuestDataNotification, (Action<LobbySeasonQuestDataNotification>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
+			}
+		}
+	}
+
+	public LobbyGameClientInterface()
+	{
+		this.OnConnected = delegate
+		{
+		};
+		if (_003C_003Ef__am_0024cache1 == null)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			_003C_003Ef__am_0024cache1 = delegate
+			{
+			};
+		}
+		this.OnDisconnected = _003C_003Ef__am_0024cache1;
+		this.OnLobbyServerReadyNotification = delegate
+		{
+		};
+		if (_003C_003Ef__am_0024cache3 == null)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache3 = delegate
+			{
+			};
+		}
+		this.OnLobbyStatusNotification = _003C_003Ef__am_0024cache3;
+		if (_003C_003Ef__am_0024cache4 == null)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache4 = delegate
+			{
+			};
+		}
+		this.OnLobbyGameplayOverridesNotification = _003C_003Ef__am_0024cache4;
+		if (_003C_003Ef__am_0024cache5 == null)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache5 = delegate
+			{
+			};
+		}
+		this.OnLobbyCustomGamesNotification = _003C_003Ef__am_0024cache5;
+		this.OnQueueAssignmentNotification = delegate
+		{
+		};
+		if (_003C_003Ef__am_0024cache7 == null)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache7 = delegate
+			{
+			};
+		}
+		this.OnQueueStatusNotification = _003C_003Ef__am_0024cache7;
+		if (_003C_003Ef__am_0024cache8 == null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache8 = delegate
+			{
+			};
+		}
+		this.OnGameAssignmentNotification = _003C_003Ef__am_0024cache8;
+		if (_003C_003Ef__am_0024cache9 == null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache9 = delegate
+			{
+			};
+		}
+		this.OnGameInfoNotification = _003C_003Ef__am_0024cache9;
+		if (_003C_003Ef__am_0024cacheA == null)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cacheA = delegate
+			{
+			};
+		}
+		this.OnGameStatusNotification = _003C_003Ef__am_0024cacheA;
+		if (_003C_003Ef__am_0024cacheB == null)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cacheB = delegate
+			{
+			};
+		}
+		this.OnAccountDataUpdated = _003C_003Ef__am_0024cacheB;
+		if (_003C_003Ef__am_0024cacheC == null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cacheC = delegate
+			{
+			};
+		}
+		this.OnForcedCharacterChangeFromServerNotification = _003C_003Ef__am_0024cacheC;
+		if (_003C_003Ef__am_0024cacheD == null)
+		{
+			while (true)
 			{
 				switch (2)
 				{
@@ -2234,131 +1899,451 @@ public class LobbyGameClientInterface : WebSocketInterface
 				}
 				break;
 			}
-			if (!true)
+			_003C_003Ef__am_0024cacheD = delegate
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnLobbySeasonQuestDataNotification(Action<LobbySeasonQuestDataNotification>)).MethodHandle;
+			};
+		}
+		this.OnCharacterDataUpdateNotification = _003C_003Ef__am_0024cacheD;
+		if (_003C_003Ef__am_0024cacheE == null)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
 			}
+			_003C_003Ef__am_0024cacheE = delegate
+			{
+			};
 		}
-	}
-
-	public bool IsConnected
-	{
-		get
+		this.OnInventoryComponentUpdateNotification = _003C_003Ef__am_0024cacheE;
+		if (_003C_003Ef__am_0024cacheF == null)
 		{
-			return base.State == global::WebSocket.SocketState.Open && this.m_registered;
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cacheF = delegate
+			{
+			};
 		}
-	}
-
-	public LobbySessionInfo SessionInfo
-	{
-		get
+		this.OnBankBalanceChangeNotification = _003C_003Ef__am_0024cacheF;
+		if (_003C_003Ef__am_0024cache10 == null)
 		{
-			return this.m_sessionInfo;
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache10 = delegate
+			{
+			};
 		}
+		this.OnSeasonStatusNotification = _003C_003Ef__am_0024cache10;
+		this.OnChapterStatusNotification = delegate
+		{
+		};
+		if (_003C_003Ef__am_0024cache12 == null)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache12 = delegate
+			{
+			};
+		}
+		this.OnGroupUpdateNotification = _003C_003Ef__am_0024cache12;
+		if (_003C_003Ef__am_0024cache13 == null)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache13 = delegate
+			{
+			};
+		}
+		this.OnUseGGPackNotification = _003C_003Ef__am_0024cache13;
+		if (_003C_003Ef__am_0024cache14 == null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache14 = delegate
+			{
+			};
+		}
+		this.OnChatNotification = _003C_003Ef__am_0024cache14;
+		if (_003C_003Ef__am_0024cache15 == null)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache15 = delegate
+			{
+			};
+		}
+		this.OnUseOverconNotification = _003C_003Ef__am_0024cache15;
+		if (_003C_003Ef__am_0024cache16 == null)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache16 = delegate
+			{
+			};
+		}
+		this.OnFriendStatusNotification = _003C_003Ef__am_0024cache16;
+		this.OnGroupConfirmation = delegate
+		{
+		};
+		if (_003C_003Ef__am_0024cache18 == null)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache18 = delegate
+			{
+			};
+		}
+		this.OnGroupSuggestion = _003C_003Ef__am_0024cache18;
+		if (_003C_003Ef__am_0024cache19 == null)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache19 = delegate
+			{
+			};
+		}
+		this.OnForceQueueNotification = _003C_003Ef__am_0024cache19;
+		if (_003C_003Ef__am_0024cache1A == null)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache1A = delegate
+			{
+			};
+		}
+		this.OnGameInviteConfirmationRequest = _003C_003Ef__am_0024cache1A;
+		if (_003C_003Ef__am_0024cache1B == null)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache1B = delegate
+			{
+			};
+		}
+		this.OnQuestCompleteNotification = _003C_003Ef__am_0024cache1B;
+		if (_003C_003Ef__am_0024cache1C == null)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache1C = delegate
+			{
+			};
+		}
+		this.OnMatchResultsNotification = _003C_003Ef__am_0024cache1C;
+		if (_003C_003Ef__am_0024cache1D == null)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache1D = delegate
+			{
+			};
+		}
+		this.OnServerQueueConfigurationUpdateNotification = _003C_003Ef__am_0024cache1D;
+		if (_003C_003Ef__am_0024cache1E == null)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache1E = delegate
+			{
+			};
+		}
+		this.OnRankedOverviewChangeNotification = _003C_003Ef__am_0024cache1E;
+		this.OnFactionCompetitionNotification = delegate
+		{
+		};
+		this.OnTrustBoostUsedNotification = delegate
+		{
+		};
+		if (_003C_003Ef__am_0024cache21 == null)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache21 = delegate
+			{
+			};
+		}
+		this.OnFacebookAccessTokenNotification = _003C_003Ef__am_0024cache21;
+		if (_003C_003Ef__am_0024cache22 == null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache22 = delegate
+			{
+			};
+		}
+		this.OnPlayerFactionContributionChange = _003C_003Ef__am_0024cache22;
+		if (_003C_003Ef__am_0024cache23 == null)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache23 = delegate
+			{
+			};
+		}
+		this.OnFactionLoginRewardNotification = _003C_003Ef__am_0024cache23;
+		if (_003C_003Ef__am_0024cache24 == null)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache24 = delegate
+			{
+			};
+		}
+		this.OnLobbyAlertMissionDataNotification = _003C_003Ef__am_0024cache24;
+		if (_003C_003Ef__am_0024cache25 == null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			_003C_003Ef__am_0024cache25 = delegate
+			{
+			};
+		}
+		this.OnLobbySeasonQuestDataNotification = _003C_003Ef__am_0024cache25;
+		base._002Ector(Factory.Get());
+		m_registered = false;
+		m_sessionInfo = new LobbySessionInfo();
+		base.ConnectionTimeout = 30f;
 	}
 
 	public void Initialize(string directoryServerAddress, AuthTicket ticket, Region region, string languageCode, ProcessType processType, int preferredLobbyServerIndex = 0)
 	{
-		this.m_lobbyServerAddress = null;
-		this.m_directoryServerAddress = directoryServerAddress;
-		this.m_sessionInfo.BuildVersion = BuildVersion.ShortVersionString;
-		this.m_sessionInfo.ProtocolVersion = Factory.\u000E().ProtocolVersion;
-		this.m_sessionInfo.AccountId = ticket.AccountId;
-		this.m_sessionInfo.UserName = ticket.UserName;
-		this.m_sessionInfo.Handle = ticket.Handle;
-		this.m_sessionInfo.ProcessType = processType;
-		this.m_sessionInfo.Region = region;
-		this.m_sessionInfo.LanguageCode = languageCode;
-		this.m_ticket = ticket;
-		this.m_preferredLobbyServerIndex = preferredLobbyServerIndex;
-		this.m_messageDispatcher = new WebSocketMessageDispatcher<LobbyGameClientInterface>();
-		this.m_messageDispatcher.RegisterMessageDelegate<ConnectionOpenedNotification>(new Action<ConnectionOpenedNotification>(this.HandleConnectionOpenedNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<ConnectionClosedNotification>(new Action<ConnectionClosedNotification>(this.HandleConnectionClosedNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<ConnectionErrorNotification>(new Action<ConnectionErrorNotification>(this.HandleConnectionErrorNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<LobbyServerReadyNotification>(new Action<LobbyServerReadyNotification>(this.HandleLobbyServerReadyNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<LobbyStatusNotification>(new Action<LobbyStatusNotification>(this.HandleLobbyStatusNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<LobbyGameplayOverridesNotification>(new Action<LobbyGameplayOverridesNotification>(this.HandleLobbyGameplayOverridesNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<LobbyCustomGamesNotification>(new Action<LobbyCustomGamesNotification>(this.HandleLobbyCustomGamesNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<MatchmakingQueueStatusNotification>(new Action<MatchmakingQueueStatusNotification>(this.HandleQueueStatusNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<MatchmakingQueueAssignmentNotification>(new Action<MatchmakingQueueAssignmentNotification>(this.HandleQueueAssignmentNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<GameAssignmentNotification>(new Action<GameAssignmentNotification>(this.HandleGameAssignmentNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<GameInfoNotification>(new Action<GameInfoNotification>(this.HandleGameInfoNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<GameStatusNotification>(new Action<GameStatusNotification>(this.HandleGameStatusNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<SynchronizeWithClientOutOfGameRequest>(new Action<SynchronizeWithClientOutOfGameRequest>(this.HandleSynchronizeWithClientOutOfGameRequest));
-		this.m_messageDispatcher.RegisterMessageDelegate<ForcedCharacterChangeFromServerNotification>(new Action<ForcedCharacterChangeFromServerNotification>(this.HandleRequeueForceCharacterNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<PlayerCharacterDataUpdateNotification>(new Action<PlayerCharacterDataUpdateNotification>(this.HandleCharacterDataUpdateNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<InventoryComponentUpdateNotification>(new Action<InventoryComponentUpdateNotification>(this.HandleInventoryComponentUpdateNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<BankBalanceChangeNotification>(new Action<BankBalanceChangeNotification>(this.HandleBankBalanceChangeNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<PlayerAccountDataUpdateNotification>(new Action<PlayerAccountDataUpdateNotification>(this.HandleAccountDataUpdateNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<SeasonStatusNotification>(new Action<SeasonStatusNotification>(this.HandleSeasonStatusNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<ChapterStatusNotification>(new Action<ChapterStatusNotification>(this.HandleChapterStatusNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<GroupUpdateNotification>(new Action<GroupUpdateNotification>(this.HandleGroupUpdateNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<UseGGPackNotification>(new Action<UseGGPackNotification>(this.HandleGGPackUsedNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<ChatNotification>(new Action<ChatNotification>(this.HandleChatNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<UseOverconResponse>(new Action<UseOverconResponse>(this.HandleUseOverconResponse));
-		this.m_messageDispatcher.RegisterMessageDelegate<FriendStatusNotification>(new Action<FriendStatusNotification>(this.HandleFriendStatusNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<GroupConfirmationRequest>(new Action<GroupConfirmationRequest>(this.HandleGroupConfirmationRequest));
-		this.m_messageDispatcher.RegisterMessageDelegate<GroupSuggestionRequest>(new Action<GroupSuggestionRequest>(this.HandleGroupSuggestionRequest));
-		this.m_messageDispatcher.RegisterMessageDelegate<GameInviteConfirmationRequest>(new Action<GameInviteConfirmationRequest>(this.HandleGameInviteConfirmationRequest));
-		this.m_messageDispatcher.RegisterMessageDelegate<QuestCompleteNotification>(new Action<QuestCompleteNotification>(this.HandleQuestCompleteNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<MatchResultsNotification>(new Action<MatchResultsNotification>(this.HandleMatchResultsNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<PendingPurchaseResult>(new Action<PendingPurchaseResult>(this.HandlePendingPurchaseResult));
-		this.m_messageDispatcher.RegisterMessageDelegate<ForceMatchmakingQueueNotification>(new Action<ForceMatchmakingQueueNotification>(this.HandleForceQueueNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<FreelancerUnavailableNotification>(new Action<FreelancerUnavailableNotification>(this.HandleFreelancerUnavailableNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<EnterFreelancerResolutionPhaseNotification>(new Action<EnterFreelancerResolutionPhaseNotification>(this.HandleResolvingDuplicateFreelancerNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<MatchmakingQueueToPlayersNotification>(new Action<MatchmakingQueueToPlayersNotification>(this.HandleQueueToPlayerNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<ServerQueueConfigurationUpdateNotification>(new Action<ServerQueueConfigurationUpdateNotification>(this.HandleServerQueueConfigurationUpdateNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<RankedOverviewChangeNotification>(new Action<RankedOverviewChangeNotification>(this.HandleRankedOverviewChangeNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<GameDestroyedByPlayerNotification>(new Action<GameDestroyedByPlayerNotification>(this.HandleGameDestroyedByPlayerNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<FactionCompetitionNotification>(new Action<FactionCompetitionNotification>(this.HandleFactionCompetitionNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<TrustBoostUsedNotification>(new Action<TrustBoostUsedNotification>(this.HandleTrustBoostUsedNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<FacebookAccessTokenNotification>(new Action<FacebookAccessTokenNotification>(this.HandleFacebookAccessTokenNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<PlayerFactionContributionChangeNotification>(new Action<PlayerFactionContributionChangeNotification>(this.HandlePlayerFactionContributionChangeNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<FactionLoginRewardNotification>(new Action<FactionLoginRewardNotification>(this.HandleFactionLoginRewardNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<LobbyAlertMissionDataNotification>(new Action<LobbyAlertMissionDataNotification>(this.HandleLobbyAlertMissionDataNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<LobbySeasonQuestDataNotification>(new Action<LobbySeasonQuestDataNotification>(this.HandleLobbySeasonQuestDataNotification));
-		this.m_messageDispatcher.RegisterMessageDelegate<ErrorReportSummaryRequest>(new Action<ErrorReportSummaryRequest>(this.HandleErrorReportSummaryRequest));
-		this.m_lastLobbyErrorMessage = null;
-		this.m_allowRelogin = true;
+		m_lobbyServerAddress = null;
+		m_directoryServerAddress = directoryServerAddress;
+		m_sessionInfo.BuildVersion = BuildVersion.ShortVersionString;
+		m_sessionInfo.ProtocolVersion = Factory.Get().ProtocolVersion;
+		m_sessionInfo.AccountId = ticket.AccountId;
+		m_sessionInfo.UserName = ticket.UserName;
+		m_sessionInfo.Handle = ticket.Handle;
+		m_sessionInfo.ProcessType = processType;
+		m_sessionInfo.Region = region;
+		m_sessionInfo.LanguageCode = languageCode;
+		m_ticket = ticket;
+		m_preferredLobbyServerIndex = preferredLobbyServerIndex;
+		m_messageDispatcher = new WebSocketMessageDispatcher<LobbyGameClientInterface>();
+		m_messageDispatcher.RegisterMessageDelegate<ConnectionOpenedNotification>(HandleConnectionOpenedNotification);
+		m_messageDispatcher.RegisterMessageDelegate<ConnectionClosedNotification>(HandleConnectionClosedNotification);
+		m_messageDispatcher.RegisterMessageDelegate<ConnectionErrorNotification>(HandleConnectionErrorNotification);
+		m_messageDispatcher.RegisterMessageDelegate<LobbyServerReadyNotification>(HandleLobbyServerReadyNotification);
+		m_messageDispatcher.RegisterMessageDelegate<LobbyStatusNotification>(HandleLobbyStatusNotification);
+		m_messageDispatcher.RegisterMessageDelegate<LobbyGameplayOverridesNotification>(HandleLobbyGameplayOverridesNotification);
+		m_messageDispatcher.RegisterMessageDelegate<LobbyCustomGamesNotification>(HandleLobbyCustomGamesNotification);
+		m_messageDispatcher.RegisterMessageDelegate<MatchmakingQueueStatusNotification>(HandleQueueStatusNotification);
+		m_messageDispatcher.RegisterMessageDelegate<MatchmakingQueueAssignmentNotification>(HandleQueueAssignmentNotification);
+		m_messageDispatcher.RegisterMessageDelegate<GameAssignmentNotification>(HandleGameAssignmentNotification);
+		m_messageDispatcher.RegisterMessageDelegate<GameInfoNotification>(HandleGameInfoNotification);
+		m_messageDispatcher.RegisterMessageDelegate<GameStatusNotification>(HandleGameStatusNotification);
+		m_messageDispatcher.RegisterMessageDelegate<SynchronizeWithClientOutOfGameRequest>(HandleSynchronizeWithClientOutOfGameRequest);
+		m_messageDispatcher.RegisterMessageDelegate<ForcedCharacterChangeFromServerNotification>(HandleRequeueForceCharacterNotification);
+		m_messageDispatcher.RegisterMessageDelegate<PlayerCharacterDataUpdateNotification>(HandleCharacterDataUpdateNotification);
+		m_messageDispatcher.RegisterMessageDelegate<InventoryComponentUpdateNotification>(HandleInventoryComponentUpdateNotification);
+		m_messageDispatcher.RegisterMessageDelegate<BankBalanceChangeNotification>(HandleBankBalanceChangeNotification);
+		m_messageDispatcher.RegisterMessageDelegate<PlayerAccountDataUpdateNotification>(HandleAccountDataUpdateNotification);
+		m_messageDispatcher.RegisterMessageDelegate<SeasonStatusNotification>(HandleSeasonStatusNotification);
+		m_messageDispatcher.RegisterMessageDelegate<ChapterStatusNotification>(HandleChapterStatusNotification);
+		m_messageDispatcher.RegisterMessageDelegate<GroupUpdateNotification>(HandleGroupUpdateNotification);
+		m_messageDispatcher.RegisterMessageDelegate<UseGGPackNotification>(HandleGGPackUsedNotification);
+		m_messageDispatcher.RegisterMessageDelegate<ChatNotification>(HandleChatNotification);
+		m_messageDispatcher.RegisterMessageDelegate<UseOverconResponse>(HandleUseOverconResponse);
+		m_messageDispatcher.RegisterMessageDelegate<FriendStatusNotification>(HandleFriendStatusNotification);
+		m_messageDispatcher.RegisterMessageDelegate<GroupConfirmationRequest>(HandleGroupConfirmationRequest);
+		m_messageDispatcher.RegisterMessageDelegate<GroupSuggestionRequest>(HandleGroupSuggestionRequest);
+		m_messageDispatcher.RegisterMessageDelegate<GameInviteConfirmationRequest>(HandleGameInviteConfirmationRequest);
+		m_messageDispatcher.RegisterMessageDelegate<QuestCompleteNotification>(HandleQuestCompleteNotification);
+		m_messageDispatcher.RegisterMessageDelegate<MatchResultsNotification>(HandleMatchResultsNotification);
+		m_messageDispatcher.RegisterMessageDelegate<PendingPurchaseResult>(HandlePendingPurchaseResult);
+		m_messageDispatcher.RegisterMessageDelegate<ForceMatchmakingQueueNotification>(HandleForceQueueNotification);
+		m_messageDispatcher.RegisterMessageDelegate<FreelancerUnavailableNotification>(HandleFreelancerUnavailableNotification);
+		m_messageDispatcher.RegisterMessageDelegate<EnterFreelancerResolutionPhaseNotification>(HandleResolvingDuplicateFreelancerNotification);
+		m_messageDispatcher.RegisterMessageDelegate<MatchmakingQueueToPlayersNotification>(HandleQueueToPlayerNotification);
+		m_messageDispatcher.RegisterMessageDelegate<ServerQueueConfigurationUpdateNotification>(HandleServerQueueConfigurationUpdateNotification);
+		m_messageDispatcher.RegisterMessageDelegate<RankedOverviewChangeNotification>(HandleRankedOverviewChangeNotification);
+		m_messageDispatcher.RegisterMessageDelegate<GameDestroyedByPlayerNotification>(HandleGameDestroyedByPlayerNotification);
+		m_messageDispatcher.RegisterMessageDelegate<FactionCompetitionNotification>(HandleFactionCompetitionNotification);
+		m_messageDispatcher.RegisterMessageDelegate<TrustBoostUsedNotification>(HandleTrustBoostUsedNotification);
+		m_messageDispatcher.RegisterMessageDelegate<FacebookAccessTokenNotification>(HandleFacebookAccessTokenNotification);
+		m_messageDispatcher.RegisterMessageDelegate<PlayerFactionContributionChangeNotification>(HandlePlayerFactionContributionChangeNotification);
+		m_messageDispatcher.RegisterMessageDelegate<FactionLoginRewardNotification>(HandleFactionLoginRewardNotification);
+		m_messageDispatcher.RegisterMessageDelegate<LobbyAlertMissionDataNotification>(HandleLobbyAlertMissionDataNotification);
+		m_messageDispatcher.RegisterMessageDelegate<LobbySeasonQuestDataNotification>(HandleLobbySeasonQuestDataNotification);
+		m_messageDispatcher.RegisterMessageDelegate<ErrorReportSummaryRequest>(HandleErrorReportSummaryRequest);
+		m_lastLobbyErrorMessage = null;
+		m_allowRelogin = true;
 	}
 
 	public void AssignGameClient(string directoryServerAddress)
 	{
-		int requestId = this.m_messageDispatcher.GetRequestId();
-		this.m_messageDispatcher.RegisterMessageDelegate<RegisterGameClientResponse>(new Action<RegisterGameClientResponse>(this.HandleRegisterGameClientResponse), requestId);
+		int requestId = m_messageDispatcher.GetRequestId();
+		m_messageDispatcher.RegisterMessageDelegate<RegisterGameClientResponse>(HandleRegisterGameClientResponse, requestId);
 		RegisterGameClientResponse registerResponse = new RegisterGameClientResponse();
 		registerResponse.Success = false;
 		registerResponse.ResponseId = requestId;
-		Action handleNetworkException = delegate()
+		Action handleNetworkException = delegate
 		{
 			registerResponse.Success = false;
 			registerResponse.LocalizedFailure = LocalizationPayload.Create("NetworkError", "Global");
-			this.m_messageDispatcher.HandleMessage(this, registerResponse);
+			m_messageDispatcher.HandleMessage(this, registerResponse);
 		};
 		Action<string> handleRequestFailure = delegate(string message)
 		{
 			registerResponse.Success = false;
 			registerResponse.ErrorMessage = message;
-			this.m_messageDispatcher.HandleMessage(this, registerResponse);
+			m_messageDispatcher.HandleMessage(this, registerResponse);
 		};
 		try
 		{
-			this.m_overallConnectionTimer.Start();
+			m_overallConnectionTimer.Start();
 			AssignGameClientRequest assignGameClientRequest = new AssignGameClientRequest();
-			assignGameClientRequest.RequestId = this.m_messageDispatcher.GetRequestId();
-			assignGameClientRequest.SessionInfo = this.m_sessionInfo;
-			assignGameClientRequest.AuthInfo = this.m_ticket.AuthInfo;
-			assignGameClientRequest.PreferredLobbyServerIndex = this.m_preferredLobbyServerIndex;
+			assignGameClientRequest.RequestId = m_messageDispatcher.GetRequestId();
+			assignGameClientRequest.SessionInfo = m_sessionInfo;
+			assignGameClientRequest.AuthInfo = m_ticket.AuthInfo;
+			assignGameClientRequest.PreferredLobbyServerIndex = m_preferredLobbyServerIndex;
 			if (directoryServerAddress.IndexOf("://") == -1)
 			{
 				directoryServerAddress = "ws://" + directoryServerAddress;
 			}
 			Uri uri = new Uri(directoryServerAddress);
 			UriBuilder newDirectoryServerUri = new UriBuilder();
-			int num = 0x17A2;
+			int num = 6050;
 			string str = "DirectorySessionManager";
-			UriBuilder newDirectoryServerUri4 = newDirectoryServerUri;
-			string scheme;
+			UriBuilder uriBuilder = newDirectoryServerUri;
+			object scheme;
 			if (!(uri.Scheme == "ws"))
 			{
 				if (!(uri.Scheme == "http"))
@@ -2368,9 +2353,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 						if (!(uri.Scheme == "https"))
 						{
 							scheme = newDirectoryServerUri.Scheme;
-							goto IL_1AC;
+							goto IL_01ac;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -2381,9 +2366,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 						}
 					}
 					scheme = "https";
-					goto IL_1AC;
+					goto IL_01ac;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -2392,20 +2377,21 @@ public class LobbyGameClientInterface : WebSocketInterface
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.AssignGameClient(string)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 			}
 			scheme = "http";
-			IL_1AC:
-			newDirectoryServerUri4.Scheme = scheme;
+			goto IL_01ac;
+			IL_01ac:
+			uriBuilder.Scheme = (string)scheme;
 			newDirectoryServerUri.Host = NetUtil.GetIPv4Address(uri.Host).ToString();
-			UriBuilder newDirectoryServerUri2 = newDirectoryServerUri;
+			UriBuilder uriBuilder2 = newDirectoryServerUri;
 			int port;
 			if (uri.Port > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -2416,7 +2402,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 				}
 				if (!uri.IsDefaultPort)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -2426,17 +2412,18 @@ public class LobbyGameClientInterface : WebSocketInterface
 						break;
 					}
 					port = uri.Port;
-					goto IL_211;
+					goto IL_0211;
 				}
 			}
 			port = num;
-			IL_211:
-			newDirectoryServerUri2.Port = port;
-			UriBuilder newDirectoryServerUri3 = newDirectoryServerUri;
+			goto IL_0211;
+			IL_0211:
+			uriBuilder2.Port = port;
+			UriBuilder uriBuilder3 = newDirectoryServerUri;
 			string path;
 			if (uri.AbsolutePath != "/")
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -2451,75 +2438,66 @@ public class LobbyGameClientInterface : WebSocketInterface
 			{
 				path = "/" + str;
 			}
-			newDirectoryServerUri3.Path = path;
-			newDirectoryServerUri.Query = string.Format("messageType={0}", assignGameClientRequest.GetType().Name);
-			base.Logger.Info("Requesting lobby server assignment from {0}", new object[]
-			{
-				newDirectoryServerUri
-			});
-			base.SendHttpRequest<AssignGameClientResponse>(newDirectoryServerUri.ToString(), assignGameClientRequest, delegate(AssignGameClientResponse assignResponse, Exception exception)
+			uriBuilder3.Path = path;
+			newDirectoryServerUri.Query = $"messageType={assignGameClientRequest.GetType().Name}";
+			base.Logger.Info("Requesting lobby server assignment from {0}", newDirectoryServerUri);
+			SendHttpRequest(newDirectoryServerUri.ToString(), assignGameClientRequest, delegate(AssignGameClientResponse assignResponse, Exception exception)
 			{
 				try
 				{
 					if (exception != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								if (1 == 0)
+								{
+									/*OpCode not supported: LdMemberToken*/;
+								}
+								if (m_overallConnectionTimer.Elapsed.TotalSeconds < (double)base.ConnectionTimeout)
+								{
+									base.Logger.Info("Re-requesting lobby server assignment from {0}: {1}", newDirectoryServerUri, exception.Message.Trim());
+									Reconnect();
+									return;
+								}
+								m_overallConnectionTimer.Reset();
+								throw exception;
 							}
-							break;
 						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(LobbyGameClientInterface.<AssignGameClient>c__AnonStorey1.<>m__0(AssignGameClientResponse, Exception)).MethodHandle;
-						}
-						if (this.m_overallConnectionTimer.Elapsed.TotalSeconds >= (double)this.ConnectionTimeout)
-						{
-							this.m_overallConnectionTimer.Reset();
-							throw exception;
-						}
-						this.Logger.Info("Re-requesting lobby server assignment from {0}: {1}", new object[]
-						{
-							newDirectoryServerUri,
-							exception.Message.Trim()
-						});
-						this.Reconnect();
 					}
-					else
+					if (!assignResponse.Success)
 					{
-						if (!assignResponse.Success)
+						while (true)
 						{
-							for (;;)
+							switch (7)
 							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
+							case 0:
 								break;
+							default:
+								throw new ClientRequestFailed(assignResponse.ErrorMessage);
 							}
-							throw new ClientRequestFailed(assignResponse.ErrorMessage);
 						}
-						if (assignResponse.LobbyServerAddress.IsNullOrEmpty())
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							throw new ClientRequestFailed("Empty response from server");
-						}
-						this.m_lobbyServerAddress = assignResponse.LobbyServerAddress;
-						this.m_sessionInfo = assignResponse.SessionInfo;
-						this.Connect();
 					}
+					if (assignResponse.LobbyServerAddress.IsNullOrEmpty())
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								break;
+							default:
+								throw new ClientRequestFailed("Empty response from server");
+							}
+						}
+					}
+					m_lobbyServerAddress = assignResponse.LobbyServerAddress;
+					m_sessionInfo = assignResponse.SessionInfo;
+					Connect();
 				}
 				catch (ClientRequestFailed clientRequestFailed)
 				{
@@ -2539,19 +2517,19 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	public override void Connect()
 	{
-		this.m_registered = false;
-		this.m_sessionInfo.IsBinary = base.IsBinary;
-		if (this.m_lobbyServerAddress == null)
+		m_registered = false;
+		m_sessionInfo.IsBinary = base.IsBinary;
+		if (m_lobbyServerAddress == null)
 		{
-			if (this.m_directoryServerAddress == null)
+			if (m_directoryServerAddress == null)
 			{
 				throw new Exception("Directory server address must be specified");
 			}
-			this.AssignGameClient(this.m_directoryServerAddress);
+			AssignGameClient(m_directoryServerAddress);
 		}
 		else
 		{
-			base.InitializeSocket(this.m_lobbyServerAddress, 0x17AC, "LobbyGameClientSessionManager");
+			InitializeSocket(m_lobbyServerAddress, 6060, "LobbyGameClientSessionManager");
 			base.Connect();
 		}
 	}
@@ -2568,58 +2546,60 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleQueueToPlayerNotification(MatchmakingQueueToPlayersNotification notification)
 	{
-		if (notification.MessageToSend == MatchmakingQueueToPlayersNotification.MatchmakingQueueMessage.\u0012)
+		if (notification.MessageToSend == MatchmakingQueueToPlayersNotification.MatchmakingQueueMessage._0012)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					AppState_GroupCharacterSelect.Get().ReEnter(true);
+					UIManager.SetGameObjectActive(UIFrontEnd.Get().m_frontEndNavPanel, true);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandleQueueToPlayerNotification(MatchmakingQueueToPlayersNotification)).MethodHandle;
-			}
-			AppState_GroupCharacterSelect.Get().ReEnter(true);
-			UIManager.SetGameObjectActive(UIFrontEnd.Get().m_frontEndNavPanel, true, null);
 		}
-		else if (notification.MessageToSend == MatchmakingQueueToPlayersNotification.MatchmakingQueueMessage.\u0015)
+		if (notification.MessageToSend == MatchmakingQueueToPlayersNotification.MatchmakingQueueMessage._0015)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					string description = StringUtil.TR("RuinedGameStartSoThrownOutOfQueue", "Global");
+					UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("QueuingNotification", "Global"), description, StringUtil.TR("Ok", "Global"));
+					Log.Info("Updating ready state to false because ruined game, thrown out of queue, current Appstate: " + AppState.GetCurrent().ToString());
+					AppState_GroupCharacterSelect.Get().UpdateReadyState(false);
+					return;
 				}
-				break;
+				}
 			}
-			string description = StringUtil.TR("RuinedGameStartSoThrownOutOfQueue", "Global");
-			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("QueuingNotification", "Global"), description, StringUtil.TR("Ok", "Global"), null, -1, false);
-			Log.Info("Updating ready state to false because ruined game, thrown out of queue, current Appstate: " + AppState.GetCurrent().ToString(), new object[0]);
-			AppState_GroupCharacterSelect.Get().UpdateReadyState(false);
 		}
-		else if (notification.MessageToSend == MatchmakingQueueToPlayersNotification.MatchmakingQueueMessage.\u000E)
+		if (notification.MessageToSend == MatchmakingQueueToPlayersNotification.MatchmakingQueueMessage._000E)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					ClientGameManager.Get().HandleQueueConfirmation();
+					return;
 				}
-				break;
 			}
-			ClientGameManager.Get().HandleQueueConfirmation();
 		}
-		else
-		{
-			string description2 = StringUtil.TR("UnknownQueueManagerBug", "Global");
-			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("QueuingNotification", "Global"), description2, StringUtil.TR("Ok", "Global"), null, -1, false);
-		}
+		string description2 = StringUtil.TR("UnknownQueueManagerBug", "Global");
+		UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("QueuingNotification", "Global"), description2, StringUtil.TR("Ok", "Global"));
 	}
 
 	private void HandleServerQueueConfigurationUpdateNotification(ServerQueueConfigurationUpdateNotification notification)
@@ -2629,66 +2609,67 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleGameDestroyedByPlayerNotification(GameDestroyedByPlayerNotification notification)
 	{
-		UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("QueuingNotification", "Global"), notification.LocalizedMessage.ToString(), StringUtil.TR("Ok", "Global"), null, -1, false);
+		UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("QueuingNotification", "Global"), notification.LocalizedMessage.ToString(), StringUtil.TR("Ok", "Global"));
 	}
 
 	private void HandleResolvingDuplicateFreelancerNotification(EnterFreelancerResolutionPhaseNotification notification)
 	{
 		if (notification.SubPhase == FreelancerResolutionPhaseSubType.DUPLICATE_FREELANCER)
 		{
-			for (;;)
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					UIMatchStartPanel.Get().NotifyDuplicateFreelancer(true);
+					return;
+				}
+			}
+		}
+		if (!notification.RankedData.HasValue)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			if (notification.SubPhase == FreelancerResolutionPhaseSubType.WAITING_FOR_ALL_PLAYERS)
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandleResolvingDuplicateFreelancerNotification(EnterFreelancerResolutionPhaseNotification)).MethodHandle;
-			}
-			UIMatchStartPanel.Get().NotifyDuplicateFreelancer(true);
-		}
-		else if (notification.RankedData != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (notification.SubPhase != FreelancerResolutionPhaseSubType.WAITING_FOR_ALL_PLAYERS)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UIRankedModeDraftScreen.Get() == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
+						default:
+							return;
 						case 0:
-							continue;
+							break;
 						}
-						break;
 					}
-					return;
 				}
 				if (AppState_RankModeDraft.Get() != AppState.GetCurrent())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -2702,7 +2683,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 				UIRankedModeDraftScreen.Get().HandleResolvingDuplicateFreelancerNotification(notification);
 				if (!notification.SubPhase.IsPickBanSubPhase())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -2715,7 +2696,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 					{
 						return;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -2727,7 +2708,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 				}
 				RankedResolutionPhaseData value = notification.RankedData.Value;
 				int ourPlayerId = UIRankedModeDraftScreen.Get().OurPlayerId;
-				if (value.\u001D(ourPlayerId))
+				if (value._001D(ourPlayerId))
 				{
 					System.Random rnd = new System.Random();
 					List<CharacterType> list = new List<CharacterType>();
@@ -2742,10 +2723,10 @@ public class LobbyGameClientInterface : WebSocketInterface
 					{
 						while (enumerator.MoveNext())
 						{
-							CharacterType item = enumerator.Current;
-							list.Remove(item);
+							CharacterType current = enumerator.Current;
+							list.Remove(current);
 						}
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -2759,10 +2740,10 @@ public class LobbyGameClientInterface : WebSocketInterface
 					{
 						while (enumerator2.MoveNext())
 						{
-							CharacterType item2 = enumerator2.Current;
-							list.Remove(item2);
+							CharacterType current2 = enumerator2.Current;
+							list.Remove(current2);
 						}
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -2772,15 +2753,16 @@ public class LobbyGameClientInterface : WebSocketInterface
 							break;
 						}
 					}
-					foreach (CharacterType item3 in value.EnemyTeamSelections.Values)
+					foreach (CharacterType value2 in value.EnemyTeamSelections.Values)
 					{
-						list.Remove(item3);
+						list.Remove(value2);
 					}
-					foreach (CharacterType item4 in value.FriendlyTeamSelections.Values)
+					foreach (CharacterType value3 in value.FriendlyTeamSelections.Values)
 					{
-						list.Remove(item4);
+						list.Remove(value3);
 					}
 				}
+				return;
 			}
 		}
 	}
@@ -2790,7 +2772,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 		string text;
 		if (localizedFailure != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -2799,15 +2781,15 @@ public class LobbyGameClientInterface : WebSocketInterface
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.WriteErrorToConsole(LocalizationPayload, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			text = localizedFailure.ToString();
 		}
 		else if (!unlocalizedFailure.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -2816,7 +2798,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 				}
 				break;
 			}
-			text = string.Format("{0}#NeedsLocalization", unlocalizedFailure);
+			text = $"{unlocalizedFailure}#NeedsLocalization";
 		}
 		else
 		{
@@ -2826,33 +2808,34 @@ public class LobbyGameClientInterface : WebSocketInterface
 		{
 			Text = text,
 			MessageType = ConsoleMessageType.SystemMessage
-		}, null);
+		});
 	}
 
 	public void SendRankedTradeRequest(CharacterType desiredCharacter, RankedTradeData.TradeActionType tradeAction)
 	{
 		RankedTradeRequest rankedTradeRequest = new RankedTradeRequest();
-		rankedTradeRequest.RequestId = this.m_messageDispatcher.GetRequestId();
+		rankedTradeRequest.RequestId = m_messageDispatcher.GetRequestId();
 		rankedTradeRequest.Trade.DesiredCharacter = desiredCharacter;
 		rankedTradeRequest.Trade.TradeAction = tradeAction;
-		ClientGameManager.Get().LobbyInterface.SendRequestMessage<RankedTradeResponse>(rankedTradeRequest, delegate(RankedTradeResponse response)
+		ClientGameManager.Get().LobbyInterface.SendRequestMessage(rankedTradeRequest, delegate(RankedTradeResponse response)
 		{
 			if (!response.Success)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						WriteErrorToConsole(response.LocalizedFailure, response.ErrorMessage);
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.<SendRankedTradeRequest>m__26(RankedTradeResponse)).MethodHandle;
-				}
-				this.WriteErrorToConsole(response.LocalizedFailure, response.ErrorMessage);
 			}
 		});
 	}
@@ -2860,26 +2843,27 @@ public class LobbyGameClientInterface : WebSocketInterface
 	public void SendRankedBanRequest(CharacterType selection)
 	{
 		RankedBanRequest rankedBanRequest = new RankedBanRequest();
-		rankedBanRequest.RequestId = this.m_messageDispatcher.GetRequestId();
+		rankedBanRequest.RequestId = m_messageDispatcher.GetRequestId();
 		rankedBanRequest.Selection = selection;
-		ClientGameManager.Get().LobbyInterface.SendRequestMessage<RankedBanResponse>(rankedBanRequest, delegate(RankedBanResponse response)
+		ClientGameManager.Get().LobbyInterface.SendRequestMessage(rankedBanRequest, delegate(RankedBanResponse response)
 		{
 			if (!response.Success)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						WriteErrorToConsole(response.LocalizedFailure, response.ErrorMessage);
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.<SendRankedBanRequest>m__27(RankedBanResponse)).MethodHandle;
-				}
-				this.WriteErrorToConsole(response.LocalizedFailure, response.ErrorMessage);
 			}
 		});
 	}
@@ -2887,26 +2871,27 @@ public class LobbyGameClientInterface : WebSocketInterface
 	public void SendRankedSelectionRequest(CharacterType selection)
 	{
 		RankedSelectionRequest rankedSelectionRequest = new RankedSelectionRequest();
-		rankedSelectionRequest.RequestId = this.m_messageDispatcher.GetRequestId();
+		rankedSelectionRequest.RequestId = m_messageDispatcher.GetRequestId();
 		rankedSelectionRequest.Selection = selection;
-		ClientGameManager.Get().LobbyInterface.SendRequestMessage<RankedSelectionResponse>(rankedSelectionRequest, delegate(RankedSelectionResponse response)
+		ClientGameManager.Get().LobbyInterface.SendRequestMessage(rankedSelectionRequest, delegate(RankedSelectionResponse response)
 		{
 			if (!response.Success)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						WriteErrorToConsole(response.LocalizedFailure, response.ErrorMessage);
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.<SendRankedSelectionRequest>m__28(RankedSelectionResponse)).MethodHandle;
-				}
-				this.WriteErrorToConsole(response.LocalizedFailure, response.ErrorMessage);
 			}
 		});
 	}
@@ -2914,13 +2899,13 @@ public class LobbyGameClientInterface : WebSocketInterface
 	public void SendRankedHoverClickRequest(CharacterType selection)
 	{
 		RankedHoverClickRequest rankedHoverClickRequest = new RankedHoverClickRequest();
-		rankedHoverClickRequest.RequestId = this.m_messageDispatcher.GetRequestId();
+		rankedHoverClickRequest.RequestId = m_messageDispatcher.GetRequestId();
 		rankedHoverClickRequest.Selection = selection;
-		ClientGameManager.Get().LobbyInterface.SendRequestMessage<RankedHoverClickResponse>(rankedHoverClickRequest, delegate(RankedHoverClickResponse response)
+		ClientGameManager.Get().LobbyInterface.SendRequestMessage(rankedHoverClickRequest, delegate(RankedHoverClickResponse response)
 		{
 			if (!response.Success)
 			{
-				this.WriteErrorToConsole(response.LocalizedFailure, response.ErrorMessage);
+				WriteErrorToConsole(response.LocalizedFailure, response.ErrorMessage);
 			}
 		});
 	}
@@ -2931,7 +2916,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 		string text;
 		if (characterResourceLink != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -2940,9 +2925,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandleFreelancerUnavailableNotification(FreelancerUnavailableNotification)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			text = characterResourceLink.GetDisplayName();
 		}
@@ -2956,11 +2941,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 		if (notification.ItsTooLateToChange)
 		{
 			title = StringUtil.TR("AutomaticSelection", "Global");
-			description = LocalizationPayload.Create("ForcedToPlayFreelancer", "Global", new LocalizationArg[]
-			{
-				LocalizationArg_Freelancer.Create(notification.oldCharacterType),
-				LocalizationArg_Freelancer.Create(notification.newCharacterType)
-			}).ToString();
+			description = LocalizationPayload.Create("ForcedToPlayFreelancer", "Global", LocalizationArg_Freelancer.Create(notification.oldCharacterType), LocalizationArg_Freelancer.Create(notification.newCharacterType)).ToString();
 		}
 		else
 		{
@@ -2968,7 +2949,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 			string text2;
 			if (notification.thiefName.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -2986,130 +2967,113 @@ public class LobbyGameClientInterface : WebSocketInterface
 			description = text2;
 			UICharacterSelectScreen.Get().AllowCharacterSwapForConflict();
 		}
-		if (!notification.oldCharacterType.IsWillFill())
+		if (notification.oldCharacterType.IsWillFill())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			UIDialogPopupManager.OpenOneButtonDialog(title, description, StringUtil.TR("Ok", "Global"), null, -1, false);
+			UIDialogPopupManager.OpenOneButtonDialog(title, description, StringUtil.TR("Ok", "Global"));
+			return;
 		}
 	}
 
 	private void HandleConnectionOpenedNotification(ConnectionOpenedNotification notification)
 	{
-		this.RegisterGameClient();
+		RegisterGameClient();
 	}
 
 	private void HandleConnectionClosedNotification(ConnectionClosedNotification notification)
 	{
-		if (this.m_registered)
+		if (m_registered)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					base.Logger.Info("Disconnected from {0} ({1}) CloseStatusCode={2}", m_serverAddress, notification.Message.Trim(), notification.Code);
+					this.OnDisconnected(m_lastLobbyErrorMessage, m_allowRelogin, notification.Code);
+					m_lastLobbyErrorMessage = null;
+					m_allowRelogin = true;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandleConnectionClosedNotification(ConnectionClosedNotification)).MethodHandle;
-			}
-			base.Logger.Info("Disconnected from {0} ({1}) CloseStatusCode={2}", new object[]
-			{
-				this.m_serverAddress,
-				notification.Message.Trim(),
-				notification.Code
-			});
-			this.OnDisconnected(this.m_lastLobbyErrorMessage, this.m_allowRelogin, notification.Code);
-			this.m_lastLobbyErrorMessage = null;
-			this.m_allowRelogin = true;
 		}
-		else if (this.m_overallConnectionTimer.IsRunning)
+		if (!m_overallConnectionTimer.IsRunning)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.m_overallConnectionTimer.Elapsed.TotalSeconds < (double)base.ConnectionTimeout)
+			if (m_overallConnectionTimer.Elapsed.TotalSeconds < (double)base.ConnectionTimeout)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						base.Logger.Info("Retrying connection to {0}: {1} CloseStatusCode={2}", m_serverAddress, notification.Message.Trim(), notification.Code);
+						Reconnect();
+						return;
 					}
-					break;
 				}
-				base.Logger.Info("Retrying connection to {0}: {1} CloseStatusCode={2}", new object[]
-				{
-					this.m_serverAddress,
-					notification.Message.Trim(),
-					notification.Code
-				});
-				base.Reconnect();
 			}
-			else
-			{
-				base.Logger.Info("Failed to connect to {0}: {1} CloseStatusCode={2}", new object[]
-				{
-					this.m_serverAddress,
-					notification.Message.Trim(),
-					notification.Code
-				});
-				this.m_overallConnectionTimer.Reset();
-				RegisterGameClientResponse registerGameClientResponse = new RegisterGameClientResponse();
-				registerGameClientResponse.Success = false;
-				registerGameClientResponse.LocalizedFailure = LocalizationPayload.Create("NetworkError", "Global");
-				this.OnConnected(registerGameClientResponse);
-			}
+			base.Logger.Info("Failed to connect to {0}: {1} CloseStatusCode={2}", m_serverAddress, notification.Message.Trim(), notification.Code);
+			m_overallConnectionTimer.Reset();
+			RegisterGameClientResponse registerGameClientResponse = new RegisterGameClientResponse();
+			registerGameClientResponse.Success = false;
+			registerGameClientResponse.LocalizedFailure = LocalizationPayload.Create("NetworkError", "Global");
+			this.OnConnected(registerGameClientResponse);
+			return;
 		}
 	}
 
 	private void HandleConnectionErrorNotification(ConnectionErrorNotification notification)
 	{
-		Log.Error("Communication error to lobby server: {0}", new object[]
-		{
-			notification.ErrorMessage
-		});
+		Log.Error("Communication error to lobby server: {0}", notification.ErrorMessage);
 	}
 
 	protected override void HandleMessage(WebSocketMessage message)
 	{
 		base.HandleMessage(message);
-		this.m_messageDispatcher.HandleMessage(this, message);
+		m_messageDispatcher.HandleMessage(this, message);
 	}
 
 	public bool SendRequestMessage<ResponseType>(WebSocketMessage request, Action<ResponseType> callback) where ResponseType : WebSocketResponseMessage, new()
 	{
-		return base.SendRequestMessage<ResponseType, LobbyGameClientInterface>(request, callback, this.m_messageDispatcher);
+		return SendRequestMessage(request, callback, m_messageDispatcher);
 	}
 
 	public void UnregisterRequest<ResponseType>(int requestId) where ResponseType : WebSocketResponseMessage, new()
 	{
-		this.m_messageDispatcher.UnregisterMessageDelegate<ResponseType>(requestId);
+		m_messageDispatcher.UnregisterMessageDelegate<ResponseType>(requestId);
 	}
 
 	private void RegisterGameClient()
 	{
 		RegisterGameClientRequest registerGameClientRequest = new RegisterGameClientRequest();
-		registerGameClientRequest.RequestId = this.m_messageDispatcher.GetRequestId();
-		registerGameClientRequest.SessionInfo = this.m_sessionInfo;
-		registerGameClientRequest.AuthInfo = this.m_ticket.AuthInfo;
+		registerGameClientRequest.RequestId = m_messageDispatcher.GetRequestId();
+		registerGameClientRequest.SessionInfo = m_sessionInfo;
+		registerGameClientRequest.AuthInfo = m_ticket.AuthInfo;
 		if (SteamManager.UsingSteam)
 		{
 			registerGameClientRequest.SteamUserId = SteamUser.GetSteamID().ToString();
@@ -3120,72 +3084,79 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		registerGameClientRequest.SystemInfo = new LobbyGameClientSystemInfo();
 		registerGameClientRequest.SystemInfo.GraphicsDeviceName = SystemInfo.graphicsDeviceName;
-		this.SendRequestMessage<RegisterGameClientResponse>(registerGameClientRequest, new Action<RegisterGameClientResponse>(this.HandleRegisterGameClientResponse));
+		SendRequestMessage<RegisterGameClientResponse>(registerGameClientRequest, HandleRegisterGameClientResponse);
 	}
 
 	private void HandleRegisterGameClientResponse(RegisterGameClientResponse response)
 	{
 		if (!response.Success)
 		{
-			base.Logger.Error("Failed to register game client with lobby server: {0}", new object[]
-			{
-				response.ErrorMessage
-			});
-			this.m_registered = false;
+			base.Logger.Error("Failed to register game client with lobby server: {0}", response.ErrorMessage);
+			m_registered = false;
 			this.OnConnected(response);
-			this.Disconnect();
+			Disconnect();
+			return;
 		}
-		else
+		base.Logger.Info("Registered game client with lobby server");
+		m_registered = true;
+		m_overallConnectionTimer.Reset();
+		if (response.SessionInfo != null)
 		{
-			base.Logger.Info("Registered game client with lobby server", new object[0]);
-			this.m_registered = true;
-			this.m_overallConnectionTimer.Reset();
-			if (response.SessionInfo != null)
+			while (true)
 			{
-				for (;;)
+				switch (1)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandleRegisterGameClientResponse(RegisterGameClientResponse)).MethodHandle;
-				}
-				this.m_sessionInfo = response.SessionInfo;
+				break;
 			}
-			else if (response.AuthInfo != null)
+			if (1 == 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_sessionInfo.AccountId = response.AuthInfo.AccountId;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (response.Status != null)
+			m_sessionInfo = response.SessionInfo;
+		}
+		else if (response.AuthInfo != null)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (1)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				this.HandleLobbyStatusNotification(response.Status);
+				break;
 			}
-			if (response.AuthInfo != null)
+			m_sessionInfo.AccountId = response.AuthInfo.AccountId;
+		}
+		if (response.Status != null)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			HandleLobbyStatusNotification(response.Status);
+		}
+		if (response.AuthInfo != null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!string.IsNullOrEmpty(response.AuthInfo.Handle))
+			{
+				while (true)
 				{
 					switch (6)
 					{
@@ -3194,22 +3165,10 @@ public class LobbyGameClientInterface : WebSocketInterface
 					}
 					break;
 				}
-				if (!string.IsNullOrEmpty(response.AuthInfo.Handle))
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_ticket.AuthInfo = response.AuthInfo;
-				}
+				m_ticket.AuthInfo = response.AuthInfo;
 			}
-			this.OnConnected(response);
 		}
+		this.OnConnected(response);
 	}
 
 	private void HandleLobbyServerReadyNotification(LobbyServerReadyNotification notification)
@@ -3217,10 +3176,10 @@ public class LobbyGameClientInterface : WebSocketInterface
 		this.OnLobbyServerReadyNotification(notification);
 		if (notification.Success)
 		{
-			base.Logger.Info("Lobby server is ready", new object[0]);
+			base.Logger.Info("Lobby server is ready");
 			if (notification.FriendStatus != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -3229,49 +3188,43 @@ public class LobbyGameClientInterface : WebSocketInterface
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandleLobbyServerReadyNotification(LobbyServerReadyNotification)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.HandleFriendStatusNotification(notification.FriendStatus);
+				HandleFriendStatusNotification(notification.FriendStatus);
 			}
-			if (notification.ServerQueueConfiguration != null)
+			if (notification.ServerQueueConfiguration == null)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				this.HandleServerQueueConfigurationUpdateNotification(notification.ServerQueueConfiguration);
+				HandleServerQueueConfigurationUpdateNotification(notification.ServerQueueConfiguration);
+				return;
 			}
 		}
-		else
-		{
-			base.Logger.Error("Lobby server failed to become ready: {0}", new object[]
-			{
-				notification.ErrorMessage
-			});
-		}
+		base.Logger.Error("Lobby server failed to become ready: {0}", notification.ErrorMessage);
 	}
 
 	private void HandleLobbyStatusNotification(LobbyStatusNotification notification)
 	{
 		if (notification.LocalizedFailure != null)
 		{
-			base.Logger.Error("Error from lobby server: {0}", new object[]
-			{
-				notification.LocalizedFailure.ToString()
-			});
-			this.m_lastLobbyErrorMessage = notification.LocalizedFailure.ToString();
-			this.m_allowRelogin = notification.AllowRelogin;
-			this.Disconnect();
-			return;
+			base.Logger.Error("Error from lobby server: {0}", notification.LocalizedFailure.ToString());
+			m_lastLobbyErrorMessage = notification.LocalizedFailure.ToString();
+			m_allowRelogin = notification.AllowRelogin;
+			Disconnect();
 		}
-		this.OnLobbyStatusNotification(notification);
+		else
+		{
+			this.OnLobbyStatusNotification(notification);
+		}
 	}
 
 	private void HandleLobbyGameplayOverridesNotification(LobbyGameplayOverridesNotification notification)
@@ -3281,12 +3234,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	public void SubscribeToCustomGames()
 	{
-		base.SendMessage(new SubscribeToCustomGamesRequest());
+		SendMessage(new SubscribeToCustomGamesRequest());
 	}
 
 	public void UnsubscribeFromCustomGames()
 	{
-		base.SendMessage(new UnsubscribeFromCustomGamesRequest());
+		SendMessage(new UnsubscribeFromCustomGamesRequest());
 	}
 
 	private void HandleLobbyCustomGamesNotification(LobbyCustomGamesNotification notification)
@@ -3296,124 +3249,113 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	public void SetGameTypeSubMasks(GameType gameType, ushort subGameMask, Action<SetGameSubTypeResponse> onResponseCallback)
 	{
-		if (LobbyGameClientInterface.BlockSendingGroupUpdates)
+		if (BlockSendingGroupUpdates)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Log.Error("Attempted to send a group update in response to one - bad! - SetGameTypeSubMasks \r\nCall Stack: {0}", "n/a");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.SetGameTypeSubMasks(GameType, ushort, Action<SetGameSubTypeResponse>)).MethodHandle;
-			}
-			Log.Error("Attempted to send a group update in response to one - bad! - SetGameTypeSubMasks \r\nCall Stack: {0}", new object[]
-			{
-				"n/a"
-			});
-			return;
 		}
-		this.SendRequestMessage<SetGameSubTypeResponse>(new SetGameSubTypeRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			gameType = gameType,
-			SubTypeMask = subGameMask
-		}, onResponseCallback);
+		SetGameSubTypeRequest setGameSubTypeRequest = new SetGameSubTypeRequest();
+		setGameSubTypeRequest.RequestId = m_messageDispatcher.GetRequestId();
+		setGameSubTypeRequest.gameType = gameType;
+		setGameSubTypeRequest.SubTypeMask = subGameMask;
+		SendRequestMessage(setGameSubTypeRequest, onResponseCallback);
 	}
 
 	public void JoinQueue(GameType gameType, BotDifficulty allyBotDifficulty, BotDifficulty enemyBotDifficulty, Action<JoinMatchmakingQueueResponse> callback)
 	{
-		this.SendRequestMessage<JoinMatchmakingQueueResponse>(new JoinMatchmakingQueueRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			GameType = gameType,
-			AllyBotDifficulty = allyBotDifficulty,
-			EnemyBotDifficulty = enemyBotDifficulty
-		}, callback);
+		JoinMatchmakingQueueRequest joinMatchmakingQueueRequest = new JoinMatchmakingQueueRequest();
+		joinMatchmakingQueueRequest.RequestId = m_messageDispatcher.GetRequestId();
+		joinMatchmakingQueueRequest.GameType = gameType;
+		joinMatchmakingQueueRequest.AllyBotDifficulty = allyBotDifficulty;
+		joinMatchmakingQueueRequest.EnemyBotDifficulty = enemyBotDifficulty;
+		SendRequestMessage(joinMatchmakingQueueRequest, callback);
 	}
 
 	public void LeaveQueue(Action<LeaveMatchmakingQueueResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<LeaveMatchmakingQueueResponse>(new LeaveMatchmakingQueueRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		LeaveMatchmakingQueueRequest leaveMatchmakingQueueRequest = new LeaveMatchmakingQueueRequest();
+		leaveMatchmakingQueueRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(leaveMatchmakingQueueRequest, onResponseCallback);
 	}
 
 	public void UpdateQueueEnemyBotDifficulty(LobbyMatchmakingQueueInfo queueInfo, BotDifficulty enemyDifficulty)
 	{
-		if (LobbyGameClientInterface.BlockSendingGroupUpdates)
+		if (BlockSendingGroupUpdates)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Log.Error("Attempted to send a group update in response to one - bad! - UpdateQueueEnemyBotDifficulty");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.UpdateQueueEnemyBotDifficulty(LobbyMatchmakingQueueInfo, BotDifficulty)).MethodHandle;
-			}
-			Log.Error("Attempted to send a group update in response to one - bad! - UpdateQueueEnemyBotDifficulty", new object[0]);
-			return;
 		}
-		base.SendMessage(new UpdateMatchmakingQueueRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			EnemyDifficulty = enemyDifficulty
-		});
+		UpdateMatchmakingQueueRequest updateMatchmakingQueueRequest = new UpdateMatchmakingQueueRequest();
+		updateMatchmakingQueueRequest.RequestId = m_messageDispatcher.GetRequestId();
+		updateMatchmakingQueueRequest.EnemyDifficulty = enemyDifficulty;
+		SendMessage(updateMatchmakingQueueRequest);
 	}
 
 	public void CreateGame(LobbyGameConfig gameConfig, ReadyState readyState, string processCode, Action<CreateGameResponse> onResponseCallback, BotDifficulty botSkillTeamA = BotDifficulty.Easy, BotDifficulty botSkillTeamB = BotDifficulty.Easy)
 	{
-		this.SendRequestMessage<CreateGameResponse>(new CreateGameRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			GameConfig = gameConfig,
-			ReadyState = readyState,
-			ProcessCode = processCode,
-			SelectedBotSkillTeamA = botSkillTeamA,
-			SelectedBotSkillTeamB = botSkillTeamB
-		}, onResponseCallback);
+		CreateGameRequest createGameRequest = new CreateGameRequest();
+		createGameRequest.RequestId = m_messageDispatcher.GetRequestId();
+		createGameRequest.GameConfig = gameConfig;
+		createGameRequest.ReadyState = readyState;
+		createGameRequest.ProcessCode = processCode;
+		createGameRequest.SelectedBotSkillTeamA = botSkillTeamA;
+		createGameRequest.SelectedBotSkillTeamB = botSkillTeamB;
+		SendRequestMessage(createGameRequest, onResponseCallback);
 	}
 
 	public void JoinGame(LobbyGameInfo gameInfo, bool asSpectator, Action<JoinGameResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<JoinGameResponse>(new JoinGameRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			GameServerProcessCode = gameInfo.GameServerProcessCode,
-			AsSpectator = asSpectator
-		}, onResponseCallback);
+		JoinGameRequest joinGameRequest = new JoinGameRequest();
+		joinGameRequest.RequestId = m_messageDispatcher.GetRequestId();
+		joinGameRequest.GameServerProcessCode = gameInfo.GameServerProcessCode;
+		joinGameRequest.AsSpectator = asSpectator;
+		SendRequestMessage(joinGameRequest, onResponseCallback);
 	}
 
 	public void LeaveGame(bool isPermanent, GameResult gameResult, Action<LeaveGameResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<LeaveGameResponse>(new LeaveGameRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			IsPermanent = isPermanent,
-			GameResult = gameResult
-		}, onResponseCallback);
+		LeaveGameRequest leaveGameRequest = new LeaveGameRequest();
+		leaveGameRequest.RequestId = m_messageDispatcher.GetRequestId();
+		leaveGameRequest.IsPermanent = isPermanent;
+		leaveGameRequest.GameResult = gameResult;
+		SendRequestMessage(leaveGameRequest, onResponseCallback);
 	}
 
 	public void CalculateFreelancerStats(PersistedStatBucket bucketType, CharacterType characterType, PersistedStats stats, MatchFreelancerStats matchFreelancerStats, Action<CalculateFreelancerStatsResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<CalculateFreelancerStatsResponse>(new CalculateFreelancerStatsRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			PersistedStatBucket = bucketType,
-			CharacterType = characterType,
-			PersistedStats = stats,
-			MatchFreelancerStats = matchFreelancerStats
-		}, onResponseCallback);
+		CalculateFreelancerStatsRequest calculateFreelancerStatsRequest = new CalculateFreelancerStatsRequest();
+		calculateFreelancerStatsRequest.RequestId = m_messageDispatcher.GetRequestId();
+		calculateFreelancerStatsRequest.PersistedStatBucket = bucketType;
+		calculateFreelancerStatsRequest.CharacterType = characterType;
+		calculateFreelancerStatsRequest.PersistedStats = stats;
+		calculateFreelancerStatsRequest.MatchFreelancerStats = matchFreelancerStats;
+		SendRequestMessage(calculateFreelancerStatsRequest, onResponseCallback);
 	}
 
 	private void HandleQueueAssignmentNotification(MatchmakingQueueAssignmentNotification notification)
@@ -3433,7 +3375,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	public void Replay_RemoveFromGame()
 	{
-		this.HandleGameAssignmentNotification(new GameAssignmentNotification());
+		HandleGameAssignmentNotification(new GameAssignmentNotification());
 	}
 
 	private void HandleGameInfoNotification(GameInfoNotification notification)
@@ -3448,11 +3390,8 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	public void HandleSynchronizeWithClientOutOfGameRequest(SynchronizeWithClientOutOfGameRequest request)
 	{
-		Log.Info("The servers are checking with us to confirm we're out of game {0}", new object[]
-		{
-			request.GameServerProcessCode
-		});
-		base.SendMessage(new SynchronizeWithClientOutOfGameResponse
+		Log.Info("The servers are checking with us to confirm we're out of game {0}", request.GameServerProcessCode);
+		SendMessage(new SynchronizeWithClientOutOfGameResponse
 		{
 			GameServerProcessCode = request.GameServerProcessCode
 		});
@@ -3460,201 +3399,193 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	public int UpdatePlayerInfo(LobbyPlayerInfoUpdate playerInfoUpdate, Action<PlayerInfoUpdateResponse> onResponseCallback = null)
 	{
-		if (LobbyGameClientInterface.BlockSendingGroupUpdates)
+		if (BlockSendingGroupUpdates)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Log.Error("Attempted to send a group update in response to one - bad! - UpdatePlayerInfo \r\nCall stack: {0}", "n/a");
+					return 0;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.UpdatePlayerInfo(LobbyPlayerInfoUpdate, Action<PlayerInfoUpdateResponse>)).MethodHandle;
-			}
-			Log.Error("Attempted to send a group update in response to one - bad! - UpdatePlayerInfo \r\nCall stack: {0}", new object[]
-			{
-				"n/a"
-			});
-			return 0;
 		}
 		PlayerInfoUpdateRequest playerInfoUpdateRequest = new PlayerInfoUpdateRequest();
-		playerInfoUpdateRequest.RequestId = this.m_messageDispatcher.GetRequestId();
+		playerInfoUpdateRequest.RequestId = m_messageDispatcher.GetRequestId();
 		playerInfoUpdateRequest.PlayerInfoUpdate = playerInfoUpdate;
-		playerInfoUpdateRequest.GameType = new GameType?(ClientGameManager.Get().GroupInfo.SelectedQueueType);
-		this.SendRequestMessage<PlayerInfoUpdateResponse>(playerInfoUpdateRequest, onResponseCallback);
+		playerInfoUpdateRequest.GameType = ClientGameManager.Get().GroupInfo.SelectedQueueType;
+		SendRequestMessage(playerInfoUpdateRequest, onResponseCallback);
 		return playerInfoUpdateRequest.RequestId;
 	}
 
 	public void UpdateGameCheats(GameOptionFlag gameOptionFlags, PlayerGameOptionFlag playerGameOptionFlags, Action<GameCheatUpdateResponse> onResponseCallback = null)
 	{
-		if (LobbyGameClientInterface.BlockSendingGroupUpdates)
+		if (BlockSendingGroupUpdates)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Log.Error("Attempted to send a group update in response to one - bad! - UpdateGameCheats");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.UpdateGameCheats(GameOptionFlag, PlayerGameOptionFlag, Action<GameCheatUpdateResponse>)).MethodHandle;
-			}
-			Log.Error("Attempted to send a group update in response to one - bad! - UpdateGameCheats", new object[0]);
-			return;
 		}
-		this.SendRequestMessage<GameCheatUpdateResponse>(new GameCheatUpdateRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			GameOptionFlags = gameOptionFlags,
-			PlayerGameOptionFlags = playerGameOptionFlags
-		}, onResponseCallback);
+		GameCheatUpdateRequest gameCheatUpdateRequest = new GameCheatUpdateRequest();
+		gameCheatUpdateRequest.RequestId = m_messageDispatcher.GetRequestId();
+		gameCheatUpdateRequest.GameOptionFlags = gameOptionFlags;
+		gameCheatUpdateRequest.PlayerGameOptionFlags = playerGameOptionFlags;
+		SendRequestMessage(gameCheatUpdateRequest, onResponseCallback);
 	}
 
 	public void UpdateGroupGameType(GameType gameType, Action<PlayerGroupInfoUpdateResponse> onResponseCallback)
 	{
-		if (LobbyGameClientInterface.BlockSendingGroupUpdates)
+		if (BlockSendingGroupUpdates)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Log.Error("Attempted to send a group update in response to one - bad! - UpdateGroupGameType");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.UpdateGroupGameType(GameType, Action<PlayerGroupInfoUpdateResponse>)).MethodHandle;
-			}
-			Log.Error("Attempted to send a group update in response to one - bad! - UpdateGroupGameType", new object[0]);
-			return;
 		}
-		this.SendRequestMessage<PlayerGroupInfoUpdateResponse>(new PlayerGroupInfoUpdateRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			GameType = gameType
-		}, onResponseCallback);
+		PlayerGroupInfoUpdateRequest playerGroupInfoUpdateRequest = new PlayerGroupInfoUpdateRequest();
+		playerGroupInfoUpdateRequest.RequestId = m_messageDispatcher.GetRequestId();
+		playerGroupInfoUpdateRequest.GameType = gameType;
+		SendRequestMessage(playerGroupInfoUpdateRequest, onResponseCallback);
 	}
 
 	public void UpdateGameInfo(LobbyGameInfo gameInfo, LobbyTeamInfo teamInfo)
 	{
-		if (LobbyGameClientInterface.BlockSendingGroupUpdates)
+		if (BlockSendingGroupUpdates)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Log.Error("Attempted to send a group update in response to one - bad! - UpdateGameInfo");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.UpdateGameInfo(LobbyGameInfo, LobbyTeamInfo)).MethodHandle;
-			}
-			Log.Error("Attempted to send a group update in response to one - bad! - UpdateGameInfo", new object[0]);
-			return;
 		}
 		GameInfoUpdateRequest gameInfoUpdateRequest = new GameInfoUpdateRequest();
-		gameInfoUpdateRequest.RequestId = this.m_messageDispatcher.GetRequestId();
+		gameInfoUpdateRequest.RequestId = m_messageDispatcher.GetRequestId();
 		gameInfoUpdateRequest.GameInfo = gameInfo;
 		gameInfoUpdateRequest.TeamInfo = teamInfo;
 		Action<GameInfoUpdateResponse> callback = delegate(GameInfoUpdateResponse response)
 		{
 			if (!response.Success)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						WriteErrorToConsole(response.LocalizedFailure, response.ErrorMessage);
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(LobbyGameClientInterface.<UpdateGameInfo>m__2A(GameInfoUpdateResponse)).MethodHandle;
-				}
-				this.WriteErrorToConsole(response.LocalizedFailure, response.ErrorMessage);
 			}
 		};
-		this.SendRequestMessage<GameInfoUpdateResponse>(gameInfoUpdateRequest, callback);
+		SendRequestMessage(gameInfoUpdateRequest, callback);
 	}
 
 	public void InvitePlayerToGame(string playerHandle, Action<GameInvitationResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<GameInvitationResponse>(new GameInvitationRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			InviteeHandle = playerHandle
-		}, onResponseCallback);
+		GameInvitationRequest gameInvitationRequest = new GameInvitationRequest();
+		gameInvitationRequest.RequestId = m_messageDispatcher.GetRequestId();
+		gameInvitationRequest.InviteeHandle = playerHandle;
+		SendRequestMessage(gameInvitationRequest, onResponseCallback);
 	}
 
 	public void SpectateGame(string playerHandle, Action<GameSpectatorResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<GameSpectatorResponse>(new GameSpectatorRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			InviteeHandle = playerHandle
-		}, onResponseCallback);
+		GameSpectatorRequest gameSpectatorRequest = new GameSpectatorRequest();
+		gameSpectatorRequest.RequestId = m_messageDispatcher.GetRequestId();
+		gameSpectatorRequest.InviteeHandle = playerHandle;
+		SendRequestMessage(gameSpectatorRequest, onResponseCallback);
 	}
 
 	public bool RequestCrashReportArchiveName(int numArchiveBytes, Action<CrashReportArchiveNameResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<CrashReportArchiveNameResponse>(new CrashReportArchiveNameRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			NumArchiveBytes = numArchiveBytes
-		}, onResponseCallback);
+		CrashReportArchiveNameRequest crashReportArchiveNameRequest = new CrashReportArchiveNameRequest();
+		crashReportArchiveNameRequest.RequestId = m_messageDispatcher.GetRequestId();
+		crashReportArchiveNameRequest.NumArchiveBytes = numArchiveBytes;
+		SendRequestMessage(crashReportArchiveNameRequest, onResponseCallback);
 		return true;
 	}
 
 	public bool SendStatusReport(ClientStatusReport report)
 	{
-		report.RequestId = this.m_messageDispatcher.GetRequestId();
-		return base.SendMessage(report);
+		report.RequestId = m_messageDispatcher.GetRequestId();
+		return SendMessage(report);
 	}
 
 	public bool SendErrorReport(ClientErrorReport report)
 	{
-		report.RequestId = this.m_messageDispatcher.GetRequestId();
-		return base.SendMessage(report);
+		report.RequestId = m_messageDispatcher.GetRequestId();
+		return SendMessage(report);
 	}
 
 	public bool SendErrorSummary(ClientErrorSummary summary)
 	{
-		summary.RequestId = this.m_messageDispatcher.GetRequestId();
-		return base.SendMessage(summary);
+		summary.RequestId = m_messageDispatcher.GetRequestId();
+		return SendMessage(summary);
 	}
 
 	public bool SendFeedbackReport(ClientFeedbackReport report)
 	{
-		report.RequestId = this.m_messageDispatcher.GetRequestId();
-		return base.SendMessage(report);
+		report.RequestId = m_messageDispatcher.GetRequestId();
+		return SendMessage(report);
 	}
 
 	public bool SendPerformanceReport(ClientPerformanceReport report)
 	{
-		report.RequestId = this.m_messageDispatcher.GetRequestId();
-		return base.SendMessage(report);
+		report.RequestId = m_messageDispatcher.GetRequestId();
+		return SendMessage(report);
 	}
 
 	public bool SendSetRegionRequest(Region region)
 	{
-		return base.SendMessage(new SetRegionRequest
-		{
-			Region = region
-		});
+		SetRegionRequest setRegionRequest = new SetRegionRequest();
+		setRegionRequest.Region = region;
+		return SendMessage(setRegionRequest);
 	}
 
 	private void HandleAccountDataUpdateNotification(PlayerAccountDataUpdateNotification notification)
@@ -3684,52 +3615,48 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	public void GetPlayerMatchData(Action<PlayerMatchDataResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PlayerMatchDataResponse>(new PlayerMatchDataRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		PlayerMatchDataRequest playerMatchDataRequest = new PlayerMatchDataRequest();
+		playerMatchDataRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(playerMatchDataRequest, onResponseCallback);
 	}
 
 	public void PurchaseLoadoutSlot(CharacterType characterType, Action<PurchaseLoadoutSlotResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<PurchaseLoadoutSlotResponse>(new PurchaseLoadoutSlotRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			Character = characterType
-		}, onResponseCallback);
+		PurchaseLoadoutSlotRequest purchaseLoadoutSlotRequest = new PurchaseLoadoutSlotRequest();
+		purchaseLoadoutSlotRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseLoadoutSlotRequest.Character = characterType;
+		SendRequestMessage(purchaseLoadoutSlotRequest, onResponseCallback);
 	}
 
 	public void PurchaseMod(CharacterType character, int abilityId, int abilityModID, Action<PurchaseModResponse> onResponseCallback)
 	{
 		PurchaseModRequest purchaseModRequest = new PurchaseModRequest();
-		purchaseModRequest.RequestId = this.m_messageDispatcher.GetRequestId();
+		purchaseModRequest.RequestId = m_messageDispatcher.GetRequestId();
 		purchaseModRequest.Character = character;
 		purchaseModRequest.UnlockData.AbilityId = abilityId;
 		purchaseModRequest.UnlockData.AbilityModID = abilityModID;
-		this.SendRequestMessage<PurchaseModResponse>(purchaseModRequest, onResponseCallback);
+		SendRequestMessage(purchaseModRequest, onResponseCallback);
 	}
 
 	public void PurchaseModToken(int numToPurchase, Action<PurchaseModTokenResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<PurchaseModTokenResponse>(new PurchaseModTokenRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			NumToPurchase = numToPurchase
-		}, onResponseCallback);
+		PurchaseModTokenRequest purchaseModTokenRequest = new PurchaseModTokenRequest();
+		purchaseModTokenRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseModTokenRequest.NumToPurchase = numToPurchase;
+		SendRequestMessage(purchaseModTokenRequest, onResponseCallback);
 	}
 
 	public void RequestBalancedTeam(BalancedTeamRequest request, Action<BalancedTeamResponse> onResponseCallback)
 	{
-		request.RequestId = this.m_messageDispatcher.GetRequestId();
-		this.SendRequestMessage<BalancedTeamResponse>(request, onResponseCallback);
+		request.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(request, onResponseCallback);
 	}
 
 	public void RequestRefreshBankData(Action<RefreshBankDataResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<RefreshBankDataResponse>(new RefreshBankDataRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		RefreshBankDataRequest refreshBankDataRequest = new RefreshBankDataRequest();
+		refreshBankDataRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(refreshBankDataRequest, onResponseCallback);
 	}
 
 	private void HandleBankBalanceChangeNotification(BankBalanceChangeNotification notification)
@@ -3744,10 +3671,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	public bool SendSeasonStatusConfirmed(SeasonStatusConfirmed.DialogType dialogType)
 	{
-		return base.SendMessage(new SeasonStatusConfirmed
-		{
-			Dialog = dialogType
-		});
+		SeasonStatusConfirmed seasonStatusConfirmed = new SeasonStatusConfirmed();
+		seasonStatusConfirmed.Dialog = dialogType;
+		return SendMessage(seasonStatusConfirmed);
 	}
 
 	private void HandleChapterStatusNotification(ChapterStatusNotification notification)
@@ -3757,624 +3683,567 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	public void InviteToGroup(string friendHandle, Action<GroupInviteResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<GroupInviteResponse>(new GroupInviteRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			FriendHandle = friendHandle
-		}, onResponseCallback);
+		GroupInviteRequest groupInviteRequest = new GroupInviteRequest();
+		groupInviteRequest.RequestId = m_messageDispatcher.GetRequestId();
+		groupInviteRequest.FriendHandle = friendHandle;
+		SendRequestMessage(groupInviteRequest, onResponseCallback);
 	}
 
 	public void RequestToJoinGroup(string friendHandle, Action<GroupJoinResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<GroupJoinResponse>(new GroupJoinRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			FriendHandle = friendHandle
-		}, onResponseCallback);
+		GroupJoinRequest groupJoinRequest = new GroupJoinRequest();
+		groupJoinRequest.RequestId = m_messageDispatcher.GetRequestId();
+		groupJoinRequest.FriendHandle = friendHandle;
+		SendRequestMessage(groupJoinRequest, onResponseCallback);
 	}
 
 	public void PromoteWithinGroup(string name, Action<GroupPromoteResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<GroupPromoteResponse>(new GroupPromoteRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			Name = name
-		}, onResponseCallback);
+		GroupPromoteRequest groupPromoteRequest = new GroupPromoteRequest();
+		groupPromoteRequest.RequestId = m_messageDispatcher.GetRequestId();
+		groupPromoteRequest.Name = name;
+		SendRequestMessage(groupPromoteRequest, onResponseCallback);
 	}
 
 	public void ChatToGroup(string text, Action<GroupChatResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<GroupChatResponse>(new GroupChatRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			Text = text,
-			RequestedEmojis = ChatEmojiManager.Get().GetAllEmojisInString(text)
-		}, onResponseCallback);
+		GroupChatRequest groupChatRequest = new GroupChatRequest();
+		groupChatRequest.RequestId = m_messageDispatcher.GetRequestId();
+		groupChatRequest.Text = text;
+		groupChatRequest.RequestedEmojis = ChatEmojiManager.Get().GetAllEmojisInString(text);
+		SendRequestMessage(groupChatRequest, onResponseCallback);
 	}
 
 	public void LeaveGroup(Action<GroupLeaveResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<GroupLeaveResponse>(new GroupLeaveRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		GroupLeaveRequest groupLeaveRequest = new GroupLeaveRequest();
+		groupLeaveRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(groupLeaveRequest, onResponseCallback);
 	}
 
 	public void KickFromGroup(string memberName, Action<GroupKickResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<GroupKickResponse>(new GroupKickRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			MemberName = memberName
-		}, onResponseCallback);
+		GroupKickRequest groupKickRequest = new GroupKickRequest();
+		groupKickRequest.RequestId = m_messageDispatcher.GetRequestId();
+		groupKickRequest.MemberName = memberName;
+		SendRequestMessage(groupKickRequest, onResponseCallback);
 	}
 
 	public void UpdateFriend(string friendHandle, long friendAccountId, FriendOperation operation, string strData, Action<FriendUpdateResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<FriendUpdateResponse>(new FriendUpdateRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			FriendHandle = friendHandle,
-			FriendAccountId = friendAccountId,
-			FriendOperation = operation,
-			StringData = strData
-		}, onResponseCallback);
+		FriendUpdateRequest friendUpdateRequest = new FriendUpdateRequest();
+		friendUpdateRequest.RequestId = m_messageDispatcher.GetRequestId();
+		friendUpdateRequest.FriendHandle = friendHandle;
+		friendUpdateRequest.FriendAccountId = friendAccountId;
+		friendUpdateRequest.FriendOperation = operation;
+		friendUpdateRequest.StringData = strData;
+		SendRequestMessage(friendUpdateRequest, onResponseCallback);
 	}
 
 	public void UpdatePlayerStatus(string statusString, Action<PlayerUpdateStatusResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PlayerUpdateStatusResponse>(new PlayerUpdateStatusRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			AccountId = this.SessionInfo.AccountId,
-			StatusString = statusString
-		}, onResponseCallback);
+		PlayerUpdateStatusRequest playerUpdateStatusRequest = new PlayerUpdateStatusRequest();
+		playerUpdateStatusRequest.RequestId = m_messageDispatcher.GetRequestId();
+		playerUpdateStatusRequest.AccountId = SessionInfo.AccountId;
+		playerUpdateStatusRequest.StatusString = statusString;
+		SendRequestMessage(playerUpdateStatusRequest, onResponseCallback);
 	}
 
 	public void NotifyStoreOpened()
 	{
 		StoreOpenedMessage message = new StoreOpenedMessage();
-		base.SendMessage(message);
+		SendMessage(message);
 	}
 
 	public void NotifyCustomKeyBinds(Dictionary<int, KeyCodeData> CustomKeyBinds)
 	{
-		base.SendMessage(new CustomKeyBindNotification
-		{
-			CustomKeyBinds = CustomKeyBinds
-		});
+		CustomKeyBindNotification customKeyBindNotification = new CustomKeyBindNotification();
+		customKeyBindNotification.CustomKeyBinds = CustomKeyBinds;
+		SendMessage(customKeyBindNotification);
 	}
 
 	public bool NotifyOptions(OptionsNotification notification)
 	{
-		notification.RequestId = this.m_messageDispatcher.GetRequestId();
-		return base.SendMessage(notification);
+		notification.RequestId = m_messageDispatcher.GetRequestId();
+		return SendMessage(notification);
 	}
 
 	public void RequestPaymentMethods(Action<PaymentMethodsResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<PaymentMethodsResponse>(new PaymentMethodsRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		PaymentMethodsRequest paymentMethodsRequest = new PaymentMethodsRequest();
+		paymentMethodsRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(paymentMethodsRequest, onResponseCallback);
 	}
 
 	public void RequestPrices(Action<PricesResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PricesResponse>(new PricesRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		PricesRequest pricesRequest = new PricesRequest();
+		pricesRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(pricesRequest, onResponseCallback);
 	}
 
 	public void SendSteamMtxConfirm(bool authorized, ulong orderId)
 	{
-		base.SendMessage(new SteamMtxConfirm
-		{
-			authorized = authorized,
-			orderId = orderId
-		});
+		SteamMtxConfirm steamMtxConfirm = new SteamMtxConfirm();
+		steamMtxConfirm.authorized = authorized;
+		steamMtxConfirm.orderId = orderId;
+		SendMessage(steamMtxConfirm);
 	}
 
 	public void PurchaseLootMatrixPack(int lootMatrixPackIndex, long paymentMethodId, Action<PurchaseLootMatrixPackResponse> onResponseCallback = null)
 	{
-		if (paymentMethodId == 0L)
+		if (paymentMethodId == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.PurchaseLootMatrixPack(int, long, Action<PurchaseLootMatrixPackResponse>)).MethodHandle;
-			}
-			return;
 		}
-		this.SendRequestMessage<PurchaseLootMatrixPackResponse>(new PurchaseLootMatrixPackRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			LootMatrixPackIndex = lootMatrixPackIndex,
-			PaymentMethodId = paymentMethodId,
-			AccountCurrency = this.m_ticket.AccountCurrency
-		}, onResponseCallback);
+		PurchaseLootMatrixPackRequest purchaseLootMatrixPackRequest = new PurchaseLootMatrixPackRequest();
+		purchaseLootMatrixPackRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseLootMatrixPackRequest.LootMatrixPackIndex = lootMatrixPackIndex;
+		purchaseLootMatrixPackRequest.PaymentMethodId = paymentMethodId;
+		purchaseLootMatrixPackRequest.AccountCurrency = m_ticket.AccountCurrency;
+		SendRequestMessage(purchaseLootMatrixPackRequest, onResponseCallback);
 	}
 
 	public void PurchaseGame(int gamePackIndex, long paymentMethodId, Action<PurchaseGameResponse> onResponseCallback = null)
 	{
-		if (paymentMethodId == 0L)
+		if (paymentMethodId == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.PurchaseGame(int, long, Action<PurchaseGameResponse>)).MethodHandle;
-			}
-			return;
 		}
-		this.SendRequestMessage<PurchaseGameResponse>(new PurchaseGameRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			GamePackIndex = gamePackIndex,
-			PaymentMethodId = paymentMethodId,
-			AccountCurrency = this.m_ticket.AccountCurrency
-		}, onResponseCallback);
+		PurchaseGameRequest purchaseGameRequest = new PurchaseGameRequest();
+		purchaseGameRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseGameRequest.GamePackIndex = gamePackIndex;
+		purchaseGameRequest.PaymentMethodId = paymentMethodId;
+		purchaseGameRequest.AccountCurrency = m_ticket.AccountCurrency;
+		SendRequestMessage(purchaseGameRequest, onResponseCallback);
 	}
 
 	public void PurchaseGGPack(int ggPackIndex, long paymentMethodId, Action<PurchaseGGPackResponse> onResponseCallback = null)
 	{
-		if (paymentMethodId == 0L)
+		if (paymentMethodId == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.PurchaseGGPack(int, long, Action<PurchaseGGPackResponse>)).MethodHandle;
-			}
-			return;
 		}
-		this.SendRequestMessage<PurchaseGGPackResponse>(new PurchaseGGPackRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			GGPackIndex = ggPackIndex,
-			PaymentMethodId = paymentMethodId,
-			AccountCurrency = this.m_ticket.AccountCurrency
-		}, onResponseCallback);
+		PurchaseGGPackRequest purchaseGGPackRequest = new PurchaseGGPackRequest();
+		purchaseGGPackRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseGGPackRequest.GGPackIndex = ggPackIndex;
+		purchaseGGPackRequest.PaymentMethodId = paymentMethodId;
+		purchaseGGPackRequest.AccountCurrency = m_ticket.AccountCurrency;
+		SendRequestMessage(purchaseGGPackRequest, onResponseCallback);
 	}
 
 	public void PurchaseCharacter(CurrencyType currencyType, CharacterType characterType, Action<PurchaseCharacterResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseCharacterResponse>(new PurchaseCharacterRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			CurrencyType = currencyType,
-			CharacterType = characterType
-		}, onResponseCallback);
+		PurchaseCharacterRequest purchaseCharacterRequest = new PurchaseCharacterRequest();
+		purchaseCharacterRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseCharacterRequest.CurrencyType = currencyType;
+		purchaseCharacterRequest.CharacterType = characterType;
+		SendRequestMessage(purchaseCharacterRequest, onResponseCallback);
 	}
 
 	public void PurchaseCharacterForCash(CharacterType characterType, long paymentMethodId, Action<PurchaseCharacterForCashResponse> onResponseCallback = null)
 	{
-		if (paymentMethodId == 0L)
+		if (paymentMethodId != 0)
 		{
-			return;
+			PurchaseCharacterForCashRequest purchaseCharacterForCashRequest = new PurchaseCharacterForCashRequest();
+			purchaseCharacterForCashRequest.RequestId = m_messageDispatcher.GetRequestId();
+			purchaseCharacterForCashRequest.CharacterType = characterType;
+			purchaseCharacterForCashRequest.PaymentMethodId = paymentMethodId;
+			purchaseCharacterForCashRequest.AccountCurrency = m_ticket.AccountCurrency;
+			SendRequestMessage(purchaseCharacterForCashRequest, onResponseCallback);
 		}
-		this.SendRequestMessage<PurchaseCharacterForCashResponse>(new PurchaseCharacterForCashRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			CharacterType = characterType,
-			PaymentMethodId = paymentMethodId,
-			AccountCurrency = this.m_ticket.AccountCurrency
-		}, onResponseCallback);
 	}
 
 	public void PurchaseSkin(CurrencyType currencyType, CharacterType characterType, int skinId, Action<PurchaseSkinResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseSkinResponse>(new PurchaseSkinRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			CurrencyType = currencyType,
-			CharacterType = characterType,
-			SkinId = skinId
-		}, onResponseCallback);
+		PurchaseSkinRequest purchaseSkinRequest = new PurchaseSkinRequest();
+		purchaseSkinRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseSkinRequest.CurrencyType = currencyType;
+		purchaseSkinRequest.CharacterType = characterType;
+		purchaseSkinRequest.SkinId = skinId;
+		SendRequestMessage(purchaseSkinRequest, onResponseCallback);
 	}
 
 	public void PurchaseTexture(CurrencyType currencyType, CharacterType characterType, int skinId, int textureId, Action<PurchaseTextureResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseTextureResponse>(new PurchaseTextureRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			CurrencyType = currencyType,
-			CharacterType = characterType,
-			SkinId = skinId,
-			TextureId = textureId
-		}, onResponseCallback);
+		PurchaseTextureRequest purchaseTextureRequest = new PurchaseTextureRequest();
+		purchaseTextureRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseTextureRequest.CurrencyType = currencyType;
+		purchaseTextureRequest.CharacterType = characterType;
+		purchaseTextureRequest.SkinId = skinId;
+		purchaseTextureRequest.TextureId = textureId;
+		SendRequestMessage(purchaseTextureRequest, onResponseCallback);
 	}
 
 	public void PurchaseTint(CurrencyType currencyType, CharacterType characterType, int skinId, int textureId, int tintId, Action<PurchaseTintResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseTintResponse>(new PurchaseTintRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			CurrencyType = currencyType,
-			CharacterType = characterType,
-			SkinId = skinId,
-			TextureId = textureId,
-			TintId = tintId
-		}, onResponseCallback);
+		PurchaseTintRequest purchaseTintRequest = new PurchaseTintRequest();
+		purchaseTintRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseTintRequest.CurrencyType = currencyType;
+		purchaseTintRequest.CharacterType = characterType;
+		purchaseTintRequest.SkinId = skinId;
+		purchaseTintRequest.TextureId = textureId;
+		purchaseTintRequest.TintId = tintId;
+		SendRequestMessage(purchaseTintRequest, onResponseCallback);
 	}
 
 	public void PurchaseTintForCash(CharacterType characterType, int skinId, int textureId, int tintId, long paymentMethodId, Action<PurchaseTintForCashResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseTintForCashResponse>(new PurchaseTintForCashRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			PaymentMethodId = paymentMethodId,
-			CharacterType = characterType,
-			SkinId = skinId,
-			TextureId = textureId,
-			TintId = tintId,
-			AccountCurrency = this.m_ticket.AccountCurrency
-		}, onResponseCallback);
+		PurchaseTintForCashRequest purchaseTintForCashRequest = new PurchaseTintForCashRequest();
+		purchaseTintForCashRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseTintForCashRequest.PaymentMethodId = paymentMethodId;
+		purchaseTintForCashRequest.CharacterType = characterType;
+		purchaseTintForCashRequest.SkinId = skinId;
+		purchaseTintForCashRequest.TextureId = textureId;
+		purchaseTintForCashRequest.TintId = tintId;
+		purchaseTintForCashRequest.AccountCurrency = m_ticket.AccountCurrency;
+		SendRequestMessage(purchaseTintForCashRequest, onResponseCallback);
 	}
 
 	public void PurchaseStoreItemForCash(int inventoryItemId, long paymentMethodId, Action<PurchaseStoreItemForCashResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseStoreItemForCashResponse>(new PurchaseStoreItemForCashRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			PaymentMethodId = paymentMethodId,
-			InventoryTemplateId = inventoryItemId,
-			AccountCurrency = this.m_ticket.AccountCurrency
-		}, onResponseCallback);
+		PurchaseStoreItemForCashRequest purchaseStoreItemForCashRequest = new PurchaseStoreItemForCashRequest();
+		purchaseStoreItemForCashRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseStoreItemForCashRequest.PaymentMethodId = paymentMethodId;
+		purchaseStoreItemForCashRequest.InventoryTemplateId = inventoryItemId;
+		purchaseStoreItemForCashRequest.AccountCurrency = m_ticket.AccountCurrency;
+		SendRequestMessage(purchaseStoreItemForCashRequest, onResponseCallback);
 	}
 
 	public void PurchaseTaunt(CurrencyType currencyType, CharacterType characterType, int tauntId, Action<PurchaseTauntResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseTauntResponse>(new PurchaseTauntRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			CurrencyType = currencyType,
-			CharacterType = characterType,
-			TauntId = tauntId
-		}, onResponseCallback);
+		PurchaseTauntRequest purchaseTauntRequest = new PurchaseTauntRequest();
+		purchaseTauntRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseTauntRequest.CurrencyType = currencyType;
+		purchaseTauntRequest.CharacterType = characterType;
+		purchaseTauntRequest.TauntId = tauntId;
+		SendRequestMessage(purchaseTauntRequest, onResponseCallback);
 	}
 
 	public void PurchaseTitle(CurrencyType currencyType, int titleId, Action<PurchaseTitleResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseTitleResponse>(new PurchaseTitleRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			CurrencyType = currencyType,
-			TitleId = titleId
-		}, onResponseCallback);
+		PurchaseTitleRequest purchaseTitleRequest = new PurchaseTitleRequest();
+		purchaseTitleRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseTitleRequest.CurrencyType = currencyType;
+		purchaseTitleRequest.TitleId = titleId;
+		SendRequestMessage(purchaseTitleRequest, onResponseCallback);
 	}
 
 	public void PurchaseChatEmoji(CurrencyType currencyType, int emojiID, Action<PurchaseChatEmojiResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseChatEmojiResponse>(new PurchaseChatEmojiRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			CurrencyType = currencyType,
-			EmojiID = emojiID
-		}, onResponseCallback);
+		PurchaseChatEmojiRequest purchaseChatEmojiRequest = new PurchaseChatEmojiRequest();
+		purchaseChatEmojiRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseChatEmojiRequest.CurrencyType = currencyType;
+		purchaseChatEmojiRequest.EmojiID = emojiID;
+		SendRequestMessage(purchaseChatEmojiRequest, onResponseCallback);
 	}
 
 	public void PurchaseBannerBackground(CurrencyType currencyType, int bannerBackgroundId, Action<PurchaseBannerBackgroundResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseBannerBackgroundResponse>(new PurchaseBannerBackgroundRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			CurrencyType = currencyType,
-			BannerBackgroundId = bannerBackgroundId
-		}, onResponseCallback);
+		PurchaseBannerBackgroundRequest purchaseBannerBackgroundRequest = new PurchaseBannerBackgroundRequest();
+		purchaseBannerBackgroundRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseBannerBackgroundRequest.CurrencyType = currencyType;
+		purchaseBannerBackgroundRequest.BannerBackgroundId = bannerBackgroundId;
+		SendRequestMessage(purchaseBannerBackgroundRequest, onResponseCallback);
 	}
 
 	public void PurchaseBannerForeground(CurrencyType currencyType, int bannerForegroundId, Action<PurchaseBannerForegroundResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseBannerForegroundResponse>(new PurchaseBannerForegroundRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			CurrencyType = currencyType,
-			BannerForegroundId = bannerForegroundId
-		}, onResponseCallback);
+		PurchaseBannerForegroundRequest purchaseBannerForegroundRequest = new PurchaseBannerForegroundRequest();
+		purchaseBannerForegroundRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseBannerForegroundRequest.CurrencyType = currencyType;
+		purchaseBannerForegroundRequest.BannerForegroundId = bannerForegroundId;
+		SendRequestMessage(purchaseBannerForegroundRequest, onResponseCallback);
 	}
 
 	public void PurchaseAbilityVfx(CharacterType charType, int abilityId, int vfxId, CurrencyType currencyType, Action<PurchaseAbilityVfxResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseAbilityVfxResponse>(new PurchaseAbilityVfxRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			CurrencyType = currencyType,
-			CharacterType = charType,
-			AbilityId = abilityId,
-			VfxId = vfxId
-		}, onResponseCallback);
+		PurchaseAbilityVfxRequest purchaseAbilityVfxRequest = new PurchaseAbilityVfxRequest();
+		purchaseAbilityVfxRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseAbilityVfxRequest.CurrencyType = currencyType;
+		purchaseAbilityVfxRequest.CharacterType = charType;
+		purchaseAbilityVfxRequest.AbilityId = abilityId;
+		purchaseAbilityVfxRequest.VfxId = vfxId;
+		SendRequestMessage(purchaseAbilityVfxRequest, onResponseCallback);
 	}
 
 	public void PurchaseOvercon(int overconId, CurrencyType currencyType, Action<PurchaseOverconResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseOverconResponse>(new PurchaseOverconRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			CurrencyType = currencyType,
-			OverconId = overconId
-		}, onResponseCallback);
+		PurchaseOverconRequest purchaseOverconRequest = new PurchaseOverconRequest();
+		purchaseOverconRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseOverconRequest.CurrencyType = currencyType;
+		purchaseOverconRequest.OverconId = overconId;
+		SendRequestMessage(purchaseOverconRequest, onResponseCallback);
 	}
 
 	public void PurchaseLoadingScreenBackground(int loadingScreenBackgroundId, CurrencyType currencyType, Action<PurchaseLoadingScreenBackgroundResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseLoadingScreenBackgroundResponse>(new PurchaseLoadingScreenBackgroundRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			CurrencyType = currencyType,
-			LoadingScreenBackgroundId = loadingScreenBackgroundId
-		}, onResponseCallback);
+		PurchaseLoadingScreenBackgroundRequest purchaseLoadingScreenBackgroundRequest = new PurchaseLoadingScreenBackgroundRequest();
+		purchaseLoadingScreenBackgroundRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseLoadingScreenBackgroundRequest.CurrencyType = currencyType;
+		purchaseLoadingScreenBackgroundRequest.LoadingScreenBackgroundId = loadingScreenBackgroundId;
+		SendRequestMessage(purchaseLoadingScreenBackgroundRequest, onResponseCallback);
 	}
 
 	public void PlayerPanelUpdated(int _SelectedTitleID, int _SelectedForegroundBannerID, int _SelectedBackgroundBannerID, int _SelectedRibbonID)
 	{
-		base.SendMessage(new PlayerPanelUpdatedNotification
-		{
-			originalSelectedTitleID = _SelectedTitleID,
-			originalSelectedForegroundBannerID = _SelectedForegroundBannerID,
-			originalSelectedBackgroundBannerID = _SelectedBackgroundBannerID,
-			originalSelectedRibbonID = _SelectedRibbonID
-		});
+		PlayerPanelUpdatedNotification playerPanelUpdatedNotification = new PlayerPanelUpdatedNotification();
+		playerPanelUpdatedNotification.originalSelectedTitleID = _SelectedTitleID;
+		playerPanelUpdatedNotification.originalSelectedForegroundBannerID = _SelectedForegroundBannerID;
+		playerPanelUpdatedNotification.originalSelectedBackgroundBannerID = _SelectedBackgroundBannerID;
+		playerPanelUpdatedNotification.originalSelectedRibbonID = _SelectedRibbonID;
+		SendMessage(playerPanelUpdatedNotification);
 	}
 
 	public void PurchaseInventoryItem(int inventoryItemID, CurrencyType currencyType, Action<PurchaseInventoryItemResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PurchaseInventoryItemResponse>(new PurchaseInventoryItemRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			CurrencyType = currencyType,
-			InventoryItemID = inventoryItemID
-		}, onResponseCallback);
+		PurchaseInventoryItemRequest purchaseInventoryItemRequest = new PurchaseInventoryItemRequest();
+		purchaseInventoryItemRequest.RequestId = m_messageDispatcher.GetRequestId();
+		purchaseInventoryItemRequest.CurrencyType = currencyType;
+		purchaseInventoryItemRequest.InventoryItemID = inventoryItemID;
+		SendRequestMessage(purchaseInventoryItemRequest, onResponseCallback);
 	}
 
 	public void CheckAccountStatus(Action<CheckAccountStatusResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<CheckAccountStatusResponse>(new CheckAccountStatusRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		CheckAccountStatusRequest checkAccountStatusRequest = new CheckAccountStatusRequest();
+		checkAccountStatusRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(checkAccountStatusRequest, onResponseCallback);
 	}
 
 	public void CheckRAFStatus(bool getReferralCode, Action<CheckRAFStatusResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<CheckRAFStatusResponse>(new CheckRAFStatusRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			GetReferralCode = getReferralCode
-		}, onResponseCallback);
+		CheckRAFStatusRequest checkRAFStatusRequest = new CheckRAFStatusRequest();
+		checkRAFStatusRequest.RequestId = m_messageDispatcher.GetRequestId();
+		checkRAFStatusRequest.GetReferralCode = getReferralCode;
+		SendRequestMessage(checkRAFStatusRequest, onResponseCallback);
 	}
 
 	public void SendRAFReferralEmails(List<string> emails, Action<SendRAFReferralEmailsResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<SendRAFReferralEmailsResponse>(new SendRAFReferralEmailsRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			Emails = emails
-		}, onResponseCallback);
+		SendRAFReferralEmailsRequest sendRAFReferralEmailsRequest = new SendRAFReferralEmailsRequest();
+		sendRAFReferralEmailsRequest.RequestId = m_messageDispatcher.GetRequestId();
+		sendRAFReferralEmailsRequest.Emails = emails;
+		SendRequestMessage(sendRAFReferralEmailsRequest, onResponseCallback);
 	}
 
 	public void SelectDailyQuest(int questId, Action<PickDailyQuestResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PickDailyQuestResponse>(new PickDailyQuestRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			questId = questId
-		}, onResponseCallback);
+		PickDailyQuestRequest pickDailyQuestRequest = new PickDailyQuestRequest();
+		pickDailyQuestRequest.RequestId = m_messageDispatcher.GetRequestId();
+		pickDailyQuestRequest.questId = questId;
+		SendRequestMessage(pickDailyQuestRequest, onResponseCallback);
 	}
 
 	public void AbandonDailyQuest(int questId, Action<AbandonDailyQuestResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<AbandonDailyQuestResponse>(new AbandonDailyQuestRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			questId = questId
-		}, onResponseCallback);
+		AbandonDailyQuestRequest abandonDailyQuestRequest = new AbandonDailyQuestRequest();
+		abandonDailyQuestRequest.RequestId = m_messageDispatcher.GetRequestId();
+		abandonDailyQuestRequest.questId = questId;
+		SendRequestMessage(abandonDailyQuestRequest, onResponseCallback);
 	}
 
 	public void ActivateQuestTrigger(QuestTriggerType triggerType, int activationCount, int questId, int questBonusCount, int itemTemplateId, CharacterType charType, Action<ActivateQuestTriggerResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<ActivateQuestTriggerResponse>(new ActivateQuestTriggerRequest
-		{
-			TriggerType = triggerType,
-			ActivationCount = activationCount,
-			QuestId = questId,
-			QuestBonusCount = questBonusCount,
-			ItemTemplateId = itemTemplateId,
-			charType = charType,
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		ActivateQuestTriggerRequest activateQuestTriggerRequest = new ActivateQuestTriggerRequest();
+		activateQuestTriggerRequest.TriggerType = triggerType;
+		activateQuestTriggerRequest.ActivationCount = activationCount;
+		activateQuestTriggerRequest.QuestId = questId;
+		activateQuestTriggerRequest.QuestBonusCount = questBonusCount;
+		activateQuestTriggerRequest.ItemTemplateId = itemTemplateId;
+		activateQuestTriggerRequest.charType = charType;
+		activateQuestTriggerRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(activateQuestTriggerRequest, onResponseCallback);
 	}
 
 	public void BeginQuest(int questId, Action<BeginQuestResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<BeginQuestResponse>(new BeginQuestRequest
-		{
-			QuestId = questId,
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		BeginQuestRequest beginQuestRequest = new BeginQuestRequest();
+		beginQuestRequest.QuestId = questId;
+		beginQuestRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(beginQuestRequest, onResponseCallback);
 	}
 
 	public void CompleteQuest(int questId, Action<CompleteQuestResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<CompleteQuestResponse>(new CompleteQuestRequest
-		{
-			QuestId = questId,
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		CompleteQuestRequest completeQuestRequest = new CompleteQuestRequest();
+		completeQuestRequest.QuestId = questId;
+		completeQuestRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(completeQuestRequest, onResponseCallback);
 	}
 
 	public void MarkTutorialSkipped(TutorialVersion progress, Action<MarkTutorialSkippedResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<MarkTutorialSkippedResponse>(new MarkTutorialSkippedRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			Progress = progress
-		}, onResponseCallback);
+		MarkTutorialSkippedRequest markTutorialSkippedRequest = new MarkTutorialSkippedRequest();
+		markTutorialSkippedRequest.RequestId = m_messageDispatcher.GetRequestId();
+		markTutorialSkippedRequest.Progress = progress;
+		SendRequestMessage(markTutorialSkippedRequest, onResponseCallback);
 	}
 
 	public void GetInventoryItems(Action<GetInventoryItemsResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<GetInventoryItemsResponse>(new GetInventoryItemsRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		GetInventoryItemsRequest getInventoryItemsRequest = new GetInventoryItemsRequest();
+		getInventoryItemsRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(getInventoryItemsRequest, onResponseCallback);
 	}
 
 	public void AddInventoryItems(List<InventoryItem> items, Action<AddInventoryItemsResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<AddInventoryItemsResponse>(new AddInventoryItemsRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			Items = items
-		}, onResponseCallback);
+		AddInventoryItemsRequest addInventoryItemsRequest = new AddInventoryItemsRequest();
+		addInventoryItemsRequest.RequestId = m_messageDispatcher.GetRequestId();
+		addInventoryItemsRequest.Items = items;
+		SendRequestMessage(addInventoryItemsRequest, onResponseCallback);
 	}
 
 	public void RemoveInventoryItems(List<InventoryItem> items, Action<RemoveInventoryItemsResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<RemoveInventoryItemsResponse>(new RemoveInventoryItemsRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			Items = items
-		}, onResponseCallback);
+		RemoveInventoryItemsRequest removeInventoryItemsRequest = new RemoveInventoryItemsRequest();
+		removeInventoryItemsRequest.RequestId = m_messageDispatcher.GetRequestId();
+		removeInventoryItemsRequest.Items = items;
+		SendRequestMessage(removeInventoryItemsRequest, onResponseCallback);
 	}
 
 	public void ConsumeInventoryItem(int itemId, int itemCount, bool toISO, Action<ConsumeInventoryItemResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<ConsumeInventoryItemResponse>(new ConsumeInventoryItemRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			ItemId = itemId,
-			ItemCount = itemCount,
-			ToISO = toISO
-		}, onResponseCallback);
+		ConsumeInventoryItemRequest consumeInventoryItemRequest = new ConsumeInventoryItemRequest();
+		consumeInventoryItemRequest.RequestId = m_messageDispatcher.GetRequestId();
+		consumeInventoryItemRequest.ItemId = itemId;
+		consumeInventoryItemRequest.ItemCount = itemCount;
+		consumeInventoryItemRequest.ToISO = toISO;
+		SendRequestMessage(consumeInventoryItemRequest, onResponseCallback);
 	}
 
 	public void ConsumeInventoryItems(List<int> itemIds, bool toISO, Action<ConsumeInventoryItemsResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<ConsumeInventoryItemsResponse>(new ConsumeInventoryItemsRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			ItemIds = itemIds,
-			ToISO = toISO
-		}, onResponseCallback);
+		ConsumeInventoryItemsRequest consumeInventoryItemsRequest = new ConsumeInventoryItemsRequest();
+		consumeInventoryItemsRequest.RequestId = m_messageDispatcher.GetRequestId();
+		consumeInventoryItemsRequest.ItemIds = itemIds;
+		consumeInventoryItemsRequest.ToISO = toISO;
+		SendRequestMessage(consumeInventoryItemsRequest, onResponseCallback);
 	}
 
 	public void RerollSeasonQuests(int seasonId, int chapterId, Action<SeasonQuestActionResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<SeasonQuestActionResponse>(new SeasonQuestActionRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			Action = SeasonQuestActionRequest.ActionType.\u001D,
-			SeasonId = seasonId,
-			ChapterId = chapterId
-		}, onResponseCallback);
+		SeasonQuestActionRequest seasonQuestActionRequest = new SeasonQuestActionRequest();
+		seasonQuestActionRequest.RequestId = m_messageDispatcher.GetRequestId();
+		seasonQuestActionRequest.Action = SeasonQuestActionRequest.ActionType._001D;
+		seasonQuestActionRequest.SeasonId = seasonId;
+		seasonQuestActionRequest.ChapterId = chapterId;
+		SendRequestMessage(seasonQuestActionRequest, onResponseCallback);
 	}
 
 	public void SetSeasonQuest(int seasonId, int chapterId, int slotNum, int questId, Action<SeasonQuestActionResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<SeasonQuestActionResponse>(new SeasonQuestActionRequest
-		{
-			Action = SeasonQuestActionRequest.ActionType.\u000E,
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			SeasonId = seasonId,
-			ChapterId = chapterId,
-			SlotNum = slotNum,
-			QuestId = questId
-		}, onResponseCallback);
+		SeasonQuestActionRequest seasonQuestActionRequest = new SeasonQuestActionRequest();
+		seasonQuestActionRequest.Action = SeasonQuestActionRequest.ActionType._000E;
+		seasonQuestActionRequest.RequestId = m_messageDispatcher.GetRequestId();
+		seasonQuestActionRequest.SeasonId = seasonId;
+		seasonQuestActionRequest.ChapterId = chapterId;
+		seasonQuestActionRequest.SlotNum = slotNum;
+		seasonQuestActionRequest.QuestId = questId;
+		SendRequestMessage(seasonQuestActionRequest, onResponseCallback);
 	}
 
 	public bool SendPlayerCharacterFeedback(PlayerFeedbackData feedbackData)
 	{
-		return base.SendMessage(new PlayerCharacterFeedbackRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			FeedbackData = feedbackData
-		});
+		PlayerCharacterFeedbackRequest playerCharacterFeedbackRequest = new PlayerCharacterFeedbackRequest();
+		playerCharacterFeedbackRequest.RequestId = m_messageDispatcher.GetRequestId();
+		playerCharacterFeedbackRequest.FeedbackData = feedbackData;
+		return SendMessage(playerCharacterFeedbackRequest);
 	}
 
 	public void SendRejoinGameRequest(LobbyGameInfo previousGameInfo, bool accept, Action<RejoinGameResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<RejoinGameResponse>(new RejoinGameRequest
-		{
-			PreviousGameInfo = previousGameInfo,
-			Accept = accept
-		}, onResponseCallback);
+		RejoinGameRequest rejoinGameRequest = new RejoinGameRequest();
+		rejoinGameRequest.PreviousGameInfo = previousGameInfo;
+		rejoinGameRequest.Accept = accept;
+		SendRequestMessage(rejoinGameRequest, onResponseCallback);
 	}
 
 	public void SendDiscordGetRpcTokenRequest(Action<DiscordGetRpcTokenResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<DiscordGetRpcTokenResponse>(new DiscordGetRpcTokenRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		DiscordGetRpcTokenRequest discordGetRpcTokenRequest = new DiscordGetRpcTokenRequest();
+		discordGetRpcTokenRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(discordGetRpcTokenRequest, onResponseCallback);
 	}
 
 	public void SendDiscordGetAccessTokenRequest(string rpcCode, Action<DiscordGetAccessTokenResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<DiscordGetAccessTokenResponse>(new DiscordGetAccessTokenRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			DiscordRpcCode = rpcCode
-		}, onResponseCallback);
+		DiscordGetAccessTokenRequest discordGetAccessTokenRequest = new DiscordGetAccessTokenRequest();
+		discordGetAccessTokenRequest.RequestId = m_messageDispatcher.GetRequestId();
+		discordGetAccessTokenRequest.DiscordRpcCode = rpcCode;
+		SendRequestMessage(discordGetAccessTokenRequest, onResponseCallback);
 	}
 
 	public void SendDiscordJoinServerRequest(ulong discordUserId, string discordUserAccessToken, DiscordJoinType joinType, Action<DiscordJoinServerResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<DiscordJoinServerResponse>(new DiscordJoinServerRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			DiscordUserId = discordUserId,
-			DiscordUserAccessToken = discordUserAccessToken,
-			JoinType = joinType
-		}, onResponseCallback);
+		DiscordJoinServerRequest discordJoinServerRequest = new DiscordJoinServerRequest();
+		discordJoinServerRequest.RequestId = m_messageDispatcher.GetRequestId();
+		discordJoinServerRequest.DiscordUserId = discordUserId;
+		discordJoinServerRequest.DiscordUserAccessToken = discordUserAccessToken;
+		discordJoinServerRequest.JoinType = joinType;
+		SendRequestMessage(discordJoinServerRequest, onResponseCallback);
 	}
 
 	public void SendDiscordLeaveServerRequest(DiscordJoinType joinType, Action<DiscordLeaveServerResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<DiscordLeaveServerResponse>(new DiscordLeaveServerRequest
-		{
-			JoinType = joinType,
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		DiscordLeaveServerRequest discordLeaveServerRequest = new DiscordLeaveServerRequest();
+		discordLeaveServerRequest.JoinType = joinType;
+		discordLeaveServerRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(discordLeaveServerRequest, onResponseCallback);
 	}
 
 	public void SendFacebookGetUserTokenRequest(Action<FacebookGetUserTokenResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<FacebookGetUserTokenResponse>(new FacebookGetUserTokenRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		FacebookGetUserTokenRequest facebookGetUserTokenRequest = new FacebookGetUserTokenRequest();
+		facebookGetUserTokenRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(facebookGetUserTokenRequest, onResponseCallback);
 	}
 
 	public void SendPreviousGameInfoRequest(Action<PreviousGameInfoResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<PreviousGameInfoResponse>(new PreviousGameInfoRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		PreviousGameInfoRequest previousGameInfoRequest = new PreviousGameInfoRequest();
+		previousGameInfoRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(previousGameInfoRequest, onResponseCallback);
 	}
 
 	public bool SendChatNotification(string recipientHandle, ConsoleMessageType messageType, string text)
@@ -4384,48 +4253,45 @@ public class LobbyGameClientInterface : WebSocketInterface
 		chatNotification.ConsoleMessageType = messageType;
 		chatNotification.Text = text;
 		chatNotification.EmojisAllowed = ChatEmojiManager.Get().GetAllEmojisInString(chatNotification.Text);
-		return base.SendMessage(chatNotification);
+		return SendMessage(chatNotification);
 	}
 
 	public void SendSetDevTagRequest(bool active, Action<SetDevTagResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<SetDevTagResponse>(new SetDevTagRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			active = active
-		}, onResponseCallback);
+		SetDevTagRequest setDevTagRequest = new SetDevTagRequest();
+		setDevTagRequest.RequestId = m_messageDispatcher.GetRequestId();
+		setDevTagRequest.active = active;
+		SendRequestMessage(setDevTagRequest, onResponseCallback);
 	}
 
 	public void SendUseOverconRequest(int overconId, string overconName, int actorId, int turn)
 	{
-		this.SendRequestMessage<UseOverconResponse>(new UseOverconRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			OverconId = overconId,
-			OverconName = overconName,
-			ActorId = actorId,
-			Turn = turn
-		}, new Action<UseOverconResponse>(this.HandleUseOverconResponse));
+		UseOverconRequest useOverconRequest = new UseOverconRequest();
+		useOverconRequest.RequestId = m_messageDispatcher.GetRequestId();
+		useOverconRequest.OverconId = overconId;
+		useOverconRequest.OverconName = overconName;
+		useOverconRequest.ActorId = actorId;
+		useOverconRequest.Turn = turn;
+		SendRequestMessage<UseOverconResponse>(useOverconRequest, HandleUseOverconResponse);
 	}
 
 	public bool SendUIActionNotification(string context)
 	{
-		return base.SendMessage(new UIActionNotification
-		{
-			Context = context
-		});
+		UIActionNotification uIActionNotification = new UIActionNotification();
+		uIActionNotification.Context = context;
+		return SendMessage(uIActionNotification);
 	}
 
 	private void HandleGroupUpdateNotification(GroupUpdateNotification notification)
 	{
 		try
 		{
-			LobbyGameClientInterface.BlockSendingGroupUpdates = true;
+			BlockSendingGroupUpdates = true;
 			this.OnGroupUpdateNotification(notification);
 		}
 		finally
 		{
-			LobbyGameClientInterface.BlockSendingGroupUpdates = false;
+			BlockSendingGroupUpdates = false;
 		}
 	}
 
@@ -4512,80 +4378,72 @@ public class LobbyGameClientInterface : WebSocketInterface
 	private void HandleErrorReportSummaryRequest(ErrorReportSummaryRequest request)
 	{
 		ClientExceptionDetector clientExceptionDetector = ClientExceptionDetector.Get();
-		if (clientExceptionDetector != null)
+		if (!(clientExceptionDetector != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandleErrorReportSummaryRequest(ErrorReportSummaryRequest)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ClientErrorReport clientErrorReport;
-			if (clientExceptionDetector.GetClientErrorReport(request.CrashReportHash, out clientErrorReport))
+			if (clientExceptionDetector.GetClientErrorReport(request.CrashReportHash, out ClientErrorReport clientErrorReport))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						Log.Info("Informing lobby about error report {0}: {1}", request.CrashReportHash, clientErrorReport.LogString);
+						SendMessage(new ErrorReportSummaryResponse
+						{
+							ClientErrorReport = clientErrorReport
+						});
+						return;
 					}
-					break;
 				}
-				Log.Info("Informing lobby about error report {0}: {1}", new object[]
-				{
-					request.CrashReportHash,
-					clientErrorReport.LogString
-				});
-				base.SendMessage(new ErrorReportSummaryResponse
-				{
-					ClientErrorReport = clientErrorReport
-				});
 			}
-			else
-			{
-				Log.Warning("Lobby asked us to describe error {0}, but we've never seen it!", new object[]
-				{
-					request.CrashReportHash
-				});
-			}
+			Log.Warning("Lobby asked us to describe error {0}, but we've never seen it!", request.CrashReportHash);
+			return;
 		}
 	}
 
 	private void HandlePendingPurchaseResult(PendingPurchaseResult resultMsg)
 	{
-		if (UIStorePanel.Get() != null)
+		if (!(UIStorePanel.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandlePendingPurchaseResult(PendingPurchaseResult)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UIStorePanel.Get().HandlePendingPurchaseResult(resultMsg);
+			return;
 		}
 	}
 
-	private void \u001D(DEBUG_ResetCompletedChaptersResponse \u001D)
+	private void _001D(DEBUG_ResetCompletedChaptersResponse _001D)
 	{
-		string text = string.Empty;
-		if (\u001D.Success)
+		string empty = string.Empty;
+		if (_001D.Success)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -4594,148 +4452,134 @@ public class LobbyGameClientInterface : WebSocketInterface
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.\u001D(DEBUG_ResetCompletedChaptersResponse)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text = "Cleared completed chapters list";
-			Log.Info(text, new object[0]);
+			empty = "Cleared completed chapters list";
+			Log.Info(empty);
 		}
 		else
 		{
-			text = "Unable to reset completed chapters list";
-			Log.Error(text, new object[0]);
+			empty = "Unable to reset completed chapters list";
+			Log.Error(empty);
 		}
-		TextConsole.Get().Write(text, ConsoleMessageType.SystemMessage);
+		TextConsole.Get().Write(empty);
 	}
 
 	public void RequestToUseGGPack(Action<UseGGPackResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<UseGGPackResponse>(new UseGGPackRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, onResponseCallback);
+		UseGGPackRequest useGGPackRequest = new UseGGPackRequest();
+		useGGPackRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(useGGPackRequest, onResponseCallback);
 	}
 
 	public void UpdateRemoteCharacter(CharacterType[] characters, int[] remoteSlotIndexes, Action<UpdateRemoteCharacterResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<UpdateRemoteCharacterResponse>(new UpdateRemoteCharacterRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			Characters = characters,
-			RemoteSlotIndexes = remoteSlotIndexes
-		}, onResponseCallback);
+		UpdateRemoteCharacterRequest updateRemoteCharacterRequest = new UpdateRemoteCharacterRequest();
+		updateRemoteCharacterRequest.RequestId = m_messageDispatcher.GetRequestId();
+		updateRemoteCharacterRequest.Characters = characters;
+		updateRemoteCharacterRequest.RemoteSlotIndexes = remoteSlotIndexes;
+		SendRequestMessage(updateRemoteCharacterRequest, onResponseCallback);
 	}
 
 	public void RequestTitleSelect(int newTitleID, Action<SelectTitleResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<SelectTitleResponse>(new SelectTitleRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			TitleID = newTitleID
-		}, onResponseCallback);
+		SelectTitleRequest selectTitleRequest = new SelectTitleRequest();
+		selectTitleRequest.RequestId = m_messageDispatcher.GetRequestId();
+		selectTitleRequest.TitleID = newTitleID;
+		SendRequestMessage(selectTitleRequest, onResponseCallback);
 	}
 
 	public void RequestBannerSelect(int newBannerID, Action<SelectBannerResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<SelectBannerResponse>(new SelectBannerRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			BannerID = newBannerID
-		}, onResponseCallback);
+		SelectBannerRequest selectBannerRequest = new SelectBannerRequest();
+		selectBannerRequest.RequestId = m_messageDispatcher.GetRequestId();
+		selectBannerRequest.BannerID = newBannerID;
+		SendRequestMessage(selectBannerRequest, onResponseCallback);
 	}
 
 	public void RequestLoadingScreenBackgroundToggle(int loadingScreenId, bool newState, Action<LoadingScreenToggleResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<LoadingScreenToggleResponse>(new LoadingScreenToggleRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			LoadingScreenId = loadingScreenId,
-			NewState = newState
-		}, onResponseCallback);
+		LoadingScreenToggleRequest loadingScreenToggleRequest = new LoadingScreenToggleRequest();
+		loadingScreenToggleRequest.RequestId = m_messageDispatcher.GetRequestId();
+		loadingScreenToggleRequest.LoadingScreenId = loadingScreenId;
+		loadingScreenToggleRequest.NewState = newState;
+		SendRequestMessage(loadingScreenToggleRequest, onResponseCallback);
 	}
 
 	public void RequestRibbonSelect(int newRibbonID, Action<SelectRibbonResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<SelectRibbonResponse>(new SelectRibbonRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			RibbonID = newRibbonID
-		}, onResponseCallback);
+		SelectRibbonRequest selectRibbonRequest = new SelectRibbonRequest();
+		selectRibbonRequest.RequestId = m_messageDispatcher.GetRequestId();
+		selectRibbonRequest.RibbonID = newRibbonID;
+		SendRequestMessage(selectRibbonRequest, onResponseCallback);
 	}
 
 	public void RequestUpdateUIState(AccountComponent.UIStateIdentifier uiState, int stateValue, Action<UpdateUIStateResponse> onResponseCallback = null)
 	{
-		this.SendRequestMessage<UpdateUIStateResponse>(new UpdateUIStateRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			UIState = uiState,
-			StateValue = stateValue
-		}, onResponseCallback);
+		UpdateUIStateRequest updateUIStateRequest = new UpdateUIStateRequest();
+		updateUIStateRequest.RequestId = m_messageDispatcher.GetRequestId();
+		updateUIStateRequest.UIState = uiState;
+		updateUIStateRequest.StateValue = stateValue;
+		SendRequestMessage(updateUIStateRequest, onResponseCallback);
 	}
 
 	public void SetPushToTalkKey(int keyType, int keyCode, string keyName)
 	{
-		this.SendRequestMessage<UpdatePushToTalkKeyResponse>(new UpdatePushToTalkKeyRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			KeyType = keyType,
-			KeyCode = keyCode,
-			KeyName = keyName
-		}, null);
+		UpdatePushToTalkKeyRequest updatePushToTalkKeyRequest = new UpdatePushToTalkKeyRequest();
+		updatePushToTalkKeyRequest.RequestId = m_messageDispatcher.GetRequestId();
+		updatePushToTalkKeyRequest.KeyType = keyType;
+		updatePushToTalkKeyRequest.KeyCode = keyCode;
+		updatePushToTalkKeyRequest.KeyName = keyName;
+		SendRequestMessage<UpdatePushToTalkKeyResponse>(updatePushToTalkKeyRequest, null);
 	}
 
 	public void SendRankedLeaderboardOverviewRequest(GameType gameType, Action<RankedLeaderboardOverviewResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<RankedLeaderboardOverviewResponse>(new RankedLeaderboardOverviewRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			GameType = gameType
-		}, onResponseCallback);
+		RankedLeaderboardOverviewRequest rankedLeaderboardOverviewRequest = new RankedLeaderboardOverviewRequest();
+		rankedLeaderboardOverviewRequest.RequestId = m_messageDispatcher.GetRequestId();
+		rankedLeaderboardOverviewRequest.GameType = gameType;
+		SendRequestMessage(rankedLeaderboardOverviewRequest, onResponseCallback);
 	}
 
 	public void SendRankedLeaderboardOverviewRequest(GameType gameType, int groupSize, RankedLeaderboardSpecificRequest.RequestSpecificationType specification, Action<RankedLeaderboardSpecificResponse> onResponseCallback)
 	{
-		this.SendRequestMessage<RankedLeaderboardSpecificResponse>(new RankedLeaderboardSpecificRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			GameType = gameType,
-			GroupSize = groupSize,
-			Specification = specification
-		}, onResponseCallback);
+		RankedLeaderboardSpecificRequest rankedLeaderboardSpecificRequest = new RankedLeaderboardSpecificRequest();
+		rankedLeaderboardSpecificRequest.RequestId = m_messageDispatcher.GetRequestId();
+		rankedLeaderboardSpecificRequest.GameType = gameType;
+		rankedLeaderboardSpecificRequest.GroupSize = groupSize;
+		rankedLeaderboardSpecificRequest.Specification = specification;
+		SendRequestMessage(rankedLeaderboardSpecificRequest, onResponseCallback);
 	}
 
 	public void SetNewSessionLanguage(string languageCode)
 	{
-		base.SendMessage(new OverrideSessionLanguageCodeNotification
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId(),
-			LanguageCode = languageCode
-		});
+		OverrideSessionLanguageCodeNotification overrideSessionLanguageCodeNotification = new OverrideSessionLanguageCodeNotification();
+		overrideSessionLanguageCodeNotification.RequestId = m_messageDispatcher.GetRequestId();
+		overrideSessionLanguageCodeNotification.LanguageCode = languageCode;
+		SendMessage(overrideSessionLanguageCodeNotification);
 	}
 
-	public void \u001D(string \u001D, string \u000E)
+	public void _001D(string _001D, string _000E)
 	{
-		base.SendMessage(new DEBUG_AdminSlashCommandNotification
-		{
-			Command = \u001D,
-			Arguments = \u000E
-		});
+		DEBUG_AdminSlashCommandNotification dEBUG_AdminSlashCommandNotification = new DEBUG_AdminSlashCommandNotification();
+		dEBUG_AdminSlashCommandNotification.Command = _001D;
+		dEBUG_AdminSlashCommandNotification.Arguments = _000E;
+		SendMessage(dEBUG_AdminSlashCommandNotification);
 	}
 
-	public void \u001D(Action<DEBUG_ForceMatchmakingResponse> \u001D)
+	public void _001D(Action<DEBUG_ForceMatchmakingResponse> _001D)
 	{
-		this.SendRequestMessage<DEBUG_ForceMatchmakingResponse>(new DEBUG_ForceMatchmakingRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, \u001D);
+		DEBUG_ForceMatchmakingRequest dEBUG_ForceMatchmakingRequest = new DEBUG_ForceMatchmakingRequest();
+		dEBUG_ForceMatchmakingRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(dEBUG_ForceMatchmakingRequest, _001D);
 	}
 
-	public void \u001D(Action<DEBUG_TakeSnapshotResponse> \u001D)
+	public void _001D(Action<DEBUG_TakeSnapshotResponse> _001D)
 	{
-		this.SendRequestMessage<DEBUG_TakeSnapshotResponse>(new DEBUG_TakeSnapshotRequest
-		{
-			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, \u001D);
+		DEBUG_TakeSnapshotRequest dEBUG_TakeSnapshotRequest = new DEBUG_TakeSnapshotRequest();
+		dEBUG_TakeSnapshotRequest.RequestId = m_messageDispatcher.GetRequestId();
+		SendRequestMessage(dEBUG_TakeSnapshotRequest, _001D);
 	}
 }

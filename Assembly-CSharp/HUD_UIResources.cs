@@ -1,16 +1,66 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class HUD_UIResources : MonoBehaviour
 {
+	[Serializable]
+	public struct TutorialVideo
+	{
+		public string Name;
+
+		public string VideoPath;
+	}
+
+	[Serializable]
+	public struct TutorialVideoInfo
+	{
+		public string Name;
+
+		public string DisplayName;
+
+		public string ThumbnailResourceLocation;
+
+		public TutorialVideo[] TutorialVideos;
+
+		public AccountComponent.UIStateIdentifier SeenVideo;
+	}
+
+	[Serializable]
+	public struct StatusTypeIcon
+	{
+		public string popupText;
+
+		public StatusType type;
+
+		public Sprite icon;
+
+		public bool isDebuff;
+
+		public bool displayIcon;
+
+		public bool displayInStatusList;
+
+		public string buffName;
+
+		public string buffDescription;
+	}
+
+	[Serializable]
+	public class SpectatorOptionToDisplayName
+	{
+		public string m_displayName;
+
+		public UISpectatorHUD.SpectatorToggleOption m_toggleOption;
+	}
+
 	[Header("-- Practice Mode Video List --")]
-	public HUD_UIResources.TutorialVideoInfo[] m_practiceModeVideoList;
+	public TutorialVideoInfo[] m_practiceModeVideoList;
 
 	[Header("-- Prologue Video List --")]
-	public HUD_UIResources.TutorialVideoInfo[] m_prologueVideoList;
+	public TutorialVideoInfo[] m_prologueVideoList;
 
 	[Space(5f)]
-	public HUD_UIResources.StatusTypeIcon[] m_statusIconList;
+	public StatusTypeIcon[] m_statusIconList;
 
 	public Color m_disabledAbilityButtonIconColor;
 
@@ -66,7 +116,7 @@ public class HUD_UIResources : MonoBehaviour
 
 	public int m_lowestScaleDisplayNumber = 5;
 
-	public int m_highestScaleDisplayNumber = 0x3C;
+	public int m_highestScaleDisplayNumber = 60;
 
 	public Color m_selfColorGlow = Color.green;
 
@@ -93,7 +143,7 @@ public class HUD_UIResources : MonoBehaviour
 
 	public int m_minLineWidth = 2;
 
-	public int m_maxLineWidth = 0x14;
+	public int m_maxLineWidth = 20;
 
 	[Header("Minimap")]
 	public Sprite m_TileSprite;
@@ -121,7 +171,7 @@ public class HUD_UIResources : MonoBehaviour
 	public Color m_fogValidPlaySquareNonVisible = Color.gray;
 
 	[Header("-- Spectator HUD Toggle Option Names --")]
-	public HUD_UIResources.SpectatorOptionToDisplayName[] m_spectatorToggleOptionNames;
+	public SpectatorOptionToDisplayName[] m_spectatorToggleOptionNames;
 
 	[Header("    Spectator toggle options to display, in order --")]
 	public UISpectatorHUD.SpectatorToggleOption[] m_spectatorOptionsToShow;
@@ -138,16 +188,16 @@ public class HUD_UIResources : MonoBehaviour
 
 	public void Awake()
 	{
-		HUD_UIResources.s_instance = this;
-		if (this.m_confirmedTargetingFadeoutSpeed < 0f)
+		s_instance = this;
+		if (m_confirmedTargetingFadeoutSpeed < 0f)
 		{
-			this.m_confirmedTargetingFadeoutSpeed = 0f;
+			m_confirmedTargetingFadeoutSpeed = 0f;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		HUD_UIResources.s_instance = null;
+		s_instance = null;
 	}
 
 	public void Update()
@@ -157,35 +207,34 @@ public class HUD_UIResources : MonoBehaviour
 
 	public int GetPracticeModeCurrentLanguageIndex(int videoIndex, string languageCode)
 	{
-		for (int i = 0; i < this.m_practiceModeVideoList[videoIndex].TutorialVideos.Length; i++)
+		for (int i = 0; i < m_practiceModeVideoList[videoIndex].TutorialVideos.Length; i++)
 		{
-			if (this.m_practiceModeVideoList[videoIndex].TutorialVideos[i].Name == languageCode)
+			if (m_practiceModeVideoList[videoIndex].TutorialVideos[i].Name == languageCode)
 			{
 				return i;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return 0;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UIResources.GetPracticeModeCurrentLanguageIndex(int, string)).MethodHandle;
-		}
-		return 0;
 	}
 
 	public string GetPracticeModeVideoDisplayName(int videoIndex)
 	{
-		return StringUtil.TR(this.m_practiceModeVideoList[videoIndex].DisplayName);
+		return StringUtil.TR(m_practiceModeVideoList[videoIndex].DisplayName);
 	}
 
-	internal string GetLocalizedVideoPath(HUD_UIResources.TutorialVideoInfo videoInfo, string languageCode)
+	internal string GetLocalizedVideoPath(TutorialVideoInfo videoInfo, string languageCode)
 	{
 		for (int i = 0; i < videoInfo.TutorialVideos.Length; i++)
 		{
@@ -202,23 +251,22 @@ public class HUD_UIResources : MonoBehaviour
 		Texture2D texture2D = image;
 		for (int i = 0; i < iterations; i++)
 		{
-			texture2D = HUD_UIResources.BlurImage(texture2D, radius, true, alpha);
-			texture2D = HUD_UIResources.BlurImage(texture2D, radius, false, alpha);
+			texture2D = BlurImage(texture2D, radius, true, alpha);
+			texture2D = BlurImage(texture2D, radius, false, alpha);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return texture2D;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UIResources.FastBlur(Texture2D, int, int, float)).MethodHandle;
-		}
-		return texture2D;
 	}
 
 	private static Texture2D BlurImage(Texture2D image, int blurSize, bool horizontal, float alpha)
@@ -228,7 +276,7 @@ public class HUD_UIResources : MonoBehaviour
 		int height = image.height;
 		if (horizontal)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -237,19 +285,19 @@ public class HUD_UIResources : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UIResources.BlurImage(Texture2D, int, bool, float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			for (int i = 0; i < height; i++)
 			{
 				for (int j = 0; j < width; j++)
 				{
-					HUD_UIResources.ResetPixel();
-					int k = j;
-					while (k < j + blurSize)
+					ResetPixel();
+					int k;
+					for (k = j; k < j + blurSize; k++)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -258,61 +306,12 @@ public class HUD_UIResources : MonoBehaviour
 							}
 							break;
 						}
-						if (k >= width)
+						if (k < width)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_91;
-							}
+							AddPixel(image.GetPixel(k, i));
+							continue;
 						}
-						else
-						{
-							HUD_UIResources.AddPixel(image.GetPixel(k, i));
-							k++;
-						}
-					}
-					IL_91:
-					k = j;
-					while (k > j - blurSize)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (k <= 0)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_CD;
-							}
-						}
-						else
-						{
-							HUD_UIResources.AddPixel(image.GetPixel(k, i));
-							k--;
-						}
-					}
-					IL_CD:
-					HUD_UIResources.CalcPixel();
-					k = j;
-					while (k < j + blurSize)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -321,28 +320,68 @@ public class HUD_UIResources : MonoBehaviour
 							}
 							break;
 						}
-						if (k >= width)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_11C;
-							}
-						}
-						else
-						{
-							texture2D.SetPixel(k, i, new Color(HUD_UIResources.avgR, HUD_UIResources.avgG, HUD_UIResources.avgB, alpha));
-							k++;
-						}
+						break;
 					}
-					IL_11C:;
+					k = j;
+					while (k > j - blurSize)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (k > 0)
+						{
+							AddPixel(image.GetPixel(k, i));
+							k--;
+							continue;
+						}
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						break;
+					}
+					CalcPixel();
+					for (k = j; k < j + blurSize; k++)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (k < width)
+						{
+							texture2D.SetPixel(k, i, new Color(avgR, avgG, avgB, alpha));
+							continue;
+						}
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						break;
+					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -358,55 +397,50 @@ public class HUD_UIResources : MonoBehaviour
 			{
 				for (int i = 0; i < height; i++)
 				{
-					HUD_UIResources.ResetPixel();
-					int l = i;
-					while (l < i + blurSize)
+					ResetPixel();
+					int l;
+					for (l = i; l < i + blurSize; l++)
 					{
-						if (l >= height)
+						if (l < height)
 						{
-							for (;;)
+							AddPixel(image.GetPixel(j, l));
+							continue;
+						}
+						while (true)
+						{
+							switch (4)
 							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_189;
+							case 0:
+								continue;
 							}
+							break;
 						}
-						else
-						{
-							HUD_UIResources.AddPixel(image.GetPixel(j, l));
-							l++;
-						}
+						break;
 					}
-					IL_189:
 					l = i;
 					while (l > i - blurSize)
 					{
-						if (l <= 0)
+						if (l > 0)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_1BC;
-							}
-						}
-						else
-						{
-							HUD_UIResources.AddPixel(image.GetPixel(j, l));
+							AddPixel(image.GetPixel(j, l));
 							l--;
+							continue;
 						}
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						break;
 					}
-					IL_1BC:
-					HUD_UIResources.CalcPixel();
+					CalcPixel();
 					for (l = i; l < i + blurSize; l++)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -419,16 +453,20 @@ public class HUD_UIResources : MonoBehaviour
 						{
 							break;
 						}
-						texture2D.SetPixel(j, l, new Color(HUD_UIResources.avgR, HUD_UIResources.avgG, HUD_UIResources.avgB, alpha));
+						texture2D.SetPixel(j, l, new Color(avgR, avgG, avgB, alpha));
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						goto end_IL_0210;
 					}
+					continue;
+					end_IL_0210:
 					break;
 				}
 			}
@@ -439,25 +477,25 @@ public class HUD_UIResources : MonoBehaviour
 
 	private static void AddPixel(Color pixel)
 	{
-		HUD_UIResources.avgR += pixel.r;
-		HUD_UIResources.avgG += pixel.g;
-		HUD_UIResources.avgB += pixel.b;
-		HUD_UIResources.blurPixelCount += 1f;
+		avgR += pixel.r;
+		avgG += pixel.g;
+		avgB += pixel.b;
+		blurPixelCount += 1f;
 	}
 
 	private static void ResetPixel()
 	{
-		HUD_UIResources.avgR = 0f;
-		HUD_UIResources.avgG = 0f;
-		HUD_UIResources.avgB = 0f;
-		HUD_UIResources.blurPixelCount = 0f;
+		avgR = 0f;
+		avgG = 0f;
+		avgB = 0f;
+		blurPixelCount = 0f;
 	}
 
 	private static void CalcPixel()
 	{
-		HUD_UIResources.avgR /= HUD_UIResources.blurPixelCount;
-		HUD_UIResources.avgG /= HUD_UIResources.blurPixelCount;
-		HUD_UIResources.avgB /= HUD_UIResources.blurPixelCount;
+		avgR /= blurPixelCount;
+		avgG /= blurPixelCount;
+		avgB /= blurPixelCount;
 	}
 
 	public static string ColorToHex(Color32 color)
@@ -467,31 +505,31 @@ public class HUD_UIResources : MonoBehaviour
 
 	public static HUD_UIResources Get()
 	{
-		return HUD_UIResources.s_instance;
+		return s_instance;
 	}
 
 	public static void SetParentAndAlign(GameObject child, GameObject parent)
 	{
 		if (parent == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UIResources.SetParentAndAlign(GameObject, GameObject)).MethodHandle;
-			}
-			return;
 		}
 		child.transform.SetParent(parent.transform, false);
 		RectTransform rectTransform = child.transform as RectTransform;
-		if (rectTransform)
+		if ((bool)rectTransform)
 		{
 			rectTransform.anchoredPosition = Vector2.zero;
 			Vector3 localPosition = rectTransform.localPosition;
@@ -507,9 +545,9 @@ public class HUD_UIResources : MonoBehaviour
 		child.layer = parent.layer;
 	}
 
-	public static HUD_UIResources.StatusTypeIcon GetIconForStatusType(StatusType statusType)
+	public static StatusTypeIcon GetIconForStatusType(StatusType statusType)
 	{
-		HUD_UIResources.StatusTypeIcon result;
+		StatusTypeIcon result = default(StatusTypeIcon);
 		result.icon = null;
 		result.type = StatusType.INVALID;
 		result.isDebuff = false;
@@ -518,112 +556,13 @@ public class HUD_UIResources : MonoBehaviour
 		result.popupText = string.Empty;
 		result.buffDescription = string.Empty;
 		result.buffName = string.Empty;
-		for (int i = 0; i < HUD_UIResources.Get().m_statusIconList.Length; i++)
+		for (int i = 0; i < Get().m_statusIconList.Length; i++)
 		{
-			if (HUD_UIResources.Get().m_statusIconList[i].displayIcon)
+			if (!Get().m_statusIconList[i].displayIcon)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UIResources.GetIconForStatusType(StatusType)).MethodHandle;
-				}
-				if (HUD_UIResources.Get().m_statusIconList[i].icon != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (HUD_UIResources.Get().m_statusIconList[i].type == statusType)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						result.displayInStatusList = HUD_UIResources.Get().m_statusIconList[i].displayInStatusList;
-						result = HUD_UIResources.Get().m_statusIconList[i];
-						if (HUD_UIResources.Get().m_statusIconList[i].popupText != string.Empty)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							result.popupText = StringUtil.GetStatusIconPopupText(i + 1);
-						}
-						if (HUD_UIResources.Get().m_statusIconList[i].buffDescription == string.Empty)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							result.buffDescription = statusType.ToString() + "#NotLocalized";
-						}
-						else
-						{
-							result.buffDescription = StringUtil.GetStatusIconBuffDesc(i + 1);
-						}
-						if (HUD_UIResources.Get().m_statusIconList[i].buffName == string.Empty)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							result.buffName = statusType.ToString() + "#NotLocalized";
-						}
-						else
-						{
-							result.buffName = StringUtil.GetStatusIconBuffName(i + 1);
-						}
-						break;
-					}
-				}
+				continue;
 			}
-		}
-		return result;
-	}
-
-	public static float GetScaledCombatTextSize(float number)
-	{
-		float result;
-		if (number >= (float)HUD_UIResources.Get().m_highestScaleDisplayNumber)
-		{
-			result = HUD_UIResources.Get().m_maxScaleSizeOfCombatText;
-		}
-		else if (number <= (float)HUD_UIResources.Get().m_lowestScaleDisplayNumber)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -632,42 +571,15 @@ public class HUD_UIResources : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UIResources.GetScaledCombatTextSize(float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = HUD_UIResources.Get().m_minScaleSizeOfCombatText;
-		}
-		else
-		{
-			float num = (number - (float)HUD_UIResources.Get().m_lowestScaleDisplayNumber) / ((float)HUD_UIResources.Get().m_highestScaleDisplayNumber - (float)HUD_UIResources.Get().m_lowestScaleDisplayNumber);
-			result = num * (HUD_UIResources.Get().m_maxScaleSizeOfCombatText - HUD_UIResources.Get().m_minScaleSizeOfCombatText) + HUD_UIResources.Get().m_minScaleSizeOfCombatText;
-		}
-		return result;
-	}
-
-	public Sprite GetCombatTextIconSprite(BuffIconToDisplay iconType)
-	{
-		if (iconType == BuffIconToDisplay.BoostedDamage)
-		{
-			for (;;)
+			if (!(Get().m_statusIconList[i].icon != null))
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				continue;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UIResources.GetCombatTextIconSprite(BuffIconToDisplay)).MethodHandle;
-			}
-			return this.m_boostedDamageIconSprite;
-		}
-		if (iconType == BuffIconToDisplay.ReducedDamage)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -676,58 +588,133 @@ public class HUD_UIResources : MonoBehaviour
 				}
 				break;
 			}
-			return this.m_reducedDamageIconSprite;
+			if (Get().m_statusIconList[i].type != statusType)
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			result.displayInStatusList = Get().m_statusIconList[i].displayInStatusList;
+			result = Get().m_statusIconList[i];
+			if (Get().m_statusIconList[i].popupText != string.Empty)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				result.popupText = StringUtil.GetStatusIconPopupText(i + 1);
+			}
+			if (Get().m_statusIconList[i].buffDescription == string.Empty)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				result.buffDescription = statusType.ToString() + "#NotLocalized";
+			}
+			else
+			{
+				result.buffDescription = StringUtil.GetStatusIconBuffDesc(i + 1);
+			}
+			if (Get().m_statusIconList[i].buffName == string.Empty)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				result.buffName = statusType.ToString() + "#NotLocalized";
+			}
+			else
+			{
+				result.buffName = StringUtil.GetStatusIconBuffName(i + 1);
+			}
+			break;
+		}
+		return result;
+	}
+
+	public static float GetScaledCombatTextSize(float number)
+	{
+		float num = 1f;
+		if (number >= (float)Get().m_highestScaleDisplayNumber)
+		{
+			return Get().m_maxScaleSizeOfCombatText;
+		}
+		if (number <= (float)Get().m_lowestScaleDisplayNumber)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return Get().m_minScaleSizeOfCombatText;
+				}
+			}
+		}
+		float num2 = (number - (float)Get().m_lowestScaleDisplayNumber) / ((float)Get().m_highestScaleDisplayNumber - (float)Get().m_lowestScaleDisplayNumber);
+		return num2 * (Get().m_maxScaleSizeOfCombatText - Get().m_minScaleSizeOfCombatText) + Get().m_minScaleSizeOfCombatText;
+	}
+
+	public Sprite GetCombatTextIconSprite(BuffIconToDisplay iconType)
+	{
+		if (iconType == BuffIconToDisplay.BoostedDamage)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_boostedDamageIconSprite;
+				}
+			}
+		}
+		if (iconType == BuffIconToDisplay.ReducedDamage)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					break;
+				default:
+					return m_reducedDamageIconSprite;
+				}
+			}
 		}
 		return null;
-	}
-
-	[Serializable]
-	public struct TutorialVideo
-	{
-		public string Name;
-
-		public string VideoPath;
-	}
-
-	[Serializable]
-	public struct TutorialVideoInfo
-	{
-		public string Name;
-
-		public string DisplayName;
-
-		public string ThumbnailResourceLocation;
-
-		public HUD_UIResources.TutorialVideo[] TutorialVideos;
-
-		public AccountComponent.UIStateIdentifier SeenVideo;
-	}
-
-	[Serializable]
-	public struct StatusTypeIcon
-	{
-		public string popupText;
-
-		public StatusType type;
-
-		public Sprite icon;
-
-		public bool isDebuff;
-
-		public bool displayIcon;
-
-		public bool displayInStatusList;
-
-		public string buffName;
-
-		public string buffDescription;
-	}
-
-	[Serializable]
-	public class SpectatorOptionToDisplayName
-	{
-		public string m_displayName;
-
-		public UISpectatorHUD.SpectatorToggleOption m_toggleOption;
 	}
 }

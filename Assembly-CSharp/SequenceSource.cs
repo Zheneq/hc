@@ -1,19 +1,22 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class SequenceSource
 {
-	private static uint s_nextID = 1U;
+	internal delegate void ActorDelegate(ActorData target);
+
+	internal delegate void Vector3Delegate(Vector3 position);
+
+	private static uint s_nextID = 1u;
 
 	private static Dictionary<uint, List<SequenceSource>> s_idsToSrcs = new Dictionary<uint, List<SequenceSource>>();
 
 	private uint _rootID;
 
-	private SequenceSource.ActorDelegate m_onHitActor;
+	private ActorDelegate m_onHitActor;
 
-	private SequenceSource.Vector3Delegate m_onHitPosition;
+	private Vector3Delegate m_onHitPosition;
 
 	private HashSet<Vector3> m_hitPositions = new HashSet<Vector3>();
 
@@ -23,92 +26,17 @@ public class SequenceSource
 
 	private AbilityPriority m_hitPhase = AbilityPriority.INVALID;
 
-	internal SequenceSource()
-	{
-	}
-
-	internal SequenceSource(SequenceSource.ActorDelegate onHitActor, SequenceSource.Vector3Delegate onHitPosition, bool removeAtEndOfTurn = true, SequenceSource parentSource = null, IBitStream stream = null)
-	{
-		this.m_onHitActor = onHitActor;
-		this.m_onHitPosition = onHitPosition;
-		this.RemoveAtEndOfTurn = removeAtEndOfTurn;
-		this.WaitForClientEnable = false;
-		if (stream == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource..ctor(SequenceSource.ActorDelegate, SequenceSource.Vector3Delegate, bool, SequenceSource, IBitStream)).MethodHandle;
-			}
-			this.RootID = ((!(parentSource == null)) ? parentSource.RootID : SequenceSource.AllocateID());
-		}
-		else
-		{
-			this.OnSerializeHelper(stream);
-		}
-	}
-
-	internal SequenceSource(SequenceSource.ActorDelegate onHitActor, SequenceSource.Vector3Delegate onHitPosition, uint rootID, bool removeAtEndOfTurn)
-	{
-		this.m_onHitActor = onHitActor;
-		this.m_onHitPosition = onHitPosition;
-		this.RootID = rootID;
-		this.RemoveAtEndOfTurn = removeAtEndOfTurn;
-	}
-
-	private static uint AllocateID()
-	{
-		if (!NetworkServer.active)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.AllocateID()).MethodHandle;
-			}
-			if (NetworkClient.active)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Log.Error("Code Error: SequenceSource IDs should only be allocated on the server", new object[0]);
-			}
-		}
-		return SequenceSource.s_nextID++;
-	}
-
 	internal uint RootID
 	{
 		get
 		{
-			return this._rootID;
+			return _rootID;
 		}
 		private set
 		{
-			if (this._rootID == 0U)
+			if (_rootID == 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -117,13 +45,13 @@ public class SequenceSource
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.set_RootID(uint)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (value > 0U)
+				if (value != 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -133,9 +61,9 @@ public class SequenceSource
 						break;
 					}
 					List<SequenceSource> list;
-					if (SequenceSource.s_idsToSrcs.ContainsKey(value))
+					if (s_idsToSrcs.ContainsKey(value))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -144,7 +72,7 @@ public class SequenceSource
 							}
 							break;
 						}
-						list = SequenceSource.s_idsToSrcs[value];
+						list = s_idsToSrcs[value];
 					}
 					else
 					{
@@ -152,81 +80,158 @@ public class SequenceSource
 					}
 					List<SequenceSource> list2 = list;
 					list2.Add(this);
-					SequenceSource.s_idsToSrcs[value] = list2;
+					s_idsToSrcs[value] = list2;
 				}
 			}
-			this._rootID = value;
+			_rootID = value;
 		}
 	}
 
-	internal bool RemoveAtEndOfTurn { get; set; }
-
-	internal bool WaitForClientEnable { get; private set; }
-
-	internal void SetWaitForClientEnable(bool value)
+	internal bool RemoveAtEndOfTurn
 	{
-		this.WaitForClientEnable = value;
+		get;
+		set;
 	}
 
-	internal SequenceSource GetShallowCopy()
+	internal bool WaitForClientEnable
 	{
-		return (SequenceSource)base.MemberwiseClone();
+		get;
+		private set;
 	}
 
-	protected override void Finalize()
+	internal SequenceSource()
 	{
-		try
+	}
+
+	internal SequenceSource(ActorDelegate onHitActor, Vector3Delegate onHitPosition, bool removeAtEndOfTurn = true, SequenceSource parentSource = null, IBitStream stream = null)
+	{
+		m_onHitActor = onHitActor;
+		m_onHitPosition = onHitPosition;
+		RemoveAtEndOfTurn = removeAtEndOfTurn;
+		WaitForClientEnable = false;
+		if (stream == null)
 		{
-			if (SequenceSource.s_idsToSrcs.ContainsKey(this._rootID))
+			while (true)
 			{
-				for (;;)
+				switch (1)
 				{
-					switch (2)
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					RootID = ((!(parentSource == null)) ? parentSource.RootID : AllocateID());
+					return;
+				}
+			}
+		}
+		OnSerializeHelper(stream);
+	}
+
+	internal SequenceSource(ActorDelegate onHitActor, Vector3Delegate onHitPosition, uint rootID, bool removeAtEndOfTurn)
+	{
+		m_onHitActor = onHitActor;
+		m_onHitPosition = onHitPosition;
+		RootID = rootID;
+		RemoveAtEndOfTurn = removeAtEndOfTurn;
+	}
+
+	private static uint AllocateID()
+	{
+		if (!NetworkServer.active)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (NetworkClient.active)
+			{
+				while (true)
+				{
+					switch (4)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.Finalize()).MethodHandle;
-				}
-				List<SequenceSource> list = SequenceSource.s_idsToSrcs[this._rootID];
-				list.Remove(this);
+				Log.Error("Code Error: SequenceSource IDs should only be allocated on the server");
 			}
 		}
-		finally
+		return s_nextID++;
+	}
+
+	internal void SetWaitForClientEnable(bool value)
+	{
+		WaitForClientEnable = value;
+	}
+
+	internal SequenceSource GetShallowCopy()
+	{
+		return (SequenceSource)MemberwiseClone();
+	}
+
+	~SequenceSource()
+	{
+		if (s_idsToSrcs.ContainsKey(_rootID))
 		{
-			base.Finalize();
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					List<SequenceSource> list = s_idsToSrcs[_rootID];
+					list.Remove(this);
+					return;
+				}
+				}
+			}
 		}
 	}
 
 	internal static void ClearStaticData()
 	{
-		SequenceSource.s_idsToSrcs.Clear();
+		s_idsToSrcs.Clear();
 	}
 
 	internal void OnSerializeHelper(NetworkWriter stream)
 	{
-		this.OnSerializeHelper(new NetworkWriterAdapter(stream));
+		OnSerializeHelper(new NetworkWriterAdapter(stream));
 	}
 
 	internal void OnSerializeHelper(IBitStream stream)
 	{
-		uint rootID = this.RootID;
-		bool removeAtEndOfTurn = this.RemoveAtEndOfTurn;
-		bool waitForClientEnable = this.WaitForClientEnable;
-		stream.Serialize(ref rootID);
-		stream.Serialize(ref removeAtEndOfTurn);
-		stream.Serialize(ref waitForClientEnable);
-		if (this.RootID != rootID)
+		uint value = RootID;
+		bool value2 = RemoveAtEndOfTurn;
+		bool value3 = WaitForClientEnable;
+		stream.Serialize(ref value);
+		stream.Serialize(ref value2);
+		stream.Serialize(ref value3);
+		if (RootID != value)
 		{
-			this.RootID = rootID;
+			RootID = value;
 		}
-		if (this.RemoveAtEndOfTurn != removeAtEndOfTurn)
+		if (RemoveAtEndOfTurn != value2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -235,24 +240,24 @@ public class SequenceSource
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.OnSerializeHelper(IBitStream)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.RemoveAtEndOfTurn = removeAtEndOfTurn;
+			RemoveAtEndOfTurn = value2;
 		}
-		if (this.WaitForClientEnable != waitForClientEnable)
+		if (WaitForClientEnable != value3)
 		{
-			this.WaitForClientEnable = waitForClientEnable;
+			WaitForClientEnable = value3;
 		}
 	}
 
 	internal void OnSequenceHit(Sequence seq, ActorData target, ActorModelData.ImpulseInfo impulseInfo, ActorModelData.RagdollActivation ragdollActivation = ActorModelData.RagdollActivation.HealthBased, bool tryHitReactIfAlreadyHit = true)
 	{
 		AbilityPriority currentAbilityPhase = ServerClientUtils.GetCurrentAbilityPhase();
-		if (this.m_hitTurn == GameFlowData.Get().CurrentTurn)
+		if (m_hitTurn == GameFlowData.Get().CurrentTurn)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -261,15 +266,15 @@ public class SequenceSource
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.OnSequenceHit(Sequence, ActorData, ActorModelData.ImpulseInfo, ActorModelData.RagdollActivation, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_hitPhase == currentAbilityPhase)
+			if (m_hitPhase == currentAbilityPhase)
 			{
-				goto IL_73;
+				goto IL_0073;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -279,15 +284,16 @@ public class SequenceSource
 				break;
 			}
 		}
-		this.m_hitTurn = GameFlowData.Get().CurrentTurn;
-		this.m_hitPhase = currentAbilityPhase;
-		this.m_hitPositions.Clear();
-		this.m_hitActors.Clear();
-		IL_73:
+		m_hitTurn = GameFlowData.Get().CurrentTurn;
+		m_hitPhase = currentAbilityPhase;
+		m_hitPositions.Clear();
+		m_hitActors.Clear();
+		goto IL_0073;
+		IL_0073:
 		bool flag = false;
-		if (!this.m_hitActors.Contains(target))
+		if (!m_hitActors.Contains(target))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -296,9 +302,9 @@ public class SequenceSource
 				}
 				break;
 			}
-			if (this.m_onHitActor != null)
+			if (m_onHitActor != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -307,17 +313,17 @@ public class SequenceSource
 					}
 					break;
 				}
-				this.m_onHitActor(target);
+				m_onHitActor(target);
 			}
 		}
 		else
 		{
 			flag = true;
 		}
-		this.m_hitActors.Add(target);
+		m_hitActors.Add(target);
 		if (seq != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -328,7 +334,7 @@ public class SequenceSource
 			}
 			if (!tryHitReactIfAlreadyHit)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -339,38 +345,29 @@ public class SequenceSource
 				}
 				if (flag)
 				{
-					goto IL_F7;
+					goto IL_00f7;
 				}
 			}
 			TheatricsManager.Get().OnSequenceHit(seq, target, impulseInfo, ragdollActivation);
 		}
-		IL_F7:
+		goto IL_00f7;
+		IL_00f7:
 		if (SequenceManager.SequenceDebugTraceOn)
 		{
-			Debug.LogWarning(string.Concat(new object[]
-			{
-				"<color=yellow>Sequence Actor Hit: </color><<color=lightblue>",
-				seq.gameObject.name,
-				" | ",
-				seq.GetType(),
-				"</color>> \nhit on: ",
-				target.\u0012("white"),
-				" @time= ",
-				Time.time
-			}));
+			Debug.LogWarning(string.Concat("<color=yellow>Sequence Actor Hit: </color><<color=lightblue>", seq.gameObject.name, " | ", seq.GetType(), "</color>> \nhit on: ", target.GetColoredDebugName("white"), " @time= ", Time.time));
 		}
 	}
 
 	internal void OnSequenceHit(Sequence seq, Vector3 position, ActorModelData.ImpulseInfo impulseInfo = null)
 	{
 		AbilityPriority currentAbilityPhase = ServerClientUtils.GetCurrentAbilityPhase();
-		if (this.m_hitTurn == GameFlowData.Get().CurrentTurn)
+		if (m_hitTurn == GameFlowData.Get().CurrentTurn)
 		{
-			if (this.m_hitPhase == currentAbilityPhase)
+			if (m_hitPhase == currentAbilityPhase)
 			{
-				goto IL_67;
+				goto IL_0067;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -379,19 +376,20 @@ public class SequenceSource
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.OnSequenceHit(Sequence, Vector3, ActorModelData.ImpulseInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
-		this.m_hitTurn = GameFlowData.Get().CurrentTurn;
-		this.m_hitPhase = currentAbilityPhase;
-		this.m_hitPositions.Clear();
-		this.m_hitActors.Clear();
-		IL_67:
-		if (!this.m_hitPositions.Contains(position))
+		m_hitTurn = GameFlowData.Get().CurrentTurn;
+		m_hitPhase = currentAbilityPhase;
+		m_hitPositions.Clear();
+		m_hitActors.Clear();
+		goto IL_0067;
+		IL_0067:
+		if (!m_hitPositions.Contains(position))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -400,10 +398,10 @@ public class SequenceSource
 				}
 				break;
 			}
-			this.m_hitPositions.Add(position);
-			if (this.m_onHitPosition != null)
+			m_hitPositions.Add(position);
+			if (m_onHitPosition != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -412,39 +410,30 @@ public class SequenceSource
 					}
 					break;
 				}
-				this.m_onHitPosition(position);
+				m_onHitPosition(position);
 			}
 		}
-		if (SequenceManager.SequenceDebugTraceOn)
+		if (!SequenceManager.SequenceDebugTraceOn)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			Debug.LogWarning(string.Concat(new object[]
-			{
-				"<color=yellow>Sequence Position Hit: </color><<color=lightblue>",
-				seq.gameObject.name,
-				" | ",
-				seq.GetType(),
-				"</color>> \nhit at: ",
-				position.ToString(),
-				" @time= ",
-				Time.time
-			}));
+			Debug.LogWarning(string.Concat("<color=yellow>Sequence Position Hit: </color><<color=lightblue>", seq.gameObject.name, " | ", seq.GetType(), "</color>> \nhit at: ", position.ToString(), " @time= ", Time.time));
+			return;
 		}
 	}
 
 	internal static bool DidSequenceHit(SequenceSource src, ActorData target)
 	{
-		if (SequenceSource.s_idsToSrcs.ContainsKey(src.RootID))
+		if (s_idsToSrcs.ContainsKey(src.RootID))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -453,11 +442,11 @@ public class SequenceSource
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.DidSequenceHit(SequenceSource, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			List<SequenceSource> list = SequenceSource.s_idsToSrcs[src.RootID];
+			List<SequenceSource> list = s_idsToSrcs[src.RootID];
 			for (int i = 0; i < list.Count; i++)
 			{
 				if (list[i].m_hitActors.Contains(target))
@@ -465,7 +454,7 @@ public class SequenceSource
 					return true;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -480,9 +469,9 @@ public class SequenceSource
 
 	internal static bool DidSequenceHit(SequenceSource src, Vector3 position)
 	{
-		if (SequenceSource.s_idsToSrcs.ContainsKey(src.RootID))
+		if (s_idsToSrcs.ContainsKey(src.RootID))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -491,28 +480,28 @@ public class SequenceSource
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.DidSequenceHit(SequenceSource, Vector3)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			List<SequenceSource> list = SequenceSource.s_idsToSrcs[src.RootID];
+			List<SequenceSource> list = s_idsToSrcs[src.RootID];
 			for (int i = 0; i < list.Count; i++)
 			{
-				if (list[i].m_hitPositions.Contains(position))
+				if (!list[i].m_hitPositions.Contains(position))
 				{
-					for (;;)
+					continue;
+				}
+				while (true)
+				{
+					switch (3)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
 					return true;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -528,14 +517,14 @@ public class SequenceSource
 	public string GetHitActorsString()
 	{
 		string text = string.Empty;
-		using (HashSet<ActorData>.Enumerator enumerator = this.m_hitActors.GetEnumerator())
+		using (HashSet<ActorData>.Enumerator enumerator = m_hitActors.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (actorData != null)
+				ActorData current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -544,13 +533,13 @@ public class SequenceSource
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.GetHitActorsString()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					if (text.Length > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -561,10 +550,10 @@ public class SequenceSource
 						}
 						text += " | ";
 					}
-					text += actorData.ActorIndex;
+					text += current.ActorIndex;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -574,11 +563,10 @@ public class SequenceSource
 				break;
 			}
 		}
-		string str = "Did Hit Actor IDs: ";
-		string str2;
+		object str;
 		if (text.Length > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -587,92 +575,92 @@ public class SequenceSource
 				}
 				break;
 			}
-			str2 = text;
+			str = text;
 		}
 		else
 		{
-			str2 = "(none)";
+			str = "(none)";
 		}
-		return str + str2;
+		return "Did Hit Actor IDs: " + (string)str;
 	}
 
 	public string GetHitPositionsString()
 	{
 		string text = string.Empty;
-		using (HashSet<Vector3>.Enumerator enumerator = this.m_hitPositions.GetEnumerator())
+		using (HashSet<Vector3>.Enumerator enumerator = m_hitPositions.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				Vector3 vector = enumerator.Current;
-				text = text + "\t" + vector.ToString() + "\n";
+				text = text + "\t" + enumerator.Current.ToString() + "\n";
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (true)
+					{
+						return text;
+					}
+					/*OpCode not supported: LdMemberToken*/;
+					return text;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.GetHitPositionsString()).MethodHandle;
 			}
 		}
-		return text;
 	}
 
 	public override bool Equals(object obj)
 	{
 		SequenceSource sequenceSource = obj as SequenceSource;
-		if (sequenceSource == null)
+		if ((object)sequenceSource == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.Equals(object)).MethodHandle;
-			}
-			return false;
 		}
-		return this.RootID == sequenceSource.RootID;
+		return RootID == sequenceSource.RootID;
 	}
 
 	public bool Equals(SequenceSource p)
 	{
-		return this.RootID == p.RootID;
+		return RootID == p.RootID;
 	}
 
 	public static bool operator ==(SequenceSource a, SequenceSource b)
 	{
 		if (object.ReferenceEquals(a, b))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource == SequenceSource).MethodHandle;
-			}
-			return true;
 		}
-		if (a != null)
+		if ((object)a != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -681,11 +669,11 @@ public class SequenceSource
 				}
 				break;
 			}
-			if (b != null)
+			if ((object)b != null)
 			{
 				return a.RootID == b.RootID;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -705,10 +693,6 @@ public class SequenceSource
 
 	public override int GetHashCode()
 	{
-		return (int)this.RootID;
+		return (int)RootID;
 	}
-
-	internal delegate void ActorDelegate(ActorData target);
-
-	internal delegate void Vector3Delegate(Vector3 position);
 }

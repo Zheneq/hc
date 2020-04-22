@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class ClientQualityAutoSelector : MonoBehaviour
@@ -16,7 +15,7 @@ public class ClientQualityAutoSelector : MonoBehaviour
 	{
 		if (ClientQualityComponentEnabler.OptimizeForMemory())
 		{
-			this.m_newQuality = GraphicsQuality.Low;
+			m_newQuality = GraphicsQuality.Low;
 		}
 	}
 
@@ -25,24 +24,23 @@ public class ClientQualityAutoSelector : MonoBehaviour
 		AppState current = AppState.GetCurrent();
 		if (current == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientQualityAutoSelector.Update()).MethodHandle;
-			}
-			return;
 		}
 		if (Options_UI.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -53,39 +51,27 @@ public class ClientQualityAutoSelector : MonoBehaviour
 			}
 			if (Options_UI.Get().GetGraphicsQualityEverSetManually())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						base.enabled = false;
+						return;
 					}
-					break;
 				}
-				base.enabled = false;
-				return;
 			}
 		}
 		bool flag = current == AppState_GameLoading.Get();
 		if (!(current == AppState_CharacterSelect.Get()))
 		{
-			if (current == AppState_GroupCharacterSelect.Get())
+			if (!(current == AppState_GroupCharacterSelect.Get()))
 			{
-				for (;;)
+				if (m_fps != null && m_fps.NumSampledFrames > 15)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				if (this.m_fps != null && this.m_fps.NumSampledFrames > 0xF)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -94,10 +80,10 @@ public class ClientQualityAutoSelector : MonoBehaviour
 						}
 						break;
 					}
-					float num = this.m_fps.CalcForSampledFrames();
-					if (num <= this.m_fpsToLowerQuality)
+					float num = m_fps.CalcForSampledFrames();
+					if (num <= m_fpsToLowerQuality)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -106,11 +92,11 @@ public class ClientQualityAutoSelector : MonoBehaviour
 							}
 							break;
 						}
-						this.m_newQuality = GraphicsQuality.Low;
+						m_newQuality = GraphicsQuality.Low;
 					}
-					else if (num >= this.m_fpsToRaiseQualityCharSelect)
+					else if (num >= m_fpsToRaiseQualityCharSelect)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -119,48 +105,146 @@ public class ClientQualityAutoSelector : MonoBehaviour
 							}
 							break;
 						}
-						this.m_newQuality = GraphicsQuality.High;
+						m_newQuality = GraphicsQuality.High;
 					}
-					this.m_fps = null;
-					goto IL_143;
+					m_fps = null;
 				}
-				goto IL_143;
+				goto IL_0143;
 			}
-		}
-		if ((float)Application.targetFrameRate < this.m_fpsToRaiseQualityCharSelect)
-		{
-			for (;;)
+			while (true)
 			{
-				switch (3)
+				switch (5)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			return;
 		}
-		if (this.m_fps == null)
+		if ((float)Application.targetFrameRate < m_fpsToRaiseQualityCharSelect)
 		{
-			this.m_fps = new FPS();
+			while (true)
+			{
+				switch (3)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
 		}
-		this.m_fps.SampleFrame();
-		IL_143:
-		if (flag && this.m_newQuality != GraphicsQuality.Medium)
+		if (m_fps == null)
 		{
-			for (;;)
+			m_fps = new FPS();
+		}
+		m_fps.SampleFrame();
+		goto IL_0143;
+		IL_0143:
+		if (flag && m_newQuality != GraphicsQuality.Medium)
+		{
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					GraphicsQuality currentGraphicsQuality = Options_UI.Get().GetCurrentGraphicsQuality();
+					if (m_newQuality != currentGraphicsQuality)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								break;
+							default:
+								if (currentGraphicsQuality == GraphicsQuality.Medium)
+								{
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											break;
+										default:
+											if (Options_UI.Get() != null)
+											{
+												Options_UI.Get().SetPendingGraphicsQuality(m_newQuality);
+												Options_UI.Get().ApplyCurrentSettings();
+											}
+											return;
+										}
+									}
+								}
+								return;
+							}
+						}
+					}
+					return;
 				}
-				break;
+				}
 			}
-			GraphicsQuality currentGraphicsQuality = Options_UI.Get().GetCurrentGraphicsQuality();
-			if (this.m_newQuality != currentGraphicsQuality)
+		}
+		if (!AppState.IsInGame())
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				for (;;)
+			case 0:
+				continue;
+			}
+			string text = FormatPrefKey();
+			if (m_newQuality >= GraphicsQuality.Medium)
+			{
+				return;
+			}
+			if (!(Options_UI.Get() == null))
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (Options_UI.Get().GetGraphicsQualityEverSetManually())
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			if (text != null)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (PlayerPrefs.GetInt(text) != 0)
+				{
+					return;
+				}
+				while (true)
 				{
 					switch (6)
 					{
@@ -169,98 +253,16 @@ public class ClientQualityAutoSelector : MonoBehaviour
 					}
 					break;
 				}
-				if (currentGraphicsQuality == GraphicsQuality.Medium)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (Options_UI.Get() != null)
-					{
-						Options_UI.Get().SetPendingGraphicsQuality(this.m_newQuality);
-						Options_UI.Get().ApplyCurrentSettings();
-					}
-				}
 			}
-		}
-		else if (AppState.IsInGame())
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			string text = this.FormatPrefKey();
-			if (this.m_newQuality < GraphicsQuality.Medium)
-			{
-				if (!(Options_UI.Get() == null))
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (Options_UI.Get().GetGraphicsQualityEverSetManually())
-					{
-						return;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				if (text != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (PlayerPrefs.GetInt(text) != 0)
-					{
-						return;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				UIGraphicSettingsNotification.SetVisible(true, new UIGraphicSettingsNotification.CloseCallback(this.NotificationCloseCallback));
-			}
+			UIGraphicSettingsNotification.SetVisible(true, NotificationCloseCallback);
+			return;
 		}
 	}
 
 	private void NotificationCloseCallback()
 	{
-		UIGraphicSettingsNotification.SetVisible(false, new UIGraphicSettingsNotification.CloseCallback(this.NotificationCloseCallback));
-		string text = this.FormatPrefKey();
+		UIGraphicSettingsNotification.SetVisible(false, NotificationCloseCallback);
+		string text = FormatPrefKey();
 		if (text != null)
 		{
 			PlayerPrefs.SetInt(text, 1);
@@ -269,9 +271,10 @@ public class ClientQualityAutoSelector : MonoBehaviour
 
 	private string FormatPrefKey()
 	{
+		object result;
 		if (HydrogenConfig.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -280,15 +283,16 @@ public class ClientQualityAutoSelector : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientQualityAutoSelector.FormatPrefKey()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (HydrogenConfig.Get().Ticket != null)
 			{
-				return string.Format("{0}:ClosedAutoLowQualNotification", HydrogenConfig.Get().Ticket.AccountId);
+				result = $"{HydrogenConfig.Get().Ticket.AccountId}:ClosedAutoLowQualNotification";
+				goto IL_005b;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -298,6 +302,9 @@ public class ClientQualityAutoSelector : MonoBehaviour
 				break;
 			}
 		}
-		return null;
+		result = null;
+		goto IL_005b;
+		IL_005b:
+		return (string)result;
 	}
 }

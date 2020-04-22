@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -16,7 +16,7 @@ public class TargetSelectMod_AoeRadius : TargetSelectModBase
 		TargetSelect_AoeRadius targetSelect_AoeRadius = targetSelectBase as TargetSelect_AoeRadius;
 		if (targetSelect_AoeRadius != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -25,12 +25,12 @@ public class TargetSelectMod_AoeRadius : TargetSelectModBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelectMod_AoeRadius.GetModSpecificInEditorDesc(GenericAbility_TargetSelectBase, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text += AbilityModHelper.GetModPropertyDesc(this.m_radiusMod, "[Radius]", true, targetSelect_AoeRadius.m_radius);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_useSquareCenterPosMod, "[UseSquareCenterPos]", true, targetSelect_AoeRadius.m_useSquareCenterPos);
+			text += AbilityModHelper.GetModPropertyDesc(m_radiusMod, "[Radius]", true, targetSelect_AoeRadius.m_radius);
+			text += AbilityModHelper.GetModPropertyDesc(m_useSquareCenterPosMod, "[UseSquareCenterPos]", true, targetSelect_AoeRadius.m_useSquareCenterPos);
 		}
 		return text;
 	}

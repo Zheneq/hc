@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ public class NanoSmithBarrier : Ability
 	[Separator("Sequences", true)]
 	public GameObject m_castSeqPrefab;
 
-	[TextArea(1, 0xA)]
+	[TextArea(1, 10)]
 	public string m_notes;
 
 	private AbilityMod_NanoSmithBarrier m_abilityMod;
@@ -21,9 +20,9 @@ public class NanoSmithBarrier : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -32,78 +31,79 @@ public class NanoSmithBarrier : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBarrier.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Kinetic Barrier";
+			m_abilityName = "Kinetic Barrier";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		StandardBarrierData barrierData = this.GetBarrierData();
+		StandardBarrierData barrierData = GetBarrierData();
 		float width = barrierData.m_width;
-		if (this.GetExpectedNumberOfTargeters() < 2)
+		if (GetExpectedNumberOfTargeters() < 2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					base.Targeter = new AbilityUtil_Targeter_Barrier(this, barrierData.m_width, m_snapToGrid);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBarrier.SetupTargeter()).MethodHandle;
-			}
-			base.Targeter = new AbilityUtil_Targeter_Barrier(this, barrierData.m_width, this.m_snapToGrid, false, true);
 		}
-		else
-		{
-			base.ClearTargeters();
-			base.Targeters.Add(new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible));
-			AbilityUtil_Targeter_Barrier abilityUtil_Targeter_Barrier = new AbilityUtil_Targeter_Barrier(this, width, this.m_snapToGrid, false, false);
-			abilityUtil_Targeter_Barrier.SetUseMultiTargetUpdate(true);
-			base.Targeters.Add(abilityUtil_Targeter_Barrier);
-		}
+		ClearTargeters();
+		base.Targeters.Add(new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false));
+		AbilityUtil_Targeter_Barrier abilityUtil_Targeter_Barrier = new AbilityUtil_Targeter_Barrier(this, width, m_snapToGrid, false, false);
+		abilityUtil_Targeter_Barrier.SetUseMultiTargetUpdate(true);
+		base.Targeters.Add(abilityUtil_Targeter_Barrier);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.m_barrierData.ReportAbilityTooltipNumbers(ref result);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		m_barrierData.ReportAbilityTooltipNumbers(ref numbers);
+		return numbers;
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		return Mathf.Max(1, base.GetNumTargets());
+		return Mathf.Max(1, GetNumTargets());
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		if (this.GetExpectedNumberOfTargeters() > 1 && targetIndex > 0)
+		if (GetExpectedNumberOfTargeters() > 1 && targetIndex > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+					bool flag = false;
+					BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos);
+					return boardSquareSafe2 == boardSquareSafe;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBarrier.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
-			BoardSquare y = Board.\u000E().\u000E(target.GridPos);
-			BoardSquare x = Board.\u000E().\u000E(currentTargets[0].GridPos);
-			return x == y;
 		}
 		return true;
 	}
@@ -112,9 +112,9 @@ public class NanoSmithBarrier : Ability
 	{
 		AbilityMod_NanoSmithBarrier abilityMod_NanoSmithBarrier = modAsBase as AbilityMod_NanoSmithBarrier;
 		StandardBarrierData standardBarrierData;
-		if (abilityMod_NanoSmithBarrier)
+		if ((bool)abilityMod_NanoSmithBarrier)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -123,56 +123,57 @@ public class NanoSmithBarrier : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBarrier.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			standardBarrierData = abilityMod_NanoSmithBarrier.m_barrierDataMod.GetModifiedValue(this.m_barrierData);
+			standardBarrierData = abilityMod_NanoSmithBarrier.m_barrierDataMod.GetModifiedValue(m_barrierData);
 		}
 		else
 		{
-			standardBarrierData = this.m_barrierData;
+			standardBarrierData = m_barrierData;
 		}
 		StandardBarrierData standardBarrierData2 = standardBarrierData;
-		standardBarrierData2.AddTooltipTokens(tokens, "BarrierData", abilityMod_NanoSmithBarrier != null, this.m_barrierData);
+		standardBarrierData2.AddTooltipTokens(tokens, "BarrierData", abilityMod_NanoSmithBarrier != null, m_barrierData);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_NanoSmithBarrier))
+		if (abilityMod.GetType() != typeof(AbilityMod_NanoSmithBarrier))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBarrier.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_NanoSmithBarrier);
-			this.m_cachedBarrierData = this.m_abilityMod.m_barrierDataMod.GetModifiedValue(this.m_barrierData);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_NanoSmithBarrier);
+			m_cachedBarrierData = m_abilityMod.m_barrierDataMod.GetModifiedValue(m_barrierData);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.m_cachedBarrierData = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		m_cachedBarrierData = null;
+		SetupTargeter();
 	}
 
 	private StandardBarrierData GetBarrierData()
 	{
 		StandardBarrierData result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -181,15 +182,15 @@ public class NanoSmithBarrier : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBarrier.GetBarrierData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_barrierData;
+			result = m_barrierData;
 		}
 		else
 		{
-			result = this.m_cachedBarrierData;
+			result = m_cachedBarrierData;
 		}
 		return result;
 	}

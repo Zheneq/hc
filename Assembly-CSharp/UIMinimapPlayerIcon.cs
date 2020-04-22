@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,67 +11,68 @@ public class UIMinimapPlayerIcon : MonoBehaviour
 	{
 		if (playerData == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIMinimapPlayerIcon.Setup(ActorData)).MethodHandle;
-			}
+		}
+		m_playerIcon.sprite = playerData.GetAliveHUDIcon();
+		if (!(GameFlowData.Get() != null))
+		{
 			return;
 		}
-		this.m_playerIcon.sprite = playerData.\u000E();
-		if (GameFlowData.Get() != null)
+		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+		if (!(activeOwnedActorData != null))
 		{
-			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-			if (activeOwnedActorData != null)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				for (;;)
+			case 0:
+				continue;
+			}
+			if (playerData == activeOwnedActorData)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						m_teamColorImage.color = HUD_UIResources.Get().m_selfColorHighlight;
+						return;
+					}
+				}
+			}
+			if (playerData.GetTeam() == activeOwnedActorData.GetTeam())
+			{
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (playerData == activeOwnedActorData)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+						m_teamColorImage.color = HUD_UIResources.Get().m_allyColorHighlight;
+						return;
 					}
-					this.m_teamColorImage.color = HUD_UIResources.Get().m_selfColorHighlight;
-				}
-				else if (playerData.\u000E() == activeOwnedActorData.\u000E())
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_teamColorImage.color = HUD_UIResources.Get().m_allyColorHighlight;
-				}
-				else
-				{
-					this.m_teamColorImage.color = HUD_UIResources.Get().m_enemyColorHighlight;
 				}
 			}
+			m_teamColorImage.color = HUD_UIResources.Get().m_enemyColorHighlight;
+			return;
 		}
 	}
 }

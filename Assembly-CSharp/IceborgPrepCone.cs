@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 
 public class IceborgPrepCone : GenericAbility_Container
 {
@@ -16,16 +15,16 @@ public class IceborgPrepCone : GenericAbility_Container
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
+		m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		base.SetupTargetersAndCachedVars();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		if (this.m_syncComp == null)
+		if (m_syncComp == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -34,30 +33,31 @@ public class IceborgPrepCone : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgPrepCone.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
+			m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		}
-		if (this.m_syncComp != null)
+		if (!(m_syncComp != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_syncComp.AddTooltipTokens(tokens);
+			m_syncComp.AddTooltipTokens(tokens);
+			return;
 		}
 	}
 
 	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
 	{
-		IceborgConeOrLaser.SetShieldPerEnemyHitTargetingNumbers(targetActor, caster, this.m_shieldPerEnemyHit, actorHitContext, results);
+		IceborgConeOrLaser.SetShieldPerEnemyHitTargetingNumbers(targetActor, caster, m_shieldPerEnemyHit, actorHitContext, results);
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)

@@ -1,5 +1,3 @@
-﻿using System;
-
 namespace TMPro
 {
 	public struct TMP_WordInfo
@@ -15,25 +13,24 @@ namespace TMPro
 		public string GetWord()
 		{
 			string text = string.Empty;
-			TMP_CharacterInfo[] characterInfo = this.textComponent.textInfo.characterInfo;
-			for (int i = this.firstCharacterIndex; i < this.lastCharacterIndex + 1; i++)
+			TMP_CharacterInfo[] characterInfo = textComponent.textInfo.characterInfo;
+			for (int i = firstCharacterIndex; i < lastCharacterIndex + 1; i++)
 			{
 				text += characterInfo[i].character;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return text;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_WordInfo.GetWord()).MethodHandle;
-			}
-			return text;
 		}
 	}
 }

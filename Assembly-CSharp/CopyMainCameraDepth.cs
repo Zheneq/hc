@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -24,19 +23,19 @@ public class CopyMainCameraDepth : MonoBehaviour
 
 	private void Start()
 	{
-		this.m_DepthGrabMat = new Material(this.m_DepthGrabShader);
-		this.m_DepthWriteMat = new Material(this.m_DepthWriteShader);
-		this.m_CmdDepthGrab = new CommandBuffer();
-		this.m_CmdDepthWrite = new CommandBuffer();
+		m_DepthGrabMat = new Material(m_DepthGrabShader);
+		m_DepthWriteMat = new Material(m_DepthWriteShader);
+		m_CmdDepthGrab = new CommandBuffer();
+		m_CmdDepthWrite = new CommandBuffer();
 	}
 
 	private void Update()
 	{
-		this.m_Camera1.RemoveCommandBuffer(CameraEvent.AfterForwardOpaque, this.m_CmdDepthGrab);
-		this.m_Camera2.RemoveCommandBuffer(CameraEvent.BeforeForwardOpaque, this.m_CmdDepthWrite);
-		if (this.m_CamDepth == null)
+		m_Camera1.RemoveCommandBuffer(CameraEvent.AfterForwardOpaque, m_CmdDepthGrab);
+		m_Camera2.RemoveCommandBuffer(CameraEvent.BeforeForwardOpaque, m_CmdDepthWrite);
+		if (m_CamDepth == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -45,23 +44,23 @@ public class CopyMainCameraDepth : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CopyMainCameraDepth.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_CamDepth = new RenderTexture(this.m_Camera1.pixelWidth, this.m_Camera1.pixelHeight, 0x20, RenderTextureFormat.Depth);
+			m_CamDepth = new RenderTexture(m_Camera1.pixelWidth, m_Camera1.pixelHeight, 32, RenderTextureFormat.Depth);
 		}
-		if (!this.m_CamDepth.IsCreated())
+		if (!m_CamDepth.IsCreated())
 		{
-			this.m_CamDepth.Create();
+			m_CamDepth.Create();
 		}
-		this.m_CmdDepthGrab.Clear();
-		this.m_CmdDepthGrab.name = "Grab depth";
-		this.m_CmdDepthGrab.Blit(this.m_CamDepth, this.m_CamDepth, this.m_DepthGrabMat);
-		this.m_Camera1.AddCommandBuffer(CameraEvent.AfterForwardOpaque, this.m_CmdDepthGrab);
-		this.m_CmdDepthWrite.Clear();
-		this.m_CmdDepthWrite.name = "Write depth";
-		this.m_CmdDepthWrite.Blit(this.m_CamDepth, BuiltinRenderTextureType.CurrentActive, this.m_DepthWriteMat);
-		this.m_Camera2.AddCommandBuffer(CameraEvent.BeforeForwardOpaque, this.m_CmdDepthWrite);
+		m_CmdDepthGrab.Clear();
+		m_CmdDepthGrab.name = "Grab depth";
+		m_CmdDepthGrab.Blit(m_CamDepth, m_CamDepth, m_DepthGrabMat);
+		m_Camera1.AddCommandBuffer(CameraEvent.AfterForwardOpaque, m_CmdDepthGrab);
+		m_CmdDepthWrite.Clear();
+		m_CmdDepthWrite.name = "Write depth";
+		m_CmdDepthWrite.Blit(m_CamDepth, BuiltinRenderTextureType.CurrentActive, m_DepthWriteMat);
+		m_Camera2.AddCommandBuffer(CameraEvent.BeforeForwardOpaque, m_CmdDepthWrite);
 	}
 }

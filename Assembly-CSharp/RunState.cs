@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -18,12 +17,13 @@ public class RunState : MoveState
 
 	private static int m_animTagHashIdle;
 
-	public RunState(ActorMovement owner, BoardSquarePathInfo aesheticPath) : base(owner, aesheticPath)
+	public RunState(ActorMovement owner, BoardSquarePathInfo aesheticPath)
+		: base(owner, aesheticPath)
 	{
 		base.stateName = "Run";
-		if (RunState.m_animHashRunRun == 0)
+		if (m_animHashRunRun == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -32,19 +32,19 @@ public class RunState : MoveState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RunState..ctor(ActorMovement, BoardSquarePathInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			RunState.m_animHashRunRun = Animator.StringToHash("Base Layer.Run.Run");
-			RunState.m_animHashMovementRun = Animator.StringToHash("Base Layer.Movement.Run");
-			RunState.m_animHashRunStopping = Animator.StringToHash("Base Layer.Run.Stopping");
-			RunState.m_animHashMovementRunEnd = Animator.StringToHash("Base Layer.Movement.Run_End");
-			RunState.m_animTagHashIdle = Animator.StringToHash("Idle");
+			m_animHashRunRun = Animator.StringToHash("Base Layer.Run.Run");
+			m_animHashMovementRun = Animator.StringToHash("Base Layer.Movement.Run");
+			m_animHashRunStopping = Animator.StringToHash("Base Layer.Run.Stopping");
+			m_animHashMovementRunEnd = Animator.StringToHash("Base Layer.Movement.Run_End");
+			m_animTagHashIdle = Animator.StringToHash("Idle");
 		}
-		if (this.m_animator != null)
+		if (m_animator != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -53,55 +53,57 @@ public class RunState : MoveState
 				}
 				break;
 			}
-			if (this.m_animator.layerCount > 0)
+			if (m_animator.layerCount > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.IsRunStartHash(this.m_animator.GetCurrentAnimatorStateInfo(0).fullPathHash))
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+						if (IsRunStartHash(m_animator.GetCurrentAnimatorStateInfo(0).fullPathHash))
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									break;
+								default:
+									m_startedRunAnim = true;
+									return;
+								}
+							}
+						}
+						return;
 					}
-					this.m_startedRunAnim = true;
 				}
-				return;
 			}
 		}
-		if (!NetworkClient.active)
+		if (NetworkClient.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_startedRunAnim = true;
-			this.m_startedExitAnim = true;
+			m_startedRunAnim = true;
+			m_startedExitAnim = true;
+			return;
 		}
 	}
 
 	private bool IsRunStartHash(int hash)
 	{
-		bool result;
-		if (hash != RunState.m_animHashRunRun)
+		int result;
+		if (hash != m_animHashRunRun)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -110,25 +112,25 @@ public class RunState : MoveState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RunState.IsRunStartHash(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (hash == RunState.m_animHashMovementRun);
+			result = ((hash == m_animHashMovementRun) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private bool IsRunStopHash(int hash)
 	{
-		bool result;
-		if (hash != RunState.m_animHashRunStopping)
+		int result;
+		if (hash != m_animHashRunStopping)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -137,24 +139,24 @@ public class RunState : MoveState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RunState.IsRunStopHash(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (hash == RunState.m_animHashMovementRunEnd);
+			result = ((hash == m_animHashMovementRunEnd) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	protected override void OnAnimChange(int prevAnimHash, int prevAnimTag, int nextAnimHash, int nextAnimTag)
 	{
-		if (this.IsRunStartHash(nextAnimHash))
+		if (IsRunStartHash(nextAnimHash))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -163,15 +165,15 @@ public class RunState : MoveState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RunState.OnAnimChange(int, int, int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_startedRunAnim = true;
+			m_startedRunAnim = true;
 		}
-		if (this.IsRunStopHash(nextAnimHash))
+		if (IsRunStopHash(nextAnimHash))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -180,26 +182,26 @@ public class RunState : MoveState
 				}
 				break;
 			}
-			this.m_startedExitAnim = true;
+			m_startedExitAnim = true;
 		}
-		if (nextAnimTag == RunState.m_animTagHashIdle)
+		if (nextAnimTag == m_animTagHashIdle)
 		{
-			this.m_startedExitAnim = true;
+			m_startedExitAnim = true;
 		}
 	}
 
 	protected override void UpdateState()
 	{
-		BoardSquare square = this.m_pathSquareInfo.square;
-		Vector3 position = this.m_owner.m_actor.transform.position;
-		Vector3 vector = square.\u001D();
-		Vector3 vector2 = vector - position;
-		vector2.y = 0f;
-		float sqrMagnitude = vector2.sqrMagnitude;
+		BoardSquare square = m_pathSquareInfo.square;
+		Vector3 position = m_owner.m_actor.transform.position;
+		Vector3 worldPosition = square.GetWorldPosition();
+		Vector3 vector = worldPosition - position;
+		vector.y = 0f;
+		float sqrMagnitude = vector.sqrMagnitude;
 		float num = Time.deltaTime;
 		if (Application.isEditor)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -208,13 +210,13 @@ public class RunState : MoveState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RunState.UpdateState()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (num > 0.04f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -225,7 +227,7 @@ public class RunState : MoveState
 				}
 				if (num < 0.08f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -239,9 +241,9 @@ public class RunState : MoveState
 			}
 		}
 		float num2;
-		if (this.m_pathSquareInfo.connectionType == BoardSquarePathInfo.ConnectionType.Vault)
+		if (m_pathSquareInfo.connectionType == BoardSquarePathInfo.ConnectionType.Vault)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -250,50 +252,51 @@ public class RunState : MoveState
 				}
 				break;
 			}
-			num2 = this.m_ownerActorData.m_vaultSpeed * num;
+			num2 = m_ownerActorData.m_vaultSpeed * num;
 		}
 		else
 		{
-			num2 = this.m_ownerActorData.m_runSpeed * num;
+			num2 = m_ownerActorData.m_runSpeed * num;
 		}
 		float num3 = num2;
 		float num4 = num3 * num3;
 		if (sqrMagnitude > num4)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			vector2.Normalize();
-			Vector3 transformPositionToVector = position + vector2 * num3;
-			transformPositionToVector.y = (float)Board.\u000E().BaselineHeight;
-			this.m_owner.m_actor.SetTransformPositionToVector(transformPositionToVector);
-			Vector3 dir = vector2;
-			dir.y = 0f;
-			if (dir.magnitude > 0.01f)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					vector.Normalize();
+					Vector3 transformPositionToVector = position + vector * num3;
+					transformPositionToVector.y = Board.Get().BaselineHeight;
+					m_owner.m_actor.SetTransformPositionToVector(transformPositionToVector);
+					Vector3 dir = vector;
+					dir.y = 0f;
+					if (dir.magnitude > 0.01f)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								break;
+							default:
+								m_owner.m_actor.TurnToDirection(dir);
+								return;
+							}
+						}
+					}
+					return;
 				}
-				this.m_owner.m_actor.TurnToDirection(dir);
+				}
 			}
 		}
-		else
-		{
-			this.m_updatePath = true;
-			this.m_owner.m_actor.SetTransformPositionToVector(this.m_owner.GetGroundPosition(vector));
-			this.m_done = true;
-		}
+		m_updatePath = true;
+		m_owner.m_actor.SetTransformPositionToVector(m_owner.GetGroundPosition(worldPosition));
+		m_done = true;
 	}
 }

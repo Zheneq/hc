@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +9,7 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	protected StateID stateID;
 
 	[Tooltip("Turn on to enable logging (OnEnter, OnExit, OnTurn) for this state")]
-	public bool \u001D;
+	public bool _001D;
 
 	protected Dictionary<Transition, TransitionTable> transitionTableMap = new Dictionary<Transition, TransitionTable>();
 
@@ -18,21 +17,15 @@ public class FSMState : MonoBehaviour, IGameEventListener
 
 	private NPCBrain _myBrainCached;
 
-	public StateID StateID
-	{
-		get
-		{
-			return this.stateID;
-		}
-	}
+	public StateID StateID => stateID;
 
 	internal FSMSystem MyFSM
 	{
 		get
 		{
-			if (!this._myBrainCached.enabled)
+			if (!_myBrainCached.enabled)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -41,15 +34,15 @@ public class FSMState : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.get_MyFSM()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				int num = 0;
 				num++;
-				if (this.MyFSMBrain.fsm == this._myFSMCached)
+				if (MyFSMBrain.fsm == _myFSMCached)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -61,11 +54,11 @@ public class FSMState : MonoBehaviour, IGameEventListener
 					num++;
 				}
 			}
-			return this._myFSMCached;
+			return _myFSMCached;
 		}
 		private set
 		{
-			this._myFSMCached = value;
+			_myFSMCached = value;
 		}
 	}
 
@@ -73,9 +66,9 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	{
 		get
 		{
-			if (!this._myBrainCached.enabled)
+			if (!_myBrainCached.enabled)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -84,13 +77,13 @@ public class FSMState : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.get_MyBrain()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (base.transform)
+				if ((bool)base.transform)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -99,9 +92,9 @@ public class FSMState : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (base.transform.gameObject)
+					if ((bool)base.transform.gameObject)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -113,7 +106,7 @@ public class FSMState : MonoBehaviour, IGameEventListener
 						NPCBrain[] components = base.transform.gameObject.GetComponents<NPCBrain>();
 						if (components != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -122,23 +115,24 @@ public class FSMState : MonoBehaviour, IGameEventListener
 								}
 								break;
 							}
-							foreach (NPCBrain npcbrain in components)
+							NPCBrain[] array = components;
+							foreach (NPCBrain nPCBrain in array)
 							{
-								if (npcbrain.enabled)
+								if (!nPCBrain.enabled)
 								{
-									for (;;)
+									continue;
+								}
+								while (true)
+								{
+									switch (5)
 									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
+									case 0:
+										continue;
 									}
-									return npcbrain;
+									return nPCBrain;
 								}
 							}
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -151,30 +145,24 @@ public class FSMState : MonoBehaviour, IGameEventListener
 					}
 				}
 			}
-			return this._myBrainCached;
+			return _myBrainCached;
 		}
 		private set
 		{
-			this._myBrainCached = value;
+			_myBrainCached = value;
 		}
 	}
 
-	internal NPCBrain_StateMachine MyFSMBrain
-	{
-		get
-		{
-			return this.MyBrain as NPCBrain_StateMachine;
-		}
-	}
+	internal NPCBrain_StateMachine MyFSMBrain => MyBrain as NPCBrain_StateMachine;
 
 	internal AbilityData MyAbilityData
 	{
 		get
 		{
-			AbilityData result;
-			if (this.MyBrain)
+			object result;
+			if ((bool)MyBrain)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -183,36 +171,30 @@ public class FSMState : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.get_MyAbilityData()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = this.MyBrain.GetComponent<AbilityData>();
+				result = MyBrain.GetComponent<AbilityData>();
 			}
 			else
 			{
 				result = null;
 			}
-			return result;
+			return (AbilityData)result;
 		}
 	}
 
-	internal ActorData MyActorData
-	{
-		get
-		{
-			return (!this.MyBrain) ? null : this.MyBrain.GetComponent<ActorData>();
-		}
-	}
+	internal ActorData MyActorData => (!MyBrain) ? null : MyBrain.GetComponent<ActorData>();
 
 	internal ActorTurnSM MyActorTurnSM
 	{
 		get
 		{
-			ActorTurnSM result;
-			if (this.MyBrain)
+			object result;
+			if ((bool)MyBrain)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -221,17 +203,17 @@ public class FSMState : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.get_MyActorTurnSM()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = this.MyBrain.GetComponent<ActorTurnSM>();
+				result = MyBrain.GetComponent<ActorTurnSM>();
 			}
 			else
 			{
 				result = null;
 			}
-			return result;
+			return (ActorTurnSM)result;
 		}
 	}
 
@@ -239,10 +221,10 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	{
 		get
 		{
-			BotController result;
-			if (this.MyBrain)
+			object result;
+			if ((bool)MyBrain)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -251,17 +233,17 @@ public class FSMState : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.get_MyBOTController()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = this.MyBrain.GetComponent<BotController>();
+				result = MyBrain.GetComponent<BotController>();
 			}
 			else
 			{
 				result = null;
 			}
-			return result;
+			return (BotController)result;
 		}
 	}
 
@@ -271,110 +253,97 @@ public class FSMState : MonoBehaviour, IGameEventListener
 
 	internal void Initalize(NPCBrain assoicatedBrain, FSMSystem associatedFSM)
 	{
-		this.MyBrain = assoicatedBrain;
-		this.MyFSM = associatedFSM;
+		MyBrain = assoicatedBrain;
+		MyFSM = associatedFSM;
 	}
 
 	public virtual void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType == GameEventManager.EventType.ScriptCommunication)
+		if (eventType != GameEventManager.EventType.ScriptCommunication)
 		{
-			GameEventManager.ScriptCommunicationArgs scriptCommunicationArgs = args as GameEventManager.ScriptCommunicationArgs;
-			if (!(scriptCommunicationArgs.NextBrain != null))
+			return;
+		}
+		GameEventManager.ScriptCommunicationArgs scriptCommunicationArgs = args as GameEventManager.ScriptCommunicationArgs;
+		if (!(scriptCommunicationArgs.NextBrain != null))
+		{
+			if (!scriptCommunicationArgs.popBrain)
 			{
-				if (scriptCommunicationArgs.popBrain)
+				if (scriptCommunicationArgs.TransistionMessage == Transition.NullTransition)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-					}
+					return;
 				}
-				else
+				while (true)
 				{
-					if (scriptCommunicationArgs.TransistionMessage != Transition.NullTransition)
+					switch (6)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.SetPendingTransition(scriptCommunicationArgs.TransistionMessage);
-						goto IL_6F;
+					case 0:
+						continue;
 					}
-					goto IL_6F;
+					SetPendingTransition(scriptCommunicationArgs.TransistionMessage);
+					return;
 				}
 			}
-			this.MyBrain.NextBrain = scriptCommunicationArgs.NextBrain;
-			IL_6F:;
-		}
-	}
-
-	public bool SetPendingTransition(Transition trans)
-	{
-		if (this.MyFSM.CanTransistion(trans))
-		{
-			for (;;)
+			while (true)
 			{
-				switch (6)
+				switch (2)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.SetPendingTransition(Transition)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Transition pendingTransition = this.MyFSM.GetPendingTransition();
-			if (pendingTransition != Transition.NullTransition && pendingTransition != trans)
+		}
+		MyBrain.NextBrain = scriptCommunicationArgs.NextBrain;
+	}
+
+	public bool SetPendingTransition(Transition trans)
+	{
+		if (MyFSM.CanTransistion(trans))
+		{
+			while (true)
 			{
-				for (;;)
+				switch (6)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
+				case 0:
 					break;
-				}
-				Debug.Log(string.Concat(new object[]
+				default:
 				{
-					"NPC: ",
-					this.MyBrain.name,
-					" in state ",
-					this.StateID,
-					" already has a pending transition of ",
-					pendingTransition,
-					" but received a transition request of: ",
-					trans,
-					". Overwriting!"
-				}));
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Transition pendingTransition = MyFSM.GetPendingTransition();
+					if (pendingTransition != 0 && pendingTransition != trans)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						Debug.Log(string.Concat("NPC: ", MyBrain.name, " in state ", StateID, " already has a pending transition of ", pendingTransition, " but received a transition request of: ", trans, ". Overwriting!"));
+					}
+					MyBrain.SetPendingTransition(trans);
+					return true;
+				}
+				}
 			}
-			this.MyBrain.SetPendingTransition(trans);
-			return true;
 		}
 		return false;
 	}
 
 	public void AddTransition(Transition trans, TransitionTable inTable)
 	{
-		if (trans != Transition.NullTransition)
+		if (trans != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -383,13 +352,13 @@ public class FSMState : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.AddTransition(Transition, TransitionTable)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (inTable != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -400,7 +369,7 @@ public class FSMState : MonoBehaviour, IGameEventListener
 				}
 				if (inTable.StateID == StateID.NullStateID && inTable.BrainToPush == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -411,43 +380,38 @@ public class FSMState : MonoBehaviour, IGameEventListener
 					}
 					if (!inTable.PopBrain)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
 							case 0:
 								continue;
 							}
-							goto IL_57;
+							break;
 						}
+						goto IL_0057;
 					}
 				}
-				if (this.transitionTableMap.ContainsKey(trans))
+				if (transitionTableMap.ContainsKey(trans))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							Debug.LogError("FSMState ERROR: Assign State - State " + inTable.StateID.ToString() + " already has transition " + trans.ToString() + " - Impossible to assign to another state/brain to that transition");
+							return;
 						}
-						break;
 					}
-					Debug.LogError(string.Concat(new string[]
-					{
-						"FSMState ERROR: Assign State - State ",
-						inTable.StateID.ToString(),
-						" already has transition ",
-						trans.ToString(),
-						" - Impossible to assign to another state/brain to that transition"
-					}));
-					return;
 				}
-				this.transitionTableMap.Add(trans, inTable);
+				transitionTableMap.Add(trans, inTable);
 				return;
 			}
 		}
-		IL_57:
+		goto IL_0057;
+		IL_0057:
 		Debug.LogError("FSMState ERROR: Either the Transistion is NULL or you didnt specific a state/brain to pop/push for transition: " + trans);
 	}
 
@@ -455,25 +419,25 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	{
 		if (trans == Transition.NullTransition)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("FSMState ERROR: NullTransition and NULL brain can not be removed");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.DeleteTransition(Transition)).MethodHandle;
-			}
-			Debug.LogWarning("FSMState ERROR: NullTransition and NULL brain can not be removed");
-			return;
 		}
-		if (this.MyFSM.GetPendingTransition() == trans)
+		if (MyFSM.GetPendingTransition() == trans)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -482,140 +446,124 @@ public class FSMState : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			Debug.LogWarning("Ack - tried to remove a transition of " + trans + " that I have a pending change to. Deleting pending transition");
-			this.MyFSM.SetPendingTransition(Transition.NullTransition);
+			Debug.LogWarning(string.Concat("Ack - tried to remove a transition of ", trans, " that I have a pending change to. Deleting pending transition"));
+			MyFSM.SetPendingTransition(Transition.NullTransition);
 		}
-		this.transitionTableMap.Remove(trans);
+		transitionTableMap.Remove(trans);
 	}
 
 	public StateID GetOutputState(Transition trans)
 	{
-		if (this.transitionTableMap.ContainsKey(trans))
+		if (transitionTableMap.ContainsKey(trans))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return transitionTableMap[trans].StateID;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.GetOutputState(Transition)).MethodHandle;
-			}
-			return this.transitionTableMap[trans].StateID;
 		}
 		return StateID.NullStateID;
 	}
 
 	public NPCBrain GetOutputBrain(Transition trans)
 	{
-		if (this.transitionTableMap.ContainsKey(trans))
+		if (transitionTableMap.ContainsKey(trans))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return transitionTableMap[trans].BrainToPush;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.GetOutputBrain(Transition)).MethodHandle;
-			}
-			return this.transitionTableMap[trans].BrainToPush;
 		}
 		return null;
 	}
 
 	public bool? GetPopBrain(Transition trans)
 	{
-		if (this.transitionTableMap.ContainsKey(trans))
+		if (transitionTableMap.ContainsKey(trans))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return transitionTableMap[trans].PopBrain;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.GetPopBrain(Transition)).MethodHandle;
-			}
-			return new bool?(this.transitionTableMap[trans].PopBrain);
 		}
 		return null;
 	}
 
 	public virtual FSMState DeepCopy()
 	{
-		return UnityEngine.Object.Instantiate<FSMState>(this);
+		return Object.Instantiate(this);
 	}
 
 	public virtual void OnEnter(NPCBrain npc, StateID previousState)
 	{
-		if (this.\u001D)
+		if (!_001D)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.OnEnter(NPCBrain, StateID)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Log.Info(string.Concat(new object[]
-			{
-				"OnEnter(): '",
-				npc.name,
-				"' NewState: '",
-				this.StateID,
-				"' PreviousState: '",
-				previousState,
-				"'"
-			}), new object[0]);
+			Log.Info(string.Concat("OnEnter(): '", npc.name, "' NewState: '", StateID, "' PreviousState: '", previousState, "'"));
+			return;
 		}
 	}
 
 	public virtual void OnExit(NPCBrain npc, StateID nextState)
 	{
-		if (this.\u001D)
+		if (!_001D)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.OnExit(NPCBrain, StateID)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Log.Info(string.Concat(new object[]
-			{
-				"OnExit(): '",
-				npc.name,
-				"' NewState: '",
-				this.StateID,
-				"' PreviousState: '",
-				nextState,
-				"'"
-			}), new object[0]);
+			Log.Info(string.Concat("OnExit(): '", npc.name, "' NewState: '", StateID, "' PreviousState: '", nextState, "'"));
+			return;
 		}
 	}
 

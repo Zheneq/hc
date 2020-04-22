@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -12,7 +12,7 @@ public class UseAbilityChatter : ScriptableObject, IChatterData
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_baseData;
+		return m_baseData;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()
@@ -29,42 +29,42 @@ public class UseAbilityChatter : ScriptableObject, IChatterData
 		GameEventManager.AbilityUseArgs abilityUseArgs = args as GameEventManager.AbilityUseArgs;
 		if (abilityUseArgs == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Log.Error("Missing args for ability game event.");
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UseAbilityChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
-			Log.Error("Missing args for ability game event.", new object[0]);
-			return false;
 		}
 		if (abilityUseArgs.userActor != component.gameObject.GetComponent<ActorData>())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
 		if (abilityUseArgs.ability == null)
 		{
 			return false;
 		}
-		if (this.m_ability != null)
+		if (m_ability != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -73,20 +73,24 @@ public class UseAbilityChatter : ScriptableObject, IChatterData
 				}
 				break;
 			}
-			if (this.m_ability.GetType() != abilityUseArgs.ability.GetType())
+			if (m_ability.GetType() != abilityUseArgs.ability.GetType())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return false;
 					}
-					break;
 				}
-				return false;
 			}
 		}
-		return !TheatricsManager.Get().IsCinematicsRequestedInCurrentPhase(abilityUseArgs.userActor, this.m_ability);
+		if (TheatricsManager.Get().IsCinematicsRequestedInCurrentPhase(abilityUseArgs.userActor, m_ability))
+		{
+			return false;
+		}
+		return true;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class SamuraiAfterimageStrike : Ability
@@ -17,20 +16,20 @@ public class SamuraiAfterimageStrike : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "AfterimageStrike (intended as a chain ability)";
+			m_abilityName = "AfterimageStrike (intended as a chain ability)";
 		}
-		this.m_syncComp = base.ActorData.GetComponent<Samurai_SyncComponent>();
-		this.m_parentAbility = base.GetAbilityOfType<SamuraiSwordDash>();
+		m_syncComp = base.ActorData.GetComponent<Samurai_SyncComponent>();
+		m_parentAbility = GetAbilityOfType<SamuraiSwordDash>();
 	}
 
 	public int GetDamageAmount()
 	{
 		int result;
-		if (this.m_parentAbility)
+		if ((bool)m_parentAbility)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -39,11 +38,11 @@ public class SamuraiAfterimageStrike : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiAfterimageStrike.GetDamageAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_parentAbility.GetKnockbackDamage();
+			result = m_parentAbility.GetKnockbackDamage();
 		}
 		else
 		{
@@ -55,9 +54,9 @@ public class SamuraiAfterimageStrike : Ability
 	public int GetLessDamagePerTarget()
 	{
 		int result;
-		if (this.m_parentAbility)
+		if ((bool)m_parentAbility)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -66,11 +65,11 @@ public class SamuraiAfterimageStrike : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiAfterimageStrike.GetLessDamagePerTarget()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_parentAbility.GetKnockbackLessDamagePerTarget();
+			result = m_parentAbility.GetKnockbackLessDamagePerTarget();
 		}
 		else
 		{
@@ -81,15 +80,15 @@ public class SamuraiAfterimageStrike : Ability
 
 	public float GetKnockbackDist()
 	{
-		return (!this.m_parentAbility) ? 0f : this.m_parentAbility.GetKnockbackDist();
+		return (!m_parentAbility) ? 0f : m_parentAbility.GetKnockbackDist();
 	}
 
 	public KnockbackType GetKnockbackType()
 	{
-		KnockbackType result;
-		if (this.m_parentAbility)
+		int result;
+		if ((bool)m_parentAbility)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -98,25 +97,25 @@ public class SamuraiAfterimageStrike : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiAfterimageStrike.GetKnockbackType()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_parentAbility.GetKnockbackType();
+			result = (int)m_parentAbility.GetKnockbackType();
 		}
 		else
 		{
-			result = KnockbackType.AwayFromSource;
+			result = 4;
 		}
-		return result;
+		return (KnockbackType)result;
 	}
 
 	public float GetExtraDamageFromDamageTakenMult()
 	{
 		float result;
-		if (this.m_parentAbility)
+		if ((bool)m_parentAbility)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -125,11 +124,11 @@ public class SamuraiAfterimageStrike : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiAfterimageStrike.GetExtraDamageFromDamageTakenMult()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_parentAbility.GetKnockbackExtraDamageFromDamageTakenMult();
+			result = m_parentAbility.GetKnockbackExtraDamageFromDamageTakenMult();
 		}
 		else
 		{

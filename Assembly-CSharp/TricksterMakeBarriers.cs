@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,16 +23,16 @@ public class TricksterMakeBarriers : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Hollusionary Wallogram";
+			m_abilityName = "Hollusionary Wallogram";
 		}
-		this.m_sequencePrefab = this.m_castSequencePrefab;
-		this.m_afterImageSyncComp = base.GetComponent<TricksterAfterImageNetworkBehaviour>();
-		Ability[] chainAbilities = base.GetChainAbilities();
+		m_sequencePrefab = m_castSequencePrefab;
+		m_afterImageSyncComp = GetComponent<TricksterAfterImageNetworkBehaviour>();
+		Ability[] chainAbilities = GetChainAbilities();
 		if (chainAbilities.Length > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -42,14 +41,14 @@ public class TricksterMakeBarriers : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Ability ability = chainAbilities[0];
 			if (ability != null && ability is TricksterMakeBarriers_Damage)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -58,19 +57,19 @@ public class TricksterMakeBarriers : Ability
 					}
 					break;
 				}
-				this.m_chainAbility = (ability as TricksterMakeBarriers_Damage);
+				m_chainAbility = (ability as TricksterMakeBarriers_Damage);
 			}
 		}
-		base.Targeter = new AbilityUtil_Targeter_TricksterBarriers(this, this.m_afterImageSyncComp, this.GetRangeFromLine(), this.GetLineEndOffset(), this.GetRadiusAroundOrigin(), this.GetCapsulePenetrateLos(), true);
-		base.ResetTooltipAndTargetingNumbers();
+		base.Targeter = new AbilityUtil_Targeter_TricksterBarriers(this, m_afterImageSyncComp, GetRangeFromLine(), GetLineEndOffset(), GetRadiusAroundOrigin(), GetCapsulePenetrateLos());
+		ResetTooltipAndTargetingNumbers();
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		if (this.m_chainAbility != null)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		if (m_chainAbility != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -79,28 +78,28 @@ public class TricksterMakeBarriers : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.CalculateAbilityTooltipNumbers()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_chainAbility.m_damageAmount);
-			this.m_chainAbility.m_enemyOnHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
+			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_chainAbility.m_damageAmount);
+			m_chainAbility.m_enemyOnHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
 		}
-		return result;
+		return numbers;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 		return validAfterImages.Count > 0;
 	}
 
 	public float GetRangeFromLine()
 	{
 		float result;
-		if (this.m_chainAbility == null)
+		if (m_chainAbility == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -109,30 +108,30 @@ public class TricksterMakeBarriers : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.GetRangeFromLine()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = 0f;
 		}
 		else
 		{
-			result = this.m_chainAbility.m_rangeFromLine;
+			result = m_chainAbility.m_rangeFromLine;
 		}
 		return result;
 	}
 
 	public float GetLineEndOffset()
 	{
-		return (!(this.m_chainAbility == null)) ? this.m_chainAbility.m_lineEndOffset : 0f;
+		return (!(m_chainAbility == null)) ? m_chainAbility.m_lineEndOffset : 0f;
 	}
 
 	public float GetRadiusAroundOrigin()
 	{
 		float result;
-		if (this.m_chainAbility == null)
+		if (m_chainAbility == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -141,25 +140,25 @@ public class TricksterMakeBarriers : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.GetRadiusAroundOrigin()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = 0f;
 		}
 		else
 		{
-			result = this.m_chainAbility.m_radiusAroundOrigin;
+			result = m_chainAbility.m_radiusAroundOrigin;
 		}
 		return result;
 	}
 
 	public bool GetCapsulePenetrateLos()
 	{
-		bool result;
-		if (this.m_chainAbility == null)
+		int result;
+		if (m_chainAbility == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -168,55 +167,55 @@ public class TricksterMakeBarriers : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.GetCapsulePenetrateLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = false;
+			result = 0;
 		}
 		else
 		{
-			result = this.m_chainAbility.m_capsulePenetrateLos;
+			result = (m_chainAbility.m_capsulePenetrateLos ? 1 : 0);
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 		for (int i = 0; i < validAfterImages.Count; i++)
 		{
-			Animator animator = validAfterImages[i].\u000E();
-			animator.SetInteger("Attack", animationIndex);
-			animator.SetBool("CinematicCam", cinecam);
-			animator.SetTrigger("StartAttack");
+			Animator modelAnimator = validAfterImages[i].GetModelAnimator();
+			modelAnimator.SetInteger("Attack", animationIndex);
+			modelAnimator.SetBool("CinematicCam", cinecam);
+			modelAnimator.SetTrigger("StartAttack");
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	public override void OnAbilityAnimationRequestProcessed(ActorData caster)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (actorData != null)
+				ActorData current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -225,26 +224,27 @@ public class TricksterMakeBarriers : Ability
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (!actorData.\u000E())
+					if (!current.IsDead())
 					{
-						Animator animator = actorData.\u000E();
-						animator.SetInteger("Attack", 0);
-						animator.SetBool("CinematicCam", false);
+						Animator modelAnimator = current.GetModelAnimator();
+						modelAnimator.SetInteger("Attack", 0);
+						modelAnimator.SetBool("CinematicCam", false);
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}

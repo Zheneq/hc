@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class ControllerButtonState
@@ -9,74 +8,45 @@ public class ControllerButtonState
 
 	private bool m_down;
 
-	public void GatherState(string buttonStr)
-	{
-		this.Value = Input.GetButton(buttonStr);
-		this.Up = Input.GetButtonUp(buttonStr);
-		this.Down = Input.GetButtonDown(buttonStr);
-	}
-
-	public void GatherStateFromMouseButton(int mouseButtonIndex)
-	{
-		this.Value = Input.GetMouseButton(mouseButtonIndex);
-		this.Down = Input.GetMouseButtonDown(mouseButtonIndex);
-		this.Up = Input.GetMouseButtonUp(mouseButtonIndex);
-	}
-
-	public void ClearAllValues()
-	{
-		this.m_value = false;
-		this.m_up = false;
-		this.m_down = false;
-	}
-
-	public void CopyButtonValuesFrom(ControllerButtonState other)
-	{
-		this.Value = other.Value;
-		this.Up = other.Up;
-		this.Down = other.Down;
-	}
-
 	public bool Value
 	{
 		get
 		{
-			return this.m_value;
+			return m_value;
 		}
 		private set
 		{
-			if (this.m_value != value)
+			if (m_value == value)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControllerButtonState.set_Value(bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (value)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							m_value = true;
+							return;
 						}
-						break;
 					}
-					this.m_value = true;
 				}
-				else
-				{
-					this.m_value = false;
-				}
+				m_value = false;
+				return;
 			}
 		}
 	}
@@ -85,42 +55,41 @@ public class ControllerButtonState
 	{
 		get
 		{
-			return this.m_up;
+			return m_up;
 		}
 		private set
 		{
-			if (this.m_up != value)
+			if (m_up == value)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (5)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControllerButtonState.set_Up(bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (value)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							m_up = true;
+							return;
 						}
-						break;
 					}
-					this.m_up = true;
 				}
-				else
-				{
-					this.m_up = false;
-				}
+				m_up = false;
+				return;
 			}
 		}
 	}
@@ -129,60 +98,85 @@ public class ControllerButtonState
 	{
 		get
 		{
-			return this.m_down;
+			return m_down;
 		}
 		private set
 		{
-			if (this.m_down != value)
+			if (m_down == value)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (1)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControllerButtonState.set_Down(bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (value)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							m_down = true;
+							return;
 						}
-						break;
 					}
-					this.m_down = true;
 				}
-				else
-				{
-					this.m_down = false;
-				}
+				m_down = false;
+				return;
 			}
 		}
 	}
 
-	public bool BeingUsed
+	public bool BeingUsed => m_value || m_up || m_down;
+
+	public void GatherState(string buttonStr)
 	{
-		get
-		{
-			return this.m_value || this.m_up || this.m_down;
-		}
+		Value = Input.GetButton(buttonStr);
+		Up = Input.GetButtonUp(buttonStr);
+		Down = Input.GetButtonDown(buttonStr);
+	}
+
+	public void GatherStateFromMouseButton(int mouseButtonIndex)
+	{
+		Value = Input.GetMouseButton(mouseButtonIndex);
+		Down = Input.GetMouseButtonDown(mouseButtonIndex);
+		Up = Input.GetMouseButtonUp(mouseButtonIndex);
+	}
+
+	public void ClearAllValues()
+	{
+		m_value = false;
+		m_up = false;
+		m_down = false;
+	}
+
+	public void CopyButtonValuesFrom(ControllerButtonState other)
+	{
+		Value = other.Value;
+		Up = other.Up;
+		Down = other.Down;
 	}
 
 	public string GetDebugString()
 	{
 		string arg;
-		if (this.m_down)
+		if (!m_down)
 		{
-			for (;;)
+			arg = ((!m_up) ? "=" : "^");
+		}
+		else
+		{
+			while (true)
 			{
 				switch (6)
 				{
@@ -191,24 +185,16 @@ public class ControllerButtonState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControllerButtonState.GetDebugString()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			arg = "_";
 		}
-		else if (this.m_up)
-		{
-			arg = "^";
-		}
-		else
-		{
-			arg = "=";
-		}
 		string arg2;
-		if (this.m_value)
+		if (m_value)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -223,6 +209,6 @@ public class ControllerButtonState
 		{
 			arg2 = "0";
 		}
-		return string.Format("{0}{1}", arg, arg2);
+		return $"{arg}{arg2}";
 	}
 }

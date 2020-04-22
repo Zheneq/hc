@@ -1,7 +1,11 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class PlayerTauntData
 {
-	public bool Unlocked { get; set; }
+	public bool Unlocked
+	{
+		get;
+		set;
+	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,9 +26,9 @@ public class NanoSmithBlastShield : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -38,22 +37,22 @@ public class NanoSmithBlastShield : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBlastShield.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Blast Shield";
+			m_abilityName = "Blast Shield";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		AbilityUtil_Targeter.AffectsActor affectsActor;
-		if (this.GetExtraEffectOnCasterIfTargetingAlly().m_applyEffect)
+		SetCachedFields();
+		int num;
+		if (GetExtraEffectOnCasterIfTargetingAlly().m_applyEffect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -62,18 +61,18 @@ public class NanoSmithBlastShield : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBlastShield.Setup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			affectsActor = AbilityUtil_Targeter.AffectsActor.Always;
+			num = 2;
 		}
 		else
 		{
-			affectsActor = AbilityUtil_Targeter.AffectsActor.Possible;
+			num = 1;
 		}
-		AbilityUtil_Targeter.AffectsActor affectsCaster = affectsActor;
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, this.m_allowOnEnemy, true, affectsCaster, AbilityUtil_Targeter.AffectsActor.Possible);
+		AbilityUtil_Targeter.AffectsActor affectsCaster = (AbilityUtil_Targeter.AffectsActor)num;
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, m_allowOnEnemy, true, affectsCaster);
 	}
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
@@ -84,9 +83,9 @@ public class NanoSmithBlastShield : Ability
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedExtraEffectOnCasterIfTargetingAlly;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -95,30 +94,30 @@ public class NanoSmithBlastShield : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBlastShield.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedExtraEffectOnCasterIfTargetingAlly = this.m_abilityMod.m_extraEffectOnCasterIfTargetingAllyMod.GetModifiedValue(this.m_extraEffectOnCasterIfTargetingAlly);
+			cachedExtraEffectOnCasterIfTargetingAlly = m_abilityMod.m_extraEffectOnCasterIfTargetingAllyMod.GetModifiedValue(m_extraEffectOnCasterIfTargetingAlly);
 		}
 		else
 		{
-			cachedExtraEffectOnCasterIfTargetingAlly = this.m_extraEffectOnCasterIfTargetingAlly;
+			cachedExtraEffectOnCasterIfTargetingAlly = m_extraEffectOnCasterIfTargetingAlly;
 		}
-		this.m_cachedExtraEffectOnCasterIfTargetingAlly = cachedExtraEffectOnCasterIfTargetingAlly;
+		m_cachedExtraEffectOnCasterIfTargetingAlly = cachedExtraEffectOnCasterIfTargetingAlly;
 	}
 
 	public StandardActorEffectData GetShieldEffectData()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_shieldEffectOverride.GetModifiedValue(this.m_shieldEffect) : this.m_shieldEffect;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_shieldEffectOverride.GetModifiedValue(m_shieldEffect) : m_shieldEffect;
 	}
 
 	public int GetHealOnEndIfHasRemainingAbsorb()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -127,15 +126,15 @@ public class NanoSmithBlastShield : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBlastShield.GetHealOnEndIfHasRemainingAbsorb()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_healOnEndIfHasRemainingAbsorb;
+			result = m_healOnEndIfHasRemainingAbsorb;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_healOnEndIfHasRemainingAbsorbMod.GetModifiedValue(this.m_healOnEndIfHasRemainingAbsorb);
+			result = m_abilityMod.m_healOnEndIfHasRemainingAbsorbMod.GetModifiedValue(m_healOnEndIfHasRemainingAbsorb);
 		}
 		return result;
 	}
@@ -143,9 +142,9 @@ public class NanoSmithBlastShield : Ability
 	public int GetEnergyGainOnShieldTarget()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -154,15 +153,15 @@ public class NanoSmithBlastShield : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBlastShield.GetEnergyGainOnShieldTarget()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_energyGainOnShieldTarget;
+			result = m_energyGainOnShieldTarget;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_energyGainOnShieldTargetMod.GetModifiedValue(this.m_energyGainOnShieldTarget);
+			result = m_abilityMod.m_energyGainOnShieldTargetMod.GetModifiedValue(m_energyGainOnShieldTarget);
 		}
 		return result;
 	}
@@ -170,9 +169,9 @@ public class NanoSmithBlastShield : Ability
 	public StandardEffectInfo GetExtraEffectOnCasterIfTargetingAlly()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedExtraEffectOnCasterIfTargetingAlly != null)
+		if (m_cachedExtraEffectOnCasterIfTargetingAlly != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -181,33 +180,33 @@ public class NanoSmithBlastShield : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBlastShield.GetExtraEffectOnCasterIfTargetingAlly()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedExtraEffectOnCasterIfTargetingAlly;
+			result = m_cachedExtraEffectOnCasterIfTargetingAlly;
 		}
 		else
 		{
-			result = this.m_extraEffectOnCasterIfTargetingAlly;
+			result = m_extraEffectOnCasterIfTargetingAlly;
 		}
 		return result;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.GetShieldEffectData().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		AbilityTooltipHelper.ReportEnergy(ref result, AbilityTooltipSubject.Primary, this.GetEnergyGainOnShieldTarget());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		GetShieldEffectData().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		AbilityTooltipHelper.ReportEnergy(ref numbers, AbilityTooltipSubject.Primary, GetEnergyGainOnShieldTarget());
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
-		if (this.GetExtraEffectOnCasterIfTargetingAlly().m_applyEffect)
+		if (GetExtraEffectOnCasterIfTargetingAlly().m_applyEffect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -216,14 +215,14 @@ public class NanoSmithBlastShield : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBlastShield.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			ActorData actorData = base.ActorData;
 			if (actorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -234,7 +233,7 @@ public class NanoSmithBlastShield : Ability
 				}
 				if (actorData == targetActor)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -246,7 +245,7 @@ public class NanoSmithBlastShield : Ability
 					int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
 					if (visibleActorsCountByTooltipSubject > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -256,7 +255,7 @@ public class NanoSmithBlastShield : Ability
 							break;
 						}
 						dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-						dictionary[AbilityTooltipSymbol.Absorb] = this.GetExtraEffectOnCasterIfTargetingAlly().m_effectData.m_absorbAmount;
+						dictionary[AbilityTooltipSymbol.Absorb] = GetExtraEffectOnCasterIfTargetingAlly().m_effectData.m_absorbAmount;
 					}
 				}
 			}
@@ -266,10 +265,10 @@ public class NanoSmithBlastShield : Ability
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		int energyGainOnShieldTarget = this.GetEnergyGainOnShieldTarget();
+		int energyGainOnShieldTarget = GetEnergyGainOnShieldTarget();
 		if (energyGainOnShieldTarget > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -278,14 +277,14 @@ public class NanoSmithBlastShield : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBlastShield.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(base.Targeter.LastUpdatingGridPos);
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+			if (boardSquareSafe != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -294,18 +293,18 @@ public class NanoSmithBlastShield : Ability
 					}
 					break;
 				}
-				if (boardSquare.OccupantActor == caster)
+				if (boardSquareSafe.OccupantActor == caster)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return energyGainOnShieldTarget;
 						}
-						break;
 					}
-					return energyGainOnShieldTarget;
 				}
 			}
 		}
@@ -314,17 +313,18 @@ public class NanoSmithBlastShield : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
+		bool flag = false;
 		ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-		return base.CanTargetActorInDecision(caster, currentBestActorTarget, this.m_allowOnEnemy, true, true, Ability.ValidateCheckPath.Ignore, true, true, false);
+		return CanTargetActorInDecision(caster, currentBestActorTarget, m_allowOnEnemy, true, true, ValidateCheckPath.Ignore, true, true);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_NanoSmithBlastShield abilityMod_NanoSmithBlastShield = modAsBase as AbilityMod_NanoSmithBlastShield;
 		StandardActorEffectData standardActorEffectData;
-		if (abilityMod_NanoSmithBlastShield)
+		if ((bool)abilityMod_NanoSmithBlastShield)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -333,24 +333,23 @@ public class NanoSmithBlastShield : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBlastShield.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			standardActorEffectData = abilityMod_NanoSmithBlastShield.m_shieldEffectOverride.GetModifiedValue(this.m_shieldEffect);
+			standardActorEffectData = abilityMod_NanoSmithBlastShield.m_shieldEffectOverride.GetModifiedValue(m_shieldEffect);
 		}
 		else
 		{
-			standardActorEffectData = this.m_shieldEffect;
+			standardActorEffectData = m_shieldEffect;
 		}
 		StandardActorEffectData standardActorEffectData2 = standardActorEffectData;
-		standardActorEffectData2.AddTooltipTokens(tokens, "ShieldEffect", abilityMod_NanoSmithBlastShield != null, this.m_shieldEffect);
-		string name = "HealOnEndIfHasRemainingAbsorb";
+		standardActorEffectData2.AddTooltipTokens(tokens, "ShieldEffect", abilityMod_NanoSmithBlastShield != null, m_shieldEffect);
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_NanoSmithBlastShield)
+		if ((bool)abilityMod_NanoSmithBlastShield)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -359,42 +358,43 @@ public class NanoSmithBlastShield : Ability
 				}
 				break;
 			}
-			val = abilityMod_NanoSmithBlastShield.m_healOnEndIfHasRemainingAbsorbMod.GetModifiedValue(this.m_healOnEndIfHasRemainingAbsorb);
+			val = abilityMod_NanoSmithBlastShield.m_healOnEndIfHasRemainingAbsorbMod.GetModifiedValue(m_healOnEndIfHasRemainingAbsorb);
 		}
 		else
 		{
-			val = this.m_healOnEndIfHasRemainingAbsorb;
+			val = m_healOnEndIfHasRemainingAbsorb;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		base.AddTokenInt(tokens, "EnergyGainOnShieldTarget", string.Empty, (!abilityMod_NanoSmithBlastShield) ? this.m_energyGainOnShieldTarget : abilityMod_NanoSmithBlastShield.m_energyGainOnShieldTargetMod.GetModifiedValue(this.m_energyGainOnShieldTarget), false);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_NanoSmithBlastShield) ? this.m_extraEffectOnCasterIfTargetingAlly : abilityMod_NanoSmithBlastShield.m_extraEffectOnCasterIfTargetingAllyMod.GetModifiedValue(this.m_extraEffectOnCasterIfTargetingAlly), "ExtraEffectOnCasterIfTargetingAlly", this.m_extraEffectOnCasterIfTargetingAlly, true);
+		AddTokenInt(tokens, "HealOnEndIfHasRemainingAbsorb", empty, val);
+		AddTokenInt(tokens, "EnergyGainOnShieldTarget", string.Empty, (!abilityMod_NanoSmithBlastShield) ? m_energyGainOnShieldTarget : abilityMod_NanoSmithBlastShield.m_energyGainOnShieldTargetMod.GetModifiedValue(m_energyGainOnShieldTarget));
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_NanoSmithBlastShield) ? m_extraEffectOnCasterIfTargetingAlly : abilityMod_NanoSmithBlastShield.m_extraEffectOnCasterIfTargetingAllyMod.GetModifiedValue(m_extraEffectOnCasterIfTargetingAlly), "ExtraEffectOnCasterIfTargetingAlly", m_extraEffectOnCasterIfTargetingAlly);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_NanoSmithBlastShield))
+		if (abilityMod.GetType() != typeof(AbilityMod_NanoSmithBlastShield))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBlastShield.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_NanoSmithBlastShield);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_NanoSmithBlastShield);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

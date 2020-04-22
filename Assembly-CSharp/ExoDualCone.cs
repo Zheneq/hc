@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -62,9 +62,9 @@ public class ExoDualCone : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -73,20 +73,20 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Dual Cones";
+			m_abilityName = "Dual Cones";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		if (this.m_syncComp == null)
+		if (m_syncComp == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -95,17 +95,16 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.SetupTargeter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_syncComp = base.GetComponent<Exo_SyncComponent>();
+			m_syncComp = GetComponent<Exo_SyncComponent>();
 		}
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_TricksterCones(this, this.GetConeInfo(), 2, new AbilityUtil_Targeter_TricksterCones.GetCurrentNumberOfConesDelegate(this.GetNumCones), new AbilityUtil_Targeter_TricksterCones.GetConeInfoDelegate(this.GetConeOrigins), new AbilityUtil_Targeter_TricksterCones.GetConeInfoDelegate(this.GetConeDirections), new AbilityUtil_Targeter_TricksterCones.GetClampedTargetPosDelegate(this.GetFreePosForAim), false, false)
-		{
-			m_customDamageOriginDelegate = new AbilityUtil_Targeter_TricksterCones.DamageOriginDelegate(this.GetDamageOriginForTargeter)
-		};
+		SetCachedFields();
+		AbilityUtil_Targeter_TricksterCones abilityUtil_Targeter_TricksterCones = new AbilityUtil_Targeter_TricksterCones(this, GetConeInfo(), 2, GetNumCones, GetConeOrigins, GetConeDirections, GetFreePosForAim, false, false);
+		abilityUtil_Targeter_TricksterCones.m_customDamageOriginDelegate = GetDamageOriginForTargeter;
+		base.Targeter = abilityUtil_Targeter_TricksterCones;
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -115,12 +114,12 @@ public class ExoDualCone : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetConeInfo().m_radiusInSquares;
+		return GetConeInfo().m_radiusInSquares;
 	}
 
 	private Vector3 GetDamageOriginForTargeter(AbilityTarget currentTarget, Vector3 defaultOrigin, ActorData actorToAdd, ActorData caster)
 	{
-		return caster.\u0016();
+		return caster.GetTravelBoardSquareWorldPosition();
 	}
 
 	public int GetNumCones()
@@ -130,11 +129,11 @@ public class ExoDualCone : Ability
 
 	private void SetCachedFields()
 	{
-		this.m_cachedConeInfo = ((!this.m_abilityMod) ? this.m_coneInfo : this.m_abilityMod.m_coneInfoMod.GetModifiedValue(this.m_coneInfo));
+		m_cachedConeInfo = ((!m_abilityMod) ? m_coneInfo : m_abilityMod.m_coneInfoMod.GetModifiedValue(m_coneInfo));
 		StandardEffectInfo cachedEffectOnHit;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -143,21 +142,21 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedEffectOnHit = this.m_abilityMod.m_effectOnHitMod.GetModifiedValue(this.m_effectOnHit);
+			cachedEffectOnHit = m_abilityMod.m_effectOnHitMod.GetModifiedValue(m_effectOnHit);
 		}
 		else
 		{
-			cachedEffectOnHit = this.m_effectOnHit;
+			cachedEffectOnHit = m_effectOnHit;
 		}
-		this.m_cachedEffectOnHit = cachedEffectOnHit;
+		m_cachedEffectOnHit = cachedEffectOnHit;
 		StandardEffectInfo cachedEffectOnOverlapHit;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -166,21 +165,21 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			cachedEffectOnOverlapHit = this.m_abilityMod.m_effectOnOverlapHitMod.GetModifiedValue(this.m_effectOnOverlapHit);
+			cachedEffectOnOverlapHit = m_abilityMod.m_effectOnOverlapHitMod.GetModifiedValue(m_effectOnOverlapHit);
 		}
 		else
 		{
-			cachedEffectOnOverlapHit = this.m_effectOnOverlapHit;
+			cachedEffectOnOverlapHit = m_effectOnOverlapHit;
 		}
-		this.m_cachedEffectOnOverlapHit = cachedEffectOnOverlapHit;
+		m_cachedEffectOnOverlapHit = cachedEffectOnOverlapHit;
 	}
 
 	public ConeTargetingInfo GetConeInfo()
 	{
 		ConeTargetingInfo result;
-		if (this.m_cachedConeInfo != null)
+		if (m_cachedConeInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -189,15 +188,15 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetConeInfo()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedConeInfo;
+			result = m_cachedConeInfo;
 		}
 		else
 		{
-			result = this.m_coneInfo;
+			result = m_coneInfo;
 		}
 		return result;
 	}
@@ -205,9 +204,9 @@ public class ExoDualCone : Ability
 	public float GetLeftConeHorizontalOffset()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -216,30 +215,30 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetLeftConeHorizontalOffset()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_leftConeHorizontalOffsetMod.GetModifiedValue(this.m_leftConeHorizontalOffset);
+			result = m_abilityMod.m_leftConeHorizontalOffsetMod.GetModifiedValue(m_leftConeHorizontalOffset);
 		}
 		else
 		{
-			result = this.m_leftConeHorizontalOffset;
+			result = m_leftConeHorizontalOffset;
 		}
 		return result;
 	}
 
 	public float GetRightConeHorizontalOffset()
 	{
-		return (!this.m_abilityMod) ? this.m_rightConeHorizontalOffset : this.m_abilityMod.m_rightConeHorizontalOffsetMod.GetModifiedValue(this.m_rightConeHorizontalOffset);
+		return (!m_abilityMod) ? m_rightConeHorizontalOffset : m_abilityMod.m_rightConeHorizontalOffsetMod.GetModifiedValue(m_rightConeHorizontalOffset);
 	}
 
 	public float GetConeForwardOffset()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -248,40 +247,40 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetConeForwardOffset()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneForwardOffsetMod.GetModifiedValue(this.m_coneForwardOffset);
+			result = m_abilityMod.m_coneForwardOffsetMod.GetModifiedValue(m_coneForwardOffset);
 		}
 		else
 		{
-			result = this.m_coneForwardOffset;
+			result = m_coneForwardOffset;
 		}
 		return result;
 	}
 
 	public float GetLeftConeDegreesFromForward()
 	{
-		return (!this.m_abilityMod) ? this.m_leftConeDegreesFromForward : this.m_abilityMod.m_leftConeDegreesFromForwardMod.GetModifiedValue(this.m_leftConeDegreesFromForward);
+		return (!m_abilityMod) ? m_leftConeDegreesFromForward : m_abilityMod.m_leftConeDegreesFromForwardMod.GetModifiedValue(m_leftConeDegreesFromForward);
 	}
 
 	public float GetRightConeDegreesFromForward()
 	{
-		return (!this.m_abilityMod) ? this.m_rightConeDegreesFromForward : this.m_abilityMod.m_rightConeDegreesFromForwardMod.GetModifiedValue(this.m_rightConeDegreesFromForward);
+		return (!m_abilityMod) ? m_rightConeDegreesFromForward : m_abilityMod.m_rightConeDegreesFromForwardMod.GetModifiedValue(m_rightConeDegreesFromForward);
 	}
 
 	public bool InterpolateAngle()
 	{
-		return (!this.m_abilityMod) ? this.m_interpolateAngle : this.m_abilityMod.m_interpolateAngleMod.GetModifiedValue(this.m_interpolateAngle);
+		return (!m_abilityMod) ? m_interpolateAngle : m_abilityMod.m_interpolateAngleMod.GetModifiedValue(m_interpolateAngle);
 	}
 
 	public float GetInterpolateMinAngle()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -290,15 +289,15 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetInterpolateMinAngle()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_interpolateMinAngleMod.GetModifiedValue(this.m_interpolateMinAngle);
+			result = m_abilityMod.m_interpolateMinAngleMod.GetModifiedValue(m_interpolateMinAngle);
 		}
 		else
 		{
-			result = this.m_interpolateMinAngle;
+			result = m_interpolateMinAngle;
 		}
 		return result;
 	}
@@ -306,9 +305,9 @@ public class ExoDualCone : Ability
 	public float GetInterpolateMaxAngle()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -317,15 +316,15 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetInterpolateMaxAngle()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_interpolateMaxAngleMod.GetModifiedValue(this.m_interpolateMaxAngle);
+			result = m_abilityMod.m_interpolateMaxAngleMod.GetModifiedValue(m_interpolateMaxAngle);
 		}
 		else
 		{
-			result = this.m_interpolateMaxAngle;
+			result = m_interpolateMaxAngle;
 		}
 		return result;
 	}
@@ -333,9 +332,9 @@ public class ExoDualCone : Ability
 	public float GetInterpolateMinDist()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -344,15 +343,15 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetInterpolateMinDist()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_interpolateMinDistMod.GetModifiedValue(this.m_interpolateMinDist);
+			result = m_abilityMod.m_interpolateMinDistMod.GetModifiedValue(m_interpolateMinDist);
 		}
 		else
 		{
-			result = this.m_interpolateMinDist;
+			result = m_interpolateMinDist;
 		}
 		return result;
 	}
@@ -360,9 +359,9 @@ public class ExoDualCone : Ability
 	public float GetInterpolateMaxDist()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -371,15 +370,15 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetInterpolateMaxDist()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_interpolateMaxDistMod.GetModifiedValue(this.m_interpolateMaxDist);
+			result = m_abilityMod.m_interpolateMaxDistMod.GetModifiedValue(m_interpolateMaxDist);
 		}
 		else
 		{
-			result = this.m_interpolateMaxDist;
+			result = m_interpolateMaxDist;
 		}
 		return result;
 	}
@@ -387,9 +386,9 @@ public class ExoDualCone : Ability
 	public int GetDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -398,30 +397,30 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetDamageAmount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
 		{
-			result = this.m_damageAmount;
+			result = m_damageAmount;
 		}
 		return result;
 	}
 
 	public int GetExtraDamageForOverlap()
 	{
-		return (!this.m_abilityMod) ? this.m_extraDamageForOverlap : this.m_abilityMod.m_extraDamageForOverlapMod.GetModifiedValue(this.m_extraDamageForOverlap);
+		return (!m_abilityMod) ? m_extraDamageForOverlap : m_abilityMod.m_extraDamageForOverlapMod.GetModifiedValue(m_extraDamageForOverlap);
 	}
 
 	public int GetExtraDamageForSingleHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -430,15 +429,15 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetExtraDamageForSingleHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageForSingleHitMod.GetModifiedValue(this.m_extraDamageForSingleHit);
+			result = m_abilityMod.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit);
 		}
 		else
 		{
-			result = this.m_extraDamageForSingleHit;
+			result = m_extraDamageForSingleHit;
 		}
 		return result;
 	}
@@ -446,9 +445,9 @@ public class ExoDualCone : Ability
 	public StandardEffectInfo GetEffectOnHit()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectOnHit != null)
+		if (m_cachedEffectOnHit != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -457,15 +456,15 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetEffectOnHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEffectOnHit;
+			result = m_cachedEffectOnHit;
 		}
 		else
 		{
-			result = this.m_effectOnHit;
+			result = m_effectOnHit;
 		}
 		return result;
 	}
@@ -473,9 +472,9 @@ public class ExoDualCone : Ability
 	public StandardEffectInfo GetEffectOnOverlapHit()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectOnOverlapHit != null)
+		if (m_cachedEffectOnOverlapHit != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -484,15 +483,15 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetEffectOnOverlapHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEffectOnOverlapHit;
+			result = m_cachedEffectOnOverlapHit;
 		}
 		else
 		{
-			result = this.m_effectOnOverlapHit;
+			result = m_effectOnOverlapHit;
 		}
 		return result;
 	}
@@ -500,9 +499,9 @@ public class ExoDualCone : Ability
 	public int GetExtraDamageForConsecitiveHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -511,52 +510,52 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetExtraDamageForConsecitiveHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageForConsecitiveHitMod.GetModifiedValue(this.m_extraDamageForConsecutiveUse);
+			result = m_abilityMod.m_extraDamageForConsecitiveHitMod.GetModifiedValue(m_extraDamageForConsecutiveUse);
 		}
 		else
 		{
-			result = this.m_extraDamageForConsecutiveUse;
+			result = m_extraDamageForConsecutiveUse;
 		}
 		return result;
 	}
 
 	public int GetExtraEnergyForConsecutiveUse()
 	{
-		return (!this.m_abilityMod) ? this.m_extraEnergyForConsecutiveUse : this.m_abilityMod.m_extraEnergyForConsecutiveUseMod.GetModifiedValue(this.m_extraEnergyForConsecutiveUse);
+		return (!m_abilityMod) ? m_extraEnergyForConsecutiveUse : m_abilityMod.m_extraEnergyForConsecutiveUseMod.GetModifiedValue(m_extraEnergyForConsecutiveUse);
 	}
 
 	public Vector3 GetFreePosForAim(AbilityTarget currentTarget, ActorData caster)
 	{
-		return caster.\u0015() + currentTarget.AimDirection.normalized;
+		return caster.GetTravelBoardSquareWorldPositionForLos() + currentTarget.AimDirection.normalized;
 	}
 
 	public List<Vector3> GetConeOrigins(AbilityTarget currentTarget, Vector3 targeterFreePos, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		Vector3 vector = caster.\u0015();
-		Vector3 vector2 = targeterFreePos - vector;
-		vector2.Normalize();
-		Vector3 normalized = Vector3.Cross(vector2, Vector3.up).normalized;
-		Vector3 a = vector + this.GetConeForwardOffset() * vector2;
-		list.Add(a + normalized * this.GetRightConeHorizontalOffset());
-		list.Add(a - normalized * this.GetLeftConeHorizontalOffset());
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 vector = targeterFreePos - travelBoardSquareWorldPositionForLos;
+		vector.Normalize();
+		Vector3 normalized = Vector3.Cross(vector, Vector3.up).normalized;
+		Vector3 a = travelBoardSquareWorldPositionForLos + GetConeForwardOffset() * vector;
+		list.Add(a + normalized * GetRightConeHorizontalOffset());
+		list.Add(a - normalized * GetLeftConeHorizontalOffset());
 		return list;
 	}
 
 	public List<Vector3> GetConeDirections(AbilityTarget currentTarget, Vector3 targeterFreePos, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		Vector3 b = caster.\u0015();
-		Vector3 vector = targeterFreePos - b;
-		float num = this.GetLeftConeDegreesFromForward();
-		float num2 = this.GetRightConeDegreesFromForward();
-		if (this.InterpolateAngle())
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 vector = targeterFreePos - travelBoardSquareWorldPositionForLos;
+		float num = GetLeftConeDegreesFromForward();
+		float num2 = GetRightConeDegreesFromForward();
+		if (InterpolateAngle())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -565,48 +564,50 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetConeDirections(AbilityTarget, Vector3, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			float num3 = this.CalculateAngleFromCenter(currentTarget, base.ActorData);
+			float num3 = CalculateAngleFromCenter(currentTarget, base.ActorData);
 			num = num3;
 			num2 = num3;
 		}
 		Vector3 normalized = Vector3.Cross(vector, Vector3.up).normalized;
-		list.Add(Vector3.RotateTowards(vector, normalized, 0.0174532924f * num2, 0f).normalized);
-		list.Add(Vector3.RotateTowards(vector, -1f * normalized, 0.0174532924f * num, 0f).normalized);
+		list.Add(Vector3.RotateTowards(vector, normalized, (float)Math.PI / 180f * num2, 0f).normalized);
+		list.Add(Vector3.RotateTowards(vector, -1f * normalized, (float)Math.PI / 180f * num, 0f).normalized);
 		return list;
 	}
 
 	private float CalculateAngleFromCenter(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		float interpolateMinAngle = this.GetInterpolateMinAngle();
-		float interpolateMaxAngle = this.GetInterpolateMaxAngle();
-		float interpolateMinDist = this.GetInterpolateMinDist();
-		float interpolateMaxDist = this.GetInterpolateMaxDist();
+		float interpolateMinAngle = GetInterpolateMinAngle();
+		float interpolateMaxAngle = GetInterpolateMaxAngle();
+		float interpolateMinDist = GetInterpolateMinDist();
+		float interpolateMaxDist = GetInterpolateMaxDist();
 		if (interpolateMinDist < interpolateMaxDist && interpolateMinDist > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Vector3 vector = currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition();
+					vector.y = 0f;
+					float value = vector.magnitude / Board.Get().squareSize;
+					float num = Mathf.Clamp(value, interpolateMinDist, interpolateMaxDist) - interpolateMinDist;
+					float num2 = 1f - num / (interpolateMaxDist - interpolateMinDist);
+					float num3 = Mathf.Max(0f, interpolateMaxAngle - interpolateMinAngle);
+					return interpolateMinAngle + num2 * num3;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.CalculateAngleFromCenter(AbilityTarget, ActorData)).MethodHandle;
-			}
-			Vector3 vector = currentTarget.FreePos - targetingActor.\u0016();
-			vector.y = 0f;
-			float value = vector.magnitude / Board.\u000E().squareSize;
-			float num = Mathf.Clamp(value, interpolateMinDist, interpolateMaxDist) - interpolateMinDist;
-			float num2 = 1f - num / (interpolateMaxDist - interpolateMinDist);
-			float num3 = Mathf.Max(0f, interpolateMaxAngle - interpolateMinAngle);
-			return interpolateMinAngle + num2 * num3;
 		}
 		return interpolateMinAngle;
 	}
@@ -614,12 +615,11 @@ public class ExoDualCone : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_ExoDualCone abilityMod_ExoDualCone = modAsBase as AbilityMod_ExoDualCone;
-		string name = "DamageAmount";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_ExoDualCone)
+		if ((bool)abilityMod_ExoDualCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -628,23 +628,22 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_ExoDualCone.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+			val = abilityMod_ExoDualCone.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
 		{
-			val = this.m_damageAmount;
+			val = m_damageAmount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "ExtraDamageForOverlap";
+		AddTokenInt(tokens, "DamageAmount", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_ExoDualCone)
+		if ((bool)abilityMod_ExoDualCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -653,19 +652,18 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_ExoDualCone.m_extraDamageForOverlapMod.GetModifiedValue(this.m_extraDamageForOverlap);
+			val2 = abilityMod_ExoDualCone.m_extraDamageForOverlapMod.GetModifiedValue(m_extraDamageForOverlap);
 		}
 		else
 		{
-			val2 = this.m_extraDamageForOverlap;
+			val2 = m_extraDamageForOverlap;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		string name3 = "ExtraDamageForSingleHit";
+		AddTokenInt(tokens, "ExtraDamageForOverlap", empty2, val2);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_ExoDualCone)
+		if ((bool)abilityMod_ExoDualCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -674,18 +672,18 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			val3 = abilityMod_ExoDualCone.m_extraDamageForSingleHitMod.GetModifiedValue(this.m_extraDamageForSingleHit);
+			val3 = abilityMod_ExoDualCone.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit);
 		}
 		else
 		{
-			val3 = this.m_extraDamageForSingleHit;
+			val3 = m_extraDamageForSingleHit;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
-		base.AddTokenInt(tokens, "TotalDamageOverlap", string.Empty, this.m_damageAmount + this.m_extraDamageForOverlap, false);
+		AddTokenInt(tokens, "ExtraDamageForSingleHit", empty3, val3);
+		AddTokenInt(tokens, "TotalDamageOverlap", string.Empty, m_damageAmount + m_extraDamageForOverlap);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_ExoDualCone)
+		if ((bool)abilityMod_ExoDualCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -694,17 +692,17 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			effectInfo = abilityMod_ExoDualCone.m_effectOnHitMod.GetModifiedValue(this.m_effectOnHit);
+			effectInfo = abilityMod_ExoDualCone.m_effectOnHitMod.GetModifiedValue(m_effectOnHit);
 		}
 		else
 		{
-			effectInfo = this.m_effectOnHit;
+			effectInfo = m_effectOnHit;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnHit", this.m_effectOnHit, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnHit", m_effectOnHit);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_ExoDualCone)
+		if ((bool)abilityMod_ExoDualCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -713,20 +711,19 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			effectInfo2 = abilityMod_ExoDualCone.m_effectOnOverlapHitMod.GetModifiedValue(this.m_effectOnOverlapHit);
+			effectInfo2 = abilityMod_ExoDualCone.m_effectOnOverlapHitMod.GetModifiedValue(m_effectOnOverlapHit);
 		}
 		else
 		{
-			effectInfo2 = this.m_effectOnOverlapHit;
+			effectInfo2 = m_effectOnOverlapHit;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EffectOnOverlapHit", this.m_effectOnOverlapHit, true);
-		base.AddTokenInt(tokens, "ExtraDamageForConsecitiveHit", string.Empty, (!abilityMod_ExoDualCone) ? this.m_extraDamageForConsecutiveUse : abilityMod_ExoDualCone.m_extraDamageForConsecitiveHitMod.GetModifiedValue(this.m_extraDamageForConsecutiveUse), false);
-		string name4 = "ExtraEnergyForConsecutiveUse";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EffectOnOverlapHit", m_effectOnOverlapHit);
+		AddTokenInt(tokens, "ExtraDamageForConsecitiveHit", string.Empty, (!abilityMod_ExoDualCone) ? m_extraDamageForConsecutiveUse : abilityMod_ExoDualCone.m_extraDamageForConsecitiveHitMod.GetModifiedValue(m_extraDamageForConsecutiveUse));
 		string empty4 = string.Empty;
 		int val4;
-		if (abilityMod_ExoDualCone)
+		if ((bool)abilityMod_ExoDualCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -735,29 +732,29 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			val4 = abilityMod_ExoDualCone.m_extraEnergyForConsecutiveUseMod.GetModifiedValue(this.m_extraEnergyForConsecutiveUse);
+			val4 = abilityMod_ExoDualCone.m_extraEnergyForConsecutiveUseMod.GetModifiedValue(m_extraEnergyForConsecutiveUse);
 		}
 		else
 		{
-			val4 = this.m_extraEnergyForConsecutiveUse;
+			val4 = m_extraEnergyForConsecutiveUse;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
+		AddTokenInt(tokens, "ExtraEnergyForConsecutiveUse", empty4, val4);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetDamageAmount());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetDamageAmount());
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		int num = this.GetDamageAmount();
-		if (this.GetExtraDamageForConsecitiveHit() > 0)
+		int num = GetDamageAmount();
+		if (GetExtraDamageForConsecitiveHit() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -766,13 +763,13 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComp != null)
+			if (m_syncComp != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -781,9 +778,9 @@ public class ExoDualCone : Ability
 					}
 					break;
 				}
-				if (this.m_syncComp.UsedBasicAttackLastTurn())
+				if (m_syncComp.UsedBasicAttackLastTurn())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -792,14 +789,14 @@ public class ExoDualCone : Ability
 						}
 						break;
 					}
-					num += this.GetExtraDamageForConsecitiveHit();
+					num += GetExtraDamageForConsecitiveHit();
 				}
 			}
 		}
 		int tooltipSubjectCountOnActor = base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary);
 		if (tooltipSubjectCountOnActor > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -810,7 +807,7 @@ public class ExoDualCone : Ability
 			}
 			if (tooltipSubjectCountOnActor == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -819,11 +816,11 @@ public class ExoDualCone : Ability
 					}
 					break;
 				}
-				num += this.GetExtraDamageForSingleHit();
+				num += GetExtraDamageForSingleHit();
 			}
 			else if (tooltipSubjectCountOnActor > 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -832,7 +829,7 @@ public class ExoDualCone : Ability
 					}
 					break;
 				}
-				num += (tooltipSubjectCountOnActor - 1) * this.GetExtraDamageForOverlap();
+				num += (tooltipSubjectCountOnActor - 1) * GetExtraDamageForOverlap();
 			}
 			dictionary[AbilityTooltipSymbol.Damage] = num;
 		}
@@ -841,9 +838,9 @@ public class ExoDualCone : Ability
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -852,13 +849,13 @@ public class ExoDualCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComp.UsedBasicAttackLastTurn())
+			if (m_syncComp.UsedBasicAttackLastTurn())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -867,10 +864,10 @@ public class ExoDualCone : Ability
 					}
 					break;
 				}
-				if (this.GetExtraEnergyForConsecutiveUse() > 0)
+				if (GetExtraEnergyForConsecutiveUse() > 0)
 				{
 					int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-					return visibleActorsCountByTooltipSubject * this.GetExtraEnergyForConsecutiveUse();
+					return visibleActorsCountByTooltipSubject * GetExtraEnergyForConsecutiveUse();
 				}
 			}
 		}
@@ -881,14 +878,14 @@ public class ExoDualCone : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ExoDualCone))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_ExoDualCone);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_ExoDualCone);
+			SetupTargeter();
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 }

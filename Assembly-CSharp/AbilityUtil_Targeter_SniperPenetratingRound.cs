@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_Laser
@@ -11,50 +10,52 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 
 	private float m_knockbackDistance;
 
-	public AbilityUtil_Targeter_SniperPenetratingRound(Ability ability, float width, float distance, bool penetrateLos, int maxTargets, bool shouldKnockback, float knockbackThresholdDistance, KnockbackType knockbackType, float knockbackDistance) : base(ability, width, distance, penetrateLos, maxTargets, false, false)
+	public AbilityUtil_Targeter_SniperPenetratingRound(Ability ability, float width, float distance, bool penetrateLos, int maxTargets, bool shouldKnockback, float knockbackThresholdDistance, KnockbackType knockbackType, float knockbackDistance)
+		: base(ability, width, distance, penetrateLos, maxTargets)
 	{
-		this.m_knockbackNearbyEnemies = shouldKnockback;
-		this.m_knockbackThresholdDistance = knockbackThresholdDistance;
-		this.m_knockbackType = knockbackType;
-		this.m_knockbackDistance = knockbackDistance;
+		m_knockbackNearbyEnemies = shouldKnockback;
+		m_knockbackThresholdDistance = knockbackThresholdDistance;
+		m_knockbackType = knockbackType;
+		m_knockbackDistance = knockbackDistance;
 	}
 
-	public AbilityUtil_Targeter_SniperPenetratingRound(Ability ability, float width, float distance, bool penetrateLoS, int maxTargets) : base(ability, width, distance, penetrateLoS, maxTargets, false, false)
+	public AbilityUtil_Targeter_SniperPenetratingRound(Ability ability, float width, float distance, bool penetrateLoS, int maxTargets)
+		: base(ability, width, distance, penetrateLoS, maxTargets)
 	{
-		this.m_knockbackNearbyEnemies = false;
+		m_knockbackNearbyEnemies = false;
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		if (this.m_knockbackNearbyEnemies)
+		if (!m_knockbackNearbyEnemies)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SniperPenetratingRound.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_knockbackDistance > 0f)
+			if (m_knockbackDistance > 0f)
 			{
 				int num = 0;
-				base.EnableAllMovementArrows();
-				List<ActorData> visibleActorsInRange = this.GetVisibleActorsInRange();
+				EnableAllMovementArrows();
+				List<ActorData> visibleActorsInRange = GetVisibleActorsInRange();
 				using (List<ActorData>.Enumerator enumerator = visibleActorsInRange.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						ActorData actorData = enumerator.Current;
-						if (actorData.\u000E() != targetingActor.\u000E())
+						ActorData current = enumerator.Current;
+						if (current.GetTeam() != targetingActor.GetTeam())
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -63,9 +64,9 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 								}
 								break;
 							}
-							if (this.ActorMeetKnockbackConditions(actorData, targetingActor))
+							if (ActorMeetKnockbackConditions(current, targetingActor))
 							{
-								for (;;)
+								while (true)
 								{
 									switch (7)
 									{
@@ -74,11 +75,11 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 									}
 									break;
 								}
-								float num2 = VectorUtils.HorizontalPlaneDistInSquares(actorData.\u0016(), targetingActor.\u0016());
-								bool flag;
-								if (this.m_knockbackThresholdDistance > 0f)
+								float num2 = VectorUtils.HorizontalPlaneDistInSquares(current.GetTravelBoardSquareWorldPosition(), targetingActor.GetTravelBoardSquareWorldPosition());
+								int num3;
+								if (!(m_knockbackThresholdDistance <= 0f))
 								{
-									for (;;)
+									while (true)
 									{
 										switch (2)
 										{
@@ -87,16 +88,15 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 										}
 										break;
 									}
-									flag = (num2 < this.m_knockbackThresholdDistance);
+									num3 = ((num2 < m_knockbackThresholdDistance) ? 1 : 0);
 								}
 								else
 								{
-									flag = true;
+									num3 = 1;
 								}
-								bool flag2 = flag;
-								if (flag2)
+								if (num3 != 0)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (6)
 										{
@@ -105,13 +105,13 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 										}
 										break;
 									}
-									BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, targetingActor.\u0016(), this.m_knockbackDistance);
-									num = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
+									BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, currentTarget.AimDirection, targetingActor.GetTravelBoardSquareWorldPosition(), m_knockbackDistance);
+									num = AddMovementArrowWithPrevious(current, path, TargeterMovementType.Knockback, num);
 								}
 							}
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -121,29 +121,30 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 						break;
 					}
 				}
-				base.SetMovementArrowEnabledFromIndex(num, false);
+				SetMovementArrowEnabledFromIndex(num, false);
 			}
+			return;
 		}
 	}
 
 	private bool ActorMeetKnockbackConditions(ActorData target, ActorData caster)
 	{
-		if (this.m_knockbackNearbyEnemies && this.m_knockbackDistance > 0f)
+		if (m_knockbackNearbyEnemies && m_knockbackDistance > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_knockbackThresholdDistance <= 0f || VectorUtils.HorizontalPlaneDistInSquares(target.GetTravelBoardSquareWorldPosition(), caster.GetTravelBoardSquareWorldPosition()) < m_knockbackThresholdDistance;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SniperPenetratingRound.ActorMeetKnockbackConditions(ActorData, ActorData)).MethodHandle;
-			}
-			return this.m_knockbackThresholdDistance <= 0f || VectorUtils.HorizontalPlaneDistInSquares(target.\u0016(), caster.\u0016()) < this.m_knockbackThresholdDistance;
 		}
 		return false;
 	}

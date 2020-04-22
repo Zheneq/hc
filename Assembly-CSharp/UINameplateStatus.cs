@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,51 +16,52 @@ public class UINameplateStatus : MonoBehaviour
 
 	public void DisplayAsNegativeStatus(UINameplateItem parent)
 	{
-		this.m_animController.Play("GainedNegativeStatus");
-		this.gainedStatus = true;
-		this.m_parent = parent;
+		m_animController.Play("GainedNegativeStatus");
+		gainedStatus = true;
+		m_parent = parent;
 	}
 
 	public void DisplayAsPositiveStatus(UINameplateItem parent)
 	{
-		this.m_animController.Play("GainedPositiveStatus");
-		this.gainedStatus = true;
-		this.m_parent = parent;
+		m_animController.Play("GainedPositiveStatus");
+		gainedStatus = true;
+		m_parent = parent;
 	}
 
 	public void DisplayAsLostStatus(UINameplateItem parent)
 	{
-		this.m_animController.Play("LostStatus");
-		this.gainedStatus = false;
-		this.m_parent = parent;
+		m_animController.Play("LostStatus");
+		gainedStatus = false;
+		m_parent = parent;
 	}
 
 	public void AnimDone()
 	{
-		if (this.m_parent != null)
+		if (!(m_parent != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplateStatus.AnimDone()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_parent.NotifyStatusAnimationDone(this, this.gainedStatus);
+			m_parent.NotifyStatusAnimationDone(this, gainedStatus);
+			return;
 		}
 	}
 
 	public void Update()
 	{
-		if (this.m_parent == null)
+		if (m_parent == null)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			Object.Destroy(base.gameObject);
 		}
 	}
 }

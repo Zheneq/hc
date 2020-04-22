@@ -1,10 +1,867 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public static class ServerClientUtils
 {
+	public class SequenceStartData
+	{
+		private short m_prefabID;
+
+		private GameObject m_serverOnlyPrefabReference;
+
+		private bool m_useTargetPos;
+
+		private Vector3 m_targetPos;
+
+		private bool m_useTargetSquare;
+
+		private int m_targetSquareX;
+
+		private int m_targetSquareY;
+
+		private bool m_useTargetRotation;
+
+		private Quaternion m_targetRotation;
+
+		private byte m_numTargetActors;
+
+		private int[] m_targetActorIndices;
+
+		private int m_casterActorIndex;
+
+		private byte m_numExtraParams;
+
+		private Sequence.IExtraSequenceParams[] m_extraParams;
+
+		private uint m_sourceRootID;
+
+		private bool m_sourceRemoveAtEndOfTurn;
+
+		private bool m_waitForClientEnable;
+
+		public SequenceStartData(GameObject prefab, BoardSquare targetSquare, ActorData[] targetActorArray, ActorData caster, SequenceSource source, Sequence.IExtraSequenceParams[] extraParams = null)
+		{
+			InitToDefaults();
+			InitPrefab(prefab);
+			InitSquare(targetSquare);
+			InitTargetActors(targetActorArray);
+			InitCasterActor(caster);
+			InitSequenceSourceData(source);
+			InitExtraParams(extraParams);
+		}
+
+		public SequenceStartData(GameObject prefab, BoardSquare targetSquare, Quaternion targetRotation, ActorData[] targetActorArray, ActorData caster, SequenceSource source, Sequence.IExtraSequenceParams[] extraParams = null)
+		{
+			InitToDefaults();
+			InitPrefab(prefab);
+			InitSquare(targetSquare);
+			InitRotation(targetRotation);
+			InitTargetActors(targetActorArray);
+			InitCasterActor(caster);
+			InitSequenceSourceData(source);
+			InitExtraParams(extraParams);
+		}
+
+		public SequenceStartData(GameObject prefab, Vector3 targetPos, ActorData[] targetActorArray, ActorData caster, SequenceSource source, Sequence.IExtraSequenceParams[] extraParams = null)
+		{
+			InitToDefaults();
+			InitPrefab(prefab);
+			InitPos(targetPos);
+			InitTargetActors(targetActorArray);
+			InitCasterActor(caster);
+			InitSequenceSourceData(source);
+			InitExtraParams(extraParams);
+		}
+
+		public SequenceStartData(GameObject prefab, Vector3 targetPos, Quaternion targetRotation, ActorData[] targetActorArray, ActorData caster, SequenceSource source, Sequence.IExtraSequenceParams[] extraParams = null)
+		{
+			InitToDefaults();
+			InitPrefab(prefab);
+			InitPos(targetPos);
+			InitRotation(targetRotation);
+			InitTargetActors(targetActorArray);
+			InitCasterActor(caster);
+			InitSequenceSourceData(source);
+			InitExtraParams(extraParams);
+		}
+
+		public SequenceStartData()
+		{
+			InitToDefaults();
+		}
+
+		public void SetRemoveAtEndOfTurn(bool val)
+		{
+			m_sourceRemoveAtEndOfTurn = val;
+		}
+
+		public void SetTargetPos(Vector3 pos)
+		{
+			InitPos(pos);
+		}
+
+		public Vector3 GetTargetPos()
+		{
+			return m_targetPos;
+		}
+
+		public int GetCasterActorIndex()
+		{
+			return m_casterActorIndex;
+		}
+
+		public Sequence.IExtraSequenceParams[] GetExtraParams()
+		{
+			return m_extraParams;
+		}
+
+		private void InitToDefaults()
+		{
+			m_prefabID = -1;
+			m_serverOnlyPrefabReference = null;
+			m_useTargetPos = false;
+			m_targetPos = Vector3.zero;
+			m_useTargetSquare = false;
+			m_targetSquareX = 0;
+			m_targetSquareY = 0;
+			m_useTargetRotation = false;
+			m_targetRotation = Quaternion.identity;
+			m_numTargetActors = 0;
+			m_targetActorIndices = null;
+			m_casterActorIndex = ActorData.s_invalidActorIndex;
+			m_numExtraParams = 0;
+			m_extraParams = null;
+			m_sourceRootID = 0u;
+			m_sourceRemoveAtEndOfTurn = true;
+			m_waitForClientEnable = false;
+		}
+
+		private void InitPrefab(GameObject prefab)
+		{
+			m_prefabID = SequenceLookup.Get().GetSequenceIdOfPrefab(prefab);
+			m_serverOnlyPrefabReference = prefab;
+		}
+
+		private void InitPos(Vector3 targetPos)
+		{
+			m_useTargetPos = true;
+			m_targetPos = targetPos;
+		}
+
+		private void InitSquare(BoardSquare square)
+		{
+			if (!(square != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				m_useTargetSquare = true;
+				m_targetSquareX = square.x;
+				m_targetSquareY = square.y;
+				if (!m_useTargetPos)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						m_targetPos = square.ToVector3();
+						return;
+					}
+				}
+				return;
+			}
+		}
+
+		private void InitRotation(Quaternion targetRotation)
+		{
+			m_useTargetRotation = true;
+			m_targetRotation = targetRotation;
+		}
+
+		public void InitTargetActors(ActorData[] targetActorArray)
+		{
+			if (targetActorArray == null)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (targetActorArray.Length <= 0)
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					m_numTargetActors = (byte)targetActorArray.Length;
+					m_targetActorIndices = new int[m_numTargetActors];
+					for (int i = 0; i < m_numTargetActors; i++)
+					{
+						m_targetActorIndices[i] = targetActorArray[i].ActorIndex;
+					}
+					return;
+				}
+			}
+		}
+
+		public List<int> GetTargetActorIndices()
+		{
+			if (m_targetActorIndices != null)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return new List<int>(m_targetActorIndices);
+					}
+				}
+			}
+			return new List<int>();
+		}
+
+		private void InitCasterActor(ActorData caster)
+		{
+			if (caster != null)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						m_casterActorIndex = caster.ActorIndex;
+						return;
+					}
+				}
+			}
+			Log.Error("SequenceStartData trying to init its caster actor, but that actor is null.");
+		}
+
+		internal void InitSequenceSourceData(SequenceSource source)
+		{
+			if (!(source != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				m_sourceRootID = source.RootID;
+				m_sourceRemoveAtEndOfTurn = source.RemoveAtEndOfTurn;
+				m_waitForClientEnable = source.WaitForClientEnable;
+				return;
+			}
+		}
+
+		public void InitExtraParams(Sequence.IExtraSequenceParams[] extraParams)
+		{
+			if (extraParams == null)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (extraParams.Length > 0)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						m_extraParams = extraParams;
+						m_numExtraParams = (byte)extraParams.Length;
+						return;
+					}
+				}
+				return;
+			}
+		}
+
+		public short GetSequencePrefabId()
+		{
+			return m_prefabID;
+		}
+
+		public GameObject GetServerOnlyPrefabReference()
+		{
+			return m_serverOnlyPrefabReference;
+		}
+
+		public string GetTargetActorsString()
+		{
+			string text = string.Empty;
+			if (m_targetActorIndices != null && m_targetActorIndices.Length > 0)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				for (int i = 0; i < m_targetActorIndices.Length; i++)
+				{
+					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(m_targetActorIndices[i]);
+					if (actorData != null)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						text = text + " | " + actorData.GetDebugName();
+					}
+					else
+					{
+						text = text + " | (Unknown Actor) " + m_targetActorIndices[i];
+					}
+				}
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			else
+			{
+				text = "(Empty)";
+			}
+			return text;
+		}
+
+		public void SequenceStartData_SerializeToStream(ref IBitStream stream)
+		{
+			uint position = stream.Position;
+			byte value = CreateBitfieldFromBools(m_useTargetPos, m_useTargetSquare, m_useTargetRotation, m_sourceRemoveAtEndOfTurn, m_waitForClientEnable, false, false, false);
+			stream.Serialize(ref m_prefabID);
+			stream.Serialize(ref value);
+			if (m_useTargetPos)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				stream.Serialize(ref m_targetPos);
+			}
+			if (m_useTargetSquare)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				byte value2 = (byte)m_targetSquareX;
+				byte value3 = (byte)m_targetSquareY;
+				stream.Serialize(ref value2);
+				stream.Serialize(ref value3);
+			}
+			if (m_useTargetRotation)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				Vector3 vec = m_targetRotation * new Vector3(1f, 0f, 0f);
+				float value4 = VectorUtils.HorizontalAngle_Deg(vec);
+				stream.Serialize(ref value4);
+			}
+			stream.Serialize(ref m_numTargetActors);
+			for (byte b = 0; b < m_numTargetActors; b = (byte)(b + 1))
+			{
+				sbyte value5 = (sbyte)m_targetActorIndices[b];
+				stream.Serialize(ref value5);
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				sbyte value6 = (sbyte)m_casterActorIndex;
+				stream.Serialize(ref value6);
+				stream.Serialize(ref m_sourceRootID);
+				stream.Serialize(ref m_numExtraParams);
+				for (int i = 0; i < m_numExtraParams; i++)
+				{
+					Sequence.IExtraSequenceParams extraSequenceParams = m_extraParams[i];
+					SequenceLookup.SequenceExtraParamEnum enumOfExtraParam = SequenceLookup.GetEnumOfExtraParam(extraSequenceParams);
+					short value7 = (short)enumOfExtraParam;
+					stream.Serialize(ref value7);
+					extraSequenceParams.XSP_SerializeToStream(stream);
+				}
+				uint num = stream.Position - position;
+				if (ClientAbilityResults._000E)
+				{
+					Debug.LogWarning("\t\t\t\t\t Serializing Sequence Start Data, using targetPos? " + m_useTargetPos.ToString() + " prefab id " + m_prefabID + ": \n\t\t\t\t\t numBytes: " + num);
+				}
+				return;
+			}
+		}
+
+		public static SequenceStartData SequenceStartData_DeserializeFromStream(ref IBitStream stream)
+		{
+			short value = -1;
+			byte value2 = 0;
+			bool @out = false;
+			Vector3 value3 = Vector3.zero;
+			bool out2 = false;
+			byte value4 = 0;
+			byte value5 = 0;
+			bool out3 = false;
+			Quaternion targetRotation = Quaternion.identity;
+			byte value6 = 0;
+			List<int> list = new List<int>();
+			sbyte value7 = 0;
+			uint value8 = 0u;
+			bool out4 = true;
+			bool out5 = false;
+			byte value9 = 0;
+			List<Sequence.IExtraSequenceParams> list2 = new List<Sequence.IExtraSequenceParams>();
+			stream.Serialize(ref value);
+			stream.Serialize(ref value2);
+			GetBoolsFromBitfield(value2, out @out, out out2, out out3, out out4, out out5, out bool _, out bool _, out bool _);
+			if (@out)
+			{
+				stream.Serialize(ref value3);
+			}
+			if (out2)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				stream.Serialize(ref value4);
+				stream.Serialize(ref value5);
+			}
+			if (out3)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				float value10 = 0f;
+				stream.Serialize(ref value10);
+				Vector3 toDirection = VectorUtils.AngleDegreesToVector(value10);
+				targetRotation = Quaternion.FromToRotation(new Vector3(1f, 0f, 0f), toDirection);
+			}
+			stream.Serialize(ref value6);
+			for (int i = 0; i < value6; i++)
+			{
+				sbyte value11 = (sbyte)ActorData.s_invalidActorIndex;
+				stream.Serialize(ref value11);
+				list.Add(value11);
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				stream.Serialize(ref value7);
+				stream.Serialize(ref value8);
+				stream.Serialize(ref value9);
+				for (int j = 0; j < value9; j++)
+				{
+					short value12 = 0;
+					stream.Serialize(ref value12);
+					SequenceLookup.SequenceExtraParamEnum paramEnum = (SequenceLookup.SequenceExtraParamEnum)value12;
+					Sequence.IExtraSequenceParams extraSequenceParams = SequenceLookup.Get().CreateExtraParamOfEnum(paramEnum);
+					extraSequenceParams.XSP_DeserializeFromStream(stream);
+					list2.Add(extraSequenceParams);
+				}
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					SequenceStartData sequenceStartData = new SequenceStartData();
+					sequenceStartData.m_prefabID = value;
+					sequenceStartData.m_useTargetPos = @out;
+					sequenceStartData.m_targetPos = value3;
+					sequenceStartData.m_useTargetSquare = out2;
+					sequenceStartData.m_targetSquareX = ((!out2) ? (-1) : value4);
+					sequenceStartData.m_targetSquareY = ((!out2) ? (-1) : value5);
+					sequenceStartData.m_useTargetRotation = out3;
+					sequenceStartData.m_targetRotation = targetRotation;
+					sequenceStartData.m_numTargetActors = value6;
+					sequenceStartData.m_targetActorIndices = list.ToArray();
+					sequenceStartData.m_casterActorIndex = value7;
+					sequenceStartData.m_sourceRootID = value8;
+					sequenceStartData.m_sourceRemoveAtEndOfTurn = out4;
+					sequenceStartData.m_waitForClientEnable = out5;
+					sequenceStartData.m_numExtraParams = value9;
+					sequenceStartData.m_extraParams = list2.ToArray();
+					return sequenceStartData;
+				}
+			}
+		}
+
+		internal Sequence[] CreateSequencesFromData(SequenceSource.ActorDelegate onHitActor, SequenceSource.Vector3Delegate onHitPos)
+		{
+			GameObject prefabOfSequenceId = SequenceLookup.Get().GetPrefabOfSequenceId(m_prefabID);
+			BoardSquare targetSquare;
+			if (m_useTargetSquare)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				targetSquare = Board.Get().GetBoardSquare(m_targetSquareX, m_targetSquareY);
+			}
+			else
+			{
+				targetSquare = null;
+			}
+			ActorData[] array = new ActorData[m_numTargetActors];
+			for (int i = 0; i < m_numTargetActors; i++)
+			{
+				ActorData actorData = array[i] = GameFlowData.Get().FindActorByActorIndex(m_targetActorIndices[i]);
+			}
+			ActorData caster = GameFlowData.Get().FindActorByActorIndex(m_casterActorIndex);
+			SequenceSource sequenceSource = new SequenceSource(onHitActor, onHitPos, m_sourceRootID, m_sourceRemoveAtEndOfTurn);
+			sequenceSource.SetWaitForClientEnable(m_waitForClientEnable);
+			if (m_useTargetRotation)
+			{
+				if (m_useTargetSquare)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							break;
+						default:
+							return SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, targetSquare, m_targetPos, m_targetRotation, array, caster, sequenceSource, m_extraParams);
+						}
+					}
+				}
+				return SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, m_targetPos, m_targetRotation, array, caster, sequenceSource, m_extraParams);
+			}
+			if (m_useTargetSquare)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						break;
+					default:
+						return SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, targetSquare, array, caster, sequenceSource, m_extraParams);
+					}
+				}
+			}
+			return SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, m_targetPos, array, caster, sequenceSource, m_extraParams);
+		}
+
+		internal bool HasSequencePrefab()
+		{
+			GameObject x = SequenceLookup.Get().GetPrefabOfSequenceId(m_prefabID);
+			if (x == null)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (SequenceLookup.Get() != null)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					x = SequenceLookup.Get().GetSimpleHitSequencePrefab();
+				}
+			}
+			return x != null;
+		}
+
+		internal bool Contains(SequenceSource sequenceSource)
+		{
+			int result;
+			if (sequenceSource != null)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				result = ((m_sourceRootID == sequenceSource.RootID) ? 1 : 0);
+			}
+			else
+			{
+				result = 0;
+			}
+			return (byte)result != 0;
+		}
+
+		internal bool ContainsSequenceSourceID(uint id)
+		{
+			return m_sourceRootID == id;
+		}
+	}
+
+	public class SequenceEndData
+	{
+		public enum AssociationType
+		{
+			EffectGuid,
+			BarrierGuid,
+			SequenceSourceId
+		}
+
+		private short m_prefabId;
+
+		private uint m_association;
+
+		private AssociationType m_associationType;
+
+		private Vector3 m_targetPos;
+
+		public SequenceEndData(int prefabIdToEnd, AssociationType associationType, int guid, Vector3 targetPos)
+		{
+			m_prefabId = (short)prefabIdToEnd;
+			m_associationType = associationType;
+			m_association = (uint)Mathf.Max(0, guid);
+			m_targetPos = targetPos;
+		}
+
+		public SequenceEndData(GameObject prefabToEnd, AssociationType associationType, int guid, Vector3 targetPos)
+		{
+			m_prefabId = SequenceLookup.Get().GetSequenceIdOfPrefab(prefabToEnd);
+			m_associationType = associationType;
+			m_association = (uint)Mathf.Max(0, guid);
+			m_targetPos = targetPos;
+		}
+
+		public void SequenceEndData_SerializeToStream(ref IBitStream stream)
+		{
+			sbyte value = (sbyte)m_associationType;
+			stream.Serialize(ref m_prefabId);
+			stream.Serialize(ref value);
+			stream.Serialize(ref m_association);
+			bool value2 = m_targetPos != Vector3.zero;
+			stream.Serialize(ref value2);
+			if (!value2)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				stream.Serialize(ref m_targetPos);
+				return;
+			}
+		}
+
+		public static SequenceEndData SequenceEndData_DeserializeFromStream(ref IBitStream stream)
+		{
+			short value = -1;
+			uint value2 = 0u;
+			sbyte value3 = -1;
+			bool value4 = false;
+			Vector3 value5 = Vector3.zero;
+			stream.Serialize(ref value);
+			stream.Serialize(ref value3);
+			stream.Serialize(ref value2);
+			stream.Serialize(ref value4);
+			if (value4)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				stream.Serialize(ref value5);
+			}
+			return new SequenceEndData(value, (AssociationType)value3, (int)value2, value5);
+		}
+
+		public void EndClientSequences()
+		{
+			if (m_associationType == AssociationType.EffectGuid)
+			{
+				ClientEffectBarrierManager.Get().EndSequenceOfEffect(m_prefabId, (int)m_association, m_targetPos);
+				return;
+			}
+			if (m_associationType == AssociationType.BarrierGuid)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						ClientEffectBarrierManager.Get().EndSequenceOfBarrier(m_prefabId, (int)m_association, m_targetPos);
+						return;
+					}
+				}
+			}
+			if (m_associationType == AssociationType.SequenceSourceId)
+			{
+				SequenceManager.Get().MarkSequenceToEndBySourceId(m_prefabId, (int)m_association, m_targetPos);
+			}
+		}
+	}
+
 	public const bool c_sendClientCastActions = false;
 
 	public static ActionBufferPhase GetCurrentActionPhase()
@@ -12,7 +869,7 @@ public static class ServerClientUtils
 		ActionBufferPhase result = ActionBufferPhase.Done;
 		if (NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -21,14 +878,14 @@ public static class ServerClientUtils
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.GetCurrentActionPhase()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		else if (ClientActionBuffer.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -41,7 +898,7 @@ public static class ServerClientUtils
 		}
 		else if (GameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -52,7 +909,7 @@ public static class ServerClientUtils
 			}
 			if (GameManager.Get().GameStatus == GameStatus.Started)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -61,7 +918,7 @@ public static class ServerClientUtils
 					}
 					break;
 				}
-				Log.Error("Trying to examine current action phase, but ClientActionBuffer does not exist.", new object[0]);
+				Log.Error("Trying to examine current action phase, but ClientActionBuffer does not exist.");
 			}
 		}
 		return result;
@@ -78,7 +935,7 @@ public static class ServerClientUtils
 			}
 			else
 			{
-				Log.Error("Trying to examine current ability phase, but ClientActionBuffer does not exist.", new object[0]);
+				Log.Error("Trying to examine current ability phase, but ClientActionBuffer does not exist.");
 			}
 		}
 		return result;
@@ -92,7 +949,7 @@ public static class ServerClientUtils
 		{
 			if (bools[i])
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -101,34 +958,33 @@ public static class ServerClientUtils
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.CreateBitfieldFromBoolsList(List<bool>)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				b |= (byte)(1 << i);
+				b = (byte)(b | (byte)(1 << i));
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return b;
 		}
-		return b;
 	}
 
 	public static short CreateBitfieldFromBoolsList_16bit(List<bool> bools)
 	{
 		short num = 0;
-		int num2 = Mathf.Min(bools.Count, 0x10);
+		int num2 = Mathf.Min(bools.Count, 16);
 		for (int i = 0; i < num2; i++)
 		{
 			if (bools[i])
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -137,11 +993,11 @@ public static class ServerClientUtils
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.CreateBitfieldFromBoolsList_16bit(List<bool>)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				num |= (short)(1 << i);
+				num = (short)(num | (short)(1 << i));
 			}
 		}
 		return num;
@@ -150,12 +1006,12 @@ public static class ServerClientUtils
 	public static int CreateBitfieldFromBoolsList_32bit(List<bool> bools)
 	{
 		int num = 0;
-		int num2 = Mathf.Min(bools.Count, 0x20);
+		int num2 = Mathf.Min(bools.Count, 32);
 		for (int i = 0; i < num2; i++)
 		{
 			if (bools[i])
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -164,23 +1020,22 @@ public static class ServerClientUtils
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.CreateBitfieldFromBoolsList_32bit(List<bool>)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				num |= 1 << i;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return num;
 		}
-		return num;
 	}
 
 	public static byte CreateBitfieldFromBools(bool b0, bool b1, bool b2, bool b3, bool b4, bool b5, bool b6, bool b7)
@@ -188,7 +1043,7 @@ public static class ServerClientUtils
 		byte b8 = 0;
 		if (b0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -197,19 +1052,19 @@ public static class ServerClientUtils
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.CreateBitfieldFromBools(bool, bool, bool, bool, bool, bool, bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			b8 |= 1;
+			b8 = (byte)(b8 | 1);
 		}
 		if (b1)
 		{
-			b8 |= 2;
+			b8 = (byte)(b8 | 2);
 		}
 		if (b2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -218,11 +1073,11 @@ public static class ServerClientUtils
 				}
 				break;
 			}
-			b8 |= 4;
+			b8 = (byte)(b8 | 4);
 		}
 		if (b3)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -231,11 +1086,11 @@ public static class ServerClientUtils
 				}
 				break;
 			}
-			b8 |= 8;
+			b8 = (byte)(b8 | 8);
 		}
 		if (b4)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -244,19 +1099,19 @@ public static class ServerClientUtils
 				}
 				break;
 			}
-			b8 |= 0x10;
+			b8 = (byte)(b8 | 0x10);
 		}
 		if (b5)
 		{
-			b8 |= 0x20;
+			b8 = (byte)(b8 | 0x20);
 		}
 		if (b6)
 		{
-			b8 |= 0x40;
+			b8 = (byte)(b8 | 0x40);
 		}
 		if (b7)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -265,7 +1120,7 @@ public static class ServerClientUtils
 				}
 				break;
 			}
-			b8 |= 0x80;
+			b8 = (byte)(b8 | 0x80);
 		}
 		return b8;
 	}
@@ -336,881 +1191,5 @@ public static class ServerClientUtils
 	public static void GetBoolsFromBitfield(byte bitField, out bool out0)
 	{
 		out0 = ((bitField & 1) != 0);
-	}
-
-	public class SequenceStartData
-	{
-		private short m_prefabID;
-
-		private GameObject m_serverOnlyPrefabReference;
-
-		private bool m_useTargetPos;
-
-		private Vector3 m_targetPos;
-
-		private bool m_useTargetSquare;
-
-		private int m_targetSquareX;
-
-		private int m_targetSquareY;
-
-		private bool m_useTargetRotation;
-
-		private Quaternion m_targetRotation;
-
-		private byte m_numTargetActors;
-
-		private int[] m_targetActorIndices;
-
-		private int m_casterActorIndex;
-
-		private byte m_numExtraParams;
-
-		private Sequence.IExtraSequenceParams[] m_extraParams;
-
-		private uint m_sourceRootID;
-
-		private bool m_sourceRemoveAtEndOfTurn;
-
-		private bool m_waitForClientEnable;
-
-		public SequenceStartData(GameObject prefab, BoardSquare targetSquare, ActorData[] targetActorArray, ActorData caster, SequenceSource source, Sequence.IExtraSequenceParams[] extraParams = null)
-		{
-			this.InitToDefaults();
-			this.InitPrefab(prefab);
-			this.InitSquare(targetSquare);
-			this.InitTargetActors(targetActorArray);
-			this.InitCasterActor(caster);
-			this.InitSequenceSourceData(source);
-			this.InitExtraParams(extraParams);
-		}
-
-		public SequenceStartData(GameObject prefab, BoardSquare targetSquare, Quaternion targetRotation, ActorData[] targetActorArray, ActorData caster, SequenceSource source, Sequence.IExtraSequenceParams[] extraParams = null)
-		{
-			this.InitToDefaults();
-			this.InitPrefab(prefab);
-			this.InitSquare(targetSquare);
-			this.InitRotation(targetRotation);
-			this.InitTargetActors(targetActorArray);
-			this.InitCasterActor(caster);
-			this.InitSequenceSourceData(source);
-			this.InitExtraParams(extraParams);
-		}
-
-		public SequenceStartData(GameObject prefab, Vector3 targetPos, ActorData[] targetActorArray, ActorData caster, SequenceSource source, Sequence.IExtraSequenceParams[] extraParams = null)
-		{
-			this.InitToDefaults();
-			this.InitPrefab(prefab);
-			this.InitPos(targetPos);
-			this.InitTargetActors(targetActorArray);
-			this.InitCasterActor(caster);
-			this.InitSequenceSourceData(source);
-			this.InitExtraParams(extraParams);
-		}
-
-		public SequenceStartData(GameObject prefab, Vector3 targetPos, Quaternion targetRotation, ActorData[] targetActorArray, ActorData caster, SequenceSource source, Sequence.IExtraSequenceParams[] extraParams = null)
-		{
-			this.InitToDefaults();
-			this.InitPrefab(prefab);
-			this.InitPos(targetPos);
-			this.InitRotation(targetRotation);
-			this.InitTargetActors(targetActorArray);
-			this.InitCasterActor(caster);
-			this.InitSequenceSourceData(source);
-			this.InitExtraParams(extraParams);
-		}
-
-		public SequenceStartData()
-		{
-			this.InitToDefaults();
-		}
-
-		public void SetRemoveAtEndOfTurn(bool val)
-		{
-			this.m_sourceRemoveAtEndOfTurn = val;
-		}
-
-		public void SetTargetPos(Vector3 pos)
-		{
-			this.InitPos(pos);
-		}
-
-		public Vector3 GetTargetPos()
-		{
-			return this.m_targetPos;
-		}
-
-		public int GetCasterActorIndex()
-		{
-			return this.m_casterActorIndex;
-		}
-
-		public Sequence.IExtraSequenceParams[] GetExtraParams()
-		{
-			return this.m_extraParams;
-		}
-
-		private void InitToDefaults()
-		{
-			this.m_prefabID = -1;
-			this.m_serverOnlyPrefabReference = null;
-			this.m_useTargetPos = false;
-			this.m_targetPos = Vector3.zero;
-			this.m_useTargetSquare = false;
-			this.m_targetSquareX = 0;
-			this.m_targetSquareY = 0;
-			this.m_useTargetRotation = false;
-			this.m_targetRotation = Quaternion.identity;
-			this.m_numTargetActors = 0;
-			this.m_targetActorIndices = null;
-			this.m_casterActorIndex = ActorData.s_invalidActorIndex;
-			this.m_numExtraParams = 0;
-			this.m_extraParams = null;
-			this.m_sourceRootID = 0U;
-			this.m_sourceRemoveAtEndOfTurn = true;
-			this.m_waitForClientEnable = false;
-		}
-
-		private void InitPrefab(GameObject prefab)
-		{
-			this.m_prefabID = SequenceLookup.Get().GetSequenceIdOfPrefab(prefab);
-			this.m_serverOnlyPrefabReference = prefab;
-		}
-
-		private void InitPos(Vector3 targetPos)
-		{
-			this.m_useTargetPos = true;
-			this.m_targetPos = targetPos;
-		}
-
-		private void InitSquare(BoardSquare square)
-		{
-			if (square != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.InitSquare(BoardSquare)).MethodHandle;
-				}
-				this.m_useTargetSquare = true;
-				this.m_targetSquareX = square.x;
-				this.m_targetSquareY = square.y;
-				if (!this.m_useTargetPos)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_targetPos = square.ToVector3();
-				}
-			}
-		}
-
-		private void InitRotation(Quaternion targetRotation)
-		{
-			this.m_useTargetRotation = true;
-			this.m_targetRotation = targetRotation;
-		}
-
-		public void InitTargetActors(ActorData[] targetActorArray)
-		{
-			if (targetActorArray != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.InitTargetActors(ActorData[])).MethodHandle;
-				}
-				if (targetActorArray.Length > 0)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_numTargetActors = (byte)targetActorArray.Length;
-					this.m_targetActorIndices = new int[(int)this.m_numTargetActors];
-					for (int i = 0; i < (int)this.m_numTargetActors; i++)
-					{
-						this.m_targetActorIndices[i] = targetActorArray[i].ActorIndex;
-					}
-				}
-			}
-		}
-
-		public List<int> GetTargetActorIndices()
-		{
-			if (this.m_targetActorIndices != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.GetTargetActorIndices()).MethodHandle;
-				}
-				return new List<int>(this.m_targetActorIndices);
-			}
-			return new List<int>();
-		}
-
-		private void InitCasterActor(ActorData caster)
-		{
-			if (caster != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.InitCasterActor(ActorData)).MethodHandle;
-				}
-				this.m_casterActorIndex = caster.ActorIndex;
-			}
-			else
-			{
-				Log.Error("SequenceStartData trying to init its caster actor, but that actor is null.", new object[0]);
-			}
-		}
-
-		internal void InitSequenceSourceData(SequenceSource source)
-		{
-			if (source != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.InitSequenceSourceData(SequenceSource)).MethodHandle;
-				}
-				this.m_sourceRootID = source.RootID;
-				this.m_sourceRemoveAtEndOfTurn = source.RemoveAtEndOfTurn;
-				this.m_waitForClientEnable = source.WaitForClientEnable;
-			}
-		}
-
-		public void InitExtraParams(Sequence.IExtraSequenceParams[] extraParams)
-		{
-			if (extraParams != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.InitExtraParams(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
-				if (extraParams.Length > 0)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_extraParams = extraParams;
-					this.m_numExtraParams = (byte)extraParams.Length;
-				}
-			}
-		}
-
-		public short GetSequencePrefabId()
-		{
-			return this.m_prefabID;
-		}
-
-		public GameObject GetServerOnlyPrefabReference()
-		{
-			return this.m_serverOnlyPrefabReference;
-		}
-
-		public string GetTargetActorsString()
-		{
-			string text = string.Empty;
-			if (this.m_targetActorIndices != null && this.m_targetActorIndices.Length > 0)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.GetTargetActorsString()).MethodHandle;
-				}
-				for (int i = 0; i < this.m_targetActorIndices.Length; i++)
-				{
-					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(this.m_targetActorIndices[i]);
-					if (actorData != null)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						text = text + " | " + actorData.\u0018();
-					}
-					else
-					{
-						text = text + " | (Unknown Actor) " + this.m_targetActorIndices[i];
-					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				text = "(Empty)";
-			}
-			return text;
-		}
-
-		public unsafe void SequenceStartData_SerializeToStream(ref IBitStream stream)
-		{
-			uint position = stream.Position;
-			byte b = ServerClientUtils.CreateBitfieldFromBools(this.m_useTargetPos, this.m_useTargetSquare, this.m_useTargetRotation, this.m_sourceRemoveAtEndOfTurn, this.m_waitForClientEnable, false, false, false);
-			stream.Serialize(ref this.m_prefabID);
-			stream.Serialize(ref b);
-			if (this.m_useTargetPos)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.SequenceStartData_SerializeToStream(IBitStream*)).MethodHandle;
-				}
-				stream.Serialize(ref this.m_targetPos);
-			}
-			if (this.m_useTargetSquare)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				byte b2 = (byte)this.m_targetSquareX;
-				byte b3 = (byte)this.m_targetSquareY;
-				stream.Serialize(ref b2);
-				stream.Serialize(ref b3);
-			}
-			if (this.m_useTargetRotation)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Vector3 vec = this.m_targetRotation * new Vector3(1f, 0f, 0f);
-				float num = VectorUtils.HorizontalAngle_Deg(vec);
-				stream.Serialize(ref num);
-			}
-			stream.Serialize(ref this.m_numTargetActors);
-			for (byte b4 = 0; b4 < this.m_numTargetActors; b4 += 1)
-			{
-				sbyte b5 = (sbyte)this.m_targetActorIndices[(int)b4];
-				stream.Serialize(ref b5);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			sbyte b6 = (sbyte)this.m_casterActorIndex;
-			stream.Serialize(ref b6);
-			stream.Serialize(ref this.m_sourceRootID);
-			stream.Serialize(ref this.m_numExtraParams);
-			for (int i = 0; i < (int)this.m_numExtraParams; i++)
-			{
-				Sequence.IExtraSequenceParams extraSequenceParams = this.m_extraParams[i];
-				SequenceLookup.SequenceExtraParamEnum enumOfExtraParam = SequenceLookup.GetEnumOfExtraParam(extraSequenceParams);
-				short num2 = (short)enumOfExtraParam;
-				stream.Serialize(ref num2);
-				extraSequenceParams.XSP_SerializeToStream(stream);
-			}
-			uint num3 = stream.Position - position;
-			if (ClientAbilityResults.\u000E)
-			{
-				Debug.LogWarning(string.Concat(new object[]
-				{
-					"\t\t\t\t\t Serializing Sequence Start Data, using targetPos? ",
-					this.m_useTargetPos.ToString(),
-					" prefab id ",
-					this.m_prefabID,
-					": \n\t\t\t\t\t numBytes: ",
-					num3
-				}));
-			}
-		}
-
-		public unsafe static ServerClientUtils.SequenceStartData SequenceStartData_DeserializeFromStream(ref IBitStream stream)
-		{
-			short prefabID = -1;
-			byte bitField = 0;
-			bool flag = false;
-			Vector3 zero = Vector3.zero;
-			bool flag2 = false;
-			byte b = 0;
-			byte b2 = 0;
-			bool flag3 = false;
-			Quaternion targetRotation = Quaternion.identity;
-			byte b3 = 0;
-			List<int> list = new List<int>();
-			sbyte b4 = 0;
-			uint sourceRootID = 0U;
-			bool sourceRemoveAtEndOfTurn = true;
-			bool waitForClientEnable = false;
-			byte b5 = 0;
-			List<Sequence.IExtraSequenceParams> list2 = new List<Sequence.IExtraSequenceParams>();
-			stream.Serialize(ref prefabID);
-			stream.Serialize(ref bitField);
-			bool flag4;
-			bool flag5;
-			bool flag6;
-			ServerClientUtils.GetBoolsFromBitfield(bitField, out flag, out flag2, out flag3, out sourceRemoveAtEndOfTurn, out waitForClientEnable, out flag4, out flag5, out flag6);
-			if (flag)
-			{
-				stream.Serialize(ref zero);
-			}
-			if (flag2)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.SequenceStartData_DeserializeFromStream(IBitStream*)).MethodHandle;
-				}
-				stream.Serialize(ref b);
-				stream.Serialize(ref b2);
-			}
-			if (flag3)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				float angle = 0f;
-				stream.Serialize(ref angle);
-				Vector3 toDirection = VectorUtils.AngleDegreesToVector(angle);
-				targetRotation = Quaternion.FromToRotation(new Vector3(1f, 0f, 0f), toDirection);
-			}
-			stream.Serialize(ref b3);
-			for (int i = 0; i < (int)b3; i++)
-			{
-				sbyte b6 = (sbyte)ActorData.s_invalidActorIndex;
-				stream.Serialize(ref b6);
-				list.Add((int)b6);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			stream.Serialize(ref b4);
-			stream.Serialize(ref sourceRootID);
-			stream.Serialize(ref b5);
-			for (int j = 0; j < (int)b5; j++)
-			{
-				short num = 0;
-				stream.Serialize(ref num);
-				SequenceLookup.SequenceExtraParamEnum paramEnum = (SequenceLookup.SequenceExtraParamEnum)num;
-				Sequence.IExtraSequenceParams extraSequenceParams = SequenceLookup.Get().CreateExtraParamOfEnum(paramEnum);
-				extraSequenceParams.XSP_DeserializeFromStream(stream);
-				list2.Add(extraSequenceParams);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return new ServerClientUtils.SequenceStartData
-			{
-				m_prefabID = prefabID,
-				m_useTargetPos = flag,
-				m_targetPos = zero,
-				m_useTargetSquare = flag2,
-				m_targetSquareX = ((!flag2) ? -1 : ((int)b)),
-				m_targetSquareY = ((!flag2) ? -1 : ((int)b2)),
-				m_useTargetRotation = flag3,
-				m_targetRotation = targetRotation,
-				m_numTargetActors = b3,
-				m_targetActorIndices = list.ToArray(),
-				m_casterActorIndex = (int)b4,
-				m_sourceRootID = sourceRootID,
-				m_sourceRemoveAtEndOfTurn = sourceRemoveAtEndOfTurn,
-				m_waitForClientEnable = waitForClientEnable,
-				m_numExtraParams = b5,
-				m_extraParams = list2.ToArray()
-			};
-		}
-
-		internal Sequence[] CreateSequencesFromData(SequenceSource.ActorDelegate onHitActor, SequenceSource.Vector3Delegate onHitPos)
-		{
-			GameObject prefabOfSequenceId = SequenceLookup.Get().GetPrefabOfSequenceId(this.m_prefabID);
-			BoardSquare targetSquare;
-			if (this.m_useTargetSquare)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.CreateSequencesFromData(SequenceSource.ActorDelegate, SequenceSource.Vector3Delegate)).MethodHandle;
-				}
-				targetSquare = Board.\u000E().\u0016(this.m_targetSquareX, this.m_targetSquareY);
-			}
-			else
-			{
-				targetSquare = null;
-			}
-			ActorData[] array = new ActorData[(int)this.m_numTargetActors];
-			for (int i = 0; i < (int)this.m_numTargetActors; i++)
-			{
-				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(this.m_targetActorIndices[i]);
-				array[i] = actorData;
-			}
-			ActorData caster = GameFlowData.Get().FindActorByActorIndex(this.m_casterActorIndex);
-			SequenceSource sequenceSource = new SequenceSource(onHitActor, onHitPos, this.m_sourceRootID, this.m_sourceRemoveAtEndOfTurn);
-			sequenceSource.SetWaitForClientEnable(this.m_waitForClientEnable);
-			Sequence[] result;
-			if (this.m_useTargetRotation)
-			{
-				if (this.m_useTargetSquare)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, targetSquare, this.m_targetPos, this.m_targetRotation, array, caster, sequenceSource, this.m_extraParams);
-				}
-				else
-				{
-					result = SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, this.m_targetPos, this.m_targetRotation, array, caster, sequenceSource, this.m_extraParams);
-				}
-			}
-			else if (this.m_useTargetSquare)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				result = SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, targetSquare, array, caster, sequenceSource, this.m_extraParams);
-			}
-			else
-			{
-				result = SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, this.m_targetPos, array, caster, sequenceSource, this.m_extraParams);
-			}
-			return result;
-		}
-
-		internal bool HasSequencePrefab()
-		{
-			GameObject x = SequenceLookup.Get().GetPrefabOfSequenceId(this.m_prefabID);
-			if (x == null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.HasSequencePrefab()).MethodHandle;
-				}
-				if (SequenceLookup.Get() != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					x = SequenceLookup.Get().GetSimpleHitSequencePrefab();
-				}
-			}
-			return x != null;
-		}
-
-		internal bool Contains(SequenceSource sequenceSource)
-		{
-			bool result;
-			if (sequenceSource != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.Contains(SequenceSource)).MethodHandle;
-				}
-				result = (this.m_sourceRootID == sequenceSource.RootID);
-			}
-			else
-			{
-				result = false;
-			}
-			return result;
-		}
-
-		internal bool ContainsSequenceSourceID(uint id)
-		{
-			return this.m_sourceRootID == id;
-		}
-	}
-
-	public class SequenceEndData
-	{
-		private short m_prefabId;
-
-		private uint m_association;
-
-		private ServerClientUtils.SequenceEndData.AssociationType m_associationType;
-
-		private Vector3 m_targetPos;
-
-		public SequenceEndData(int prefabIdToEnd, ServerClientUtils.SequenceEndData.AssociationType associationType, int guid, Vector3 targetPos)
-		{
-			this.m_prefabId = (short)prefabIdToEnd;
-			this.m_associationType = associationType;
-			this.m_association = (uint)Mathf.Max(0, guid);
-			this.m_targetPos = targetPos;
-		}
-
-		public SequenceEndData(GameObject prefabToEnd, ServerClientUtils.SequenceEndData.AssociationType associationType, int guid, Vector3 targetPos)
-		{
-			this.m_prefabId = SequenceLookup.Get().GetSequenceIdOfPrefab(prefabToEnd);
-			this.m_associationType = associationType;
-			this.m_association = (uint)Mathf.Max(0, guid);
-			this.m_targetPos = targetPos;
-		}
-
-		public unsafe void SequenceEndData_SerializeToStream(ref IBitStream stream)
-		{
-			sbyte b = (sbyte)this.m_associationType;
-			stream.Serialize(ref this.m_prefabId);
-			stream.Serialize(ref b);
-			stream.Serialize(ref this.m_association);
-			bool flag = this.m_targetPos != Vector3.zero;
-			stream.Serialize(ref flag);
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceEndData.SequenceEndData_SerializeToStream(IBitStream*)).MethodHandle;
-				}
-				stream.Serialize(ref this.m_targetPos);
-			}
-		}
-
-		public unsafe static ServerClientUtils.SequenceEndData SequenceEndData_DeserializeFromStream(ref IBitStream stream)
-		{
-			short prefabIdToEnd = -1;
-			uint guid = 0U;
-			sbyte b = -1;
-			bool flag = false;
-			Vector3 zero = Vector3.zero;
-			stream.Serialize(ref prefabIdToEnd);
-			stream.Serialize(ref b);
-			stream.Serialize(ref guid);
-			stream.Serialize(ref flag);
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceEndData.SequenceEndData_DeserializeFromStream(IBitStream*)).MethodHandle;
-				}
-				stream.Serialize(ref zero);
-			}
-			return new ServerClientUtils.SequenceEndData((int)prefabIdToEnd, (ServerClientUtils.SequenceEndData.AssociationType)b, (int)guid, zero);
-		}
-
-		public void EndClientSequences()
-		{
-			if (this.m_associationType == ServerClientUtils.SequenceEndData.AssociationType.EffectGuid)
-			{
-				ClientEffectBarrierManager.Get().EndSequenceOfEffect((int)this.m_prefabId, (int)this.m_association, this.m_targetPos);
-			}
-			else if (this.m_associationType == ServerClientUtils.SequenceEndData.AssociationType.BarrierGuid)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceEndData.EndClientSequences()).MethodHandle;
-				}
-				ClientEffectBarrierManager.Get().EndSequenceOfBarrier((int)this.m_prefabId, (int)this.m_association, this.m_targetPos);
-			}
-			else if (this.m_associationType == ServerClientUtils.SequenceEndData.AssociationType.SequenceSourceId)
-			{
-				SequenceManager.Get().MarkSequenceToEndBySourceId((int)this.m_prefabId, (int)this.m_association, this.m_targetPos);
-			}
-		}
-
-		public enum AssociationType
-		{
-			EffectGuid,
-			BarrierGuid,
-			SequenceSourceId
-		}
 	}
 }

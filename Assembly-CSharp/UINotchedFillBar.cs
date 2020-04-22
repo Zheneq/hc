@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -10,23 +9,23 @@ public class UINotchedFillBar : MonoBehaviour
 
 	public void Setup(int filled)
 	{
-		for (int i = 0; i < this.m_notches.Length; i++)
+		for (int i = 0; i < m_notches.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_notches[i], i < filled, null);
+			UIManager.SetGameObjectActive(m_notches[i], i < filled);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_textCount.text = filled.ToString();
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UINotchedFillBar.Setup(int)).MethodHandle;
-		}
-		this.m_textCount.text = filled.ToString();
 	}
 }

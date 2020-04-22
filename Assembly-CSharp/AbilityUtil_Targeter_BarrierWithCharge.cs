@@ -1,19 +1,18 @@
-﻿using System;
-
 public class AbilityUtil_Targeter_BarrierWithCharge : AbilityUtil_Targeter_Barrier
 {
-	public AbilityUtil_Targeter_BarrierWithCharge(Ability ability, float width, bool snapToBorder = false) : base(ability, width, snapToBorder, false, true)
+	public AbilityUtil_Targeter_BarrierWithCharge(Ability ability, float width, bool snapToBorder = false)
+		: base(ability, width, snapToBorder)
 	{
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		int fromIndex = 0;
-		if (boardSquare != null)
+		if (boardSquareSafe != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -22,13 +21,13 @@ public class AbilityUtil_Targeter_BarrierWithCharge : AbilityUtil_Targeter_Barri
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BarrierWithCharge.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare);
-			fromIndex = base.AddMovementArrowWithPrevious(targetingActor, path, AbilityUtil_Targeter.TargeterMovementType.Movement, 0, false);
+			BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe);
+			fromIndex = AddMovementArrowWithPrevious(targetingActor, path, TargeterMovementType.Movement, 0);
 		}
-		base.SetMovementArrowEnabledFromIndex(fromIndex, false);
+		SetMovementArrowEnabledFromIndex(fromIndex, false);
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,29 +41,29 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		RobotAnimalRoar robotAnimalRoar = targetAbility as RobotAnimalRoar;
-		if (robotAnimalRoar != null)
+		if (!(robotAnimalRoar != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalRoar.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_targetingRadiusMod, "TargetingRadius", string.Empty, robotAnimalRoar.m_targetingRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_innerRadiusMod, "InnerRadius", string.Empty, robotAnimalRoar.m_innerRadius, true, false, false);
-			AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffectOverride, "EnemyHitEffect", robotAnimalRoar.m_enemyEffect, true);
-			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, robotAnimalRoar.m_damage, true, false);
+			AbilityMod.AddToken(tokens, m_targetingRadiusMod, "TargetingRadius", string.Empty, robotAnimalRoar.m_targetingRadius);
+			AbilityMod.AddToken(tokens, m_innerRadiusMod, "InnerRadius", string.Empty, robotAnimalRoar.m_innerRadius);
+			AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffectOverride, "EnemyHitEffect", robotAnimalRoar.m_enemyEffect);
+			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, robotAnimalRoar.m_damage);
 			int num;
 			if (robotAnimalRoar.m_innerShapeDamage < 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -79,23 +79,22 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 				num = robotAnimalRoar.m_innerShapeDamage;
 			}
 			int baseVal = num;
-			AbilityMod.AddToken(tokens, this.m_innerShapeDamageMod, "InnerShapeDamage", string.Empty, baseVal, true, false);
+			AbilityMod.AddToken(tokens, m_innerShapeDamageMod, "InnerShapeDamage", string.Empty, baseVal);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		RobotAnimalRoar robotAnimalRoar = base.GetTargetAbilityOnAbilityData(abilityData) as RobotAnimalRoar;
+		RobotAnimalRoar robotAnimalRoar = GetTargetAbilityOnAbilityData(abilityData) as RobotAnimalRoar;
 		bool flag = robotAnimalRoar != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyShape shapeMod = this.m_shapeMod;
-		string prefix = "[Targeting Shape]";
-		bool showBaseVal = flag;
-		AbilityAreaShape baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyShape shapeMod = m_shapeMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -104,26 +103,24 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalRoar.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			baseVal = robotAnimalRoar.m_aoeShape;
+			baseVal = (int)robotAnimalRoar.m_aoeShape;
 		}
 		else
 		{
-			baseVal = AbilityAreaShape.SingleSquare;
+			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(shapeMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_targetingRadiusMod, "[TargetingRadius]", flag, (!flag) ? 0f : robotAnimalRoar.m_targetingRadius);
-		string str2 = text;
-		AbilityModPropertyFloat innerRadiusMod = this.m_innerRadiusMod;
-		string prefix2 = "[InnerRadius]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(shapeMod, "[Targeting Shape]", flag, (AbilityAreaShape)baseVal);
+		empty += PropDesc(m_targetingRadiusMod, "[TargetingRadius]", flag, (!flag) ? 0f : robotAnimalRoar.m_targetingRadius);
+		string str2 = empty;
+		AbilityModPropertyFloat innerRadiusMod = m_innerRadiusMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -138,15 +135,13 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(innerRadiusMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyBool penetrateLosMod = this.m_penetrateLosMod;
-		string prefix3 = "[Targeting Penetrate Los]";
-		bool showBaseVal3 = flag;
-		bool baseVal3;
+		empty = str2 + PropDesc(innerRadiusMod, "[InnerRadius]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyBool penetrateLosMod = m_penetrateLosMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -155,21 +150,19 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 				}
 				break;
 			}
-			baseVal3 = robotAnimalRoar.m_penetrateLineOfSight;
+			baseVal3 = (robotAnimalRoar.m_penetrateLineOfSight ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str3 + AbilityModHelper.GetModPropertyDesc(penetrateLosMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix4 = "[Damage]";
-		bool showBaseVal4 = flag;
+		empty = str3 + AbilityModHelper.GetModPropertyDesc(penetrateLosMod, "[Targeting Penetrate Los]", flag, (byte)baseVal3 != 0);
+		string str4 = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -184,17 +177,15 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + AbilityModHelper.GetModPropertyDesc(damageMod, prefix4, showBaseVal4, baseVal4);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_techPointDamageMod, "[TechPoint Damage]", flag, 0);
-		string str5 = text;
-		StandardEffectInfo enemyHitEffectOverride = this.m_enemyHitEffectOverride;
-		string prefix5 = "{ Effect Override on Enemy Hit}";
-		string empty = string.Empty;
-		bool useBaseVal = flag;
-		StandardEffectInfo baseVal5;
+		empty = str4 + AbilityModHelper.GetModPropertyDesc(damageMod, "[Damage]", flag, baseVal4);
+		empty += AbilityModHelper.GetModPropertyDesc(m_techPointDamageMod, "[TechPoint Damage]", flag);
+		string str5 = empty;
+		StandardEffectInfo enemyHitEffectOverride = m_enemyHitEffectOverride;
+		string empty2 = string.Empty;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -209,10 +200,10 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		{
 			baseVal5 = null;
 		}
-		text = str5 + AbilityModHelper.GetModEffectInfoDesc(enemyHitEffectOverride, prefix5, empty, useBaseVal, baseVal5);
-		if (this.m_healAmountToTargetAllyOnHit > 0)
+		empty = str5 + AbilityModHelper.GetModEffectInfoDesc(enemyHitEffectOverride, "{ Effect Override on Enemy Hit}", empty2, flag, (StandardEffectInfo)baseVal5);
+		if (m_healAmountToTargetAllyOnHit > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -221,18 +212,12 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 				}
 				break;
 			}
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"[Heals Targeted Ally on Hit] = ",
-				this.m_healAmountToTargetAllyOnHit,
-				"\n"
-			});
+			string text = empty;
+			empty = text + "[Heals Targeted Ally on Hit] = " + m_healAmountToTargetAllyOnHit + "\n";
 		}
-		if (this.m_techPointGainToTargetAllyOnHit > 0)
+		if (m_techPointGainToTargetAllyOnHit > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -241,24 +226,16 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 				}
 				break;
 			}
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"[Grants Tech Points To Targeted Ally on Hit] = ",
-				this.m_techPointGainToTargetAllyOnHit,
-				"\n"
-			});
+			string text = empty;
+			empty = text + "[Grants Tech Points To Targeted Ally on Hit] = " + m_techPointGainToTargetAllyOnHit + "\n";
 		}
-		text += base.PropDesc(this.m_useInnerShapeMod, "[UseInnerShape]", flag, flag && robotAnimalRoar.m_useInnerShape);
-		string str6 = text;
-		AbilityModPropertyShape innerShapeMod = this.m_innerShapeMod;
-		string prefix6 = "[InnerShape]";
-		bool showBaseVal5 = flag;
-		AbilityAreaShape baseVal6;
+		empty += PropDesc(m_useInnerShapeMod, "[UseInnerShape]", flag, flag && robotAnimalRoar.m_useInnerShape);
+		string str6 = empty;
+		AbilityModPropertyShape innerShapeMod = m_innerShapeMod;
+		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -267,21 +244,19 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 				}
 				break;
 			}
-			baseVal6 = robotAnimalRoar.m_innerShape;
+			baseVal6 = (int)robotAnimalRoar.m_innerShape;
 		}
 		else
 		{
-			baseVal6 = AbilityAreaShape.SingleSquare;
+			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(innerShapeMod, prefix6, showBaseVal5, baseVal6);
-		string str7 = text;
-		AbilityModPropertyInt innerShapeDamageMod = this.m_innerShapeDamageMod;
-		string prefix7 = "[InnerShapeDamage]";
-		bool showBaseVal6 = flag;
+		empty = str6 + PropDesc(innerShapeMod, "[InnerShape]", flag, (AbilityAreaShape)baseVal6);
+		string str7 = empty;
+		AbilityModPropertyInt innerShapeDamageMod = m_innerShapeDamageMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -296,6 +271,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		{
 			baseVal7 = 0;
 		}
-		return str7 + base.PropDesc(innerShapeDamageMod, prefix7, showBaseVal6, baseVal7);
+		return str7 + PropDesc(innerShapeDamageMod, "[InnerShapeDamage]", flag, baseVal7);
 	}
 }

@@ -1,9 +1,7 @@
-﻿using System;
-
 public enum SideFlags : byte
 {
 	Up = 1,
-	Down,
+	Down = 2,
 	Left = 4,
 	Right = 8
 }

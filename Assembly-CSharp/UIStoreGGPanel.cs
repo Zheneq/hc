@@ -1,5 +1,3 @@
-﻿using System;
-
 public class UIStoreGGPanel : UICashShopPanelBase
 {
 	protected override UIPurchaseableItem[] GetPurchasableItems()
@@ -13,19 +11,18 @@ public class UIStoreGGPanel : UICashShopPanelBase
 			array[i].m_itemType = PurchaseItemType.GGBoost;
 			array[i].m_ggPack = ggPacks[i];
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return array;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreGGPanel.GetPurchasableItems()).MethodHandle;
-		}
-		return array;
 	}
 }

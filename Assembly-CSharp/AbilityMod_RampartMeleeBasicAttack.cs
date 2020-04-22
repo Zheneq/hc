@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,47 +37,46 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		RampartMeleeBasicAttack rampartMeleeBasicAttack = targetAbility as RampartMeleeBasicAttack;
-		if (rampartMeleeBasicAttack != null)
+		if (!(rampartMeleeBasicAttack != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartMeleeBasicAttack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "LaserRange", string.Empty, rampartMeleeBasicAttack.m_laserRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", string.Empty, rampartMeleeBasicAttack.m_laserWidth, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserMaxTargetsMod, "LaserMaxTargets", string.Empty, rampartMeleeBasicAttack.m_laserMaxTargets, true, false);
-			AbilityMod.AddToken(tokens, this.m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, rampartMeleeBasicAttack.m_coneWidthAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneRangeMod, "ConeRange", string.Empty, rampartMeleeBasicAttack.m_coneRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserDamageMod, "LaserDamage", string.Empty, rampartMeleeBasicAttack.m_laserDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_laserEnemyHitEffectMod, "LaserEnemyHitEffect", rampartMeleeBasicAttack.m_laserEnemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_coneDamageMod, "ConeDamage", string.Empty, rampartMeleeBasicAttack.m_coneDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_coneEnemyHitEffectMod, "ConeEnemyHitEffect", rampartMeleeBasicAttack.m_coneEnemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_bonusDamageForOverlapMod, "BonusDamageForOverlap", string.Empty, rampartMeleeBasicAttack.m_bonusDamageForOverlap, true, false);
+			AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, rampartMeleeBasicAttack.m_laserRange);
+			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, rampartMeleeBasicAttack.m_laserWidth);
+			AbilityMod.AddToken(tokens, m_laserMaxTargetsMod, "LaserMaxTargets", string.Empty, rampartMeleeBasicAttack.m_laserMaxTargets);
+			AbilityMod.AddToken(tokens, m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, rampartMeleeBasicAttack.m_coneWidthAngle);
+			AbilityMod.AddToken(tokens, m_coneRangeMod, "ConeRange", string.Empty, rampartMeleeBasicAttack.m_coneRange);
+			AbilityMod.AddToken(tokens, m_laserDamageMod, "LaserDamage", string.Empty, rampartMeleeBasicAttack.m_laserDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_laserEnemyHitEffectMod, "LaserEnemyHitEffect", rampartMeleeBasicAttack.m_laserEnemyHitEffect);
+			AbilityMod.AddToken(tokens, m_coneDamageMod, "ConeDamage", string.Empty, rampartMeleeBasicAttack.m_coneDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_coneEnemyHitEffectMod, "ConeEnemyHitEffect", rampartMeleeBasicAttack.m_coneEnemyHitEffect);
+			AbilityMod.AddToken(tokens, m_bonusDamageForOverlapMod, "BonusDamageForOverlap", string.Empty, rampartMeleeBasicAttack.m_bonusDamageForOverlap);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		RampartMeleeBasicAttack rampartMeleeBasicAttack = base.GetTargetAbilityOnAbilityData(abilityData) as RampartMeleeBasicAttack;
+		RampartMeleeBasicAttack rampartMeleeBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as RampartMeleeBasicAttack;
 		bool flag = rampartMeleeBasicAttack != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat laserRangeMod = this.m_laserRangeMod;
-		string prefix = "[LaserRange]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat laserRangeMod = m_laserRangeMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -86,9 +85,9 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartMeleeBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = rampartMeleeBasicAttack.m_laserRange;
 		}
@@ -96,16 +95,14 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(laserRangeMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_laserWidthMod, "[LaserWidth]", flag, (!flag) ? 0f : rampartMeleeBasicAttack.m_laserWidth);
-		string str2 = text;
-		AbilityModPropertyInt laserMaxTargetsMod = this.m_laserMaxTargetsMod;
-		string prefix2 = "[LaserMaxTargets]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(laserRangeMod, "[LaserRange]", flag, baseVal);
+		empty += PropDesc(m_laserWidthMod, "[LaserWidth]", flag, (!flag) ? 0f : rampartMeleeBasicAttack.m_laserWidth);
+		string str2 = empty;
+		AbilityModPropertyInt laserMaxTargetsMod = m_laserMaxTargetsMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -120,15 +117,13 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(laserMaxTargetsMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyBool penetrateLosMod = this.m_penetrateLosMod;
-		string prefix3 = "[PenetrateLos]";
-		bool showBaseVal3 = flag;
-		bool baseVal3;
+		empty = str2 + PropDesc(laserMaxTargetsMod, "[LaserMaxTargets]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyBool penetrateLosMod = m_penetrateLosMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -137,22 +132,20 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 				}
 				break;
 			}
-			baseVal3 = rampartMeleeBasicAttack.m_penetrateLos;
+			baseVal3 = (rampartMeleeBasicAttack.m_penetrateLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(penetrateLosMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_coneWidthAngleMod, "[ConeWidthAngle]", flag, (!flag) ? 0f : rampartMeleeBasicAttack.m_coneWidthAngle);
-		string str4 = text;
-		AbilityModPropertyFloat coneRangeMod = this.m_coneRangeMod;
-		string prefix4 = "[ConeRange]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(penetrateLosMod, "[PenetrateLos]", flag, (byte)baseVal3 != 0);
+		empty += PropDesc(m_coneWidthAngleMod, "[ConeWidthAngle]", flag, (!flag) ? 0f : rampartMeleeBasicAttack.m_coneWidthAngle);
+		string str4 = empty;
+		AbilityModPropertyFloat coneRangeMod = m_coneRangeMod;
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -167,17 +160,15 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 		{
 			baseVal4 = 0f;
 		}
-		text = str4 + base.PropDesc(coneRangeMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_laserDamageMod, "[LaserDamage]", flag, (!flag) ? 0 : rampartMeleeBasicAttack.m_laserDamage);
-		text += base.PropDesc(this.m_laserEnemyHitEffectMod, "[LaserEnemyHitEffect]", flag, (!flag) ? null : rampartMeleeBasicAttack.m_laserEnemyHitEffect);
-		string str5 = text;
-		AbilityModPropertyInt coneDamageMod = this.m_coneDamageMod;
-		string prefix5 = "[ConeDamage]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(coneRangeMod, "[ConeRange]", flag, baseVal4);
+		empty += PropDesc(m_laserDamageMod, "[LaserDamage]", flag, flag ? rampartMeleeBasicAttack.m_laserDamage : 0);
+		empty += PropDesc(m_laserEnemyHitEffectMod, "[LaserEnemyHitEffect]", flag, (!flag) ? null : rampartMeleeBasicAttack.m_laserEnemyHitEffect);
+		string str5 = empty;
+		AbilityModPropertyInt coneDamageMod = m_coneDamageMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -192,15 +183,13 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(coneDamageMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyEffectInfo coneEnemyHitEffectMod = this.m_coneEnemyHitEffectMod;
-		string prefix6 = "[ConeEnemyHitEffect]";
-		bool showBaseVal6 = flag;
-		StandardEffectInfo baseVal6;
+		empty = str5 + PropDesc(coneDamageMod, "[ConeDamage]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyEffectInfo coneEnemyHitEffectMod = m_coneEnemyHitEffectMod;
+		object baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -215,7 +204,7 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 		{
 			baseVal6 = null;
 		}
-		text = str6 + base.PropDesc(coneEnemyHitEffectMod, prefix6, showBaseVal6, baseVal6);
-		return text + base.PropDesc(this.m_bonusDamageForOverlapMod, "[BonusDamageForOverlap]", flag, (!flag) ? 0 : rampartMeleeBasicAttack.m_bonusDamageForOverlap);
+		empty = str6 + PropDesc(coneEnemyHitEffectMod, "[ConeEnemyHitEffect]", flag, (StandardEffectInfo)baseVal6);
+		return empty + PropDesc(m_bonusDamageForOverlapMod, "[BonusDamageForOverlap]", flag, flag ? rampartMeleeBasicAttack.m_bonusDamageForOverlap : 0);
 	}
 }

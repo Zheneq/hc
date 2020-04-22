@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace TMPro
 {
@@ -13,9 +13,9 @@ namespace TMPro
 
 		public KerningPair(int left, int right, float offset)
 		{
-			this.AscII_Left = left;
-			this.AscII_Right = right;
-			this.XadvanceOffset = offset;
+			AscII_Left = left;
+			AscII_Right = right;
+			XadvanceOffset = offset;
 		}
 	}
 }

@@ -1,7 +1,7 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 
 [Serializable]
 public class LobbyServerTeamInfo
@@ -15,40 +15,20 @@ public class LobbyServerTeamInfo
 	public Dictionary<long, TierPlacement> TierCurrents;
 
 	[JsonIgnore]
-	public IEnumerable<LobbyServerPlayerInfo> TeamAPlayerInfo
-	{
-		get
-		{
-			return this.TeamInfo(Team.TeamA);
-		}
-	}
+	public IEnumerable<LobbyServerPlayerInfo> TeamAPlayerInfo => TeamInfo(Team.TeamA);
 
 	[JsonIgnore]
-	public IEnumerable<LobbyServerPlayerInfo> TeamBPlayerInfo
-	{
-		get
-		{
-			return this.TeamInfo(Team.TeamB);
-		}
-	}
+	public IEnumerable<LobbyServerPlayerInfo> TeamBPlayerInfo => TeamInfo(Team.TeamB);
 
 	[JsonIgnore]
-	public IEnumerable<LobbyServerPlayerInfo> SpectatorInfo
-	{
-		get
-		{
-			return this.TeamInfo(Team.Spectator);
-		}
-	}
+	public IEnumerable<LobbyServerPlayerInfo> SpectatorInfo => TeamInfo(Team.Spectator);
 
 	public IEnumerable<LobbyServerPlayerInfo> TeamInfo(Team team)
 	{
-		if (this.TeamPlayerInfo == null)
+		if (TeamPlayerInfo == null)
 		{
 			return Enumerable.Empty<LobbyServerPlayerInfo>();
 		}
-		return from p in this.TeamPlayerInfo
-		where p.TeamId == team
-		select p;
+		return TeamPlayerInfo.Where((LobbyServerPlayerInfo p) => p.TeamId == team);
 	}
 }

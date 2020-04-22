@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,12 +20,12 @@ public class BlasterDelayedLaser : Ability
 
 	public bool m_remoteTriggerIsFreeAction = true;
 
-	public int m_triggerAnimationIndex = 0xB;
+	public int m_triggerAnimationIndex = 11;
 
 	public bool m_triggerAimAtBlaster;
 
 	[Header("-- On Hit")]
-	public int m_damageAmount = 0x28;
+	public int m_damageAmount = 40;
 
 	public StandardEffectInfo m_effectOnHit;
 
@@ -63,24 +62,24 @@ public class BlasterDelayedLaser : Ability
 
 	private void Start()
 	{
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.m_syncComponent = base.GetComponent<Blaster_SyncComponent>();
-		this.m_overchargeAbility = (base.GetComponent<AbilityData>().GetAbilityOfType(typeof(BlasterOvercharge)) as BlasterOvercharge);
-		this.SetCachedFields();
-		this.m_laserTargeter = new AbilityUtil_Targeter_BlasterDelayedLaser(this, this.m_syncComponent, this.TriggerAimAtBlaster(), this.GetWidth(), this.GetLength(), this.PenetrateLineOfSight(), -1, false, false);
-		base.Targeter = this.m_laserTargeter;
+		m_syncComponent = GetComponent<Blaster_SyncComponent>();
+		m_overchargeAbility = (GetComponent<AbilityData>().GetAbilityOfType(typeof(BlasterOvercharge)) as BlasterOvercharge);
+		SetCachedFields();
+		m_laserTargeter = new AbilityUtil_Targeter_BlasterDelayedLaser(this, m_syncComponent, TriggerAimAtBlaster(), GetWidth(), GetLength(), PenetrateLineOfSight());
+		base.Targeter = m_laserTargeter;
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
 	{
-		bool result;
-		if (this.m_syncComponent != null)
+		int result;
+		if (m_syncComponent != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -89,30 +88,30 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.CanShowTargetableRadiusPreview()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = !this.m_syncComponent.m_canActivateDelayedLaser;
+			result = ((!m_syncComponent.m_canActivateDelayedLaser) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetLength();
+		return GetLength();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedEffectOnHit;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -121,36 +120,36 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedEffectOnHit = this.m_abilityMod.m_effectOnHitMod.GetModifiedValue(this.m_effectOnHit);
+			cachedEffectOnHit = m_abilityMod.m_effectOnHitMod.GetModifiedValue(m_effectOnHit);
 		}
 		else
 		{
-			cachedEffectOnHit = this.m_effectOnHit;
+			cachedEffectOnHit = m_effectOnHit;
 		}
-		this.m_cachedEffectOnHit = cachedEffectOnHit;
-		this.m_cachedOnCastEnemyHitEffect = ((!this.m_abilityMod) ? this.m_onCastEnemyHitEffect : this.m_abilityMod.m_onCastEnemyHitEffectMod.GetModifiedValue(this.m_onCastEnemyHitEffect));
+		m_cachedEffectOnHit = cachedEffectOnHit;
+		m_cachedOnCastEnemyHitEffect = ((!m_abilityMod) ? m_onCastEnemyHitEffect : m_abilityMod.m_onCastEnemyHitEffectMod.GetModifiedValue(m_onCastEnemyHitEffect));
 	}
 
 	public bool PenetrateLineOfSight()
 	{
-		return (!this.m_abilityMod) ? this.m_penetrateLineOfSight : this.m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(this.m_penetrateLineOfSight);
+		return (!m_abilityMod) ? m_penetrateLineOfSight : m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
 	}
 
 	public float GetLength()
 	{
-		return (!this.m_abilityMod) ? this.m_length : this.m_abilityMod.m_lengthMod.GetModifiedValue(this.m_length);
+		return (!m_abilityMod) ? m_length : m_abilityMod.m_lengthMod.GetModifiedValue(m_length);
 	}
 
 	public float GetWidth()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -159,30 +158,30 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetWidth()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_widthMod.GetModifiedValue(this.m_width);
+			result = m_abilityMod.m_widthMod.GetModifiedValue(m_width);
 		}
 		else
 		{
-			result = this.m_width;
+			result = m_width;
 		}
 		return result;
 	}
 
 	public int GetDamageAmount()
 	{
-		return (!this.m_abilityMod) ? this.m_damageAmount : this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+		return (!m_abilityMod) ? m_damageAmount : m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 	}
 
 	public StandardEffectInfo GetEffectOnHit()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectOnHit != null)
+		if (m_cachedEffectOnHit != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -191,15 +190,15 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetEffectOnHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEffectOnHit;
+			result = m_cachedEffectOnHit;
 		}
 		else
 		{
-			result = this.m_effectOnHit;
+			result = m_effectOnHit;
 		}
 		return result;
 	}
@@ -207,9 +206,9 @@ public class BlasterDelayedLaser : Ability
 	public StandardEffectInfo GetOnCastEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedOnCastEnemyHitEffect != null)
+		if (m_cachedOnCastEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -218,15 +217,15 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetOnCastEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedOnCastEnemyHitEffect;
+			result = m_cachedOnCastEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_onCastEnemyHitEffect;
+			result = m_onCastEnemyHitEffect;
 		}
 		return result;
 	}
@@ -234,9 +233,9 @@ public class BlasterDelayedLaser : Ability
 	public bool TriggerAimAtBlaster()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -245,15 +244,15 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.TriggerAimAtBlaster()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_triggerAimAtBlasterMod.GetModifiedValue(this.m_triggerAimAtBlaster);
+			result = m_abilityMod.m_triggerAimAtBlasterMod.GetModifiedValue(m_triggerAimAtBlaster);
 		}
 		else
 		{
-			result = this.m_triggerAimAtBlaster;
+			result = m_triggerAimAtBlaster;
 		}
 		return result;
 	}
@@ -261,9 +260,9 @@ public class BlasterDelayedLaser : Ability
 	public int GetExtraDamageToNearEnemy()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -272,15 +271,15 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetExtraDamageToNearEnemy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraDamageToNearEnemyMod.GetModifiedValue(this.m_extraDamageToNearEnemy);
+			result = m_abilityMod.m_extraDamageToNearEnemyMod.GetModifiedValue(m_extraDamageToNearEnemy);
 		}
 		else
 		{
-			result = this.m_extraDamageToNearEnemy;
+			result = m_extraDamageToNearEnemy;
 		}
 		return result;
 	}
@@ -288,9 +287,9 @@ public class BlasterDelayedLaser : Ability
 	public float GetNearDistance()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -299,25 +298,24 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetNearDistance()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_nearDistanceMod.GetModifiedValue(this.m_nearDistance);
+			result = m_abilityMod.m_nearDistanceMod.GetModifiedValue(m_nearDistance);
 		}
 		else
 		{
-			result = this.m_nearDistance;
+			result = m_nearDistance;
 		}
 		return result;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.m_damageAmount)
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damageAmount));
+		return list;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -327,7 +325,7 @@ public class BlasterDelayedLaser : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -336,13 +334,13 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -353,7 +351,7 @@ public class BlasterDelayedLaser : Ability
 				}
 				if (actorData != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -363,10 +361,10 @@ public class BlasterDelayedLaser : Ability
 						break;
 					}
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-					int num = this.GetDamageAmount();
-					if (this.m_syncComponent != null && this.m_syncComponent.m_overchargeBuffs > 0)
+					int num = GetDamageAmount();
+					if (m_syncComponent != null && m_syncComponent.m_overchargeBuffs > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -375,9 +373,9 @@ public class BlasterDelayedLaser : Ability
 							}
 							break;
 						}
-						if (this.m_overchargeAbility != null && this.m_overchargeAbility.GetExtraDamageForDelayedLaser() > 0)
+						if (m_overchargeAbility != null && m_overchargeAbility.GetExtraDamageForDelayedLaser() > 0)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -386,13 +384,13 @@ public class BlasterDelayedLaser : Ability
 								}
 								break;
 							}
-							num += this.m_overchargeAbility.GetExtraDamageForDelayedLaser();
+							num += m_overchargeAbility.GetExtraDamageForDelayedLaser();
 						}
 					}
 					Vector3 vector;
-					if (this.m_syncComponent.m_canActivateDelayedLaser)
+					if (m_syncComponent.m_canActivateDelayedLaser)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -401,16 +399,16 @@ public class BlasterDelayedLaser : Ability
 							}
 							break;
 						}
-						vector = this.m_syncComponent.m_delayedLaserStartPos;
+						vector = m_syncComponent.m_delayedLaserStartPos;
 					}
 					else
 					{
-						vector = actorData.\u0016();
+						vector = actorData.GetTravelBoardSquareWorldPosition();
 					}
 					Vector3 b = vector;
-					if (this.GetExtraDamageToNearEnemy() > 0 && this.GetNearDistance() > 0f)
+					if (GetExtraDamageToNearEnemy() > 0 && GetNearDistance() > 0f)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -419,12 +417,12 @@ public class BlasterDelayedLaser : Ability
 							}
 							break;
 						}
-						float num2 = this.GetNearDistance() * Board.\u000E().squareSize;
-						Vector3 vector2 = targetActor.\u0016() - b;
+						float num2 = GetNearDistance() * Board.Get().squareSize;
+						Vector3 vector2 = targetActor.GetTravelBoardSquareWorldPosition() - b;
 						vector2.y = 0f;
 						if (vector2.magnitude <= num2)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -433,7 +431,7 @@ public class BlasterDelayedLaser : Ability
 								}
 								break;
 							}
-							num += this.GetExtraDamageToNearEnemy();
+							num += GetExtraDamageToNearEnemy();
 						}
 					}
 					dictionary[AbilityTooltipSymbol.Damage] = num;
@@ -446,11 +444,11 @@ public class BlasterDelayedLaser : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_BlasterDelayedLaser abilityMod_BlasterDelayedLaser = modAsBase as AbilityMod_BlasterDelayedLaser;
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, (!abilityMod_BlasterDelayedLaser) ? this.m_damageAmount : abilityMod_BlasterDelayedLaser.m_damageAmountMod.GetModifiedValue(this.m_damageAmount), false);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, (!abilityMod_BlasterDelayedLaser) ? m_damageAmount : abilityMod_BlasterDelayedLaser.m_damageAmountMod.GetModifiedValue(m_damageAmount));
 		StandardEffectInfo effectInfo;
-		if (abilityMod_BlasterDelayedLaser)
+		if ((bool)abilityMod_BlasterDelayedLaser)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -459,21 +457,21 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			effectInfo = abilityMod_BlasterDelayedLaser.m_effectOnHitMod.GetModifiedValue(this.m_effectOnHit);
+			effectInfo = abilityMod_BlasterDelayedLaser.m_effectOnHitMod.GetModifiedValue(m_effectOnHit);
 		}
 		else
 		{
-			effectInfo = this.m_effectOnHit;
+			effectInfo = m_effectOnHit;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnHit", this.m_effectOnHit, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnHit", m_effectOnHit);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_BlasterDelayedLaser)
+		if ((bool)abilityMod_BlasterDelayedLaser)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -482,19 +480,18 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			effectInfo2 = abilityMod_BlasterDelayedLaser.m_onCastEnemyHitEffectMod.GetModifiedValue(this.m_onCastEnemyHitEffect);
+			effectInfo2 = abilityMod_BlasterDelayedLaser.m_onCastEnemyHitEffectMod.GetModifiedValue(m_onCastEnemyHitEffect);
 		}
 		else
 		{
-			effectInfo2 = this.m_onCastEnemyHitEffect;
+			effectInfo2 = m_onCastEnemyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "OnCastEnemyHitEffect", this.m_onCastEnemyHitEffect, true);
-		string name = "ExtraDamageToNearEnemy";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "OnCastEnemyHitEffect", m_onCastEnemyHitEffect);
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_BlasterDelayedLaser)
+		if ((bool)abilityMod_BlasterDelayedLaser)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -503,36 +500,36 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			val = abilityMod_BlasterDelayedLaser.m_extraDamageToNearEnemyMod.GetModifiedValue(this.m_extraDamageToNearEnemy);
+			val = abilityMod_BlasterDelayedLaser.m_extraDamageToNearEnemyMod.GetModifiedValue(m_extraDamageToNearEnemy);
 		}
 		else
 		{
-			val = this.m_extraDamageToNearEnemy;
+			val = m_extraDamageToNearEnemy;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		base.AddTokenInt(tokens, "MaxTurnsBeforeTrigger", string.Empty, this.m_turnsBeforeTriggering, false);
+		AddTokenInt(tokens, "ExtraDamageToNearEnemy", empty, val);
+		AddTokenInt(tokens, "MaxTurnsBeforeTrigger", string.Empty, m_turnsBeforeTriggering);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_BlasterDelayedLaser))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_BlasterDelayedLaser);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_BlasterDelayedLaser);
+			SetupTargeter();
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	public override bool IsFreeAction()
 	{
-		if (this.m_remoteTriggerMode)
+		if (m_remoteTriggerMode)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -541,35 +538,35 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.IsFreeAction()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComponent != null)
+			if (m_syncComponent != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_syncComponent.m_canActivateDelayedLaser)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+						if (m_syncComponent.m_canActivateDelayedLaser)
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									break;
+								default:
+									return m_remoteTriggerIsFreeAction;
+								}
+							}
+						}
+						return base.IsFreeAction();
 					}
-					return this.m_remoteTriggerIsFreeAction;
 				}
-				return base.IsFreeAction();
 			}
 		}
 		return base.IsFreeAction();
@@ -577,9 +574,9 @@ public class BlasterDelayedLaser : Ability
 
 	public override AbilityPriority GetRunPriority()
 	{
-		if (this.m_remoteTriggerMode && this.m_syncComponent != null)
+		if (m_remoteTriggerMode && m_syncComponent != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -588,13 +585,13 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetRunPriority()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComponent.m_canActivateDelayedLaser)
+			if (m_syncComponent.m_canActivateDelayedLaser)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -603,29 +600,29 @@ public class BlasterDelayedLaser : Ability
 					}
 					break;
 				}
-				if (GameFlowData.Get().CurrentTurn > this.m_syncComponent.m_lastPlacementTurn)
+				if (GameFlowData.Get().CurrentTurn > m_syncComponent.m_lastPlacementTurn)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return base.GetRunPriority();
 						}
-						break;
 					}
-					return base.GetRunPriority();
 				}
 			}
 		}
-		return this.m_placementPhase;
+		return m_placementPhase;
 	}
 
 	public override TargetData[] GetTargetData()
 	{
-		if (this.m_remoteTriggerMode)
+		if (m_remoteTriggerMode)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -634,35 +631,35 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetTargetData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComponent != null)
+			if (m_syncComponent != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_syncComponent.m_canActivateDelayedLaser)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+						if (m_syncComponent.m_canActivateDelayedLaser)
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									break;
+								default:
+									return new TargetData[0];
+								}
+							}
+						}
+						return base.GetTargetData();
 					}
-					return new TargetData[0];
 				}
-				return base.GetTargetData();
 			}
 		}
 		return base.GetTargetData();
@@ -670,9 +667,9 @@ public class BlasterDelayedLaser : Ability
 
 	public override ActorModelData.ActionAnimationType GetActionAnimType()
 	{
-		if (this.m_syncComponent != null)
+		if (m_syncComponent != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -681,22 +678,22 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetActionAnimType()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComponent.m_canActivateDelayedLaser)
+			if (m_syncComponent.m_canActivateDelayedLaser)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return ActorModelData.ActionAnimationType.None;
 					}
-					break;
 				}
-				return ActorModelData.ActionAnimationType.None;
 			}
 		}
 		return base.GetActionAnimType();
@@ -704,9 +701,9 @@ public class BlasterDelayedLaser : Ability
 
 	public override bool CanTriggerAnimAtIndexForTaunt(int animIndex)
 	{
-		if (this.m_syncComponent != null)
+		if (m_syncComponent != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -715,13 +712,13 @@ public class BlasterDelayedLaser : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.CanTriggerAnimAtIndexForTaunt(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_syncComponent.m_canActivateDelayedLaser)
+			if (m_syncComponent.m_canActivateDelayedLaser)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -732,16 +729,16 @@ public class BlasterDelayedLaser : Ability
 				}
 				if (animIndex == (int)base.GetActionAnimType())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return true;
 						}
-						break;
 					}
-					return true;
 				}
 			}
 		}

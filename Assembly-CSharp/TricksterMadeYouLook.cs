@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,9 +44,9 @@ public class TricksterMadeYouLook : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -56,59 +55,59 @@ public class TricksterMadeYouLook : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Made You Look";
+			m_abilityName = "Made You Look";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.m_afterImageSyncComp = base.GetComponent<TricksterAfterImageNetworkBehaviour>();
-		this.SetCachedFields();
-		bool flag = base.HasSelfEffectFromBaseMod();
-		if (this.HitActorsInBetween())
+		m_afterImageSyncComp = GetComponent<TricksterAfterImageNetworkBehaviour>();
+		SetCachedFields();
+		bool flag = HasSelfEffectFromBaseMod();
+		if (HitActorsInBetween())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
+				{
+				case 0:
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, GetRadiusAroundEnds(), GetRadiusAroundEnds(), GetRadiusFromLine(), -1, true, PenetrateLos());
+					abilityUtil_Targeter_ChargeAoE.SetAffectedGroups(true, false, flag);
+					abilityUtil_Targeter_ChargeAoE.AllowChargeThroughInvalidSquares = true;
+					base.Targeter = abilityUtil_Targeter_ChargeAoE;
+					return;
+				}
+				}
+			}
+		}
+		AbilityUtil_Targeter_Charge abilityUtil_Targeter_Charge = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false);
+		abilityUtil_Targeter_Charge.AllowChargeThroughInvalidSquares = true;
+		if (flag)
+		{
+			while (true)
+			{
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.Setup()).MethodHandle;
-			}
-			AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, this.GetRadiusAroundEnds(), this.GetRadiusAroundEnds(), this.GetRadiusFromLine(), -1, true, this.PenetrateLos());
-			abilityUtil_Targeter_ChargeAoE.SetAffectedGroups(true, false, flag);
-			abilityUtil_Targeter_ChargeAoE.AllowChargeThroughInvalidSquares = true;
-			base.Targeter = abilityUtil_Targeter_ChargeAoE;
+			abilityUtil_Targeter_Charge.m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
 		}
-		else
-		{
-			AbilityUtil_Targeter_Charge abilityUtil_Targeter_Charge = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false);
-			abilityUtil_Targeter_Charge.AllowChargeThroughInvalidSquares = true;
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				abilityUtil_Targeter_Charge.m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
-			}
-			base.Targeter = abilityUtil_Targeter_Charge;
-		}
+		base.Targeter = abilityUtil_Targeter_Charge;
 	}
 
 	internal override ActorData.MovementType GetMovementType()
@@ -118,10 +117,10 @@ public class TricksterMadeYouLook : Ability
 
 	public override bool CanOverrideMoveStartSquare()
 	{
-		bool result;
-		if (this.m_canQueueMoveAfterEvade)
+		int result;
+		if (m_canQueueMoveAfterEvade)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -130,35 +129,35 @@ public class TricksterMadeYouLook : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.CanOverrideMoveStartSquare()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (this.m_afterImageSyncComp != null);
+			result = ((m_afterImageSyncComp != null) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedEnemyOnHitEffect = ((!this.m_abilityMod) ? this.m_enemyOnHitEffect : this.m_abilityMod.m_enemyOnHitEffectMod.GetModifiedValue(this.m_enemyOnHitEffect));
+		m_cachedEnemyOnHitEffect = ((!m_abilityMod) ? m_enemyOnHitEffect : m_abilityMod.m_enemyOnHitEffectMod.GetModifiedValue(m_enemyOnHitEffect));
 	}
 
 	public bool HitActorsInBetween()
 	{
-		return (!this.m_abilityMod) ? this.m_hitActorsInBetween : this.m_abilityMod.m_hitActorsInBetweenMod.GetModifiedValue(this.m_hitActorsInBetween);
+		return (!m_abilityMod) ? m_hitActorsInBetween : m_abilityMod.m_hitActorsInBetweenMod.GetModifiedValue(m_hitActorsInBetween);
 	}
 
 	public float GetRadiusFromLine()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -167,15 +166,15 @@ public class TricksterMadeYouLook : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.GetRadiusFromLine()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_radiusFromLineMod.GetModifiedValue(this.m_radiusFromLine);
+			result = m_abilityMod.m_radiusFromLineMod.GetModifiedValue(m_radiusFromLine);
 		}
 		else
 		{
-			result = this.m_radiusFromLine;
+			result = m_radiusFromLine;
 		}
 		return result;
 	}
@@ -183,9 +182,9 @@ public class TricksterMadeYouLook : Ability
 	public float GetRadiusAroundEnds()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -194,15 +193,15 @@ public class TricksterMadeYouLook : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.GetRadiusAroundEnds()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_radiusAroundEndsMod.GetModifiedValue(this.m_radiusAroundEnds);
+			result = m_abilityMod.m_radiusAroundEndsMod.GetModifiedValue(m_radiusAroundEnds);
 		}
 		else
 		{
-			result = this.m_radiusAroundEnds;
+			result = m_radiusAroundEnds;
 		}
 		return result;
 	}
@@ -210,9 +209,9 @@ public class TricksterMadeYouLook : Ability
 	public bool PenetrateLos()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -221,35 +220,35 @@ public class TricksterMadeYouLook : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.PenetrateLos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
+			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
 		{
-			result = this.m_penetrateLos;
+			result = m_penetrateLos;
 		}
 		return result;
 	}
 
 	public int GetDamageAmount()
 	{
-		return (!this.m_abilityMod) ? this.m_damageAmount : this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+		return (!m_abilityMod) ? m_damageAmount : m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 	}
 
 	public StandardEffectInfo GetEnemyOnHitEffect()
 	{
-		return (this.m_cachedEnemyOnHitEffect == null) ? this.m_enemyOnHitEffect : this.m_cachedEnemyOnHitEffect;
+		return (m_cachedEnemyOnHitEffect == null) ? m_enemyOnHitEffect : m_cachedEnemyOnHitEffect;
 	}
 
 	public SpoilsSpawnData GetSpoilsSpawnDataOnDisappear(SpoilsSpawnData defaultValue)
 	{
 		SpoilsSpawnData result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -258,11 +257,11 @@ public class TricksterMadeYouLook : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.GetSpoilsSpawnDataOnDisappear(SpoilsSpawnData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_spoilsSpawnDataOnDisappear.GetModifiedValue(defaultValue);
+			result = m_abilityMod.m_spoilsSpawnDataOnDisappear.GetModifiedValue(defaultValue);
 		}
 		else
 		{
@@ -273,10 +272,10 @@ public class TricksterMadeYouLook : Ability
 
 	public bool HasCooldownReductionForPassingThrough()
 	{
-		bool result;
-		if (this.m_abilityMod != null)
+		int result;
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -285,24 +284,24 @@ public class TricksterMadeYouLook : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.HasCooldownReductionForPassingThrough()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_cooldownReductionForTravelHit.HasCooldownReduction();
+			result = (m_abilityMod.m_cooldownReductionForTravelHit.HasCooldownReduction() ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (!(this.m_afterImageSyncComp == null))
+		if (!(m_afterImageSyncComp == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -311,13 +310,13 @@ public class TricksterMadeYouLook : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.CustomCanCastValidation(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!(caster == null))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -326,12 +325,12 @@ public class TricksterMadeYouLook : Ability
 					}
 					break;
 				}
-				if (!(caster.\u000E() == null))
+				if (!(caster.GetAbilityData() == null))
 				{
-					List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
-					return validAfterImages.Count > 0 && !caster.\u000E().HasQueuedAbilityOfType(typeof(TricksterCatchMeIfYouCan));
+					List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
+					return validAfterImages.Count > 0 && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(TricksterCatchMeIfYouCan));
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -347,15 +346,15 @@ public class TricksterMadeYouLook : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 		if (validAfterImages.Count == 1)
 		{
 			return true;
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -364,32 +363,32 @@ public class TricksterMadeYouLook : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
 				using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						ActorData actorData = enumerator.Current;
-						if (actorData.\u0012() == boardSquare)
+						ActorData current = enumerator.Current;
+						if (current.GetCurrentBoardSquare() == boardSquareSafe)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return true;
 								}
-								break;
 							}
-							return true;
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -401,7 +400,7 @@ public class TricksterMadeYouLook : Ability
 				}
 				return false;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -416,9 +415,9 @@ public class TricksterMadeYouLook : Ability
 
 	public override TargetData[] GetTargetData()
 	{
-		if (this.m_afterImageSyncComp != null)
+		if (m_afterImageSyncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -427,23 +426,23 @@ public class TricksterMadeYouLook : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.GetTargetData()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
+			List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 			if (validAfterImages.Count == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return new TargetData[0];
 					}
-					break;
 				}
-				return new TargetData[0];
 			}
 		}
 		return base.GetTargetData();
@@ -451,9 +450,9 @@ public class TricksterMadeYouLook : Ability
 
 	public override AbilityTarget CreateAbilityTargetForSimpleAction(ActorData caster)
 	{
-		if (this.m_afterImageSyncComp != null)
+		if (m_afterImageSyncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -462,24 +461,26 @@ public class TricksterMadeYouLook : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.CreateAbilityTargetForSimpleAction(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
+			List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 			if (validAfterImages.Count == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						ActorData casterActor = validAfterImages[0];
+						return AbilityTarget.CreateSimpleAbilityTarget(casterActor);
 					}
-					break;
+					}
 				}
-				ActorData casterActor = validAfterImages[0];
-				return AbilityTarget.CreateSimpleAbilityTarget(casterActor);
 			}
 		}
 		return base.CreateAbilityTargetForSimpleAction(caster);
@@ -488,12 +489,11 @@ public class TricksterMadeYouLook : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_TricksterMadeYouLook abilityMod_TricksterMadeYouLook = modAsBase as AbilityMod_TricksterMadeYouLook;
-		string name = "DamageAmount";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_TricksterMadeYouLook)
+		if ((bool)abilityMod_TricksterMadeYouLook)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -502,33 +502,33 @@ public class TricksterMadeYouLook : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_TricksterMadeYouLook.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+			val = abilityMod_TricksterMadeYouLook.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
 		{
-			val = this.m_damageAmount;
+			val = m_damageAmount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_TricksterMadeYouLook) ? this.m_enemyOnHitEffect : abilityMod_TricksterMadeYouLook.m_enemyOnHitEffectMod.GetModifiedValue(this.m_enemyOnHitEffect), "EnemyOnHitEffect", this.m_enemyOnHitEffect, true);
+		AddTokenInt(tokens, "DamageAmount", empty, val);
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_TricksterMadeYouLook) ? m_enemyOnHitEffect : abilityMod_TricksterMadeYouLook.m_enemyOnHitEffectMod.GetModifiedValue(m_enemyOnHitEffect), "EnemyOnHitEffect", m_enemyOnHitEffect);
 	}
 
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(false);
-		BoardSquare y = Board.\u000E().\u000E(targetPos);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages(false);
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(targetPos);
 		bool flag = validAfterImages.Count > 1;
 		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (actorData != null)
+				ActorData current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -537,13 +537,13 @@ public class TricksterMadeYouLook : Ability
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (!actorData.\u000E())
+					if (!current.IsDead())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -552,9 +552,9 @@ public class TricksterMadeYouLook : Ability
 							}
 							break;
 						}
-						if (actorData.\u0012() != null)
+						if (current.GetCurrentBoardSquare() != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -565,7 +565,7 @@ public class TricksterMadeYouLook : Ability
 							}
 							if (flag)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (7)
 									{
@@ -574,11 +574,11 @@ public class TricksterMadeYouLook : Ability
 									}
 									break;
 								}
-								if (!(actorData.\u0012() == y))
+								if (!(current.GetCurrentBoardSquare() == boardSquare))
 								{
 									continue;
 								}
-								for (;;)
+								while (true)
 								{
 									switch (4)
 									{
@@ -588,56 +588,58 @@ public class TricksterMadeYouLook : Ability
 									break;
 								}
 							}
-							this.m_afterImageSyncComp.TurnToPosition(actorData, caster.\u0016());
-							Animator animator = actorData.\u000E();
-							animator.SetFloat(TricksterMadeYouLook.animDistToGoal, 10f);
-							animator.ResetTrigger(TricksterMadeYouLook.animStartDamageReaction);
-							animator.SetInteger(TricksterMadeYouLook.animAttack, animationIndex);
-							animator.SetBool(TricksterMadeYouLook.animCinematicCam, false);
-							animator.SetTrigger(TricksterMadeYouLook.animStartAttack);
+							m_afterImageSyncComp.TurnToPosition(current, caster.GetTravelBoardSquareWorldPosition());
+							Animator modelAnimator = current.GetModelAnimator();
+							modelAnimator.SetFloat(animDistToGoal, 10f);
+							modelAnimator.ResetTrigger(animStartDamageReaction);
+							modelAnimator.SetInteger(animAttack, animationIndex);
+							modelAnimator.SetBool(animCinematicCam, false);
+							modelAnimator.SetTrigger(animStartAttack);
 						}
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public override void OnAbilityAnimationRequestProcessed(ActorData caster)
 	{
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(false);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages(false);
 		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (actorData != null && !actorData.\u000E())
+				ActorData current = enumerator.Current;
+				if (current != null && !current.IsDead())
 				{
-					Animator animator = actorData.\u000E();
-					animator.SetInteger(TricksterMadeYouLook.animAttack, 0);
-					animator.SetBool(TricksterMadeYouLook.animCinematicCam, false);
+					Animator modelAnimator = current.GetModelAnimator();
+					modelAnimator.SetInteger(animAttack, 0);
+					modelAnimator.SetBool(animCinematicCam, false);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
 			}
 		}
 	}
@@ -646,14 +648,14 @@ public class TricksterMadeYouLook : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_TricksterMadeYouLook))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_TricksterMadeYouLook);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_TricksterMadeYouLook);
+			Setup();
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

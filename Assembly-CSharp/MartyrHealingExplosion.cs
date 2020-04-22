@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,9 +21,9 @@ public class MartyrHealingExplosion : MartyrLaserBase
 	public bool m_explosionCanHitCaster;
 
 	[Header("-- Damage, Healing & Crystal Bonuses")]
-	public int m_baseLaserDamage = 0x14;
+	public int m_baseLaserDamage = 20;
 
-	public int m_baseExplosionHealing = 0xF;
+	public int m_baseExplosionHealing = 15;
 
 	public int m_additionalDamagePerCrystalSpent;
 
@@ -45,9 +44,9 @@ public class MartyrHealingExplosion : MartyrLaserBase
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -56,52 +55,51 @@ public class MartyrHealingExplosion : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealingExplosion.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Martyr Healing Explosion";
+			m_abilityName = "Martyr Healing Explosion";
 		}
-		this.m_syncComponent = base.GetComponent<Martyr_SyncComponent>();
-		this.SetCachedFields();
-		this.SetupTargeter();
+		m_syncComponent = GetComponent<Martyr_SyncComponent>();
+		SetCachedFields();
+		SetupTargeter();
 	}
 
 	protected override Martyr_SyncComponent GetSyncComponent()
 	{
-		return this.m_syncComponent;
+		return m_syncComponent;
 	}
 
 	protected void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_MartyrLaser(this, base.GetCurrentLaserWidth(), base.GetCurrentLaserRange(), base.GetCurrentLaserPenetrateLoS(), base.GetCurrentLaserMaxTargets(), this.m_laserCanHitEnemies, this.m_laserCanHitAllies, false, !this.m_forceMaxLaserDistance, this.m_explodeOnlyOnLaserHit, this.GetCurrentExplosionRadius(), this.GetCurrentInnerExplosionRadius(), true, false, this.m_explosionCanHitCaster)
-		{
-			m_delegateLaserWidth = new AbilityUtil_Targeter_MartyrLaser.CustomFloatValueDelegate(base.GetCurrentLaserWidth),
-			m_delegateLaserRange = new AbilityUtil_Targeter_MartyrLaser.CustomFloatValueDelegate(base.GetCurrentLaserRange),
-			m_delegatePenetrateLos = new AbilityUtil_Targeter_MartyrLaser.CustomBoolValueDelegate(base.GetCurrentLaserPenetrateLoS),
-			m_delegateMaxTargets = new AbilityUtil_Targeter_MartyrLaser.CustomIntValueDelegate(base.GetCurrentLaserMaxTargets),
-			m_delegateConeRadius = new AbilityUtil_Targeter_MartyrLaser.CustomFloatValueDelegate(this.GetCurrentExplosionRadius),
-			m_delegateInnerConeRadius = new AbilityUtil_Targeter_MartyrLaser.CustomFloatValueDelegate(this.GetCurrentInnerExplosionRadius)
-		};
+		AbilityUtil_Targeter_MartyrLaser abilityUtil_Targeter_MartyrLaser = new AbilityUtil_Targeter_MartyrLaser(this, GetCurrentLaserWidth(), GetCurrentLaserRange(), GetCurrentLaserPenetrateLoS(), GetCurrentLaserMaxTargets(), m_laserCanHitEnemies, m_laserCanHitAllies, false, !m_forceMaxLaserDistance, m_explodeOnlyOnLaserHit, GetCurrentExplosionRadius(), GetCurrentInnerExplosionRadius(), true, false, m_explosionCanHitCaster);
+		abilityUtil_Targeter_MartyrLaser.m_delegateLaserWidth = base.GetCurrentLaserWidth;
+		abilityUtil_Targeter_MartyrLaser.m_delegateLaserRange = base.GetCurrentLaserRange;
+		abilityUtil_Targeter_MartyrLaser.m_delegatePenetrateLos = base.GetCurrentLaserPenetrateLoS;
+		abilityUtil_Targeter_MartyrLaser.m_delegateMaxTargets = base.GetCurrentLaserMaxTargets;
+		abilityUtil_Targeter_MartyrLaser.m_delegateConeRadius = GetCurrentExplosionRadius;
+		abilityUtil_Targeter_MartyrLaser.m_delegateInnerConeRadius = GetCurrentInnerExplosionRadius;
+		base.Targeter = abilityUtil_Targeter_MartyrLaser;
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedLaserInfo = this.m_laserInfo;
-		this.m_cachedLaserHitEffect = this.m_laserHitEffect;
+		m_cachedLaserInfo = m_laserInfo;
+		m_cachedLaserHitEffect = m_laserHitEffect;
 	}
 
 	public override LaserTargetingInfo GetLaserInfo()
 	{
-		return (this.m_cachedLaserInfo == null) ? this.m_laserInfo : this.m_cachedLaserInfo;
+		return (m_cachedLaserInfo == null) ? m_laserInfo : m_cachedLaserInfo;
 	}
 
 	public StandardEffectInfo GetLaserHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedLaserHitEffect != null)
+		if (m_cachedLaserHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -110,86 +108,85 @@ public class MartyrHealingExplosion : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealingExplosion.GetLaserHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedLaserHitEffect;
+			result = m_cachedLaserHitEffect;
 		}
 		else
 		{
-			result = this.m_laserHitEffect;
+			result = m_laserHitEffect;
 		}
 		return result;
 	}
 
 	public float GetBaseExplosionRadius()
 	{
-		return this.m_explosionRadius;
+		return m_explosionRadius;
 	}
 
 	public float GetBonusRadiusPerCrystalSpent()
 	{
-		return this.m_additionalRadiusPerCrystalSpent;
+		return m_additionalRadiusPerCrystalSpent;
 	}
 
 	public int GetBaseDamage()
 	{
-		return this.m_baseLaserDamage;
+		return m_baseLaserDamage;
 	}
 
 	public int GetBaseExplosionHealing()
 	{
-		return this.m_baseExplosionHealing;
+		return m_baseExplosionHealing;
 	}
 
 	public int GetBonusDamagePerCrystalSpent()
 	{
-		return this.m_additionalDamagePerCrystalSpent;
+		return m_additionalDamagePerCrystalSpent;
 	}
 
 	public int GetBonusHealingPerCrystalSpent()
 	{
-		return this.m_additionalHealingPerCrystalSpent;
+		return m_additionalHealingPerCrystalSpent;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_laserHitEffect, "LaserHitEffect", this.m_laserHitEffect, true);
-		tokens.Add(new TooltipTokenInt("BaseLaserDamage", "Damage from laser hits with no crystal bonus", this.GetBaseDamage()));
-		tokens.Add(new TooltipTokenInt("BaseExplosionHealing", "Healing from explosion hits with no crystal bonus", this.GetBaseExplosionHealing()));
-		tokens.Add(new TooltipTokenInt("DamagePerCrystal", "Damage added per crystal spent", this.GetBonusDamagePerCrystalSpent()));
-		tokens.Add(new TooltipTokenInt("HealingPerCrystal", "Healing added per crystal spent", this.GetBonusHealingPerCrystalSpent()));
-		tokens.Add(new TooltipTokenFloat("WidthPerCrystal", "Width added per crystal spent", base.GetBonusWidthPerCrystalSpent()));
-		tokens.Add(new TooltipTokenFloat("LengthPerCrystal", "Length added per crystal spent", base.GetBonusLengthPerCrystalSpent()));
-		tokens.Add(new TooltipTokenFloat("RadiusPerCrystal", "Explosion radius added per crystal spent", this.GetBonusRadiusPerCrystalSpent()));
+		AbilityMod.AddToken_EffectInfo(tokens, m_laserHitEffect, "LaserHitEffect", m_laserHitEffect);
+		tokens.Add(new TooltipTokenInt("BaseLaserDamage", "Damage from laser hits with no crystal bonus", GetBaseDamage()));
+		tokens.Add(new TooltipTokenInt("BaseExplosionHealing", "Healing from explosion hits with no crystal bonus", GetBaseExplosionHealing()));
+		tokens.Add(new TooltipTokenInt("DamagePerCrystal", "Damage added per crystal spent", GetBonusDamagePerCrystalSpent()));
+		tokens.Add(new TooltipTokenInt("HealingPerCrystal", "Healing added per crystal spent", GetBonusHealingPerCrystalSpent()));
+		tokens.Add(new TooltipTokenFloat("WidthPerCrystal", "Width added per crystal spent", GetBonusWidthPerCrystalSpent()));
+		tokens.Add(new TooltipTokenFloat("LengthPerCrystal", "Length added per crystal spent", GetBonusLengthPerCrystalSpent()));
+		tokens.Add(new TooltipTokenFloat("RadiusPerCrystal", "Explosion radius added per crystal spent", GetBonusRadiusPerCrystalSpent()));
 	}
 
 	protected override List<MartyrLaserThreshold> GetThresholdBasedCrystalBonusList()
 	{
 		List<MartyrLaserThreshold> list = new List<MartyrLaserThreshold>();
-		foreach (MartyrBasicAttackThreshold item in this.m_thresholdBasedCrystalBonuses)
+		foreach (MartyrBasicAttackThreshold thresholdBasedCrystalBonuse in m_thresholdBasedCrystalBonuses)
 		{
-			list.Add(item);
+			list.Add(thresholdBasedCrystalBonuse);
 		}
 		return list;
 	}
 
 	private int GetCurrentLaserDamage(ActorData caster)
 	{
-		MartyrBasicAttackThreshold martyrBasicAttackThreshold = base.GetCurrentPowerEntry(caster) as MartyrBasicAttackThreshold;
-		int num = (martyrBasicAttackThreshold == null) ? 0 : martyrBasicAttackThreshold.m_additionalDamage;
-		return this.GetBaseDamage() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetBonusDamagePerCrystalSpent() + num;
+		int num = (GetCurrentPowerEntry(caster) as MartyrBasicAttackThreshold)?.m_additionalDamage ?? 0;
+		return GetBaseDamage() + m_syncComponent.SpentDamageCrystals(caster) * GetBonusDamagePerCrystalSpent() + num;
 	}
 
 	private int GetCurrentExplosionHealing(ActorData caster)
 	{
-		MartyrHealingExplosionThreshold martyrHealingExplosionThreshold = base.GetCurrentPowerEntry(caster) as MartyrHealingExplosionThreshold;
+		MartyrHealingExplosionThreshold martyrHealingExplosionThreshold = GetCurrentPowerEntry(caster) as MartyrHealingExplosionThreshold;
 		int num;
 		if (martyrHealingExplosionThreshold != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -198,9 +195,9 @@ public class MartyrHealingExplosion : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealingExplosion.GetCurrentExplosionHealing(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = martyrHealingExplosionThreshold.m_additionalHealing;
 		}
@@ -209,16 +206,16 @@ public class MartyrHealingExplosion : MartyrLaserBase
 			num = 0;
 		}
 		int num2 = num;
-		return this.GetBaseExplosionHealing() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetBonusHealingPerCrystalSpent() + num2;
+		return GetBaseExplosionHealing() + m_syncComponent.SpentDamageCrystals(caster) * GetBonusHealingPerCrystalSpent() + num2;
 	}
 
 	public override float GetCurrentExplosionRadius()
 	{
-		MartyrBasicAttackThreshold martyrBasicAttackThreshold = base.GetCurrentPowerEntry(base.ActorData) as MartyrBasicAttackThreshold;
+		MartyrBasicAttackThreshold martyrBasicAttackThreshold = GetCurrentPowerEntry(base.ActorData) as MartyrBasicAttackThreshold;
 		float num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -227,9 +224,9 @@ public class MartyrHealingExplosion : MartyrLaserBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealingExplosion.GetCurrentExplosionRadius()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = martyrBasicAttackThreshold.m_additionalRadius;
 		}
@@ -238,23 +235,23 @@ public class MartyrHealingExplosion : MartyrLaserBase
 			num = 0f;
 		}
 		float num2 = num;
-		return this.GetBaseExplosionRadius() + (float)this.m_syncComponent.SpentDamageCrystals(base.ActorData) * this.GetBonusRadiusPerCrystalSpent() + num2;
+		return GetBaseExplosionRadius() + (float)m_syncComponent.SpentDamageCrystals(base.ActorData) * GetBonusRadiusPerCrystalSpent() + num2;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetBaseDamage());
-		this.m_laserHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Secondary, this.GetBaseExplosionHealing());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetBaseDamage());
+		m_laserHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Secondary, GetBaseExplosionHealing());
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
-		Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, this.GetCurrentLaserDamage(base.ActorData), AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
-		Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, this.GetCurrentExplosionHealing(base.ActorData), AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Secondary);
-		return result;
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
+		Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, GetCurrentLaserDamage(base.ActorData));
+		Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, GetCurrentExplosionHealing(base.ActorData), AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Secondary);
+		return symbolToValue;
 	}
 }

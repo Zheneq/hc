@@ -1,26 +1,32 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
 public class OnDamagedChatter : ScriptableObject, IChatterData
 {
+	public enum HealthThreshMode
+	{
+		UsePercentage,
+		UseDirectValue
+	}
+
 	public ChatterData m_baseData = new ChatterData();
 
 	public bool m_onSelfDamage = true;
 
 	[Separator("For getting hit that brings health below threhold", true)]
-	public OnDamagedChatter.HealthThreshMode m_healthThresholdMode;
+	public HealthThreshMode m_healthThresholdMode;
 
 	public float m_healthThresholdPct = 0.25f;
 
-	public int m_healthThresholdDirect = 0x14;
+	public int m_healthThresholdDirect = 20;
 
 	[AudioEvent(false)]
 	public string m_closeCallAudioEvent;
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_baseData;
+		return m_baseData;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()
@@ -32,26 +38,25 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 	{
 		if (!ChatterData.ShouldPlayChatter(this, eventType, args, component))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return false;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnDamagedChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
-			return false;
 		}
 		GameEventManager.ActorHitHealthChangeArgs actorHitHealthChangeArgs = args as GameEventManager.ActorHitHealthChangeArgs;
 		bool flag = actorHitHealthChangeArgs.m_target == component.gameObject.GetComponent<ActorData>();
-		if (this.m_onSelfDamage)
+		if (m_onSelfDamage)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -62,29 +67,30 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return false;
 					}
-					break;
 				}
-				return false;
 			}
 		}
-		this.GetCommonData().ClearAudioEventOverride();
-		if (this.m_onSelfDamage && flag && !string.IsNullOrEmpty(this.m_closeCallAudioEvent))
+		GetCommonData().ClearAudioEventOverride();
+		bool flag2;
+		if (m_onSelfDamage && flag && !string.IsNullOrEmpty(m_closeCallAudioEvent))
 		{
-			int num = actorHitHealthChangeArgs.m_target.\u0009();
-			int num2 = actorHitHealthChangeArgs.m_target.\u0012();
-			bool flag2 = false;
-			if (num > 0)
+			int hitPointsAfterResolution = actorHitHealthChangeArgs.m_target.GetHitPointsAfterResolution();
+			int maxHitPoints = actorHitHealthChangeArgs.m_target.GetMaxHitPoints();
+			flag2 = false;
+			if (hitPointsAfterResolution > 0)
 			{
-				if (this.m_healthThresholdMode == OnDamagedChatter.HealthThreshMode.UseDirectValue)
+				if (m_healthThresholdMode == HealthThreshMode.UseDirectValue)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -93,15 +99,15 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 						}
 						break;
 					}
-					if (num < this.m_healthThresholdDirect)
+					if (hitPointsAfterResolution < m_healthThresholdDirect)
 					{
 						flag2 = true;
-						goto IL_109;
+						goto IL_0109;
 					}
 				}
-				if (this.m_healthThresholdMode == OnDamagedChatter.HealthThreshMode.UsePercentage)
+				if (m_healthThresholdMode == HealthThreshMode.UsePercentage)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -110,9 +116,9 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 						}
 						break;
 					}
-					if (num2 > 0)
+					if (maxHitPoints > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -121,31 +127,29 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 							}
 							break;
 						}
-						flag2 = ((float)num / (float)num2 < this.m_healthThresholdPct);
+						flag2 = ((float)hitPointsAfterResolution / (float)maxHitPoints < m_healthThresholdPct);
 					}
 				}
-				IL_109:
-				if (flag2)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.GetCommonData().SetAudioEventOverride(this.m_closeCallAudioEvent);
-				}
+				goto IL_0109;
 			}
 		}
+		goto IL_0128;
+		IL_0109:
+		if (flag2)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			GetCommonData().SetAudioEventOverride(m_closeCallAudioEvent);
+		}
+		goto IL_0128;
+		IL_0128:
 		return true;
-	}
-
-	public enum HealthThreshMode
-	{
-		UsePercentage,
-		UseDirectValue
 	}
 }

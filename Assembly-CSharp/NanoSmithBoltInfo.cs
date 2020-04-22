@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,12 +26,12 @@ public class NanoSmithBoltInfo
 	[Header("-- For Sequences")]
 	public float sequenceHeightFromGround = 0.5f;
 
-	public unsafe List<ActorData> GetActorsHitByBolt(Vector3 boltStartPos, Vector3 boltDirection, ActorData caster, AbilityPriority boltPhase, out VectorUtils.LaserCoords endPoints, List<NonActorTargetInfo> nonActorTargetInfo, bool includeActorAtStartPos = false, bool includeCaster = false, bool startTargetingFromCaster = false)
+	public List<ActorData> GetActorsHitByBolt(Vector3 boltStartPos, Vector3 boltDirection, ActorData caster, AbilityPriority boltPhase, out VectorUtils.LaserCoords endPoints, List<NonActorTargetInfo> nonActorTargetInfo, bool includeActorAtStartPos = false, bool includeCaster = false, bool startTargetingFromCaster = false)
 	{
 		Vector3 start = boltStartPos;
 		if (startTargetingFromCaster)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -40,18 +40,18 @@ public class NanoSmithBoltInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBoltInfo.GetActorsHitByBolt(Vector3, Vector3, ActorData, AbilityPriority, VectorUtils.LaserCoords*, List<NonActorTargetInfo>, bool, bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			start = caster.\u0015();
+			start = caster.GetTravelBoardSquareWorldPositionForLos();
 		}
-		VectorUtils.LaserCoords coords;
+		VectorUtils.LaserCoords coords = default(VectorUtils.LaserCoords);
 		coords.start = start;
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(coords.start, boltDirection, this.range, this.width, caster, TargeterUtils.GetRelevantTeams(caster, this.includeAllies, this.includeEnemies), this.penetrateLineOfSight, -1, false, true, out coords.end, nonActorTargetInfo, null, false, true);
+		List<ActorData> actorsInRange = AreaEffectUtils.GetActorsInLaser(coords.start, boltDirection, range, width, caster, TargeterUtils.GetRelevantTeams(caster, includeAllies, includeEnemies), penetrateLineOfSight, -1, false, true, out coords.end, nonActorTargetInfo);
 		if (!includeActorAtStartPos)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -60,10 +60,10 @@ public class NanoSmithBoltInfo
 				}
 				break;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(boltStartPos);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(boltStartPos);
 			if (boardSquare != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -74,7 +74,7 @@ public class NanoSmithBoltInfo
 				}
 				if (boardSquare.OccupantActor != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -83,9 +83,9 @@ public class NanoSmithBoltInfo
 						}
 						break;
 					}
-					if (actorsInLaser.Contains(boardSquare.OccupantActor))
+					if (actorsInRange.Contains(boardSquare.OccupantActor))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -94,14 +94,14 @@ public class NanoSmithBoltInfo
 							}
 							break;
 						}
-						actorsInLaser.Remove(boardSquare.OccupantActor);
+						actorsInRange.Remove(boardSquare.OccupantActor);
 					}
 				}
 			}
 		}
 		if (!includeCaster)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -110,9 +110,9 @@ public class NanoSmithBoltInfo
 				}
 				break;
 			}
-			if (actorsInLaser.Contains(caster))
+			if (actorsInRange.Contains(caster))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -121,21 +121,21 @@ public class NanoSmithBoltInfo
 					}
 					break;
 				}
-				actorsInLaser.Remove(caster);
+				actorsInRange.Remove(caster);
 			}
 		}
-		endPoints = TargeterUtils.TrimTargetsAndGetLaserCoordsToFarthestTarget(ref actorsInLaser, this.maxTargets, coords);
-		return actorsInLaser;
+		endPoints = TargeterUtils.TrimTargetsAndGetLaserCoordsToFarthestTarget(ref actorsInRange, maxTargets, coords);
+		return actorsInRange;
 	}
 
-	public unsafe List<ActorData> GetRadialBoltHitActors(ActorData caster, AbilityPriority boltPhase, Vector3 fromLosCheckPos, int count, bool relativeToAimDirection, Vector3 aimDirection, float startAngleOffset, out List<List<ActorData>> sequenceActors, out List<VectorUtils.LaserCoords> sequenceEndPoints, List<NonActorTargetInfo> nonActorTargetInfo)
+	public List<ActorData> GetRadialBoltHitActors(ActorData caster, AbilityPriority boltPhase, Vector3 fromLosCheckPos, int count, bool relativeToAimDirection, Vector3 aimDirection, float startAngleOffset, out List<List<ActorData>> sequenceActors, out List<VectorUtils.LaserCoords> sequenceEndPoints, List<NonActorTargetInfo> nonActorTargetInfo)
 	{
 		List<ActorData> list = new List<ActorData>();
 		sequenceActors = new List<List<ActorData>>();
 		sequenceEndPoints = new List<VectorUtils.LaserCoords>();
 		if (count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -144,9 +144,9 @@ public class NanoSmithBoltInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBoltInfo.GetRadialBoltHitActors(ActorData, AbilityPriority, Vector3, int, bool, Vector3, float, List<List<ActorData>>*, List<VectorUtils.LaserCoords>*, List<NonActorTargetInfo>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			float num = startAngleOffset;
 			if (relativeToAimDirection)
@@ -157,16 +157,16 @@ public class NanoSmithBoltInfo
 			for (int i = 0; i < count; i++)
 			{
 				Vector3 boltDirection = VectorUtils.AngleDegreesToVector(num + (float)i * num2);
-				VectorUtils.LaserCoords item;
-				List<ActorData> actorsHitByBolt = this.GetActorsHitByBolt(fromLosCheckPos, boltDirection, caster, boltPhase, out item, nonActorTargetInfo, false, false, false);
+				VectorUtils.LaserCoords endPoints;
+				List<ActorData> actorsHitByBolt = GetActorsHitByBolt(fromLosCheckPos, boltDirection, caster, boltPhase, out endPoints, nonActorTargetInfo);
 				using (List<ActorData>.Enumerator enumerator = actorsHitByBolt.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						ActorData item2 = enumerator.Current;
-						if (!list.Contains(item2))
+						ActorData current = enumerator.Current;
+						if (!list.Contains(current))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -175,10 +175,10 @@ public class NanoSmithBoltInfo
 								}
 								break;
 							}
-							list.Add(item2);
+							list.Add(current);
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -189,9 +189,9 @@ public class NanoSmithBoltInfo
 					}
 				}
 				sequenceActors.Add(actorsHitByBolt);
-				sequenceEndPoints.Add(item);
+				sequenceEndPoints.Add(endPoints);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -206,48 +206,51 @@ public class NanoSmithBoltInfo
 
 	public List<ServerClientUtils.SequenceStartData> CreateSequenceStartDataForBolts(GameObject sequencePrefab, ActorData caster, SequenceSource source, List<List<ActorData>> sequenceActors, List<VectorUtils.LaserCoords> sequenceEndPoints)
 	{
-		List<ServerClientUtils.SequenceStartData> result = new List<ServerClientUtils.SequenceStartData>();
-		this.AddSequenceStartDataForBolts(sequencePrefab, caster, source, sequenceActors, sequenceEndPoints, ref result);
-		return result;
+		List<ServerClientUtils.SequenceStartData> startDataList = new List<ServerClientUtils.SequenceStartData>();
+		AddSequenceStartDataForBolts(sequencePrefab, caster, source, sequenceActors, sequenceEndPoints, ref startDataList);
+		return startDataList;
 	}
 
-	public unsafe void AddSequenceStartDataForBolts(GameObject sequencePrefab, ActorData caster, SequenceSource source, List<List<ActorData>> sequenceActors, List<VectorUtils.LaserCoords> sequenceEndPoints, ref List<ServerClientUtils.SequenceStartData> startDataList)
+	public void AddSequenceStartDataForBolts(GameObject sequencePrefab, ActorData caster, SequenceSource source, List<List<ActorData>> sequenceActors, List<VectorUtils.LaserCoords> sequenceEndPoints, ref List<ServerClientUtils.SequenceStartData> startDataList)
 	{
-		if (startDataList != null)
+		if (startDataList == null)
 		{
-			for (int i = 0; i < sequenceActors.Count; i++)
+			return;
+		}
+		for (int i = 0; i < sequenceActors.Count; i++)
+		{
+			VectorUtils.LaserCoords laserCoords = sequenceEndPoints[i];
+			Vector3 start = laserCoords.start;
+			start.y = (float)Board.Get().BaselineHeight + sequenceHeightFromGround;
+			VectorUtils.LaserCoords laserCoords2 = sequenceEndPoints[i];
+			Vector3 end = laserCoords2.end;
+			end.y = (float)Board.Get().BaselineHeight + sequenceHeightFromGround;
+			SplineProjectileSequence.DelayedProjectileExtraParams delayedProjectileExtraParams = new SplineProjectileSequence.DelayedProjectileExtraParams();
+			delayedProjectileExtraParams.useOverrideStartPos = true;
+			delayedProjectileExtraParams.overrideStartPos = start;
+			ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(sequencePrefab, end, sequenceActors[i].ToArray(), caster, source, delayedProjectileExtraParams.ToArray());
+			startDataList.Add(item);
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				Vector3 start = sequenceEndPoints[i].start;
-				start.y = (float)Board.\u000E().BaselineHeight + this.sequenceHeightFromGround;
-				Vector3 end = sequenceEndPoints[i].end;
-				end.y = (float)Board.\u000E().BaselineHeight + this.sequenceHeightFromGround;
-				SplineProjectileSequence.DelayedProjectileExtraParams delayedProjectileExtraParams = new SplineProjectileSequence.DelayedProjectileExtraParams();
-				delayedProjectileExtraParams.useOverrideStartPos = true;
-				delayedProjectileExtraParams.overrideStartPos = start;
-				ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(sequencePrefab, end, sequenceActors[i].ToArray(), caster, source, delayedProjectileExtraParams.ToArray());
-				startDataList.Add(item);
+			case 0:
+				continue;
 			}
-			for (;;)
+			if (1 == 0)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBoltInfo.AddSequenceStartDataForBolts(GameObject, ActorData, SequenceSource, List<List<ActorData>>, List<VectorUtils.LaserCoords>, List<ServerClientUtils.SequenceStartData>*)).MethodHandle;
-			}
+			return;
 		}
 	}
 
-	public unsafe void ReportAbilityTooltipNumbers(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject enemySubject, AbilityTooltipSubject allySubject = AbilityTooltipSubject.Ally)
+	public void ReportAbilityTooltipNumbers(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject enemySubject, AbilityTooltipSubject allySubject = AbilityTooltipSubject.Ally)
 	{
-		if (this.includeAllies)
+		if (includeAllies)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -256,21 +259,21 @@ public class NanoSmithBoltInfo
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBoltInfo.ReportAbilityTooltipNumbers(List<AbilityTooltipNumber>*, AbilityTooltipSubject, AbilityTooltipSubject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.effectOnAllyHit.ReportAbilityTooltipNumbers(ref numbers, allySubject);
+			effectOnAllyHit.ReportAbilityTooltipNumbers(ref numbers, allySubject);
 		}
-		if (this.includeEnemies)
+		if (includeEnemies)
 		{
-			AbilityTooltipHelper.ReportDamage(ref numbers, enemySubject, this.damageAmount);
-			this.effectOnEnemyHit.ReportAbilityTooltipNumbers(ref numbers, enemySubject);
+			AbilityTooltipHelper.ReportDamage(ref numbers, enemySubject, damageAmount);
+			effectOnEnemyHit.ReportAbilityTooltipNumbers(ref numbers, enemySubject);
 		}
 	}
 
 	public NanoSmithBoltInfo GetShallowCopy()
 	{
-		return (NanoSmithBoltInfo)base.MemberwiseClone();
+		return (NanoSmithBoltInfo)MemberwiseClone();
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,53 +24,52 @@ public class AbilityMod_SniperOverwatch : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SniperOverwatch sniperOverwatch = targetAbility as SniperOverwatch;
-		if (sniperOverwatch != null)
+		if (!(sniperOverwatch != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperOverwatch.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_durationMod, "Duration", string.Empty, sniperOverwatch.m_duration, true, false);
-			AbilityMod.AddToken(tokens, this.m_enemyMaxHitsMod, "MaxHits", string.Empty, sniperOverwatch.m_maxHits, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, sniperOverwatch.m_onEnemyMoveThrough.m_damage, true, false);
-			if (this.m_useEnemyHitEffectOverride)
+			AbilityMod.AddToken(tokens, m_durationMod, "Duration", string.Empty, sniperOverwatch.m_duration);
+			AbilityMod.AddToken(tokens, m_enemyMaxHitsMod, "MaxHits", string.Empty, sniperOverwatch.m_maxHits);
+			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, sniperOverwatch.m_onEnemyMoveThrough.m_damage);
+			if (m_useEnemyHitEffectOverride)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffectOverride, "EnemyHitEffect", sniperOverwatch.m_onEnemyMoveThrough.m_effect);
+					return;
 				}
-				AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffectOverride, "EnemyHitEffect", sniperOverwatch.m_onEnemyMoveThrough.m_effect, true);
 			}
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SniperOverwatch sniperOverwatch = base.GetTargetAbilityOnAbilityData(abilityData) as SniperOverwatch;
+		SniperOverwatch sniperOverwatch = GetTargetAbilityOnAbilityData(abilityData) as SniperOverwatch;
 		bool flag = sniperOverwatch != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt durationMod = this.m_durationMod;
-		string prefix = "[Barrier Duration]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt durationMod = m_durationMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -79,9 +78,9 @@ public class AbilityMod_SniperOverwatch : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperOverwatch.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = sniperOverwatch.m_duration;
 		}
@@ -89,16 +88,14 @@ public class AbilityMod_SniperOverwatch : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(durationMod, prefix, showBaseVal, baseVal);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_enemyMaxHitsMod, "[Barrier Max Hits]", flag, (!flag) ? 0 : sniperOverwatch.m_maxHits);
-		string str2 = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix2 = "[Move Through Damage]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(durationMod, "[Barrier Duration]", flag, baseVal);
+		empty += AbilityModHelper.GetModPropertyDesc(m_enemyMaxHitsMod, "[Barrier Max Hits]", flag, flag ? sniperOverwatch.m_maxHits : 0);
+		string str2 = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -113,10 +110,10 @@ public class AbilityMod_SniperOverwatch : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(damageMod, prefix2, showBaseVal2, baseVal2);
-		if (this.m_useEnemyHitEffectOverride)
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(damageMod, "[Move Through Damage]", flag, baseVal2);
+		if (m_useEnemyHitEffectOverride)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -125,8 +122,8 @@ public class AbilityMod_SniperOverwatch : AbilityMod
 				}
 				break;
 			}
-			text += AbilityModHelper.GetModEffectInfoDesc(this.m_enemyHitEffectOverride, "{ Enemy On Move Through Effect Override }", string.Empty, flag, (!flag) ? null : sniperOverwatch.m_onEnemyMoveThrough.m_effect);
+			empty += AbilityModHelper.GetModEffectInfoDesc(m_enemyHitEffectOverride, "{ Enemy On Move Through Effect Override }", string.Empty, flag, (!flag) ? null : sniperOverwatch.m_onEnemyMoveThrough.m_effect);
 		}
-		return text;
+		return empty;
 	}
 }

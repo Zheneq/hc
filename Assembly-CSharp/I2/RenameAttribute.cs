@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 namespace I2
@@ -11,14 +10,15 @@ namespace I2
 
 		public readonly int HorizSpace;
 
-		public RenameAttribute(int \u001D, string \u000E, string \u0012 = null)
+		public RenameAttribute(int _001D, string _000E, string _0012 = null)
 		{
-			this.Name = \u000E;
-			this.Tooltip = \u0012;
-			this.HorizSpace = \u001D;
+			Name = _000E;
+			Tooltip = _0012;
+			HorizSpace = _001D;
 		}
 
-		public RenameAttribute(string \u001D, string \u000E = null) : this(0, \u001D, \u000E)
+		public RenameAttribute(string _001D, string _000E = null)
+			: this(0, _001D, _000E)
 		{
 		}
 	}

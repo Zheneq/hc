@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,15 +33,15 @@ public class UIBaseButton : MonoBehaviour
 
 	protected ActorTurnSM m_turnSM;
 
-	public static Color s_bgUnavailableColor = new Color(0.274509817f, 0.274509817f, 0.274509817f);
+	public static Color s_bgUnavailableColor = new Color(14f / 51f, 14f / 51f, 14f / 51f);
 
-	public static Color s_bgPrepColor = new Color(0.533333361f, 0.003921569f, 0.9411765f);
+	public static Color s_bgPrepColor = new Color(8f / 15f, 0.003921569f, 0.9411765f);
 
-	public static Color s_bgEvasionColor = new Color(0.5254902f, 0.8392157f, 0.003921569f);
+	public static Color s_bgEvasionColor = new Color(134f / 255f, 214f / 255f, 0.003921569f);
 
-	public static Color s_bgCombatColor = new Color(0.980392158f, 0.6666667f, 0f);
+	public static Color s_bgCombatColor = new Color(50f / 51f, 2f / 3f, 0f);
 
-	public static Color s_fgUnavailableColor = new Color(0.384313732f, 0.384313732f, 0.384313732f);
+	public static Color s_fgUnavailableColor = new Color(98f / 255f, 98f / 255f, 98f / 255f);
 
 	public static Color s_queuedGlowColor = new Color(1f, 0.4f, 0f);
 
@@ -58,7 +57,7 @@ public class UIBaseButton : MonoBehaviour
 
 	public AbilityData.AbilityEntry GetEntry()
 	{
-		return this.m_abilityEntry;
+		return m_abilityEntry;
 	}
 
 	public static Color ColorForUIPhase(UIQueueListPanel.UIPhase phase)
@@ -66,11 +65,11 @@ public class UIBaseButton : MonoBehaviour
 		switch (phase)
 		{
 		case UIQueueListPanel.UIPhase.Prep:
-			return UIBaseButton.s_bgPrepColor;
+			return s_bgPrepColor;
 		case UIQueueListPanel.UIPhase.Evasion:
-			return UIBaseButton.s_bgEvasionColor;
+			return s_bgEvasionColor;
 		case UIQueueListPanel.UIPhase.Combat:
-			return UIBaseButton.s_bgCombatColor;
+			return s_bgCombatColor;
 		default:
 			return Color.black;
 		}
@@ -93,9 +92,9 @@ public class UIBaseButton : MonoBehaviour
 
 	private bool ShowTooltip(UITooltipBase tooltip)
 	{
-		if (this.m_abilityEntry != null)
+		if (m_abilityEntry != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -104,17 +103,17 @@ public class UIBaseButton : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseButton.ShowTooltip(UITooltipBase)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!(this.m_abilityEntry.ability == null))
+			if (!(m_abilityEntry.ability == null))
 			{
-				UIAbilityTooltip uiabilityTooltip = (UIAbilityTooltip)tooltip;
-				uiabilityTooltip.Setup(this.m_abilityEntry.ability);
+				UIAbilityTooltip uIAbilityTooltip = (UIAbilityTooltip)tooltip;
+				uIAbilityTooltip.Setup(m_abilityEntry.ability);
 				return true;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -129,13 +128,13 @@ public class UIBaseButton : MonoBehaviour
 
 	public virtual void Setup(AbilityData.AbilityEntry abilityEntry, AbilityData.ActionType actionType, AbilityData abilityData)
 	{
-		this.m_abilityEntry = abilityEntry;
-		this.m_actionType = actionType;
-		this.m_abilityData = abilityData;
-		this.m_turnSM = this.m_abilityData.GetComponent<ActorTurnSM>();
-		if (this.m_abilityEntry != null)
+		m_abilityEntry = abilityEntry;
+		m_actionType = actionType;
+		m_abilityData = abilityData;
+		m_turnSM = m_abilityData.GetComponent<ActorTurnSM>();
+		if (m_abilityEntry != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -144,59 +143,57 @@ public class UIBaseButton : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseButton.Setup(AbilityData.AbilityEntry, AbilityData.ActionType, AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_abilityEntry.ability != null)
+			if (m_abilityEntry.ability != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						UIManager.SetGameObjectActive(m_theSprite, true);
+						m_theSprite.sprite = m_abilityEntry.ability.sprite;
+						m_hotKeyLabel.text = m_abilityEntry.hotkey;
+						return;
 					}
-					break;
 				}
-				UIManager.SetGameObjectActive(this.m_theSprite, true, null);
-				this.m_theSprite.sprite = this.m_abilityEntry.ability.sprite;
-				this.m_hotKeyLabel.text = this.m_abilityEntry.hotkey;
-				return;
 			}
 		}
-		if (this.m_abilityEntry != null)
+		if (m_abilityEntry != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_statusLabel.text = string.Empty;
+					UIManager.SetGameObjectActive(m_theSprite, false);
+					theButton.enabled = false;
+					m_hotKeyLabel.text = m_abilityEntry.hotkey;
+					m_hotKeyLabel.color = s_fgUnavailableColor;
+					return;
 				}
-				break;
 			}
-			this.m_statusLabel.text = string.Empty;
-			UIManager.SetGameObjectActive(this.m_theSprite, false, null);
-			this.theButton.enabled = false;
-			this.m_hotKeyLabel.text = this.m_abilityEntry.hotkey;
-			this.m_hotKeyLabel.color = UIBaseButton.s_fgUnavailableColor;
 		}
-		else
-		{
-			this.m_statusLabel.text = string.Empty;
-			UIManager.SetGameObjectActive(this.m_theSprite, false, null);
-			this.theButton.enabled = false;
-			this.m_hotKeyLabel.color = UIBaseButton.s_fgUnavailableColor;
-		}
+		m_statusLabel.text = string.Empty;
+		UIManager.SetGameObjectActive(m_theSprite, false);
+		theButton.enabled = false;
+		m_hotKeyLabel.color = s_fgUnavailableColor;
 	}
 
 	public virtual void Start()
 	{
 		UITooltipHoverObject component;
-		if (this.theButton != null)
+		if (theButton != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -205,28 +202,29 @@ public class UIBaseButton : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseButton.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			component = this.theButton.GetComponent<UITooltipHoverObject>();
+			component = theButton.GetComponent<UITooltipHoverObject>();
 		}
 		else
 		{
-			component = base.GetComponent<UITooltipHoverObject>();
+			component = GetComponent<UITooltipHoverObject>();
 		}
-		if (component)
+		if (!component)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			component.Setup(TooltipType.Ability, new TooltipPopulateCall(this.ShowTooltip), null);
+			component.Setup(TooltipType.Ability, ShowTooltip);
+			return;
 		}
 	}
 

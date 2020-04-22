@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class AbilityUtil_Targeter_VariableLaser : AbilityUtil_Targeter_Laser
@@ -13,34 +12,35 @@ public class AbilityUtil_Targeter_VariableLaser : AbilityUtil_Targeter_Laser
 
 	private AbilityModPropertyFloat m_widthMod;
 
-	public AbilityUtil_Targeter_VariableLaser(Ability ability, List<LaserLogicInfo> infoValues, TargeterUtils.VariableType thresholdType, bool affectsAllies = false, bool affectsCaster = false, int scoreBonus = 0) : base(ability, infoValues[0].m_width, infoValues[0].m_distance, infoValues[0].m_penetrateLoS, infoValues[0].m_maxTargets, affectsAllies, affectsCaster)
+	public AbilityUtil_Targeter_VariableLaser(Ability ability, List<LaserLogicInfo> infoValues, TargeterUtils.VariableType thresholdType, bool affectsAllies = false, bool affectsCaster = false, int scoreBonus = 0)
+		: base(ability, infoValues[0].m_width, infoValues[0].m_distance, infoValues[0].m_penetrateLoS, infoValues[0].m_maxTargets, affectsAllies, affectsCaster)
 	{
-		this.m_infoValues = infoValues;
-		this.m_thresholdType = thresholdType;
-		this.m_scoreBonus = scoreBonus;
-		this.m_lengthMod = new AbilityModPropertyFloat();
-		this.m_widthMod = new AbilityModPropertyFloat();
+		m_infoValues = infoValues;
+		m_thresholdType = thresholdType;
+		m_scoreBonus = scoreBonus;
+		m_lengthMod = new AbilityModPropertyFloat();
+		m_widthMod = new AbilityModPropertyFloat();
 	}
 
 	public void SetLengthMod(AbilityModPropertyFloat lengthMod)
 	{
-		this.m_lengthMod = lengthMod;
+		m_lengthMod = lengthMod;
 	}
 
 	public void SetWidthMod(AbilityModPropertyFloat widthMod)
 	{
-		this.m_widthMod = widthMod;
+		m_widthMod = widthMod;
 	}
 
 	protected virtual void UpdateValues(ActorData targetingActor)
 	{
-		int num = this.m_scoreBonus + GameplayUtils.GetScoreForVariableType(targetingActor, this.m_thresholdType);
+		int num = m_scoreBonus + GameplayUtils.GetScoreForVariableType(targetingActor, m_thresholdType);
 		int index = 0;
-		for (int i = 1; i < this.m_infoValues.Count; i++)
+		for (int i = 1; i < m_infoValues.Count; i++)
 		{
-			if (num >= this.m_infoValues[i].m_threshold)
+			if (num >= m_infoValues[i].m_threshold)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -49,22 +49,22 @@ public class AbilityUtil_Targeter_VariableLaser : AbilityUtil_Targeter_Laser
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_VariableLaser.UpdateValues(ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				index = i;
 			}
 		}
-		this.m_width = this.m_widthMod.GetModifiedValue(this.m_infoValues[index].m_width);
-		this.m_distance = this.m_lengthMod.GetModifiedValue(this.m_infoValues[index].m_distance);
-		this.m_penetrateLoS = this.m_infoValues[index].m_penetrateLoS;
-		this.m_maxTargets = this.m_infoValues[index].m_maxTargets;
+		m_width = m_widthMod.GetModifiedValue(m_infoValues[index].m_width);
+		m_distance = m_lengthMod.GetModifiedValue(m_infoValues[index].m_distance);
+		m_penetrateLoS = m_infoValues[index].m_penetrateLoS;
+		m_maxTargets = m_infoValues[index].m_maxTargets;
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		this.UpdateValues(targetingActor);
+		UpdateValues(targetingActor);
 		base.UpdateTargeting(currentTarget, targetingActor);
 	}
 }

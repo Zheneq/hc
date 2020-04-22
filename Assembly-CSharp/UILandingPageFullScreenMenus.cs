@@ -1,7 +1,7 @@
-﻿using System;
+using LobbyGameClientMessages;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,6 +9,19 @@ using UnityEngine.UI;
 
 public class UILandingPageFullScreenMenus : UIScene
 {
+	public class TextChapterDisplayInfo
+	{
+		public string Label;
+
+		public _SelectableBtn DisplayBtn;
+
+		public string TitleTextString;
+
+		public string HeaderTextString;
+
+		public List<string> ContentTextString = new List<string>();
+	}
+
 	public Animator m_animator;
 
 	public RectTransform m_backgroundContainer;
@@ -163,15 +176,15 @@ public class UILandingPageFullScreenMenus : UIScene
 
 	private List<TextMeshProUGUI> TextListItemLabels = new List<TextMeshProUGUI>();
 
-	private List<UILandingPageFullScreenMenus.TextChapterDisplayInfo> SeasonLoreDisplayInfos = new List<UILandingPageFullScreenMenus.TextChapterDisplayInfo>();
+	private List<TextChapterDisplayInfo> SeasonLoreDisplayInfos = new List<TextChapterDisplayInfo>();
 
-	private Action m_onClose = delegate()
+	private Action m_onClose = delegate
 	{
 	};
 
 	public static UILandingPageFullScreenMenus Get()
 	{
-		return UILandingPageFullScreenMenus.s_instance;
+		return s_instance;
 	}
 
 	public override SceneType GetSceneType()
@@ -181,70 +194,70 @@ public class UILandingPageFullScreenMenus : UIScene
 
 	public override void Awake()
 	{
-		UILandingPageFullScreenMenus.s_instance = this;
-		UIManager.SetGameObjectActive(this.m_messageContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_feedbackContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_reportContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_facebookContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_textContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_videoContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
-		this.m_messageCloseBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseMessage);
-		this.m_textCloseBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseText);
-		this.m_videoCloseBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseVideo);
-		this.m_feedbackCloseBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseFeedback);
-		this.m_reportCloseBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseReport);
-		this.m_facebookCloseBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseFacebook);
-		this.m_feedbackSubmitBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.SubmitFeedback);
-		this.m_feedbackCancelBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseFeedback);
-		this.m_feedbackSuggestionBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.SuggestionClicked);
-		this.m_feedbackBugBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BugClicked);
-		_MouseEventPasser mouseEventPasser = this.m_textHeader.gameObject.AddComponent<_MouseEventPasser>();
-		mouseEventPasser.AddNewHandler(this.m_textScrollRect);
-		mouseEventPasser = this.m_textDescription.gameObject.AddComponent<_MouseEventPasser>();
-		mouseEventPasser.AddNewHandler(this.m_textScrollRect);
-		mouseEventPasser = this.m_textContent.gameObject.AddComponent<_MouseEventPasser>();
-		mouseEventPasser.AddNewHandler(this.m_textScrollRect);
-		this.m_textScrollRect.movementType = ScrollRect.MovementType.Clamped;
-		this.m_reportSubmitBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.SubmitReport);
-		this.m_reportCancelBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseReport);
-		this.m_facebookContinueBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ContinueFacebook);
-		this.m_reportPlayerButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnReportPlayer);
-		this.m_reportPlayerReason1Button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnReportPlayer1);
-		this.m_reportPlayerReason2Button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnReportPlayer2);
-		this.m_reportPlayerReason3Button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnReportPlayer3);
-		this.m_reportPlayerReason4Button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnReportPlayer4);
-		this.m_reportPlayerReason5Button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnReportPlayer5);
-		this.m_reportPlayerReason6Button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnReportPlayer6);
-		this.m_reportPlayerReason7Button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnReportPlayer7);
-		this.m_reportPlayerReason8Button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnReportPlayer8);
-		this.m_reportPlayerReason9Button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnReportPlayer9);
-		this.m_messageCloseBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.Close;
-		this.m_reportCloseBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.Close;
-		this.m_textCloseBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.Close;
-		this.m_videoCloseBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.Close;
-		this.m_facebookCloseBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.Close;
-		this.m_feedbackSubmitBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.MenuChoice;
-		this.m_feedbackCancelBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsCancel;
-		this.m_feedbackBugBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
-		this.m_feedbackSuggestionBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
-		this.m_reportSubmitBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.MenuChoice;
-		this.m_reportCancelBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsCancel;
-		this.m_reportPlayerButton.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
-		this.m_reportPlayerReason1Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
-		this.m_reportPlayerReason2Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
-		this.m_reportPlayerReason3Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
-		this.m_reportPlayerReason4Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
-		this.m_reportPlayerReason5Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
-		this.m_reportPlayerReason6Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
-		this.m_reportPlayerReason7Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
-		this.m_reportPlayerReason8Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
-		this.m_reportPlayerReason9Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
-		this.m_facebookContinueBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.MenuChoice;
+		s_instance = this;
+		UIManager.SetGameObjectActive(m_messageContainer, false);
+		UIManager.SetGameObjectActive(m_feedbackContainer, false);
+		UIManager.SetGameObjectActive(m_reportContainer, false);
+		UIManager.SetGameObjectActive(m_facebookContainer, false);
+		UIManager.SetGameObjectActive(m_textContainer, false);
+		UIManager.SetGameObjectActive(m_videoContainer, false);
+		UIManager.SetGameObjectActive(m_reportPlayerDropdown, false);
+		m_messageCloseBtn.spriteController.callback = CloseMessage;
+		m_textCloseBtn.spriteController.callback = CloseText;
+		m_videoCloseBtn.spriteController.callback = CloseVideo;
+		m_feedbackCloseBtn.spriteController.callback = CloseFeedback;
+		m_reportCloseBtn.spriteController.callback = CloseReport;
+		m_facebookCloseBtn.spriteController.callback = CloseFacebook;
+		m_feedbackSubmitBtn.spriteController.callback = SubmitFeedback;
+		m_feedbackCancelBtn.spriteController.callback = CloseFeedback;
+		m_feedbackSuggestionBtn.spriteController.callback = SuggestionClicked;
+		m_feedbackBugBtn.spriteController.callback = BugClicked;
+		_MouseEventPasser mouseEventPasser = m_textHeader.gameObject.AddComponent<_MouseEventPasser>();
+		mouseEventPasser.AddNewHandler(m_textScrollRect);
+		mouseEventPasser = m_textDescription.gameObject.AddComponent<_MouseEventPasser>();
+		mouseEventPasser.AddNewHandler(m_textScrollRect);
+		mouseEventPasser = m_textContent.gameObject.AddComponent<_MouseEventPasser>();
+		mouseEventPasser.AddNewHandler(m_textScrollRect);
+		m_textScrollRect.movementType = ScrollRect.MovementType.Clamped;
+		m_reportSubmitBtn.spriteController.callback = SubmitReport;
+		m_reportCancelBtn.spriteController.callback = CloseReport;
+		m_facebookContinueBtn.spriteController.callback = ContinueFacebook;
+		m_reportPlayerButton.spriteController.callback = OnReportPlayer;
+		m_reportPlayerReason1Button.spriteController.callback = OnReportPlayer1;
+		m_reportPlayerReason2Button.spriteController.callback = OnReportPlayer2;
+		m_reportPlayerReason3Button.spriteController.callback = OnReportPlayer3;
+		m_reportPlayerReason4Button.spriteController.callback = OnReportPlayer4;
+		m_reportPlayerReason5Button.spriteController.callback = OnReportPlayer5;
+		m_reportPlayerReason6Button.spriteController.callback = OnReportPlayer6;
+		m_reportPlayerReason7Button.spriteController.callback = OnReportPlayer7;
+		m_reportPlayerReason8Button.spriteController.callback = OnReportPlayer8;
+		m_reportPlayerReason9Button.spriteController.callback = OnReportPlayer9;
+		m_messageCloseBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.Close;
+		m_reportCloseBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.Close;
+		m_textCloseBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.Close;
+		m_videoCloseBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.Close;
+		m_facebookCloseBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.Close;
+		m_feedbackSubmitBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.MenuChoice;
+		m_feedbackCancelBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsCancel;
+		m_feedbackBugBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
+		m_feedbackSuggestionBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
+		m_reportSubmitBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.MenuChoice;
+		m_reportCancelBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsCancel;
+		m_reportPlayerButton.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
+		m_reportPlayerReason1Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
+		m_reportPlayerReason2Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
+		m_reportPlayerReason3Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
+		m_reportPlayerReason4Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
+		m_reportPlayerReason5Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
+		m_reportPlayerReason6Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
+		m_reportPlayerReason7Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
+		m_reportPlayerReason8Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
+		m_reportPlayerReason9Button.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
+		m_facebookContinueBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.MenuChoice;
 		_ButtonSwapSprite[] componentsInChildren = base.gameObject.GetComponentsInChildren<_ButtonSwapSprite>(true);
 		if (componentsInChildren != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -253,15 +266,15 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			for (int i = 0; i < componentsInChildren.Length; i++)
 			{
 				componentsInChildren[i].m_ignoreDialogboxes = true;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -271,9 +284,9 @@ public class UILandingPageFullScreenMenus : UIScene
 				break;
 			}
 		}
-		if (this.m_textScrollRect != null)
+		if (m_textScrollRect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -282,31 +295,32 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			this.m_textScrollRect.verticalScrollbar.value = 1f;
+			m_textScrollRect.verticalScrollbar.value = 1f;
 		}
-		this.m_textScrollRect.scrollSensitivity = 100f;
-		UIManager.SetGameObjectActive(this.m_backgroundContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_contentContainer, false, null);
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0015;
-		this.TextListItemBtns.AddRange(this.m_TextListItemParent.GetComponentsInChildren<_SelectableBtn>(true));
-		for (int j = 0; j < this.TextListItemBtns.Count; j++)
+		m_textScrollRect.scrollSensitivity = 100f;
+		UIManager.SetGameObjectActive(m_backgroundContainer, false);
+		UIManager.SetGameObjectActive(m_contentContainer, false);
+		m_reportReason = ClientFeedbackReport.FeedbackReason._0015;
+		TextListItemBtns.AddRange(m_TextListItemParent.GetComponentsInChildren<_SelectableBtn>(true));
+		for (int j = 0; j < TextListItemBtns.Count; j++)
 		{
-			this.TextListItemBtns[j].spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.TextItemClicked);
+			TextListItemBtns[j].spriteController.callback = TextItemClicked;
 		}
-		this.TextListItemLabels.Add(this.m_TextListLabel);
-		this.SetupDisplayInfo();
+		TextListItemLabels.Add(m_TextListLabel);
+		SetupDisplayInfo();
 		if (HitchDetector.Get() != null)
 		{
-			HitchDetector.Get().AddNewLayoutGroup(this.m_textContainer.GetComponent<LayoutGroup>());
+			HitchDetector.Get().AddNewLayoutGroup(m_textContainer.GetComponent<LayoutGroup>());
 		}
 		base.Awake();
 	}
 
 	public bool IsActive()
 	{
-		if (!this.m_messageVisible)
+		int result;
+		if (!m_messageVisible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -315,13 +329,13 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.IsActive()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_feedbackVisible)
+			if (!m_feedbackVisible)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -330,9 +344,9 @@ public class UILandingPageFullScreenMenus : UIScene
 					}
 					break;
 				}
-				if (!this.m_reportVisible)
+				if (!m_reportVisible)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -341,9 +355,9 @@ public class UILandingPageFullScreenMenus : UIScene
 						}
 						break;
 					}
-					if (!this.m_facebookVisible)
+					if (!m_facebookVisible)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -352,9 +366,9 @@ public class UILandingPageFullScreenMenus : UIScene
 							}
 							break;
 						}
-						if (!this.m_textVisible && !this.m_videoVisible)
+						if (!m_textVisible && !m_videoVisible)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -363,244 +377,257 @@ public class UILandingPageFullScreenMenus : UIScene
 								}
 								break;
 							}
-							return Options_UI.Get().IsVisible();
+							result = (Options_UI.Get().IsVisible() ? 1 : 0);
+							goto IL_007f;
 						}
 					}
 				}
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_007f;
+		IL_007f:
+		return (byte)result != 0;
 	}
 
 	public bool IsVideoVisible()
 	{
-		return this.m_videoVisible;
+		return m_videoVisible;
 	}
 
 	private void DoVisible(bool visible)
 	{
-		this.m_windowVisible = visible;
-		UIManager.SetGameObjectActive(this.m_backgroundContainer, true, null);
-		UIManager.SetGameObjectActive(this.m_contentContainer, true, null);
-		UIManager.SetGameObjectActive(this.m_animator, true, null);
+		m_windowVisible = visible;
+		UIManager.SetGameObjectActive(m_backgroundContainer, true);
+		UIManager.SetGameObjectActive(m_contentContainer, true);
+		UIManager.SetGameObjectActive(m_animator, true);
 		if (visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_animator.Play("PanelDefaultIN", 0, 0f);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.DoVisible(bool)).MethodHandle;
-			}
-			this.m_animator.Play("PanelDefaultIN", 0, 0f);
 		}
-		else
-		{
-			this.m_animator.Play("PanelDefaultOUT", 0, 0f);
-		}
+		m_animator.Play("PanelDefaultOUT", 0, 0f);
 	}
 
 	public void SetVisible(bool visible)
 	{
-		if (this.m_windowVisible == visible)
+		if (m_windowVisible == visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetVisible(bool)).MethodHandle;
-			}
-			return;
 		}
-		this.DoVisible(visible);
+		DoVisible(visible);
 	}
 
 	public void CloseMenu()
 	{
-		if (this.m_messageVisible)
+		if (m_messageVisible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					CloseMessage(null);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.CloseMenu()).MethodHandle;
-			}
-			this.CloseMessage(null);
 		}
-		else if (this.m_feedbackVisible)
+		if (m_feedbackVisible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					CloseFeedback(null);
+					return;
 				}
-				break;
 			}
-			this.CloseFeedback(null);
 		}
-		else if (this.m_reportVisible)
+		if (m_reportVisible)
 		{
-			this.CloseReport(null);
+			CloseReport(null);
+			return;
 		}
-		else if (this.m_facebookVisible)
+		if (m_facebookVisible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					CloseFacebook(null);
+					return;
 				}
-				break;
 			}
-			this.CloseFacebook(null);
 		}
-		else if (this.m_textVisible)
+		if (m_textVisible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					CloseText(null);
+					return;
 				}
-				break;
 			}
-			this.CloseText(null);
 		}
-		else if (this.m_videoVisible)
+		if (m_videoVisible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					CloseVideo(null);
+					return;
 				}
-				break;
 			}
-			this.CloseVideo(null);
 		}
-		else if (Options_UI.Get().IsVisible())
+		if (Options_UI.Get().IsVisible())
 		{
-			this.SetOptionsContainerVisible(false);
+			SetOptionsContainerVisible(false);
 		}
-		else if (KeyBinding_UI.Get().IsVisible())
+		else
 		{
-			for (;;)
+			if (!KeyBinding_UI.Get().IsVisible())
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				SetKeyBindingContainerVisible(false);
+				return;
 			}
-			this.SetKeyBindingContainerVisible(false);
 		}
 	}
 
 	public void CloseMessage(BaseEventData data)
 	{
-		this.SetMessageContainerVisible(false);
-		if (this.m_onClose != null)
+		SetMessageContainerVisible(false);
+		if (m_onClose == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.CloseMessage(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_onClose();
-			this.m_onClose = null;
+			m_onClose();
+			m_onClose = null;
+			return;
 		}
 	}
 
 	public void CloseText(BaseEventData data)
 	{
-		this.SetTextContainerVisible(false, false);
+		SetTextContainerVisible(false);
 	}
 
 	public void CloseVideo(BaseEventData data)
 	{
-		this.SetVideoContainerVisible(false);
+		SetVideoContainerVisible(false);
 	}
 
 	public void CloseFeedback(BaseEventData data)
 	{
-		this.SetFeedbackContainerVisible(false);
+		SetFeedbackContainerVisible(false);
 	}
 
 	public void CloseReport(BaseEventData data)
 	{
-		this.SetReportContainerVisible(false, string.Empty, 0L, false);
+		SetReportContainerVisible(false, string.Empty, 0L);
 	}
 
 	public void CloseFacebook(BaseEventData data)
 	{
-		this.SetFacebookContainerVisible(false, null);
+		SetFacebookContainerVisible(false, null);
 	}
 
 	public void ToggleMessageContainerVisible()
 	{
-		this.SetMessageContainerVisible(!this.m_messageContainer.gameObject.activeSelf);
+		SetMessageContainerVisible(!m_messageContainer.gameObject.activeSelf);
 	}
 
 	public void ToggleFeedbackContainerVisible()
 	{
-		this.SetFeedbackContainerVisible(!this.m_feedbackContainer.gameObject.activeSelf);
+		SetFeedbackContainerVisible(!m_feedbackContainer.gameObject.activeSelf);
 	}
 
 	public void ToggleReportContainerVisible()
 	{
-		this.SetReportContainerVisible(!this.m_reportContainer.gameObject.activeSelf, string.Empty, 0L, false);
+		SetReportContainerVisible(!m_reportContainer.gameObject.activeSelf, string.Empty, 0L);
 	}
 
 	public void ToggleFacebookContainerVisible()
 	{
-		this.SetReportContainerVisible(!this.m_facebookContainer.gameObject.activeSelf, string.Empty, 0L, false);
+		SetReportContainerVisible(!m_facebookContainer.gameObject.activeSelf, string.Empty, 0L);
 	}
 
 	public void ToggleTextContainerVisible()
 	{
-		this.SetTextContainerVisible(!this.m_textContainer.gameObject.activeSelf, false);
+		SetTextContainerVisible(!m_textContainer.gameObject.activeSelf);
 	}
 
 	public void DisplayVideo(string movieAssetName, string MovieTitle)
 	{
-		UIVideoOverlayPanel component = this.m_videoContainer.GetComponent<UIVideoOverlayPanel>();
-		if (component)
+		UIVideoOverlayPanel component = m_videoContainer.GetComponent<UIVideoOverlayPanel>();
+		if ((bool)component)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -609,14 +636,14 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.DisplayVideo(string, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.SetVideoContainerVisible(true);
+			SetVideoContainerVisible(true);
 			component.PlayVideo(movieAssetName);
 		}
-		this.m_videoTextHeader.text = MovieTitle;
+		m_videoTextHeader.text = MovieTitle;
 	}
 
 	public void ToggleOptionsContainerVisible()
@@ -633,7 +660,7 @@ public class UILandingPageFullScreenMenus : UIScene
 			SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(i + 1);
 			if (seasonTemplate.IsTutorial)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -642,14 +669,18 @@ public class UILandingPageFullScreenMenus : UIScene
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetupDisplayInfo()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 			}
-			else if (seasonTemplate.Index < activeSeason)
+			else
 			{
-				for (;;)
+				if (seasonTemplate.Index >= activeSeason)
+				{
+					continue;
+				}
+				while (true)
 				{
 					switch (7)
 					{
@@ -658,19 +689,20 @@ public class UILandingPageFullScreenMenus : UIScene
 					}
 					break;
 				}
-				for (int j = 0; j < seasonTemplate.Chapters.Count; j++)
+				int num2 = 0;
+				while (num2 < seasonTemplate.Chapters.Count)
 				{
-					SeasonChapter seasonChapter = seasonTemplate.Chapters[j];
+					SeasonChapter seasonChapter = seasonTemplate.Chapters[num2];
 					string displayName = seasonTemplate.GetDisplayName();
-					string headerTextString = StringUtil.TR_SeasonStorytimeHeader(seasonTemplate.Index, j + 1, 1);
+					string headerTextString = StringUtil.TR_SeasonStorytimeHeader(seasonTemplate.Index, num2 + 1, 1);
 					List<string> list = new List<string>();
-					for (int k = 0; k < seasonChapter.StorytimePanels.Count; k++)
+					for (int j = 0; j < seasonChapter.StorytimePanels.Count; j++)
 					{
-						list.Add(StringUtil.TR_SeasonStorytimeLongBody(seasonTemplate.Index, j + 1, k + 1));
+						list.Add(StringUtil.TR_SeasonStorytimeLongBody(seasonTemplate.Index, num2 + 1, j + 1));
 					}
-					if (num >= this.TextListItemBtns.Count)
+					if (num >= TextListItemBtns.Count)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -679,42 +711,44 @@ public class UILandingPageFullScreenMenus : UIScene
 							}
 							break;
 						}
-						_SelectableBtn selectableBtn = UnityEngine.Object.Instantiate<_SelectableBtn>(this.m_TextListItem);
-						UIManager.ReparentTransform(selectableBtn.transform, this.m_TextListItemParent.transform);
-						selectableBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.TextItemClicked);
-						this.TextListItemBtns.Add(selectableBtn);
+						_SelectableBtn selectableBtn = UnityEngine.Object.Instantiate(m_TextListItem);
+						UIManager.ReparentTransform(selectableBtn.transform, m_TextListItemParent.transform);
+						selectableBtn.spriteController.callback = TextItemClicked;
+						TextListItemBtns.Add(selectableBtn);
 					}
-					_SelectableBtn selectableBtn2 = this.TextListItemBtns[num];
+					_SelectableBtn selectableBtn2 = TextListItemBtns[num];
 					TextMeshProUGUI[] componentsInChildren = selectableBtn2.GetComponentsInChildren<TextMeshProUGUI>(true);
-					for (int l = 0; l < componentsInChildren.Length; l++)
+					for (int k = 0; k < componentsInChildren.Length; k++)
 					{
-						componentsInChildren[l].text = string.Format(StringUtil.TR("ChapterNumber", "Global"), j + 1);
+						componentsInChildren[k].text = string.Format(StringUtil.TR("ChapterNumber", "Global"), num2 + 1);
 					}
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						string label = string.Empty;
+						if (num2 == 0)
+						{
+							label = string.Format(StringUtil.TR("SeasonNumber", "Global"), seasonTemplate.GetPlayerFacingSeasonNumber());
+						}
+						SeasonLoreDisplayInfos.Add(new TextChapterDisplayInfo
+						{
+							Label = label,
+							TitleTextString = displayName,
+							HeaderTextString = headerTextString,
+							ContentTextString = list,
+							DisplayBtn = selectableBtn2
+						});
+						num++;
+						num2++;
+						goto IL_0229;
 					}
-					string label = string.Empty;
-					if (j == 0)
-					{
-						label = string.Format(StringUtil.TR("SeasonNumber", "Global"), seasonTemplate.GetPlayerFacingSeasonNumber());
-					}
-					this.SeasonLoreDisplayInfos.Add(new UILandingPageFullScreenMenus.TextChapterDisplayInfo
-					{
-						Label = label,
-						TitleTextString = displayName,
-						HeaderTextString = headerTextString,
-						ContentTextString = list,
-						DisplayBtn = selectableBtn2
-					});
-					num++;
+					IL_0229:;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -725,14 +759,15 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
@@ -740,11 +775,11 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		int num = 0;
 		int num2 = 0;
-		for (int i = 0; i < this.TextListItemBtns.Count; i++)
+		for (int i = 0; i < TextListItemBtns.Count; i++)
 		{
-			if (i < this.SeasonLoreDisplayInfos.Count)
+			if (i < SeasonLoreDisplayInfos.Count)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -753,13 +788,13 @@ public class UILandingPageFullScreenMenus : UIScene
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetupSeasonLoreButtons()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (!this.SeasonLoreDisplayInfos[i].Label.IsNullOrEmpty())
+				if (!SeasonLoreDisplayInfos[i].Label.IsNullOrEmpty())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -768,9 +803,9 @@ public class UILandingPageFullScreenMenus : UIScene
 						}
 						break;
 					}
-					if (num >= this.TextListItemLabels.Count)
+					if (num >= TextListItemLabels.Count)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -779,46 +814,47 @@ public class UILandingPageFullScreenMenus : UIScene
 							}
 							break;
 						}
-						TextMeshProUGUI textMeshProUGUI = UnityEngine.Object.Instantiate<TextMeshProUGUI>(this.m_TextListLabel);
-						UIManager.ReparentTransform(textMeshProUGUI.transform, this.m_TextListItemParent.transform);
-						this.TextListItemLabels.Add(textMeshProUGUI);
+						TextMeshProUGUI textMeshProUGUI = UnityEngine.Object.Instantiate(m_TextListLabel);
+						UIManager.ReparentTransform(textMeshProUGUI.transform, m_TextListItemParent.transform);
+						TextListItemLabels.Add(textMeshProUGUI);
 					}
-					TextMeshProUGUI textMeshProUGUI2 = this.TextListItemLabels[num];
-					UIManager.SetGameObjectActive(textMeshProUGUI2, true, null);
+					TextMeshProUGUI textMeshProUGUI2 = TextListItemLabels[num];
+					UIManager.SetGameObjectActive(textMeshProUGUI2, true);
 					textMeshProUGUI2.transform.SetSiblingIndex(num2);
-					textMeshProUGUI2.text = this.SeasonLoreDisplayInfos[i].Label;
+					textMeshProUGUI2.text = SeasonLoreDisplayInfos[i].Label;
 					num2++;
 					num++;
 				}
-				this.SeasonLoreDisplayInfos[i].DisplayBtn.transform.SetSiblingIndex(num2);
+				SeasonLoreDisplayInfos[i].DisplayBtn.transform.SetSiblingIndex(num2);
 				num2++;
-				this.SeasonLoreDisplayInfos[i].DisplayBtn = this.TextListItemBtns[i];
+				SeasonLoreDisplayInfos[i].DisplayBtn = TextListItemBtns[i];
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.TextListItemBtns[i], false, null);
+				UIManager.SetGameObjectActive(TextListItemBtns[i], false);
 			}
 		}
-		for (int j = num; j < this.TextListItemLabels.Count; j++)
+		for (int j = num; j < TextListItemLabels.Count; j++)
 		{
-			UIManager.SetGameObjectActive(this.TextListItemLabels[j], false, null);
+			UIManager.SetGameObjectActive(TextListItemLabels[j], false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void SetupLoreInfo()
 	{
-		if (this.SeasonLoreDisplayInfos.Count == 0)
+		if (SeasonLoreDisplayInfos.Count == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -827,107 +863,68 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetupLoreInfo()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.SetupDisplayInfo();
+			SetupDisplayInfo();
 		}
-		this.SetupSeasonLoreButtons();
+		SetupSeasonLoreButtons();
 	}
 
 	public void DisplayPreviousSeasonChapter()
 	{
-		this.SetTextContainerVisible(true, true);
-		this.SetupLoreInfo();
-		for (int i = 0; i < this.TextListItemBtns.Count; i++)
+		SetTextContainerVisible(true, true);
+		SetupLoreInfo();
+		for (int i = 0; i < TextListItemBtns.Count; i++)
 		{
-			UIManager.SetGameObjectActive(this.TextListItemBtns[i], i < this.SeasonLoreDisplayInfos.Count, null);
+			UIManager.SetGameObjectActive(TextListItemBtns[i], i < SeasonLoreDisplayInfos.Count);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.DisplayPreviousSeasonChapter()).MethodHandle;
-		}
-		if (this.SeasonLoreDisplayInfos.Count > 0)
-		{
-			for (int j = 0; j < this.SeasonLoreDisplayInfos.Count - 1; j++)
+			if (1 == 0)
 			{
-				this.SeasonLoreDisplayInfos[j].DisplayBtn.SetSelected(false, false, string.Empty, string.Empty);
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (;;)
+			if (SeasonLoreDisplayInfos.Count > 0)
 			{
-				switch (6)
+				for (int j = 0; j < SeasonLoreDisplayInfos.Count - 1; j++)
 				{
-				case 0:
-					continue;
+					SeasonLoreDisplayInfos[j].DisplayBtn.SetSelected(false, false, string.Empty, string.Empty);
 				}
-				break;
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					SeasonLoreDisplayInfos[SeasonLoreDisplayInfos.Count - 1].DisplayBtn.SetSelected(true, false, string.Empty, string.Empty);
+					DisplaySeasonLore(SeasonLoreDisplayInfos.Count - 1);
+					return;
+				}
 			}
-			this.SeasonLoreDisplayInfos[this.SeasonLoreDisplayInfos.Count - 1].DisplayBtn.SetSelected(true, false, string.Empty, string.Empty);
-			this.DisplaySeasonLore(this.SeasonLoreDisplayInfos.Count - 1, false);
+			return;
 		}
 	}
 
 	private IEnumerator SetupText(int index)
 	{
-		this.m_textHeader.text = this.SeasonLoreDisplayInfos[index].TitleTextString;
+		m_textHeader.text = SeasonLoreDisplayInfos[index].TitleTextString;
 		yield return 0;
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.<SetupText>c__Iterator0.MoveNext()).MethodHandle;
-		}
-		this.m_textDescription.text = this.SeasonLoreDisplayInfos[index].HeaderTextString;
-		yield return 0;
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		string ContentString = string.Empty;
-		for (int i = 0; i < this.SeasonLoreDisplayInfos[index].ContentTextString.Count; i++)
-		{
-			ContentString += this.SeasonLoreDisplayInfos[index].ContentTextString[i];
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.m_textContent.text = ContentString;
-		yield break;
+		/*Error: Unable to find new state assignment for yield return*/;
 	}
 
 	private void DisplaySeasonLore(int index, bool stagger = false)
 	{
 		if (stagger)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -936,22 +933,22 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.DisplaySeasonLore(int, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			base.StartCoroutine(this.SetupText(index));
+			StartCoroutine(SetupText(index));
 		}
 		else
 		{
-			this.m_textHeader.text = this.SeasonLoreDisplayInfos[index].TitleTextString;
-			this.m_textDescription.text = this.SeasonLoreDisplayInfos[index].HeaderTextString;
+			m_textHeader.text = SeasonLoreDisplayInfos[index].TitleTextString;
+			m_textDescription.text = SeasonLoreDisplayInfos[index].HeaderTextString;
 			string text = string.Empty;
-			for (int i = 0; i < this.SeasonLoreDisplayInfos[index].ContentTextString.Count; i++)
+			for (int i = 0; i < SeasonLoreDisplayInfos[index].ContentTextString.Count; i++)
 			{
-				text += this.SeasonLoreDisplayInfos[index].ContentTextString[i];
+				text += SeasonLoreDisplayInfos[index].ContentTextString[i];
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -960,39 +957,39 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			this.m_textContent.text = text;
+			m_textContent.text = text;
 		}
-		UIManager.SetGameObjectActive(this.m_textDescription, true, null);
-		UIManager.SetGameObjectActive(this.m_textImage, false, null);
-		this.SetTextContainerVisible(true, true);
+		UIManager.SetGameObjectActive(m_textDescription, true);
+		UIManager.SetGameObjectActive(m_textImage, false);
+		SetTextContainerVisible(true, true);
 	}
 
 	public void TextItemClicked(BaseEventData data)
 	{
-		for (int i = 0; i < this.SeasonLoreDisplayInfos.Count; i++)
+		for (int i = 0; i < SeasonLoreDisplayInfos.Count; i++)
 		{
-			if (this.SeasonLoreDisplayInfos[i].DisplayBtn.spriteController.gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
+			if (SeasonLoreDisplayInfos[i].DisplayBtn.spriteController.gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
 			{
-				this.SeasonLoreDisplayInfos[i].DisplayBtn.SetSelected(true, false, string.Empty, string.Empty);
-				this.DisplaySeasonLore(i, true);
+				SeasonLoreDisplayInfos[i].DisplayBtn.SetSelected(true, false, string.Empty, string.Empty);
+				DisplaySeasonLore(i, true);
 			}
 			else
 			{
-				this.SeasonLoreDisplayInfos[i].DisplayBtn.SetSelected(false, false, string.Empty, string.Empty);
+				SeasonLoreDisplayInfos[i].DisplayBtn.SetSelected(false, false, string.Empty, string.Empty);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.TextItemClicked(BaseEventData)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
@@ -1000,66 +997,66 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		string language = HydrogenConfig.Get().Language;
-		this.m_textDescription.text = clientGameManager.ServerMessageOverrides.GetValueOrDefault(ServerMessageType.WhatsNewDescription, language);
-		this.m_textHeader.text = clientGameManager.ServerMessageOverrides.GetValueOrDefault(ServerMessageType.WhatsNewHeader, language);
-		this.m_textContent.text = clientGameManager.ServerMessageOverrides.GetValueOrDefault(ServerMessageType.WhatsNewText, language);
-		UIManager.SetGameObjectActive(this.m_textDescription, true, null);
-		UIManager.SetGameObjectActive(this.m_textImage, false, null);
-		this.SetTextContainerVisible(true, false);
+		m_textDescription.text = clientGameManager.ServerMessageOverrides.GetValueOrDefault(ServerMessageType.WhatsNewDescription, language);
+		m_textHeader.text = clientGameManager.ServerMessageOverrides.GetValueOrDefault(ServerMessageType.WhatsNewHeader, language);
+		m_textContent.text = clientGameManager.ServerMessageOverrides.GetValueOrDefault(ServerMessageType.WhatsNewText, language);
+		UIManager.SetGameObjectActive(m_textDescription, true);
+		UIManager.SetGameObjectActive(m_textImage, false);
+		SetTextContainerVisible(true);
 	}
 
 	public void DisplayPatchNotes()
 	{
 		string language = HydrogenConfig.Get().Language;
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		this.m_textDescription.text = clientGameManager.ServerMessageOverrides.GetValueOrDefault(ServerMessageType.ReleaseNotesDescription, language);
-		this.m_textHeader.text = clientGameManager.ServerMessageOverrides.GetValueOrDefault(ServerMessageType.ReleaseNotesHeader, language);
-		this.m_textContent.text = clientGameManager.ServerMessageOverrides.GetValueOrDefault(ServerMessageType.ReleaseNotesText, language);
-		UIManager.SetGameObjectActive(this.m_textDescription, true, null);
-		UIManager.SetGameObjectActive(this.m_textImage, false, null);
-		this.SetTextContainerVisible(true, false);
+		m_textDescription.text = clientGameManager.ServerMessageOverrides.GetValueOrDefault(ServerMessageType.ReleaseNotesDescription, language);
+		m_textHeader.text = clientGameManager.ServerMessageOverrides.GetValueOrDefault(ServerMessageType.ReleaseNotesHeader, language);
+		m_textContent.text = clientGameManager.ServerMessageOverrides.GetValueOrDefault(ServerMessageType.ReleaseNotesText, language);
+		UIManager.SetGameObjectActive(m_textDescription, true);
+		UIManager.SetGameObjectActive(m_textImage, false);
+		SetTextContainerVisible(true);
 	}
 
 	public void DisplayLoreArticle(LoreArticle article)
 	{
-		this.m_textHeader.text = article.GetTitle();
-		this.m_textContent.text = article.GetArticleText();
-		this.m_textImage.sprite = Resources.Load<Sprite>(article.ImagePath);
-		UIManager.SetGameObjectActive(this.m_textDescription, false, null);
-		UIManager.SetGameObjectActive(this.m_textImage, this.m_textImage.sprite != null, null);
-		this.SetTextContainerVisible(true, false);
+		m_textHeader.text = article.GetTitle();
+		m_textContent.text = article.GetArticleText();
+		m_textImage.sprite = Resources.Load<Sprite>(article.ImagePath);
+		UIManager.SetGameObjectActive(m_textDescription, false);
+		UIManager.SetGameObjectActive(m_textImage, m_textImage.sprite != null);
+		SetTextContainerVisible(true);
 	}
 
 	public void DisplayMessage(string title, string content, Action onClose = null)
 	{
-		this.m_broadcastMessageTitle.text = title;
-		this.m_broadcastMessageContent.text = content;
-		this.SetMessageContainerVisible(true);
-		this.m_onClose = onClose;
+		m_broadcastMessageTitle.text = title;
+		m_broadcastMessageContent.text = content;
+		SetMessageContainerVisible(true);
+		m_onClose = onClose;
 	}
 
 	public void SubmitFeedback(BaseEventData data)
 	{
 		ClientFeedbackReport clientFeedbackReport = new ClientFeedbackReport();
-		clientFeedbackReport.Message = this.m_feedbackInput.text;
-		if (this.m_feedbackSuggestionBtn.IsSelected())
+		clientFeedbackReport.Message = m_feedbackInput.text;
+		if (m_feedbackSuggestionBtn.IsSelected())
 		{
-			clientFeedbackReport.Reason = ClientFeedbackReport.FeedbackReason.\u000E;
+			clientFeedbackReport.Reason = ClientFeedbackReport.FeedbackReason._000E;
 		}
-		else if (this.m_feedbackBugBtn.IsSelected())
+		else if (m_feedbackBugBtn.IsSelected())
 		{
-			clientFeedbackReport.Reason = ClientFeedbackReport.FeedbackReason.\u0012;
+			clientFeedbackReport.Reason = ClientFeedbackReport.FeedbackReason._0012;
 		}
 		ClientGameManager.Get().SendFeedbackReport(clientFeedbackReport);
-		UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("ReportSent", "Global"), StringUtil.TR("BugReportSentBody", "Global"), StringUtil.TR("Ok", "Global"), null, -1, false);
-		this.CloseFeedback(data);
+		UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("ReportSent", "Global"), StringUtil.TR("BugReportSentBody", "Global"), StringUtil.TR("Ok", "Global"));
+		CloseFeedback(data);
 	}
 
 	public void SubmitReport(BaseEventData data)
 	{
-		if (!this.m_botMasqueradingAsHuman)
+		if (!m_botMasqueradingAsHuman)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1068,64 +1065,64 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SubmitReport(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			ClientFeedbackReport clientFeedbackReport = new ClientFeedbackReport();
-			clientFeedbackReport.Reason = this.m_reportReason;
-			clientFeedbackReport.ReportedPlayerHandle = this.m_reportPlayerHandle;
-			clientFeedbackReport.ReportedPlayerAccountId = this.m_reportPlayerAccountId;
-			clientFeedbackReport.Message = this.m_reportInput.text;
+			clientFeedbackReport.Reason = m_reportReason;
+			clientFeedbackReport.ReportedPlayerHandle = m_reportPlayerHandle;
+			clientFeedbackReport.ReportedPlayerAccountId = m_reportPlayerAccountId;
+			clientFeedbackReport.Message = m_reportInput.text;
 			ClientGameManager.Get().SendFeedbackReport(clientFeedbackReport);
 		}
-		UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("ReportSent", "Global"), StringUtil.TR("YourReportWasSent", "Global"), StringUtil.TR("Ok", "Global"), null, -1, false);
-		this.CloseReport(data);
+		UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("ReportSent", "Global"), StringUtil.TR("YourReportWasSent", "Global"), StringUtil.TR("Ok", "Global"));
+		CloseReport(data);
 	}
 
 	public void ContinueFacebook(BaseEventData data)
 	{
-		ClientGameManager.Get().FacebookShareScreenshot(this.m_facebookInput.text);
-		this.CloseFacebook(data);
+		ClientGameManager.Get().FacebookShareScreenshot(m_facebookInput.text);
+		CloseFacebook(data);
 	}
 
 	public void SuggestionClicked(BaseEventData data)
 	{
-		this.m_feedbackSuggestionBtn.SetSelected(true, false, string.Empty, string.Empty);
-		this.m_feedbackBugBtn.SetSelected(false, false, string.Empty, string.Empty);
+		m_feedbackSuggestionBtn.SetSelected(true, false, string.Empty, string.Empty);
+		m_feedbackBugBtn.SetSelected(false, false, string.Empty, string.Empty);
 	}
 
 	public void BugClicked(BaseEventData data)
 	{
-		this.m_feedbackSuggestionBtn.SetSelected(false, false, string.Empty, string.Empty);
-		this.m_feedbackBugBtn.SetSelected(true, false, string.Empty, string.Empty);
+		m_feedbackSuggestionBtn.SetSelected(false, false, string.Empty, string.Empty);
+		m_feedbackBugBtn.SetSelected(true, false, string.Empty, string.Empty);
 	}
 
 	private void CheckBG()
 	{
-		bool visible = this.IsActive();
-		this.SetVisible(visible);
+		bool visible = IsActive();
+		SetVisible(visible);
 	}
 
 	public void SetMessageContainerVisible(bool visible)
 	{
-		this.m_messageVisible = visible;
-		UIManager.SetGameObjectActive(this.m_messageContainer, visible, null);
-		this.CheckBG();
+		m_messageVisible = visible;
+		UIManager.SetGameObjectActive(m_messageContainer, visible);
+		CheckBG();
 	}
 
 	public bool IsMessageContainerVisible()
 	{
-		return this.m_messageVisible;
+		return m_messageVisible;
 	}
 
 	public void SetFeedbackContainerVisible(bool visible)
 	{
-		this.m_feedbackVisible = visible;
-		UIManager.SetGameObjectActive(this.m_feedbackContainer, visible, null);
+		m_feedbackVisible = visible;
+		UIManager.SetGameObjectActive(m_feedbackContainer, visible);
 		if (visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1134,32 +1131,36 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetFeedbackContainerVisible(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_feedbackInput.text = string.Empty;
-			float num = this.m_feedbackInput.textComponent.preferredHeight;
-			num = Mathf.Max(num, (this.m_feedbackTextContainer.transform.parent.transform as RectTransform).sizeDelta.y);
-			(this.m_feedbackTextContainer.transform as RectTransform).sizeDelta = new Vector2((this.m_feedbackTextContainer.transform as RectTransform).sizeDelta.x, num);
-			this.m_feedbackSuggestionBtn.SetSelected(true, false, string.Empty, string.Empty);
-			this.m_feedbackBugBtn.SetSelected(false, false, string.Empty, string.Empty);
+			m_feedbackInput.text = string.Empty;
+			float preferredHeight = m_feedbackInput.textComponent.preferredHeight;
+			float a = preferredHeight;
+			Vector2 sizeDelta = (m_feedbackTextContainer.transform.parent.transform as RectTransform).sizeDelta;
+			preferredHeight = Mathf.Max(a, sizeDelta.y);
+			RectTransform obj = m_feedbackTextContainer.transform as RectTransform;
+			Vector2 sizeDelta2 = (m_feedbackTextContainer.transform as RectTransform).sizeDelta;
+			obj.sizeDelta = new Vector2(sizeDelta2.x, preferredHeight);
+			m_feedbackSuggestionBtn.SetSelected(true, false, string.Empty, string.Empty);
+			m_feedbackBugBtn.SetSelected(false, false, string.Empty, string.Empty);
 		}
 		else
 		{
 			EventSystem.current.SetSelectedGameObject(null);
 		}
-		this.m_shouldSelectFeedbackInput = visible;
-		this.CheckBG();
+		m_shouldSelectFeedbackInput = visible;
+		CheckBG();
 	}
 
 	public void SetReportContainerVisible(bool visible, string playerHandle = "", long playerAccountId = 0L, bool masqueradeBot = false)
 	{
-		this.m_reportVisible = visible;
-		UIManager.SetGameObjectActive(this.m_reportContainer, visible, null);
+		m_reportVisible = visible;
+		UIManager.SetGameObjectActive(m_reportContainer, visible);
 		if (visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1168,37 +1169,41 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetReportContainerVisible(bool, string, long, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_reportPlayerHandle = playerHandle;
-			this.m_reportPlayerAccountId = playerAccountId;
-			this.m_botMasqueradingAsHuman = masqueradeBot;
-			this.m_reportPlayerHeader.text = string.Format(StringUtil.TR("ReportPlayerTitle", "Global"), this.m_reportPlayerHandle);
-			this.m_reportInput.text = string.Empty;
-			float num = this.m_reportInput.textComponent.preferredHeight;
-			num = Mathf.Max(num, (this.m_reportTextContainer.transform.parent.transform as RectTransform).sizeDelta.y);
-			(this.m_reportTextContainer.transform as RectTransform).sizeDelta = new Vector2((this.m_reportTextContainer.transform as RectTransform).sizeDelta.x, num);
+			m_reportPlayerHandle = playerHandle;
+			m_reportPlayerAccountId = playerAccountId;
+			m_botMasqueradingAsHuman = masqueradeBot;
+			m_reportPlayerHeader.text = string.Format(StringUtil.TR("ReportPlayerTitle", "Global"), m_reportPlayerHandle);
+			m_reportInput.text = string.Empty;
+			float preferredHeight = m_reportInput.textComponent.preferredHeight;
+			float a = preferredHeight;
+			Vector2 sizeDelta = (m_reportTextContainer.transform.parent.transform as RectTransform).sizeDelta;
+			preferredHeight = Mathf.Max(a, sizeDelta.y);
+			RectTransform obj = m_reportTextContainer.transform as RectTransform;
+			Vector2 sizeDelta2 = (m_reportTextContainer.transform as RectTransform).sizeDelta;
+			obj.sizeDelta = new Vector2(sizeDelta2.x, preferredHeight);
 		}
 		else
 		{
 			EventSystem.current.SetSelectedGameObject(null);
-			this.m_reportPlayerHandle = string.Empty;
-			this.m_reportPlayerAccountId = 0L;
-			this.m_botMasqueradingAsHuman = false;
+			m_reportPlayerHandle = string.Empty;
+			m_reportPlayerAccountId = 0L;
+			m_botMasqueradingAsHuman = false;
 		}
-		this.m_shouldSelectReportInput = visible;
-		this.CheckBG();
+		m_shouldSelectReportInput = visible;
+		CheckBG();
 	}
 
 	public void SetFacebookContainerVisible(bool visible, Texture2D texture)
 	{
-		this.m_facebookVisible = visible;
-		UIManager.SetGameObjectActive(this.m_facebookContainer, visible, null);
+		m_facebookVisible = visible;
+		UIManager.SetGameObjectActive(m_facebookContainer, visible);
 		if (visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1207,32 +1212,36 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetFacebookContainerVisible(bool, Texture2D)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_facebookInput.text = string.Empty;
-			this.m_facebookScreenshotPreview.sprite = Sprite.Create(texture, new Rect(0f, 0f, (float)texture.width, (float)texture.height), Vector2.one * 0.5f);
-			this.m_facebookScreenshotPreview.enabled = true;
-			float num = this.m_facebookInput.textComponent.preferredHeight;
-			num = Mathf.Max(num, (this.m_facebookTextContainer.transform.parent.transform as RectTransform).sizeDelta.y);
-			(this.m_facebookTextContainer.transform as RectTransform).sizeDelta = new Vector2((this.m_facebookTextContainer.transform as RectTransform).sizeDelta.x, num);
+			m_facebookInput.text = string.Empty;
+			m_facebookScreenshotPreview.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), Vector2.one * 0.5f);
+			m_facebookScreenshotPreview.enabled = true;
+			float preferredHeight = m_facebookInput.textComponent.preferredHeight;
+			float a = preferredHeight;
+			Vector2 sizeDelta = (m_facebookTextContainer.transform.parent.transform as RectTransform).sizeDelta;
+			preferredHeight = Mathf.Max(a, sizeDelta.y);
+			RectTransform obj = m_facebookTextContainer.transform as RectTransform;
+			Vector2 sizeDelta2 = (m_facebookTextContainer.transform as RectTransform).sizeDelta;
+			obj.sizeDelta = new Vector2(sizeDelta2.x, preferredHeight);
 		}
 		else
 		{
-			this.m_facebookScreenshotPreview.enabled = false;
+			m_facebookScreenshotPreview.enabled = false;
 			EventSystem.current.SetSelectedGameObject(null);
 		}
-		this.m_shouldSelectFacebookInput = visible;
-		this.CheckBG();
+		m_shouldSelectFacebookInput = visible;
+		CheckBG();
 	}
 
 	public void SetTextContainerVisible(bool visible, bool setTextListVisible = false)
 	{
-		StaggerComponent.SetStaggerComponent(this.m_TextItemListContainer.gameObject, setTextListVisible, true);
-		if (this.m_textVisible != visible)
+		StaggerComponent.SetStaggerComponent(m_TextItemListContainer.gameObject, setTextListVisible);
+		if (m_textVisible != visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1241,36 +1250,37 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetTextContainerVisible(bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_textVisible = visible;
-			StaggerComponent.SetStaggerComponent(this.m_TextContainerContainer.gameObject, visible, true);
-			UIManager.SetGameObjectActive(this.m_textContainer, visible, null);
-			this.CheckBG();
+			m_textVisible = visible;
+			StaggerComponent.SetStaggerComponent(m_TextContainerContainer.gameObject, visible);
+			UIManager.SetGameObjectActive(m_textContainer, visible);
+			CheckBG();
 		}
-		if (visible)
+		if (!visible)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_setScrollBar = 2;
-			this.m_textScrollRect.verticalNormalizedPosition = 1f;
+			m_setScrollBar = 2;
+			m_textScrollRect.verticalNormalizedPosition = 1f;
+			return;
 		}
 	}
 
 	public void SetVideoContainerVisible(bool visible)
 	{
-		if (this.m_videoVisible != visible && GameFlowData.Get() != null)
+		if (m_videoVisible != visible && GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1279,13 +1289,13 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetVideoContainerVisible(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1296,7 +1306,7 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				if (GameManager.Get() != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -1307,7 +1317,7 @@ public class UILandingPageFullScreenMenus : UIScene
 					}
 					if (GameManager.Get().IsAllowingPlayerRequestedPause())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -1317,14 +1327,14 @@ public class UILandingPageFullScreenMenus : UIScene
 							break;
 						}
 						ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-						activeOwnedActorData.\u000E().RequestCustomGamePause(visible, activeOwnedActorData.ActorIndex);
+						activeOwnedActorData.GetActorController().RequestCustomGamePause(visible, activeOwnedActorData.ActorIndex);
 					}
 				}
 			}
 		}
-		this.m_videoVisible = visible;
-		UIManager.SetGameObjectActive(this.m_videoContainer, visible, null);
-		this.CheckBG();
+		m_videoVisible = visible;
+		UIManager.SetGameObjectActive(m_videoContainer, visible);
+		CheckBG();
 	}
 
 	public void SetOptionsContainerVisible(bool visible)
@@ -1337,14 +1347,14 @@ public class UILandingPageFullScreenMenus : UIScene
 		{
 			Options_UI.Get().HideOptions();
 		}
-		this.CheckBG();
+		CheckBG();
 	}
 
 	public void SetKeyBindingContainerVisible(bool visible)
 	{
 		if (visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1353,9 +1363,9 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetKeyBindingContainerVisible(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			KeyBinding_UI.Get().ShowKeybinds();
 		}
@@ -1363,19 +1373,19 @@ public class UILandingPageFullScreenMenus : UIScene
 		{
 			KeyBinding_UI.Get().HideKeybinds();
 		}
-		this.CheckBG();
+		CheckBG();
 	}
 
 	private void OnDestroy()
 	{
-		UILandingPageFullScreenMenus.s_instance = null;
+		s_instance = null;
 	}
 
 	private void Update()
 	{
-		if (this.m_shouldSelectFeedbackInput)
+		if (m_shouldSelectFeedbackInput)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1384,13 +1394,13 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (EventSystem.current.currentSelectedGameObject != this.m_feedbackInput.gameObject)
+			if (EventSystem.current.currentSelectedGameObject != m_feedbackInput.gameObject)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1399,14 +1409,14 @@ public class UILandingPageFullScreenMenus : UIScene
 					}
 					break;
 				}
-				this.CleanCurrentlySelectedTextConsole();
-				EventSystem.current.SetSelectedGameObject(this.m_feedbackInput.gameObject);
-				goto IL_11B;
+				CleanCurrentlySelectedTextConsole();
+				EventSystem.current.SetSelectedGameObject(m_feedbackInput.gameObject);
+				goto IL_011b;
 			}
 		}
-		if (this.m_shouldSelectReportInput && EventSystem.current.currentSelectedGameObject != this.m_reportInput.gameObject)
+		if (m_shouldSelectReportInput && EventSystem.current.currentSelectedGameObject != m_reportInput.gameObject)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1415,12 +1425,12 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			this.CleanCurrentlySelectedTextConsole();
-			EventSystem.current.SetSelectedGameObject(this.m_reportInput.gameObject);
+			CleanCurrentlySelectedTextConsole();
+			EventSystem.current.SetSelectedGameObject(m_reportInput.gameObject);
 		}
-		else if (this.m_shouldSelectFacebookInput)
+		else if (m_shouldSelectFacebookInput)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1429,9 +1439,9 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				break;
 			}
-			if (EventSystem.current.currentSelectedGameObject != this.m_facebookInput.gameObject)
+			if (EventSystem.current.currentSelectedGameObject != m_facebookInput.gameObject)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1440,163 +1450,153 @@ public class UILandingPageFullScreenMenus : UIScene
 					}
 					break;
 				}
-				this.CleanCurrentlySelectedTextConsole();
-				EventSystem.current.SetSelectedGameObject(this.m_facebookInput.gameObject);
+				CleanCurrentlySelectedTextConsole();
+				EventSystem.current.SetSelectedGameObject(m_facebookInput.gameObject);
 			}
 		}
-		IL_11B:
-		if (this.m_setScrollBar > 0)
+		goto IL_011b;
+		IL_011b:
+		if (m_setScrollBar <= 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_setScrollBar--;
-			if (this.m_setScrollBar == 0)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_textScrollRect.verticalScrollbar.value = 1f;
-			}
+			return;
 		}
-	}
-
-	private void CleanCurrentlySelectedTextConsole()
-	{
-		if (EventSystem.current.currentSelectedGameObject != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.CleanCurrentlySelectedTextConsole()).MethodHandle;
-			}
-			UITextConsole componentInParent = EventSystem.current.currentSelectedGameObject.GetComponentInParent<UITextConsole>();
-			if (componentInParent != null)
-			{
-				componentInParent.Hide();
-			}
-		}
-	}
-
-	public void SetReportPlayerText(string text)
-	{
-		for (int i = 0; i < this.m_reportPlayerText.Length; i++)
-		{
-			this.m_reportPlayerText[i].text = text;
-		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			m_setScrollBar--;
+			if (m_setScrollBar == 0)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					m_textScrollRect.verticalScrollbar.value = 1f;
+					return;
+				}
+			}
+			return;
 		}
-		if (!true)
+	}
+
+	private void CleanCurrentlySelectedTextConsole()
+	{
+		if (!(EventSystem.current.currentSelectedGameObject != null))
 		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetReportPlayerText(string)).MethodHandle;
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			UITextConsole componentInParent = EventSystem.current.currentSelectedGameObject.GetComponentInParent<UITextConsole>();
+			if (componentInParent != null)
+			{
+				componentInParent.Hide();
+			}
+			return;
+		}
+	}
+
+	public void SetReportPlayerText(string text)
+	{
+		for (int i = 0; i < m_reportPlayerText.Length; i++)
+		{
+			m_reportPlayerText[i].text = text;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	public void OnReportPlayer(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, !this.m_reportPlayerDropdown.activeSelf, null);
+		UIManager.SetGameObjectActive(m_reportPlayerDropdown, !m_reportPlayerDropdown.activeSelf);
 	}
 
 	public void OnReportPlayer1(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0016;
-		this.SetReportPlayerText(StringUtil.TR("VerbalHarassment", "PersistentScene"));
-		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
+		m_reportReason = ClientFeedbackReport.FeedbackReason._0016;
+		SetReportPlayerText(StringUtil.TR("VerbalHarassment", "PersistentScene"));
+		UIManager.SetGameObjectActive(m_reportPlayerDropdown, false);
 	}
 
 	public void OnReportPlayer2(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0013;
-		this.SetReportPlayerText(StringUtil.TR("LeavingtheGameAFKing", "PersistentScene"));
-		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
+		m_reportReason = ClientFeedbackReport.FeedbackReason._0013;
+		SetReportPlayerText(StringUtil.TR("LeavingtheGameAFKing", "PersistentScene"));
+		UIManager.SetGameObjectActive(m_reportPlayerDropdown, false);
 	}
 
 	public void OnReportPlayer3(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0018;
-		this.SetReportPlayerText(StringUtil.TR("HateSpeech", "PersistentScene"));
-		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
+		m_reportReason = ClientFeedbackReport.FeedbackReason._0018;
+		SetReportPlayerText(StringUtil.TR("HateSpeech", "PersistentScene"));
+		UIManager.SetGameObjectActive(m_reportPlayerDropdown, false);
 	}
 
 	public void OnReportPlayer4(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0009;
-		this.SetReportPlayerText(StringUtil.TR("IntentionallyFeeding", "PersistentScene"));
-		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
+		m_reportReason = ClientFeedbackReport.FeedbackReason._0009;
+		SetReportPlayerText(StringUtil.TR("IntentionallyFeeding", "PersistentScene"));
+		UIManager.SetGameObjectActive(m_reportPlayerDropdown, false);
 	}
 
 	public void OnReportPlayer5(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0004;
-		this.SetReportPlayerText(StringUtil.TR("Botting", "PersistentScene"));
-		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
+		m_reportReason = ClientFeedbackReport.FeedbackReason._0004;
+		SetReportPlayerText(StringUtil.TR("Botting", "PersistentScene"));
+		UIManager.SetGameObjectActive(m_reportPlayerDropdown, false);
 	}
 
 	public void OnReportPlayer6(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0019;
-		this.SetReportPlayerText(StringUtil.TR("SpammingAdvertising", "PersistentScene"));
-		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
+		m_reportReason = ClientFeedbackReport.FeedbackReason._0019;
+		SetReportPlayerText(StringUtil.TR("SpammingAdvertising", "PersistentScene"));
+		UIManager.SetGameObjectActive(m_reportPlayerDropdown, false);
 	}
 
 	public void OnReportPlayer7(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0011;
-		this.SetReportPlayerText(StringUtil.TR("OffensiveName", "PersistentScene"));
-		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
+		m_reportReason = ClientFeedbackReport.FeedbackReason._0011;
+		SetReportPlayerText(StringUtil.TR("OffensiveName", "PersistentScene"));
+		UIManager.SetGameObjectActive(m_reportPlayerDropdown, false);
 	}
 
 	public void OnReportPlayer8(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0015;
-		this.SetReportPlayerText(StringUtil.TR("UnsportsmanlikeConduct", "PersistentScene"));
-		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
+		m_reportReason = ClientFeedbackReport.FeedbackReason._0015;
+		SetReportPlayerText(StringUtil.TR("UnsportsmanlikeConduct", "PersistentScene"));
+		UIManager.SetGameObjectActive(m_reportPlayerDropdown, false);
 	}
 
 	public void OnReportPlayer9(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u001A;
-		this.SetReportPlayerText(StringUtil.TR("Other", "PersistentScene"));
-		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
-	}
-
-	public class TextChapterDisplayInfo
-	{
-		public string Label;
-
-		public _SelectableBtn DisplayBtn;
-
-		public string TitleTextString;
-
-		public string HeaderTextString;
-
-		public List<string> ContentTextString = new List<string>();
+		m_reportReason = ClientFeedbackReport.FeedbackReason._001A;
+		SetReportPlayerText(StringUtil.TR("Other", "PersistentScene"));
+		UIManager.SetGameObjectActive(m_reportPlayerDropdown, false);
 	}
 }

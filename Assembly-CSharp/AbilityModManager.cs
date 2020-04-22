@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -9,84 +9,92 @@ public class AbilityModManager : NetworkBehaviour
 
 	private Dictionary<Type, List<AbilityMod>> m_abilityTypeToMods = new Dictionary<Type, List<AbilityMod>>();
 
+	public bool ShowDebugGUI
+	{
+		get;
+		set;
+	}
+
 	internal static AbilityModManager Get()
 	{
-		return AbilityModManager.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		if (AbilityModManager.s_instance == null)
+		if (!(s_instance == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityModManager.s_instance = this;
+			s_instance = this;
+			return;
 		}
 	}
 
 	private void Start()
 	{
-		GameFlowData.s_onGameStateChanged += this.OnGameStateChanged;
+		GameFlowData.s_onGameStateChanged += OnGameStateChanged;
 	}
 
 	public override void OnStartClient()
 	{
-		GameFlowData.s_onActiveOwnedActorChange += this.OnActiveOwnedActorChange;
+		GameFlowData.s_onActiveOwnedActorChange += OnActiveOwnedActorChange;
 	}
 
 	private void OnDestroy()
 	{
-		GameFlowData.s_onGameStateChanged -= this.OnGameStateChanged;
-		GameFlowData.s_onActiveOwnedActorChange -= this.OnActiveOwnedActorChange;
-		AbilityModManager.s_instance = null;
+		GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
+		GameFlowData.s_onActiveOwnedActorChange -= OnActiveOwnedActorChange;
+		s_instance = null;
 	}
 
 	private void OnGameStateChanged(GameState newState)
 	{
 		if (newState == GameState.BothTeams_Decision)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.OnGameStateChanged(GameState)).MethodHandle;
 			}
 		}
-		else if (newState == GameState.BothTeams_Resolve)
+		switch (newState)
 		{
-			for (;;)
+		case GameState.BothTeams_Resolve:
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				ShowDebugGUI = false;
+				return;
 			}
-			this.ShowDebugGUI = false;
-		}
-		else if (newState == GameState.EndingGame)
-		{
-			this.ShowDebugGUI = false;
-			this.m_abilityTypeToMods.Clear();
+		case GameState.EndingGame:
+			ShowDebugGUI = false;
+			m_abilityTypeToMods.Clear();
+			break;
 		}
 	}
 
@@ -95,34 +103,35 @@ public class AbilityModManager : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Client] function 'System.Void AbilityModManager::OnActiveOwnedActorChange(ActorData)' called on server");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.OnActiveOwnedActorChange(ActorData)).MethodHandle;
-			}
-			Debug.LogWarning("[Client] function 'System.Void AbilityModManager::OnActiveOwnedActorChange(ActorData)' called on server");
+		}
+		if (!(activeActor != null))
+		{
 			return;
 		}
-		if (activeActor != null)
+		while (true)
 		{
-			for (;;)
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.LoadAvailableModsForActor(activeActor);
+			LoadAvailableModsForActor(activeActor);
+			return;
 		}
 	}
 
@@ -131,9 +140,9 @@ public class AbilityModManager : NetworkBehaviour
 		List<AbilityMod> list = new List<AbilityMod>();
 		if (ability != null)
 		{
-			if (!this.m_abilityTypeToMods.ContainsKey(ability.GetType()))
+			if (!m_abilityTypeToMods.ContainsKey(ability.GetType()))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -142,27 +151,28 @@ public class AbilityModManager : NetworkBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.GetAvailableModsForAbility(Ability)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.LoadAvailableModsForAbility(ability);
+				LoadAvailableModsForAbility(ability);
 			}
-			using (List<AbilityMod>.Enumerator enumerator = this.m_abilityTypeToMods[ability.GetType()].GetEnumerator())
+			using (List<AbilityMod>.Enumerator enumerator = m_abilityTypeToMods[ability.GetType()].GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					AbilityMod item = enumerator.Current;
-					list.Add(item);
+					AbilityMod current = enumerator.Current;
+					list.Add(current);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return list;
 					}
-					break;
 				}
 			}
 		}
@@ -173,7 +183,7 @@ public class AbilityModManager : NetworkBehaviour
 	{
 		if (ability != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -182,13 +192,13 @@ public class AbilityModManager : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.GetDefaultModForAbility(Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_abilityTypeToMods.ContainsKey(ability.GetType()))
+			if (!m_abilityTypeToMods.ContainsKey(ability.GetType()))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -197,16 +207,16 @@ public class AbilityModManager : NetworkBehaviour
 					}
 					break;
 				}
-				this.LoadAvailableModsForAbility(ability);
+				LoadAvailableModsForAbility(ability);
 			}
-			using (List<AbilityMod>.Enumerator enumerator = this.m_abilityTypeToMods[ability.GetType()].GetEnumerator())
+			using (List<AbilityMod>.Enumerator enumerator = m_abilityTypeToMods[ability.GetType()].GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					AbilityMod abilityMod = enumerator.Current;
-					if (abilityMod.m_availableInGame)
+					AbilityMod current = enumerator.Current;
+					if (current.m_availableInGame)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -215,13 +225,13 @@ public class AbilityModManager : NetworkBehaviour
 							}
 							break;
 						}
-						if (abilityMod.m_defaultEquip)
+						if (current.m_defaultEquip)
 						{
-							return abilityMod;
+							return current;
 						}
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -241,31 +251,31 @@ public class AbilityModManager : NetworkBehaviour
 		{
 			return null;
 		}
-		List<AbilityMod> availableModsForAbility = this.GetAvailableModsForAbility(ability);
+		List<AbilityMod> availableModsForAbility = GetAvailableModsForAbility(ability);
 		using (List<AbilityMod>.Enumerator enumerator = availableModsForAbility.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				AbilityMod abilityMod = enumerator.Current;
-				if (abilityMod != null && abilityMod.m_abilityScopeId == abilityScopeId)
+				AbilityMod current = enumerator.Current;
+				if (current != null && current.m_abilityScopeId == abilityScopeId)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							return current;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.GetAbilityModForAbilityById(Ability, int)).MethodHandle;
-					}
-					return abilityMod;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -283,7 +293,7 @@ public class AbilityModManager : NetworkBehaviour
 		ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 		if (actorData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -292,24 +302,26 @@ public class AbilityModManager : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.GetAbilityModOnActor(int, int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			AbilityData component = actorData.GetComponent<AbilityData>();
 			if (component != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						Ability abilityOfActionType = component.GetAbilityOfActionType((AbilityData.ActionType)actionTypeInt);
+						return GetAbilityModForAbilityById(abilityOfActionType, abilityScopeId);
 					}
-					break;
+					}
 				}
-				Ability abilityOfActionType = component.GetAbilityOfActionType((AbilityData.ActionType)actionTypeInt);
-				return this.GetAbilityModForAbilityById(abilityOfActionType, abilityScopeId);
 			}
 		}
 		return null;
@@ -317,26 +329,27 @@ public class AbilityModManager : NetworkBehaviour
 
 	private void LoadAvailableModsForActor(ActorData actor)
 	{
-		if (actor != null && actor.\u000E() != null)
+		if (!(actor != null) || !(actor.GetAbilityData() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.LoadAvailableModsForActor(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			for (int i = 0; i <= 4; i++)
 			{
-				Ability abilityOfActionType = actor.\u000E().GetAbilityOfActionType((AbilityData.ActionType)i);
-				this.LoadAvailableModsForAbility(abilityOfActionType);
+				Ability abilityOfActionType = actor.GetAbilityData().GetAbilityOfActionType((AbilityData.ActionType)i);
+				LoadAvailableModsForAbility(abilityOfActionType);
 			}
+			return;
 		}
 	}
 
@@ -344,25 +357,25 @@ public class AbilityModManager : NetworkBehaviour
 	{
 		if (ability == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.LoadAvailableModsForAbility(Ability)).MethodHandle;
-			}
-			return;
 		}
 		Type type = ability.GetType();
-		if (this.m_abilityTypeToMods.ContainsKey(type))
+		if (m_abilityTypeToMods.ContainsKey(type))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -371,33 +384,32 @@ public class AbilityModManager : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_abilityTypeToMods[type].Clear();
+			m_abilityTypeToMods[type].Clear();
 		}
 		else
 		{
-			this.m_abilityTypeToMods[type] = new List<AbilityMod>();
+			m_abilityTypeToMods[type] = new List<AbilityMod>();
 		}
 		List<AbilityMod> availableModsForAbilityType = AbilityModHelper.GetAvailableModsForAbilityType(type);
 		using (List<AbilityMod>.Enumerator enumerator = availableModsForAbilityType.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				AbilityMod item = enumerator.Current;
-				this.m_abilityTypeToMods[type].Add(item);
+				AbilityMod current = enumerator.Current;
+				m_abilityTypeToMods[type].Add(current);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
-
-	public bool ShowDebugGUI { get; set; }
 
 	private void UNetVersion()
 	{
@@ -405,7 +417,7 @@ public class AbilityModManager : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
+		bool result = default(bool);
 		return result;
 	}
 

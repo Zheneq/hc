@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_LaserWithLayeredRings : AbilityUtil_Targeter_LaserWithCone
@@ -9,77 +8,80 @@ public class AbilityUtil_Targeter_LaserWithLayeredRings : AbilityUtil_Targeter_L
 
 	private float m_outerConeRadius = 1f;
 
-	public AbilityUtil_Targeter_LaserWithLayeredRings(Ability ability, float laserWidth, float laserRange, bool ignoreLos, int laserMaxTargets, bool clampConeCenterToCursor, bool onlyUseConeIfLaserHit, List<float> coneRadiusInput) : base(ability, laserWidth, laserRange, ignoreLos, false, 360f, 1f, 0f)
+	public AbilityUtil_Targeter_LaserWithLayeredRings(Ability ability, float laserWidth, float laserRange, bool ignoreLos, int laserMaxTargets, bool clampConeCenterToCursor, bool onlyUseConeIfLaserHit, List<float> coneRadiusInput)
+		: base(ability, laserWidth, laserRange, ignoreLos, false, 360f, 1f, 0f)
 	{
-		base.SetClampToCursorPos(clampConeCenterToCursor);
-		base.SetExplodeOnPathEnd(!onlyUseConeIfLaserHit);
-		base.SetExplodeOnEnvironmentHit(!onlyUseConeIfLaserHit);
+		SetClampToCursorPos(clampConeCenterToCursor);
+		SetExplodeOnPathEnd(!onlyUseConeIfLaserHit);
+		SetExplodeOnEnvironmentHit(!onlyUseConeIfLaserHit);
 		for (int i = 0; i < coneRadiusInput.Count; i++)
 		{
-			this.m_coneRadiusList.Add(new RadiusToLayerIndex(coneRadiusInput[i]));
+			m_coneRadiusList.Add(new RadiusToLayerIndex(coneRadiusInput[i]));
 		}
-		if (this.m_coneRadiusList.Count == 0)
+		if (m_coneRadiusList.Count == 0)
 		{
-			Log.Error("no radius list passed to " + base.GetType(), new object[0]);
-			this.m_coneRadiusList.Add(new RadiusToLayerIndex(1f));
+			Log.Error("no radius list passed to " + GetType());
+			m_coneRadiusList.Add(new RadiusToLayerIndex(1f));
 		}
-		RadiusToLayerIndex.SortAndSetLayerIndex(this.m_coneRadiusList);
-		this.m_outerConeRadius = this.m_coneRadiusList[this.m_coneRadiusList.Count - 1].m_radius;
+		RadiusToLayerIndex.SortAndSetLayerIndex(m_coneRadiusList);
+		m_outerConeRadius = m_coneRadiusList[m_coneRadiusList.Count - 1].m_radius;
 	}
 
 	public override float GetConeRadius()
 	{
-		return this.m_outerConeRadius;
+		return m_outerConeRadius;
 	}
 
 	protected override void AllocateConeHighlights()
 	{
-		if (this.m_highlights.Count == 1)
+		if (m_highlights.Count != 1)
 		{
-			for (int i = 0; i < this.m_coneRadiusList.Count; i++)
+			return;
+		}
+		for (int i = 0; i < m_coneRadiusList.Count; i++)
+		{
+			bool flag = i == m_coneRadiusList.Count - 1;
+			float radiusInWorld = m_coneRadiusList[i].m_radius * Board.SquareSizeStatic;
+			GameObject gameObject = HighlightUtils.Get().CreateConeCursor(radiusInWorld, GetConeWidthAngle());
+			if (!flag)
 			{
-				bool flag = i == this.m_coneRadiusList.Count - 1;
-				float radiusInWorld = this.m_coneRadiusList[i].m_radius * Board.SquareSizeStatic;
-				GameObject gameObject = HighlightUtils.Get().CreateConeCursor(radiusInWorld, this.GetConeWidthAngle());
-				if (!flag)
+				while (true)
 				{
-					for (;;)
+					switch (6)
 					{
-						switch (6)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				UIDynamicCone component = gameObject.GetComponent<UIDynamicCone>();
+				if (component != null)
+				{
+					while (true)
+					{
+						switch (3)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_LaserWithLayeredRings.AllocateConeHighlights()).MethodHandle;
-					}
-					UIDynamicCone component = gameObject.GetComponent<UIDynamicCone>();
-					if (component != null)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						component.SetConeObjectActive(false);
-					}
+					component.SetConeObjectActive(false);
 				}
-				this.m_highlights.Add(gameObject);
 			}
-			for (;;)
+			m_highlights.Add(gameObject);
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
@@ -87,45 +89,43 @@ public class AbilityUtil_Targeter_LaserWithLayeredRings : AbilityUtil_Targeter_L
 
 	public override void AddTargetedActor(ActorData actor, Vector3 damageOrigin, ActorData targetingActor, AbilityTooltipSubject subjectType = AbilityTooltipSubject.Primary)
 	{
-		if (this.IsActorInTargetRange(actor))
+		if (IsActorInTargetRange(actor))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_LaserWithLayeredRings.AddTargetedActor(ActorData, Vector3, ActorData, AbilityTooltipSubject)).MethodHandle;
-			}
-			return;
 		}
 		base.AddTargetedActor(actor, damageOrigin, targetingActor, subjectType);
-		ActorHitContext actorHitContext = this.m_actorContextVars[actor];
+		ActorHitContext actorHitContext = m_actorContextVars[actor];
 		if (subjectType == AbilityTooltipSubject.Primary)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					actorHitContext._0015.SetInt(ContextKeys._001A.GetHash(), 0);
+					return;
 				}
-				break;
 			}
-			actorHitContext.\u0015.\u0016(ContextKeys.\u001A.\u0012(), 0);
 		}
-		else
-		{
-			RadiusToLayerIndex bestMatchingData = AbilityCommon_LayeredRings.GetBestMatchingData<RadiusToLayerIndex>(this.m_coneRadiusList, actor.\u0012(), damageOrigin, targetingActor, true);
-			float u000E = VectorUtils.HorizontalPlaneDistInSquares(damageOrigin, actor.\u0016());
-			actorHitContext.\u0015.\u0016(ContextKeys.\u001A.\u0012(), 1);
-			actorHitContext.\u0015.\u0016(ContextKeys.\u0003.\u0012(), bestMatchingData.m_index);
-			actorHitContext.\u0015.\u0015(ContextKeys.\u0018.\u0012(), u000E);
-		}
+		RadiusToLayerIndex bestMatchingData = AbilityCommon_LayeredRings.GetBestMatchingData(m_coneRadiusList, actor.GetCurrentBoardSquare(), damageOrigin, targetingActor, true);
+		float value = VectorUtils.HorizontalPlaneDistInSquares(damageOrigin, actor.GetTravelBoardSquareWorldPosition());
+		actorHitContext._0015.SetInt(ContextKeys._001A.GetHash(), 1);
+		actorHitContext._0015.SetInt(ContextKeys._0003.GetHash(), bestMatchingData.m_index);
+		actorHitContext._0015.SetFloat(ContextKeys._0018.GetHash(), value);
 	}
 }

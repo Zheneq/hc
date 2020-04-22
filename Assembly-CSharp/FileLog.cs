@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 public class FileLog
@@ -9,43 +9,51 @@ public class FileLog
 
 	private DateTime m_logFileCreationTime;
 
+	public Log.Level MinLevel
+	{
+		get;
+		set;
+	}
+
+	public bool RawLogging
+	{
+		get;
+		set;
+	}
+
+	public bool UseDatedFolder
+	{
+		get;
+		set;
+	}
+
+	public string BaseFilePath
+	{
+		get;
+		private set;
+	}
+
+	public string CurrentFilePath
+	{
+		get;
+		private set;
+	}
+
+	public StreamWriter File => m_file;
+
+	public bool IsOpen => m_file != null;
+
 	public FileLog()
 	{
-		this.MinLevel = Log.Level.Warning;
-		this.m_lock = new object();
-	}
-
-	public Log.Level MinLevel { get; set; }
-
-	public bool RawLogging { get; set; }
-
-	public bool UseDatedFolder { get; set; }
-
-	public string BaseFilePath { get; private set; }
-
-	public string CurrentFilePath { get; private set; }
-
-	public StreamWriter File
-	{
-		get
-		{
-			return this.m_file;
-		}
-	}
-
-	public bool IsOpen
-	{
-		get
-		{
-			return this.m_file != null;
-		}
+		MinLevel = Log.Level.Warning;
+		m_lock = new object();
 	}
 
 	public static string AsDatedDirectory(string basePath, DateTime dateTime = default(DateTime))
 	{
 		if (dateTime == default(DateTime))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -54,33 +62,26 @@ public class FileLog
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FileLog.AsDatedDirectory(string, DateTime)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			dateTime = DateTime.Now;
 		}
-		return string.Format("{0}/{1:d4}-{2:d2}-{3:d2}", new object[]
-		{
-			basePath,
-			dateTime.Year,
-			dateTime.Month,
-			dateTime.Day
-		});
+		return $"{basePath}/{dateTime.Year:d4}-{dateTime.Month:d2}-{dateTime.Day:d2}";
 	}
 
 	public void Open(string filePath)
 	{
-		object @lock = this.m_lock;
-		lock (@lock)
+		lock (m_lock)
 		{
 			try
 			{
-				this.BaseFilePath = filePath;
-				this.m_logFileCreationTime = DateTime.Now;
-				if (this.UseDatedFolder)
+				BaseFilePath = filePath;
+				m_logFileCreationTime = DateTime.Now;
+				if (UseDatedFolder)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -89,37 +90,38 @@ public class FileLog
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FileLog.Open(string)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					string text = FileLog.AsDatedDirectory(Path.GetDirectoryName(this.BaseFilePath), this.m_logFileCreationTime);
+					string text = AsDatedDirectory(Path.GetDirectoryName(BaseFilePath), m_logFileCreationTime);
 					Directory.CreateDirectory(text);
-					this.CurrentFilePath = string.Format("{0}/{1}", text, Path.GetFileName(this.BaseFilePath));
+					CurrentFilePath = $"{text}/{Path.GetFileName(BaseFilePath)}";
 				}
 				else
 				{
-					this.CurrentFilePath = filePath;
+					CurrentFilePath = filePath;
 				}
-				Directory.CreateDirectory(Path.GetDirectoryName(this.CurrentFilePath));
-				FileStream fileStream = new FileStream(this.CurrentFilePath, FileMode.Append, FileAccess.Write, FileShare.Read);
-				this.m_file = new StreamWriter(fileStream);
-				if (fileStream.Length > 0L)
+				Directory.CreateDirectory(Path.GetDirectoryName(CurrentFilePath));
+				FileStream fileStream = new FileStream(CurrentFilePath, FileMode.Append, FileAccess.Write, FileShare.Read);
+				m_file = new StreamWriter(fileStream);
+				if (fileStream.Length > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							m_file.WriteLine();
+							m_file.WriteLine();
+							Write(Log.Level.Notice, "    ***    Logging restarted    ***");
+							m_file.WriteLine();
+							m_file.WriteLine();
+							return;
 						}
-						break;
 					}
-					this.m_file.WriteLine();
-					this.m_file.WriteLine();
-					this.Write(Log.Level.Notice, "    ***    Logging restarted    ***");
-					this.m_file.WriteLine();
-					this.m_file.WriteLine();
 				}
 			}
 			catch (Exception ex)
@@ -131,183 +133,186 @@ public class FileLog
 
 	public void Close()
 	{
-		object @lock = this.m_lock;
-		lock (@lock)
+		lock (m_lock)
 		{
-			if (this.m_file != null)
+			if (m_file != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						try
+						{
+							m_file.Close();
+						}
+						catch (Exception ex)
+						{
+							Console.WriteLine(ex.Message);
+						}
+						m_file = null;
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FileLog.Close()).MethodHandle;
-				}
-				try
-				{
-					this.m_file.Close();
-				}
-				catch (Exception ex)
-				{
-					Console.WriteLine(ex.Message);
-				}
-				this.m_file = null;
 			}
 		}
 	}
 
 	public void Register()
 	{
-		Log.AddLogHandler(new Action<Log.Message>(this.HandleLogMessage));
+		Log.AddLogHandler(HandleLogMessage);
 	}
 
 	public void Unregister()
 	{
-		Log.RemoveLogHandler(new Action<Log.Message>(this.HandleLogMessage));
+		Log.RemoveLogHandler(HandleLogMessage);
 	}
 
 	public void HandleLogMessage(Log.Message args)
 	{
-		object @lock = this.m_lock;
-		lock (@lock)
+		lock (m_lock)
 		{
-			if (this.m_file != null)
+			if (m_file != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FileLog.HandleLogMessage(Log.Message)).MethodHandle;
-				}
-				if (args.level >= this.MinLevel)
-				{
-					try
-					{
-						string text = args.ToString();
-						if (!text.IsNullOrEmpty())
+						break;
+					default:
+						if (1 == 0)
 						{
-							for (;;)
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						if (args.level >= MinLevel)
+						{
+							try
 							{
-								switch (4)
+								string text = args.ToString();
+								if (!text.IsNullOrEmpty())
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!this.RawLogging)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.m_file.Write(string.Format("{0} [{1}] ", args.timestamp.ToString(Log.TimestampFormat), Log.ToStringCode(args.level)));
-							}
-							if (args.level >= Log.Level.Warning)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (args.level <= Log.Level.Critical)
-								{
-									for (;;)
+									while (true)
 									{
 										switch (4)
 										{
 										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!args.message.IsNullOrEmpty())
-									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
 											break;
-										}
-										string[] array = text.Split(new char[]
-										{
-											'\r',
-											'\n'
-										}, StringSplitOptions.RemoveEmptyEntries);
-										string[] array3;
-										string[] array2 = array3 = array;
-										int num = 0;
-										string str = array3[0];
-										string format = " ({0} {1:x8})";
-										object arg;
-										if (args.level == Log.Level.Warning)
-										{
-											for (;;)
+										default:
 											{
-												switch (5)
+												if (!RawLogging)
 												{
-												case 0:
-													continue;
+													while (true)
+													{
+														switch (1)
+														{
+														case 0:
+															continue;
+														}
+														break;
+													}
+													m_file.Write($"{args.timestamp.ToString(Log.TimestampFormat)} [{Log.ToStringCode(args.level)}] ");
 												}
-												break;
+												if (args.level >= Log.Level.Warning)
+												{
+													while (true)
+													{
+														switch (7)
+														{
+														case 0:
+															continue;
+														}
+														break;
+													}
+													if (args.level <= Log.Level.Critical)
+													{
+														while (true)
+														{
+															switch (4)
+															{
+															case 0:
+																continue;
+															}
+															break;
+														}
+														if (!args.message.IsNullOrEmpty())
+														{
+															while (true)
+															{
+																switch (4)
+																{
+																case 0:
+																	continue;
+																}
+																break;
+															}
+															string[] array = text.Split(new char[2]
+															{
+																'\r',
+																'\n'
+															}, StringSplitOptions.RemoveEmptyEntries);
+															string[] array2;
+															string[] array3 = array2 = array;
+															string str = array2[0];
+															object arg;
+															if (args.level == Log.Level.Warning)
+															{
+																while (true)
+																{
+																	switch (5)
+																	{
+																	case 0:
+																		continue;
+																	}
+																	break;
+																}
+																arg = "warningid";
+															}
+															else
+															{
+																arg = "errorid";
+															}
+															array3[0] = str + $" ({arg} {args.message.GetHashCode():x8})";
+															string[] array4 = array;
+															foreach (string value in array4)
+															{
+																m_file.WriteLine(value);
+															}
+															while (true)
+															{
+																switch (1)
+																{
+																case 0:
+																	continue;
+																}
+																break;
+															}
+															goto IL_019f;
+														}
+													}
+												}
+												m_file.WriteLine(text);
+												goto IL_019f;
 											}
-											arg = "warningid";
+											IL_019f:
+											m_file.Flush();
+											return;
 										}
-										else
-										{
-											arg = "errorid";
-										}
-										array2[num] = str + string.Format(format, arg, args.message.GetHashCode());
-										foreach (string value in array)
-										{
-											this.m_file.WriteLine(value);
-										}
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										goto IL_19F;
 									}
 								}
 							}
-							this.m_file.WriteLine(text);
-							IL_19F:
-							this.m_file.Flush();
+							catch (Exception value2)
+							{
+								Console.WriteLine(value2);
+							}
 						}
-					}
-					catch (Exception value2)
-					{
-						Console.WriteLine(value2);
+						return;
 					}
 				}
 			}
@@ -316,66 +321,67 @@ public class FileLog
 
 	public void Write(Log.Level level, string message)
 	{
-		Log.Message args = new Log.Message
-		{
-			level = level,
-			message = message,
-			formattedMessage = message,
-			timestamp = DateTime.Now
-		};
-		this.HandleLogMessage(args);
+		Log.Message message2 = default(Log.Message);
+		message2.level = level;
+		message2.message = message;
+		message2.formattedMessage = message;
+		message2.timestamp = DateTime.Now;
+		Log.Message args = message2;
+		HandleLogMessage(args);
 	}
 
 	public void Update()
 	{
 		Log.Update();
-		object @lock = this.m_lock;
-		lock (@lock)
+		lock (m_lock)
 		{
 			try
 			{
-				if (this.UseDatedFolder)
+				if (UseDatedFolder)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FileLog.Update()).MethodHandle;
-					}
-					if (this.m_file != null)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						if (DateTime.Now.Day != this.m_logFileCreationTime.Day)
-						{
-							for (;;)
+						default:
+							if (1 == 0)
 							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
+								/*OpCode not supported: LdMemberToken*/;
 							}
-							this.Close();
-							this.Open(this.BaseFilePath);
-							this.Write(Log.Level.Notice, "    ***    Logging continued from previous day    ***");
-							this.m_file.WriteLine();
-							this.m_file.WriteLine();
+							if (m_file != null)
+							{
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										break;
+									default:
+										if (DateTime.Now.Day != m_logFileCreationTime.Day)
+										{
+											while (true)
+											{
+												switch (4)
+												{
+												case 0:
+													break;
+												default:
+													Close();
+													Open(BaseFilePath);
+													Write(Log.Level.Notice, "    ***    Logging continued from previous day    ***");
+													m_file.WriteLine();
+													m_file.WriteLine();
+													return;
+												}
+											}
+										}
+										return;
+									}
+								}
+							}
+							return;
 						}
 					}
 				}

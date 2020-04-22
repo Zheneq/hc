@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class LightIntensitySetterForLowQuality : MonoBehaviour, IGameEventListener
@@ -12,10 +11,10 @@ public class LightIntensitySetterForLowQuality : MonoBehaviour, IGameEventListen
 
 	private void Awake()
 	{
-		this.m_light = base.GetComponent<Light>();
-		if (this.m_light != null)
+		m_light = GetComponent<Light>();
+		if (m_light != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -24,50 +23,52 @@ public class LightIntensitySetterForLowQuality : MonoBehaviour, IGameEventListen
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightIntensitySetterForLowQuality.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_initialIntensity = this.m_light.intensity;
+			m_initialIntensity = m_light.intensity;
 		}
-		if (GameEventManager.Get() != null)
+		if (GameEventManager.Get() == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.GraphicsQualityChanged);
+			return;
 		}
 	}
 
 	private void Start()
 	{
-		this.SetLightIntensityForCurrentQuality();
+		SetLightIntensityForCurrentQuality();
 	}
 
 	private void OnDestroy()
 	{
-		if (GameEventManager.Get() != null)
+		if (GameEventManager.Get() == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightIntensitySetterForLowQuality.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GraphicsQualityChanged);
+			return;
 		}
 	}
 
@@ -75,7 +76,7 @@ public class LightIntensitySetterForLowQuality : MonoBehaviour, IGameEventListen
 	{
 		if (eventType == GameEventManager.EventType.GraphicsQualityChanged)
 		{
-			this.SetLightIntensityForCurrentQuality();
+			SetLightIntensityForCurrentQuality();
 		}
 	}
 
@@ -83,7 +84,7 @@ public class LightIntensitySetterForLowQuality : MonoBehaviour, IGameEventListen
 	{
 		if (Options_UI.Get() == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -92,41 +93,39 @@ public class LightIntensitySetterForLowQuality : MonoBehaviour, IGameEventListen
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightIntensitySetterForLowQuality.SetLightIntensityForCurrentQuality()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_light == null && this.m_lightIntensityAtLowQuality >= 0f)
+			if (m_light == null && m_lightIntensityAtLowQuality >= 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
-				return;
 			}
 		}
 		GraphicsQuality currentGraphicsQuality = Options_UI.Get().GetCurrentGraphicsQuality();
 		if (currentGraphicsQuality <= GraphicsQuality.Low)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_light.intensity = m_lightIntensityAtLowQuality;
+					return;
 				}
-				break;
 			}
-			this.m_light.intensity = this.m_lightIntensityAtLowQuality;
 		}
-		else
-		{
-			this.m_light.intensity = this.m_initialIntensity;
-		}
+		m_light.intensity = m_initialIntensity;
 	}
 }

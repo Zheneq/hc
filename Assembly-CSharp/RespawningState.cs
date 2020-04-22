@@ -1,24 +1,23 @@
-﻿using System;
-
 public class RespawningState : TurnState
 {
 	private float m_timeToWait;
 
-	public RespawningState(ActorTurnSM masterSM) : base(masterSM)
+	public RespawningState(ActorTurnSM masterSM)
+		: base(masterSM)
 	{
 	}
 
 	public override void OnEnter()
 	{
-		this.m_timeToWait = 2f;
+		m_timeToWait = 2f;
 	}
 
 	public override void Update()
 	{
-		ActorData component = this.m_SM.GetComponent<ActorData>();
-		if (component != null && !component.\u000E())
+		ActorData component = m_SM.GetComponent<ActorData>();
+		if (component != null && !component.IsDead())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -27,20 +26,20 @@ public class RespawningState : TurnState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RespawningState.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (GameFlowData.Get().IsTeamsTurn(component.\u000E()))
+			if (GameFlowData.Get().IsTeamsTurn(component.GetTeam()))
 			{
 				if (GameFlowData.Get().IsInDecisionState())
 				{
-					this.m_SM.SetupForNewTurn();
-					this.m_SM.NextState = TurnStateEnum.DECIDING;
+					m_SM.SetupForNewTurn();
+					m_SM.NextState = TurnStateEnum.DECIDING;
 				}
 				else if (GameFlowData.Get().IsInResolveState())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -49,9 +48,9 @@ public class RespawningState : TurnState
 						}
 						break;
 					}
-					if (this.m_timeToWait <= 0f)
+					if (m_timeToWait <= 0f)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -60,19 +59,19 @@ public class RespawningState : TurnState
 							}
 							break;
 						}
-						this.m_SM.NextState = TurnStateEnum.RESOLVING;
+						m_SM.NextState = TurnStateEnum.RESOLVING;
 					}
 				}
 				else
 				{
-					this.m_SM.NextState = TurnStateEnum.CONFIRMED;
+					m_SM.NextState = TurnStateEnum.CONFIRMED;
 				}
 			}
-			else if (this.m_timeToWait <= 0f)
+			else if (m_timeToWait <= 0f)
 			{
-				this.m_SM.NextState = TurnStateEnum.WAITING;
+				m_SM.NextState = TurnStateEnum.WAITING;
 			}
 		}
-		this.m_timeToWait -= GameTime.deltaTime;
+		m_timeToWait -= GameTime.deltaTime;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -36,24 +35,24 @@ public class UIPlayerDisplay : MonoBehaviour
 
 	private void Awake()
 	{
-		UIManager.SetGameObjectActive(this.m_tutorialBar, false, null);
-		UIManager.SetGameObjectActive(this.m_tutorialText, false, null);
-		UIManager.SetGameObjectActive(this.m_tutorialCameraControlsPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_tutorialCombatPhasePanel, false, null);
-		UIManager.SetGameObjectActive(this.m_tutorialDashPhasePanel, false, null);
-		UIManager.SetGameObjectActive(this.m_tutorialPrepPhasePanel, false, null);
+		UIManager.SetGameObjectActive(m_tutorialBar, false);
+		UIManager.SetGameObjectActive(m_tutorialText, false);
+		UIManager.SetGameObjectActive(m_tutorialCameraControlsPanel, false);
+		UIManager.SetGameObjectActive(m_tutorialCombatPhasePanel, false);
+		UIManager.SetGameObjectActive(m_tutorialDashPhasePanel, false);
+		UIManager.SetGameObjectActive(m_tutorialPrepPhasePanel, false);
 	}
 
 	private void Start()
 	{
-		this.m_animsToPlayQueue = new List<string>();
+		m_animsToPlayQueue = new List<string>();
 	}
 
 	private void Update()
 	{
-		if (!this.IsAnimationPlaying())
+		if (!IsAnimationPlaying())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -62,13 +61,13 @@ public class UIPlayerDisplay : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerDisplay.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_animsToPlayQueue.Count > 0)
+			if (m_animsToPlayQueue.Count > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -77,76 +76,77 @@ public class UIPlayerDisplay : MonoBehaviour
 					}
 					break;
 				}
-				this.SetDisplaysVisible(true);
-				this.m_animsToPlayQueue.RemoveAt(0);
+				SetDisplaysVisible(true);
+				m_animsToPlayQueue.RemoveAt(0);
 			}
 		}
-		this.ProcessTeamsForSpectator();
+		ProcessTeamsForSpectator();
 	}
 
 	public void UpdateCatalysts(ActorData theActor, List<Ability> cardAbilities)
 	{
-		int i = 0;
-		while (i < this.m_teamPlayerIcons.Length)
+		int num = 0;
+		while (true)
 		{
-			if (this.m_teamPlayerIcons[i].ActorDataRef == theActor)
+			if (num < m_teamPlayerIcons.Length)
 			{
-				this.m_teamPlayerIcons[i].UpdateCatalysts(cardAbilities);
-				IL_4D:
-				for (int j = 0; j < this.m_enemyPlayerIcons.Length; j++)
+				if (m_teamPlayerIcons[num].ActorDataRef == theActor)
 				{
-					if (this.m_enemyPlayerIcons[j].ActorDataRef == theActor)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_enemyPlayerIcons[j].UpdateCatalysts(cardAbilities);
-						return;
-					}
+					m_teamPlayerIcons[num].UpdateCatalysts(cardAbilities);
+					break;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					return;
-				}
-			}
-			else
-			{
-				i++;
-			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
+				num++;
 				continue;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			break;
 		}
-		if (!true)
+		for (int i = 0; i < m_enemyPlayerIcons.Length; i++)
 		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerDisplay.UpdateCatalysts(ActorData, List<Ability>)).MethodHandle;
-			goto IL_4D;
+			if (!(m_enemyPlayerIcons[i].ActorDataRef == theActor))
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				m_enemyPlayerIcons[i].UpdateCatalysts(cardAbilities);
+				return;
+			}
 		}
-		goto IL_4D;
+		while (true)
+		{
+			switch (7)
+			{
+			default:
+				return;
+			case 0:
+				break;
+			}
+		}
 	}
 
 	private bool IsAnimationPlaying()
 	{
-		if (this.m_animationController.GetCurrentAnimatorClipInfo(0) != null)
+		if (m_animationController.GetCurrentAnimatorClipInfo(0) != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -155,22 +155,22 @@ public class UIPlayerDisplay : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerDisplay.IsAnimationPlaying()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_animationController.GetCurrentAnimatorClipInfo(0).Length > 0)
+			if (m_animationController.GetCurrentAnimatorClipInfo(0).Length > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_animationController.GetCurrentAnimatorClipInfo(0)[0].clip.name != "EmptyAnimation";
 					}
-					break;
 				}
-				return this.m_animationController.GetCurrentAnimatorClipInfo(0)[0].clip.name != "EmptyAnimation";
 			}
 		}
 		return false;
@@ -179,9 +179,9 @@ public class UIPlayerDisplay : MonoBehaviour
 	private void SetDisplaysVisible(bool visible)
 	{
 		int num;
-		if (this.m_teamPlayerIcons[0].IsActiveDisplay())
+		if (m_teamPlayerIcons[0].IsActiveDisplay())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -190,21 +190,21 @@ public class UIPlayerDisplay : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerDisplay.SetDisplaysVisible(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = GameFlowData.Get().GetPlayerAndBotTeamMembers(this.m_teamPlayerIcons[0].GetTeam()).Count;
+			num = GameFlowData.Get().GetPlayerAndBotTeamMembers(m_teamPlayerIcons[0].GetTeam()).Count;
 		}
 		else
 		{
-			num = this.m_teamPlayerIcons.Length;
+			num = m_teamPlayerIcons.Length;
 		}
-		for (int i = 0; i < this.m_teamPlayerIcons.Length; i++)
+		for (int i = 0; i < m_teamPlayerIcons.Length; i++)
 		{
-			if (i < num && this.m_teamPlayerIcons[i].IsActiveDisplay())
+			if (i < num && m_teamPlayerIcons[i].IsActiveDisplay())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -214,9 +214,9 @@ public class UIPlayerDisplay : MonoBehaviour
 					break;
 				}
 				bool doActive = visible;
-				if (SinglePlayerManager.Get())
+				if ((bool)SinglePlayerManager.Get())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -227,7 +227,7 @@ public class UIPlayerDisplay : MonoBehaviour
 					}
 					if (SinglePlayerManager.Get().GetTeamPlayerIconForceOff(i))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -239,16 +239,16 @@ public class UIPlayerDisplay : MonoBehaviour
 						doActive = false;
 					}
 				}
-				UIManager.SetGameObjectActive(this.m_teamPlayerIcons[i], doActive, null);
+				UIManager.SetGameObjectActive(m_teamPlayerIcons[i], doActive);
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.m_teamPlayerIcons[i], false, null);
+				UIManager.SetGameObjectActive(m_teamPlayerIcons[i], false);
 			}
 		}
-		if (this.m_enemyPlayerIcons[0].IsActiveDisplay())
+		if (m_enemyPlayerIcons[0].IsActiveDisplay())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -257,62 +257,56 @@ public class UIPlayerDisplay : MonoBehaviour
 				}
 				break;
 			}
-			num = GameFlowData.Get().GetPlayerAndBotTeamMembers(this.m_enemyPlayerIcons[0].GetTeam()).Count;
+			num = GameFlowData.Get().GetPlayerAndBotTeamMembers(m_enemyPlayerIcons[0].GetTeam()).Count;
 		}
 		else
 		{
-			num = this.m_enemyPlayerIcons.Length;
+			num = m_enemyPlayerIcons.Length;
 		}
-		int j = 0;
-		while (j < this.m_enemyPlayerIcons.Length)
+		for (int j = 0; j < m_enemyPlayerIcons.Length; j++)
 		{
-			if (j >= num)
+			if (j < num)
 			{
-				goto IL_187;
-			}
-			for (;;)
-			{
-				switch (3)
+				while (true)
 				{
-				case 0:
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (m_enemyPlayerIcons[j].IsActiveDisplay())
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					bool doActive2 = visible;
+					if ((bool)SinglePlayerManager.Get() && SinglePlayerManager.Get().GetEnemyPlayerIconForceOff(j))
+					{
+						doActive2 = false;
+					}
+					UIManager.SetGameObjectActive(m_enemyPlayerIcons[j], doActive2);
 					continue;
 				}
-				break;
 			}
-			if (!this.m_enemyPlayerIcons[j].IsActiveDisplay())
-			{
-				goto IL_187;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			bool doActive2 = visible;
-			if (SinglePlayerManager.Get() && SinglePlayerManager.Get().GetEnemyPlayerIconForceOff(j))
-			{
-				doActive2 = false;
-			}
-			UIManager.SetGameObjectActive(this.m_enemyPlayerIcons[j], doActive2, null);
-			IL_196:
-			j++;
-			continue;
-			IL_187:
-			UIManager.SetGameObjectActive(this.m_enemyPlayerIcons[j], false, null);
-			goto IL_196;
+			UIManager.SetGameObjectActive(m_enemyPlayerIcons[j], false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
@@ -322,106 +316,107 @@ public class UIPlayerDisplay : MonoBehaviour
 
 	public void DisplayPanelHideAnimDone()
 	{
-		if (this.m_PanelVisibility)
+		if (m_PanelVisibility)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					SetDisplaysVisible(true);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerDisplay.DisplayPanelHideAnimDone()).MethodHandle;
-			}
-			this.SetDisplaysVisible(true);
 		}
-		else
-		{
-			this.SetDisplaysVisible(false);
-		}
+		SetDisplaysVisible(false);
 	}
 
 	public void NotifyDecisionTimerShow()
 	{
-		if (!this.IsAnimationPlaying())
+		if (!IsAnimationPlaying())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_PanelVisibility = true;
+					SetDisplaysVisible(true);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerDisplay.NotifyDecisionTimerShow()).MethodHandle;
-			}
-			this.m_PanelVisibility = true;
-			this.SetDisplaysVisible(true);
 		}
-		else if (this.m_animsToPlayQueue != null)
+		if (m_animsToPlayQueue == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!this.m_animsToPlayQueue.Contains(this.showDisplayAnimName))
+			if (!m_animsToPlayQueue.Contains(showDisplayAnimName))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
+			return;
 		}
 	}
 
 	public void NotifyLockedIn(bool isLocked)
 	{
-		for (int i = 0; i < this.m_teamPlayerIcons.Length; i++)
+		for (int i = 0; i < m_teamPlayerIcons.Length; i++)
 		{
-			this.m_teamPlayerIcons[i].NotifyLockedIn(isLocked);
+			m_teamPlayerIcons[i].NotifyLockedIn(isLocked);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerDisplay.NotifyLockedIn(bool)).MethodHandle;
-		}
-		for (int j = 0; j < this.m_enemyPlayerIcons.Length; j++)
-		{
-			this.m_enemyPlayerIcons[j].NotifyLockedIn(isLocked);
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			for (int j = 0; j < m_enemyPlayerIcons.Length; j++)
+			{
+				m_enemyPlayerIcons[j].NotifyLockedIn(isLocked);
+			}
+			return;
 		}
 	}
 
 	private void ProcessTeamsForSpectator()
 	{
-		bool flag;
+		int num;
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -430,19 +425,19 @@ public class UIPlayerDisplay : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerDisplay.ProcessTeamsForSpectator()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (ClientGameManager.Get().PlayerInfo != null && ClientGameManager.Get().PlayerInfo.TeamId == Team.Spectator)
 			{
-				flag = true;
-				goto IL_8D;
+				num = 1;
+				goto IL_008d;
 			}
 		}
 		if (GameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -453,7 +448,7 @@ public class UIPlayerDisplay : MonoBehaviour
 			}
 			if (GameManager.Get().PlayerInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -462,109 +457,150 @@ public class UIPlayerDisplay : MonoBehaviour
 					}
 					break;
 				}
-				flag = (GameManager.Get().PlayerInfo.TeamId == Team.Spectator);
-				goto IL_8A;
+				num = ((GameManager.Get().PlayerInfo.TeamId == Team.Spectator) ? 1 : 0);
+				goto IL_008d;
 			}
 		}
-		flag = false;
-		IL_8A:
-		IL_8D:
-		bool flag2 = flag;
-		if (!(GameFlowData.Get() == null))
+		num = 0;
+		goto IL_008d;
+		IL_008d:
+		bool flag = (byte)num != 0;
+		if (GameFlowData.Get() == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			if (GameFlowData.Get().LocalPlayerData == null)
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!(GameFlowData.Get().LocalPlayerData == null))
-			{
-				for (;;)
+				if (!flag)
 				{
-					switch (3)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (5)
+						{
+						default:
+							return;
+						case 0:
+							break;
+						}
 					}
-					break;
 				}
-				if (flag2)
+				Team team = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
+				if (team != 0)
 				{
-					Team team = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
-					if (team != Team.TeamA)
+					while (true)
 					{
-						for (;;)
+						switch (7)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
+						case 0:
+							continue;
 						}
-						if (team != Team.Invalid)
-						{
-							goto IL_104;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
+						break;
 					}
-					team = Team.TeamA;
-					IL_104:
-					List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(team);
-					GameFlowData gameFlowData = GameFlowData.Get();
-					Team team2;
-					if (team == Team.TeamA)
+					if (team != Team.Invalid)
 					{
-						for (;;)
+						goto IL_0104;
+					}
+					while (true)
+					{
+						switch (1)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
+						case 0:
+							continue;
 						}
-						team2 = Team.TeamB;
+						break;
 					}
-					else
+				}
+				team = Team.TeamA;
+				goto IL_0104;
+				IL_0104:
+				List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(team);
+				GameFlowData gameFlowData = GameFlowData.Get();
+				int team2;
+				if (team == Team.TeamA)
+				{
+					while (true)
 					{
-						team2 = Team.TeamA;
-					}
-					List<ActorData> playerAndBotTeamMembers2 = gameFlowData.GetPlayerAndBotTeamMembers(team2);
-					int num = 0;
-					using (List<ActorData>.Enumerator enumerator = playerAndBotTeamMembers.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
+						switch (3)
 						{
-							ActorData actor = enumerator.Current;
-							if (num >= this.m_teamPlayerIcons.Length)
+						case 0:
+							continue;
+						}
+						break;
+					}
+					team2 = 1;
+				}
+				else
+				{
+					team2 = 0;
+				}
+				List<ActorData> playerAndBotTeamMembers2 = gameFlowData.GetPlayerAndBotTeamMembers((Team)team2);
+				int num2 = 0;
+				using (List<ActorData>.Enumerator enumerator = playerAndBotTeamMembers.GetEnumerator())
+				{
+					while (true)
+					{
+						if (!enumerator.MoveNext())
+						{
+							while (true)
 							{
-								for (;;)
+								switch (2)
 								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
+								case 0:
+									continue;
 								}
-								goto IL_208;
+								break;
 							}
-							if (!GameplayUtils.IsPlayerControlled(actor))
+							break;
+						}
+						ActorData current = enumerator.Current;
+						if (num2 >= m_teamPlayerIcons.Length)
+						{
+							while (true)
 							{
-								for (;;)
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							break;
+						}
+						if (!GameplayUtils.IsPlayerControlled(current))
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+						else
+						{
+							m_teamPlayerIcons[num2].Setup(current);
+							bool doActive = true;
+							if ((bool)SinglePlayerManager.Get())
+							{
+								while (true)
 								{
 									switch (4)
 									{
@@ -573,123 +609,87 @@ public class UIPlayerDisplay : MonoBehaviour
 									}
 									break;
 								}
-							}
-							else
-							{
-								this.m_teamPlayerIcons[num].Setup(actor);
-								bool doActive = true;
-								if (SinglePlayerManager.Get())
+								if (SinglePlayerManager.Get().GetTeamPlayerIconForceOff(num2))
 								{
-									for (;;)
+									while (true)
 									{
-										switch (4)
+										switch (6)
 										{
 										case 0:
 											continue;
 										}
 										break;
 									}
-									if (SinglePlayerManager.Get().GetTeamPlayerIconForceOff(num))
-									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										doActive = false;
-									}
+									doActive = false;
 								}
-								UIManager.SetGameObjectActive(this.m_teamPlayerIcons[num], doActive, null);
-								num++;
 							}
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							UIManager.SetGameObjectActive(m_teamPlayerIcons[num2], doActive);
+							num2++;
 						}
 					}
-					IL_208:
-					num = 0;
-					using (List<ActorData>.Enumerator enumerator2 = playerAndBotTeamMembers2.GetEnumerator())
+				}
+				num2 = 0;
+				using (List<ActorData>.Enumerator enumerator2 = playerAndBotTeamMembers2.GetEnumerator())
+				{
+					while (enumerator2.MoveNext())
 					{
-						while (enumerator2.MoveNext())
+						ActorData current2 = enumerator2.Current;
+						if (num2 >= m_enemyPlayerIcons.Length)
 						{
-							ActorData actor2 = enumerator2.Current;
-							if (num >= this.m_enemyPlayerIcons.Length)
+							while (true)
 							{
-								for (;;)
+								switch (6)
 								{
-									switch (6)
+								default:
+									return;
+								case 0:
+									break;
+								}
+							}
+						}
+						if (GameplayUtils.IsPlayerControlled(current2))
+						{
+							m_enemyPlayerIcons[num2].Setup(current2);
+							bool doActive2 = true;
+							if ((bool)SinglePlayerManager.Get())
+							{
+								while (true)
+								{
+									switch (5)
 									{
 									case 0:
 										continue;
 									}
 									break;
 								}
-								return;
-							}
-							if (GameplayUtils.IsPlayerControlled(actor2))
-							{
-								this.m_enemyPlayerIcons[num].Setup(actor2);
-								bool doActive2 = true;
-								if (SinglePlayerManager.Get())
+								if (SinglePlayerManager.Get().GetEnemyPlayerIconForceOff(num2))
 								{
-									for (;;)
+									while (true)
 									{
-										switch (5)
+										switch (6)
 										{
 										case 0:
 											continue;
 										}
 										break;
 									}
-									if (SinglePlayerManager.Get().GetEnemyPlayerIconForceOff(num))
-									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										doActive2 = false;
-									}
+									doActive2 = false;
 								}
-								UIManager.SetGameObjectActive(this.m_enemyPlayerIcons[num], doActive2, null);
-								num++;
 							}
+							UIManager.SetGameObjectActive(m_enemyPlayerIcons[num2], doActive2);
+							num2++;
 						}
-						for (;;)
+					}
+					while (true)
+					{
+						switch (5)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
+						default:
+							return;
+						case 0:
 							break;
 						}
 					}
-					return;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -704,7 +704,7 @@ public class UIPlayerDisplay : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -713,24 +713,37 @@ public class UIPlayerDisplay : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerDisplay.ProcessTeams()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.\u000E());
+			List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetTeam());
 			int num = 0;
 			using (List<ActorData>.Enumerator enumerator = playerAndBotTeamMembers.GetEnumerator())
 			{
-				while (enumerator.MoveNext())
+				while (true)
 				{
-					ActorData actor = enumerator.Current;
-					if (num >= this.m_teamPlayerIcons.Length)
+					if (!enumerator.MoveNext())
 					{
-						goto IL_DB;
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						break;
 					}
-					if (!GameplayUtils.IsPlayerControlled(actor))
+					ActorData current = enumerator.Current;
+					if (num >= m_teamPlayerIcons.Length)
 					{
-						for (;;)
+						break;
+					}
+					if (!GameplayUtils.IsPlayerControlled(current))
+					{
+						while (true)
 						{
 							switch (4)
 							{
@@ -742,31 +755,20 @@ public class UIPlayerDisplay : MonoBehaviour
 					}
 					else
 					{
-						this.m_teamPlayerIcons[num].Setup(actor);
+						m_teamPlayerIcons[num].Setup(current);
 						num++;
 					}
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
-			IL_DB:
-			playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.\u0012());
+			playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetOpposingTeam());
 			num = 0;
 			using (List<ActorData>.Enumerator enumerator2 = playerAndBotTeamMembers.GetEnumerator())
 			{
-				while (enumerator2.MoveNext())
+				while (true)
 				{
-					ActorData actor2 = enumerator2.Current;
-					if (num >= this.m_enemyPlayerIcons.Length)
+					if (!enumerator2.MoveNext())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -775,30 +777,34 @@ public class UIPlayerDisplay : MonoBehaviour
 							}
 							break;
 						}
-						goto IL_163;
+						break;
 					}
-					if (GameplayUtils.IsPlayerControlled(actor2))
+					ActorData current2 = enumerator2.Current;
+					if (num >= m_enemyPlayerIcons.Length)
 					{
-						this.m_enemyPlayerIcons[num].Setup(actor2);
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						break;
+					}
+					if (GameplayUtils.IsPlayerControlled(current2))
+					{
+						m_enemyPlayerIcons[num].Setup(current2);
 						num++;
 					}
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
-			IL_163:;
 		}
 		else
 		{
-			this.ProcessTeamsForSpectator();
+			ProcessTeamsForSpectator();
 		}
-		this.SetDisplaysVisible(true);
+		SetDisplaysVisible(true);
 	}
 }

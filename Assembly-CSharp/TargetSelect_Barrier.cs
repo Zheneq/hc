@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
@@ -23,23 +22,23 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return "For placing a barrier, with optional laser templates in front and back.\n" + base.GetContextUsageStr(ContextKeys.\u000E.\u0012(), "non-actor specific context, set as width of barrier", false) + base.GetContextUsageStr(ContextKeys.\u0015.\u0012(), "non-actor specific context, center position of barrier", false) + base.GetContextUsageStr(ContextKeys.\u0009.\u0012(), "non-actor specific context, facing direction of barrier", false);
+		return "For placing a barrier, with optional laser templates in front and back.\n" + GetContextUsageStr(ContextKeys._000E.GetName(), "non-actor specific context, set as width of barrier", false) + GetContextUsageStr(ContextKeys._0015.GetName(), "non-actor specific context, center position of barrier", false) + GetContextUsageStr(ContextKeys._0009.GetName(), "non-actor specific context, facing direction of barrier", false);
 	}
 
 	public override void ListContextNamesForEditor(List<string> keys)
 	{
-		keys.Add(ContextKeys.\u000E.\u0012());
-		keys.Add(ContextKeys.\u0015.\u0012());
-		keys.Add(ContextKeys.\u0009.\u0012());
+		keys.Add(ContextKeys._000E.GetName());
+		keys.Add(ContextKeys._0015.GetName());
+		keys.Add(ContextKeys._0009.GetName());
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)
 	{
 		List<AbilityUtil_Targeter> list = new List<AbilityUtil_Targeter>();
-		float barrierWidth = this.m_barrierWidth;
+		float barrierWidth = m_barrierWidth;
 		if (ability.GetExpectedNumberOfTargeters() < 2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -48,16 +47,16 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Barrier.CreateTargeters(Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			list.Add(new AbilityUtil_Targeter_BarrierWithLasers(ability, barrierWidth, this.m_laserRangeFront, this.m_laserRangeBack, base.IgnoreLos(), this.m_laserRangeIgnoreLos));
+			list.Add(new AbilityUtil_Targeter_BarrierWithLasers(ability, barrierWidth, m_laserRangeFront, m_laserRangeBack, IgnoreLos(), m_laserRangeIgnoreLos));
 		}
 		else
 		{
-			list.Add(new AbilityUtil_Targeter_Shape(ability, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible));
-			AbilityUtil_Targeter_BarrierWithLasers abilityUtil_Targeter_BarrierWithLasers = new AbilityUtil_Targeter_BarrierWithLasers(ability, barrierWidth, this.m_laserRangeFront, this.m_laserRangeBack, base.IgnoreLos(), this.m_laserRangeIgnoreLos);
+			list.Add(new AbilityUtil_Targeter_Shape(ability, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false));
+			AbilityUtil_Targeter_BarrierWithLasers abilityUtil_Targeter_BarrierWithLasers = new AbilityUtil_Targeter_BarrierWithLasers(ability, barrierWidth, m_laserRangeFront, m_laserRangeBack, IgnoreLos(), m_laserRangeIgnoreLos);
 			abilityUtil_Targeter_BarrierWithLasers.SetUseMultiTargetUpdate(true);
 			list.Add(abilityUtil_Targeter_BarrierWithLasers);
 		}
@@ -66,48 +65,46 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 
 	private List<ActorData> GetLaserHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
 	{
-		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, base.IncludeAllies(), base.IncludeEnemies());
-		Vector3 barrierPos;
-		Vector3 barrierFacing;
-		TargetSelect_Barrier.GetBarrierPositionAndFacing(targets, this.m_snapToGrid, out barrierPos, out barrierFacing);
-		return TargetSelect_Barrier.GetLaserHitActors(barrierPos, barrierFacing, caster, nonActorTargetInfo, this.m_snapToGrid, this.m_barrierWidth, this.m_laserRangeFront, this.m_laserRangeBack, this.m_ignoreLos, this.m_laserRangeIgnoreLos, relevantTeams);
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies());
+		GetBarrierPositionAndFacing(targets, m_snapToGrid, out Vector3 position, out Vector3 facing);
+		return GetLaserHitActors(position, facing, caster, nonActorTargetInfo, m_snapToGrid, m_barrierWidth, m_laserRangeFront, m_laserRangeBack, m_ignoreLos, m_laserRangeIgnoreLos, relevantTeams);
 	}
 
-	public unsafe static void GetBarrierPositionAndFacing(List<AbilityTarget> targets, bool snapToGrid, out Vector3 position, out Vector3 facing)
+	public static void GetBarrierPositionAndFacing(List<AbilityTarget> targets, bool snapToGrid, out Vector3 position, out Vector3 facing)
 	{
 		facing = targets[0].AimDirection;
 		position = targets[0].FreePos;
-		if (snapToGrid)
+		if (!snapToGrid)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+			if (!(boardSquareSafe != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Barrier.GetBarrierPositionAndFacing(List<AbilityTarget>, bool, Vector3*, Vector3*)).MethodHandle;
-			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(targets[0].GridPos);
-			if (boardSquare != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 freePos = targets[0].FreePos;
 				if (targets.Count > 1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -118,8 +115,9 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 					}
 					freePos = targets[1].FreePos;
 				}
-				facing = VectorUtils.GetDirectionToClosestSide(boardSquare, freePos);
-				position = boardSquare.ToVector3() + 0.5f * Board.\u000E().squareSize * facing;
+				facing = VectorUtils.GetDirectionToClosestSide(boardSquareSafe, freePos);
+				position = boardSquareSafe.ToVector3() + 0.5f * Board.Get().squareSize * facing;
+				return;
 			}
 		}
 	}
@@ -128,10 +126,10 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 	{
 		List<ActorData> list = new List<ActorData>();
 		Vector3 startPos = barrierPos;
-		startPos.y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+		startPos.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 		if (laserRangeFront > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -140,26 +138,26 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Barrier.GetLaserHitActors(Vector3, Vector3, ActorData, List<NonActorTargetInfo>, bool, float, float, float, bool, bool, List<Team>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Vector3 vector;
-			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(startPos, barrierFacing, laserRangeFront, barrierWidth, caster, teams, ignoreLos, -1, laserRangeIgnoreLos, true, out vector, nonActorTargetInfo, null, true, true);
+			Vector3 laserEndPos;
+			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(startPos, barrierFacing, laserRangeFront, barrierWidth, caster, teams, ignoreLos, -1, laserRangeIgnoreLos, true, out laserEndPos, nonActorTargetInfo, null, true);
 			list.AddRange(actorsInLaser);
 		}
 		if (laserRangeBack > 0f)
 		{
-			Vector3 vector2;
-			List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(startPos, -1f * barrierFacing, laserRangeBack, barrierWidth, caster, teams, ignoreLos, -1, laserRangeIgnoreLos, true, out vector2, nonActorTargetInfo, null, true, true);
+			Vector3 laserEndPos2;
+			List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(startPos, -1f * barrierFacing, laserRangeBack, barrierWidth, caster, teams, ignoreLos, -1, laserRangeIgnoreLos, true, out laserEndPos2, nonActorTargetInfo, null, true);
 			using (List<ActorData>.Enumerator enumerator = actorsInLaser2.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					ActorData item = enumerator.Current;
-					if (!list.Contains(item))
+					ActorData current = enumerator.Current;
+					if (!list.Contains(current))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -168,17 +166,18 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 							}
 							break;
 						}
-						list.Add(item);
+						list.Add(current);
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return list;
 					}
-					break;
 				}
 			}
 		}

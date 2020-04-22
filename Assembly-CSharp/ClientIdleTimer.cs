@@ -1,4 +1,3 @@
-﻿using System;
 using System.Diagnostics;
 using UnityEngine;
 
@@ -16,9 +15,9 @@ public class ClientIdleTimer : MonoBehaviour
 
 	public static ClientIdleTimer Get()
 	{
-		if (ClientIdleTimer.s_instance == null)
+		if (s_instance == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -27,57 +26,56 @@ public class ClientIdleTimer : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientIdleTimer.Get()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Log.Error("ClientIdleTimer component is not present on a bootstrap singleton!", new object[0]);
+			Log.Error("ClientIdleTimer component is not present on a bootstrap singleton!");
 		}
-		return ClientIdleTimer.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
-		ClientIdleTimer.s_instance = this;
+		Object.DontDestroyOnLoad(base.gameObject);
+		s_instance = this;
 	}
 
 	private void OnDestroy()
 	{
-		ClientIdleTimer.s_instance = null;
+		s_instance = null;
 	}
 
 	private void Update()
 	{
 		if (!HydrogenConfig.Get().EnableNoInputIdleDisconnect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientIdleTimer.Update()).MethodHandle;
-			}
-			return;
 		}
 		if (Application.isEditor)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-			return;
 		}
 		if (Debugger.IsAttached)
 		{
@@ -85,7 +83,7 @@ public class ClientIdleTimer : MonoBehaviour
 		}
 		if (DebugParameters.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -98,7 +96,7 @@ public class ClientIdleTimer : MonoBehaviour
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -110,7 +108,376 @@ public class ClientIdleTimer : MonoBehaviour
 		}
 		if (GameFlowData.Get() != null && GameFlowData.Get().GetPause())
 		{
-			for (;;)
+			while (true)
+			{
+				switch (4)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
+		}
+		if (GameManager.Get() != null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (GameManager.Get().GameConfig != null)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.NoInputIdleDisconnect))
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						default:
+							return;
+						case 0:
+							break;
+						}
+					}
+				}
+			}
+		}
+		if (UILandingPageFullScreenMenus.Get() != null && UILandingPageFullScreenMenus.Get().IsVideoVisible())
+		{
+			return;
+		}
+		if (ClientGameManager.Get().IsFastForward)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
+		}
+		if (ReplayPlayManager.Get() != null)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (ReplayPlayManager.Get().IsPlayback())
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
+			}
+		}
+		bool flag = false;
+		bool flag2 = false;
+		if (AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (AppState_GroupCharacterSelect.Get().InQueue())
+			{
+				flag = true;
+				m_timeSinceMatchStart = 0f;
+				goto IL_02bd;
+			}
+		}
+		if (!(AppState.GetCurrent() == AppState_FoundGame.Get()))
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!(AppState.GetCurrent() == AppState_GameLoading.Get()))
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!(AppState.GetCurrent() == AppState_InGameStarting.Get()))
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (!(AppState.GetCurrent() == AppState_InGameDeployment.Get()))
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!(AppState.GetCurrent() == AppState_WaitingForGame.Get()))
+						{
+							if (!(AppState.GetCurrent() == AppState_InGameDecision.Get()))
+							{
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (!(AppState.GetCurrent() == AppState_InGameResolve.Get()))
+								{
+									goto IL_02bd;
+								}
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							if (GameFlowData.Get() != null)
+							{
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								flag2 = true;
+								m_timeSinceMatchStart += Time.deltaTime;
+							}
+							goto IL_02bd;
+						}
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+				}
+			}
+		}
+		flag = true;
+		m_timeSinceMatchStart = 0f;
+		goto IL_02bd;
+		IL_034a:
+		if (flag2)
+		{
+			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+			if (GameFlowData.Get().gameState == GameState.BothTeams_Decision && activeOwnedActorData != null && activeOwnedActorData.GetActorTurnSM() != null)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!activeOwnedActorData.GetActorTurnSM().GetRequestStackForUndo().IsNullOrEmpty())
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						default:
+							return;
+						case 0:
+							break;
+						}
+					}
+				}
+			}
+			if (activeOwnedActorData == null || activeOwnedActorData.IsDead())
+			{
+				return;
+			}
+		}
+		m_timeSinceInput += Time.deltaTime;
+		if (!flag2)
+		{
+			return;
+		}
+		if (GameFlowData.Get().CurrentTurn == 1)
+		{
+			if (!(m_timeSinceMatchStart > 12f))
+			{
+				return;
+			}
+			if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (m_timeSinceInput > HydrogenConfig.Get().NoInputIdleDisconnectTimeMatchStart)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							break;
+						default:
+							HideWarningDialog();
+							ClientGameManager.Get().LeaveGame(false, GameResult.ClientIdleTimeout);
+							m_timeSinceInput = 0f;
+							return;
+						}
+					}
+				}
+			}
+			if (!(m_timeSinceInput > HydrogenConfig.Get().NoInputIdleWarningTimeMatchStart))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				ShowWarningDialog();
+				return;
+			}
+		}
+		if (m_timeSinceInput > HydrogenConfig.Get().NoInputIdleDisconnectTime)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					break;
+				default:
+					HideWarningDialog();
+					ClientGameManager.Get().LeaveGame(false, GameResult.ClientIdleTimeout);
+					m_timeSinceInput = 0f;
+					return;
+				}
+			}
+		}
+		if (m_timeSinceInput > HydrogenConfig.Get().NoInputIdleWarningTime)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					break;
+				default:
+					ShowWarningDialog();
+					return;
+				}
+			}
+		}
+		HideWarningDialog();
+		return;
+		IL_02bd:
+		if (!flag)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!flag2)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						m_timeSinceInput = 0f;
+						return;
+					}
+				}
+			}
+		}
+		bool anyKey = Input.anyKey;
+		bool flag3 = (m_previousMousePosition - Input.mousePosition).sqrMagnitude > 0.001f;
+		m_previousMousePosition = Input.mousePosition;
+		if (!anyKey)
+		{
+			if (!flag3)
+			{
+				goto IL_034a;
+			}
+			while (true)
 			{
 				switch (4)
 				{
@@ -120,432 +487,62 @@ public class ClientIdleTimer : MonoBehaviour
 				break;
 			}
 		}
-		else
+		if (AccountPreferences.DoesApplicationHaveFocus())
 		{
-			if (GameManager.Get() != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (GameManager.Get().GameConfig != null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.NoInputIdleDisconnect))
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						return;
-					}
-				}
-			}
-			if (UILandingPageFullScreenMenus.Get() != null && UILandingPageFullScreenMenus.Get().IsVideoVisible())
-			{
-				return;
-			}
-			if (ClientGameManager.Get().IsFastForward)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return;
-			}
-			if (ReplayPlayManager.Get() != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (ReplayPlayManager.Get().IsPlayback())
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return;
-				}
-			}
-			bool flag = false;
-			bool flag2 = false;
-			if (AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (AppState_GroupCharacterSelect.Get().InQueue())
-				{
-					flag = true;
-					this.m_timeSinceMatchStart = 0f;
-					goto IL_2BD;
-				}
-			}
-			if (!(AppState.GetCurrent() == AppState_FoundGame.Get()))
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(AppState.GetCurrent() == AppState_GameLoading.Get()))
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!(AppState.GetCurrent() == AppState_InGameStarting.Get()))
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!(AppState.GetCurrent() == AppState_InGameDeployment.Get()))
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (AppState.GetCurrent() == AppState_WaitingForGame.Get())
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-							else
-							{
-								if (!(AppState.GetCurrent() == AppState_InGameDecision.Get()))
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!(AppState.GetCurrent() == AppState_InGameResolve.Get()))
-									{
-										goto IL_2BD;
-									}
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-								}
-								if (GameFlowData.Get() != null)
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									flag2 = true;
-									this.m_timeSinceMatchStart += Time.deltaTime;
-									goto IL_2BD;
-								}
-								goto IL_2BD;
-							}
-						}
-					}
-				}
-			}
-			flag = true;
-			this.m_timeSinceMatchStart = 0f;
-			IL_2BD:
-			if (!flag)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!flag2)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_timeSinceInput = 0f;
-					return;
-				}
-			}
-			bool anyKey = Input.anyKey;
-			bool flag3 = (this.m_previousMousePosition - Input.mousePosition).sqrMagnitude > 0.001f;
-			this.m_previousMousePosition = Input.mousePosition;
-			if (!anyKey)
-			{
-				if (!flag3)
-				{
-					goto IL_34A;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (AccountPreferences.DoesApplicationHaveFocus())
-			{
-				this.m_timeSinceInput = 0f;
-				this.HideWarningDialog();
-				return;
-			}
-			IL_34A:
-			if (flag2)
-			{
-				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-				if (GameFlowData.Get().gameState == GameState.BothTeams_Decision && activeOwnedActorData != null && activeOwnedActorData.\u000E() != null)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!activeOwnedActorData.\u000E().GetRequestStackForUndo().IsNullOrEmpty<ActorTurnSM.ActionRequestForUndo>())
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						return;
-					}
-				}
-				if (activeOwnedActorData == null || activeOwnedActorData.\u000E())
-				{
-					return;
-				}
-			}
-			this.m_timeSinceInput += Time.deltaTime;
-			if (flag2)
-			{
-				if (GameFlowData.Get().CurrentTurn == 1)
-				{
-					if (this.m_timeSinceMatchStart > 12f)
-					{
-						if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_timeSinceInput > HydrogenConfig.Get().NoInputIdleDisconnectTimeMatchStart)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.HideWarningDialog();
-								ClientGameManager.Get().LeaveGame(false, GameResult.ClientIdleTimeout);
-								this.m_timeSinceInput = 0f;
-								goto IL_483;
-							}
-						}
-						if (this.m_timeSinceInput > HydrogenConfig.Get().NoInputIdleWarningTimeMatchStart)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.ShowWarningDialog();
-						}
-					}
-					IL_483:;
-				}
-				else if (this.m_timeSinceInput > HydrogenConfig.Get().NoInputIdleDisconnectTime)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.HideWarningDialog();
-					ClientGameManager.Get().LeaveGame(false, GameResult.ClientIdleTimeout);
-					this.m_timeSinceInput = 0f;
-				}
-				else if (this.m_timeSinceInput > HydrogenConfig.Get().NoInputIdleWarningTime)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.ShowWarningDialog();
-				}
-				else
-				{
-					this.HideWarningDialog();
-				}
-			}
+			m_timeSinceInput = 0f;
+			HideWarningDialog();
 			return;
 		}
+		goto IL_034a;
 	}
 
 	private void ShowWarningDialog()
 	{
-		if (this.m_idleWarningDialog == null)
+		if (!(m_idleWarningDialog == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientIdleTimer.ShowWarningDialog()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_idleWarningDialog = UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("InactivityWarning", "Global"), StringUtil.TR("YouWillBeDisconnected", "Global"), StringUtil.TR("DontKickMe", "Global"), null, -1, false);
+			m_idleWarningDialog = UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("InactivityWarning", "Global"), StringUtil.TR("YouWillBeDisconnected", "Global"), StringUtil.TR("DontKickMe", "Global"));
+			return;
 		}
 	}
 
 	private void HideWarningDialog()
 	{
-		if (this.m_idleWarningDialog != null)
+		if (!(m_idleWarningDialog != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientIdleTimer.HideWarningDialog()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIDialogPopupManager.Get().CloseDialog(this.m_idleWarningDialog);
-			this.m_idleWarningDialog = null;
+			UIDialogPopupManager.Get().CloseDialog(m_idleWarningDialog);
+			m_idleWarningDialog = null;
+			return;
 		}
 	}
 
 	public void ResetIdleTimer()
 	{
-		this.m_timeSinceInput = 0f;
+		m_timeSinceInput = 0f;
 	}
 }

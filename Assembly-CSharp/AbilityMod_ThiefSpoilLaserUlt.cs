@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,51 +52,50 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ThiefSpoilLaserUlt thiefSpoilLaserUlt = targetAbility as ThiefSpoilLaserUlt;
-		if (thiefSpoilLaserUlt != null)
+		if (!(thiefSpoilLaserUlt != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ThiefSpoilLaserUlt.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_targeterMaxAngleMod, "TargeterMaxAngle", string.Empty, thiefSpoilLaserUlt.m_targeterMaxAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, thiefSpoilLaserUlt.m_laserDamageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_laserSubsequentDamageAmountMod, "LaserSubsequentDamageAmount", string.Empty, thiefSpoilLaserUlt.m_laserSubsequentDamageAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", thiefSpoilLaserUlt.m_enemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "LaserRange", string.Empty, thiefSpoilLaserUlt.m_laserRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", string.Empty, thiefSpoilLaserUlt.m_laserWidth, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserMaxTargetsMod, "LaserMaxTargets", string.Empty, thiefSpoilLaserUlt.m_laserMaxTargets, true, false);
-			AbilityMod.AddToken(tokens, this.m_laserCountMod, "LaserCount", string.Empty, thiefSpoilLaserUlt.m_laserCount, true, false);
-			AbilityMod.AddToken(tokens, this.m_copyBuffDurationMod, "CopyBuffDuration", string.Empty, thiefSpoilLaserUlt.m_copyBuffDuration, true, false);
-			AbilityMod.AddToken(tokens, this.m_maxPowerupsHitMod, "MaxPowerupsHit", string.Empty, thiefSpoilLaserUlt.m_maxPowerupsHit, true, false);
+			AbilityMod.AddToken(tokens, m_targeterMaxAngleMod, "TargeterMaxAngle", string.Empty, thiefSpoilLaserUlt.m_targeterMaxAngle);
+			AbilityMod.AddToken(tokens, m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, thiefSpoilLaserUlt.m_laserDamageAmount);
+			AbilityMod.AddToken(tokens, m_laserSubsequentDamageAmountMod, "LaserSubsequentDamageAmount", string.Empty, thiefSpoilLaserUlt.m_laserSubsequentDamageAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", thiefSpoilLaserUlt.m_enemyHitEffect);
+			AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, thiefSpoilLaserUlt.m_laserRange);
+			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, thiefSpoilLaserUlt.m_laserWidth);
+			AbilityMod.AddToken(tokens, m_laserMaxTargetsMod, "LaserMaxTargets", string.Empty, thiefSpoilLaserUlt.m_laserMaxTargets);
+			AbilityMod.AddToken(tokens, m_laserCountMod, "LaserCount", string.Empty, thiefSpoilLaserUlt.m_laserCount);
+			AbilityMod.AddToken(tokens, m_copyBuffDurationMod, "CopyBuffDuration", string.Empty, thiefSpoilLaserUlt.m_copyBuffDuration);
+			AbilityMod.AddToken(tokens, m_maxPowerupsHitMod, "MaxPowerupsHit", string.Empty, thiefSpoilLaserUlt.m_maxPowerupsHit);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ThiefSpoilLaserUlt thiefSpoilLaserUlt = base.GetTargetAbilityOnAbilityData(abilityData) as ThiefSpoilLaserUlt;
+		ThiefSpoilLaserUlt thiefSpoilLaserUlt = GetTargetAbilityOnAbilityData(abilityData) as ThiefSpoilLaserUlt;
 		bool flag = thiefSpoilLaserUlt != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_targeterMaxAngleMod, "[TargeterMaxAngle]", flag, (!flag) ? 0f : thiefSpoilLaserUlt.m_targeterMaxAngle);
-		text += base.PropDesc(this.m_laserDamageAmountMod, "[LaserDamageAmount]", flag, (!flag) ? 0 : thiefSpoilLaserUlt.m_laserDamageAmount);
-		text += base.PropDesc(this.m_laserSubsequentDamageAmountMod, "[LaserSubsequentDamageAmount]", flag, (!flag) ? 0 : thiefSpoilLaserUlt.m_laserSubsequentDamageAmount);
-		text += base.PropDesc(this.m_enemyHitEffectMod, "[EnemyHitEffect]", flag, (!flag) ? null : thiefSpoilLaserUlt.m_enemyHitEffect);
-		string str = text;
-		AbilityModPropertyFloat laserRangeMod = this.m_laserRangeMod;
-		string prefix = "[LaserRange]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += PropDesc(m_targeterMaxAngleMod, "[TargeterMaxAngle]", flag, (!flag) ? 0f : thiefSpoilLaserUlt.m_targeterMaxAngle);
+		empty += PropDesc(m_laserDamageAmountMod, "[LaserDamageAmount]", flag, flag ? thiefSpoilLaserUlt.m_laserDamageAmount : 0);
+		empty += PropDesc(m_laserSubsequentDamageAmountMod, "[LaserSubsequentDamageAmount]", flag, flag ? thiefSpoilLaserUlt.m_laserSubsequentDamageAmount : 0);
+		empty += PropDesc(m_enemyHitEffectMod, "[EnemyHitEffect]", flag, (!flag) ? null : thiefSpoilLaserUlt.m_enemyHitEffect);
+		string str = empty;
+		AbilityModPropertyFloat laserRangeMod = m_laserRangeMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -105,9 +104,9 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ThiefSpoilLaserUlt.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = thiefSpoilLaserUlt.m_laserRange;
 		}
@@ -115,15 +114,13 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(laserRangeMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat laserWidthMod = this.m_laserWidthMod;
-		string prefix2 = "[LaserWidth]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(laserRangeMod, "[LaserRange]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat laserWidthMod = m_laserWidthMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -138,15 +135,13 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(laserWidthMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt laserMaxTargetsMod = this.m_laserMaxTargetsMod;
-		string prefix3 = "[LaserMaxTargets]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(laserWidthMod, "[LaserWidth]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyInt laserMaxTargetsMod = m_laserMaxTargetsMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -161,15 +156,13 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(laserMaxTargetsMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt laserCountMod = this.m_laserCountMod;
-		string prefix4 = "[LaserCount]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(laserMaxTargetsMod, "[LaserMaxTargets]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyInt laserCountMod = m_laserCountMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -184,15 +177,13 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(laserCountMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyBool laserPenetrateLosMod = this.m_laserPenetrateLosMod;
-		string prefix5 = "[LaserPenetrateLos]";
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		empty = str4 + PropDesc(laserCountMod, "[LaserCount]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyBool laserPenetrateLosMod = m_laserPenetrateLosMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -201,21 +192,19 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 				}
 				break;
 			}
-			baseVal5 = thiefSpoilLaserUlt.m_laserPenetrateLos;
+			baseVal5 = (thiefSpoilLaserUlt.m_laserPenetrateLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(laserPenetrateLosMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertySpoilsSpawnData spoilSpawnDataMod = this.m_spoilSpawnDataMod;
-		string prefix6 = "[SpoilSpawnData]";
-		bool showBaseVal6 = flag;
-		SpoilsSpawnData baseVal6;
+		empty = str5 + PropDesc(laserPenetrateLosMod, "[LaserPenetrateLos]", flag, (byte)baseVal5 != 0);
+		string str6 = empty;
+		AbilityModPropertySpoilsSpawnData spoilSpawnDataMod = m_spoilSpawnDataMod;
+		object baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -230,15 +219,13 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		{
 			baseVal6 = null;
 		}
-		text = str6 + base.PropDesc(spoilSpawnDataMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyBool hitPowerupsMod = this.m_hitPowerupsMod;
-		string prefix7 = "[HitPowerups]";
-		bool showBaseVal7 = flag;
-		bool baseVal7;
+		empty = str6 + PropDesc(spoilSpawnDataMod, "[SpoilSpawnData]", flag, (SpoilsSpawnData)baseVal6);
+		string str7 = empty;
+		AbilityModPropertyBool hitPowerupsMod = m_hitPowerupsMod;
+		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -247,21 +234,19 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 				}
 				break;
 			}
-			baseVal7 = thiefSpoilLaserUlt.m_hitPowerups;
+			baseVal7 = (thiefSpoilLaserUlt.m_hitPowerups ? 1 : 0);
 		}
 		else
 		{
-			baseVal7 = false;
+			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(hitPowerupsMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyBool stopOnPowerupHitMod = this.m_stopOnPowerupHitMod;
-		string prefix8 = "[StopOnPowerupHit]";
-		bool showBaseVal8 = flag;
-		bool baseVal8;
+		empty = str7 + PropDesc(hitPowerupsMod, "[HitPowerups]", flag, (byte)baseVal7 != 0);
+		string str8 = empty;
+		AbilityModPropertyBool stopOnPowerupHitMod = m_stopOnPowerupHitMod;
+		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -270,22 +255,20 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 				}
 				break;
 			}
-			baseVal8 = thiefSpoilLaserUlt.m_stopOnPowerupHit;
+			baseVal8 = (thiefSpoilLaserUlt.m_stopOnPowerupHit ? 1 : 0);
 		}
 		else
 		{
-			baseVal8 = false;
+			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(stopOnPowerupHitMod, prefix8, showBaseVal8, baseVal8);
-		text += base.PropDesc(this.m_includeSpoilsPowerupsMod, "[IncludeSpoilsPowerups]", flag, flag && thiefSpoilLaserUlt.m_includeSpoilsPowerups);
-		string str9 = text;
-		AbilityModPropertyBool ignorePickupTeamRestrictionMod = this.m_ignorePickupTeamRestrictionMod;
-		string prefix9 = "[IgnorePickupTeamRestriction]";
-		bool showBaseVal9 = flag;
-		bool baseVal9;
+		empty = str8 + PropDesc(stopOnPowerupHitMod, "[StopOnPowerupHit]", flag, (byte)baseVal8 != 0);
+		empty += PropDesc(m_includeSpoilsPowerupsMod, "[IncludeSpoilsPowerups]", flag, flag && thiefSpoilLaserUlt.m_includeSpoilsPowerups);
+		string str9 = empty;
+		AbilityModPropertyBool ignorePickupTeamRestrictionMod = m_ignorePickupTeamRestrictionMod;
+		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -294,21 +277,19 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 				}
 				break;
 			}
-			baseVal9 = thiefSpoilLaserUlt.m_ignorePickupTeamRestriction;
+			baseVal9 = (thiefSpoilLaserUlt.m_ignorePickupTeamRestriction ? 1 : 0);
 		}
 		else
 		{
-			baseVal9 = false;
+			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(ignorePickupTeamRestrictionMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyInt maxPowerupsHitMod = this.m_maxPowerupsHitMod;
-		string prefix10 = "[MaxPowerupsHit]";
-		bool showBaseVal10 = flag;
+		empty = str9 + PropDesc(ignorePickupTeamRestrictionMod, "[IgnorePickupTeamRestriction]", flag, (byte)baseVal9 != 0);
+		string str10 = empty;
+		AbilityModPropertyInt maxPowerupsHitMod = m_maxPowerupsHitMod;
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -323,15 +304,13 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		{
 			baseVal10 = 0;
 		}
-		text = str10 + base.PropDesc(maxPowerupsHitMod, prefix10, showBaseVal10, baseVal10);
-		string str11 = text;
-		AbilityModPropertyBool copyBuffsOnEnemyHitMod = this.m_copyBuffsOnEnemyHitMod;
-		string prefix11 = "[CopyBuffsOnEnemyHit]";
-		bool showBaseVal11 = flag;
-		bool baseVal11;
+		empty = str10 + PropDesc(maxPowerupsHitMod, "[MaxPowerupsHit]", flag, baseVal10);
+		string str11 = empty;
+		AbilityModPropertyBool copyBuffsOnEnemyHitMod = m_copyBuffsOnEnemyHitMod;
+		int baseVal11;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -340,21 +319,19 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 				}
 				break;
 			}
-			baseVal11 = thiefSpoilLaserUlt.m_copyBuffsOnEnemyHit;
+			baseVal11 = (thiefSpoilLaserUlt.m_copyBuffsOnEnemyHit ? 1 : 0);
 		}
 		else
 		{
-			baseVal11 = false;
+			baseVal11 = 0;
 		}
-		text = str11 + base.PropDesc(copyBuffsOnEnemyHitMod, prefix11, showBaseVal11, baseVal11);
-		string str12 = text;
-		AbilityModPropertyInt copyBuffDurationMod = this.m_copyBuffDurationMod;
-		string prefix12 = "[CopyBuffDuration]";
-		bool showBaseVal12 = flag;
+		empty = str11 + PropDesc(copyBuffsOnEnemyHitMod, "[CopyBuffsOnEnemyHit]", flag, (byte)baseVal11 != 0);
+		string str12 = empty;
+		AbilityModPropertyInt copyBuffDurationMod = m_copyBuffDurationMod;
 		int baseVal12;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -369,6 +346,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		{
 			baseVal12 = 0;
 		}
-		return str12 + base.PropDesc(copyBuffDurationMod, prefix12, showBaseVal12, baseVal12);
+		return str12 + PropDesc(copyBuffDurationMod, "[CopyBuffDuration]", flag, baseVal12);
 	}
 }

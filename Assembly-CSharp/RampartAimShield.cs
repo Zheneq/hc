@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,9 +17,9 @@ public class RampartAimShield : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -29,21 +28,21 @@ public class RampartAimShield : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAimShield.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Aim Shield";
+			m_abilityName = "Aim Shield";
 		}
-		this.Setup();
-		base.ResetTooltipAndTargetingNumbers();
+		Setup();
+		ResetTooltipAndTargetingNumbers();
 	}
 
 	private void Setup()
 	{
-		if (this.m_passive == null)
+		if (m_passive == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -52,22 +51,22 @@ public class RampartAimShield : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAimShield.Setup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_passive = (base.GetComponent<PassiveData>().GetPassiveOfType(typeof(Passive_Rampart)) as Passive_Rampart);
+			m_passive = (GetComponent<PassiveData>().GetPassiveOfType(typeof(Passive_Rampart)) as Passive_Rampart);
 		}
-		float width = (!(this.m_passive != null)) ? 3f : this.m_passive.GetShieldBarrierData().m_width;
-		base.Targeter = new AbilityUtil_Targeter_Barrier(this, width, this.m_snapToGrid, this.m_allowAimAtDiagonals, false);
+		float width = (!(m_passive != null)) ? 3f : m_passive.GetShieldBarrierData().m_width;
+		base.Targeter = new AbilityUtil_Targeter_Barrier(this, width, m_snapToGrid, m_allowAimAtDiagonals, false);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		if (this.m_passive != null)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		if (m_passive != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -76,12 +75,12 @@ public class RampartAimShield : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAimShield.CalculateAbilityTooltipNumbers()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_passive.GetShieldBarrierData().ReportAbilityTooltipNumbers(ref result);
+			m_passive.GetShieldBarrierData().ReportAbilityTooltipNumbers(ref numbers);
 		}
-		return result;
+		return numbers;
 	}
 }

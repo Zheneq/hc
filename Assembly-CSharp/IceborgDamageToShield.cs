@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class IceborgDamageToShield : GenericAbility_Container
@@ -29,21 +28,21 @@ public class IceborgDamageToShield : GenericAbility_Container
 
 	public override string GetOnHitDataDesc()
 	{
-		return base.GetOnHitDataDesc() + "-- On Hit Data for Persistent Aoe Hits --\n" + this.m_persistentAoeOnHitData.GetInEditorDesc();
+		return base.GetOnHitDataDesc() + "-- On Hit Data for Persistent Aoe Hits --\n" + m_persistentAoeOnHitData.GetInEditorDesc();
 	}
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
+		m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		base.SetupTargetersAndCachedVars();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		if (this.m_syncComp == null)
+		if (m_syncComp == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -52,50 +51,51 @@ public class IceborgDamageToShield : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageToShield.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
+			m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		}
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			this.m_syncComp.AddTooltipTokens(tokens);
+			m_syncComp.AddTooltipTokens(tokens);
 		}
 	}
 
 	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
 	{
-		if (actorHitContext.ContainsKey(targetActor))
+		if (!actorHitContext.ContainsKey(targetActor))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageToShield.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (targetActor.\u000E() != caster.\u000E())
+			if (targetActor.GetTeam() != caster.GetTeam())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					ActorHitContext actorContext = actorHitContext[targetActor];
+					GenericAbility_Container.CalcIntFieldValues(targetActor, caster, actorContext, abilityContext, m_persistentAoeOnHitData.m_enemyHitIntFields, m_calculatedValuesForTargeter);
+					results.m_damage = m_calculatedValuesForTargeter.m_damage;
+					return;
 				}
-				ActorHitContext actorContext = actorHitContext[targetActor];
-				GenericAbility_Container.CalcIntFieldValues(targetActor, caster, actorContext, abilityContext, this.m_persistentAoeOnHitData.m_enemyHitIntFields, this.m_calculatedValuesForTargeter);
-				results.m_damage = this.m_calculatedValuesForTargeter.m_damage;
 			}
+			return;
 		}
 	}
 

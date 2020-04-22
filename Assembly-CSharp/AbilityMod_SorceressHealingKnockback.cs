@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,43 +29,42 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SorceressHealingKnockback sorceressHealingKnockback = targetAbility as SorceressHealingKnockback;
-		if (sorceressHealingKnockback != null)
+		if (!(sorceressHealingKnockback != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SorceressHealingKnockback.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_normalHealingMod, "OnCastHealAmount_Normal", string.Empty, sorceressHealingKnockback.m_onCastHealAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_lowHealthHealingMod, "OnCastHealAmount_LowHealth", string.Empty, sorceressHealingKnockback.m_onCastHealAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_onCastAllyEnergyGainMod, "OnCastAllyEnergyGain", string.Empty, sorceressHealingKnockback.m_onCastAllyEnergyGain, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageMod, "OnDetonateDamageAmount", string.Empty, sorceressHealingKnockback.m_onDetonateDamageAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectOverride, "OnDetonateEnemyEffect", sorceressHealingKnockback.m_onDetonateEnemyEffect, true);
-			AbilityMod.AddToken(tokens, this.m_knockbackDistanceMod, "KnockbackDistance", string.Empty, sorceressHealingKnockback.m_knockbackDistance, true, false, false);
+			AbilityMod.AddToken(tokens, m_normalHealingMod, "OnCastHealAmount_Normal", string.Empty, sorceressHealingKnockback.m_onCastHealAmount);
+			AbilityMod.AddToken(tokens, m_lowHealthHealingMod, "OnCastHealAmount_LowHealth", string.Empty, sorceressHealingKnockback.m_onCastHealAmount);
+			AbilityMod.AddToken(tokens, m_onCastAllyEnergyGainMod, "OnCastAllyEnergyGain", string.Empty, sorceressHealingKnockback.m_onCastAllyEnergyGain);
+			AbilityMod.AddToken(tokens, m_damageMod, "OnDetonateDamageAmount", string.Empty, sorceressHealingKnockback.m_onDetonateDamageAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectOverride, "OnDetonateEnemyEffect", sorceressHealingKnockback.m_onDetonateEnemyEffect);
+			AbilityMod.AddToken(tokens, m_knockbackDistanceMod, "KnockbackDistance", string.Empty, sorceressHealingKnockback.m_knockbackDistance);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SorceressHealingKnockback sorceressHealingKnockback = base.GetTargetAbilityOnAbilityData(abilityData) as SorceressHealingKnockback;
+		SorceressHealingKnockback sorceressHealingKnockback = GetTargetAbilityOnAbilityData(abilityData) as SorceressHealingKnockback;
 		bool flag = sorceressHealingKnockback != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt normalHealingMod = this.m_normalHealingMod;
-		string prefix = "[Normal Healing]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt normalHealingMod = m_normalHealingMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -74,9 +73,9 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SorceressHealingKnockback.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = sorceressHealingKnockback.m_onCastHealAmount;
 		}
@@ -84,15 +83,13 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(normalHealingMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt lowHealthHealingMod = this.m_lowHealthHealingMod;
-		string prefix2 = "[Healing when Low Health]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(normalHealingMod, "[Normal Healing]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyInt lowHealthHealingMod = m_lowHealthHealingMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -107,21 +104,15 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(lowHealthHealingMod, prefix2, showBaseVal2, baseVal2);
-		if (this.m_lowHealthThreshold > 0f)
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(lowHealthHealingMod, "[Healing when Low Health]", flag, baseVal2);
+		if (m_lowHealthThreshold > 0f)
 		{
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"Health considered Low if portion is below ",
-				this.m_lowHealthThreshold,
-				"\n"
-			});
+			string text = empty;
+			empty = text + "Health considered Low if portion is below " + m_lowHealthThreshold + "\n";
 		}
-		else if (this.m_lowHealthHealingMod != null)
+		else if (m_lowHealthHealingMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -130,9 +121,9 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 				}
 				break;
 			}
-			if (this.m_lowHealthHealingMod.operation != AbilityModPropertyInt.ModOp.Ignore)
+			if (m_lowHealthHealingMod.operation != 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -141,17 +132,15 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 					}
 					break;
 				}
-				text += "Low Health Threshold not used, ignore [Healing when Low Health]\n";
+				empty += "Low Health Threshold not used, ignore [Healing when Low Health]\n";
 			}
 		}
-		string str3 = text;
-		AbilityModPropertyInt onCastAllyEnergyGainMod = this.m_onCastAllyEnergyGainMod;
-		string prefix3 = "[OnCastAllyEnergyGain]";
-		bool showBaseVal3 = flag;
+		string str3 = empty;
+		AbilityModPropertyInt onCastAllyEnergyGainMod = m_onCastAllyEnergyGainMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -166,16 +155,14 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(onCastAllyEnergyGainMod, prefix3, showBaseVal3, baseVal3);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_damageMod, "[Damage]", flag, (!flag) ? 0 : sorceressHealingKnockback.m_onDetonateDamageAmount);
-		string str4 = text;
-		AbilityModPropertyEffectInfo enemyHitEffectOverride = this.m_enemyHitEffectOverride;
-		string prefix4 = "{ Enemy Hit Effect Override }";
-		bool showBaseVal4 = flag;
-		StandardEffectInfo baseVal4;
+		empty = str3 + PropDesc(onCastAllyEnergyGainMod, "[OnCastAllyEnergyGain]", flag, baseVal3);
+		empty += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", flag, flag ? sorceressHealingKnockback.m_onDetonateDamageAmount : 0);
+		string str4 = empty;
+		AbilityModPropertyEffectInfo enemyHitEffectOverride = m_enemyHitEffectOverride;
+		object baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -190,15 +177,13 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		{
 			baseVal4 = null;
 		}
-		text = str4 + AbilityModHelper.GetModPropertyDesc(enemyHitEffectOverride, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyFloat knockbackDistanceMod = this.m_knockbackDistanceMod;
-		string prefix5 = "[Knockback Distance]";
-		bool showBaseVal5 = flag;
+		empty = str4 + AbilityModHelper.GetModPropertyDesc(enemyHitEffectOverride, "{ Enemy Hit Effect Override }", flag, (StandardEffectInfo)baseVal4);
+		string str5 = empty;
+		AbilityModPropertyFloat knockbackDistanceMod = m_knockbackDistanceMod;
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -213,6 +198,6 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		{
 			baseVal5 = 0f;
 		}
-		return str5 + AbilityModHelper.GetModPropertyDesc(knockbackDistanceMod, prefix5, showBaseVal5, baseVal5);
+		return str5 + AbilityModHelper.GetModPropertyDesc(knockbackDistanceMod, "[Knockback Distance]", flag, baseVal5);
 	}
 }

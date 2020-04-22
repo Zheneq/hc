@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -6,6 +6,814 @@ using UnityEngine;
 
 public class HighlightUtils : MonoBehaviour, IGameEventListener
 {
+	[Serializable]
+	public class CoverDirIndicatorParams
+	{
+		public float m_radiusInSquares = 3f;
+
+		public Color m_color = new Color(1f, 0.75f, 0.25f);
+
+		public TargeterOpacityData[] m_opacity;
+	}
+
+	public enum MoveIntoCoverIndicatorTiming
+	{
+		ShowOnMoveEnd,
+		ShowOnTurnStart
+	}
+
+	[Serializable]
+	public struct AreaShapePrefab
+	{
+		public AbilityAreaShape m_shape;
+
+		public GameObject m_prefab;
+	}
+
+	[Serializable]
+	public struct TargeterOpacityData
+	{
+		public float m_timeSinceConfirmed;
+
+		public float m_alpha;
+	}
+
+	public enum CursorType
+	{
+		MouseOverCursorType,
+		TabTargetingCursorType,
+		ShapeTargetingSquareCursorType,
+		ShapeTargetingCornerCursorType,
+		NoCursorType
+	}
+
+	public enum ScrollCursorDirection
+	{
+		N,
+		NE,
+		E,
+		SE,
+		S,
+		SW,
+		W,
+		NW,
+		Undefined
+	}
+
+	public class HighlightMesh
+	{
+		public List<Vector3> m_pos = new List<Vector3>();
+
+		public List<Vector2> m_uv = new List<Vector2>();
+
+		public Dictionary<BoardSquare, int> m_borderSquares = new Dictionary<BoardSquare, int>();
+
+		private void ApplySlope(PieceType pieceType, ref Vector3[] positions, BoardSquare square)
+		{
+			Vector3 verticesAtCorner_zq = square.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperRight);
+			float num = verticesAtCorner_zq.y;
+			Vector3 verticesAtCorner_zq2 = square.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperLeft);
+			float num2 = verticesAtCorner_zq2.y;
+			Vector3 verticesAtCorner_zq3 = square.GetVerticesAtCorner_zq(BoardSquare.CornerType.LowerRight);
+			float num3 = verticesAtCorner_zq3.y;
+			Vector3 verticesAtCorner_zq4 = square.GetVerticesAtCorner_zq(BoardSquare.CornerType.LowerLeft);
+			float num4 = verticesAtCorner_zq4.y;
+			if (!square.IsBaselineHeight())
+			{
+				float num5 = Board.Get().BaselineHeight;
+				float num6 = num5 + square.GetHighlightOffset();
+				num = num6;
+				num2 = num6;
+				num3 = num6;
+				num4 = num6;
+			}
+			float y = (num2 + num4) * 0.5f;
+			float y2 = (num + num3) * 0.5f;
+			float num7 = (num2 + num) * 0.5f;
+			float num8 = (num4 + num3) * 0.5f;
+			float y3 = (num7 + num8) * 0.5f;
+			if (pieceType != PieceType.LowerLeftHorizontal)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (pieceType != PieceType.LowerLeftVertical)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (pieceType != PieceType.LowerLeftInnerCorner)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (pieceType != PieceType.LowerLeftOuterCorner)
+						{
+							if (pieceType != PieceType.LowerRightHorizontal && pieceType != 0)
+							{
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (pieceType != PieceType.LowerRightInnerCorner)
+								{
+									while (true)
+									{
+										switch (2)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									if (pieceType != PieceType.LowerRightOuterCorner)
+									{
+										if (pieceType != PieceType.UpperLeftHorizontal)
+										{
+											while (true)
+											{
+												switch (7)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											if (pieceType != PieceType.UpperLeftVertical && pieceType != PieceType.UpperLeftInnerCorner)
+											{
+												while (true)
+												{
+													switch (6)
+													{
+													case 0:
+														continue;
+													}
+													break;
+												}
+												if (pieceType != PieceType.UpperLeftOuterCorner)
+												{
+													if (pieceType != PieceType.UpperRightHorizontal)
+													{
+														while (true)
+														{
+															switch (4)
+															{
+															case 0:
+																continue;
+															}
+															break;
+														}
+														if (pieceType != PieceType.UpperRightVertical && pieceType != PieceType.UpperRightInnerCorner)
+														{
+															while (true)
+															{
+																switch (4)
+																{
+																case 0:
+																	continue;
+																}
+																break;
+															}
+															if (pieceType != PieceType.UpperRightOuterCorner)
+															{
+																return;
+															}
+															while (true)
+															{
+																switch (6)
+																{
+																case 0:
+																	continue;
+																}
+																break;
+															}
+														}
+													}
+													positions[0].y = num7;
+													positions[1].y = y2;
+													positions[2].y = y3;
+													positions[3].y = num;
+													return;
+												}
+												while (true)
+												{
+													switch (1)
+													{
+													case 0:
+														continue;
+													}
+													break;
+												}
+											}
+										}
+										positions[0].y = num2;
+										positions[1].y = y3;
+										positions[2].y = y;
+										positions[3].y = num7;
+										return;
+									}
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+								}
+							}
+							positions[0].y = y3;
+							positions[1].y = num3;
+							positions[2].y = num8;
+							positions[3].y = y2;
+							return;
+						}
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+				}
+			}
+			positions[0].y = y;
+			positions[1].y = num8;
+			positions[2].y = num4;
+			positions[3].y = y3;
+		}
+
+		public void AddPiece(PieceType pieceType, BoardSquare square)
+		{
+			if (!(square != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (!m_borderSquares.ContainsKey(square))
+				{
+					m_borderSquares[square] = 0;
+				}
+				int mask = m_borderSquares[square];
+				AddPieceTypeToMask(ref mask, pieceType);
+				m_borderSquares[square] = mask;
+				Vector3 b = square.ToVector3();
+				b.y = 0.1f;
+				HighlightPiece highlightPiece = Get().m_highlightPieces[(int)pieceType];
+				Vector3[] positions = highlightPiece.m_pos;
+				ApplySlope(pieceType, ref positions, square);
+				Vector3[] array = positions;
+				foreach (Vector3 a in array)
+				{
+					m_pos.Add(a + b);
+				}
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					Vector2[] uv = highlightPiece.m_uv;
+					foreach (Vector2 item in uv)
+					{
+						m_uv.Add(item);
+					}
+					while (true)
+					{
+						switch (1)
+						{
+						default:
+							return;
+						case 0:
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		public void AddVerticalConnector(Vector3 pt0, Vector3 pt1, Vector3 pt2, Vector3 pt3, bool left)
+		{
+			m_pos.Add(pt0);
+			m_pos.Add(pt1);
+			m_pos.Add(pt2);
+			m_pos.Add(pt3);
+			if (left)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						m_uv.Add(new Vector2(2f / 3f, 1f));
+						m_uv.Add(new Vector2(0.333333343f, 0f));
+						m_uv.Add(new Vector2(0.333333343f, 1f));
+						m_uv.Add(new Vector2(2f / 3f, 0f));
+						return;
+					}
+				}
+			}
+			m_uv.Add(new Vector2(2f / 3f, 0f));
+			m_uv.Add(new Vector2(0.333333343f, 1f));
+			m_uv.Add(new Vector2(0.333333343f, 0f));
+			m_uv.Add(new Vector2(2f / 3f, 1f));
+		}
+
+		public void ProcessVerticalConnectors()
+		{
+			float num = Board.Get().squareSize * 0.5f;
+			float num2 = num - 0.1f;
+			float num3 = 0.5f;
+			using (Dictionary<BoardSquare, int>.Enumerator enumerator = m_borderSquares.GetEnumerator())
+			{
+				while (enumerator.MoveNext())
+				{
+					KeyValuePair<BoardSquare, int> current = enumerator.Current;
+					BoardSquare key = current.Key;
+					BoardSquare boardSquare = Board.Get().GetBoardSquare(key.x, key.y + 1);
+					int value = current.Value;
+					if (boardSquare != null)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						if (m_borderSquares.ContainsKey(boardSquare))
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if ((float)(boardSquare.height - key.height) >= num3)
+							{
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (IsPieceTypeInMask(value, PieceType.UpperLeftVertical) || IsPieceTypeInMask(value, PieceType.UpperLeftInnerCorner))
+								{
+									Vector3 pt = new Vector3(key.worldX - num, boardSquare.height, key.worldY + num2);
+									Vector3 pt2 = new Vector3(key.worldX, key.height, key.worldY + num2);
+									Vector3 pt3 = new Vector3(key.worldX - num, key.height, key.worldY + num2);
+									Vector3 pt4 = new Vector3(key.worldX, boardSquare.height, key.worldY + num2);
+									AddVerticalConnector(pt, pt2, pt3, pt4, true);
+								}
+								if (!IsPieceTypeInMask(value, PieceType.UpperRightVertical))
+								{
+									while (true)
+									{
+										switch (6)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									if (!IsPieceTypeInMask(value, PieceType.UpperRightInnerCorner))
+									{
+										goto IL_026a;
+									}
+									while (true)
+									{
+										switch (1)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+								}
+								Vector3 pt5 = new Vector3(key.worldX, boardSquare.height, key.worldY + num2);
+								Vector3 pt6 = new Vector3(key.worldX + num, key.height, key.worldY + num2);
+								Vector3 pt7 = new Vector3(key.worldX, key.height, key.worldY + num2);
+								Vector3 pt8 = new Vector3(key.worldX + num, boardSquare.height, key.worldY + num2);
+								AddVerticalConnector(pt5, pt6, pt7, pt8, false);
+							}
+						}
+					}
+					goto IL_026a;
+					IL_03b1:
+					if (!IsPieceTypeInMask(value, PieceType.LowerLeftHorizontal))
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!IsPieceTypeInMask(value, PieceType.LowerLeftInnerCorner))
+						{
+							goto IL_0485;
+						}
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+					BoardSquare boardSquare2;
+					Vector3 pt9 = new Vector3(key.worldX - num2, boardSquare2.height, key.worldY - num);
+					Vector3 pt10 = new Vector3(key.worldX - num2, key.height, key.worldY);
+					Vector3 pt11 = new Vector3(key.worldX - num2, key.height, key.worldY - num);
+					Vector3 pt12 = new Vector3(key.worldX - num2, boardSquare2.height, key.worldY);
+					AddVerticalConnector(pt9, pt10, pt11, pt12, true);
+					goto IL_0485;
+					IL_067c:
+					BoardSquare boardSquare3 = Board.Get().GetBoardSquare(key.x + 1, key.y);
+					if (!(boardSquare3 != null))
+					{
+						continue;
+					}
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (!m_borderSquares.ContainsKey(boardSquare3))
+					{
+						continue;
+					}
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (!((float)(boardSquare3.height - key.height) >= num3))
+					{
+						continue;
+					}
+					if (!IsPieceTypeInMask(value, PieceType.UpperRightHorizontal))
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!IsPieceTypeInMask(value, PieceType.UpperRightInnerCorner))
+						{
+							goto IL_07bd;
+						}
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+					Vector3 pt13 = new Vector3(key.worldX + num2, boardSquare3.height, key.worldY + num);
+					Vector3 pt14 = new Vector3(key.worldX + num2, key.height, key.worldY);
+					Vector3 pt15 = new Vector3(key.worldX + num2, key.height, key.worldY + num);
+					Vector3 pt16 = new Vector3(key.worldX + num2, boardSquare3.height, key.worldY);
+					AddVerticalConnector(pt13, pt14, pt15, pt16, true);
+					goto IL_07bd;
+					IL_0485:
+					BoardSquare boardSquare4 = Board.Get().GetBoardSquare(key.x, key.y - 1);
+					if (boardSquare4 != null)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (m_borderSquares.ContainsKey(boardSquare4))
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if ((float)(boardSquare4.height - key.height) >= num3)
+							{
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (IsPieceTypeInMask(value, PieceType.LowerLeftVertical) || IsPieceTypeInMask(value, PieceType.LowerLeftInnerCorner))
+								{
+									Vector3 pt17 = new Vector3(key.worldX - num, boardSquare4.height, key.worldY - num2);
+									Vector3 pt18 = new Vector3(key.worldX, key.height, key.worldY - num2);
+									Vector3 pt19 = new Vector3(key.worldX - num, key.height, key.worldY - num2);
+									Vector3 pt20 = new Vector3(key.worldX, boardSquare4.height, key.worldY - num2);
+									AddVerticalConnector(pt17, pt18, pt19, pt20, true);
+								}
+								if (!IsPieceTypeInMask(value, PieceType.LowerRightVertical))
+								{
+									while (true)
+									{
+										switch (4)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									if (!IsPieceTypeInMask(value, PieceType.LowerRightInnerCorner))
+									{
+										goto IL_067c;
+									}
+								}
+								Vector3 pt21 = new Vector3(key.worldX, boardSquare4.height, key.worldY - num2);
+								Vector3 pt22 = new Vector3(key.worldX + num, key.height, key.worldY - num2);
+								Vector3 pt23 = new Vector3(key.worldX, key.height, key.worldY - num2);
+								Vector3 pt24 = new Vector3(key.worldX + num, boardSquare4.height, key.worldY - num2);
+								AddVerticalConnector(pt21, pt22, pt23, pt24, false);
+							}
+						}
+					}
+					goto IL_067c;
+					IL_026a:
+					boardSquare2 = Board.Get().GetBoardSquare(key.x - 1, key.y);
+					if (boardSquare2 != null && m_borderSquares.ContainsKey(boardSquare2))
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if ((float)(boardSquare2.height - key.height) >= num3)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (!IsPieceTypeInMask(value, PieceType.UpperLeftHorizontal))
+							{
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (!IsPieceTypeInMask(value, PieceType.UpperLeftInnerCorner))
+								{
+									goto IL_03b1;
+								}
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							Vector3 pt25 = new Vector3(key.worldX - num2, boardSquare2.height, key.worldY);
+							Vector3 pt26 = new Vector3(key.worldX - num2, key.height, key.worldY + num);
+							Vector3 pt27 = new Vector3(key.worldX - num2, key.height, key.worldY);
+							Vector3 pt28 = new Vector3(key.worldX - num2, boardSquare2.height, key.worldY + num);
+							AddVerticalConnector(pt25, pt26, pt27, pt28, false);
+							goto IL_03b1;
+						}
+					}
+					goto IL_0485;
+					IL_07bd:
+					if (!IsPieceTypeInMask(value, PieceType.LowerRightHorizontal))
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!IsPieceTypeInMask(value, PieceType.LowerRightInnerCorner))
+						{
+							continue;
+						}
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+					Vector3 pt29 = new Vector3(key.worldX + num2, boardSquare3.height, key.worldY);
+					Vector3 pt30 = new Vector3(key.worldX + num2, key.height, key.worldY - num);
+					Vector3 pt31 = new Vector3(key.worldX + num2, key.height, key.worldY);
+					Vector3 pt32 = new Vector3(key.worldX + num2, boardSquare3.height, key.worldY - num);
+					AddVerticalConnector(pt29, pt30, pt31, pt32, false);
+				}
+				while (true)
+				{
+					switch (7)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
+			}
+		}
+
+		public GameObject CreateMeshObject(Material borderMaterial)
+		{
+			GameObject gameObject = new GameObject("HighlightMesh");
+			MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
+			gameObject.AddComponent<MeshRenderer>();
+			Mesh mesh = meshFilter.mesh;
+			mesh.vertices = m_pos.ToArray();
+			mesh.uv = m_uv.ToArray();
+			Vector3[] array = new Vector3[mesh.vertices.Length];
+			for (int i = 0; i < mesh.normals.Length; i++)
+			{
+				array[i] = Vector3.up;
+			}
+			mesh.normals = array;
+			int[] array2 = new int[m_pos.Count / 4 * 6];
+			for (int j = 0; j < m_pos.Count / 4; j++)
+			{
+				array2[j * 6] = j * 4;
+				array2[j * 6 + 1] = j * 4 + 1;
+				array2[j * 6 + 2] = j * 4 + 2;
+				array2[j * 6 + 3] = j * 4;
+				array2[j * 6 + 4] = j * 4 + 3;
+				array2[j * 6 + 5] = j * 4 + 1;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				mesh.triangles = array2;
+				gameObject.GetComponent<Renderer>().material = borderMaterial;
+				return gameObject;
+			}
+		}
+	}
+
+	public class HighlightPiece
+	{
+		public Vector3[] m_pos = new Vector3[4];
+
+		public Vector2[] m_uv = new Vector2[4];
+
+		public int[] m_indices = new int[6]
+		{
+			0,
+			1,
+			2,
+			0,
+			3,
+			1
+		};
+
+		public Vector3[] m_nrm = new Vector3[4]
+		{
+			Vector3.up,
+			Vector3.up,
+			Vector3.up,
+			Vector3.up
+		};
+	}
+
+	public enum PieceType
+	{
+		LowerRightVertical,
+		LowerRightHorizontal,
+		LowerRightInnerCorner,
+		LowerRightOuterCorner,
+		UpperRightVertical,
+		UpperRightHorizontal,
+		UpperRightInnerCorner,
+		UpperRightOuterCorner,
+		UpperLeftVertical,
+		UpperLeftHorizontal,
+		UpperLeftInnerCorner,
+		UpperLeftOuterCorner,
+		LowerLeftVertical,
+		LowerLeftHorizontal,
+		LowerLeftInnerCorner,
+		LowerLeftOuterCorner,
+		NumTypes
+	}
+
 	private static HighlightUtils s_instance;
 
 	public Color s_defaultMovementColor = new Color(1f, 1f, 1f, 0.5f);
@@ -103,12 +911,12 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public float m_mouseoverHeightOffset = 2f;
 
-	public HighlightUtils.CoverDirIndicatorParams m_mouseoverCoverDirParams;
+	public CoverDirIndicatorParams m_mouseoverCoverDirParams;
 
 	[Header("-- Move Into Cover Indicators --")]
 	public bool m_showMoveIntoCoverIndicators;
 
-	public HighlightUtils.MoveIntoCoverIndicatorTiming m_coverDirIndicatorTiming = HighlightUtils.MoveIntoCoverIndicatorTiming.ShowOnTurnStart;
+	public MoveIntoCoverIndicatorTiming m_coverDirIndicatorTiming = MoveIntoCoverIndicatorTiming.ShowOnTurnStart;
 
 	public float m_coverDirIndicatorRadiusInSquares = 3f;
 
@@ -247,7 +1055,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 	public GameObject m_targeterBoundaryLineOuter;
 
 	[Header("-- Targeter VFX: Shapes --")]
-	public HighlightUtils.AreaShapePrefab[] m_areaShapePrefabs;
+	public AreaShapePrefab[] m_areaShapePrefabs;
 
 	public bool m_showTargetingArcsForShapes = true;
 
@@ -257,7 +1065,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public float m_targetingArcMaxHeight = 2.5f;
 
-	public int m_targetingArcNumSegments = 0x10;
+	public int m_targetingArcNumSegments = 16;
 
 	public Color m_targetingArcColor = Color.cyan;
 
@@ -282,17 +1090,17 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public float m_targeterParticleSystemOpacityMultiplier = 3f;
 
-	public HighlightUtils.TargeterOpacityData[] m_confirmedTargeterOpacity;
+	public TargeterOpacityData[] m_confirmedTargeterOpacity;
 
-	public HighlightUtils.TargeterOpacityData[] m_allyTargeterOpacity;
+	public TargeterOpacityData[] m_allyTargeterOpacity;
 
 	[Header("-- Color/Opacity for removing targeter")]
-	public HighlightUtils.TargeterOpacityData[] m_targeterRemoveFadeOpacity;
+	public TargeterOpacityData[] m_targeterRemoveFadeOpacity;
 
 	public Color m_targeterRemoveColor = Color.red;
 
 	[Header("-- Opacity for movement")]
-	public HighlightUtils.TargeterOpacityData[] m_movementLineOpacity;
+	public TargeterOpacityData[] m_movementLineOpacity;
 
 	[Separator("Ability Icon Color", true)]
 	public Color m_allyTargetedAbilityIconColor = Color.yellow;
@@ -329,7 +1137,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	private bool m_hideCursor;
 
-	private HighlightUtils.CursorType m_currentCursorType = HighlightUtils.CursorType.NoCursorType;
+	private CursorType m_currentCursorType = CursorType.NoCursorType;
 
 	private bool m_isCursorSet;
 
@@ -339,11 +1147,11 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	private GameObject m_mouseoverCoverParent;
 
-	private HighlightUtils.HighlightPiece[] m_highlightPieces = new HighlightUtils.HighlightPiece[0x10];
+	private HighlightPiece[] m_highlightPieces = new HighlightPiece[16];
 
 	private GameObject m_surroundedSquaresParent;
 
-	private SquareIndicators m_surroundedSquareIndicators;
+	private SquareIndicators m_surroundedSquareIndicators = new SquareIndicators(CreateSurroundedSquareObject, 15, 10, 0.12f);
 
 	private GameObject m_hiddenSquareIndicatorParent;
 
@@ -362,24 +1170,104 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 	public bool m_cachedShouldShowAffectedSquares;
 
 	[CompilerGenerated]
-	private static SquareIndicators.CreateIndicatorDelegate <>f__mg$cache0;
+	private static SquareIndicators.CreateIndicatorDelegate _003C_003Ef__mg_0024cache0;
 
 	[CompilerGenerated]
-	private static SquareIndicators.CreateIndicatorDelegate <>f__mg$cache1;
+	private static SquareIndicators.CreateIndicatorDelegate _003C_003Ef__mg_0024cache1;
 
 	[CompilerGenerated]
-	private static SquareIndicators.CreateIndicatorDelegate <>f__mg$cache2;
+	private static SquareIndicators.CreateIndicatorDelegate _003C_003Ef__mg_0024cache2;
+
+	internal GameObject ClampedMouseOverCursor
+	{
+		get;
+		private set;
+	}
+
+	internal GameObject FreeMouseOverCursor
+	{
+		get;
+		private set;
+	}
+
+	internal GameObject CornerMouseOverCursor
+	{
+		get;
+		private set;
+	}
+
+	public GameObject MovementMouseOverCursor
+	{
+		get;
+		private set;
+	}
+
+	internal GameObject AbilityTargetMouseOverCursor
+	{
+		get;
+		private set;
+	}
+
+	internal GameObject IdleMouseOverCursor
+	{
+		get;
+		private set;
+	}
+
+	public GameObject SprintMouseOverCursor
+	{
+		get;
+		private set;
+	}
+
+	internal GameObject ChaseSquareCursor
+	{
+		get;
+		private set;
+	}
+
+	internal GameObject ChaseSquareCursorAlt
+	{
+		get;
+		private set;
+	}
+
+	internal GameObject RespawnSelectionCursor
+	{
+		get;
+		private set;
+	}
+
+	internal Dictionary<ScrollCursorDirection, Texture2D> ScrollCursors
+	{
+		get;
+		private set;
+	}
+
+	internal Dictionary<ScrollCursorDirection, Vector2> ScrollCursorsHotspot
+	{
+		get;
+		private set;
+	}
+
+	public bool HideCursor
+	{
+		get
+		{
+			return m_hideCursor;
+		}
+		set
+		{
+			m_hideCursor = value;
+			RefreshCursorVisibility();
+		}
+	}
 
 	public HighlightUtils()
 	{
-		if (HighlightUtils.<>f__mg$cache0 == null)
+		if (_003C_003Ef__mg_0024cache1 == null)
 		{
-			HighlightUtils.<>f__mg$cache0 = new SquareIndicators.CreateIndicatorDelegate(HighlightUtils.CreateSurroundedSquareObject);
-		}
-		this.m_surroundedSquareIndicators = new SquareIndicators(HighlightUtils.<>f__mg$cache0, 0xF, 0xA, 0.12f);
-		if (HighlightUtils.<>f__mg$cache1 == null)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -388,16 +1276,16 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils..ctor()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			HighlightUtils.<>f__mg$cache1 = new SquareIndicators.CreateIndicatorDelegate(HighlightUtils.CreateHiddenSquareIndicatorObject);
+			_003C_003Ef__mg_0024cache1 = CreateHiddenSquareIndicatorObject;
 		}
-		this.m_hiddenSquareIndicators = new SquareIndicators(HighlightUtils.<>f__mg$cache1, 0xF, 0xA, 0.09f);
-		if (HighlightUtils.<>f__mg$cache2 == null)
+		m_hiddenSquareIndicators = new SquareIndicators(_003C_003Ef__mg_0024cache1, 15, 10, 0.09f);
+		if (_003C_003Ef__mg_0024cache2 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -406,48 +1294,24 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			HighlightUtils.<>f__mg$cache2 = new SquareIndicators.CreateIndicatorDelegate(HighlightUtils.CreateAffectedSquareIndicatorObject);
+			_003C_003Ef__mg_0024cache2 = CreateAffectedSquareIndicatorObject;
 		}
-		this.m_affectedSquareIndicators = new SquareIndicators(HighlightUtils.<>f__mg$cache2, 0xF, 0xA, 0.09f);
-		this.m_rangeIndicatorMouseOverFlags = new List<bool>();
-		this.m_lastRangeIndicatorRadius = -1f;
-		base..ctor();
+		m_affectedSquareIndicators = new SquareIndicators(_003C_003Ef__mg_0024cache2, 15, 10, 0.09f);
+		m_rangeIndicatorMouseOverFlags = new List<bool>();
+		m_lastRangeIndicatorRadius = -1f;
+		base._002Ector();
 	}
 
 	public static HighlightUtils Get()
 	{
-		return HighlightUtils.s_instance;
+		return s_instance;
 	}
-
-	internal GameObject ClampedMouseOverCursor { get; private set; }
-
-	internal GameObject FreeMouseOverCursor { get; private set; }
-
-	internal GameObject CornerMouseOverCursor { get; private set; }
-
-	public GameObject MovementMouseOverCursor { get; private set; }
-
-	internal GameObject AbilityTargetMouseOverCursor { get; private set; }
-
-	internal GameObject IdleMouseOverCursor { get; private set; }
-
-	public GameObject SprintMouseOverCursor { get; private set; }
-
-	internal GameObject ChaseSquareCursor { get; private set; }
-
-	internal GameObject ChaseSquareCursorAlt { get; private set; }
-
-	internal GameObject RespawnSelectionCursor { get; private set; }
-
-	internal Dictionary<HighlightUtils.ScrollCursorDirection, Texture2D> ScrollCursors { get; private set; }
-
-	internal Dictionary<HighlightUtils.ScrollCursorDirection, Vector2> ScrollCursorsHotspot { get; private set; }
 
 	public static void DestroyBoundaryHighlightObject(GameObject highlightObject)
 	{
 		if (highlightObject != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -456,18 +1320,19 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.DestroyBoundaryHighlightObject(GameObject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			foreach (Renderer renderer in highlightObject.GetComponentsInChildren<Renderer>(true))
+			Renderer[] componentsInChildren = highlightObject.GetComponentsInChildren<Renderer>(true);
+			foreach (Renderer renderer in componentsInChildren)
 			{
 				if (renderer.material != null)
 				{
 					UnityEngine.Object.Destroy(renderer.material);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -476,11 +1341,12 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			foreach (MeshFilter meshFilter in highlightObject.GetComponents<MeshFilter>())
+			MeshFilter[] components = highlightObject.GetComponents<MeshFilter>();
+			foreach (MeshFilter meshFilter in components)
 			{
 				UnityEngine.Object.Destroy(meshFilter.mesh);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -491,109 +1357,113 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			}
 			UnityEngine.Object.DestroyImmediate(highlightObject);
 		}
-		if (HighlightUtils.s_instance != null)
+		if (s_instance != null)
 		{
-			HighlightUtils.s_instance.m_surroundedSquareIndicators.HideAllSquareIndicators(0);
+			s_instance.m_surroundedSquareIndicators.HideAllSquareIndicators();
 		}
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType == GameEventManager.EventType.VisualSceneLoaded)
+		if (eventType != GameEventManager.EventType.VisualSceneLoaded)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_surroundedSquareIndicators.Initialize();
-			this.m_surroundedSquareIndicators.HideAllSquareIndicators(0);
-			this.m_hiddenSquareIndicators.Initialize();
-			this.m_hiddenSquareIndicators.HideAllSquareIndicators(0);
-			this.m_mouseoverCoverManager.Initialize(this.m_mouseoverCoverParent);
-			this.CreateRangeIndicatorHighlight();
+			m_surroundedSquareIndicators.Initialize();
+			m_surroundedSquareIndicators.HideAllSquareIndicators();
+			m_hiddenSquareIndicators.Initialize();
+			m_hiddenSquareIndicators.HideAllSquareIndicators();
+			m_mouseoverCoverManager.Initialize(m_mouseoverCoverParent);
+			CreateRangeIndicatorHighlight();
+			return;
 		}
 	}
 
 	public static void DestroyMeshesOnObject(GameObject obj)
 	{
-		if (obj != null)
+		if (!(obj != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.DestroyMeshesOnObject(GameObject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			MeshFilter[] components = obj.GetComponents<MeshFilter>();
-			foreach (MeshFilter meshFilter in components)
+			MeshFilter[] array = components;
+			foreach (MeshFilter meshFilter in array)
 			{
 				UnityEngine.Object.Destroy(meshFilter.mesh);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			MeshFilter[] componentsInChildren = obj.GetComponentsInChildren<MeshFilter>(true);
-			foreach (MeshFilter meshFilter2 in componentsInChildren)
-			{
-				UnityEngine.Object.Destroy(meshFilter2.mesh);
-			}
-			for (;;)
-			{
-				switch (5)
+				MeshFilter[] componentsInChildren = obj.GetComponentsInChildren<MeshFilter>(true);
+				MeshFilter[] array2 = componentsInChildren;
+				foreach (MeshFilter meshFilter2 in array2)
 				{
-				case 0:
-					continue;
+					UnityEngine.Object.Destroy(meshFilter2.mesh);
 				}
-				break;
+				while (true)
+				{
+					switch (5)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
 			}
 		}
 	}
 
 	public static void DestroyMaterials(Material[] materials)
 	{
-		if (materials != null)
+		if (materials == null)
 		{
-			foreach (Material material in materials)
+			return;
+		}
+		foreach (Material material in materials)
+		{
+			if (material != null)
 			{
-				if (material != null)
+				while (true)
 				{
-					for (;;)
+					switch (5)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.DestroyMaterials(Material[])).MethodHandle;
-					}
-					UnityEngine.Object.Destroy(material);
+					break;
 				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				UnityEngine.Object.Destroy(material);
 			}
 		}
 	}
@@ -601,85 +1471,75 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 	public static void SetParticleSystemScale(GameObject particleObject, float scale)
 	{
 		ParticleSystem[] componentsInChildren = particleObject.GetComponentsInChildren<ParticleSystem>();
-		foreach (ParticleSystem particleSystem in componentsInChildren)
+		ParticleSystem[] array = componentsInChildren;
+		foreach (ParticleSystem particleSystem in array)
 		{
 			ParticleSystem.MainModule main = particleSystem.main;
 			ParticleSystem.MinMaxCurve startSize = main.startSize;
 			startSize.constant *= scale;
 			main.startSize = startSize;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.SetParticleSystemScale(GameObject, float)).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	public static void DestroyObjectAndMaterials(GameObject highlightObj)
 	{
-		if (highlightObj != null)
+		if (!(highlightObj != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.DestroyObjectAndMaterials(GameObject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Renderer[] components = highlightObj.GetComponents<Renderer>();
-			foreach (Renderer renderer in components)
+			Renderer[] array = components;
+			foreach (Renderer renderer in array)
 			{
-				HighlightUtils.DestroyMaterials(renderer.materials);
+				DestroyMaterials(renderer.materials);
 			}
 			Renderer[] componentsInChildren = highlightObj.GetComponentsInChildren<Renderer>(true);
-			foreach (Renderer renderer2 in componentsInChildren)
+			Renderer[] array2 = componentsInChildren;
+			foreach (Renderer renderer2 in array2)
 			{
-				HighlightUtils.DestroyMaterials(renderer2.materials);
+				DestroyMaterials(renderer2.materials);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				UnityEngine.Object.Destroy(highlightObj);
+				return;
 			}
-			UnityEngine.Object.Destroy(highlightObj);
-		}
-	}
-
-	public bool HideCursor
-	{
-		get
-		{
-			return this.m_hideCursor;
-		}
-		set
-		{
-			this.m_hideCursor = value;
-			this.RefreshCursorVisibility();
 		}
 	}
 
 	private void Awake()
 	{
-		this.InitializeHighlightPieces();
-		HighlightUtils.s_instance = this;
+		InitializeHighlightPieces();
+		s_instance = this;
 		base.transform.localPosition = Vector3.zero;
 		base.transform.localRotation = Quaternion.identity;
 		base.transform.localScale = Vector3.one;
@@ -688,17 +1548,17 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 		{
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.VisualSceneLoaded);
 		}
-		this.m_mouseoverCoverParent = new GameObject("MouseoverCoverIndicators");
-		UnityEngine.Object.DontDestroyOnLoad(this.m_mouseoverCoverParent);
-		this.m_mouseoverCoverManager = new MouseoverCoverManager();
+		m_mouseoverCoverParent = new GameObject("MouseoverCoverIndicators");
+		UnityEngine.Object.DontDestroyOnLoad(m_mouseoverCoverParent);
+		m_mouseoverCoverManager = new MouseoverCoverManager();
 	}
 
 	private void OnDestroy()
 	{
-		HighlightUtils.s_instance = null;
+		s_instance = null;
 		if (GameEventManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -707,16 +1567,16 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.VisualSceneLoaded);
 		}
-		this.m_surroundedSquareIndicators.ClearAllSquareIndicators();
-		if (this.m_surroundedSquaresParent != null)
+		m_surroundedSquareIndicators.ClearAllSquareIndicators();
+		if (m_surroundedSquaresParent != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -725,13 +1585,13 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			UnityEngine.Object.Destroy(this.m_surroundedSquaresParent);
-			this.m_surroundedSquaresParent = null;
+			UnityEngine.Object.Destroy(m_surroundedSquaresParent);
+			m_surroundedSquaresParent = null;
 		}
-		this.m_hiddenSquareIndicators.ClearAllSquareIndicators();
-		if (this.m_hiddenSquareIndicatorParent != null)
+		m_hiddenSquareIndicators.ClearAllSquareIndicators();
+		if (m_hiddenSquareIndicatorParent != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -740,32 +1600,32 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			UnityEngine.Object.Destroy(this.m_hiddenSquareIndicatorParent);
-			this.m_hiddenSquareIndicatorParent = null;
+			UnityEngine.Object.Destroy(m_hiddenSquareIndicatorParent);
+			m_hiddenSquareIndicatorParent = null;
 		}
-		this.m_affectedSquareIndicators.ClearAllSquareIndicators();
-		if (this.m_affectedSquareIndicatorParent != null)
+		m_affectedSquareIndicators.ClearAllSquareIndicators();
+		if (m_affectedSquareIndicatorParent != null)
 		{
-			UnityEngine.Object.Destroy(this.m_affectedSquareIndicatorParent);
-			this.m_affectedSquareIndicatorParent = null;
+			UnityEngine.Object.Destroy(m_affectedSquareIndicatorParent);
+			m_affectedSquareIndicatorParent = null;
 		}
-		if (this.m_mouseoverCoverParent != null)
+		if (m_mouseoverCoverParent != null)
 		{
-			UnityEngine.Object.Destroy(this.m_mouseoverCoverParent);
-			this.m_mouseoverCoverParent = null;
+			UnityEngine.Object.Destroy(m_mouseoverCoverParent);
+			m_mouseoverCoverParent = null;
 		}
-		this.DestroyRangeIndicatorHighlight();
+		DestroyRangeIndicatorHighlight();
 	}
 
 	private void Initialize2DScrollCursors()
 	{
-		if (!(this.m_scrollCursorEdge != null))
+		if (!(m_scrollCursorEdge != null))
 		{
-			if (!(this.m_scrollCursorCorner != null))
+			if (!(m_scrollCursorCorner != null))
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -774,118 +1634,30 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.Initialize2DScrollCursors()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
-		this.ScrollCursors = new Dictionary<HighlightUtils.ScrollCursorDirection, Texture2D>();
-		this.ScrollCursorsHotspot = new Dictionary<HighlightUtils.ScrollCursorDirection, Vector2>();
-		IEnumerator enumerator = Enum.GetValues(typeof(HighlightUtils.ScrollCursorDirection)).GetEnumerator();
+		ScrollCursors = new Dictionary<ScrollCursorDirection, Texture2D>();
+		ScrollCursorsHotspot = new Dictionary<ScrollCursorDirection, Vector2>();
+		IEnumerator enumerator = Enum.GetValues(typeof(ScrollCursorDirection)).GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())
 			{
-				object obj = enumerator.Current;
-				HighlightUtils.ScrollCursorDirection scrollCursorDirection = (HighlightUtils.ScrollCursorDirection)obj;
+				ScrollCursorDirection scrollCursorDirection = (ScrollCursorDirection)enumerator.Current;
+				int num;
+				int num4;
+				int num5;
+				int num9;
 				switch (scrollCursorDirection)
 				{
-				case HighlightUtils.ScrollCursorDirection.N:
-				case HighlightUtils.ScrollCursorDirection.S:
-					if (this.m_scrollCursorEdge != null)
+				case ScrollCursorDirection.E:
+				case ScrollCursorDirection.W:
+					if (m_scrollCursorEdge != null)
 					{
-						this.ScrollCursors[scrollCursorDirection] = new Texture2D(this.m_scrollCursorEdge.height, this.m_scrollCursorEdge.width);
-						int num = this.m_scrollCursorEdge.height / 2;
-						int num2 = (scrollCursorDirection != HighlightUtils.ScrollCursorDirection.N) ? (this.m_scrollCursorEdge.width - 1) : 0;
-						this.ScrollCursorsHotspot[scrollCursorDirection] = new Vector2((float)num, (float)num2);
-					}
-					break;
-				case HighlightUtils.ScrollCursorDirection.NE:
-				case HighlightUtils.ScrollCursorDirection.SE:
-				case HighlightUtils.ScrollCursorDirection.SW:
-				case HighlightUtils.ScrollCursorDirection.NW:
-					if (this.m_scrollCursorCorner != null)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.ScrollCursors[scrollCursorDirection] = new Texture2D(this.m_scrollCursorCorner.width, this.m_scrollCursorCorner.height);
-						if (scrollCursorDirection == HighlightUtils.ScrollCursorDirection.NW)
-						{
-							goto IL_211;
-						}
-						int num3;
-						if (scrollCursorDirection == HighlightUtils.ScrollCursorDirection.SW)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_211;
-							}
-						}
-						else
-						{
-							num3 = this.m_scrollCursorCorner.width - 1;
-						}
-						IL_223:
-						int num4 = num3;
-						if (scrollCursorDirection == HighlightUtils.ScrollCursorDirection.NW)
-						{
-							goto IL_241;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						int num5;
-						if (scrollCursorDirection == HighlightUtils.ScrollCursorDirection.NE)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_241;
-							}
-						}
-						else
-						{
-							num5 = this.m_scrollCursorCorner.height - 1;
-						}
-						IL_253:
-						int num6 = num5;
-						this.ScrollCursorsHotspot[scrollCursorDirection] = new Vector2((float)num4, (float)num6);
-						break;
-						IL_241:
-						num5 = 0;
-						goto IL_253;
-						IL_211:
-						num3 = 0;
-						goto IL_223;
-					}
-					break;
-				case HighlightUtils.ScrollCursorDirection.E:
-				case HighlightUtils.ScrollCursorDirection.W:
-					if (this.m_scrollCursorEdge != null)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -894,11 +1666,11 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						this.ScrollCursors[scrollCursorDirection] = new Texture2D(this.m_scrollCursorEdge.width, this.m_scrollCursorEdge.height);
-						int num7;
-						if (scrollCursorDirection == HighlightUtils.ScrollCursorDirection.W)
+						ScrollCursors[scrollCursorDirection] = new Texture2D(m_scrollCursorEdge.width, m_scrollCursorEdge.height);
+						int num6;
+						if (scrollCursorDirection == ScrollCursorDirection.W)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -907,20 +1679,103 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 								}
 								break;
 							}
-							num7 = 0;
+							num6 = 0;
 						}
 						else
 						{
-							num7 = this.m_scrollCursorEdge.width - 1;
+							num6 = m_scrollCursorEdge.width - 1;
 						}
-						int num8 = num7;
-						int num9 = this.m_scrollCursorEdge.height / 2;
-						this.ScrollCursorsHotspot[scrollCursorDirection] = new Vector2((float)num8, (float)num9);
+						int num7 = num6;
+						int num8 = m_scrollCursorEdge.height / 2;
+						ScrollCursorsHotspot[scrollCursorDirection] = new Vector2(num7, num8);
 					}
+					break;
+				case ScrollCursorDirection.N:
+				case ScrollCursorDirection.S:
+					if (m_scrollCursorEdge != null)
+					{
+						ScrollCursors[scrollCursorDirection] = new Texture2D(m_scrollCursorEdge.height, m_scrollCursorEdge.width);
+						int num2 = m_scrollCursorEdge.height / 2;
+						int num3 = (scrollCursorDirection != 0) ? (m_scrollCursorEdge.width - 1) : 0;
+						ScrollCursorsHotspot[scrollCursorDirection] = new Vector2(num2, num3);
+					}
+					break;
+				case ScrollCursorDirection.NE:
+				case ScrollCursorDirection.SE:
+				case ScrollCursorDirection.SW:
+				case ScrollCursorDirection.NW:
+					{
+						if (!(m_scrollCursorCorner != null))
+						{
+							break;
+						}
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						ScrollCursors[scrollCursorDirection] = new Texture2D(m_scrollCursorCorner.width, m_scrollCursorCorner.height);
+						if (scrollCursorDirection != ScrollCursorDirection.NW)
+						{
+							if (scrollCursorDirection != ScrollCursorDirection.SW)
+							{
+								num = m_scrollCursorCorner.width - 1;
+								goto IL_0223;
+							}
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+						num = 0;
+						goto IL_0223;
+					}
+					IL_0223:
+					num4 = num;
+					if (scrollCursorDirection != ScrollCursorDirection.NW)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (scrollCursorDirection != ScrollCursorDirection.NE)
+						{
+							num5 = m_scrollCursorCorner.height - 1;
+							goto IL_0253;
+						}
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+					num5 = 0;
+					goto IL_0253;
+					IL_0253:
+					num9 = num5;
+					ScrollCursorsHotspot[scrollCursorDirection] = new Vector2(num4, num9);
 					break;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -935,25 +1790,27 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			IDisposable disposable;
 			if ((disposable = (enumerator as IDisposable)) != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						disposable.Dispose();
+						goto end_IL_0287;
 					}
-					break;
 				}
-				disposable.Dispose();
 			}
+			end_IL_0287:;
 		}
-		for (int i = 0; i < this.m_scrollCursorEdge.width; i++)
+		for (int i = 0; i < m_scrollCursorEdge.width; i++)
 		{
-			for (int j = 0; j < this.m_scrollCursorEdge.height; j++)
+			for (int j = 0; j < m_scrollCursorEdge.height; j++)
 			{
-				if (this.m_scrollCursorEdge != null)
+				if (m_scrollCursorEdge != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -962,14 +1819,14 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					this.ScrollCursors[HighlightUtils.ScrollCursorDirection.W].SetPixel(i, j, this.m_scrollCursorEdge.GetPixel(i, j));
-					this.ScrollCursors[HighlightUtils.ScrollCursorDirection.E].SetPixel(i, j, this.m_scrollCursorEdge.GetPixel(this.m_scrollCursorEdge.width - (i + 1), j));
-					this.ScrollCursors[HighlightUtils.ScrollCursorDirection.N].SetPixel(i, j, this.m_scrollCursorEdge.GetPixel(this.m_scrollCursorEdge.height - (j + 1), i));
-					this.ScrollCursors[HighlightUtils.ScrollCursorDirection.S].SetPixel(i, j, this.m_scrollCursorEdge.GetPixel(j, i));
+					ScrollCursors[ScrollCursorDirection.W].SetPixel(i, j, m_scrollCursorEdge.GetPixel(i, j));
+					ScrollCursors[ScrollCursorDirection.E].SetPixel(i, j, m_scrollCursorEdge.GetPixel(m_scrollCursorEdge.width - (i + 1), j));
+					ScrollCursors[ScrollCursorDirection.N].SetPixel(i, j, m_scrollCursorEdge.GetPixel(m_scrollCursorEdge.height - (j + 1), i));
+					ScrollCursors[ScrollCursorDirection.S].SetPixel(i, j, m_scrollCursorEdge.GetPixel(j, i));
 				}
-				if (this.m_scrollCursorCorner != null)
+				if (m_scrollCursorCorner != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -978,65 +1835,66 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					this.ScrollCursors[HighlightUtils.ScrollCursorDirection.NW].SetPixel(i, j, this.m_scrollCursorCorner.GetPixel(i, j));
-					this.ScrollCursors[HighlightUtils.ScrollCursorDirection.SW].SetPixel(i, j, this.m_scrollCursorCorner.GetPixel(i, this.m_scrollCursorCorner.height - (j + 1)));
-					this.ScrollCursors[HighlightUtils.ScrollCursorDirection.NE].SetPixel(i, j, this.m_scrollCursorCorner.GetPixel(this.m_scrollCursorCorner.width - (i + 1), j));
-					this.ScrollCursors[HighlightUtils.ScrollCursorDirection.SE].SetPixel(i, j, this.m_scrollCursorCorner.GetPixel(this.m_scrollCursorCorner.width - (i + 1), this.m_scrollCursorCorner.height - (j + 1)));
+					ScrollCursors[ScrollCursorDirection.NW].SetPixel(i, j, m_scrollCursorCorner.GetPixel(i, j));
+					ScrollCursors[ScrollCursorDirection.SW].SetPixel(i, j, m_scrollCursorCorner.GetPixel(i, m_scrollCursorCorner.height - (j + 1)));
+					ScrollCursors[ScrollCursorDirection.NE].SetPixel(i, j, m_scrollCursorCorner.GetPixel(m_scrollCursorCorner.width - (i + 1), j));
+					ScrollCursors[ScrollCursorDirection.SE].SetPixel(i, j, m_scrollCursorCorner.GetPixel(m_scrollCursorCorner.width - (i + 1), m_scrollCursorCorner.height - (j + 1)));
 				}
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void Start()
 	{
-		this.m_highlightCursors.Clear();
-		this.m_targetingCursor = UnityEngine.Object.Instantiate<GameObject>(this.m_targetingCursorPrefab);
-		this.m_targetingCursor.transform.parent = base.transform;
-		UIManager.SetGameObjectActive(this.m_targetingCursor, false, null);
-		this.m_highlightCursors.Add(this.m_targetingCursor);
-		this.ClampedMouseOverCursor = UnityEngine.Object.Instantiate<GameObject>(this.m_mouseOverCursorPrefab);
-		this.ClampedMouseOverCursor.transform.parent = base.transform;
-		UIManager.SetGameObjectActive(this.ClampedMouseOverCursor, false, null);
-		this.m_highlightCursors.Add(this.ClampedMouseOverCursor);
-		this.FreeMouseOverCursor = UnityEngine.Object.Instantiate<GameObject>(this.m_freeCursorPrefab);
-		this.FreeMouseOverCursor.transform.parent = base.transform;
-		UIManager.SetGameObjectActive(this.FreeMouseOverCursor, false, null);
-		this.m_highlightCursors.Add(this.FreeMouseOverCursor);
-		this.CornerMouseOverCursor = UnityEngine.Object.Instantiate<GameObject>(this.m_cornerCursorPrefab);
-		this.CornerMouseOverCursor.transform.parent = base.transform;
-		UIManager.SetGameObjectActive(this.CornerMouseOverCursor, false, null);
-		this.m_highlightCursors.Add(this.CornerMouseOverCursor);
-		this.MovementMouseOverCursor = UnityEngine.Object.Instantiate<GameObject>(this.m_movementPrefab);
-		this.MovementMouseOverCursor.transform.parent = base.transform;
-		UIManager.SetGameObjectActive(this.MovementMouseOverCursor, false, null);
-		this.m_highlightCursors.Add(this.MovementMouseOverCursor);
-		this.AbilityTargetMouseOverCursor = UnityEngine.Object.Instantiate<GameObject>(this.m_abilityTargetPrefab);
-		this.AbilityTargetMouseOverCursor.transform.parent = base.transform;
-		UIManager.SetGameObjectActive(this.AbilityTargetMouseOverCursor, false, null);
-		this.m_highlightCursors.Add(this.AbilityTargetMouseOverCursor);
-		this.IdleMouseOverCursor = UnityEngine.Object.Instantiate<GameObject>(this.m_IdleTargetPrefab);
-		this.IdleMouseOverCursor.transform.parent = base.transform;
-		UIManager.SetGameObjectActive(this.IdleMouseOverCursor, false, null);
-		this.m_highlightCursors.Add(this.IdleMouseOverCursor);
-		if (this.m_respawnSelectionCursorPrefab != null)
+		m_highlightCursors.Clear();
+		m_targetingCursor = UnityEngine.Object.Instantiate(m_targetingCursorPrefab);
+		m_targetingCursor.transform.parent = base.transform;
+		UIManager.SetGameObjectActive(m_targetingCursor, false);
+		m_highlightCursors.Add(m_targetingCursor);
+		ClampedMouseOverCursor = UnityEngine.Object.Instantiate(m_mouseOverCursorPrefab);
+		ClampedMouseOverCursor.transform.parent = base.transform;
+		UIManager.SetGameObjectActive(ClampedMouseOverCursor, false);
+		m_highlightCursors.Add(ClampedMouseOverCursor);
+		FreeMouseOverCursor = UnityEngine.Object.Instantiate(m_freeCursorPrefab);
+		FreeMouseOverCursor.transform.parent = base.transform;
+		UIManager.SetGameObjectActive(FreeMouseOverCursor, false);
+		m_highlightCursors.Add(FreeMouseOverCursor);
+		CornerMouseOverCursor = UnityEngine.Object.Instantiate(m_cornerCursorPrefab);
+		CornerMouseOverCursor.transform.parent = base.transform;
+		UIManager.SetGameObjectActive(CornerMouseOverCursor, false);
+		m_highlightCursors.Add(CornerMouseOverCursor);
+		MovementMouseOverCursor = UnityEngine.Object.Instantiate(m_movementPrefab);
+		MovementMouseOverCursor.transform.parent = base.transform;
+		UIManager.SetGameObjectActive(MovementMouseOverCursor, false);
+		m_highlightCursors.Add(MovementMouseOverCursor);
+		AbilityTargetMouseOverCursor = UnityEngine.Object.Instantiate(m_abilityTargetPrefab);
+		AbilityTargetMouseOverCursor.transform.parent = base.transform;
+		UIManager.SetGameObjectActive(AbilityTargetMouseOverCursor, false);
+		m_highlightCursors.Add(AbilityTargetMouseOverCursor);
+		IdleMouseOverCursor = UnityEngine.Object.Instantiate(m_IdleTargetPrefab);
+		IdleMouseOverCursor.transform.parent = base.transform;
+		UIManager.SetGameObjectActive(IdleMouseOverCursor, false);
+		m_highlightCursors.Add(IdleMouseOverCursor);
+		if (m_respawnSelectionCursorPrefab != null)
 		{
-			this.RespawnSelectionCursor = UnityEngine.Object.Instantiate<GameObject>(this.m_respawnSelectionCursorPrefab);
-			this.RespawnSelectionCursor.transform.parent = base.transform;
-			UIManager.SetGameObjectActive(this.RespawnSelectionCursor, false, null);
-			this.m_highlightCursors.Add(this.RespawnSelectionCursor);
+			RespawnSelectionCursor = UnityEngine.Object.Instantiate(m_respawnSelectionCursorPrefab);
+			RespawnSelectionCursor.transform.parent = base.transform;
+			UIManager.SetGameObjectActive(RespawnSelectionCursor, false);
+			m_highlightCursors.Add(RespawnSelectionCursor);
 		}
-		if (this.m_chaseSquareCursorPrefab != null)
+		if (m_chaseSquareCursorPrefab != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1045,108 +1903,114 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.ChaseSquareCursor = UnityEngine.Object.Instantiate<GameObject>(this.m_chaseSquareCursorPrefab);
-			this.ChaseSquareCursor.transform.parent = base.transform;
-			UIManager.SetGameObjectActive(this.ChaseSquareCursor, false, null);
-			this.m_highlightCursors.Add(this.ChaseSquareCursor);
+			ChaseSquareCursor = UnityEngine.Object.Instantiate(m_chaseSquareCursorPrefab);
+			ChaseSquareCursor.transform.parent = base.transform;
+			UIManager.SetGameObjectActive(ChaseSquareCursor, false);
+			m_highlightCursors.Add(ChaseSquareCursor);
 		}
-		if (this.m_chaseSquareCursorSecondaryPrefab != null)
+		if (m_chaseSquareCursorSecondaryPrefab != null)
 		{
-			this.ChaseSquareCursorAlt = UnityEngine.Object.Instantiate<GameObject>(this.m_chaseSquareCursorSecondaryPrefab);
-			this.ChaseSquareCursorAlt.transform.parent = base.transform;
-			UIManager.SetGameObjectActive(this.ChaseSquareCursorAlt, false, null);
-			this.m_highlightCursors.Add(this.ChaseSquareCursorAlt);
+			ChaseSquareCursorAlt = UnityEngine.Object.Instantiate(m_chaseSquareCursorSecondaryPrefab);
+			ChaseSquareCursorAlt.transform.parent = base.transform;
+			UIManager.SetGameObjectActive(ChaseSquareCursorAlt, false);
+			m_highlightCursors.Add(ChaseSquareCursorAlt);
 		}
-		this.Initialize2DScrollCursors();
-		this.m_startCalled = true;
-		this.RefreshCursorVisibility();
+		Initialize2DScrollCursors();
+		m_startCalled = true;
+		RefreshCursorVisibility();
 	}
 
 	public void HideCursorHighlights()
 	{
-		for (int i = 0; i < this.m_highlightCursors.Count; i++)
+		for (int i = 0; i < m_highlightCursors.Count; i++)
 		{
-			GameObject gameObject = this.m_highlightCursors[i];
+			GameObject gameObject = m_highlightCursors[i];
 			if (gameObject != null)
 			{
-				UIManager.SetGameObjectActive(gameObject, false, null);
+				UIManager.SetGameObjectActive(gameObject, false);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.HideCursorHighlights()).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	public GameObject CloneTargeterHighlight(GameObject source, AbilityUtil_Targeter targeter)
 	{
-		if (!(source != null))
+		if (source != null)
 		{
-			return null;
-		}
-		for (;;)
-		{
-			switch (2)
+			while (true)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CloneTargeterHighlight(GameObject, AbilityUtil_Targeter)).MethodHandle;
-		}
-		UIDynamicCone component = source.GetComponent<UIDynamicCone>();
-		if (component != null)
-		{
-			for (;;)
-			{
-				switch (6)
+				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			GameObject gameObject = this.CreateDynamicConeMesh(component.m_currentRadiusInWorld / Board.\u000E().squareSize, component.m_currentAngleInWorld, component.m_forceHideSides, targeter.GetTemplateSwapData());
-			gameObject.transform.position = source.transform.position;
-			gameObject.transform.rotation = source.transform.rotation;
-			gameObject.transform.localScale = source.transform.localScale;
-			return gameObject;
-		}
-		UIDynamicLineSegment component2 = source.GetComponent<UIDynamicLineSegment>();
-		if (component2 != null)
-		{
-			for (;;)
-			{
-				switch (5)
+					break;
+				default:
 				{
-				case 0:
-					continue;
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					UIDynamicCone component = source.GetComponent<UIDynamicCone>();
+					if (component != null)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								break;
+							default:
+							{
+								GameObject gameObject = CreateDynamicConeMesh(component.m_currentRadiusInWorld / Board.Get().squareSize, component.m_currentAngleInWorld, component.m_forceHideSides, targeter.GetTemplateSwapData());
+								gameObject.transform.position = source.transform.position;
+								gameObject.transform.rotation = source.transform.rotation;
+								gameObject.transform.localScale = source.transform.localScale;
+								return gameObject;
+							}
+							}
+						}
+					}
+					UIDynamicLineSegment component2 = source.GetComponent<UIDynamicLineSegment>();
+					if (component2 != null)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								break;
+							default:
+							{
+								GameObject gameObject2 = CreateDynamicLineSegmentMesh(component2.m_currentLengthInWorld / Board.Get().squareSize, component2.m_currentWidthInWorld, component2.m_dotted, component2.m_currentColor);
+								gameObject2.transform.position = source.transform.position;
+								gameObject2.transform.rotation = source.transform.rotation;
+								gameObject2.transform.localScale = source.transform.localScale;
+								return gameObject2;
+							}
+							}
+						}
+					}
+					return UnityEngine.Object.Instantiate(source);
 				}
-				break;
+				}
 			}
-			GameObject gameObject2 = this.CreateDynamicLineSegmentMesh(component2.m_currentLengthInWorld / Board.\u000E().squareSize, component2.m_currentWidthInWorld, component2.m_dotted, component2.m_currentColor);
-			gameObject2.transform.position = source.transform.position;
-			gameObject2.transform.rotation = source.transform.rotation;
-			gameObject2.transform.localScale = source.transform.localScale;
-			return gameObject2;
 		}
-		return UnityEngine.Object.Instantiate<GameObject>(source);
+		return null;
 	}
 
 	public GameObject GetTargeterTemplatePrefabToUse(GameObject input, TargeterTemplateSwapData.TargeterTemplateType inputTemplateType, List<TargeterTemplateSwapData> templateSwaps)
@@ -1154,7 +2018,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 		GameObject result = input;
 		if (input != null && templateSwaps != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1163,13 +2027,13 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.GetTargeterTemplatePrefabToUse(GameObject, TargeterTemplateSwapData.TargeterTemplateType, List<TargeterTemplateSwapData>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (templateSwaps.Count > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1178,40 +2042,48 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				for (int i = 0; i < templateSwaps.Count; i++)
+				int num = 0;
+				while (true)
 				{
-					if (templateSwaps[i].m_templateToReplace == inputTemplateType)
+					if (num < templateSwaps.Count)
 					{
-						for (;;)
+						if (templateSwaps[num].m_templateToReplace == inputTemplateType)
 						{
-							switch (3)
+							while (true)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (templateSwaps[i].m_prefabToUse != null)
-						{
-							for (;;)
-							{
-								switch (2)
+								switch (3)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							return templateSwaps[i].m_prefabToUse;
+							if (templateSwaps[num].m_prefabToUse != null)
+							{
+								while (true)
+								{
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								result = templateSwaps[num].m_prefabToUse;
+								break;
+							}
 						}
-					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
+						num++;
 						continue;
+					}
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
 					break;
 				}
@@ -1222,10 +2094,11 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public GameObject CreateRectangularCursor(float widthInWorld, float lengthInWorld, List<TargeterTemplateSwapData> templateSwapData = null)
 	{
-		GameObject gameObject = this.m_rectangleCursorPrefab;
+		GameObject gameObject = null;
+		GameObject gameObject2 = m_rectangleCursorPrefab;
 		if (templateSwapData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1234,17 +2107,17 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateRectangularCursor(float, float, List<TargeterTemplateSwapData>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			gameObject = this.GetTargeterTemplatePrefabToUse(gameObject, TargeterTemplateSwapData.TargeterTemplateType.Laser, templateSwapData);
+			gameObject2 = GetTargeterTemplatePrefabToUse(gameObject2, TargeterTemplateSwapData.TargeterTemplateType.Laser, templateSwapData);
 		}
-		GameObject gameObject2 = UnityEngine.Object.Instantiate<GameObject>(gameObject);
-		UIRectangleCursor component = gameObject2.GetComponent<UIRectangleCursor>();
+		gameObject = UnityEngine.Object.Instantiate(gameObject2);
+		UIRectangleCursor component = gameObject.GetComponent<UIRectangleCursor>();
 		if (component != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1255,7 +2128,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			}
 			component.OnDimensionsChanged(widthInWorld, lengthInWorld);
 		}
-		return gameObject2;
+		return gameObject;
 	}
 
 	public void ResizeRectangularCursor(float widthInWorld, float lengthInWorld, GameObject highlight)
@@ -1265,12 +2138,12 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public void RotateAndResizeRectangularCursor(GameObject highlightObj, Vector3 startPos, Vector3 endPos, float widthInSquares)
 	{
-		startPos.y = HighlightUtils.GetHighlightHeight();
+		startPos.y = GetHighlightHeight();
 		endPos.y = startPos.y;
-		float widthInWorld = widthInSquares * Board.\u000E().squareSize;
+		float widthInWorld = widthInSquares * Board.Get().squareSize;
 		Vector3 vector = endPos - startPos;
 		float magnitude = vector.magnitude;
-		HighlightUtils.Get().ResizeRectangularCursor(widthInWorld, magnitude, highlightObj);
+		Get().ResizeRectangularCursor(widthInWorld, magnitude, highlightObj);
 		Vector3 normalized = vector.normalized;
 		highlightObj.transform.position = startPos;
 		highlightObj.transform.rotation = Quaternion.LookRotation(normalized);
@@ -1278,19 +2151,21 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public GameObject CreateConeCursor(float radiusInWorld, float arcDegrees)
 	{
-		return this.CreateDynamicConeMesh(radiusInWorld / Board.\u000E().squareSize, arcDegrees, false, null);
+		return CreateDynamicConeMesh(radiusInWorld / Board.Get().squareSize, arcDegrees, false);
 	}
 
 	public GameObject CreateConeCursor_FixedSize(float radiusInWorld, float arcDegrees)
 	{
+		GameObject gameObject = null;
 		GameObject original = null;
 		float num = float.MaxValue;
-		foreach (GameObject gameObject in this.m_conePrefabs)
+		GameObject[] conePrefabs = m_conePrefabs;
+		foreach (GameObject gameObject2 in conePrefabs)
 		{
-			UIConeCursor component = gameObject.GetComponent<UIConeCursor>();
+			UIConeCursor component = gameObject2.GetComponent<UIConeCursor>();
 			if (component == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1299,84 +2174,76 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateConeCursor_FixedSize(float, float)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				Log.Error("HighlightUtils cone prefabs has a cone without a UIConeCursor component.", new object[0]);
+				Log.Error("HighlightUtils cone prefabs has a cone without a UIConeCursor component.");
+				continue;
 			}
-			else
+			if (!(component.m_arcDegrees < 0f))
 			{
-				if (component.m_arcDegrees >= 0f)
+				while (true)
 				{
-					for (;;)
+					switch (3)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (component.m_arcDegrees > 360f)
+					break;
+				}
+				if (!(component.m_arcDegrees > 360f))
+				{
+					float num2 = Mathf.Abs(arcDegrees - component.m_arcDegrees);
+					if (num2 < num)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (5)
+							switch (4)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
+						num = num2;
+						original = gameObject2;
 					}
-					else
-					{
-						float num2 = Mathf.Abs(arcDegrees - component.m_arcDegrees);
-						if (num2 < num)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							num = num2;
-							original = gameObject;
-							goto IL_D8;
-						}
-						goto IL_D8;
-					}
+					continue;
 				}
-				Log.Error("HighlightUtils cone prefabs has a cone " + gameObject.name + " with an invalid arcDegrees.  Valid degrees are in (0, 360).", new object[0]);
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
 			}
-			IL_D8:;
+			Log.Error("HighlightUtils cone prefabs has a cone " + gameObject2.name + " with an invalid arcDegrees.  Valid degrees are in (0, 360).");
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			gameObject = UnityEngine.Object.Instantiate(original);
+			UIConeCursor component2 = gameObject.GetComponent<UIConeCursor>();
+			component2.OnRadiusChanged(radiusInWorld);
+			return gameObject;
 		}
-		GameObject gameObject2 = UnityEngine.Object.Instantiate<GameObject>(original);
-		UIConeCursor component2 = gameObject2.GetComponent<UIConeCursor>();
-		component2.OnRadiusChanged(radiusInWorld);
-		return gameObject2;
 	}
 
 	public GameObject CreateDynamicConeMesh(float initialRadiusInSquares, float initialAngle, bool forceHideSides, List<TargeterTemplateSwapData> templateSwapData = null)
 	{
 		GameObject gameObject = null;
-		GameObject gameObject2 = this.m_dynamicConePrefab;
+		GameObject gameObject2 = m_dynamicConePrefab;
 		if (templateSwapData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1385,15 +2252,15 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateDynamicConeMesh(float, float, bool, List<TargeterTemplateSwapData>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			gameObject2 = this.GetTargeterTemplatePrefabToUse(gameObject2, TargeterTemplateSwapData.TargeterTemplateType.DynamicCone, templateSwapData);
+			gameObject2 = GetTargeterTemplatePrefabToUse(gameObject2, TargeterTemplateSwapData.TargeterTemplateType.DynamicCone, templateSwapData);
 		}
 		if (gameObject2 != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1402,10 +2269,10 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			gameObject = UnityEngine.Object.Instantiate<GameObject>(gameObject2);
+			gameObject = UnityEngine.Object.Instantiate(gameObject2);
 			if (gameObject != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -1417,7 +2284,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				UIDynamicCone component = gameObject.GetComponent<UIDynamicCone>();
 				if (component != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -1428,7 +2295,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					component.InitCone();
 					component.SetForceHideSides(forceHideSides);
-					this.AdjustDynamicConeMesh(gameObject, initialRadiusInSquares, initialAngle);
+					AdjustDynamicConeMesh(gameObject, initialRadiusInSquares, initialAngle);
 				}
 			}
 		}
@@ -1437,64 +2304,66 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public void AdjustDynamicConeMesh(GameObject highlight, float radiusInSquares, float angleDeg)
 	{
-		if (highlight != null)
+		if (!(highlight != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.AdjustDynamicConeMesh(GameObject, float, float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UIDynamicCone component = highlight.GetComponent<UIDynamicCone>();
 			if (component != null)
 			{
-				component.AdjustConeMeshVertices(angleDeg, radiusInSquares * Board.\u000E().squareSize);
+				component.AdjustConeMeshVertices(angleDeg, radiusInSquares * Board.Get().squareSize);
 			}
+			return;
 		}
 	}
 
 	public void SetDynamicConeMeshBorderActive(GameObject highlight, bool borderActive)
 	{
-		if (highlight != null)
+		if (!(highlight != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.SetDynamicConeMeshBorderActive(GameObject, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UIDynamicCone component = highlight.GetComponent<UIDynamicCone>();
 			if (component != null)
 			{
 				component.SetBorderActive(borderActive);
 			}
+			return;
 		}
 	}
 
 	public GameObject CreateDynamicLineSegmentMesh(float lengthInSquares, float widthInWorld, bool dotted, Color color)
 	{
-		GameObject gameObject;
-		if (this.m_dynamicLineSegmentPrefab != null)
+		GameObject gameObject = null;
+		if (m_dynamicLineSegmentPrefab != null)
 		{
-			gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_dynamicLineSegmentPrefab);
+			gameObject = UnityEngine.Object.Instantiate(m_dynamicLineSegmentPrefab);
 			UIDynamicLineSegment component = gameObject.GetComponent<UIDynamicLineSegment>();
 			if (component != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1503,18 +2372,18 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateDynamicLineSegmentMesh(float, float, bool, Color)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				float lengthInWorld = lengthInSquares * Board.\u000E().squareSize;
+				float lengthInWorld = lengthInSquares * Board.Get().squareSize;
 				component.CreateSegmentMesh(widthInWorld, dotted, color);
 				component.AdjustDynamicLineSegmentMesh(lengthInWorld, color);
 			}
 		}
 		else
 		{
-			Log.Error("no dynamic line segment prefab", new object[0]);
+			Log.Error("no dynamic line segment prefab");
 			gameObject = new GameObject("Error_NoDynamicLineSegmentPrefab");
 		}
 		return gameObject;
@@ -1522,57 +2391,61 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public void AdjustDynamicLineSegmentMesh(GameObject highlight, float lengthInSquares, Color color)
 	{
-		if (highlight != null)
+		if (!(highlight != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.AdjustDynamicLineSegmentMesh(GameObject, float, Color)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UIDynamicLineSegment component = highlight.GetComponent<UIDynamicLineSegment>();
 			if (component != null)
 			{
-				component.AdjustDynamicLineSegmentMesh(lengthInSquares * Board.\u000E().squareSize, color);
+				component.AdjustDynamicLineSegmentMesh(lengthInSquares * Board.Get().squareSize, color);
 			}
+			return;
 		}
 	}
 
 	public void AdjustDynamicLineSegmentLength(GameObject highlight, float lengthInSquares)
 	{
-		if (highlight != null)
+		if (!(highlight != null))
 		{
-			UIDynamicLineSegment component = highlight.GetComponent<UIDynamicLineSegment>();
-			if (component != null)
+			return;
+		}
+		UIDynamicLineSegment component = highlight.GetComponent<UIDynamicLineSegment>();
+		if (!(component != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.AdjustDynamicLineSegmentLength(GameObject, float)).MethodHandle;
-				}
-				component.AdjustSegmentLength(lengthInSquares * Board.\u000E().squareSize);
+			case 0:
+				continue;
 			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			component.AdjustSegmentLength(lengthInSquares * Board.Get().squareSize);
+			return;
 		}
 	}
 
 	public GameObject CreateBouncingLaserCursor(Vector3 originalStart, List<Vector3> laserAnglePoints, float width)
 	{
-		GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_bouncingLaserTargeterPrefab);
+		GameObject gameObject = null;
+		gameObject = UnityEngine.Object.Instantiate(m_bouncingLaserTargeterPrefab);
 		UIBouncingLaserCursor component = gameObject.GetComponent<UIBouncingLaserCursor>();
 		component.OnUpdated(originalStart, laserAnglePoints, width);
 		return gameObject;
@@ -1580,9 +2453,10 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public GameObject CreateAoECursor(float radiusInWorld, bool isForLocalPlayer)
 	{
+		GameObject gameObject = null;
 		if (GameFlowData.Get().activeOwnedActorData == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1591,16 +2465,15 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateAoECursor(float, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			isForLocalPlayer = true;
 		}
-		GameObject gameObject;
 		if (isForLocalPlayer)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1609,14 +2482,14 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_AoECursorPrefab);
+			gameObject = UnityEngine.Object.Instantiate(m_AoECursorPrefab);
 		}
 		else
 		{
-			gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_AoECursorAllyPrefab);
+			gameObject = UnityEngine.Object.Instantiate(m_AoECursorAllyPrefab);
 		}
-		float scale = radiusInWorld / this.m_AoECursorRadius;
-		HighlightUtils.SetParticleSystemScale(gameObject, scale);
+		float scale = radiusInWorld / m_AoECursorRadius;
+		SetParticleSystemScale(gameObject, scale);
 		return gameObject;
 	}
 
@@ -1625,7 +2498,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 		GameObject gameObject = null;
 		if (GameFlowData.Get().activeOwnedActorData == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1634,17 +2507,19 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateShapeCursor(AbilityAreaShape, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			isForLocalPlayer = true;
 		}
-		foreach (HighlightUtils.AreaShapePrefab areaShapePrefab in this.m_areaShapePrefabs)
+		AreaShapePrefab[] areaShapePrefabs = m_areaShapePrefabs;
+		for (int i = 0; i < areaShapePrefabs.Length; i++)
 		{
+			AreaShapePrefab areaShapePrefab = areaShapePrefabs[i];
 			if (areaShapePrefab.m_shape == shape)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1653,24 +2528,24 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				gameObject = UnityEngine.Object.Instantiate<GameObject>(areaShapePrefab.m_prefab);
+				gameObject = UnityEngine.Object.Instantiate(areaShapePrefab.m_prefab);
 				break;
 			}
 		}
 		if (gameObject == null)
 		{
 			float num = (float)shape;
-			gameObject = this.CreateAoECursor((num + 1.5f) * 0.4f, isForLocalPlayer);
+			gameObject = CreateAoECursor((num + 1.5f) * 0.4f, isForLocalPlayer);
 		}
 		return gameObject;
 	}
 
 	public GameObject CreateBoundaryLine(float lengthInSquares, bool innerVersion, bool openingDirection)
 	{
-		GameObject gameObject;
+		GameObject gameObject = null;
 		if (innerVersion)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1679,20 +2554,20 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateBoundaryLine(float, bool, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_targeterBoundaryLineInner);
+			gameObject = UnityEngine.Object.Instantiate(m_targeterBoundaryLineInner);
 		}
 		else
 		{
-			gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_targeterBoundaryLineOuter);
+			gameObject = UnityEngine.Object.Instantiate(m_targeterBoundaryLineOuter);
 		}
 		float x;
 		if (openingDirection)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1707,68 +2582,68 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 		{
 			x = -1f;
 		}
-		float z = lengthInSquares * Board.\u000E().squareSize / this.m_targeterBoundaryLineLength;
+		float z = lengthInSquares * Board.Get().squareSize / m_targeterBoundaryLineLength;
 		gameObject.transform.localScale = new Vector3(x, 1f, z);
 		return gameObject;
 	}
 
 	public void ResizeBoundaryLine(float lengthInSquares, GameObject highlight)
 	{
-		float z = lengthInSquares * Board.\u000E().squareSize / this.m_targeterBoundaryLineLength;
-		highlight.transform.localScale = new Vector3(highlight.transform.localScale.x, 1f, z);
+		float z = lengthInSquares * Board.Get().squareSize / m_targeterBoundaryLineLength;
+		Transform transform = highlight.transform;
+		Vector3 localScale = highlight.transform.localScale;
+		transform.localScale = new Vector3(localScale.x, 1f, z);
 	}
 
 	public GameObject CreateGridPatternHighlight(AbilityGridPattern pattern, float scale)
 	{
-		GameObject gameObject = new GameObject("Targeter parent: " + pattern.ToString());
+		GameObject gameObject = new GameObject("Targeter parent: " + pattern);
 		List<GameObject> list;
-		if (pattern != AbilityGridPattern.Plus_Two_x_Two)
+		switch (pattern)
 		{
-			if (pattern != AbilityGridPattern.Plus_Four_x_Four)
-			{
-				list = new List<GameObject>();
-			}
-			else
-			{
-				list = this.CreatePlusPatternObjects(scale * Board.\u000E().squareSize * 4f);
-			}
-		}
-		else
-		{
-			list = this.CreatePlusPatternObjects(scale * Board.\u000E().squareSize * 2f);
+		case AbilityGridPattern.Plus_Two_x_Two:
+			list = CreatePlusPatternObjects(scale * Board.Get().squareSize * 2f);
+			break;
+		case AbilityGridPattern.Plus_Four_x_Four:
+			list = CreatePlusPatternObjects(scale * Board.Get().squareSize * 4f);
+			break;
+		default:
+			list = new List<GameObject>();
+			break;
 		}
 		using (List<GameObject>.Enumerator enumerator = list.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				GameObject gameObject2 = enumerator.Current;
-				gameObject2.transform.parent = gameObject.transform;
+				GameObject current = enumerator.Current;
+				current.transform.parent = gameObject.transform;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (true)
+					{
+						return gameObject;
+					}
+					/*OpCode not supported: LdMemberToken*/;
+					return gameObject;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateGridPatternHighlight(AbilityGridPattern, float)).MethodHandle;
 			}
 		}
-		return gameObject;
 	}
 
 	private List<GameObject> CreatePlusPatternObjects(float scale)
 	{
 		List<GameObject> list = new List<GameObject>();
-		list.Add(HighlightUtils.Get().CreateBoundaryLine(1f, false, true));
-		list.Add(HighlightUtils.Get().CreateBoundaryLine(1f, false, false));
+		list.Add(Get().CreateBoundaryLine(1f, false, true));
+		list.Add(Get().CreateBoundaryLine(1f, false, false));
 		List<GameObject> list2 = new List<GameObject>();
-		list2.Add(HighlightUtils.Get().CreateBoundaryLine(1f, false, true));
-		list2.Add(HighlightUtils.Get().CreateBoundaryLine(1f, false, false));
+		list2.Add(Get().CreateBoundaryLine(1f, false, true));
+		list2.Add(Get().CreateBoundaryLine(1f, false, false));
 		Vector3 vector = new Vector3(1f, 0f, 0f);
 		Vector3 vector2 = new Vector3(0f, 0f, 1f);
 		List<GameObject> list3 = new List<GameObject>();
@@ -1778,47 +2653,49 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 		{
 			while (enumerator.MoveNext())
 			{
-				GameObject gameObject = enumerator.Current;
-				gameObject.transform.rotation = Quaternion.LookRotation(vector, Vector3.up);
-				gameObject.transform.localPosition += 0.5f * scale * vector;
+				GameObject current = enumerator.Current;
+				current.transform.rotation = Quaternion.LookRotation(vector, Vector3.up);
+				current.transform.localPosition += 0.5f * scale * vector;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					goto end_IL_00c1;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreatePlusPatternObjects(float)).MethodHandle;
-			}
+			end_IL_00c1:;
 		}
-		foreach (GameObject gameObject2 in list2)
+		foreach (GameObject item in list2)
 		{
-			gameObject2.transform.rotation = Quaternion.LookRotation(vector2, Vector3.up);
-			gameObject2.transform.localPosition += 0.5f * scale * vector2;
+			item.transform.rotation = Quaternion.LookRotation(vector2, Vector3.up);
+			item.transform.localPosition += 0.5f * scale * vector2;
 		}
 		using (List<GameObject>.Enumerator enumerator3 = list3.GetEnumerator())
 		{
 			while (enumerator3.MoveNext())
 			{
-				GameObject highlight = enumerator3.Current;
-				HighlightUtils.Get().ResizeBoundaryLine(scale / Board.\u000E().squareSize, highlight);
+				GameObject current3 = enumerator3.Current;
+				Get().ResizeBoundaryLine(scale / Board.Get().squareSize, current3);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return list3;
 				}
-				break;
 			}
 		}
-		return list3;
 	}
 
 	public GameObject CreateAoEPersistentVFX(float radius, Team team, Vector3 position)
@@ -1826,7 +2703,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 		GameObject gameObject = null;
 		if (team == Team.TeamA)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1835,15 +2712,15 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateAoEPersistentVFX(float, Team, Vector3)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_teamAPersistentAoEPrefab);
+			gameObject = UnityEngine.Object.Instantiate(m_teamAPersistentAoEPrefab);
 		}
 		else if (team == Team.TeamB)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1852,15 +2729,15 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_teamBPersistentAoEPrefab);
+			gameObject = UnityEngine.Object.Instantiate(m_teamBPersistentAoEPrefab);
 		}
 		else
 		{
-			Log.Error("Someone not on team A or team B doing a firebomb, which has no appropriate VFX.", new object[0]);
+			Log.Error("Someone not on team A or team B doing a firebomb, which has no appropriate VFX.");
 		}
 		if (gameObject != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1869,8 +2746,8 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			float scale = radius / this.m_AoECursorRadius;
-			HighlightUtils.SetParticleSystemScale(gameObject, scale);
+			float scale = radius / m_AoECursorRadius;
+			SetParticleSystemScale(gameObject, scale);
 			gameObject.transform.position = position;
 		}
 		return gameObject;
@@ -1878,10 +2755,10 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public GameObject CreateAoEPersistentVFX(float radius, bool allied, bool helpful, Vector3 position)
 	{
-		GameObject gameObject;
+		GameObject gameObject = null;
 		if (allied)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1890,13 +2767,13 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateAoEPersistentVFX(float, bool, bool, Vector3)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (helpful)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1905,16 +2782,16 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_allyPersistentHelpfulAoEPrefab);
+				gameObject = UnityEngine.Object.Instantiate(m_allyPersistentHelpfulAoEPrefab);
 			}
 			else
 			{
-				gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_allyPersistentAoEPrefab);
+				gameObject = UnityEngine.Object.Instantiate(m_allyPersistentAoEPrefab);
 			}
 		}
 		else if (helpful)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1923,15 +2800,15 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_enemyPersistentHelpfulAoEPrefab);
+			gameObject = UnityEngine.Object.Instantiate(m_enemyPersistentHelpfulAoEPrefab);
 		}
 		else
 		{
-			gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_enemyPersistentAoEPrefab);
+			gameObject = UnityEngine.Object.Instantiate(m_enemyPersistentAoEPrefab);
 		}
 		if (gameObject != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1940,31 +2817,31 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			float scale = radius / this.m_AoECursorRadius;
-			HighlightUtils.SetParticleSystemScale(gameObject, scale);
+			float scale = radius / m_AoECursorRadius;
+			SetParticleSystemScale(gameObject, scale);
 			gameObject.transform.position = position;
 		}
 		return gameObject;
 	}
 
-	public HighlightUtils.CursorType GetCurrentCursorType()
+	public CursorType GetCurrentCursorType()
 	{
-		return this.m_currentCursorType;
+		return m_currentCursorType;
 	}
 
-	public void SetCursorType(HighlightUtils.CursorType cursorType)
+	public void SetCursorType(CursorType cursorType)
 	{
-		this.m_currentCursorType = cursorType;
-		this.RefreshCursorVisibility();
+		m_currentCursorType = cursorType;
+		RefreshCursorVisibility();
 	}
 
 	private bool ShouldShowSprintingCursor()
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		ActorMovement actorMovement;
-		if (activeOwnedActorData)
+		object obj;
+		if ((bool)activeOwnedActorData)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1973,21 +2850,21 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.ShouldShowSprintingCursor()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			actorMovement = activeOwnedActorData.\u000E();
+			obj = activeOwnedActorData.GetActorMovement();
 		}
 		else
 		{
-			actorMovement = null;
+			obj = null;
 		}
-		ActorMovement actorMovement2 = actorMovement;
-		ActorTurnSM actorTurnSM;
-		if (activeOwnedActorData)
+		ActorMovement actorMovement = (ActorMovement)obj;
+		object obj2;
+		if ((bool)activeOwnedActorData)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1996,49 +2873,177 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			actorTurnSM = activeOwnedActorData.\u000E();
+			obj2 = activeOwnedActorData.GetActorTurnSM();
 		}
 		else
 		{
-			actorTurnSM = null;
+			obj2 = null;
 		}
-		ActorTurnSM actorTurnSM2 = actorTurnSM;
+		ActorTurnSM actorTurnSM = (ActorTurnSM)obj2;
 		if (!(activeOwnedActorData == null))
 		{
-			if (actorMovement2 == null)
+			if (!(actorMovement == null))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				if (actorMovement2.SquaresCanMoveToWithQueuedAbility.Contains(Board.\u000E().PlayerClampedSquare))
+				if (actorMovement.SquaresCanMoveToWithQueuedAbility.Contains(Board.Get().PlayerClampedSquare))
 				{
 					return false;
 				}
 				if (activeOwnedActorData.RemainingHorizontalMovement <= 0f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return false;
 						}
-						break;
 					}
+				}
+				if (activeOwnedActorData.MoveFromBoardSquare == Board.Get().PlayerClampedSquare)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							break;
+						default:
+							return false;
+						}
+					}
+				}
+				if (!actorTurnSM.AmStillDeciding())
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							break;
+						default:
+							return false;
+						}
+					}
+				}
+				if (activeOwnedActorData.IsDead())
+				{
 					return false;
 				}
-				if (activeOwnedActorData.MoveFromBoardSquare == Board.\u000E().PlayerClampedSquare)
+				if (actorTurnSM.CurrentState == TurnStateEnum.PICKING_RESPAWN)
 				{
-					for (;;)
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							break;
+						default:
+							return false;
+						}
+					}
+				}
+				if (!activeOwnedActorData.GetAbilityData().GetQueuedAbilitiesAllowSprinting())
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							break;
+						default:
+							return false;
+						}
+					}
+				}
+				if (UITutorialFullscreenPanel.Get().IsAnyPanelVisible())
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							break;
+						default:
+							return false;
+						}
+					}
+				}
+				if (UIGameStatsWindow.Get().m_container.gameObject.activeSelf)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							break;
+						default:
+							return false;
+						}
+					}
+				}
+				return true;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		return false;
+	}
+
+	private void RefreshCursorVisibility()
+	{
+		if (!m_startCalled)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (Board.Get() == null || GameFlowData.Get() == null)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				if (HUD_UI.Get() == null)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						default:
+							return;
+						case 0:
+							break;
+						}
+					}
+				}
+				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+				object obj;
+				if ((bool)activeOwnedActorData)
+				{
+					while (true)
 					{
 						switch (6)
 						{
@@ -2047,11 +3052,36 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					return false;
+					obj = activeOwnedActorData.GetActorMovement();
 				}
-				if (!actorTurnSM2.AmStillDeciding())
+				else
 				{
-					for (;;)
+					obj = null;
+				}
+				ActorMovement exists = (ActorMovement)obj;
+				int num;
+				if (ActorTurnSM.IsClientDecidingMovement())
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num = (ActorData.WouldSquareBeChasedByClient(Board.Get().PlayerFreeSquare) ? 1 : 0);
+				}
+				else
+				{
+					num = 0;
+				}
+				bool flag = (byte)num != 0;
+				int num2;
+				if (Board.Get().PlayerClampedSquare != null)
+				{
+					while (true)
 					{
 						switch (7)
 						{
@@ -2060,41 +3090,26 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					return false;
+					num2 = (Board.Get().PlayerClampedSquare.IsBaselineHeight() ? 1 : 0);
 				}
-				if (activeOwnedActorData.\u000E())
+				else
 				{
-					return false;
+					num2 = 0;
 				}
-				if (actorTurnSM2.CurrentState == TurnStateEnum.PICKING_RESPAWN)
+				bool flag2 = (byte)num2 != 0;
+				bool flag3 = true;
+				bool flag4 = true;
+				bool flag5 = false;
+				bool flag6 = false;
+				bool flag7 = false;
+				bool flag8 = false;
+				bool flag9 = false;
+				bool flag10 = false;
+				bool flag11 = false;
+				bool flag12 = false;
+				if (GameFlowData.Get().gameState != GameState.EndingGame)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return false;
-				}
-				if (!activeOwnedActorData.\u000E().GetQueuedAbilitiesAllowSprinting())
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return false;
-				}
-				if (UITutorialFullscreenPanel.Get().IsAnyPanelVisible())
-				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -2103,244 +3118,51 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					return false;
-				}
-				if (UIGameStatsWindow.Get().m_container.gameObject.activeSelf)
-				{
-					for (;;)
+					if (GameFlowData.Get().gameState != GameState.Deployment)
 					{
-						switch (1)
+						goto IL_0148;
+					}
+				}
+				flag3 = false;
+				flag4 = false;
+				bool flag13 = false;
+				flag = false;
+				flag2 = false;
+				flag11 = false;
+				flag12 = false;
+				goto IL_0148;
+				IL_0148:
+				if (!HideCursor)
+				{
+					while (true)
+					{
+						switch (5)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					return false;
-				}
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private void RefreshCursorVisibility()
-	{
-		if (this.m_startCalled)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.RefreshCursorVisibility()).MethodHandle;
-			}
-			if (!(Board.\u000E() == null) && !(GameFlowData.Get() == null))
-			{
-				for (;;)
-				{
-					switch (4)
+					if (!UIUtils.IsMouseOnGUI())
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(HUD_UI.Get() == null))
-				{
-					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-					ActorMovement actorMovement;
-					if (activeOwnedActorData)
-					{
-						for (;;)
+						switch (m_currentCursorType)
 						{
-							switch (6)
+						case CursorType.MouseOverCursorType:
+							flag3 = false;
+							if (flag2)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						actorMovement = activeOwnedActorData.\u000E();
-					}
-					else
-					{
-						actorMovement = null;
-					}
-					ActorMovement exists = actorMovement;
-					bool flag = ActorTurnSM.IsClientDecidingMovement();
-					bool flag2;
-					if (flag)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag2 = ActorData.WouldSquareBeChasedByClient(Board.\u000E().PlayerFreeSquare, false);
-					}
-					else
-					{
-						flag2 = false;
-					}
-					bool flag3 = flag2;
-					bool flag4;
-					if (Board.\u000E().PlayerClampedSquare != null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag4 = Board.\u000E().PlayerClampedSquare.\u0016();
-					}
-					else
-					{
-						flag4 = false;
-					}
-					bool flag5 = flag4;
-					bool flag6 = true;
-					bool flag7 = true;
-					bool flag8 = false;
-					bool flag9 = false;
-					bool flag10 = false;
-					bool flag11 = false;
-					bool flag12 = false;
-					bool flag13 = false;
-					bool flag14 = false;
-					bool flag15 = false;
-					if (GameFlowData.Get().gameState != GameState.EndingGame)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (GameFlowData.Get().gameState != GameState.Deployment)
-						{
-							goto IL_148;
-						}
-					}
-					flag6 = false;
-					flag7 = false;
-					flag3 = false;
-					flag5 = false;
-					flag14 = false;
-					flag15 = false;
-					IL_148:
-					if (!this.HideCursor)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (UIUtils.IsMouseOnGUI())
-						{
-							for (;;)
-							{
-								switch (2)
+								while (true)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						else
-						{
-							switch (this.m_currentCursorType)
-							{
-							case HighlightUtils.CursorType.MouseOverCursorType:
-								flag6 = false;
-								if (flag5)
-								{
-									for (;;)
+									switch (5)
 									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
+									case 0:
+										continue;
 									}
-									if (!flag3)
-									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										flag11 = true;
-										goto IL_21D;
-									}
+									break;
 								}
-								flag11 = false;
-								IL_21D:
-								if (flag3)
+								if (!flag)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									flag14 = true;
-								}
-								else
-								{
-									flag14 = false;
-								}
-								if (Board.\u000E().PlayerFreeSquare != null)
-								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									flag7 = true;
-								}
-								else
-								{
-									flag7 = false;
-								}
-								flag12 = false;
-								if (exists)
-								{
-									for (;;)
+									while (true)
 									{
 										switch (4)
 										{
@@ -2349,161 +3171,46 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 										}
 										break;
 									}
-									if (this.ShouldShowSprintingCursor())
-									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										flag13 = true;
-									}
-									if (activeOwnedActorData.RemainingHorizontalMovement != 0f)
-									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (activeOwnedActorData.\u000E().AmStillDeciding())
-										{
-											break;
-										}
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-									}
-									flag11 = false;
+									flag8 = true;
+									goto IL_021d;
 								}
-								break;
-							case HighlightUtils.CursorType.TabTargetingCursorType:
-								flag6 = true;
-								flag11 = false;
-								flag7 = false;
-								flag12 = false;
-								flag14 = false;
-								break;
-							case HighlightUtils.CursorType.ShapeTargetingSquareCursorType:
-								flag6 = false;
-								flag11 = false;
-								flag7 = true;
-								flag12 = false;
-								flag14 = false;
-								break;
-							case HighlightUtils.CursorType.ShapeTargetingCornerCursorType:
-								flag6 = false;
-								flag11 = false;
-								flag7 = false;
-								flag12 = true;
-								flag14 = false;
-								break;
-							case HighlightUtils.CursorType.NoCursorType:
-								flag6 = false;
-								flag11 = false;
-								flag7 = false;
-								flag12 = false;
-								flag14 = false;
-								break;
 							}
-							if (!(activeOwnedActorData != null))
-							{
-								goto IL_367;
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							ActorCover actorCover = activeOwnedActorData.\u000E();
-							if (!(actorCover != null))
-							{
-								goto IL_367;
-							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_currentCursorType == HighlightUtils.CursorType.MouseOverCursorType)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								actorCover.UpdateCoverHighlights(Board.\u000E().PlayerFreeSquare);
-								goto IL_367;
-							}
-							actorCover.UpdateCoverHighlights(null);
-							goto IL_367;
-						}
-					}
-					flag6 = false;
-					flag11 = false;
-					flag7 = false;
-					flag12 = false;
-					flag14 = false;
-					flag15 = false;
-					if (GameFlowData.Get().activeOwnedActorData != null)
-					{
-						ActorCover actorCover2 = GameFlowData.Get().activeOwnedActorData.\u000E();
-						if (actorCover2 != null)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							actorCover2.UpdateCoverHighlights(null);
-						}
-					}
-					IL_367:
-					if (activeOwnedActorData != null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
+							flag8 = false;
+							goto IL_021d;
+						case CursorType.ShapeTargetingSquareCursorType:
+							flag3 = false;
+							flag8 = false;
+							flag4 = true;
+							flag9 = false;
+							flag11 = false;
 							break;
-						}
-						if (activeOwnedActorData.\u000E().GetSelectedAbility() != null)
-						{
-							if (activeOwnedActorData.\u000E().GetSelectedAbility().Targeter is AbilityUtil_Targeter_Shape)
+						case CursorType.ShapeTargetingCornerCursorType:
+							flag3 = false;
+							flag8 = false;
+							flag4 = false;
+							flag9 = true;
+							flag11 = false;
+							break;
+						case CursorType.TabTargetingCursorType:
+							flag3 = true;
+							flag8 = false;
+							flag4 = false;
+							flag9 = false;
+							flag11 = false;
+							break;
+						case CursorType.NoCursorType:
 							{
-								for (;;)
+								flag3 = false;
+								flag8 = false;
+								flag4 = false;
+								flag9 = false;
+								flag11 = false;
+								break;
+							}
+							IL_021d:
+							if (flag)
+							{
+								while (true)
 								{
 									switch (2)
 									{
@@ -2512,26 +3219,179 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 									}
 									break;
 								}
-								flag7 = false;
-								flag8 = true;
-								flag9 = false;
-								flag10 = false;
-								flag13 = false;
-								flag14 = false;
+								flag11 = true;
 							}
 							else
 							{
-								flag7 = false;
-								flag8 = false;
-								flag9 = false;
-								flag10 = false;
-								flag13 = false;
-								flag14 = false;
+								flag11 = false;
+							}
+							if (Board.Get().PlayerFreeSquare != null)
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								flag4 = true;
+							}
+							else
+							{
+								flag4 = false;
+							}
+							flag9 = false;
+							if (!exists)
+							{
+								break;
+							}
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (ShouldShowSprintingCursor())
+							{
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								flag10 = true;
+							}
+							if (activeOwnedActorData.RemainingHorizontalMovement != 0f)
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (activeOwnedActorData.GetActorTurnSM().AmStillDeciding())
+								{
+									break;
+								}
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							flag8 = false;
+							break;
+						}
+						if (activeOwnedActorData != null)
+						{
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							ActorCover actorCover = activeOwnedActorData.GetActorCover();
+							if (actorCover != null)
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (m_currentCursorType == CursorType.MouseOverCursorType)
+								{
+									while (true)
+									{
+										switch (7)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									actorCover.UpdateCoverHighlights(Board.Get().PlayerFreeSquare);
+								}
+								else
+								{
+									actorCover.UpdateCoverHighlights(null);
+								}
 							}
 						}
-						else if (activeOwnedActorData.\u000E().CurrentState == TurnStateEnum.PICKING_RESPAWN)
+						goto IL_0367;
+					}
+					while (true)
+					{
+						switch (2)
 						{
-							for (;;)
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+				flag3 = false;
+				flag8 = false;
+				flag4 = false;
+				flag9 = false;
+				flag11 = false;
+				flag12 = false;
+				if (GameFlowData.Get().activeOwnedActorData != null)
+				{
+					ActorCover actorCover2 = GameFlowData.Get().activeOwnedActorData.GetActorCover();
+					if (actorCover2 != null)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						actorCover2.UpdateCoverHighlights(null);
+					}
+				}
+				goto IL_0367;
+				IL_0367:
+				if (activeOwnedActorData != null)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (activeOwnedActorData.GetAbilityData().GetSelectedAbility() != null)
+					{
+						if (activeOwnedActorData.GetAbilityData().GetSelectedAbility().Targeter is AbilityUtil_Targeter_Shape)
+						{
+							while (true)
 							{
 								switch (2)
 								{
@@ -2540,138 +3400,26 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 								}
 								break;
 							}
-							flag15 = true;
+							flag4 = false;
+							flag5 = true;
+							flag6 = false;
 							flag7 = false;
-							flag8 = false;
-							flag9 = false;
 							flag10 = false;
-							flag13 = false;
+							flag11 = false;
 						}
 						else
 						{
-							if (activeOwnedActorData.RemainingHorizontalMovement <= 0f)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (activeOwnedActorData.HasQueuedChase())
-								{
-									flag7 = false;
-									flag8 = false;
-									flag9 = false;
-									flag10 = true;
-									flag13 = false;
-									goto IL_452;
-								}
-							}
+							flag4 = false;
+							flag5 = false;
+							flag6 = false;
 							flag7 = false;
-							flag8 = false;
-							flag9 = true;
 							flag10 = false;
-						}
-						IL_452:
-						if (flag5)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (flag3)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								flag7 = false;
-								flag8 = false;
-								flag9 = false;
-								flag10 = false;
-								flag13 = false;
-								flag14 = true;
-							}
+							flag11 = false;
 						}
 					}
-					if (!flag12)
+					else if (activeOwnedActorData.GetActorTurnSM().CurrentState == TurnStateEnum.PICKING_RESPAWN)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!flag11)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							flag7 = false;
-							flag8 = false;
-							flag9 = false;
-							flag10 = false;
-							flag13 = false;
-						}
-					}
-					UIManager.SetGameObjectActive(this.MovementMouseOverCursor, flag9, null);
-					UIManager.SetGameObjectActive(this.AbilityTargetMouseOverCursor, flag8, null);
-					UIManager.SetGameObjectActive(this.IdleMouseOverCursor, flag10, null);
-					UIManager.SetGameObjectActive(this.m_targetingCursor, flag6, null);
-					UIManager.SetGameObjectActive(this.FreeMouseOverCursor, flag7, null);
-					UIManager.SetGameObjectActive(this.ClampedMouseOverCursor, flag11, null);
-					UIManager.SetGameObjectActive(this.CornerMouseOverCursor, flag12, null);
-					if (this.ChaseSquareCursor != null)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIManager.SetGameObjectActive(this.ChaseSquareCursor, flag14, null);
-					}
-					if (this.ChaseSquareCursorAlt != null)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIManager.SetGameObjectActive(this.ChaseSquareCursorAlt, flag14, null);
-					}
-					if (this.SprintMouseOverCursor != null)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -2680,286 +3428,84 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						bool flag16;
-						if (!(UIScreenManager.Get() == null))
+						flag12 = true;
+						flag4 = false;
+						flag5 = false;
+						flag6 = false;
+						flag7 = false;
+						flag10 = false;
+					}
+					else
+					{
+						if (!(activeOwnedActorData.RemainingHorizontalMovement > 0f))
 						{
-							for (;;)
+							while (true)
 							{
-								switch (5)
+								switch (6)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							flag16 = UIScreenManager.Get().GetHideHUDCompletely();
-						}
-						else
-						{
-							flag16 = true;
-						}
-						bool flag17 = flag16;
-						GameObject sprintMouseOverCursor = this.SprintMouseOverCursor;
-						bool doActive;
-						if (flag13)
-						{
-							for (;;)
+							if (activeOwnedActorData.HasQueuedChase())
 							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
+								flag4 = false;
+								flag5 = false;
+								flag6 = false;
+								flag7 = true;
+								flag10 = false;
+								goto IL_0452;
 							}
-							doActive = !flag17;
 						}
-						else
+						flag4 = false;
+						flag5 = false;
+						flag6 = true;
+						flag7 = false;
+					}
+					goto IL_0452;
+				}
+				goto IL_047f;
+				IL_047f:
+				if (!flag9)
+				{
+					while (true)
+					{
+						switch (7)
 						{
-							doActive = false;
+						case 0:
+							continue;
 						}
-						UIManager.SetGameObjectActive(sprintMouseOverCursor, doActive, null);
+						break;
 					}
-					if (this.RespawnSelectionCursor != null)
+					if (!flag8)
 					{
-						UIManager.SetGameObjectActive(this.RespawnSelectionCursor, flag15, null);
-					}
-					if (ActorDebugUtils.Get() != null)
-					{
-						for (;;)
+						while (true)
 						{
-							switch (3)
+							switch (1)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						if (ActorDebugUtils.Get().ShowingCategory(ActorDebugUtils.DebugCategory.CursorState, true))
-						{
-							ActorDebugUtils.DebugCategoryInfo debugCategoryInfo = ActorDebugUtils.Get().GetDebugCategoryInfo(ActorDebugUtils.DebugCategory.CursorState);
-							string stringToDisplay = string.Format("CursorType: " + this.m_currentCursorType.ToString() + "\n{0} \tMovementMouseOverCursor \n{1} \tAbilityTargetMouseOverCursor \n{2} \tIdleMouseOverCursor \n{3} \tm_targetingCursor \n{4} \tFreeMouseOverCursor \n{5} \tClampedMouseOverCursor \n{6} \tCornerMouseOverCursor\n{7} \tshowChaseCursor \n{8} \tshowSprintCursor \n{9} \tchaseMouseover \n{10} \trespawnCursor \n", new object[]
-							{
-								flag9,
-								flag8,
-								flag10,
-								flag6,
-								flag7,
-								flag11,
-								flag12,
-								flag14,
-								flag13,
-								flag3,
-								flag15
-							});
-							debugCategoryInfo.m_stringToDisplay = stringToDisplay;
-						}
+						flag4 = false;
+						flag5 = false;
+						flag6 = false;
+						flag7 = false;
+						flag10 = false;
 					}
-					return;
 				}
-				for (;;)
+				UIManager.SetGameObjectActive(MovementMouseOverCursor, flag6);
+				UIManager.SetGameObjectActive(AbilityTargetMouseOverCursor, flag5);
+				UIManager.SetGameObjectActive(IdleMouseOverCursor, flag7);
+				UIManager.SetGameObjectActive(m_targetingCursor, flag3);
+				UIManager.SetGameObjectActive(FreeMouseOverCursor, flag4);
+				UIManager.SetGameObjectActive(ClampedMouseOverCursor, flag8);
+				UIManager.SetGameObjectActive(CornerMouseOverCursor, flag9);
+				if (ChaseSquareCursor != null)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-		}
-	}
-
-	public void UpdateCursorPositions()
-	{
-		Vector3 vector = Vector3.zero;
-		Vector3 vector2 = Vector3.zero;
-		Vector3 vector3 = Board.\u000E().PlayerFreeCornerPos;
-		if (Board.\u000E().PlayerClampedSquare != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.UpdateCursorPositions()).MethodHandle;
-			}
-			vector = Board.\u000E().PlayerClampedSquare.ToVector3();
-			if (Board.\u000E().PlayerClampedSquare.height < 0)
-			{
-				vector.y = (float)Board.\u000E().BaselineHeight;
-			}
-		}
-		if (Board.\u000E().PlayerFreeSquare != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			vector2 = Board.\u000E().PlayerFreeSquare.ToVector3();
-			if (Board.\u000E().PlayerFreeSquare.height < 0)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				vector2.y = (float)Board.\u000E().BaselineHeight;
-			}
-		}
-		if (this.RespawnSelectionCursor != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.RespawnSelectionCursor.transform.position = vector;
-		}
-		Vector3 b = new Vector3(0f, 0.1f, 0f);
-		vector += b;
-		vector2 += b;
-		vector3 += b;
-		this.ClampedMouseOverCursor.transform.position = vector;
-		this.FreeMouseOverCursor.transform.position = vector2;
-		this.CornerMouseOverCursor.transform.position = vector3;
-		this.ChaseSquareCursor.transform.position = vector2;
-		this.ChaseSquareCursorAlt.transform.position = vector2;
-		this.m_targetingCursor.transform.position = vector;
-		this.MovementMouseOverCursor.transform.position = vector;
-		this.AbilityTargetMouseOverCursor.transform.position = vector;
-		this.IdleMouseOverCursor.transform.position = vector;
-		Canvas canvas;
-		if (HUD_UI.Get() != null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			canvas = HUD_UI.Get().GetTopLevelCanvas();
-		}
-		else
-		{
-			canvas = null;
-		}
-		Canvas canvas2 = canvas;
-		if (canvas2 != null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_sprintHighlightPrefab != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.SprintMouseOverCursor == null)
-				{
-					this.SprintMouseOverCursor = UnityEngine.Object.Instantiate<GameObject>(this.m_sprintHighlightPrefab);
-					UIManager.SetGameObjectActive(this.SprintMouseOverCursor, false, null);
-					this.SprintMouseOverCursor.transform.SetParent(canvas2.transform, false);
-					this.SprintMouseOverCursor.GetComponent<Canvas>().sortingOrder += this.m_sprintHighlightPrefab.GetComponent<Canvas>().sortingOrder;
-				}
-			}
-			if (this.SprintMouseOverCursor != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				RectTransform rectTransform = canvas2.transform as RectTransform;
-				Vector2 vector4 = Camera.main.WorldToViewportPoint(vector);
-				Vector2 v = new Vector2(vector4.x * rectTransform.sizeDelta.x, vector4.y * rectTransform.sizeDelta.y);
-				(this.SprintMouseOverCursor.transform as RectTransform).anchoredPosition3D = v;
-				this.SprintMouseOverCursor.transform.localScale = new Vector3(1f, 1f, 1f);
-			}
-		}
-		this.RefreshCursorVisibility();
-	}
-
-	private unsafe void ProcessUpperLeftCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightUtils.HighlightMesh highlighMesh, bool includeInternalBorders)
-	{
-		Board board = Board.\u000E();
-		BoardSquare testSquare = board.\u0016(square.x, square.y + 1);
-		bool flag = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x - 1, square.y);
-		bool flag2 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x - 1, square.y + 1);
-		bool flag3 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		if (!flag && !flag2)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.ProcessUpperLeftCorner(BoardSquare, HashSet<BoardSquare>, HashSet<BoardSquare>, HighlightUtils.HighlightMesh*, bool)).MethodHandle;
-			}
-			highlighMesh.AddPiece(HighlightUtils.PieceType.UpperLeftOuterCorner, square);
-		}
-		else
-		{
-			if (!flag)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (flag2)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -2968,24 +3514,11 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					highlighMesh.AddPiece(HighlightUtils.PieceType.UpperLeftHorizontal, square);
-					return;
+					UIManager.SetGameObjectActive(ChaseSquareCursor, flag11);
 				}
-			}
-			if (flag)
-			{
-				for (;;)
+				if (ChaseSquareCursorAlt != null)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!flag2)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -2994,24 +3527,11 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					highlighMesh.AddPiece(HighlightUtils.PieceType.UpperLeftVertical, square);
-					return;
+					UIManager.SetGameObjectActive(ChaseSquareCursorAlt, flag11);
 				}
-			}
-			if (flag && flag2)
-			{
-				for (;;)
+				if (SprintMouseOverCursor != null)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!flag3)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -3020,244 +3540,112 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					highlighMesh.AddPiece(HighlightUtils.PieceType.UpperLeftInnerCorner, square);
-				}
-			}
-		}
-	}
-
-	private unsafe void ProcessUpperRightCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightUtils.HighlightMesh highlighMesh, bool includeInternalBorders)
-	{
-		Board board = Board.\u000E();
-		BoardSquare testSquare = board.\u0016(square.x, square.y + 1);
-		bool flag = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x + 1, square.y);
-		bool flag2 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x + 1, square.y + 1);
-		bool flag3 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		if (!flag)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.ProcessUpperRightCorner(BoardSquare, HashSet<BoardSquare>, HashSet<BoardSquare>, HighlightUtils.HighlightMesh*, bool)).MethodHandle;
-			}
-			if (!flag2)
-			{
-				for (;;)
-				{
-					switch (2)
+					int num3;
+					if (!(UIScreenManager.Get() == null))
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				highlighMesh.AddPiece(HighlightUtils.PieceType.UpperRightOuterCorner, square);
-				return;
-			}
-		}
-		if (!flag)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (flag2)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				highlighMesh.AddPiece(HighlightUtils.PieceType.UpperRightHorizontal, square);
-				return;
-			}
-		}
-		if (flag)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!flag2)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				highlighMesh.AddPiece(HighlightUtils.PieceType.UpperRightVertical, square);
-				return;
-			}
-		}
-		if (flag && flag2)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!flag3)
-			{
-				highlighMesh.AddPiece(HighlightUtils.PieceType.UpperRightInnerCorner, square);
-			}
-		}
-	}
-
-	private unsafe void ProcessLowerLeftCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightUtils.HighlightMesh highlighMesh, bool includeInternalBorders)
-	{
-		Board board = Board.\u000E();
-		BoardSquare testSquare = board.\u0016(square.x, square.y - 1);
-		bool flag = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x - 1, square.y);
-		bool flag2 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x - 1, square.y - 1);
-		bool flag3 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		if (!flag)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.ProcessLowerLeftCorner(BoardSquare, HashSet<BoardSquare>, HashSet<BoardSquare>, HighlightUtils.HighlightMesh*, bool)).MethodHandle;
-			}
-			if (!flag2)
-			{
-				highlighMesh.AddPiece(HighlightUtils.PieceType.LowerLeftOuterCorner, square);
-				return;
-			}
-		}
-		if (!flag && flag2)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			highlighMesh.AddPiece(HighlightUtils.PieceType.LowerLeftHorizontal, square);
-		}
-		else
-		{
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!flag2)
-				{
-					for (;;)
-					{
-						switch (6)
+						while (true)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					highlighMesh.AddPiece(HighlightUtils.PieceType.LowerLeftVertical, square);
-					return;
-				}
-			}
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (flag2)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!flag3)
-					{
-						for (;;)
-						{
-							switch (3)
+							switch (5)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						highlighMesh.AddPiece(HighlightUtils.PieceType.LowerLeftInnerCorner, square);
+						num3 = (UIScreenManager.Get().GetHideHUDCompletely() ? 1 : 0);
+					}
+					else
+					{
+						num3 = 1;
+					}
+					bool flag14 = (byte)num3 != 0;
+					GameObject sprintMouseOverCursor = SprintMouseOverCursor;
+					int doActive;
+					if (flag10)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						doActive = ((!flag14) ? 1 : 0);
+					}
+					else
+					{
+						doActive = 0;
+					}
+					UIManager.SetGameObjectActive(sprintMouseOverCursor, (byte)doActive != 0);
+				}
+				if (RespawnSelectionCursor != null)
+				{
+					UIManager.SetGameObjectActive(RespawnSelectionCursor, flag12);
+				}
+				if (!(ActorDebugUtils.Get() != null))
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					if (ActorDebugUtils.Get().ShowingCategory(ActorDebugUtils.DebugCategory.CursorState))
+					{
+						ActorDebugUtils.DebugCategoryInfo debugCategoryInfo = ActorDebugUtils.Get().GetDebugCategoryInfo(ActorDebugUtils.DebugCategory.CursorState);
+						string text = debugCategoryInfo.m_stringToDisplay = string.Format("CursorType: " + m_currentCursorType.ToString() + "\n{0} \tMovementMouseOverCursor \n{1} \tAbilityTargetMouseOverCursor \n{2} \tIdleMouseOverCursor \n{3} \tm_targetingCursor \n{4} \tFreeMouseOverCursor \n{5} \tClampedMouseOverCursor \n{6} \tCornerMouseOverCursor\n{7} \tshowChaseCursor \n{8} \tshowSprintCursor \n{9} \tchaseMouseover \n{10} \trespawnCursor \n", flag6, flag5, flag7, flag3, flag4, flag8, flag9, flag11, flag10, flag, flag12);
+					}
+					return;
+				}
+				IL_0452:
+				if (flag2)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (flag)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						flag4 = false;
+						flag5 = false;
+						flag6 = false;
+						flag7 = false;
+						flag10 = false;
+						flag11 = true;
 					}
 				}
+				goto IL_047f;
 			}
 		}
 	}
 
-	private unsafe void ProcessLowerRightCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightUtils.HighlightMesh highlighMesh, bool includeInternalBorders)
+	public void UpdateCursorPositions()
 	{
-		Board board = Board.\u000E();
-		BoardSquare testSquare = board.\u0016(square.x, square.y - 1);
-		bool flag = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x + 1, square.y);
-		bool flag2 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x + 1, square.y - 1);
-		bool flag3 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		if (!flag)
+		Vector3 position = Vector3.zero;
+		Vector3 position2 = Vector3.zero;
+		Vector3 playerFreeCornerPos = Board.Get().PlayerFreeCornerPos;
+		if (Board.Get().PlayerClampedSquare != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -3266,175 +3654,31 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.ProcessLowerRightCorner(BoardSquare, HashSet<BoardSquare>, HashSet<BoardSquare>, HighlightUtils.HighlightMesh*, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!flag2)
+			position = Board.Get().PlayerClampedSquare.ToVector3();
+			if (Board.Get().PlayerClampedSquare.height < 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				highlighMesh.AddPiece(HighlightUtils.PieceType.LowerRightOuterCorner, square);
-				return;
+				position.y = Board.Get().BaselineHeight;
 			}
 		}
-		if (!flag)
+		if (Board.Get().PlayerFreeSquare != null)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (1)
+				switch (3)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (flag2)
+			position2 = Board.Get().PlayerFreeSquare.ToVector3();
+			if (Board.Get().PlayerFreeSquare.height < 0)
 			{
-				highlighMesh.AddPiece(HighlightUtils.PieceType.LowerRightHorizontal, square);
-				return;
-			}
-		}
-		if (flag && !flag2)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			highlighMesh.AddPiece(HighlightUtils.PieceType.LowerRightVertical, square);
-		}
-		else if (flag)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (flag2 && !flag3)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				highlighMesh.AddPiece(HighlightUtils.PieceType.LowerRightInnerCorner, square);
-			}
-		}
-	}
-
-	private bool IsSquareOnSameSideOfAnyBorder(BoardSquare square, BoardSquare testSquare, HashSet<BoardSquare> squaresSet)
-	{
-		bool result;
-		if (!squaresSet.Contains(testSquare))
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.IsSquareOnSameSideOfAnyBorder(BoardSquare, BoardSquare, HashSet<BoardSquare>)).MethodHandle;
-			}
-			result = !squaresSet.Contains(square);
-		}
-		else
-		{
-			result = true;
-		}
-		return result;
-	}
-
-	private bool IsSquareConnected(BoardSquare square, BoardSquare testSquare, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, bool includeInternalBorders)
-	{
-		if (includeInternalBorders)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.IsSquareConnected(BoardSquare, BoardSquare, HashSet<BoardSquare>, HashSet<BoardSquare>, bool)).MethodHandle;
-			}
-			return this.IsSquareOnSameSideOfAnyBorder(square, testSquare, squaresSet);
-		}
-		bool result;
-		if (!squaresSet.Contains(testSquare))
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = !borderSet.Contains(testSquare);
-		}
-		else
-		{
-			result = true;
-		}
-		return result;
-	}
-
-	private bool BoardSquareIsInSet(int x, int y, HashSet<BoardSquare> squaresSet)
-	{
-		BoardSquare item = Board.\u000E().\u0016(x, y);
-		return squaresSet.Contains(item);
-	}
-
-	private bool IsSquareSurrounded(BoardSquare square, HashSet<BoardSquare> squaresSet)
-	{
-		if (this.BoardSquareIsInSet(square.x - 1, square.y - 1, squaresSet) && this.BoardSquareIsInSet(square.x, square.y - 1, squaresSet))
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.IsSquareSurrounded(BoardSquare, HashSet<BoardSquare>)).MethodHandle;
-			}
-			if (this.BoardSquareIsInSet(square.x + 1, square.y - 1, squaresSet))
-			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -3443,9 +3687,640 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (this.BoardSquareIsInSet(square.x - 1, square.y, squaresSet))
+				position2.y = Board.Get().BaselineHeight;
+			}
+		}
+		if (RespawnSelectionCursor != null)
+		{
+			while (true)
+			{
+				switch (3)
 				{
-					for (;;)
+				case 0:
+					continue;
+				}
+				break;
+			}
+			RespawnSelectionCursor.transform.position = position;
+		}
+		Vector3 vector = new Vector3(0f, 0.1f, 0f);
+		position += vector;
+		position2 += vector;
+		playerFreeCornerPos += vector;
+		ClampedMouseOverCursor.transform.position = position;
+		FreeMouseOverCursor.transform.position = position2;
+		CornerMouseOverCursor.transform.position = playerFreeCornerPos;
+		ChaseSquareCursor.transform.position = position2;
+		ChaseSquareCursorAlt.transform.position = position2;
+		m_targetingCursor.transform.position = position;
+		MovementMouseOverCursor.transform.position = position;
+		AbilityTargetMouseOverCursor.transform.position = position;
+		IdleMouseOverCursor.transform.position = position;
+		object obj;
+		if (HUD_UI.Get() != null)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			obj = HUD_UI.Get().GetTopLevelCanvas();
+		}
+		else
+		{
+			obj = null;
+		}
+		Canvas canvas = (Canvas)obj;
+		if (canvas != null)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (m_sprintHighlightPrefab != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (SprintMouseOverCursor == null)
+				{
+					SprintMouseOverCursor = UnityEngine.Object.Instantiate(m_sprintHighlightPrefab);
+					UIManager.SetGameObjectActive(SprintMouseOverCursor, false);
+					SprintMouseOverCursor.transform.SetParent(canvas.transform, false);
+					SprintMouseOverCursor.GetComponent<Canvas>().sortingOrder += m_sprintHighlightPrefab.GetComponent<Canvas>().sortingOrder;
+				}
+			}
+			if (SprintMouseOverCursor != null)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				RectTransform rectTransform = canvas.transform as RectTransform;
+				Vector2 vector2 = Camera.main.WorldToViewportPoint(position);
+				float x = vector2.x;
+				Vector2 sizeDelta = rectTransform.sizeDelta;
+				float x2 = x * sizeDelta.x;
+				float y = vector2.y;
+				Vector2 sizeDelta2 = rectTransform.sizeDelta;
+				Vector2 v = new Vector2(x2, y * sizeDelta2.y);
+				(SprintMouseOverCursor.transform as RectTransform).anchoredPosition3D = v;
+				SprintMouseOverCursor.transform.localScale = new Vector3(1f, 1f, 1f);
+			}
+		}
+		RefreshCursorVisibility();
+	}
+
+	private void ProcessUpperLeftCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightMesh highlighMesh, bool includeInternalBorders)
+	{
+		Board board = Board.Get();
+		BoardSquare boardSquare = board.GetBoardSquare(square.x, square.y + 1);
+		bool flag = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x - 1, square.y);
+		bool flag2 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x - 1, square.y + 1);
+		bool flag3 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		if (!flag && !flag2)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					highlighMesh.AddPiece(PieceType.UpperLeftOuterCorner, square);
+					return;
+				}
+			}
+		}
+		if (!flag)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (flag2)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						break;
+					default:
+						highlighMesh.AddPiece(PieceType.UpperLeftHorizontal, square);
+						return;
+					}
+				}
+			}
+		}
+		if (flag)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!flag2)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						break;
+					default:
+						highlighMesh.AddPiece(PieceType.UpperLeftVertical, square);
+						return;
+					}
+				}
+			}
+		}
+		if (!flag || !flag2)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			if (!flag3)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					highlighMesh.AddPiece(PieceType.UpperLeftInnerCorner, square);
+					return;
+				}
+			}
+			return;
+		}
+	}
+
+	private void ProcessUpperRightCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightMesh highlighMesh, bool includeInternalBorders)
+	{
+		Board board = Board.Get();
+		BoardSquare boardSquare = board.GetBoardSquare(square.x, square.y + 1);
+		bool flag = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x + 1, square.y);
+		bool flag2 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x + 1, square.y + 1);
+		bool flag3 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		if (!flag)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!flag2)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						highlighMesh.AddPiece(PieceType.UpperRightOuterCorner, square);
+						return;
+					}
+				}
+			}
+		}
+		if (!flag)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (flag2)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						highlighMesh.AddPiece(PieceType.UpperRightHorizontal, square);
+						return;
+					}
+				}
+			}
+		}
+		if (flag)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!flag2)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						break;
+					default:
+						highlighMesh.AddPiece(PieceType.UpperRightVertical, square);
+						return;
+					}
+				}
+			}
+		}
+		if (!flag || !flag2)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			if (!flag3)
+			{
+				highlighMesh.AddPiece(PieceType.UpperRightInnerCorner, square);
+			}
+			return;
+		}
+	}
+
+	private void ProcessLowerLeftCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightMesh highlighMesh, bool includeInternalBorders)
+	{
+		Board board = Board.Get();
+		BoardSquare boardSquare = board.GetBoardSquare(square.x, square.y - 1);
+		bool flag = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x - 1, square.y);
+		bool flag2 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x - 1, square.y - 1);
+		bool flag3 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		if (!flag)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!flag2)
+			{
+				highlighMesh.AddPiece(PieceType.LowerLeftOuterCorner, square);
+				return;
+			}
+		}
+		if (!flag && flag2)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					break;
+				default:
+					highlighMesh.AddPiece(PieceType.LowerLeftHorizontal, square);
+					return;
+				}
+			}
+		}
+		if (flag)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!flag2)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						break;
+					default:
+						highlighMesh.AddPiece(PieceType.LowerLeftVertical, square);
+						return;
+					}
+				}
+			}
+		}
+		if (!flag)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			if (!flag2)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				if (!flag3)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						highlighMesh.AddPiece(PieceType.LowerLeftInnerCorner, square);
+						return;
+					}
+				}
+				return;
+			}
+		}
+	}
+
+	private void ProcessLowerRightCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightMesh highlighMesh, bool includeInternalBorders)
+	{
+		Board board = Board.Get();
+		BoardSquare boardSquare = board.GetBoardSquare(square.x, square.y - 1);
+		bool flag = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x + 1, square.y);
+		bool flag2 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x + 1, square.y - 1);
+		bool flag3 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		if (!flag)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!flag2)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						break;
+					default:
+						highlighMesh.AddPiece(PieceType.LowerRightOuterCorner, square);
+						return;
+					}
+				}
+			}
+		}
+		if (!flag)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (flag2)
+			{
+				highlighMesh.AddPiece(PieceType.LowerRightHorizontal, square);
+				return;
+			}
+		}
+		if (flag && !flag2)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					break;
+				default:
+					highlighMesh.AddPiece(PieceType.LowerRightVertical, square);
+					return;
+				}
+			}
+		}
+		if (!flag)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			if (flag2 && !flag3)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					highlighMesh.AddPiece(PieceType.LowerRightInnerCorner, square);
+					return;
+				}
+			}
+			return;
+		}
+	}
+
+	private bool IsSquareOnSameSideOfAnyBorder(BoardSquare square, BoardSquare testSquare, HashSet<BoardSquare> squaresSet)
+	{
+		int result;
+		if (!squaresSet.Contains(testSquare))
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			result = ((!squaresSet.Contains(square)) ? 1 : 0);
+		}
+		else
+		{
+			result = 1;
+		}
+		return (byte)result != 0;
+	}
+
+	private bool IsSquareConnected(BoardSquare square, BoardSquare testSquare, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, bool includeInternalBorders)
+	{
+		if (includeInternalBorders)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return IsSquareOnSameSideOfAnyBorder(square, testSquare, squaresSet);
+				}
+			}
+		}
+		int result;
+		if (!squaresSet.Contains(testSquare))
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			result = ((!borderSet.Contains(testSquare)) ? 1 : 0);
+		}
+		else
+		{
+			result = 1;
+		}
+		return (byte)result != 0;
+	}
+
+	private bool BoardSquareIsInSet(int x, int y, HashSet<BoardSquare> squaresSet)
+	{
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(x, y);
+		return squaresSet.Contains(boardSquare);
+	}
+
+	private bool IsSquareSurrounded(BoardSquare square, HashSet<BoardSquare> squaresSet)
+	{
+		int result;
+		if (BoardSquareIsInSet(square.x - 1, square.y - 1, squaresSet) && BoardSquareIsInSet(square.x, square.y - 1, squaresSet))
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (BoardSquareIsInSet(square.x + 1, square.y - 1, squaresSet))
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (BoardSquareIsInSet(square.x - 1, square.y, squaresSet))
+				{
+					while (true)
 					{
 						switch (6)
 						{
@@ -3454,9 +4329,9 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (this.BoardSquareIsInSet(square.x + 1, square.y, squaresSet))
+					if (BoardSquareIsInSet(square.x + 1, square.y, squaresSet))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -3465,9 +4340,9 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (this.BoardSquareIsInSet(square.x - 1, square.y + 1, squaresSet))
+						if (BoardSquareIsInSet(square.x - 1, square.y + 1, squaresSet))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -3476,9 +4351,9 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 								}
 								break;
 							}
-							if (this.BoardSquareIsInSet(square.x, square.y + 1, squaresSet))
+							if (BoardSquareIsInSet(square.x, square.y + 1, squaresSet))
 							{
-								for (;;)
+								while (true)
 								{
 									switch (1)
 									{
@@ -3487,14 +4362,18 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 									}
 									break;
 								}
-								return this.BoardSquareIsInSet(square.x + 1, square.y + 1, squaresSet);
+								result = (BoardSquareIsInSet(square.x + 1, square.y + 1, squaresSet) ? 1 : 0);
+								goto IL_0136;
 							}
 						}
 					}
 				}
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_0136;
+		IL_0136:
+		return (byte)result != 0;
 	}
 
 	private HashSet<BoardSquare> CalculateOuterBorder(HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> additionalFloodFillSquares)
@@ -3508,10 +4387,10 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 		{
 			while (enumerator.MoveNext())
 			{
-				BoardSquare boardSquare = enumerator.Current;
-				if (boardSquare.x < num)
+				BoardSquare current = enumerator.Current;
+				if (current.x < num)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -3520,23 +4399,23 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CalculateOuterBorder(HashSet<BoardSquare>, HashSet<BoardSquare>)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					num = boardSquare.x;
+					num = current.x;
 				}
-				if (boardSquare.x > num2)
+				if (current.x > num2)
 				{
-					num2 = boardSquare.x;
+					num2 = current.x;
 				}
-				if (boardSquare.y < num3)
+				if (current.y < num3)
 				{
-					num3 = boardSquare.y;
+					num3 = current.y;
 				}
-				if (boardSquare.y > num4)
+				if (current.y > num4)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -3545,10 +4424,10 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					num4 = boardSquare.y;
+					num4 = current.y;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -3562,13 +4441,13 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 		num2++;
 		num3--;
 		num4++;
-		Board board = Board.\u000E();
+		Board board = Board.Get();
 		for (int i = num; i <= num2; i++)
 		{
-			BoardSquare boardSquare2 = board.\u0016(i, num3);
-			if (boardSquare2 != null)
+			BoardSquare boardSquare = board.GetBoardSquare(i, num3);
+			if (boardSquare != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -3577,9 +4456,9 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!squaresSet.Contains(boardSquare2))
+				if (!squaresSet.Contains(boardSquare))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -3588,51 +4467,26 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					hashSet.Add(boardSquare2);
+					hashSet.Add(boardSquare);
 				}
 			}
-			BoardSquare boardSquare3 = board.\u0016(i, num4);
-			if (boardSquare3 != null)
+			BoardSquare boardSquare2 = board.GetBoardSquare(i, num4);
+			if (!(boardSquare2 != null))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!squaresSet.Contains(boardSquare3))
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					hashSet.Add(boardSquare3);
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-		for (int j = num3; j <= num4; j++)
-		{
-			BoardSquare boardSquare4 = board.\u0016(num, j);
-			if (boardSquare4 != null)
+			while (true)
 			{
-				for (;;)
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!squaresSet.Contains(boardSquare2))
+			{
+				while (true)
 				{
 					switch (6)
 					{
@@ -3641,15 +4495,41 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!squaresSet.Contains(boardSquare4))
-				{
-					hashSet.Add(boardSquare4);
-				}
+				hashSet.Add(boardSquare2);
 			}
-			BoardSquare boardSquare5 = board.\u0016(num2, j);
-			if (boardSquare5 != null)
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				for (;;)
+			case 0:
+				continue;
+			}
+			for (int j = num3; j <= num4; j++)
+			{
+				BoardSquare boardSquare3 = board.GetBoardSquare(num, j);
+				if (boardSquare3 != null)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (!squaresSet.Contains(boardSquare3))
+					{
+						hashSet.Add(boardSquare3);
+					}
+				}
+				BoardSquare boardSquare4 = board.GetBoardSquare(num2, j);
+				if (!(boardSquare4 != null))
+				{
+					continue;
+				}
+				while (true)
 				{
 					switch (2)
 					{
@@ -3658,9 +4538,9 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!squaresSet.Contains(boardSquare5))
+				if (!squaresSet.Contains(boardSquare4))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -3669,60 +4549,61 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					hashSet.Add(boardSquare5);
+					hashSet.Add(boardSquare4);
 				}
 			}
-		}
-		List<BoardSquare> list = new List<BoardSquare>();
-		using (HashSet<BoardSquare>.Enumerator enumerator2 = hashSet.GetEnumerator())
-		{
-			while (enumerator2.MoveNext())
+			List<BoardSquare> list = new List<BoardSquare>();
+			using (HashSet<BoardSquare>.Enumerator enumerator2 = hashSet.GetEnumerator())
 			{
-				BoardSquare item = enumerator2.Current;
-				list.Add(item);
-			}
-			for (;;)
-			{
-				switch (2)
+				while (enumerator2.MoveNext())
 				{
-				case 0:
-					continue;
+					BoardSquare current2 = enumerator2.Current;
+					list.Add(current2);
 				}
-				break;
-			}
-		}
-		if (additionalFloodFillSquares != null)
-		{
-			foreach (BoardSquare item2 in additionalFloodFillSquares)
-			{
-				if (!list.Contains(item2))
+				while (true)
 				{
-					for (;;)
+					switch (2)
 					{
-						switch (3)
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			if (additionalFloodFillSquares != null)
+			{
+				foreach (BoardSquare additionalFloodFillSquare in additionalFloodFillSquares)
+				{
+					if (!list.Contains(additionalFloodFillSquare))
+					{
+						while (true)
 						{
-						case 0:
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						list.Add(additionalFloodFillSquare);
+					}
+				}
+			}
+			while (list.Count > 0)
+			{
+				BoardSquare boardSquare5 = list[0];
+				list.RemoveAt(0);
+				for (int k = -1; k < 2; k++)
+				{
+					for (int l = -1; l < 2; l++)
+					{
+						int num5 = boardSquare5.x + k;
+						int num6 = boardSquare5.y + l;
+						if (num5 > num2)
+						{
 							continue;
 						}
-						break;
-					}
-					list.Add(item2);
-				}
-			}
-		}
-		while (list.Count > 0)
-		{
-			BoardSquare boardSquare6 = list[0];
-			list.RemoveAt(0);
-			for (int k = -1; k < 2; k++)
-			{
-				for (int l = -1; l < 2; l++)
-				{
-					int num5 = boardSquare6.x + k;
-					int num6 = boardSquare6.y + l;
-					if (num5 <= num2)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -3731,104 +4612,108 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (num5 >= num)
+						if (num5 < num)
 						{
-							for (;;)
+							continue;
+						}
+						while (true)
+						{
+							switch (2)
 							{
-								switch (2)
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (num6 > num4)
+						{
+							continue;
+						}
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (num6 < num3)
+						{
+							continue;
+						}
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						BoardSquare boardSquare6 = board.GetBoardSquare(num5, num6);
+						if (!(boardSquare6 != null))
+						{
+							continue;
+						}
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (squaresSet.Contains(boardSquare6))
+						{
+							continue;
+						}
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!hashSet.Contains(boardSquare6))
+						{
+							while (true)
+							{
+								switch (5)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							if (num6 <= num4)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (num6 >= num3)
-								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									BoardSquare boardSquare7 = board.\u0016(num5, num6);
-									if (boardSquare7 != null)
-									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (!squaresSet.Contains(boardSquare7))
-										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											if (!hashSet.Contains(boardSquare7))
-											{
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												list.Add(boardSquare7);
-												hashSet.Add(boardSquare7);
-											}
-										}
-									}
-								}
-							}
+							list.Add(boardSquare6);
+							hashSet.Add(boardSquare6);
 						}
 					}
 				}
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
 			}
-			for (;;)
+			while (true)
 			{
-				switch (6)
+				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				return hashSet;
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		return hashSet;
 	}
 
 	public GameObject CreateBoundaryHighlight(HashSet<BoardSquare> squaresSet, Color borderColor, bool dotted = false, HashSet<BoardSquare> additionalFloodFillSquares = null, bool includeInternalBorders = false)
@@ -3836,7 +4721,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 		Material material;
 		if (dotted)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -3845,22 +4730,22 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateBoundaryHighlight(HashSet<BoardSquare>, Color, bool, HashSet<BoardSquare>, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			material = this.m_dottedHighlightMaterial;
+			material = m_dottedHighlightMaterial;
 		}
 		else
 		{
-			material = this.m_highlightMaterial;
+			material = m_highlightMaterial;
 		}
 		Material borderMaterial = material;
 		GameObject gameObject = null;
-		HighlightUtils.HighlightMesh highlightMesh = new HighlightUtils.HighlightMesh();
+		HighlightMesh highlighMesh = new HighlightMesh();
 		if (squaresSet.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -3872,7 +4757,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			HashSet<BoardSquare> borderSet = null;
 			if (!includeInternalBorders)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -3881,14 +4766,14 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				borderSet = this.CalculateOuterBorder(squaresSet, additionalFloodFillSquares);
+				borderSet = CalculateOuterBorder(squaresSet, additionalFloodFillSquares);
 			}
-			this.m_surroundedSquareIndicators.ResetNextIndicatorIndex();
-			foreach (BoardSquare square in squaresSet)
+			m_surroundedSquareIndicators.ResetNextIndicatorIndex();
+			foreach (BoardSquare item in squaresSet)
 			{
-				if (!this.IsSquareSurrounded(square, squaresSet))
+				if (!IsSquareSurrounded(item, squaresSet))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -3897,18 +4782,18 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					this.ProcessUpperLeftCorner(square, squaresSet, borderSet, ref highlightMesh, includeInternalBorders);
-					this.ProcessUpperRightCorner(square, squaresSet, borderSet, ref highlightMesh, includeInternalBorders);
-					this.ProcessLowerLeftCorner(square, squaresSet, borderSet, ref highlightMesh, includeInternalBorders);
-					this.ProcessLowerRightCorner(square, squaresSet, borderSet, ref highlightMesh, includeInternalBorders);
+					ProcessUpperLeftCorner(item, squaresSet, borderSet, ref highlighMesh, includeInternalBorders);
+					ProcessUpperRightCorner(item, squaresSet, borderSet, ref highlighMesh, includeInternalBorders);
+					ProcessLowerLeftCorner(item, squaresSet, borderSet, ref highlighMesh, includeInternalBorders);
+					ProcessLowerRightCorner(item, squaresSet, borderSet, ref highlighMesh, includeInternalBorders);
 				}
 				if (includeInternalBorders)
 				{
-					this.m_surroundedSquareIndicators.ShowIndicatorForSquare(square);
+					m_surroundedSquareIndicators.ShowIndicatorForSquare(item);
 				}
 			}
-			this.m_surroundedSquareIndicators.HideAllSquareIndicators(this.m_surroundedSquareIndicators.GetNextIndicatorIndex());
-			gameObject = highlightMesh.CreateMeshObject(borderMaterial);
+			m_surroundedSquareIndicators.HideAllSquareIndicators(m_surroundedSquareIndicators.GetNextIndicatorIndex());
+			gameObject = highlighMesh.CreateMeshObject(borderMaterial);
 			borderColor.a = 1f;
 			gameObject.GetComponent<Renderer>().material.SetColor("_TintColor", borderColor);
 		}
@@ -3918,28 +4803,24 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 	public GameObject CreateBoundaryHighlight(List<BoardSquare> squares, Color borderColor, bool includeInternalBorders = false)
 	{
 		HashSet<BoardSquare> squaresSet = new HashSet<BoardSquare>(squares);
-		return this.CreateBoundaryHighlight(squaresSet, borderColor, false, null, includeInternalBorders);
+		return CreateBoundaryHighlight(squaresSet, borderColor, false, null, includeInternalBorders);
 	}
 
-	public static void AddPieceTypeToMask(ref int mask, HighlightUtils.PieceType pieceType)
+	public static void AddPieceTypeToMask(ref int mask, PieceType pieceType)
 	{
 		mask |= 1 << (int)pieceType;
 	}
 
-	public static bool IsPieceTypeInMask(int mask, HighlightUtils.PieceType pieceType)
+	public static bool IsPieceTypeInMask(int mask, PieceType pieceType)
 	{
-		return (mask & 1 << (int)pieceType) != 0;
+		return (mask & (1 << (int)pieceType)) != 0;
 	}
 
 	private Vector2[] HorizontalFlip(Vector2[] uvs)
 	{
-		Vector2[] array = new Vector2[]
-		{
-			uvs[3],
-			default(Vector2),
-			default(Vector2),
-			uvs[0]
-		};
+		Vector2[] array = new Vector2[4];
+		array[0] = uvs[3];
+		array[3] = uvs[0];
 		array[1] = uvs[2];
 		array[2] = uvs[1];
 		return array;
@@ -3957,123 +4838,123 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	private void InitializeHighlightPieces()
 	{
-		for (int i = 0; i < this.m_highlightPieces.Length; i++)
+		for (int i = 0; i < m_highlightPieces.Length; i++)
 		{
-			this.m_highlightPieces[i] = new HighlightUtils.HighlightPiece();
+			m_highlightPieces[i] = new HighlightPiece();
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			Vector3[] pos = new Vector3[4]
+			{
+				new Vector3(0f, 0f, 0f),
+				new Vector3(0.75f, 0f, -0.75f),
+				new Vector3(0f, 0f, -0.75f),
+				new Vector3(0.75f, 0f, 0f)
+			};
+			m_highlightPieces[0].m_pos = pos;
+			m_highlightPieces[1].m_pos = pos;
+			m_highlightPieces[2].m_pos = pos;
+			m_highlightPieces[3].m_pos = pos;
+			Vector3[] pos2 = new Vector3[4]
+			{
+				new Vector3(0f, 0f, 0.75f),
+				new Vector3(0.75f, 0f, 0f),
+				new Vector3(0f, 0f, 0f),
+				new Vector3(0.75f, 0f, 0.75f)
+			};
+			m_highlightPieces[4].m_pos = pos2;
+			m_highlightPieces[5].m_pos = pos2;
+			m_highlightPieces[6].m_pos = pos2;
+			m_highlightPieces[7].m_pos = pos2;
+			Vector3[] pos3 = new Vector3[4]
+			{
+				new Vector3(-0.75f, 0f, 0.75f),
+				new Vector3(0f, 0f, 0f),
+				new Vector3(-0.75f, 0f, 0f),
+				new Vector3(0f, 0f, 0.75f)
+			};
+			m_highlightPieces[8].m_pos = pos3;
+			m_highlightPieces[9].m_pos = pos3;
+			m_highlightPieces[10].m_pos = pos3;
+			m_highlightPieces[11].m_pos = pos3;
+			Vector3[] pos4 = new Vector3[4]
+			{
+				new Vector3(-0.75f, 0f, 0f),
+				new Vector3(0f, 0f, -0.75f),
+				new Vector3(-0.75f, 0f, -0.75f),
+				new Vector3(0f, 0f, 0f)
+			};
+			m_highlightPieces[12].m_pos = pos4;
+			m_highlightPieces[13].m_pos = pos4;
+			m_highlightPieces[14].m_pos = pos4;
+			m_highlightPieces[15].m_pos = pos4;
+			Vector2[] array = new Vector2[4]
+			{
+				new Vector2(0.333333343f, 0f),
+				new Vector2(2f / 3f, 1f),
+				new Vector2(0.333333343f, 1f),
+				new Vector2(2f / 3f, 0f)
+			};
+			m_highlightPieces[1].m_uv = array;
+			m_highlightPieces[5].m_uv = VerticalFlip(array);
+			m_highlightPieces[9].m_uv = VerticalFlip(array);
+			m_highlightPieces[13].m_uv = array;
+			Vector2[] array2 = new Vector2[4]
+			{
+				new Vector2(0.333333343f, 0f),
+				new Vector2(2f / 3f, 1f),
+				new Vector2(2f / 3f, 0f),
+				new Vector2(0.333333343f, 1f)
+			};
+			m_highlightPieces[0].m_uv = array2;
+			m_highlightPieces[4].m_uv = array2;
+			m_highlightPieces[8].m_uv = HorizontalFlip(array2);
+			m_highlightPieces[12].m_uv = HorizontalFlip(array2);
+			Vector2[] array3 = new Vector2[4]
+			{
+				new Vector2(1f, 0f),
+				new Vector2(2f / 3f, 1f),
+				new Vector2(1f, 1f),
+				new Vector2(2f / 3f, 0f)
+			};
+			m_highlightPieces[2].m_uv = array3;
+			m_highlightPieces[6].m_uv = VerticalFlip(array3);
+			m_highlightPieces[10].m_uv = HorizontalFlip(VerticalFlip(array3));
+			m_highlightPieces[14].m_uv = HorizontalFlip(array3);
+			Vector2[] array4 = new Vector2[4]
+			{
+				new Vector2(0.333333343f, 0f),
+				new Vector2(0f, 1f),
+				new Vector2(0.333333343f, 1f),
+				new Vector2(0f, 0f)
+			};
+			m_highlightPieces[3].m_uv = array4;
+			m_highlightPieces[7].m_uv = VerticalFlip(array4);
+			m_highlightPieces[11].m_uv = HorizontalFlip(VerticalFlip(array4));
+			m_highlightPieces[15].m_uv = HorizontalFlip(array4);
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.InitializeHighlightPieces()).MethodHandle;
-		}
-		Vector3[] pos = new Vector3[]
-		{
-			new Vector3(0f, 0f, 0f),
-			new Vector3(0.75f, 0f, -0.75f),
-			new Vector3(0f, 0f, -0.75f),
-			new Vector3(0.75f, 0f, 0f)
-		};
-		this.m_highlightPieces[0].m_pos = pos;
-		this.m_highlightPieces[1].m_pos = pos;
-		this.m_highlightPieces[2].m_pos = pos;
-		this.m_highlightPieces[3].m_pos = pos;
-		Vector3[] pos2 = new Vector3[]
-		{
-			new Vector3(0f, 0f, 0.75f),
-			new Vector3(0.75f, 0f, 0f),
-			new Vector3(0f, 0f, 0f),
-			new Vector3(0.75f, 0f, 0.75f)
-		};
-		this.m_highlightPieces[4].m_pos = pos2;
-		this.m_highlightPieces[5].m_pos = pos2;
-		this.m_highlightPieces[6].m_pos = pos2;
-		this.m_highlightPieces[7].m_pos = pos2;
-		Vector3[] pos3 = new Vector3[]
-		{
-			new Vector3(-0.75f, 0f, 0.75f),
-			new Vector3(0f, 0f, 0f),
-			new Vector3(-0.75f, 0f, 0f),
-			new Vector3(0f, 0f, 0.75f)
-		};
-		this.m_highlightPieces[8].m_pos = pos3;
-		this.m_highlightPieces[9].m_pos = pos3;
-		this.m_highlightPieces[0xA].m_pos = pos3;
-		this.m_highlightPieces[0xB].m_pos = pos3;
-		Vector3[] pos4 = new Vector3[]
-		{
-			new Vector3(-0.75f, 0f, 0f),
-			new Vector3(0f, 0f, -0.75f),
-			new Vector3(-0.75f, 0f, -0.75f),
-			new Vector3(0f, 0f, 0f)
-		};
-		this.m_highlightPieces[0xC].m_pos = pos4;
-		this.m_highlightPieces[0xD].m_pos = pos4;
-		this.m_highlightPieces[0xE].m_pos = pos4;
-		this.m_highlightPieces[0xF].m_pos = pos4;
-		Vector2[] array = new Vector2[]
-		{
-			new Vector2(0.333333343f, 0f),
-			new Vector2(0.6666667f, 1f),
-			new Vector2(0.333333343f, 1f),
-			new Vector2(0.6666667f, 0f)
-		};
-		this.m_highlightPieces[1].m_uv = array;
-		this.m_highlightPieces[5].m_uv = this.VerticalFlip(array);
-		this.m_highlightPieces[9].m_uv = this.VerticalFlip(array);
-		this.m_highlightPieces[0xD].m_uv = array;
-		Vector2[] array2 = new Vector2[]
-		{
-			new Vector2(0.333333343f, 0f),
-			new Vector2(0.6666667f, 1f),
-			new Vector2(0.6666667f, 0f),
-			new Vector2(0.333333343f, 1f)
-		};
-		this.m_highlightPieces[0].m_uv = array2;
-		this.m_highlightPieces[4].m_uv = array2;
-		this.m_highlightPieces[8].m_uv = this.HorizontalFlip(array2);
-		this.m_highlightPieces[0xC].m_uv = this.HorizontalFlip(array2);
-		Vector2[] array3 = new Vector2[]
-		{
-			new Vector2(1f, 0f),
-			new Vector2(0.6666667f, 1f),
-			new Vector2(1f, 1f),
-			new Vector2(0.6666667f, 0f)
-		};
-		this.m_highlightPieces[2].m_uv = array3;
-		this.m_highlightPieces[6].m_uv = this.VerticalFlip(array3);
-		this.m_highlightPieces[0xA].m_uv = this.HorizontalFlip(this.VerticalFlip(array3));
-		this.m_highlightPieces[0xE].m_uv = this.HorizontalFlip(array3);
-		Vector2[] array4 = new Vector2[]
-		{
-			new Vector2(0.333333343f, 0f),
-			new Vector2(0f, 1f),
-			new Vector2(0.333333343f, 1f),
-			new Vector2(0f, 0f)
-		};
-		this.m_highlightPieces[3].m_uv = array4;
-		this.m_highlightPieces[7].m_uv = this.VerticalFlip(array4);
-		this.m_highlightPieces[0xB].m_uv = this.HorizontalFlip(this.VerticalFlip(array4));
-		this.m_highlightPieces[0xF].m_uv = this.HorizontalFlip(array4);
 	}
 
 	public static float GetHighlightHeight()
 	{
-		return (float)Board.\u000E().BaselineHeight + 0.1f;
+		return (float)Board.Get().BaselineHeight + 0.1f;
 	}
 
-	public void SetScrollCursor(HighlightUtils.ScrollCursorDirection direction)
+	public void SetScrollCursor(ScrollCursorDirection direction)
 	{
 		if (Application.isEditor && CameraControls.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -4082,76 +4963,77 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.SetScrollCursor(HighlightUtils.ScrollCursorDirection)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!CameraControls.Get().m_mouseMoveFringeInEditor)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
-				return;
 			}
 		}
-		if (this.m_scrollCursorEdge)
+		if (!m_scrollCursorEdge)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (direction == HighlightUtils.ScrollCursorDirection.Undefined)
+			if (direction == ScrollCursorDirection.Undefined)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+						m_isCursorSet = false;
+						return;
 					}
-					break;
 				}
-				Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-				this.m_isCursorSet = false;
 			}
-			else if (this.ScrollCursors.ContainsKey(direction))
+			if (!ScrollCursors.ContainsKey(direction))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (5)
 				{
-					switch (5)
+				case 0:
+					continue;
+				}
+				Texture2D texture2D = ScrollCursors[direction];
+				if (!(texture2D != null))
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				Texture2D texture2D = this.ScrollCursors[direction];
-				if (texture2D != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector2 vector;
-					if (this.ScrollCursorsHotspot.ContainsKey(direction))
+					if (ScrollCursorsHotspot.ContainsKey(direction))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -4160,15 +5042,16 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						vector = this.ScrollCursorsHotspot[direction];
+						vector = ScrollCursorsHotspot[direction];
 					}
 					else
 					{
-						vector = new Vector2((float)(texture2D.width / 2), (float)(texture2D.height / 2));
+						vector = new Vector2(texture2D.width / 2, texture2D.height / 2);
 					}
 					Vector2 hotspot = vector;
 					Cursor.SetCursor(texture2D, hotspot, CursorMode.Auto);
-					this.m_isCursorSet = true;
+					m_isCursorSet = true;
+					return;
 				}
 			}
 		}
@@ -4176,31 +5059,32 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public void ResetCursor()
 	{
-		if (this.m_isCursorSet)
+		if (!m_isCursorSet)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.ResetCursor()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-			this.m_isCursorSet = false;
+			m_isCursorSet = false;
+			return;
 		}
 	}
 
 	private static GameObject CreateSurroundedSquareObject()
 	{
-		if (HighlightUtils.s_instance != null)
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -4209,13 +5093,13 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateSurroundedSquareObject()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (HighlightUtils.s_instance.m_surroundedSquaresParent == null)
+			if (s_instance.m_surroundedSquaresParent == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -4224,14 +5108,14 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				HighlightUtils.s_instance.m_surroundedSquaresParent = new GameObject("SurroundedSquaresParent");
+				s_instance.m_surroundedSquaresParent = new GameObject("SurroundedSquaresParent");
 			}
 		}
-		GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.Get().m_highlightFloodFillSquare);
-		gameObject.transform.localScale *= Board.\u000E().squareSize / 1.5f;
-		if (HighlightUtils.s_instance != null)
+		GameObject gameObject = UnityEngine.Object.Instantiate(Get().m_highlightFloodFillSquare);
+		gameObject.transform.localScale *= Board.Get().squareSize / 1.5f;
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -4240,20 +5124,20 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			gameObject.transform.parent = HighlightUtils.s_instance.m_surroundedSquaresParent.transform;
+			gameObject.transform.parent = s_instance.m_surroundedSquaresParent.transform;
 		}
 		return gameObject;
 	}
 
 	private static GameObject CreateHiddenSquareIndicatorObject()
 	{
-		if (HighlightUtils.s_instance == null)
+		if (s_instance == null)
 		{
 			return null;
 		}
-		if (HighlightUtils.s_instance.m_hiddenSquareIndicatorParent == null)
+		if (s_instance.m_hiddenSquareIndicatorParent == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -4262,109 +5146,110 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateHiddenSquareIndicatorObject()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			HighlightUtils.s_instance.m_hiddenSquareIndicatorParent = new GameObject("HiddenSquareIndicatorParent");
+			s_instance.m_hiddenSquareIndicatorParent = new GameObject("HiddenSquareIndicatorParent");
 		}
-		if (HighlightUtils.s_instance.m_hiddenSquarePrefab == null)
+		if (s_instance.m_hiddenSquarePrefab == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return null;
 				}
-				break;
 			}
-			return null;
 		}
-		GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.s_instance.m_hiddenSquarePrefab);
-		gameObject.transform.localScale *= Board.\u000E().squareSize / 1.5f;
-		gameObject.transform.parent = HighlightUtils.s_instance.m_hiddenSquareIndicatorParent.transform;
+		GameObject gameObject = UnityEngine.Object.Instantiate(s_instance.m_hiddenSquarePrefab);
+		gameObject.transform.localScale *= Board.Get().squareSize / 1.5f;
+		gameObject.transform.parent = s_instance.m_hiddenSquareIndicatorParent.transform;
 		return gameObject;
 	}
 
 	public static SquareIndicators GetHiddenSquaresContainer()
 	{
-		if (HighlightUtils.s_instance != null)
+		if (s_instance != null)
 		{
-			return HighlightUtils.s_instance.m_hiddenSquareIndicators;
+			return s_instance.m_hiddenSquareIndicators;
 		}
 		return null;
 	}
 
 	private static GameObject CreateAffectedSquareIndicatorObject()
 	{
-		if (HighlightUtils.s_instance == null)
+		if (s_instance == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateAffectedSquareIndicatorObject()).MethodHandle;
-			}
-			return null;
 		}
-		if (HighlightUtils.s_instance.m_affectedSquareIndicatorParent == null)
+		if (s_instance.m_affectedSquareIndicatorParent == null)
 		{
-			HighlightUtils.s_instance.m_affectedSquareIndicatorParent = new GameObject("AffectedSquareIndicatorParent");
+			s_instance.m_affectedSquareIndicatorParent = new GameObject("AffectedSquareIndicatorParent");
 		}
-		if (HighlightUtils.s_instance.m_affectedSquarePrefab == null)
+		if (s_instance.m_affectedSquarePrefab == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return null;
 				}
-				break;
 			}
-			return null;
 		}
-		GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.s_instance.m_affectedSquarePrefab);
-		gameObject.transform.localScale *= Board.\u000E().squareSize / 1.5f;
-		gameObject.transform.parent = HighlightUtils.s_instance.m_affectedSquareIndicatorParent.transform;
+		GameObject gameObject = UnityEngine.Object.Instantiate(s_instance.m_affectedSquarePrefab);
+		gameObject.transform.localScale *= Board.Get().squareSize / 1.5f;
+		gameObject.transform.parent = s_instance.m_affectedSquareIndicatorParent.transform;
 		return gameObject;
 	}
 
 	public static SquareIndicators GetAffectedSquaresContainer()
 	{
-		if (HighlightUtils.s_instance != null)
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return s_instance.m_affectedSquareIndicators;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.GetAffectedSquaresContainer()).MethodHandle;
-			}
-			return HighlightUtils.s_instance.m_affectedSquareIndicators;
 		}
 		return null;
 	}
 
 	private static bool ShouldShowAffectedSquares()
 	{
-		if (HighlightUtils.s_instance != null)
+		int result;
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -4373,13 +5258,13 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.ShouldShowAffectedSquares()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (HighlightUtils.s_instance.m_showAffectedSquaresWhileTargeting)
+			if (s_instance.m_showAffectedSquaresWhileTargeting)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -4388,9 +5273,9 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (HighlightUtils.s_instance.m_affectedSquarePrefab != null)
+				if (s_instance.m_affectedSquarePrefab != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -4399,139 +5284,146 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					return InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowAllyAbilityInfo);
+					result = (InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowAllyAbilityInfo) ? 1 : 0);
+					goto IL_006a;
 				}
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_006a;
+		IL_006a:
+		return (byte)result != 0;
 	}
 
 	private void CreateRangeIndicatorHighlight()
 	{
-		this.m_rangeIndicatorMouseOverFlags.Clear();
-		for (int i = 0; i < 0xE; i++)
+		m_rangeIndicatorMouseOverFlags.Clear();
+		for (int i = 0; i < 14; i++)
 		{
-			this.m_rangeIndicatorMouseOverFlags.Add(false);
+			m_rangeIndicatorMouseOverFlags.Add(false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateRangeIndicatorHighlight()).MethodHandle;
-		}
-		if (this.m_abilityRangeIndicatorHighlight == null)
-		{
-			for (;;)
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(m_abilityRangeIndicatorHighlight == null))
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			this.m_abilityRangeIndicatorHighlight = HighlightUtils.Get().CreateDynamicConeMesh(1f, 360f, true, null);
-			this.m_abilityRangeIndicatorHighlight.name = "AbilityRangeIndicatorObject";
-			this.m_abilityRangeIndicatorHighlight.transform.parent = base.transform;
-			UIDynamicCone uidynamicCone;
-			if (this.m_abilityRangeIndicatorHighlight)
-			{
-				for (;;)
+				m_abilityRangeIndicatorHighlight = Get().CreateDynamicConeMesh(1f, 360f, true);
+				m_abilityRangeIndicatorHighlight.name = "AbilityRangeIndicatorObject";
+				m_abilityRangeIndicatorHighlight.transform.parent = base.transform;
+				object obj;
+				if ((bool)m_abilityRangeIndicatorHighlight)
 				{
-					switch (3)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
-					break;
+					obj = m_abilityRangeIndicatorHighlight.GetComponent<UIDynamicCone>();
 				}
-				uidynamicCone = this.m_abilityRangeIndicatorHighlight.GetComponent<UIDynamicCone>();
-			}
-			else
-			{
-				uidynamicCone = null;
-			}
-			UIDynamicCone uidynamicCone2 = uidynamicCone;
-			uidynamicCone2.m_borderThickness = this.m_abilityRangeIndicatorWidth;
-			uidynamicCone2.SetConeObjectActive(false);
-			MeshRenderer[] componentsInChildren = this.m_abilityRangeIndicatorHighlight.GetComponentsInChildren<MeshRenderer>();
-			foreach (MeshRenderer meshRenderer in componentsInChildren)
-			{
-				if (HighlightUtils.Get() != null)
+				else
 				{
-					AbilityUtil_Targeter.SetMaterialColor(meshRenderer.materials, this.m_abilityRangeIndicatorColor, true);
+					obj = null;
 				}
-				AbilityUtil_Targeter.SetMaterialOpacity(meshRenderer.materials, this.m_abilityRangeIndicatorColor.a);
+				UIDynamicCone uIDynamicCone = (UIDynamicCone)obj;
+				uIDynamicCone.m_borderThickness = m_abilityRangeIndicatorWidth;
+				uIDynamicCone.SetConeObjectActive(false);
+				MeshRenderer[] componentsInChildren = m_abilityRangeIndicatorHighlight.GetComponentsInChildren<MeshRenderer>();
+				MeshRenderer[] array = componentsInChildren;
+				foreach (MeshRenderer meshRenderer in array)
+				{
+					if (Get() != null)
+					{
+						AbilityUtil_Targeter.SetMaterialColor(meshRenderer.materials, m_abilityRangeIndicatorColor);
+					}
+					AbilityUtil_Targeter.SetMaterialOpacity(meshRenderer.materials, m_abilityRangeIndicatorColor.a);
+				}
+				UIManager.SetGameObjectActive(m_abilityRangeIndicatorHighlight, false);
+				return;
 			}
-			UIManager.SetGameObjectActive(this.m_abilityRangeIndicatorHighlight, false, null);
 		}
 	}
 
 	private void DestroyRangeIndicatorHighlight()
 	{
-		if (this.m_abilityRangeIndicatorHighlight != null)
+		if (m_abilityRangeIndicatorHighlight != null)
 		{
-			HighlightUtils.DestroyObjectAndMaterials(this.m_abilityRangeIndicatorHighlight);
-			this.m_abilityRangeIndicatorHighlight = null;
+			DestroyObjectAndMaterials(m_abilityRangeIndicatorHighlight);
+			m_abilityRangeIndicatorHighlight = null;
 		}
 	}
 
 	private void AdjustRangeIndicatorHighlight(float radiusInSquares)
 	{
-		if (this.m_abilityRangeIndicatorHighlight != null)
+		if (!(m_abilityRangeIndicatorHighlight != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.AdjustRangeIndicatorHighlight(float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_lastRangeIndicatorRadius = radiusInSquares;
-			HighlightUtils.Get().AdjustDynamicConeMesh(this.m_abilityRangeIndicatorHighlight, radiusInSquares, 360f);
+			m_lastRangeIndicatorRadius = radiusInSquares;
+			Get().AdjustDynamicConeMesh(m_abilityRangeIndicatorHighlight, radiusInSquares, 360f);
+			return;
 		}
 	}
 
 	public void SetRangeIndicatorMouseOverFlag(int actionTypeInt, bool isMousingOver)
 	{
-		if (actionTypeInt >= 0 && actionTypeInt < this.m_rangeIndicatorMouseOverFlags.Count)
+		if (actionTypeInt < 0 || actionTypeInt >= m_rangeIndicatorMouseOverFlags.Count)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.SetRangeIndicatorMouseOverFlag(int, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_rangeIndicatorMouseOverFlags[actionTypeInt] = isMousingOver;
+			m_rangeIndicatorMouseOverFlags[actionTypeInt] = isMousingOver;
+			return;
 		}
 	}
 
 	public void UpdateRangeIndicatorHighlight()
 	{
-		ActorData actorData;
+		object obj;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -4540,55 +5432,55 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.UpdateRangeIndicatorHighlight()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			actorData = GameFlowData.Get().activeOwnedActorData;
+			obj = GameFlowData.Get().activeOwnedActorData;
 		}
 		else
 		{
-			actorData = null;
+			obj = null;
 		}
-		ActorData actorData2 = actorData;
-		if (this.m_showAbilityRangeIndicator && this.m_abilityRangeIndicatorHighlight != null)
+		ActorData actorData = (ActorData)obj;
+		if (!m_showAbilityRangeIndicator || !(m_abilityRangeIndicatorHighlight != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
+			case 0:
+				continue;
+			}
+			if (!(actorData != null) || !(actorData.GetAbilityData() != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (actorData2 != null && actorData2.\u000E() != null)
-			{
-				for (;;)
+				if (!(actorData.GetActorTurnSM() != null))
 				{
-					switch (7)
+					return;
+				}
+				while (true)
+				{
+					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (actorData2.\u000E() != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					AbilityData abilityData = actorData2.\u000E();
+					AbilityData abilityData = actorData.GetAbilityData();
 					bool flag = false;
-					if (!actorData2.\u000E())
+					if (!actorData.IsDead())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -4597,9 +5489,9 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (actorData2.\u000E().CurrentState == TurnStateEnum.TARGETING_ACTION)
+						if (actorData.GetActorTurnSM().CurrentState == TurnStateEnum.TARGETING_ACTION)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -4610,7 +5502,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							}
 							if (abilityData.GetSelectedAbility() != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (4)
 									{
@@ -4621,7 +5513,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 								}
 								if (abilityData.GetSelectedAbility().ShowTargetableRadiusWhileTargeting())
 								{
-									for (;;)
+									while (true)
 									{
 										switch (6)
 										{
@@ -4631,20 +5523,20 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 										break;
 									}
 									int selectedActionTypeForTargeting = (int)abilityData.GetSelectedActionTypeForTargeting();
-									float targetableRadius = abilityData.GetTargetableRadius(selectedActionTypeForTargeting, actorData2);
+									float targetableRadius = abilityData.GetTargetableRadius(selectedActionTypeForTargeting, actorData);
 									if (targetableRadius > 0f)
 									{
-										this.AdjustAndShowRangeIndicator(actorData2.\u0016(), targetableRadius);
+										AdjustAndShowRangeIndicator(actorData.GetTravelBoardSquareWorldPosition(), targetableRadius);
 										flag = true;
 									}
 								}
 							}
-							goto IL_1D7;
+							goto IL_01d7;
 						}
 					}
-					if (!actorData2.\u000E())
+					if (!actorData.IsDead())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -4653,688 +5545,16 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (actorData2.\u000E().CurrentState == TurnStateEnum.DECIDING)
+						if (actorData.GetActorTurnSM().CurrentState == TurnStateEnum.DECIDING)
 						{
-							List<bool> rangeIndicatorMouseOverFlags = this.m_rangeIndicatorMouseOverFlags;
+							List<bool> rangeIndicatorMouseOverFlags = m_rangeIndicatorMouseOverFlags;
 							for (int i = 0; i < rangeIndicatorMouseOverFlags.Count; i++)
 							{
-								if (rangeIndicatorMouseOverFlags[i])
+								if (!rangeIndicatorMouseOverFlags[i])
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									float targetableRadius2 = abilityData.GetTargetableRadius(i, actorData2);
-									if (targetableRadius2 > 0f)
-									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										this.AdjustAndShowRangeIndicator(actorData2.\u0016(), targetableRadius2);
-										flag = true;
-									}
-									break;
-								}
-							}
-						}
-					}
-					IL_1D7:
-					if (!flag && this.m_abilityRangeIndicatorHighlight.activeSelf)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIManager.SetGameObjectActive(this.m_abilityRangeIndicatorHighlight, false, null);
-					}
-				}
-			}
-		}
-	}
-
-	public void AdjustAndShowRangeIndicator(Vector3 centerPos, float radiusInSquares)
-	{
-		if (this.m_lastRangeIndicatorRadius != radiusInSquares)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.AdjustAndShowRangeIndicator(Vector3, float)).MethodHandle;
-			}
-			this.AdjustRangeIndicatorHighlight(radiusInSquares);
-		}
-		centerPos.y = HighlightUtils.GetHighlightHeight();
-		this.m_abilityRangeIndicatorHighlight.transform.position = centerPos;
-		if (!this.m_abilityRangeIndicatorHighlight.activeSelf)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_abilityRangeIndicatorHighlight, true, null);
-		}
-	}
-
-	public void UpdateMouseoverCoverHighlight()
-	{
-		ActorData actorData;
-		if (GameFlowData.Get() != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.UpdateMouseoverCoverHighlight()).MethodHandle;
-			}
-			actorData = GameFlowData.Get().activeOwnedActorData;
-		}
-		else
-		{
-			actorData = null;
-		}
-		ActorData actorData2 = actorData;
-		if (actorData2 != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (actorData2.\u000E() != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ActorCover x = actorData2.\u000E();
-				if (x != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_currentCursorType == HighlightUtils.CursorType.MouseOverCursorType)
-					{
-						this.m_mouseoverCoverManager.UpdateCoverAroundSquare(Board.\u000E().PlayerFreeSquare);
-					}
-					else
-					{
-						this.m_mouseoverCoverManager.UpdateCoverAroundSquare(null);
-					}
-				}
-			}
-		}
-	}
-
-	public void UpdateShowAffectedSquareFlag()
-	{
-		this.m_cachedShouldShowAffectedSquares = HighlightUtils.ShouldShowAffectedSquares();
-	}
-
-	[Serializable]
-	public class CoverDirIndicatorParams
-	{
-		public float m_radiusInSquares = 3f;
-
-		public Color m_color = new Color(1f, 0.75f, 0.25f);
-
-		public HighlightUtils.TargeterOpacityData[] m_opacity;
-	}
-
-	public enum MoveIntoCoverIndicatorTiming
-	{
-		ShowOnMoveEnd,
-		ShowOnTurnStart
-	}
-
-	[Serializable]
-	public struct AreaShapePrefab
-	{
-		public AbilityAreaShape m_shape;
-
-		public GameObject m_prefab;
-	}
-
-	[Serializable]
-	public struct TargeterOpacityData
-	{
-		public float m_timeSinceConfirmed;
-
-		public float m_alpha;
-	}
-
-	public enum CursorType
-	{
-		MouseOverCursorType,
-		TabTargetingCursorType,
-		ShapeTargetingSquareCursorType,
-		ShapeTargetingCornerCursorType,
-		NoCursorType
-	}
-
-	public enum ScrollCursorDirection
-	{
-		N,
-		NE,
-		E,
-		SE,
-		S,
-		SW,
-		W,
-		NW,
-		Undefined
-	}
-
-	public class HighlightMesh
-	{
-		public List<Vector3> m_pos = new List<Vector3>();
-
-		public List<Vector2> m_uv = new List<Vector2>();
-
-		public Dictionary<BoardSquare, int> m_borderSquares = new Dictionary<BoardSquare, int>();
-
-		private unsafe void ApplySlope(HighlightUtils.PieceType pieceType, ref Vector3[] positions, BoardSquare square)
-		{
-			float num = square.\u001D(BoardSquare.CornerType.UpperRight).y;
-			float num2 = square.\u001D(BoardSquare.CornerType.UpperLeft).y;
-			float num3 = square.\u001D(BoardSquare.CornerType.LowerRight).y;
-			float num4 = square.\u001D(BoardSquare.CornerType.LowerLeft).y;
-			if (!square.\u0016())
-			{
-				float num5 = (float)Board.\u000E().BaselineHeight;
-				float num6 = num5 + square.\u001D();
-				num = num6;
-				num2 = num6;
-				num3 = num6;
-				num4 = num6;
-			}
-			float y = (num2 + num4) * 0.5f;
-			float y2 = (num + num3) * 0.5f;
-			float num7 = (num2 + num) * 0.5f;
-			float num8 = (num4 + num3) * 0.5f;
-			float y3 = (num7 + num8) * 0.5f;
-			if (pieceType != HighlightUtils.PieceType.LowerLeftHorizontal)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.HighlightMesh.ApplySlope(HighlightUtils.PieceType, Vector3[]*, BoardSquare)).MethodHandle;
-				}
-				if (pieceType != HighlightUtils.PieceType.LowerLeftVertical)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (pieceType != HighlightUtils.PieceType.LowerLeftInnerCorner)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (pieceType != HighlightUtils.PieceType.LowerLeftOuterCorner)
-						{
-							if (pieceType != HighlightUtils.PieceType.LowerRightHorizontal && pieceType != HighlightUtils.PieceType.LowerRightVertical)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (pieceType != HighlightUtils.PieceType.LowerRightInnerCorner)
-								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (pieceType != HighlightUtils.PieceType.LowerRightOuterCorner)
-									{
-										if (pieceType != HighlightUtils.PieceType.UpperLeftHorizontal)
-										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											if (pieceType != HighlightUtils.PieceType.UpperLeftVertical && pieceType != HighlightUtils.PieceType.UpperLeftInnerCorner)
-											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												if (pieceType != HighlightUtils.PieceType.UpperLeftOuterCorner)
-												{
-													if (pieceType != HighlightUtils.PieceType.UpperRightHorizontal)
-													{
-														for (;;)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
-														if (pieceType != HighlightUtils.PieceType.UpperRightVertical && pieceType != HighlightUtils.PieceType.UpperRightInnerCorner)
-														{
-															for (;;)
-															{
-																switch (4)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
-															if (pieceType != HighlightUtils.PieceType.UpperRightOuterCorner)
-															{
-																return;
-															}
-															for (;;)
-															{
-																switch (6)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
-														}
-													}
-													positions[0].y = num7;
-													positions[1].y = y2;
-													positions[2].y = y3;
-													positions[3].y = num;
-													return;
-												}
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-											}
-										}
-										positions[0].y = num2;
-										positions[1].y = y3;
-										positions[2].y = y;
-										positions[3].y = num7;
-										return;
-									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-								}
-							}
-							positions[0].y = y3;
-							positions[1].y = num3;
-							positions[2].y = num8;
-							positions[3].y = y2;
-							return;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-				}
-			}
-			positions[0].y = y;
-			positions[1].y = num8;
-			positions[2].y = num4;
-			positions[3].y = y3;
-		}
-
-		public void AddPiece(HighlightUtils.PieceType pieceType, BoardSquare square)
-		{
-			if (square != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.HighlightMesh.AddPiece(HighlightUtils.PieceType, BoardSquare)).MethodHandle;
-				}
-				if (!this.m_borderSquares.ContainsKey(square))
-				{
-					this.m_borderSquares[square] = 0;
-				}
-				int value = this.m_borderSquares[square];
-				HighlightUtils.AddPieceTypeToMask(ref value, pieceType);
-				this.m_borderSquares[square] = value;
-				Vector3 b = square.ToVector3();
-				b.y = 0.1f;
-				HighlightUtils.HighlightPiece highlightPiece = HighlightUtils.Get().m_highlightPieces[(int)pieceType];
-				Vector3[] pos = highlightPiece.m_pos;
-				this.ApplySlope(pieceType, ref pos, square);
-				foreach (Vector3 a in pos)
-				{
-					this.m_pos.Add(a + b);
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				foreach (Vector2 item in highlightPiece.m_uv)
-				{
-					this.m_uv.Add(item);
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-		}
-
-		public void AddVerticalConnector(Vector3 pt0, Vector3 pt1, Vector3 pt2, Vector3 pt3, bool left)
-		{
-			this.m_pos.Add(pt0);
-			this.m_pos.Add(pt1);
-			this.m_pos.Add(pt2);
-			this.m_pos.Add(pt3);
-			if (left)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.HighlightMesh.AddVerticalConnector(Vector3, Vector3, Vector3, Vector3, bool)).MethodHandle;
-				}
-				this.m_uv.Add(new Vector2(0.6666667f, 1f));
-				this.m_uv.Add(new Vector2(0.333333343f, 0f));
-				this.m_uv.Add(new Vector2(0.333333343f, 1f));
-				this.m_uv.Add(new Vector2(0.6666667f, 0f));
-			}
-			else
-			{
-				this.m_uv.Add(new Vector2(0.6666667f, 0f));
-				this.m_uv.Add(new Vector2(0.333333343f, 1f));
-				this.m_uv.Add(new Vector2(0.333333343f, 0f));
-				this.m_uv.Add(new Vector2(0.6666667f, 1f));
-			}
-		}
-
-		public void ProcessVerticalConnectors()
-		{
-			float num = Board.\u000E().squareSize * 0.5f;
-			float num2 = num - 0.1f;
-			float num3 = 0.5f;
-			using (Dictionary<BoardSquare, int>.Enumerator enumerator = this.m_borderSquares.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					KeyValuePair<BoardSquare, int> keyValuePair = enumerator.Current;
-					BoardSquare key = keyValuePair.Key;
-					BoardSquare boardSquare = Board.\u000E().\u0016(key.x, key.y + 1);
-					int value = keyValuePair.Value;
-					if (boardSquare != null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.HighlightMesh.ProcessVerticalConnectors()).MethodHandle;
-						}
-						if (this.m_borderSquares.ContainsKey(boardSquare))
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
 									continue;
 								}
-								break;
-							}
-							if ((float)(boardSquare.height - key.height) >= num3)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.UpperLeftVertical) || HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.UpperLeftInnerCorner))
-								{
-									Vector3 pt = new Vector3(key.worldX - num, (float)boardSquare.height, key.worldY + num2);
-									Vector3 pt2 = new Vector3(key.worldX, (float)key.height, key.worldY + num2);
-									Vector3 pt3 = new Vector3(key.worldX - num, (float)key.height, key.worldY + num2);
-									Vector3 pt4 = new Vector3(key.worldX, (float)boardSquare.height, key.worldY + num2);
-									this.AddVerticalConnector(pt, pt2, pt3, pt4, true);
-								}
-								if (!HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.UpperRightVertical))
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.UpperRightInnerCorner))
-									{
-										goto IL_26A;
-									}
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-								}
-								Vector3 pt5 = new Vector3(key.worldX, (float)boardSquare.height, key.worldY + num2);
-								Vector3 pt6 = new Vector3(key.worldX + num, (float)key.height, key.worldY + num2);
-								Vector3 pt7 = new Vector3(key.worldX, (float)key.height, key.worldY + num2);
-								Vector3 pt8 = new Vector3(key.worldX + num, (float)boardSquare.height, key.worldY + num2);
-								this.AddVerticalConnector(pt5, pt6, pt7, pt8, false);
-							}
-						}
-					}
-					IL_26A:
-					BoardSquare boardSquare2 = Board.\u000E().\u0016(key.x - 1, key.y);
-					if (boardSquare2 != null && this.m_borderSquares.ContainsKey(boardSquare2))
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if ((float)(boardSquare2.height - key.height) >= num3)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.UpperLeftHorizontal))
-							{
-								goto IL_30C;
-							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.UpperLeftInnerCorner))
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									goto IL_30C;
-								}
-							}
-							IL_3B1:
-							if (!HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.LowerLeftHorizontal))
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.LowerLeftInnerCorner))
-								{
-									goto IL_485;
-								}
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
@@ -5343,157 +5563,10 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 									}
 									break;
 								}
-							}
-							Vector3 pt9 = new Vector3(key.worldX - num2, (float)boardSquare2.height, key.worldY - num);
-							Vector3 pt10 = new Vector3(key.worldX - num2, (float)key.height, key.worldY);
-							Vector3 pt11 = new Vector3(key.worldX - num2, (float)key.height, key.worldY - num);
-							Vector3 pt12 = new Vector3(key.worldX - num2, (float)boardSquare2.height, key.worldY);
-							this.AddVerticalConnector(pt9, pt10, pt11, pt12, true);
-							goto IL_485;
-							IL_30C:
-							Vector3 pt13 = new Vector3(key.worldX - num2, (float)boardSquare2.height, key.worldY);
-							Vector3 pt14 = new Vector3(key.worldX - num2, (float)key.height, key.worldY + num);
-							Vector3 pt15 = new Vector3(key.worldX - num2, (float)key.height, key.worldY);
-							Vector3 pt16 = new Vector3(key.worldX - num2, (float)boardSquare2.height, key.worldY + num);
-							this.AddVerticalConnector(pt13, pt14, pt15, pt16, false);
-							goto IL_3B1;
-						}
-					}
-					IL_485:
-					BoardSquare boardSquare3 = Board.\u000E().\u0016(key.x, key.y - 1);
-					if (boardSquare3 != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_borderSquares.ContainsKey(boardSquare3))
-						{
-							for (;;)
-							{
-								switch (2)
+								float targetableRadius2 = abilityData.GetTargetableRadius(i, actorData);
+								if (targetableRadius2 > 0f)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if ((float)(boardSquare3.height - key.height) >= num3)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.LowerLeftVertical) || HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.LowerLeftInnerCorner))
-								{
-									Vector3 pt17 = new Vector3(key.worldX - num, (float)boardSquare3.height, key.worldY - num2);
-									Vector3 pt18 = new Vector3(key.worldX, (float)key.height, key.worldY - num2);
-									Vector3 pt19 = new Vector3(key.worldX - num, (float)key.height, key.worldY - num2);
-									Vector3 pt20 = new Vector3(key.worldX, (float)boardSquare3.height, key.worldY - num2);
-									this.AddVerticalConnector(pt17, pt18, pt19, pt20, true);
-								}
-								if (!HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.LowerRightVertical))
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.LowerRightInnerCorner))
-									{
-										goto IL_67C;
-									}
-								}
-								Vector3 pt21 = new Vector3(key.worldX, (float)boardSquare3.height, key.worldY - num2);
-								Vector3 pt22 = new Vector3(key.worldX + num, (float)key.height, key.worldY - num2);
-								Vector3 pt23 = new Vector3(key.worldX, (float)key.height, key.worldY - num2);
-								Vector3 pt24 = new Vector3(key.worldX + num, (float)boardSquare3.height, key.worldY - num2);
-								this.AddVerticalConnector(pt21, pt22, pt23, pt24, false);
-							}
-						}
-					}
-					IL_67C:
-					BoardSquare boardSquare4 = Board.\u000E().\u0016(key.x + 1, key.y);
-					if (boardSquare4 != null)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_borderSquares.ContainsKey(boardSquare4))
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if ((float)(boardSquare4.height - key.height) >= num3)
-							{
-								if (HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.UpperRightHorizontal))
-								{
-									goto IL_71C;
-								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.UpperRightInnerCorner))
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										goto IL_71C;
-									}
-								}
-								IL_7BD:
-								if (!HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.LowerRightHorizontal))
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!HighlightUtils.IsPieceTypeInMask(value, HighlightUtils.PieceType.LowerRightInnerCorner))
-									{
-										continue;
-									}
-									for (;;)
+									while (true)
 									{
 										switch (5)
 										{
@@ -5502,122 +5575,146 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 										}
 										break;
 									}
+									AdjustAndShowRangeIndicator(actorData.GetTravelBoardSquareWorldPosition(), targetableRadius2);
+									flag = true;
 								}
-								Vector3 pt25 = new Vector3(key.worldX + num2, (float)boardSquare4.height, key.worldY);
-								Vector3 pt26 = new Vector3(key.worldX + num2, (float)key.height, key.worldY - num);
-								Vector3 pt27 = new Vector3(key.worldX + num2, (float)key.height, key.worldY);
-								Vector3 pt28 = new Vector3(key.worldX + num2, (float)boardSquare4.height, key.worldY - num);
-								this.AddVerticalConnector(pt25, pt26, pt27, pt28, false);
-								continue;
-								IL_71C:
-								Vector3 pt29 = new Vector3(key.worldX + num2, (float)boardSquare4.height, key.worldY + num);
-								Vector3 pt30 = new Vector3(key.worldX + num2, (float)key.height, key.worldY);
-								Vector3 pt31 = new Vector3(key.worldX + num2, (float)key.height, key.worldY + num);
-								Vector3 pt32 = new Vector3(key.worldX + num2, (float)boardSquare4.height, key.worldY);
-								this.AddVerticalConnector(pt29, pt30, pt31, pt32, true);
-								goto IL_7BD;
+								break;
 							}
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (7)
+					goto IL_01d7;
+					IL_01d7:
+					if (!flag && m_abilityRangeIndicatorHighlight.activeSelf)
 					{
-					case 0:
-						continue;
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							UIManager.SetGameObjectActive(m_abilityRangeIndicatorHighlight, false);
+							return;
+						}
 					}
-					break;
+					return;
 				}
 			}
 		}
+	}
 
-		public GameObject CreateMeshObject(Material borderMaterial)
+	public void AdjustAndShowRangeIndicator(Vector3 centerPos, float radiusInSquares)
+	{
+		if (m_lastRangeIndicatorRadius != radiusInSquares)
 		{
-			GameObject gameObject = new GameObject("HighlightMesh");
-			MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
-			gameObject.AddComponent<MeshRenderer>();
-			Mesh mesh = meshFilter.mesh;
-			mesh.vertices = this.m_pos.ToArray();
-			mesh.uv = this.m_uv.ToArray();
-			Vector3[] array = new Vector3[mesh.vertices.Length];
-			for (int i = 0; i < mesh.normals.Length; i++)
+			while (true)
 			{
-				array[i] = Vector3.up;
-			}
-			mesh.normals = array;
-			int[] array2 = new int[this.m_pos.Count / 4 * 6];
-			for (int j = 0; j < this.m_pos.Count / 4; j++)
-			{
-				array2[j * 6] = j * 4;
-				array2[j * 6 + 1] = j * 4 + 1;
-				array2[j * 6 + 2] = j * 4 + 2;
-				array2[j * 6 + 3] = j * 4;
-				array2[j * 6 + 4] = j * 4 + 3;
-				array2[j * 6 + 5] = j * 4 + 1;
-			}
-			for (;;)
-			{
-				switch (7)
+				switch (5)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.HighlightMesh.CreateMeshObject(Material)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			mesh.triangles = array2;
-			gameObject.GetComponent<Renderer>().material = borderMaterial;
-			return gameObject;
+			AdjustRangeIndicatorHighlight(radiusInSquares);
+		}
+		centerPos.y = GetHighlightHeight();
+		m_abilityRangeIndicatorHighlight.transform.position = centerPos;
+		if (m_abilityRangeIndicatorHighlight.activeSelf)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			UIManager.SetGameObjectActive(m_abilityRangeIndicatorHighlight, true);
+			return;
 		}
 	}
 
-	public class HighlightPiece
+	public void UpdateMouseoverCoverHighlight()
 	{
-		public Vector3[] m_pos = new Vector3[4];
-
-		public Vector2[] m_uv = new Vector2[4];
-
-		public int[] m_indices = new int[]
+		object obj;
+		if (GameFlowData.Get() != null)
 		{
-			0,
-			1,
-			2,
-			0,
-			3,
-			1
-		};
-
-		public Vector3[] m_nrm = new Vector3[]
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			obj = GameFlowData.Get().activeOwnedActorData;
+		}
+		else
 		{
-			Vector3.up,
-			Vector3.up,
-			Vector3.up,
-			Vector3.up
-		};
+			obj = null;
+		}
+		ActorData actorData = (ActorData)obj;
+		if (!(actorData != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			if (!(actorData.GetActorCover() != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				ActorCover actorCover = actorData.GetActorCover();
+				if (!(actorCover != null))
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					if (m_currentCursorType == CursorType.MouseOverCursorType)
+					{
+						m_mouseoverCoverManager.UpdateCoverAroundSquare(Board.Get().PlayerFreeSquare);
+					}
+					else
+					{
+						m_mouseoverCoverManager.UpdateCoverAroundSquare(null);
+					}
+					return;
+				}
+			}
+		}
 	}
 
-	public enum PieceType
+	public void UpdateShowAffectedSquareFlag()
 	{
-		LowerRightVertical,
-		LowerRightHorizontal,
-		LowerRightInnerCorner,
-		LowerRightOuterCorner,
-		UpperRightVertical,
-		UpperRightHorizontal,
-		UpperRightInnerCorner,
-		UpperRightOuterCorner,
-		UpperLeftVertical,
-		UpperLeftHorizontal,
-		UpperLeftInnerCorner,
-		UpperLeftOuterCorner,
-		LowerLeftVertical,
-		LowerLeftHorizontal,
-		LowerLeftInnerCorner,
-		LowerLeftOuterCorner,
-		NumTypes
+		m_cachedShouldShowAffectedSquares = ShouldShowAffectedSquares();
 	}
 }

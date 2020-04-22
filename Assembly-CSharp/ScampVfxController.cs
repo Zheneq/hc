@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,53 +14,55 @@ public class ScampVfxController : CopyableVfxControllerComponent
 
 	private void Start()
 	{
-		this.m_actorModelData = base.GetComponent<ActorModelData>();
-		this.m_suitJoint.Initialize(base.gameObject);
-		if (this.m_suitJoint.m_jointObject != null)
+		m_actorModelData = GetComponent<ActorModelData>();
+		m_suitJoint.Initialize(base.gameObject);
+		if (!(m_suitJoint.m_jointObject != null))
 		{
-			for (int i = 0; i < this.m_persistentVfxList.Count; i++)
+			return;
+		}
+		for (int i = 0; i < m_persistentVfxList.Count; i++)
+		{
+			AdditionalAttachedActorVfx.JointToVfx jointToVfx = m_persistentVfxList[i];
+			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(jointToVfx.m_vfxCommonPrefab, base.gameObject, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "MartyrCrystalVfx_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
+			if (attachedActorVFXInfo.HasVfxInstance())
 			{
-				AdditionalAttachedActorVfx.JointToVfx jointToVfx = this.m_persistentVfxList[i];
-				AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(jointToVfx.m_vfxCommonPrefab, base.gameObject, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "MartyrCrystalVfx_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
-				if (attachedActorVFXInfo.HasVfxInstance())
+				while (true)
 				{
-					for (;;)
+					switch (5)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ScampVfxController.Start()).MethodHandle;
-					}
-					attachedActorVFXInfo.SetInstanceLocalPosition(jointToVfx.m_localOffset);
-					this.m_vfxInstances.Add(attachedActorVFXInfo);
+					break;
 				}
-				else if (Application.isEditor)
+				if (1 == 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Debug.LogWarning("Failed to spawn vfx on joint in " + base.GetType().ToString());
+					/*OpCode not supported: LdMemberToken*/;
 				}
+				attachedActorVFXInfo.SetInstanceLocalPosition(jointToVfx.m_localOffset);
+				m_vfxInstances.Add(attachedActorVFXInfo);
 			}
-			for (;;)
+			else if (Application.isEditor)
 			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
+				Debug.LogWarning("Failed to spawn vfx on joint in " + GetType().ToString());
+			}
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
@@ -69,10 +70,10 @@ public class ScampVfxController : CopyableVfxControllerComponent
 
 	private void LateUpdate()
 	{
-		ActorData actorData;
-		if (this.m_actorModelData != null)
+		object obj;
+		if (m_actorModelData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -81,33 +82,33 @@ public class ScampVfxController : CopyableVfxControllerComponent
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampVfxController.LateUpdate()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			actorData = this.m_actorModelData.m_parentActorData;
+			obj = m_actorModelData.m_parentActorData;
 		}
 		else
 		{
-			actorData = null;
+			obj = null;
 		}
-		ActorData actorData2 = actorData;
-		if (this.m_suitJoint.IsInitialized() && this.m_suitJoint.m_jointObject != null)
+		ActorData actorData = (ActorData)obj;
+		if (!m_suitJoint.IsInitialized() || !(m_suitJoint.m_jointObject != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			bool flag = !this.IsSuitVisuallyShown();
-			bool flag2;
-			if (!(actorData2 == null))
+			bool flag = !IsSuitVisuallyShown();
+			int num;
+			if (!(actorData == null))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -116,11 +117,11 @@ public class ScampVfxController : CopyableVfxControllerComponent
 					}
 					break;
 				}
-				if (actorData2.\u0018())
+				if (actorData.IsVisibleToClient())
 				{
-					if (!(actorData2.\u000E() == null))
+					if (!(actorData.GetActorModelData() == null))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -129,30 +130,30 @@ public class ScampVfxController : CopyableVfxControllerComponent
 							}
 							break;
 						}
-						flag2 = actorData2.\u000E().IsVisibleToClient();
+						num = (actorData.GetActorModelData().IsVisibleToClient() ? 1 : 0);
 					}
 					else
 					{
-						flag2 = true;
+						num = 1;
 					}
 				}
 				else
 				{
-					flag2 = false;
+					num = 0;
 				}
 			}
 			else
 			{
-				flag2 = true;
+				num = 1;
 			}
-			bool flag3 = flag2;
-			for (int i = 0; i < this.m_vfxInstances.Count; i++)
+			bool flag2 = (byte)num != 0;
+			for (int i = 0; i < m_vfxInstances.Count; i++)
 			{
-				AttachedActorVFXInfo attachedActorVFXInfo = this.m_vfxInstances[i];
-				bool actorVisible;
-				if (flag3)
+				AttachedActorVFXInfo attachedActorVFXInfo = m_vfxInstances[i];
+				int actorVisible;
+				if (flag2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -161,28 +162,34 @@ public class ScampVfxController : CopyableVfxControllerComponent
 						}
 						break;
 					}
-					actorVisible = !flag;
+					actorVisible = ((!flag) ? 1 : 0);
 				}
 				else
 				{
-					actorVisible = false;
+					actorVisible = 0;
 				}
-				attachedActorVFXInfo.UpdateVisibility(actorVisible, true);
+				attachedActorVFXInfo.UpdateVisibility((byte)actorVisible != 0, true);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public bool IsSuitVisuallyShown()
 	{
-		return !this.m_suitJoint.IsInitialized() || !(this.m_suitJoint.m_jointObject != null) || this.m_suitJoint.m_jointObject.transform.localScale.x > 0.1f;
+		if (m_suitJoint.IsInitialized() && m_suitJoint.m_jointObject != null)
+		{
+			Vector3 localScale = m_suitJoint.m_jointObject.transform.localScale;
+			return localScale.x > 0.1f;
+		}
+		return true;
 	}
 }

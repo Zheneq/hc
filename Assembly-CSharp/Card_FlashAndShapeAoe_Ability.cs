@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,14 +30,14 @@ public class Card_FlashAndShapeAoe_Ability : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Flash";
+			m_abilityName = "Flash";
 		}
-		AbilityUtil_Targeter.AffectsActor affectsActor;
-		if (this.m_casterHitEffect.m_applyEffect)
+		int num;
+		if (m_casterHitEffect.m_applyEffect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -47,43 +46,44 @@ public class Card_FlashAndShapeAoe_Ability : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card_FlashAndShapeAoe_Ability.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			affectsActor = AbilityUtil_Targeter.AffectsActor.Always;
+			num = 2;
 		}
 		else
 		{
-			affectsActor = AbilityUtil_Targeter.AffectsActor.Never;
+			num = 0;
 		}
-		AbilityUtil_Targeter.AffectsActor affectsCaster = affectsActor;
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, this.m_shape, this.m_penetrateLos, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, this.m_affectEnemies, this.m_affectAllies, affectsCaster, AbilityUtil_Targeter.AffectsActor.Never);
+		AbilityUtil_Targeter.AffectsActor affectsCaster = (AbilityUtil_Targeter.AffectsActor)num;
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, m_shape, m_penetrateLos, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, m_affectEnemies, m_affectAllies, affectsCaster, AbilityUtil_Targeter.AffectsActor.Never);
 		base.Targeter.ShowArcToShape = false;
-		if (this.m_tags != null)
+		if (m_tags == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!this.m_tags.Contains(AbilityTags.UseTeleportUIEffect))
+			if (!m_tags.Contains(AbilityTags.UseTeleportUIEffect))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_tags.Add(AbilityTags.UseTeleportUIEffect);
+					return;
 				}
-				this.m_tags.Add(AbilityTags.UseTeleportUIEffect);
 			}
+			return;
 		}
 	}
 
@@ -94,10 +94,10 @@ public class Card_FlashAndShapeAoe_Ability : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -106,22 +106,22 @@ public class Card_FlashAndShapeAoe_Ability : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card_FlashAndShapeAoe_Ability.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (boardSquare.\u0016() && boardSquare != caster.\u0012())
+			if (boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return true;
 					}
-					break;
 				}
-				return true;
 			}
 		}
 		return false;
@@ -134,19 +134,18 @@ public class Card_FlashAndShapeAoe_Ability : Ability
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, this.m_damageAmount, false);
-		base.AddTokenInt(tokens, "HealAmount", string.Empty, this.m_healAmount, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_casterHitEffect, "CasterHitEffect", this.m_casterHitEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_allyHitEffect, "AllyHitEffect", this.m_allyHitEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffect, "EnemyHitEffect", this.m_enemyHitEffect, true);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, m_damageAmount);
+		AddTokenInt(tokens, "HealAmount", string.Empty, m_healAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, m_casterHitEffect, "CasterHitEffect", m_casterHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_allyHitEffect, "AllyHitEffect", m_allyHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.m_damageAmount),
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, this.m_healAmount)
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damageAmount));
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, m_healAmount));
+		return list;
 	}
 }

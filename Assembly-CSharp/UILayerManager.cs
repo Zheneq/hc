@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,257 +14,267 @@ public class UILayerManager
 
 	private bool init;
 
-	public UICameraLayerInfo ParentInfo
-	{
-		get
-		{
-			return this.m_parentInfo;
-		}
-	}
+	public UICameraLayerInfo ParentInfo => m_parentInfo;
 
 	public int ObjectLayerValue
 	{
 		get
 		{
-			int result;
-			if (this.m_parentInfo.CamType == RenderMode.WorldSpace)
+			int num = 0;
+			if (m_parentInfo.CamType == RenderMode.WorldSpace)
 			{
-				result = 0xC;
+				return 12;
 			}
-			else
-			{
-				result = 5;
-			}
-			return result;
+			return 5;
 		}
 	}
 
 	public int SetSceneVisible(IEnumerable<SceneType> aScenes, bool visible, SceneVisibilityParameters parameters)
 	{
 		int num = 0;
-		for (int i = 0; i < this.CanvasLayers.Length; i++)
+		for (int i = 0; i < CanvasLayers.Length; i++)
 		{
-			num += this.CanvasLayers[i].SetSceneVisible(aScenes, visible, parameters);
+			num += CanvasLayers[i].SetSceneVisible(aScenes, visible, parameters);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return num;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UILayerManager.SetSceneVisible(IEnumerable<SceneType>, bool, SceneVisibilityParameters)).MethodHandle;
-		}
-		return num;
 	}
 
 	public void Init(UICameraLayerInfo info)
 	{
-		if (!this.init)
+		if (init)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILayerManager.Init(UICameraLayerInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.init = true;
-			this.m_parentInfo = info;
-			this.LayersContainer = new GameObject();
-			this.LayersContainer.name = "Layer Container";
-			UIManager.ReparentTransform(this.LayersContainer.transform, this.m_parentInfo.CameraLayerContainer.gameObject.transform);
+			init = true;
+			m_parentInfo = info;
+			LayersContainer = new GameObject();
+			LayersContainer.name = "Layer Container";
+			UIManager.ReparentTransform(LayersContainer.transform, m_parentInfo.CameraLayerContainer.gameObject.transform);
 			List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
-			for (int i = 0; i < this.CanvasLayers.Length; i++)
+			for (int i = 0; i < CanvasLayers.Length; i++)
 			{
-				this.CanvasLayers[i].ScenesContainer = new GameObject();
-				this.CanvasLayers[i].ScenesContainer.name = "(Canvas Container)" + this.CanvasLayers[i].CanvasLayerName;
-				UIManager.ReparentTransform(this.CanvasLayers[i].ScenesContainer.transform, this.LayersContainer.gameObject.transform);
-				this.CanvasLayers[i].Init(this);
-				KeyValuePair<int, int> item = new KeyValuePair<int, int>(i, this.CanvasLayers[i].LayerPriority);
+				CanvasLayers[i].ScenesContainer = new GameObject();
+				CanvasLayers[i].ScenesContainer.name = "(Canvas Container)" + CanvasLayers[i].CanvasLayerName;
+				UIManager.ReparentTransform(CanvasLayers[i].ScenesContainer.transform, LayersContainer.gameObject.transform);
+				CanvasLayers[i].Init(this);
+				KeyValuePair<int, int> item = new KeyValuePair<int, int>(i, CanvasLayers[i].LayerPriority);
 				list.Add(item);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (list.Count > 1)
-			{
-				for (;;)
+				if (list.Count > 1)
 				{
-					switch (3)
+					while (true)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				List<KeyValuePair<int, int>> list2 = list;
-				if (UILayerManager.<>f__am$cache0 == null)
-				{
-					for (;;)
-					{
-						switch (4)
+						switch (3)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					UILayerManager.<>f__am$cache0 = delegate(KeyValuePair<int, int> keyA, KeyValuePair<int, int> keyB)
+					if (_003C_003Ef__am_0024cache0 == null)
 					{
-						if (keyA.Value > keyB.Value)
+						while (true)
 						{
-							return 1;
-						}
-						if (keyA.Value < keyB.Value)
-						{
-							for (;;)
+							switch (4)
 							{
-								switch (6)
+							case 0:
+								continue;
+							}
+							break;
+						}
+						_003C_003Ef__am_0024cache0 = delegate(KeyValuePair<int, int> keyA, KeyValuePair<int, int> keyB)
+						{
+							if (keyA.Value > keyB.Value)
+							{
+								return 1;
+							}
+							if (keyA.Value < keyB.Value)
+							{
+								while (true)
 								{
-								case 0:
-									continue;
+									switch (6)
+									{
+									case 0:
+										break;
+									default:
+										if (1 == 0)
+										{
+											/*OpCode not supported: LdMemberToken*/;
+										}
+										return -1;
+									}
 								}
-								break;
 							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(UILayerManager.<Init>m__0(KeyValuePair<int, int>, KeyValuePair<int, int>)).MethodHandle;
-							}
-							return -1;
-						}
-						return 0;
-					};
-				}
-				list2.Sort(UILayerManager.<>f__am$cache0);
-				for (int j = 0; j < list.Count; j++)
-				{
-					this.CanvasLayers[list[j].Key].ScenesContainer.transform.SetAsLastSibling();
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
+							return 0;
+						};
 					}
-					break;
+					list.Sort(_003C_003Ef__am_0024cache0);
+					for (int j = 0; j < list.Count; j++)
+					{
+						CanvasLayers[list[j].Key].ScenesContainer.transform.SetAsLastSibling();
+					}
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
 				}
+				LayersContainer.SetLayerRecursively(ObjectLayerValue);
+				return;
 			}
-			this.LayersContainer.SetLayerRecursively(this.ObjectLayerValue);
 		}
 	}
 
 	public Canvas GetBatchCanvas(IUIScene theScene, CanvasBatchType type)
 	{
 		Canvas canvas = null;
-		for (int i = 0; i < this.CanvasLayers.Length; i++)
+		int num = 0;
+		while (true)
 		{
-			canvas = this.CanvasLayers[i].GetBatchCanvas(theScene, type);
-			if (canvas != null)
+			if (num < CanvasLayers.Length)
 			{
-				for (;;)
+				canvas = CanvasLayers[num].GetBatchCanvas(theScene, type);
+				if (canvas != null)
 				{
-					switch (1)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILayerManager.GetBatchCanvas(IUIScene, CanvasBatchType)).MethodHandle;
-				}
-				return canvas;
-			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
+				num++;
 				continue;
 			}
-			return canvas;
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			break;
 		}
+		return canvas;
 	}
 
 	public Canvas GetDefaultCanvas(IUIScene theScene)
 	{
 		Canvas canvas = null;
-		for (int i = 0; i < this.CanvasLayers.Length; i++)
+		int num = 0;
+		while (true)
 		{
-			canvas = this.CanvasLayers[i].GetDefaultCanvas(theScene);
-			if (canvas != null)
+			if (num < CanvasLayers.Length)
 			{
-				for (;;)
+				canvas = CanvasLayers[num].GetDefaultCanvas(theScene);
+				if (canvas != null)
 				{
-					switch (2)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILayerManager.GetDefaultCanvas(IUIScene)).MethodHandle;
-				}
-				return canvas;
-			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
+				num++;
 				continue;
 			}
-			return canvas;
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			break;
 		}
+		return canvas;
 	}
 
 	public Canvas GetDefaultCanvas(SceneType theScene)
 	{
 		Canvas canvas = null;
-		for (int i = 0; i < this.CanvasLayers.Length; i++)
+		int num = 0;
+		while (true)
 		{
-			canvas = this.CanvasLayers[i].GetDefaultCanvas(theScene);
-			if (canvas != null)
+			if (num < CanvasLayers.Length)
 			{
-				return canvas;
-			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
+				canvas = CanvasLayers[num].GetDefaultCanvas(theScene);
+				if (canvas != null)
+				{
+					break;
+				}
+				num++;
 				continue;
 			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
 			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UILayerManager.GetDefaultCanvas(SceneType)).MethodHandle;
-			return canvas;
 		}
 		return canvas;
 	}
@@ -272,12 +282,12 @@ public class UILayerManager
 	public int GetNameplateCanvasLayer()
 	{
 		int num = -1;
-		for (int i = 0; i < this.CanvasLayers.Length; i++)
+		for (int i = 0; i < CanvasLayers.Length; i++)
 		{
-			num = this.CanvasLayers[i].GetNameplateCanvasLayer();
+			num = CanvasLayers[i].GetNameplateCanvasLayer();
 			if (num != -1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -286,9 +296,9 @@ public class UILayerManager
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILayerManager.GetNameplateCanvasLayer()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				break;
 			}
@@ -298,25 +308,25 @@ public class UILayerManager
 
 	public RuntimeSceneInfo RegisterUIScene(IUIScene scene)
 	{
-		for (int i = 0; i < this.CanvasLayers.Length; i++)
+		for (int i = 0; i < CanvasLayers.Length; i++)
 		{
-			RuntimeSceneInfo runtimeSceneInfo = this.CanvasLayers[i].RegisterUIScene(scene);
-			if (runtimeSceneInfo != null)
+			RuntimeSceneInfo runtimeSceneInfo = CanvasLayers[i].RegisterUIScene(scene);
+			if (runtimeSceneInfo == null)
 			{
-				for (;;)
+				continue;
+			}
+			while (true)
+			{
+				switch (2)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILayerManager.RegisterUIScene(IUIScene)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				runtimeSceneInfo.RuntimeSceneContainer.SetLayerRecursively(this.ObjectLayerValue);
+				runtimeSceneInfo.RuntimeSceneContainer.SetLayerRecursively(ObjectLayerValue);
 				return runtimeSceneInfo;
 			}
 		}
@@ -326,23 +336,22 @@ public class UILayerManager
 	public List<UISceneDisplayInfo> SetGameState(UIManager.ClientState newState)
 	{
 		List<UISceneDisplayInfo> list = new List<UISceneDisplayInfo>();
-		for (int i = 0; i < this.CanvasLayers.Length; i++)
+		for (int i = 0; i < CanvasLayers.Length; i++)
 		{
-			list.AddRange(this.CanvasLayers[i].SetGameState(newState));
+			list.AddRange(CanvasLayers[i].SetGameState(newState));
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return list;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UILayerManager.SetGameState(UIManager.ClientState)).MethodHandle;
-		}
-		return list;
 	}
 }

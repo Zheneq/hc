@@ -1,24 +1,31 @@
-﻿using System;
 using UnityEngine.Networking;
 
 public class MyNetworkClient : NetworkClient
 {
-	public string UserHandle { get; set; }
+	public string UserHandle
+	{
+		get;
+		set;
+	}
 
-	public bool UseSSL { get; set; }
+	public bool UseSSL
+	{
+		get;
+		set;
+	}
 
 	public bool IsConnected
 	{
 		get
 		{
-			return this.m_AsyncConnect == NetworkClient.ConnectState.Connected;
+			return m_AsyncConnect == ConnectState.Connected;
 		}
 		set
 		{
-			NetworkClient.ConnectState asyncConnect;
+			int asyncConnect;
 			if (value)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -27,25 +34,25 @@ public class MyNetworkClient : NetworkClient
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClient.set_IsConnected(bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				asyncConnect = NetworkClient.ConnectState.Connected;
+				asyncConnect = 4;
 			}
 			else
 			{
-				asyncConnect = NetworkClient.ConnectState.Disconnected;
+				asyncConnect = 5;
 			}
-			this.m_AsyncConnect = asyncConnect;
+			m_AsyncConnect = (ConnectState)asyncConnect;
 		}
 	}
 
 	public override void Disconnect()
 	{
-		if (this.m_Connection != null)
+		if (m_Connection != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -54,14 +61,14 @@ public class MyNetworkClient : NetworkClient
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClient.Disconnect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			MyNetworkClientConnection myNetworkClientConnection = this.m_Connection as MyNetworkClientConnection;
+			MyNetworkClientConnection myNetworkClientConnection = m_Connection as MyNetworkClientConnection;
 			if (myNetworkClientConnection != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{

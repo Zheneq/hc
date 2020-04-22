@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 {
+	public delegate bool IsAffectingCasterDelegate(ActorData caster, List<ActorData> actorsSoFar);
+
+	public delegate int NumActiveLayerDelegate(int maxLayers);
+
 	public List<float> m_coneRadiusList;
 
 	public float m_coneWidthAngle;
@@ -15,66 +18,69 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 
 	private OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
 
-	public AbilityUtil_Targeter_LayerCones.IsAffectingCasterDelegate m_affectCasterDelegate;
+	public IsAffectingCasterDelegate m_affectCasterDelegate;
 
-	public AbilityUtil_Targeter_LayerCones.NumActiveLayerDelegate m_delegateNumActiveLayers;
+	public NumActiveLayerDelegate m_delegateNumActiveLayers;
 
-	public AbilityUtil_Targeter_LayerCones(Ability ability, float coneWidthAngle, List<float> coneRadiusList, float coneBackwardOffsetInSquares, bool penetrateLoS) : base(ability)
+	public AbilityUtil_Targeter_LayerCones(Ability ability, float coneWidthAngle, List<float> coneRadiusList, float coneBackwardOffsetInSquares, bool penetrateLoS)
+		: base(ability)
 	{
-		this.m_coneWidthAngle = coneWidthAngle;
-		this.m_coneRadiusList = coneRadiusList;
-		this.m_penetrateLoS = penetrateLoS;
-		this.m_coneBackwardOffsetInSquares = coneBackwardOffsetInSquares;
-		this.m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
+		m_coneWidthAngle = coneWidthAngle;
+		m_coneRadiusList = coneRadiusList;
+		m_penetrateLoS = penetrateLoS;
+		m_coneBackwardOffsetInSquares = coneBackwardOffsetInSquares;
+		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
 	}
 
 	public float GetMaxConeRadius()
 	{
 		float result = 0f;
-		int numActiveLayers = this.GetNumActiveLayers();
+		int numActiveLayers = GetNumActiveLayers();
 		if (numActiveLayers > 0)
 		{
-			result = this.m_coneRadiusList[numActiveLayers - 1];
+			result = m_coneRadiusList[numActiveLayers - 1];
 		}
 		return result;
 	}
 
 	public float GetActiveLayerRadius()
 	{
-		return this.m_coneRadiusList[this.GetNumActiveLayers() - 1];
+		return m_coneRadiusList[GetNumActiveLayers() - 1];
 	}
 
 	public int GetNumActiveLayers()
 	{
-		if (this.m_delegateNumActiveLayers != null)
+		if (m_delegateNumActiveLayers != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					int count = m_coneRadiusList.Count;
+					return Mathf.Min(count, m_delegateNumActiveLayers(count));
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_LayerCones.GetNumActiveLayers()).MethodHandle;
-			}
-			int count = this.m_coneRadiusList.Count;
-			return Mathf.Min(count, this.m_delegateNumActiveLayers(count));
 		}
-		return this.m_coneRadiusList.Count;
+		return m_coneRadiusList.Count;
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		base.ClearActorsInRange();
-		Vector3 vector = targetingActor.\u0015();
-		Vector3 vector2;
+		ClearActorsInRange();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 vector;
 		if (currentTarget == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -83,27 +89,27 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_LayerCones.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			vector2 = targetingActor.transform.forward;
+			vector = targetingActor.transform.forward;
 		}
 		else
 		{
-			vector2 = currentTarget.AimDirection;
+			vector = currentTarget.AimDirection;
 		}
-		Vector3 vector3 = vector2;
-		int numActiveLayers = this.GetNumActiveLayers();
-		this.m_nonActorSpecificContext.\u0016(ContextKeys.\u000F.\u0012(), numActiveLayers);
-		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vector3);
-		this.HandleConeCursorHighlights(vector, vector3, numActiveLayers);
-		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(vector, coneCenterAngleDegrees, this.m_coneWidthAngle, this.GetMaxConeRadius(), this.m_coneBackwardOffsetInSquares, this.m_penetrateLoS, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, this.m_affectsAllies, this.m_affectsEnemies), null, false, default(Vector3));
-		TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
-		actorsInCone.Remove(targetingActor);
-		if (this.m_affectsTargetingActor)
+		Vector3 vector2 = vector;
+		int numActiveLayers = GetNumActiveLayers();
+		m_nonActorSpecificContext.SetInt(ContextKeys._000F.GetHash(), numActiveLayers);
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vector2);
+		HandleConeCursorHighlights(travelBoardSquareWorldPositionForLos, vector2, numActiveLayers);
+		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(travelBoardSquareWorldPositionForLos, coneCenterAngleDegrees, m_coneWidthAngle, GetMaxConeRadius(), m_coneBackwardOffsetInSquares, m_penetrateLoS, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, m_affectsAllies, m_affectsEnemies), null);
+		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+		actors.Remove(targetingActor);
+		if (m_affectsTargetingActor)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -112,9 +118,9 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (this.m_affectCasterDelegate != null)
+			if (m_affectCasterDelegate != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -123,11 +129,11 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (!this.m_affectCasterDelegate(targetingActor, actorsInCone))
+				if (!m_affectCasterDelegate(targetingActor, actors))
 				{
-					goto IL_10C;
+					goto IL_010c;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -137,18 +143,18 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 					break;
 				}
 			}
-			actorsInCone.Add(targetingActor);
+			actors.Add(targetingActor);
 		}
-		IL_10C:
-		using (List<ActorData>.Enumerator enumerator = actorsInCone.GetEnumerator())
+		goto IL_010c;
+		IL_010c:
+		using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 		{
-			IL_1FB:
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (this.ShouldAddActor(actorData, targetingActor))
+				ActorData current = enumerator.Current;
+				if (ShouldAddActor(current, targetingActor))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -157,11 +163,10 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 						}
 						break;
 					}
-					base.AddActorInRange(actorData, vector, targetingActor, AbilityTooltipSubject.Primary, false);
-					int i = 0;
-					while (i < this.m_coneRadiusList.Count)
+					AddActorInRange(current, travelBoardSquareWorldPositionForLos, targetingActor);
+					for (int i = 0; i < m_coneRadiusList.Count; i++)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -172,40 +177,36 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 						}
 						if (i >= numActiveLayers)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
 								case 0:
 									continue;
 								}
-								goto IL_1FB;
-							}
-						}
-						else
-						{
-							bool flag = AreaEffectUtils.IsSquareInConeByActorRadius(actorData.\u0012(), vector, coneCenterAngleDegrees, this.m_coneWidthAngle, this.m_coneRadiusList[i], this.m_coneBackwardOffsetInSquares, true, targetingActor, false, default(Vector3));
-							if (flag)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
-								actorHitContext.\u0015.\u0016(ContextKeys.\u0003.\u0012(), i);
 								break;
 							}
-							i++;
+							break;
+						}
+						if (AreaEffectUtils.IsSquareInConeByActorRadius(current.GetCurrentBoardSquare(), travelBoardSquareWorldPositionForLos, coneCenterAngleDegrees, m_coneWidthAngle, m_coneRadiusList[i], m_coneBackwardOffsetInSquares, true, targetingActor))
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							ActorHitContext actorHitContext = m_actorContextVars[current];
+							actorHitContext._0015.SetInt(ContextKeys._0003.GetHash(), i);
+							break;
 						}
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -215,7 +216,7 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 				break;
 			}
 		}
-		this.DrawInvalidSquareIndicators(currentTarget, targetingActor);
+		DrawInvalidSquareIndicators(currentTarget, targetingActor);
 	}
 
 	private bool ShouldAddActor(ActorData actor, ActorData caster)
@@ -223,13 +224,13 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 		bool result = false;
 		if (actor == caster)
 		{
-			result = this.m_affectsTargetingActor;
+			result = m_affectsTargetingActor;
 		}
 		else
 		{
-			if (actor.\u000E() == caster.\u000E())
+			if (actor.GetTeam() == caster.GetTeam())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -238,13 +239,13 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_LayerCones.ShouldAddActor(ActorData, ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (this.m_affectsAllies)
+				if (m_affectsAllies)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -253,12 +254,13 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 						}
 						break;
 					}
-					return true;
+					result = true;
+					goto IL_007f;
 				}
 			}
-			if (actor.\u000E() != caster.\u000E())
+			if (actor.GetTeam() != caster.GetTeam())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -267,9 +269,9 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (this.m_affectsEnemies)
+				if (m_affectsEnemies)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -282,21 +284,23 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 				}
 			}
 		}
+		goto IL_007f;
+		IL_007f:
 		return result;
 	}
 
 	public void HandleConeCursorHighlights(Vector3 casterPos, Vector3 centerAimDir, int numConesActive)
 	{
-		float d = this.m_coneBackwardOffsetInSquares * Board.\u000E().squareSize;
+		float d = m_coneBackwardOffsetInSquares * Board.Get().squareSize;
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		Vector3 position = casterPos + new Vector3(0f, y, 0f) - centerAimDir * d;
-		if (this.m_highlights != null)
+		if (m_highlights != null)
 		{
-			if (this.m_highlights.Count >= this.m_coneRadiusList.Count)
+			if (m_highlights.Count >= m_coneRadiusList.Count)
 			{
-				goto IL_125;
+				goto IL_0125;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -305,20 +309,20 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_LayerCones.HandleConeCursorHighlights(Vector3, Vector3, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
-		this.m_highlights = new List<GameObject>();
-		for (int i = 0; i < this.m_coneRadiusList.Count; i++)
+		m_highlights = new List<GameObject>();
+		for (int i = 0; i < m_coneRadiusList.Count; i++)
 		{
-			float radiusInWorld = (this.m_coneRadiusList[i] + this.m_coneBackwardOffsetInSquares) * Board.\u000E().squareSize;
-			GameObject gameObject = HighlightUtils.Get().CreateConeCursor(radiusInWorld, this.m_coneWidthAngle);
+			float radiusInWorld = (m_coneRadiusList[i] + m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
+			GameObject gameObject = HighlightUtils.Get().CreateConeCursor(radiusInWorld, m_coneWidthAngle);
 			UIDynamicCone component = gameObject.GetComponent<UIDynamicCone>();
 			if (component != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -329,9 +333,9 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 				}
 				component.SetConeObjectActive(false);
 			}
-			this.m_highlights.Add(gameObject);
+			m_highlights.Add(gameObject);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
@@ -340,12 +344,13 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 			}
 			break;
 		}
-		IL_125:
-		for (int j = 0; j < this.m_highlights.Count; j++)
+		goto IL_0125;
+		IL_0125:
+		for (int j = 0; j < m_highlights.Count; j++)
 		{
 			if (j < numConesActive)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -354,23 +359,24 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 					}
 					break;
 				}
-				this.m_highlights[j].transform.position = position;
-				this.m_highlights[j].transform.rotation = Quaternion.LookRotation(centerAimDir);
-				this.m_highlights[j].gameObject.SetActiveIfNeeded(true);
+				m_highlights[j].transform.position = position;
+				m_highlights[j].transform.rotation = Quaternion.LookRotation(centerAimDir);
+				m_highlights[j].gameObject.SetActiveIfNeeded(true);
 			}
 			else
 			{
-				this.m_highlights[j].gameObject.SetActiveIfNeeded(false);
+				m_highlights[j].gameObject.SetActiveIfNeeded(false);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
@@ -378,16 +384,12 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 	{
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			base.ResetSquareIndicatorIndexToUse();
-			Vector3 coneStart = targetingActor.\u0015();
-			Vector3 vec = (currentTarget != null) ? currentTarget.AimDirection : targetingActor.transform.forward;
+			ResetSquareIndicatorIndexToUse();
+			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			Vector3 vec = currentTarget?.AimDirection ?? targetingActor.transform.forward;
 			float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vec);
-			AreaEffectUtils.OperateOnSquaresInCone(this.m_indicatorHandler, coneStart, coneCenterAngleDegrees, this.m_coneWidthAngle, this.GetMaxConeRadius(), this.m_coneBackwardOffsetInSquares, targetingActor, this.m_penetrateLoS, null);
-			base.HideUnusedSquareIndicators();
+			AreaEffectUtils.OperateOnSquaresInCone(m_indicatorHandler, travelBoardSquareWorldPositionForLos, coneCenterAngleDegrees, m_coneWidthAngle, GetMaxConeRadius(), m_coneBackwardOffsetInSquares, targetingActor, m_penetrateLoS);
+			HideUnusedSquareIndicators();
 		}
 	}
-
-	public delegate bool IsAffectingCasterDelegate(ActorData caster, List<ActorData> actorsSoFar);
-
-	public delegate int NumActiveLayerDelegate(int maxLayers);
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class DebugCommands
@@ -9,46 +9,46 @@ public class DebugCommands
 
 	public DebugCommands()
 	{
-		this.m_debugCommands.Add(new DebugCommand_EndGameWin());
-		this.m_debugCommands.Add(new DebugCommand_EndGameLoss());
-		this.m_debugCommands.Add(new DebugCommand_EndGameTie());
-		this.m_debugCommands.Add(new DebugCommand_EndGameNoResult());
-		this.m_debugCommands.Add(new DebugCommand_EndGameWithParams());
-		this.m_debugCommands.Add(new DebugCommand_ClearCooldowns());
-		this.m_debugCommands.Add(new DebugCommand_ForceMatchmaking());
-		this.m_debugCommands.Add(new DebugCommand_Discord());
-		this.m_debugCommands.Add(new DebugCommand_Snapshot());
-		this.m_debugCommands.Add(new DebugCommand_Gibberish());
-		this.m_debugCommands.Add(new DebugCommand_SetExtraLowGraphicsQuality());
+		m_debugCommands.Add(new DebugCommand_EndGameWin());
+		m_debugCommands.Add(new DebugCommand_EndGameLoss());
+		m_debugCommands.Add(new DebugCommand_EndGameTie());
+		m_debugCommands.Add(new DebugCommand_EndGameNoResult());
+		m_debugCommands.Add(new DebugCommand_EndGameWithParams());
+		m_debugCommands.Add(new DebugCommand_ClearCooldowns());
+		m_debugCommands.Add(new DebugCommand_ForceMatchmaking());
+		m_debugCommands.Add(new DebugCommand_Discord());
+		m_debugCommands.Add(new DebugCommand_Snapshot());
+		m_debugCommands.Add(new DebugCommand_Gibberish());
+		m_debugCommands.Add(new DebugCommand_SetExtraLowGraphicsQuality());
 	}
 
 	public static DebugCommands Get()
 	{
-		return DebugCommands.s_instance;
+		return s_instance;
 	}
 
 	public static void Instantiate()
 	{
-		DebugCommands.s_instance = new DebugCommands();
+		s_instance = new DebugCommands();
 	}
 
 	~DebugCommands()
 	{
-		DebugCommands.s_instance = null;
+		s_instance = null;
 	}
 
 	public bool RunDebugCommand(string command, string arguments)
 	{
 		bool flag = GameFlowData.Get() == null;
 		bool flag2 = false;
-		using (List<DebugCommand>.Enumerator enumerator = this.m_debugCommands.GetEnumerator())
+		using (List<DebugCommand>.Enumerator enumerator = m_debugCommands.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				DebugCommand debugCommand = enumerator.Current;
+				DebugCommand current = enumerator.Current;
 				if (flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -57,18 +57,18 @@ public class DebugCommands
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommands.RunDebugCommand(string, string)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (!debugCommand.AvailableInFrontEnd())
+					if (!current.AvailableInFrontEnd())
 					{
 						continue;
 					}
 				}
-				if (debugCommand.\u0018().Contains(command.ToLower()))
+				if (current._0018().Contains(command.ToLower()))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -77,40 +77,40 @@ public class DebugCommands
 						}
 						break;
 					}
-					flag2 = debugCommand.OnSlashCommand(arguments);
+					flag2 = current.OnSlashCommand(arguments);
 					if (flag2)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								ClientGameManager.Get()._001D(command, arguments);
+								return flag2;
 							}
-							break;
 						}
-						ClientGameManager.Get().\u001D(command, arguments);
-						return flag2;
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return flag2;
 				}
-				break;
 			}
 		}
-		return flag2;
 	}
 
 	public List<string> GetAvailableCommandNames(string searchStr)
 	{
 		bool inFrontEnd = GameFlowData.Get() == null;
-		return this.GetAvailableCommandNames(searchStr, inFrontEnd);
+		return GetAvailableCommandNames(searchStr, inFrontEnd);
 	}
 
 	public List<string> GetAvailableCommandNames(string searchStr, bool inFrontEnd)
@@ -118,11 +118,11 @@ public class DebugCommands
 		List<string> list = new List<string>();
 		searchStr.Trim();
 		bool flag = searchStr.Length > 0;
-		foreach (DebugCommand debugCommand in this.m_debugCommands)
+		foreach (DebugCommand debugCommand in m_debugCommands)
 		{
 			if (inFrontEnd)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -131,9 +131,9 @@ public class DebugCommands
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommands.GetAvailableCommandNames(string, bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (!debugCommand.AvailableInFrontEnd())
 				{
@@ -143,7 +143,7 @@ public class DebugCommands
 			string slashCommand = debugCommand.GetSlashCommand();
 			if (!string.IsNullOrEmpty(slashCommand))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -154,7 +154,7 @@ public class DebugCommands
 				}
 				if (flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -167,7 +167,7 @@ public class DebugCommands
 					{
 						continue;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -179,7 +179,7 @@ public class DebugCommands
 				}
 				if (!list.Contains(slashCommand))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -199,44 +199,46 @@ public class DebugCommands
 	public void OnIncreaseClick(DebugCommand command)
 	{
 		command.OnIncreaseClick();
-		if (command.GetType() != typeof(DebugCommand_Category) && command.GetType() != typeof(DebugCommand_Back))
+		if (command.GetType() == typeof(DebugCommand_Category) || command.GetType() == typeof(DebugCommand_Back))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommands.OnIncreaseClick(DebugCommand)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ClientGameManager.Get().\u001D(command.GetDebugItemName(), command.GetDebugItemValue());
+			ClientGameManager.Get()._001D(command.GetDebugItemName(), command.GetDebugItemValue());
+			return;
 		}
 	}
 
 	public void OnDecreaseClick(DebugCommand command)
 	{
 		command.OnDecreaseClick();
-		if (command.GetType() != typeof(DebugCommand_Category) && command.GetType() != typeof(DebugCommand_Back))
+		if (command.GetType() == typeof(DebugCommand_Category) || command.GetType() == typeof(DebugCommand_Back))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommands.OnDecreaseClick(DebugCommand)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ClientGameManager.Get().\u001D("Decrease " + command.GetDebugItemName(), command.GetDebugItemValue());
+			ClientGameManager.Get()._001D("Decrease " + command.GetDebugItemName(), command.GetDebugItemValue());
+			return;
 		}
 	}
 }

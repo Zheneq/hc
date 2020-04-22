@@ -1,7 +1,7 @@
-﻿using System;
+using LobbyGameClientMessages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -75,87 +75,185 @@ public class UICharacterSelectScreenController : MonoBehaviour
 
 	private UICharacterSelectFactionFilter m_lastFilterBtnClicked;
 
-	public Canvas m_nameLabelCanvas
+	public Canvas m_nameLabelCanvas => GetComponentInParent<Canvas>();
+
+	public bool DoesASelectedGame_OverrideFreelancerSelection
 	{
 		get
 		{
-			return base.GetComponentInParent<Canvas>();
+			bool flag = true;
+			LobbyPlayerGroupInfo groupInfo = ClientGameManager.Get().GroupInfo;
+			if (groupInfo.InAGroup)
+			{
+				Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(groupInfo.SelectedQueueType);
+				using (Dictionary<ushort, GameSubType>.Enumerator enumerator = gameTypeSubTypes.GetEnumerator())
+				{
+					while (enumerator.MoveNext())
+					{
+						KeyValuePair<ushort, GameSubType> current = enumerator.Current;
+						if ((current.Key & groupInfo.SubTypeMask) == 0)
+						{
+							continue;
+						}
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						int num;
+						if (!current.Value.HasMod(GameSubType.SubTypeMods.OverrideFreelancerSelection))
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (current.Value.DuplicationRule != FreelancerDuplicationRuleTypes.allow)
+							{
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (current.Value.DuplicationRule != FreelancerDuplicationRuleTypes.alwaysDupAcrossGame)
+								{
+									while (true)
+									{
+										switch (2)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									num = ((current.Value.DuplicationRule == FreelancerDuplicationRuleTypes.alwaysDupAcrossTeam) ? 1 : 0);
+									goto IL_00d3;
+								}
+							}
+						}
+						num = 1;
+						goto IL_00d3;
+						IL_00d3:
+						flag = ((byte)num != 0);
+						if (!flag)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									break;
+								default:
+									return flag;
+								}
+							}
+						}
+					}
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							break;
+						default:
+							return flag;
+						}
+					}
+				}
+			}
+			return flag;
 		}
 	}
 
 	public static UICharacterSelectScreenController Get()
 	{
-		return UICharacterSelectScreenController.s_instance;
+		return s_instance;
 	}
 
 	public void Start()
 	{
-		this.m_preReadyActions = new Queue<Action>();
-		this.m_groupMenuClickListeners[0].Setup(TooltipType.PlayerGroupMenu, (UITooltipBase tooltip) => this.OnGroupMenuClick(tooltip, 0), null);
-		this.m_groupMenuClickListeners[1].Setup(TooltipType.PlayerGroupMenu, (UITooltipBase tooltip) => this.OnGroupMenuClick(tooltip, 1), null);
-		this.m_groupMenuClickListeners[2].Setup(TooltipType.PlayerGroupMenu, (UITooltipBase tooltip) => this.OnGroupMenuClick(tooltip, 2), null);
-		this.m_groupMenuClickListeners[3].Setup(TooltipType.PlayerGroupMenu, (UITooltipBase tooltip) => this.OnGroupMenuClick(tooltip, 3), null);
-		this.m_changeFreelancerBtn.spriteController.pointerEnterCallback = new _ButtonSwapSprite.ButtonClickCallback(this.HighlightCharacter);
-		this.m_changeFreelancerBtn.spriteController.pointerExitCallback = new _ButtonSwapSprite.ButtonClickCallback(this.UnhighlightCharacter);
-		this.m_highlightFreelancerBtn.spriteController.pointerEnterCallback = new _ButtonSwapSprite.ButtonClickCallback(this.HighlightCharacter);
-		this.m_highlightFreelancerBtn.spriteController.pointerExitCallback = new _ButtonSwapSprite.ButtonClickCallback(this.UnhighlightCharacter);
-		UIEventTriggerUtils.AddListener(this.m_highlightFreelancerImage.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.HighlightCharacter));
-		UIEventTriggerUtils.AddListener(this.m_highlightFreelancerImage.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.UnhighlightCharacter));
-		this.m_cannotReadyBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, delegate(UITooltipBase tooltip)
+		m_preReadyActions = new Queue<Action>();
+		m_groupMenuClickListeners[0].Setup(TooltipType.PlayerGroupMenu, (UITooltipBase tooltip) => OnGroupMenuClick(tooltip, 0));
+		m_groupMenuClickListeners[1].Setup(TooltipType.PlayerGroupMenu, (UITooltipBase tooltip) => OnGroupMenuClick(tooltip, 1));
+		m_groupMenuClickListeners[2].Setup(TooltipType.PlayerGroupMenu, (UITooltipBase tooltip) => OnGroupMenuClick(tooltip, 2));
+		m_groupMenuClickListeners[3].Setup(TooltipType.PlayerGroupMenu, (UITooltipBase tooltip) => OnGroupMenuClick(tooltip, 3));
+		m_changeFreelancerBtn.spriteController.pointerEnterCallback = HighlightCharacter;
+		m_changeFreelancerBtn.spriteController.pointerExitCallback = UnhighlightCharacter;
+		m_highlightFreelancerBtn.spriteController.pointerEnterCallback = HighlightCharacter;
+		m_highlightFreelancerBtn.spriteController.pointerExitCallback = UnhighlightCharacter;
+		UIEventTriggerUtils.AddListener(m_highlightFreelancerImage.gameObject, EventTriggerType.PointerEnter, HighlightCharacter);
+		UIEventTriggerUtils.AddListener(m_highlightFreelancerImage.gameObject, EventTriggerType.PointerExit, UnhighlightCharacter);
+		m_cannotReadyBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, delegate(UITooltipBase tooltip)
 		{
-			UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-			uititledTooltip.Setup(StringUtil.TR("CannotReady", "Global"), this.GetCannotReadyReason(), string.Empty);
+			UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+			uITitledTooltip.Setup(StringUtil.TR("CannotReady", "Global"), GetCannotReadyReason(), string.Empty);
 			return true;
-		}, null);
-		UIManager.SetGameObjectActive(this.m_cannotReadyBtn, false, null);
-		for (int i = 0; i < this.m_nameLabels.Length; i++)
+		});
+		UIManager.SetGameObjectActive(m_cannotReadyBtn, false);
+		for (int i = 0; i < m_nameLabels.Length; i++)
 		{
-			this.m_nameLabels[i].raycastTarget = false;
+			m_nameLabels[i].raycastTarget = false;
 		}
-		for (int j = 0; j < this.m_accountNameLabels.Length; j++)
+		for (int j = 0; j < m_accountNameLabels.Length; j++)
 		{
-			this.m_accountNameLabels[j].raycastTarget = false;
+			m_accountNameLabels[j].raycastTarget = false;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.Start()).MethodHandle;
-		}
-		for (int k = 0; k < this.m_timeElapsedLabels.Length; k++)
-		{
-			this.m_timeElapsedLabels[k].raycastTarget = false;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			for (int k = 0; k < m_timeElapsedLabels.Length; k++)
+			{
+				m_timeElapsedLabels[k].raycastTarget = false;
+			}
+			return;
 		}
 	}
 
 	public void SetupReadyButton()
 	{
-		if (this.CanReady())
+		if (!CanReady())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.SetupReadyButton()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool flag = true;
-			if (this.m_readyBtn.m_animationController.isActiveAndEnabled)
+			if (m_readyBtn.m_animationController.isActiveAndEnabled)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -164,10 +262,10 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				AnimatorClipInfo[] currentAnimatorClipInfo = this.m_readyBtn.m_animationController.GetCurrentAnimatorClipInfo(1);
+				AnimatorClipInfo[] currentAnimatorClipInfo = m_readyBtn.m_animationController.GetCurrentAnimatorClipInfo(1);
 				if (currentAnimatorClipInfo != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -178,7 +276,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					if (currentAnimatorClipInfo.Length > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -195,27 +293,28 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				if (flag)
 				{
-					this.m_readyBtn.m_animationController.Play("readyBtnOnIN", 1, 0f);
+					m_readyBtn.m_animationController.Play("readyBtnOnIN", 1, 0f);
 				}
 			}
-			this.m_readyBtn.spriteController.SetClickable(true);
-			UIManager.SetGameObjectActive(this.m_readyBtn, true, null);
+			m_readyBtn.spriteController.SetClickable(true);
+			UIManager.SetGameObjectActive(m_readyBtn, true);
+			return;
 		}
 	}
 
 	public void NotifyCharacterDoneLoading()
 	{
-		this.m_characterLoading = false;
-		this.UpdateReadyButton();
+		m_characterLoading = false;
+		UpdateReadyButton();
 	}
 
 	private bool OnGroupMenuClick(UITooltipBase tooltip, int indexClicked)
 	{
-		UIPlayerPanelGroupMenu uiplayerPanelGroupMenu = tooltip as UIPlayerPanelGroupMenu;
+		UIPlayerPanelGroupMenu uIPlayerPanelGroupMenu = tooltip as UIPlayerPanelGroupMenu;
 		List<UpdateGroupMemberData> members = ClientGameManager.Get().GroupInfo.Members;
 		if (GameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -224,9 +323,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.OnGroupMenuClick(UITooltipBase, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameManager.Get().GameStatus != GameStatus.Stopped)
 			{
@@ -235,7 +334,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				Team team = playerInfo.TeamId;
 				if (team == Team.Spectator)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -251,7 +350,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					int result;
 					if (ti.PlayerId == playerInfo.PlayerId)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -260,9 +359,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							}
 							break;
 						}
-						if (!true)
+						if (1 == 0)
 						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(UICharacterSelectScreenController.<OnGroupMenuClick>c__AnonStorey0.<>m__0(LobbyPlayerInfo)).MethodHandle;
+							/*OpCode not supported: LdMemberToken*/;
 						}
 						result = 0;
 					}
@@ -271,14 +370,14 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						result = 1;
 					}
 					return result;
-				}).ToList<LobbyPlayerInfo>();
+				}).ToList();
 				int num = 1;
 				int index = 0;
 				for (int i = 0; i < list.Count; i++)
 				{
 					if (list[i].AccountId == ClientGameManager.Get().GetPlayerAccountData().AccountId)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -289,7 +388,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						if (indexClicked == 0)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -312,13 +411,13 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						num++;
 					}
 				}
-				uiplayerPanelGroupMenu.Setup(list[index]);
+				uIPlayerPanelGroupMenu.Setup(list[index]);
 				return true;
 			}
 		}
 		if (members.Count > 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -329,17 +428,17 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			if (indexClicked < members.Count)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						uIPlayerPanelGroupMenu.Setup(members[indexClicked]);
+						return true;
 					}
-					break;
 				}
-				uiplayerPanelGroupMenu.Setup(members[indexClicked]);
-				return true;
 			}
 		}
 		return false;
@@ -348,67 +447,69 @@ public class UICharacterSelectScreenController : MonoBehaviour
 	public void HighlightCharacter(BaseEventData data)
 	{
 		UIActorModelData componentInChildren = UICharacterSelectWorldObjects.Get().m_ringAnimations[0].GetComponentInChildren<UIActorModelData>();
-		if (componentInChildren != null)
+		if (!(componentInChildren != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.HighlightCharacter(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			componentInChildren.SetMouseIsOver(true);
+			return;
 		}
 	}
 
 	public void UnhighlightCharacter(BaseEventData data)
 	{
 		UIActorModelData componentInChildren = UICharacterSelectWorldObjects.Get().m_ringAnimations[0].GetComponentInChildren<UIActorModelData>();
-		if (componentInChildren != null)
+		if (!(componentInChildren != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.UnhighlightCharacter(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			componentInChildren.SetMouseIsOver(false);
+			return;
 		}
 	}
 
 	public void NotifyGameIsLoading()
 	{
-		this.m_charSettingsPanel.SetVisible(false, UICharacterSelectCharacterSettingsPanel.TabPanel.None);
+		m_charSettingsPanel.SetVisible(false);
 		UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 		{
-			SideButtonsClickable = new bool?(false)
+			SideButtonsClickable = false
 		});
 	}
 
 	private bool CanReady()
 	{
-		string text;
-		return this.CanReady(out text, false);
+		string reason;
+		return CanReady(out reason, false);
 	}
 
 	private bool IsReady()
 	{
 		if (!(AppState_GroupCharacterSelect.Get() == AppState.GetCurrent()))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -417,9 +518,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.IsReady()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!(AppState_LandingPage.Get() == AppState.GetCurrent()))
 			{
@@ -429,86 +530,84 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		return AppState_GroupCharacterSelect.Get().IsReady();
 	}
 
-	private unsafe bool CanReady(out string reason, bool needsReason)
+	private bool CanReady(out string reason, bool needsReason)
 	{
 		reason = string.Empty;
 		if (AppState.GetCurrent() != AppState_CharacterSelect.Get() && AppState.GetCurrent() != AppState_GroupCharacterSelect.Get())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.CanReady(string*, bool)).MethodHandle;
-			}
-			if (needsReason)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (needsReason)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						reason = string.Empty;
+					}
+					return true;
 				}
-				reason = string.Empty;
 			}
-			return true;
 		}
-		if (this.IsReady())
+		if (IsReady())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (needsReason)
+				{
+					reason = StringUtil.TR("AlreadyReady", "Global");
+				}
+				return false;
 			}
-			if (needsReason)
-			{
-				reason = StringUtil.TR("AlreadyReady", "Global");
-			}
-			return false;
 		}
-		if (this.m_characterLoading)
+		if (m_characterLoading)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (needsReason)
-			{
-				for (;;)
+				if (needsReason)
 				{
-					switch (7)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
-					break;
+					reason = StringUtil.TR("LOADING", "Global");
 				}
-				reason = StringUtil.TR("LOADING", "Global");
+				return false;
 			}
-			return false;
 		}
 		CharacterResourceLink characterResourceLinkOfCharacterTypeToDisplay = UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay;
 		if (characterResourceLinkOfCharacterTypeToDisplay == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -519,37 +618,37 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			if (UIFrontEnd.Get().m_currentScreen != FrontEndScreenState.RankedModeSelect)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (needsReason)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+						if (needsReason)
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							reason = StringUtil.TR("SelectFreelancer", "Global");
+						}
+						return false;
 					}
-					reason = StringUtil.TR("SelectFreelancer", "Global");
 				}
-				return false;
 			}
 		}
 		GameManager gameManager = GameManager.Get();
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		GameType gameType;
+		GameType num;
 		if (gameManager != null && gameManager.GameConfig != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -560,28 +659,383 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			if (gameManager.GameStatus != GameStatus.Stopped)
 			{
-				gameType = gameManager.GameConfig.GameType;
-				goto IL_169;
+				num = gameManager.GameConfig.GameType;
+				goto IL_0169;
 			}
 		}
-		gameType = clientGameManager.GroupInfo.SelectedQueueType;
-		IL_169:
-		GameType gameType2 = gameType;
-		if (UIFrontEnd.Get().m_currentScreen != FrontEndScreenState.RankedModeSelect)
+		num = clientGameManager.GroupInfo.SelectedQueueType;
+		goto IL_0169;
+		IL_0482:
+		bool flag;
+		int num2;
+		GameType gameType;
+		if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 		{
-			for (;;)
+			while (true)
 			{
-				switch (7)
+				switch (3)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			bool flag;
-			if (gameManager != null)
+			if (gameManager.TeamPlayerInfo != null)
 			{
-				for (;;)
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				flag = false;
+				if (gameManager.GameConfig != null)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (gameManager.GameConfig.GameType == GameType.Custom)
+					{
+						if (!gameManager.GameConfig.GameOptionFlags.HasGameOption(GameOptionFlag.AllowDuplicateCharacters))
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (!gameManager.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.RankedFreelancerSelection))
+							{
+								num2 = (gameManager.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.OverrideFreelancerSelection) ? 1 : 0);
+								goto IL_0529;
+							}
+						}
+						num2 = 1;
+						goto IL_0529;
+					}
+				}
+				goto IL_052b;
+			}
+		}
+		else if (AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (UIFrontEnd.Get().m_currentScreen != FrontEndScreenState.RankedModeSelect)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				GameTypeAvailability value2;
+				if (clientGameManager.GroupInfo.InAGroup)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					long accountId = clientGameManager.GetPlayerAccountData().AccountId;
+					int num3 = 0;
+					if (!DoesASelectedGame_OverrideFreelancerSelection)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						foreach (UpdateGroupMemberData member in clientGameManager.GroupInfo.Members)
+						{
+							if (member.AccountID != accountId)
+							{
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (member.MemberDisplayCharacter == clientGameManager.GroupInfo.ChararacterInfo.CharacterType)
+								{
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									if (member.IsReady)
+									{
+										while (true)
+										{
+											switch (7)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										num3++;
+									}
+								}
+							}
+						}
+					}
+					if (num3 > 0)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!clientGameManager.GroupInfo.ChararacterInfo.CharacterType.IsWillFill())
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								if (needsReason)
+								{
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									reason = StringUtil.TR("GroupConflict", "Global");
+								}
+								return false;
+							}
+						}
+						if (clientGameManager.GameTypeAvailabilies.TryGetValue(clientGameManager.GroupInfo.SelectedQueueType, out GameTypeAvailability value))
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							int maxWillFillPerTeam = value.MaxWillFillPerTeam;
+							if (maxWillFillPerTeam < num3 + 1)
+							{
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										break;
+									default:
+										if (needsReason)
+										{
+											while (true)
+											{
+												switch (7)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											LocalizationArg_GameType localizationArg_GameType = LocalizationArg_GameType.Create(gameType);
+											LocalizationArg_Int32 localizationArg_Int = LocalizationArg_Int32.Create(maxWillFillPerTeam);
+											reason = LocalizationPayload.Create("GroupHasTooManyWillFill", "Matchmaking", localizationArg_GameType, localizationArg_Int).ToString();
+										}
+										return false;
+									}
+								}
+							}
+						}
+						else
+						{
+							Log.Warning("We have no GameTypeAvailability for {0}, why so?", clientGameManager.GroupInfo.SelectedQueueType);
+						}
+					}
+				}
+				else if (clientGameManager.GameTypeAvailabilies.TryGetValue(clientGameManager.GroupInfo.SelectedQueueType, out value2))
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (value2.MaxWillFillPerTeam == 0)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay.IsWillFill())
+						{
+							if (needsReason)
+							{
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								LocalizationArg_GameType localizationArg_GameType2 = LocalizationArg_GameType.Create(gameType);
+								reason = LocalizationPayload.Create("QueueDoesNotAllowWillFill", "Matchmaking", localizationArg_GameType2).ToString();
+							}
+							return false;
+						}
+					}
+				}
+				else
+				{
+					Log.Warning("We have no GameTypeAvailability for {0}, why?", clientGameManager.GroupInfo.SelectedQueueType);
+				}
+			}
+		}
+		goto IL_08d8;
+		IL_02b7:
+		if (!gameManager.IsCharacterAllowedForGameType(characterResourceLinkOfCharacterTypeToDisplay.m_characterType, gameType, null, null))
+		{
+			if (needsReason)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				LocalizationArg_Freelancer localizationArg_Freelancer = LocalizationArg_Freelancer.Create(characterResourceLinkOfCharacterTypeToDisplay.m_characterType);
+				LocalizationArg_GameType localizationArg_GameType3 = LocalizationArg_GameType.Create(gameType);
+				reason = LocalizationPayload.Create("GameTypeDoesNotAllowCharacterType", "Global", localizationArg_Freelancer, localizationArg_GameType3).ToString();
+			}
+			return false;
+		}
+		goto IL_0318;
+		IL_0529:
+		flag = ((byte)num2 != 0);
+		goto IL_052b;
+		IL_052b:
+		if (!flag)
+		{
+			using (List<LobbyPlayerInfo>.Enumerator enumerator2 = gameManager.TeamPlayerInfo.GetEnumerator())
+			{
+				while (enumerator2.MoveNext())
+				{
+					LobbyPlayerInfo current2 = enumerator2.Current;
+					if (current2.PlayerId != gameManager.PlayerInfo.PlayerId)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!current2.IsNPCBot)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (characterResourceLinkOfCharacterTypeToDisplay != null)
+							{
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (current2.CharacterType == characterResourceLinkOfCharacterTypeToDisplay.m_characterType && current2.ReadyState == ReadyState.Ready)
+								{
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											break;
+										default:
+											if (needsReason)
+											{
+												reason = StringUtil.TR("DuplicateFreelancer", "Global");
+											}
+											return false;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				while (true)
 				{
 					switch (4)
 					{
@@ -590,17 +1044,46 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				flag = (gameManager.GameStatus != GameStatus.Stopped);
+			}
+		}
+		goto IL_08d8;
+		IL_0169:
+		gameType = num;
+		bool flag3;
+		if (UIFrontEnd.Get().m_currentScreen != FrontEndScreenState.RankedModeSelect)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			int num4;
+			if (gameManager != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num4 = ((gameManager.GameStatus != GameStatus.Stopped) ? 1 : 0);
 			}
 			else
 			{
-				flag = false;
+				num4 = 0;
 			}
-			bool flag2 = flag;
-			bool flag3 = flag2 && gameManager.GameConfig.GameType == GameType.Custom;
+			bool flag2 = (byte)num4 != 0;
+			flag3 = (flag2 && gameManager.GameConfig.GameType == GameType.Custom);
 			if (!flag2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -611,9 +1094,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				if (!gameManager.IsValidForHumanPreGameSelection(characterResourceLinkOfCharacterTypeToDisplay.m_characterType))
 				{
-					goto IL_21B;
+					goto IL_021b;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -623,75 +1106,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					break;
 				}
 			}
-			if (!flag2)
+			if (flag2)
 			{
-				goto IL_2B7;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (gameManager.IsCharacterAllowedForPlayers(characterResourceLinkOfCharacterTypeToDisplay.m_characterType))
-			{
-				goto IL_2B7;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			IL_21B:
-			if (flag3)
-			{
-				if (gameManager.IsCharacterAllowedForGameType(characterResourceLinkOfCharacterTypeToDisplay.m_characterType, gameType2, null, null))
-				{
-					goto IL_2B7;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (flag3)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (needsReason)
-				{
-					LocalizationArg_Freelancer localizationArg_Freelancer = LocalizationArg_Freelancer.Create(characterResourceLinkOfCharacterTypeToDisplay.m_characterType);
-					LocalizationArg_GameType localizationArg_GameType = LocalizationArg_GameType.Create(gameType2);
-					reason = LocalizationPayload.Create("GameTypeDoesNotAllowCharacterType", "Global", new LocalizationArg[]
-					{
-						localizationArg_Freelancer,
-						localizationArg_GameType
-					}).ToString();
-				}
-				return false;
-			}
-			if (needsReason)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -700,37 +1117,77 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				reason = StringUtil.TR("FreelancerDenied", "Global");
-			}
-			return false;
-			IL_2B7:
-			if (!gameManager.IsCharacterAllowedForGameType(characterResourceLinkOfCharacterTypeToDisplay.m_characterType, gameType2, null, null))
-			{
-				if (needsReason)
+				if (!gameManager.IsCharacterAllowedForPlayers(characterResourceLinkOfCharacterTypeToDisplay.m_characterType))
 				{
-					for (;;)
+					while (true)
 					{
-						switch (7)
+						switch (5)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					LocalizationArg_Freelancer localizationArg_Freelancer2 = LocalizationArg_Freelancer.Create(characterResourceLinkOfCharacterTypeToDisplay.m_characterType);
-					LocalizationArg_GameType localizationArg_GameType2 = LocalizationArg_GameType.Create(gameType2);
-					reason = LocalizationPayload.Create("GameTypeDoesNotAllowCharacterType", "Global", new LocalizationArg[]
-					{
-						localizationArg_Freelancer2,
-						localizationArg_GameType2
-					}).ToString();
+					goto IL_021b;
 				}
-				return false;
+			}
+			goto IL_02b7;
+		}
+		goto IL_0318;
+		IL_021b:
+		if (flag3)
+		{
+			if (gameManager.IsCharacterAllowedForGameType(characterResourceLinkOfCharacterTypeToDisplay.m_characterType, gameType, null, null))
+			{
+				goto IL_02b7;
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
 			}
 		}
+		if (flag3)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					break;
+				default:
+					if (needsReason)
+					{
+						LocalizationArg_Freelancer localizationArg_Freelancer2 = LocalizationArg_Freelancer.Create(characterResourceLinkOfCharacterTypeToDisplay.m_characterType);
+						LocalizationArg_GameType localizationArg_GameType4 = LocalizationArg_GameType.Create(gameType);
+						reason = LocalizationPayload.Create("GameTypeDoesNotAllowCharacterType", "Global", localizationArg_Freelancer2, localizationArg_GameType4).ToString();
+					}
+					return false;
+				}
+			}
+		}
+		if (needsReason)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			reason = StringUtil.TR("FreelancerDenied", "Global");
+		}
+		return false;
+		IL_0318:
 		if (UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -741,7 +1198,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			if (UIFrontEnd.Get().m_currentScreen != FrontEndScreenState.RankedModeSelect)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -751,9 +1208,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					break;
 				}
 				CharacterType characterTypeToDisplay = UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay;
-				if (!clientGameManager.IsCharacterAvailable(characterTypeToDisplay, gameType2))
+				if (!clientGameManager.IsCharacterAvailable(characterTypeToDisplay, gameType))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -764,7 +1221,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					if (!characterTypeToDisplay.IsWillFill())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -775,7 +1232,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						if (!(gameManager != null))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -786,7 +1243,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							}
 							if (clientGameManager.GroupInfo != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -797,9 +1254,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 								}
 								if (clientGameManager.GroupInfo.SelectedQueueType == GameType.Practice)
 								{
-									goto IL_482;
+									goto IL_0482;
 								}
-								for (;;)
+								while (true)
 								{
 									switch (6)
 									{
@@ -813,7 +1270,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						bool flag4 = false;
 						if (gameManager.GameConfig != null && gameManager.GameStatus != GameStatus.Stopped && gameManager.GameConfig.GameType == GameType.Custom)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -822,10 +1279,10 @@ public class UICharacterSelectScreenController : MonoBehaviour
 								}
 								break;
 							}
-							bool flag5;
+							int num5;
 							if (!gameManager.GameConfig.GameOptionFlags.HasGameOption(GameOptionFlag.AllowDuplicateCharacters) && !gameManager.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AllowPlayingLockedCharacters))
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -834,19 +1291,19 @@ public class UICharacterSelectScreenController : MonoBehaviour
 									}
 									break;
 								}
-								flag5 = gameManager.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.OverrideFreelancerSelection);
+								num5 = (gameManager.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.OverrideFreelancerSelection) ? 1 : 0);
 							}
 							else
 							{
-								flag5 = true;
+								num5 = 1;
 							}
-							flag4 = flag5;
+							flag4 = ((byte)num5 != 0);
 						}
 						if (!flag4)
 						{
 							if (needsReason)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -863,377 +1320,11 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 			}
 		}
-		IL_482:
-		if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (gameManager.TeamPlayerInfo != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				bool flag6 = false;
-				if (gameManager.GameConfig != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (gameManager.GameConfig.GameType == GameType.Custom)
-					{
-						bool flag7;
-						if (!gameManager.GameConfig.GameOptionFlags.HasGameOption(GameOptionFlag.AllowDuplicateCharacters))
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!gameManager.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.RankedFreelancerSelection))
-							{
-								flag7 = gameManager.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.OverrideFreelancerSelection);
-								goto IL_529;
-							}
-						}
-						flag7 = true;
-						IL_529:
-						flag6 = flag7;
-					}
-				}
-				if (!flag6)
-				{
-					using (List<LobbyPlayerInfo>.Enumerator enumerator = gameManager.TeamPlayerInfo.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
-							if (lobbyPlayerInfo.PlayerId != gameManager.PlayerInfo.PlayerId)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!lobbyPlayerInfo.IsNPCBot)
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (characterResourceLinkOfCharacterTypeToDisplay != null)
-									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (lobbyPlayerInfo.CharacterType == characterResourceLinkOfCharacterTypeToDisplay.m_characterType && lobbyPlayerInfo.ReadyState == ReadyState.Ready)
-										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											if (needsReason)
-											{
-												reason = StringUtil.TR("DuplicateFreelancer", "Global");
-											}
-											return false;
-										}
-									}
-								}
-							}
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-				}
-			}
-		}
-		else if (AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (UIFrontEnd.Get().m_currentScreen != FrontEndScreenState.RankedModeSelect)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				GameTypeAvailability gameTypeAvailability2;
-				if (clientGameManager.GroupInfo.InAGroup)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					long accountId = clientGameManager.GetPlayerAccountData().AccountId;
-					int num = 0;
-					if (!this.DoesASelectedGame_OverrideFreelancerSelection)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						foreach (UpdateGroupMemberData updateGroupMemberData in clientGameManager.GroupInfo.Members)
-						{
-							if (updateGroupMemberData.AccountID != accountId)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (updateGroupMemberData.MemberDisplayCharacter == clientGameManager.GroupInfo.ChararacterInfo.CharacterType)
-								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (updateGroupMemberData.IsReady)
-									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										num++;
-									}
-								}
-							}
-						}
-					}
-					if (num > 0)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!clientGameManager.GroupInfo.ChararacterInfo.CharacterType.IsWillFill())
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (needsReason)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								reason = StringUtil.TR("GroupConflict", "Global");
-							}
-							return false;
-						}
-						GameTypeAvailability gameTypeAvailability;
-						if (clientGameManager.GameTypeAvailabilies.TryGetValue(clientGameManager.GroupInfo.SelectedQueueType, out gameTypeAvailability))
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							int maxWillFillPerTeam = gameTypeAvailability.MaxWillFillPerTeam;
-							if (maxWillFillPerTeam < num + 1)
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (needsReason)
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									LocalizationArg_GameType localizationArg_GameType3 = LocalizationArg_GameType.Create(gameType2);
-									LocalizationArg_Int32 localizationArg_Int = LocalizationArg_Int32.Create(maxWillFillPerTeam);
-									reason = LocalizationPayload.Create("GroupHasTooManyWillFill", "Matchmaking", new LocalizationArg[]
-									{
-										localizationArg_GameType3,
-										localizationArg_Int
-									}).ToString();
-								}
-								return false;
-							}
-						}
-						else
-						{
-							Log.Warning("We have no GameTypeAvailability for {0}, why so?", new object[]
-							{
-								clientGameManager.GroupInfo.SelectedQueueType
-							});
-						}
-					}
-				}
-				else if (clientGameManager.GameTypeAvailabilies.TryGetValue(clientGameManager.GroupInfo.SelectedQueueType, out gameTypeAvailability2))
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (gameTypeAvailability2.MaxWillFillPerTeam == 0)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay.IsWillFill())
-						{
-							if (needsReason)
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								LocalizationArg_GameType localizationArg_GameType4 = LocalizationArg_GameType.Create(gameType2);
-								reason = LocalizationPayload.Create("QueueDoesNotAllowWillFill", "Matchmaking", new LocalizationArg[]
-								{
-									localizationArg_GameType4
-								}).ToString();
-							}
-							return false;
-						}
-					}
-				}
-				else
-				{
-					Log.Warning("We have no GameTypeAvailability for {0}, why?", new object[]
-					{
-						clientGameManager.GroupInfo.SelectedQueueType
-					});
-				}
-			}
-		}
+		goto IL_0482;
+		IL_08d8:
 		if (needsReason)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1242,34 +1333,34 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			LocalizationPayload blockingQueueRestriction = clientGameManager.GetBlockingQueueRestriction(gameType2);
+			LocalizationPayload blockingQueueRestriction = clientGameManager.GetBlockingQueueRestriction(gameType);
 			if (blockingQueueRestriction != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						reason = blockingQueueRestriction.ToString();
+						return false;
 					}
-					break;
 				}
-				reason = blockingQueueRestriction.ToString();
-				return false;
 			}
 		}
-		else if (!clientGameManager.MeetsAllQueueRequirements(gameType2))
+		else if (!clientGameManager.MeetsAllQueueRequirements(gameType))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
 		reason = string.Empty;
 		return true;
@@ -1280,7 +1371,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.Cancel);
 		if (UIFrontEnd.Get().m_currentScreen != FrontEndScreenState.CharacterSelect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1289,27 +1380,15 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.CancelButtonClickCallback(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (UIFrontEnd.Get().m_currentScreen == FrontEndScreenState.RankedModeSelect)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
+			if (UIFrontEnd.Get().m_currentScreen != FrontEndScreenState.RankedModeSelect)
 			{
 				if (UIFrontEnd.Get().m_currentScreen != FrontEndScreenState.GroupCharacterSelect)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -1320,7 +1399,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					if (UIFrontEnd.Get().m_currentScreen != FrontEndScreenState.LandingPage)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -1335,68 +1414,76 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 					}
 				}
-				if (this.IsReady())
+				if (!IsReady())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIManager.SetGameObjectActive(this.m_readyBtn, true, null);
-					this.SearchQueueTextExit();
-					NavigationBar.Get().m_cancelBtn.m_animationController.Play("CancelBtnOUT", 0, 0f);
-					this.m_readyBtn.m_animationController.Play("readyBtnOnIN", 1, 0f);
-					this.m_readyBtn.spriteController.SetClickable(true);
-					NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(false);
-					this.SetReady(false, true);
 					return;
 				}
-				return;
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					UIManager.SetGameObjectActive(m_readyBtn, true);
+					SearchQueueTextExit();
+					NavigationBar.Get().m_cancelBtn.m_animationController.Play("CancelBtnOUT", 0, 0f);
+					m_readyBtn.m_animationController.Play("readyBtnOnIN", 1, 0f);
+					m_readyBtn.spriteController.SetClickable(true);
+					NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(false);
+					SetReady(false);
+					return;
+				}
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
 			}
 		}
-		if (this.IsReady())
+		if (IsReady())
 		{
-			UIManager.SetGameObjectActive(this.m_readyBtn, true, null);
-			this.SearchQueueTextExit();
+			UIManager.SetGameObjectActive(m_readyBtn, true);
+			SearchQueueTextExit();
 			NavigationBar.Get().m_cancelBtn.m_animationController.Play("CancelBtnOUT", 0, 0f);
-			this.m_readyBtn.m_animationController.Play("readyBtnOnIN", 1, 0f);
-			this.m_readyBtn.spriteController.SetClickable(true);
+			m_readyBtn.m_animationController.Play("readyBtnOnIN", 1, 0f);
+			m_readyBtn.spriteController.SetClickable(true);
 			NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(false);
-			this.SetReady(false, true);
+			SetReady(false);
 		}
 	}
 
 	public void NotifiedEnteredQueue()
 	{
-		this.m_needToRepickCharacter = false;
+		m_needToRepickCharacter = false;
 	}
 
 	public bool RepickingCharacter()
 	{
-		return this.m_needToRepickCharacter;
+		return m_needToRepickCharacter;
 	}
 
 	public void AllowCharacterSwapForConflict()
 	{
-		this.m_needToRepickCharacter = true;
-		this.SearchQueueTextExit();
+		m_needToRepickCharacter = true;
+		SearchQueueTextExit();
 		NavigationBar.Get().m_cancelBtn.m_animationController.Play("CancelBtnOUT", 0, 0f);
-		this.m_readyBtn.m_animationController.Play("readyBtnOnIN", 1, 0f);
-		this.m_readyBtn.spriteController.SetClickable(true);
-		UIManager.SetGameObjectActive(this.m_readyBtn, true, null);
+		m_readyBtn.m_animationController.Play("readyBtnOnIN", 1, 0f);
+		m_readyBtn.spriteController.SetClickable(true);
+		UIManager.SetGameObjectActive(m_readyBtn, true);
 		NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(false);
-		this.SetCharacterSelectVisible(true);
-		Log.Info("Setting self not ready because I need to re pick characters", new object[0]);
-		this.SetReady(false, true);
+		SetCharacterSelectVisible(true);
+		Log.Info("Setting self not ready because I need to re pick characters");
+		SetReady(false);
 	}
 
 	public void CancelButtonAnimDone()
 	{
-		UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, false, null);
+		UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, false);
 	}
 
 	private bool ReadyModeSupportsCancel()
@@ -1404,7 +1491,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (GameManager.Get().GameStatus.IsActiveStatus())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1413,13 +1500,13 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.ReadyModeSupportsCancel()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (clientGameManager.PlayerInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1436,7 +1523,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		}
 		if (!GameManager.Get().GameStatus.IsActiveStatus())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1447,7 +1534,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			if (clientGameManager.GroupInfo.SelectedQueueType != GameType.Solo)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1458,9 +1545,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				if (clientGameManager.GroupInfo.SelectedQueueType != GameType.Practice)
 				{
-					return true;
+					goto IL_00a9;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1472,6 +1559,8 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			return false;
 		}
+		goto IL_00a9;
+		IL_00a9:
 		return true;
 	}
 
@@ -1482,7 +1571,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		GameType gameType;
 		if (GameManager.Get().GameConfig != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1491,22 +1580,23 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.DoReadyClick(FrontEndButtonSounds)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameManager.Get().GameStatus != GameStatus.Stopped)
 			{
 				gameType = GameManager.Get().GameConfig.GameType;
 				num = GameManager.Get().GameConfig.InstanceSubTypeBit;
-				goto IL_81;
+				goto IL_0081;
 			}
 		}
 		gameType = clientGameManager.GroupInfo.SelectedQueueType;
-		IL_81:
+		goto IL_0081;
+		IL_0081:
 		if (!UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay.IsWillFill())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1522,10 +1612,23 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			{
 				while (enumerator.MoveNext())
 				{
-					KeyValuePair<ushort, GameSubType> keyValuePair = enumerator.Current;
-					if ((soloSubGameMask & keyValuePair.Key) != 0)
+					KeyValuePair<ushort, GameSubType> current = enumerator.Current;
+					if ((soloSubGameMask & current.Key) == 0)
 					{
-						for (;;)
+						continue;
+					}
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (current.Value.Mods == null)
+					{
+						while (true)
 						{
 							switch (4)
 							{
@@ -1534,56 +1637,26 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							}
 							break;
 						}
-						if (keyValuePair.Value.Mods != null)
+						continue;
+					}
+					if (!current.Value.Mods.Contains(GameSubType.SubTypeMods.OverrideFreelancerSelection))
+					{
+						while (true)
 						{
-							if (keyValuePair.Value.Mods.Contains(GameSubType.SubTypeMods.OverrideFreelancerSelection))
+							switch (2)
 							{
-								goto IL_14E;
-							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (keyValuePair.Value.Mods.Contains(GameSubType.SubTypeMods.RankedFreelancerSelection))
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									goto IL_14E;
-								}
-							}
-							IL_151:
-							if (keyValuePair.Value.Mods.Contains(GameSubType.SubTypeMods.StricterMods))
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								flag2 = true;
+							case 0:
 								continue;
 							}
-							continue;
-							IL_14E:
-							flag = false;
-							goto IL_151;
+							break;
 						}
-						for (;;)
+						if (!current.Value.Mods.Contains(GameSubType.SubTypeMods.RankedFreelancerSelection))
 						{
-							switch (4)
+							goto IL_0151;
+						}
+						while (true)
+						{
+							switch (7)
 							{
 							case 0:
 								continue;
@@ -1591,8 +1664,24 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							break;
 						}
 					}
+					flag = false;
+					goto IL_0151;
+					IL_0151:
+					if (current.Value.Mods.Contains(GameSubType.SubTypeMods.StricterMods))
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						flag2 = true;
+					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1604,7 +1693,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1616,7 +1705,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				bool flag3 = false;
 				if (UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay.ActorDataPrefab != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -1630,7 +1719,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				CharacterModInfo characterModInfo;
 				if (flag2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1647,7 +1736,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				if (flag3)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -1658,7 +1747,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					if (characterModInfo.ModForAbility0 < 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -1669,7 +1758,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						if (characterModInfo.ModForAbility1 < 0 && characterModInfo.ModForAbility2 < 0 && characterModInfo.ModForAbility3 < 0 && characterModInfo.ModForAbility4 < 0)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -1678,15 +1767,15 @@ public class UICharacterSelectScreenController : MonoBehaviour
 								}
 								break;
 							}
-							this.m_preReadyActions.Enqueue(delegate
+							m_preReadyActions.Enqueue(delegate
 							{
-								UIDialogPopupManager.OpenTwoButtonDialog(string.Empty, StringUtil.TR("NoModSelectedWarning", "Global"), StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), delegate(UIDialogBox UIDialogBox)
+								UIDialogPopupManager.OpenTwoButtonDialog(string.Empty, StringUtil.TR("NoModSelectedWarning", "Global"), StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), delegate
 								{
-									this.ReadyHelper(soundToPlay);
-								}, delegate(UIDialogBox UIDialogBox)
+									ReadyHelper(soundToPlay);
+								}, delegate
 								{
-									this.m_preReadyActions.Clear();
-								}, false, false);
+									m_preReadyActions.Clear();
+								});
 							});
 						}
 					}
@@ -1694,11 +1783,11 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 		}
 		Dictionary<ushort, GameSubType> gameTypeSubTypes = clientGameManager.GetGameTypeSubTypes(gameType);
-		if (!gameTypeSubTypes.IsNullOrEmpty<KeyValuePair<ushort, GameSubType>>())
+		if (!gameTypeSubTypes.IsNullOrEmpty())
 		{
 			if (num == 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1709,7 +1798,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				if (gameTypeSubTypes.Count > 1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -1718,16 +1807,12 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						break;
 					}
-					Log.Warning("FAKING Selection of SubType for {0} XP penalty warning", new object[]
-					{
-						gameType
-					});
+					Log.Warning("FAKING Selection of SubType for {0} XP penalty warning", gameType);
 				}
 			}
-			GameTypeAvailability gameTypeAvailability;
-			if (clientGameManager.GameTypeAvailabilies.TryGetValue(gameType, out gameTypeAvailability))
+			if (clientGameManager.GameTypeAvailabilies.TryGetValue(gameType, out GameTypeAvailability value))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1736,10 +1821,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				DateTime dateTime;
-				if (!gameTypeAvailability.XPPenaltyTimeout.IsNullOrEmpty<KeyValuePair<ushort, DateTime>>() && gameTypeAvailability.XPPenaltyTimeout.TryGetValue(num, out dateTime))
+				if (!value.XPPenaltyTimeout.IsNullOrEmpty() && value.XPPenaltyTimeout.TryGetValue(num, out DateTime value2))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -1748,9 +1832,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						break;
 					}
-					if (dateTime > clientGameManager.UtcNow())
+					if (value2 > clientGameManager.UtcNow())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -1759,49 +1843,49 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							}
 							break;
 						}
-						TimeSpan span = dateTime - clientGameManager.UtcNow();
+						TimeSpan span = value2 - clientGameManager.UtcNow();
 						string arg = LocalizationArg_TimeSpan.Create(span).TR();
 						string timeString = string.Format(StringUtil.TR("NoExperienceForThisGameTypeForHoursMinutes", "Global"), gameType.GetDisplayName(), arg);
-						this.m_preReadyActions.Enqueue(delegate
+						m_preReadyActions.Enqueue(delegate
 						{
-							UIDialogPopupManager.OpenTwoButtonDialog(string.Empty, timeString, StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), delegate(UIDialogBox UIDialogBox)
+							UIDialogPopupManager.OpenTwoButtonDialog(string.Empty, timeString, StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), delegate
 							{
-								this.ReadyHelper(soundToPlay);
-							}, delegate(UIDialogBox UIDialogBox)
+								ReadyHelper(soundToPlay);
+							}, delegate
 							{
-								this.m_preReadyActions.Clear();
-							}, false, false);
+								m_preReadyActions.Clear();
+							});
 						});
 					}
 				}
 			}
 		}
-		this.ReadyHelper(soundToPlay);
+		ReadyHelper(soundToPlay);
 	}
 
 	private void ReadyHelper(FrontEndButtonSounds soundToPlay)
 	{
-		if (this.m_preReadyActions.Count > 0)
+		if (m_preReadyActions.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_preReadyActions.Dequeue()();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.ReadyHelper(FrontEndButtonSounds)).MethodHandle;
-			}
-			this.m_preReadyActions.Dequeue()();
-			return;
 		}
 		if (UIFrontEnd.Get().m_currentScreen == FrontEndScreenState.CharacterSelect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1810,9 +1894,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (this.CanReady())
+			if (CanReady())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1821,10 +1905,10 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_readyBtn, true, null);
-				if (!this.m_needToRepickCharacter)
+				UIManager.SetGameObjectActive(m_readyBtn, true);
+				if (!m_needToRepickCharacter)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -1833,9 +1917,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						break;
 					}
-					if (this.ReadyModeSupportsCancel())
+					if (ReadyModeSupportsCancel())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -1844,16 +1928,16 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							}
 							break;
 						}
-						UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, true, null);
-						this.CheckCancelBtnLabels();
+						UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, true);
+						CheckCancelBtnLabels();
 					}
 				}
 				NavigationBar.Get().m_searchQueueText.text = string.Empty;
 				UIFrontEnd.PlaySound(soundToPlay);
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.FrontEndReady, null);
-				if (this.ReadyModeSupportsCancel())
+				if (ReadyModeSupportsCancel())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -1862,18 +1946,18 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						break;
 					}
-					this.SearchQueueTextExit();
+					SearchQueueTextExit();
 					NavigationBar.Get().m_cancelBtn.m_animationController.Play("CancelBtnIN", 0, 0f);
 				}
-				this.m_readyBtn.m_animationController.Play("readyBtnOffIN", 1, 0f);
-				this.m_readyBtn.spriteController.SetClickable(false);
+				m_readyBtn.m_animationController.Play("readyBtnOffIN", 1, 0f);
+				m_readyBtn.spriteController.SetClickable(false);
 				NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(true);
-				this.SetReady(true, true);
+				SetReady(true);
 			}
 		}
 		else if (UIFrontEnd.Get().m_currentScreen == FrontEndScreenState.GroupCharacterSelect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1884,7 +1968,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			if (AppState.GetCurrent() != AppState_CharacterSelect.Get())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -1895,9 +1979,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				UIMatchStartPanel.Get().NotifyDuplicateFreelancer(false);
 			}
-			if (this.CanReady())
+			if (CanReady())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1908,9 +1992,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				UIFrontEnd.PlaySound(soundToPlay);
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.FrontEndReady, null);
-				if (this.ReadyModeSupportsCancel())
+				if (ReadyModeSupportsCancel())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -1919,15 +2003,15 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						break;
 					}
-					this.SearchQueueTextExit();
+					SearchQueueTextExit();
 					NavigationBar.Get().m_cancelBtn.m_animationController.Play("CancelBtnIN", 0, 0f);
 				}
-				this.m_readyBtn.m_animationController.Play("readyBtnOffIN", 1, 0f);
-				UIManager.SetGameObjectActive(this.m_readyBtn, false, null);
-				this.m_readyBtn.spriteController.SetClickable(false);
-				if (!this.m_needToRepickCharacter)
+				m_readyBtn.m_animationController.Play("readyBtnOffIN", 1, 0f);
+				UIManager.SetGameObjectActive(m_readyBtn, false);
+				m_readyBtn.spriteController.SetClickable(false);
+				if (!m_needToRepickCharacter)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -1936,9 +2020,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						break;
 					}
-					if (this.ReadyModeSupportsCancel())
+					if (ReadyModeSupportsCancel())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -1947,18 +2031,18 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							}
 							break;
 						}
-						UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, true, null);
-						this.CheckCancelBtnLabels();
+						UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, true);
+						CheckCancelBtnLabels();
 					}
 				}
 				NavigationBar.Get().m_searchQueueText.text = string.Empty;
 				NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(true);
-				this.SetReady(true, true);
+				SetReady(true);
 			}
 		}
 		else if (UIFrontEnd.Get().m_currentScreen == FrontEndScreenState.RankedModeSelect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1967,9 +2051,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (this.CanReady())
+			if (CanReady())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1980,17 +2064,17 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				UIFrontEnd.PlaySound(soundToPlay);
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.FrontEndReady, null);
-				if (this.ReadyModeSupportsCancel())
+				if (ReadyModeSupportsCancel())
 				{
-					this.SearchQueueTextExit();
+					SearchQueueTextExit();
 					NavigationBar.Get().m_cancelBtn.m_animationController.Play("CancelBtnIN", 0, 0f);
 				}
-				this.m_readyBtn.m_animationController.Play("readyBtnOffIN", 1, 0f);
-				UIManager.SetGameObjectActive(this.m_readyBtn, false, null);
-				this.m_readyBtn.spriteController.SetClickable(false);
-				if (!this.m_needToRepickCharacter)
+				m_readyBtn.m_animationController.Play("readyBtnOffIN", 1, 0f);
+				UIManager.SetGameObjectActive(m_readyBtn, false);
+				m_readyBtn.spriteController.SetClickable(false);
+				if (!m_needToRepickCharacter)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1999,9 +2083,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						break;
 					}
-					if (this.ReadyModeSupportsCancel())
+					if (ReadyModeSupportsCancel())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -2010,46 +2094,45 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							}
 							break;
 						}
-						UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, true, null);
-						this.CheckCancelBtnLabels();
+						UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, true);
+						CheckCancelBtnLabels();
 					}
 				}
 				NavigationBar.Get().m_searchQueueText.text = string.Empty;
 				NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(true);
-				this.SetReady(true, true);
+				SetReady(true);
 			}
 		}
-		this.m_needToRepickCharacter = false;
+		m_needToRepickCharacter = false;
 		UINewUserFlowManager.OnDoneWithReadyButton();
 	}
 
 	public void ReadyButtonClickCallback(BaseEventData data)
 	{
-		this.DoReadyClick(FrontEndButtonSounds.StartGameReady);
+		DoReadyClick();
 	}
 
 	public void SetReady(bool ready, bool UpdateSideMenus = true)
 	{
-		if (this.m_characterLoading)
+		if (m_characterLoading)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.SetReady(bool, bool)).MethodHandle;
-			}
-			return;
 		}
 		if (UICharacterSelectWorldObjects.Get().CharacterIsLoading())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2058,7 +2141,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			this.m_characterLoading = true;
+			m_characterLoading = true;
 		}
 		else
 		{
@@ -2067,7 +2150,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		}
 		if (ready)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -2079,7 +2162,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			UICharacterSelectWorldObjects.Get().m_ringAnimations[0].PlayAnimation("ReadyIn");
 			if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -2092,7 +2175,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			else if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -2105,16 +2188,16 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 			{
-				CharacterSelectButtonsVisible = new bool?(false)
+				CharacterSelectButtonsVisible = false
 			});
-			this.m_charSettingsPanel.SetVisible(false, UICharacterSelectCharacterSettingsPanel.TabPanel.None);
+			m_charSettingsPanel.SetVisible(false);
 		}
 		else
 		{
 			UICharacterSelectWorldObjects.Get().m_ringAnimations[0].PlayAnimation("ReadyOut");
 			if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -2129,7 +2212,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			{
 				if (!(AppState_GroupCharacterSelect.Get() == AppState.GetCurrent()))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -2140,9 +2223,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					if (!(AppState_LandingPage.Get() == AppState.GetCurrent()))
 					{
-						goto IL_195;
+						goto IL_0195;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -2155,7 +2238,8 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				AppState_GroupCharacterSelect.Get().UpdateReadyState(false);
 			}
 		}
-		IL_195:
+		goto IL_0195;
+		IL_0195:
 		UICharacterScreen.Get().RefreshCharacterButtons();
 	}
 
@@ -2167,62 +2251,64 @@ public class UICharacterSelectScreenController : MonoBehaviour
 	{
 		UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 		{
-			CharacterSelectButtonsVisible = new bool?(visible)
+			CharacterSelectButtonsVisible = visible
 		});
 	}
 
 	public void ToggleCharacterSelect(BaseEventData data)
 	{
-		if (!UIFrontEnd.Get().IsDraggingModel() && Input.GetMouseButtonUp(0))
+		if (UIFrontEnd.Get().IsDraggingModel() || !Input.GetMouseButtonUp(0))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.ToggleCharacterSelect(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool? characterSelectButtonsVisible = UICharacterScreen.GetCurrentSpecificState().CharacterSelectButtonsVisible;
-			this.SetCharacterSelectVisible(!characterSelectButtonsVisible.Value);
+			SetCharacterSelectVisible(!characterSelectButtonsVisible.Value);
+			return;
 		}
 	}
 
 	public void QuickPlaySetup(LobbyGameInfo gameInfo)
 	{
-		if (!(ClientGameManager.Get() == null) && ClientGameManager.Get().GroupInfo != null)
+		if (ClientGameManager.Get() == null || ClientGameManager.Get().GroupInfo == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
+			{
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (2)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.QuickPlaySetup(LobbyGameInfo)).MethodHandle;
-			}
-			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
-			{
-				return;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
 		}
 	}
 
@@ -2230,9 +2316,10 @@ public class UICharacterSelectScreenController : MonoBehaviour
 	{
 		bool result = false;
 		ClientGameManager clientGameManager = ClientGameManager.Get();
+		GameType num;
 		if (selectedCharacter != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2241,13 +2328,13 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.IsCharacterSelectable(CharacterResourceLink)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (clientGameManager != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -2258,7 +2345,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				if (UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -2269,7 +2356,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					if (GameManager.Get() != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -2279,10 +2366,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							break;
 						}
 						GameManager gameManager = GameManager.Get();
-						GameType gameType;
 						if (gameManager != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -2293,7 +2379,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							}
 							if (gameManager.GameConfig != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -2304,27 +2390,31 @@ public class UICharacterSelectScreenController : MonoBehaviour
 								}
 								if (gameManager.GameStatus != GameStatus.Stopped)
 								{
-									gameType = gameManager.GameConfig.GameType;
-									goto IL_D8;
+									num = gameManager.GameConfig.GameType;
+									goto IL_00d8;
 								}
 							}
 						}
-						gameType = clientGameManager.GroupInfo.SelectedQueueType;
-						IL_D8:
-						GameType gameType2 = gameType;
-						result = clientGameManager.IsCharacterAvailable(selectedCharacter.m_characterType, gameType2);
+						num = clientGameManager.GroupInfo.SelectedQueueType;
+						goto IL_00d8;
 					}
 				}
 			}
 		}
+		goto IL_00e7;
+		IL_00e7:
 		return result;
+		IL_00d8:
+		GameType gameType = num;
+		result = clientGameManager.IsCharacterAvailable(selectedCharacter.m_characterType, gameType);
+		goto IL_00e7;
 	}
 
 	private void Update()
 	{
 		if (!(AppState_CharacterSelect.Get() == AppState.GetCurrent()))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -2333,13 +2423,13 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!(AppState_GroupCharacterSelect.Get() == AppState.GetCurrent()))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -2350,79 +2440,88 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				if (!(AppState_LandingPage.Get() == AppState.GetCurrent()))
 				{
-					goto IL_380;
+					goto IL_0380;
 				}
 			}
 		}
+		_SelectableBtn changeFreelancerBtn;
+		int doActive;
 		if (!UIGameSettingsPanel.Get().m_lastVisible)
 		{
-			for (int i = 0; i < this.m_nameLabels.Length; i++)
+			for (int i = 0; i < m_nameLabels.Length; i++)
 			{
-				if (i < UICharacterSelectWorldObjects.Get().m_ringAnimations.Length)
+				if (i >= UICharacterSelectWorldObjects.Get().m_ringAnimations.Length)
 				{
-					for (;;)
+					continue;
+				}
+				while (true)
+				{
+					switch (4)
 					{
-						switch (4)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!(UIManager.Get().GetEnvirontmentCamera() != null))
+				{
+					continue;
+				}
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (UICharacterSelectWorldObjects.Get().m_ringAnimations[i].m_nameObject.activeInHierarchy)
+				{
+					while (true)
+					{
+						switch (5)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (UIManager.Get().GetEnvirontmentCamera() != null)
+					UIManager.SetGameObjectActive(m_accountNameLabels[i], true);
+					UIManager.SetGameObjectActive(m_nameLabels[i], true);
+					if (!m_timeElapsedLabels.IsNullOrEmpty())
 					{
-						for (;;)
+						while (true)
 						{
-							switch (3)
+							switch (5)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						if (UICharacterSelectWorldObjects.Get().m_ringAnimations[i].m_nameObject.activeInHierarchy)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							UIManager.SetGameObjectActive(this.m_accountNameLabels[i], true, null);
-							UIManager.SetGameObjectActive(this.m_nameLabels[i], true, null);
-							if (!this.m_timeElapsedLabels.IsNullOrEmpty<TextMeshProUGUI>())
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								UIManager.SetGameObjectActive(this.m_timeElapsedLabels[i], AppState.GetCurrent() == AppState_GroupCharacterSelect.Get(), null);
-							}
-							Vector3 vector = UIManager.Get().GetEnvirontmentCamera().WorldToViewportPoint(UICharacterSelectWorldObjects.Get().m_ringAnimations[i].m_nameObject.transform.position);
-							Vector2 anchoredPosition = new Vector2(vector.x * (this.m_nameLabelCanvas.gameObject.transform as RectTransform).sizeDelta.x, vector.y * (this.m_nameLabelCanvas.gameObject.transform as RectTransform).sizeDelta.y);
-							(this.m_nameLabels[i].transform as RectTransform).anchoredPosition = anchoredPosition;
-						}
-						else
-						{
-							UIManager.SetGameObjectActive(this.m_nameLabels[i], false, null);
-							UIManager.SetGameObjectActive(this.m_timeElapsedLabels[i], false, null);
-						}
+						UIManager.SetGameObjectActive(m_timeElapsedLabels[i], AppState.GetCurrent() == AppState_GroupCharacterSelect.Get());
 					}
+					Vector3 vector = UIManager.Get().GetEnvirontmentCamera().WorldToViewportPoint(UICharacterSelectWorldObjects.Get().m_ringAnimations[i].m_nameObject.transform.position);
+					float x = vector.x;
+					Vector2 sizeDelta = (m_nameLabelCanvas.gameObject.transform as RectTransform).sizeDelta;
+					float x2 = x * sizeDelta.x;
+					float y = vector.y;
+					Vector2 sizeDelta2 = (m_nameLabelCanvas.gameObject.transform as RectTransform).sizeDelta;
+					Vector2 anchoredPosition = new Vector2(x2, y * sizeDelta2.y);
+					(m_nameLabels[i].transform as RectTransform).anchoredPosition = anchoredPosition;
+				}
+				else
+				{
+					UIManager.SetGameObjectActive(m_nameLabels[i], false);
+					UIManager.SetGameObjectActive(m_timeElapsedLabels[i], false);
 				}
 			}
 			GameManager gameManager = GameManager.Get();
 			bool flag = false;
 			if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -2431,9 +2530,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				if (this.m_requireGroupUpdate)
+				if (m_requireGroupUpdate)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -2444,7 +2543,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					if (!UIMatchStartPanel.Get().IsVisible())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -2455,7 +2554,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						if (!GameManager.Get().IsGameLoading())
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -2464,23 +2563,23 @@ public class UICharacterSelectScreenController : MonoBehaviour
 								}
 								break;
 							}
-							this.m_requireGroupUpdate = false;
-							this.UpdateGroupMemberCharacters(gameManager.PlayerInfo);
+							m_requireGroupUpdate = false;
+							UpdateGroupMemberCharacters(gameManager.PlayerInfo);
 						}
 					}
 				}
 				flag = AppState_GroupCharacterSelect.Get().IsReady();
 				UIPlayCategoryMenu.Get().SetMenuButtonsClickable(!flag && !UIMatchStartPanel.IsMatchCountdownStarting());
-				UIManager.SetGameObjectActive(this.m_changeFreelancerBtn, !flag, null);
+				UIManager.SetGameObjectActive(m_changeFreelancerBtn, !flag);
 			}
 			else if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
 			{
 				flag = AppState_CharacterSelect.IsReady();
-				UIPlayCategoryMenu uiplayCategoryMenu = UIPlayCategoryMenu.Get();
-				bool menuButtonsClickable;
+				UIPlayCategoryMenu uIPlayCategoryMenu = UIPlayCategoryMenu.Get();
+				int menuButtonsClickable;
 				if (flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -2489,19 +2588,18 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						break;
 					}
-					menuButtonsClickable = !UIMatchStartPanel.IsMatchCountdownStarting();
+					menuButtonsClickable = ((!UIMatchStartPanel.IsMatchCountdownStarting()) ? 1 : 0);
 				}
 				else
 				{
-					menuButtonsClickable = false;
+					menuButtonsClickable = 0;
 				}
-				uiplayCategoryMenu.SetMenuButtonsClickable(menuButtonsClickable);
+				uIPlayCategoryMenu.SetMenuButtonsClickable((byte)menuButtonsClickable != 0);
 			}
-			Component changeFreelancerBtn = this.m_changeFreelancerBtn;
-			bool doActive;
+			changeFreelancerBtn = m_changeFreelancerBtn;
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -2512,7 +2610,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				if (!UIStorePanel.Get().IsVisible())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -2521,52 +2619,19 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						break;
 					}
-					doActive = !UIPlayerProgressPanel.Get().IsVisible();
-					goto IL_36F;
+					doActive = ((!UIPlayerProgressPanel.Get().IsVisible()) ? 1 : 0);
+					goto IL_036f;
 				}
 			}
-			doActive = false;
-			IL_36F:
-			UIManager.SetGameObjectActive(changeFreelancerBtn, doActive, null);
-			this.UpdateTimeElapsedLabels();
-			goto IL_409;
+			doActive = 0;
+			goto IL_036f;
 		}
-		IL_380:
-		for (int j = 0; j < this.m_nameLabels.Length; j++)
-		{
-			UIManager.SetGameObjectActive(this.m_nameLabels[j], false, null);
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		for (int k = 0; k < this.m_accountNameLabels.Length; k++)
-		{
-			UIManager.SetGameObjectActive(this.m_accountNameLabels[k], false, null);
-		}
-		for (int l = 0; l < this.m_timeElapsedLabels.Length; l++)
-		{
-			UIManager.SetGameObjectActive(this.m_timeElapsedLabels[l], false, null);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		IL_409:
-		this.UpdateReadyCancelButtonStates();
+		goto IL_0380;
+		IL_0409:
+		UpdateReadyCancelButtonStates();
 		if (AppState_RankModeDraft.Get() == AppState.GetCurrent())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -2575,33 +2640,33 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			this.SetVisible(false, false);
+			SetVisible(false);
 		}
-		if (GameManager.Get() != null)
+		if (!(GameManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
+			case 0:
+				continue;
+			}
+			if (GameManager.Get().GameplayOverrides.DisableControlPadInput)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!GameManager.Get().GameplayOverrides.DisableControlPadInput)
-			{
-				for (;;)
+				if (m_readyBtn.spriteController.IsClickable())
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_readyBtn.spriteController.IsClickable())
-				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -2612,7 +2677,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					if (Input.GetButtonDown("GamepadButtonY"))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -2621,36 +2686,73 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							}
 							break;
 						}
-						this.DoReadyClick(FrontEndButtonSounds.StartGameReady);
+						DoReadyClick();
 					}
 				}
-				if (NavigationBar.Get().m_cancelBtn.spriteController.IsClickable())
+				if (!NavigationBar.Get().m_cancelBtn.spriteController.IsClickable())
 				{
-					for (;;)
+					return;
+				}
+				while (true)
+				{
+					switch (5)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
 					if (Input.GetButtonDown("GamepadButtonB"))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
 							case 0:
 								continue;
 							}
-							break;
+							CancelButtonClickCallback(null);
+							return;
 						}
-						this.CancelButtonClickCallback(null);
 					}
+					return;
 				}
 			}
 		}
+		IL_0380:
+		for (int j = 0; j < m_nameLabels.Length; j++)
+		{
+			UIManager.SetGameObjectActive(m_nameLabels[j], false);
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			break;
+		}
+		for (int k = 0; k < m_accountNameLabels.Length; k++)
+		{
+			UIManager.SetGameObjectActive(m_accountNameLabels[k], false);
+		}
+		for (int l = 0; l < m_timeElapsedLabels.Length; l++)
+		{
+			UIManager.SetGameObjectActive(m_timeElapsedLabels[l], false);
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			break;
+		}
+		goto IL_0409;
+		IL_036f:
+		UIManager.SetGameObjectActive(changeFreelancerBtn, (byte)doActive != 0);
+		UpdateTimeElapsedLabels();
+		goto IL_0409;
 	}
 
 	private void UpdateGroupMemberCharacters(LobbyPlayerInfo playerInfo)
@@ -2660,7 +2762,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		int i = 0;
 		if (!groupInfo.InAGroup)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -2669,9 +2771,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.UpdateGroupMemberCharacters(LobbyPlayerInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			bool isReady = false;
 			if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent())
@@ -2680,7 +2782,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -2693,12 +2795,12 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			UICharacterScreen.CharacterSelectSceneStateParameters currentSpecificState = UICharacterScreen.GetCurrentSpecificState();
 			groupInfo.ChararacterInfo.CharacterSkin = currentSpecificState.CharacterVisualInfoToDisplay;
-			this.SetClientCharacter(0, groupInfo.MemberDisplayName, currentSpecificState.CharacterResourceLinkOfCharacterTypeToDisplay, groupInfo.ChararacterInfo, isReady, false, -1L);
+			SetClientCharacter(0, groupInfo.MemberDisplayName, currentSpecificState.CharacterResourceLinkOfCharacterTypeToDisplay, groupInfo.ChararacterInfo, isReady, false, -1L);
 			i++;
 		}
 		else if (playerInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -2710,11 +2812,11 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			if (playerInfo.TeamId == Team.Spectator)
 			{
 				bool isReady2 = true;
-				this.SetClientCharacter(-1, playerInfo.GetHandle(), null, null, isReady2, false, -1L);
+				SetClientCharacter(-1, playerInfo.GetHandle(), null, null, isReady2, false, -1L);
 			}
 		}
 		int num2 = 1;
-		for (int j = 0; j < groupInfo.Members.Count; j++)
+		for (int j = 0; j < groupInfo.Members.Count; i++, j++)
 		{
 			bool flag = groupInfo.Members[j].AccountID == ClientGameManager.Get().GetPlayerAccountData().AccountId;
 			bool isBot = false;
@@ -2726,7 +2828,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			{
 				if (groupInfo.ChararacterInfo.CharacterType.IsWillFill())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -2736,9 +2838,13 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						break;
 					}
 				}
-				else if (!ClientGameManager.Get().IsWaitingForSkinResponse())
+				else
 				{
-					for (;;)
+					if (ClientGameManager.Get().IsWaitingForSkinResponse())
+					{
+						continue;
+					}
+					while (true)
 					{
 						switch (3)
 						{
@@ -2749,7 +2855,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					if (groupInfo.ChararacterInfo.CharacterType == characterResourceLink.m_characterType)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -2760,9 +2866,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						if (UICharacterSelectWorldObjects.Get().CharacterTypeInSlot(0) == characterResourceLink.m_characterType)
 						{
-							goto IL_253;
+							continue;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -2772,26 +2878,24 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							break;
 						}
 					}
-					this.SetClientCharacter(0, groupInfo.Members[j].MemberDisplayName, characterResourceLink, groupInfo.ChararacterInfo, isReady3, isInGame, createGameTimestamp);
+					SetClientCharacter(0, groupInfo.Members[j].MemberDisplayName, characterResourceLink, groupInfo.ChararacterInfo, isReady3, isInGame, createGameTimestamp);
 				}
-				IL_253:;
 			}
 			else
 			{
-				this.SetCharacter(num2, groupInfo.Members[j].MemberDisplayName, characterResourceLink, groupInfo.Members[j].VisualInfo, isBot, isReady3, isInGame, createGameTimestamp);
+				SetCharacter(num2, groupInfo.Members[j].MemberDisplayName, characterResourceLink, groupInfo.Members[j].VisualInfo, isBot, isReady3, isInGame, createGameTimestamp);
 				num2++;
 			}
-			i++;
 		}
 		UICharacterSelectWorldObjects.Get().SetReadyPose();
 		UICharacterSelectWorldObjects.Get().SetSkins();
 		UICharacterSelectWorldObjects.Get().SetIsInGameRings();
-		while (i < num)
+		for (; i < num; i++)
 		{
 			int num3 = 4;
 			if (i < num3)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -2807,27 +2911,26 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				UICharacterSelectWorldObjects.Get().m_ringAnimations[i].gameObject.SetActive(false);
 			}
 			UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(null, i, string.Empty, default(CharacterVisualInfo), false, false);
-			this.SetCharacterLabel(i, string.Empty, string.Empty, -1L);
-			i++;
+			SetCharacterLabel(i, string.Empty, string.Empty, -1L);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			UpdateReadyCancelButtonStates();
+			return;
 		}
-		this.UpdateReadyCancelButtonStates();
 	}
 
 	public string GetCannotReadyReason()
 	{
-		this.CanReady(out this.m_cannotReadyReasonString, true);
-		if (this.m_cannotReadyReasonString == StringUtil.TR("GroupConflict", "Global"))
+		CanReady(out m_cannotReadyReasonString, true);
+		if (m_cannotReadyReasonString == StringUtil.TR("GroupConflict", "Global"))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -2836,118 +2939,13 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.GetCannotReadyReason()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_cannotReadyReasonString = StringUtil.TR("FreelancerAlreadyChosen", "Global");
+			m_cannotReadyReasonString = StringUtil.TR("FreelancerAlreadyChosen", "Global");
 		}
-		return this.m_cannotReadyReasonString;
-	}
-
-	public bool DoesASelectedGame_OverrideFreelancerSelection
-	{
-		get
-		{
-			bool flag = true;
-			LobbyPlayerGroupInfo groupInfo = ClientGameManager.Get().GroupInfo;
-			if (groupInfo.InAGroup)
-			{
-				Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(groupInfo.SelectedQueueType);
-				using (Dictionary<ushort, GameSubType>.Enumerator enumerator = gameTypeSubTypes.GetEnumerator())
-				{
-					while (enumerator.MoveNext())
-					{
-						KeyValuePair<ushort, GameSubType> keyValuePair = enumerator.Current;
-						if ((keyValuePair.Key & groupInfo.SubTypeMask) != 0)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.get_DoesASelectedGame_OverrideFreelancerSelection()).MethodHandle;
-							}
-							if (keyValuePair.Value.HasMod(GameSubType.SubTypeMods.OverrideFreelancerSelection))
-							{
-								goto IL_D2;
-							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (keyValuePair.Value.DuplicationRule == FreelancerDuplicationRuleTypes.allow)
-							{
-								goto IL_D2;
-							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (keyValuePair.Value.DuplicationRule == FreelancerDuplicationRuleTypes.alwaysDupAcrossGame)
-							{
-								goto IL_D2;
-							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							bool flag2 = keyValuePair.Value.DuplicationRule == FreelancerDuplicationRuleTypes.alwaysDupAcrossTeam;
-							IL_D3:
-							flag = flag2;
-							if (!flag)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								return flag;
-							}
-							continue;
-							IL_D2:
-							flag2 = true;
-							goto IL_D3;
-						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-			}
-			return flag;
-		}
+		return m_cannotReadyReasonString;
 	}
 
 	public void UpdateReadyCancelButtonStates()
@@ -2957,13 +2955,13 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			return;
 		}
 		LobbyPlayerGroupInfo groupInfo = ClientGameManager.Get().GroupInfo;
-		bool flag = this.CanReady();
+		bool flag = CanReady();
 		bool flag2 = true;
 		bool flag3 = false;
-		bool flag4;
+		int num;
 		if (UIMatchStartPanel.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -2972,16 +2970,16 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.UpdateReadyCancelButtonStates()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!UIMatchStartPanel.Get().IsVisible())
 			{
-				flag4 = true;
-				goto IL_80;
+				num = 1;
+				goto IL_0080;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -2991,14 +2989,94 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				break;
 			}
 		}
-		flag4 = (GameManager.Get().GameInfo != null);
-		IL_80:
-		bool flag5 = flag4;
+		num = ((GameManager.Get().GameInfo != null) ? 1 : 0);
+		goto IL_0080;
+		IL_0622:
+		int num2;
+		bool doActive = (byte)num2 != 0;
+		UIManager.SetGameObjectActive(m_cannotReadyBtn, doActive);
+		bool flag4;
+		if (NavigationBar.Get() != null)
+		{
+			if (!NavigationBar.Get().m_cancelBtn.gameObject.activeSelf && flag2)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, true);
+				CheckCancelBtnLabels();
+				NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(true);
+				SearchQueueTextExit();
+				if (NavigationBar.Get().m_cancelBtn.m_animationController.isActiveAndEnabled)
+				{
+					NavigationBar.Get().m_cancelBtn.m_animationController.Play("CancelBtnIN", 0, 0f);
+				}
+			}
+			if (!flag4)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!NavigationBar.Get().m_cancelBtn.gameObject.activeSelf)
+				{
+					goto IL_0788;
+				}
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			if (!flag2)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, false);
+				NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(false);
+				SearchQueueTextExit();
+				if (NavigationBar.Get().m_cancelBtn.m_animationController.isActiveAndEnabled)
+				{
+					NavigationBar.Get().m_cancelBtn.m_animationController.Play("CancelBtnOUT", 0, 0f);
+				}
+			}
+		}
+		goto IL_0788;
+		IL_0788:
+		if (UIRankedModeSelectScreen.Get() != null)
+		{
+			UIRankedModeSelectScreen.Get().UpdateReadyButton(flag);
+		}
+		return;
+		IL_0080:
+		bool flag5 = (byte)num != 0;
 		CharacterType item = CharacterType.None;
 		List<CharacterType> list = new List<CharacterType>();
 		if (groupInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -3009,7 +3087,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			if (groupInfo.Members.Count > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -3020,7 +3098,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				if (!flag5)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -3033,7 +3111,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					{
 						if (groupInfo.Members[i].AccountID != ClientGameManager.Get().GetPlayerAccountData().AccountId)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -3042,38 +3120,22 @@ public class UICharacterSelectScreenController : MonoBehaviour
 								}
 								break;
 							}
-							if (groupInfo.Members[i].IsReady)
+							if (!groupInfo.Members[i].IsReady)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!groupInfo.Members[i].MemberDisplayCharacter.IsWillFill() && !this.DoesASelectedGame_OverrideFreelancerSelection)
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									list.Add(groupInfo.Members[i].MemberDisplayCharacter);
-								}
+								continue;
 							}
-						}
-						else
-						{
-							item = groupInfo.Members[i].MemberDisplayCharacter;
-							if (groupInfo.Members[i].IsReady)
+							while (true)
 							{
-								for (;;)
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (!groupInfo.Members[i].MemberDisplayCharacter.IsWillFill() && !DoesASelectedGame_OverrideFreelancerSelection)
+							{
+								while (true)
 								{
 									switch (4)
 									{
@@ -3082,29 +3144,43 @@ public class UICharacterSelectScreenController : MonoBehaviour
 									}
 									break;
 								}
-								if (!this.m_needToRepickCharacter)
-								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									flag = false;
-									flag3 = true;
-									goto IL_1C4;
-								}
+								list.Add(groupInfo.Members[i].MemberDisplayCharacter);
 							}
-							flag2 = false;
+							continue;
 						}
-						IL_1C4:;
+						item = groupInfo.Members[i].MemberDisplayCharacter;
+						if (groupInfo.Members[i].IsReady)
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (!m_needToRepickCharacter)
+							{
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								flag = false;
+								flag3 = true;
+								continue;
+							}
+						}
+						flag2 = false;
 					}
 					if (list.Contains(item))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -3115,7 +3191,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						if (groupInfo.SelectedQueueType != GameType.Ranked)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -3124,11 +3200,11 @@ public class UICharacterSelectScreenController : MonoBehaviour
 								}
 								break;
 							}
-							this.m_cannotReadyReasonString = StringUtil.TR("AnotherPlayerSelectedFreelancer", "Global");
+							m_cannotReadyReasonString = StringUtil.TR("AnotherPlayerSelectedFreelancer", "Global");
 							flag = false;
 						}
 					}
-					goto IL_3A0;
+					goto IL_03a0;
 				}
 			}
 		}
@@ -3136,7 +3212,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		{
 			if (AppState_CharacterSelect.IsReady())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -3155,7 +3231,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		}
 		else if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -3166,7 +3242,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			if (AppState_GroupCharacterSelect.Get().IsReady())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -3182,9 +3258,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			{
 				flag2 = false;
 			}
-			if (!this.ReadyModeSupportsCancel())
+			if (!ReadyModeSupportsCancel())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -3198,7 +3274,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		}
 		else if (AppState_LandingPage.Get() == AppState.GetCurrent())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -3208,10 +3284,10 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				break;
 			}
 			flag = false;
-			bool flag6;
+			int num3;
 			if (GameManager.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -3220,19 +3296,19 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				flag6 = (GameManager.Get().QueueInfo != null);
+				num3 = ((GameManager.Get().QueueInfo != null) ? 1 : 0);
 			}
 			else
 			{
-				flag6 = false;
+				num3 = 0;
 			}
-			flag2 = flag6;
+			flag2 = ((byte)num3 != 0);
 		}
 		else
 		{
 			if (!(AppState_CreateGame.Get() == AppState.GetCurrent()))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -3243,7 +3319,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				if (!(AppState_JoinGame.Get() == AppState.GetCurrent()))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -3254,7 +3330,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					if (!(AppState_FrontendLoadingScreen.Get() == AppState.GetCurrent()))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -3265,7 +3341,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						}
 						if (!(AppState_GameLoading.Get() == AppState.GetCurrent()))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -3276,7 +3352,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							}
 							if (!UIMatchStartPanel.Get().IsVisible())
 							{
-								goto IL_3A0;
+								goto IL_03a0;
 							}
 						}
 					}
@@ -3285,10 +3361,11 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			flag = false;
 			flag2 = false;
 		}
-		IL_3A0:
+		goto IL_03a0;
+		IL_03a0:
 		if (UIMatchStartPanel.Get() != null && UIMatchStartPanel.Get().IsVisible())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -3299,7 +3376,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			if (!UIMatchStartPanel.Get().IsDuplicateFreelancerResolving())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -3312,14 +3389,14 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				flag = false;
 			}
 		}
-		if (!this.ReadyModeSupportsCancel())
+		if (!ReadyModeSupportsCancel())
 		{
 			flag2 = false;
 		}
-		bool flag7 = false;
+		flag4 = false;
 		if (UIGameSettingsPanel.Get() != null && UIGameSettingsPanel.Get().m_lastVisible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -3330,11 +3407,11 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			flag = false;
 			flag2 = false;
-			flag7 = true;
+			flag4 = true;
 		}
-		if (flag7)
+		if (flag4)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -3343,15 +3420,15 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_buyButtonsContainer, false, null);
+			UIManager.SetGameObjectActive(m_buyButtonsContainer, false);
 		}
 		else
 		{
-			this.UpdateBuyButtons();
+			UpdateBuyButtons();
 		}
-		if (!this.m_readyBtn.gameObject.activeSelf)
+		if (!m_readyBtn.gameObject.activeSelf)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -3362,7 +3439,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -3371,16 +3448,16 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_readyBtn, true, null);
-				this.m_readyBtn.spriteController.SetClickable(true);
-				this.m_readyBtn.m_animationController.Play("readyBtnOnIN", 1, 0f);
+				UIManager.SetGameObjectActive(m_readyBtn, true);
+				m_readyBtn.spriteController.SetClickable(true);
+				m_readyBtn.m_animationController.Play("readyBtnOnIN", 1, 0f);
 				UICharacterSelectWorldObjects.Get().SetCharacterReady(0, false);
 				UICharacterSelectWorldObjects.Get().SetReadyPose();
 			}
 		}
-		if (!flag7)
+		if (!flag4)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -3389,11 +3466,11 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!this.m_readyBtn.gameObject.activeSelf)
+			if (!m_readyBtn.gameObject.activeSelf)
 			{
-				goto IL_600;
+				goto IL_0600;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -3405,11 +3482,11 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		}
 		if (!flag)
 		{
-			UIManager.SetGameObjectActive(this.m_readyBtn, false, null);
-			this.m_readyBtn.spriteController.SetClickable(false);
-			if (this.m_readyBtn.m_animationController.isActiveAndEnabled)
+			UIManager.SetGameObjectActive(m_readyBtn, false);
+			m_readyBtn.spriteController.SetClickable(false);
+			if (m_readyBtn.m_animationController.isActiveAndEnabled)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -3418,11 +3495,11 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				this.m_readyBtn.m_animationController.Play("readyBtnOffIN", 1, 0f);
+				m_readyBtn.m_animationController.Play("readyBtnOffIN", 1, 0f);
 			}
 			if (groupInfo != null && groupInfo.Members.Count > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -3438,12 +3515,11 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				else
 				{
 					UpdateGroupMemberData updateGroupMemberData = groupInfo.Members.Find((UpdateGroupMemberData x) => x.AccountID == ClientGameManager.Get().GetPlayerAccountData().AccountId);
-					UICharacterWorldObjects uicharacterWorldObjects = UICharacterSelectWorldObjects.Get();
-					int index = 0;
+					UICharacterSelectWorldObjects uICharacterSelectWorldObjects = UICharacterSelectWorldObjects.Get();
 					bool isReady;
 					if (updateGroupMemberData != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -3458,7 +3534,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					{
 						isReady = flag3;
 					}
-					uicharacterWorldObjects.SetCharacterReady(index, isReady);
+					uICharacterSelectWorldObjects.SetCharacterReady(0, isReady);
 				}
 			}
 			else
@@ -3467,11 +3543,11 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			UICharacterSelectWorldObjects.Get().SetReadyPose();
 		}
-		IL_600:
-		bool flag8;
+		goto IL_0600;
+		IL_0600:
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -3482,7 +3558,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			if (!flag3)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -3491,106 +3567,32 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				flag8 = !flag7;
-				goto IL_622;
+				num2 = ((!flag4) ? 1 : 0);
+				goto IL_0622;
 			}
 		}
-		flag8 = false;
-		IL_622:
-		bool doActive = flag8;
-		UIManager.SetGameObjectActive(this.m_cannotReadyBtn, doActive, null);
-		if (NavigationBar.Get() != null)
-		{
-			if (!NavigationBar.Get().m_cancelBtn.gameObject.activeSelf && flag2)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, true, null);
-				this.CheckCancelBtnLabels();
-				NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(true);
-				this.SearchQueueTextExit();
-				if (NavigationBar.Get().m_cancelBtn.m_animationController.isActiveAndEnabled)
-				{
-					NavigationBar.Get().m_cancelBtn.m_animationController.Play("CancelBtnIN", 0, 0f);
-				}
-			}
-			if (!flag7)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!NavigationBar.Get().m_cancelBtn.gameObject.activeSelf)
-				{
-					goto IL_788;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (!flag2)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, false, null);
-				NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(false);
-				this.SearchQueueTextExit();
-				if (NavigationBar.Get().m_cancelBtn.m_animationController.isActiveAndEnabled)
-				{
-					NavigationBar.Get().m_cancelBtn.m_animationController.Play("CancelBtnOUT", 0, 0f);
-				}
-			}
-		}
-		IL_788:
-		if (UIRankedModeSelectScreen.Get() != null)
-		{
-			UIRankedModeSelectScreen.Get().UpdateReadyButton(flag);
-		}
+		num2 = 0;
+		goto IL_0622;
 	}
 
 	public void NotifyDroppedGroup()
 	{
-		UIManager.SetGameObjectActive(this.m_changeFreelancerBtn, true, null);
+		UIManager.SetGameObjectActive(m_changeFreelancerBtn, true);
 	}
 
 	public void NotifyGroupUpdate()
 	{
-		this.m_requireGroupUpdate = true;
-		this.m_charSettingsPanel.Refresh(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay, false, false);
+		m_requireGroupUpdate = true;
+		m_charSettingsPanel.Refresh(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay);
 	}
 
 	private void SetCharacterLabel(int nameIndex, string playerName, string characterName, long gameStartTimestamp)
 	{
-		if (!this.m_nameLabels.IsNullOrEmpty<TextMeshProUGUI>() && nameIndex < this.m_nameLabels.Length)
+		if (!m_nameLabels.IsNullOrEmpty() && nameIndex < m_nameLabels.Length)
 		{
 			if (nameIndex > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -3599,20 +3601,20 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.SetCharacterLabel(int, string, string, long)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_nameLabels[nameIndex].text = characterName;
+				m_nameLabels[nameIndex].text = characterName;
 			}
 			else
 			{
-				this.m_nameLabels[nameIndex].text = string.Empty;
+				m_nameLabels[nameIndex].text = string.Empty;
 			}
 		}
-		if (!this.m_accountNameLabels.IsNullOrEmpty<TextMeshProUGUI>() && nameIndex < this.m_accountNameLabels.Length)
+		if (!m_accountNameLabels.IsNullOrEmpty() && nameIndex < m_accountNameLabels.Length)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -3623,7 +3625,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 			if (nameIndex > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -3632,63 +3634,62 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				this.m_accountNameLabels[nameIndex].text = playerName;
+				m_accountNameLabels[nameIndex].text = playerName;
 			}
 			else
 			{
-				this.m_accountNameLabels[nameIndex].text = string.Empty;
+				m_accountNameLabels[nameIndex].text = string.Empty;
 			}
 		}
-		if (!this.m_timeElapsedLabels.IsNullOrEmpty<TextMeshProUGUI>())
+		if (m_timeElapsedLabels.IsNullOrEmpty())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
+			case 0:
+				continue;
+			}
+			if (nameIndex >= m_timeElapsedLabels.Length)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (nameIndex < this.m_timeElapsedLabels.Length)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (nameIndex > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							m_createGameTimestamps[nameIndex] = gameStartTimestamp;
+							return;
 						}
-						break;
 					}
-					this.m_createGameTimestamps[nameIndex] = gameStartTimestamp;
 				}
-				else
-				{
-					this.m_createGameTimestamps[nameIndex] = 0L;
-				}
+				m_createGameTimestamps[nameIndex] = 0L;
+				return;
 			}
 		}
 	}
 
 	private void UpdateTimeElapsedLabels()
 	{
-		for (int i = 0; i < this.m_createGameTimestamps.Length; i++)
+		for (int i = 0; i < m_createGameTimestamps.Length; i++)
 		{
-			if (this.m_createGameTimestamps[i] <= 0L)
+			if (m_createGameTimestamps[i] <= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -3697,27 +3698,28 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.UpdateTimeElapsedLabels()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_timeElapsedLabels[i].text = string.Empty;
+				m_timeElapsedLabels[i].text = string.Empty;
 			}
 			else
 			{
-				DateTime d = new DateTime(this.m_createGameTimestamps[i]);
+				DateTime d = new DateTime(m_createGameTimestamps[i]);
 				TimeSpan timeSpan = DateTime.UtcNow - d;
-				this.m_timeElapsedLabels[i].text = StringUtil.TR("TimeElapsed", "Global") + ": " + string.Format(StringUtil.TR("TimeFormat", "Global"), Mathf.FloorToInt((float)timeSpan.TotalMinutes), timeSpan.Seconds);
+				m_timeElapsedLabels[i].text = StringUtil.TR("TimeElapsed", "Global") + ": " + string.Format(StringUtil.TR("TimeFormat", "Global"), Mathf.FloorToInt((float)timeSpan.TotalMinutes), timeSpan.Seconds);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
@@ -3726,7 +3728,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		UICharacterSelectWorldObjects.Get().m_ringAnimations[playerIndex].gameObject.SetActive(true);
 		if (playerIndex == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -3735,15 +3737,15 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.SetCharacter(int, string, CharacterResourceLink, CharacterVisualInfo, bool, bool, bool, long)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (ClientGameManager.Get().IsWaitingForSkinResponse())
 			{
-				goto IL_59;
+				goto IL_0059;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -3754,8 +3756,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			}
 		}
 		UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(charLink, playerIndex, playerHandle, skin, isBot, true);
-		IL_59:
-		this.SetCharacterLabel(playerIndex, playerHandle, charLink.GetDisplayName(), gameStartTimestamp);
+		goto IL_0059;
+		IL_0059:
+		SetCharacterLabel(playerIndex, playerHandle, charLink.GetDisplayName(), gameStartTimestamp);
 		UICharacterSelectWorldObjects.Get().SetCharacterReady(playerIndex, isReady);
 		UICharacterSelectWorldObjects.Get().CheckReadyBand(playerIndex, isReady);
 		UICharacterSelectWorldObjects.Get().SetCharacterInGame(playerIndex, isInGame);
@@ -3766,11 +3769,11 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		UICharacterScreen.CharacterSelectSceneStateParameters characterSelectSceneStateParameters = new UICharacterScreen.CharacterSelectSceneStateParameters();
 		if (playerIndex >= 0)
 		{
-			this.SetCharacter(playerIndex, playerHandle, charLink, charInfo.CharacterSkin, false, isReady, isInGame, gameStartTimestamp);
+			SetCharacter(playerIndex, playerHandle, charLink, charInfo.CharacterSkin, false, isReady, isInGame, gameStartTimestamp);
 			UICharacterScreen.Get().RefreshSelectedCharacterButton();
-			if (!this.m_charSettingsPanel.m_spellsSubPanel.GetDisplayedCardInfo().Equals(charInfo.CharacterCards))
+			if (!m_charSettingsPanel.m_spellsSubPanel.GetDisplayedCardInfo().Equals(charInfo.CharacterCards))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -3779,15 +3782,15 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.SetClientCharacter(int, string, CharacterResourceLink, LobbyCharacterInfo, bool, bool, long)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_charSettingsPanel.m_spellsSubPanel.Setup(charLink.m_characterType, charInfo.CharacterCards, false, false);
+				m_charSettingsPanel.m_spellsSubPanel.Setup(charLink.m_characterType, charInfo.CharacterCards);
 			}
-			if (!(this.m_charSettingsPanel.m_abilitiesSubPanel.GetDisplayedCharacter() == null))
+			if (!(m_charSettingsPanel.m_abilitiesSubPanel.GetDisplayedCharacter() == null))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -3796,11 +3799,11 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				if (this.m_charSettingsPanel.m_abilitiesSubPanel.GetDisplayedCharacter().m_characterType.Equals(charLink.m_characterType))
+				if (m_charSettingsPanel.m_abilitiesSubPanel.GetDisplayedCharacter().m_characterType.Equals(charLink.m_characterType))
 				{
-					goto IL_FF;
+					goto IL_00ff;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -3810,572 +3813,85 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					break;
 				}
 			}
-			this.m_charSettingsPanel.m_abilitiesSubPanel.Setup(charLink, false);
-			IL_FF:
-			if (this.m_charSettingsPanel.m_skinsSubPanel.GetDisplayedCharacterType().Equals(charLink.m_characterType))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_charSettingsPanel.m_skinsSubPanel.GetDisplayedVisualInfo().Equals(charInfo.CharacterSkin))
-				{
-					goto IL_18B;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			this.m_charSettingsPanel.m_skinsSubPanel.Setup(charLink, charInfo.CharacterSkin, false);
-			IL_18B:
-			if (!(this.m_charSettingsPanel.m_tauntsSubPanel.GetDisplayedCharacter() == null))
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_charSettingsPanel.m_tauntsSubPanel.GetDisplayedCharacter().m_characterType.Equals(charLink.m_characterType))
-				{
-					goto IL_1F4;
-				}
-			}
-			this.m_charSettingsPanel.m_tauntsSubPanel.Setup(charLink, false);
-			IL_1F4:
-			if (this.m_charSettingsPanel.m_generalSubPanel != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(this.m_charSettingsPanel.m_generalSubPanel.GetDisplayedCharacter() == null))
-				{
-					if (this.m_charSettingsPanel.m_generalSubPanel.GetDisplayedCharacter().m_characterType.Equals(charLink.m_characterType))
-					{
-						goto IL_279;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				this.m_charSettingsPanel.m_generalSubPanel.Setup(charLink);
-			}
-			IL_279:
-			characterSelectSceneStateParameters.ClientSelectedCharacter = new CharacterType?(charLink.m_characterType);
-			characterSelectSceneStateParameters.SideButtonsVisible = new bool?(true);
+			m_charSettingsPanel.m_abilitiesSubPanel.Setup(charLink);
+			goto IL_00ff;
 		}
-		else
+		characterSelectSceneStateParameters.SideButtonsVisible = false;
+		goto IL_02a4;
+		IL_0279:
+		characterSelectSceneStateParameters.ClientSelectedCharacter = charLink.m_characterType;
+		characterSelectSceneStateParameters.SideButtonsVisible = true;
+		goto IL_02a4;
+		IL_018b:
+		if (!(m_charSettingsPanel.m_tauntsSubPanel.GetDisplayedCharacter() == null))
 		{
-			characterSelectSceneStateParameters.SideButtonsVisible = new bool?(false);
-		}
-		UIManager.Get().HandleNewSceneStateParameter(characterSelectSceneStateParameters);
-	}
-
-	public void UpdatePrimaryCharacter(LobbyCharacterInfo characterInfo)
-	{
-		this.SetClientCharacter(0, ClientGameManager.Get().Handle, UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay, characterInfo, this.IsReady(), false, -1L);
-		this.m_charSettingsPanel.Refresh(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay, false, false);
-	}
-
-	public void UpdateCharacters(LobbyPlayerInfo playerInfo, List<LobbyPlayerInfo> teamPlayerInfos, LobbyGameplayOverrides gameplayOverrides)
-	{
-		if (GameManager.Get().GameConfig.GameType != GameType.Ranked)
-		{
-			for (;;)
+			while (true)
 			{
-				switch (6)
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (m_charSettingsPanel.m_tauntsSubPanel.GetDisplayedCharacter().m_characterType.Equals(charLink.m_characterType))
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.UpdateCharacters(LobbyPlayerInfo, List<LobbyPlayerInfo>, LobbyGameplayOverrides)).MethodHandle;
+				goto IL_01f4;
 			}
-			if (playerInfo != null)
+		}
+		m_charSettingsPanel.m_tauntsSubPanel.Setup(charLink);
+		goto IL_01f4;
+		IL_02a4:
+		UIManager.Get().HandleNewSceneStateParameter(characterSelectSceneStateParameters);
+		return;
+		IL_01f4:
+		if (m_charSettingsPanel.m_generalSubPanel != null)
+		{
+			while (true)
 			{
-				GameManager gameManager = GameManager.Get();
-				LobbyPlayerGroupInfo groupInfo = ClientGameManager.Get().GroupInfo;
-				int num = UICharacterSelectWorldObjects.Get().m_ringAnimations.Length;
-				bool flag = false;
-				if (playerInfo != null)
+				switch (5)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!groupInfo.InAGroup)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (playerInfo.TeamId != Team.Spectator)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (playerInfo.CharacterType != CharacterType.None)
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								bool flag2 = playerInfo.ReadyState == ReadyState.Ready;
-								CharacterType? clientSelectedCharacter = UICharacterScreen.GetCurrentSpecificState().ClientSelectedCharacter;
-								if (clientSelectedCharacter.Value == playerInfo.CharacterType)
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (UICharacterSelectWorldObjects.Get().IsCharReady(0) == flag2)
-									{
-										goto IL_152;
-									}
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-								}
-								UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
-								{
-									ClientSelectedCharacter = new CharacterType?(playerInfo.CharacterType)
-								});
-								this.SetClientCharacter(0, playerInfo.GetHandle(), UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay, playerInfo.CharacterInfo, flag2, false, -1L);
-								IL_152:
-								this.m_charSettingsPanel.Refresh(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay, false, false);
-								UICharacterSelectWorldObjects.Get().SetCharSelectTriggerForSlot(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay, 0);
-								flag = true;
-								goto IL_1BB;
-							}
-						}
-					}
+				case 0:
+					continue;
 				}
-				if (playerInfo != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (playerInfo.TeamId == Team.Spectator)
-					{
-						bool isReady = true;
-						this.SetClientCharacter(-1, playerInfo.GetHandle(), null, null, isReady, false, -1L);
-					}
-				}
-				IL_1BB:
-				bool flag3 = false;
-				bool flag4 = false;
-				int numLoadedCharacters = UICharacterSelectWorldObjects.Get().GetNumLoadedCharacters();
-				if (teamPlayerInfos != null)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					int i = 0;
-					if (flag)
-					{
-						i++;
-					}
-					bool flag5;
-					if (GameManager.Get().GameConfig.GameType != GameType.Practice)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag5 = (GameManager.Get().GameConfig.GameType == GameType.Solo);
-					}
-					else
-					{
-						flag5 = true;
-					}
-					if (!flag5)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!flag)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							using (List<LobbyPlayerInfo>.Enumerator enumerator = teamPlayerInfos.GetEnumerator())
-							{
-								while (enumerator.MoveNext())
-								{
-									LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
-									if (lobbyPlayerInfo.CharacterType == CharacterType.None)
-									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-									}
-									else
-									{
-										bool flag6;
-										if (!lobbyPlayerInfo.IsNPCBot)
-										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											flag6 = lobbyPlayerInfo.IsReady;
-										}
-										else
-										{
-											flag6 = true;
-										}
-										bool isReady2 = flag6;
-										CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(lobbyPlayerInfo.CharacterType);
-										if (lobbyPlayerInfo.PlayerId == playerInfo.PlayerId)
-										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											this.SetClientCharacter(i, lobbyPlayerInfo.GetHandle(), characterResourceLink, playerInfo.CharacterInfo, isReady2, false, -1L);
-											i++;
-											flag = true;
-											goto IL_320;
-										}
-									}
-								}
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-						}
-						IL_320:
-						using (List<LobbyPlayerInfo>.Enumerator enumerator2 = teamPlayerInfos.GetEnumerator())
-						{
-							while (enumerator2.MoveNext())
-							{
-								LobbyPlayerInfo lobbyPlayerInfo2 = enumerator2.Current;
-								if (lobbyPlayerInfo2.CharacterType == CharacterType.None)
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-								}
-								else
-								{
-									bool flag7 = lobbyPlayerInfo2.PlayerId == playerInfo.PlayerId;
-									bool isNPCBot = lobbyPlayerInfo2.IsNPCBot;
-									bool flag8;
-									if (!isNPCBot)
-									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										flag8 = lobbyPlayerInfo2.IsReady;
-									}
-									else
-									{
-										flag8 = true;
-									}
-									bool isReady3 = flag8;
-									CharacterResourceLink characterResourceLink2 = GameWideData.Get().GetCharacterResourceLink(lobbyPlayerInfo2.CharacterType);
-									if (flag7)
-									{
-										if (!flag)
-										{
-											this.SetClientCharacter(i, lobbyPlayerInfo2.GetHandle(), characterResourceLink2, playerInfo.CharacterInfo, isReady3, false, -1L);
-											i++;
-											flag = true;
-										}
-									}
-									else
-									{
-										this.SetCharacter(i, lobbyPlayerInfo2.GetHandle(), characterResourceLink2, lobbyPlayerInfo2.CharacterInfo.CharacterSkin, isNPCBot, isReady3, false, -1L);
-										i++;
-									}
-									if (i >= num)
-									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										goto IL_433;
-									}
-								}
-							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						IL_433:
-						if (numLoadedCharacters > 0)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (numLoadedCharacters > i)
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								flag4 = true;
-							}
-							if (numLoadedCharacters < i)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								flag3 = true;
-							}
-						}
-						if (flag3)
-						{
-							UIFrontEnd.PlaySound(FrontEndButtonSounds.TeamMemberSelect);
-						}
-						if (flag4)
-						{
-							UIFrontEnd.PlaySound(FrontEndButtonSounds.TeamMemberCancel);
-						}
-					}
-					UICharacterSelectWorldObjects.Get().SetReadyPose();
-					UICharacterSelectWorldObjects.Get().SetSkins();
-					int num2 = 0;
-					if (playerInfo.TeamId == Team.TeamA)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (gameManager.GameInfo.GameConfig.GameType == GameType.Custom)
-						{
-							num2 = gameManager.GameInfo.GameConfig.TeamAPlayers;
-						}
-						else
-						{
-							num2 = gameManager.GameInfo.GameConfig.TeamAPlayers - gameManager.GameInfo.GameConfig.TeamABots;
-						}
-					}
-					else if (playerInfo.TeamId == Team.TeamB)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (gameManager.GameInfo.GameConfig.GameType == GameType.Custom)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							num2 = gameManager.GameInfo.GameConfig.TeamBPlayers;
-						}
-						else
-						{
-							num2 = gameManager.GameInfo.GameConfig.TeamBPlayers - gameManager.GameInfo.GameConfig.TeamBBots;
-						}
-					}
-					while (i < num)
-					{
-						if (i < num2)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							UICharacterSelectWorldObjects.Get().m_ringAnimations[i].gameObject.SetActive(true);
-							UICharacterSelectWorldObjects.Get().m_ringAnimations[i].PlayAnimation("TransitionOut");
-						}
-						else
-						{
-							UICharacterSelectWorldObjects.Get().m_ringAnimations[i].gameObject.SetActive(false);
-						}
-						UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(null, i, string.Empty, default(CharacterVisualInfo), false, false);
-						this.SetCharacterLabel(i, string.Empty, string.Empty, -1L);
-						i++;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UICharacterScreen.Get().RefreshCharacterButtons();
-				}
-				this.UpdateReadyButton();
-				return;
+				break;
 			}
-			for (;;)
+			if (!(m_charSettingsPanel.m_generalSubPanel.GetDisplayedCharacter() == null))
+			{
+				if (m_charSettingsPanel.m_generalSubPanel.GetDisplayedCharacter().m_characterType.Equals(charLink.m_characterType))
+				{
+					goto IL_0279;
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			m_charSettingsPanel.m_generalSubPanel.Setup(charLink);
+		}
+		goto IL_0279;
+		IL_00ff:
+		if (m_charSettingsPanel.m_skinsSubPanel.GetDisplayedCharacterType().Equals(charLink.m_characterType))
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (m_charSettingsPanel.m_skinsSubPanel.GetDisplayedVisualInfo().Equals(charInfo.CharacterSkin))
+			{
+				goto IL_018b;
+			}
+			while (true)
 			{
 				switch (7)
 				{
@@ -4385,6 +3901,500 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				break;
 			}
 		}
+		m_charSettingsPanel.m_skinsSubPanel.Setup(charLink, charInfo.CharacterSkin);
+		goto IL_018b;
+	}
+
+	public void UpdatePrimaryCharacter(LobbyCharacterInfo characterInfo)
+	{
+		SetClientCharacter(0, ClientGameManager.Get().Handle, UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay, characterInfo, IsReady(), false, -1L);
+		m_charSettingsPanel.Refresh(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay);
+	}
+
+	public void UpdateCharacters(LobbyPlayerInfo playerInfo, List<LobbyPlayerInfo> teamPlayerInfos, LobbyGameplayOverrides gameplayOverrides)
+	{
+		if (GameManager.Get().GameConfig.GameType == GameType.Ranked)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (playerInfo == null)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
+			}
+			GameManager gameManager = GameManager.Get();
+			LobbyPlayerGroupInfo groupInfo = ClientGameManager.Get().GroupInfo;
+			int num = UICharacterSelectWorldObjects.Get().m_ringAnimations.Length;
+			bool flag = false;
+			if (playerInfo != null)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!groupInfo.InAGroup)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (playerInfo.TeamId != Team.Spectator)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (playerInfo.CharacterType != 0)
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							bool flag2 = playerInfo.ReadyState == ReadyState.Ready;
+							CharacterType? clientSelectedCharacter = UICharacterScreen.GetCurrentSpecificState().ClientSelectedCharacter;
+							if (clientSelectedCharacter.Value == playerInfo.CharacterType)
+							{
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (UICharacterSelectWorldObjects.Get().IsCharReady(0) == flag2)
+								{
+									goto IL_0152;
+								}
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
+							{
+								ClientSelectedCharacter = playerInfo.CharacterType
+							});
+							SetClientCharacter(0, playerInfo.GetHandle(), UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay, playerInfo.CharacterInfo, flag2, false, -1L);
+							goto IL_0152;
+						}
+					}
+				}
+			}
+			if (playerInfo != null)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (playerInfo.TeamId == Team.Spectator)
+				{
+					bool isReady = true;
+					SetClientCharacter(-1, playerInfo.GetHandle(), null, null, isReady, false, -1L);
+				}
+			}
+			goto IL_01bb;
+			IL_01bb:
+			bool flag3 = false;
+			bool flag4 = false;
+			int numLoadedCharacters = UICharacterSelectWorldObjects.Get().GetNumLoadedCharacters();
+			if (teamPlayerInfos != null)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				int i = 0;
+				if (flag)
+				{
+					i++;
+				}
+				int num2;
+				if (GameManager.Get().GameConfig.GameType != GameType.Practice)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num2 = ((GameManager.Get().GameConfig.GameType == GameType.Solo) ? 1 : 0);
+				}
+				else
+				{
+					num2 = 1;
+				}
+				if (num2 == 0)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (!flag)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						using (List<LobbyPlayerInfo>.Enumerator enumerator = teamPlayerInfos.GetEnumerator())
+						{
+							while (true)
+							{
+								if (!enumerator.MoveNext())
+								{
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									break;
+								}
+								LobbyPlayerInfo current = enumerator.Current;
+								if (current.CharacterType == CharacterType.None)
+								{
+									while (true)
+									{
+										switch (1)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+								}
+								else
+								{
+									int num3;
+									if (!current.IsNPCBot)
+									{
+										while (true)
+										{
+											switch (5)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										num3 = (current.IsReady ? 1 : 0);
+									}
+									else
+									{
+										num3 = 1;
+									}
+									bool isReady2 = (byte)num3 != 0;
+									CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(current.CharacterType);
+									if (current.PlayerId == playerInfo.PlayerId)
+									{
+										while (true)
+										{
+											switch (4)
+											{
+											case 0:
+												break;
+											default:
+												SetClientCharacter(i, current.GetHandle(), characterResourceLink, playerInfo.CharacterInfo, isReady2, false, -1L);
+												i++;
+												flag = true;
+												goto end_IL_0251;
+											}
+										}
+									}
+								}
+							}
+							end_IL_0251:;
+						}
+					}
+					using (List<LobbyPlayerInfo>.Enumerator enumerator2 = teamPlayerInfos.GetEnumerator())
+					{
+						while (true)
+						{
+							if (!enumerator2.MoveNext())
+							{
+								while (true)
+								{
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								break;
+							}
+							LobbyPlayerInfo current2 = enumerator2.Current;
+							if (current2.CharacterType == CharacterType.None)
+							{
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							else
+							{
+								bool flag5 = current2.PlayerId == playerInfo.PlayerId;
+								bool isNPCBot = current2.IsNPCBot;
+								int num4;
+								if (!isNPCBot)
+								{
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									num4 = (current2.IsReady ? 1 : 0);
+								}
+								else
+								{
+									num4 = 1;
+								}
+								bool isReady3 = (byte)num4 != 0;
+								CharacterResourceLink characterResourceLink2 = GameWideData.Get().GetCharacterResourceLink(current2.CharacterType);
+								if (flag5)
+								{
+									if (!flag)
+									{
+										SetClientCharacter(i, current2.GetHandle(), characterResourceLink2, playerInfo.CharacterInfo, isReady3, false, -1L);
+										i++;
+										flag = true;
+									}
+								}
+								else
+								{
+									SetCharacter(i, current2.GetHandle(), characterResourceLink2, current2.CharacterInfo.CharacterSkin, isNPCBot, isReady3, false, -1L);
+									i++;
+								}
+								if (i >= num)
+								{
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									break;
+								}
+							}
+						}
+					}
+					if (numLoadedCharacters > 0)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (numLoadedCharacters > i)
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							flag4 = true;
+						}
+						if (numLoadedCharacters < i)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							flag3 = true;
+						}
+					}
+					if (flag3)
+					{
+						UIFrontEnd.PlaySound(FrontEndButtonSounds.TeamMemberSelect);
+					}
+					if (flag4)
+					{
+						UIFrontEnd.PlaySound(FrontEndButtonSounds.TeamMemberCancel);
+					}
+				}
+				UICharacterSelectWorldObjects.Get().SetReadyPose();
+				UICharacterSelectWorldObjects.Get().SetSkins();
+				int num5 = 0;
+				if (playerInfo.TeamId == Team.TeamA)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num5 = ((gameManager.GameInfo.GameConfig.GameType != 0) ? (gameManager.GameInfo.GameConfig.TeamAPlayers - gameManager.GameInfo.GameConfig.TeamABots) : gameManager.GameInfo.GameConfig.TeamAPlayers);
+				}
+				else if (playerInfo.TeamId == Team.TeamB)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (gameManager.GameInfo.GameConfig.GameType == GameType.Custom)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num5 = gameManager.GameInfo.GameConfig.TeamBPlayers;
+					}
+					else
+					{
+						num5 = gameManager.GameInfo.GameConfig.TeamBPlayers - gameManager.GameInfo.GameConfig.TeamBBots;
+					}
+				}
+				for (; i < num; i++)
+				{
+					if (i < num5)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						UICharacterSelectWorldObjects.Get().m_ringAnimations[i].gameObject.SetActive(true);
+						UICharacterSelectWorldObjects.Get().m_ringAnimations[i].PlayAnimation("TransitionOut");
+					}
+					else
+					{
+						UICharacterSelectWorldObjects.Get().m_ringAnimations[i].gameObject.SetActive(false);
+					}
+					UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(null, i, string.Empty, default(CharacterVisualInfo), false, false);
+					SetCharacterLabel(i, string.Empty, string.Empty, -1L);
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				UICharacterScreen.Get().RefreshCharacterButtons();
+			}
+			UpdateReadyButton();
+			return;
+			IL_0152:
+			m_charSettingsPanel.Refresh(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay);
+			UICharacterSelectWorldObjects.Get().SetCharSelectTriggerForSlot(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay, 0);
+			flag = true;
+			goto IL_01bb;
+		}
 	}
 
 	public void UpdateReadyButton()
@@ -4393,36 +4403,36 @@ public class UICharacterSelectScreenController : MonoBehaviour
 
 	public void UpdateBuyButtons()
 	{
-		if (this.m_buyButtonsContainer != null)
+		if (!(m_buyButtonsContainer != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(ClientGameManager.Get() != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.UpdateBuyButtons()).MethodHandle;
-			}
-			if (ClientGameManager.Get() != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = false;
 				if (!ClientGameManager.Get().HasPurchasedGame && UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -4436,10 +4446,10 @@ public class UICharacterSelectScreenController : MonoBehaviour
 						return;
 					}
 					PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay);
-					bool flag2;
+					int num;
 					if (!playerCharacterData.CharacterComponent.Unlocked)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -4448,58 +4458,60 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							}
 							break;
 						}
-						flag2 = GameManager.Get().IsCharacterAllowedForPlayers(UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay);
+						num = (GameManager.Get().IsCharacterAllowedForPlayers(UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay) ? 1 : 0);
 					}
 					else
 					{
-						flag2 = false;
+						num = 0;
 					}
-					flag = flag2;
+					flag = ((byte)num != 0);
 				}
-				UIManager.SetGameObjectActive(this.m_buyButtonsContainer, flag, null);
-				if (UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay != null && flag)
+				UIManager.SetGameObjectActive(m_buyButtonsContainer, flag);
+				if (!(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay != null) || !flag)
 				{
-					int unlockFreelancerCurrencyPrice = UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay.m_charUnlockData.GetUnlockFreelancerCurrencyPrice();
-					this.m_buyInGameLabel.text = "<sprite name=credit>" + unlockFreelancerCurrencyPrice;
-					UIManager.SetGameObjectActive(this.m_buyInGameButton, unlockFreelancerCurrencyPrice > 0, null);
-					string accountCurrency = HydrogenConfig.Get().Ticket.AccountCurrency;
-					float freelancerPrice = CommerceClient.Get().GetFreelancerPrice(UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay, accountCurrency);
-					this.m_buyForCashLabel.text = UIStorePanel.GetLocalizedPriceString(freelancerPrice, accountCurrency);
-					UIManager.SetGameObjectActive(this.m_buyForCashButton, freelancerPrice > 0f, null);
-					bool flag3 = ClientGameManager.Get().PlayerWallet.GetValue(CurrencyType.UnlockFreelancerToken).m_Amount > 0;
-					UIManager.SetGameObjectActive(this.m_buyForToken, flag3, null);
-					Component buyButtonsContainer = this.m_buyButtonsContainer;
-					bool doActive;
-					if (unlockFreelancerCurrencyPrice <= 0 && freelancerPrice <= 0f)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						doActive = flag3;
-					}
-					else
-					{
-						doActive = true;
-					}
-					UIManager.SetGameObjectActive(buyButtonsContainer, doActive, null);
+					return;
 				}
+				int unlockFreelancerCurrencyPrice = UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay.m_charUnlockData.GetUnlockFreelancerCurrencyPrice();
+				m_buyInGameLabel.text = "<sprite name=credit>" + unlockFreelancerCurrencyPrice;
+				UIManager.SetGameObjectActive(m_buyInGameButton, unlockFreelancerCurrencyPrice > 0);
+				string accountCurrency = HydrogenConfig.Get().Ticket.AccountCurrency;
+				float freelancerPrice = CommerceClient.Get().GetFreelancerPrice(UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay, accountCurrency);
+				m_buyForCashLabel.text = UIStorePanel.GetLocalizedPriceString(freelancerPrice, accountCurrency);
+				UIManager.SetGameObjectActive(m_buyForCashButton, freelancerPrice > 0f);
+				bool flag2 = ClientGameManager.Get().PlayerWallet.GetValue(CurrencyType.UnlockFreelancerToken).m_Amount > 0;
+				UIManager.SetGameObjectActive(m_buyForToken, flag2);
+				RectTransform buyButtonsContainer = m_buyButtonsContainer;
+				int doActive;
+				if (unlockFreelancerCurrencyPrice <= 0 && !(freelancerPrice > 0f))
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					doActive = (flag2 ? 1 : 0);
+				}
+				else
+				{
+					doActive = 1;
+				}
+				UIManager.SetGameObjectActive(buyButtonsContainer, (byte)doActive != 0);
+				return;
 			}
 		}
 	}
 
 	public bool HaveUsedAnyModPoints()
 	{
-		int num = this.m_charSettingsPanel.m_abilitiesSubPanel.CalculateTotalModEquipCost();
+		int num = m_charSettingsPanel.m_abilitiesSubPanel.CalculateTotalModEquipCost();
 		bool flag = false;
-		if (UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay)
+		if ((bool)UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -4508,15 +4520,15 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.HaveUsedAnyModPoints()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			GameObject actorDataPrefab = UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay.ActorDataPrefab;
 			ActorData component = actorDataPrefab.GetComponent<ActorData>();
 			if (GameManager.Get().GameConfig != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -4528,10 +4540,10 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				flag = AbilityModHelper.HasAnyAvailableMods(component);
 			}
 		}
-		bool result;
+		int result;
 		if (num <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -4540,394 +4552,108 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			result = !flag;
+			result = ((!flag) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public void QuickPlayUpdateCharacters(LobbyGameplayOverrides gameplayOverrides, bool switchedChars = false, bool isFromServerResponse = false)
 	{
-		if (!(ClientGameManager.Get() == null))
+		if (ClientGameManager.Get() == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.QuickPlayUpdateCharacters(LobbyGameplayOverrides, bool, bool)).MethodHandle;
-			}
-			if (ClientGameManager.Get().GroupInfo != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
-				{
-					LobbyPlayerGroupInfo groupInfo = ClientGameManager.Get().GroupInfo;
-					UICharacterScreen.CharacterSelectSceneStateParameters characterSelectSceneStateParameters = new UICharacterScreen.CharacterSelectSceneStateParameters();
-					characterSelectSceneStateParameters.ClientSelectedCharacter = new CharacterType?(SceneStateParameters.SelectedCharacterFromPlayerData);
-					if (UILandingPageScreen.Get() != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (UILandingPageScreen.Get().CharacterInfoClicked != null)
-						{
-							characterSelectSceneStateParameters.ClientSelectedCharacter = new CharacterType?(UILandingPageScreen.Get().CharacterInfoClicked.Value);
-							UILandingPageScreen.Get().CharacterInfoClicked = null;
-						}
-					}
-					if (!isFromServerResponse)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (characterSelectSceneStateParameters.ClientSelectedCharacter != null && ClientGameManager.Get().GetAllPlayerCharacterData().ContainsKey(characterSelectSceneStateParameters.ClientSelectedCharacter.Value))
-						{
-							characterSelectSceneStateParameters.ClientSelectedVisualInfo = new CharacterVisualInfo?(ClientGameManager.Get().GetAllPlayerCharacterData()[characterSelectSceneStateParameters.ClientSelectedCharacter.Value].CharacterComponent.LastSkin);
-						}
-					}
-					UIManager.Get().HandleNewSceneStateParameter(characterSelectSceneStateParameters);
-					CharacterVisualInfo visualInfo = default(CharacterVisualInfo);
-					if (groupInfo != null)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (groupInfo.InAGroup)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							visualInfo = groupInfo.ChararacterInfo.CharacterSkin;
-							goto IL_1A5;
-						}
-					}
-					visualInfo = UICharacterScreen.GetCurrentSpecificState().CharacterVisualInfoToDisplay;
-					IL_1A5:
-					UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay, 0, groupInfo.MemberDisplayName, visualInfo, false, true);
-					this.SetCharacterLabel(0, groupInfo.MemberDisplayName, UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay.GetDisplayName(), (groupInfo.Members.Count <= 1) ? 0L : groupInfo.Members[0].CreateGameTimestamp);
-					UICharacterScreen.Get().RefreshSelectedCharacterButton();
-					UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
-					{
-						SideButtonsVisible = new bool?(true),
-						ClientSelectedCharacter = new CharacterType?(UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay)
-					});
-					this.m_charSettingsPanel.Refresh(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay, false, switchedChars);
-					UICharacterScreen.Get().RefreshCharacterButtons();
-					return;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
+			return;
 		}
-	}
-
-	public void ShowPleaseEquipModsDialog()
-	{
-		string description = StringUtil.TR("SelectYourAbilityMods", "Global");
-		if (this.m_selectModsDialog == null)
+		while (true)
 		{
-			for (;;)
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (ClientGameManager.Get().GroupInfo == null)
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.ShowPleaseEquipModsDialog()).MethodHandle;
-			}
-			this.m_selectModsDialog = UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("MustSelectAbilityMods", "Global"), description, StringUtil.TR("Ok", "Global"), null, -1, false);
-		}
-	}
-
-	public void SetupForRanked(bool ranked)
-	{
-		if (UIFrontEnd.Get().m_frontEndNavPanel.m_PlayBtn.IsSelected())
-		{
-			if (!(AppState_GroupCharacterSelect.Get() == AppState.GetCurrent()))
-			{
-				for (;;)
+				if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
-					switch (7)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (7)
+						{
+						default:
+							return;
+						case 0:
+							break;
+						}
 					}
-					break;
 				}
-				if (!true)
+				LobbyPlayerGroupInfo groupInfo = ClientGameManager.Get().GroupInfo;
+				UICharacterScreen.CharacterSelectSceneStateParameters characterSelectSceneStateParameters = new UICharacterScreen.CharacterSelectSceneStateParameters();
+				characterSelectSceneStateParameters.ClientSelectedCharacter = SceneStateParameters.SelectedCharacterFromPlayerData;
+				if (UILandingPageScreen.Get() != null)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.SetupForRanked(bool)).MethodHandle;
-				}
-				if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
-				{
-					for (;;)
+					while (true)
 					{
-						switch (3)
+						switch (2)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-				}
-				else
-				{
-					if (UIRankedModeSelectScreen.Get() != null)
+					if (UILandingPageScreen.Get().CharacterInfoClicked.HasValue)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIRankedModeSelectScreen.Get().SetVisible(false);
-						return;
+						characterSelectSceneStateParameters.ClientSelectedCharacter = UILandingPageScreen.Get().CharacterInfoClicked.Value;
+						UILandingPageScreen.Get().CharacterInfoClicked = null;
 					}
-					return;
 				}
-			}
-			if (ranked)
-			{
-				for (;;)
+				if (!isFromServerResponse)
 				{
-					switch (7)
+					while (true)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIFrontEnd.Get().ShowScreen(FrontEndScreenState.RankedModeSelect, false);
-				if (UIRankedModeSelectScreen.Get() != null)
-				{
-					for (;;)
-					{
-						switch (5)
+						switch (4)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					UIRankedModeSelectScreen.Get().SetVisible(true);
-				}
-			}
-			else
-			{
-				if (UIFrontEnd.Get().m_currentScreen != FrontEndScreenState.GroupCharacterSelect)
-				{
-					for (;;)
+					if (characterSelectSceneStateParameters.ClientSelectedCharacter.HasValue && ClientGameManager.Get().GetAllPlayerCharacterData().ContainsKey(characterSelectSceneStateParameters.ClientSelectedCharacter.Value))
 					{
-						switch (5)
+						characterSelectSceneStateParameters.ClientSelectedVisualInfo = ClientGameManager.Get().GetAllPlayerCharacterData()[characterSelectSceneStateParameters.ClientSelectedCharacter.Value].CharacterComponent.LastSkin;
+					}
+				}
+				UIManager.Get().HandleNewSceneStateParameter(characterSelectSceneStateParameters);
+				CharacterVisualInfo characterVisualInfo = default(CharacterVisualInfo);
+				if (groupInfo != null)
+				{
+					while (true)
+					{
+						switch (4)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					UIFrontEnd.Get().ShowScreen(FrontEndScreenState.GroupCharacterSelect, false);
-				}
-				if (UIRankedModeSelectScreen.Get() != null)
-				{
-					UIRankedModeSelectScreen.Get().SetVisible(false);
-				}
-			}
-		}
-	}
-
-	public bool IsVisible()
-	{
-		return this.m_visible;
-	}
-
-	public void SetVisible(bool visible, bool refreshOnly = false)
-	{
-		if (!(this.buttonContainer == null))
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.SetVisible(bool, bool)).MethodHandle;
-			}
-			if (!(this.buttonContainer.gameObject == null))
-			{
-				if (this.m_visible != visible)
-				{
-					for (;;)
+					if (groupInfo.InAGroup)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIManager.SetGameObjectActive(this.buttonContainer, visible, null);
-					this.m_visible = visible;
-					for (int i = 0; i < this.m_mainLobbyControllers.Length; i++)
-					{
-						UIManager.SetGameObjectActive(this.m_mainLobbyControllers[i], visible, null);
-					}
-					LobbyPlayerGroupInfo groupInfo = ClientGameManager.Get().GroupInfo;
-					CharacterType characterType = CharacterType.None;
-					if (AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (groupInfo != null)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (groupInfo.InAGroup)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								characterType = groupInfo.ChararacterInfo.CharacterType;
-								goto IL_11D;
-							}
-						}
-					}
-					if (UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						characterType = UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay;
-					}
-					IL_11D:
-					UICharacterScreen.CharacterSelectSceneStateParameters characterSelectSceneStateParameters = new UICharacterScreen.CharacterSelectSceneStateParameters();
-					UICharacterScreen.CharacterSelectSceneStateParameters characterSelectSceneStateParameters2 = characterSelectSceneStateParameters;
-					bool value;
-					if (visible)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay != null)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							value = (characterType != CharacterType.None);
-						}
-						else
-						{
-							value = false;
-						}
-					}
-					else
-					{
-						value = false;
-					}
-					characterSelectSceneStateParameters2.SideButtonsVisible = new bool?(value);
-					UICharacterScreen.CharacterSelectSceneStateParameters characterSelectSceneStateParameters3 = characterSelectSceneStateParameters;
-					bool value2;
-					if (visible)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -4936,217 +4662,185 @@ public class UICharacterSelectScreenController : MonoBehaviour
 							}
 							break;
 						}
-						value2 = !this.IsReady();
-					}
-					else
-					{
-						value2 = false;
-					}
-					characterSelectSceneStateParameters3.CharacterSelectButtonsVisible = new bool?(value2);
-					UIManager.Get().HandleNewSceneStateParameter(characterSelectSceneStateParameters);
-					this.m_charSettingsPanel.SetVisible(false, UICharacterSelectCharacterSettingsPanel.TabPanel.None);
-					UIManager.SetGameObjectActive(this.m_readyBtn, !this.IsReady(), null);
-					this.m_readyBtn.spriteController.SetClickable(!this.IsReady());
-					UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, this.IsReady(), null);
-					NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(this.IsReady());
-					NavigationBar.Get().m_searchQueueText.text = string.Empty;
-					if (visible)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_charSettingsPanel.m_abilitiesSubPanel.RefreshSelectedMods();
-					}
-					if (!visible)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIManager.SetGameObjectActive(this.m_buyButtonsContainer, false, null);
-					}
-					else
-					{
-						this.UpdateBuyButtons();
+						characterVisualInfo = groupInfo.ChararacterInfo.CharacterSkin;
+						goto IL_01a5;
 					}
 				}
-				if (visible)
+				characterVisualInfo = UICharacterScreen.GetCurrentSpecificState().CharacterVisualInfoToDisplay;
+				goto IL_01a5;
+				IL_01a5:
+				UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay, 0, groupInfo.MemberDisplayName, characterVisualInfo, false, true);
+				SetCharacterLabel(0, groupInfo.MemberDisplayName, UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay.GetDisplayName(), (groupInfo.Members.Count <= 1) ? 0 : groupInfo.Members[0].CreateGameTimestamp);
+				UICharacterScreen.Get().RefreshSelectedCharacterButton();
+				UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!refreshOnly)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIFrontEnd.Get().m_frontEndNavPanel.SetNavButtonSelected(UIFrontEnd.Get().m_frontEndNavPanel.m_PlayBtn);
-					}
-				}
-				if (this.m_selectModsDialog != null)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIDialogPopupManager.Get().CloseDialog(this.m_selectModsDialog);
-				}
+					SideButtonsVisible = true,
+					ClientSelectedCharacter = UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay
+				});
+				m_charSettingsPanel.Refresh(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay, false, switchedChars);
+				UICharacterScreen.Get().RefreshCharacterButtons();
 				return;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
 
-	public void PlayMainLobbyControllerAnim(string animName, int layer)
+	public void ShowPleaseEquipModsDialog()
 	{
-		for (int i = 0; i < this.m_mainLobbyControllers.Length; i++)
+		string description = StringUtil.TR("SelectYourAbilityMods", "Global");
+		if (!(m_selectModsDialog == null))
 		{
-			this.m_mainLobbyControllers[i].Play(animName, 1, 0f);
+			return;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
+			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.PlayMainLobbyControllerAnim(string, int)).MethodHandle;
-		}
-	}
-
-	public void UpdateSkinsPanel()
-	{
-		this.m_charSettingsPanel.m_skinsSubPanel.RePopulateCharacterData();
-	}
-
-	public void PurchaseCharacterTintResponseHandler(PurchaseTintResponse response)
-	{
-		if (response.Success)
-		{
-			for (;;)
+			if (1 == 0)
 			{
-				switch (1)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_selectModsDialog = UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("MustSelectAbilityMods", "Global"), description, StringUtil.TR("Ok", "Global"));
+			return;
+		}
+	}
+
+	public void SetupForRanked(bool ranked)
+	{
+		if (!UIFrontEnd.Get().m_frontEndNavPanel.m_PlayBtn.IsSelected())
+		{
+			return;
+		}
+		if (!(AppState_GroupCharacterSelect.Get() == AppState.GetCurrent()))
+		{
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.PurchaseCharacterTintResponseHandler(PurchaseTintResponse)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (response.Result == PurchaseResult.Success)
+			if (!(AppState_CharacterSelect.Get() == AppState.GetCurrent()))
 			{
-				for (;;)
+				if (!(UIRankedModeSelectScreen.Get() != null))
+				{
+					return;
+				}
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					UIRankedModeSelectScreen.Get().SetVisible(false);
+					return;
 				}
-				this.m_charSettingsPanel.m_skinsSubPanel.RePopulateCharacterData();
-				AppState_CharacterSelect.Get().UpdateSelectedSkin(this.m_charSettingsPanel.m_skinsSubPanel.GetCurrentSelection());
 			}
-		}
-	}
-
-	public void PurchaseCharacterTintResponseHandler(PurchaseTintForCashResponse response)
-	{
-		if (response.Success)
-		{
-			for (;;)
+			while (true)
 			{
-				switch (1)
+				switch (3)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+		}
+		if (ranked)
+		{
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.PurchaseCharacterTintResponseHandler(PurchaseTintForCashResponse)).MethodHandle;
-			}
-			if (response.Result == PurchaseResult.Success)
-			{
-				for (;;)
+				switch (7)
 				{
-					switch (2)
+				case 0:
+					break;
+				default:
+					UIFrontEnd.Get().ShowScreen(FrontEndScreenState.RankedModeSelect);
+					if (UIRankedModeSelectScreen.Get() != null)
 					{
-					case 0:
-						continue;
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								break;
+							default:
+								UIRankedModeSelectScreen.Get().SetVisible(true);
+								return;
+							}
+						}
 					}
-					break;
+					return;
 				}
-				this.m_charSettingsPanel.m_skinsSubPanel.RePopulateCharacterData();
-				AppState_CharacterSelect.Get().UpdateSelectedSkin(this.m_charSettingsPanel.m_skinsSubPanel.GetCurrentSelection());
 			}
 		}
-	}
-
-	public void PurchaseCharacterSkinResponseHandler(PurchaseSkinResponse response)
-	{
-		if (response.Success)
+		if (UIFrontEnd.Get().m_currentScreen != FrontEndScreenState.GroupCharacterSelect)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (1)
+				switch (5)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			UIFrontEnd.Get().ShowScreen(FrontEndScreenState.GroupCharacterSelect);
+		}
+		if (UIRankedModeSelectScreen.Get() != null)
+		{
+			UIRankedModeSelectScreen.Get().SetVisible(false);
+		}
+	}
+
+	public bool IsVisible()
+	{
+		return m_visible;
+	}
+
+	public void SetVisible(bool visible, bool refreshOnly = false)
+	{
+		if (buttonContainer == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.PurchaseCharacterSkinResponseHandler(PurchaseSkinResponse)).MethodHandle;
+			case 0:
+				continue;
 			}
-			if (response.Result == PurchaseResult.Success)
+			if (1 == 0)
 			{
-				for (;;)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (buttonContainer.gameObject == null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
+			}
+			CharacterType characterType;
+			if (m_visible != visible)
+			{
+				while (true)
 				{
 					switch (1)
 					{
@@ -5155,8 +4849,332 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					}
 					break;
 				}
-				AppState_CharacterSelect.Get().UpdateSelectedSkin(this.m_charSettingsPanel.m_skinsSubPanel.GetCurrentSelection());
+				UIManager.SetGameObjectActive(buttonContainer, visible);
+				m_visible = visible;
+				for (int i = 0; i < m_mainLobbyControllers.Length; i++)
+				{
+					UIManager.SetGameObjectActive(m_mainLobbyControllers[i], visible);
+				}
+				LobbyPlayerGroupInfo groupInfo = ClientGameManager.Get().GroupInfo;
+				characterType = CharacterType.None;
+				if (AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (groupInfo != null)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (groupInfo.InAGroup)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							characterType = groupInfo.ChararacterInfo.CharacterType;
+							goto IL_011d;
+						}
+					}
+				}
+				if (UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay != null)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					characterType = UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay;
+				}
+				goto IL_011d;
 			}
+			goto IL_0263;
+			IL_0263:
+			if (visible)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!refreshOnly)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					UIFrontEnd.Get().m_frontEndNavPanel.SetNavButtonSelected(UIFrontEnd.Get().m_frontEndNavPanel.m_PlayBtn);
+				}
+			}
+			if (m_selectModsDialog != null)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					UIDialogPopupManager.Get().CloseDialog(m_selectModsDialog);
+					return;
+				}
+			}
+			return;
+			IL_011d:
+			UICharacterScreen.CharacterSelectSceneStateParameters characterSelectSceneStateParameters = new UICharacterScreen.CharacterSelectSceneStateParameters();
+			int value;
+			if (visible)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay != null)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					value = ((characterType != CharacterType.None) ? 1 : 0);
+				}
+				else
+				{
+					value = 0;
+				}
+			}
+			else
+			{
+				value = 0;
+			}
+			characterSelectSceneStateParameters.SideButtonsVisible = ((byte)value != 0);
+			int value2;
+			if (visible)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				value2 = ((!IsReady()) ? 1 : 0);
+			}
+			else
+			{
+				value2 = 0;
+			}
+			characterSelectSceneStateParameters.CharacterSelectButtonsVisible = ((byte)value2 != 0);
+			UIManager.Get().HandleNewSceneStateParameter(characterSelectSceneStateParameters);
+			m_charSettingsPanel.SetVisible(false);
+			UIManager.SetGameObjectActive(m_readyBtn, !IsReady());
+			m_readyBtn.spriteController.SetClickable(!IsReady());
+			UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, IsReady());
+			NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(IsReady());
+			NavigationBar.Get().m_searchQueueText.text = string.Empty;
+			if (visible)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_charSettingsPanel.m_abilitiesSubPanel.RefreshSelectedMods();
+			}
+			if (!visible)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				UIManager.SetGameObjectActive(m_buyButtonsContainer, false);
+			}
+			else
+			{
+				UpdateBuyButtons();
+			}
+			goto IL_0263;
+		}
+	}
+
+	public void PlayMainLobbyControllerAnim(string animName, int layer)
+	{
+		for (int i = 0; i < m_mainLobbyControllers.Length; i++)
+		{
+			m_mainLobbyControllers[i].Play(animName, 1, 0f);
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
+		}
+	}
+
+	public void UpdateSkinsPanel()
+	{
+		m_charSettingsPanel.m_skinsSubPanel.RePopulateCharacterData();
+	}
+
+	public void PurchaseCharacterTintResponseHandler(PurchaseTintResponse response)
+	{
+		if (!response.Success)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (response.Result == PurchaseResult.Success)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					m_charSettingsPanel.m_skinsSubPanel.RePopulateCharacterData();
+					AppState_CharacterSelect.Get().UpdateSelectedSkin(m_charSettingsPanel.m_skinsSubPanel.GetCurrentSelection());
+					return;
+				}
+			}
+			return;
+		}
+	}
+
+	public void PurchaseCharacterTintResponseHandler(PurchaseTintForCashResponse response)
+	{
+		if (!response.Success)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (response.Result == PurchaseResult.Success)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					m_charSettingsPanel.m_skinsSubPanel.RePopulateCharacterData();
+					AppState_CharacterSelect.Get().UpdateSelectedSkin(m_charSettingsPanel.m_skinsSubPanel.GetCurrentSelection());
+					return;
+				}
+			}
+			return;
+		}
+	}
+
+	public void PurchaseCharacterSkinResponseHandler(PurchaseSkinResponse response)
+	{
+		if (!response.Success)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (response.Result == PurchaseResult.Success)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					AppState_CharacterSelect.Get().UpdateSelectedSkin(m_charSettingsPanel.m_skinsSubPanel.GetCurrentSelection());
+					return;
+				}
+			}
+			return;
 		}
 	}
 
@@ -5167,29 +5185,30 @@ public class UICharacterSelectScreenController : MonoBehaviour
 
 	public void SearchQueueTextExit()
 	{
-		if (NavigationBar.Get() != null)
+		if (!(NavigationBar.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.SearchQueueTextExit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			NavigationBar.Get().SearchQueueTextExit();
+			return;
 		}
 	}
 
 	public void HandleGameAssemblingUIChanges()
 	{
 		UIFrontEnd.Get().m_frontEndNavPanel.ToggleUiForGameStarting(false);
-		UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, false, null);
+		UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, false);
 		NavigationBar.Get().m_searchQueueText.text = string.Empty;
 	}
 
@@ -5197,7 +5216,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 	{
 		if (UIMatchStartPanel.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -5206,28 +5225,29 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.HandleGameInfoNotification(GameInfoNotification)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UIMatchStartPanel.Get().HandleGameStatusChanged(notification);
 		}
-		if (notification.GameInfo.GameStatus == GameStatus.LoadoutSelecting)
+		if (notification.GameInfo.GameStatus != GameStatus.LoadoutSelecting)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, false, null);
+			UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, false);
 			NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(false);
-			UIManager.SetGameObjectActive(this.m_readyBtn, false, null);
-			this.m_readyBtn.spriteController.SetClickable(false);
+			UIManager.SetGameObjectActive(m_readyBtn, false);
+			m_readyBtn.spriteController.SetClickable(false);
 			UINewUserFlowManager.OnDoneWithReadyButton();
+			return;
 		}
 	}
 
@@ -5235,7 +5255,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 	{
 		if (data.m_Type == CurrencyType.UnlockFreelancerToken)
 		{
-			this.UpdateBuyButtons();
+			UpdateBuyButtons();
 		}
 	}
 
@@ -5247,241 +5267,60 @@ public class UICharacterSelectScreenController : MonoBehaviour
 	public void CheckCancelBtnLabels()
 	{
 		bool isInCustomGame = SceneStateParameters.IsInCustomGame;
-		if (isInCustomGame)
+		if (!isInCustomGame)
 		{
-			TextMeshProUGUI[] componentsInChildren = NavigationBar.Get().m_cancelBtn.GetComponentsInChildren<TextMeshProUGUI>(true);
-			int i = 0;
-			IL_D1:
-			while (i < componentsInChildren.Length)
-			{
-				bool flag = true;
-				if (componentsInChildren[i] == NavigationBar.Get().m_searchQueueText)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.CheckCancelBtnLabels()).MethodHandle;
-					}
-					flag = false;
-				}
-				for (int j = 0; j < NavigationBar.Get().m_timeInQueueLabel.Length; j++)
-				{
-					if (NavigationBar.Get().m_timeInQueueLabel[j] == componentsInChildren[i])
-					{
-						flag = false;
-						IL_97:
-						if (flag)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (isInCustomGame)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								componentsInChildren[i].alignment = TextAlignmentOptions.Center;
-							}
-							else
-							{
-								componentsInChildren[i].alignment = TextAlignmentOptions.Right;
-							}
-						}
-						i++;
-						goto IL_D1;
-					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_97;
-				}
-			}
+			return;
 		}
-	}
-
-	public void RestoreFunctionalityOnGameStop(GameResult gameResult)
-	{
-		Log.Info("Restoring Functionality on game stop. GameResult: " + gameResult.ToString(), new object[0]);
-		NavigationBar.Get().m_searchQueueText.text = string.Empty;
-		UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, true, null);
-		this.CheckCancelBtnLabels();
-		this.m_readyBtn.spriteController.SetClickable(true);
-		NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(true);
-		UIFrontEnd.Get().m_frontEndNavPanel.ToggleUiForGameStarting(true);
-		AppState_GameTeardown.Get().Enter();
-	}
-
-	private void BuyInGameClicked(BaseEventData data)
-	{
-		UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
-		uipurchaseableItem.m_itemType = PurchaseItemType.Character;
-		uipurchaseableItem.m_charLink = UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay;
-		uipurchaseableItem.m_currencyType = CurrencyType.FreelancerCurrency;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, new UIStorePanel.PurchaseCharacterCallback(this.PurchaseCharacterResponseHandler));
-	}
-
-	private void BuyForCashClicked(BaseEventData data)
-	{
-		UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
-		uipurchaseableItem.m_itemType = PurchaseItemType.Character;
-		uipurchaseableItem.m_charLink = UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay;
-		uipurchaseableItem.m_purchaseForCash = true;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, new UIStorePanel.PurchaseCharacterCallback(this.PurchaseCharacterResponseHandler));
-	}
-
-	private void BuyForTokenClicked(BaseEventData data)
-	{
-		ClientGameManager.Get().PurchaseCharacter(CurrencyType.UnlockFreelancerToken, UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay, delegate(PurchaseCharacterResponse response)
+		TextMeshProUGUI[] componentsInChildren = NavigationBar.Get().m_cancelBtn.GetComponentsInChildren<TextMeshProUGUI>(true);
+		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
-			this.PurchaseCharacterResponseHandler(response.Success, response.Result, response.CharacterType);
-		});
-	}
-
-	private bool BuyTooltipSetup(UITooltipBase tooltip)
-	{
-		UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-		uititledTooltip.Setup(StringUtil.TR("BuyFreelancer", "CharacterSelect"), StringUtil.TR("BuyFreelancerDesc", "CharacterSelect"), string.Empty);
-		return true;
-	}
-
-	public void OpenOneButtonDialog(string title, string message, UIDialogBox.DialogButtonCallback callback = null)
-	{
-		this.m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(title, message, StringUtil.TR("Ok", "Global"), callback, -1, false);
-	}
-
-	public void PurchaseCharacterResponseHandler(bool success, PurchaseResult result, CharacterType characterType)
-	{
-		if (success)
-		{
-			for (;;)
+			bool flag = true;
+			if (componentsInChildren[i] == NavigationBar.Get().m_searchQueueText)
 			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.PurchaseCharacterResponseHandler(bool, PurchaseResult, CharacterType)).MethodHandle;
-			}
-			if (result == PurchaseResult.Success)
-			{
-				for (;;)
-				{
-					switch (2)
+					switch (7)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_buyButtonsContainer, false, null);
-				UICharacterScreen.Get().RefreshCharacterButtons();
-				UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
+				if (1 == 0)
 				{
-					ClientRequestToServerSelectCharacter = new CharacterType?(UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay)
-				});
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				flag = false;
 			}
-		}
-	}
-
-	private void Awake()
-	{
-		if (this.m_buyButtonsContainer != null)
-		{
-			for (;;)
+			int num = 0;
+			while (true)
 			{
-				switch (3)
+				if (num < NavigationBar.Get().m_timeInQueueLabel.Length)
 				{
-				case 0:
+					if (NavigationBar.Get().m_timeInQueueLabel[num] == componentsInChildren[i])
+					{
+						flag = false;
+						break;
+					}
+					num++;
 					continue;
+				}
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
 				break;
 			}
-			if (!true)
+			if (!flag)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.Awake()).MethodHandle;
-			}
-			this.m_buyInGameButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BuyInGameClicked);
-			this.m_buyInGameButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.BuyTooltipSetup), null);
-			this.m_buyForCashButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BuyForCashClicked);
-			this.m_buyForCashButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.BuyTooltipSetup), null);
-			this.m_buyForToken.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BuyForTokenClicked);
-			this.m_buyForToken.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.BuyTooltipSetup), null);
-			this.m_buyButtonsHeader.text = StringUtil.TR("BuyFreelancer", "CharacterSelect");
-		}
-		UICharacterSelectScreenController.s_instance = this;
-		this.m_visible = false;
-		for (int i = 0; i < this.m_mainLobbyControllers.Length; i++)
-		{
-			UIManager.SetGameObjectActive(this.m_mainLobbyControllers[i], false, null);
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-		UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
-		{
-			SideButtonsVisible = new bool?(false),
-			CharacterSelectButtonsVisible = new bool?(false)
-		});
-		UIManager.SetGameObjectActive(this.m_readyBtn, false, null);
-		this.m_changeFreelancerBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ToggleCharacterSelect);
-		this.m_readyBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ReadyButtonClickCallback);
-		ClientGameManager.Get().OnCharacterDataUpdated += this.OnCharacterDataUpdated;
-		ClientGameManager.Get().OnGameInfoNotification += this.HandleGameInfoNotification;
-		ClientGameManager.Get().OnBankBalanceChange += this.HandleBankBalanceChange;
-		GameManager.Get().OnGameAssembling += this.HandleGameAssemblingUIChanges;
-		GameManager.Get().OnGameStopped += this.RestoreFunctionalityOnGameStop;
-		if (!this.m_timeElapsedLabels.IsNullOrEmpty<TextMeshProUGUI>())
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_createGameTimestamps = new long[this.m_timeElapsedLabels.Length];
-			for (int j = 0; j < this.m_timeElapsedLabels.Length; j++)
-			{
-				this.m_timeElapsedLabels[j].text = string.Empty;
-			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -5489,6 +5328,193 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					continue;
 				}
 				break;
+			}
+			if (isInCustomGame)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				componentsInChildren[i].alignment = TextAlignmentOptions.Center;
+			}
+			else
+			{
+				componentsInChildren[i].alignment = TextAlignmentOptions.Right;
+			}
+		}
+	}
+
+	public void RestoreFunctionalityOnGameStop(GameResult gameResult)
+	{
+		Log.Info("Restoring Functionality on game stop. GameResult: " + gameResult);
+		NavigationBar.Get().m_searchQueueText.text = string.Empty;
+		UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, true);
+		CheckCancelBtnLabels();
+		m_readyBtn.spriteController.SetClickable(true);
+		NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(true);
+		UIFrontEnd.Get().m_frontEndNavPanel.ToggleUiForGameStarting(true);
+		AppState_GameTeardown.Get().Enter();
+	}
+
+	private void BuyInGameClicked(BaseEventData data)
+	{
+		UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+		uIPurchaseableItem.m_itemType = PurchaseItemType.Character;
+		uIPurchaseableItem.m_charLink = UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay;
+		uIPurchaseableItem.m_currencyType = CurrencyType.FreelancerCurrency;
+		UIStorePanel.Get().OpenPurchaseDialog(uIPurchaseableItem, PurchaseCharacterResponseHandler);
+	}
+
+	private void BuyForCashClicked(BaseEventData data)
+	{
+		UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+		uIPurchaseableItem.m_itemType = PurchaseItemType.Character;
+		uIPurchaseableItem.m_charLink = UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay;
+		uIPurchaseableItem.m_purchaseForCash = true;
+		UIStorePanel.Get().OpenPurchaseDialog(uIPurchaseableItem, PurchaseCharacterResponseHandler);
+	}
+
+	private void BuyForTokenClicked(BaseEventData data)
+	{
+		ClientGameManager.Get().PurchaseCharacter(CurrencyType.UnlockFreelancerToken, UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay, delegate(PurchaseCharacterResponse response)
+		{
+			PurchaseCharacterResponseHandler(response.Success, response.Result, response.CharacterType);
+		});
+	}
+
+	private bool BuyTooltipSetup(UITooltipBase tooltip)
+	{
+		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+		uITitledTooltip.Setup(StringUtil.TR("BuyFreelancer", "CharacterSelect"), StringUtil.TR("BuyFreelancerDesc", "CharacterSelect"), string.Empty);
+		return true;
+	}
+
+	public void OpenOneButtonDialog(string title, string message, UIDialogBox.DialogButtonCallback callback = null)
+	{
+		m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(title, message, StringUtil.TR("Ok", "Global"), callback);
+	}
+
+	public void PurchaseCharacterResponseHandler(bool success, PurchaseResult result, CharacterType characterType)
+	{
+		if (!success)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (result == PurchaseResult.Success)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					UIManager.SetGameObjectActive(m_buyButtonsContainer, false);
+					UICharacterScreen.Get().RefreshCharacterButtons();
+					UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
+					{
+						ClientRequestToServerSelectCharacter = UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay
+					});
+					return;
+				}
+			}
+			return;
+		}
+	}
+
+	private void Awake()
+	{
+		if (m_buyButtonsContainer != null)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_buyInGameButton.spriteController.callback = BuyInGameClicked;
+			m_buyInGameButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, BuyTooltipSetup);
+			m_buyForCashButton.spriteController.callback = BuyForCashClicked;
+			m_buyForCashButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, BuyTooltipSetup);
+			m_buyForToken.spriteController.callback = BuyForTokenClicked;
+			m_buyForToken.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, BuyTooltipSetup);
+			m_buyButtonsHeader.text = StringUtil.TR("BuyFreelancer", "CharacterSelect");
+		}
+		s_instance = this;
+		m_visible = false;
+		for (int i = 0; i < m_mainLobbyControllers.Length; i++)
+		{
+			UIManager.SetGameObjectActive(m_mainLobbyControllers[i], false);
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
+			{
+				SideButtonsVisible = false,
+				CharacterSelectButtonsVisible = false
+			});
+			UIManager.SetGameObjectActive(m_readyBtn, false);
+			m_changeFreelancerBtn.spriteController.callback = ToggleCharacterSelect;
+			m_readyBtn.spriteController.callback = ReadyButtonClickCallback;
+			ClientGameManager.Get().OnCharacterDataUpdated += OnCharacterDataUpdated;
+			ClientGameManager.Get().OnGameInfoNotification += HandleGameInfoNotification;
+			ClientGameManager.Get().OnBankBalanceChange += HandleBankBalanceChange;
+			GameManager.Get().OnGameAssembling += HandleGameAssemblingUIChanges;
+			GameManager.Get().OnGameStopped += RestoreFunctionalityOnGameStop;
+			if (m_timeElapsedLabels.IsNullOrEmpty())
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				m_createGameTimestamps = new long[m_timeElapsedLabels.Length];
+				for (int j = 0; j < m_timeElapsedLabels.Length; j++)
+				{
+					m_timeElapsedLabels[j].text = string.Empty;
+				}
+				while (true)
+				{
+					switch (7)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -5497,7 +5523,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -5506,17 +5532,17 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreenController.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ClientGameManager.Get().OnCharacterDataUpdated -= this.OnCharacterDataUpdated;
-			ClientGameManager.Get().OnGameInfoNotification -= this.HandleGameInfoNotification;
-			ClientGameManager.Get().OnBankBalanceChange -= this.HandleBankBalanceChange;
+			ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterDataUpdated;
+			ClientGameManager.Get().OnGameInfoNotification -= HandleGameInfoNotification;
+			ClientGameManager.Get().OnBankBalanceChange -= HandleBankBalanceChange;
 		}
 		if (GameManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -5525,22 +5551,23 @@ public class UICharacterSelectScreenController : MonoBehaviour
 				}
 				break;
 			}
-			GameManager.Get().OnGameAssembling -= this.HandleGameAssemblingUIChanges;
-			GameManager.Get().OnGameStopped -= this.RestoreFunctionalityOnGameStop;
+			GameManager.Get().OnGameAssembling -= HandleGameAssemblingUIChanges;
+			GameManager.Get().OnGameStopped -= RestoreFunctionalityOnGameStop;
 		}
-		if (this.m_messageBox != null)
+		if (!(m_messageBox != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_messageBox.Close();
-			this.m_messageBox = null;
+			m_messageBox.Close();
+			m_messageBox = null;
+			return;
 		}
 	}
 }

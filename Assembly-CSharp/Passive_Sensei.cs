@@ -1,10 +1,9 @@
-﻿using System;
 using UnityEngine;
 
 public class Passive_Sensei : Passive
 {
 	[Header("-- For Ammo/Orb Generation --")]
-	public int m_maxOrbs = 0xA;
+	public int m_maxOrbs = 10;
 
 	public int m_orbRegenPerTurn = 1;
 

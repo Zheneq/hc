@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PKFxFX))]
@@ -12,28 +11,29 @@ public class PKFxAnimFloat3 : MonoBehaviour
 
 	private void Start()
 	{
-		this.fx = base.GetComponent<PKFxFX>();
-		if (this.fx == null)
+		fx = GetComponent<PKFxFX>();
+		if (!(fx == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxAnimFloat3.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			base.enabled = false;
+			return;
 		}
 	}
 
 	private void LateUpdate()
 	{
-		this.fx.SetAttribute(new PKFxManager.Attribute(this.propertyName, this.value));
+		fx.SetAttribute(new PKFxManager.Attribute(propertyName, value));
 	}
 }

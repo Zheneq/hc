@@ -1,5 +1,3 @@
-﻿using System;
-
 public class TargetingNumberUpdateScratch
 {
 	public int m_damage = -1;
@@ -12,10 +10,10 @@ public class TargetingNumberUpdateScratch
 
 	public void ResetForCalc()
 	{
-		this.m_damage = -1;
-		this.m_healing = -1;
-		this.m_absorb = -1;
-		this.m_energy = -1;
+		m_damage = -1;
+		m_healing = -1;
+		m_absorb = -1;
+		m_energy = -1;
 	}
 
 	public bool HasOverride(AbilityTooltipSymbol symbol)
@@ -24,16 +22,16 @@ public class TargetingNumberUpdateScratch
 		switch (symbol)
 		{
 		case AbilityTooltipSymbol.Damage:
-			result = (this.m_damage >= 0);
+			result = (m_damage >= 0);
 			break;
 		case AbilityTooltipSymbol.Healing:
-			result = (this.m_healing >= 0);
+			result = (m_healing >= 0);
 			break;
 		case AbilityTooltipSymbol.Absorb:
-			result = (this.m_absorb >= 0);
+			result = (m_absorb >= 0);
 			break;
 		case AbilityTooltipSymbol.Energy:
-			result = (this.m_energy >= 0);
+			result = (m_energy >= 0);
 			break;
 		}
 		return result;
@@ -45,16 +43,16 @@ public class TargetingNumberUpdateScratch
 		switch (symbol)
 		{
 		case AbilityTooltipSymbol.Damage:
-			result = this.m_damage;
+			result = m_damage;
 			break;
 		case AbilityTooltipSymbol.Healing:
-			result = this.m_healing;
+			result = m_healing;
 			break;
 		case AbilityTooltipSymbol.Absorb:
-			result = this.m_absorb;
+			result = m_absorb;
 			break;
 		case AbilityTooltipSymbol.Energy:
-			result = this.m_energy;
+			result = m_energy;
 			break;
 		}
 		return result;

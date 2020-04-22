@@ -1,9 +1,17 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UINotificationDisplay : MonoBehaviour
 {
+	public enum NoficationType
+	{
+		Kill,
+		FlagDrop,
+		FlagPickup,
+		CapturePoint,
+		MAX
+	}
+
 	public Sprite[] m_notificationIcon = new Sprite[4];
 
 	public Image[] m_allAlphaImages;
@@ -26,70 +34,71 @@ public class UINotificationDisplay : MonoBehaviour
 
 	public void Update()
 	{
-		this.CheckKillParticipants();
+		CheckKillParticipants();
 	}
 
 	public void SetAlpha(float newAlpha)
 	{
-		if (this.currentAlpha == Mathf.Clamp(newAlpha, 0f, 1f))
+		if (currentAlpha == Mathf.Clamp(newAlpha, 0f, 1f))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINotificationDisplay.SetAlpha(float)).MethodHandle;
-			}
-			return;
 		}
-		this.currentAlpha = newAlpha;
-		this.currentAlpha = Mathf.Clamp(this.currentAlpha, 0f, 1f);
-		for (int i = 0; i < this.m_allAlphaImages.Length; i++)
+		currentAlpha = newAlpha;
+		currentAlpha = Mathf.Clamp(currentAlpha, 0f, 1f);
+		for (int i = 0; i < m_allAlphaImages.Length; i++)
 		{
-			Color color = this.m_allAlphaImages[i].color;
-			color.a = this.currentAlpha;
-			this.m_allAlphaImages[i].color = color;
+			Color color = m_allAlphaImages[i].color;
+			color.a = currentAlpha;
+			m_allAlphaImages[i].color = color;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void CheckKillParticipants()
 	{
 		int num = 0;
-		for (int i = 0; i < this.characterIconsTransforms.Length; i++)
+		for (int i = 0; i < characterIconsTransforms.Length; i++)
 		{
 			if (i < num)
 			{
-				UIManager.SetGameObjectActive(this.characterIconsTransforms[i], true, null);
+				UIManager.SetGameObjectActive(characterIconsTransforms[i], true);
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.characterIconsTransforms[i], false, null);
+				UIManager.SetGameObjectActive(characterIconsTransforms[i], false);
 			}
 		}
 	}
 
 	public void Setup(ActorData actorDied)
 	{
-		this.m_secondaryCharacterIcon.sprite = actorDied.\u000E();
+		m_secondaryCharacterIcon.sprite = actorDied.GetAliveHUDIcon();
 		bool flag = false;
 		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -98,32 +107,23 @@ public class UINotificationDisplay : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINotificationDisplay.Setup(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = (actorDied.\u000E() == GameFlowData.Get().activeOwnedActorData.\u000E());
+			flag = (actorDied.GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam());
 		}
 		if (flag)
 		{
-			this.m_glowImage.color = Color.red;
-			this.m_background.color = Color.red;
+			m_glowImage.color = Color.red;
+			m_background.color = Color.red;
 		}
 		else
 		{
-			this.m_glowImage.color = Color.blue;
-			this.m_background.color = Color.blue;
+			m_glowImage.color = Color.blue;
+			m_background.color = Color.blue;
 		}
-		this.CheckKillParticipants();
-		this.SetAlpha(1f);
-	}
-
-	public enum NoficationType
-	{
-		Kill,
-		FlagDrop,
-		FlagPickup,
-		CapturePoint,
-		MAX
+		CheckKillParticipants();
+		SetAlpha(1f);
 	}
 }

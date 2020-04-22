@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace TMPro
@@ -51,11 +51,11 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_fontAsset;
+				return m_fontAsset;
 			}
 			set
 			{
-				this.m_fontAsset = value;
+				m_fontAsset = value;
 			}
 		}
 
@@ -63,11 +63,11 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_spriteAsset;
+				return m_spriteAsset;
 			}
 			set
 			{
-				this.m_spriteAsset = value;
+				m_spriteAsset = value;
 			}
 		}
 
@@ -75,19 +75,17 @@ namespace TMPro
 		{
 			get
 			{
-				return this.GetMaterial(this.m_sharedMaterial);
+				return GetMaterial(m_sharedMaterial);
 			}
 			set
 			{
-				if (this.m_sharedMaterial.GetInstanceID() == value.GetInstanceID())
+				if (m_sharedMaterial.GetInstanceID() != value.GetInstanceID())
 				{
-					return;
+					m_sharedMaterial = (m_material = value);
+					m_padding = GetPaddingForMaterial();
+					SetVerticesDirty();
+					SetMaterialDirty();
 				}
-				this.m_material = value;
-				this.m_sharedMaterial = value;
-				this.m_padding = this.GetPaddingForMaterial();
-				this.SetVerticesDirty();
-				this.SetMaterialDirty();
 			}
 		}
 
@@ -95,11 +93,11 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_sharedMaterial;
+				return m_sharedMaterial;
 			}
 			set
 			{
-				this.SetSharedMaterial(value);
+				SetSharedMaterial(value);
 			}
 		}
 
@@ -107,30 +105,30 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_fallbackMaterial;
+				return m_fallbackMaterial;
 			}
 			set
 			{
-				if (this.m_fallbackMaterial == value)
+				if (m_fallbackMaterial == value)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							return;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMesh.set_fallbackMaterial(Material)).MethodHandle;
-					}
-					return;
 				}
-				if (this.m_fallbackMaterial != null && this.m_fallbackMaterial != value)
+				if (m_fallbackMaterial != null && m_fallbackMaterial != value)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -139,11 +137,11 @@ namespace TMPro
 						}
 						break;
 					}
-					TMP_MaterialManager.ReleaseFallbackMaterial(this.m_fallbackMaterial);
+					TMP_MaterialManager.ReleaseFallbackMaterial(m_fallbackMaterial);
 				}
-				this.m_fallbackMaterial = value;
-				TMP_MaterialManager.AddFallbackMaterialReference(this.m_fallbackMaterial);
-				this.SetSharedMaterial(this.m_fallbackMaterial);
+				m_fallbackMaterial = value;
+				TMP_MaterialManager.AddFallbackMaterialReference(m_fallbackMaterial);
+				SetSharedMaterial(m_fallbackMaterial);
 			}
 		}
 
@@ -151,11 +149,11 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_fallbackSourceMaterial;
+				return m_fallbackSourceMaterial;
 			}
 			set
 			{
-				this.m_fallbackSourceMaterial = value;
+				m_fallbackSourceMaterial = value;
 			}
 		}
 
@@ -163,11 +161,11 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_isDefaultMaterial;
+				return m_isDefaultMaterial;
 			}
 			set
 			{
-				this.m_isDefaultMaterial = value;
+				m_isDefaultMaterial = value;
 			}
 		}
 
@@ -175,11 +173,11 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_padding;
+				return m_padding;
 			}
 			set
 			{
-				this.m_padding = value;
+				m_padding = value;
 			}
 		}
 
@@ -187,9 +185,9 @@ namespace TMPro
 		{
 			get
 			{
-				if (this.m_renderer == null)
+				if (m_renderer == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -198,13 +196,13 @@ namespace TMPro
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMesh.get_renderer()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					this.m_renderer = base.GetComponent<Renderer>();
+					m_renderer = GetComponent<Renderer>();
 				}
-				return this.m_renderer;
+				return m_renderer;
 			}
 		}
 
@@ -212,11 +210,11 @@ namespace TMPro
 		{
 			get
 			{
-				if (this.m_meshFilter == null)
+				if (m_meshFilter == null)
 				{
-					this.m_meshFilter = base.GetComponent<MeshFilter>();
+					m_meshFilter = GetComponent<MeshFilter>();
 				}
-				return this.m_meshFilter;
+				return m_meshFilter;
 			}
 		}
 
@@ -224,17 +222,17 @@ namespace TMPro
 		{
 			get
 			{
-				if (this.m_mesh == null)
+				if (m_mesh == null)
 				{
-					this.m_mesh = new Mesh();
-					this.m_mesh.hideFlags = HideFlags.HideAndDontSave;
-					this.meshFilter.mesh = this.m_mesh;
+					m_mesh = new Mesh();
+					m_mesh.hideFlags = HideFlags.HideAndDontSave;
+					meshFilter.mesh = m_mesh;
 				}
-				return this.m_mesh;
+				return m_mesh;
 			}
 			set
 			{
-				this.m_mesh = value;
+				m_mesh = value;
 			}
 		}
 
@@ -242,9 +240,9 @@ namespace TMPro
 		{
 			get
 			{
-				if (this.m_boxCollider == null)
+				if (m_boxCollider == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -253,26 +251,26 @@ namespace TMPro
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMesh.get_boxCollider()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					this.m_boxCollider = base.GetComponent<BoxCollider>();
-					if (this.m_boxCollider == null)
+					m_boxCollider = GetComponent<BoxCollider>();
+					if (m_boxCollider == null)
 					{
-						this.m_boxCollider = base.gameObject.AddComponent<BoxCollider>();
+						m_boxCollider = base.gameObject.AddComponent<BoxCollider>();
 						base.gameObject.AddComponent<Rigidbody>();
 					}
 				}
-				return this.m_boxCollider;
+				return m_boxCollider;
 			}
 		}
 
 		private void OnEnable()
 		{
-			if (!this.m_isRegisteredForEvents)
+			if (!m_isRegisteredForEvents)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -281,56 +279,58 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMesh.OnEnable()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_isRegisteredForEvents = true;
+				m_isRegisteredForEvents = true;
 			}
-			this.meshFilter.sharedMesh = this.mesh;
-			if (this.m_sharedMaterial != null)
+			meshFilter.sharedMesh = mesh;
+			if (!(m_sharedMaterial != null))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				this.m_sharedMaterial.SetVector(ShaderUtilities.ID_ClipRect, new Vector4(-32767f, -32767f, 32767f, 32767f));
+				m_sharedMaterial.SetVector(ShaderUtilities.ID_ClipRect, new Vector4(-32767f, -32767f, 32767f, 32767f));
+				return;
 			}
 		}
 
 		private void OnDisable()
 		{
-			this.m_meshFilter.sharedMesh = null;
-			if (this.m_fallbackMaterial != null)
+			m_meshFilter.sharedMesh = null;
+			if (!(m_fallbackMaterial != null))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (3)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMesh.OnDisable()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				TMP_MaterialManager.ReleaseFallbackMaterial(this.m_fallbackMaterial);
-				this.m_fallbackMaterial = null;
+				TMP_MaterialManager.ReleaseFallbackMaterial(m_fallbackMaterial);
+				m_fallbackMaterial = null;
+				return;
 			}
 		}
 
 		private void OnDestroy()
 		{
-			if (this.m_mesh != null)
+			if (m_mesh != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -339,15 +339,15 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMesh.OnDestroy()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				UnityEngine.Object.DestroyImmediate(this.m_mesh);
+				UnityEngine.Object.DestroyImmediate(m_mesh);
 			}
-			if (this.m_fallbackMaterial != null)
+			if (m_fallbackMaterial != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -356,18 +356,15 @@ namespace TMPro
 					}
 					break;
 				}
-				TMP_MaterialManager.ReleaseFallbackMaterial(this.m_fallbackMaterial);
-				this.m_fallbackMaterial = null;
+				TMP_MaterialManager.ReleaseFallbackMaterial(m_fallbackMaterial);
+				m_fallbackMaterial = null;
 			}
-			this.m_isRegisteredForEvents = false;
+			m_isRegisteredForEvents = false;
 		}
 
 		public static TMP_SubMesh AddSubTextObject(TextMeshPro textComponent, MaterialReference materialReference)
 		{
-			GameObject gameObject = new GameObject("TMP SubMesh [" + materialReference.material.name + "]", new Type[]
-			{
-				typeof(TMP_SubMesh)
-			});
+			GameObject gameObject = new GameObject("TMP SubMesh [" + materialReference.material.name + "]", typeof(TMP_SubMesh));
 			TMP_SubMesh component = gameObject.GetComponent<TMP_SubMesh>();
 			gameObject.transform.SetParent(textComponent.transform, false);
 			gameObject.transform.localPosition = Vector3.zero;
@@ -392,13 +389,13 @@ namespace TMPro
 
 		private Material GetMaterial(Material mat)
 		{
-			if (this.m_renderer == null)
+			if (m_renderer == null)
 			{
-				this.m_renderer = base.GetComponent<Renderer>();
+				m_renderer = GetComponent<Renderer>();
 			}
-			if (!(this.m_material == null))
+			if (!(m_material == null))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -407,15 +404,15 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMesh.GetMaterial(Material)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (this.m_material.GetInstanceID() == mat.GetInstanceID())
+				if (m_material.GetInstanceID() == mat.GetInstanceID())
 				{
-					goto IL_6B;
+					goto IL_006b;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -425,86 +422,83 @@ namespace TMPro
 					break;
 				}
 			}
-			this.m_material = this.CreateMaterialInstance(mat);
-			IL_6B:
-			this.m_sharedMaterial = this.m_material;
-			this.m_padding = this.GetPaddingForMaterial();
-			this.SetVerticesDirty();
-			this.SetMaterialDirty();
-			return this.m_sharedMaterial;
+			m_material = CreateMaterialInstance(mat);
+			goto IL_006b;
+			IL_006b:
+			m_sharedMaterial = m_material;
+			m_padding = GetPaddingForMaterial();
+			SetVerticesDirty();
+			SetMaterialDirty();
+			return m_sharedMaterial;
 		}
 
 		private Material CreateMaterialInstance(Material source)
 		{
 			Material material = new Material(source);
 			material.shaderKeywords = source.shaderKeywords;
-			Material material2 = material;
-			material2.name += " (Instance)";
+			material.name += " (Instance)";
 			return material;
 		}
 
 		private Material GetSharedMaterial()
 		{
-			if (this.m_renderer == null)
+			if (m_renderer == null)
 			{
-				this.m_renderer = base.GetComponent<Renderer>();
+				m_renderer = GetComponent<Renderer>();
 			}
-			return this.m_renderer.sharedMaterial;
+			return m_renderer.sharedMaterial;
 		}
 
 		private void SetSharedMaterial(Material mat)
 		{
-			this.m_sharedMaterial = mat;
-			this.m_padding = this.GetPaddingForMaterial();
-			this.SetMaterialDirty();
+			m_sharedMaterial = mat;
+			m_padding = GetPaddingForMaterial();
+			SetMaterialDirty();
 		}
 
 		public float GetPaddingForMaterial()
 		{
-			return ShaderUtilities.GetPadding(this.m_sharedMaterial, this.m_TextComponent.extraPadding, this.m_TextComponent.isUsingBold);
+			return ShaderUtilities.GetPadding(m_sharedMaterial, m_TextComponent.extraPadding, m_TextComponent.isUsingBold);
 		}
 
 		public void UpdateMeshPadding(bool isExtraPadding, bool isUsingBold)
 		{
-			this.m_padding = ShaderUtilities.GetPadding(this.m_sharedMaterial, isExtraPadding, isUsingBold);
+			m_padding = ShaderUtilities.GetPadding(m_sharedMaterial, isExtraPadding, isUsingBold);
 		}
 
 		public void SetVerticesDirty()
 		{
-			if (!base.enabled)
+			if (!base.enabled || !(m_TextComponent != null))
 			{
 				return;
 			}
-			if (this.m_TextComponent != null)
+			while (true)
 			{
-				for (;;)
+				switch (4)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMesh.SetVerticesDirty()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_TextComponent.havePropertiesChanged = true;
-				this.m_TextComponent.SetVerticesDirty();
+				m_TextComponent.havePropertiesChanged = true;
+				m_TextComponent.SetVerticesDirty();
+				return;
 			}
 		}
 
 		public void SetMaterialDirty()
 		{
-			this.UpdateMaterial();
+			UpdateMaterial();
 		}
 
 		protected void UpdateMaterial()
 		{
-			if (this.m_renderer == null)
+			if (m_renderer == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -513,57 +507,57 @@ namespace TMPro
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMesh.UpdateMaterial()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_renderer = this.renderer;
+				m_renderer = renderer;
 			}
-			this.m_renderer.sharedMaterial = this.m_sharedMaterial;
+			m_renderer.sharedMaterial = m_sharedMaterial;
 		}
 
 		public void UpdateColliders(int vertexCount)
 		{
-			if (this.boxCollider == null)
+			if (boxCollider == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMesh.UpdateColliders(int)).MethodHandle;
-				}
-				return;
 			}
-			Vector2 max_16BIT = TMP_Math.MAX_16BIT;
-			Vector2 min_16BIT = TMP_Math.MIN_16BIT;
+			Vector2 mAX_16BIT = TMP_Math.MAX_16BIT;
+			Vector2 mIN_16BIT = TMP_Math.MIN_16BIT;
 			for (int i = 0; i < vertexCount; i++)
 			{
-				max_16BIT.x = Mathf.Min(max_16BIT.x, this.m_mesh.vertices[i].x);
-				max_16BIT.y = Mathf.Min(max_16BIT.y, this.m_mesh.vertices[i].y);
-				min_16BIT.x = Mathf.Max(min_16BIT.x, this.m_mesh.vertices[i].x);
-				min_16BIT.y = Mathf.Max(min_16BIT.y, this.m_mesh.vertices[i].y);
+				mAX_16BIT.x = Mathf.Min(mAX_16BIT.x, m_mesh.vertices[i].x);
+				mAX_16BIT.y = Mathf.Min(mAX_16BIT.y, m_mesh.vertices[i].y);
+				mIN_16BIT.x = Mathf.Max(mIN_16BIT.x, m_mesh.vertices[i].x);
+				mIN_16BIT.y = Mathf.Max(mIN_16BIT.y, m_mesh.vertices[i].y);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				Vector3 center = (mAX_16BIT + mIN_16BIT) / 2f;
+				Vector3 size = mIN_16BIT - mAX_16BIT;
+				size.z = 0.1f;
+				boxCollider.center = center;
+				boxCollider.size = size;
+				return;
 			}
-			Vector3 center = (max_16BIT + min_16BIT) / 2f;
-			Vector3 size = min_16BIT - max_16BIT;
-			size.z = 0.1f;
-			this.boxCollider.center = center;
-			this.boxCollider.size = size;
 		}
 	}
 }

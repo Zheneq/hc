@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,43 +32,42 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SoldierStimPack soldierStimPack = targetAbility as SoldierStimPack;
-		if (soldierStimPack != null)
+		if (!(soldierStimPack != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierStimPack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_selfHealAmountMod, "SelfHealAmount", string.Empty, soldierStimPack.m_selfHealAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_selfHitEffectMod, "SelfHitEffect", soldierStimPack.m_selfHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_grenadeExtraRangeMod, "GrenadeExtraRange", string.Empty, soldierStimPack.m_grenadeExtraRange, true, false, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_dashShootExtraEffectMod, "DashShootExtraEffect", soldierStimPack.m_dashShootExtraEffect, true);
-			AbilityMod.AddToken(tokens, this.m_cooldownResetHealthThresholdMod, "CooldownResetHealthThreshold", string.Empty, soldierStimPack.m_cooldownResetHealthThreshold, true, false, true);
-			AbilityMod.AddToken(tokens, this.m_cdrIfDashAndShootUsedMod, "CdrIfDashAndShootUsed", string.Empty, soldierStimPack.m_cdrIfDashAndShootUsed, true, false);
+			AbilityMod.AddToken(tokens, m_selfHealAmountMod, "SelfHealAmount", string.Empty, soldierStimPack.m_selfHealAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_selfHitEffectMod, "SelfHitEffect", soldierStimPack.m_selfHitEffect);
+			AbilityMod.AddToken(tokens, m_grenadeExtraRangeMod, "GrenadeExtraRange", string.Empty, soldierStimPack.m_grenadeExtraRange);
+			AbilityMod.AddToken_EffectMod(tokens, m_dashShootExtraEffectMod, "DashShootExtraEffect", soldierStimPack.m_dashShootExtraEffect);
+			AbilityMod.AddToken(tokens, m_cooldownResetHealthThresholdMod, "CooldownResetHealthThreshold", string.Empty, soldierStimPack.m_cooldownResetHealthThreshold, true, false, true);
+			AbilityMod.AddToken(tokens, m_cdrIfDashAndShootUsedMod, "CdrIfDashAndShootUsed", string.Empty, soldierStimPack.m_cdrIfDashAndShootUsed);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SoldierStimPack soldierStimPack = base.GetTargetAbilityOnAbilityData(abilityData) as SoldierStimPack;
+		SoldierStimPack soldierStimPack = GetTargetAbilityOnAbilityData(abilityData) as SoldierStimPack;
 		bool flag = soldierStimPack != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt selfHealAmountMod = this.m_selfHealAmountMod;
-		string prefix = "[SelfHealAmount]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt selfHealAmountMod = m_selfHealAmountMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -77,9 +76,9 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierStimPack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = soldierStimPack.m_selfHealAmount;
 		}
@@ -87,16 +86,14 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + base.PropDesc(selfHealAmountMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_selfHitEffectMod, "[SelfHitEffect]", flag, (!flag) ? null : soldierStimPack.m_selfHitEffect);
-		string str2 = text;
-		AbilityModPropertyBool basicAttackIgnoreCoverMod = this.m_basicAttackIgnoreCoverMod;
-		string prefix2 = "[BasicAttackIgnoreCover]";
-		bool showBaseVal2 = flag;
-		bool baseVal2;
+		empty = str + PropDesc(selfHealAmountMod, "[SelfHealAmount]", flag, baseVal);
+		empty += PropDesc(m_selfHitEffectMod, "[SelfHitEffect]", flag, (!flag) ? null : soldierStimPack.m_selfHitEffect);
+		string str2 = empty;
+		AbilityModPropertyBool basicAttackIgnoreCoverMod = m_basicAttackIgnoreCoverMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -105,22 +102,20 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 				}
 				break;
 			}
-			baseVal2 = soldierStimPack.m_basicAttackIgnoreCover;
+			baseVal2 = (soldierStimPack.m_basicAttackIgnoreCover ? 1 : 0);
 		}
 		else
 		{
-			baseVal2 = false;
+			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(basicAttackIgnoreCoverMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_basicAttackReduceCoverEffectivenessMod, "[BasicAttackReduceCoverEffectiveness]", flag, flag && soldierStimPack.m_basicAttackReduceCoverEffectiveness);
-		string str3 = text;
-		AbilityModPropertyFloat grenadeExtraRangeMod = this.m_grenadeExtraRangeMod;
-		string prefix3 = "[GrenadeExtraRange]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(basicAttackIgnoreCoverMod, "[BasicAttackIgnoreCover]", flag, (byte)baseVal2 != 0);
+		empty += PropDesc(m_basicAttackReduceCoverEffectivenessMod, "[BasicAttackReduceCoverEffectiveness]", flag, flag && soldierStimPack.m_basicAttackReduceCoverEffectiveness);
+		string str3 = empty;
+		AbilityModPropertyFloat grenadeExtraRangeMod = m_grenadeExtraRangeMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -135,15 +130,13 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(grenadeExtraRangeMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyEffectInfo dashShootExtraEffectMod = this.m_dashShootExtraEffectMod;
-		string prefix4 = "[DashShootExtraEffect]";
-		bool showBaseVal4 = flag;
-		StandardEffectInfo baseVal4;
+		empty = str3 + PropDesc(grenadeExtraRangeMod, "[GrenadeExtraRange]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyEffectInfo dashShootExtraEffectMod = m_dashShootExtraEffectMod;
+		object baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -158,8 +151,8 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		{
 			baseVal4 = null;
 		}
-		text = str4 + base.PropDesc(dashShootExtraEffectMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_cooldownResetHealthThresholdMod, "[CooldownResetHealthThreshold]", flag, (!flag) ? 0f : soldierStimPack.m_cooldownResetHealthThreshold);
-		return text + base.PropDesc(this.m_cdrIfDashAndShootUsedMod, "[CdrIfDashAndShootUsed]", flag, (!flag) ? 0 : soldierStimPack.m_cdrIfDashAndShootUsed);
+		empty = str4 + PropDesc(dashShootExtraEffectMod, "[DashShootExtraEffect]", flag, (StandardEffectInfo)baseVal4);
+		empty += PropDesc(m_cooldownResetHealthThresholdMod, "[CooldownResetHealthThreshold]", flag, (!flag) ? 0f : soldierStimPack.m_cooldownResetHealthThreshold);
+		return empty + PropDesc(m_cdrIfDashAndShootUsedMod, "[CdrIfDashAndShootUsed]", flag, flag ? soldierStimPack.m_cdrIfDashAndShootUsed : 0);
 	}
 }

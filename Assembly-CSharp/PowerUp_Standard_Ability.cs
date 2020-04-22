@@ -1,10 +1,24 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PowerUp_Standard_Ability : Ability
 {
-	public int m_healAmount = 0x1E;
+	public enum ExtraEffectApplyCondition
+	{
+		Ignore,
+		EnemyLowestHealthPct
+	}
+
+	[Serializable]
+	public class ExtraEffectApplyData
+	{
+		public ExtraEffectApplyCondition m_condition;
+
+		public StandardEffectInfo m_extraEffect;
+	}
+
+	public int m_healAmount = 30;
 
 	public int m_techPointsAmount;
 
@@ -29,37 +43,23 @@ public class PowerUp_Standard_Ability : Ability
 	public bool m_awardCoins;
 
 	[Separator("Extra Effects, for one-off powerups", true)]
-	public List<PowerUp_Standard_Ability.ExtraEffectApplyData> m_extraEffectsToApply;
+	public List<ExtraEffectApplyData> m_extraEffectsToApply;
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Standard PowerUp";
+			m_abilityName = "Standard PowerUp";
 		}
 	}
 
 	public void SetHealAmount(int amount)
 	{
-		this.m_healAmount = amount;
+		m_healAmount = amount;
 	}
 
 	public void SetTechPointAmount(int amount)
 	{
-		this.m_techPointsAmount = amount;
-	}
-
-	public enum ExtraEffectApplyCondition
-	{
-		Ignore,
-		EnemyLowestHealthPct
-	}
-
-	[Serializable]
-	public class ExtraEffectApplyData
-	{
-		public PowerUp_Standard_Ability.ExtraEffectApplyCondition m_condition;
-
-		public StandardEffectInfo m_extraEffect;
+		m_techPointsAmount = amount;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,12 +15,12 @@ public class UIRatingButton : MonoBehaviour
 
 	private void Awake()
 	{
-		UIManager.SetGameObjectActive(this.m_selectedImage, false, null);
-		this.m_hitBox.m_ignoreDialogboxes = true;
+		UIManager.SetGameObjectActive(m_selectedImage, false);
+		m_hitBox.m_ignoreDialogboxes = true;
 	}
 
 	public void SetSelected(bool selected)
 	{
-		UIManager.SetGameObjectActive(this.m_selectedImage, selected, null);
+		UIManager.SetGameObjectActive(m_selectedImage, selected);
 	}
 }

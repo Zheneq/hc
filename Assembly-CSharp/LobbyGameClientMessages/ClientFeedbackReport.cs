@@ -1,11 +1,27 @@
-﻿using System;
+using System;
 
 namespace LobbyGameClientMessages
 {
 	[Serializable]
 	public class ClientFeedbackReport : WebSocketMessage
 	{
-		public ClientFeedbackReport.FeedbackReason Reason;
+		public enum FeedbackReason
+		{
+			_001D,
+			_000E,
+			_0012,
+			_0015,
+			_0016,
+			_0013,
+			_0018,
+			_0009,
+			_0019,
+			_0011,
+			_001A,
+			_0004
+		}
+
+		public FeedbackReason Reason;
 
 		public string ReportedPlayerHandle;
 
@@ -13,11 +29,12 @@ namespace LobbyGameClientMessages
 
 		public string Message;
 
-		public bool \u001D()
+		public bool _001D()
 		{
-			if (this.Reason != ClientFeedbackReport.FeedbackReason.\u0015)
+			int result;
+			if (Reason != FeedbackReason._0015)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -26,13 +43,13 @@ namespace LobbyGameClientMessages
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientFeedbackReport.\u001D()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (this.Reason != ClientFeedbackReport.FeedbackReason.\u0016 && this.Reason != ClientFeedbackReport.FeedbackReason.\u0018)
+				if (Reason != FeedbackReason._0016 && Reason != FeedbackReason._0018)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -41,9 +58,9 @@ namespace LobbyGameClientMessages
 						}
 						break;
 					}
-					if (this.Reason != ClientFeedbackReport.FeedbackReason.\u0019)
+					if (Reason != FeedbackReason._0019)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -52,9 +69,9 @@ namespace LobbyGameClientMessages
 							}
 							break;
 						}
-						if (this.Reason != ClientFeedbackReport.FeedbackReason.\u0011)
+						if (Reason != FeedbackReason._0011)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -63,28 +80,16 @@ namespace LobbyGameClientMessages
 								}
 								break;
 							}
-							return this.Reason == ClientFeedbackReport.FeedbackReason.\u001A;
+							result = ((Reason == FeedbackReason._001A) ? 1 : 0);
+							goto IL_006c;
 						}
 					}
 				}
 			}
-			return true;
-		}
-
-		public enum FeedbackReason
-		{
-			\u001D,
-			\u000E,
-			\u0012,
-			\u0015,
-			\u0016,
-			\u0013,
-			\u0018,
-			\u0009,
-			\u0019,
-			\u0011,
-			\u001A,
-			\u0004
+			result = 1;
+			goto IL_006c;
+			IL_006c:
+			return (byte)result != 0;
 		}
 	}
 }

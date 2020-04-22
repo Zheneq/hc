@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class Scheduler
@@ -9,34 +9,32 @@ public class Scheduler
 	{
 		get
 		{
-			object scheduledTasks = this.m_scheduledTasks;
-			int count;
-			lock (scheduledTasks)
+			lock (m_scheduledTasks)
 			{
-				count = this.m_scheduledTasks.Count;
+				return m_scheduledTasks.Count;
 			}
-			return count;
 		}
 	}
 
 	public void AddTask(Action action, TimeSpan timeSpan, bool isOneShot = true)
 	{
-		if (timeSpan != TimeSpan.Zero)
+		if (!(timeSpan != TimeSpan.Zero))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scheduler.AddTask(Action, TimeSpan, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.AddTask(action, (int)timeSpan.TotalMilliseconds, isOneShot);
+			AddTask(action, (int)timeSpan.TotalMilliseconds, isOneShot);
+			return;
 		}
 	}
 
@@ -44,94 +42,91 @@ public class Scheduler
 	{
 		if (DateTime.UtcNow < datetime)
 		{
-			this.AddTask(action, (int)(datetime - DateTime.UtcNow).TotalMilliseconds, isOneShot);
+			AddTask(action, (int)(datetime - DateTime.UtcNow).TotalMilliseconds, isOneShot);
 		}
 	}
 
 	public void AddTask(Action action, int timeoutMs, bool isOneShot = true)
 	{
-		object scheduledTasks = this.m_scheduledTasks;
-		lock (scheduledTasks)
+		lock (m_scheduledTasks)
 		{
-			if (!this.m_scheduledTasks.ContainsKey(action))
+			if (!m_scheduledTasks.ContainsKey(action))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						ScheduledTask scheduledTask = new ScheduledTask(action, timeoutMs, isOneShot);
+						scheduledTask.TaskComplete = (EventHandler)Delegate.Combine(scheduledTask.TaskComplete, new EventHandler(TaskComplete));
+						m_scheduledTasks.Add(action, scheduledTask);
+						scheduledTask.Timer.Start();
+						return;
 					}
-					break;
+					}
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Scheduler.AddTask(Action, int, bool)).MethodHandle;
-				}
-				ScheduledTask scheduledTask = new ScheduledTask(action, timeoutMs, isOneShot);
-				ScheduledTask scheduledTask2 = scheduledTask;
-				scheduledTask2.TaskComplete = (EventHandler)Delegate.Combine(scheduledTask2.TaskComplete, new EventHandler(this.TaskComplete));
-				this.m_scheduledTasks.Add(action, scheduledTask);
-				scheduledTask.Timer.Start();
 			}
 		}
 	}
 
 	public void RemoveTask(Action action)
 	{
-		object scheduledTasks = this.m_scheduledTasks;
-		lock (scheduledTasks)
+		lock (m_scheduledTasks)
 		{
-			ScheduledTask scheduledTask;
-			if (this.m_scheduledTasks.TryGetValue(action, out scheduledTask))
+			if (m_scheduledTasks.TryGetValue(action, out ScheduledTask value))
 			{
-				scheduledTask.Cancel();
-				this.TaskComplete(scheduledTask, EventArgs.Empty);
+				value.Cancel();
+				TaskComplete(value, EventArgs.Empty);
 			}
 		}
 	}
 
 	public void Reset()
 	{
-		object scheduledTasks = this.m_scheduledTasks;
-		lock (scheduledTasks)
+		lock (m_scheduledTasks)
 		{
-			using (Dictionary<Action, ScheduledTask>.ValueCollection.Enumerator enumerator = this.m_scheduledTasks.Values.GetEnumerator())
+			using (Dictionary<Action, ScheduledTask>.ValueCollection.Enumerator enumerator = m_scheduledTasks.Values.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					ScheduledTask scheduledTask = enumerator.Current;
-					scheduledTask.Cancel();
-					ScheduledTask scheduledTask2 = scheduledTask;
-					scheduledTask2.TaskComplete = (EventHandler)Delegate.Remove(scheduledTask2.TaskComplete, new EventHandler(this.TaskComplete));
+					ScheduledTask current = enumerator.Current;
+					current.Cancel();
+					current.TaskComplete = (EventHandler)Delegate.Remove(current.TaskComplete, new EventHandler(TaskComplete));
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						goto end_IL_0020;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Scheduler.Reset()).MethodHandle;
-				}
+				end_IL_0020:;
 			}
-			this.m_scheduledTasks.Clear();
+			m_scheduledTasks.Clear();
 		}
 	}
 
 	private void TaskComplete(object sender, EventArgs e)
 	{
-		object scheduledTasks = this.m_scheduledTasks;
-		lock (scheduledTasks)
+		lock (m_scheduledTasks)
 		{
 			ScheduledTask scheduledTask = (ScheduledTask)sender;
-			ScheduledTask scheduledTask2 = scheduledTask;
-			scheduledTask2.TaskComplete = (EventHandler)Delegate.Remove(scheduledTask2.TaskComplete, new EventHandler(this.TaskComplete));
-			this.m_scheduledTasks.Remove(scheduledTask.Action);
+			scheduledTask.TaskComplete = (EventHandler)Delegate.Remove(scheduledTask.TaskComplete, new EventHandler(TaskComplete));
+			m_scheduledTasks.Remove(scheduledTask.Action);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,44 +37,43 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		BlasterOvercharge blasterOvercharge = targetAbility as BlasterOvercharge;
-		if (blasterOvercharge != null)
+		if (!(blasterOvercharge != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BlasterOvercharge.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_maxCastCountMod, "MaxCastCount", string.Empty, blasterOvercharge.m_maxCastCount, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageCountMod, "ExtraDamageCount", string.Empty, blasterOvercharge.m_extraDamageCount, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageMod, "ExtraDamage", string.Empty, blasterOvercharge.m_extraDamage, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageForDelayedLaserMod, "ExtraDamageForLurkerMine", string.Empty, blasterOvercharge.m_extraDamageForDelayedLaser, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageForMultiCastMod, "ExtraDamageForMultiCast", string.Empty, blasterOvercharge.m_extraDamageForMultiCast, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnSelfOnCastMod, "EffectOnSelfOnCast", blasterOvercharge.m_effectOnSelfOnCast, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_extraEffectOnOtherAbilitiesMod, "ExtraEffectOnOtherAbilities", blasterOvercharge.m_extraEffectOnOtherAbilities, true);
+			AbilityMod.AddToken(tokens, m_maxCastCountMod, "MaxCastCount", string.Empty, blasterOvercharge.m_maxCastCount);
+			AbilityMod.AddToken(tokens, m_extraDamageCountMod, "ExtraDamageCount", string.Empty, blasterOvercharge.m_extraDamageCount);
+			AbilityMod.AddToken(tokens, m_extraDamageMod, "ExtraDamage", string.Empty, blasterOvercharge.m_extraDamage);
+			AbilityMod.AddToken(tokens, m_extraDamageForDelayedLaserMod, "ExtraDamageForLurkerMine", string.Empty, blasterOvercharge.m_extraDamageForDelayedLaser);
+			AbilityMod.AddToken(tokens, m_extraDamageForMultiCastMod, "ExtraDamageForMultiCast", string.Empty, blasterOvercharge.m_extraDamageForMultiCast);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnSelfOnCastMod, "EffectOnSelfOnCast", blasterOvercharge.m_effectOnSelfOnCast);
+			AbilityMod.AddToken_EffectMod(tokens, m_extraEffectOnOtherAbilitiesMod, "ExtraEffectOnOtherAbilities", blasterOvercharge.m_extraEffectOnOtherAbilities);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		BlasterOvercharge blasterOvercharge = base.GetTargetAbilityOnAbilityData(abilityData) as BlasterOvercharge;
+		BlasterOvercharge blasterOvercharge = GetTargetAbilityOnAbilityData(abilityData) as BlasterOvercharge;
 		bool flag = blasterOvercharge != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt maxCastCountMod = this.m_maxCastCountMod;
-		string prefix = "[MaxCastCount]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt maxCastCountMod = m_maxCastCountMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -83,9 +82,9 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BlasterOvercharge.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = blasterOvercharge.m_maxCastCount;
 		}
@@ -93,15 +92,13 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + base.PropDesc(maxCastCountMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt extraDamageCountMod = this.m_extraDamageCountMod;
-		string prefix2 = "[ExtraDamageCount]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(maxCastCountMod, "[MaxCastCount]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyInt extraDamageCountMod = m_extraDamageCountMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -116,15 +113,13 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(extraDamageCountMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt extraDamageMod = this.m_extraDamageMod;
-		string prefix3 = "[ExtraDamage]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(extraDamageCountMod, "[ExtraDamageCount]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyInt extraDamageMod = m_extraDamageMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -139,15 +134,13 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(extraDamageMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt extraDamageForDelayedLaserMod = this.m_extraDamageForDelayedLaserMod;
-		string prefix4 = "[ExtraDamageForLurkerMine]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(extraDamageMod, "[ExtraDamage]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyInt extraDamageForDelayedLaserMod = m_extraDamageForDelayedLaserMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -162,15 +155,13 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(extraDamageForDelayedLaserMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt extraDamageForMultiCastMod = this.m_extraDamageForMultiCastMod;
-		string prefix5 = "[ExtraDamageForMultiCast]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(extraDamageForDelayedLaserMod, "[ExtraDamageForLurkerMine]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyInt extraDamageForMultiCastMod = m_extraDamageForMultiCastMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -185,15 +176,13 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(extraDamageForMultiCastMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyEffectInfo effectOnSelfOnCastMod = this.m_effectOnSelfOnCastMod;
-		string prefix6 = "[EffectOnSelfOnCast]";
-		bool showBaseVal6 = flag;
-		StandardEffectInfo baseVal6;
+		empty = str5 + PropDesc(extraDamageForMultiCastMod, "[ExtraDamageForMultiCast]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyEffectInfo effectOnSelfOnCastMod = m_effectOnSelfOnCastMod;
+		object baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -208,15 +197,13 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		{
 			baseVal6 = null;
 		}
-		text = str6 + base.PropDesc(effectOnSelfOnCastMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyEffectInfo extraEffectOnOtherAbilitiesMod = this.m_extraEffectOnOtherAbilitiesMod;
-		string prefix7 = "[ExtraEffectOnOtherAbilities]";
-		bool showBaseVal7 = flag;
-		StandardEffectInfo baseVal7;
+		empty = str6 + PropDesc(effectOnSelfOnCastMod, "[EffectOnSelfOnCast]", flag, (StandardEffectInfo)baseVal6);
+		string str7 = empty;
+		AbilityModPropertyEffectInfo extraEffectOnOtherAbilitiesMod = m_extraEffectOnOtherAbilitiesMod;
+		object baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -231,10 +218,10 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		{
 			baseVal7 = null;
 		}
-		text = str7 + base.PropDesc(extraEffectOnOtherAbilitiesMod, prefix7, showBaseVal7, baseVal7);
-		if (this.m_useExtraEffectActionTypeOverride)
+		empty = str7 + PropDesc(extraEffectOnOtherAbilitiesMod, "[ExtraEffectOnOtherAbilities]", flag, (StandardEffectInfo)baseVal7);
+		if (m_useExtraEffectActionTypeOverride)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -243,9 +230,9 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 				}
 				break;
 			}
-			if (this.m_extraEffectActionTypesOverride != null)
+			if (m_extraEffectActionTypesOverride != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -254,12 +241,12 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 					}
 					break;
 				}
-				text += "Using override for extra effect target abilities:\n";
-				for (int i = 0; i < this.m_extraEffectActionTypesOverride.Count; i++)
+				empty += "Using override for extra effect target abilities:\n";
+				for (int i = 0; i < m_extraEffectActionTypesOverride.Count; i++)
 				{
-					text = text + "    " + this.m_extraEffectActionTypesOverride[i].ToString() + "\n";
+					empty = empty + "    " + m_extraEffectActionTypesOverride[i].ToString() + "\n";
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -268,9 +255,9 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 					}
 					break;
 				}
-				text += "\n";
+				empty += "\n";
 			}
 		}
-		return text;
+		return empty;
 	}
 }

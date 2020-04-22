@@ -1,4 +1,3 @@
-﻿using System;
 using I2.Loc;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -34,44 +33,61 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 
 	public static UITutorialFullscreenPanel Get()
 	{
-		return UITutorialFullscreenPanel.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		UITutorialFullscreenPanel.s_instance = this;
-		UIManager.SetGameObjectActive(this.m_background, false, null);
-		UIManager.SetGameObjectActive(this.m_combatPhasePanel, false, null);
-		UIManager.SetGameObjectActive(this.m_dashPhasePanel, false, null);
-		UIManager.SetGameObjectActive(this.m_prepPhasePanel, false, null);
-		UIManager.SetGameObjectActive(this.m_statusEffectPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_teammateTargetingPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_energyAndUltimatesPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_continuePanel, false, null);
-		this.m_FadeoutAnimator = this.m_fadeOutPanel.GetComponent<Animator>();
+		s_instance = this;
+		UIManager.SetGameObjectActive(m_background, false);
+		UIManager.SetGameObjectActive(m_combatPhasePanel, false);
+		UIManager.SetGameObjectActive(m_dashPhasePanel, false);
+		UIManager.SetGameObjectActive(m_prepPhasePanel, false);
+		UIManager.SetGameObjectActive(m_statusEffectPanel, false);
+		UIManager.SetGameObjectActive(m_teammateTargetingPanel, false);
+		UIManager.SetGameObjectActive(m_energyAndUltimatesPanel, false);
+		UIManager.SetGameObjectActive(m_continuePanel, false);
+		m_FadeoutAnimator = m_fadeOutPanel.GetComponent<Animator>();
 	}
 
 	private void Start()
 	{
-		if (this.m_continueButton != null)
+		if (m_continueButton != null)
 		{
-			UIEventTriggerUtils.AddListener(this.m_continueButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnContinueButton));
+			UIEventTriggerUtils.AddListener(m_continueButton.gameObject, EventTriggerType.PointerClick, OnContinueButton);
 		}
 	}
 
 	private void OnDestroy()
 	{
-		UITutorialFullscreenPanel.s_instance = null;
+		s_instance = null;
 	}
 
 	private void Update()
 	{
-		if (this.m_background.activeSelf)
+		if (!m_background.activeSelf)
 		{
-			AnimatorStateInfo currentAnimatorStateInfo = this.m_AnimatorObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
-			if (!currentAnimatorStateInfo.IsName("TutorialCombatPhasePanelDONE") && !currentAnimatorStateInfo.IsName("TutorialPrepPhasePanelDONE"))
+			return;
+		}
+		AnimatorStateInfo currentAnimatorStateInfo = m_AnimatorObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+		if (!currentAnimatorStateInfo.IsName("TutorialCombatPhasePanelDONE") && !currentAnimatorStateInfo.IsName("TutorialPrepPhasePanelDONE"))
+		{
+			while (true)
 			{
-				for (;;)
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!currentAnimatorStateInfo.IsName("TutorialDashPhasePanelDONE"))
+			{
+				while (true)
 				{
 					switch (1)
 					{
@@ -80,83 +96,54 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (!currentAnimatorStateInfo.IsName("TutorialStatusEffectPanelDONE") && !currentAnimatorStateInfo.IsName("TutorialTeammateTargetingPanelDONE"))
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialFullscreenPanel.Update()).MethodHandle;
-				}
-				if (!currentAnimatorStateInfo.IsName("TutorialDashPhasePanelDONE"))
-				{
-					for (;;)
+					while (true)
 					{
-						switch (1)
+						switch (5)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (!currentAnimatorStateInfo.IsName("TutorialStatusEffectPanelDONE") && !currentAnimatorStateInfo.IsName("TutorialTeammateTargetingPanelDONE"))
+					if (!currentAnimatorStateInfo.IsName("TutorialEnergyAndUltimatesPanelDONE"))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!currentAnimatorStateInfo.IsName("TutorialEnergyAndUltimatesPanelDONE"))
-						{
-							return;
-						}
+						return;
 					}
 				}
 			}
-			this.ClearAllPanels();
 		}
+		ClearAllPanels();
 	}
 
 	private void SetupMoviePlayer(PlayRawImageMovieTexture moviePlayer, string movieName)
 	{
-		if (!(moviePlayer == null))
+		if (moviePlayer == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialFullscreenPanel.SetupMoviePlayer(PlayRawImageMovieTexture, string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!movieName.IsNullOrEmpty())
+			if (movieName.IsNullOrEmpty())
 			{
-				int num = -1;
-				for (int i = 0; i < HUD_UIResources.Get().m_prologueVideoList.Length; i++)
+				return;
+			}
+			int num = -1;
+			for (int i = 0; i < HUD_UIResources.Get().m_prologueVideoList.Length; i++)
+			{
+				if (HUD_UIResources.Get().m_prologueVideoList[i].Name == movieName)
 				{
-					if (HUD_UIResources.Get().m_prologueVideoList[i].Name == movieName)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num = i;
-						break;
-					}
-				}
-				if (num == -1)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -165,38 +152,52 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 						}
 						break;
 					}
-					Log.Error("Unable to find prologue video", new object[0]);
-					return;
+					num = i;
+					break;
 				}
-				if (HUD_UIResources.Get().m_prologueVideoList.Length > num)
+			}
+			if (num == -1)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (2)
 					{
-						switch (3)
+					case 0:
+						break;
+					default:
+						Log.Error("Unable to find prologue video");
+						return;
+					}
+				}
+			}
+			if (HUD_UIResources.Get().m_prologueVideoList.Length <= num)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				HUD_UIResources.TutorialVideoInfo videoInfo = HUD_UIResources.Get().m_prologueVideoList[num];
+				string localizedVideoPath = HUD_UIResources.Get().GetLocalizedVideoPath(videoInfo, LocalizationManager.CurrentLanguageCode);
+				if (localizedVideoPath.IsNullOrEmpty())
+				{
+					localizedVideoPath = HUD_UIResources.Get().GetLocalizedVideoPath(videoInfo, "en");
+				}
+				if (!localizedVideoPath.IsNullOrEmpty())
+				{
+					while (true)
+					{
+						switch (4)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					HUD_UIResources.TutorialVideoInfo videoInfo = HUD_UIResources.Get().m_prologueVideoList[num];
-					string localizedVideoPath = HUD_UIResources.Get().GetLocalizedVideoPath(videoInfo, LocalizationManager.CurrentLanguageCode);
-					if (localizedVideoPath.IsNullOrEmpty())
-					{
-						localizedVideoPath = HUD_UIResources.Get().GetLocalizedVideoPath(videoInfo, "en");
-					}
-					if (!localizedVideoPath.IsNullOrEmpty())
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						moviePlayer.Play(localizedVideoPath, true, true, true);
+						moviePlayer.Play(localizedVideoPath, true, true);
+						return;
 					}
 				}
 				return;
@@ -206,71 +207,71 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 
 	public void ShowCombatPhasePanel()
 	{
-		UIManager.SetGameObjectActive(this.m_background, true, null);
-		UIManager.SetGameObjectActive(this.m_combatPhasePanel, true, null);
-		UIManager.SetGameObjectActive(this.m_continuePanel, true, null);
-		this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialCombatPhasePanelIN", 0);
-		PlayRawImageMovieTexture componentInChildren = this.m_combatPhasePanel.GetComponentInChildren<PlayRawImageMovieTexture>(true);
-		this.SetupMoviePlayer(componentInChildren, "Combat");
+		UIManager.SetGameObjectActive(m_background, true);
+		UIManager.SetGameObjectActive(m_combatPhasePanel, true);
+		UIManager.SetGameObjectActive(m_continuePanel, true);
+		m_AnimatorObject.GetComponent<Animator>().Play("TutorialCombatPhasePanelIN", 0);
+		PlayRawImageMovieTexture componentInChildren = m_combatPhasePanel.GetComponentInChildren<PlayRawImageMovieTexture>(true);
+		SetupMoviePlayer(componentInChildren, "Combat");
 	}
 
 	public void ShowDashPhasePanel()
 	{
-		UIManager.SetGameObjectActive(this.m_background, true, null);
-		UIManager.SetGameObjectActive(this.m_dashPhasePanel, true, null);
-		UIManager.SetGameObjectActive(this.m_continuePanel, true, null);
-		this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialDashPhasePanelIN", 0);
-		PlayRawImageMovieTexture componentInChildren = this.m_dashPhasePanel.GetComponentInChildren<PlayRawImageMovieTexture>(true);
-		this.SetupMoviePlayer(componentInChildren, "Dash");
+		UIManager.SetGameObjectActive(m_background, true);
+		UIManager.SetGameObjectActive(m_dashPhasePanel, true);
+		UIManager.SetGameObjectActive(m_continuePanel, true);
+		m_AnimatorObject.GetComponent<Animator>().Play("TutorialDashPhasePanelIN", 0);
+		PlayRawImageMovieTexture componentInChildren = m_dashPhasePanel.GetComponentInChildren<PlayRawImageMovieTexture>(true);
+		SetupMoviePlayer(componentInChildren, "Dash");
 	}
 
 	public void ShowPrepPhasePanel()
 	{
-		UIManager.SetGameObjectActive(this.m_background, true, null);
-		UIManager.SetGameObjectActive(this.m_prepPhasePanel, true, null);
-		UIManager.SetGameObjectActive(this.m_continuePanel, true, null);
-		this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialPrepPhasePanelIN", 0);
-		PlayRawImageMovieTexture componentInChildren = this.m_prepPhasePanel.GetComponentInChildren<PlayRawImageMovieTexture>(true);
-		this.SetupMoviePlayer(componentInChildren, "Prep");
+		UIManager.SetGameObjectActive(m_background, true);
+		UIManager.SetGameObjectActive(m_prepPhasePanel, true);
+		UIManager.SetGameObjectActive(m_continuePanel, true);
+		m_AnimatorObject.GetComponent<Animator>().Play("TutorialPrepPhasePanelIN", 0);
+		PlayRawImageMovieTexture componentInChildren = m_prepPhasePanel.GetComponentInChildren<PlayRawImageMovieTexture>(true);
+		SetupMoviePlayer(componentInChildren, "Prep");
 	}
 
 	public void ShowStatusEffectPanel()
 	{
-		UIManager.SetGameObjectActive(this.m_background, true, null);
-		UIManager.SetGameObjectActive(this.m_statusEffectPanel, true, null);
-		UIManager.SetGameObjectActive(this.m_continuePanel, true, null);
-		this.m_background.GetComponent<Animator>().Play("TutorialStatusEffectPanelIN", 0);
+		UIManager.SetGameObjectActive(m_background, true);
+		UIManager.SetGameObjectActive(m_statusEffectPanel, true);
+		UIManager.SetGameObjectActive(m_continuePanel, true);
+		m_background.GetComponent<Animator>().Play("TutorialStatusEffectPanelIN", 0);
 	}
 
 	public void ShowTeammateTargetingPanel()
 	{
-		UIManager.SetGameObjectActive(this.m_background, true, null);
-		UIManager.SetGameObjectActive(this.m_teammateTargetingPanel, true, null);
-		UIManager.SetGameObjectActive(this.m_continuePanel, true, null);
-		this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialTeammateTargetingPanelIN", 0);
+		UIManager.SetGameObjectActive(m_background, true);
+		UIManager.SetGameObjectActive(m_teammateTargetingPanel, true);
+		UIManager.SetGameObjectActive(m_continuePanel, true);
+		m_AnimatorObject.GetComponent<Animator>().Play("TutorialTeammateTargetingPanelIN", 0);
 	}
 
 	public void ShowEnergyAndUltimatesPanel()
 	{
-		UIManager.SetGameObjectActive(this.m_background, true, null);
-		UIManager.SetGameObjectActive(this.m_energyAndUltimatesPanel, true, null);
-		UIManager.SetGameObjectActive(this.m_continuePanel, true, null);
-		this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialEnergyAndUltimatesPanelIN", 0);
+		UIManager.SetGameObjectActive(m_background, true);
+		UIManager.SetGameObjectActive(m_energyAndUltimatesPanel, true);
+		UIManager.SetGameObjectActive(m_continuePanel, true);
+		m_AnimatorObject.GetComponent<Animator>().Play("TutorialEnergyAndUltimatesPanelIN", 0);
 	}
 
 	public void FadeOut()
 	{
-		UIAnimationEventManager.Get().PlayAnimation(this.m_FadeoutAnimator, "SlowFadeDefaultIN", new UIAnimationEventManager.AnimationDoneCallback(this.FadeOutAnimDone), "FadeDefaultIDLE", 0, 0f, true, false, null, null);
+		UIAnimationEventManager.Get().PlayAnimation(m_FadeoutAnimator, "SlowFadeDefaultIN", FadeOutAnimDone, "FadeDefaultIDLE");
 	}
 
 	public void FadeIn()
 	{
-		UIAnimationEventManager.Get().PlayAnimation(this.m_FadeoutAnimator, "SlowFadeDefaultOUT", new UIAnimationEventManager.AnimationDoneCallback(this.FadeInAnimDone), string.Empty, 0, 0f, true, false, null, null);
+		UIAnimationEventManager.Get().PlayAnimation(m_FadeoutAnimator, "SlowFadeDefaultOUT", FadeInAnimDone, string.Empty);
 	}
 
 	public void FadeInAnimDone()
 	{
-		UIManager.SetGameObjectActive(this.m_fadeOutPanel, false, null);
+		UIManager.SetGameObjectActive(m_fadeOutPanel, false);
 	}
 
 	public void FadeOutAnimDone()
@@ -279,9 +280,9 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 
 	public void OnContinueButton(BaseEventData data)
 	{
-		if (this.m_prepPhasePanel.activeSelf)
+		if (m_prepPhasePanel.activeSelf)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -290,15 +291,15 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialFullscreenPanel.OnContinueButton(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialPrepPhasePanelOUT", 0);
+			m_AnimatorObject.GetComponent<Animator>().Play("TutorialPrepPhasePanelOUT", 0);
 		}
-		if (this.m_dashPhasePanel.activeSelf)
+		if (m_dashPhasePanel.activeSelf)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -307,11 +308,11 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 				}
 				break;
 			}
-			this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialDashPhasePanelOUT", 0);
+			m_AnimatorObject.GetComponent<Animator>().Play("TutorialDashPhasePanelOUT", 0);
 		}
-		if (this.m_combatPhasePanel.activeSelf)
+		if (m_combatPhasePanel.activeSelf)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -320,11 +321,11 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 				}
 				break;
 			}
-			this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialCombatPhasePanelOUT", 0);
+			m_AnimatorObject.GetComponent<Animator>().Play("TutorialCombatPhasePanelOUT", 0);
 		}
-		if (this.m_statusEffectPanel.activeSelf)
+		if (m_statusEffectPanel.activeSelf)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -333,60 +334,62 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 				}
 				break;
 			}
-			this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialStatusEffectPanelOUT", 0);
+			m_AnimatorObject.GetComponent<Animator>().Play("TutorialStatusEffectPanelOUT", 0);
 		}
-		if (this.m_teammateTargetingPanel.activeSelf)
+		if (m_teammateTargetingPanel.activeSelf)
 		{
-			this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialTeammateTargetingPanelOUT", 0);
+			m_AnimatorObject.GetComponent<Animator>().Play("TutorialTeammateTargetingPanelOUT", 0);
 		}
-		if (this.m_energyAndUltimatesPanel.activeSelf)
+		if (!m_energyAndUltimatesPanel.activeSelf)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialEnergyAndUltimatesPanelOUT", 0);
+			m_AnimatorObject.GetComponent<Animator>().Play("TutorialEnergyAndUltimatesPanelOUT", 0);
+			return;
 		}
 	}
 
 	public void ClearAllPanels()
 	{
-		UIManager.SetGameObjectActive(this.m_background, false, null);
-		UIManager.SetGameObjectActive(this.m_combatPhasePanel, false, null);
-		UIManager.SetGameObjectActive(this.m_dashPhasePanel, false, null);
-		UIManager.SetGameObjectActive(this.m_prepPhasePanel, false, null);
-		UIManager.SetGameObjectActive(this.m_continuePanel, false, null);
-		UIManager.SetGameObjectActive(this.m_statusEffectPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_teammateTargetingPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_energyAndUltimatesPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_fadeOutPanel, false, null);
-		Animator component = this.m_AnimatorObject.GetComponent<Animator>();
-		if (component.isActiveAndEnabled)
+		UIManager.SetGameObjectActive(m_background, false);
+		UIManager.SetGameObjectActive(m_combatPhasePanel, false);
+		UIManager.SetGameObjectActive(m_dashPhasePanel, false);
+		UIManager.SetGameObjectActive(m_prepPhasePanel, false);
+		UIManager.SetGameObjectActive(m_continuePanel, false);
+		UIManager.SetGameObjectActive(m_statusEffectPanel, false);
+		UIManager.SetGameObjectActive(m_teammateTargetingPanel, false);
+		UIManager.SetGameObjectActive(m_energyAndUltimatesPanel, false);
+		UIManager.SetGameObjectActive(m_fadeOutPanel, false);
+		Animator component = m_AnimatorObject.GetComponent<Animator>();
+		if (!component.isActiveAndEnabled)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialFullscreenPanel.ClearAllPanels()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			component.Play("WaitingToRun", 0);
+			return;
 		}
 	}
 
 	public bool IsAnyPanelVisible()
 	{
-		return this.m_background.activeSelf;
+		return m_background.activeSelf;
 	}
 }

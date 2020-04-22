@@ -1,5 +1,3 @@
-﻿using System;
-
 public class FullScreenMovie : UIScene
 {
 	public PlayRawImageMovieTexture m_movieTexture;
@@ -8,33 +6,34 @@ public class FullScreenMovie : UIScene
 
 	public static FullScreenMovie Get()
 	{
-		return FullScreenMovie.s_instance;
+		return s_instance;
 	}
 
 	public override void Awake()
 	{
-		FullScreenMovie.s_instance = this;
-		this.SetVisible(false);
+		s_instance = this;
+		SetVisible(false);
 	}
 
 	public void Start()
 	{
-		if (UIManager.Get() != null)
+		if (!(UIManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FullScreenMovie.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UIManager.Get().RegisterUIScene(this);
+			return;
 		}
 	}
 
@@ -45,11 +44,11 @@ public class FullScreenMovie : UIScene
 
 	public PlayRawImageMovieTexture GetMovieTexture()
 	{
-		return this.m_movieTexture;
+		return m_movieTexture;
 	}
 
 	public void SetVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(this.m_movieTexture, visible, null);
+		UIManager.SetGameObjectActive(m_movieTexture, visible);
 	}
 }

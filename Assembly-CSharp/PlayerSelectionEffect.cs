@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 [AddComponentMenu("Image Effects/Player Selection")]
@@ -6,6 +5,15 @@ using UnityEngine;
 [ExecuteInEditMode]
 internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 {
+	private enum PlayerSelectPass
+	{
+		Downsample,
+		VBlur,
+		HBlur,
+		DrawOutlines,
+		Composite
+	}
+
 	private Camera playerCamera;
 
 	public GameObject playerCameraPrefab;
@@ -14,13 +22,13 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 
 	private GameObject playerCameraObject;
 
-	public Color friendlyInner = new Color(0.3203125f, 1f, 0.171875f, 0f);
+	public Color friendlyInner = new Color(41f / 128f, 1f, 11f / 64f, 0f);
 
-	public Color friendlyOuter = new Color(0.3203125f, 0.7f, 0.171875f, 0f);
+	public Color friendlyOuter = new Color(41f / 128f, 0.7f, 11f / 64f, 0f);
 
 	public Color enemyInner = new Color(1f, 0.31f, 0.35f, 0f);
 
-	public Color enemyOuter = new Color(0.7f, 0.1f, 0.171875f, 0f);
+	public Color enemyOuter = new Color(0.7f, 0.1f, 11f / 64f, 0f);
 
 	[Range(0.2f, 3.99f)]
 	public float OutlineFalloff = 1.25f;
@@ -68,9 +76,9 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 
 	public void SetDrawingInConfirm(bool draw)
 	{
-		if (!this.m_drawingInConfirm)
+		if (!m_drawingInConfirm)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -79,44 +87,44 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSelectionEffect.SetDrawingInConfirm(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (draw)
 			{
-				this.m_drawingInConfirmStartTime = Time.time;
-				this.m_shrinkSpeed = Mathf.Max(0f, HUD_UIResources.Get().m_confirmedTargetingShrinkSpeed);
+				m_drawingInConfirmStartTime = Time.time;
+				m_shrinkSpeed = Mathf.Max(0f, HUD_UIResources.Get().m_confirmedTargetingShrinkSpeed);
 			}
 		}
-		this.m_drawingInConfirm = draw;
+		m_drawingInConfirm = draw;
 	}
 
 	public override bool CheckResources()
 	{
 		if (GameManager.IsEditorAndNotGame())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSelectionEffect.CheckResources()).MethodHandle;
-			}
-			return false;
 		}
-		base.CheckSupport(false);
-		this.m_selectionPostMaterial = base.CheckShaderAndCreateMaterial(this.outlineShader, this.m_selectionPostMaterial);
-		this.InitializeSelectionPostMaterialParameters();
-		if (!this.isSupported)
+		CheckSupport(false);
+		m_selectionPostMaterial = CheckShaderAndCreateMaterial(outlineShader, m_selectionPostMaterial);
+		InitializeSelectionPostMaterialParameters();
+		if (!isSupported)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -125,26 +133,26 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 				}
 				break;
 			}
-			base.ReportAutoDisable();
+			ReportAutoDisable();
 		}
-		return this.isSupported;
+		return isSupported;
 	}
 
 	private void SetCameraFlag()
 	{
-		base.GetComponent<Camera>().depthTextureMode |= DepthTextureMode.Depth;
+		GetComponent<Camera>().depthTextureMode |= DepthTextureMode.Depth;
 	}
 
 	private void OnEnable()
 	{
-		this.SetCameraFlag();
+		SetCameraFlag();
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_selectionPostMaterial)
+		if ((bool)m_selectionPostMaterial)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -153,37 +161,38 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSelectionEffect.OnDisable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.DestroyImmediate(this.m_selectionPostMaterial);
+			Object.DestroyImmediate(m_selectionPostMaterial);
 		}
-		this.playerCamera = null;
-		if (!this.doNotDestroyCamOnDisable)
+		playerCamera = null;
+		if (doNotDestroyCamOnDisable)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.playerCameraObject)
+			if ((bool)playerCameraObject)
 			{
-				UnityEngine.Object.DestroyImmediate(this.playerCameraObject);
-				this.playerCameraObject = null;
+				Object.DestroyImmediate(playerCameraObject);
+				playerCameraObject = null;
 			}
+			return;
 		}
 	}
 
 	private Camera GetPlayerCam()
 	{
-		if (!this.playerCamera)
+		if (!playerCamera)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -192,13 +201,13 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSelectionEffect.GetPlayerCam()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.playerCameraPrefab != null)
+			if (playerCameraPrefab != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -207,9 +216,9 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 					}
 					break;
 				}
-				if (!this.playerCamera)
+				if (!playerCamera)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -218,80 +227,80 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 						}
 						break;
 					}
-					this.playerCameraObject = UnityEngine.Object.Instantiate<GameObject>(this.playerCameraPrefab);
-					this.playerCamera = this.playerCameraObject.GetComponent<Camera>();
+					playerCameraObject = Object.Instantiate(playerCameraPrefab);
+					playerCamera = playerCameraObject.GetComponent<Camera>();
 				}
 			}
 		}
-		return this.playerCamera;
+		return playerCamera;
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		this.InitializeSelectionPostMaterialParameters();
+		InitializeSelectionPostMaterialParameters();
 	}
 
 	private void OnValidate()
 	{
-		this.InitializeSelectionPostMaterialParameters();
+		InitializeSelectionPostMaterialParameters();
 	}
 
 	private void InitializeSelectionPostMaterialParameters()
 	{
-		if (Options_UI.Get() != null)
+		if (!(Options_UI.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(m_selectionPostMaterial != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSelectionEffect.InitializeSelectionPostMaterialParameters()).MethodHandle;
-			}
-			if (this.m_selectionPostMaterial != null)
-			{
-				for (;;)
+				if (Camera.main.actualRenderingPath != RenderingPath.Forward)
 				{
-					switch (6)
+					return;
+				}
+				while (true)
+				{
+					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (Camera.main.actualRenderingPath == RenderingPath.Forward)
-				{
-					for (;;)
+					if (!SystemInfo.graphicsDeviceVersion.Contains("Direct3D"))
 					{
-						switch (1)
+						return;
+					}
+					while (true)
+					{
+						switch (2)
 						{
 						case 0:
 							continue;
-						}
-						break;
-					}
-					if (SystemInfo.graphicsDeviceVersion.Contains("Direct3D"))
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						GraphicsQuality currentGraphicsQuality = Options_UI.Get().GetCurrentGraphicsQuality();
 						bool flag = currentGraphicsQuality <= GraphicsQuality.Low;
 						float num;
 						if (!flag)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -300,21 +309,21 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 								}
 								break;
 							}
-							if (this.m_flipIfNotLowQuality)
+							if (m_flipIfNotLowQuality)
 							{
 								num = 1f;
-								goto IL_BA;
+								goto IL_00ba;
 							}
 						}
 						num = 0f;
-						IL_BA:
+						goto IL_00ba;
+						IL_00ba:
 						float value = num;
-						this.m_selectionPostMaterial.SetFloat("_Flip", value);
-						string name = "_LowQuality";
+						m_selectionPostMaterial.SetFloat("_Flip", value);
 						float value2;
 						if (flag)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -329,7 +338,8 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 						{
 							value2 = 0f;
 						}
-						Shader.SetGlobalFloat(name, value2);
+						Shader.SetGlobalFloat("_LowQuality", value2);
+						return;
 					}
 				}
 			}
@@ -339,15 +349,15 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 	[ImageEffectOpaque]
 	private void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
-		if (this.m_drawSelection)
+		if (m_drawSelection)
 		{
-			if (this.CheckResources())
+			if (CheckResources())
 			{
-				Camera playerCam = this.GetPlayerCam();
-				float num = this.blurSize;
-				if (this.m_drawingInConfirm)
+				Camera playerCam = GetPlayerCam();
+				float num = blurSize;
+				if (m_drawingInConfirm)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -356,11 +366,11 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 						}
 						break;
 					}
-					num = Mathf.Max(0f, this.blurSize * (1f - this.m_shrinkSpeed * (Time.time - this.m_drawingInConfirmStartTime)));
+					num = Mathf.Max(0f, blurSize * (1f - m_shrinkSpeed * (Time.time - m_drawingInConfirmStartTime)));
 				}
 				if (num != 0f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -369,69 +379,68 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 						}
 						break;
 					}
-					if (playerCam)
+					if ((bool)playerCam)
 					{
-						RenderTexture renderTexture = RenderTexture.GetTemporary(source.width, source.height, 0x18, source.format);
-						renderTexture.filterMode = FilterMode.Bilinear;
-						playerCam.CopyFrom(base.GetComponent<Camera>());
-						playerCam.targetTexture = renderTexture;
+						RenderTexture temporary = RenderTexture.GetTemporary(source.width, source.height, 24, source.format);
+						temporary.filterMode = FilterMode.Bilinear;
+						playerCam.CopyFrom(GetComponent<Camera>());
+						playerCam.targetTexture = temporary;
 						playerCam.cullingMask = 1 << LayerMask.NameToLayer("ActorSelected");
 						playerCam.depthTextureMode = DepthTextureMode.Depth;
 						playerCam.backgroundColor = new Color(0f, 0f, 0f, 0f);
 						playerCam.clearFlags = CameraClearFlags.Color;
-						playerCam.RenderWithShader(this.IDShader, string.Empty);
+						playerCam.RenderWithShader(IDShader, string.Empty);
 						playerCam.targetTexture = null;
-						float num2 = 1f / (1f * (float)(1 << this.downsample));
-						this.m_selectionPostMaterial.SetVector("_Parameter", new Vector4(num * num2, -num * num2, 0f, 0f));
+						float num2 = 1f / (1f * (float)(1 << downsample));
+						m_selectionPostMaterial.SetVector("_Parameter", new Vector4(num * num2, (0f - num) * num2, 0f, 0f));
 						source.filterMode = FilterMode.Bilinear;
-						int depthBuffer = 0x18;
-						int width = source.width >> this.downsample;
-						int height = source.height >> this.downsample;
-						RenderTexture temporary = RenderTexture.GetTemporary(width, height, depthBuffer, source.format);
-						temporary.filterMode = FilterMode.Bilinear;
-						Graphics.Blit(renderTexture, temporary, this.m_selectionPostMaterial, 0);
-						RenderTexture.ReleaseTemporary(renderTexture);
-						renderTexture = temporary;
-						for (int i = 0; i < this.blurIterations; i++)
+						int depthBuffer = 24;
+						int width = source.width >> downsample;
+						int height = source.height >> downsample;
+						RenderTexture temporary2 = RenderTexture.GetTemporary(width, height, depthBuffer, source.format);
+						temporary2.filterMode = FilterMode.Bilinear;
+						Graphics.Blit(temporary, temporary2, m_selectionPostMaterial, 0);
+						RenderTexture.ReleaseTemporary(temporary);
+						temporary = temporary2;
+						for (int i = 0; i < blurIterations; i++)
 						{
 							float num3 = (float)i * 1f;
-							this.m_selectionPostMaterial.SetVector("_Parameter", new Vector4(num * num2 + num3, -num * num2 - num3, 0f, 0f));
-							RenderTexture temporary2 = RenderTexture.GetTemporary(width, height, depthBuffer, source.format);
-							temporary2.filterMode = FilterMode.Bilinear;
-							Graphics.Blit(renderTexture, temporary2, this.m_selectionPostMaterial, 1);
-							RenderTexture.ReleaseTemporary(renderTexture);
-							renderTexture = temporary2;
-							temporary2 = RenderTexture.GetTemporary(width, height, depthBuffer, source.format);
-							temporary2.filterMode = FilterMode.Bilinear;
-							Graphics.Blit(renderTexture, temporary2, this.m_selectionPostMaterial, 2);
-							RenderTexture.ReleaseTemporary(renderTexture);
-							renderTexture = temporary2;
+							m_selectionPostMaterial.SetVector("_Parameter", new Vector4(num * num2 + num3, (0f - num) * num2 - num3, 0f, 0f));
+							RenderTexture temporary3 = RenderTexture.GetTemporary(width, height, depthBuffer, source.format);
+							temporary3.filterMode = FilterMode.Bilinear;
+							Graphics.Blit(temporary, temporary3, m_selectionPostMaterial, 1);
+							RenderTexture.ReleaseTemporary(temporary);
+							temporary = temporary3;
+							temporary3 = RenderTexture.GetTemporary(width, height, depthBuffer, source.format);
+							temporary3.filterMode = FilterMode.Bilinear;
+							Graphics.Blit(temporary, temporary3, m_selectionPostMaterial, 2);
+							RenderTexture.ReleaseTemporary(temporary);
+							temporary = temporary3;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
 							case 0:
 								continue;
 							}
-							break;
+							m_selectionPostMaterial.SetColor("_FriendlyInner", friendlyInner);
+							m_selectionPostMaterial.SetColor("_FriendlyOuter", friendlyOuter);
+							m_selectionPostMaterial.SetColor("_EnemyInner", enemyInner);
+							m_selectionPostMaterial.SetColor("_EnemyOuter", enemyOuter);
+							m_selectionPostMaterial.SetVector("_OutlineParameter", new Vector4(OutlineFalloff, OutlinePosition, AntiHalo + 1f, 0f));
+							RenderTexture temporary4 = RenderTexture.GetTemporary(width, height, depthBuffer, source.format);
+							Graphics.Blit(temporary, temporary4, m_selectionPostMaterial, 3);
+							RenderTexture.ReleaseTemporary(temporary);
+							m_selectionPostMaterial.SetTexture("_OutlineTex", temporary4);
+							Graphics.Blit(source, destination, m_selectionPostMaterial, 4);
+							m_selectionPostMaterial.SetTexture("_OutlineTex", null);
+							RenderTexture.ReleaseTemporary(temporary4);
+							m_drawSelection = false;
+							return;
 						}
-						this.m_selectionPostMaterial.SetColor("_FriendlyInner", this.friendlyInner);
-						this.m_selectionPostMaterial.SetColor("_FriendlyOuter", this.friendlyOuter);
-						this.m_selectionPostMaterial.SetColor("_EnemyInner", this.enemyInner);
-						this.m_selectionPostMaterial.SetColor("_EnemyOuter", this.enemyOuter);
-						this.m_selectionPostMaterial.SetVector("_OutlineParameter", new Vector4(this.OutlineFalloff, this.OutlinePosition, this.AntiHalo + 1f, 0f));
-						RenderTexture temporary3 = RenderTexture.GetTemporary(width, height, depthBuffer, source.format);
-						Graphics.Blit(renderTexture, temporary3, this.m_selectionPostMaterial, 3);
-						RenderTexture.ReleaseTemporary(renderTexture);
-						this.m_selectionPostMaterial.SetTexture("_OutlineTex", temporary3);
-						Graphics.Blit(source, destination, this.m_selectionPostMaterial, 4);
-						this.m_selectionPostMaterial.SetTexture("_OutlineTex", null);
-						RenderTexture.ReleaseTemporary(temporary3);
-						this.m_drawSelection = false;
-						return;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -444,7 +453,7 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 				Graphics.Blit(source, destination);
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -453,20 +462,11 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSelectionEffect.OnRenderImage(RenderTexture, RenderTexture)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		Graphics.Blit(source, destination);
-	}
-
-	private enum PlayerSelectPass
-	{
-		Downsample,
-		VBlur,
-		HBlur,
-		DrawOutlines,
-		Composite
 	}
 }

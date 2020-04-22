@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,11 +27,11 @@ public class ChainAbility_ShootNearestActor : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "CHAIN_ABILITY_SHOOT_NEAREST_ACTOR";
+			m_abilityName = "CHAIN_ABILITY_SHOOT_NEAREST_ACTOR";
 		}
-		this.m_sequencePrefab = this.m_castSequencePrefab;
+		m_sequencePrefab = m_castSequencePrefab;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()

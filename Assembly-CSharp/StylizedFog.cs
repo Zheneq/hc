@@ -1,11 +1,24 @@
-﻿using System;
 using UnityEngine;
 
 [AddComponentMenu("Image Effects/Stylized Fog")]
 [ExecuteInEditMode]
 public class StylizedFog : MonoBehaviour
 {
-	public StylizedFog.StylizedFogMode fogMode;
+	public enum StylizedFogMode
+	{
+		Blend,
+		Additive,
+		Multiply,
+		Screen
+	}
+
+	public enum StylizedFogGradient
+	{
+		Textures,
+		Gradients
+	}
+
+	public StylizedFogMode fogMode;
 
 	[SerializeField]
 	[Header("Blend")]
@@ -18,7 +31,7 @@ public class StylizedFog : MonoBehaviour
 
 	[Tooltip("Use ramp from textures or gradient fields")]
 	[Header("Gradients")]
-	public StylizedFog.StylizedFogGradient gradientSource;
+	public StylizedFogGradient gradientSource;
 
 	public Gradient rampGradient;
 
@@ -54,91 +67,88 @@ public class StylizedFog : MonoBehaviour
 
 	private void Start()
 	{
-		if (base.GetComponent<Camera>() != null)
+		if (GetComponent<Camera>() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					createResources();
+					UpdateTextures();
+					SetKeywords();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.Start()).MethodHandle;
-			}
-			this.createResources();
-			this.UpdateTextures();
-			this.SetKeywords();
 		}
-		else
-		{
-			base.enabled = false;
-		}
+		base.enabled = false;
 	}
 
 	private void OnEnable()
 	{
-		if (base.GetComponent<Camera>() != null)
+		if (GetComponent<Camera>() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					createResources();
+					UpdateTextures();
+					SetKeywords();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.OnEnable()).MethodHandle;
-			}
-			this.createResources();
-			this.UpdateTextures();
-			this.SetKeywords();
 		}
-		else
-		{
-			base.enabled = false;
-		}
+		base.enabled = false;
 	}
 
 	private void OnDisable()
 	{
-		if (base.GetComponent<Camera>() != null)
+		if (!(GetComponent<Camera>() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.OnDisable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.clearResources();
+			clearResources();
+			return;
 		}
 	}
 
 	public void UpdateTextures()
 	{
-		this.setGradient();
-		this.SetKeywords();
-		this.updateValues();
+		setGradient();
+		SetKeywords();
+		updateValues();
 	}
 
 	private void updateValues()
 	{
-		if (!(this.fogMat == null))
+		if (!(fogMat == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -147,15 +157,15 @@ public class StylizedFog : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.updateValues()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!(this.fogShader == null))
+			if (!(fogShader == null))
 			{
-				goto IL_43;
+				goto IL_0043;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -165,16 +175,17 @@ public class StylizedFog : MonoBehaviour
 				break;
 			}
 		}
-		this.createResources();
-		IL_43:
-		if (this.mainRamp != null)
+		createResources();
+		goto IL_0043;
+		IL_0043:
+		if (mainRamp != null)
 		{
-			this.fogMat.SetTexture("_MainRamp", this.mainRamp);
-			Shader.SetGlobalTexture("_SF_MainRamp", this.mainRamp);
+			fogMat.SetTexture("_MainRamp", mainRamp);
+			Shader.SetGlobalTexture("_SF_MainRamp", mainRamp);
 		}
-		if (this.useBlend)
+		if (useBlend)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -183,9 +194,9 @@ public class StylizedFog : MonoBehaviour
 				}
 				break;
 			}
-			if (this.blendRamp != null)
+			if (blendRamp != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -194,15 +205,64 @@ public class StylizedFog : MonoBehaviour
 					}
 					break;
 				}
-				this.fogMat.SetTexture("_BlendRamp", this.blendRamp);
-				this.fogMat.SetFloat("_Blend", this.blend);
-				Shader.SetGlobalTexture("_SF_BlendRamp", this.blendRamp);
-				Shader.SetGlobalFloat("_SF_Blend", this.blend);
+				fogMat.SetTexture("_BlendRamp", blendRamp);
+				fogMat.SetFloat("_Blend", blend);
+				Shader.SetGlobalTexture("_SF_BlendRamp", blendRamp);
+				Shader.SetGlobalFloat("_SF_Blend", blend);
 			}
 		}
-		if (this.useNoise && this.noiseTexture != null)
+		if (!useNoise || !(noiseTexture != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			fogMat.SetTexture("_NoiseTex", noiseTexture);
+			fogMat.SetVector("_NoiseSpeed", noiseSpeed);
+			fogMat.SetVector("_NoiseTiling", noiseTiling);
+			Shader.SetGlobalTexture("_SF_NoiseTex", noiseTexture);
+			Shader.SetGlobalVector("_SF_NoiseSpeed", noiseSpeed);
+			Shader.SetGlobalVector("_SF_NoiseTiling", noiseTiling);
+			return;
+		}
+	}
+
+	private void setGradient()
+	{
+		if (gradientSource == StylizedFogGradient.Textures)
+		{
+			mainRamp = rampTexture;
+			if (!useBlend)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				blendRamp = rampBlendTexture;
+				return;
+			}
+		}
+		if (gradientSource != StylizedFogGradient.Gradients)
+		{
+			return;
+		}
+		if (mainRamp != null)
+		{
+			while (true)
 			{
 				switch (5)
 				{
@@ -211,62 +271,16 @@ public class StylizedFog : MonoBehaviour
 				}
 				break;
 			}
-			this.fogMat.SetTexture("_NoiseTex", this.noiseTexture);
-			this.fogMat.SetVector("_NoiseSpeed", this.noiseSpeed);
-			this.fogMat.SetVector("_NoiseTiling", this.noiseTiling);
-			Shader.SetGlobalTexture("_SF_NoiseTex", this.noiseTexture);
-			Shader.SetGlobalVector("_SF_NoiseSpeed", this.noiseSpeed);
-			Shader.SetGlobalVector("_SF_NoiseTiling", this.noiseTiling);
+			Object.DestroyImmediate(mainRamp);
 		}
-	}
-
-	private void setGradient()
-	{
-		if (this.gradientSource == StylizedFog.StylizedFogGradient.Textures)
+		mainRamp = GenerateGradient(rampGradient, 256, 8);
+		if (useBlend)
 		{
-			this.mainRamp = this.rampTexture;
-			if (this.useBlend)
+			if (blendRamp != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.setGradient()).MethodHandle;
-				}
-				this.blendRamp = this.rampBlendTexture;
+				Object.DestroyImmediate(blendRamp);
 			}
-		}
-		else if (this.gradientSource == StylizedFog.StylizedFogGradient.Gradients)
-		{
-			if (this.mainRamp != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UnityEngine.Object.DestroyImmediate(this.mainRamp);
-			}
-			this.mainRamp = this.GenerateGradient(this.rampGradient, 0x100, 8);
-			if (this.useBlend)
-			{
-				if (this.blendRamp != null)
-				{
-					UnityEngine.Object.DestroyImmediate(this.blendRamp);
-				}
-				this.blendRamp = this.GenerateGradient(this.rampBlendGradient, 0x100, 8);
-			}
+			blendRamp = GenerateGradient(rampBlendGradient, 256, 8);
 		}
 	}
 
@@ -275,18 +289,18 @@ public class StylizedFog : MonoBehaviour
 		Texture2D texture2D = new Texture2D(gWidth, gHeight, TextureFormat.ARGB32, false);
 		texture2D.wrapMode = TextureWrapMode.Clamp;
 		texture2D.hideFlags = HideFlags.HideAndDontSave;
-		Color color = Color.white;
+		Color white = Color.white;
 		if (gradient != null)
 		{
 			for (int i = 0; i < gWidth; i++)
 			{
-				color = gradient.Evaluate((float)i / (float)gWidth);
+				white = gradient.Evaluate((float)i / (float)gWidth);
 				for (int j = 0; j < gHeight; j++)
 				{
-					texture2D.SetPixel(i, j, color);
+					texture2D.SetPixel(i, j, white);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -295,9 +309,9 @@ public class StylizedFog : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.GenerateGradient(Gradient, int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		texture2D.Apply();
@@ -306,9 +320,9 @@ public class StylizedFog : MonoBehaviour
 
 	private void createResources()
 	{
-		if (this.fogShader == null)
+		if (fogShader == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -317,20 +331,20 @@ public class StylizedFog : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.createResources()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.fogShader = Shader.Find("Hidden/StylizedFog");
+			fogShader = Shader.Find("Hidden/StylizedFog");
 		}
-		if (this.fogMat == null && this.fogShader != null)
+		if (fogMat == null && fogShader != null)
 		{
-			this.fogMat = new Material(this.fogShader);
-			this.fogMat.hideFlags = HideFlags.HideAndDontSave;
+			fogMat = new Material(fogShader);
+			fogMat.hideFlags = HideFlags.HideAndDontSave;
 		}
-		if (!(this.mainRamp == null))
+		if (!(mainRamp == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -339,11 +353,11 @@ public class StylizedFog : MonoBehaviour
 				}
 				break;
 			}
-			if (!(this.blendRamp == null))
+			if (!(blendRamp == null))
 			{
-				goto IL_A9;
+				goto IL_00a9;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -353,55 +367,56 @@ public class StylizedFog : MonoBehaviour
 				break;
 			}
 		}
-		this.setGradient();
-		IL_A9:
-		if (this.cam == null)
+		setGradient();
+		goto IL_00a9;
+		IL_00a9:
+		if (cam == null)
 		{
-			this.cam = base.GetComponent<Camera>();
-			this.cam.depthTextureMode |= DepthTextureMode.Depth;
+			cam = GetComponent<Camera>();
+			cam.depthTextureMode |= DepthTextureMode.Depth;
 		}
 	}
 
 	private void clearResources()
 	{
-		if (this.fogMat != null)
+		if (fogMat != null)
 		{
-			UnityEngine.Object.DestroyImmediate(this.fogMat);
+			Object.DestroyImmediate(fogMat);
 		}
-		this.disableKeywords();
-		this.cam.depthTextureMode = DepthTextureMode.None;
+		disableKeywords();
+		cam.depthTextureMode = DepthTextureMode.None;
 	}
 
 	public void SetKeywords()
 	{
-		switch (this.fogMode)
+		switch (fogMode)
 		{
-		case StylizedFog.StylizedFogMode.Blend:
+		case StylizedFogMode.Blend:
 			Shader.EnableKeyword("_FOG_BLEND");
 			Shader.DisableKeyword("_FOG_ADDITIVE");
 			Shader.DisableKeyword("_FOG_MULTIPLY");
 			Shader.DisableKeyword("_FOG_SCREEN");
 			break;
-		case StylizedFog.StylizedFogMode.Additive:
+		case StylizedFogMode.Additive:
 			Shader.DisableKeyword("_FOG_BLEND");
 			Shader.EnableKeyword("_FOG_ADDITIVE");
 			Shader.DisableKeyword("_FOG_MULTIPLY");
 			Shader.DisableKeyword("_FOG_SCREEN");
 			break;
-		case StylizedFog.StylizedFogMode.Multiply:
+		case StylizedFogMode.Multiply:
 			Shader.DisableKeyword("_FOG_BLEND");
 			Shader.DisableKeyword("_FOG_ADDITIVE");
 			Shader.EnableKeyword("_FOG_MULTIPLY");
 			Shader.DisableKeyword("_FOG_SCREEN");
 			break;
-		case StylizedFog.StylizedFogMode.Screen:
+		case StylizedFogMode.Screen:
 			Shader.DisableKeyword("_FOG_BLEND");
 			Shader.DisableKeyword("_FOG_ADDITIVE");
 			Shader.DisableKeyword("_FOG_MULTIPLY");
 			Shader.EnableKeyword("_FOG_SCREEN");
 			break;
 		}
-		if (this.useBlend)
+		if (useBlend)
 		{
 			Shader.EnableKeyword("_FOG_BLEND_ON");
 			Shader.DisableKeyword("_FOG_BLEND_OFF");
@@ -411,29 +426,27 @@ public class StylizedFog : MonoBehaviour
 			Shader.EnableKeyword("_FOG_BLEND_OFF");
 			Shader.DisableKeyword("_FOG_BLEND_ON");
 		}
-		if (this.useNoise)
+		if (useNoise)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Shader.EnableKeyword("_FOG_NOISE_ON");
+					Shader.DisableKeyword("_FOG_NOISE_OFF");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.SetKeywords()).MethodHandle;
-			}
-			Shader.EnableKeyword("_FOG_NOISE_ON");
-			Shader.DisableKeyword("_FOG_NOISE_OFF");
 		}
-		else
-		{
-			Shader.EnableKeyword("_FOG_NOISE_OFF");
-			Shader.DisableKeyword("_FOG_NOISE_ON");
-		}
+		Shader.EnableKeyword("_FOG_NOISE_OFF");
+		Shader.DisableKeyword("_FOG_NOISE_ON");
 	}
 
 	private void disableKeywords()
@@ -452,24 +465,24 @@ public class StylizedFog : MonoBehaviour
 	{
 		if (!SystemInfo.supportsImageEffects)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.isSupported()).MethodHandle;
-			}
-			return false;
 		}
-		if (this.fogShader.isSupported)
+		if (fogShader.isSupported)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -478,11 +491,11 @@ public class StylizedFog : MonoBehaviour
 				}
 				break;
 			}
-			if (!(this.fogShader == null))
+			if (!(fogShader == null))
 			{
 				return true;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -498,26 +511,12 @@ public class StylizedFog : MonoBehaviour
 	[ImageEffectOpaque]
 	private void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
-		if (!this.isSupported())
+		if (!isSupported())
 		{
 			Graphics.Blit(source, destination);
 			return;
 		}
-		this.updateValues();
-		Graphics.Blit(source, destination, this.fogMat);
-	}
-
-	public enum StylizedFogMode
-	{
-		Blend,
-		Additive,
-		Multiply,
-		Screen
-	}
-
-	public enum StylizedFogGradient
-	{
-		Textures,
-		Gradients
+		updateValues();
+		Graphics.Blit(source, destination, fogMat);
 	}
 }

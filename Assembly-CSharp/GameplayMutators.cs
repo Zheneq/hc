@@ -1,30 +1,68 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameplayMutators : MonoBehaviour
 {
+	[Serializable]
+	public struct StatusInterval
+	{
+		public StatusType m_statusType;
+
+		public int m_duration;
+
+		public int m_interval;
+
+		public int m_startOffset;
+
+		public bool m_delayTillStartOfMovement;
+
+		public string m_activateNotificationTurnBefore;
+
+		public string m_offNotificationTurnBefore;
+	}
+
+	[Serializable]
+	public class IntervalDef
+	{
+		public int m_onDuration;
+
+		public int m_restDuration;
+
+		public int m_startOffset;
+
+		public bool m_delayTillStartOfMovement;
+	}
+
+	public enum ActionPhaseCheckMode
+	{
+		Default,
+		Abilities,
+		Movement,
+		Any
+	}
+
 	private static GameplayMutators s_instance;
 
 	[Separator("Combat Multipliers", true)]
 	public float m_energyGainMultiplier = 1f;
 
-	public GameplayMutators.IntervalDef m_energyGainMultInterval;
+	public IntervalDef m_energyGainMultInterval;
 
 	[Space(10f)]
 	public float m_damageMultiplier = 1f;
 
-	public GameplayMutators.IntervalDef m_damageMultInterval;
+	public IntervalDef m_damageMultInterval;
 
 	[Space(10f)]
 	public float m_healingMultiplier = 1f;
 
-	public GameplayMutators.IntervalDef m_healingMultInterval;
+	public IntervalDef m_healingMultInterval;
 
 	[Space(10f)]
 	public float m_absorbMultiplier = 1f;
 
-	public GameplayMutators.IntervalDef m_absorbMultInterval;
+	public IntervalDef m_absorbMultInterval;
 
 	[Separator("Cooldowns", true)]
 	public int m_cooldownSpeedAdjustment;
@@ -39,10 +77,10 @@ public class GameplayMutators : MonoBehaviour
 	public int m_powerupDurationAdjustment;
 
 	[Separator("Always On Status", true)]
-	public List<GameplayMutators.StatusInterval> m_alwaysOnStatuses;
+	public List<StatusInterval> m_alwaysOnStatuses;
 
 	[Separator("Status Suppression", true)]
-	public List<GameplayMutators.StatusInterval> m_statusSuppression;
+	public List<StatusInterval> m_statusSuppression;
 
 	[Separator("Stats", true)]
 	public float m_passiveEnergyRegenMultiplier = 1f;
@@ -109,24 +147,24 @@ public class GameplayMutators : MonoBehaviour
 
 	public static GameplayMutators Get()
 	{
-		return GameplayMutators.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		GameplayMutators.s_instance = this;
+		s_instance = this;
 	}
 
 	private void OnDestroy()
 	{
-		GameplayMutators.s_instance = null;
+		s_instance = null;
 	}
 
-	private static bool IsMultiplierActive(GameplayMutators.IntervalDef multInterval)
+	private static bool IsMultiplierActive(IntervalDef multInterval)
 	{
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -135,23 +173,25 @@ public class GameplayMutators : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.IsMultiplierActive(GameplayMutators.IntervalDef)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (multInterval != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						int currentTurn = GameFlowData.Get().CurrentTurn;
+						return IsActiveInCurrentActionPhase(currentTurn, multInterval.m_onDuration, multInterval.m_restDuration, multInterval.m_startOffset, multInterval.m_delayTillStartOfMovement, ActionPhaseCheckMode.Default);
 					}
-					break;
+					}
 				}
-				int currentTurn = GameFlowData.Get().CurrentTurn;
-				return GameplayMutators.IsActiveInCurrentActionPhase(currentTurn, multInterval.m_onDuration, multInterval.m_restDuration, multInterval.m_startOffset, multInterval.m_delayTillStartOfMovement, GameplayMutators.ActionPhaseCheckMode.Default);
 			}
 		}
 		return true;
@@ -159,31 +199,31 @@ public class GameplayMutators : MonoBehaviour
 
 	public static float GetEnergyGainMultiplier()
 	{
-		if (GameplayMutators.s_instance != null && GameplayMutators.IsMultiplierActive(GameplayMutators.s_instance.m_energyGainMultInterval))
+		if (s_instance != null && IsMultiplierActive(s_instance.m_energyGainMultInterval))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return s_instance.m_energyGainMultiplier;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.GetEnergyGainMultiplier()).MethodHandle;
-			}
-			return GameplayMutators.s_instance.m_energyGainMultiplier;
 		}
 		return 1f;
 	}
 
 	public static float GetDamageMultiplier()
 	{
-		if (GameplayMutators.s_instance != null)
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -192,22 +232,22 @@ public class GameplayMutators : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.GetDamageMultiplier()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (GameplayMutators.IsMultiplierActive(GameplayMutators.s_instance.m_damageMultInterval))
+			if (IsMultiplierActive(s_instance.m_damageMultInterval))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return s_instance.m_damageMultiplier;
 					}
-					break;
 				}
-				return GameplayMutators.s_instance.m_damageMultiplier;
 			}
 		}
 		return 1f;
@@ -215,31 +255,31 @@ public class GameplayMutators : MonoBehaviour
 
 	public static float GetHealingMultiplier()
 	{
-		if (GameplayMutators.s_instance != null && GameplayMutators.IsMultiplierActive(GameplayMutators.s_instance.m_healingMultInterval))
+		if (s_instance != null && IsMultiplierActive(s_instance.m_healingMultInterval))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return s_instance.m_healingMultiplier;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.GetHealingMultiplier()).MethodHandle;
-			}
-			return GameplayMutators.s_instance.m_healingMultiplier;
 		}
 		return 1f;
 	}
 
 	public static float GetAbsorbMultiplier()
 	{
-		if (GameplayMutators.s_instance != null)
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -248,22 +288,22 @@ public class GameplayMutators : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.GetAbsorbMultiplier()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (GameplayMutators.IsMultiplierActive(GameplayMutators.s_instance.m_absorbMultInterval))
+			if (IsMultiplierActive(s_instance.m_absorbMultInterval))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return s_instance.m_absorbMultiplier;
 					}
-					break;
 				}
-				return GameplayMutators.s_instance.m_absorbMultiplier;
 			}
 		}
 		return 1f;
@@ -271,106 +311,106 @@ public class GameplayMutators : MonoBehaviour
 
 	public static int GetCooldownSpeedAdjustment()
 	{
-		if (GameplayMutators.s_instance != null)
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return s_instance.m_cooldownSpeedAdjustment;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.GetCooldownSpeedAdjustment()).MethodHandle;
-			}
-			return GameplayMutators.s_instance.m_cooldownSpeedAdjustment;
 		}
 		return 0;
 	}
 
 	public static int GetCooldownTimeAdjustment()
 	{
-		if (GameplayMutators.s_instance != null)
+		if (s_instance != null)
 		{
-			return GameplayMutators.s_instance.m_cooldownTimeAdjustment;
+			return s_instance.m_cooldownTimeAdjustment;
 		}
 		return 0;
 	}
 
 	public static float GetCooldownMultiplier()
 	{
-		if (GameplayMutators.s_instance != null)
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return s_instance.m_cooldownMultiplier;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.GetCooldownMultiplier()).MethodHandle;
-			}
-			return GameplayMutators.s_instance.m_cooldownMultiplier;
 		}
 		return 1f;
 	}
 
 	public static int GetPowerupRefreshSpeedAdjustment()
 	{
-		if (GameplayMutators.s_instance != null)
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return s_instance.m_powerupRefreshSpeedAdjustment;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.GetPowerupRefreshSpeedAdjustment()).MethodHandle;
-			}
-			return GameplayMutators.s_instance.m_powerupRefreshSpeedAdjustment;
 		}
 		return 0;
 	}
 
 	public static int GetPowerupDurationAdjustment()
 	{
-		if (GameplayMutators.s_instance != null)
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return s_instance.m_powerupDurationAdjustment;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.GetPowerupDurationAdjustment()).MethodHandle;
-			}
-			return GameplayMutators.s_instance.m_powerupDurationAdjustment;
 		}
 		return 0;
 	}
 
-	public static bool IsStatusActive(StatusType statusType, int currentTurn, GameplayMutators.ActionPhaseCheckMode phaseCheckMode = GameplayMutators.ActionPhaseCheckMode.Default)
+	public static bool IsStatusActive(StatusType statusType, int currentTurn, ActionPhaseCheckMode phaseCheckMode = ActionPhaseCheckMode.Default)
 	{
-		if (GameplayMutators.s_instance != null)
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -379,13 +419,13 @@ public class GameplayMutators : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.IsStatusActive(StatusType, int, GameplayMutators.ActionPhaseCheckMode)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (GameplayMutators.s_instance.m_alwaysOnStatuses != null)
+			if (s_instance.m_alwaysOnStatuses != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -394,27 +434,32 @@ public class GameplayMutators : MonoBehaviour
 					}
 					break;
 				}
-				for (int i = 0; i < GameplayMutators.s_instance.m_alwaysOnStatuses.Count; i++)
+				for (int i = 0; i < s_instance.m_alwaysOnStatuses.Count; i++)
 				{
-					if (GameplayMutators.s_instance.m_alwaysOnStatuses[i].m_statusType == statusType)
+					StatusInterval statusInterval = s_instance.m_alwaysOnStatuses[i];
+					if (statusInterval.m_statusType != statusType)
 					{
-						for (;;)
+						continue;
+					}
+					while (true)
+					{
+						switch (4)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
+						case 0:
+							continue;
 						}
-						int startOffset = GameplayMutators.s_instance.m_alwaysOnStatuses[i].m_startOffset;
-						int duration = GameplayMutators.s_instance.m_alwaysOnStatuses[i].m_duration;
-						int interval = GameplayMutators.s_instance.m_alwaysOnStatuses[i].m_interval;
-						bool delayTillStartOfMovement = GameplayMutators.s_instance.m_alwaysOnStatuses[i].m_delayTillStartOfMovement;
-						return GameplayMutators.IsActiveInCurrentActionPhase(currentTurn, duration, interval, startOffset, delayTillStartOfMovement, phaseCheckMode);
+						StatusInterval statusInterval2 = s_instance.m_alwaysOnStatuses[i];
+						int startOffset = statusInterval2.m_startOffset;
+						StatusInterval statusInterval3 = s_instance.m_alwaysOnStatuses[i];
+						int duration = statusInterval3.m_duration;
+						StatusInterval statusInterval4 = s_instance.m_alwaysOnStatuses[i];
+						int interval = statusInterval4.m_interval;
+						StatusInterval statusInterval5 = s_instance.m_alwaysOnStatuses[i];
+						bool delayTillStartOfMovement = statusInterval5.m_delayTillStartOfMovement;
+						return IsActiveInCurrentActionPhase(currentTurn, duration, interval, startOffset, delayTillStartOfMovement, phaseCheckMode);
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -428,11 +473,11 @@ public class GameplayMutators : MonoBehaviour
 		return false;
 	}
 
-	public static bool IsStatusSuppressed(StatusType statusType, int currentTurn, GameplayMutators.ActionPhaseCheckMode phaseCheckMode = GameplayMutators.ActionPhaseCheckMode.Default)
+	public static bool IsStatusSuppressed(StatusType statusType, int currentTurn, ActionPhaseCheckMode phaseCheckMode = ActionPhaseCheckMode.Default)
 	{
-		if (GameplayMutators.s_instance != null)
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -441,13 +486,13 @@ public class GameplayMutators : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.IsStatusSuppressed(StatusType, int, GameplayMutators.ActionPhaseCheckMode)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (GameplayMutators.s_instance.m_statusSuppression != null)
+			if (s_instance.m_statusSuppression != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -456,29 +501,30 @@ public class GameplayMutators : MonoBehaviour
 					}
 					break;
 				}
-				List<GameplayMutators.StatusInterval> statusSuppression = GameplayMutators.s_instance.m_statusSuppression;
+				List<StatusInterval> statusSuppression = s_instance.m_statusSuppression;
 				for (int i = 0; i < statusSuppression.Count; i++)
 				{
-					if (statusSuppression[i].m_statusType == statusType)
+					StatusInterval statusInterval = statusSuppression[i];
+					if (statusInterval.m_statusType != statusType)
 					{
-						for (;;)
+						continue;
+					}
+					while (true)
+					{
+						switch (1)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
+						case 0:
+							continue;
 						}
-						GameplayMutators.StatusInterval statusInterval = statusSuppression[i];
-						int startOffset = statusInterval.m_startOffset;
-						int duration = statusInterval.m_duration;
-						int interval = statusInterval.m_interval;
-						bool delayTillStartOfMovement = statusInterval.m_delayTillStartOfMovement;
-						return GameplayMutators.IsActiveInCurrentActionPhase(currentTurn, duration, interval, startOffset, delayTillStartOfMovement, phaseCheckMode);
+						StatusInterval statusInterval2 = statusSuppression[i];
+						int startOffset = statusInterval2.m_startOffset;
+						int duration = statusInterval2.m_duration;
+						int interval = statusInterval2.m_interval;
+						bool delayTillStartOfMovement = statusInterval2.m_delayTillStartOfMovement;
+						return IsActiveInCurrentActionPhase(currentTurn, duration, interval, startOffset, delayTillStartOfMovement, phaseCheckMode);
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -492,13 +538,13 @@ public class GameplayMutators : MonoBehaviour
 		return false;
 	}
 
-	public static bool IsActiveInCurrentActionPhase(int currentTurn, int onDuration, int restDuration, int startOffset, bool delayTillMoveStart, GameplayMutators.ActionPhaseCheckMode phaseCheckMode)
+	public static bool IsActiveInCurrentActionPhase(int currentTurn, int onDuration, int restDuration, int startOffset, bool delayTillMoveStart, ActionPhaseCheckMode phaseCheckMode)
 	{
 		bool flag = false;
-		bool flag2 = GameplayMutators.IsActiveInCurrentTurn(currentTurn, onDuration, restDuration, startOffset);
-		if (flag2 && phaseCheckMode == GameplayMutators.ActionPhaseCheckMode.Any)
+		bool flag2 = IsActiveInCurrentTurn(currentTurn, onDuration, restDuration, startOffset);
+		if (flag2 && phaseCheckMode == ActionPhaseCheckMode.Any)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -507,15 +553,15 @@ public class GameplayMutators : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.IsActiveInCurrentActionPhase(int, int, int, int, bool, GameplayMutators.ActionPhaseCheckMode)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			flag = true;
 		}
 		else if (flag2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -526,7 +572,7 @@ public class GameplayMutators : MonoBehaviour
 			}
 			if (delayTillMoveStart)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -535,10 +581,10 @@ public class GameplayMutators : MonoBehaviour
 					}
 					break;
 				}
-				bool flag3 = GameplayMutators.IsActiveInCurrentTurn(currentTurn - 1, onDuration, restDuration, startOffset);
-				if (!GameplayMutators.IsOnStartOfIntervalCycle(currentTurn, onDuration, restDuration, startOffset))
+				bool flag3 = IsActiveInCurrentTurn(currentTurn - 1, onDuration, restDuration, startOffset);
+				if (!IsOnStartOfIntervalCycle(currentTurn, onDuration, restDuration, startOffset))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -550,13 +596,13 @@ public class GameplayMutators : MonoBehaviour
 					if (flag3)
 					{
 						flag = true;
-						goto IL_11D;
+						goto IL_0121;
 					}
 				}
-				flag = (phaseCheckMode == GameplayMutators.ActionPhaseCheckMode.Movement);
+				flag = (phaseCheckMode == ActionPhaseCheckMode.Movement);
 				if (!flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -565,9 +611,9 @@ public class GameplayMutators : MonoBehaviour
 						}
 						break;
 					}
-					if (phaseCheckMode == GameplayMutators.ActionPhaseCheckMode.Default)
+					if (phaseCheckMode == ActionPhaseCheckMode.Default)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -579,7 +625,7 @@ public class GameplayMutators : MonoBehaviour
 						ActionBufferPhase currentActionPhase = ServerClientUtils.GetCurrentActionPhase();
 						if (currentActionPhase != ActionBufferPhase.Movement)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -590,7 +636,7 @@ public class GameplayMutators : MonoBehaviour
 							}
 							if (currentActionPhase != ActionBufferPhase.MovementChase)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (6)
 									{
@@ -601,7 +647,7 @@ public class GameplayMutators : MonoBehaviour
 								}
 								if (currentActionPhase != ActionBufferPhase.AbilitiesWait && currentActionPhase != ActionBufferPhase.MovementWait)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (7)
 										{
@@ -612,9 +658,9 @@ public class GameplayMutators : MonoBehaviour
 									}
 									if (currentActionPhase != ActionBufferPhase.Done)
 									{
-										goto IL_11D;
+										goto IL_0121;
 									}
-									for (;;)
+									while (true)
 									{
 										switch (6)
 										{
@@ -625,7 +671,7 @@ public class GameplayMutators : MonoBehaviour
 									}
 									if (GameFlowData.Get().gameState != GameState.BothTeams_Resolve)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (4)
 											{
@@ -636,7 +682,7 @@ public class GameplayMutators : MonoBehaviour
 										}
 										if (GameFlowData.Get().gameState != GameState.EndingTurn)
 										{
-											goto IL_11D;
+											goto IL_0121;
 										}
 									}
 								}
@@ -645,13 +691,14 @@ public class GameplayMutators : MonoBehaviour
 						flag = true;
 					}
 				}
-				IL_11D:;
 			}
 			else
 			{
 				flag = true;
 			}
 		}
+		goto IL_0121;
+		IL_0121:
 		return flag;
 	}
 
@@ -659,7 +706,7 @@ public class GameplayMutators : MonoBehaviour
 	{
 		if (startOffset > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -668,36 +715,36 @@ public class GameplayMutators : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.IsActiveInCurrentTurn(int, int, int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (currentTurn <= startOffset)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return false;
 					}
-					break;
 				}
-				return false;
 			}
 		}
 		if (onDuration <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			return true;
 		}
 		int num = currentTurn;
 		if (startOffset > 0)
@@ -708,16 +755,16 @@ public class GameplayMutators : MonoBehaviour
 		int num3 = (num - 1) % num2;
 		if (num3 < onDuration)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			return true;
 		}
 		return false;
 	}
@@ -726,38 +773,38 @@ public class GameplayMutators : MonoBehaviour
 	{
 		if (startOffset > 0 && currentTurn <= startOffset)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.IsOnStartOfIntervalCycle(int, int, int, int)).MethodHandle;
-			}
-			return false;
 		}
 		if (onDuration <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
 		int num = currentTurn;
 		if (startOffset > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -775,70 +822,32 @@ public class GameplayMutators : MonoBehaviour
 
 	public static float GetPassiveEnergyRegenMultiplier()
 	{
-		if (GameplayMutators.s_instance != null)
+		if (s_instance != null)
 		{
-			return GameplayMutators.s_instance.m_passiveEnergyRegenMultiplier;
+			return s_instance.m_passiveEnergyRegenMultiplier;
 		}
 		return 1f;
 	}
 
 	public static float GetPassiveHpRegenMultiplier()
 	{
-		if (GameplayMutators.s_instance != null)
+		if (s_instance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return s_instance.m_passiveHpRegenMultiplier;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayMutators.GetPassiveHpRegenMultiplier()).MethodHandle;
-			}
-			return GameplayMutators.s_instance.m_passiveHpRegenMultiplier;
 		}
 		return 1f;
-	}
-
-	[Serializable]
-	public struct StatusInterval
-	{
-		public StatusType m_statusType;
-
-		public int m_duration;
-
-		public int m_interval;
-
-		public int m_startOffset;
-
-		public bool m_delayTillStartOfMovement;
-
-		public string m_activateNotificationTurnBefore;
-
-		public string m_offNotificationTurnBefore;
-	}
-
-	[Serializable]
-	public class IntervalDef
-	{
-		public int m_onDuration;
-
-		public int m_restDuration;
-
-		public int m_startOffset;
-
-		public bool m_delayTillStartOfMovement;
-	}
-
-	public enum ActionPhaseCheckMode
-	{
-		Default,
-		Abilities,
-		Movement,
-		Any
 	}
 }

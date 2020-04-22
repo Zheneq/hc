@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,39 +13,48 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 	private GameObject m_allocatedStateTableParent;
 
 	[HideInInspector]
-	public FSMSystem fsm { get; private set; }
+	public FSMSystem fsm
+	{
+		get;
+		private set;
+	}
 
 	[HideInInspector]
-	public NPCBrain NextBrain { get; internal set; }
+	public NPCBrain NextBrain
+	{
+		get;
+		internal set;
+	}
 
 	private void Start()
 	{
-		if (base.GetComponent<BotController>() == null)
+		if (!(GetComponent<BotController>() == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			base.name += " [Prime]";
 			base.enabled = false;
+			return;
 		}
 	}
 
 	public void OnDestroy()
 	{
 		GameEventManager.Get().RemoveAllListenersFrom(this);
-		if (this.m_allocatedStateTableParent != null)
+		if (m_allocatedStateTableParent != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -55,34 +63,35 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.Destroy(this.m_allocatedStateTableParent);
-			this.m_allocatedStateTableParent = null;
+			Object.Destroy(m_allocatedStateTableParent);
+			m_allocatedStateTableParent = null;
 		}
-		if (this.fsm != null)
+		if (fsm == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.fsm.DestroyAllStates();
+			fsm.DestroyAllStates();
+			return;
 		}
 	}
 
 	public bool CanTransistion(Transition trans)
 	{
-		bool result;
-		if (this.fsm != null)
+		int result;
+		if (fsm != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -91,53 +100,54 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain.CanTransistion(Transition)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.fsm.CanTransistion(trans);
+			result = (fsm.CanTransistion(trans) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (this != null && this.fsm != null && base.enabled)
+		if (!(this != null) || fsm == null || !base.enabled)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.fsm.OnGameEvent(eventType, args);
+			fsm.OnGameEvent(eventType, args);
+			return;
 		}
 	}
 
 	public void SetTransition(Transition t)
 	{
-		this.fsm.PerformTransition(t, this);
+		fsm.PerformTransition(t, this);
 	}
 
 	public void SetPendingTransition(Transition t)
 	{
-		this.fsm.SetPendingTransition(t);
+		fsm.SetPendingTransition(t);
 	}
 
 	public Transition GetPendingTransition()
 	{
-		return this.fsm.GetPendingTransition();
+		return fsm.GetPendingTransition();
 	}
 
 	public virtual NPCBrain Create(BotController bot, Transform destination)
@@ -152,56 +162,36 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 
 	public virtual void SelectBotAbilityMods()
 	{
-		base.GetComponent<BotController>().SelectBotAbilityMods_Brainless();
+		GetComponent<BotController>().SelectBotAbilityMods_Brainless();
 	}
 
 	public virtual void SelectBotCards()
 	{
-		base.GetComponent<BotController>().SelectBotCards_Brainless();
+		GetComponent<BotController>().SelectBotCards_Brainless();
 	}
 
 	public IEnumerator FSMTakeTurn()
 	{
-		if (this.fsm != null)
+		if (fsm != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					yield return StartCoroutine(fsm.TakeTurn());
+					/*Error: Unable to find new state assignment for yield return*/;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain.<FSMTakeTurn>c__Iterator1.MoveNext()).MethodHandle;
-			}
-			yield return base.StartCoroutine(this.fsm.TakeTurn());
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
-		else
-		{
-			yield return base.StartCoroutine(this.DecideTurn());
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		yield break;
+		yield return StartCoroutine(DecideTurn());
+		/*Error: Unable to find new state assignment for yield return*/;
 	}
 
 	protected virtual void MakeFSM(NPCBrain brainInstance)

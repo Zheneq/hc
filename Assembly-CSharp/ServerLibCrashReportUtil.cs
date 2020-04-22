@@ -1,13 +1,13 @@
-﻿using System;
+using System;
 
 public static class ServerLibCrashReportUtil
 {
 	public static string CreateArchiveNameForClient(bool devBuild, int numArchiveBytes)
 	{
-		string buildName;
+		object buildName;
 		if (devBuild)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -16,9 +16,9 @@ public static class ServerLibCrashReportUtil
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerLibCrashReportUtil.CreateArchiveNameForClient(bool, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			buildName = "AtlasReactorDev";
 		}
@@ -26,12 +26,12 @@ public static class ServerLibCrashReportUtil
 		{
 			buildName = "AtlasReactor";
 		}
-		return ServerLibCrashReportUtil.CreateArchiveName(buildName, numArchiveBytes);
+		return CreateArchiveName((string)buildName, numArchiveBytes);
 	}
 
 	public static string CreateArchiveNameForServer(int numArchiveBytes)
 	{
-		return ServerLibCrashReportUtil.CreateArchiveName("AtlasReactorServer", numArchiveBytes);
+		return CreateArchiveName("AtlasReactorServer", numArchiveBytes);
 	}
 
 	private static string CreateArchiveName(string buildName, int numArchiveBytes)

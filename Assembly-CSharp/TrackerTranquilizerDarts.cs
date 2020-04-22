@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,9 +53,9 @@ public class TrackerTranquilizerDarts : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -65,16 +64,16 @@ public class TrackerTranquilizerDarts : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Tranquilizer Darts";
+			m_abilityName = "Tranquilizer Darts";
 		}
-		this.m_droneTracker = base.GetComponent<TrackerDroneTrackerComponent>();
-		if (this.m_droneTracker == null)
+		m_droneTracker = GetComponent<TrackerDroneTrackerComponent>();
+		if (m_droneTracker == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -85,15 +84,15 @@ public class TrackerTranquilizerDarts : Ability
 			}
 			Debug.LogError("No drone tracker component");
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		if (this.m_droneInfoComp == null)
+		SetCachedFields();
+		if (m_droneInfoComp == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -102,15 +101,14 @@ public class TrackerTranquilizerDarts : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.SetupTargeter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_droneInfoComp = base.GetComponent<TrackerDroneInfoComponent>();
+			m_droneInfoComp = GetComponent<TrackerDroneInfoComponent>();
 		}
-		this.m_targeterMinAngle = Mathf.Max(0f, this.m_targeterMinAngle);
-		AbilityUtil_Targeter targeter = AbilityCommon_FanLaser.CreateTargeter_SingleClick(this, this.GetLaserCount(), this.GetLaserTargetingInfo(), this.m_angleInBetween, this.m_changeAngleByCursorDistance, this.m_targeterMinAngle, this.m_targeterMaxAngle, this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance);
-		base.Targeter = targeter;
+		m_targeterMinAngle = Mathf.Max(0f, m_targeterMinAngle);
+		AbilityUtil_Targeter abilityUtil_Targeter2 = base.Targeter = AbilityCommon_FanLaser.CreateTargeter_SingleClick(this, GetLaserCount(), GetLaserTargetingInfo(), m_angleInBetween, m_changeAngleByCursorDistance, m_targeterMinAngle, m_targeterMaxAngle, m_targeterMinInterpDistance, m_targeterMaxInterpDistance);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -120,16 +118,16 @@ public class TrackerTranquilizerDarts : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetLaserTargetingInfo().range;
+		return GetLaserTargetingInfo().range;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_TrackerTranquilizerDarts abilityMod_TrackerTranquilizerDarts = modAsBase as AbilityMod_TrackerTranquilizerDarts;
 		StandardEffectInfo standardEffectInfo;
-		if (abilityMod_TrackerTranquilizerDarts)
+		if ((bool)abilityMod_TrackerTranquilizerDarts)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -138,22 +136,22 @@ public class TrackerTranquilizerDarts : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			standardEffectInfo = abilityMod_TrackerTranquilizerDarts.m_enemySingleHitEffectMod.GetModifiedValue(this.m_enemySingleHitEffect);
+			standardEffectInfo = abilityMod_TrackerTranquilizerDarts.m_enemySingleHitEffectMod.GetModifiedValue(m_enemySingleHitEffect);
 		}
 		else
 		{
-			standardEffectInfo = this.m_enemySingleHitEffect;
+			standardEffectInfo = m_enemySingleHitEffect;
 		}
 		StandardEffectInfo effectInfo = standardEffectInfo;
-		StandardEffectInfo effectInfo2 = (!abilityMod_TrackerTranquilizerDarts) ? this.m_enemyMultiHitEffect : abilityMod_TrackerTranquilizerDarts.m_enemyMultiHitEffectMod.GetModifiedValue(this.m_enemyMultiHitEffect);
+		StandardEffectInfo effectInfo2 = (!abilityMod_TrackerTranquilizerDarts) ? m_enemyMultiHitEffect : abilityMod_TrackerTranquilizerDarts.m_enemyMultiHitEffectMod.GetModifiedValue(m_enemyMultiHitEffect);
 		StandardEffectInfo standardEffectInfo2;
-		if (abilityMod_TrackerTranquilizerDarts)
+		if ((bool)abilityMod_TrackerTranquilizerDarts)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -162,17 +160,17 @@ public class TrackerTranquilizerDarts : Ability
 				}
 				break;
 			}
-			standardEffectInfo2 = abilityMod_TrackerTranquilizerDarts.m_allySingleHitEffectMod.GetModifiedValue(this.m_allySingleHitEffect);
+			standardEffectInfo2 = abilityMod_TrackerTranquilizerDarts.m_allySingleHitEffectMod.GetModifiedValue(m_allySingleHitEffect);
 		}
 		else
 		{
-			standardEffectInfo2 = this.m_allySingleHitEffect;
+			standardEffectInfo2 = m_allySingleHitEffect;
 		}
 		StandardEffectInfo effectInfo3 = standardEffectInfo2;
 		StandardEffectInfo standardEffectInfo3;
-		if (abilityMod_TrackerTranquilizerDarts)
+		if ((bool)abilityMod_TrackerTranquilizerDarts)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -181,75 +179,76 @@ public class TrackerTranquilizerDarts : Ability
 				}
 				break;
 			}
-			standardEffectInfo3 = abilityMod_TrackerTranquilizerDarts.m_allyMultiHitEffectMod.GetModifiedValue(this.m_allyMultiHitEffect);
+			standardEffectInfo3 = abilityMod_TrackerTranquilizerDarts.m_allyMultiHitEffectMod.GetModifiedValue(m_allyMultiHitEffect);
 		}
 		else
 		{
-			standardEffectInfo3 = this.m_allyMultiHitEffect;
+			standardEffectInfo3 = m_allyMultiHitEffect;
 		}
 		StandardEffectInfo effectInfo4 = standardEffectInfo3;
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "Effect_EnemySingleHit", null, true);
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "Effect_EnemyMultiHit", null, true);
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "Effect_AllySingleHit", null, true);
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo4, "Effect_AllyMultiHit", null, true);
-		TrackerHuntingCrossbow component = base.GetComponent<TrackerHuntingCrossbow>();
-		if (component != null)
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "Effect_EnemySingleHit");
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "Effect_EnemyMultiHit");
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "Effect_AllySingleHit");
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo4, "Effect_AllyMultiHit");
+		TrackerHuntingCrossbow component = GetComponent<TrackerHuntingCrossbow>();
+		if (!(component != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			component.m_huntedEffectData.AddTooltipTokens(tokens, "TrackedEffect", false, null);
+			component.m_huntedEffectData.AddTooltipTokens(tokens, "TrackedEffect");
+			return;
 		}
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_laserDamageAmount);
-		this.m_enemySingleHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		this.m_enemyMultiHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_laserDamageAmount);
+		m_enemySingleHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		m_enemyMultiHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
-		Ability.AddNameplateValueForOverlap(ref result, base.Targeter, targetActor, currentTargeterIndex, this.m_laserDamageAmount, this.m_laserDamageAmount, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
-		return result;
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
+		Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeter, targetActor, currentTargeterIndex, m_laserDamageAmount, m_laserDamageAmount);
+		return symbolToValue;
 	}
 
 	public float CalculateDistanceFromFanAngleDegrees(float fanAngleDegrees)
 	{
-		return AbilityCommon_FanLaser.CalculateDistanceFromFanAngleDegrees(fanAngleDegrees, this.m_targeterMaxAngle, this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance);
+		return AbilityCommon_FanLaser.CalculateDistanceFromFanAngleDegrees(fanAngleDegrees, m_targeterMaxAngle, m_targeterMinInterpDistance, m_targeterMaxInterpDistance);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_TrackerTranquilizerDarts))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_TrackerTranquilizerDarts);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_TrackerTranquilizerDarts);
+			SetupTargeter();
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	private void SetCachedFields()
 	{
 		LaserTargetingInfo cachedLaserTargetingInfo;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -258,30 +257,30 @@ public class TrackerTranquilizerDarts : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedLaserTargetingInfo = this.m_abilityMod.m_laserTargetingInfoMod.GetModifiedValue(this.m_laserTargetingInfo);
+			cachedLaserTargetingInfo = m_abilityMod.m_laserTargetingInfoMod.GetModifiedValue(m_laserTargetingInfo);
 		}
 		else
 		{
-			cachedLaserTargetingInfo = this.m_laserTargetingInfo;
+			cachedLaserTargetingInfo = m_laserTargetingInfo;
 		}
-		this.m_cachedLaserTargetingInfo = cachedLaserTargetingInfo;
+		m_cachedLaserTargetingInfo = cachedLaserTargetingInfo;
 	}
 
 	public LaserTargetingInfo GetLaserTargetingInfo()
 	{
-		return (this.m_cachedLaserTargetingInfo == null) ? this.m_laserTargetingInfo : this.m_cachedLaserTargetingInfo;
+		return (m_cachedLaserTargetingInfo == null) ? m_laserTargetingInfo : m_cachedLaserTargetingInfo;
 	}
 
 	public StandardEffectInfo GetAllySingleHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -290,15 +289,15 @@ public class TrackerTranquilizerDarts : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.GetAllySingleHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_allySingleHitEffect;
+			result = m_allySingleHitEffect;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_allySingleHitEffectMod.GetModifiedValue(this.m_allySingleHitEffect);
+			result = m_abilityMod.m_allySingleHitEffectMod.GetModifiedValue(m_allySingleHitEffect);
 		}
 		return result;
 	}
@@ -306,9 +305,9 @@ public class TrackerTranquilizerDarts : Ability
 	public StandardEffectInfo GetAllyMultiHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -317,15 +316,15 @@ public class TrackerTranquilizerDarts : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.GetAllyMultiHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_allyMultiHitEffect;
+			result = m_allyMultiHitEffect;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_allyMultiHitEffectMod.GetModifiedValue(this.m_allyMultiHitEffect);
+			result = m_abilityMod.m_allyMultiHitEffectMod.GetModifiedValue(m_allyMultiHitEffect);
 		}
 		return result;
 	}
@@ -333,9 +332,9 @@ public class TrackerTranquilizerDarts : Ability
 	public StandardEffectInfo GetEnemySingleHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -344,15 +343,15 @@ public class TrackerTranquilizerDarts : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.GetEnemySingleHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_enemySingleHitEffect;
+			result = m_enemySingleHitEffect;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_enemySingleHitEffectMod.GetModifiedValue(this.m_enemySingleHitEffect);
+			result = m_abilityMod.m_enemySingleHitEffectMod.GetModifiedValue(m_enemySingleHitEffect);
 		}
 		return result;
 	}
@@ -360,9 +359,9 @@ public class TrackerTranquilizerDarts : Ability
 	public StandardEffectInfo GetEnemyMultiHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -371,15 +370,15 @@ public class TrackerTranquilizerDarts : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.GetEnemyMultiHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_enemyMultiHitEffect;
+			result = m_enemyMultiHitEffect;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_enemyMultiHitEffectMod.GetModifiedValue(this.m_enemyMultiHitEffect);
+			result = m_abilityMod.m_enemyMultiHitEffectMod.GetModifiedValue(m_enemyMultiHitEffect);
 		}
 		return result;
 	}
@@ -387,9 +386,9 @@ public class TrackerTranquilizerDarts : Ability
 	private int GetLaserCount()
 	{
 		int num;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -398,40 +397,40 @@ public class TrackerTranquilizerDarts : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.GetLaserCount()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = this.m_laserCount;
+			num = m_laserCount;
 		}
 		else
 		{
-			num = this.m_abilityMod.m_laserCountMod.GetModifiedValue(this.m_laserCount);
+			num = m_abilityMod.m_laserCountMod.GetModifiedValue(m_laserCount);
 		}
 		int b = num;
 		return Mathf.Max(1, b);
 	}
 
-	public unsafe override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
+	public override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
 	{
-		if (this.GetLaserCount() > 1)
+		if (GetLaserCount() > 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					min = m_targeterMinInterpDistance * Board.Get().squareSize;
+					max = m_targeterMaxInterpDistance * Board.Get().squareSize;
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.HasRestrictedFreePosDistance(ActorData, int, List<AbilityTarget>, float*, float*)).MethodHandle;
-			}
-			min = this.m_targeterMinInterpDistance * Board.\u000E().squareSize;
-			max = this.m_targeterMaxInterpDistance * Board.\u000E().squareSize;
-			return true;
 		}
 		return base.HasRestrictedFreePosDistance(aimingActor, targetIndex, targetsSoFar, out min, out max);
 	}

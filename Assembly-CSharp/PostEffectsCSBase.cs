@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
@@ -15,26 +14,26 @@ public class PostEffectsCSBase : MonoBehaviour
 	{
 		if (!s)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Log.Info("Missing shader in " + ToString());
+					base.enabled = false;
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PostEffectsCSBase.CheckShaderAndCreateMaterial(Shader, Material)).MethodHandle;
-			}
-			Log.Info("Missing shader in " + this.ToString(), new object[0]);
-			base.enabled = false;
-			return null;
 		}
-		if (s.isSupported && m2Create)
+		if (s.isSupported && (bool)m2Create)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -45,45 +44,38 @@ public class PostEffectsCSBase : MonoBehaviour
 			}
 			if (m2Create.shader == s)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m2Create;
 					}
-					break;
 				}
-				return m2Create;
 			}
 		}
 		if (!s.isSupported)
 		{
-			this.NotSupported();
-			Log.Info(string.Concat(new string[]
-			{
-				"The shader ",
-				s.ToString(),
-				" on effect ",
-				this.ToString(),
-				" is not supported on this platform!"
-			}), new object[0]);
+			NotSupported();
+			Log.Info("The shader " + s.ToString() + " on effect " + ToString() + " is not supported on this platform!");
 			return null;
 		}
 		m2Create = new Material(s);
 		m2Create.hideFlags = HideFlags.DontSave;
-		if (m2Create)
+		if ((bool)m2Create)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m2Create;
 				}
-				break;
 			}
-			return m2Create;
 		}
 		return null;
 	}
@@ -92,25 +84,25 @@ public class PostEffectsCSBase : MonoBehaviour
 	{
 		if (!s)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Log.Info("Missing shader in " + ToString());
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PostEffectsCSBase.CreateMaterial(Shader, Material)).MethodHandle;
-			}
-			Log.Info("Missing shader in " + this.ToString(), new object[0]);
-			return null;
 		}
-		if (m2Create && m2Create.shader == s)
+		if ((bool)m2Create && m2Create.shader == s)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -121,78 +113,78 @@ public class PostEffectsCSBase : MonoBehaviour
 			}
 			if (s.isSupported)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m2Create;
 					}
-					break;
 				}
-				return m2Create;
 			}
 		}
 		if (!s.isSupported)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return null;
 				}
-				break;
 			}
-			return null;
 		}
 		m2Create = new Material(s);
 		m2Create.hideFlags = HideFlags.DontSave;
-		if (m2Create)
+		if ((bool)m2Create)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m2Create;
 				}
-				break;
 			}
-			return m2Create;
 		}
 		return null;
 	}
 
 	private void OnEnable()
 	{
-		this.isSupported = true;
+		isSupported = true;
 	}
 
 	public bool CheckSupport()
 	{
-		return this.CheckSupport(false);
+		return CheckSupport(false);
 	}
 
 	public virtual bool CheckResources()
 	{
-		Log.Warning("CheckResources () for " + this.ToString() + " should be overwritten.", new object[0]);
-		return this.isSupported;
+		Log.Warning("CheckResources () for " + ToString() + " should be overwritten.");
+		return isSupported;
 	}
 
 	private void Start()
 	{
-		this.CheckResources();
+		CheckResources();
 	}
 
 	public bool CheckSupport(bool needDepth)
 	{
-		this.isSupported = true;
-		this.supportHDRTextures = SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.ARGBHalf);
-		bool flag;
-		if (SystemInfo.graphicsShaderLevel >= 0x32)
+		isSupported = true;
+		supportHDRTextures = SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.ARGBHalf);
+		int num;
+		if (SystemInfo.graphicsShaderLevel >= 50)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -201,48 +193,48 @@ public class PostEffectsCSBase : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PostEffectsCSBase.CheckSupport(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			flag = SystemInfo.supportsComputeShaders;
+			num = (SystemInfo.supportsComputeShaders ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		this.supportDX11 = flag;
+		supportDX11 = ((byte)num != 0);
 		if (!SystemInfo.supportsImageEffects)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					NotSupported();
+					return false;
 				}
-				break;
 			}
-			this.NotSupported();
-			return false;
 		}
 		if (needDepth && !SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.Depth))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					NotSupported();
+					return false;
 				}
-				break;
 			}
-			this.NotSupported();
-			return false;
 		}
 		if (needDepth)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -251,33 +243,33 @@ public class PostEffectsCSBase : MonoBehaviour
 				}
 				break;
 			}
-			base.GetComponent<Camera>().depthTextureMode |= DepthTextureMode.Depth;
+			GetComponent<Camera>().depthTextureMode |= DepthTextureMode.Depth;
 		}
 		return true;
 	}
 
 	private bool CheckSupport(bool needDepth, bool needHdr)
 	{
-		if (!this.CheckSupport(needDepth))
+		if (!CheckSupport(needDepth))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PostEffectsCSBase.CheckSupport(bool, bool)).MethodHandle;
-			}
-			return false;
 		}
 		if (needHdr)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -286,19 +278,19 @@ public class PostEffectsCSBase : MonoBehaviour
 				}
 				break;
 			}
-			if (!this.supportHDRTextures)
+			if (!supportHDRTextures)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						NotSupported();
+						return false;
 					}
-					break;
 				}
-				this.NotSupported();
-				return false;
 			}
 		}
 		return true;
@@ -306,41 +298,34 @@ public class PostEffectsCSBase : MonoBehaviour
 
 	private bool Dx11Support()
 	{
-		return this.supportDX11;
+		return supportDX11;
 	}
 
 	public void ReportAutoDisable()
 	{
-		Log.Warning("The image effect " + this.ToString() + " has been disabled as it's not supported on the current platform.", new object[0]);
+		Log.Warning("The image effect " + ToString() + " has been disabled as it's not supported on the current platform.");
 	}
 
 	private bool CheckShader(Shader s)
 	{
-		Log.Info(string.Concat(new string[]
-		{
-			"The shader ",
-			s.ToString(),
-			" on effect ",
-			this.ToString(),
-			" is not part of the Unity 3.2f+ effects suite anymore. For best performance and quality, please ensure you are using the latest Standard Assets Image Effects (Pro only) package."
-		}), new object[0]);
+		Log.Info("The shader " + s.ToString() + " on effect " + ToString() + " is not part of the Unity 3.2f+ effects suite anymore. For best performance and quality, please ensure you are using the latest Standard Assets Image Effects (Pro only) package.");
 		if (!s.isSupported)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					NotSupported();
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PostEffectsCSBase.CheckShader(Shader)).MethodHandle;
-			}
-			this.NotSupported();
-			return false;
 		}
 		return false;
 	}
@@ -348,7 +333,7 @@ public class PostEffectsCSBase : MonoBehaviour
 	private void NotSupported()
 	{
 		base.enabled = false;
-		this.isSupported = false;
+		isSupported = false;
 	}
 
 	private void DrawBorder(RenderTexture dest, Material material)
@@ -364,7 +349,7 @@ public class PostEffectsCSBase : MonoBehaviour
 			float y2;
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -373,9 +358,9 @@ public class PostEffectsCSBase : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PostEffectsCSBase.DrawBorder(RenderTexture, Material)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				y = 1f;
 				y2 = 0f;

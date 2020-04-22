@@ -1,9 +1,9 @@
-﻿using System;
 using LobbyGameClientMessages;
 
 public class SlashCommand_GroupKick : SlashCommand
 {
-	public SlashCommand_GroupKick() : base("/kick", SlashCommandType.Everywhere)
+	public SlashCommand_GroupKick()
+		: base("/kick", SlashCommandType.Everywhere)
 	{
 	}
 
@@ -15,65 +15,70 @@ public class SlashCommand_GroupKick : SlashCommand
 			{
 				Text = StringUtil.TR("KickNameError", "SlashCommand"),
 				MessageType = ConsoleMessageType.SystemMessage
-			}, null);
-			return;
+			});
 		}
-		ClientGameManager.Get().KickFromGroup(arguments, delegate(GroupKickResponse r)
+		else
 		{
-			if (!r.Success)
+			ClientGameManager.Get().KickFromGroup(arguments, delegate(GroupKickResponse r)
 			{
-				for (;;)
+				if (!r.Success)
 				{
-					switch (3)
+					while (true)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_GroupKick.<OnSlashCommand>m__0(GroupKickResponse)).MethodHandle;
-				}
-				if (r.LocalizedFailure != null)
-				{
-					for (;;)
-					{
-						switch (6)
+						switch (3)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					r.ErrorMessage = r.LocalizedFailure.ToString();
-				}
-				string format = StringUtil.TR("FailedMessage", "Global");
-				object arg;
-				if (r.ErrorMessage.IsNullOrEmpty())
-				{
-					for (;;)
-					{
-						switch (6)
+							break;
+						default:
 						{
-						case 0:
-							continue;
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							if (r.LocalizedFailure != null)
+							{
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								r.ErrorMessage = r.LocalizedFailure.ToString();
+							}
+							string format = StringUtil.TR("FailedMessage", "Global");
+							string arg;
+							if (r.ErrorMessage.IsNullOrEmpty())
+							{
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								arg = StringUtil.TR("UnknownError", "Global");
+							}
+							else
+							{
+								arg = r.ErrorMessage;
+							}
+							string text = string.Format(format, arg);
+							TextConsole.Get().Write(new TextConsole.Message
+							{
+								Text = text,
+								MessageType = ConsoleMessageType.SystemMessage
+							});
+							return;
 						}
-						break;
+						}
 					}
-					arg = StringUtil.TR("UnknownError", "Global");
 				}
-				else
-				{
-					arg = r.ErrorMessage;
-				}
-				string text = string.Format(format, arg);
-				TextConsole.Get().Write(new TextConsole.Message
-				{
-					Text = text,
-					MessageType = ConsoleMessageType.SystemMessage
-				}, null);
-			}
-		});
+			});
+		}
 	}
 }

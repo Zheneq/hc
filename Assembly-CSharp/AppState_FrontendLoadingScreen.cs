@@ -1,13 +1,30 @@
-﻿using System;
-using System.Collections;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 using LobbyGameClientMessages;
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class AppState_FrontendLoadingScreen : AppState
 {
+	public enum NextState
+	{
+		GoToLandingPage,
+		GoToCharacterSelect,
+		GoToTutorial,
+		GoToGame
+	}
+
+	private enum State
+	{
+		Loading,
+		Loaded,
+		ServerLocked,
+		ServerQueued,
+		WaitingForKey,
+		Error,
+		FadingOut
+	}
+
 	private static AppState_FrontendLoadingScreen s_instance;
 
 	private string m_lastLobbyErrorMessage;
@@ -24,19 +41,19 @@ public class AppState_FrontendLoadingScreen : AppState
 
 	private bool m_hasEnteredMatch;
 
-	private AppState_FrontendLoadingScreen.NextState m_nextState;
+	private NextState m_nextState;
 
-	private AppState_FrontendLoadingScreen.State m_state;
+	private State m_state;
 
 	public static AppState_FrontendLoadingScreen Get()
 	{
-		return AppState_FrontendLoadingScreen.s_instance;
+		return s_instance;
 	}
 
-	public void Enter(string lastLobbyErrorMessage, AppState_FrontendLoadingScreen.NextState nextState = AppState_FrontendLoadingScreen.NextState.GoToLandingPage)
+	public void Enter(string lastLobbyErrorMessage, NextState nextState = NextState.GoToLandingPage)
 	{
-		this.m_lastLobbyErrorMessage = lastLobbyErrorMessage;
-		this.m_nextState = nextState;
+		m_lastLobbyErrorMessage = lastLobbyErrorMessage;
+		m_nextState = nextState;
 		base.Enter();
 	}
 
@@ -47,132 +64,127 @@ public class AppState_FrontendLoadingScreen : AppState
 
 	private void Awake()
 	{
-		AppState_FrontendLoadingScreen.s_instance = this;
-		this.m_isLoadingStarted = false;
-		this.m_isLoadingComplete = false;
-		this.m_isFirstTime = true;
-		this.m_isUILoaded = false;
-		this.m_hasGoneToLandingPage = false;
-		this.m_nextState = AppState_FrontendLoadingScreen.NextState.GoToLandingPage;
+		s_instance = this;
+		m_isLoadingStarted = false;
+		m_isLoadingComplete = false;
+		m_isFirstTime = true;
+		m_isUILoaded = false;
+		m_hasGoneToLandingPage = false;
+		m_nextState = NextState.GoToLandingPage;
 	}
 
 	protected override void OnEnter()
 	{
-		this.m_state = AppState_FrontendLoadingScreen.State.Loading;
-		this.m_isLoadingStarted = false;
-		this.m_isLoadingComplete = false;
+		m_state = State.Loading;
+		m_isLoadingStarted = false;
+		m_isLoadingComplete = false;
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		clientGameManager.OnConnectedToLobbyServer += this.HandleConnectedToLobbyServer;
-		clientGameManager.OnDisconnectedFromLobbyServer += this.HandleDisconnectedFromLobbyServer;
-		clientGameManager.OnLobbyServerReadyNotification += this.HandleLobbyServerReadyNotification;
-		clientGameManager.OnLobbyStatusNotification += this.HandleStatusNotification;
-		clientGameManager.OnAccountDataUpdated += this.HandleAccountDataUpdated;
+		clientGameManager.OnConnectedToLobbyServer += HandleConnectedToLobbyServer;
+		clientGameManager.OnDisconnectedFromLobbyServer += HandleDisconnectedFromLobbyServer;
+		clientGameManager.OnLobbyServerReadyNotification += HandleLobbyServerReadyNotification;
+		clientGameManager.OnLobbyStatusNotification += HandleStatusNotification;
+		clientGameManager.OnAccountDataUpdated += HandleAccountDataUpdated;
 		AudioManager.GetMixerSnapshotManager().SetMix_LoadingScreen();
-		AudioManager.PostEvent("sw_music_selection", AudioManager.EventAction.SetSwitch, "menu", null);
-		AudioManager.PostEvent("sw_ambiance_selection", AudioManager.EventAction.SetSwitch, "menu", null);
+		AudioManager.PostEvent("sw_music_selection", AudioManager.EventAction.SetSwitch, "menu");
+		AudioManager.PostEvent("sw_ambiance_selection", AudioManager.EventAction.SetSwitch, "menu");
 		UIFrontendLoadingScreen.Get().SetVisible(true);
-		UIFrontendLoadingScreen.Get().StartDisplayLoading(null);
+		UIFrontendLoadingScreen.Get().StartDisplayLoading();
 		if (UILoadingScreenPanel.Get() != null)
 		{
 			UILoadingScreenPanel.Get().SetVisible(false);
 		}
-		if (!this.m_isFirstTime)
+		if (!m_isFirstTime)
 		{
 			SceneManager.LoadScene("Disconnected");
 		}
-		this.ConnectToLobbyServer();
-		this.m_isFirstTime = false;
+		ConnectToLobbyServer();
+		m_isFirstTime = false;
 	}
 
 	protected override void OnLeave()
 	{
 		AudioManager.StandardizeAudioLinkages();
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		clientGameManager.OnConnectedToLobbyServer -= this.HandleConnectedToLobbyServer;
-		clientGameManager.OnDisconnectedFromLobbyServer -= this.HandleDisconnectedFromLobbyServer;
-		clientGameManager.OnLobbyServerReadyNotification -= this.HandleLobbyServerReadyNotification;
-		clientGameManager.OnLobbyStatusNotification -= this.HandleStatusNotification;
-		clientGameManager.OnAccountDataUpdated -= this.HandleAccountDataUpdated;
+		clientGameManager.OnConnectedToLobbyServer -= HandleConnectedToLobbyServer;
+		clientGameManager.OnDisconnectedFromLobbyServer -= HandleDisconnectedFromLobbyServer;
+		clientGameManager.OnLobbyServerReadyNotification -= HandleLobbyServerReadyNotification;
+		clientGameManager.OnLobbyStatusNotification -= HandleStatusNotification;
+		clientGameManager.OnAccountDataUpdated -= HandleAccountDataUpdated;
 	}
 
 	private void Update()
 	{
-		this.CheckEndWaitingForKey();
-		this.CheckEndFadingOut();
+		CheckEndWaitingForKey();
+		CheckEndFadingOut();
 	}
 
 	private void StartLoading()
 	{
-		this.m_isLoadingStarted = true;
+		m_isLoadingStarted = true;
 		if (UIFrontendLoadingScreen.Get() != null)
 		{
-			UIFrontendLoadingScreen.Get().StartDisplayLoading(null);
+			UIFrontendLoadingScreen.Get().StartDisplayLoading();
 		}
-		if (this.m_nextState != AppState_FrontendLoadingScreen.NextState.GoToCharacterSelect)
+		if (m_nextState != NextState.GoToCharacterSelect)
 		{
-			if (this.m_nextState == AppState_FrontendLoadingScreen.NextState.GoToLandingPage)
+			if (m_nextState != 0)
 			{
-				for (;;)
+				if (!m_isUILoaded)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.StartLoading()).MethodHandle;
-				}
-			}
-			else
-			{
-				if (!this.m_isUILoaded)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							StartCoroutine(WaitForLoadUIBackground());
+							return;
 						}
-						break;
 					}
-					base.StartCoroutine(this.WaitForLoadUIBackground());
-					return;
 				}
-				this.m_isLoadingComplete = true;
-				this.ChooseNextAction();
+				m_isLoadingComplete = true;
+				ChooseNextAction();
 				return;
 			}
-		}
-		Log.Info(Log.Category.Loading, "PKFxManager.DeepReset going to frontend", new object[0]);
-		PKFxManager.DeepReset();
-		if (!this.m_isUILoaded)
-		{
-			for (;;)
+			while (true)
 			{
-				switch (5)
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			base.StartCoroutine(this.LoadUIAndFrontEndBackground());
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
 		}
-		else
+		Log.Info(Log.Category.Loading, "PKFxManager.DeepReset going to frontend");
+		PKFxManager.DeepReset();
+		if (!m_isUILoaded)
 		{
-			base.StartCoroutine(this.LoadFrontEndBackground());
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					StartCoroutine(LoadUIAndFrontEndBackground());
+					return;
+				}
+			}
 		}
+		StartCoroutine(LoadFrontEndBackground());
 	}
 
 	private void ChooseNextAction()
 	{
 		if (ClientGameManager.Get().IsServerLocked)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -181,54 +193,55 @@ public class AppState_FrontendLoadingScreen : AppState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.ChooseNextAction()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_hasGoneToLandingPage)
+			if (!m_hasGoneToLandingPage)
 			{
-				this.StartServerLocked();
+				StartServerLocked();
 				return;
 			}
 		}
 		if (ClientGameManager.Get().IsServerQueued)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					StartServerQueued();
+					return;
 				}
-				break;
 			}
-			this.StartServerQueued();
 		}
-		else if (ClientGameManager.Get().IsReady)
+		if (!ClientGameManager.Get().IsReady)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
-			{
-				for (;;)
+				if (ShouldAutomaticallyEnterTutorial())
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.ShouldAutomaticallyEnterTutorial())
-				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -237,11 +250,11 @@ public class AppState_FrontendLoadingScreen : AppState
 						}
 						break;
 					}
-					this.m_nextState = AppState_FrontendLoadingScreen.NextState.GoToTutorial;
+					m_nextState = NextState.GoToTutorial;
 				}
-				if (this.ShouldAutomaticallyEnterGame())
+				if (ShouldAutomaticallyEnterGame())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -250,53 +263,57 @@ public class AppState_FrontendLoadingScreen : AppState
 						}
 						break;
 					}
-					this.m_nextState = AppState_FrontendLoadingScreen.NextState.GoToGame;
+					m_nextState = NextState.GoToGame;
 				}
-				if (!this.m_isLoadingStarted)
+				if (!m_isLoadingStarted)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_nextState != AppState_FrontendLoadingScreen.NextState.GoToGame)
-					{
-						if (this.m_nextState != AppState_FrontendLoadingScreen.NextState.GoToTutorial)
-						{
-							goto IL_106;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+							{
+								if (m_nextState != NextState.GoToGame)
+								{
+									if (m_nextState != NextState.GoToTutorial)
+									{
+										goto IL_0106;
+									}
+									while (true)
+									{
+										switch (1)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+								}
+								UIManager.Get().SetGameState(UIManager.ClientState.InGame);
+								goto IL_0106;
+							}
+							IL_0106:
+							StartLoading();
+							return;
 						}
 					}
-					UIManager.Get().SetGameState(UIManager.ClientState.InGame);
-					IL_106:
-					this.StartLoading();
 				}
-				else if (this.m_isLoadingComplete)
+				if (!m_isLoadingComplete)
 				{
-					for (;;)
+					return;
+				}
+				while (true)
+				{
+					switch (2)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
+					case 0:
+						continue;
 					}
-					if (this.m_nextState == AppState_FrontendLoadingScreen.NextState.GoToTutorial)
+					if (m_nextState == NextState.GoToTutorial)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -305,24 +322,25 @@ public class AppState_FrontendLoadingScreen : AppState
 							}
 							break;
 						}
-						if (!this.m_hasGoneToLandingPage)
+						if (!m_hasGoneToLandingPage)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									UINewUserFlowManager.MarkShowPlayHighlight(true);
+									ClientGameManager.Get().GroupInfo.SelectedQueueType = GameType.Coop;
+									StartWaitingForKey();
+									return;
 								}
-								break;
 							}
-							UINewUserFlowManager.MarkShowPlayHighlight(true);
-							ClientGameManager.Get().GroupInfo.SelectedQueueType = GameType.Coop;
-							this.StartWaitingForKey();
-							return;
 						}
 					}
-					this.StartFadingOut();
+					StartFadingOut();
+					return;
 				}
 			}
 		}
@@ -330,31 +348,32 @@ public class AppState_FrontendLoadingScreen : AppState
 
 	private void StartWaitingForKey()
 	{
-		if (this.m_state != AppState_FrontendLoadingScreen.State.WaitingForKey)
+		if (m_state == State.WaitingForKey)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.StartWaitingForKey()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_state = AppState_FrontendLoadingScreen.State.WaitingForKey;
+			m_state = State.WaitingForKey;
 			UIFrontendLoadingScreen.Get().StartDisplayPressKey();
+			return;
 		}
 	}
 
 	private void StartServerLocked()
 	{
-		if (this.m_state != AppState_FrontendLoadingScreen.State.ServerLocked)
+		if (m_state != State.ServerLocked)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -363,11 +382,11 @@ public class AppState_FrontendLoadingScreen : AppState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.StartServerLocked()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_state = AppState_FrontendLoadingScreen.State.ServerLocked;
+			m_state = State.ServerLocked;
 			UIFrontendLoadingScreen.Get().StartDisplayServerLocked();
 			UIFrontendLoadingScreen.Get().SetServerLockButtonVisible(true);
 		}
@@ -376,15 +395,15 @@ public class AppState_FrontendLoadingScreen : AppState
 
 	private void StartServerQueued()
 	{
-		if (this.m_state != AppState_FrontendLoadingScreen.State.ServerQueued)
+		if (m_state != State.ServerQueued)
 		{
-			this.m_state = AppState_FrontendLoadingScreen.State.ServerQueued;
+			m_state = State.ServerQueued;
 		}
 		ConnectionQueueInfo connectionQueueInfo = ClientGameManager.Get().ConnectionQueueInfo;
 		string arg;
 		if (connectionQueueInfo.QueueEstimatedSeconds != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -393,14 +412,14 @@ public class AppState_FrontendLoadingScreen : AppState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.StartServerQueued()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			TimeSpan timeSpan = TimeSpan.FromSeconds((double)connectionQueueInfo.QueueEstimatedSeconds);
+			TimeSpan timeSpan = TimeSpan.FromSeconds(connectionQueueInfo.QueueEstimatedSeconds);
 			if (timeSpan.Hours >= 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -426,68 +445,69 @@ public class AppState_FrontendLoadingScreen : AppState
 
 	private void StartFadingOut()
 	{
-		this.m_state = AppState_FrontendLoadingScreen.State.FadingOut;
+		m_state = State.FadingOut;
 		UIFrontendLoadingScreen.Get().StartDisplayFadeOut();
 	}
 
 	private void StartError(string mainErrorText, string subErrorText = null)
 	{
-		this.m_state = AppState_FrontendLoadingScreen.State.Error;
+		m_state = State.Error;
 		UIFrontendLoadingScreen.Get().StartDisplayError(mainErrorText, subErrorText);
 	}
 
 	private void CheckEndWaitingForKey()
 	{
-		if (this.m_state == AppState_FrontendLoadingScreen.State.WaitingForKey)
+		if (m_state != State.WaitingForKey)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!UIFrontendLoadingScreen.Get().gameObject.activeSelf)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.CheckEndWaitingForKey()).MethodHandle;
-			}
-			if (UIFrontendLoadingScreen.Get().gameObject.activeSelf)
-			{
-				for (;;)
+				if (UIFrontendLoadingScreen.Get().DisplayState != UIFrontendLoadingScreen.DisplayStates.PressKey)
 				{
-					switch (2)
+					return;
+				}
+				while (true)
+				{
+					switch (4)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (UIFrontendLoadingScreen.Get().DisplayState == UIFrontendLoadingScreen.DisplayStates.PressKey)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Input.anyKeyDown)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
 							case 0:
 								continue;
 							}
-							break;
+							StartFadingOut();
+							return;
 						}
-						this.StartFadingOut();
 					}
+					return;
 				}
 			}
 		}
@@ -495,43 +515,43 @@ public class AppState_FrontendLoadingScreen : AppState
 
 	private void CheckEndFadingOut()
 	{
-		if (this.m_state == AppState_FrontendLoadingScreen.State.FadingOut)
+		if (m_state != State.FadingOut)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
+			if (!UIFrontendLoadingScreen.Get().IsReadyToReveal())
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.CheckEndFadingOut()).MethodHandle;
-			}
-			HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
-			if (UIFrontendLoadingScreen.Get().IsReadyToReveal())
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TutorialVersion tutorialVersion = TutorialVersion.None;
-				if (this.m_nextState == AppState_FrontendLoadingScreen.NextState.GoToLandingPage)
+				if (m_nextState == NextState.GoToLandingPage)
 				{
-					AppState_LandingPage.Get().Enter(this.m_lastLobbyErrorMessage, false);
-					this.m_hasGoneToLandingPage = true;
-					this.m_lastLobbyErrorMessage = null;
+					AppState_LandingPage.Get().Enter(m_lastLobbyErrorMessage);
+					m_hasGoneToLandingPage = true;
+					m_lastLobbyErrorMessage = null;
 				}
-				else if (this.m_nextState == AppState_FrontendLoadingScreen.NextState.GoToCharacterSelect)
+				else if (m_nextState == NextState.GoToCharacterSelect)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -540,13 +560,13 @@ public class AppState_FrontendLoadingScreen : AppState
 						}
 						break;
 					}
-					AppState_LandingPage.Get().Enter(this.m_lastLobbyErrorMessage, true);
-					this.m_hasGoneToLandingPage = true;
-					this.m_lastLobbyErrorMessage = null;
+					AppState_LandingPage.Get().Enter(m_lastLobbyErrorMessage, true);
+					m_hasGoneToLandingPage = true;
+					m_lastLobbyErrorMessage = null;
 				}
-				else if (this.m_nextState == AppState_FrontendLoadingScreen.NextState.GoToTutorial && !ClientGameManager.Get().IsConnectedToGameServer && !ClientGameManager.Get().IsRegisteredToGameServer)
+				else if (m_nextState == NextState.GoToTutorial && !ClientGameManager.Get().IsConnectedToGameServer && !ClientGameManager.Get().IsRegisteredToGameServer)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -555,15 +575,15 @@ public class AppState_FrontendLoadingScreen : AppState
 						}
 						break;
 					}
-					this.m_hasEnteredMatch = true;
-					UIFrontendLoadingScreen.Get().StartDisplayLoading(null);
+					m_hasEnteredMatch = true;
+					UIFrontendLoadingScreen.Get().StartDisplayLoading();
 					UIManager.Get().SetGameState(UIManager.ClientState.InGame);
-					AppState_GameTypeSelect.Get().Enter(GameType.Tutorial, null);
+					AppState_GameTypeSelect.Get().Enter(GameType.Tutorial);
 					tutorialVersion = TutorialVersion.CargoShip_Tutorial1;
 				}
-				else if (this.m_nextState == AppState_FrontendLoadingScreen.NextState.GoToGame)
+				else if (m_nextState == NextState.GoToGame)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -574,7 +594,7 @@ public class AppState_FrontendLoadingScreen : AppState
 					}
 					if (!ClientGameManager.Get().IsConnectedToGameServer)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -585,7 +605,7 @@ public class AppState_FrontendLoadingScreen : AppState
 						}
 						if (!ClientGameManager.Get().IsRegisteredToGameServer)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -594,12 +614,12 @@ public class AppState_FrontendLoadingScreen : AppState
 								}
 								break;
 							}
-							this.m_hasEnteredMatch = true;
-							UIFrontendLoadingScreen.Get().StartDisplayLoading(null);
+							m_hasEnteredMatch = true;
+							UIFrontendLoadingScreen.Get().StartDisplayLoading();
 							UIManager.Get().SetGameState(UIManager.ClientState.InGame);
 							if (hydrogenConfig.AutoLaunchGameType == GameType.Custom)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -610,7 +630,7 @@ public class AppState_FrontendLoadingScreen : AppState
 								}
 								if (hydrogenConfig.AutoLaunchCustomGameConfig.GameConfig != null)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (3)
 										{
@@ -621,7 +641,7 @@ public class AppState_FrontendLoadingScreen : AppState
 									}
 									if (hydrogenConfig.AutoLaunchCustomGameConfig.TeamInfo != null)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (5)
 											{
@@ -631,111 +651,96 @@ public class AppState_FrontendLoadingScreen : AppState
 											break;
 										}
 										AppState_GameTypeSelect.Get().Enter(hydrogenConfig.AutoLaunchCustomGameConfig);
-										goto IL_1E4;
+										goto IL_01e4;
 									}
 								}
 							}
-							AppState_GameTypeSelect.Get().Enter(hydrogenConfig.AutoLaunchGameType, null);
+							AppState_GameTypeSelect.Get().Enter(hydrogenConfig.AutoLaunchGameType);
 						}
 					}
 				}
-				IL_1E4:
+				goto IL_01e4;
+				IL_01e4:
 				if (ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent.TutorialProgress < tutorialVersion)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent.TutorialProgress = tutorialVersion;
+						return;
 					}
-					ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent.TutorialProgress = tutorialVersion;
 				}
+				return;
 			}
 		}
 	}
 
 	private IEnumerator WaitForLoadUIBackground()
 	{
-		this.m_state = AppState_FrontendLoadingScreen.State.Loading;
-		this.m_isLoadingComplete = false;
+		m_state = State.Loading;
+		m_isLoadingComplete = false;
 		Application.backgroundLoadingPriority = ThreadPriority.Low;
-		while (!UIManager.Get().DoneInitialLoading)
+		if (!UIManager.Get().DoneInitialLoading)
 		{
 			yield return 1;
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.<WaitForLoadUIBackground>c__Iterator0.MoveNext()).MethodHandle;
-			}
+			/*Error: Unable to find new state assignment for yield return*/;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (ClientQualityComponentEnabler.OptimizeForMemory())
-		{
-			for (;;)
+			if (ClientQualityComponentEnabler.OptimizeForMemory())
 			{
-				switch (7)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
-				break;
+				Resources.UnloadUnusedAssets();
 			}
-			Resources.UnloadUnusedAssets();
+			m_isLoadingComplete = true;
+			m_isUILoaded = true;
+			m_state = State.Loaded;
+			ChooseNextAction();
+			yield break;
 		}
-		this.m_isLoadingComplete = true;
-		this.m_isUILoaded = true;
-		this.m_state = AppState_FrontendLoadingScreen.State.Loaded;
-		this.ChooseNextAction();
-		yield break;
 	}
 
 	private IEnumerator LoadUIAndFrontEndBackground()
 	{
 		UIManager.Get().SetGameState(UIManager.ClientState.InFrontEnd);
-		this.m_state = AppState_FrontendLoadingScreen.State.Loading;
-		this.m_isLoadingComplete = false;
+		m_state = State.Loading;
+		m_isLoadingComplete = false;
 		Application.backgroundLoadingPriority = ThreadPriority.Low;
 		while (!UIManager.Get().DoneInitialLoading)
 		{
 			yield return 1;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.<LoadUIAndFrontEndBackground>c__Iterator1.MoveNext()).MethodHandle;
-		}
-		for (;;)
-		{
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
 			if (!(UIFrontEnd.Get() == null))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -746,197 +751,31 @@ public class AppState_FrontendLoadingScreen : AppState
 				}
 				if (!(UIStorePanel.Get() == null))
 				{
-					break;
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							break;
+						default:
+							AppState_GroupCharacterSelect.ShowScreen();
+							yield return 0;
+							/*Error: Unable to find new state assignment for yield return*/;
+						}
+					}
 				}
 			}
 			yield return null;
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			/*Error: Unable to find new state assignment for yield return*/;
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		AppState_GroupCharacterSelect.ShowScreen();
-		yield return 0;
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.m_isLoadingComplete = true;
-		this.m_isUILoaded = true;
-		this.m_state = AppState_FrontendLoadingScreen.State.Loaded;
-		this.ChooseNextAction();
-		yield break;
 	}
 
 	private IEnumerator LoadFrontEndBackground()
 	{
-		this.m_state = AppState_FrontendLoadingScreen.State.Loading;
-		this.m_isLoadingComplete = false;
+		m_state = State.Loading;
+		m_isLoadingComplete = false;
 		yield return null;
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.<LoadFrontEndBackground>c__Iterator2.MoveNext()).MethodHandle;
-		}
-		ClientGameManager.Get().UnloadAssets();
-		Application.backgroundLoadingPriority = ThreadPriority.Low;
-		if (ClientQualityComponentEnabler.OptimizeForMemory())
-		{
-			IntPtr contiguousBlock = IntPtr.Zero;
-			try
-			{
-				contiguousBlock = Marshal.AllocHGlobal(0x4000000);
-			}
-			catch
-			{
-				Marshal.FreeHGlobal(contiguousBlock);
-				contiguousBlock = IntPtr.Zero;
-			}
-			if (contiguousBlock == IntPtr.Zero)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Log.Error("Memory is fragmented, or too low, restarting application.", new object[0]);
-				string path = Application.dataPath;
-				if (Application.platform == RuntimePlatform.OSXPlayer)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					path += "/../../AtlasReactor";
-				}
-				else if (Application.platform == RuntimePlatform.WindowsPlayer)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					path += "/../AtlasReactor";
-				}
-				Process.Start(path, string.Join(" ", Environment.GetCommandLineArgs()));
-				yield return new WaitForSeconds(32f);
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Application.Quit();
-				yield return new WaitForSeconds(999f);
-			}
-			else
-			{
-				Marshal.FreeHGlobal(contiguousBlock);
-			}
-		}
-		Log.Info("Load InFrontEnd UI state", new object[0]);
-		UIManager.Get().SetGameState(UIManager.ClientState.InFrontEnd);
-		while (!UIManager.Get().DoneInitialLoading)
-		{
-			yield return 1;
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		for (;;)
-		{
-			if (!(UIFrontEnd.Get() == null))
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(UIStorePanel.Get() == null))
-				{
-					break;
-				}
-			}
-			yield return null;
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		AppState_GroupCharacterSelect.ShowScreen();
-		yield return 0;
-		this.m_isLoadingComplete = true;
-		this.m_isUILoaded = true;
-		this.m_state = AppState_FrontendLoadingScreen.State.Loaded;
-		this.ChooseNextAction();
-		yield break;
+		/*Error: Unable to find new state assignment for yield return*/;
 	}
 
 	public void ConnectToLobbyServer()
@@ -944,33 +783,31 @@ public class AppState_FrontendLoadingScreen : AppState
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (!clientGameManager.IsConnectedToLobbyServer)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					try
+					{
+						clientGameManager.ConnectToLobbyServer();
+					}
+					catch (Exception ex)
+					{
+						Log.Exception(ex);
+						StartError(StringUtil.TR("FailedToConnectToLobbyServer", "Frontend"), ex.Message);
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.ConnectToLobbyServer()).MethodHandle;
-			}
-			try
-			{
-				clientGameManager.ConnectToLobbyServer();
-			}
-			catch (Exception ex)
-			{
-				Log.Exception(ex);
-				this.StartError(StringUtil.TR("FailedToConnectToLobbyServer", "Frontend"), ex.Message);
 			}
 		}
-		else
-		{
-			this.ChooseNextAction();
-		}
+		ChooseNextAction();
 	}
 
 	public void HandleConnectedToLobbyServer(RegisterGameClientResponse response)
@@ -983,7 +820,7 @@ public class AppState_FrontendLoadingScreen : AppState
 			}
 			if (response.ErrorMessage.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -992,53 +829,39 @@ public class AppState_FrontendLoadingScreen : AppState
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.HandleConnectedToLobbyServer(RegisterGameClientResponse)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				response.ErrorMessage = StringUtil.TR("UnknownError", "Global");
 			}
-			string subErrorText;
-			if (response.ErrorMessage == "INVALID_PROTOCOL_VERSION")
-			{
-				subErrorText = StringUtil.TR("NotRecentVersionOfTheGame", "Frontend");
-			}
-			else if (response.ErrorMessage == "INVALID_IP_ADDRESS")
-			{
-				subErrorText = StringUtil.TR("IPAddressChanged", "Frontend");
-			}
-			else if (response.ErrorMessage == "ACCOUNT_BANNED")
-			{
-				subErrorText = StringUtil.TR("AccountBanned", "Frontend");
-			}
-			else
-			{
-				subErrorText = string.Format(StringUtil.TR("FailedToConnectToLobbyServerError", "Frontend"), response.ErrorMessage);
-			}
-			this.StartError(StringUtil.TR("FailedToConnectToLobbyServer", "Frontend"), subErrorText);
-			return;
+			StartError(subErrorText: (response.ErrorMessage == "INVALID_PROTOCOL_VERSION") ? StringUtil.TR("NotRecentVersionOfTheGame", "Frontend") : ((response.ErrorMessage == "INVALID_IP_ADDRESS") ? StringUtil.TR("IPAddressChanged", "Frontend") : ((!(response.ErrorMessage == "ACCOUNT_BANNED")) ? string.Format(StringUtil.TR("FailedToConnectToLobbyServerError", "Frontend"), response.ErrorMessage) : StringUtil.TR("AccountBanned", "Frontend"))), mainErrorText: StringUtil.TR("FailedToConnectToLobbyServer", "Frontend"));
 		}
-		this.ChooseNextAction();
+		else
+		{
+			ChooseNextAction();
+		}
 	}
 
 	private void HandleDisconnectedFromLobbyServer(string lastLobbyErrorMessage)
 	{
-		if (this.m_state != AppState_FrontendLoadingScreen.State.Error)
+		if (m_state == State.Error)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.HandleDisconnectedFromLobbyServer(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.StartError(lastLobbyErrorMessage, null);
+			StartError(lastLobbyErrorMessage);
+			return;
 		}
 	}
 
@@ -1048,7 +871,7 @@ public class AppState_FrontendLoadingScreen : AppState
 		{
 			if (notification.ErrorMessage.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -1057,33 +880,35 @@ public class AppState_FrontendLoadingScreen : AppState
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.HandleLobbyServerReadyNotification(LobbyServerReadyNotification)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				notification.ErrorMessage = StringUtil.TR("UnknownError", "Global");
 			}
-			this.StartError(StringUtil.TR("FailedToConnectToLobbyServer", "Frontend"), notification.ErrorMessage);
-			return;
+			StartError(StringUtil.TR("FailedToConnectToLobbyServer", "Frontend"), notification.ErrorMessage);
 		}
-		this.ChooseNextAction();
+		else
+		{
+			ChooseNextAction();
+		}
 	}
 
 	public void HandleAccountDataUpdated(PersistedAccountData accountData)
 	{
-		this.ChooseNextAction();
+		ChooseNextAction();
 	}
 
 	public void HandleStatusNotification(LobbyStatusNotification notification)
 	{
-		this.ChooseNextAction();
+		ChooseNextAction();
 	}
 
 	public bool ShouldAutomaticallyEnterTutorial()
 	{
 		if (HydrogenConfig.Get().AutoLaunchTutorial)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1092,13 +917,13 @@ public class AppState_FrontendLoadingScreen : AppState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.ShouldAutomaticallyEnterTutorial()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_nextState == AppState_FrontendLoadingScreen.NextState.GoToLandingPage)
+			if (m_nextState == NextState.GoToLandingPage)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1107,9 +932,9 @@ public class AppState_FrontendLoadingScreen : AppState
 					}
 					break;
 				}
-				if (!this.m_hasEnteredMatch)
+				if (!m_hasEnteredMatch)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -1120,7 +945,7 @@ public class AppState_FrontendLoadingScreen : AppState
 					}
 					if (ClientGameManager.Get().IsConnectedToLobbyServer)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -1131,7 +956,7 @@ public class AppState_FrontendLoadingScreen : AppState
 						}
 						if (ClientGameManager.Get().IsReady && !ClientGameManager.Get().IsServerLocked)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -1142,7 +967,7 @@ public class AppState_FrontendLoadingScreen : AppState
 							}
 							if (!ClientGameManager.Get().IsServerQueued)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -1153,7 +978,7 @@ public class AppState_FrontendLoadingScreen : AppState
 								}
 								if (ClientGameManager.Get().IsPlayerAccountDataAvailable() && ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent != null)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (5)
 										{
@@ -1164,7 +989,7 @@ public class AppState_FrontendLoadingScreen : AppState
 									}
 									if (ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent.TutorialProgress < TutorialVersion.CargoShip_Tutorial1)
 									{
-										for (;;)
+										while (true)
 										{
 											switch (5)
 											{
@@ -1175,16 +1000,16 @@ public class AppState_FrontendLoadingScreen : AppState
 										}
 										if (ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent.Matches < 3)
 										{
-											for (;;)
+											while (true)
 											{
 												switch (2)
 												{
 												case 0:
-													continue;
+													break;
+												default:
+													return true;
 												}
-												break;
 											}
-											return true;
 										}
 									}
 								}
@@ -1200,24 +1025,5 @@ public class AppState_FrontendLoadingScreen : AppState
 	public bool ShouldAutomaticallyEnterGame()
 	{
 		return false;
-	}
-
-	public enum NextState
-	{
-		GoToLandingPage,
-		GoToCharacterSelect,
-		GoToTutorial,
-		GoToGame
-	}
-
-	private enum State
-	{
-		Loading,
-		Loaded,
-		ServerLocked,
-		ServerQueued,
-		WaitingForKey,
-		Error,
-		FadingOut
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,14 +15,14 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 
 	private void OnEnable()
 	{
-		base.SetExpanded(this.m_expanded, true);
+		SetExpanded(m_expanded, true);
 	}
 
 	protected override int UpdateCurrentProgressValue(int currentProgress, int maxProgress, QuestComponent questComponent, int questID)
 	{
-		if (this.m_infoReference.Completed)
+		if (m_infoReference.Completed)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -31,13 +31,13 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsQuestEntry.UpdateCurrentProgressValue(int, int, QuestComponent, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (questComponent != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -52,9 +52,9 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 				}
 			}
 		}
-		if (!this.m_infoReference.Completed)
+		if (!m_infoReference.Completed)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -63,9 +63,9 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 				}
 				break;
 			}
-			if (this.m_infoReference is UISeasonQuestDisplayInfo)
+			if (m_infoReference is UISeasonQuestDisplayInfo)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -74,10 +74,10 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 					}
 					break;
 				}
-				UISeasonQuestDisplayInfo uiseasonQuestDisplayInfo = this.m_infoReference as UISeasonQuestDisplayInfo;
-				if (!uiseasonQuestDisplayInfo.IsQuestStatic)
+				UISeasonQuestDisplayInfo uISeasonQuestDisplayInfo = m_infoReference as UISeasonQuestDisplayInfo;
+				if (!uISeasonQuestDisplayInfo.IsQuestStatic)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -87,10 +87,10 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 						break;
 					}
 					DateTime dateTime = ClientGameManager.Get().PacificNow();
-					bool flag;
-					if (uiseasonQuestDisplayInfo.ChapterStartDate < dateTime)
+					int num;
+					if (uISeasonQuestDisplayInfo.ChapterStartDate < dateTime)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -99,14 +99,13 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 							}
 							break;
 						}
-						flag = (dateTime <= uiseasonQuestDisplayInfo.ChapterEndDate);
+						num = ((dateTime <= uISeasonQuestDisplayInfo.ChapterEndDate) ? 1 : 0);
 					}
 					else
 					{
-						flag = false;
+						num = 0;
 					}
-					bool flag2 = flag;
-					if (!flag2 || !questComponent.Progress.ContainsKey(questID))
+					if (num == 0 || !questComponent.Progress.ContainsKey(questID))
 					{
 						return 0;
 					}
@@ -119,9 +118,9 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 	protected override void SetProgress(int currentProgress, int maxProgress, QuestComponent questComponent, int questID)
 	{
 		base.SetProgress(currentProgress, maxProgress, questComponent, questID);
-		if (this.m_infoReference is UISeasonQuestDisplayInfo)
+		if (m_infoReference is UISeasonQuestDisplayInfo)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -130,14 +129,14 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsQuestEntry.SetProgress(int, int, QuestComponent, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UISeasonQuestDisplayInfo uiseasonQuestDisplayInfo = this.m_infoReference as UISeasonQuestDisplayInfo;
-			if (!uiseasonQuestDisplayInfo.IsQuestStatic)
+			UISeasonQuestDisplayInfo uISeasonQuestDisplayInfo = m_infoReference as UISeasonQuestDisplayInfo;
+			if (!uISeasonQuestDisplayInfo.IsQuestStatic)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -146,9 +145,9 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 					}
 					break;
 				}
-				if (uiseasonQuestDisplayInfo.Completed)
+				if (uISeasonQuestDisplayInfo.Completed)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -157,15 +156,15 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 						}
 						break;
 					}
-					UIManager.SetGameObjectActive(this.m_lockedChapterOverlay, false, null);
+					UIManager.SetGameObjectActive(m_lockedChapterOverlay, false);
 				}
 				else
 				{
 					DateTime dateTime = ClientGameManager.Get().PacificNow();
-					bool flag;
-					if (uiseasonQuestDisplayInfo.ChapterStartDate < dateTime)
+					int num;
+					if (uISeasonQuestDisplayInfo.ChapterStartDate < dateTime)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -174,23 +173,23 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 							}
 							break;
 						}
-						flag = (dateTime <= uiseasonQuestDisplayInfo.ChapterEndDate);
+						num = ((dateTime <= uISeasonQuestDisplayInfo.ChapterEndDate) ? 1 : 0);
 					}
 					else
 					{
-						flag = false;
+						num = 0;
 					}
-					bool flag2 = flag;
-					UIManager.SetGameObjectActive(this.m_lockedChapterOverlay, !flag2, null);
+					bool flag = (byte)num != 0;
+					UIManager.SetGameObjectActive(m_lockedChapterOverlay, !flag);
 				}
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_CompletedContainer, currentProgress == maxProgress, null);
-		Component inProgressContainer = this.m_InProgressContainer;
-		bool doActive;
+		UIManager.SetGameObjectActive(m_CompletedContainer, currentProgress == maxProgress);
+		RectTransform inProgressContainer = m_InProgressContainer;
+		int doActive;
 		if (currentProgress > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -199,20 +198,20 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 				}
 				break;
 			}
-			doActive = (currentProgress < maxProgress);
+			doActive = ((currentProgress < maxProgress) ? 1 : 0);
 		}
 		else
 		{
-			doActive = false;
+			doActive = 0;
 		}
-		UIManager.SetGameObjectActive(inProgressContainer, doActive, null);
+		UIManager.SetGameObjectActive(inProgressContainer, (byte)doActive != 0);
 	}
 
 	public void Setup(UISeasonQuestDisplayInfo displayInfo, bool seasonChapterLocked)
 	{
 		if (displayInfo.IsQuestStatic)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -221,32 +220,32 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsQuestEntry.Setup(UISeasonQuestDisplayInfo, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_lockedChapterOverlay, seasonChapterLocked, null);
+			UIManager.SetGameObjectActive(m_lockedChapterOverlay, seasonChapterLocked);
 		}
-		UIManager.SetGameObjectActive(this.m_abandonElement, false, null);
-		base.Setup(displayInfo);
+		UIManager.SetGameObjectActive(m_abandonElement, false);
+		Setup(displayInfo);
 	}
 
 	public override float GetExpandedHeight()
 	{
 		float num = 15f;
-		num += (this.m_headerElement.transform as RectTransform).rect.height;
-		num += (this.m_detailsElement.transform as RectTransform).rect.height + 12f;
-		return num + (this.m_rewardsElement.transform as RectTransform).rect.height;
+		num += (m_headerElement.transform as RectTransform).rect.height;
+		num += (m_detailsElement.transform as RectTransform).rect.height + 12f;
+		return num + (m_rewardsElement.transform as RectTransform).rect.height;
 	}
 
 	protected override void PlayExpandAnimation()
 	{
-		UIManager.SetGameObjectActive(this.m_expandedGroup, true, null);
-		this.m_animationController.Play("SeasonChallengeEntryExpandedIN");
+		UIManager.SetGameObjectActive(m_expandedGroup, true);
+		m_animationController.Play("SeasonChallengeEntryExpandedIN");
 	}
 
 	protected override void PlayContractAnimation()
 	{
-		this.m_animationController.Play("SeasonChallengeEntryContractedIN");
+		m_animationController.Play("SeasonChallengeEntryContractedIN");
 	}
 }

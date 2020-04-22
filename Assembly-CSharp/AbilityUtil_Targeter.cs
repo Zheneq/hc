@@ -1,11 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class AbilityUtil_Targeter
 {
+	public enum AffectsActor
+	{
+		Never,
+		Possible,
+		Always
+	}
+
+	public class ActorTarget
+	{
+		public ActorData m_actor;
+
+		public Vector3 m_damageOrigin;
+
+		public bool m_ignoreCoverMinDist;
+
+		public List<AbilityTooltipSubject> m_subjectTypes;
+	}
+
+	public enum TargeterMovementType
+	{
+		Knockback,
+		Movement,
+		Attacking
+	}
+
+	public class ArrowList
+	{
+		public GameObject m_gameObject;
+
+		public BoardSquarePathInfo m_pathInfo;
+	}
+
 	protected Ability m_ability;
 
 	protected bool m_useMultiTargetUpdate;
@@ -40,11 +71,11 @@ public class AbilityUtil_Targeter
 
 	private Vector3 m_cameraPosition;
 
-	private List<AbilityUtil_Targeter.ActorTarget> m_actorsInRange = new List<AbilityUtil_Targeter.ActorTarget>();
+	private List<ActorTarget> m_actorsInRange = new List<ActorTarget>();
 
 	protected List<ActorData> m_actorsAddedSoFar = new List<ActorData>();
 
-	protected List<AbilityUtil_Targeter.ArrowList> m_arrows = new List<AbilityUtil_Targeter.ArrowList>();
+	protected List<ArrowList> m_arrows = new List<ArrowList>();
 
 	protected HighlightUtils.CursorType m_cursorType = HighlightUtils.CursorType.NoCursorType;
 
@@ -54,7 +85,7 @@ public class AbilityUtil_Targeter
 
 	protected bool m_affectsTargetingActor;
 
-	private static readonly int[] materialColorProperties = new int[]
+	private static readonly int[] materialColorProperties = new int[2]
 	{
 		Shader.PropertyToID("_Color"),
 		Shader.PropertyToID("_TintColor")
@@ -64,55 +95,73 @@ public class AbilityUtil_Targeter
 
 	private float m_confirmedTargetingStartTime;
 
-	public AbilityUtil_Targeter(Ability ability)
+	public GridPos LastUpdatingGridPos
 	{
-		this.m_highlights = new List<GameObject>();
-		this.m_highlightFadeContainer = new TargeterTemplateFadeContainer();
-		this.m_ability = ability;
-		this.m_actorContextVars = new Dictionary<ActorData, ActorHitContext>();
-		this.m_nonActorSpecificContext = new ContextVars();
+		get;
+		set;
 	}
 
-	public GridPos LastUpdatingGridPos { get; set; }
-
-	public Vector3 LastUpdateFreePos { get; set; }
-
-	public Vector3 LastUpdateAimDir { get; set; }
-
-	public bool MarkedForForceUpdate { get; set; }
-
-	private void OnDestroy()
+	public Vector3 LastUpdateFreePos
 	{
-		this.DestroyTargetingArcMesh();
+		get;
+		set;
 	}
 
-	public void SetLastUpdateCursorState(AbilityTarget target)
+	public Vector3 LastUpdateAimDir
 	{
-		this.LastUpdatingGridPos = target.GridPos;
-		this.LastUpdateFreePos = target.FreePos;
-		this.LastUpdateAimDir = target.AimDirection;
+		get;
+		set;
 	}
 
-	public bool IsCursorStateSameAsLastUpdate(AbilityTarget target)
+	public bool MarkedForForceUpdate
 	{
-		if (this.LastUpdatingGridPos.CoordsEqual(target.GridPos))
+		get;
+		set;
+	}
+
+	public bool ShowArcToShape
+	{
+		get
 		{
-			for (;;)
+			return m_showArcToShape;
+		}
+		set
+		{
+			m_showArcToShape = value;
+		}
+	}
+
+	protected GameObject Highlight
+	{
+		get
+		{
+			if (m_highlights != null)
 			{
-				switch (3)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (m_highlights.Count > 0)
+				{
+					return m_highlights[0];
+				}
 			}
-			if (!true)
+			return null;
+		}
+		set
+		{
+			if (m_highlights == null)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.IsCursorStateSameAsLastUpdate(AbilityTarget)).MethodHandle;
-			}
-			if (this.LastUpdateFreePos == target.FreePos)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -121,10 +170,101 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				return this.LastUpdateAimDir == target.AimDirection;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				m_highlights = new List<GameObject>();
+			}
+			if (m_highlights.Count == 0)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_highlights.Add(null);
+			}
+			if (m_highlights[0] != null)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				DestroyObjectAndMaterials(m_highlights[0]);
+				m_highlights[0] = null;
+			}
+			m_highlights[0] = value;
+		}
+	}
+
+	public AbilityUtil_Targeter(Ability ability)
+	{
+		m_highlights = new List<GameObject>();
+		m_highlightFadeContainer = new TargeterTemplateFadeContainer();
+		m_ability = ability;
+		m_actorContextVars = new Dictionary<ActorData, ActorHitContext>();
+		m_nonActorSpecificContext = new ContextVars();
+	}
+
+	private void OnDestroy()
+	{
+		DestroyTargetingArcMesh();
+	}
+
+	public void SetLastUpdateCursorState(AbilityTarget target)
+	{
+		LastUpdatingGridPos = target.GridPos;
+		LastUpdateFreePos = target.FreePos;
+		LastUpdateAimDir = target.AimDirection;
+	}
+
+	public bool IsCursorStateSameAsLastUpdate(AbilityTarget target)
+	{
+		int result;
+		if (LastUpdatingGridPos.CoordsEqual(target.GridPos))
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (LastUpdateFreePos == target.FreePos)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				result = ((LastUpdateAimDir == target.AimDirection) ? 1 : 0);
+				goto IL_0066;
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_0066;
+		IL_0066:
+		return (byte)result != 0;
 	}
 
 	public virtual void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
@@ -141,43 +281,31 @@ public class AbilityUtil_Targeter
 
 	public virtual bool IsUsingMultiTargetUpdate()
 	{
-		return this.m_useMultiTargetUpdate;
+		return m_useMultiTargetUpdate;
 	}
 
 	public void SetUseMultiTargetUpdate(bool value)
 	{
-		this.m_useMultiTargetUpdate = value;
+		m_useMultiTargetUpdate = value;
 	}
 
 	public bool ShouldShowActorRadius()
 	{
-		return this.m_shouldShowActorRadius;
+		return m_shouldShowActorRadius;
 	}
 
 	public void SetShowArcToShape(bool showArc)
 	{
-		this.ShowArcToShape = showArc;
-	}
-
-	public bool ShowArcToShape
-	{
-		get
-		{
-			return this.m_showArcToShape;
-		}
-		set
-		{
-			this.m_showArcToShape = value;
-		}
+		ShowArcToShape = showArc;
 	}
 
 	public void TargeterAbilitySelected()
 	{
-		HighlightUtils.Get().SetCursorType(this.m_cursorType);
-		this.DestroyTeleportStartObject();
-		if (this.m_ability != null)
+		HighlightUtils.Get().SetCursorType(m_cursorType);
+		DestroyTeleportStartObject();
+		if (m_ability != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -186,13 +314,13 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.TargeterAbilitySelected()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (AbilityUtils.AbilityHasTag(this.m_ability, AbilityTags.UseTeleportUIEffect))
+			if (AbilityUtils.AbilityHasTag(m_ability, AbilityTags.UseTeleportUIEffect))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -203,7 +331,7 @@ public class AbilityUtil_Targeter
 				}
 				if (GameFlowData.Get() != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -214,22 +342,22 @@ public class AbilityUtil_Targeter
 					}
 					if (GameFlowData.Get().activeOwnedActorData != null && HighlightUtils.Get().m_teleportPrefab != null)
 					{
-						this.m_gameObjectOnCaster = UnityEngine.Object.Instantiate<TeleportPathStart>(HighlightUtils.Get().m_teleportPrefab);
-						this.m_gameObjectOnCaster.transform.position = GameFlowData.Get().activeOwnedActorData.transform.position;
-						this.m_gameObjectOnCaster.SetColor(this.GetTeleportColor());
+						m_gameObjectOnCaster = Object.Instantiate(HighlightUtils.Get().m_teleportPrefab);
+						m_gameObjectOnCaster.transform.position = GameFlowData.Get().activeOwnedActorData.transform.position;
+						m_gameObjectOnCaster.SetColor(GetTeleportColor());
 					}
 				}
 			}
 		}
-		this.MarkedForForceUpdate = true;
+		MarkedForForceUpdate = true;
 	}
 
 	public Color GetTeleportColor()
 	{
 		Color result = HighlightUtils.Get().s_teleportMovementLineColor;
-		if (this.m_ability.IsFlashAbility())
+		if (m_ability.IsFlashAbility())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -238,9 +366,9 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetTeleportColor()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = HighlightUtils.Get().s_flashMovementLineColor;
 		}
@@ -249,31 +377,32 @@ public class AbilityUtil_Targeter
 
 	public virtual void AbilityCasted(GridPos startPosition, GridPos endPosition)
 	{
-		if (this.m_gameObjectOnCaster != null)
+		if (!(m_gameObjectOnCaster != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.AbilityCasted(GridPos, GridPos)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_gameObjectOnCaster.AbilityCasted(startPosition, endPosition);
+			m_gameObjectOnCaster.AbilityCasted(startPosition, endPosition);
+			return;
 		}
 	}
 
 	public void UpdateTargetAreaEffect(AbilityTarget currentTarget, ActorData caster)
 	{
-		Color teleportColor = this.GetTeleportColor();
+		Color teleportColor = GetTeleportColor();
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -282,9 +411,9 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.UpdateTargetAreaEffect(AbilityTarget, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameFlowData.Get().activeOwnedActorData != caster)
 			{
@@ -295,9 +424,9 @@ public class AbilityUtil_Targeter
 				teleportColor.b *= num;
 			}
 		}
-		if (this.m_gameObjectOnCastTarget == null)
+		if (m_gameObjectOnCastTarget == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -306,9 +435,9 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (this.m_ability != null)
+			if (m_ability != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -317,9 +446,9 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (AbilityUtils.AbilityHasTag(this.m_ability, AbilityTags.UseTeleportUIEffect) && HighlightUtils.Get().m_teleportPrefab != null)
+				if (AbilityUtils.AbilityHasTag(m_ability, AbilityTags.UseTeleportUIEffect) && HighlightUtils.Get().m_teleportPrefab != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -328,49 +457,48 @@ public class AbilityUtil_Targeter
 						}
 						break;
 					}
-					this.m_gameObjectOnCastTarget = UnityEngine.Object.Instantiate<TeleportPathEnd>(HighlightUtils.Get().m_teleportEndPrefab);
+					m_gameObjectOnCastTarget = Object.Instantiate(HighlightUtils.Get().m_teleportEndPrefab);
 				}
 			}
 		}
-		if (this.m_gameObjectOnCastTarget != null)
+		if (!(m_gameObjectOnCastTarget != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			List<Vector3> list = new List<Vector3>();
-			Vector3 item = Board.\u000E().\u000E(caster.\u000E()).\u001D();
-			list.Add(item);
-			Vector3 item2 = Board.\u000E().\u000E(currentTarget.GridPos).\u001D();
-			list.Add(item2);
+			Vector3 worldPosition = Board.Get().GetBoardSquareSafe(caster.GetGridPosWithIncrementedHeight()).GetWorldPosition();
+			list.Add(worldPosition);
+			Vector3 worldPosition2 = Board.Get().GetBoardSquareSafe(currentTarget.GridPos).GetWorldPosition();
+			list.Add(worldPosition2);
 			Vector3 a = list[0] - list[1];
 			Vector3 a2 = list[list.Count - 1] - list[list.Count - 2];
 			a.Normalize();
 			a2.Normalize();
-			List<Vector3> list2;
-			(list2 = list)[0] = list2[0] - a * Board.\u000E().squareSize * 0.6f;
-			int index;
-			(list2 = list)[index = list.Count - 1] = list2[index] - a2 * Board.\u000E().squareSize * 0.4f;
-			this.DestroyTeleportLine();
-			this.m_lineBetweenPath = Targeting.GetTargeting().CreateLineMesh(list, 0.2f, teleportColor, true, HighlightUtils.Get().m_ArrowDottedLineMaterial, null, false);
-			this.m_gameObjectOnCastTarget.transform.position = currentTarget.GetWorldGridPos();
-			this.m_gameObjectOnCastTarget.AbilityCasted(caster.\u000E(), currentTarget.GridPos);
-			this.m_gameObjectOnCastTarget.SetColor(teleportColor);
-			this.m_gameObjectOnCastTarget.Setup();
+			list[0] -= a * Board.Get().squareSize * 0.6f;
+			list[list.Count - 1] -= a2 * Board.Get().squareSize * 0.4f;
+			DestroyTeleportLine();
+			m_lineBetweenPath = Targeting.GetTargeting().CreateLineMesh(list, 0.2f, teleportColor, true, HighlightUtils.Get().m_ArrowDottedLineMaterial);
+			m_gameObjectOnCastTarget.transform.position = currentTarget.GetWorldGridPos();
+			m_gameObjectOnCastTarget.AbilityCasted(caster.GetGridPosWithIncrementedHeight(), currentTarget.GridPos);
+			m_gameObjectOnCastTarget.SetColor(teleportColor);
+			m_gameObjectOnCastTarget.Setup();
+			return;
 		}
 	}
 
 	public void UpdateEffectOnCaster(AbilityTarget currentTarget, ActorData caster)
 	{
-		Color teleportColor = this.GetTeleportColor();
+		Color teleportColor = GetTeleportColor();
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -379,13 +507,13 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.UpdateEffectOnCaster(AbilityTarget, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameFlowData.Get().activeOwnedActorData != caster)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -401,9 +529,9 @@ public class AbilityUtil_Targeter
 				teleportColor.b *= num;
 			}
 		}
-		if (this.m_gameObjectOnCaster == null && this.m_ability != null)
+		if (m_gameObjectOnCaster == null && m_ability != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -412,9 +540,9 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (AbilityUtils.AbilityHasTag(this.m_ability, AbilityTags.UseTeleportUIEffect) && HighlightUtils.Get().m_teleportPrefab != null)
+			if (AbilityUtils.AbilityHasTag(m_ability, AbilityTags.UseTeleportUIEffect) && HighlightUtils.Get().m_teleportPrefab != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -423,85 +551,88 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				this.m_gameObjectOnCaster = UnityEngine.Object.Instantiate<TeleportPathStart>(HighlightUtils.Get().m_teleportPrefab);
+				m_gameObjectOnCaster = Object.Instantiate(HighlightUtils.Get().m_teleportPrefab);
 			}
 		}
-		if (this.m_gameObjectOnCaster != null)
+		if (!(m_gameObjectOnCaster != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_gameObjectOnCaster.transform.position = caster.transform.position;
-			this.m_gameObjectOnCaster.AbilityCasted(caster.\u000E(), currentTarget.GridPos);
-			this.m_gameObjectOnCaster.SetColor(teleportColor);
+			m_gameObjectOnCaster.transform.position = caster.transform.position;
+			m_gameObjectOnCaster.AbilityCasted(caster.GetGridPosWithIncrementedHeight(), currentTarget.GridPos);
+			m_gameObjectOnCaster.SetColor(teleportColor);
+			return;
 		}
 	}
 
 	private void DestroyTeleportLine()
 	{
-		if (this.m_lineBetweenPath != null)
+		if (!(m_lineBetweenPath != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.DestroyTeleportLine()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			HighlightUtils.DestroyMeshesOnObject(this.m_lineBetweenPath);
-			this.DestroyObjectAndMaterials(this.m_lineBetweenPath);
-			this.m_lineBetweenPath = null;
+			HighlightUtils.DestroyMeshesOnObject(m_lineBetweenPath);
+			DestroyObjectAndMaterials(m_lineBetweenPath);
+			m_lineBetweenPath = null;
+			return;
 		}
 	}
 
 	private void DestroyTeleportStartObject()
 	{
-		if (this.m_gameObjectOnCaster != null)
+		if (!(m_gameObjectOnCaster != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.DestroyTeleportStartObject()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.DestroyObjectAndMaterials(this.m_gameObjectOnCaster.gameObject);
-			this.m_gameObjectOnCaster = null;
+			DestroyObjectAndMaterials(m_gameObjectOnCaster.gameObject);
+			m_gameObjectOnCaster = null;
+			return;
 		}
 	}
 
 	private void DestroyTeleportEndObjet()
 	{
-		if (this.m_gameObjectOnCastTarget != null)
+		if (m_gameObjectOnCastTarget != null)
 		{
-			this.DestroyObjectAndMaterials(this.m_gameObjectOnCastTarget.gameObject);
-			this.m_gameObjectOnCastTarget = null;
+			DestroyObjectAndMaterials(m_gameObjectOnCastTarget.gameObject);
+			m_gameObjectOnCastTarget = null;
 		}
 	}
 
 	public void InstantiateTeleportPathUIEffect()
 	{
-		if (this.m_gameObjectOnCaster == null)
+		if (m_gameObjectOnCaster == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -510,13 +641,13 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.InstantiateTeleportPathUIEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (HighlightUtils.Get().m_teleportPrefab != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -525,24 +656,25 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				this.m_gameObjectOnCaster = UnityEngine.Object.Instantiate<TeleportPathStart>(HighlightUtils.Get().m_teleportPrefab);
+				m_gameObjectOnCaster = Object.Instantiate(HighlightUtils.Get().m_teleportPrefab);
 			}
 		}
-		if (this.m_gameObjectOnCastTarget == null)
+		if (!(m_gameObjectOnCastTarget == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.m_ability != null && HighlightUtils.Get().m_teleportPrefab != null)
+			if (m_ability != null && HighlightUtils.Get().m_teleportPrefab != null)
 			{
-				this.m_gameObjectOnCastTarget = UnityEngine.Object.Instantiate<TeleportPathEnd>(HighlightUtils.Get().m_teleportEndPrefab);
+				m_gameObjectOnCastTarget = Object.Instantiate(HighlightUtils.Get().m_teleportEndPrefab);
 			}
+			return;
 		}
 	}
 
@@ -551,7 +683,7 @@ public class AbilityUtil_Targeter
 		bool flag = false;
 		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -560,14 +692,14 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.TargeterAbilityDeselected(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityData abilityData = GameFlowData.Get().activeOwnedActorData.\u000E();
+			AbilityData abilityData = GameFlowData.Get().activeOwnedActorData.GetAbilityData();
 			if (abilityData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -576,22 +708,22 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				flag = abilityData.HasQueuedAction(abilityData.GetActionTypeOfAbility(this.m_ability));
+				flag = abilityData.HasQueuedAction(abilityData.GetActionTypeOfAbility(m_ability));
 			}
 		}
 		if (!flag)
 		{
-			this.ClearActorsInRange();
-			this.ClearArrows();
-			this.ClearHighlightCursors(true);
-			this.HideAllSquareIndicators();
-			this.DestroyTeleportStartObject();
-			this.DestroyTeleportLine();
-			this.DestroyTeleportEndObjet();
+			ClearActorsInRange();
+			ClearArrows();
+			ClearHighlightCursors();
+			HideAllSquareIndicators();
+			DestroyTeleportStartObject();
+			DestroyTeleportLine();
+			DestroyTeleportEndObjet();
 		}
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -600,9 +732,9 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!this.m_ability.BackupTargets.IsNullOrEmpty<AbilityTarget>())
+			if (!m_ability.BackupTargets.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -611,9 +743,9 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (targetIndex < this.m_ability.BackupTargets.Count)
+				if (targetIndex < m_ability.BackupTargets.Count)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -622,12 +754,12 @@ public class AbilityUtil_Targeter
 						}
 						break;
 					}
-					AbilityTarget abilityTarget = this.m_ability.BackupTargets[targetIndex];
-					this.ClearHighlightCursors(true);
-					this.SetLastUpdateCursorState(abilityTarget);
-					if (this.IsUsingMultiTargetUpdate())
+					AbilityTarget abilityTarget = m_ability.BackupTargets[targetIndex];
+					ClearHighlightCursors();
+					SetLastUpdateCursorState(abilityTarget);
+					if (IsUsingMultiTargetUpdate())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -636,34 +768,34 @@ public class AbilityUtil_Targeter
 							}
 							break;
 						}
-						this.UpdateTargetingMultiTargets(abilityTarget, GameFlowData.Get().activeOwnedActorData, targetIndex, this.m_ability.BackupTargets);
+						UpdateTargetingMultiTargets(abilityTarget, GameFlowData.Get().activeOwnedActorData, targetIndex, m_ability.BackupTargets);
 					}
 					else
 					{
-						this.UpdateTargeting(abilityTarget, GameFlowData.Get().activeOwnedActorData);
+						UpdateTargeting(abilityTarget, GameFlowData.Get().activeOwnedActorData);
 					}
-					this.UpdateHighlightPosAfterClick(abilityTarget, GameFlowData.Get().activeOwnedActorData, targetIndex, this.m_ability.BackupTargets);
-					this.SetupTargetingArc(GameFlowData.Get().activeOwnedActorData, false);
+					UpdateHighlightPosAfterClick(abilityTarget, GameFlowData.Get().activeOwnedActorData, targetIndex, m_ability.BackupTargets);
+					SetupTargetingArc(GameFlowData.Get().activeOwnedActorData, false);
 				}
 			}
 		}
 		HighlightUtils.Get().SetCursorType(HighlightUtils.CursorType.MouseOverCursorType);
-		this.MarkedForForceUpdate = true;
+		MarkedForForceUpdate = true;
 	}
 
 	public virtual void ResetTargeter(bool clearHighlightInstantly)
 	{
-		this.ClearActorsInRange();
-		this.ClearArrows();
-		this.ClearHighlightCursors(clearHighlightInstantly);
-		this.HideAllSquareIndicators();
-		this.DestroyTeleportStartObject();
-		this.DestroyTeleportLine();
-		this.DestroyTeleportEndObjet();
-		this.m_confirmedTargetingStartTime = 0f;
-		this.m_actorContextVars.Clear();
-		this.m_nonActorSpecificContext.\u0015();
-		this.MarkedForForceUpdate = true;
+		ClearActorsInRange();
+		ClearArrows();
+		ClearHighlightCursors(clearHighlightInstantly);
+		HideAllSquareIndicators();
+		DestroyTeleportStartObject();
+		DestroyTeleportLine();
+		DestroyTeleportEndObjet();
+		m_confirmedTargetingStartTime = 0f;
+		m_actorContextVars.Clear();
+		m_nonActorSpecificContext.Clear();
+		MarkedForForceUpdate = true;
 	}
 
 	public List<AbilityTooltipSubject> GetTooltipSubjectTypes(ActorData actor)
@@ -671,46 +803,49 @@ public class AbilityUtil_Targeter
 		List<AbilityTooltipSubject> result = null;
 		if (actor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetTooltipSubjectTypes(ActorData)).MethodHandle;
-			}
-			using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = this.m_actorsInRange.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
+					break;
+				default:
 				{
-					AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
-					if (actorTarget.m_actor == actor)
+					if (1 == 0)
 					{
-						for (;;)
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					using (List<ActorTarget>.Enumerator enumerator = m_actorsInRange.GetEnumerator())
+					{
+						while (enumerator.MoveNext())
+						{
+							ActorTarget current = enumerator.Current;
+							if (current.m_actor == actor)
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										break;
+									default:
+										return current.m_subjectTypes;
+									}
+								}
+							}
+						}
+						while (true)
 						{
 							switch (3)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return result;
 							}
-							break;
 						}
-						return actorTarget.m_subjectTypes;
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -719,37 +854,38 @@ public class AbilityUtil_Targeter
 
 	public void AppendToTooltipSubjectSet(ActorData actor, HashSet<AbilityTooltipSubject> subjectsToAppendTo)
 	{
-		List<AbilityTooltipSubject> tooltipSubjectTypes = this.GetTooltipSubjectTypes(actor);
-		if (tooltipSubjectTypes != null)
+		List<AbilityTooltipSubject> tooltipSubjectTypes = GetTooltipSubjectTypes(actor);
+		if (tooltipSubjectTypes == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.AppendToTooltipSubjectSet(ActorData, HashSet<AbilityTooltipSubject>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			using (List<AbilityTooltipSubject>.Enumerator enumerator = tooltipSubjectTypes.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					AbilityTooltipSubject item = enumerator.Current;
-					subjectsToAppendTo.Add(item);
+					AbilityTooltipSubject current = enumerator.Current;
+					subjectsToAppendTo.Add(current);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}
@@ -757,17 +893,17 @@ public class AbilityUtil_Targeter
 
 	public virtual bool IsActorInTargetRange(ActorData actor)
 	{
-		bool flag;
-		return this.IsActorInTargetRange(actor, out flag);
+		bool inCover;
+		return IsActorInTargetRange(actor, out inCover);
 	}
 
-	public unsafe virtual bool IsActorInTargetRange(ActorData actor, out bool inCover)
+	public virtual bool IsActorInTargetRange(ActorData actor, out bool inCover)
 	{
 		bool result = false;
 		inCover = false;
 		if (actor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -776,29 +912,19 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.IsActorInTargetRange(ActorData, bool*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (int i = 0; i < this.m_actorsInRange.Count; i++)
+			int num = 0;
+			while (true)
 			{
-				AbilityUtil_Targeter.ActorTarget actorTarget = this.m_actorsInRange[i];
-				if (actorTarget.m_actor == actor)
+				if (num < m_actorsInRange.Count)
 				{
-					for (;;)
+					ActorTarget actorTarget = m_actorsInRange[num];
+					if (actorTarget.m_actor == actor)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = true;
-					ActorCover actorCover = actorTarget.m_actor.\u000E();
-					if (actorCover != null)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -807,11 +933,26 @@ public class AbilityUtil_Targeter
 							}
 							break;
 						}
-						ActorData povactorData = GameFlowData.Get().POVActorData;
-						bool flag;
-						if (povactorData != null)
+						result = true;
+						ActorCover actorCover = actorTarget.m_actor.GetActorCover();
+						if (!(actorCover != null))
 						{
-							for (;;)
+							break;
+						}
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						ActorData pOVActorData = GameFlowData.Get().POVActorData;
+						int num2;
+						if (pOVActorData != null)
+						{
+							while (true)
 							{
 								switch (2)
 								{
@@ -820,19 +961,19 @@ public class AbilityUtil_Targeter
 								}
 								break;
 							}
-							flag = (povactorData.\u000E() != actor.\u000E());
+							num2 = ((pOVActorData.GetTeam() != actor.GetTeam()) ? 1 : 0);
 						}
 						else
 						{
-							flag = false;
+							num2 = 0;
 						}
-						bool flag2 = flag;
-						bool flag3 = AbilityUtils.AbilityIgnoreCover(this.m_ability, actorTarget.m_actor);
-						bool flag4 = actor.\u0018();
-						bool flag5 = (!actorTarget.m_ignoreCoverMinDist) ? actorCover.IsInCoverWrt(actorTarget.m_damageOrigin) : actorCover.IsInCoverWrtDirectionOnly(actorTarget.m_damageOrigin, actorTarget.m_actor.\u0012());
-						if (flag2)
+						bool flag = (byte)num2 != 0;
+						bool flag2 = AbilityUtils.AbilityIgnoreCover(m_ability, actorTarget.m_actor);
+						bool flag3 = actor.IsVisibleToClient();
+						bool flag4 = (!actorTarget.m_ignoreCoverMinDist) ? actorCover.IsInCoverWrt(actorTarget.m_damageOrigin) : actorCover.IsInCoverWrtDirectionOnly(actorTarget.m_damageOrigin, actorTarget.m_actor.GetCurrentBoardSquare());
+						if (flag)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -841,9 +982,9 @@ public class AbilityUtil_Targeter
 								}
 								break;
 							}
-							if (!flag3 && flag4)
+							if (!flag2 && flag3)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -852,9 +993,9 @@ public class AbilityUtil_Targeter
 									}
 									break;
 								}
-								if (flag5)
+								if (flag4)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (6)
 										{
@@ -864,22 +1005,24 @@ public class AbilityUtil_Targeter
 										break;
 									}
 									inCover = true;
-									goto IL_140;
+									break;
 								}
 							}
 						}
 						inCover = false;
+						break;
 					}
-					IL_140:
-					return result;
-				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
+					num++;
 					continue;
+				}
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
 				break;
 			}
@@ -887,27 +1030,27 @@ public class AbilityUtil_Targeter
 		return result;
 	}
 
-	public List<AbilityUtil_Targeter.ActorTarget> GetActorsInRange()
+	public List<ActorTarget> GetActorsInRange()
 	{
-		return this.m_actorsInRange;
+		return m_actorsInRange;
 	}
 
 	public virtual int GetNumActorsInRange()
 	{
-		return this.m_actorsInRange.Count;
+		return m_actorsInRange.Count;
 	}
 
 	protected virtual List<ActorData> GetVisibleActorsInRange()
 	{
 		List<ActorData> list = new List<ActorData>();
-		using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = this.m_actorsInRange.GetEnumerator())
+		using (List<ActorTarget>.Enumerator enumerator = m_actorsInRange.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
-				if (actorTarget.m_actor.\u0018())
+				ActorTarget current = enumerator.Current;
+				if (current.m_actor.IsVisibleToClient())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -916,35 +1059,35 @@ public class AbilityUtil_Targeter
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetVisibleActorsInRange()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					list.Add(actorTarget.m_actor);
+					list.Add(current.m_actor);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return list;
 				}
-				break;
 			}
 		}
-		return list;
 	}
 
 	public virtual List<ActorData> GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject subject)
 	{
 		List<ActorData> list = new List<ActorData>();
-		for (int i = 0; i < this.m_actorsInRange.Count; i++)
+		for (int i = 0; i < m_actorsInRange.Count; i++)
 		{
-			AbilityUtil_Targeter.ActorTarget actorTarget = this.m_actorsInRange[i];
-			if (actorTarget.m_actor.\u0018() && actorTarget.m_subjectTypes.Contains(subject))
+			ActorTarget actorTarget = m_actorsInRange[i];
+			if (actorTarget.m_actor.IsVisibleToClient() && actorTarget.m_subjectTypes.Contains(subject))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -953,533 +1096,35 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				list.Add(actorTarget.m_actor);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return list;
 		}
-		return list;
 	}
 
 	public int GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject subject)
 	{
 		int num = 0;
-		for (int i = 0; i < this.m_actorsInRange.Count; i++)
+		for (int i = 0; i < m_actorsInRange.Count; i++)
 		{
-			AbilityUtil_Targeter.ActorTarget actorTarget = this.m_actorsInRange[i];
-			if (actorTarget.m_actor.\u0018())
+			ActorTarget actorTarget = m_actorsInRange[i];
+			if (!actorTarget.m_actor.IsVisibleToClient())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject)).MethodHandle;
-				}
-				if (actorTarget.m_subjectTypes.Contains(subject))
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num++;
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-		return num;
-	}
-
-	public int GetTooltipSubjectCountOnActor(ActorData actor, AbilityTooltipSubject subject)
-	{
-		int num = 0;
-		for (int i = 0; i < this.m_actorsInRange.Count; i++)
-		{
-			AbilityUtil_Targeter.ActorTarget actorTarget = this.m_actorsInRange[i];
-			if (actorTarget.m_actor == actor)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetTooltipSubjectCountOnActor(ActorData, AbilityTooltipSubject)).MethodHandle;
-				}
-				for (int j = 0; j < actorTarget.m_subjectTypes.Count; j++)
-				{
-					if (actorTarget.m_subjectTypes[j] == subject)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num++;
-					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		return num;
-	}
-
-	public int GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject subject)
-	{
-		int num = 0;
-		for (int i = 0; i < this.m_actorsInRange.Count; i++)
-		{
-			AbilityUtil_Targeter.ActorTarget actorTarget = this.m_actorsInRange[i];
-			for (int j = 0; j < actorTarget.m_subjectTypes.Count; j++)
-			{
-				if (actorTarget.m_subjectTypes[j] == subject)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject)).MethodHandle;
-					}
-					num++;
-				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		return num;
-	}
-
-	protected void AddActorsInRange(List<ActorData> actors, Vector3 damageOrigin, ActorData targetingActor, AbilityTooltipSubject subjectType = AbilityTooltipSubject.Primary, bool appendSubjectType = false)
-	{
-		for (int i = 0; i < actors.Count; i++)
-		{
-			this.AddActorInRange(actors[i], damageOrigin, targetingActor, subjectType, appendSubjectType);
-		}
-	}
-
-	protected void AddActorInRange(ActorData actor, Vector3 damageOrigin, ActorData targetingActor, AbilityTooltipSubject subjectType = AbilityTooltipSubject.Primary, bool appendSubjectType = false)
-	{
-		if (!this.IsActorInTargetRange(actor))
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.AddActorInRange(ActorData, Vector3, ActorData, AbilityTooltipSubject, bool)).MethodHandle;
-			}
-			AbilityUtil_Targeter.ActorTarget actorTarget = new AbilityUtil_Targeter.ActorTarget();
-			actorTarget.m_actor = actor;
-			actorTarget.m_damageOrigin = damageOrigin;
-			actorTarget.m_subjectTypes = new List<AbilityTooltipSubject>();
-			actorTarget.m_subjectTypes.Add(subjectType);
-			if (actor == targetingActor)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Self);
-			}
-			else if (actor.\u000E() == targetingActor.\u000E())
-			{
-				actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Ally);
-			}
-			else
-			{
-				actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Enemy);
-			}
-			for (int i = 8; i <= 0xF; i++)
-			{
-				AbilityTooltipSubject abilityTooltipSubject = (AbilityTooltipSubject)i;
-				if (this.DoesTargetActorMatchTooltipSubject(abilityTooltipSubject, actor, damageOrigin, targetingActor))
-				{
-					actorTarget.m_subjectTypes.Add(abilityTooltipSubject);
-				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_actorsInRange.Add(actorTarget);
-			this.m_actorsAddedSoFar.Add(actor);
-			if (!this.m_actorContextVars.ContainsKey(actor))
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ActorHitContext actorHitContext = new ActorHitContext();
-				actorHitContext.\u0012 = true;
-				this.m_actorContextVars[actor] = actorHitContext;
-			}
-			else
-			{
-				this.m_actorContextVars[actor].\u0012 = true;
-			}
-		}
-		else if (appendSubjectType)
-		{
-			foreach (AbilityUtil_Targeter.ActorTarget actorTarget2 in this.m_actorsInRange)
-			{
-				if (actorTarget2.m_actor == actor)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					actorTarget2.m_subjectTypes.Add(subjectType);
-					break;
-				}
-			}
-		}
-	}
-
-	public Dictionary<ActorData, ActorHitContext> GetActorContextVars()
-	{
-		return this.m_actorContextVars;
-	}
-
-	public ContextVars GetNonActorSpecificContext()
-	{
-		return this.m_nonActorSpecificContext;
-	}
-
-	protected void SetIgnoreCoverMinDist(ActorData actor, bool ignoreCoverMinDist)
-	{
-		for (int i = 0; i < this.m_actorsInRange.Count; i++)
-		{
-			if (this.m_actorsInRange[i].m_actor == actor)
-			{
-				this.m_actorsInRange[i].m_ignoreCoverMinDist = ignoreCoverMinDist;
-				break;
-			}
-		}
-	}
-
-	protected virtual bool DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject subjectType, ActorData targetActor, Vector3 damageOrigin, ActorData targetingActor)
-	{
-		return this.m_ability.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
-	}
-
-	public void ClearActorsInRange()
-	{
-		this.m_actorsInRange.Clear();
-		this.m_actorsAddedSoFar.Clear();
-		foreach (KeyValuePair<ActorData, ActorHitContext> keyValuePair in this.m_actorContextVars)
-		{
-			keyValuePair.Value.\u0012 = false;
-		}
-	}
-
-	protected void AddMovementArrow(ActorData mover, BoardSquarePathInfo path, AbilityUtil_Targeter.TargeterMovementType movementType, MovementPathStart previousLine = null, bool isChasing = false)
-	{
-		Color arrowColor;
-		switch (movementType)
-		{
-		case AbilityUtil_Targeter.TargeterMovementType.Knockback:
-			arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
-			break;
-		case AbilityUtil_Targeter.TargeterMovementType.Movement:
-			arrowColor = HighlightUtils.Get().s_dashMovementLineColor;
-			break;
-		case AbilityUtil_Targeter.TargeterMovementType.Attacking:
-			arrowColor = HighlightUtils.Get().s_attackMovementLineColor;
-			break;
-		default:
-			arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
-			break;
-		}
-		this.AddMovementArrow(mover, path, arrowColor, previousLine, isChasing, movementType);
-	}
-
-	public void UpdateArrowsForUI()
-	{
-		bool flag = false;
-		for (int i = 0; i < this.m_arrows.Count; i++)
-		{
-			if (this.m_arrows[i].m_gameObject.activeSelf)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.UpdateArrowsForUI()).MethodHandle;
-				}
-				flag = true;
-				List<Vector3> list = KnockbackUtils.BuildDrawablePath(this.m_arrows[i].m_pathInfo, false);
-				MovementPathStart componentInChildren = this.m_arrows[i].m_gameObject.GetComponentInChildren<MovementPathStart>();
-				Vector3 u001D = list[list.Count - 1];
-				BoardSquare characterMovementPanel = Board.\u000E().\u000E(u001D);
-				componentInChildren.SetCharacterMovementPanel(characterMovementPanel);
-			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!flag)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_arrows.Count > 0)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_arrows[0].m_gameObject.GetComponentInChildren<MovementPathStart>().HideCharacterMovementPanel();
-			}
-		}
-	}
-
-	protected void AddMovementArrow(ActorData mover, BoardSquarePathInfo path, Color arrowColor, MovementPathStart previousLine, bool isChasing, AbilityUtil_Targeter.TargeterMovementType movementType)
-	{
-		if (path != null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.AddMovementArrow(ActorData, BoardSquarePathInfo, Color, MovementPathStart, bool, AbilityUtil_Targeter.TargeterMovementType)).MethodHandle;
-			}
-			if (mover != null && mover.\u0018())
-			{
-				List<Vector3> list = KnockbackUtils.BuildDrawablePath(path, false);
-				if (list.Count >= 2)
-				{
-					GameObject gameObject = Targeting.GetTargeting().CreateFancyArrowMesh(ref list, 0.2f, arrowColor, isChasing, mover, movementType, null, previousLine, false, 0.4f, 0.4f);
-					bool flag = false;
-					int i = 0;
-					while (i < this.m_arrows.Count)
-					{
-						if (this.m_arrows[i].m_gameObject == gameObject)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							flag = true;
-							this.m_arrows[i].m_pathInfo = path;
-							IL_D7:
-							if (flag)
-							{
-								return;
-							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (gameObject.GetComponentInChildren<MovementPathStart>() != null)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								AbilityUtil_Targeter.ArrowList arrowList = new AbilityUtil_Targeter.ArrowList();
-								arrowList.m_gameObject = gameObject;
-								arrowList.m_pathInfo = path;
-								this.m_arrows.Add(arrowList);
-								return;
-							}
-							return;
-						}
-						else
-						{
-							i++;
-						}
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_D7;
-					}
-				}
-			}
-		}
-	}
-
-	protected int AddMovementArrowWithPrevious(ActorData mover, BoardSquarePathInfo path, AbilityUtil_Targeter.TargeterMovementType movementType, int arrowIndex, bool isChasing = false)
-	{
-		Color arrowColor;
-		switch (movementType)
-		{
-		case AbilityUtil_Targeter.TargeterMovementType.Knockback:
-			arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
-			break;
-		case AbilityUtil_Targeter.TargeterMovementType.Movement:
-			arrowColor = HighlightUtils.Get().s_dashMovementLineColor;
-			break;
-		case AbilityUtil_Targeter.TargeterMovementType.Attacking:
-			arrowColor = HighlightUtils.Get().s_attackMovementLineColor;
-			break;
-		default:
-			arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
-			break;
-		}
-		return this.AddMovementArrowWithPrevious(mover, path, movementType, arrowColor, arrowIndex, isChasing);
-	}
-
-	protected int AddMovementArrowWithPrevious(ActorData mover, BoardSquarePathInfo path, AbilityUtil_Targeter.TargeterMovementType movementType, Color arrowColor, int arrowIndex, bool isChasing = false)
-	{
-		if (this.CanCreateMovementArrows(path))
-		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1488,44 +1133,558 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.AddMovementArrowWithPrevious(ActorData, BoardSquarePathInfo, AbilityUtil_Targeter.TargeterMovementType, Color, int, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			MovementPathStart previousLine = null;
-			if (this.m_arrows.Count > arrowIndex)
+			if (actorTarget.m_subjectTypes.Contains(subject))
 			{
-				previousLine = this.m_arrows[arrowIndex].m_gameObject.GetComponentInChildren<MovementPathStart>();
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num++;
 			}
-			this.AddMovementArrow(mover, path, arrowColor, previousLine, isChasing, movementType);
-			return arrowIndex + 1;
 		}
-		return arrowIndex;
-	}
-
-	protected void EnableAllMovementArrows()
-	{
-		this.SetMovementArrowEnabledFromIndex(0, true);
-	}
-
-	protected void SetMovementArrowEnabledFromIndex(int fromIndex, bool enabled)
-	{
-		for (int i = fromIndex; i < this.m_arrows.Count; i++)
+		while (true)
 		{
-			this.m_arrows[i].m_gameObject.SetActive(enabled);
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			return num;
 		}
-		for (;;)
+	}
+
+	public int GetTooltipSubjectCountOnActor(ActorData actor, AbilityTooltipSubject subject)
+	{
+		int num = 0;
+		for (int i = 0; i < m_actorsInRange.Count; i++)
+		{
+			ActorTarget actorTarget = m_actorsInRange[i];
+			if (!(actorTarget.m_actor == actor))
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			for (int j = 0; j < actorTarget.m_subjectTypes.Count; j++)
+			{
+				if (actorTarget.m_subjectTypes[j] == subject)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num++;
+				}
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			return num;
+		}
+	}
+
+	public int GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject subject)
+	{
+		int num = 0;
+		for (int i = 0; i < m_actorsInRange.Count; i++)
+		{
+			ActorTarget actorTarget = m_actorsInRange[i];
+			for (int j = 0; j < actorTarget.m_subjectTypes.Count; j++)
+			{
+				if (actorTarget.m_subjectTypes[j] == subject)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					num++;
+				}
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					break;
+				default:
+					goto end_IL_0055;
+				}
+				continue;
+				end_IL_0055:
+				break;
+			}
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			return num;
+		}
+	}
+
+	protected void AddActorsInRange(List<ActorData> actors, Vector3 damageOrigin, ActorData targetingActor, AbilityTooltipSubject subjectType = AbilityTooltipSubject.Primary, bool appendSubjectType = false)
+	{
+		for (int i = 0; i < actors.Count; i++)
+		{
+			AddActorInRange(actors[i], damageOrigin, targetingActor, subjectType, appendSubjectType);
+		}
+	}
+
+	protected void AddActorInRange(ActorData actor, Vector3 damageOrigin, ActorData targetingActor, AbilityTooltipSubject subjectType = AbilityTooltipSubject.Primary, bool appendSubjectType = false)
+	{
+		if (!IsActorInTargetRange(actor))
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					ActorTarget actorTarget = new ActorTarget();
+					actorTarget.m_actor = actor;
+					actorTarget.m_damageOrigin = damageOrigin;
+					actorTarget.m_subjectTypes = new List<AbilityTooltipSubject>();
+					actorTarget.m_subjectTypes.Add(subjectType);
+					if (actor == targetingActor)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Self);
+					}
+					else if (actor.GetTeam() == targetingActor.GetTeam())
+					{
+						actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Ally);
+					}
+					else
+					{
+						actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Enemy);
+					}
+					for (int i = 8; i <= 15; i++)
+					{
+						AbilityTooltipSubject abilityTooltipSubject = (AbilityTooltipSubject)i;
+						if (DoesTargetActorMatchTooltipSubject(abilityTooltipSubject, actor, damageOrigin, targetingActor))
+						{
+							actorTarget.m_subjectTypes.Add(abilityTooltipSubject);
+						}
+					}
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							break;
+						default:
+							m_actorsInRange.Add(actorTarget);
+							m_actorsAddedSoFar.Add(actor);
+							if (!m_actorContextVars.ContainsKey(actor))
+							{
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										break;
+									default:
+									{
+										ActorHitContext actorHitContext = new ActorHitContext();
+										actorHitContext._0012 = true;
+										m_actorContextVars[actor] = actorHitContext;
+										return;
+									}
+									}
+								}
+							}
+							m_actorContextVars[actor]._0012 = true;
+							return;
+						}
+					}
+				}
+				}
+			}
+		}
+		if (appendSubjectType)
+		{
+			foreach (ActorTarget item in m_actorsInRange)
+			{
+				if (item.m_actor == actor)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							break;
+						default:
+							item.m_subjectTypes.Add(subjectType);
+							return;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public Dictionary<ActorData, ActorHitContext> GetActorContextVars()
+	{
+		return m_actorContextVars;
+	}
+
+	public ContextVars GetNonActorSpecificContext()
+	{
+		return m_nonActorSpecificContext;
+	}
+
+	protected void SetIgnoreCoverMinDist(ActorData actor, bool ignoreCoverMinDist)
+	{
+		int num = 0;
+		while (true)
+		{
+			if (num < m_actorsInRange.Count)
+			{
+				if (m_actorsInRange[num].m_actor == actor)
+				{
+					break;
+				}
+				num++;
+				continue;
+			}
+			return;
+		}
+		m_actorsInRange[num].m_ignoreCoverMinDist = ignoreCoverMinDist;
+	}
+
+	protected virtual bool DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject subjectType, ActorData targetActor, Vector3 damageOrigin, ActorData targetingActor)
+	{
+		return m_ability.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
+	}
+
+	public void ClearActorsInRange()
+	{
+		m_actorsInRange.Clear();
+		m_actorsAddedSoFar.Clear();
+		foreach (KeyValuePair<ActorData, ActorHitContext> actorContextVar in m_actorContextVars)
+		{
+			actorContextVar.Value._0012 = false;
+		}
+	}
+
+	protected void AddMovementArrow(ActorData mover, BoardSquarePathInfo path, TargeterMovementType movementType, MovementPathStart previousLine = null, bool isChasing = false)
+	{
+		Color arrowColor;
+		switch (movementType)
+		{
+		case TargeterMovementType.Knockback:
+			arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
+			break;
+		case TargeterMovementType.Movement:
+			arrowColor = HighlightUtils.Get().s_dashMovementLineColor;
+			break;
+		case TargeterMovementType.Attacking:
+			arrowColor = HighlightUtils.Get().s_attackMovementLineColor;
+			break;
+		default:
+			arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
+			break;
+		}
+		AddMovementArrow(mover, path, arrowColor, previousLine, isChasing, movementType);
+	}
+
+	public void UpdateArrowsForUI()
+	{
+		bool flag = false;
+		for (int i = 0; i < m_arrows.Count; i++)
+		{
+			if (m_arrows[i].m_gameObject.activeSelf)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				flag = true;
+				List<Vector3> list = KnockbackUtils.BuildDrawablePath(m_arrows[i].m_pathInfo, false);
+				MovementPathStart componentInChildren = m_arrows[i].m_gameObject.GetComponentInChildren<MovementPathStart>();
+				Vector3 vector2D = list[list.Count - 1];
+				BoardSquare boardSquare = Board.Get().GetBoardSquare(vector2D);
+				componentInChildren.SetCharacterMovementPanel(boardSquare);
+			}
+		}
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
+			if (flag)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				if (m_arrows.Count > 0)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						m_arrows[0].m_gameObject.GetComponentInChildren<MovementPathStart>().HideCharacterMovementPanel();
+						return;
+					}
+				}
+				return;
+			}
+		}
+	}
+
+	protected void AddMovementArrow(ActorData mover, BoardSquarePathInfo path, Color arrowColor, MovementPathStart previousLine, bool isChasing, TargeterMovementType movementType)
+	{
+		if (path == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(mover != null) || !mover.IsVisibleToClient())
+			{
+				return;
+			}
+			List<Vector3> points = KnockbackUtils.BuildDrawablePath(path, false);
+			if (points.Count < 2)
+			{
+				return;
+			}
+			GameObject gameObject = Targeting.GetTargeting().CreateFancyArrowMesh(ref points, 0.2f, arrowColor, isChasing, mover, movementType, null, previousLine, false);
+			bool flag = false;
+			int num = 0;
+			while (true)
+			{
+				if (num < m_arrows.Count)
+				{
+					if (m_arrows[num].m_gameObject == gameObject)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						flag = true;
+						m_arrows[num].m_pathInfo = path;
+						break;
+					}
+					num++;
+					continue;
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				break;
+			}
+			if (flag)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				if (gameObject.GetComponentInChildren<MovementPathStart>() != null)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						ArrowList arrowList = new ArrowList();
+						arrowList.m_gameObject = gameObject;
+						arrowList.m_pathInfo = path;
+						m_arrows.Add(arrowList);
+						return;
+					}
+				}
+				return;
+			}
+		}
+	}
+
+	protected int AddMovementArrowWithPrevious(ActorData mover, BoardSquarePathInfo path, TargeterMovementType movementType, int arrowIndex, bool isChasing = false)
+	{
+		Color arrowColor;
+		switch (movementType)
+		{
+		case TargeterMovementType.Knockback:
+			arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
+			break;
+		case TargeterMovementType.Movement:
+			arrowColor = HighlightUtils.Get().s_dashMovementLineColor;
+			break;
+		case TargeterMovementType.Attacking:
+			arrowColor = HighlightUtils.Get().s_attackMovementLineColor;
+			break;
+		default:
+			arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
 			break;
 		}
-		if (!true)
+		return AddMovementArrowWithPrevious(mover, path, movementType, arrowColor, arrowIndex, isChasing);
+	}
+
+	protected int AddMovementArrowWithPrevious(ActorData mover, BoardSquarePathInfo path, TargeterMovementType movementType, Color arrowColor, int arrowIndex, bool isChasing = false)
+	{
+		if (CanCreateMovementArrows(path))
 		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.SetMovementArrowEnabledFromIndex(int, bool)).MethodHandle;
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					MovementPathStart previousLine = null;
+					if (m_arrows.Count > arrowIndex)
+					{
+						previousLine = m_arrows[arrowIndex].m_gameObject.GetComponentInChildren<MovementPathStart>();
+					}
+					AddMovementArrow(mover, path, arrowColor, previousLine, isChasing, movementType);
+					return arrowIndex + 1;
+				}
+				}
+			}
+		}
+		return arrowIndex;
+	}
+
+	protected void EnableAllMovementArrows()
+	{
+		SetMovementArrowEnabledFromIndex(0, true);
+	}
+
+	protected void SetMovementArrowEnabledFromIndex(int fromIndex, bool enabled)
+	{
+		for (int i = fromIndex; i < m_arrows.Count; i++)
+		{
+			m_arrows[i].m_gameObject.SetActive(enabled);
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
@@ -1538,7 +1697,7 @@ public class AbilityUtil_Targeter
 		List<Vector3> list = KnockbackUtils.BuildDrawablePath(path, false);
 		if (list.Count >= 2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1547,15 +1706,15 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.CanCreateMovementArrows(BoardSquarePathInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Vector3 vector = list[0] - list[1];
 			Vector3 vector2 = list[list.Count - 1] - list[list.Count - 2];
 			if (vector.sqrMagnitude > 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1575,14 +1734,14 @@ public class AbilityUtil_Targeter
 
 	public void ClearArrows()
 	{
-		using (List<AbilityUtil_Targeter.ArrowList>.Enumerator enumerator = this.m_arrows.GetEnumerator())
+		using (List<ArrowList>.Enumerator enumerator = m_arrows.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				AbilityUtil_Targeter.ArrowList arrowList = enumerator.Current;
-				if (arrowList != null)
+				ArrowList current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -1591,13 +1750,13 @@ public class AbilityUtil_Targeter
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.ClearArrows()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (arrowList.m_gameObject != null)
+					if (current.m_gameObject != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -1606,10 +1765,10 @@ public class AbilityUtil_Targeter
 							}
 							break;
 						}
-						MovementPathStart componentInChildren = arrowList.m_gameObject.GetComponentInChildren<MovementPathStart>();
+						MovementPathStart componentInChildren = current.m_gameObject.GetComponentInChildren<MovementPathStart>();
 						if (componentInChildren != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -1620,11 +1779,11 @@ public class AbilityUtil_Targeter
 							}
 							componentInChildren.HideCharacterMovementPanel();
 						}
-						this.DestroyObjectAndMaterials(arrowList.m_gameObject);
+						DestroyObjectAndMaterials(current.m_gameObject);
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1634,7 +1793,7 @@ public class AbilityUtil_Targeter
 				break;
 			}
 		}
-		this.m_arrows.Clear();
+		m_arrows.Clear();
 	}
 
 	public static GameObject CreateArrowFromGridPosPath(List<GridPos> gridPosPath, Color lineColor, bool isChasing, ActorData theActor)
@@ -1642,7 +1801,7 @@ public class AbilityUtil_Targeter
 		GameObject result = null;
 		if (gridPosPath.Count >= 2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1651,37 +1810,37 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.CreateArrowFromGridPosPath(List<GridPos>, Color, bool, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			GridPos start = gridPosPath[0];
 			GridPos end = gridPosPath[gridPosPath.Count - 1];
-			result = AbilityUtil_Targeter.CreateArrowFromGridPosPoints(start, end, lineColor, isChasing, theActor);
+			result = CreateArrowFromGridPosPoints(start, end, lineColor, isChasing, theActor);
 		}
 		return result;
 	}
 
 	public static GameObject CreateArrowFromGridPosPoints(GridPos start, GridPos end, Color lineColor, bool isChasing, ActorData theActor)
 	{
-		List<Vector3> list = new List<Vector3>();
-		Vector3 item = Board.\u000E().\u000E(start).\u001D();
-		item.y += 0.5f;
-		list.Add(item);
-		Vector3 item2 = Board.\u000E().\u000E(end).\u001D();
-		item2.y += 0.5f;
-		list.Add(item2);
-		return Targeting.GetTargeting().CreateFancyArrowMesh(ref list, 0.2f, lineColor, isChasing, theActor, AbilityUtil_Targeter.TargeterMovementType.Movement, null, null, false, 0.4f, 0.4f);
+		List<Vector3> points = new List<Vector3>();
+		Vector3 worldPosition = Board.Get().GetBoardSquareSafe(start).GetWorldPosition();
+		worldPosition.y += 0.5f;
+		points.Add(worldPosition);
+		Vector3 worldPosition2 = Board.Get().GetBoardSquareSafe(end).GetWorldPosition();
+		worldPosition2.y += 0.5f;
+		points.Add(worldPosition2);
+		return Targeting.GetTargeting().CreateFancyArrowMesh(ref points, 0.2f, lineColor, isChasing, theActor, TargeterMovementType.Movement, null, null, false);
 	}
 
 	public List<GameObject> GetHighlightCopies(bool setOpacity)
 	{
 		List<GameObject> list = new List<GameObject>();
-		for (int i = 0; i < this.m_highlights.Count; i++)
+		for (int i = 0; i < m_highlights.Count; i++)
 		{
-			if (this.m_highlights[i] != null)
+			if (m_highlights[i] != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1690,41 +1849,40 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetHighlightCopies(bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				GameObject gameObject = HighlightUtils.Get().CloneTargeterHighlight(this.m_highlights[i], this);
-				if (!this.m_highlights[i].activeSelf)
+				GameObject gameObject = HighlightUtils.Get().CloneTargeterHighlight(m_highlights[i], this);
+				if (!m_highlights[i].activeSelf)
 				{
 					gameObject.SetActive(false);
 				}
 				list.Add(gameObject);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (setOpacity)
+			{
+				HighlightUtils.TargeterOpacityData[] allyTargeterOpacity = HighlightUtils.Get().m_allyTargeterOpacity;
+				float opacityFromTargeterData = GetOpacityFromTargeterData(allyTargeterOpacity, 100f);
+				SetTargeterHighlightOpacity(list, opacityFromTargeterData);
+			}
+			return list;
 		}
-		if (setOpacity)
-		{
-			HighlightUtils.TargeterOpacityData[] allyTargeterOpacity = HighlightUtils.Get().m_allyTargeterOpacity;
-			float opacityFromTargeterData = AbilityUtil_Targeter.GetOpacityFromTargeterData(allyTargeterOpacity, 100f);
-			AbilityUtil_Targeter.SetTargeterHighlightOpacity(list, opacityFromTargeterData);
-		}
-		return list;
 	}
 
 	protected virtual void ClearHighlightCursors(bool clearInstantly = true)
 	{
 		if (!clearInstantly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1733,15 +1891,15 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.ClearHighlightCursors(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (NetworkClient.active)
 			{
-				if (this.m_highlights.Count > 0)
+				if (m_highlights.Count > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -1750,20 +1908,19 @@ public class AbilityUtil_Targeter
 						}
 						break;
 					}
-					this.m_highlightFadeContainer.TrackHighlights(this.m_highlights);
-					goto IL_A3;
+					m_highlightFadeContainer.TrackHighlights(m_highlights);
 				}
-				goto IL_A3;
+				goto IL_00a3;
 			}
 		}
-		using (List<GameObject>.Enumerator enumerator = this.m_highlights.GetEnumerator())
+		using (List<GameObject>.Enumerator enumerator = m_highlights.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				GameObject gameObject = enumerator.Current;
-				if (gameObject != null)
+				GameObject current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -1772,10 +1929,10 @@ public class AbilityUtil_Targeter
 						}
 						break;
 					}
-					this.DestroyObjectAndMaterials(gameObject);
+					DestroyObjectAndMaterials(current);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1785,22 +1942,24 @@ public class AbilityUtil_Targeter
 				break;
 			}
 		}
-		IL_A3:
-		this.m_highlights.Clear();
-		this.DestroyTargetingArcMesh();
-		if (this.m_targetingArcPulseInstance != null)
+		goto IL_00a3;
+		IL_00a3:
+		m_highlights.Clear();
+		DestroyTargetingArcMesh();
+		if (!(m_targetingArcPulseInstance != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			UnityEngine.Object.Destroy(this.m_targetingArcPulseInstance);
-			this.m_targetingArcPulseInstance = null;
+			Object.Destroy(m_targetingArcPulseInstance);
+			m_targetingArcPulseInstance = null;
+			return;
 		}
 	}
 
@@ -1814,26 +1973,26 @@ public class AbilityUtil_Targeter
 
 	protected virtual void DisableHighlightCursors()
 	{
-		if (this.m_highlights != null)
+		if (m_highlights == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.DisableHighlightCursors()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			foreach (GameObject gameObject in this.m_highlights)
+			foreach (GameObject highlight in m_highlights)
 			{
-				if (gameObject != null)
+				if (highlight != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -1842,115 +2001,39 @@ public class AbilityUtil_Targeter
 						}
 						break;
 					}
-					gameObject.SetActive(false);
+					highlight.SetActive(false);
 				}
 			}
-		}
-	}
-
-	protected GameObject Highlight
-	{
-		get
-		{
-			if (this.m_highlights != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.get_Highlight()).MethodHandle;
-				}
-				if (this.m_highlights.Count > 0)
-				{
-					return this.m_highlights[0];
-				}
-			}
-			return null;
-		}
-		set
-		{
-			if (this.m_highlights == null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.set_Highlight(GameObject)).MethodHandle;
-				}
-				this.m_highlights = new List<GameObject>();
-			}
-			if (this.m_highlights.Count == 0)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_highlights.Add(null);
-			}
-			if (this.m_highlights[0] != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.DestroyObjectAndMaterials(this.m_highlights[0]);
-				this.m_highlights[0] = null;
-			}
-			this.m_highlights[0] = value;
+			return;
 		}
 	}
 
 	public List<TargeterTemplateSwapData> GetTemplateSwapData()
 	{
-		if (this.m_ability != null)
+		if (m_ability != null)
 		{
-			return this.m_ability.m_targeterTemplateSwaps;
+			return m_ability.m_targeterTemplateSwaps;
 		}
 		return null;
 	}
 
 	public HighlightUtils.CursorType GetCursorType()
 	{
-		return this.m_cursorType;
+		return m_cursorType;
 	}
 
 	public void SetAffectedGroups(bool affectsEnemies, bool affectsAllies, bool affectsCaster)
 	{
-		this.m_affectsEnemies = affectsEnemies;
-		this.m_affectsAllies = affectsAllies;
-		this.m_affectsTargetingActor = affectsCaster;
+		m_affectsEnemies = affectsEnemies;
+		m_affectsAllies = affectsAllies;
+		m_affectsTargetingActor = affectsCaster;
 	}
 
 	protected bool GetAffectsTarget(ActorData potentialTarget, ActorData targeterOwner)
 	{
-		bool result;
 		if (!(potentialTarget == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1959,55 +2042,47 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetAffectsTarget(ActorData, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (targeterOwner == null)
+			if (!(targeterOwner == null))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				if (targeterOwner.\u000E() == potentialTarget.\u000E())
+				if (targeterOwner.GetTeam() == potentialTarget.GetTeam())
 				{
 					if (targeterOwner == potentialTarget)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return m_affectsTargetingActor;
 							}
-							break;
 						}
-						result = this.m_affectsTargetingActor;
 					}
-					else
-					{
-						result = this.m_affectsAllies;
-					}
-					return result;
+					return m_affectsAllies;
 				}
-				return this.m_affectsEnemies;
+				return m_affectsEnemies;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
 			}
 		}
-		result = false;
-		return result;
+		return false;
 	}
 
 	protected List<Team> GetAffectedTeams()
 	{
-		return this.GetAffectedTeams(GameFlowData.Get().activeOwnedActorData);
+		return GetAffectedTeams(GameFlowData.Get().activeOwnedActorData);
 	}
 
 	public List<Team> GetAffectedTeams(ActorData targeterOwner)
@@ -2015,7 +2090,7 @@ public class AbilityUtil_Targeter
 		List<Team> list = new List<Team>();
 		if (targeterOwner != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -2024,13 +2099,13 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetAffectedTeams(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_affectsAllies)
+			if (m_affectsAllies)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -2039,11 +2114,11 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				list.Add(targeterOwner.\u000E());
+				list.Add(targeterOwner.GetTeam());
 			}
-			if (this.m_affectsEnemies)
+			if (m_affectsEnemies)
 			{
-				list.Add(targeterOwner.\u0012());
+				list.Add(targeterOwner.GetOpposingTeam());
 			}
 		}
 		return list;
@@ -2052,31 +2127,31 @@ public class AbilityUtil_Targeter
 	protected virtual float GetCurrentRangeInSquares()
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		return AbilityUtils.GetCurrentRangeInSquares(this.m_ability, activeOwnedActorData, 0);
+		return AbilityUtils.GetCurrentRangeInSquares(m_ability, activeOwnedActorData, 0);
 	}
 
 	protected virtual Vector3 GetTargetingArcEndPosition(ActorData targetingActor)
 	{
-		if (this.Highlight != null)
+		if (Highlight != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return Highlight.transform.position;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetTargetingArcEndPosition(ActorData)).MethodHandle;
-			}
-			return this.Highlight.transform.position;
 		}
 		if (targetingActor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2085,18 +2160,18 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (targetingActor.\u0012() != null)
+			if (targetingActor.GetCurrentBoardSquare() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return targetingActor.GetCurrentBoardSquare().ToVector3();
 					}
-					break;
 				}
-				return targetingActor.\u0012().ToVector3();
 			}
 		}
 		return Vector3.zero;
@@ -2104,9 +2179,9 @@ public class AbilityUtil_Targeter
 
 	public virtual void SetupTargetingArc(ActorData targetingActor, bool activatePulse)
 	{
-		if (this.m_showArcToShape)
+		if (m_showArcToShape)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2115,13 +2190,13 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.SetupTargetingArc(ActorData, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.Highlight == null)
+			if (Highlight == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -2130,12 +2205,12 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				this.m_showArcToShape = false;
+				m_showArcToShape = false;
 			}
 		}
-		if (this.m_showArcToShape)
+		if (m_showArcToShape)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -2144,9 +2219,9 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (this.Highlight != null)
+			if (Highlight != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -2155,301 +2230,301 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				if ((this.GetTargetingArcEndPosition(targetingActor) - targetingActor.\u0012().ToVector3()).magnitude > HighlightUtils.Get().m_minDistForTargetingArc)
+				if ((GetTargetingArcEndPosition(targetingActor) - targetingActor.GetCurrentBoardSquare().ToVector3()).magnitude > HighlightUtils.Get().m_minDistForTargetingArc)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					Vector3 vector = targetingActor.\u0015();
-					Vector3 vector2 = Camera.main.transform.rotation * Vector3.forward;
-					bool flag;
-					if ((vector2 - this.m_cameraForward).sqrMagnitude <= 0.01f)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						flag = ((Camera.main.transform.position - this.m_cameraPosition).sqrMagnitude > 0.01f);
-					}
-					else
-					{
-						flag = true;
-					}
-					bool flag2 = flag;
-					if (flag2)
-					{
-						for (;;)
+						default:
 						{
-							switch (2)
+							Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+							Vector3 vector = Camera.main.transform.rotation * Vector3.forward;
+							int num;
+							if (!((vector - m_cameraForward).sqrMagnitude > 0.01f))
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_cameraForward = vector2;
-						this.m_cameraPosition = Camera.main.transform.position;
-					}
-					if (activatePulse)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_targetingArcPulseInstance != null)
-						{
-							for (;;)
-							{
-								switch (6)
+								while (true)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_targetingArcPulseInstance.SetActive(false);
-							UnityEngine.Object.Destroy(this.m_targetingArcPulseInstance);
-							this.m_targetingArcPulseInstance = null;
-						}
-						this.m_targetingArcPulseInstance = UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.Get().m_targetingArcForShape);
-						this.m_targetingArcPulseInstance.SetActive(true);
-						this.m_targetingArcPulseInstance.transform.position = vector;
-						this.m_arcTraveled = 0f;
-					}
-					Vector3 targetingArcEndPosition = this.GetTargetingArcEndPosition(targetingActor);
-					if (this.m_arcTraveled >= 1f)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (flag2)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						else
-						{
-							this.m_arcTraveled = 0f;
-							if (this.m_targetingArcPulseInstance != null)
-							{
-								for (;;)
-								{
-									switch (7)
+									switch (2)
 									{
 									case 0:
 										continue;
 									}
 									break;
 								}
-								this.m_targetingArcPulseInstance.SetActive(false);
-								UnityEngine.Object.Destroy(this.m_targetingArcPulseInstance);
-								this.m_targetingArcPulseInstance = null;
-								goto IL_518;
+								num = (((Camera.main.transform.position - m_cameraPosition).sqrMagnitude > 0.01f) ? 1 : 0);
 							}
-							goto IL_518;
-						}
-					}
-					float targetingArcMaxHeight = HighlightUtils.Get().m_targetingArcMaxHeight;
-					float num = 1f + (vector.y - targetingArcEndPosition.y) / targetingArcMaxHeight;
-					Vector3 a = targetingArcEndPosition - vector;
-					a.y = 0f;
-					if (a.magnitude <= 0.5f)
-					{
-						for (;;)
-						{
-							switch (5)
+							else
 							{
-							case 0:
-								continue;
+								num = 1;
 							}
-							break;
-						}
-						a = new Vector3(0.5f * vector2.x, 0f, 0.5f * vector2.z);
-					}
-					float num2 = 0.5f * a.magnitude;
-					float num3 = targetingArcMaxHeight / (num2 * num2);
-					if (this.m_targetingArcPulseInstance != null)
-					{
-						for (;;)
-						{
-							switch (3)
+							bool flag = (byte)num != 0;
+							if (flag)
 							{
-							case 0:
-								continue;
+								while (true)
+								{
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								m_cameraForward = vector;
+								m_cameraPosition = Camera.main.transform.position;
 							}
-							break;
-						}
-						this.m_arcTraveled += HighlightUtils.Get().m_targetingArcMovementSpeed * Time.deltaTime;
-						float num4 = this.m_arcTraveled * a.magnitude - num2;
-						float num5 = num3 * num4 * num4;
-						if (num4 > 0f)
-						{
-							for (;;)
+							if (activatePulse)
 							{
-								switch (5)
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (m_targetingArcPulseInstance != null)
+								{
+									while (true)
+									{
+										switch (6)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									m_targetingArcPulseInstance.SetActive(false);
+									Object.Destroy(m_targetingArcPulseInstance);
+									m_targetingArcPulseInstance = null;
+								}
+								m_targetingArcPulseInstance = Object.Instantiate(HighlightUtils.Get().m_targetingArcForShape);
+								m_targetingArcPulseInstance.SetActive(true);
+								m_targetingArcPulseInstance.transform.position = travelBoardSquareWorldPositionForLos;
+								m_arcTraveled = 0f;
+							}
+							Vector3 targetingArcEndPosition = GetTargetingArcEndPosition(targetingActor);
+							if (!(m_arcTraveled < 1f))
+							{
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (!flag)
+								{
+									m_arcTraveled = 0f;
+									if (m_targetingArcPulseInstance != null)
+									{
+										while (true)
+										{
+											switch (7)
+											{
+											case 0:
+												break;
+											default:
+												m_targetingArcPulseInstance.SetActive(false);
+												Object.Destroy(m_targetingArcPulseInstance);
+												m_targetingArcPulseInstance = null;
+												return;
+											}
+										}
+									}
+									return;
+								}
+								while (true)
+								{
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							float targetingArcMaxHeight = HighlightUtils.Get().m_targetingArcMaxHeight;
+							float num2 = 1f + (travelBoardSquareWorldPositionForLos.y - targetingArcEndPosition.y) / targetingArcMaxHeight;
+							Vector3 a = targetingArcEndPosition - travelBoardSquareWorldPositionForLos;
+							a.y = 0f;
+							if (a.magnitude <= 0.5f)
+							{
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								a = new Vector3(0.5f * vector.x, 0f, 0.5f * vector.z);
+							}
+							float num3 = 0.5f * a.magnitude;
+							float num4 = targetingArcMaxHeight / (num3 * num3);
+							if (m_targetingArcPulseInstance != null)
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								m_arcTraveled += HighlightUtils.Get().m_targetingArcMovementSpeed * Time.deltaTime;
+								float num5 = m_arcTraveled * a.magnitude - num3;
+								float num6 = num4 * num5 * num5;
+								if (num5 > 0f)
+								{
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									num6 *= num2;
+								}
+								Vector3 position = travelBoardSquareWorldPositionForLos + a * m_arcTraveled + Vector3.up * (targetingArcMaxHeight - num6);
+								m_targetingArcPulseInstance.transform.position = position;
+							}
+							bool flag2 = false;
+							if ((m_arcEnd - targetingArcEndPosition).sqrMagnitude > 0.1f)
+							{
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								m_arcEnd = targetingArcEndPosition;
+								flag2 = true;
+							}
+							if (!(m_targetingArcInstance == null) && !flag)
+							{
+								if (!flag2)
+								{
+									return;
+								}
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							List<Vector3> list = new List<Vector3>();
+							for (int i = 1; i <= HighlightUtils.Get().m_targetingArcNumSegments; i++)
+							{
+								float num7 = (float)i / (float)HighlightUtils.Get().m_targetingArcNumSegments;
+								float num8 = num7 * a.magnitude - num3;
+								float num9 = num4 * num8 * num8;
+								if (num8 > 0f)
+								{
+									num9 *= num2;
+								}
+								Vector3 item = travelBoardSquareWorldPositionForLos + a * num7 + Vector3.up * (targetingArcMaxHeight - num9);
+								list.Add(item);
+							}
+							while (true)
+							{
+								switch (6)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+								{
+									Color color = HighlightUtils.Get().m_targetingArcColor;
+									if (targetingActor != GameFlowData.Get().activeOwnedActorData)
+									{
+										while (true)
+										{
+											switch (4)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										color = HighlightUtils.Get().m_targetingArcColorAllies;
+									}
+									m_targetingArcInstance = Targeting.GetTargeting().CreateLineMesh(list, 0.2f, color, false, HighlightUtils.Get().m_targetingArcMaterial, m_targetingArcInstance, true);
+									return;
 								}
-								break;
+								}
 							}
-							num5 *= num;
 						}
-						Vector3 position = vector + a * this.m_arcTraveled + Vector3.up * (targetingArcMaxHeight - num5);
-						this.m_targetingArcPulseInstance.transform.position = position;
-					}
-					bool flag3 = false;
-					if ((this.m_arcEnd - targetingArcEndPosition).sqrMagnitude > 0.1f)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_arcEnd = targetingArcEndPosition;
-						flag3 = true;
-					}
-					if (!(this.m_targetingArcInstance == null) && !flag2)
-					{
-						if (!flag3)
-						{
-							goto IL_4D3;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
-					List<Vector3> list = new List<Vector3>();
-					for (int i = 1; i <= HighlightUtils.Get().m_targetingArcNumSegments; i++)
-					{
-						float num6 = (float)i / (float)HighlightUtils.Get().m_targetingArcNumSegments;
-						float num7 = num6 * a.magnitude - num2;
-						float num8 = num3 * num7 * num7;
-						if (num7 > 0f)
-						{
-							num8 *= num;
-						}
-						Vector3 item = vector + a * num6 + Vector3.up * (targetingArcMaxHeight - num8);
-						list.Add(item);
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Color color = HighlightUtils.Get().m_targetingArcColor;
-					if (targetingActor != GameFlowData.Get().activeOwnedActorData)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						color = HighlightUtils.Get().m_targetingArcColorAllies;
-					}
-					this.m_targetingArcInstance = Targeting.GetTargeting().CreateLineMesh(list, 0.2f, color, false, HighlightUtils.Get().m_targetingArcMaterial, this.m_targetingArcInstance, true);
-					IL_4D3:
-					IL_518:
-					return;
 				}
 			}
 		}
-		this.DestroyTargetingArcMesh();
-		if (this.m_targetingArcPulseInstance != null)
+		DestroyTargetingArcMesh();
+		if (m_targetingArcPulseInstance != null)
 		{
-			this.m_targetingArcPulseInstance.SetActive(false);
-			UnityEngine.Object.Destroy(this.m_targetingArcPulseInstance);
-			this.m_targetingArcPulseInstance = null;
+			m_targetingArcPulseInstance.SetActive(false);
+			Object.Destroy(m_targetingArcPulseInstance);
+			m_targetingArcPulseInstance = null;
 		}
 	}
 
 	private void DestroyTargetingArcMesh()
 	{
-		if (this.m_targetingArcInstance != null)
+		if (m_targetingArcInstance != null)
 		{
-			this.m_targetingArcInstance.SetActive(false);
-			HighlightUtils.DestroyMeshesOnObject(this.m_targetingArcInstance);
-			this.DestroyObjectAndMaterials(this.m_targetingArcInstance);
-			this.m_targetingArcInstance = null;
+			m_targetingArcInstance.SetActive(false);
+			HighlightUtils.DestroyMeshesOnObject(m_targetingArcInstance);
+			DestroyObjectAndMaterials(m_targetingArcInstance);
+			m_targetingArcInstance = null;
 		}
 	}
 
 	public virtual void AdjustOpacityWhileTargeting()
 	{
-		if (NetworkClient.active && HighlightUtils.Get().m_setTargeterOpacityWhileTargeting)
+		if (!NetworkClient.active || !HighlightUtils.Get().m_setTargeterOpacityWhileTargeting)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.AdjustOpacityWhileTargeting()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			float opacity = Mathf.Clamp(HighlightUtils.Get().m_targeterOpacityWhileTargeting, 0.01f, 1f);
-			using (List<GameObject>.Enumerator enumerator = this.m_highlights.GetEnumerator())
+			using (List<GameObject>.Enumerator enumerator = m_highlights.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					GameObject gameObject = enumerator.Current;
-					MeshRenderer[] components = gameObject.GetComponents<MeshRenderer>();
-					foreach (MeshRenderer meshRenderer in components)
+					GameObject current = enumerator.Current;
+					MeshRenderer[] components = current.GetComponents<MeshRenderer>();
+					MeshRenderer[] array = components;
+					foreach (MeshRenderer meshRenderer in array)
 					{
-						AbilityUtil_Targeter.SetMaterialOpacity(meshRenderer.materials, opacity);
+						SetMaterialOpacity(meshRenderer.materials, opacity);
 					}
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -2458,12 +2533,13 @@ public class AbilityUtil_Targeter
 						}
 						break;
 					}
-					MeshRenderer[] componentsInChildren = gameObject.GetComponentsInChildren<MeshRenderer>();
-					foreach (MeshRenderer meshRenderer2 in componentsInChildren)
+					MeshRenderer[] componentsInChildren = current.GetComponentsInChildren<MeshRenderer>();
+					MeshRenderer[] array2 = componentsInChildren;
+					foreach (MeshRenderer meshRenderer2 in array2)
 					{
-						AbilityUtil_Targeter.SetMaterialOpacity(meshRenderer2.materials, opacity);
+						SetMaterialOpacity(meshRenderer2.materials, opacity);
 					}
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -2473,14 +2549,15 @@ public class AbilityUtil_Targeter
 						break;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}
@@ -2488,16 +2565,16 @@ public class AbilityUtil_Targeter
 
 	public virtual void StartConfirmedTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		this.m_lastAllyTargeterChange = Time.time;
-		this.m_confirmedTargetingStartTime = Time.time + HUD_UIResources.Get().m_confirmedTargetingDuration;
-		using (List<AbilityUtil_Targeter.ArrowList>.Enumerator enumerator = this.m_arrows.GetEnumerator())
+		m_lastAllyTargeterChange = Time.time;
+		m_confirmedTargetingStartTime = Time.time + HUD_UIResources.Get().m_confirmedTargetingDuration;
+		using (List<ArrowList>.Enumerator enumerator = m_arrows.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				AbilityUtil_Targeter.ArrowList arrowList = enumerator.Current;
-				if (arrowList != null)
+				ArrowList current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -2506,13 +2583,13 @@ public class AbilityUtil_Targeter
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.StartConfirmedTargeting(AbilityTarget, ActorData)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (arrowList.m_gameObject.activeSelf)
+					if (current.m_gameObject.activeSelf)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -2521,10 +2598,10 @@ public class AbilityUtil_Targeter
 							}
 							break;
 						}
-						MovementPathStart componentInChildren = arrowList.m_gameObject.GetComponentInChildren<MovementPathStart>();
+						MovementPathStart componentInChildren = current.m_gameObject.GetComponentInChildren<MovementPathStart>();
 						if (componentInChildren != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -2538,7 +2615,7 @@ public class AbilityUtil_Targeter
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -2550,7 +2627,7 @@ public class AbilityUtil_Targeter
 		}
 		if (GameFlowData.Get().activeOwnedActorData == targetingActor)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -2559,123 +2636,118 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (targetingActor.\u000E().CurrentState != TurnStateEnum.TARGETING_ACTION)
+			if (targetingActor.GetActorTurnSM().CurrentState != TurnStateEnum.TARGETING_ACTION)
 			{
-				this.HideAllSquareIndicators();
+				HideAllSquareIndicators();
 			}
 		}
-		this.SetupTargetingArc(targetingActor, true);
-		if (Application.isEditor)
+		SetupTargetingArc(targetingActor, true);
+		if (!Application.isEditor)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
+			case 0:
+				continue;
+			}
+			if (m_highlights == null)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (this.m_highlights != null)
-			{
-				for (;;)
+				if (m_ability != null)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_ability != null)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					using (List<GameObject>.Enumerator enumerator2 = this.m_highlights.GetEnumerator())
-					{
-						while (enumerator2.MoveNext())
+						using (List<GameObject>.Enumerator enumerator2 = m_highlights.GetEnumerator())
 						{
-							GameObject gameObject = enumerator2.Current;
-							if (gameObject != null)
+							while (enumerator2.MoveNext())
 							{
-								for (;;)
+								GameObject current2 = enumerator2.Current;
+								if (current2 != null)
 								{
-									switch (5)
+									while (true)
 									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!gameObject.name.StartsWith("[Targeter]"))
-								{
-									for (;;)
-									{
-										switch (7)
+										switch (5)
 										{
 										case 0:
 											continue;
 										}
 										break;
 									}
-									gameObject.name = "[Targeter] " + this.m_ability.GetNameString() + ": " + gameObject.name;
+									if (!current2.name.StartsWith("[Targeter]"))
+									{
+										while (true)
+										{
+											switch (7)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										current2.name = "[Targeter] " + m_ability.GetNameString() + ": " + current2.name;
+									}
+								}
+							}
+							while (true)
+							{
+								switch (7)
+								{
+								default:
+									return;
+								case 0:
+									break;
 								}
 							}
 						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
+				return;
 			}
 		}
 	}
 
 	public virtual void UpdateConfirmedTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		float timeSinceChange = Time.time - this.m_lastAllyTargeterChange;
-		HighlightUtils.TargeterOpacityData[] targeterOpacity;
-		if (GameFlowData.Get().activeOwnedActorData == targetingActor)
-		{
-			targeterOpacity = HighlightUtils.Get().m_confirmedTargeterOpacity;
-		}
-		else
-		{
-			targeterOpacity = HighlightUtils.Get().m_allyTargeterOpacity;
-		}
-		float opacityFromTargeterData = AbilityUtil_Targeter.GetOpacityFromTargeterData(targeterOpacity, timeSinceChange);
-		AbilityUtil_Targeter.SetTargeterHighlightOpacity(this.m_highlights, opacityFromTargeterData);
-		this.SetupTargetingArc(targetingActor, false);
+		float timeSinceChange = Time.time - m_lastAllyTargeterChange;
+		float num = 0f;
+		HighlightUtils.TargeterOpacityData[] targeterOpacity = (!(GameFlowData.Get().activeOwnedActorData == targetingActor)) ? HighlightUtils.Get().m_allyTargeterOpacity : HighlightUtils.Get().m_confirmedTargeterOpacity;
+		num = GetOpacityFromTargeterData(targeterOpacity, timeSinceChange);
+		SetTargeterHighlightOpacity(m_highlights, num);
+		SetupTargetingArc(targetingActor, false);
 	}
 
 	public void UpdateFadeOutHighlights(ActorData targetingActor)
 	{
-		this.m_highlightFadeContainer.UpdateFade(targetingActor, this.m_highlights.Count > 0);
+		m_highlightFadeContainer.UpdateFade(targetingActor, m_highlights.Count > 0);
 	}
 
 	public static void SetTargeterHighlightOpacity(List<GameObject> highlights, float opacity)
 	{
-		foreach (GameObject gameObject in highlights)
+		foreach (GameObject highlight in highlights)
 		{
-			MeshRenderer[] components = gameObject.GetComponents<MeshRenderer>();
-			foreach (MeshRenderer meshRenderer in components)
+			MeshRenderer[] components = highlight.GetComponents<MeshRenderer>();
+			MeshRenderer[] array = components;
+			foreach (MeshRenderer meshRenderer in array)
 			{
-				AbilityUtil_Targeter.SetMaterialOpacity(meshRenderer.materials, opacity);
+				SetMaterialOpacity(meshRenderer.materials, opacity);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -2684,16 +2756,17 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.SetTargeterHighlightOpacity(List<GameObject>, float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			MeshRenderer[] componentsInChildren = gameObject.GetComponentsInChildren<MeshRenderer>();
-			foreach (MeshRenderer meshRenderer2 in componentsInChildren)
+			MeshRenderer[] componentsInChildren = highlight.GetComponentsInChildren<MeshRenderer>();
+			MeshRenderer[] array2 = componentsInChildren;
+			foreach (MeshRenderer meshRenderer2 in array2)
 			{
-				AbilityUtil_Targeter.SetMaterialOpacity(meshRenderer2.materials, opacity);
+				SetMaterialOpacity(meshRenderer2.materials, opacity);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2703,12 +2776,13 @@ public class AbilityUtil_Targeter
 				break;
 			}
 			float opacity2 = Mathf.Clamp(opacity * HighlightUtils.Get().m_targeterParticleSystemOpacityMultiplier, 0f, 1f);
-			ParticleSystemRenderer[] componentsInChildren2 = gameObject.GetComponentsInChildren<ParticleSystemRenderer>();
-			foreach (ParticleSystemRenderer particleSystemRenderer in componentsInChildren2)
+			ParticleSystemRenderer[] componentsInChildren2 = highlight.GetComponentsInChildren<ParticleSystemRenderer>();
+			ParticleSystemRenderer[] array3 = componentsInChildren2;
+			foreach (ParticleSystemRenderer particleSystemRenderer in array3)
 			{
-				AbilityUtil_Targeter.SetMaterialOpacity(particleSystemRenderer.materials, opacity2);
+				SetMaterialOpacity(particleSystemRenderer.materials, opacity2);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -2726,31 +2800,14 @@ public class AbilityUtil_Targeter
 		{
 			while (enumerator.MoveNext())
 			{
-				GameObject gameObject = enumerator.Current;
-				MeshRenderer[] components = gameObject.GetComponents<MeshRenderer>();
-				foreach (MeshRenderer meshRenderer in components)
+				GameObject current = enumerator.Current;
+				MeshRenderer[] components = current.GetComponents<MeshRenderer>();
+				MeshRenderer[] array = components;
+				foreach (MeshRenderer meshRenderer in array)
 				{
-					AbilityUtil_Targeter.SetMaterialColor(meshRenderer.materials, color, keepOpacity);
+					SetMaterialColor(meshRenderer.materials, color, keepOpacity);
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.SetTargeterHighlightColor(List<GameObject>, Color, bool, bool)).MethodHandle;
-				}
-				MeshRenderer[] componentsInChildren = gameObject.GetComponentsInChildren<MeshRenderer>();
-				foreach (MeshRenderer meshRenderer2 in componentsInChildren)
-				{
-					AbilityUtil_Targeter.SetMaterialColor(meshRenderer2.materials, color, keepOpacity);
-				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -2759,12 +2816,32 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				ParticleSystemRenderer[] componentsInChildren2 = gameObject.GetComponentsInChildren<ParticleSystemRenderer>();
-				foreach (ParticleSystemRenderer particleSystemRenderer in componentsInChildren2)
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				MeshRenderer[] componentsInChildren = current.GetComponentsInChildren<MeshRenderer>();
+				MeshRenderer[] array2 = componentsInChildren;
+				foreach (MeshRenderer meshRenderer2 in array2)
+				{
+					SetMaterialColor(meshRenderer2.materials, color, keepOpacity);
+				}
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				ParticleSystemRenderer[] componentsInChildren2 = current.GetComponentsInChildren<ParticleSystemRenderer>();
+				ParticleSystemRenderer[] array3 = componentsInChildren2;
+				foreach (ParticleSystemRenderer particleSystemRenderer in array3)
 				{
 					if (clearColorOverTime)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -2776,7 +2853,7 @@ public class AbilityUtil_Targeter
 						ParticleSystem component = particleSystemRenderer.GetComponent<ParticleSystem>();
 						if (component != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -2788,7 +2865,7 @@ public class AbilityUtil_Targeter
 							ParticleSystem.ColorOverLifetimeModule colorOverLifetime = component.colorOverLifetime;
 							if (colorOverLifetime.enabled)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
@@ -2801,9 +2878,9 @@ public class AbilityUtil_Targeter
 							}
 						}
 					}
-					AbilityUtil_Targeter.SetMaterialColor(particleSystemRenderer.materials, color, keepOpacity);
+					SetMaterialColor(particleSystemRenderer.materials, color, keepOpacity);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -2813,14 +2890,15 @@ public class AbilityUtil_Targeter
 					break;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
@@ -2828,75 +2906,84 @@ public class AbilityUtil_Targeter
 	public static float GetOpacityFromTargeterData(HighlightUtils.TargeterOpacityData[] targeterOpacity, float timeSinceChange)
 	{
 		float result = 1f;
-		for (int i = 0; i < targeterOpacity.Length; i++)
+		int num = 0;
+		while (true)
 		{
-			if (i == targeterOpacity.Length - 1)
+			if (num < targeterOpacity.Length)
 			{
-				for (;;)
+				if (num == targeterOpacity.Length - 1)
 				{
-					switch (1)
+					while (true)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetOpacityFromTargeterData(HighlightUtils.TargeterOpacityData[], float)).MethodHandle;
-				}
-				result = targeterOpacity[i].m_alpha;
-			}
-			else if (targeterOpacity[i].m_timeSinceConfirmed <= timeSinceChange)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (timeSinceChange <= targeterOpacity[i + 1].m_timeSinceConfirmed)
-				{
-					for (;;)
-					{
-						switch (2)
+						switch (1)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					float alpha = targeterOpacity[i].m_alpha;
-					float alpha2 = targeterOpacity[i + 1].m_alpha;
-					float num = (timeSinceChange - targeterOpacity[i].m_timeSinceConfirmed) / Mathf.Max(0.01f, targeterOpacity[i + 1].m_timeSinceConfirmed - targeterOpacity[i].m_timeSinceConfirmed);
-					result = alpha * (1f - num) + alpha2 * num;
-					return result;
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					result = targeterOpacity[num].m_alpha;
 				}
-			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
+				else if (targeterOpacity[num].m_timeSinceConfirmed <= timeSinceChange)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (timeSinceChange <= targeterOpacity[num + 1].m_timeSinceConfirmed)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						float alpha = targeterOpacity[num].m_alpha;
+						float alpha2 = targeterOpacity[num + 1].m_alpha;
+						float num2 = (timeSinceChange - targeterOpacity[num].m_timeSinceConfirmed) / Mathf.Max(0.01f, targeterOpacity[num + 1].m_timeSinceConfirmed - targeterOpacity[num].m_timeSinceConfirmed);
+						result = alpha * (1f - num2) + alpha2 * num2;
+						break;
+					}
+				}
+				num++;
 				continue;
 			}
-			return result;
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			break;
 		}
+		return result;
 	}
 
 	internal static void SetMaterialOpacity(Material[] materials, float opacity)
 	{
 		foreach (Material material in materials)
 		{
-			foreach (int nameID in AbilityUtil_Targeter.materialColorProperties)
+			int[] array = materialColorProperties;
+			foreach (int nameID in array)
 			{
 				if (material.HasProperty(nameID))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -2905,22 +2992,26 @@ public class AbilityUtil_Targeter
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.SetMaterialOpacity(Material[], float)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
 					Color color = material.GetColor(nameID);
 					Color value = new Color(color.r, color.g, color.b, opacity);
 					material.SetColor(nameID, value);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_007a;
 				}
+				continue;
+				end_IL_007a:
 				break;
 			}
 		}
@@ -2930,69 +3021,73 @@ public class AbilityUtil_Targeter
 	{
 		foreach (Material material in materials)
 		{
-			foreach (int nameID in AbilityUtil_Targeter.materialColorProperties)
+			int[] array = materialColorProperties;
+			foreach (int nameID in array)
 			{
-				if (material.HasProperty(nameID))
+				if (!material.HasProperty(nameID))
 				{
-					for (;;)
+					continue;
+				}
+				while (true)
+				{
+					switch (1)
 					{
-						switch (1)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (keepOpacity)
+				{
+					while (true)
+					{
+						switch (3)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.SetMaterialColor(Material[], Color, bool)).MethodHandle;
-					}
-					if (keepOpacity)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						newColor.a = material.GetColor(nameID).a;
-					}
-					material.SetColor(nameID, newColor);
+					Color color = material.GetColor(nameID);
+					newColor.a = color.a;
 				}
+				material.SetColor(nameID, newColor);
 			}
 		}
 	}
 
 	public float GetConfirmedTargetingRemainingTime()
 	{
-		return Mathf.Max(this.m_confirmedTargetingStartTime - Time.time, 0f);
+		return Mathf.Max(m_confirmedTargetingStartTime - Time.time, 0f);
 	}
 
 	public void HideAllSquareIndicators()
 	{
 		if (HighlightUtils.GetHiddenSquaresContainer() != null)
 		{
-			HighlightUtils.GetHiddenSquaresContainer().HideAllSquareIndicators(0);
+			HighlightUtils.GetHiddenSquaresContainer().HideAllSquareIndicators();
 		}
-		if (HighlightUtils.GetAffectedSquaresContainer() != null)
+		if (HighlightUtils.GetAffectedSquaresContainer() == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.HideAllSquareIndicators()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			HighlightUtils.GetAffectedSquaresContainer().HideAllSquareIndicators(0);
+			HighlightUtils.GetAffectedSquaresContainer().HideAllSquareIndicators();
+			return;
 		}
 	}
 
@@ -3012,7 +3107,7 @@ public class AbilityUtil_Targeter
 	{
 		if (HighlightUtils.GetHiddenSquaresContainer() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -3021,24 +3116,25 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.HideUnusedSquareIndicators()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			HighlightUtils.GetHiddenSquaresContainer().HideAllSquareIndicators(this.GetNextHiddenSquareIndicatorIndex());
+			HighlightUtils.GetHiddenSquaresContainer().HideAllSquareIndicators(GetNextHiddenSquareIndicatorIndex());
 		}
-		if (HighlightUtils.GetAffectedSquaresContainer() != null)
+		if (HighlightUtils.GetAffectedSquaresContainer() == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			HighlightUtils.GetAffectedSquaresContainer().HideAllSquareIndicators(this.GetNextAffectedSquareIndicatorIndex());
+			HighlightUtils.GetAffectedSquaresContainer().HideAllSquareIndicators(GetNextAffectedSquareIndicatorIndex());
+			return;
 		}
 	}
 
@@ -3046,20 +3142,20 @@ public class AbilityUtil_Targeter
 	{
 		if (HighlightUtils.GetHiddenSquaresContainer() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return HighlightUtils.GetHiddenSquaresContainer().GetNextIndicatorIndex();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetNextHiddenSquareIndicatorIndex()).MethodHandle;
-			}
-			return HighlightUtils.GetHiddenSquaresContainer().GetNextIndicatorIndex();
 		}
 		return 0;
 	}
@@ -3076,21 +3172,21 @@ public class AbilityUtil_Targeter
 	private static Mesh CreateRectMesh(float halfWidth, float halfHeight)
 	{
 		Mesh mesh = new Mesh();
-		mesh.vertices = new Vector3[]
+		mesh.vertices = new Vector3[4]
 		{
-			new Vector3(-halfWidth, 0f, -halfHeight),
-			new Vector3(halfWidth, 0f, -halfHeight),
+			new Vector3(0f - halfWidth, 0f, 0f - halfHeight),
+			new Vector3(halfWidth, 0f, 0f - halfHeight),
 			new Vector3(halfWidth, 0f, halfHeight),
-			new Vector3(-halfWidth, 0f, halfHeight)
+			new Vector3(0f - halfWidth, 0f, halfHeight)
 		};
-		mesh.uv = new Vector2[]
+		mesh.uv = new Vector2[4]
 		{
 			new Vector2(0f, 0f),
 			new Vector2(0f, 1f),
 			new Vector2(1f, 1f),
 			new Vector2(1f, 0f)
 		};
-		mesh.triangles = new int[]
+		mesh.triangles = new int[6]
 		{
 			0,
 			1,
@@ -3107,20 +3203,20 @@ public class AbilityUtil_Targeter
 	{
 		if (HighlightUtils.GetAffectedSquaresContainer() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return HighlightUtils.GetAffectedSquaresContainer().GetNextIndicatorIndex();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetNextAffectedSquareIndicatorIndex()).MethodHandle;
-			}
-			return HighlightUtils.GetAffectedSquaresContainer().GetNextIndicatorIndex();
 		}
 		return 0;
 	}
@@ -3136,37 +3232,5 @@ public class AbilityUtil_Targeter
 
 	public virtual void DrawGizmos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-	}
-
-	public enum AffectsActor
-	{
-		Never,
-		Possible,
-		Always
-	}
-
-	public class ActorTarget
-	{
-		public ActorData m_actor;
-
-		public Vector3 m_damageOrigin;
-
-		public bool m_ignoreCoverMinDist;
-
-		public List<AbilityTooltipSubject> m_subjectTypes;
-	}
-
-	public enum TargeterMovementType
-	{
-		Knockback,
-		Movement,
-		Attacking
-	}
-
-	public class ArrowList
-	{
-		public GameObject m_gameObject;
-
-		public BoardSquarePathInfo m_pathInfo;
 	}
 }

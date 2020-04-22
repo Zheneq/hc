@@ -1,8 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text;
 using Corale.Colore.Core;
 using Corale.Colore.Razer.ChromaLink.Effects;
 using Corale.Colore.Razer.Headset.Effects;
@@ -11,6 +6,11 @@ using Corale.Colore.Razer.Keyboard.Effects;
 using Corale.Colore.Razer.Keypad.Effects;
 using Corale.Colore.Razer.Mouse.Effects;
 using Corale.Colore.Razer.Mousepad.Effects;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Text;
 using UnityEngine;
 
 public class ExternalLighting : MonoBehaviour, IGameEventListener
@@ -43,15 +43,15 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 
 	private void Start()
 	{
-		this.m_tutorialGlowOn = new Dictionary<AbilityData.ActionType, bool>();
-		this.m_chromaEnabled = new bool[6];
+		m_tutorialGlowOn = new Dictionary<AbilityData.ActionType, bool>();
+		m_chromaEnabled = new bool[6];
 		for (int i = 0; i < 6; i++)
 		{
-			this.m_chromaEnabled[i] = true;
+			m_chromaEnabled[i] = true;
 		}
-		this.m_hueEnabled = HydrogenConfig.Get().HueEnabled;
-		this.m_hueHubAddress = HydrogenConfig.Get().HueAddress;
-		this.m_hueURL = HydrogenConfig.Get().HuePutString;
+		m_hueEnabled = HydrogenConfig.Get().HueEnabled;
+		m_hueHubAddress = HydrogenConfig.Get().HueAddress;
+		m_hueURL = HydrogenConfig.Get().HuePutString;
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.UIPhaseStartedPrep);
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.UIPhaseStartedEvasion);
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.UIPhaseStartedCombat);
@@ -60,13 +60,13 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.TurnTick);
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.UITutorialHighlightChanged);
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.GameTeardown);
-		this.m_decisionPhaseColor = new Corale.Colore.Core.Color(1f, 1f, 1f);
-		this.m_prepPhaseColor = new Corale.Colore.Core.Color(0f, 1f, 0f);
-		this.m_evasionPhaseColor = new Corale.Colore.Core.Color(1f, 1f, 0f);
-		this.m_combatPhaseColor = new Corale.Colore.Core.Color(1f, 0f, 0f);
-		this.m_movementPhaseColor = new Corale.Colore.Core.Color(0f, 0f, 1f);
-		this.m_blackColor = new Corale.Colore.Core.Color(0f, 0f, 0f);
-		this.StartOutOfGameEffects();
+		m_decisionPhaseColor = new Corale.Colore.Core.Color(1f, 1f, 1f);
+		m_prepPhaseColor = new Corale.Colore.Core.Color(0f, 1f, 0f);
+		m_evasionPhaseColor = new Corale.Colore.Core.Color(1f, 1f, 0f);
+		m_combatPhaseColor = new Corale.Colore.Core.Color(1f, 0f, 0f);
+		m_movementPhaseColor = new Corale.Colore.Core.Color(0f, 0f, 1f);
+		m_blackColor = new Corale.Colore.Core.Color(0f, 0f, 0f);
+		StartOutOfGameEffects();
 	}
 
 	private void OnDestroy()
@@ -83,56 +83,58 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 
 	private void OnApplicationQuit()
 	{
-		if (Chroma.SdkAvailable)
+		if (!Chroma.SdkAvailable)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExternalLighting.OnApplicationQuit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Chroma.Instance.Uninitialize();
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_markedToRestartDecisionPhaseEffects)
+		if (!m_markedToRestartDecisionPhaseEffects)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExternalLighting.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_inDecision)
+			if (m_inDecision)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					StartDecisionPhaseEffects();
+					m_markedToRestartDecisionPhaseEffects = false;
+					return;
 				}
-				this.StartDecisionPhaseEffects();
-				this.m_markedToRestartDecisionPhaseEffects = false;
 			}
+			return;
 		}
 	}
 
@@ -140,155 +142,158 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 	{
 		if (eventType == GameEventManager.EventType.UIPhaseStartedPrep)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_inDecision = false;
+					StartPrepPhaseEffects();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExternalLighting.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
-			this.m_inDecision = false;
-			this.StartPrepPhaseEffects();
 		}
-		else if (eventType == GameEventManager.EventType.UIPhaseStartedEvasion)
+		if (eventType == GameEventManager.EventType.UIPhaseStartedEvasion)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_inDecision = false;
+					StartEvasionPhaseEffects();
+					return;
 				}
-				break;
 			}
-			this.m_inDecision = false;
-			this.StartEvasionPhaseEffects();
 		}
-		else if (eventType == GameEventManager.EventType.UIPhaseStartedCombat)
+		if (eventType == GameEventManager.EventType.UIPhaseStartedCombat)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_inDecision = false;
+					StartCombatPhaseEffects();
+					return;
 				}
-				break;
 			}
-			this.m_inDecision = false;
-			this.StartCombatPhaseEffects();
 		}
-		else if (eventType == GameEventManager.EventType.UIPhaseStartedMovement)
+		if (eventType == GameEventManager.EventType.UIPhaseStartedMovement)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
+				{
+				case 0:
+					break;
+				default:
+					m_inDecision = false;
+					StartMovementPhaseEffects();
+					return;
+				}
+			}
+		}
+		if (eventType != GameEventManager.EventType.UIPhaseStartedDecision)
+		{
+			while (true)
+			{
+				switch (1)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			this.m_inDecision = false;
-			this.StartMovementPhaseEffects();
-		}
-		else
-		{
-			if (eventType != GameEventManager.EventType.UIPhaseStartedDecision)
+			if (eventType != GameEventManager.EventType.TurnTick)
 			{
-				for (;;)
+				if (eventType == GameEventManager.EventType.UITutorialHighlightChanged)
 				{
-					switch (1)
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							break;
+						default:
+						{
+							if (m_tutorialGlowOn == null)
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								m_tutorialGlowOn = new Dictionary<AbilityData.ActionType, bool>();
+							}
+							GameEventManager.ActivationInfo activationInfo = (GameEventManager.ActivationInfo)args;
+							if (activationInfo.active)
+							{
+								m_tutorialGlowOn[activationInfo.actionType] = true;
+							}
+							else
+							{
+								m_tutorialGlowOn[activationInfo.actionType] = false;
+							}
+							if (m_inDecision)
+							{
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										break;
+									default:
+										m_markedToRestartDecisionPhaseEffects = true;
+										return;
+									}
+								}
+							}
+							return;
+						}
+						}
+					}
+				}
+				if (eventType != GameEventManager.EventType.GameTeardown)
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (3)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (eventType != GameEventManager.EventType.TurnTick)
-				{
-					if (eventType == GameEventManager.EventType.UITutorialHighlightChanged)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_tutorialGlowOn == null)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_tutorialGlowOn = new Dictionary<AbilityData.ActionType, bool>();
-						}
-						GameEventManager.ActivationInfo activationInfo = (GameEventManager.ActivationInfo)args;
-						if (activationInfo.active)
-						{
-							this.m_tutorialGlowOn[activationInfo.actionType] = true;
-						}
-						else
-						{
-							this.m_tutorialGlowOn[activationInfo.actionType] = false;
-						}
-						if (this.m_inDecision)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_markedToRestartDecisionPhaseEffects = true;
-						}
-						return;
-					}
-					if (eventType == GameEventManager.EventType.GameTeardown)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.StartOutOfGameEffects();
-						return;
-					}
+					StartOutOfGameEffects();
 					return;
 				}
 			}
-			this.m_inDecision = true;
-			this.m_markedToRestartDecisionPhaseEffects = true;
 		}
+		m_inDecision = true;
+		m_markedToRestartDecisionPhaseEffects = true;
 	}
 
 	private void StartPrepPhaseEffects()
 	{
-		Corale.Colore.Core.Color prepPhaseColor = this.m_prepPhaseColor;
-		if (this.m_chromaEnabled[5])
+		Corale.Colore.Core.Color prepPhaseColor = m_prepPhaseColor;
+		if (m_chromaEnabled[5])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -297,9 +302,9 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExternalLighting.StartPrepPhaseEffects()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			try
 			{
@@ -307,10 +312,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[5] = false;
+				m_chromaEnabled[5] = false;
 			}
 		}
-		if (this.m_chromaEnabled[0])
+		if (m_chromaEnabled[0])
 		{
 			try
 			{
@@ -318,12 +323,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[0] = false;
+				m_chromaEnabled[0] = false;
 			}
 		}
-		if (this.m_chromaEnabled[1])
+		if (m_chromaEnabled[1])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -338,12 +343,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[1] = false;
+				m_chromaEnabled[1] = false;
 			}
 		}
-		if (this.m_chromaEnabled[2])
+		if (m_chromaEnabled[2])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -358,12 +363,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[2] = false;
+				m_chromaEnabled[2] = false;
 			}
 		}
-		if (this.m_chromaEnabled[3])
+		if (m_chromaEnabled[3])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -378,12 +383,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[3] = false;
+				m_chromaEnabled[3] = false;
 			}
 		}
-		if (this.m_chromaEnabled[4])
+		if (m_chromaEnabled[4])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -398,28 +403,29 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[4] = false;
+				m_chromaEnabled[4] = false;
 			}
 		}
-		if (this.m_hueEnabled)
+		if (!m_hueEnabled)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.SetHueLightstripColor(new UnityEngine.Color((float)this.m_prepPhaseColor.R, (float)this.m_prepPhaseColor.G, (float)this.m_prepPhaseColor.B));
+			SetHueLightstripColor(new UnityEngine.Color((int)m_prepPhaseColor.R, (int)m_prepPhaseColor.G, (int)m_prepPhaseColor.B));
+			return;
 		}
 	}
 
 	private void StartEvasionPhaseEffects()
 	{
-		Corale.Colore.Core.Color evasionPhaseColor = this.m_evasionPhaseColor;
-		if (this.m_chromaEnabled[5])
+		Corale.Colore.Core.Color evasionPhaseColor = m_evasionPhaseColor;
+		if (m_chromaEnabled[5])
 		{
 			try
 			{
@@ -427,12 +433,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[5] = false;
+				m_chromaEnabled[5] = false;
 			}
 		}
-		if (this.m_chromaEnabled[0])
+		if (m_chromaEnabled[0])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -441,9 +447,9 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExternalLighting.StartEvasionPhaseEffects()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			try
 			{
@@ -451,12 +457,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[0] = false;
+				m_chromaEnabled[0] = false;
 			}
 		}
-		if (this.m_chromaEnabled[1])
+		if (m_chromaEnabled[1])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -471,12 +477,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[1] = false;
+				m_chromaEnabled[1] = false;
 			}
 		}
-		if (this.m_chromaEnabled[2])
+		if (m_chromaEnabled[2])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -491,12 +497,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[2] = false;
+				m_chromaEnabled[2] = false;
 			}
 		}
-		if (this.m_chromaEnabled[3])
+		if (m_chromaEnabled[3])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -511,12 +517,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[3] = false;
+				m_chromaEnabled[3] = false;
 			}
 		}
-		if (this.m_chromaEnabled[4])
+		if (m_chromaEnabled[4])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -531,21 +537,21 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[4] = false;
+				m_chromaEnabled[4] = false;
 			}
 		}
-		if (this.m_hueEnabled)
+		if (m_hueEnabled)
 		{
-			this.SetHueLightstripColor(new UnityEngine.Color((float)this.m_evasionPhaseColor.R, (float)this.m_evasionPhaseColor.G, (float)this.m_evasionPhaseColor.B));
+			SetHueLightstripColor(new UnityEngine.Color((int)m_evasionPhaseColor.R, (int)m_evasionPhaseColor.G, (int)m_evasionPhaseColor.B));
 		}
 	}
 
 	private void StartCombatPhaseEffects()
 	{
-		Corale.Colore.Core.Color combatPhaseColor = this.m_combatPhaseColor;
-		if (this.m_chromaEnabled[5])
+		Corale.Colore.Core.Color combatPhaseColor = m_combatPhaseColor;
+		if (m_chromaEnabled[5])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -554,9 +560,9 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExternalLighting.StartCombatPhaseEffects()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			try
 			{
@@ -564,10 +570,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[5] = false;
+				m_chromaEnabled[5] = false;
 			}
 		}
-		if (this.m_chromaEnabled[0])
+		if (m_chromaEnabled[0])
 		{
 			try
 			{
@@ -575,12 +581,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[0] = false;
+				m_chromaEnabled[0] = false;
 			}
 		}
-		if (this.m_chromaEnabled[1])
+		if (m_chromaEnabled[1])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -595,10 +601,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[1] = false;
+				m_chromaEnabled[1] = false;
 			}
 		}
-		if (this.m_chromaEnabled[2])
+		if (m_chromaEnabled[2])
 		{
 			try
 			{
@@ -606,12 +612,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[2] = false;
+				m_chromaEnabled[2] = false;
 			}
 		}
-		if (this.m_chromaEnabled[3])
+		if (m_chromaEnabled[3])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -626,12 +632,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[3] = false;
+				m_chromaEnabled[3] = false;
 			}
 		}
-		if (this.m_chromaEnabled[4])
+		if (m_chromaEnabled[4])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -646,21 +652,21 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[4] = false;
+				m_chromaEnabled[4] = false;
 			}
 		}
-		if (this.m_hueEnabled)
+		if (m_hueEnabled)
 		{
-			this.SetHueLightstripColor(new UnityEngine.Color((float)this.m_combatPhaseColor.R, (float)this.m_combatPhaseColor.G, (float)this.m_combatPhaseColor.B));
+			SetHueLightstripColor(new UnityEngine.Color((int)m_combatPhaseColor.R, (int)m_combatPhaseColor.G, (int)m_combatPhaseColor.B));
 		}
 	}
 
 	private void StartMovementPhaseEffects()
 	{
-		Corale.Colore.Core.Color movementPhaseColor = this.m_movementPhaseColor;
-		if (this.m_chromaEnabled[5])
+		Corale.Colore.Core.Color movementPhaseColor = m_movementPhaseColor;
+		if (m_chromaEnabled[5])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -669,9 +675,9 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExternalLighting.StartMovementPhaseEffects()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			try
 			{
@@ -679,10 +685,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[5] = false;
+				m_chromaEnabled[5] = false;
 			}
 		}
-		if (this.m_chromaEnabled[0])
+		if (m_chromaEnabled[0])
 		{
 			try
 			{
@@ -690,12 +696,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[0] = false;
+				m_chromaEnabled[0] = false;
 			}
 		}
-		if (this.m_chromaEnabled[1])
+		if (m_chromaEnabled[1])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -710,12 +716,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[1] = false;
+				m_chromaEnabled[1] = false;
 			}
 		}
-		if (this.m_chromaEnabled[2])
+		if (m_chromaEnabled[2])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -730,10 +736,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[2] = false;
+				m_chromaEnabled[2] = false;
 			}
 		}
-		if (this.m_chromaEnabled[3])
+		if (m_chromaEnabled[3])
 		{
 			try
 			{
@@ -741,12 +747,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[3] = false;
+				m_chromaEnabled[3] = false;
 			}
 		}
-		if (this.m_chromaEnabled[4])
+		if (m_chromaEnabled[4])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -761,21 +767,22 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[4] = false;
+				m_chromaEnabled[4] = false;
 			}
 		}
-		if (this.m_hueEnabled)
+		if (!m_hueEnabled)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.SetHueLightstripColor(new UnityEngine.Color((float)this.m_movementPhaseColor.R, (float)this.m_movementPhaseColor.G, (float)this.m_movementPhaseColor.B));
+			SetHueLightstripColor(new UnityEngine.Color((int)m_movementPhaseColor.R, (int)m_movementPhaseColor.G, (int)m_movementPhaseColor.B));
+			return;
 		}
 	}
 
@@ -790,12 +797,13 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			AbilityData.AbilityEntry abilityEntry = component.abilityEntries[(int)actionType];
 			if (abilityEntry != null && abilityEntry.ability != null)
 			{
-				AbilityPriority runPriority = abilityEntry.ability.RunPriority;
-				if (runPriority == AbilityPriority.Prep_Defense || runPriority == AbilityPriority.Prep_Offense)
+				switch (abilityEntry.ability.RunPriority)
 				{
+				case AbilityPriority.Prep_Defense:
+				case AbilityPriority.Prep_Offense:
 					if (!component.ValidateActionIsRequestableDisregardingQueuedActions(actionType))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -804,75 +812,68 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (!true)
+						if (1 == 0)
 						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(ExternalLighting.GetColorForActionType(AbilityData.ActionType, bool)).MethodHandle;
+							/*OpCode not supported: LdMemberToken*/;
 						}
 						if (checkCooldown)
 						{
-							return this.m_blackColor;
+							return m_blackColor;
 						}
 					}
-					return this.m_prepPhaseColor;
-				}
-				if (runPriority == AbilityPriority.Evasion)
-				{
-					for (;;)
+					return m_prepPhaseColor;
+				case AbilityPriority.Evasion:
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!component.ValidateActionIsRequestableDisregardingQueuedActions(actionType) && checkCooldown)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+							if (!component.ValidateActionIsRequestableDisregardingQueuedActions(actionType) && checkCooldown)
+							{
+								while (true)
+								{
+									switch (3)
+									{
+									case 0:
+										break;
+									default:
+										return m_blackColor;
+									}
+								}
+							}
+							return m_evasionPhaseColor;
 						}
-						return this.m_blackColor;
 					}
-					return this.m_evasionPhaseColor;
-				}
-				else
-				{
+				default:
 					if (!component.ValidateActionIsRequestableDisregardingQueuedActions(actionType) && checkCooldown)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return m_blackColor;
 							}
-							break;
 						}
-						return this.m_blackColor;
 					}
-					return this.m_combatPhaseColor;
+					return m_combatPhaseColor;
 				}
 			}
-			else
-			{
-				activeOwnedActorData.QueuedMovementAllowsAbility = queuedMovementAllowsAbility;
-			}
+			activeOwnedActorData.QueuedMovementAllowsAbility = queuedMovementAllowsAbility;
 		}
-		return this.m_blackColor;
+		return m_blackColor;
 	}
 
 	private void StartDecisionPhaseEffects()
 	{
-		Corale.Colore.Core.Color decisionPhaseColor = this.m_decisionPhaseColor;
-		if (this.m_chromaEnabled[5])
+		Corale.Colore.Core.Color decisionPhaseColor = m_decisionPhaseColor;
+		if (m_chromaEnabled[5])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -881,9 +882,9 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExternalLighting.StartDecisionPhaseEffects()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			try
 			{
@@ -891,12 +892,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[5] = false;
+				m_chromaEnabled[5] = false;
 			}
 		}
-		if (this.m_chromaEnabled[0])
+		if (m_chromaEnabled[0])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -911,23 +912,23 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[0] = false;
+				m_chromaEnabled[0] = false;
 			}
 		}
-		if (this.m_chromaEnabled[1])
+		if (m_chromaEnabled[1])
 		{
 			try
 			{
 				bool flag = false;
-				Corale.Colore.Razer.Keyboard.Effects.Custom custom = new Corale.Colore.Razer.Keyboard.Effects.Custom(this.m_blackColor);
-				using (Dictionary<AbilityData.ActionType, bool>.Enumerator enumerator = this.m_tutorialGlowOn.GetEnumerator())
+				Corale.Colore.Razer.Keyboard.Effects.Custom custom = new Corale.Colore.Razer.Keyboard.Effects.Custom(m_blackColor);
+				using (Dictionary<AbilityData.ActionType, bool>.Enumerator enumerator = m_tutorialGlowOn.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						KeyValuePair<AbilityData.ActionType, bool> keyValuePair = enumerator.Current;
-						if (keyValuePair.Value)
+						KeyValuePair<AbilityData.ActionType, bool> current = enumerator.Current;
+						if (current.Value)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -937,9 +938,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 								break;
 							}
 							flag = true;
-							if (keyValuePair.Key == AbilityData.ActionType.ABILITY_0)
+							Key razerKey;
+							if (current.Key == AbilityData.ActionType.ABILITY_0)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (7)
 									{
@@ -948,10 +950,9 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 									}
 									break;
 								}
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Ability1, out key))
+								if (InputManager.Get().GetRazorKey(KeyPreference.Ability1, out razerKey))
 								{
-									for (;;)
+									while (true)
 									{
 										switch (7)
 										{
@@ -960,20 +961,19 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 										}
 										break;
 									}
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
+									custom[razerKey] = GetColorForActionType(current.Key, false);
 								}
 							}
-							else if (keyValuePair.Key == AbilityData.ActionType.ABILITY_1)
+							else if (current.Key == AbilityData.ActionType.ABILITY_1)
 							{
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Ability2, out key))
+								if (InputManager.Get().GetRazorKey(KeyPreference.Ability2, out razerKey))
 								{
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
+									custom[razerKey] = GetColorForActionType(current.Key, false);
 								}
 							}
-							else if (keyValuePair.Key == AbilityData.ActionType.ABILITY_2)
+							else if (current.Key == AbilityData.ActionType.ABILITY_2)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -982,10 +982,9 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 									}
 									break;
 								}
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Ability3, out key))
+								if (InputManager.Get().GetRazorKey(KeyPreference.Ability3, out razerKey))
 								{
-									for (;;)
+									while (true)
 									{
 										switch (5)
 										{
@@ -994,12 +993,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 										}
 										break;
 									}
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
+									custom[razerKey] = GetColorForActionType(current.Key, false);
 								}
 							}
-							else if (keyValuePair.Key == AbilityData.ActionType.ABILITY_3)
+							else if (current.Key == AbilityData.ActionType.ABILITY_3)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -1008,10 +1007,9 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 									}
 									break;
 								}
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Ability4, out key))
+								if (InputManager.Get().GetRazorKey(KeyPreference.Ability4, out razerKey))
 								{
-									for (;;)
+									while (true)
 									{
 										switch (2)
 										{
@@ -1020,15 +1018,14 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 										}
 										break;
 									}
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
+									custom[razerKey] = GetColorForActionType(current.Key, false);
 								}
 							}
-							else if (keyValuePair.Key == AbilityData.ActionType.ABILITY_4)
+							else if (current.Key == AbilityData.ActionType.ABILITY_4)
 							{
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Ability5, out key))
+								if (InputManager.Get().GetRazorKey(KeyPreference.Ability5, out razerKey))
 								{
-									for (;;)
+									while (true)
 									{
 										switch (2)
 										{
@@ -1037,12 +1034,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 										}
 										break;
 									}
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
+									custom[razerKey] = GetColorForActionType(current.Key, false);
 								}
 							}
-							else if (keyValuePair.Key == AbilityData.ActionType.CARD_0)
+							else if (current.Key == AbilityData.ActionType.CARD_0)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
@@ -1051,10 +1048,9 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 									}
 									break;
 								}
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Card1, out key))
+								if (InputManager.Get().GetRazorKey(KeyPreference.Card1, out razerKey))
 								{
-									for (;;)
+									while (true)
 									{
 										switch (2)
 										{
@@ -1063,12 +1059,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 										}
 										break;
 									}
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
+									custom[razerKey] = GetColorForActionType(current.Key, false);
 								}
 							}
-							else if (keyValuePair.Key == AbilityData.ActionType.CARD_1)
+							else if (current.Key == AbilityData.ActionType.CARD_1)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (4)
 									{
@@ -1077,10 +1073,9 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 									}
 									break;
 								}
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Card2, out key))
+								if (InputManager.Get().GetRazorKey(KeyPreference.Card2, out razerKey))
 								{
-									for (;;)
+									while (true)
 									{
 										switch (3)
 										{
@@ -1089,12 +1084,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 										}
 										break;
 									}
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
+									custom[razerKey] = GetColorForActionType(current.Key, false);
 								}
 							}
-							else if (keyValuePair.Key == AbilityData.ActionType.CARD_2)
+							else if (current.Key == AbilityData.ActionType.CARD_2)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (6)
 									{
@@ -1103,10 +1098,9 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 									}
 									break;
 								}
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Card3, out key))
+								if (InputManager.Get().GetRazorKey(KeyPreference.Card3, out razerKey))
 								{
-									for (;;)
+									while (true)
 									{
 										switch (7)
 										{
@@ -1115,12 +1109,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 										}
 										break;
 									}
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
+									custom[razerKey] = GetColorForActionType(current.Key, false);
 								}
 							}
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -1132,7 +1126,7 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 				}
 				if (!flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -1141,11 +1135,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					custom = new Corale.Colore.Razer.Keyboard.Effects.Custom(this.m_decisionPhaseColor);
-					Key key2;
-					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanUp, out key2))
+					custom = new Corale.Colore.Razer.Keyboard.Effects.Custom(m_decisionPhaseColor);
+					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanUp, out Key razerKey2))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -1154,11 +1147,11 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						custom[key2] = this.m_movementPhaseColor;
+						custom[razerKey2] = m_movementPhaseColor;
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanLeft, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanLeft, out razerKey2))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -1167,11 +1160,11 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						custom[key2] = this.m_movementPhaseColor;
+						custom[razerKey2] = m_movementPhaseColor;
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanDown, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanDown, out razerKey2))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -1180,11 +1173,11 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						custom[key2] = this.m_movementPhaseColor;
+						custom[razerKey2] = m_movementPhaseColor;
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanRight, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanRight, out razerKey2))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -1193,11 +1186,11 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						custom[key2] = this.m_movementPhaseColor;
+						custom[razerKey2] = m_movementPhaseColor;
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Ability1, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Ability1, out razerKey2))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -1206,11 +1199,11 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.ABILITY_0, true);
+						custom[razerKey2] = GetColorForActionType(AbilityData.ActionType.ABILITY_0, true);
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Ability2, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Ability2, out razerKey2))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -1219,11 +1212,11 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.ABILITY_1, true);
+						custom[razerKey2] = GetColorForActionType(AbilityData.ActionType.ABILITY_1, true);
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Ability3, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Ability3, out razerKey2))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -1232,11 +1225,11 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.ABILITY_2, true);
+						custom[razerKey2] = GetColorForActionType(AbilityData.ActionType.ABILITY_2, true);
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Ability4, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Ability4, out razerKey2))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -1245,11 +1238,11 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.ABILITY_3, true);
+						custom[razerKey2] = GetColorForActionType(AbilityData.ActionType.ABILITY_3, true);
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Ability5, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Ability5, out razerKey2))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -1258,11 +1251,11 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.ABILITY_4, true);
+						custom[razerKey2] = GetColorForActionType(AbilityData.ActionType.ABILITY_4, true);
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Card1, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Card1, out razerKey2))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -1271,11 +1264,11 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.CARD_0, true);
+						custom[razerKey2] = GetColorForActionType(AbilityData.ActionType.CARD_0, true);
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Card2, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Card2, out razerKey2))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -1284,11 +1277,11 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.CARD_1, true);
+						custom[razerKey2] = GetColorForActionType(AbilityData.ActionType.CARD_1, true);
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Card3, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Card3, out razerKey2))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -1297,19 +1290,19 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.CARD_2, true);
+						custom[razerKey2] = GetColorForActionType(AbilityData.ActionType.CARD_2, true);
 					}
 				}
 				Keyboard.Instance.SetCustom(custom);
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[1] = false;
+				m_chromaEnabled[1] = false;
 			}
 		}
-		if (this.m_chromaEnabled[2])
+		if (m_chromaEnabled[2])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1324,12 +1317,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[2] = false;
+				m_chromaEnabled[2] = false;
 			}
 		}
-		if (this.m_chromaEnabled[3])
+		if (m_chromaEnabled[3])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1344,10 +1337,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[3] = false;
+				m_chromaEnabled[3] = false;
 			}
 		}
-		if (this.m_chromaEnabled[4])
+		if (m_chromaEnabled[4])
 		{
 			try
 			{
@@ -1355,30 +1348,31 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[4] = false;
+				m_chromaEnabled[4] = false;
 			}
 		}
-		if (this.m_hueEnabled)
+		if (!m_hueEnabled)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.SetHueLightstripColor(new UnityEngine.Color((float)this.m_decisionPhaseColor.R, (float)this.m_decisionPhaseColor.G, (float)this.m_decisionPhaseColor.B));
+			SetHueLightstripColor(new UnityEngine.Color((int)m_decisionPhaseColor.R, (int)m_decisionPhaseColor.G, (int)m_decisionPhaseColor.B));
+			return;
 		}
 	}
 
 	private void StartOutOfGameEffects()
 	{
-		Corale.Colore.Core.Color decisionPhaseColor = this.m_decisionPhaseColor;
-		if (this.m_chromaEnabled[5])
+		Corale.Colore.Core.Color decisionPhaseColor = m_decisionPhaseColor;
+		if (m_chromaEnabled[5])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1387,9 +1381,9 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExternalLighting.StartOutOfGameEffects()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			try
 			{
@@ -1397,12 +1391,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[5] = false;
+				m_chromaEnabled[5] = false;
 			}
 		}
-		if (this.m_chromaEnabled[0])
+		if (m_chromaEnabled[0])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1417,12 +1411,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[0] = false;
+				m_chromaEnabled[0] = false;
 			}
 		}
-		if (this.m_chromaEnabled[1])
+		if (m_chromaEnabled[1])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1437,10 +1431,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[1] = false;
+				m_chromaEnabled[1] = false;
 			}
 		}
-		if (this.m_chromaEnabled[2])
+		if (m_chromaEnabled[2])
 		{
 			try
 			{
@@ -1448,10 +1442,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[2] = false;
+				m_chromaEnabled[2] = false;
 			}
 		}
-		if (this.m_chromaEnabled[3])
+		if (m_chromaEnabled[3])
 		{
 			try
 			{
@@ -1459,12 +1453,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[3] = false;
+				m_chromaEnabled[3] = false;
 			}
 		}
-		if (this.m_chromaEnabled[4])
+		if (m_chromaEnabled[4])
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1479,21 +1473,22 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[4] = false;
+				m_chromaEnabled[4] = false;
 			}
 		}
-		if (this.m_hueEnabled)
+		if (!m_hueEnabled)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.SetHueLightstripColor(new UnityEngine.Color((float)this.m_decisionPhaseColor.R, (float)this.m_decisionPhaseColor.G, (float)this.m_decisionPhaseColor.B));
+			SetHueLightstripColor(new UnityEngine.Color((int)m_decisionPhaseColor.R, (int)m_decisionPhaseColor.G, (int)m_decisionPhaseColor.B));
+			return;
 		}
 	}
 
@@ -1502,11 +1497,11 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 		float num = Mathf.Max(rgb.r, Mathf.Max(rgb.g, rgb.b));
 		float num2 = Mathf.Min(rgb.r, Mathf.Min(rgb.g, rgb.b));
 		float z = num;
-		float num3;
 		float y;
+		float num3;
 		if (num == num2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1515,9 +1510,9 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExternalLighting.HSVFromRGB(UnityEngine.Color)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num3 = 0f;
 			y = 0f;
@@ -1527,7 +1522,7 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			float num4 = num - num2;
 			if (num == rgb.r)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -1540,7 +1535,7 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			else if (num == rgb.g)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1567,15 +1562,15 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 
 	private void SetHueLightstripColor(UnityEngine.Color newColor)
 	{
-		HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this.m_hueHubAddress + this.m_hueURL);
+		HttpWebRequest request = (HttpWebRequest)WebRequest.Create(m_hueHubAddress + m_hueURL);
 		request.Method = "PUT";
-		Vector3 vector = ExternalLighting.HSVFromRGB(newColor);
+		Vector3 vector = HSVFromRGB(newColor);
 		int value = (int)(vector.x / 360f * 65535f);
 		int value2 = (int)(vector.y * 255f);
 		int value3 = (int)vector.z;
 		if (newColor.r == 255f && newColor.g == 255f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1584,13 +1579,13 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExternalLighting.SetHueLightstripColor(UnityEngine.Color)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (newColor.b == 255f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1599,15 +1594,15 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				value = 0x9B3E;
-				value2 = 0x6F;
-				value3 = 0xFE;
-				goto IL_121;
+				value = 39742;
+				value2 = 111;
+				value3 = 254;
+				goto IL_0121;
 			}
 		}
 		if (vector.x == 60f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1618,7 +1613,7 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			if (vector.y == 1f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1629,7 +1624,7 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 				}
 				if (vector.z == 255f)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -1638,16 +1633,17 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					value = 0x445C;
-					value2 = 0x64;
-					value3 = 0xFE;
+					value = 17500;
+					value2 = 100;
+					value3 = 254;
 				}
 			}
 		}
-		IL_121:
-		string s = string.Format("{{\"on\":true, \"transitiontime\":0, \"sat\":{0}, \"bri\":{1},\"hue\":{2}}}", Convert.ToString(value2), Convert.ToString(value3), Convert.ToString(value));
+		goto IL_0121;
+		IL_0121:
+		string s = $"{{\"on\":true, \"transitiontime\":0, \"sat\":{Convert.ToString(value2)}, \"bri\":{Convert.ToString(value3)},\"hue\":{Convert.ToString(value)}}}";
 		byte[] bytes = Encoding.ASCII.GetBytes(s);
-		request.ContentLength = (long)bytes.Length;
+		request.ContentLength = bytes.Length;
 		request.BeginGetRequestStream(delegate(IAsyncResult ar)
 		{
 			Stream stream = request.EndGetRequestStream(ar);

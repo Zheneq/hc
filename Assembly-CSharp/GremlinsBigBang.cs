@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,14 +22,14 @@ public class GremlinsBigBang : Ability
 
 	public AbilityMod_GremlinsBigBang GetMod()
 	{
-		return this.m_abilityMod;
+		return m_abilityMod;
 	}
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -39,102 +38,100 @@ public class GremlinsBigBang : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBigBang.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Big Bang";
+			m_abilityName = "Big Bang";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	protected void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_KnockbackRingAOE_SingleTargetBoost(this, this.ModdedBombShape(), this.m_bombPenetrateLineOfSight, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Never, AbilityUtil_Targeter.AffectsActor.Possible, this.ModdedKnockbackShape(), this.GetKnockbackDistance(), this.m_knockbackType, false, true, this.ModdedKnockbackDistanceForSingleTarget());
+		base.Targeter = new AbilityUtil_Targeter_KnockbackRingAOE_SingleTargetBoost(this, ModdedBombShape(), m_bombPenetrateLineOfSight, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Never, AbilityUtil_Targeter.AffectsActor.Possible, ModdedKnockbackShape(), GetKnockbackDistance(), m_knockbackType, false, true, ModdedKnockbackDistanceForSingleTarget());
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_GremlinsBigBang))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_abilityMod = (abilityMod as AbilityMod_GremlinsBigBang);
+					SetupTargeter();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBigBang.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_GremlinsBigBang);
-			this.SetupTargeter();
 		}
-		else
-		{
-			Debug.LogError("Trying to apply wrong type of ability mod");
-		}
+		Debug.LogError("Trying to apply wrong type of ability mod");
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	private AbilityAreaShape ModdedBombShape()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_abilityMod.m_bombShape.GetModifiedValue(m_bombShape);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBigBang.ModdedBombShape()).MethodHandle;
-			}
-			return this.m_abilityMod.m_bombShape.GetModifiedValue(this.m_bombShape);
 		}
-		return this.m_bombShape;
+		return m_bombShape;
 	}
 
 	private AbilityAreaShape ModdedKnockbackShape()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_abilityMod.m_knockbackShape.GetModifiedValue(m_knockbackShape);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBigBang.ModdedKnockbackShape()).MethodHandle;
-			}
-			return this.m_abilityMod.m_knockbackShape.GetModifiedValue(this.m_knockbackShape);
 		}
-		return this.m_knockbackShape;
+		return m_knockbackShape;
 	}
 
 	public float GetKnockbackDistance()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -143,76 +140,76 @@ public class GremlinsBigBang : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBigBang.GetKnockbackDistance()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(this.m_knockbackDistance);
+			result = m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
 		}
 		else
 		{
-			result = this.m_knockbackDistance;
+			result = m_knockbackDistance;
 		}
 		return result;
 	}
 
 	private int ModdedExtraDamagePerTarget()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_abilityMod.m_extraDamagePerTarget.GetModifiedValue(0);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBigBang.ModdedExtraDamagePerTarget()).MethodHandle;
-			}
-			return this.m_abilityMod.m_extraDamagePerTarget.GetModifiedValue(0);
 		}
 		return 0;
 	}
 
 	private int ModdedDamageForSingleTarget()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			return this.m_abilityMod.m_damageIfSingleTarget.GetModifiedValue(this.m_bombDamageAmount);
+			return m_abilityMod.m_damageIfSingleTarget.GetModifiedValue(m_bombDamageAmount);
 		}
-		return this.m_bombDamageAmount;
+		return m_bombDamageAmount;
 	}
 
 	private float ModdedKnockbackDistanceForSingleTarget()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			return this.m_abilityMod.m_knockbackDistanceIfSingleTarget.GetModifiedValue(this.GetKnockbackDistance());
+			return m_abilityMod.m_knockbackDistanceIfSingleTarget.GetModifiedValue(GetKnockbackDistance());
 		}
-		return this.GetKnockbackDistance();
+		return GetKnockbackDistance();
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.m_bombDamageAmount);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, m_bombDamageAmount);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeter.GetActorsInRange();
 		int num = 0;
-		foreach (AbilityUtil_Targeter.ActorTarget actorTarget in actorsInRange)
+		foreach (AbilityUtil_Targeter.ActorTarget item in actorsInRange)
 		{
-			if (actorTarget.m_actor.\u0018())
+			if (item.m_actor.IsVisibleToClient())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -221,18 +218,18 @@ public class GremlinsBigBang : Ability
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBigBang.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				num++;
 			}
 		}
-		int num2 = (num - 1) * this.ModdedExtraDamagePerTarget();
-		int num3 = this.m_bombDamageAmount;
+		int num2 = (num - 1) * ModdedExtraDamagePerTarget();
+		int num3 = m_bombDamageAmount;
 		if (num == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -241,14 +238,14 @@ public class GremlinsBigBang : Ability
 				}
 				break;
 			}
-			num3 = this.ModdedDamageForSingleTarget();
+			num3 = ModdedDamageForSingleTarget();
 		}
-		Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, num3 + num2, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
-		return result;
+		Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, num3 + num2);
+		return symbolToValue;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "Damage", string.Empty, this.m_bombDamageAmount, false);
+		AddTokenInt(tokens, "Damage", string.Empty, m_bombDamageAmount);
 	}
 }

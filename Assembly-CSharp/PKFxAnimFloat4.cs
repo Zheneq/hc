@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PKFxFX))]
@@ -12,8 +11,8 @@ public class PKFxAnimFloat4 : MonoBehaviour
 
 	private void Start()
 	{
-		this.fx = base.GetComponent<PKFxFX>();
-		if (this.fx == null)
+		fx = GetComponent<PKFxFX>();
+		if (fx == null)
 		{
 			base.enabled = false;
 		}
@@ -21,6 +20,6 @@ public class PKFxAnimFloat4 : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		this.fx.SetAttribute(new PKFxManager.Attribute(this.propertyName, this.value));
+		fx.SetAttribute(new PKFxManager.Attribute(propertyName, value));
 	}
 }

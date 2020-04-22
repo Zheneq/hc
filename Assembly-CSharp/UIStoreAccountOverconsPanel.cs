@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
@@ -9,12 +9,10 @@ public class UIStoreAccountOverconsPanel : UIStoreBaseInventoryPanel
 	protected new void Start()
 	{
 		base.Start();
-		UITooltipHoverObject component = this.m_ownedToggle.GetComponent<UITooltipHoverObject>();
-		UITooltipObject uitooltipObject = component;
-		TooltipType tooltipType = TooltipType.Simple;
-		if (UIStoreAccountOverconsPanel.<>f__am$cache0 == null)
+		UITooltipHoverObject component = m_ownedToggle.GetComponent<UITooltipHoverObject>();
+		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -23,35 +21,35 @@ public class UIStoreAccountOverconsPanel : UIStoreBaseInventoryPanel
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountOverconsPanel.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIStoreAccountOverconsPanel.<>f__am$cache0 = delegate(UITooltipBase tooltip)
+			_003C_003Ef__am_0024cache0 = delegate(UITooltipBase tooltip)
 			{
-				UISimpleTooltip uisimpleTooltip = (UISimpleTooltip)tooltip;
-				uisimpleTooltip.Setup(StringUtil.TR("Owned", "Store"));
+				UISimpleTooltip uISimpleTooltip = (UISimpleTooltip)tooltip;
+				uISimpleTooltip.Setup(StringUtil.TR("Owned", "Store"));
 				return true;
 			};
 		}
-		uitooltipObject.Setup(tooltipType, UIStoreAccountOverconsPanel.<>f__am$cache0, null);
+		component.Setup(TooltipType.Simple, _003C_003Ef__am_0024cache0);
 	}
 
 	protected override GameBalanceVars.PlayerUnlockable[] GetRawItemsList()
 	{
 		List<GameBalanceVars.PlayerUnlockable> list = new List<GameBalanceVars.PlayerUnlockable>();
-		foreach (UIOverconData.NameToOverconEntry nameToOverconEntry in UIOverconData.Get().m_nameToOverconEntry)
+		foreach (UIOverconData.NameToOverconEntry item in UIOverconData.Get().m_nameToOverconEntry)
 		{
-			list.Add(nameToOverconEntry.CreateUnlockDataEntry());
+			list.Add(item.CreateUnlockDataEntry());
 		}
-		return base.SortItems(list).ToArray();
+		return SortItems(list).ToArray();
 	}
 
 	protected override Toggle[] GetFilters()
 	{
-		return new Toggle[]
+		return new Toggle[1]
 		{
-			this.m_ownedToggle
+			m_ownedToggle
 		};
 	}
 
@@ -62,9 +60,9 @@ public class UIStoreAccountOverconsPanel : UIStoreBaseInventoryPanel
 
 	protected override bool ShouldFilter(GameBalanceVars.PlayerUnlockable item)
 	{
-		if (this.m_ownedToggle.isOn)
+		if (m_ownedToggle.isOn)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -73,9 +71,9 @@ public class UIStoreAccountOverconsPanel : UIStoreBaseInventoryPanel
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountOverconsPanel.ShouldFilter(GameBalanceVars.PlayerUnlockable)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (ClientGameManager.Get() == null || !ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
@@ -83,16 +81,16 @@ public class UIStoreAccountOverconsPanel : UIStoreBaseInventoryPanel
 			}
 			if (!ClientGameManager.Get().GetPlayerAccountData().AccountComponent.IsOverconUnlocked(item.ID))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return true;
 					}
-					break;
 				}
-				return true;
 			}
 		}
 		return false;
@@ -100,79 +98,79 @@ public class UIStoreAccountOverconsPanel : UIStoreBaseInventoryPanel
 
 	public override TooltipType? GetItemTooltipType()
 	{
-		return new TooltipType?(TooltipType.Titled);
+		return TooltipType.Titled;
 	}
 
 	public override bool ItemTooltipPopulate(UITooltipBase tooltip, UIStoreItemBtn slot, GameBalanceVars.PlayerUnlockable item)
 	{
 		UIOverconData.NameToOverconEntry nameToOverconEntry = null;
-		int i = 0;
-		while (i < UIOverconData.Get().m_nameToOverconEntry.Count)
+		int num = 0;
+		while (true)
 		{
-			if (UIOverconData.Get().m_nameToOverconEntry[i].m_overconId == item.ID)
+			if (num < UIOverconData.Get().m_nameToOverconEntry.Count)
 			{
-				nameToOverconEntry = UIOverconData.Get().m_nameToOverconEntry[i];
-				IL_63:
-				if (nameToOverconEntry == null)
+				if (UIOverconData.Get().m_nameToOverconEntry[num].m_overconId == item.ID)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return false;
+					nameToOverconEntry = UIOverconData.Get().m_nameToOverconEntry[num];
+					break;
 				}
-				string text = StringUtil.TR("/overcon", "SlashCommand") + " " + nameToOverconEntry.GetCommandName();
-				string text2 = nameToOverconEntry.GetObtainedDescription().Trim();
-				if (!text2.IsNullOrEmpty())
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					text = text + Environment.NewLine + text2;
-				}
-				UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-				uititledTooltip.Setup(nameToOverconEntry.GetDisplayName(), text, string.Empty);
-				return true;
-			}
-			else
-			{
-				i++;
-			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
+				num++;
 				continue;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			break;
 		}
-		if (!true)
+		if (nameToOverconEntry == null)
 		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountOverconsPanel.ItemTooltipPopulate(UITooltipBase, UIStoreItemBtn, GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			goto IL_63;
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					break;
+				default:
+					return false;
+				}
+			}
 		}
-		goto IL_63;
+		string text = StringUtil.TR("/overcon", "SlashCommand") + " " + nameToOverconEntry.GetCommandName();
+		string text2 = nameToOverconEntry.GetObtainedDescription().Trim();
+		if (!text2.IsNullOrEmpty())
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			text = text + Environment.NewLine + text2;
+		}
+		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+		uITitledTooltip.Setup(nameToOverconEntry.GetDisplayName(), text, string.Empty);
+		return true;
 	}
 
 	protected override void PurchaseItem(GameBalanceVars.PlayerUnlockable item, CurrencyType type)
 	{
-		UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
-		uipurchaseableItem.m_itemType = PurchaseItemType.Overcon;
-		uipurchaseableItem.m_overconID = item.ID;
-		uipurchaseableItem.m_currencyType = type;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+		uIPurchaseableItem.m_itemType = PurchaseItemType.Overcon;
+		uIPurchaseableItem.m_overconID = item.ID;
+		uIPurchaseableItem.m_currencyType = type;
+		UIStorePanel.Get().OpenPurchaseDialog(uIPurchaseableItem);
 	}
 }

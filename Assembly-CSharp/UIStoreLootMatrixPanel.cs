@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class UIStoreLootMatrixPanel : UICashShopPanelBase
@@ -7,42 +7,37 @@ public class UIStoreLootMatrixPanel : UICashShopPanelBase
 
 	protected override UIPurchaseableItem[] GetPurchasableItems()
 	{
-		this.m_nextExpireDateTime = DateTime.MaxValue;
+		m_nextExpireDateTime = DateTime.MaxValue;
 		DateTime lastPacificTimePriceRequestWithServerTimeOffset = CommerceClient.Get().LastPacificTimePriceRequestWithServerTimeOffset;
 		List<UIPurchaseableItem> list = new List<UIPurchaseableItem>();
 		LootMatrixPack[] lootMatrixPacks = GameWideData.Get().m_lootMatrixPackData.m_lootMatrixPacks;
-		int i = 0;
-		while (i < lootMatrixPacks.Length)
+		for (int i = 0; i < lootMatrixPacks.Length; i++)
 		{
 			LootMatrixPack lootMatrixPack = lootMatrixPacks[i];
 			bool flag = lootMatrixPack.IsInEvent();
-			if (!flag)
+			if (flag)
 			{
-				goto IL_65;
-			}
-			if (!lootMatrixPack.EventHidden)
-			{
-				goto IL_7C;
-			}
-			for (;;)
-			{
-				switch (7)
+				if (!lootMatrixPack.EventHidden)
 				{
-				case 0:
-					continue;
+					goto IL_007c;
 				}
-				break;
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
 			}
-			if (!true)
+			if (!flag && !lootMatrixPack.NonEventHidden)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreLootMatrixPanel.GetPurchasableItems()).MethodHandle;
-				goto IL_65;
-			}
-			goto IL_65;
-			IL_C2:
-			if (lootMatrixPack.NonEventHidden == lootMatrixPack.EventHidden)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -51,138 +46,132 @@ public class UIStoreLootMatrixPanel : UICashShopPanelBase
 					}
 					break;
 				}
+				goto IL_007c;
+			}
+			goto IL_00c2;
+			IL_00c2:
+			if (lootMatrixPack.NonEventHidden == lootMatrixPack.EventHidden)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				continue;
+			}
+			DateTime dateTime;
+			if (flag)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (lootMatrixPack.EventEndPacific.IsNullOrEmpty())
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					continue;
+				}
+				dateTime = Convert.ToDateTime(lootMatrixPack.EventEndPacific);
 			}
 			else
 			{
-				DateTime dateTime;
-				if (flag)
+				if (lootMatrixPack.EventStartPacific.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (lootMatrixPack.EventEndPacific.IsNullOrEmpty())
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						goto IL_16C;
-					}
-					dateTime = Convert.ToDateTime(lootMatrixPack.EventEndPacific);
-				}
-				else
-				{
-					if (lootMatrixPack.EventStartPacific.IsNullOrEmpty())
-					{
-						goto IL_16C;
-					}
-					dateTime = Convert.ToDateTime(lootMatrixPack.EventStartPacific);
-				}
-				if (dateTime > lastPacificTimePriceRequestWithServerTimeOffset)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (dateTime < this.m_nextExpireDateTime)
-					{
-						this.m_nextExpireDateTime = dateTime;
-					}
-				}
-			}
-			IL_16C:
-			i++;
-			continue;
-			IL_65:
-			if (flag || lootMatrixPack.NonEventHidden)
-			{
-				goto IL_C2;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
 					continue;
 				}
-				break;
+				dateTime = Convert.ToDateTime(lootMatrixPack.EventStartPacific);
 			}
-			IL_7C:
+			if (dateTime > lastPacificTimePriceRequestWithServerTimeOffset)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (dateTime < m_nextExpireDateTime)
+				{
+					m_nextExpireDateTime = dateTime;
+				}
+			}
+			continue;
+			IL_007c:
 			if (!lootMatrixPack.IsBundle)
 			{
-				list.Add(new UIPurchaseableItem
-				{
-					m_purchaseForCash = true,
-					m_itemType = PurchaseItemType.LootMatrixPack,
-					m_lootMatrixPack = lootMatrixPack,
-					m_sortOrder = lootMatrixPack.SortOrder * lootMatrixPacks.Length + i
-				});
-				goto IL_C2;
+				UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+				uIPurchaseableItem.m_purchaseForCash = true;
+				uIPurchaseableItem.m_itemType = PurchaseItemType.LootMatrixPack;
+				uIPurchaseableItem.m_lootMatrixPack = lootMatrixPack;
+				uIPurchaseableItem.m_sortOrder = lootMatrixPack.SortOrder * lootMatrixPacks.Length + i;
+				list.Add(uIPurchaseableItem);
 			}
-			goto IL_C2;
+			goto IL_00c2;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		List<UIPurchaseableItem> list2 = list;
-		if (UIStoreLootMatrixPanel.<>f__am$cache0 == null)
-		{
-			for (;;)
+			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
 				}
-				break;
+				_003C_003Ef__am_0024cache0 = ((UIPurchaseableItem a, UIPurchaseableItem b) => a.m_sortOrder - b.m_sortOrder);
 			}
-			UIStoreLootMatrixPanel.<>f__am$cache0 = ((UIPurchaseableItem a, UIPurchaseableItem b) => a.m_sortOrder - b.m_sortOrder);
+			list.Sort(_003C_003Ef__am_0024cache0);
+			return list.ToArray();
 		}
-		list2.Sort(UIStoreLootMatrixPanel.<>f__am$cache0);
-		return list.ToArray();
 	}
 
 	private void Update()
 	{
 		DateTime lastPacificTimePriceRequestWithServerTimeOffset = CommerceClient.Get().LastPacificTimePriceRequestWithServerTimeOffset;
-		if (lastPacificTimePriceRequestWithServerTimeOffset >= this.m_nextExpireDateTime)
+		if (!(lastPacificTimePriceRequestWithServerTimeOffset >= m_nextExpireDateTime))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreLootMatrixPanel.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			base.Reinitialize();
+			Reinitialize();
+			return;
 		}
 	}
 }

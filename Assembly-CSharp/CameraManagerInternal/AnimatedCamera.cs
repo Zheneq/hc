@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 namespace CameraManagerInternal
@@ -9,28 +8,29 @@ namespace CameraManagerInternal
 
 		public void SetAnimator(GameObject animatorObject)
 		{
-			this.m_animatorObject = animatorObject;
+			m_animatorObject = animatorObject;
 		}
 
 		private void LateUpdate()
 		{
-			if (this.m_animatorObject != null)
+			if (!(m_animatorObject != null))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AnimatedCamera.LateUpdate()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				base.transform.position = this.m_animatorObject.transform.position;
-				base.transform.rotation = this.m_animatorObject.transform.rotation * Quaternion.Euler(0f, 180f, 0f);
+				base.transform.position = m_animatorObject.transform.position;
+				base.transform.rotation = m_animatorObject.transform.rotation * Quaternion.Euler(0f, 180f, 0f);
+				return;
 			}
 		}
 	}

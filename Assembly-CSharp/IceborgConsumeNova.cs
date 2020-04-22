@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class IceborgConsumeNova : GenericAbility_Container
 {
 	[Separator("Shield Gain", true)]
-	public int m_shieldGainBase = 0xA;
+	public int m_shieldGainBase = 10;
 
-	public int m_shieldGainPerNova = 0xA;
+	public int m_shieldGainPerNova = 10;
 
 	[Header("-- Shield effect data, shield amount will be set by ability")]
 	public StandardActorEffectData m_shieldEffectData;
@@ -17,7 +16,7 @@ public class IceborgConsumeNova : GenericAbility_Container
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
+		m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		base.SetupTargetersAndCachedVars();
 	}
 
@@ -28,25 +27,25 @@ public class IceborgConsumeNova : GenericAbility_Container
 
 	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
 	{
-		if (targetActor == caster)
+		if (!(targetActor == caster))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgConsumeNova.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			int numNovaEffects = 0;
-			if (this.m_syncComp != null)
+			if (m_syncComp != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -55,23 +54,23 @@ public class IceborgConsumeNova : GenericAbility_Container
 					}
 					break;
 				}
-				numNovaEffects = (int)this.m_syncComp.m_numNovaEffectsOnTurnStart;
+				numNovaEffects = m_syncComp.m_numNovaEffectsOnTurnStart;
 			}
-			int absorb = this.CalcTotalShields(numNovaEffects);
-			results.m_absorb = absorb;
+			int num = results.m_absorb = CalcTotalShields(numNovaEffects);
+			return;
 		}
 	}
 
 	private int CalcTotalShields(int numNovaEffects)
 	{
 		int num = 0;
-		if (this.m_shieldGainBase > 0)
+		if (m_shieldGainBase > 0)
 		{
-			num += this.m_shieldGainBase;
+			num += m_shieldGainBase;
 		}
-		if (this.m_shieldGainPerNova > 0)
+		if (m_shieldGainPerNova > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -80,11 +79,11 @@ public class IceborgConsumeNova : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgConsumeNova.CalcTotalShields(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num += numNovaEffects * this.m_shieldGainPerNova;
+			num += numNovaEffects * m_shieldGainPerNova;
 		}
 		return num;
 	}

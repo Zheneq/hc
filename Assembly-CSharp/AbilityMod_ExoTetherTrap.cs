@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,47 +38,46 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ExoTetherTrap exoTetherTrap = targetAbility as ExoTetherTrap;
-		if (exoTetherTrap != null)
+		if (!(exoTetherTrap != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ExoTetherTrap.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, exoTetherTrap.m_laserDamageAmount, true, false);
-			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "LaserInfo", exoTetherTrap.m_laserInfo, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_baseEffectDataMod, "BaseEffectData", exoTetherTrap.m_baseEffectData, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_laserOnHitEffectMod, "LaserOnHitEffect", exoTetherTrap.m_laserOnHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_tetherDistanceMod, "TetherDistance", string.Empty, exoTetherTrap.m_tetherDistance, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_tetherBreakDamageMod, "TetherBreakDamage", string.Empty, exoTetherTrap.m_tetherBreakDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_tetherBreakEffectMod, "TetherBreakEffect", exoTetherTrap.m_tetherBreakEffect, true);
-			AbilityMod.AddToken(tokens, this.m_extraDamagePerMoveDistMod, "ExtraDamagePerMoveDist", string.Empty, exoTetherTrap.m_extraDamagePerMoveDist, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxExtraDamageFromMoveDistMod, "MaxExtraDamageFromMoveDist", string.Empty, exoTetherTrap.m_maxExtraDamageFromMoveDist, true, false);
-			AbilityMod.AddToken(tokens, this.m_cdrOnTetherEndIfNotTriggeredMod, "CdrOnTetherEndIfNotTriggered", string.Empty, exoTetherTrap.m_cdrOnTetherEndIfNotTriggered, true, false);
+			AbilityMod.AddToken(tokens, m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, exoTetherTrap.m_laserDamageAmount);
+			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", exoTetherTrap.m_laserInfo);
+			AbilityMod.AddToken_EffectMod(tokens, m_baseEffectDataMod, "BaseEffectData", exoTetherTrap.m_baseEffectData);
+			AbilityMod.AddToken_EffectMod(tokens, m_laserOnHitEffectMod, "LaserOnHitEffect", exoTetherTrap.m_laserOnHitEffect);
+			AbilityMod.AddToken(tokens, m_tetherDistanceMod, "TetherDistance", string.Empty, exoTetherTrap.m_tetherDistance);
+			AbilityMod.AddToken(tokens, m_tetherBreakDamageMod, "TetherBreakDamage", string.Empty, exoTetherTrap.m_tetherBreakDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_tetherBreakEffectMod, "TetherBreakEffect", exoTetherTrap.m_tetherBreakEffect);
+			AbilityMod.AddToken(tokens, m_extraDamagePerMoveDistMod, "ExtraDamagePerMoveDist", string.Empty, exoTetherTrap.m_extraDamagePerMoveDist);
+			AbilityMod.AddToken(tokens, m_maxExtraDamageFromMoveDistMod, "MaxExtraDamageFromMoveDist", string.Empty, exoTetherTrap.m_maxExtraDamageFromMoveDist);
+			AbilityMod.AddToken(tokens, m_cdrOnTetherEndIfNotTriggeredMod, "CdrOnTetherEndIfNotTriggered", string.Empty, exoTetherTrap.m_cdrOnTetherEndIfNotTriggered);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ExoTetherTrap exoTetherTrap = base.GetTargetAbilityOnAbilityData(abilityData) as ExoTetherTrap;
+		ExoTetherTrap exoTetherTrap = GetTargetAbilityOnAbilityData(abilityData) as ExoTetherTrap;
 		bool flag = exoTetherTrap != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt laserDamageAmountMod = this.m_laserDamageAmountMod;
-		string prefix = "[LaserDamageAmount]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt laserDamageAmountMod = m_laserDamageAmountMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -87,9 +86,9 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ExoTetherTrap.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = exoTetherTrap.m_laserDamageAmount;
 		}
@@ -97,15 +96,13 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + base.PropDesc(laserDamageAmountMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyLaserInfo laserInfoMod = this.m_laserInfoMod;
-		string prefix2 = "[LaserInfo]";
-		bool showBaseVal2 = flag;
-		LaserTargetingInfo baseLaserInfo;
+		empty = str + PropDesc(laserDamageAmountMod, "[LaserDamageAmount]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyLaserInfo laserInfoMod = m_laserInfoMod;
+		object baseLaserInfo;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -120,15 +117,13 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		{
 			baseLaserInfo = null;
 		}
-		text = str2 + base.PropDesc(laserInfoMod, prefix2, showBaseVal2, baseLaserInfo);
-		string str3 = text;
-		AbilityModPropertyEffectData baseEffectDataMod = this.m_baseEffectDataMod;
-		string prefix3 = "[TetherBaseEffectData]";
-		bool showBaseVal3 = flag;
-		StandardActorEffectData baseVal2;
+		empty = str2 + PropDesc(laserInfoMod, "[LaserInfo]", flag, (LaserTargetingInfo)baseLaserInfo);
+		string str3 = empty;
+		AbilityModPropertyEffectData baseEffectDataMod = m_baseEffectDataMod;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -143,16 +138,14 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		{
 			baseVal2 = null;
 		}
-		text = str3 + base.PropDesc(baseEffectDataMod, prefix3, showBaseVal3, baseVal2);
-		text += base.PropDesc(this.m_laserOnHitEffectMod, "[LaserOnHitEffect]", flag, (!flag) ? null : exoTetherTrap.m_laserOnHitEffect);
-		string str4 = text;
-		AbilityModPropertyFloat tetherDistanceMod = this.m_tetherDistanceMod;
-		string prefix4 = "[TetherDistance]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(baseEffectDataMod, "[TetherBaseEffectData]", flag, (StandardActorEffectData)baseVal2);
+		empty += PropDesc(m_laserOnHitEffectMod, "[LaserOnHitEffect]", flag, (!flag) ? null : exoTetherTrap.m_laserOnHitEffect);
+		string str4 = empty;
+		AbilityModPropertyFloat tetherDistanceMod = m_tetherDistanceMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -167,15 +160,13 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str4 + base.PropDesc(tetherDistanceMod, prefix4, showBaseVal4, baseVal3);
-		string str5 = text;
-		AbilityModPropertyInt tetherBreakDamageMod = this.m_tetherBreakDamageMod;
-		string prefix5 = "[TetherBreakDamage]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(tetherDistanceMod, "[TetherDistance]", flag, baseVal3);
+		string str5 = empty;
+		AbilityModPropertyInt tetherBreakDamageMod = m_tetherBreakDamageMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -190,15 +181,13 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str5 + base.PropDesc(tetherBreakDamageMod, prefix5, showBaseVal5, baseVal4);
-		string str6 = text;
-		AbilityModPropertyEffectInfo tetherBreakEffectMod = this.m_tetherBreakEffectMod;
-		string prefix6 = "[TetherBreakEffect]";
-		bool showBaseVal6 = flag;
-		StandardEffectInfo baseVal5;
+		empty = str5 + PropDesc(tetherBreakDamageMod, "[TetherBreakDamage]", flag, baseVal4);
+		string str6 = empty;
+		AbilityModPropertyEffectInfo tetherBreakEffectMod = m_tetherBreakEffectMod;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -213,15 +202,13 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		{
 			baseVal5 = null;
 		}
-		text = str6 + base.PropDesc(tetherBreakEffectMod, prefix6, showBaseVal6, baseVal5);
-		string str7 = text;
-		AbilityModPropertyBool breakTetherOnNonGroundBasedMovementMod = this.m_breakTetherOnNonGroundBasedMovementMod;
-		string prefix7 = "[BreakTetherOnNonGroundBasedMovement]";
-		bool showBaseVal7 = flag;
-		bool baseVal6;
+		empty = str6 + PropDesc(tetherBreakEffectMod, "[TetherBreakEffect]", flag, (StandardEffectInfo)baseVal5);
+		string str7 = empty;
+		AbilityModPropertyBool breakTetherOnNonGroundBasedMovementMod = m_breakTetherOnNonGroundBasedMovementMod;
+		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -230,22 +217,20 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 				}
 				break;
 			}
-			baseVal6 = exoTetherTrap.m_breakTetherOnNonGroundBasedMovement;
+			baseVal6 = (exoTetherTrap.m_breakTetherOnNonGroundBasedMovement ? 1 : 0);
 		}
 		else
 		{
-			baseVal6 = false;
+			baseVal6 = 0;
 		}
-		text = str7 + base.PropDesc(breakTetherOnNonGroundBasedMovementMod, prefix7, showBaseVal7, baseVal6);
-		text += base.PropDesc(this.m_extraDamagePerMoveDistMod, "[ExtraDamagePerMoveDist]", flag, (!flag) ? 0f : exoTetherTrap.m_extraDamagePerMoveDist);
-		string str8 = text;
-		AbilityModPropertyInt maxExtraDamageFromMoveDistMod = this.m_maxExtraDamageFromMoveDistMod;
-		string prefix8 = "[MaxExtraDamageFromMoveDist]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(breakTetherOnNonGroundBasedMovementMod, "[BreakTetherOnNonGroundBasedMovement]", flag, (byte)baseVal6 != 0);
+		empty += PropDesc(m_extraDamagePerMoveDistMod, "[ExtraDamagePerMoveDist]", flag, (!flag) ? 0f : exoTetherTrap.m_extraDamagePerMoveDist);
+		string str8 = empty;
+		AbilityModPropertyInt maxExtraDamageFromMoveDistMod = m_maxExtraDamageFromMoveDistMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -260,7 +245,7 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		{
 			baseVal7 = 0;
 		}
-		text = str8 + base.PropDesc(maxExtraDamageFromMoveDistMod, prefix8, showBaseVal8, baseVal7);
-		return text + base.PropDesc(this.m_cdrOnTetherEndIfNotTriggeredMod, "[CdrOnTetherEndIfNotTriggered]", flag, (!flag) ? 0 : exoTetherTrap.m_cdrOnTetherEndIfNotTriggered);
+		empty = str8 + PropDesc(maxExtraDamageFromMoveDistMod, "[MaxExtraDamageFromMoveDist]", flag, baseVal7);
+		return empty + PropDesc(m_cdrOnTetherEndIfNotTriggeredMod, "[CdrOnTetherEndIfNotTriggered]", flag, flag ? exoTetherTrap.m_cdrOnTetherEndIfNotTriggered : 0);
 	}
 }

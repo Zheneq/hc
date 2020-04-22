@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 internal abstract class Eased<T>
@@ -13,48 +12,49 @@ internal abstract class Eased<T>
 
 	internal Eased(T startValue)
 	{
-		this.m_startValue = startValue;
-		this.m_endValue = startValue;
-		this.m_duration = 1f;
+		m_startValue = startValue;
+		m_endValue = startValue;
+		m_duration = 1f;
 	}
 
 	internal void EaseTo(T endValue, float duration = 0.3f)
 	{
-		if (!endValue.Equals(this.m_endValue))
+		if (endValue.Equals(m_endValue))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Eased.EaseTo(T, float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_startValue = this.CalcValue();
-			this.m_endValue = endValue;
-			this.m_startTime = Time.time;
-			this.m_duration = Mathf.Max(duration, 0.0166666675f);
+			m_startValue = CalcValue();
+			m_endValue = endValue;
+			m_startTime = Time.time;
+			m_duration = Mathf.Max(duration, 0.0166666675f);
+			return;
 		}
 	}
 
 	internal bool EaseFinished()
 	{
-		return Time.time - this.m_startTime >= this.m_duration;
+		return Time.time - m_startTime >= m_duration;
 	}
 
 	internal float CalcTime()
 	{
-		return Mathf.Max(0f, Time.time - this.m_startTime);
+		return Mathf.Max(0f, Time.time - m_startTime);
 	}
 
 	internal float CalcTimeRemaining()
 	{
-		return Mathf.Max(0f, this.m_startTime + this.m_duration - Time.time);
+		return Mathf.Max(0f, m_startTime + m_duration - Time.time);
 	}
 
 	public static implicit operator T(Eased<T> ev)
@@ -64,13 +64,12 @@ internal abstract class Eased<T>
 
 	public override string ToString()
 	{
-		T t = this.CalcValue();
-		return t.ToString();
+		return CalcValue().ToString();
 	}
 
 	internal T GetEndValue()
 	{
-		return this.m_endValue;
+		return m_endValue;
 	}
 
 	protected abstract T CalcValue();

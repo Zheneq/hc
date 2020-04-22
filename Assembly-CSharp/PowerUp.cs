@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -6,6 +5,52 @@ using UnityEngine.Networking;
 
 public class PowerUp : NetworkBehaviour
 {
+	public enum PowerUpCategory
+	{
+		NoCategory,
+		Healing,
+		Might,
+		Movement,
+		Energy
+	}
+
+	public interface IPowerUpListener
+	{
+		void OnPowerUpDestroyed(PowerUp powerUp);
+
+		PowerUp[] GetActivePowerUps();
+
+		void SetSpawningEnabled(bool enabled);
+
+		void OnTurnTick();
+
+		bool IsPowerUpSpawnPoint(BoardSquare square);
+
+		void AddToSquaresToAvoidForRespawn(HashSet<BoardSquare> squaresToAvoid, ActorData forActor);
+	}
+
+	public class ExtraParams : Sequence.IExtraSequenceParams
+	{
+		public int m_pickupTeamAsInt;
+
+		public bool m_ignoreSpawnSpline;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			sbyte value = (sbyte)m_pickupTeamAsInt;
+			stream.Serialize(ref value);
+			stream.Serialize(ref m_ignoreSpawnSpline);
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			sbyte value = (sbyte)m_pickupTeamAsInt;
+			stream.Serialize(ref value);
+			m_pickupTeamAsInt = value;
+			stream.Serialize(ref m_ignoreSpawnSpline);
+		}
+	}
+
 	private static int s_nextPowerupGuid;
 
 	public Ability m_ability;
@@ -21,7 +66,7 @@ public class PowerUp : NetworkBehaviour
 
 	public bool m_restrictPickupByTeam;
 
-	public PowerUp.PowerUpCategory m_chatterCategory;
+	public PowerUpCategory m_chatterCategory;
 
 	[SyncVar]
 	private Team m_pickupTeam = Team.Objects;
@@ -56,60 +101,168 @@ public class PowerUp : NetworkBehaviour
 
 	private SequenceSource _sequenceSource;
 
-	private static int kRpcRpcOnPickedUp = -0x19A229B0;
+	private static int kRpcRpcOnPickedUp;
 
 	private static int kRpcRpcOnSteal;
-
-	static PowerUp()
-	{
-		NetworkBehaviour.RegisterRpcDelegate(typeof(PowerUp), PowerUp.kRpcRpcOnPickedUp, new NetworkBehaviour.CmdDelegate(PowerUp.InvokeRpcRpcOnPickedUp));
-		PowerUp.kRpcRpcOnSteal = 0x7269CE5A;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(PowerUp), PowerUp.kRpcRpcOnSteal, new NetworkBehaviour.CmdDelegate(PowerUp.InvokeRpcRpcOnSteal));
-		NetworkCRC.RegisterBehaviour("PowerUp", 0);
-	}
 
 	public int Guid
 	{
 		get
 		{
-			return this.m_guid;
+			return m_guid;
 		}
 		private set
 		{
 		}
 	}
 
-	public PowerUp.IPowerUpListener powerUpListener { get; set; }
-
-	public BoardSquare boardSquare
+	public IPowerUpListener powerUpListener
 	{
-		get
-		{
-			return this.m_boardSquare;
-		}
+		get;
+		set;
 	}
+
+	public BoardSquare boardSquare => m_boardSquare;
 
 	public Team PickupTeam
 	{
 		get
 		{
-			return this.m_pickupTeam;
+			return m_pickupTeam;
 		}
 		set
 		{
 		}
 	}
 
+	internal SequenceSource SequenceSource
+	{
+		get
+		{
+			if (_sequenceSource == null)
+			{
+				_sequenceSource = new SequenceSource(null, null, false);
+			}
+			return _sequenceSource;
+		}
+	}
+
+	public Team Networkm_pickupTeam
+	{
+		get
+		{
+			return m_pickupTeam;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_pickupTeam, 1u);
+		}
+	}
+
+	public int Networkm_guid
+	{
+		get
+		{
+			return m_guid;
+		}
+		[param: In]
+		set
+		{
+			ref int guid = ref m_guid;
+			if (NetworkServer.localClientActive)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (!base.syncVarHookGuard)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					base.syncVarHookGuard = true;
+					HookSetGuid(value);
+					base.syncVarHookGuard = false;
+				}
+			}
+			SetSyncVar(value, ref guid, 2u);
+		}
+	}
+
+	public uint Networkm_sequenceSourceId
+	{
+		get
+		{
+			return m_sequenceSourceId;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_sequenceSourceId, 4u);
+		}
+	}
+
+	public bool Networkm_isSpoil
+	{
+		get
+		{
+			return m_isSpoil;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_isSpoil, 8u);
+		}
+	}
+
+	public bool Networkm_ignoreSpawnSplineForSequence
+	{
+		get
+		{
+			return m_ignoreSpawnSplineForSequence;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_ignoreSpawnSplineForSequence, 16u);
+		}
+	}
+
+	static PowerUp()
+	{
+		kRpcRpcOnPickedUp = -430057904;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(PowerUp), kRpcRpcOnPickedUp, InvokeRpcRpcOnPickedUp);
+		kRpcRpcOnSteal = 1919536730;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(PowerUp), kRpcRpcOnSteal, InvokeRpcRpcOnSteal);
+		NetworkCRC.RegisterBehaviour("PowerUp", 0);
+	}
+
 	public void SetPickupTeam(Team value)
 	{
-		this.Networkm_pickupTeam = value;
+		Networkm_pickupTeam = value;
 	}
 
 	public void AddTag(string powerupTag)
 	{
-		if (this.m_tags == null)
+		if (m_tags == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -118,14 +271,14 @@ public class PowerUp : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.AddTag(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_tags = base.gameObject.GetComponent<ActorTag>();
-			if (this.m_tags == null)
+			m_tags = base.gameObject.GetComponent<ActorTag>();
+			if (m_tags == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -134,79 +287,71 @@ public class PowerUp : NetworkBehaviour
 					}
 					break;
 				}
-				this.m_tags = base.gameObject.AddComponent<ActorTag>();
+				m_tags = base.gameObject.AddComponent<ActorTag>();
 			}
 		}
-		this.m_tags.AddTag(powerupTag);
+		m_tags.AddTag(powerupTag);
 	}
 
 	public bool HasTag(string powerupTag)
 	{
-		if (this.m_tags != null)
+		if (m_tags != null)
 		{
-			for (;;)
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_tags.HasTag(powerupTag);
+				}
+			}
+		}
+		return false;
+	}
+
+	public void ClientSpawnSequences()
+	{
+		if (!NetworkClient.active)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_clientSequenceIds.Count != 0)
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.HasTag(string)).MethodHandle;
-			}
-			return this.m_tags.HasTag(powerupTag);
-		}
-		return false;
-	}
-
-	internal SequenceSource SequenceSource
-	{
-		get
-		{
-			if (this._sequenceSource == null)
-			{
-				this._sequenceSource = new SequenceSource(null, null, false, null, null);
-			}
-			return this._sequenceSource;
-		}
-	}
-
-	public void ClientSpawnSequences()
-	{
-		if (NetworkClient.active)
-		{
-			for (;;)
-			{
-				switch (3)
+				Board board = Board.Get();
+				Vector3 position = base.transform.position;
+				float x = position.x;
+				Vector3 position2 = base.transform.position;
+				BoardSquare boardSquareSafe = board.GetBoardSquareSafe(x, position2.z);
+				ExtraParams extraParams = new ExtraParams();
+				if (m_restrictPickupByTeam)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.ClientSpawnSequences()).MethodHandle;
-			}
-			if (this.m_clientSequenceIds.Count == 0)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				BoardSquare targetSquare = Board.\u000E().\u0012(base.transform.position.x, base.transform.position.z);
-				PowerUp.ExtraParams extraParams = new PowerUp.ExtraParams();
-				if (this.m_restrictPickupByTeam)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -215,63 +360,66 @@ public class PowerUp : NetworkBehaviour
 						}
 						break;
 					}
-					extraParams.m_pickupTeamAsInt = (int)this.m_pickupTeam;
+					extraParams.m_pickupTeamAsInt = (int)m_pickupTeam;
 				}
 				else
 				{
 					extraParams.m_pickupTeamAsInt = 2;
 				}
-				extraParams.m_ignoreSpawnSpline = this.m_ignoreSpawnSplineForSequence;
-				Sequence.IExtraSequenceParams[] extraParams2 = new Sequence.IExtraSequenceParams[]
+				extraParams.m_ignoreSpawnSpline = m_ignoreSpawnSplineForSequence;
+				Sequence.IExtraSequenceParams[] extraParams2 = new Sequence.IExtraSequenceParams[1]
 				{
 					extraParams
 				};
-				if (this._sequenceSource == null)
+				if (_sequenceSource == null)
 				{
-					this._sequenceSource = new SequenceSource(null, null, this.m_sequenceSourceId, false);
+					_sequenceSource = new SequenceSource(null, null, m_sequenceSourceId, false);
 				}
-				Sequence[] array = SequenceManager.Get().CreateClientSequences(this.m_sequencePrefab, targetSquare, null, null, this.SequenceSource, extraParams2);
+				Sequence[] array = SequenceManager.Get().CreateClientSequences(m_sequencePrefab, boardSquareSafe, null, null, SequenceSource, extraParams2);
 				bool flag = false;
-				if (array != null)
+				if (array == null)
 				{
-					for (int i = 0; i < array.Length; i++)
+					return;
+				}
+				for (int i = 0; i < array.Length; i++)
+				{
+					array[i].RemoveAtTurnEnd = false;
+					m_clientSequenceIds.Add(array[i].Id);
+					if (flag)
 					{
-						array[i].RemoveAtTurnEnd = false;
-						this.m_clientSequenceIds.Add(array[i].Id);
-						if (!flag)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (PowerUpManager.Get() != null)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								array[i].transform.parent = PowerUpManager.Get().GetSpawnedPersistentSequencesRoot().transform;
-								flag = true;
-							}
-						}
+						continue;
 					}
-					for (;;)
+					while (true)
 					{
-						switch (3)
+						switch (2)
 						{
 						case 0:
 							continue;
 						}
+						break;
+					}
+					if (PowerUpManager.Get() != null)
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						array[i].transform.parent = PowerUpManager.Get().GetSpawnedPersistentSequencesRoot().transform;
+						flag = true;
+					}
+				}
+				while (true)
+				{
+					switch (3)
+					{
+					default:
+						return;
+					case 0:
 						break;
 					}
 				}
@@ -281,48 +429,53 @@ public class PowerUp : NetworkBehaviour
 
 	public void CalculateBoardSquare()
 	{
-		this.m_boardSquare = Board.\u000E().\u0012(base.transform.position.x, base.transform.position.z);
+		Board board = Board.Get();
+		Vector3 position = base.transform.position;
+		float x = position.x;
+		Vector3 position2 = base.transform.position;
+		m_boardSquare = board.GetBoardSquareSafe(x, position2.z);
 	}
 
 	public void SetDuration(int duration)
 	{
-		this.m_duration = duration;
+		m_duration = duration;
 	}
 
 	private void Awake()
 	{
-		if (NetworkServer.active)
+		if (!NetworkServer.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.Networkm_guid = PowerUp.s_nextPowerupGuid++;
-			SequenceSource sequenceSource = this.SequenceSource;
-			this.Networkm_sequenceSourceId = sequenceSource.RootID;
+			Networkm_guid = s_nextPowerupGuid++;
+			SequenceSource sequenceSource = SequenceSource;
+			Networkm_sequenceSourceId = sequenceSource.RootID;
+			return;
 		}
 	}
 
 	private void HookSetGuid(int guid)
 	{
-		this.Networkm_guid = guid;
+		Networkm_guid = guid;
 		PowerUpManager.Get().SetPowerUpGuid(this, guid);
 	}
 
 	private void Start()
 	{
-		if (this.m_ability == null)
+		if (m_ability == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -331,67 +484,67 @@ public class PowerUp : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Log.Error("PowerUp " + this + " needs a valid Ability assigned in the inspector for its prefab", new object[0]);
+			Log.Error(string.Concat("PowerUp ", this, " needs a valid Ability assigned in the inspector for its prefab"));
 		}
 		base.transform.parent = PowerUpManager.Get().GetSpawnedPowerupsRoot().transform;
 		base.tag = "powerup";
-		Transform[] componentsInChildren = base.GetComponentsInChildren<Transform>();
+		Transform[] componentsInChildren = GetComponentsInChildren<Transform>();
 		int layer = LayerMask.NameToLayer("PowerUp");
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
 			componentsInChildren[i].gameObject.layer = layer;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (this.m_boardSquare == null)
-		{
-			for (;;)
+			if (m_boardSquare == null)
 			{
-				switch (7)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.CalculateBoardSquare();
-		}
-		if (NetworkClient.active)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (PowerUpManager.Get() != null)
-			{
-				for (;;)
-				{
-					switch (4)
+					switch (7)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				PowerUpManager.Get().TrackClientPowerUp(this);
+				CalculateBoardSquare();
 			}
-			this.ClientSpawnSequences();
+			if (!NetworkClient.active)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				if (PowerUpManager.Get() != null)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					PowerUpManager.Get().TrackClientPowerUp(this);
+				}
+				ClientSpawnSequences();
+				return;
+			}
 		}
 	}
 
@@ -401,7 +554,6 @@ public class PowerUp : NetworkBehaviour
 		if (!NetworkServer.active)
 		{
 			Debug.LogWarning("[Server] function 'System.Void PowerUp::CheckForPickupOnSpawn()' called on client");
-			return;
 		}
 	}
 
@@ -411,28 +563,28 @@ public class PowerUp : NetworkBehaviour
 
 	public void MarkSequencesForRemoval()
 	{
-		this.m_markedForRemoval = true;
-		if (SequenceManager.Get() != null)
+		m_markedForRemoval = true;
+		if (!(SequenceManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.MarkSequencesForRemoval()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (int i = 0; i < this.m_clientSequenceIds.Count; i++)
+			for (int i = 0; i < m_clientSequenceIds.Count; i++)
 			{
-				Sequence sequence = SequenceManager.Get().FindSequence(this.m_clientSequenceIds[i]);
+				Sequence sequence = SequenceManager.Get().FindSequence(m_clientSequenceIds[i]);
 				if (sequence != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -444,62 +596,64 @@ public class PowerUp : NetworkBehaviour
 					sequence.MarkForRemoval();
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public bool WasMarkedForRemoval()
 	{
-		return this.m_markedForRemoval;
+		return m_markedForRemoval;
 	}
 
 	public void SetHideSequence(bool hide)
 	{
-		for (int i = 0; i < this.m_clientSequenceIds.Count; i++)
+		for (int i = 0; i < m_clientSequenceIds.Count; i++)
 		{
-			Sequence sequence = SequenceManager.Get().FindSequence(this.m_clientSequenceIds[i]);
-			if (sequence != null)
+			Sequence sequence = SequenceManager.Get().FindSequence(m_clientSequenceIds[i]);
+			if (!(sequence != null))
 			{
-				Transform transform = sequence.gameObject.transform;
-				Vector3 localPosition;
-				if (hide)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.SetHideSequence(bool)).MethodHandle;
-					}
-					localPosition = new Vector3(0f, -100f, 0f);
-				}
-				else
-				{
-					localPosition = Vector3.zero;
-				}
-				transform.localPosition = localPosition;
+				continue;
 			}
+			Transform transform = sequence.gameObject.transform;
+			Vector3 localPosition;
+			if (hide)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				localPosition = new Vector3(0f, -100f, 0f);
+			}
+			else
+			{
+				localPosition = Vector3.zero;
+			}
+			transform.localPosition = localPosition;
 		}
 	}
 
 	[ClientRpc]
 	private void RpcOnPickedUp(int pickedUpByActorIndex)
 	{
-		this.Client_OnPickedUp(pickedUpByActorIndex);
+		Client_OnPickedUp(pickedUpByActorIndex);
 	}
 
 	public void Client_OnPickedUp(int pickedUpByActorIndex)
@@ -508,7 +662,7 @@ public class PowerUp : NetworkBehaviour
 		FogOfWar clientFog = FogOfWar.GetClientFog();
 		if (clientFog != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -517,13 +671,13 @@ public class PowerUp : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.Client_OnPickedUp(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (clientFog.IsVisible(this.boardSquare))
+			if (clientFog.IsVisible(boardSquare))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -532,11 +686,11 @@ public class PowerUp : NetworkBehaviour
 					}
 					break;
 				}
-				string audioEventPickUp = this.m_audioEventPickUp;
+				string audioEventPickUp = m_audioEventPickUp;
 				GameObject gameObject;
 				if (actorData == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -559,27 +713,27 @@ public class PowerUp : NetworkBehaviour
 			Transform child = base.transform.GetChild(i);
 			child.gameObject.SetActive(false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			GameEventManager.Get().FireEvent(GameEventManager.EventType.PowerUpActivated, new GameEventManager.PowerUpActivatedArgs
+			{
+				byActor = actorData,
+				powerUp = this
+			});
+			MarkSequencesForRemoval();
+			return;
 		}
-		GameEventManager.Get().FireEvent(GameEventManager.EventType.PowerUpActivated, new GameEventManager.PowerUpActivatedArgs
-		{
-			byActor = actorData,
-			powerUp = this
-		});
-		this.MarkSequencesForRemoval();
 	}
 
 	[ClientRpc]
 	private void RpcOnSteal(int actorIndexFor3DAudio)
 	{
-		this.Client_OnSteal(actorIndexFor3DAudio);
+		Client_OnSteal(actorIndexFor3DAudio);
 	}
 
 	public void Client_OnSteal(int actorIndexFor3DAudio)
@@ -587,7 +741,7 @@ public class PowerUp : NetworkBehaviour
 		FogOfWar clientFog = FogOfWar.GetClientFog();
 		if (clientFog != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -596,13 +750,13 @@ public class PowerUp : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.Client_OnSteal(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (clientFog.IsVisible(this.boardSquare))
+			if (clientFog.IsVisible(boardSquare))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -612,11 +766,11 @@ public class PowerUp : NetworkBehaviour
 					break;
 				}
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndexFor3DAudio);
-				string audioEventPickUp = this.m_audioEventPickUp;
+				string audioEventPickUp = m_audioEventPickUp;
 				GameObject gameObject;
 				if (actorData == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -634,7 +788,7 @@ public class PowerUp : NetworkBehaviour
 				AudioManager.PostEvent(audioEventPickUp, gameObject);
 			}
 		}
-		this.MarkSequencesForRemoval();
+		MarkSequencesForRemoval();
 	}
 
 	[Server]
@@ -645,9 +799,9 @@ public class PowerUp : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void PowerUp::Destroy()' called on client");
 			return;
 		}
-		if (this.powerUpListener != null)
+		if (powerUpListener != null)
 		{
-			this.powerUpListener.OnPowerUpDestroyed(this);
+			powerUpListener.OnPowerUpDestroyed(this);
 		}
 		NetworkServer.Destroy(base.gameObject);
 	}
@@ -656,7 +810,7 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -665,13 +819,13 @@ public class PowerUp : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (PowerUpManager.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -682,30 +836,31 @@ public class PowerUp : NetworkBehaviour
 				}
 				PowerUpManager.Get().UntrackClientPowerUp(this);
 			}
-			this.MarkSequencesForRemoval();
-			this.m_clientSequenceIds.Clear();
+			MarkSequencesForRemoval();
+			m_clientSequenceIds.Clear();
 		}
-		if (PowerUpManager.Get() != null)
+		if (!(PowerUpManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			PowerUpManager.Get().OnPowerUpDestroy(this);
+			return;
 		}
 	}
 
 	public bool TeamAllowedForPickUp(Team team)
 	{
-		bool result;
-		if (this.m_restrictPickupByTeam)
+		int result;
+		if (m_restrictPickupByTeam)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -714,17 +869,17 @@ public class PowerUp : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.TeamAllowedForPickUp(Team)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = (team == this.PickupTeam);
+			result = ((team == PickupTeam) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	internal void OnTurnTick()
@@ -740,132 +895,37 @@ public class PowerUp : NetworkBehaviour
 	{
 	}
 
-	public Team Networkm_pickupTeam
-	{
-		get
-		{
-			return this.m_pickupTeam;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<Team>(value, ref this.m_pickupTeam, 1U);
-		}
-	}
-
-	public int Networkm_guid
-	{
-		get
-		{
-			return this.m_guid;
-		}
-		[param: In]
-		set
-		{
-			uint dirtyBit = 2U;
-			if (NetworkServer.localClientActive)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.set_Networkm_guid(int)).MethodHandle;
-				}
-				if (!base.syncVarHookGuard)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					base.syncVarHookGuard = true;
-					this.HookSetGuid(value);
-					base.syncVarHookGuard = false;
-				}
-			}
-			base.SetSyncVar<int>(value, ref this.m_guid, dirtyBit);
-		}
-	}
-
-	public uint Networkm_sequenceSourceId
-	{
-		get
-		{
-			return this.m_sequenceSourceId;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<uint>(value, ref this.m_sequenceSourceId, 4U);
-		}
-	}
-
-	public bool Networkm_isSpoil
-	{
-		get
-		{
-			return this.m_isSpoil;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<bool>(value, ref this.m_isSpoil, 8U);
-		}
-	}
-
-	public bool Networkm_ignoreSpawnSplineForSequence
-	{
-		get
-		{
-			return this.m_ignoreSpawnSplineForSequence;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<bool>(value, ref this.m_ignoreSpawnSplineForSequence, 0x10U);
-		}
-	}
-
 	protected static void InvokeRpcRpcOnPickedUp(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("RPC RpcOnPickedUp called on server.");
-			return;
 		}
-		((PowerUp)obj).RpcOnPickedUp((int)reader.ReadPackedUInt32());
+		else
+		{
+			((PowerUp)obj).RpcOnPickedUp((int)reader.ReadPackedUInt32());
+		}
 	}
 
 	protected static void InvokeRpcRpcOnSteal(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("RPC RpcOnSteal called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.InvokeRpcRpcOnSteal(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("RPC RpcOnSteal called on server.");
-			return;
 		}
 		((PowerUp)obj).RpcOnSteal((int)reader.ReadPackedUInt32());
 	}
@@ -874,29 +934,29 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogError("RPC Function RpcOnPickedUp called on client.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.CallRpcOnPickedUp(int)).MethodHandle;
-			}
-			Debug.LogError("RPC Function RpcOnPickedUp called on client.");
-			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)PowerUp.kRpcRpcOnPickedUp);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcOnPickedUp);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.WritePackedUInt32((uint)pickedUpByActorIndex);
-		this.SendRPCInternal(networkWriter, 0, "RpcOnPickedUp");
+		SendRPCInternal(networkWriter, 0, "RpcOnPickedUp");
 	}
 
 	public void CallRpcOnSteal(int actorIndexFor3DAudio)
@@ -907,42 +967,42 @@ public class PowerUp : NetworkBehaviour
 			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)PowerUp.kRpcRpcOnSteal);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcOnSteal);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.WritePackedUInt32((uint)actorIndexFor3DAudio);
-		this.SendRPCInternal(networkWriter, 0, "RpcOnSteal");
+		SendRPCInternal(networkWriter, 0, "RpcOnSteal");
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					writer.Write((int)m_pickupTeam);
+					writer.WritePackedUInt32((uint)m_guid);
+					writer.WritePackedUInt32(m_sequenceSourceId);
+					writer.Write(m_isSpoil);
+					writer.Write(m_ignoreSpawnSplineForSequence);
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
-			writer.Write((int)this.m_pickupTeam);
-			writer.WritePackedUInt32((uint)this.m_guid);
-			writer.WritePackedUInt32(this.m_sequenceSourceId);
-			writer.Write(this.m_isSpoil);
-			writer.Write(this.m_ignoreSpawnSplineForSequence);
-			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -956,11 +1016,11 @@ public class PowerUp : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write((int)this.m_pickupTeam);
+			writer.Write((int)m_pickupTeam);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -971,7 +1031,7 @@ public class PowerUp : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -983,11 +1043,11 @@ public class PowerUp : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_guid);
+			writer.WritePackedUInt32((uint)m_guid);
 		}
-		if ((base.syncVarDirtyBits & 4U) != 0U)
+		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -998,7 +1058,7 @@ public class PowerUp : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1010,11 +1070,11 @@ public class PowerUp : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32(this.m_sequenceSourceId);
+			writer.WritePackedUInt32(m_sequenceSourceId);
 		}
-		if ((base.syncVarDirtyBits & 8U) != 0U)
+		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1025,7 +1085,7 @@ public class PowerUp : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1037,13 +1097,13 @@ public class PowerUp : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_isSpoil);
+			writer.Write(m_isSpoil);
 		}
-		if ((base.syncVarDirtyBits & 0x10U) != 0U)
+		if ((base.syncVarDirtyBits & 0x10) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1055,11 +1115,11 @@ public class PowerUp : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_ignoreSpawnSplineForSequence);
+			writer.Write(m_ignoreSpawnSplineForSequence);
 		}
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1077,17 +1137,17 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			this.m_pickupTeam = (Team)reader.ReadInt32();
-			this.m_guid = (int)reader.ReadPackedUInt32();
-			this.m_sequenceSourceId = reader.ReadPackedUInt32();
-			this.m_isSpoil = reader.ReadBoolean();
-			this.m_ignoreSpawnSplineForSequence = reader.ReadBoolean();
+			m_pickupTeam = (Team)reader.ReadInt32();
+			m_guid = (int)reader.ReadPackedUInt32();
+			m_sequenceSourceId = reader.ReadPackedUInt32();
+			m_isSpoil = reader.ReadBoolean();
+			m_ignoreSpawnSplineForSequence = reader.ReadBoolean();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1096,19 +1156,19 @@ public class PowerUp : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.OnDeserialize(NetworkReader, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_pickupTeam = (Team)reader.ReadInt32();
+			m_pickupTeam = (Team)reader.ReadInt32();
 		}
 		if ((num & 2) != 0)
 		{
-			this.HookSetGuid((int)reader.ReadPackedUInt32());
+			HookSetGuid((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1117,11 +1177,11 @@ public class PowerUp : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_sequenceSourceId = reader.ReadPackedUInt32();
+			m_sequenceSourceId = reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1130,66 +1190,21 @@ public class PowerUp : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_isSpoil = reader.ReadBoolean();
+			m_isSpoil = reader.ReadBoolean();
 		}
-		if ((num & 0x10) != 0)
+		if ((num & 0x10) == 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_ignoreSpawnSplineForSequence = reader.ReadBoolean();
-		}
-	}
-
-	public enum PowerUpCategory
-	{
-		NoCategory,
-		Healing,
-		Might,
-		Movement,
-		Energy
-	}
-
-	public interface IPowerUpListener
-	{
-		void OnPowerUpDestroyed(PowerUp powerUp);
-
-		PowerUp[] GetActivePowerUps();
-
-		void SetSpawningEnabled(bool enabled);
-
-		void OnTurnTick();
-
-		bool IsPowerUpSpawnPoint(BoardSquare square);
-
-		void AddToSquaresToAvoidForRespawn(HashSet<BoardSquare> squaresToAvoid, ActorData forActor);
-	}
-
-	public class ExtraParams : Sequence.IExtraSequenceParams
-	{
-		public int m_pickupTeamAsInt;
-
-		public bool m_ignoreSpawnSpline;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
-		{
-			sbyte b = (sbyte)this.m_pickupTeamAsInt;
-			stream.Serialize(ref b);
-			stream.Serialize(ref this.m_ignoreSpawnSpline);
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			sbyte b = (sbyte)this.m_pickupTeamAsInt;
-			stream.Serialize(ref b);
-			this.m_pickupTeamAsInt = (int)b;
-			stream.Serialize(ref this.m_ignoreSpawnSpline);
+			m_ignoreSpawnSplineForSequence = reader.ReadBoolean();
+			return;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class SkinConfigOverride
@@ -13,6 +13,6 @@ public class SkinConfigOverride
 
 	public SkinConfigOverride Clone()
 	{
-		return (SkinConfigOverride)base.MemberwiseClone();
+		return (SkinConfigOverride)MemberwiseClone();
 	}
 }

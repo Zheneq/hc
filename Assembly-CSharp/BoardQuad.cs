@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,9 +13,10 @@ public class BoardQuad
 
 	public List<BoardSquare> GetSquares()
 	{
-		if (!(this.m_corner1 == null))
+		List<BoardSquare> result;
+		if (!(m_corner1 == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -24,16 +25,16 @@ public class BoardQuad
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardQuad.GetSquares()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!(this.m_corner2 == null))
+			if (!(m_corner2 == null))
 			{
-				BoardSquare u001D;
-				if (this.m_corner1.GetComponent<BoardSquare>() == null)
+				BoardSquare a;
+				if (m_corner1.GetComponent<BoardSquare>() == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -42,28 +43,21 @@ public class BoardQuad
 						}
 						break;
 					}
-					u001D = Board.\u000E().\u000E(this.m_corner1);
+					a = Board.Get().GetBoardSquare(m_corner1);
 				}
 				else
 				{
-					u001D = this.m_corner1.GetComponent<BoardSquare>();
+					a = m_corner1.GetComponent<BoardSquare>();
 				}
-				BoardSquare u000E;
-				if (this.m_corner2.GetComponent<BoardSquare>() == null)
-				{
-					u000E = Board.\u000E().\u000E(this.m_corner2);
-				}
-				else
-				{
-					u000E = this.m_corner2.GetComponent<BoardSquare>();
-				}
-				return Board.\u000E().\u000E(u001D, u000E);
+				BoardSquare b = (!(m_corner2.GetComponent<BoardSquare>() == null)) ? m_corner2.GetComponent<BoardSquare>() : Board.Get().GetBoardSquare(m_corner2);
+				result = Board.Get().GetSquaresInRect(a, b);
+				goto IL_0100;
 			}
 		}
-		List<BoardSquare> result = new List<BoardSquare>();
+		result = new List<BoardSquare>();
 		if (Application.isEditor)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -72,8 +66,10 @@ public class BoardQuad
 				}
 				break;
 			}
-			Log.Error("BoardRegion " + this.m_name + " has a BoardQuad with null corners.", new object[0]);
+			Log.Error("BoardRegion " + m_name + " has a BoardQuad with null corners.");
 		}
+		goto IL_0100;
+		IL_0100:
 		return result;
 	}
 }

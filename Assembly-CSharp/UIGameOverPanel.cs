@@ -1,743 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
 using LobbyGameClientMessages;
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIGameOverPanel : UIScene
 {
-	public RectTransform[] m_seasonLevelContainer;
-
-	public RectTransform[] m_accountLevelContainers;
-
-	public InventoryItemTemplate seasonLevelRewardItem;
-
-	private const float c_continueBtnFailSafeTime = 10f;
-
-	private int factionGain;
-
-	private float GGPack_XPMult;
-
-	private bool m_waitingForXpBonusAnimFinished;
-
-	private bool m_isXpBonusAnimPlaying;
-
-	private int m_currentDisplayInfluenceAmt;
-
-	private float m_continueBtnFailsafeTime;
-
-	private SeasonTemplate m_currentSeason;
-
-	private bool m_IsLevellingSeasons;
-
-	private bool m_notificationHasArrived;
-
-	private bool m_wonRankGame;
-
-	private float m_startRankPoints;
-
-	private float m_endRankPoints;
-
-	private float m_rankStartTime;
-
-	private float m_rankJourneyLength;
-
-	private float m_currentRankPointDisplay;
-
-	private float m_previousLevelTotalPoints;
-
-	private int m_rankLevelDiff;
-
-	private const float MIN_RANK_FILL_AMT = 0.082f;
-
-	private const float MAX_RANK_FILL_AMT = 0.915f;
-
-	private GameResult m_gameResult;
-
-	private const float c_transititionGGPackOutTime = 2f;
-
-	private float m_timerToDisplayGGBoosts = -1f;
-
-	private float m_timerToDisplayGGBoostUsage = -1f;
-
-	private float m_timerToTransitionOutGGBoosts = -1f;
-
-	private float m_nextAvailableGGBoostDisplayTime = -1f;
-
-	private int m_numSelfGGpacksUsed;
-
-	private UIGameOverPanel.GameOverScreenState m_currentState;
-
-	private const float m_worldAnimationTime = 3.5f;
-
-	private const float m_GGPackRecapTime = 3f;
-
-	private const float m_GGPackRecapInterval = 0.2f;
-
-	private float m_timeBannerDisplayed;
-
-	private bool m_isSetup;
-
-	private static UIGameOverPanel s_instance;
-
-	private UIGameOverPanel.UpdateXPStage m_updateXpStage;
-
-	private float m_updateXpStartTime;
-
-	private bool failsafeTriggered;
-
-	public UIGameOverPanel.UpdateXPStage XPStage
-	{
-		get
-		{
-			return this.m_updateXpStage;
-		}
-	}
-
-	public override SceneType GetSceneType()
-	{
-		return SceneType.GameOver;
-	}
-
-	private void Start()
-	{
-		UIGameOverPanel.s_instance = this;
-		this.m_notificationHasArrived = false;
-	}
-
-	public static UIGameOverPanel Get()
-	{
-		return UIGameOverPanel.s_instance;
-	}
-
-	public void CancelCallback(UIDialogBox boxReference)
-	{
-		ClientGameManager.Get().LeaveGame(true, this.m_gameResult);
-	}
-
-	public void RatingCallback(UIDialogBox boxReference)
-	{
-		UIRatingDialogBox uiratingDialogBox = boxReference as UIRatingDialogBox;
-		if (GameFlowData.Get() != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.RatingCallback(UIDialogBox)).MethodHandle;
-			}
-			if (uiratingDialogBox.GetRating() > -1)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				PlayerFeedbackData playerFeedbackData = new PlayerFeedbackData();
-				playerFeedbackData.CharacterType = GameManager.Get().PlayerInfo.CharacterType;
-				playerFeedbackData.Rating = uiratingDialogBox.GetRating() + 1;
-				ClientGameManager.Get().SendPlayerCharacterFeedback(playerFeedbackData);
-			}
-		}
-		GameManager.Get().StopGame(GameResult.NoResult);
-	}
-
-	public int SeasonExperienceToLevel(int seasonIndex, int currentLevel)
-	{
-		return SeasonWideData.Get().GetSeasonExperience(seasonIndex, currentLevel);
-	}
-
-	private Sprite GetRewardSprite(RewardUtils.RewardData reward)
-	{
-		return (Sprite)Resources.Load(reward.SpritePath, typeof(Sprite));
-	}
-
-	private RewardUtils.RewardData GetRewardToUseForIconDisplay(List<RewardUtils.RewardData> possibleRewards, int curLevel)
-	{
-		List<RewardUtils.RewardData> list = new List<RewardUtils.RewardData>();
-		int num = -1;
-		int i = 0;
-		while (i < possibleRewards.Count)
-		{
-			if (possibleRewards[i].Level > curLevel)
-			{
-				goto IL_41;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.GetRewardToUseForIconDisplay(List<RewardUtils.RewardData>, int)).MethodHandle;
-			}
-			if (possibleRewards[i].isRepeating)
-			{
-				goto IL_41;
-			}
-			IL_89:
-			i++;
-			continue;
-			IL_41:
-			if (list.Count == 0)
-			{
-				list.Add(possibleRewards[i]);
-				num = possibleRewards[i].Level;
-				goto IL_89;
-			}
-			if (num == possibleRewards[i].Level)
-			{
-				list.Add(possibleRewards[i]);
-				goto IL_89;
-			}
-			goto IL_89;
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		for (int j = 0; j < GameBalanceVars.Get().RewardDisplayPriorityOrder.Length; j++)
-		{
-			for (int k = 0; k < list.Count; k++)
-			{
-				if (GameBalanceVars.Get().RewardDisplayPriorityOrder[j] == list[k].Type)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return list[k];
-				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		if (list.Count > 0)
-		{
-			return list[0];
-		}
-		return null;
-	}
-
-	private void DelaySetup(GameType gameType, GameResult gameResult, int myTeamScore, int enemyTeamScore)
-	{
-		if (GameBalanceVars.Get() == null)
-		{
-			return;
-		}
-		this.m_IsLevellingSeasons = true;
-		for (int i = 0; i < this.m_seasonLevelContainer.Length; i++)
-		{
-			UIManager.SetGameObjectActive(this.m_seasonLevelContainer[i], this.m_IsLevellingSeasons, null);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.DelaySetup(GameType, GameResult, int, int)).MethodHandle;
-		}
-		for (int j = 0; j < this.m_accountLevelContainers.Length; j++)
-		{
-			UIManager.SetGameObjectActive(this.m_accountLevelContainers[j], !this.m_IsLevellingSeasons, null);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-	}
-
-	private void SetupRankMode(GameType gameType, bool wonMatch)
-	{
-	}
-
-	private void SetupTierDisplay(int tier)
-	{
-	}
-
-	public void Setup(GameType gameType, GameResult gameResult, int myTeamScore, int enemyTeamScore)
-	{
-		this.m_gameResult = gameResult;
-		this.m_updateXpStage = UIGameOverPanel.UpdateXPStage.Normal;
-		this.m_waitingForXpBonusAnimFinished = false;
-		Team team = (GameManager.Get().PlayerInfo.TeamId != Team.TeamB) ? Team.TeamA : Team.TeamB;
-		Team team2;
-		if (team == Team.TeamB)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.Setup(GameType, GameResult, int, int)).MethodHandle;
-			}
-			team2 = Team.TeamB;
-		}
-		else
-		{
-			team2 = Team.TeamA;
-		}
-		Team team3 = team2;
-		bool wonMatch = false;
-		if (gameResult == GameResult.TeamAWon)
-		{
-			if (team3 == Team.TeamA)
-			{
-				goto IL_7B;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		if (gameResult != GameResult.TeamBWon)
-		{
-			goto IL_7D;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (team3 != Team.TeamB)
-		{
-			goto IL_7D;
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		IL_7B:
-		wonMatch = true;
-		IL_7D:
-		this.SetupRankMode(gameType, wonMatch);
-		this.m_isSetup = true;
-	}
-
-	private void Update()
-	{
-		if (!this.m_isSetup)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.Update()).MethodHandle;
-			}
-			return;
-		}
-		bool flag;
-		if (this.m_notificationHasArrived)
-		{
-			if (!(UINewReward.Get() == null))
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (UINewReward.Get().RewardIsBeingAnnounced())
-				{
-					goto IL_69;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			flag = (Time.unscaledTime >= this.m_continueBtnFailsafeTime);
-			goto IL_6A;
-		}
-		IL_69:
-		flag = false;
-		IL_6A:
-		bool flag2 = flag;
-		if (this.m_updateXpStage < UIGameOverPanel.UpdateXPStage.Done)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (flag2)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.failsafeTriggered = true;
-			}
-		}
-		if (!UINewReward.Get().RewardIsBeingAnnounced() && this.m_updateXpStage < UIGameOverPanel.UpdateXPStage.Done)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_waitingForXpBonusAnimFinished)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Animator animator = null;
-				if (this.m_waitingForXpBonusAnimFinished)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (animator == null)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_isXpBonusAnimPlaying = false;
-						this.m_updateXpStage++;
-						this.m_continueBtnFailsafeTime = Time.unscaledTime + 10f;
-					}
-					else if (!this.m_isXpBonusAnimPlaying)
-					{
-						this.m_isXpBonusAnimPlaying = true;
-						animator.Play("ResultsBonusIcon" + this.m_updateXpStage.ToString() + "DefaultIN");
-						this.m_updateXpStartTime = Time.unscaledTime;
-					}
-					else if (Time.unscaledTime > animator.GetCurrentAnimatorStateInfo(0).length + this.m_updateXpStartTime)
-					{
-						this.m_waitingForXpBonusAnimFinished = false;
-					}
-				}
-				if (this.failsafeTriggered)
-				{
-					this.failsafeTriggered = false;
-					string message = string.Format("Fail safe for continue button triggered and stuck on waiting for xp bonus anim! GameName: {0}, PlayerHandle: {1}, XPStage: {2}", (GameManager.Get().GameInfo == null) ? "Game game info null!" : GameManager.Get().GameInfo.Name, ClientGameManager.Get().PlayerInfo.Handle, this.m_updateXpStage);
-					Log.Error(message, new object[0]);
-					this.m_updateXpStage = UIGameOverPanel.UpdateXPStage.Done;
-				}
-			}
-			else
-			{
-				bool flag3 = this.UpdateInfluence();
-				bool flag4 = this.UpdateRankPoints();
-				bool flag5 = false;
-				if (!flag5)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!flag3)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!flag4)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_waitingForXpBonusAnimFinished = true;
-							this.m_isXpBonusAnimPlaying = false;
-							this.m_updateXpStage++;
-							this.m_continueBtnFailsafeTime = Time.unscaledTime + 10f;
-							return;
-						}
-					}
-				}
-				if (this.failsafeTriggered)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.failsafeTriggered = false;
-					string format = "Fail safe for continue button triggered! charUpdating: {0}, playerUpdating: {1}, currencyUpdating: {2}, influenceupdating: {3}, rankpointsupdating: {4}, GameName: {5}, PlayerHandle: {6}, XPStage: {7}";
-					object[] array = new object[8];
-					array[0] = false;
-					array[1] = flag5;
-					array[2] = false;
-					array[3] = flag3;
-					array[4] = flag4;
-					int num = 5;
-					object obj;
-					if (GameManager.Get().GameInfo != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						obj = GameManager.Get().GameInfo.Name;
-					}
-					else
-					{
-						obj = "Game game info null!";
-					}
-					array[num] = obj;
-					array[6] = ClientGameManager.Get().PlayerInfo.Handle;
-					array[7] = this.m_updateXpStage;
-					string message2 = string.Format(format, array);
-					Log.Error(message2, new object[0]);
-					this.m_updateXpStage = UIGameOverPanel.UpdateXPStage.Done;
-				}
-			}
-		}
-	}
-
-	private void SetTooltipClickable(UIGameOverPanel.XPDisplayInfo info, bool clickable)
-	{
-		if (info.m_levelUpAnimController != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.SetTooltipClickable(UIGameOverPanel.XPDisplayInfo, bool)).MethodHandle;
-			}
-			_SelectableBtn component = info.m_levelUpAnimController.GetComponent<_SelectableBtn>();
-			if (component != null)
-			{
-				component.spriteController.SetClickable(clickable);
-			}
-		}
-	}
-
-	private void InitializeRewardIcon(UIGameOverPanel.XPDisplayInfo info)
-	{
-	}
-
-	private void DoLevelUpAnim(UIGameOverPanel.XPDisplayInfo dispInfo, int newLevel)
-	{
-	}
-
-	private bool UpdateInfluence()
-	{
-		return false;
-	}
-
-	private float GetRankFillAmt(float percent)
-	{
-		return percent * 0.833f + 0.082f;
-	}
-
-	private bool UpdateRankPoints()
-	{
-		return false;
-	}
-
-	public static bool HasFriendInMatch()
-	{
-		bool result = false;
-		FriendList friendList = ClientGameManager.Get().FriendList;
-		LobbyPlayerInfo playerInfo = GameManager.Get().PlayerInfo;
-		if (friendList != null && GameManager.Get().TeamInfo != null && GameManager.Get().TeamInfo.TeamPlayerInfo != null)
-		{
-			List<LobbyPlayerInfo> teamPlayerInfo = GameManager.Get().TeamInfo.TeamPlayerInfo;
-			using (List<LobbyPlayerInfo>.Enumerator enumerator = teamPlayerInfo.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
-					if (!lobbyPlayerInfo.IsNPCBot)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.HasFriendInMatch()).MethodHandle;
-						}
-						if (lobbyPlayerInfo.AccountId > 0L)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (playerInfo.AccountId != lobbyPlayerInfo.AccountId && friendList.Friends.ContainsKey(lobbyPlayerInfo.AccountId))
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								return true;
-							}
-						}
-					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-		}
-		return result;
-	}
-
 	[Serializable]
 	public class XPDisplayInfo
 	{
@@ -838,44 +107,44 @@ public class UIGameOverPanel : UIScene
 
 		public void Clear(bool haveRewardNextLevel = true)
 		{
-			this.m_ready = false;
-			this.m_visibleLevel = -1;
-			this.m_normalXPToIncrease = 0;
-			this.m_winBonusXPToIncrease = 0;
-			this.m_ggPackXPIncrease = 0;
-			this.m_xpRemainingToNextLevel = 0;
-			this.m_xpTotalToNextLevel = 0;
-			this.m_playWithFriendXpIncrease = 0;
-			this.m_questXpIncrease = 0;
-			this.m_queueTimeXpIncrease = 0;
-			this.m_freelancerOwnedXpIncrease = 0;
-			this.m_eventBonusXpToIncrease = 0;
-			this.m_xpShownAdded = 0f;
-			this.m_previousLevelXPShown = 0;
-			this.m_OldXPSlider.fillAmount = 0f;
-			this.m_NormalXPGainSlider.fillAmount = 0f;
-			this.m_GGXPSlider.fillAmount = 0f;
-			this.m_QuestXPSlider.fillAmount = 0f;
-			this.m_normalXPInitial = 0;
-			this.m_winBonusXPInitial = 0;
-			this.m_ggPackXPInitial = 0;
-			this.m_playWithFriendXpInitial = 0;
-			this.m_questXpInitial = 0;
-			this.m_queueTimeXpInitial = 0;
-			this.m_freelancerOwnedXpInitial = 0;
-			this.m_eventBonusXpInitial = 0;
-			this.m_startXP = 0;
-			this.m_startedOnLevelUpYesReward = haveRewardNextLevel;
+			m_ready = false;
+			m_visibleLevel = -1;
+			m_normalXPToIncrease = 0;
+			m_winBonusXPToIncrease = 0;
+			m_ggPackXPIncrease = 0;
+			m_xpRemainingToNextLevel = 0;
+			m_xpTotalToNextLevel = 0;
+			m_playWithFriendXpIncrease = 0;
+			m_questXpIncrease = 0;
+			m_queueTimeXpIncrease = 0;
+			m_freelancerOwnedXpIncrease = 0;
+			m_eventBonusXpToIncrease = 0;
+			m_xpShownAdded = 0f;
+			m_previousLevelXPShown = 0;
+			m_OldXPSlider.fillAmount = 0f;
+			m_NormalXPGainSlider.fillAmount = 0f;
+			m_GGXPSlider.fillAmount = 0f;
+			m_QuestXPSlider.fillAmount = 0f;
+			m_normalXPInitial = 0;
+			m_winBonusXPInitial = 0;
+			m_ggPackXPInitial = 0;
+			m_playWithFriendXpInitial = 0;
+			m_questXpInitial = 0;
+			m_queueTimeXpInitial = 0;
+			m_freelancerOwnedXpInitial = 0;
+			m_eventBonusXpInitial = 0;
+			m_startXP = 0;
+			m_startedOnLevelUpYesReward = haveRewardNextLevel;
 		}
 
 		public int GetTotalExpIncrease()
 		{
-			return this.m_normalXPToIncrease + this.m_winBonusXPToIncrease + this.m_ggPackXPIncrease + this.m_playWithFriendXpIncrease + this.m_questXpIncrease + this.m_queueTimeXpIncrease + this.m_freelancerOwnedXpIncrease + this.m_eventBonusXpToIncrease;
+			return m_normalXPToIncrease + m_winBonusXPToIncrease + m_ggPackXPIncrease + m_playWithFriendXpIncrease + m_questXpIncrease + m_queueTimeXpIncrease + m_freelancerOwnedXpIncrease + m_eventBonusXpToIncrease;
 		}
 
 		public int GetTotalExpInitial()
 		{
-			return this.m_normalXPInitial + this.m_winBonusXPInitial + this.m_ggPackXPInitial + this.m_playWithFriendXpInitial + this.m_questXpInitial + this.m_queueTimeXpInitial + this.m_freelancerOwnedXpInitial + this.m_eventBonusXpInitial;
+			return m_normalXPInitial + m_winBonusXPInitial + m_ggPackXPInitial + m_playWithFriendXpInitial + m_questXpInitial + m_queueTimeXpInitial + m_freelancerOwnedXpInitial + m_eventBonusXpInitial;
 		}
 	}
 
@@ -936,67 +205,67 @@ public class UIGameOverPanel : UIScene
 
 		internal Team ourTeam = Team.Invalid;
 
+		private string HTMLColor
+		{
+			get
+			{
+				float num = Mathf.Min(totalUs, totalThem);
+				if (num <= 0f)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							return "A0A0A0";
+						}
+					}
+				}
+				float b = Mathf.Max(totalUs, totalThem) / num;
+				b = Mathf.Min(2f, b);
+				b = Mathf.Max(1f, b);
+				b = 2f - b;
+				if (totalUs > totalThem)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							break;
+						default:
+							return GetHTMLColorElement(0, 255, b) + "FF" + GetHTMLColorElement(0, 255, b);
+						}
+					}
+				}
+				return "FF" + GetHTMLColorElement(0, 255, b) + GetHTMLColorElement(0, 255, b);
+			}
+		}
+
 		internal TeamELOs(Team team)
 		{
-			this.ourTeam = team;
+			ourTeam = team;
 		}
 
 		private string GetHTMLColorElement(int imbal, int bal, float howBalanced)
 		{
 			howBalanced = howBalanced * howBalanced * howBalanced;
-			float num = (float)(bal - imbal);
+			float num = bal - imbal;
 			int num2 = (int)((0.49f + num) * howBalanced);
-			return string.Format("{0:X02}", num2);
-		}
-
-		private string HTMLColor
-		{
-			get
-			{
-				float num = Mathf.Min(this.totalUs, this.totalThem);
-				if (num <= 0f)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.TeamELOs.get_HTMLColor()).MethodHandle;
-					}
-					return "A0A0A0";
-				}
-				float num2 = Mathf.Max(this.totalUs, this.totalThem) / num;
-				num2 = Mathf.Min(2f, num2);
-				num2 = Mathf.Max(1f, num2);
-				num2 = 2f - num2;
-				if (this.totalUs > this.totalThem)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return this.GetHTMLColorElement(0, 0xFF, num2) + "FF" + this.GetHTMLColorElement(0, 0xFF, num2);
-				}
-				return "FF" + this.GetHTMLColorElement(0, 0xFF, num2) + this.GetHTMLColorElement(0, 0xFF, num2);
-			}
+			return $"{num2:X02}";
 		}
 
 		internal string ToHTML(string prefix)
 		{
-			if (this.countUs > 0f)
+			if (!(countUs <= 0f))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1005,13 +274,13 @@ public class UIGameOverPanel : UIScene
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.TeamELOs.ToHTML(string)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (this.countThem > 0f)
+				if (!(countThem <= 0f))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1020,9 +289,9 @@ public class UIGameOverPanel : UIScene
 						}
 						break;
 					}
-					if (this.totalUs > 0f)
+					if (!(totalUs <= 0f))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -1031,17 +300,11 @@ public class UIGameOverPanel : UIScene
 							}
 							break;
 						}
-						if (this.totalThem > 0f)
+						if (!(totalThem <= 0f))
 						{
-							return string.Format("{0}: <color=#{1}>{2:F0} v {3:F0}</color>", new object[]
-							{
-								prefix,
-								this.HTMLColor,
-								this.totalUs / this.countUs,
-								this.totalThem / this.countThem
-							});
+							return $"{prefix}: <color=#{HTMLColor}>{totalUs / countUs:F0} v {totalThem / countThem:F0}</color>";
 						}
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -1053,14 +316,172 @@ public class UIGameOverPanel : UIScene
 					}
 				}
 			}
-			return string.Format("{0}: ERR", prefix);
+			return $"{prefix}: ERR";
 		}
 
 		internal void AddPlayer(Team team, float elo)
 		{
-			if (team == this.ourTeam)
+			if (team == ourTeam)
 			{
-				for (;;)
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						totalUs += elo;
+						countUs += 1f;
+						return;
+					}
+				}
+			}
+			if (team != ourTeam.OtherTeam())
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				totalThem += elo;
+				countThem += 1f;
+				return;
+			}
+		}
+	}
+
+	public RectTransform[] m_seasonLevelContainer;
+
+	public RectTransform[] m_accountLevelContainers;
+
+	public InventoryItemTemplate seasonLevelRewardItem;
+
+	private const float c_continueBtnFailSafeTime = 10f;
+
+	private int factionGain;
+
+	private float GGPack_XPMult;
+
+	private bool m_waitingForXpBonusAnimFinished;
+
+	private bool m_isXpBonusAnimPlaying;
+
+	private int m_currentDisplayInfluenceAmt;
+
+	private float m_continueBtnFailsafeTime;
+
+	private SeasonTemplate m_currentSeason;
+
+	private bool m_IsLevellingSeasons;
+
+	private bool m_notificationHasArrived;
+
+	private bool m_wonRankGame;
+
+	private float m_startRankPoints;
+
+	private float m_endRankPoints;
+
+	private float m_rankStartTime;
+
+	private float m_rankJourneyLength;
+
+	private float m_currentRankPointDisplay;
+
+	private float m_previousLevelTotalPoints;
+
+	private int m_rankLevelDiff;
+
+	private const float MIN_RANK_FILL_AMT = 0.082f;
+
+	private const float MAX_RANK_FILL_AMT = 0.915f;
+
+	private GameResult m_gameResult;
+
+	private const float c_transititionGGPackOutTime = 2f;
+
+	private float m_timerToDisplayGGBoosts = -1f;
+
+	private float m_timerToDisplayGGBoostUsage = -1f;
+
+	private float m_timerToTransitionOutGGBoosts = -1f;
+
+	private float m_nextAvailableGGBoostDisplayTime = -1f;
+
+	private int m_numSelfGGpacksUsed;
+
+	private GameOverScreenState m_currentState;
+
+	private const float m_worldAnimationTime = 3.5f;
+
+	private const float m_GGPackRecapTime = 3f;
+
+	private const float m_GGPackRecapInterval = 0.2f;
+
+	private float m_timeBannerDisplayed;
+
+	private bool m_isSetup;
+
+	private static UIGameOverPanel s_instance;
+
+	private UpdateXPStage m_updateXpStage;
+
+	private float m_updateXpStartTime;
+
+	private bool failsafeTriggered;
+
+	public UpdateXPStage XPStage => m_updateXpStage;
+
+	public override SceneType GetSceneType()
+	{
+		return SceneType.GameOver;
+	}
+
+	private void Start()
+	{
+		s_instance = this;
+		m_notificationHasArrived = false;
+	}
+
+	public static UIGameOverPanel Get()
+	{
+		return s_instance;
+	}
+
+	public void CancelCallback(UIDialogBox boxReference)
+	{
+		ClientGameManager.Get().LeaveGame(true, m_gameResult);
+	}
+
+	public void RatingCallback(UIDialogBox boxReference)
+	{
+		UIRatingDialogBox uIRatingDialogBox = boxReference as UIRatingDialogBox;
+		if (GameFlowData.Get() != null)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (uIRatingDialogBox.GetRating() > -1)
+			{
+				while (true)
 				{
 					switch (3)
 					{
@@ -1069,27 +490,598 @@ public class UIGameOverPanel : UIScene
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.TeamELOs.AddPlayer(Team, float)).MethodHandle;
-				}
-				this.totalUs += elo;
-				this.countUs += 1f;
+				PlayerFeedbackData playerFeedbackData = new PlayerFeedbackData();
+				playerFeedbackData.CharacterType = GameManager.Get().PlayerInfo.CharacterType;
+				playerFeedbackData.Rating = uIRatingDialogBox.GetRating() + 1;
+				ClientGameManager.Get().SendPlayerCharacterFeedback(playerFeedbackData);
 			}
-			else if (team == this.ourTeam.OtherTeam())
+		}
+		GameManager.Get().StopGame();
+	}
+
+	public int SeasonExperienceToLevel(int seasonIndex, int currentLevel)
+	{
+		return SeasonWideData.Get().GetSeasonExperience(seasonIndex, currentLevel);
+	}
+
+	private Sprite GetRewardSprite(RewardUtils.RewardData reward)
+	{
+		return (Sprite)Resources.Load(reward.SpritePath, typeof(Sprite));
+	}
+
+	private RewardUtils.RewardData GetRewardToUseForIconDisplay(List<RewardUtils.RewardData> possibleRewards, int curLevel)
+	{
+		List<RewardUtils.RewardData> list = new List<RewardUtils.RewardData>();
+		int num = -1;
+		for (int i = 0; i < possibleRewards.Count; i++)
+		{
+			if (possibleRewards[i].Level <= curLevel)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (5)
+					switch (7)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				this.totalThem += elo;
-				this.countThem += 1f;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (!possibleRewards[i].isRepeating)
+				{
+					continue;
+				}
+			}
+			if (list.Count == 0)
+			{
+				list.Add(possibleRewards[i]);
+				num = possibleRewards[i].Level;
+			}
+			else if (num == possibleRewards[i].Level)
+			{
+				list.Add(possibleRewards[i]);
 			}
 		}
+		while (true)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			for (int j = 0; j < GameBalanceVars.Get().RewardDisplayPriorityOrder.Length; j++)
+			{
+				for (int k = 0; k < list.Count; k++)
+				{
+					if (GameBalanceVars.Get().RewardDisplayPriorityOrder[j] != list[k].Type)
+					{
+						continue;
+					}
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						return list[k];
+					}
+				}
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						break;
+					default:
+						goto end_IL_00f0;
+					}
+					continue;
+					end_IL_00f0:
+					break;
+				}
+			}
+			if (list.Count > 0)
+			{
+				return list[0];
+			}
+			return null;
+		}
+	}
+
+	private void DelaySetup(GameType gameType, GameResult gameResult, int myTeamScore, int enemyTeamScore)
+	{
+		if (GameBalanceVars.Get() == null)
+		{
+			return;
+		}
+		m_IsLevellingSeasons = true;
+		for (int i = 0; i < m_seasonLevelContainer.Length; i++)
+		{
+			UIManager.SetGameObjectActive(m_seasonLevelContainer[i], m_IsLevellingSeasons);
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			for (int j = 0; j < m_accountLevelContainers.Length; j++)
+			{
+				UIManager.SetGameObjectActive(m_accountLevelContainers[j], !m_IsLevellingSeasons);
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
+		}
+	}
+
+	private void SetupRankMode(GameType gameType, bool wonMatch)
+	{
+	}
+
+	private void SetupTierDisplay(int tier)
+	{
+	}
+
+	public void Setup(GameType gameType, GameResult gameResult, int myTeamScore, int enemyTeamScore)
+	{
+		m_gameResult = gameResult;
+		m_updateXpStage = UpdateXPStage.Normal;
+		m_waitingForXpBonusAnimFinished = false;
+		Team team = (GameManager.Get().PlayerInfo.TeamId == Team.TeamB) ? Team.TeamB : Team.TeamA;
+		int num;
+		if (team == Team.TeamB)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			num = 1;
+		}
+		else
+		{
+			num = 0;
+		}
+		Team team2 = (Team)num;
+		bool wonMatch = false;
+		if (gameResult == GameResult.TeamAWon)
+		{
+			if (team2 == Team.TeamA)
+			{
+				goto IL_007b;
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		if (gameResult == GameResult.TeamBWon)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (team2 == Team.TeamB)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				goto IL_007b;
+			}
+		}
+		goto IL_007d;
+		IL_007d:
+		SetupRankMode(gameType, wonMatch);
+		m_isSetup = true;
+		return;
+		IL_007b:
+		wonMatch = true;
+		goto IL_007d;
+	}
+
+	private void Update()
+	{
+		if (!m_isSetup)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
+			}
+		}
+		if (!m_notificationHasArrived)
+		{
+			goto IL_0069;
+		}
+		if (!(UINewReward.Get() == null))
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (UINewReward.Get().RewardIsBeingAnnounced())
+			{
+				goto IL_0069;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		int num = (Time.unscaledTime >= m_continueBtnFailsafeTime) ? 1 : 0;
+		goto IL_006a;
+		IL_006a:
+		bool flag = (byte)num != 0;
+		if (m_updateXpStage < UpdateXPStage.Done)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (flag)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				failsafeTriggered = true;
+			}
+		}
+		if (UINewReward.Get().RewardIsBeingAnnounced() || m_updateXpStage >= UpdateXPStage.Done)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			if (m_waitingForXpBonusAnimFinished)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						break;
+					default:
+					{
+						Animator animator = null;
+						if (m_waitingForXpBonusAnimFinished)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (animator == null)
+							{
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								m_isXpBonusAnimPlaying = false;
+								m_updateXpStage++;
+								m_continueBtnFailsafeTime = Time.unscaledTime + 10f;
+							}
+							else if (!m_isXpBonusAnimPlaying)
+							{
+								m_isXpBonusAnimPlaying = true;
+								animator.Play("ResultsBonusIcon" + m_updateXpStage.ToString() + "DefaultIN");
+								m_updateXpStartTime = Time.unscaledTime;
+							}
+							else if (Time.unscaledTime > animator.GetCurrentAnimatorStateInfo(0).length + m_updateXpStartTime)
+							{
+								m_waitingForXpBonusAnimFinished = false;
+							}
+						}
+						if (failsafeTriggered)
+						{
+							failsafeTriggered = false;
+							string message = string.Format("Fail safe for continue button triggered and stuck on waiting for xp bonus anim! GameName: {0}, PlayerHandle: {1}, XPStage: {2}", (GameManager.Get().GameInfo == null) ? "Game game info null!" : GameManager.Get().GameInfo.Name, ClientGameManager.Get().PlayerInfo.Handle, m_updateXpStage);
+							Log.Error(message);
+							m_updateXpStage = UpdateXPStage.Done;
+						}
+						return;
+					}
+					}
+				}
+			}
+			bool flag2 = UpdateInfluence();
+			bool flag3 = UpdateRankPoints();
+			bool flag4 = false;
+			if (!flag4)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!flag2)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (!flag3)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								break;
+							default:
+								m_waitingForXpBonusAnimFinished = true;
+								m_isXpBonusAnimPlaying = false;
+								m_updateXpStage++;
+								m_continueBtnFailsafeTime = Time.unscaledTime + 10f;
+								return;
+							}
+						}
+					}
+				}
+			}
+			if (!failsafeTriggered)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				failsafeTriggered = false;
+				object[] obj = new object[8]
+				{
+					false,
+					flag4,
+					false,
+					flag2,
+					flag3,
+					null,
+					null,
+					null
+				};
+				object obj2;
+				if (GameManager.Get().GameInfo != null)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					obj2 = GameManager.Get().GameInfo.Name;
+				}
+				else
+				{
+					obj2 = "Game game info null!";
+				}
+				obj[5] = obj2;
+				obj[6] = ClientGameManager.Get().PlayerInfo.Handle;
+				obj[7] = m_updateXpStage;
+				string message2 = string.Format("Fail safe for continue button triggered! charUpdating: {0}, playerUpdating: {1}, currencyUpdating: {2}, influenceupdating: {3}, rankpointsupdating: {4}, GameName: {5}, PlayerHandle: {6}, XPStage: {7}", obj);
+				Log.Error(message2);
+				m_updateXpStage = UpdateXPStage.Done;
+				return;
+			}
+		}
+		IL_0069:
+		num = 0;
+		goto IL_006a;
+	}
+
+	private void SetTooltipClickable(XPDisplayInfo info, bool clickable)
+	{
+		if (!(info.m_levelUpAnimController != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			_SelectableBtn component = info.m_levelUpAnimController.GetComponent<_SelectableBtn>();
+			if (component != null)
+			{
+				component.spriteController.SetClickable(clickable);
+			}
+			return;
+		}
+	}
+
+	private void InitializeRewardIcon(XPDisplayInfo info)
+	{
+	}
+
+	private void DoLevelUpAnim(XPDisplayInfo dispInfo, int newLevel)
+	{
+	}
+
+	private bool UpdateInfluence()
+	{
+		return false;
+	}
+
+	private float GetRankFillAmt(float percent)
+	{
+		return percent * 0.833f + 0.082f;
+	}
+
+	private bool UpdateRankPoints()
+	{
+		return false;
+	}
+
+	public static bool HasFriendInMatch()
+	{
+		bool result = false;
+		FriendList friendList = ClientGameManager.Get().FriendList;
+		LobbyPlayerInfo playerInfo = GameManager.Get().PlayerInfo;
+		if (friendList != null && GameManager.Get().TeamInfo != null && GameManager.Get().TeamInfo.TeamPlayerInfo != null)
+		{
+			List<LobbyPlayerInfo> teamPlayerInfo = GameManager.Get().TeamInfo.TeamPlayerInfo;
+			using (List<LobbyPlayerInfo>.Enumerator enumerator = teamPlayerInfo.GetEnumerator())
+			{
+				while (enumerator.MoveNext())
+				{
+					LobbyPlayerInfo current = enumerator.Current;
+					if (!current.IsNPCBot)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						if (current.AccountId > 0)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (playerInfo.AccountId != current.AccountId && friendList.Friends.ContainsKey(current.AccountId))
+							{
+								while (true)
+								{
+									switch (1)
+									{
+									case 0:
+										break;
+									default:
+										return true;
+									}
+								}
+							}
+						}
+					}
+				}
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						break;
+					default:
+						return result;
+					}
+				}
+			}
+		}
+		return result;
 	}
 }

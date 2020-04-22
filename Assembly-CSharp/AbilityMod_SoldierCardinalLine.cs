@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,46 +43,45 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SoldierCardinalLine soldierCardinalLine = targetAbility as SoldierCardinalLine;
-		if (soldierCardinalLine != null)
+		if (!(soldierCardinalLine != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierCardinalLine.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_lineWidthMod, "LineWidth", string.Empty, soldierCardinalLine.m_lineWidth, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, soldierCardinalLine.m_damageAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", soldierCardinalLine.m_enemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_aoeDamageMod, "AoeDamage", string.Empty, soldierCardinalLine.m_aoeDamage, true, false);
-			AbilityMod.AddToken(tokens, this.m_nearCenterDistThresholdMod, "NearCenterDistThreshold", string.Empty, soldierCardinalLine.m_nearCenterDistThreshold, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageForNearCenterTargetsMod, "ExtraDamageForNearCenterTargets", string.Empty, soldierCardinalLine.m_extraDamageForNearCenterTargets, true, false);
-			AbilityMod.AddToken(tokens, this.m_numSubsequentTurnsMod, "NumSubsequentTurns", string.Empty, soldierCardinalLine.m_numSubsequentTurns, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageOnSubsequentTurnsMod, "DamageOnSubsequentTurns", string.Empty, soldierCardinalLine.m_damageOnSubsequentTurns, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyEffectOnSubsequentTurnsMod, "EnemyEffectOnSubsequentTurns", soldierCardinalLine.m_enemyEffectOnSubsequentTurns, true);
+			AbilityMod.AddToken(tokens, m_lineWidthMod, "LineWidth", string.Empty, soldierCardinalLine.m_lineWidth);
+			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, soldierCardinalLine.m_damageAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", soldierCardinalLine.m_enemyHitEffect);
+			AbilityMod.AddToken(tokens, m_aoeDamageMod, "AoeDamage", string.Empty, soldierCardinalLine.m_aoeDamage);
+			AbilityMod.AddToken(tokens, m_nearCenterDistThresholdMod, "NearCenterDistThreshold", string.Empty, soldierCardinalLine.m_nearCenterDistThreshold);
+			AbilityMod.AddToken(tokens, m_extraDamageForNearCenterTargetsMod, "ExtraDamageForNearCenterTargets", string.Empty, soldierCardinalLine.m_extraDamageForNearCenterTargets);
+			AbilityMod.AddToken(tokens, m_numSubsequentTurnsMod, "NumSubsequentTurns", string.Empty, soldierCardinalLine.m_numSubsequentTurns);
+			AbilityMod.AddToken(tokens, m_damageOnSubsequentTurnsMod, "DamageOnSubsequentTurns", string.Empty, soldierCardinalLine.m_damageOnSubsequentTurns);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyEffectOnSubsequentTurnsMod, "EnemyEffectOnSubsequentTurns", soldierCardinalLine.m_enemyEffectOnSubsequentTurns);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SoldierCardinalLine soldierCardinalLine = base.GetTargetAbilityOnAbilityData(abilityData) as SoldierCardinalLine;
+		SoldierCardinalLine soldierCardinalLine = GetTargetAbilityOnAbilityData(abilityData) as SoldierCardinalLine;
 		bool flag = soldierCardinalLine != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyBool useBothCardinalDirMod = this.m_useBothCardinalDirMod;
-		string prefix = "[UseBothCardinalDir]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyBool useBothCardinalDirMod = m_useBothCardinalDirMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -91,25 +90,23 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierCardinalLine.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			baseVal = soldierCardinalLine.m_useBothCardinalDir;
+			baseVal = (soldierCardinalLine.m_useBothCardinalDir ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(useBothCardinalDirMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyShape positionShapeMod = this.m_positionShapeMod;
-		string prefix2 = "[PositionShape]";
-		bool showBaseVal2 = flag;
-		AbilityAreaShape baseVal2;
+		empty = str + PropDesc(useBothCardinalDirMod, "[UseBothCardinalDir]", flag, (byte)baseVal != 0);
+		string str2 = empty;
+		AbilityModPropertyShape positionShapeMod = m_positionShapeMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -118,21 +115,19 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 				}
 				break;
 			}
-			baseVal2 = soldierCardinalLine.m_positionShape;
+			baseVal2 = (int)soldierCardinalLine.m_positionShape;
 		}
 		else
 		{
-			baseVal2 = AbilityAreaShape.SingleSquare;
+			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(positionShapeMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyFloat lineWidthMod = this.m_lineWidthMod;
-		string prefix3 = "[LineWidth]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(positionShapeMod, "[PositionShape]", flag, (AbilityAreaShape)baseVal2);
+		string str3 = empty;
+		AbilityModPropertyFloat lineWidthMod = m_lineWidthMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -147,16 +142,14 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(lineWidthMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_penetrateLosMod, "[PenetrateLos]", flag, flag && soldierCardinalLine.m_penetrateLos);
-		string str4 = text;
-		AbilityModPropertyInt damageAmountMod = this.m_damageAmountMod;
-		string prefix4 = "[DamageAmount]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(lineWidthMod, "[LineWidth]", flag, baseVal3);
+		empty += PropDesc(m_penetrateLosMod, "[PenetrateLos]", flag, flag && soldierCardinalLine.m_penetrateLos);
+		string str4 = empty;
+		AbilityModPropertyInt damageAmountMod = m_damageAmountMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -171,17 +164,15 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(damageAmountMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_enemyHitEffectMod, "[EnemyHitEffect]", flag, (!flag) ? null : soldierCardinalLine.m_enemyHitEffect);
-		text += base.PropDesc(this.m_nearCenterDistThresholdMod, "[NearCenterDistThreshold]", flag, (!flag) ? 0f : soldierCardinalLine.m_nearCenterDistThreshold);
-		string str5 = text;
-		AbilityModPropertyInt extraDamageForNearCenterTargetsMod = this.m_extraDamageForNearCenterTargetsMod;
-		string prefix5 = "[ExtraDamageForNearCenterTargets]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(damageAmountMod, "[DamageAmount]", flag, baseVal4);
+		empty += PropDesc(m_enemyHitEffectMod, "[EnemyHitEffect]", flag, (!flag) ? null : soldierCardinalLine.m_enemyHitEffect);
+		empty += PropDesc(m_nearCenterDistThresholdMod, "[NearCenterDistThreshold]", flag, (!flag) ? 0f : soldierCardinalLine.m_nearCenterDistThreshold);
+		string str5 = empty;
+		AbilityModPropertyInt extraDamageForNearCenterTargetsMod = m_extraDamageForNearCenterTargetsMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -196,15 +187,13 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(extraDamageForNearCenterTargetsMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyShape aoeShapeMod = this.m_aoeShapeMod;
-		string prefix6 = "[AoeShape]";
-		bool showBaseVal6 = flag;
-		AbilityAreaShape baseVal6;
+		empty = str5 + PropDesc(extraDamageForNearCenterTargetsMod, "[ExtraDamageForNearCenterTargets]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyShape aoeShapeMod = m_aoeShapeMod;
+		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -213,21 +202,19 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 				}
 				break;
 			}
-			baseVal6 = soldierCardinalLine.m_aoeShape;
+			baseVal6 = (int)soldierCardinalLine.m_aoeShape;
 		}
 		else
 		{
-			baseVal6 = AbilityAreaShape.SingleSquare;
+			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(aoeShapeMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyInt aoeDamageMod = this.m_aoeDamageMod;
-		string prefix7 = "[AoeDamage]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(aoeShapeMod, "[AoeShape]", flag, (AbilityAreaShape)baseVal6);
+		string str7 = empty;
+		AbilityModPropertyInt aoeDamageMod = m_aoeDamageMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -242,15 +229,13 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		{
 			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(aoeDamageMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyInt numSubsequentTurnsMod = this.m_numSubsequentTurnsMod;
-		string prefix8 = "[NumSubsequentTurns]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(aoeDamageMod, "[AoeDamage]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyInt numSubsequentTurnsMod = m_numSubsequentTurnsMod;
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -265,15 +250,13 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		{
 			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(numSubsequentTurnsMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyInt damageOnSubsequentTurnsMod = this.m_damageOnSubsequentTurnsMod;
-		string prefix9 = "[DamageOnSubsequentTurns]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(numSubsequentTurnsMod, "[NumSubsequentTurns]", flag, baseVal8);
+		string str9 = empty;
+		AbilityModPropertyInt damageOnSubsequentTurnsMod = m_damageOnSubsequentTurnsMod;
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -288,7 +271,7 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		{
 			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(damageOnSubsequentTurnsMod, prefix9, showBaseVal9, baseVal9);
-		return text + base.PropDesc(this.m_enemyEffectOnSubsequentTurnsMod, "[EnemyEffectOnSubsequentTurns]", flag, (!flag) ? null : soldierCardinalLine.m_enemyEffectOnSubsequentTurns);
+		empty = str9 + PropDesc(damageOnSubsequentTurnsMod, "[DamageOnSubsequentTurns]", flag, baseVal9);
+		return empty + PropDesc(m_enemyEffectOnSubsequentTurnsMod, "[EnemyEffectOnSubsequentTurns]", flag, (!flag) ? null : soldierCardinalLine.m_enemyEffectOnSubsequentTurns);
 	}
 }

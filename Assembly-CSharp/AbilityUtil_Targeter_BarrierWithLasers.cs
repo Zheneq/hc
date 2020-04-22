@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,29 +17,30 @@ public class AbilityUtil_Targeter_BarrierWithLasers : AbilityUtil_Targeter_Barri
 
 	private TargeterPart_Laser m_laserPartBack;
 
-	public AbilityUtil_Targeter_BarrierWithLasers(Ability ability, float width, float laserRangeFront, float laserRangeBack, bool laserIgnoreLos, bool laserLengthIgnoreLos) : base(ability, width, true, false, true)
+	public AbilityUtil_Targeter_BarrierWithLasers(Ability ability, float width, float laserRangeFront, float laserRangeBack, bool laserIgnoreLos, bool laserLengthIgnoreLos)
+		: base(ability, width, true)
 	{
-		this.m_laserRangeFront = laserRangeFront;
-		this.m_laserRangeBack = laserRangeBack;
-		this.m_laserIgnoreLos = laserIgnoreLos;
-		this.m_laserLengthIgnoreLos = laserLengthIgnoreLos;
-		this.m_laserPartFront = new TargeterPart_Laser(this.m_width, this.m_laserRangeFront, this.m_laserIgnoreLos, -1);
-		this.m_laserPartFront.m_lengthIgnoreWorldGeo = this.m_laserLengthIgnoreLos;
-		this.m_laserPartFront.m_ignoreStartOffset = true;
-		this.m_laserPartBack = new TargeterPart_Laser(this.m_width, this.m_laserRangeBack, this.m_laserIgnoreLos, -1);
-		this.m_laserPartBack.m_lengthIgnoreWorldGeo = this.m_laserLengthIgnoreLos;
-		this.m_laserPartBack.m_ignoreStartOffset = true;
-		this.m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
+		m_laserRangeFront = laserRangeFront;
+		m_laserRangeBack = laserRangeBack;
+		m_laserIgnoreLos = laserIgnoreLos;
+		m_laserLengthIgnoreLos = laserLengthIgnoreLos;
+		m_laserPartFront = new TargeterPart_Laser(m_width, m_laserRangeFront, m_laserIgnoreLos, -1);
+		m_laserPartFront.m_lengthIgnoreWorldGeo = m_laserLengthIgnoreLos;
+		m_laserPartFront.m_ignoreStartOffset = true;
+		m_laserPartBack = new TargeterPart_Laser(m_width, m_laserRangeBack, m_laserIgnoreLos, -1);
+		m_laserPartBack.m_lengthIgnoreWorldGeo = m_laserLengthIgnoreLos;
+		m_laserPartBack.m_ignoreStartOffset = true;
+		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
 	}
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
-		base.ClearActorsInRange();
+		ClearActorsInRange();
 		base.UpdateTargetingMultiTargets(currentTarget, targetingActor, currentTargetIndex, targets);
 		int num = 1;
-		if (this.m_snapToBorder)
+		if (m_snapToBorder)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -49,15 +49,15 @@ public class AbilityUtil_Targeter_BarrierWithLasers : AbilityUtil_Targeter_Barri
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BarrierWithLasers.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			num = 2;
 		}
-		if (this.m_highlights.Count < num + 2)
+		if (m_highlights.Count < num + 2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -66,15 +66,15 @@ public class AbilityUtil_Targeter_BarrierWithLasers : AbilityUtil_Targeter_Barri
 				}
 				break;
 			}
-			this.m_highlights.Add(this.m_laserPartFront.CreateHighlightObject(this));
-			this.m_highlights.Add(this.m_laserPartBack.CreateHighlightObject(this));
+			m_highlights.Add(m_laserPartFront.CreateHighlightObject(this));
+			m_highlights.Add(m_laserPartBack.CreateHighlightObject(this));
 		}
-		GameObject gameObject = this.m_highlights[num];
-		GameObject gameObject2 = this.m_highlights[num + 1];
+		GameObject gameObject = m_highlights[num];
+		GameObject gameObject2 = m_highlights[num + 1];
 		bool flag = GameFlowData.Get().activeOwnedActorData == targetingActor;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -83,23 +83,23 @@ public class AbilityUtil_Targeter_BarrierWithLasers : AbilityUtil_Targeter_Barri
 				}
 				break;
 			}
-			base.ResetSquareIndicatorIndexToUse();
+			ResetSquareIndicatorIndexToUse();
 		}
-		Vector3 barrierCenterPos = this.m_barrierCenterPos;
-		barrierCenterPos.y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
-		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(targetingActor, this.m_affectsAllies, this.m_affectsEnemies);
-		if (this.m_laserRangeFront > 0f)
+		Vector3 barrierCenterPos = m_barrierCenterPos;
+		barrierCenterPos.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(targetingActor, m_affectsAllies, m_affectsEnemies);
+		if (m_laserRangeFront > 0f)
 		{
 			Vector3 endPos;
-			List<ActorData> hitActors = this.m_laserPartFront.GetHitActors(barrierCenterPos, this.m_barrierDir, targetingActor, relevantTeams, out endPos);
+			List<ActorData> hitActors = m_laserPartFront.GetHitActors(barrierCenterPos, m_barrierDir, targetingActor, relevantTeams, out endPos);
 			using (List<ActorData>.Enumerator enumerator = hitActors.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					ActorData actor = enumerator.Current;
-					base.AddActorInRange(actor, barrierCenterPos, targetingActor, AbilityTooltipSubject.Primary, false);
+					ActorData current = enumerator.Current;
+					AddActorInRange(current, barrierCenterPos, targetingActor);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -111,7 +111,7 @@ public class AbilityUtil_Targeter_BarrierWithLasers : AbilityUtil_Targeter_Barri
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -120,17 +120,17 @@ public class AbilityUtil_Targeter_BarrierWithLasers : AbilityUtil_Targeter_Barri
 					}
 					break;
 				}
-				this.m_laserPartFront.ShowHiddenSquares(this.m_indicatorHandler, barrierCenterPos, endPos, targetingActor, this.m_laserIgnoreLos);
+				m_laserPartFront.ShowHiddenSquares(m_indicatorHandler, barrierCenterPos, endPos, targetingActor, m_laserIgnoreLos);
 			}
-			this.m_laserPartFront.AdjustHighlight(gameObject, barrierCenterPos, endPos, false);
+			m_laserPartFront.AdjustHighlight(gameObject, barrierCenterPos, endPos, false);
 		}
 		else
 		{
 			gameObject.SetActiveIfNeeded(false);
 		}
-		if (this.m_laserRangeBack > 0f)
+		if (m_laserRangeBack > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -140,15 +140,15 @@ public class AbilityUtil_Targeter_BarrierWithLasers : AbilityUtil_Targeter_Barri
 				break;
 			}
 			Vector3 endPos2;
-			List<ActorData> hitActors2 = this.m_laserPartBack.GetHitActors(barrierCenterPos, -1f * this.m_barrierDir, targetingActor, relevantTeams, out endPos2);
+			List<ActorData> hitActors2 = m_laserPartBack.GetHitActors(barrierCenterPos, -1f * m_barrierDir, targetingActor, relevantTeams, out endPos2);
 			using (List<ActorData>.Enumerator enumerator2 = hitActors2.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
 				{
-					ActorData actor2 = enumerator2.Current;
-					base.AddActorInRange(actor2, barrierCenterPos, targetingActor, AbilityTooltipSubject.Primary, false);
+					ActorData current2 = enumerator2.Current;
+					AddActorInRange(current2, barrierCenterPos, targetingActor);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -160,7 +160,7 @@ public class AbilityUtil_Targeter_BarrierWithLasers : AbilityUtil_Targeter_Barri
 			}
 			if (flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -169,9 +169,9 @@ public class AbilityUtil_Targeter_BarrierWithLasers : AbilityUtil_Targeter_Barri
 					}
 					break;
 				}
-				this.m_laserPartBack.ShowHiddenSquares(this.m_indicatorHandler, barrierCenterPos, endPos2, targetingActor, this.m_laserIgnoreLos);
+				m_laserPartBack.ShowHiddenSquares(m_indicatorHandler, barrierCenterPos, endPos2, targetingActor, m_laserIgnoreLos);
 			}
-			this.m_laserPartBack.AdjustHighlight(gameObject2, barrierCenterPos, endPos2, false);
+			m_laserPartBack.AdjustHighlight(gameObject2, barrierCenterPos, endPos2, false);
 		}
 		else
 		{
@@ -179,11 +179,11 @@ public class AbilityUtil_Targeter_BarrierWithLasers : AbilityUtil_Targeter_Barri
 		}
 		if (flag)
 		{
-			base.HideAllSquareIndicators();
+			HideAllSquareIndicators();
 		}
-		if (this.m_laserRangeFront <= 0f)
+		if (!(m_laserRangeFront > 0f))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -192,11 +192,11 @@ public class AbilityUtil_Targeter_BarrierWithLasers : AbilityUtil_Targeter_Barri
 				}
 				break;
 			}
-			if (this.m_laserRangeBack <= 0f)
+			if (!(m_laserRangeBack > 0f))
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -206,6 +206,6 @@ public class AbilityUtil_Targeter_BarrierWithLasers : AbilityUtil_Targeter_Barri
 				break;
 			}
 		}
-		this.m_highlights[0].gameObject.SetActiveIfNeeded(false);
+		m_highlights[0].gameObject.SetActiveIfNeeded(false);
 	}
 }

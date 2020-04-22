@@ -1,11 +1,18 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FishManCone : Ability
 {
+	public enum ConeTargetingMode
+	{
+		Static,
+		MultiClick,
+		Stretch
+	}
+
 	[Header("-- Cone Data")]
-	public FishManCone.ConeTargetingMode m_coneMode = FishManCone.ConeTargetingMode.MultiClick;
+	public ConeTargetingMode m_coneMode = ConeTargetingMode.MultiClick;
 
 	public float m_coneWidthAngle = 60f;
 
@@ -36,9 +43,9 @@ public class FishManCone : Ability
 	public StandardEffectInfo m_effectToEnemies;
 
 	[Header("-- Ally Healing")]
-	public int m_healingToAllies = 0xF;
+	public int m_healingToAllies = 15;
 
-	public int m_healingToAlliesMax = 0x1E;
+	public int m_healingToAlliesMax = 30;
 
 	public StandardEffectInfo m_effectToAllies;
 
@@ -70,15 +77,15 @@ public class FishManCone : Ability
 
 	private void Start()
 	{
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		if (this.m_syncComp == null)
+		SetCachedFields();
+		if (m_syncComp == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -87,56 +94,56 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.Setup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_syncComp = base.GetComponent<FishMan_SyncComponent>();
+			m_syncComp = GetComponent<FishMan_SyncComponent>();
 		}
-		if (this.m_coneMode == FishManCone.ConeTargetingMode.MultiClick)
+		if (m_coneMode == ConeTargetingMode.MultiClick)
 		{
-			base.ClearTargeters();
-			for (int i = 0; i < this.GetExpectedNumberOfTargeters(); i++)
+			ClearTargeters();
+			for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 			{
-				AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone = new AbilityUtil_Targeter_SweepMultiClickCone(this, this.GetConeWidthAngleMin(), this.GetConeWidthAngle(), this.GetConeLength(), this.GetConeBackwardOffset(), this.m_multiClickConeEdgeWidth, this.PenetrateLineOfSight(), this.GetMaxTargets());
-				abilityUtil_Targeter_SweepMultiClickCone.SetAffectedGroups(this.AffectsEnemies(), this.AffectsAllies(), this.AffectsCaster());
+				AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone = new AbilityUtil_Targeter_SweepMultiClickCone(this, GetConeWidthAngleMin(), GetConeWidthAngle(), GetConeLength(), GetConeBackwardOffset(), m_multiClickConeEdgeWidth, PenetrateLineOfSight(), GetMaxTargets());
+				abilityUtil_Targeter_SweepMultiClickCone.SetAffectedGroups(AffectsEnemies(), AffectsAllies(), AffectsCaster());
 				base.Targeters.Add(abilityUtil_Targeter_SweepMultiClickCone);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
-		else if (this.m_coneMode == FishManCone.ConeTargetingMode.Stretch)
+		if (m_coneMode == ConeTargetingMode.Stretch)
 		{
-			base.Targeter = new AbilityUtil_Targeter_StretchCone(this, this.GetConeLength(), this.GetConeLength(), this.GetConeWidthAngleMin(), this.GetConeWidthAngle(), this.m_stretchConeStyle, this.GetConeBackwardOffset(), this.PenetrateLineOfSight())
-			{
-				m_includeEnemies = this.AffectsEnemies(),
-				m_includeAllies = this.AffectsAllies(),
-				m_includeCaster = this.AffectsCaster(),
-				m_interpMinDistOverride = this.m_stretchInterpMinDist,
-				m_interpRangeOverride = this.m_stretchInterpRange,
-				m_discreteWidthAngleChange = this.m_useDiscreteAngleChange,
-				m_numDiscreteWidthChanges = this.GetMaxDamageToEnemies() - this.GetDamageToEnemies()
-			};
+			AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = new AbilityUtil_Targeter_StretchCone(this, GetConeLength(), GetConeLength(), GetConeWidthAngleMin(), GetConeWidthAngle(), m_stretchConeStyle, GetConeBackwardOffset(), PenetrateLineOfSight());
+			abilityUtil_Targeter_StretchCone.m_includeEnemies = AffectsEnemies();
+			abilityUtil_Targeter_StretchCone.m_includeAllies = AffectsAllies();
+			abilityUtil_Targeter_StretchCone.m_includeCaster = AffectsCaster();
+			abilityUtil_Targeter_StretchCone.m_interpMinDistOverride = m_stretchInterpMinDist;
+			abilityUtil_Targeter_StretchCone.m_interpRangeOverride = m_stretchInterpRange;
+			abilityUtil_Targeter_StretchCone.m_discreteWidthAngleChange = m_useDiscreteAngleChange;
+			abilityUtil_Targeter_StretchCone.m_numDiscreteWidthChanges = GetMaxDamageToEnemies() - GetDamageToEnemies();
+			base.Targeter = abilityUtil_Targeter_StretchCone;
 		}
 		else
 		{
-			base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, this.GetConeWidthAngle(), this.GetConeLength(), this.GetConeBackwardOffset(), this.PenetrateLineOfSight(), true, this.AffectsEnemies(), this.AffectsAllies(), this.AffectsCaster(), this.GetMaxTargets(), false);
+			base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, GetConeWidthAngle(), GetConeLength(), GetConeBackwardOffset(), PenetrateLineOfSight(), true, AffectsEnemies(), AffectsAllies(), AffectsCaster(), GetMaxTargets());
 		}
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
 		int result;
-		if (this.m_coneMode == FishManCone.ConeTargetingMode.MultiClick)
+		if (m_coneMode == ConeTargetingMode.MultiClick)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -145,9 +152,9 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetExpectedNumberOfTargeters()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			result = 2;
 		}
@@ -165,39 +172,39 @@ public class FishManCone : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetConeLength();
+		return GetConeLength();
 	}
 
-	public unsafe override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
+	public override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
 	{
-		if (this.m_coneMode == FishManCone.ConeTargetingMode.Stretch)
+		if (m_coneMode == ConeTargetingMode.Stretch)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					min = m_stretchInterpMinDist * Board.Get().squareSize;
+					max = (m_stretchInterpMinDist + m_stretchInterpRange) * Board.Get().squareSize;
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.HasRestrictedFreePosDistance(ActorData, int, List<AbilityTarget>, float*, float*)).MethodHandle;
-			}
-			min = this.m_stretchInterpMinDist * Board.\u000E().squareSize;
-			max = (this.m_stretchInterpMinDist + this.m_stretchInterpRange) * Board.\u000E().squareSize;
-			return true;
 		}
 		return base.HasRestrictedFreeAimDegrees(aimingActor, targetIndex, targetsSoFar, out min, out max);
 	}
 
 	private bool AffectsEnemies()
 	{
-		bool result;
-		if (this.GetDamageToEnemies() <= 0)
+		int result;
+		if (GetDamageToEnemies() <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -206,35 +213,35 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.AffectsEnemies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.GetEffectToEnemies().m_applyEffect;
+			result = (GetEffectToEnemies().m_applyEffect ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private bool AffectsAllies()
 	{
-		return this.GetHealingToAllies() > 0 || this.GetEffectToAllies().m_applyEffect;
+		return GetHealingToAllies() > 0 || GetEffectToAllies().m_applyEffect;
 	}
 
 	private bool AffectsCaster()
 	{
-		return this.GetHealToCasterOnCast() > 0 || this.GetHealToCasterPerAllyHit() > 0 || this.GetHealToCasterPerEnemyHit() > 0;
+		return GetHealToCasterOnCast() > 0 || GetHealToCasterPerAllyHit() > 0 || GetHealToCasterPerEnemyHit() > 0;
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedEffectToEnemies;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -243,26 +250,26 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedEffectToEnemies = this.m_abilityMod.m_effectToEnemiesMod.GetModifiedValue(this.m_effectToEnemies);
+			cachedEffectToEnemies = m_abilityMod.m_effectToEnemiesMod.GetModifiedValue(m_effectToEnemies);
 		}
 		else
 		{
-			cachedEffectToEnemies = this.m_effectToEnemies;
+			cachedEffectToEnemies = m_effectToEnemies;
 		}
-		this.m_cachedEffectToEnemies = cachedEffectToEnemies;
-		this.m_cachedEffectToAllies = ((!this.m_abilityMod) ? this.m_effectToAllies : this.m_abilityMod.m_effectToAlliesMod.GetModifiedValue(this.m_effectToAllies));
+		m_cachedEffectToEnemies = cachedEffectToEnemies;
+		m_cachedEffectToAllies = ((!m_abilityMod) ? m_effectToAllies : m_abilityMod.m_effectToAlliesMod.GetModifiedValue(m_effectToAllies));
 	}
 
 	public float GetConeWidthAngle()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -271,15 +278,15 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetConeWidthAngle()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(this.m_coneWidthAngle);
+			result = m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle);
 		}
 		else
 		{
-			result = this.m_coneWidthAngle;
+			result = m_coneWidthAngle;
 		}
 		return result;
 	}
@@ -287,9 +294,9 @@ public class FishManCone : Ability
 	public float GetConeWidthAngleMin()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -298,15 +305,15 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetConeWidthAngleMin()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneWidthAngleMinMod.GetModifiedValue(this.m_coneWidthAngleMin);
+			result = m_abilityMod.m_coneWidthAngleMinMod.GetModifiedValue(m_coneWidthAngleMin);
 		}
 		else
 		{
-			result = this.m_coneWidthAngleMin;
+			result = m_coneWidthAngleMin;
 		}
 		return result;
 	}
@@ -314,9 +321,9 @@ public class FishManCone : Ability
 	public float GetConeLength()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -325,15 +332,15 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetConeLength()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneLengthMod.GetModifiedValue(this.m_coneLength);
+			result = m_abilityMod.m_coneLengthMod.GetModifiedValue(m_coneLength);
 		}
 		else
 		{
-			result = this.m_coneLength;
+			result = m_coneLength;
 		}
 		return result;
 	}
@@ -341,9 +348,9 @@ public class FishManCone : Ability
 	public float GetConeBackwardOffset()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -352,15 +359,15 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetConeBackwardOffset()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
+			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
 		}
 		else
 		{
-			result = this.m_coneBackwardOffset;
+			result = m_coneBackwardOffset;
 		}
 		return result;
 	}
@@ -368,9 +375,9 @@ public class FishManCone : Ability
 	public bool PenetrateLineOfSight()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -379,15 +386,15 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.PenetrateLineOfSight()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(this.m_penetrateLineOfSight);
+			result = m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
 		}
 		else
 		{
-			result = this.m_penetrateLineOfSight;
+			result = m_penetrateLineOfSight;
 		}
 		return result;
 	}
@@ -395,9 +402,9 @@ public class FishManCone : Ability
 	public int GetMaxTargets()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -406,30 +413,30 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetMaxTargets()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
+			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
 		{
-			result = this.m_maxTargets;
+			result = m_maxTargets;
 		}
 		return result;
 	}
 
 	public int GetDamageToEnemies()
 	{
-		return (!this.m_abilityMod) ? this.m_damageToEnemies : this.m_abilityMod.m_damageToEnemiesMod.GetModifiedValue(this.m_damageToEnemies);
+		return (!m_abilityMod) ? m_damageToEnemies : m_abilityMod.m_damageToEnemiesMod.GetModifiedValue(m_damageToEnemies);
 	}
 
 	public int GetMaxDamageToEnemies()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -438,30 +445,30 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetMaxDamageToEnemies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damageToEnemiesMaxMod.GetModifiedValue(this.m_damageToEnemiesMax);
+			result = m_abilityMod.m_damageToEnemiesMaxMod.GetModifiedValue(m_damageToEnemiesMax);
 		}
 		else
 		{
-			result = this.m_damageToEnemiesMax;
+			result = m_damageToEnemiesMax;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetEffectToEnemies()
 	{
-		return (this.m_cachedEffectToEnemies == null) ? this.m_effectToEnemies : this.m_cachedEffectToEnemies;
+		return (m_cachedEffectToEnemies == null) ? m_effectToEnemies : m_cachedEffectToEnemies;
 	}
 
 	public int GetHealingToAllies()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -470,15 +477,15 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetHealingToAllies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_healingToAlliesMod.GetModifiedValue(this.m_healingToAllies);
+			result = m_abilityMod.m_healingToAlliesMod.GetModifiedValue(m_healingToAllies);
 		}
 		else
 		{
-			result = this.m_healingToAllies;
+			result = m_healingToAllies;
 		}
 		return result;
 	}
@@ -486,9 +493,9 @@ public class FishManCone : Ability
 	public int GetMaxHealingToAllies()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -497,15 +504,15 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetMaxHealingToAllies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_healingToAlliesMaxMod.GetModifiedValue(this.m_healingToAlliesMax);
+			result = m_abilityMod.m_healingToAlliesMaxMod.GetModifiedValue(m_healingToAlliesMax);
 		}
 		else
 		{
-			result = this.m_healingToAlliesMax;
+			result = m_healingToAlliesMax;
 		}
 		return result;
 	}
@@ -513,9 +520,9 @@ public class FishManCone : Ability
 	public StandardEffectInfo GetEffectToAllies()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectToAllies != null)
+		if (m_cachedEffectToAllies != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -524,15 +531,15 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetEffectToAllies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEffectToAllies;
+			result = m_cachedEffectToAllies;
 		}
 		else
 		{
-			result = this.m_effectToAllies;
+			result = m_effectToAllies;
 		}
 		return result;
 	}
@@ -540,9 +547,9 @@ public class FishManCone : Ability
 	public int GetHealToCasterOnCast()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -551,15 +558,15 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetHealToCasterOnCast()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_healToCasterOnCastMod.GetModifiedValue(this.m_healToCasterOnCast);
+			result = m_abilityMod.m_healToCasterOnCastMod.GetModifiedValue(m_healToCasterOnCast);
 		}
 		else
 		{
-			result = this.m_healToCasterOnCast;
+			result = m_healToCasterOnCast;
 		}
 		return result;
 	}
@@ -567,9 +574,9 @@ public class FishManCone : Ability
 	public int GetHealToCasterPerEnemyHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -578,15 +585,15 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetHealToCasterPerEnemyHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_healToCasterPerEnemyHitMod.GetModifiedValue(this.m_healToCasterPerEnemyHit);
+			result = m_abilityMod.m_healToCasterPerEnemyHitMod.GetModifiedValue(m_healToCasterPerEnemyHit);
 		}
 		else
 		{
-			result = this.m_healToCasterPerEnemyHit;
+			result = m_healToCasterPerEnemyHit;
 		}
 		return result;
 	}
@@ -594,9 +601,9 @@ public class FishManCone : Ability
 	public int GetHealToCasterPerAllyHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -605,15 +612,15 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetHealToCasterPerAllyHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_healToCasterPerAllyHitMod.GetModifiedValue(this.m_healToCasterPerAllyHit);
+			result = m_abilityMod.m_healToCasterPerAllyHitMod.GetModifiedValue(m_healToCasterPerAllyHit);
 		}
 		else
 		{
-			result = this.m_healToCasterPerAllyHit;
+			result = m_healToCasterPerAllyHit;
 		}
 		return result;
 	}
@@ -621,9 +628,9 @@ public class FishManCone : Ability
 	public int GetExtraHealPerEnemyHitForNextHealCone()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -632,30 +639,30 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetExtraHealPerEnemyHitForNextHealCone()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraHealPerEnemyHitForNextHealConeMod.GetModifiedValue(this.m_extraHealPerEnemyHitForNextHealCone);
+			result = m_abilityMod.m_extraHealPerEnemyHitForNextHealConeMod.GetModifiedValue(m_extraHealPerEnemyHitForNextHealCone);
 		}
 		else
 		{
-			result = this.m_extraHealPerEnemyHitForNextHealCone;
+			result = m_extraHealPerEnemyHitForNextHealCone;
 		}
 		return result;
 	}
 
 	public int GetExtraEnergyForSingleEnemyHit()
 	{
-		return (!this.m_abilityMod) ? this.m_extraEnergyForSingleEnemyHit : this.m_abilityMod.m_extraEnergyForSingleEnemyHitMod.GetModifiedValue(this.m_extraEnergyForSingleEnemyHit);
+		return (!m_abilityMod) ? m_extraEnergyForSingleEnemyHit : m_abilityMod.m_extraEnergyForSingleEnemyHitMod.GetModifiedValue(m_extraEnergyForSingleEnemyHit);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_FishManCone))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_FishManCone);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_FishManCone);
+			Setup();
 		}
 		else
 		{
@@ -665,19 +672,18 @@ public class FishManCone : Ability
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_FishManCone abilityMod_FishManCone = modAsBase as AbilityMod_FishManCone;
-		string name = "DamageToEnemies";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_FishManCone)
+		if ((bool)abilityMod_FishManCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -686,23 +692,22 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			val = abilityMod_FishManCone.m_damageToEnemiesMod.GetModifiedValue(this.m_damageToEnemies);
+			val = abilityMod_FishManCone.m_damageToEnemiesMod.GetModifiedValue(m_damageToEnemies);
 		}
 		else
 		{
-			val = this.m_damageToEnemies;
+			val = m_damageToEnemies;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "DamageToEnemiesMax";
+		AddTokenInt(tokens, "DamageToEnemies", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_FishManCone)
+		if ((bool)abilityMod_FishManCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -711,17 +716,17 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			val2 = abilityMod_FishManCone.m_damageToEnemiesMaxMod.GetModifiedValue(this.m_damageToEnemiesMax);
+			val2 = abilityMod_FishManCone.m_damageToEnemiesMaxMod.GetModifiedValue(m_damageToEnemiesMax);
 		}
 		else
 		{
-			val2 = this.m_damageToEnemiesMax;
+			val2 = m_damageToEnemiesMax;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
+		AddTokenInt(tokens, "DamageToEnemiesMax", empty2, val2);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_FishManCone)
+		if ((bool)abilityMod_FishManCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -730,19 +735,18 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			effectInfo = abilityMod_FishManCone.m_effectToEnemiesMod.GetModifiedValue(this.m_effectToEnemies);
+			effectInfo = abilityMod_FishManCone.m_effectToEnemiesMod.GetModifiedValue(m_effectToEnemies);
 		}
 		else
 		{
-			effectInfo = this.m_effectToEnemies;
+			effectInfo = m_effectToEnemies;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectToEnemies", this.m_effectToEnemies, true);
-		string name3 = "HealingToAllies";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectToEnemies", m_effectToEnemies);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_FishManCone)
+		if ((bool)abilityMod_FishManCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -751,17 +755,17 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			val3 = abilityMod_FishManCone.m_healingToAlliesMod.GetModifiedValue(this.m_healingToAllies);
+			val3 = abilityMod_FishManCone.m_healingToAlliesMod.GetModifiedValue(m_healingToAllies);
 		}
 		else
 		{
-			val3 = this.m_healingToAllies;
+			val3 = m_healingToAllies;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
+		AddTokenInt(tokens, "HealingToAllies", empty3, val3);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_FishManCone)
+		if ((bool)abilityMod_FishManCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -770,19 +774,18 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			effectInfo2 = abilityMod_FishManCone.m_effectToAlliesMod.GetModifiedValue(this.m_effectToAllies);
+			effectInfo2 = abilityMod_FishManCone.m_effectToAlliesMod.GetModifiedValue(m_effectToAllies);
 		}
 		else
 		{
-			effectInfo2 = this.m_effectToAllies;
+			effectInfo2 = m_effectToAllies;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EffectToAllies", this.m_effectToAllies, true);
-		string name4 = "MaxTargets";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EffectToAllies", m_effectToAllies);
 		string empty4 = string.Empty;
 		int val4;
-		if (abilityMod_FishManCone)
+		if ((bool)abilityMod_FishManCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -791,19 +794,18 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			val4 = abilityMod_FishManCone.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
+			val4 = abilityMod_FishManCone.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
 		{
-			val4 = this.m_maxTargets;
+			val4 = m_maxTargets;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
-		string name5 = "HealToCasterOnCast";
+		AddTokenInt(tokens, "MaxTargets", empty4, val4);
 		string empty5 = string.Empty;
 		int val5;
-		if (abilityMod_FishManCone)
+		if ((bool)abilityMod_FishManCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -812,19 +814,18 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			val5 = abilityMod_FishManCone.m_healToCasterOnCastMod.GetModifiedValue(this.m_healToCasterOnCast);
+			val5 = abilityMod_FishManCone.m_healToCasterOnCastMod.GetModifiedValue(m_healToCasterOnCast);
 		}
 		else
 		{
-			val5 = this.m_healToCasterOnCast;
+			val5 = m_healToCasterOnCast;
 		}
-		base.AddTokenInt(tokens, name5, empty5, val5, false);
-		string name6 = "HealToCasterPerEnemyHit";
+		AddTokenInt(tokens, "HealToCasterOnCast", empty5, val5);
 		string empty6 = string.Empty;
 		int val6;
-		if (abilityMod_FishManCone)
+		if ((bool)abilityMod_FishManCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -833,19 +834,18 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			val6 = abilityMod_FishManCone.m_healToCasterPerEnemyHitMod.GetModifiedValue(this.m_healToCasterPerEnemyHit);
+			val6 = abilityMod_FishManCone.m_healToCasterPerEnemyHitMod.GetModifiedValue(m_healToCasterPerEnemyHit);
 		}
 		else
 		{
-			val6 = this.m_healToCasterPerEnemyHit;
+			val6 = m_healToCasterPerEnemyHit;
 		}
-		base.AddTokenInt(tokens, name6, empty6, val6, false);
-		string name7 = "HealToCasterPerAllyHit";
+		AddTokenInt(tokens, "HealToCasterPerEnemyHit", empty6, val6);
 		string empty7 = string.Empty;
 		int val7;
-		if (abilityMod_FishManCone)
+		if ((bool)abilityMod_FishManCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -854,19 +854,18 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			val7 = abilityMod_FishManCone.m_healToCasterPerAllyHitMod.GetModifiedValue(this.m_healToCasterPerAllyHit);
+			val7 = abilityMod_FishManCone.m_healToCasterPerAllyHitMod.GetModifiedValue(m_healToCasterPerAllyHit);
 		}
 		else
 		{
-			val7 = this.m_healToCasterPerAllyHit;
+			val7 = m_healToCasterPerAllyHit;
 		}
-		base.AddTokenInt(tokens, name7, empty7, val7, false);
-		string name8 = "ExtraHealPerEnemyHitForNextHealCone";
+		AddTokenInt(tokens, "HealToCasterPerAllyHit", empty7, val7);
 		string empty8 = string.Empty;
 		int val8;
-		if (abilityMod_FishManCone)
+		if ((bool)abilityMod_FishManCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -875,19 +874,18 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			val8 = abilityMod_FishManCone.m_extraHealPerEnemyHitForNextHealConeMod.GetModifiedValue(this.m_extraHealPerEnemyHitForNextHealCone);
+			val8 = abilityMod_FishManCone.m_extraHealPerEnemyHitForNextHealConeMod.GetModifiedValue(m_extraHealPerEnemyHitForNextHealCone);
 		}
 		else
 		{
-			val8 = this.m_extraHealPerEnemyHitForNextHealCone;
+			val8 = m_extraHealPerEnemyHitForNextHealCone;
 		}
-		base.AddTokenInt(tokens, name8, empty8, val8, false);
-		string name9 = "ExtraEnergyForSingleEnemyHit";
+		AddTokenInt(tokens, "ExtraHealPerEnemyHitForNextHealCone", empty8, val8);
 		string empty9 = string.Empty;
 		int val9;
-		if (abilityMod_FishManCone)
+		if ((bool)abilityMod_FishManCone)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -896,31 +894,30 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			val9 = abilityMod_FishManCone.m_extraEnergyForSingleEnemyHitMod.GetModifiedValue(this.m_extraEnergyForSingleEnemyHit);
+			val9 = abilityMod_FishManCone.m_extraEnergyForSingleEnemyHitMod.GetModifiedValue(m_extraEnergyForSingleEnemyHit);
 		}
 		else
 		{
-			val9 = this.m_extraEnergyForSingleEnemyHit;
+			val9 = m_extraEnergyForSingleEnemyHit;
 		}
-		base.AddTokenInt(tokens, name9, empty9, val9, false);
+		AddTokenInt(tokens, "ExtraEnergyForSingleEnemyHit", empty9, val9);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.GetDamageToEnemies()),
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, this.GetHealingToAllies())
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, GetDamageToEnemies()));
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, GetHealingToAllies()));
+		return list;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetDamageToEnemies());
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, this.GetHealingToAllies());
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, this.GetHealToCasterOnCast() + this.GetHealToCasterPerEnemyHit() + this.GetHealToCasterPerAllyHit());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetDamageToEnemies());
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, GetHealingToAllies());
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, GetHealToCasterOnCast() + GetHealToCasterPerEnemyHit() + GetHealToCasterPerAllyHit());
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -928,11 +925,11 @@ public class FishManCone : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
 		if (currentTargeterIndex <= 0)
 		{
-			if (this.m_coneMode == FishManCone.ConeTargetingMode.MultiClick)
+			if (m_coneMode == ConeTargetingMode.MultiClick)
 			{
-				return dictionary;
+				goto IL_0204;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -941,15 +938,15 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeters[currentTargeterIndex].GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -962,7 +959,7 @@ public class FishManCone : Ability
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -973,12 +970,12 @@ public class FishManCone : Ability
 				}
 				int visibleActorsCountByTooltipSubject = base.Targeters[currentTargeterIndex].GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 				int visibleActorsCountByTooltipSubject2 = base.Targeters[currentTargeterIndex].GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
-				int num = this.GetHealToCasterOnCast() + this.GetHealToCasterPerEnemyHit() * visibleActorsCountByTooltipSubject + this.GetHealToCasterPerAllyHit() * visibleActorsCountByTooltipSubject2;
-				dictionary[AbilityTooltipSymbol.Healing] = Mathf.RoundToInt((float)num);
+				int num = GetHealToCasterOnCast() + GetHealToCasterPerEnemyHit() * visibleActorsCountByTooltipSubject + GetHealToCasterPerAllyHit() * visibleActorsCountByTooltipSubject2;
+				dictionary[AbilityTooltipSymbol.Healing] = Mathf.RoundToInt(num);
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -987,10 +984,10 @@ public class FishManCone : Ability
 					}
 					break;
 				}
-				int value = this.GetDamageToEnemies();
-				if (this.m_coneMode == FishManCone.ConeTargetingMode.MultiClick)
+				int value = GetDamageToEnemies();
+				if (m_coneMode == ConeTargetingMode.MultiClick)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -1000,11 +997,11 @@ public class FishManCone : Ability
 						break;
 					}
 					AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone = base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SweepMultiClickCone;
-					value = this.GetDamageForSweepAngle(abilityUtil_Targeter_SweepMultiClickCone.sweepAngle);
+					value = GetDamageForSweepAngle(abilityUtil_Targeter_SweepMultiClickCone.sweepAngle);
 				}
-				else if (this.m_coneMode == FishManCone.ConeTargetingMode.Stretch)
+				else if (m_coneMode == ConeTargetingMode.Stretch)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1015,7 +1012,7 @@ public class FishManCone : Ability
 					}
 					if (abilityUtil_Targeter_StretchCone != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -1024,14 +1021,14 @@ public class FishManCone : Ability
 							}
 							break;
 						}
-						value = this.GetDamageForSweepAngle(abilityUtil_Targeter_StretchCone.LastConeAngle);
+						value = GetDamageForSweepAngle(abilityUtil_Targeter_StretchCone.LastConeAngle);
 					}
 				}
 				dictionary[AbilityTooltipSymbol.Damage] = value;
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1040,10 +1037,10 @@ public class FishManCone : Ability
 					}
 					break;
 				}
-				int value2 = this.GetHealingToAllies();
-				if (this.m_coneMode == FishManCone.ConeTargetingMode.MultiClick)
+				int value2 = GetHealingToAllies();
+				if (m_coneMode == ConeTargetingMode.MultiClick)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -1053,11 +1050,11 @@ public class FishManCone : Ability
 						break;
 					}
 					AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone2 = base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SweepMultiClickCone;
-					value2 = this.GetHealingForSweepAngle(abilityUtil_Targeter_SweepMultiClickCone2.sweepAngle);
+					value2 = GetHealingForSweepAngle(abilityUtil_Targeter_SweepMultiClickCone2.sweepAngle);
 				}
-				else if (this.m_coneMode == FishManCone.ConeTargetingMode.Stretch && abilityUtil_Targeter_StretchCone != null)
+				else if (m_coneMode == ConeTargetingMode.Stretch && abilityUtil_Targeter_StretchCone != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -1066,22 +1063,24 @@ public class FishManCone : Ability
 						}
 						break;
 					}
-					value2 = this.GetHealingForSweepAngle(abilityUtil_Targeter_StretchCone.LastConeAngle);
+					value2 = GetHealingForSweepAngle(abilityUtil_Targeter_StretchCone.LastConeAngle);
 				}
 				dictionary[AbilityTooltipSymbol.Healing] = value2;
 			}
 		}
+		goto IL_0204;
+		IL_0204:
 		return dictionary;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (this.GetExtraEnergyForSingleEnemyHit() > 0 && (currentTargeterIndex > 0 || this.m_coneMode != FishManCone.ConeTargetingMode.MultiClick))
+		if (GetExtraEnergyForSingleEnemyHit() > 0 && (currentTargeterIndex > 0 || m_coneMode != ConeTargetingMode.MultiClick))
 		{
 			AbilityUtil_Targeter abilityUtil_Targeter = base.Targeters[currentTargeterIndex];
 			if (abilityUtil_Targeter != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1090,38 +1089,38 @@ public class FishManCone : Ability
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				int visibleActorsCountByTooltipSubject = abilityUtil_Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 				if (visibleActorsCountByTooltipSubject == 1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return GetExtraEnergyForSingleEnemyHit();
 						}
-						break;
 					}
-					return this.GetExtraEnergyForSingleEnemyHit();
 				}
 			}
 		}
 		return 0;
 	}
 
-	private unsafe Vector3 GetTargeterClampedAimDirection(Vector3 startAimDirection, Vector3 endAimDirection, out float sweepAngle, out float coneCenterDegrees)
+	private Vector3 GetTargeterClampedAimDirection(Vector3 startAimDirection, Vector3 endAimDirection, out float sweepAngle, out float coneCenterDegrees)
 	{
 		float num = VectorUtils.HorizontalAngle_Deg(startAimDirection);
 		sweepAngle = Vector3.Angle(startAimDirection, endAimDirection);
-		float coneWidthAngle = this.GetConeWidthAngle();
-		float coneWidthAngleMin = this.GetConeWidthAngleMin();
+		float coneWidthAngle = GetConeWidthAngle();
+		float coneWidthAngleMin = GetConeWidthAngleMin();
 		if (coneWidthAngle > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1130,13 +1129,13 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetTargeterClampedAimDirection(Vector3, Vector3, float*, float*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (sweepAngle > coneWidthAngle)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -1145,14 +1144,14 @@ public class FishManCone : Ability
 					}
 					break;
 				}
-				endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, 0.0174532924f * (sweepAngle - coneWidthAngle), 0f);
+				endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, (float)Math.PI / 180f * (sweepAngle - coneWidthAngle), 0f);
 				sweepAngle = coneWidthAngle;
-				goto IL_A3;
+				goto IL_00a3;
 			}
 		}
 		if (coneWidthAngleMin > 0f && sweepAngle < coneWidthAngleMin)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1161,14 +1160,16 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, 0.0174532924f * (sweepAngle - coneWidthAngleMin), 0f);
+			endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, (float)Math.PI / 180f * (sweepAngle - coneWidthAngleMin), 0f);
 			sweepAngle = coneWidthAngleMin;
 		}
-		IL_A3:
+		goto IL_00a3;
+		IL_00a3:
 		coneCenterDegrees = num;
-		if (Vector3.Cross(startAimDirection, endAimDirection).y > 0f)
+		Vector3 vector = Vector3.Cross(startAimDirection, endAimDirection);
+		if (vector.y > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1188,50 +1189,52 @@ public class FishManCone : Ability
 
 	public override Vector3 GetRotateToTargetPos(List<AbilityTarget> targets, ActorData caster)
 	{
-		if (this.m_coneMode == FishManCone.ConeTargetingMode.MultiClick)
+		if (m_coneMode == ConeTargetingMode.MultiClick)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetRotateToTargetPos(List<AbilityTarget>, ActorData)).MethodHandle;
-			}
-			float coneWidthAngleMin = this.GetConeWidthAngleMin();
-			float num = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
-			float angle = num;
-			if (targets.Count > 1)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					float sweepAngle = GetConeWidthAngleMin();
+					float num = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
+					float coneCenterDegrees = num;
+					if (targets.Count > 1)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						GetTargeterClampedAimDirection(targets[0].AimDirection, targets[targets.Count - 1].AimDirection, out sweepAngle, out coneCenterDegrees);
+					}
+					return caster.GetTravelBoardSquareWorldPosition() + VectorUtils.AngleDegreesToVector(coneCenterDegrees);
 				}
-				this.GetTargeterClampedAimDirection(targets[0].AimDirection, targets[targets.Count - 1].AimDirection, out coneWidthAngleMin, out angle);
+				}
 			}
-			return caster.\u0016() + VectorUtils.AngleDegreesToVector(angle);
 		}
 		return base.GetRotateToTargetPos(targets, caster);
 	}
 
 	private int GetDamageForSweepAngle(float sweepAngle)
 	{
-		float num = (float)(this.GetMaxDamageToEnemies() - this.GetDamageToEnemies());
-		float num2 = this.GetConeWidthAngle() - this.GetConeWidthAngleMin();
+		float num = GetMaxDamageToEnemies() - GetDamageToEnemies();
+		float num2 = GetConeWidthAngle() - GetConeWidthAngleMin();
 		float num3;
 		if (num2 > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1240,29 +1243,29 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetDamageForSweepAngle(float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num3 = 1f - (sweepAngle - this.GetConeWidthAngleMin()) / num2;
+			num3 = 1f - (sweepAngle - GetConeWidthAngleMin()) / num2;
 		}
 		else
 		{
 			num3 = 1f;
 		}
-		float num4 = num3;
-		num4 = Mathf.Clamp(num4, 0f, 1f);
-		return this.GetDamageToEnemies() + Mathf.RoundToInt(num * num4);
+		float value = num3;
+		value = Mathf.Clamp(value, 0f, 1f);
+		return GetDamageToEnemies() + Mathf.RoundToInt(num * value);
 	}
 
 	private int GetHealingForSweepAngle(float sweepAngle)
 	{
-		float num = (float)(this.GetMaxHealingToAllies() - this.GetHealingToAllies());
-		float num2 = this.GetConeWidthAngle() - this.GetConeWidthAngleMin();
+		float num = GetMaxHealingToAllies() - GetHealingToAllies();
+		float num2 = GetConeWidthAngle() - GetConeWidthAngleMin();
 		float num3;
 		if (num2 > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1271,25 +1274,18 @@ public class FishManCone : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.GetHealingForSweepAngle(float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num3 = 1f - (sweepAngle - this.GetConeWidthAngleMin()) / num2;
+			num3 = 1f - (sweepAngle - GetConeWidthAngleMin()) / num2;
 		}
 		else
 		{
 			num3 = 1f;
 		}
-		float num4 = num3;
-		num4 = Mathf.Clamp(num4, 0f, 1f);
-		return this.GetHealingToAllies() + Mathf.RoundToInt(num * num4);
-	}
-
-	public enum ConeTargetingMode
-	{
-		Static,
-		MultiClick,
-		Stretch
+		float value = num3;
+		value = Mathf.Clamp(value, 0f, 1f);
+		return GetHealingToAllies() + Mathf.RoundToInt(num * value);
 	}
 }

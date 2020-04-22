@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,166 +5,6 @@ namespace TMPro
 {
 	internal struct ColorTween : ITweenValue
 	{
-		private ColorTween.ColorTweenCallback m_Target;
-
-		private Color m_StartColor;
-
-		private Color m_TargetColor;
-
-		private ColorTween.ColorTweenMode m_TweenMode;
-
-		private float m_Duration;
-
-		private bool m_IgnoreTimeScale;
-
-		public Color startColor
-		{
-			get
-			{
-				return this.m_StartColor;
-			}
-			set
-			{
-				this.m_StartColor = value;
-			}
-		}
-
-		public Color targetColor
-		{
-			get
-			{
-				return this.m_TargetColor;
-			}
-			set
-			{
-				this.m_TargetColor = value;
-			}
-		}
-
-		public ColorTween.ColorTweenMode tweenMode
-		{
-			get
-			{
-				return this.m_TweenMode;
-			}
-			set
-			{
-				this.m_TweenMode = value;
-			}
-		}
-
-		public float duration
-		{
-			get
-			{
-				return this.m_Duration;
-			}
-			set
-			{
-				this.m_Duration = value;
-			}
-		}
-
-		public bool ignoreTimeScale
-		{
-			get
-			{
-				return this.m_IgnoreTimeScale;
-			}
-			set
-			{
-				this.m_IgnoreTimeScale = value;
-			}
-		}
-
-		public void TweenValue(float floatPercentage)
-		{
-			if (!this.ValidTarget())
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ColorTween.TweenValue(float)).MethodHandle;
-				}
-				return;
-			}
-			Color arg = Color.Lerp(this.m_StartColor, this.m_TargetColor, floatPercentage);
-			if (this.m_TweenMode == ColorTween.ColorTweenMode.Alpha)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				arg.r = this.m_StartColor.r;
-				arg.g = this.m_StartColor.g;
-				arg.b = this.m_StartColor.b;
-			}
-			else if (this.m_TweenMode == ColorTween.ColorTweenMode.RGB)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				arg.a = this.m_StartColor.a;
-			}
-			this.m_Target.Invoke(arg);
-		}
-
-		public void AddOnChangedCallback(UnityAction<Color> callback)
-		{
-			if (this.m_Target == null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ColorTween.AddOnChangedCallback(UnityAction<Color>)).MethodHandle;
-				}
-				this.m_Target = new ColorTween.ColorTweenCallback();
-			}
-			this.m_Target.AddListener(callback);
-		}
-
-		public bool GetIgnoreTimescale()
-		{
-			return this.m_IgnoreTimeScale;
-		}
-
-		public float GetDuration()
-		{
-			return this.m_Duration;
-		}
-
-		public bool ValidTarget()
-		{
-			return this.m_Target != null;
-		}
-
 		public enum ColorTweenMode
 		{
 			All,
@@ -175,6 +14,166 @@ namespace TMPro
 
 		public class ColorTweenCallback : UnityEvent<Color>
 		{
+		}
+
+		private ColorTweenCallback m_Target;
+
+		private Color m_StartColor;
+
+		private Color m_TargetColor;
+
+		private ColorTweenMode m_TweenMode;
+
+		private float m_Duration;
+
+		private bool m_IgnoreTimeScale;
+
+		public Color startColor
+		{
+			get
+			{
+				return m_StartColor;
+			}
+			set
+			{
+				m_StartColor = value;
+			}
+		}
+
+		public Color targetColor
+		{
+			get
+			{
+				return m_TargetColor;
+			}
+			set
+			{
+				m_TargetColor = value;
+			}
+		}
+
+		public ColorTweenMode tweenMode
+		{
+			get
+			{
+				return m_TweenMode;
+			}
+			set
+			{
+				m_TweenMode = value;
+			}
+		}
+
+		public float duration
+		{
+			get
+			{
+				return m_Duration;
+			}
+			set
+			{
+				m_Duration = value;
+			}
+		}
+
+		public bool ignoreTimeScale
+		{
+			get
+			{
+				return m_IgnoreTimeScale;
+			}
+			set
+			{
+				m_IgnoreTimeScale = value;
+			}
+		}
+
+		public void TweenValue(float floatPercentage)
+		{
+			if (!ValidTarget())
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return;
+					}
+				}
+			}
+			Color arg = Color.Lerp(m_StartColor, m_TargetColor, floatPercentage);
+			if (m_TweenMode == ColorTweenMode.Alpha)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				arg.r = m_StartColor.r;
+				arg.g = m_StartColor.g;
+				arg.b = m_StartColor.b;
+			}
+			else if (m_TweenMode == ColorTweenMode.RGB)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				arg.a = m_StartColor.a;
+			}
+			m_Target.Invoke(arg);
+		}
+
+		public void AddOnChangedCallback(UnityAction<Color> callback)
+		{
+			if (m_Target == null)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				m_Target = new ColorTweenCallback();
+			}
+			m_Target.AddListener(callback);
+		}
+
+		public bool GetIgnoreTimescale()
+		{
+			return m_IgnoreTimeScale;
+		}
+
+		public float GetDuration()
+		{
+			return m_Duration;
+		}
+
+		public bool ValidTarget()
+		{
+			return m_Target != null;
 		}
 	}
 }

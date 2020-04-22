@@ -1,39 +1,39 @@
-﻿using System;
 using UnityEngine.EventSystems;
 
 public class UIPartyInvitePopDialogBox : UITwoButtonDialog
 {
 	public _SelectableBtn m_blockButton;
 
-	private UIDialogBox.DialogButtonCallback m_blockCallback;
+	private DialogButtonCallback m_blockCallback;
 
 	public override void Start()
 	{
 		base.Start();
-		if (this.m_blockButton != null)
+		if (!(m_blockButton != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPartyInvitePopDialogBox.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_blockButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BlockButtonClicked);
+			m_blockButton.spriteController.callback = BlockButtonClicked;
+			return;
 		}
 	}
 
 	public void BlockButtonClicked(BaseEventData data)
 	{
-		if (this.m_blockCallback != null)
+		if (m_blockCallback != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -42,22 +42,22 @@ public class UIPartyInvitePopDialogBox : UITwoButtonDialog
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPartyInvitePopDialogBox.BlockButtonClicked(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_blockCallback(this);
+			m_blockCallback(this);
 		}
 		UIDialogPopupManager.Get().CloseDialog(this);
 	}
 
-	public void Setup(string Title, string Description, string LeftButtonLabel, string RightButtonLabel, UIDialogBox.DialogButtonCallback blockCallback, UIDialogBox.DialogButtonCallback firstBtnCallback = null, UIDialogBox.DialogButtonCallback secondBtnCallback = null)
+	public void Setup(string Title, string Description, string LeftButtonLabel, string RightButtonLabel, DialogButtonCallback blockCallback, DialogButtonCallback firstBtnCallback = null, DialogButtonCallback secondBtnCallback = null)
 	{
-		base.Setup(Title, Description, LeftButtonLabel, RightButtonLabel, firstBtnCallback, secondBtnCallback, false, true);
-		this.m_blockCallback = blockCallback;
+		Setup(Title, Description, LeftButtonLabel, RightButtonLabel, firstBtnCallback, secondBtnCallback, false, true);
+		m_blockCallback = blockCallback;
 		if (blockCallback == null)
 		{
-			UIManager.SetGameObjectActive(this.m_blockButton, false, null);
+			UIManager.SetGameObjectActive(m_blockButton, false);
 		}
 	}
 }

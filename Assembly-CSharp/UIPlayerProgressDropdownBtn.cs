@@ -1,11 +1,11 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIPlayerProgressDropdownBtn : MonoBehaviour
 {
+	public delegate bool ShouldShow(int typeSpecificData);
+
 	public _SelectableBtn m_button;
 
 	public TextMeshProUGUI[] m_texts;
@@ -18,74 +18,47 @@ public class UIPlayerProgressDropdownBtn : MonoBehaviour
 
 	private void OnDisable()
 	{
-		this.m_button.spriteController.ResetMouseState();
+		m_button.spriteController.ResetMouseState();
 	}
 
 	public int GetOptionData()
 	{
-		return this.m_typeSpecificData;
+		return m_typeSpecificData;
 	}
 
 	public void SetOptionData(int typeSpecificData)
 	{
-		this.m_typeSpecificData = typeSpecificData;
+		m_typeSpecificData = typeSpecificData;
 	}
 
 	public void AttachToDropdown(UIPlayerProgressDropdownList dropdown)
 	{
-		this.m_button.spriteController.callback = delegate(BaseEventData data)
+		m_button.spriteController.callback = delegate
 		{
-			dropdown.OnSelect(this.m_typeSpecificData);
+			dropdown.OnSelect(m_typeSpecificData);
 		};
 	}
 
 	public void Setup(string text, CharacterType charType = CharacterType.None)
 	{
-		for (int i = 0; i < this.m_texts.Length; i++)
+		for (int i = 0; i < m_texts.Length; i++)
 		{
-			this.m_texts[i].text = text;
+			m_texts[i].text = text;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownBtn.Setup(string, CharacterType)).MethodHandle;
-		}
-		if (this.m_allFreelancerImage != null)
-		{
-			for (;;)
+			if (1 == 0)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_allFreelancerImage, charType == CharacterType.None, null);
-		}
-		if (this.m_freelancerImage != null)
-		{
-			for (;;)
+			if (m_allFreelancerImage != null)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_freelancerImage, charType != CharacterType.None, null);
-			if (charType != CharacterType.None)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -94,21 +67,48 @@ public class UIPlayerProgressDropdownBtn : MonoBehaviour
 					}
 					break;
 				}
-				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(charType);
-				this.m_freelancerImage.sprite = Resources.Load<Sprite>(characterResourceLink.m_characterSelectIconResourceString);
+				UIManager.SetGameObjectActive(m_allFreelancerImage, charType == CharacterType.None);
+			}
+			if (!(m_freelancerImage != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				UIManager.SetGameObjectActive(m_freelancerImage, charType != CharacterType.None);
+				if (charType != 0)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(charType);
+						m_freelancerImage.sprite = Resources.Load<Sprite>(characterResourceLink.m_characterSelectIconResourceString);
+						return;
+					}
+				}
+				return;
 			}
 		}
 	}
 
 	public void Setup(string text, CharacterRole charRole)
 	{
-		for (int i = 0; i < this.m_texts.Length; i++)
+		for (int i = 0; i < m_texts.Length; i++)
 		{
-			this.m_texts[i].text = text;
+			m_texts[i].text = text;
 		}
-		if (this.m_allFreelancerImage != null)
+		if (m_allFreelancerImage != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -117,33 +117,31 @@ public class UIPlayerProgressDropdownBtn : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownBtn.Setup(string, CharacterRole)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIManager.SetGameObjectActive(this.m_allFreelancerImage, false, null);
+			UIManager.SetGameObjectActive(m_allFreelancerImage, false);
 		}
-		if (this.m_freelancerImage != null)
+		if (m_freelancerImage != null)
 		{
-			UIManager.SetGameObjectActive(this.m_freelancerImage, charRole != CharacterRole.None, null);
-			this.m_freelancerImage.sprite = CharacterResourceLink.GetCharacterRoleSprite(charRole);
+			UIManager.SetGameObjectActive(m_freelancerImage, charRole != CharacterRole.None);
+			m_freelancerImage.sprite = CharacterResourceLink.GetCharacterRoleSprite(charRole);
 		}
 	}
 
-	public void CheckDisplayState(UIPlayerProgressDropdownBtn.ShouldShow shouldShowFunction)
+	public void CheckDisplayState(ShouldShow shouldShowFunction)
 	{
-		UIManager.SetGameObjectActive(base.gameObject, shouldShowFunction(this.m_typeSpecificData), null);
+		UIManager.SetGameObjectActive(base.gameObject, shouldShowFunction(m_typeSpecificData));
 	}
 
 	public void SetSelectedIfEqual(int selectedValue)
 	{
-		this.m_button.SetSelected(this.m_typeSpecificData == selectedValue, false, string.Empty, string.Empty);
+		m_button.SetSelected(m_typeSpecificData == selectedValue, false, string.Empty, string.Empty);
 	}
 
 	public bool IsOption(int typeSpecificValue)
 	{
-		return this.m_typeSpecificData == typeSpecificValue;
+		return m_typeSpecificData == typeSpecificValue;
 	}
-
-	public delegate bool ShouldShow(int typeSpecificData);
 }

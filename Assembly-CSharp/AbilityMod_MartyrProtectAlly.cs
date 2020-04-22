@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -55,36 +55,34 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		MartyrProtectAlly martyrProtectAlly = targetAbility as MartyrProtectAlly;
 		if (martyrProtectAlly != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_damageReductionOnTargetMod, "DamageReductionOnTarget", string.Empty, martyrProtectAlly.m_damageReductionOnTarget, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_damageRedirectToCasterMod, "DamageRedirectToCaster", string.Empty, martyrProtectAlly.m_damageRedirectToCaster, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_techPointGainPerRedirectMod, "TechPointGainPerRedirect", string.Empty, martyrProtectAlly.m_techPointGainPerRedirect, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_laserHitEffectMod, "LaserHitEffect", martyrProtectAlly.m_laserHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_thornsEffectMod, "ThornsEffect", martyrProtectAlly.m_thornsEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_returnEffectOnEnemyMod, "ReturnEffectOnEnemy", martyrProtectAlly.m_returnEffectOnEnemy, true);
-			AbilityMod.AddToken(tokens, this.m_thornsDamagePerHitMod, "ThornsDamagePerHit", string.Empty, martyrProtectAlly.m_thornsDamagePerHit, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnSelfMod, "EffectOnSelf", martyrProtectAlly.m_effectOnSelf, true);
-			AbilityMod.AddToken(tokens, this.m_baseAbsorbMod, "BaseAbsorb", string.Empty, martyrProtectAlly.m_baseAbsorb, true, false);
-			AbilityMod.AddToken(tokens, this.m_absorbPerCrystalSpentMod, "AbsorbPerCrystalSpent", string.Empty, martyrProtectAlly.m_absorbPerCrystalSpent, true, false);
-			AbilityMod.AddToken(tokens, this.m_baseAbsorbOnAllyMod, "BaseAbsorbOnAlly", string.Empty, martyrProtectAlly.m_baseAbsorbOnAlly, true, false);
-			AbilityMod.AddToken(tokens, this.m_absorbOnAllyPerCrystalSpentMod, "AbsorbOnAllyPerCrystalSpent", string.Empty, martyrProtectAlly.m_absorbOnAllyPerCrystalSpent, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraEnergyPerRedirectDamageMod, "ExtraEnergyPerRedirectDamage", string.Empty, martyrProtectAlly.m_extraEnergyPerRedirectDamage, true, false, true);
-			AbilityMod.AddToken(tokens, this.m_healOnTurnStartPerRedirectDamageMod, "HealOnTurnStartPerRedirectDamage", string.Empty, martyrProtectAlly.m_healOnTurnStartPerRedirectDamage, true, false, true);
+			AbilityMod.AddToken(tokens, m_damageReductionOnTargetMod, "DamageReductionOnTarget", string.Empty, martyrProtectAlly.m_damageReductionOnTarget);
+			AbilityMod.AddToken(tokens, m_damageRedirectToCasterMod, "DamageRedirectToCaster", string.Empty, martyrProtectAlly.m_damageRedirectToCaster);
+			AbilityMod.AddToken(tokens, m_techPointGainPerRedirectMod, "TechPointGainPerRedirect", string.Empty, martyrProtectAlly.m_techPointGainPerRedirect);
+			AbilityMod.AddToken_EffectMod(tokens, m_laserHitEffectMod, "LaserHitEffect", martyrProtectAlly.m_laserHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_thornsEffectMod, "ThornsEffect", martyrProtectAlly.m_thornsEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_returnEffectOnEnemyMod, "ReturnEffectOnEnemy", martyrProtectAlly.m_returnEffectOnEnemy);
+			AbilityMod.AddToken(tokens, m_thornsDamagePerHitMod, "ThornsDamagePerHit", string.Empty, martyrProtectAlly.m_thornsDamagePerHit);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnSelfMod, "EffectOnSelf", martyrProtectAlly.m_effectOnSelf);
+			AbilityMod.AddToken(tokens, m_baseAbsorbMod, "BaseAbsorb", string.Empty, martyrProtectAlly.m_baseAbsorb);
+			AbilityMod.AddToken(tokens, m_absorbPerCrystalSpentMod, "AbsorbPerCrystalSpent", string.Empty, martyrProtectAlly.m_absorbPerCrystalSpent);
+			AbilityMod.AddToken(tokens, m_baseAbsorbOnAllyMod, "BaseAbsorbOnAlly", string.Empty, martyrProtectAlly.m_baseAbsorbOnAlly);
+			AbilityMod.AddToken(tokens, m_absorbOnAllyPerCrystalSpentMod, "AbsorbOnAllyPerCrystalSpent", string.Empty, martyrProtectAlly.m_absorbOnAllyPerCrystalSpent);
+			AbilityMod.AddToken(tokens, m_extraEnergyPerRedirectDamageMod, "ExtraEnergyPerRedirectDamage", string.Empty, martyrProtectAlly.m_extraEnergyPerRedirectDamage, true, false, true);
+			AbilityMod.AddToken(tokens, m_healOnTurnStartPerRedirectDamageMod, "HealOnTurnStartPerRedirectDamage", string.Empty, martyrProtectAlly.m_healOnTurnStartPerRedirectDamage, true, false, true);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		MartyrProtectAlly martyrProtectAlly = base.GetTargetAbilityOnAbilityData(abilityData) as MartyrProtectAlly;
+		MartyrProtectAlly martyrProtectAlly = GetTargetAbilityOnAbilityData(abilityData) as MartyrProtectAlly;
 		bool flag = martyrProtectAlly != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat damageReductionOnTargetMod = this.m_damageReductionOnTargetMod;
-		string prefix = "[DamageReductionOnTarget]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat damageReductionOnTargetMod = m_damageReductionOnTargetMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -93,9 +91,9 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MartyrProtectAlly.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = martyrProtectAlly.m_damageReductionOnTarget;
 		}
@@ -103,16 +101,14 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(damageReductionOnTargetMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_damageRedirectToCasterMod, "[DamageRedirectToCaster]", flag, (!flag) ? 0f : martyrProtectAlly.m_damageRedirectToCaster);
-		string str2 = text;
-		AbilityModPropertyInt techPointGainPerRedirectMod = this.m_techPointGainPerRedirectMod;
-		string prefix2 = "[TechPointGainPerRedirect]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(damageReductionOnTargetMod, "[DamageReductionOnTarget]", flag, baseVal);
+		empty += PropDesc(m_damageRedirectToCasterMod, "[DamageRedirectToCaster]", flag, (!flag) ? 0f : martyrProtectAlly.m_damageRedirectToCaster);
+		string str2 = empty;
+		AbilityModPropertyInt techPointGainPerRedirectMod = m_techPointGainPerRedirectMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -127,16 +123,14 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(techPointGainPerRedirectMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_laserHitEffectMod, "[LaserHitEffect]", flag, (!flag) ? null : martyrProtectAlly.m_laserHitEffect);
-		string str3 = text;
-		AbilityModPropertyBool affectsEnemiesMod = this.m_affectsEnemiesMod;
-		string prefix3 = "[AffectsEnemies]";
-		bool showBaseVal3 = flag;
-		bool baseVal3;
+		empty = str2 + PropDesc(techPointGainPerRedirectMod, "[TechPointGainPerRedirect]", flag, baseVal2);
+		empty += PropDesc(m_laserHitEffectMod, "[LaserHitEffect]", flag, (!flag) ? null : martyrProtectAlly.m_laserHitEffect);
+		string str3 = empty;
+		AbilityModPropertyBool affectsEnemiesMod = m_affectsEnemiesMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -145,21 +139,19 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 				}
 				break;
 			}
-			baseVal3 = martyrProtectAlly.m_affectsEnemies;
+			baseVal3 = (martyrProtectAlly.m_affectsEnemies ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(affectsEnemiesMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyBool affectsAlliesMod = this.m_affectsAlliesMod;
-		string prefix4 = "[AffectsAllies]";
-		bool showBaseVal4 = flag;
-		bool baseVal4;
+		empty = str3 + PropDesc(affectsEnemiesMod, "[AffectsEnemies]", flag, (byte)baseVal3 != 0);
+		string str4 = empty;
+		AbilityModPropertyBool affectsAlliesMod = m_affectsAlliesMod;
+		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -168,21 +160,19 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 				}
 				break;
 			}
-			baseVal4 = martyrProtectAlly.m_affectsAllies;
+			baseVal4 = (martyrProtectAlly.m_affectsAllies ? 1 : 0);
 		}
 		else
 		{
-			baseVal4 = false;
+			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(affectsAlliesMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyBool penetratesLoSMod = this.m_penetratesLoSMod;
-		string prefix5 = "[PenetratesLoS]";
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		empty = str4 + PropDesc(affectsAlliesMod, "[AffectsAllies]", flag, (byte)baseVal4 != 0);
+		string str5 = empty;
+		AbilityModPropertyBool penetratesLoSMod = m_penetratesLoSMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -191,21 +181,19 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 				}
 				break;
 			}
-			baseVal5 = martyrProtectAlly.m_penetratesLoS;
+			baseVal5 = (martyrProtectAlly.m_penetratesLoS ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(penetratesLoSMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyEffectInfo thornsEffectMod = this.m_thornsEffectMod;
-		string prefix6 = "[ThornsEffect]";
-		bool showBaseVal6 = flag;
-		StandardEffectInfo baseVal6;
+		empty = str5 + PropDesc(penetratesLoSMod, "[PenetratesLoS]", flag, (byte)baseVal5 != 0);
+		string str6 = empty;
+		AbilityModPropertyEffectInfo thornsEffectMod = m_thornsEffectMod;
+		object baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -220,15 +208,13 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		{
 			baseVal6 = null;
 		}
-		text = str6 + base.PropDesc(thornsEffectMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyEffectInfo returnEffectOnEnemyMod = this.m_returnEffectOnEnemyMod;
-		string prefix7 = "[ReturnEffectOnEnemy]";
-		bool showBaseVal7 = flag;
-		StandardEffectInfo baseVal7;
+		empty = str6 + PropDesc(thornsEffectMod, "[ThornsEffect]", flag, (StandardEffectInfo)baseVal6);
+		string str7 = empty;
+		AbilityModPropertyEffectInfo returnEffectOnEnemyMod = m_returnEffectOnEnemyMod;
+		object baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -243,15 +229,13 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		{
 			baseVal7 = null;
 		}
-		text = str7 + base.PropDesc(returnEffectOnEnemyMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyInt thornsDamagePerHitMod = this.m_thornsDamagePerHitMod;
-		string prefix8 = "[ThornsDamagePerHit]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(returnEffectOnEnemyMod, "[ReturnEffectOnEnemy]", flag, (StandardEffectInfo)baseVal7);
+		string str8 = empty;
+		AbilityModPropertyInt thornsDamagePerHitMod = m_thornsDamagePerHitMod;
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -266,16 +250,14 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		{
 			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(thornsDamagePerHitMod, prefix8, showBaseVal8, baseVal8);
-		text += base.PropDesc(this.m_effectOnSelfMod, "[EffectOnSelf]", flag, (!flag) ? null : martyrProtectAlly.m_effectOnSelf);
-		string str9 = text;
-		AbilityModPropertyInt baseAbsorbMod = this.m_baseAbsorbMod;
-		string prefix9 = "[BaseAbsorb]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(thornsDamagePerHitMod, "[ThornsDamagePerHit]", flag, baseVal8);
+		empty += PropDesc(m_effectOnSelfMod, "[EffectOnSelf]", flag, (!flag) ? null : martyrProtectAlly.m_effectOnSelf);
+		string str9 = empty;
+		AbilityModPropertyInt baseAbsorbMod = m_baseAbsorbMod;
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -290,15 +272,13 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		{
 			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(baseAbsorbMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyInt absorbPerCrystalSpentMod = this.m_absorbPerCrystalSpentMod;
-		string prefix10 = "[AbsorbPerCrystalSpent]";
-		bool showBaseVal10 = flag;
+		empty = str9 + PropDesc(baseAbsorbMod, "[BaseAbsorb]", flag, baseVal9);
+		string str10 = empty;
+		AbilityModPropertyInt absorbPerCrystalSpentMod = m_absorbPerCrystalSpentMod;
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -313,15 +293,13 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		{
 			baseVal10 = 0;
 		}
-		text = str10 + base.PropDesc(absorbPerCrystalSpentMod, prefix10, showBaseVal10, baseVal10);
-		string str11 = text;
-		AbilityModPropertyInt baseAbsorbOnAllyMod = this.m_baseAbsorbOnAllyMod;
-		string prefix11 = "[BaseAbsorbOnAlly]";
-		bool showBaseVal11 = flag;
+		empty = str10 + PropDesc(absorbPerCrystalSpentMod, "[AbsorbPerCrystalSpent]", flag, baseVal10);
+		string str11 = empty;
+		AbilityModPropertyInt baseAbsorbOnAllyMod = m_baseAbsorbOnAllyMod;
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -336,17 +314,15 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		{
 			baseVal11 = 0;
 		}
-		text = str11 + base.PropDesc(baseAbsorbOnAllyMod, prefix11, showBaseVal11, baseVal11);
-		text += base.PropDesc(this.m_absorbOnAllyPerCrystalSpentMod, "[AbsorbOnAllyPerCrystalSpent]", flag, (!flag) ? 0 : martyrProtectAlly.m_absorbOnAllyPerCrystalSpent);
-		text += base.PropDesc(this.m_extraEnergyPerRedirectDamageMod, "[ExtraEnergyPerRedirectDamage]", flag, (!flag) ? 0f : martyrProtectAlly.m_extraEnergyPerRedirectDamage);
-		string str12 = text;
-		AbilityModPropertyFloat healOnTurnStartPerRedirectDamageMod = this.m_healOnTurnStartPerRedirectDamageMod;
-		string prefix12 = "[HealOnTurnStartPerRedirectDamage]";
-		bool showBaseVal12 = flag;
+		empty = str11 + PropDesc(baseAbsorbOnAllyMod, "[BaseAbsorbOnAlly]", flag, baseVal11);
+		empty += PropDesc(m_absorbOnAllyPerCrystalSpentMod, "[AbsorbOnAllyPerCrystalSpent]", flag, flag ? martyrProtectAlly.m_absorbOnAllyPerCrystalSpent : 0);
+		empty += PropDesc(m_extraEnergyPerRedirectDamageMod, "[ExtraEnergyPerRedirectDamage]", flag, (!flag) ? 0f : martyrProtectAlly.m_extraEnergyPerRedirectDamage);
+		string str12 = empty;
+		AbilityModPropertyFloat healOnTurnStartPerRedirectDamageMod = m_healOnTurnStartPerRedirectDamageMod;
 		float baseVal12;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -361,6 +337,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		{
 			baseVal12 = 0f;
 		}
-		return str12 + base.PropDesc(healOnTurnStartPerRedirectDamageMod, prefix12, showBaseVal12, baseVal12);
+		return str12 + PropDesc(healOnTurnStartPerRedirectDamageMod, "[HealOnTurnStartPerRedirectDamage]", flag, baseVal12);
 	}
 }

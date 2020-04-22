@@ -1,12 +1,10 @@
-﻿using System;
-
 public class TurnState
 {
 	protected ActorTurnSM m_SM;
 
 	public TurnState(ActorTurnSM masterSM)
 	{
-		this.m_SM = masterSM;
+		m_SM = masterSM;
 	}
 
 	public virtual void OnEnter()

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -23,66 +22,72 @@ public class ClientObserverManager : MonoBehaviour, IGameEventListener
 
 	public void ConnectingToGameServer()
 	{
-		NetworkManager.singleton.client.RegisterHandler(0x39, new NetworkMessageDelegate(this.HandleObserverMessage));
-		this.m_observerMessages = new List<Replay.Message>();
-		this.m_nextMessage = 0;
-		this.m_initialGameTime = GameTime.time;
+		NetworkManager.singleton.client.RegisterHandler(57, HandleObserverMessage);
+		m_observerMessages = new List<Replay.Message>();
+		m_nextMessage = 0;
+		m_initialGameTime = GameTime.time;
 	}
 
 	public void HandleGameStopped()
 	{
-		this.m_observerMessages = null;
+		m_observerMessages = null;
 	}
 
 	private void Update()
 	{
-		if (this.m_observerMessages == null)
+		if (m_observerMessages == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientObserverManager.Update()).MethodHandle;
-			}
-			return;
 		}
 		while (!AsyncPump.Current.BreakRequested())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (this.m_nextMessage >= this.m_observerMessages.Count || this.m_observerMessages[this.m_nextMessage].timestamp > GameTime.time - this.m_initialGameTime)
-			{
-				break;
-			}
-			Replay.Message message = this.m_observerMessages[this.m_nextMessage];
-			if (ClientGameManager.Get() != null && ClientGameManager.Get().Connection != null)
-			{
-				for (;;)
+				if (m_nextMessage >= m_observerMessages.Count)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				ClientGameManager.Get().Connection.TransportReceive(message.data, message.data.Length, 0);
+				Replay.Message message = m_observerMessages[m_nextMessage];
+				if (!(message.timestamp <= GameTime.time - m_initialGameTime))
+				{
+					return;
+				}
+				Replay.Message message2 = m_observerMessages[m_nextMessage];
+				if (ClientGameManager.Get() != null && ClientGameManager.Get().Connection != null)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					ClientGameManager.Get().Connection.TransportReceive(message2.data, message2.data.Length, 0);
+				}
+				m_nextMessage++;
+				goto IL_008d;
 			}
-			this.m_nextMessage++;
+			IL_008d:;
 		}
 	}
 
@@ -91,24 +96,24 @@ public class ClientObserverManager : MonoBehaviour, IGameEventListener
 		GameManager.ObserverMessage observerMessage = msg.ReadMessage<GameManager.ObserverMessage>();
 		if (observerMessage == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientObserverManager.HandleObserverMessage(NetworkMessage)).MethodHandle;
-			}
-			return;
 		}
-		if (this.m_observerMessages == null)
+		if (m_observerMessages == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -117,59 +122,59 @@ public class ClientObserverManager : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			this.m_observerMessages = new List<Replay.Message>();
+			m_observerMessages = new List<Replay.Message>();
 		}
-		this.m_observerMessages.Add(observerMessage.Message);
-		if (GameTime.time - this.m_initialGameTime > observerMessage.Message.timestamp + 1f)
+		m_observerMessages.Add(observerMessage.Message);
+		if (GameTime.time - m_initialGameTime > observerMessage.Message.timestamp + 1f)
 		{
-			this.m_initialGameTime = GameTime.time - observerMessage.Message.timestamp;
+			m_initialGameTime = GameTime.time - observerMessage.Message.timestamp;
 		}
-		this.Update();
+		Update();
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (args == null)
+		if (args == null || eventType != GameEventManager.EventType.ReconnectReplayStateChanged)
 		{
 			return;
 		}
-		if (eventType == GameEventManager.EventType.ReconnectReplayStateChanged)
+		GameEventManager.ReconnectReplayStateChangedArgs reconnectReplayStateChangedArgs = (GameEventManager.ReconnectReplayStateChangedArgs)args;
+		if (reconnectReplayStateChangedArgs.m_newReconnectReplayState)
 		{
-			GameEventManager.ReconnectReplayStateChangedArgs reconnectReplayStateChangedArgs = (GameEventManager.ReconnectReplayStateChangedArgs)args;
-			if (!reconnectReplayStateChangedArgs.m_newReconnectReplayState)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				for (;;)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_observerMessages.Count == 0)
+			{
+				while (true)
 				{
-					switch (1)
+					switch (2)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientObserverManager.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-				}
-				if (this.m_observerMessages.Count == 0)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_initialGameTime = GameTime.time;
-				}
-				else
-				{
-					this.m_initialGameTime = GameTime.time - this.m_observerMessages[this.m_observerMessages.Count - 1].timestamp;
-				}
-				this.Update();
+				m_initialGameTime = GameTime.time;
 			}
+			else
+			{
+				float time = GameTime.time;
+				Replay.Message message = m_observerMessages[m_observerMessages.Count - 1];
+				m_initialGameTime = time - message.timestamp;
+			}
+			Update();
+			return;
 		}
 	}
 }

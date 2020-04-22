@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class Passive : MonoBehaviour
@@ -23,11 +22,11 @@ public class Passive : MonoBehaviour
 	{
 		get
 		{
-			return this.m_owner;
+			return m_owner;
 		}
 		set
 		{
-			this.m_owner = value;
+			m_owner = value;
 		}
 	}
 }

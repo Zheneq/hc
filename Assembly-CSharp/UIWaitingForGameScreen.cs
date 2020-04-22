@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,45 +18,43 @@ public class UIWaitingForGameScreen : MonoBehaviour
 
 	private void Start()
 	{
-		UIEventTriggerUtils.AddListener(this.m_cancelButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.CancelClicked));
+		UIEventTriggerUtils.AddListener(m_cancelButton.gameObject, EventTriggerType.PointerClick, CancelClicked);
 	}
 
 	public void SetVisible(bool visible)
 	{
-		for (int i = 0; i < this.m_containers.Length; i++)
+		for (int i = 0; i < m_containers.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_containers[i], visible, null);
+			UIManager.SetGameObjectActive(m_containers[i], visible);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIWaitingForGameScreen.SetVisible(bool)).MethodHandle;
-		}
-		UIManager.SetGameObjectActive(this.m_circleWidgetAnimController, visible, null);
-		if (visible)
-		{
-			for (;;)
+			if (1 == 0)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_circleWidgetAnimController.Play("searchingForMatchesAnimationLoop");
-		}
-		else
-		{
-			this.m_circleWidgetAnimController.Play("Idle");
+			UIManager.SetGameObjectActive(m_circleWidgetAnimController, visible);
+			if (visible)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						break;
+					default:
+						m_circleWidgetAnimController.Play("searchingForMatchesAnimationLoop");
+						return;
+					}
+				}
+			}
+			m_circleWidgetAnimController.Play("Idle");
+			return;
 		}
 	}
 
@@ -69,60 +66,54 @@ public class UIWaitingForGameScreen : MonoBehaviour
 	public void Setup(GameType gameType)
 	{
 		string text = string.Empty;
-		if (gameType != GameType.Coop)
+		switch (gameType)
 		{
-			if (gameType != GameType.PvP)
-			{
-				if (gameType == GameType.Custom)
-				{
-					text = StringUtil.TR("JOINCUSTOMMATCH", "Global");
-				}
-			}
-			else
-			{
-				text = StringUtil.TR("JOINVERSUSMATCH", "Global");
-			}
-		}
-		else
-		{
+		case GameType.Coop:
 			text = StringUtil.TR("JOINCOOPERATIVEMATCH", "Global");
+			break;
+		case GameType.PvP:
+			text = StringUtil.TR("JOINVERSUSMATCH", "Global");
+			break;
+		case GameType.Custom:
+			text = StringUtil.TR("JOINCUSTOMMATCH", "Global");
+			break;
 		}
-		this.m_queueMatchTypeLabel.text = text;
+		m_queueMatchTypeLabel.text = text;
 	}
 
 	public void UpdateQueueStatus()
 	{
-		if (this.m_statusLabel)
+		if ((bool)m_statusLabel)
 		{
-			this.m_statusLabel.text = ClientGameManager.Get().GenerateQueueLabel();
+			m_statusLabel.text = ClientGameManager.Get().GenerateQueueLabel();
 		}
 	}
 
 	public void InitQueueStatus()
 	{
-		this.UpdateQueueStatus();
+		UpdateQueueStatus();
 	}
 
 	public void UpdateGameStatus(LobbyGameInfo gameInfo)
 	{
-		if (this.m_statusLabel)
+		if (!m_statusLabel)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIWaitingForGameScreen.UpdateGameStatus(LobbyGameInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (gameInfo.GameStatus != GameStatus.Assembling)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -131,82 +122,77 @@ public class UIWaitingForGameScreen : MonoBehaviour
 					}
 					break;
 				}
-				if (gameInfo.GameStatus == GameStatus.FreelancerSelecting)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
+				if (gameInfo.GameStatus != GameStatus.FreelancerSelecting)
 				{
 					if (gameInfo.GameStatus == GameStatus.LoadoutSelecting)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								m_statusLabel.text = StringUtil.TR("SelectingLoadouts", "Global");
+								return;
 							}
-							break;
 						}
-						this.m_statusLabel.text = StringUtil.TR("SelectingLoadouts", "Global");
-						return;
 					}
 					if (gameInfo.GameStatus == GameStatus.Launching)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								m_statusLabel.text = StringUtil.TR("GameServerStarting", "Global");
+								return;
 							}
-							break;
 						}
-						this.m_statusLabel.text = StringUtil.TR("GameServerStarting", "Global");
-						return;
 					}
 					if (gameInfo.GameStatus == GameStatus.Launched)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
 							case 0:
 								continue;
 							}
-							break;
+							m_statusLabel.text = StringUtil.TR("GameServerReady", "Global");
+							return;
 						}
-						this.m_statusLabel.text = StringUtil.TR("GameServerReady", "Global");
-						return;
 					}
 					return;
 				}
-			}
-			if (gameInfo.ActivePlayers >= gameInfo.GameConfig.TotalHumanPlayers)
-			{
-				for (;;)
+				while (true)
 				{
-					switch (3)
+					switch (6)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				this.m_statusLabel.text = StringUtil.TR("CreatingGame", "Global");
 			}
-			else
+			if (gameInfo.ActivePlayers >= gameInfo.GameConfig.TotalHumanPlayers)
 			{
-				this.m_statusLabel.text = string.Format(StringUtil.TR("PlayersReadyCount", "Global"), gameInfo.ActivePlayers, gameInfo.GameConfig.TotalHumanPlayers);
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						break;
+					default:
+						m_statusLabel.text = StringUtil.TR("CreatingGame", "Global");
+						return;
+					}
+				}
 			}
+			m_statusLabel.text = string.Format(StringUtil.TR("PlayersReadyCount", "Global"), gameInfo.ActivePlayers, gameInfo.GameConfig.TotalHumanPlayers);
+			return;
 		}
 	}
 }

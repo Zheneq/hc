@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,50 +31,51 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		RampartBarricade_Prep rampartBarricade_Prep = targetAbility as RampartBarricade_Prep;
-		if (rampartBarricade_Prep != null)
+		if (!(rampartBarricade_Prep != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartBarricade_Prep.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, rampartBarricade_Prep.m_damageAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", rampartBarricade_Prep.m_enemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "LaserRange", string.Empty, rampartBarricade_Prep.m_laserRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_knockbackDistanceMod, "KnockbackDistance", string.Empty, rampartBarricade_Prep.m_knockbackDistance, true, false, false);
+			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, rampartBarricade_Prep.m_damageAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", rampartBarricade_Prep.m_enemyHitEffect);
+			AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, rampartBarricade_Prep.m_laserRange);
+			AbilityMod.AddToken(tokens, m_knockbackDistanceMod, "KnockbackDistance", string.Empty, rampartBarricade_Prep.m_knockbackDistance);
 			Passive_Rampart component = rampartBarricade_Prep.GetComponent<Passive_Rampart>();
 			if (component != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					AbilityMod.AddToken_BarrierMod(tokens, m_shieldBarrierDataMod, "ShieldBarrier", component.m_normalShieldBarrierData);
+					return;
 				}
-				AbilityMod.AddToken_BarrierMod(tokens, this.m_shieldBarrierDataMod, "ShieldBarrier", component.m_normalShieldBarrierData);
 			}
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		RampartBarricade_Prep rampartBarricade_Prep = base.GetTargetAbilityOnAbilityData(abilityData) as RampartBarricade_Prep;
+		RampartBarricade_Prep rampartBarricade_Prep = GetTargetAbilityOnAbilityData(abilityData) as RampartBarricade_Prep;
 		bool flag = rampartBarricade_Prep != null;
-		Passive_Rampart passive_Rampart;
-		if (abilityData)
+		object obj;
+		if ((bool)abilityData)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -83,26 +84,24 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartBarricade_Prep.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			passive_Rampart = abilityData.GetComponent<Passive_Rampart>();
+			obj = abilityData.GetComponent<Passive_Rampart>();
 		}
 		else
 		{
-			passive_Rampart = null;
+			obj = null;
 		}
-		Passive_Rampart passive_Rampart2 = passive_Rampart;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyBool allowAimAtDiagonalsMod = this.m_allowAimAtDiagonalsMod;
-		string prefix = "[AllowAimAtDiagonals]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		Passive_Rampart passive_Rampart = (Passive_Rampart)obj;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyBool allowAimAtDiagonalsMod = m_allowAimAtDiagonalsMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -111,21 +110,19 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 				}
 				break;
 			}
-			baseVal = rampartBarricade_Prep.m_allowAimAtDiagonals;
+			baseVal = (rampartBarricade_Prep.m_allowAimAtDiagonals ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(allowAimAtDiagonalsMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyEffectInfo enemyHitEffectMod = this.m_enemyHitEffectMod;
-		string prefix2 = "[EnemyHitEffect]";
-		bool showBaseVal2 = flag;
-		StandardEffectInfo baseVal2;
+		empty = str + PropDesc(allowAimAtDiagonalsMod, "[AllowAimAtDiagonals]", flag, (byte)baseVal != 0);
+		string str2 = empty;
+		AbilityModPropertyEffectInfo enemyHitEffectMod = m_enemyHitEffectMod;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -140,15 +137,13 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 		{
 			baseVal2 = null;
 		}
-		text = str2 + base.PropDesc(enemyHitEffectMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyFloat laserRangeMod = this.m_laserRangeMod;
-		string prefix3 = "[LaserRange]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(enemyHitEffectMod, "[EnemyHitEffect]", flag, (StandardEffectInfo)baseVal2);
+		string str3 = empty;
+		AbilityModPropertyFloat laserRangeMod = m_laserRangeMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -163,10 +158,10 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(laserRangeMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_laserLengthIgnoreLosMod, "[LaserLengthIgnoreLos]", flag, flag && rampartBarricade_Prep.m_laserLengthIgnoreLos);
-		text += base.PropDesc(this.m_penetrateLosMod, "[PenetrateLos]", flag, flag && rampartBarricade_Prep.m_penetrateLos);
-		text += base.PropDesc(this.m_knockbackDistanceMod, "[KnockbackDistance]", flag, (!flag) ? 0f : rampartBarricade_Prep.m_knockbackDistance);
-		return text + AbilityModHelper.GetModPropertyDesc(this.m_shieldBarrierDataMod, "{ Barrier Data Mod }", (!(passive_Rampart2 != null)) ? null : passive_Rampart2.m_normalShieldBarrierData);
+		empty = str3 + PropDesc(laserRangeMod, "[LaserRange]", flag, baseVal3);
+		empty += PropDesc(m_laserLengthIgnoreLosMod, "[LaserLengthIgnoreLos]", flag, flag && rampartBarricade_Prep.m_laserLengthIgnoreLos);
+		empty += PropDesc(m_penetrateLosMod, "[PenetrateLos]", flag, flag && rampartBarricade_Prep.m_penetrateLos);
+		empty += PropDesc(m_knockbackDistanceMod, "[KnockbackDistance]", flag, (!flag) ? 0f : rampartBarricade_Prep.m_knockbackDistance);
+		return empty + AbilityModHelper.GetModPropertyDesc(m_shieldBarrierDataMod, "{ Barrier Data Mod }", (!(passive_Rampart != null)) ? null : passive_Rampart.m_normalShieldBarrierData);
 	}
 }

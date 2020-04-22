@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class Karma
@@ -9,6 +9,6 @@ public class Karma
 
 	public bool IsValid()
 	{
-		return this.Quantity >= 0;
+		return Quantity >= 0;
 	}
 }

@@ -1,5 +1,3 @@
-﻿using System;
-
 public class ClientResolutionActionMessageData
 {
 	public ClientResolutionAction m_action;
@@ -10,8 +8,8 @@ public class ClientResolutionActionMessageData
 
 	public ClientResolutionActionMessageData(ClientResolutionAction action, int turnIndex, int phaseIndex)
 	{
-		this.m_action = action;
-		this.m_turnIndex = turnIndex;
-		this.m_phase = (AbilityPriority)phaseIndex;
+		m_action = action;
+		m_turnIndex = turnIndex;
+		m_phase = (AbilityPriority)phaseIndex;
 	}
 }

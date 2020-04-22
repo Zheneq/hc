@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,22 +13,26 @@ public class ScoundrelTrapWire : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Trap Wires";
+			m_abilityName = "Trap Wires";
 		}
-		if (this.m_pattern != AbilityGridPattern.NoPattern)
+		if (m_pattern != 0)
 		{
-			this.ModdedBarrierData().SetupForPattern(this.m_pattern);
+			ModdedBarrierData().SetupForPattern(m_pattern);
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		if (this.m_pattern == AbilityGridPattern.NoPattern)
+		if (m_pattern != 0)
 		{
-			for (;;)
+			AbilityUtil_Targeter_Grid abilityUtil_Targeter_Grid = (AbilityUtil_Targeter_Grid)(base.Targeter = new AbilityUtil_Targeter_Grid(this, m_pattern, ModdedBarrierScale()));
+		}
+		else
+		{
+			while (true)
 			{
 				switch (2)
 				{
@@ -38,92 +41,85 @@ public class ScoundrelTrapWire : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelTrapWire.SetupTargeter()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			base.Targeter = new AbilityUtil_Targeter_Barrier(this, this.ModdedBarrierData().m_width * this.ModdedBarrierScale(), false, false, true);
-		}
-		else
-		{
-			AbilityUtil_Targeter_Grid targeter = new AbilityUtil_Targeter_Grid(this, this.m_pattern, this.ModdedBarrierScale());
-			base.Targeter = targeter;
+			base.Targeter = new AbilityUtil_Targeter_Barrier(this, ModdedBarrierData().m_width * ModdedBarrierScale());
 		}
 		base.Targeter.ShowArcToShape = true;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		this.ModdedBarrierData().AddTooltipTokens(tokens, "Wall", false, null);
+		ModdedBarrierData().AddTooltipTokens(tokens, "Wall");
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.ModdedBarrierData().ReportAbilityTooltipNumbers(ref result);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		ModdedBarrierData().ReportAbilityTooltipNumbers(ref numbers);
+		return numbers;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ScoundrelTrapWire))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_abilityMod = (abilityMod as AbilityMod_ScoundrelTrapWire);
+					SetupTargeter();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelTrapWire.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_ScoundrelTrapWire);
-			this.SetupTargeter();
 		}
-		else
-		{
-			Debug.LogError("Trying to apply wrong type of ability mod");
-		}
+		Debug.LogError("Trying to apply wrong type of ability mod");
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	public StandardBarrierData ModdedBarrierData()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_abilityMod.m_barrierDataMod.GetModifiedValue(m_barrierData);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelTrapWire.ModdedBarrierData()).MethodHandle;
-			}
-			return this.m_abilityMod.m_barrierDataMod.GetModifiedValue(this.m_barrierData);
 		}
-		return this.m_barrierData;
+		return m_barrierData;
 	}
 
 	private float ModdedBarrierScale()
 	{
-		float num = this.m_barrierSizeScale;
-		if (this.m_abilityMod != null)
+		float num = m_barrierSizeScale;
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -132,21 +128,21 @@ public class ScoundrelTrapWire : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelTrapWire.ModdedBarrierScale()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = this.m_abilityMod.m_barrierScaleMod.GetModifiedValue(num);
+			num = m_abilityMod.m_barrierScaleMod.GetModifiedValue(num);
 		}
 		return num;
 	}
 
 	public List<GameObject> ModdedBarrierSequencePrefab()
 	{
-		List<GameObject> result = this.ModdedBarrierData().m_barrierSequencePrefabs;
-		if (this.m_abilityMod != null)
+		List<GameObject> result = ModdedBarrierData().m_barrierSequencePrefabs;
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -155,13 +151,13 @@ public class ScoundrelTrapWire : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelTrapWire.ModdedBarrierSequencePrefab()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_abilityMod.m_barrierSequence != null)
+			if (m_abilityMod.m_barrierSequence != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -170,9 +166,9 @@ public class ScoundrelTrapWire : Ability
 					}
 					break;
 				}
-				if (this.m_abilityMod.m_barrierSequence.Count > 0)
+				if (m_abilityMod.m_barrierSequence.Count > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -181,7 +177,7 @@ public class ScoundrelTrapWire : Ability
 						}
 						break;
 					}
-					result = this.m_abilityMod.m_barrierSequence;
+					result = m_abilityMod.m_barrierSequence;
 				}
 			}
 		}

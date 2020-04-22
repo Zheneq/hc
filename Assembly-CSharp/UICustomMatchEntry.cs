@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -18,58 +17,58 @@ public class UICustomMatchEntry : MonoBehaviour
 
 	public void Setup(LobbyGameInfo game)
 	{
-		this.m_gameName.text = game.GameConfig.RoomName;
-		this.m_playerCount.text = game.ActivePlayers + "/" + game.GameConfig.TotalPlayers;
-		this.m_spectatorCount.text = game.ActiveSpectators + "/" + game.GameConfig.Spectators;
-		this.m_mapName.text = GameWideData.Get().GetMapDisplayName(game.GameConfig.Map);
+		m_gameName.text = game.GameConfig.RoomName;
+		m_playerCount.text = game.ActivePlayers + "/" + game.GameConfig.TotalPlayers;
+		m_spectatorCount.text = game.ActiveSpectators + "/" + game.GameConfig.Spectators;
+		m_mapName.text = GameWideData.Get().GetMapDisplayName(game.GameConfig.Map);
 		bool doActive = game.ActiveSpectators < game.GameConfig.Spectators;
-		RectTransform[] componentsInChildren = this.m_joinAsSpectatorButton.transform.parent.GetComponentsInChildren<RectTransform>();
+		RectTransform[] componentsInChildren = m_joinAsSpectatorButton.transform.parent.GetComponentsInChildren<RectTransform>();
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
-			if (componentsInChildren[i] != this.m_joinAsSpectatorButton.transform.parent as RectTransform)
+			if (componentsInChildren[i] != m_joinAsSpectatorButton.transform.parent as RectTransform)
 			{
-				UIManager.SetGameObjectActive(componentsInChildren[i], doActive, null);
+				UIManager.SetGameObjectActive(componentsInChildren[i], doActive);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICustomMatchEntry.Setup(LobbyGameInfo)).MethodHandle;
-		}
-		bool doActive2 = game.ActivePlayers < game.GameConfig.TotalPlayers;
-		componentsInChildren = this.m_joinButton.transform.parent.GetComponentsInChildren<RectTransform>();
-		for (int j = 0; j < componentsInChildren.Length; j++)
-		{
-			if (componentsInChildren[j] != this.m_joinButton.transform.parent as RectTransform)
+			if (1 == 0)
 			{
-				for (;;)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			bool doActive2 = game.ActivePlayers < game.GameConfig.TotalPlayers;
+			componentsInChildren = m_joinButton.transform.parent.GetComponentsInChildren<RectTransform>();
+			for (int j = 0; j < componentsInChildren.Length; j++)
+			{
+				if (componentsInChildren[j] != m_joinButton.transform.parent as RectTransform)
 				{
-					switch (4)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
+					UIManager.SetGameObjectActive(componentsInChildren[j], doActive2);
+				}
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				default:
+					return;
+				case 0:
 					break;
 				}
-				UIManager.SetGameObjectActive(componentsInChildren[j], doActive2, null);
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

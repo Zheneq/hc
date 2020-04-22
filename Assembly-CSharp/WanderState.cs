@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,51 +17,47 @@ public class WanderState : FSMState
 
 	private void Start()
 	{
-		this.stateID = StateID.Wander;
-		this.WanderData.MaxWaitTurns = Mathf.Clamp(this.WanderData.MaxWaitTurns, 0, this.WanderData.MaxWaitTurns);
-		this.WanderData.MinWaitTurns = Mathf.Clamp(this.WanderData.MinWaitTurns, 0, this.WanderData.MaxWaitTurns);
-		this.WanderData.MaxWanderDistanceInSquares = Mathf.Clamp(this.WanderData.MaxWanderDistanceInSquares, 0, this.WanderData.MaxWanderDistanceInSquares);
-		this.WanderData.MinWanderDistanceInSquares = Mathf.Clamp(this.WanderData.MinWanderDistanceInSquares, 0, this.WanderData.MaxWanderDistanceInSquares);
-		if (this.WanderData.MinWanderDistanceInSquares == this.WanderData.MaxWanderDistanceInSquares)
+		stateID = StateID.Wander;
+		WanderData.MaxWaitTurns = Mathf.Clamp(WanderData.MaxWaitTurns, 0, WanderData.MaxWaitTurns);
+		WanderData.MinWaitTurns = Mathf.Clamp(WanderData.MinWaitTurns, 0, WanderData.MaxWaitTurns);
+		WanderData.MaxWanderDistanceInSquares = Mathf.Clamp(WanderData.MaxWanderDistanceInSquares, 0, WanderData.MaxWanderDistanceInSquares);
+		WanderData.MinWanderDistanceInSquares = Mathf.Clamp(WanderData.MinWanderDistanceInSquares, 0, WanderData.MaxWanderDistanceInSquares);
+		if (WanderData.MinWanderDistanceInSquares != WanderData.MaxWanderDistanceInSquares)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WanderState.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Log.Warning(string.Concat(new object[]
-			{
-				"Min and Max wander distance of ",
-				this.WanderData.MaxWanderDistanceInSquares,
-				" are the same for ",
-				base.MyActorData.name
-			}), new object[0]);
+			Log.Warning("Min and Max wander distance of " + WanderData.MaxWanderDistanceInSquares + " are the same for " + base.MyActorData.name);
+			return;
 		}
 	}
 
 	private bool PickNewWanderPoint(NPCBrain thisBrain)
 	{
-		BoardSquare boardSquare = base.MyActorData.\u0012();
-		GameObject gameObject = (!(this.WanderData.WanderRealativeTo != null)) ? thisBrain.gameObject : this.WanderData.WanderRealativeTo;
-		Vector3 size = new Vector3((float)this.WanderData.MinWanderDistanceInSquares * Board.\u000E().squareSize * 2f, 2f, (float)this.WanderData.MinWanderDistanceInSquares * Board.\u000E().squareSize * 2f);
-		Vector3 size2 = new Vector3((float)this.WanderData.MaxWanderDistanceInSquares * Board.\u000E().squareSize * 2f, 2f, (float)this.WanderData.MaxWanderDistanceInSquares * Board.\u000E().squareSize * 2f);
+		BoardSquare currentBoardSquare = base.MyActorData.GetCurrentBoardSquare();
+		GameObject gameObject = (!(WanderData.WanderRealativeTo != null)) ? thisBrain.gameObject : WanderData.WanderRealativeTo;
+		Vector3 size = new Vector3((float)WanderData.MinWanderDistanceInSquares * Board.Get().squareSize * 2f, 2f, (float)WanderData.MinWanderDistanceInSquares * Board.Get().squareSize * 2f);
+		Vector3 size2 = new Vector3((float)WanderData.MaxWanderDistanceInSquares * Board.Get().squareSize * 2f, 2f, (float)WanderData.MaxWanderDistanceInSquares * Board.Get().squareSize * 2f);
 		Vector3 position = gameObject.transform.position;
 		position.y = 0f;
 		Bounds minBounds = new Bounds(position, size);
-		Bounds u001D = new Bounds(position, size2);
-		List<BoardSquare> list = Board.\u000E().\u000E(u001D, delegate(BoardSquare x)
+		Bounds bounds = new Bounds(position, size2);
+		List<BoardSquare> list = Board.Get()._000E(bounds, delegate(BoardSquare x)
 		{
+			int result;
 			if (x.OccupantActor == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -71,13 +66,13 @@ public class WanderState : FSMState
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WanderState.<PickNewWanderPoint>c__AnonStorey1.<>m__0(BoardSquare)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (x.\u0016())
+				if (x.IsBaselineHeight())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -86,25 +81,28 @@ public class WanderState : FSMState
 						}
 						break;
 					}
-					return !minBounds.Contains(x.transform.position);
+					result = ((!minBounds.Contains(x.transform.position)) ? 1 : 0);
+					goto IL_0057;
 				}
 			}
-			return false;
+			result = 0;
+			goto IL_0057;
+			IL_0057:
+			return (byte)result != 0;
 		});
 		if (list != null && list.Count > 0)
 		{
-			GameEventManager.WanderStateArgs wanderStateArgs = new GameEventManager.WanderStateArgs
-			{
-				characterActor = base.MyActorData
-			};
-			this.currentDestination = list[GameplayRandom.Range(0, list.Count)];
-			wanderStateArgs.pathLength = boardSquare.HorizontalDistanceInSquaresTo(this.currentDestination);
-			this.totalLengthTravelled += wanderStateArgs.pathLength;
-			wanderStateArgs.totalLengthTravelled = this.totalLengthTravelled;
-			wanderStateArgs.turnsWandering = this.totalTurnsTravelling;
-			wanderStateArgs.destinationSquare = this.currentDestination;
-			this.turnsToDelayRemaining = -1;
-			GameEventManager.Get().FireEvent(GameEventManager.EventType.WanderStateEvent, wanderStateArgs);
+			GameEventManager.WanderStateArgs wanderStateArgs = new GameEventManager.WanderStateArgs();
+			wanderStateArgs.characterActor = base.MyActorData;
+			GameEventManager.WanderStateArgs wanderStateArgs2 = wanderStateArgs;
+			currentDestination = list[GameplayRandom.Range(0, list.Count)];
+			wanderStateArgs2.pathLength = currentBoardSquare.HorizontalDistanceInSquaresTo(currentDestination);
+			totalLengthTravelled += wanderStateArgs2.pathLength;
+			wanderStateArgs2.totalLengthTravelled = totalLengthTravelled;
+			wanderStateArgs2.turnsWandering = totalTurnsTravelling;
+			wanderStateArgs2.destinationSquare = currentDestination;
+			turnsToDelayRemaining = -1;
+			GameEventManager.Get().FireEvent(GameEventManager.EventType.WanderStateEvent, wanderStateArgs2);
 			return true;
 		}
 		return false;
@@ -117,10 +115,10 @@ public class WanderState : FSMState
 
 	public override IEnumerator OnTurn(NPCBrain thisBrain)
 	{
-		BoardSquare x = base.MyActorData.\u0012();
-		if (this.currentDestination == null)
+		BoardSquare currentBoardSquare = base.MyActorData.GetCurrentBoardSquare();
+		if (currentDestination == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -129,36 +127,30 @@ public class WanderState : FSMState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WanderState.<OnTurn>c__Iterator0.MoveNext()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.PickNewWanderPoint(thisBrain))
+			if (!PickNewWanderPoint(thisBrain))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						Log.Info("Could not find a valid point to wander to. Waiting a turn! Min/Max: " + WanderData.MinWanderDistanceInSquares + ", " + WanderData.MaxWanderDistanceInSquares);
+						yield break;
 					}
-					break;
 				}
-				Log.Info(string.Concat(new object[]
-				{
-					"Could not find a valid point to wander to. Waiting a turn! Min/Max: ",
-					this.WanderData.MinWanderDistanceInSquares,
-					", ",
-					this.WanderData.MaxWanderDistanceInSquares
-				}), new object[0]);
-				yield break;
 			}
 		}
-		float num = this.currentDestination.HorizontalDistanceInSquaresTo(base.MyActorData.\u0012());
+		float num = currentDestination.HorizontalDistanceInSquaresTo(base.MyActorData.GetCurrentBoardSquare());
 		float remainingHorizontalMovement = base.MyActorData.RemainingHorizontalMovement;
-		if (this.turnsToDelayRemaining == -1)
+		if (turnsToDelayRemaining == -1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -167,9 +159,9 @@ public class WanderState : FSMState
 				}
 				break;
 			}
-			if (!(x == this.currentDestination))
+			if (!(currentBoardSquare == currentDestination))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -178,11 +170,11 @@ public class WanderState : FSMState
 					}
 					break;
 				}
-				if (num >= remainingHorizontalMovement || !(this.currentDestination.OccupantActor != null))
+				if (!(num < remainingHorizontalMovement) || !(currentDestination.OccupantActor != null))
 				{
-					goto IL_228;
+					goto IL_0228;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -192,99 +184,90 @@ public class WanderState : FSMState
 					break;
 				}
 			}
-			this.turnsToDelayRemaining = GameplayRandom.Range(this.WanderData.MinWaitTurns, this.WanderData.MaxWaitTurns);
-			if (this.turnsToDelayRemaining <= 0 && !this.PickNewWanderPoint(thisBrain))
+			turnsToDelayRemaining = GameplayRandom.Range(WanderData.MinWaitTurns, WanderData.MaxWaitTurns);
+			if (turnsToDelayRemaining <= 0 && !PickNewWanderPoint(thisBrain))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						Log.Info("Could not find a valid point to wander to. Waiting a turn! Min/Max: " + WanderData.MinWanderDistanceInSquares + ", " + WanderData.MaxWanderDistanceInSquares);
+						yield break;
 					}
-					break;
 				}
-				Log.Info(string.Concat(new object[]
-				{
-					"Could not find a valid point to wander to. Waiting a turn! Min/Max: ",
-					this.WanderData.MinWanderDistanceInSquares,
-					", ",
-					this.WanderData.MaxWanderDistanceInSquares
-				}), new object[0]);
-				yield break;
 			}
 		}
-		IL_228:
-		if (this.turnsToDelayRemaining > 0)
+		goto IL_0228;
+		IL_0228:
+		if (turnsToDelayRemaining > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			this.turnsToDelayRemaining--;
-			if (this.turnsToDelayRemaining <= 0)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (!this.PickNewWanderPoint(thisBrain))
-				{
-					for (;;)
+				default:
+					turnsToDelayRemaining--;
+					if (turnsToDelayRemaining <= 0)
 					{
-						switch (3)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (1)
+							{
+							case 0:
+								break;
+							default:
+								if (!PickNewWanderPoint(thisBrain))
+								{
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											break;
+										default:
+											Log.Info("Could not find a valid point to wander to. Waiting a turn! Min/Max: " + WanderData.MinWanderDistanceInSquares + ", " + WanderData.MaxWanderDistanceInSquares);
+											yield break;
+										}
+									}
+								}
+								yield break;
+							}
 						}
-						break;
 					}
-					Log.Info(string.Concat(new object[]
-					{
-						"Could not find a valid point to wander to. Waiting a turn! Min/Max: ",
-						this.WanderData.MinWanderDistanceInSquares,
-						", ",
-						this.WanderData.MaxWanderDistanceInSquares
-					}), new object[0]);
 					yield break;
 				}
 			}
 		}
-		else if (this.currentDestination)
+		if (!currentDestination)
 		{
-			for (;;)
+			yield break;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			ActorTurnSM component = base.MyFSMBrain.GetComponent<ActorTurnSM>();
-			this.totalTurnsTravelling++;
-			component.SelectMovementSquareForMovement(this.currentDestination);
+			totalTurnsTravelling++;
+			component.SelectMovementSquareForMovement(currentDestination);
+			yield break;
 		}
-		yield break;
 	}
 
 	public override void OnEnter(NPCBrain thisBrain, StateID previousState)
 	{
-		this.currentDestination = null;
-		this.totalLengthTravelled = 0f;
-		this.totalTurnsTravelling = 0;
-		this.turnsToDelayRemaining = 0;
-		this.turnsToDelayRemaining = -1;
+		currentDestination = null;
+		totalLengthTravelled = 0f;
+		totalTurnsTravelling = 0;
+		turnsToDelayRemaining = 0;
+		turnsToDelayRemaining = -1;
 		base.OnEnter(thisBrain, previousState);
 	}
 

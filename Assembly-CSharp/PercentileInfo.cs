@@ -1,5 +1,5 @@
-﻿using System;
 using Newtonsoft.Json;
+using System;
 
 [Serializable]
 public class PercentileInfo
@@ -25,9 +25,10 @@ public class PercentileInfo
 	{
 		get
 		{
-			if (this.AgainstSameFreelancer == null)
+			int result;
+			if (!AgainstSameFreelancer.HasValue)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -36,13 +37,13 @@ public class PercentileInfo
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PercentileInfo.get_HasData()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (this.MedianOfSameFreelancer == null)
+				if (!MedianOfSameFreelancer.HasValue)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -51,9 +52,9 @@ public class PercentileInfo
 						}
 						break;
 					}
-					if (this.AgainstRole == null && this.MedianOfRole == null)
+					if (!AgainstRole.HasValue && !MedianOfRole.HasValue)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -62,9 +63,9 @@ public class PercentileInfo
 							}
 							break;
 						}
-						if (this.AgainstAll == null)
+						if (!AgainstAll.HasValue)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -73,9 +74,9 @@ public class PercentileInfo
 								}
 								break;
 							}
-							if (this.MedianOfAll == null)
+							if (!MedianOfAll.HasValue)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (7)
 									{
@@ -84,9 +85,9 @@ public class PercentileInfo
 									}
 									break;
 								}
-								if (this.AgainstPeers == null)
+								if (!AgainstPeers.HasValue)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (4)
 										{
@@ -95,14 +96,18 @@ public class PercentileInfo
 										}
 										break;
 									}
-									return this.MedianOfPeers != null;
+									result = (MedianOfPeers.HasValue ? 1 : 0);
+									goto IL_00c0;
 								}
 							}
 						}
 					}
 				}
 			}
-			return true;
+			result = 1;
+			goto IL_00c0;
+			IL_00c0:
+			return (byte)result != 0;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -7,14 +7,15 @@ using System.Text;
 
 public class SlashCommand_Log : SlashCommand
 {
-	public SlashCommand_Log() : base("/log", SlashCommandType.Everywhere)
+	public SlashCommand_Log()
+		: base("/log", SlashCommandType.Everywhere)
 	{
 		base.PublicFacing = true;
 	}
 
 	public override void OnSlashCommand(string arguments)
 	{
-		this.OpenLogFile();
+		OpenLogFile();
 	}
 
 	private void OpenLogFile()
@@ -24,89 +25,89 @@ public class SlashCommand_Log : SlashCommand
 			string fileLogCurrentPath = ClientBootstrap.Instance.GetFileLogCurrentPath();
 			if (!File.Exists(fileLogCurrentPath))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return;
 					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_Log.OpenLogFile()).MethodHandle;
 				}
 			}
-			else
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.AppendLine(BuildInfo.GetBuildInfoString());
+			stringBuilder.AppendLine(fileLogCurrentPath);
+			stringBuilder.AppendLine();
+			List<string> list = new List<string>();
+			list.Add("Connecting to lobby server from");
+			list.Add("Assigned to game");
+			FileStream fileStream = new FileStream(fileLogCurrentPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+			try
 			{
-				StringBuilder stringBuilder = new StringBuilder();
-				stringBuilder.AppendLine(BuildInfo.GetBuildInfoString());
-				stringBuilder.AppendLine(fileLogCurrentPath);
-				stringBuilder.AppendLine();
-				List<string> list = new List<string>();
-				list.Add("Connecting to lobby server from");
-				list.Add("Assigned to game");
-				FileStream fileStream = new FileStream(fileLogCurrentPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+				StreamReader streamReader = new StreamReader(fileStream);
 				try
 				{
-					StreamReader streamReader = new StreamReader(fileStream);
-					try
+					while (streamReader.Peek() >= 0)
 					{
-						while (streamReader.Peek() >= 0)
+						string line = streamReader.ReadLine();
+						string text = list.Where((string k) => line.Contains(k)).SingleOrDefault();
+						if (text != null)
 						{
-							string line = streamReader.ReadLine();
-							string text = (from k in list
-							where line.Contains(k)
-							select k).SingleOrDefault<string>();
-							if (text != null)
-							{
-								stringBuilder.AppendLine(line);
-							}
-						}
-					}
-					finally
-					{
-						if (streamReader != null)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							((IDisposable)streamReader).Dispose();
+							stringBuilder.AppendLine(line);
 						}
 					}
 				}
 				finally
 				{
-					if (fileStream != null)
+					if (streamReader != null)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (7)
+							switch (2)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								((IDisposable)streamReader).Dispose();
+								goto end_IL_00db;
 							}
-							break;
 						}
-						((IDisposable)fileStream).Dispose();
+					}
+					end_IL_00db:;
+				}
+			}
+			finally
+			{
+				if (fileStream != null)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							break;
+						default:
+							((IDisposable)fileStream).Dispose();
+							goto end_IL_00f3;
+						}
 					}
 				}
-				string text2 = Path.Combine(Path.GetTempPath(), Path.ChangeExtension(Path.GetTempFileName(), ".txt"));
-				File.WriteAllText(text2, stringBuilder.ToString());
-				Process.Start(new ProcessStartInfo(text2));
-				WinUtils.OpenContainingFolder(fileLogCurrentPath);
+				end_IL_00f3:;
 			}
+			string text2 = Path.Combine(Path.GetTempPath(), Path.ChangeExtension(Path.GetTempFileName(), ".txt"));
+			File.WriteAllText(text2, stringBuilder.ToString());
+			Process.Start(new ProcessStartInfo(text2));
+			WinUtils.OpenContainingFolder(fileLogCurrentPath);
 		}
 		catch (Exception ex)
 		{
-			Log.Error(ex.ToString(), new object[0]);
+			Log.Error(ex.ToString());
 		}
 	}
 }

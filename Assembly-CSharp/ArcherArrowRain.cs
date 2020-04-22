@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +23,7 @@ public class ArcherArrowRain : Ability
 	public int m_maxTargets = 5;
 
 	[Separator("Enemy Hit", true)]
-	public int m_damage = 0x28;
+	public int m_damage = 40;
 
 	public StandardEffectInfo m_enemyHitEffect;
 
@@ -53,9 +52,9 @@ public class ArcherArrowRain : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -64,124 +63,89 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Arrow Rain";
+			m_abilityName = "Arrow Rain";
 		}
-		this.m_abilityData = base.GetComponent<AbilityData>();
-		if (this.m_abilityData != null)
+		m_abilityData = GetComponent<AbilityData>();
+		if (m_abilityData != null)
 		{
-			this.m_healArrowAbility = (base.GetAbilityOfType(typeof(ArcherHealingDebuffArrow)) as ArcherHealingDebuffArrow);
-			if (this.m_healArrowAbility != null)
+			m_healArrowAbility = (GetAbilityOfType(typeof(ArcherHealingDebuffArrow)) as ArcherHealingDebuffArrow);
+			if (m_healArrowAbility != null)
 			{
-				this.m_healArrowActionType = this.m_abilityData.GetActionTypeOfAbility(this.m_healArrowAbility);
+				m_healArrowActionType = m_abilityData.GetActionTypeOfAbility(m_healArrowAbility);
 			}
 		}
-		this.m_actorTargeting = base.GetComponent<ActorTargeting>();
-		this.m_syncComp = base.GetComponent<Archer_SyncComponent>();
-		this.Setup();
+		m_actorTargeting = GetComponent<ActorTargeting>();
+		m_syncComp = GetComponent<Archer_SyncComponent>();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
+		SetCachedFields();
 		base.Targeters.Clear();
-		for (int i = 0; i < this.GetExpectedNumberOfTargeters(); i++)
+		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 		{
-			AbilityUtil_Targeter_CapsuleAoE abilityUtil_Targeter_CapsuleAoE = new AbilityUtil_Targeter_CapsuleAoE(this, this.GetStartRadius(), this.GetEndRadius(), this.GetLineRadius(), this.GetMaxTargets(), false, this.AoePenetrateLoS());
+			AbilityUtil_Targeter_CapsuleAoE abilityUtil_Targeter_CapsuleAoE = new AbilityUtil_Targeter_CapsuleAoE(this, GetStartRadius(), GetEndRadius(), GetLineRadius(), GetMaxTargets(), false, AoePenetrateLoS());
 			abilityUtil_Targeter_CapsuleAoE.SetUseMultiTargetUpdate(true);
 			abilityUtil_Targeter_CapsuleAoE.ShowArcToShape = false;
 			base.Targeters.Add(abilityUtil_Targeter_CapsuleAoE);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.Setup()).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		return this.GetTargetData().Length;
+		return GetTargetData().Length;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		if (targetIndex > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos);
-			BoardSquare boardSquare2 = Board.\u000E().\u000E(target.GridPos);
-			if (boardSquare != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (boardSquare2 != null)
-				{
-					for (;;)
+				default:
 					{
-						switch (4)
+						if (1 == 0)
 						{
-						case 0:
-							continue;
+							/*OpCode not supported: LdMemberToken*/;
 						}
-						break;
-					}
-					float num = Vector3.Distance(boardSquare.ToVector3(), boardSquare2.ToVector3());
-					if (num <= this.GetMaxRangeBetween() * Board.\u000E().squareSize)
-					{
-						for (;;)
+						BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
+						BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
+						if (boardSquareSafe != null)
 						{
-							switch (2)
+							while (true)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (num >= this.GetMinRangeBetween() * Board.\u000E().squareSize)
-						{
-							for (;;)
-							{
-								switch (4)
+								switch (5)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							if (!this.LinePenetrateLoS())
+							if (boardSquareSafe2 != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (4)
 									{
@@ -190,71 +154,111 @@ public class ArcherArrowRain : Ability
 									}
 									break;
 								}
-								if (!boardSquare.\u0013(boardSquare2.x, boardSquare2.y))
+								float num = Vector3.Distance(boardSquareSafe.ToVector3(), boardSquareSafe2.ToVector3());
+								if (num <= GetMaxRangeBetween() * Board.Get().squareSize)
 								{
-									return false;
-								}
-								for (;;)
-								{
-									switch (1)
+									while (true)
 									{
-									case 0:
-										continue;
+										switch (2)
+										{
+										case 0:
+											continue;
+										}
+										break;
 									}
-									break;
+									if (num >= GetMinRangeBetween() * Board.Get().squareSize)
+									{
+										while (true)
+										{
+											switch (4)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										if (!LinePenetrateLoS())
+										{
+											while (true)
+											{
+												switch (4)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											if (!boardSquareSafe._0013(boardSquareSafe2.x, boardSquareSafe2.y))
+											{
+												goto IL_0117;
+											}
+											while (true)
+											{
+												switch (1)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+										}
+										return true;
+									}
 								}
 							}
-							return true;
 						}
+						goto IL_0117;
 					}
+					IL_0117:
+					return false;
 				}
 			}
-			return false;
 		}
 		return base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "MaxTargets", string.Empty, this.m_maxTargets, false);
-		base.AddTokenInt(tokens, "Damage", string.Empty, this.m_damage, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffect, "EnemyHitEffect", this.m_enemyHitEffect, true);
+		AddTokenInt(tokens, "MaxTargets", string.Empty, m_maxTargets);
+		AddTokenInt(tokens, "Damage", string.Empty, m_damage);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_ArcherArrowRain))
+		if (abilityMod.GetType() != typeof(AbilityMod_ArcherArrowRain))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_ArcherArrowRain);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_ArcherArrowRain);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -263,21 +267,21 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			cachedEnemyHitEffect = this.m_enemyHitEffect;
+			cachedEnemyHitEffect = m_enemyHitEffect;
 		}
-		this.m_cachedEnemyHitEffect = cachedEnemyHitEffect;
-		StandardEffectInfo cachedAdditionalEnemyHitEffect;
-		if (this.m_abilityMod)
+		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
+		object cachedAdditionalEnemyHitEffect;
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -286,27 +290,27 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			cachedAdditionalEnemyHitEffect = this.m_abilityMod.m_additionalEnemyHitEffect.GetModifiedValue(null);
+			cachedAdditionalEnemyHitEffect = m_abilityMod.m_additionalEnemyHitEffect.GetModifiedValue(null);
 		}
 		else
 		{
 			cachedAdditionalEnemyHitEffect = null;
 		}
-		this.m_cachedAdditionalEnemyHitEffect = cachedAdditionalEnemyHitEffect;
-		this.m_cachedSingleEnemyHitEffect = ((!this.m_abilityMod) ? null : this.m_abilityMod.m_singleEnemyHitEffectMod.GetModifiedValue(null));
+		m_cachedAdditionalEnemyHitEffect = (StandardEffectInfo)cachedAdditionalEnemyHitEffect;
+		m_cachedSingleEnemyHitEffect = ((!m_abilityMod) ? null : m_abilityMod.m_singleEnemyHitEffectMod.GetModifiedValue(null));
 	}
 
 	public float GetStartRadius()
 	{
-		return (!this.m_abilityMod) ? this.m_startRadius : this.m_abilityMod.m_startRadiusMod.GetModifiedValue(this.m_startRadius);
+		return (!m_abilityMod) ? m_startRadius : m_abilityMod.m_startRadiusMod.GetModifiedValue(m_startRadius);
 	}
 
 	public float GetEndRadius()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -315,30 +319,30 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetEndRadius()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_endRadiusMod.GetModifiedValue(this.m_endRadius);
+			result = m_abilityMod.m_endRadiusMod.GetModifiedValue(m_endRadius);
 		}
 		else
 		{
-			result = this.m_endRadius;
+			result = m_endRadius;
 		}
 		return result;
 	}
 
 	public float GetLineRadius()
 	{
-		return (!this.m_abilityMod) ? this.m_lineRadius : this.m_abilityMod.m_lineRadiusMod.GetModifiedValue(this.m_lineRadius);
+		return (!m_abilityMod) ? m_lineRadius : m_abilityMod.m_lineRadiusMod.GetModifiedValue(m_lineRadius);
 	}
 
 	public float GetMinRangeBetween()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -347,35 +351,35 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetMinRangeBetween()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_minRangeBetweenMod.GetModifiedValue(this.m_minRangeBetween);
+			result = m_abilityMod.m_minRangeBetweenMod.GetModifiedValue(m_minRangeBetween);
 		}
 		else
 		{
-			result = this.m_minRangeBetween;
+			result = m_minRangeBetween;
 		}
 		return result;
 	}
 
 	public float GetMaxRangeBetween()
 	{
-		return (!this.m_abilityMod) ? this.m_maxRangeBetween : this.m_abilityMod.m_maxRangeBetweenMod.GetModifiedValue(this.m_maxRangeBetween);
+		return (!m_abilityMod) ? m_maxRangeBetween : m_abilityMod.m_maxRangeBetweenMod.GetModifiedValue(m_maxRangeBetween);
 	}
 
 	public bool LinePenetrateLoS()
 	{
-		return (!this.m_abilityMod) ? this.m_linePenetrateLoS : this.m_abilityMod.m_linePenetrateLoSMod.GetModifiedValue(this.m_linePenetrateLoS);
+		return (!m_abilityMod) ? m_linePenetrateLoS : m_abilityMod.m_linePenetrateLoSMod.GetModifiedValue(m_linePenetrateLoS);
 	}
 
 	public bool AoePenetrateLoS()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -384,15 +388,15 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.AoePenetrateLoS()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_aoePenetrateLoSMod.GetModifiedValue(this.m_aoePenetrateLoS);
+			result = m_abilityMod.m_aoePenetrateLoSMod.GetModifiedValue(m_aoePenetrateLoS);
 		}
 		else
 		{
-			result = this.m_aoePenetrateLoS;
+			result = m_aoePenetrateLoS;
 		}
 		return result;
 	}
@@ -400,9 +404,9 @@ public class ArcherArrowRain : Ability
 	public int GetMaxTargets()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -411,15 +415,15 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetMaxTargets()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
+			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
 		{
-			result = this.m_maxTargets;
+			result = m_maxTargets;
 		}
 		return result;
 	}
@@ -427,9 +431,9 @@ public class ArcherArrowRain : Ability
 	public int GetDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -438,15 +442,15 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damage);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
 		{
-			result = this.m_damage;
+			result = m_damage;
 		}
 		return result;
 	}
@@ -454,9 +458,9 @@ public class ArcherArrowRain : Ability
 	public int GetDamageBelowHealthThreshold()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -465,15 +469,15 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetDamageBelowHealthThreshold()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_damageBelowHealthThresholdMod.GetModifiedValue(this.GetDamage());
+			result = m_abilityMod.m_damageBelowHealthThresholdMod.GetModifiedValue(GetDamage());
 		}
 		else
 		{
-			result = this.GetDamage();
+			result = GetDamage();
 		}
 		return result;
 	}
@@ -481,9 +485,9 @@ public class ArcherArrowRain : Ability
 	public float GetHealthThresholdForBonusDamage()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -492,11 +496,11 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetHealthThresholdForBonusDamage()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_healthThresholdForDamageMod.GetModifiedValue(0f);
+			result = m_abilityMod.m_healthThresholdForDamageMod.GetModifiedValue(0f);
 		}
 		else
 		{
@@ -508,9 +512,9 @@ public class ArcherArrowRain : Ability
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyHitEffect != null)
+		if (m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -519,35 +523,35 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetEnemyHitEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedEnemyHitEffect;
+			result = m_cachedEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyHitEffect;
+			result = m_enemyHitEffect;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetAdditionalEnemyHitEffect()
 	{
-		return this.m_cachedAdditionalEnemyHitEffect;
+		return m_cachedAdditionalEnemyHitEffect;
 	}
 
 	public StandardEffectInfo GetSingleEnemyHitEffect()
 	{
-		return this.m_cachedSingleEnemyHitEffect;
+		return m_cachedSingleEnemyHitEffect;
 	}
 
 	public int GetTechPointRefundNoHits()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -556,11 +560,11 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetTechPointRefundNoHits()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_techPointRefundNoHits.GetModifiedValue(0);
+			result = m_abilityMod.m_techPointRefundNoHits.GetModifiedValue(0);
 		}
 		else
 		{
@@ -571,18 +575,18 @@ public class ArcherArrowRain : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetDamage());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetDamage());
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		int num = this.GetDamage();
-		if (targetActor.\u0012() <= this.GetHealthThresholdForBonusDamage())
+		int num = GetDamage();
+		if (targetActor.GetHitPointShareOfMax() <= GetHealthThresholdForBonusDamage())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -591,15 +595,15 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			num = this.GetDamageBelowHealthThreshold();
+			num = GetDamageBelowHealthThreshold();
 		}
-		if (this.IsReactionHealTarget(targetActor))
+		if (IsReactionHealTarget(targetActor))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -608,7 +612,7 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			num += this.m_healArrowAbility.GetExtraDamageToThisTargetFromCaster();
+			num += m_healArrowAbility.GetExtraDamageToThisTargetFromCaster();
 		}
 		dictionary[AbilityTooltipSymbol.Damage] = num;
 		return dictionary;
@@ -621,26 +625,26 @@ public class ArcherArrowRain : Ability
 		{
 			while (enumerator.MoveNext())
 			{
-				AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
-				if (this.IsReactionHealTarget(actorTarget.m_actor))
+				AbilityUtil_Targeter.ActorTarget current = enumerator.Current;
+				if (IsReactionHealTarget(current.m_actor))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							return m_healArrowAbility.GetTechPointsPerHeal();
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-					}
-					return this.m_healArrowAbility.GetTechPointsPerHeal();
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -655,9 +659,9 @@ public class ArcherArrowRain : Ability
 
 	private bool IsReactionHealTarget(ActorData targetActor)
 	{
-		if (this.m_syncComp.m_healReactionTargetActor == targetActor.ActorIndex)
+		if (m_syncComp.m_healReactionTargetActor == targetActor.ActorIndex)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -666,27 +670,27 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.IsReactionHealTarget(ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_syncComp.ActorHasUsedHealReaction(base.ActorData))
+			if (!m_syncComp.ActorHasUsedHealReaction(base.ActorData))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return true;
 					}
-					break;
 				}
-				return true;
 			}
 		}
-		if (this.m_healArrowActionType != AbilityData.ActionType.INVALID_ACTION)
+		if (m_healArrowActionType != AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -695,9 +699,9 @@ public class ArcherArrowRain : Ability
 				}
 				break;
 			}
-			if (this.m_actorTargeting != null)
+			if (m_actorTargeting != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -706,10 +710,10 @@ public class ArcherArrowRain : Ability
 					}
 					break;
 				}
-				List<AbilityTarget> abilityTargetsInRequest = this.m_actorTargeting.GetAbilityTargetsInRequest(this.m_healArrowActionType);
+				List<AbilityTarget> abilityTargetsInRequest = m_actorTargeting.GetAbilityTargetsInRequest(m_healArrowActionType);
 				if (abilityTargetsInRequest != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -720,7 +724,7 @@ public class ArcherArrowRain : Ability
 					}
 					if (abilityTargetsInRequest.Count > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -729,20 +733,20 @@ public class ArcherArrowRain : Ability
 							}
 							break;
 						}
-						BoardSquare square = Board.\u000E().\u000E(abilityTargetsInRequest[0].GridPos);
-						ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(square, true, false, base.ActorData);
+						BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTargetsInRequest[0].GridPos);
+						ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquareSafe, true, false, base.ActorData);
 						if (targetableActorOnSquare == targetActor)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return true;
 								}
-								break;
 							}
-							return true;
 						}
 					}
 				}

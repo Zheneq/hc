@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class StopPkFxOnDestroy : MonoBehaviour
@@ -13,57 +12,61 @@ public class StopPkFxOnDestroy : MonoBehaviour
 
 	private void OnApplicationQuit()
 	{
-		this.s_quitting = true;
+		s_quitting = true;
 	}
 
 	private void OnDisable()
 	{
-		if (!this.s_quitting)
+		if (s_quitting)
 		{
-			PKFxFX[] componentsInChildren = base.GetComponentsInChildren<PKFxFX>(true);
-			foreach (PKFxFX pkfxFX in componentsInChildren)
+			return;
+		}
+		PKFxFX[] componentsInChildren = GetComponentsInChildren<PKFxFX>(true);
+		PKFxFX[] array = componentsInChildren;
+		foreach (PKFxFX pKFxFX in array)
+		{
+			if (!(pKFxFX != null))
 			{
-				if (pkfxFX != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(StopPkFxOnDestroy.OnDisable()).MethodHandle;
-					}
-					if (this.m_killEffect)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						pkfxFX.KillEffect();
-					}
-					else
-					{
-						pkfxFX.TerminateEffect();
-					}
-				}
+				continue;
 			}
-			for (;;)
+			while (true)
 			{
-				switch (6)
+				switch (2)
 				{
 				case 0:
 					continue;
 				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_killEffect)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				pKFxFX.KillEffect();
+			}
+			else
+			{
+				pKFxFX.TerminateEffect();
+			}
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
@@ -71,17 +74,18 @@ public class StopPkFxOnDestroy : MonoBehaviour
 
 	private void Start()
 	{
-		this.m_hasStarted = true;
+		m_hasStarted = true;
 	}
 
 	private void StartEffects()
 	{
-		PKFxFX[] componentsInChildren = base.GetComponentsInChildren<PKFxFX>(true);
-		foreach (PKFxFX pkfxFX in componentsInChildren)
+		PKFxFX[] componentsInChildren = GetComponentsInChildren<PKFxFX>(true);
+		PKFxFX[] array = componentsInChildren;
+		foreach (PKFxFX pKFxFX in array)
 		{
-			if (pkfxFX != null)
+			if (pKFxFX != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -90,45 +94,47 @@ public class StopPkFxOnDestroy : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(StopPkFxOnDestroy.StartEffects()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				pkfxFX.StartEffect();
+				pKFxFX.StartEffect();
 			}
 		}
-		for (;;)
+		while (true)
+		{
+			switch (3)
+			{
+			default:
+				return;
+			case 0:
+				break;
+			}
+		}
+	}
+
+	private void OnEnable()
+	{
+		if (!m_restartOnEnable)
+		{
+			return;
+		}
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-	}
-
-	private void OnEnable()
-	{
-		if (this.m_restartOnEnable)
-		{
-			for (;;)
+			if (1 == 0)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!true)
+			if (m_hasStarted)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StopPkFxOnDestroy.OnEnable()).MethodHandle;
+				StartEffects();
 			}
-			if (this.m_hasStarted)
-			{
-				this.StartEffects();
-			}
+			return;
 		}
 	}
 }

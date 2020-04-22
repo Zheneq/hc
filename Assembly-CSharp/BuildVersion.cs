@@ -1,98 +1,43 @@
-﻿using System;
+using System;
 
 public static class BuildVersion
 {
 	public const string BuildDescriptionPrefixString = "Hydrogen Version: ";
 
-	private const int s_releaseNumber = 0x7A;
+	private const int s_releaseNumber = 122;
 
-	private const int s_buildNumber = 0x64;
+	private const int s_buildNumber = 100;
 
 	private const string s_buildLetter = "k";
 
 	private const string s_changelistNumber = "265834";
 
-	public static int ReleaseNumber
-	{
-		get
-		{
-			return 0x7A;
-		}
-	}
+	public static int ReleaseNumber => 122;
 
-	public static int BuildNumber
-	{
-		get
-		{
-			return 0x64;
-		}
-	}
+	public static int BuildNumber => 100;
 
-	public static string BuildLetter
-	{
-		get
-		{
-			return "k".ToUpper();
-		}
-	}
+	public static string BuildLetter => "k".ToUpper();
 
-	public static string BranchName
-	{
-		get
-		{
-			return BuildBranch.BranchName;
-		}
-	}
+	public static string BranchName => BuildBranch.BranchName;
 
-	public static string ChangelistNumber
-	{
-		get
-		{
-			return "265834";
-		}
-	}
+	public static string ChangelistNumber => "265834";
 
-	public static string MiniVersionString
-	{
-		get
-		{
-			return string.Format("{0}-{1}", BuildVersion.BranchName, BuildVersion.ReleaseNumber);
-		}
-	}
+	public static string MiniVersionString => $"{BranchName}-{ReleaseNumber}";
 
-	public static string ShortVersionString
-	{
-		get
-		{
-			return string.Format("{0}-{1}-{2}", BuildVersion.BranchName, BuildVersion.ReleaseNumber, BuildVersion.BuildNumber);
-		}
-	}
+	public static string ShortVersionString => $"{BranchName}-{ReleaseNumber}-{BuildNumber}";
 
-	public static string FullVersionString
-	{
-		get
-		{
-			return string.Format("{0}-{1}-{2}-{3}-{4}", new object[]
-			{
-				BuildVersion.BranchName,
-				BuildVersion.ReleaseNumber,
-				BuildVersion.BuildNumber,
-				BuildVersion.BuildLetter,
-				BuildVersion.ChangelistNumber
-			});
-		}
-	}
+	public static string FullVersionString => $"{BranchName}-{ReleaseNumber}-{BuildNumber}-{BuildLetter}-{ChangelistNumber}";
 
 	public static string GetBuildDescriptionString(DateTime buildDate = default(DateTime), string buildHostName = null)
 	{
-		string text = string.Format("{0}{1}", "Hydrogen Version: ", BuildVersion.FullVersionString);
+		string text = string.Format("{0}{1}", "Hydrogen Version: ", FullVersionString);
 		if (buildDate != DateTime.MinValue)
 		{
 			TimeSpan timeSpan = DateTime.UtcNow - buildDate;
 			string arg;
 			if (timeSpan.TotalHours < 1.0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -101,15 +46,15 @@ public static class BuildVersion
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BuildVersion.GetBuildDescriptionString(DateTime, string)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				arg = string.Format("{0:0} minutes ago", timeSpan.TotalMinutes);
+				arg = $"{timeSpan.TotalMinutes:0} minutes ago";
 			}
 			else if (timeSpan.TotalDays < 1.0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -118,18 +63,18 @@ public static class BuildVersion
 					}
 					break;
 				}
-				arg = string.Format("{0:0} hours ago", timeSpan.TotalHours);
+				arg = $"{timeSpan.TotalHours:0} hours ago";
 			}
 			else
 			{
-				arg = string.Format("{0:0} days ago", timeSpan.TotalDays);
+				arg = $"{timeSpan.TotalDays:0} days ago";
 			}
-			string arg2 = buildDate.ToLocalTime().ToString();
-			text += string.Format(", built {0} at {1}", arg, arg2);
+			string arg2 = ((DateTimeOffset)buildDate).ToLocalTime().ToString();
+			text += $", built {arg} at {arg2}";
 		}
 		if (!buildHostName.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -140,7 +85,7 @@ public static class BuildVersion
 			}
 			if (buildHostName != "unknown")
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -149,7 +94,7 @@ public static class BuildVersion
 					}
 					break;
 				}
-				text += string.Format(" on {0}", buildHostName);
+				text += $" on {buildHostName}";
 			}
 		}
 		return text;

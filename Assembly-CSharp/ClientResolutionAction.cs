@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +14,9 @@ public class ClientResolutionAction : IComparable
 
 	public ClientResolutionAction()
 	{
-		this.m_type = ResolutionActionType.Invalid;
-		this.m_abilityResults = null;
-		this.m_effectResults = null;
+		m_type = ResolutionActionType.Invalid;
+		m_abilityResults = null;
+		m_effectResults = null;
 	}
 
 	public int CompareTo(object obj)
@@ -26,166 +26,168 @@ public class ClientResolutionAction : IComparable
 			return 1;
 		}
 		ClientResolutionAction clientResolutionAction = obj as ClientResolutionAction;
-		if (clientResolutionAction == null)
+		if (clientResolutionAction != null)
 		{
-			throw new ArgumentException("Object is not a ClientResolutionAction");
-		}
-		for (;;)
-		{
-			switch (4)
+			while (true)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.CompareTo(object)).MethodHandle;
-		}
-		if (this.ReactsToMovement() != clientResolutionAction.ReactsToMovement())
-		{
-			for (;;)
-			{
-				switch (7)
+				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			return this.ReactsToMovement().CompareTo(clientResolutionAction.ReactsToMovement());
-		}
-		if (!this.ReactsToMovement())
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!clientResolutionAction.ReactsToMovement())
-			{
-				return 0;
-			}
-		}
-		float moveCost = this.m_moveResults.m_triggeringPath.moveCost;
-		float moveCost2 = clientResolutionAction.m_moveResults.m_triggeringPath.moveCost;
-		if (moveCost != moveCost2)
-		{
-			return moveCost.CompareTo(moveCost2);
-		}
-		bool flag = this.m_moveResults.HasBarrierHitResults();
-		bool flag2 = clientResolutionAction.m_moveResults.HasBarrierHitResults();
-		if (flag)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!flag2)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				return -1;
-			}
-		}
-		if (!flag)
-		{
-			for (;;)
-			{
-				switch (2)
+				default:
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (flag2)
-			{
-				for (;;)
-				{
-					switch (4)
+					if (1 == 0)
 					{
-					case 0:
-						continue;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					break;
-				}
-				return 1;
-			}
-		}
-		bool flag3 = this.m_moveResults.HasGameModeHitResults();
-		bool flag4 = clientResolutionAction.m_moveResults.HasGameModeHitResults();
-		if (flag3)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!flag4)
-			{
-				for (;;)
-				{
-					switch (3)
+					if (ReactsToMovement() != clientResolutionAction.ReactsToMovement())
 					{
-					case 0:
-						continue;
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								break;
+							default:
+								return ReactsToMovement().CompareTo(clientResolutionAction.ReactsToMovement());
+							}
+						}
 					}
-					break;
+					if (!ReactsToMovement())
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!clientResolutionAction.ReactsToMovement())
+						{
+							return 0;
+						}
+					}
+					float moveCost = m_moveResults.m_triggeringPath.moveCost;
+					float moveCost2 = clientResolutionAction.m_moveResults.m_triggeringPath.moveCost;
+					if (moveCost != moveCost2)
+					{
+						return moveCost.CompareTo(moveCost2);
+					}
+					bool flag = m_moveResults.HasBarrierHitResults();
+					bool flag2 = clientResolutionAction.m_moveResults.HasBarrierHitResults();
+					if (flag)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!flag2)
+						{
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									break;
+								default:
+									return -1;
+								}
+							}
+						}
+					}
+					if (!flag)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (flag2)
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									break;
+								default:
+									return 1;
+								}
+							}
+						}
+					}
+					bool flag3 = m_moveResults.HasGameModeHitResults();
+					bool flag4 = clientResolutionAction.m_moveResults.HasGameModeHitResults();
+					if (flag3)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!flag4)
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									break;
+								default:
+									return -1;
+								}
+							}
+						}
+					}
+					if (!flag3)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (flag4)
+						{
+							return 1;
+						}
+					}
+					return 0;
 				}
-				return -1;
+				}
 			}
 		}
-		if (!flag3)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (flag4)
-			{
-				return 1;
-			}
-		}
-		return 0;
+		throw new ArgumentException("Object is not a ClientResolutionAction");
 	}
 
-	public unsafe static ClientResolutionAction ClientResolutionAction_DeSerializeFromStream(ref IBitStream stream)
+	public static ClientResolutionAction ClientResolutionAction_DeSerializeFromStream(ref IBitStream stream)
 	{
 		ClientResolutionAction clientResolutionAction = new ClientResolutionAction();
-		sbyte b = -1;
-		stream.Serialize(ref b);
-		ResolutionActionType resolutionActionType = (ResolutionActionType)b;
-		clientResolutionAction.m_type = (ResolutionActionType)b;
+		sbyte value = -1;
+		stream.Serialize(ref value);
+		ResolutionActionType resolutionActionType = (ResolutionActionType)value;
+		clientResolutionAction.m_type = (ResolutionActionType)value;
 		if (resolutionActionType == ResolutionActionType.AbilityCast)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -194,9 +196,9 @@ public class ClientResolutionAction : IComparable
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.ClientResolutionAction_DeSerializeFromStream(IBitStream*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			clientResolutionAction.m_abilityResults = AbilityResultsUtils.DeSerializeClientAbilityResultsFromStream(ref stream);
 		}
@@ -208,7 +210,7 @@ public class ClientResolutionAction : IComparable
 				{
 					if (resolutionActionType != ResolutionActionType.EffectOnMove && resolutionActionType != ResolutionActionType.BarrierOnMove)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -219,7 +221,7 @@ public class ClientResolutionAction : IComparable
 						}
 						if (resolutionActionType != ResolutionActionType.PowerupOnMove)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -230,9 +232,9 @@ public class ClientResolutionAction : IComparable
 							}
 							if (resolutionActionType != ResolutionActionType.GameModeOnMove)
 							{
-								return clientResolutionAction;
+								goto IL_009e;
 							}
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -244,9 +246,9 @@ public class ClientResolutionAction : IComparable
 						}
 					}
 					clientResolutionAction.m_moveResults = AbilityResultsUtils.DeSerializeClientMovementResultsFromStream(ref stream);
-					return clientResolutionAction;
+					goto IL_009e;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -258,189 +260,195 @@ public class ClientResolutionAction : IComparable
 			}
 			clientResolutionAction.m_effectResults = AbilityResultsUtils.DeSerializeClientEffectResultsFromStream(ref stream);
 		}
+		goto IL_009e;
+		IL_009e:
 		return clientResolutionAction;
 	}
 
 	public ActorData GetCaster()
 	{
-		if (this.m_abilityResults != null)
+		if (m_abilityResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_abilityResults.GetCaster();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.GetCaster()).MethodHandle;
-			}
-			return this.m_abilityResults.GetCaster();
 		}
-		if (this.m_effectResults != null)
+		if (m_effectResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_effectResults.GetCaster();
 				}
-				break;
 			}
-			return this.m_effectResults.GetCaster();
 		}
 		return null;
 	}
 
 	public AbilityData.ActionType GetSourceAbilityActionType()
 	{
-		if (this.m_abilityResults != null)
+		if (m_abilityResults != null)
 		{
-			return this.m_abilityResults.GetSourceActionType();
+			return m_abilityResults.GetSourceActionType();
 		}
-		if (this.m_effectResults != null)
+		if (m_effectResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_effectResults.GetSourceActionType();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.GetSourceAbilityActionType()).MethodHandle;
-			}
-			return this.m_effectResults.GetSourceActionType();
 		}
 		return AbilityData.ActionType.INVALID_ACTION;
 	}
 
 	public bool IsResolutionActionType(ResolutionActionType testType)
 	{
-		return this.m_type == testType;
+		return m_type == testType;
 	}
 
 	public bool HasReactionHitByCaster(ActorData caster)
 	{
-		if (this.m_abilityResults != null)
+		if (m_abilityResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return m_abilityResults.HasReactionByCaster(caster);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.HasReactionHitByCaster(ActorData)).MethodHandle;
-			}
-			return this.m_abilityResults.HasReactionByCaster(caster);
 		}
-		if (this.m_effectResults != null)
+		if (m_effectResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_effectResults.HasReactionByCaster(caster);
 				}
-				break;
 			}
-			return this.m_effectResults.HasReactionByCaster(caster);
 		}
 		return false;
 	}
 
-	public unsafe void GetHitResults(out Dictionary<ActorData, ClientActorHitResults> actorHitResList, out Dictionary<Vector3, ClientPositionHitResults> posHitResList)
+	public void GetHitResults(out Dictionary<ActorData, ClientActorHitResults> actorHitResList, out Dictionary<Vector3, ClientPositionHitResults> posHitResList)
 	{
 		actorHitResList = null;
 		posHitResList = null;
-		if (this.m_abilityResults != null)
+		if (m_abilityResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					actorHitResList = m_abilityResults.GetActorHitResults();
+					posHitResList = m_abilityResults.GetPosHitResults();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.GetHitResults(Dictionary<ActorData, ClientActorHitResults>*, Dictionary<Vector3, ClientPositionHitResults>*)).MethodHandle;
-			}
-			actorHitResList = this.m_abilityResults.GetActorHitResults();
-			posHitResList = this.m_abilityResults.GetPosHitResults();
 		}
-		else if (this.m_effectResults != null)
+		if (m_effectResults == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			actorHitResList = this.m_effectResults.GetActorHitResults();
-			posHitResList = this.m_effectResults.GetPosHitResults();
+			actorHitResList = m_effectResults.GetActorHitResults();
+			posHitResList = m_effectResults.GetPosHitResults();
+			return;
 		}
 	}
 
-	public unsafe void GetReactionHitResultsByCaster(ActorData caster, out Dictionary<ActorData, ClientActorHitResults> actorHitResList, out Dictionary<Vector3, ClientPositionHitResults> posHitResList)
+	public void GetReactionHitResultsByCaster(ActorData caster, out Dictionary<ActorData, ClientActorHitResults> actorHitResList, out Dictionary<Vector3, ClientPositionHitResults> posHitResList)
 	{
 		actorHitResList = null;
 		posHitResList = null;
-		if (this.m_abilityResults != null)
+		if (m_abilityResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_abilityResults.GetReactionHitResultsByCaster(caster, out actorHitResList, out posHitResList);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.GetReactionHitResultsByCaster(ActorData, Dictionary<ActorData, ClientActorHitResults>*, Dictionary<Vector3, ClientPositionHitResults>*)).MethodHandle;
-			}
-			this.m_abilityResults.GetReactionHitResultsByCaster(caster, out actorHitResList, out posHitResList);
 		}
-		else if (this.m_effectResults != null)
+		if (m_effectResults == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_effectResults.GetReactionHitResultsByCaster(caster, out actorHitResList, out posHitResList);
+			m_effectResults.GetReactionHitResultsByCaster(caster, out actorHitResList, out posHitResList);
+			return;
 		}
 	}
 
 	public void RunStartSequences()
 	{
-		if (this.m_abilityResults != null)
+		if (m_abilityResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -449,32 +457,33 @@ public class ClientResolutionAction : IComparable
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.RunStartSequences()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityResults.StartSequences();
+			m_abilityResults.StartSequences();
 		}
-		if (this.m_effectResults != null)
+		if (m_effectResults == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_effectResults.StartSequences();
+			m_effectResults.StartSequences();
+			return;
 		}
 	}
 
 	public void Run_OutsideResolution()
 	{
-		if (this.m_abilityResults != null)
+		if (m_abilityResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -483,15 +492,15 @@ public class ClientResolutionAction : IComparable
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.Run_OutsideResolution()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityResults.StartSequences();
+			m_abilityResults.StartSequences();
 		}
-		if (this.m_effectResults != null)
+		if (m_effectResults != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -500,186 +509,95 @@ public class ClientResolutionAction : IComparable
 				}
 				break;
 			}
-			this.m_effectResults.StartSequences();
+			m_effectResults.StartSequences();
 		}
-		if (this.m_moveResults != null)
+		if (m_moveResults == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.m_moveResults.ReactToMovement();
+			m_moveResults.ReactToMovement();
+			return;
 		}
 	}
 
 	public bool CompletedAction()
 	{
-		bool result;
-		if (this.m_type == ResolutionActionType.AbilityCast)
+		if (m_type == ResolutionActionType.AbilityCast)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.CompletedAction()).MethodHandle;
-			}
-			result = this.m_abilityResults.DoneHitting();
-		}
-		else
-		{
-			if (this.m_type != ResolutionActionType.EffectAnimation)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (this.m_type != ResolutionActionType.EffectPulse)
-				{
-					if (this.m_type != ResolutionActionType.EffectOnMove)
+				default:
+					if (1 == 0)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_type != ResolutionActionType.BarrierOnMove)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_type != ResolutionActionType.PowerupOnMove)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.m_type != ResolutionActionType.GameModeOnMove)
-								{
-									Debug.LogError("ClientResolutionAction has unknown type: " + (int)this.m_type + ".  Assuming it's complete...");
-									return true;
-								}
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-						}
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					return this.m_moveResults.DoneHitting();
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return m_abilityResults.DoneHitting();
 				}
 			}
-			result = this.m_effectResults.DoneHitting();
 		}
-		return result;
-	}
-
-	public void ExecuteUnexecutedClientHitsInAction()
-	{
-		if (this.m_type == ResolutionActionType.AbilityCast)
+		if (m_type != ResolutionActionType.EffectAnimation)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (3)
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (m_type != ResolutionActionType.EffectPulse)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.ExecuteUnexecutedClientHitsInAction()).MethodHandle;
-			}
-			this.m_abilityResults.ExecuteUnexecutedClientHits();
-		}
-		else
-		{
-			if (this.m_type != ResolutionActionType.EffectAnimation)
-			{
-				for (;;)
+				if (m_type != ResolutionActionType.EffectOnMove)
 				{
-					switch (4)
+					while (true)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_type != ResolutionActionType.EffectPulse)
-				{
-					if (this.m_type != ResolutionActionType.EffectOnMove)
-					{
-						for (;;)
+						switch (6)
 						{
-							switch (1)
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (m_type != ResolutionActionType.BarrierOnMove)
+					{
+						while (true)
+						{
+							switch (7)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						if (this.m_type != ResolutionActionType.BarrierOnMove && this.m_type != ResolutionActionType.PowerupOnMove)
+						if (m_type != ResolutionActionType.PowerupOnMove)
 						{
-							for (;;)
+							while (true)
 							{
-								switch (4)
+								switch (2)
 								{
 								case 0:
 									continue;
 								}
 								break;
 							}
-							if (this.m_type != ResolutionActionType.GameModeOnMove)
+							if (m_type != ResolutionActionType.GameModeOnMove)
 							{
-								return;
+								Debug.LogError("ClientResolutionAction has unknown type: " + (int)m_type + ".  Assuming it's complete...");
+								return true;
 							}
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -690,35 +608,120 @@ public class ClientResolutionAction : IComparable
 							}
 						}
 					}
-					this.m_moveResults.ExecuteUnexecutedClientHits();
+				}
+				return m_moveResults.DoneHitting();
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		return m_effectResults.DoneHitting();
+	}
+
+	public void ExecuteUnexecutedClientHitsInAction()
+	{
+		if (m_type == ResolutionActionType.AbilityCast)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_abilityResults.ExecuteUnexecutedClientHits();
 					return;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
-			this.m_effectResults.ExecuteUnexecutedClientHits();
 		}
+		if (m_type != ResolutionActionType.EffectAnimation)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (m_type != ResolutionActionType.EffectPulse)
+			{
+				if (m_type != ResolutionActionType.EffectOnMove)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (m_type != ResolutionActionType.BarrierOnMove && m_type != ResolutionActionType.PowerupOnMove)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (m_type != ResolutionActionType.GameModeOnMove)
+						{
+							return;
+						}
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+				}
+				m_moveResults.ExecuteUnexecutedClientHits();
+				return;
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		m_effectResults.ExecuteUnexecutedClientHits();
 	}
 
 	public bool HasUnexecutedHitOnActor(ActorData actor)
 	{
 		bool result = false;
-		if (this.m_type == ResolutionActionType.AbilityCast)
+		if (m_type == ResolutionActionType.AbilityCast)
 		{
-			result = this.m_abilityResults.HasUnexecutedHitOnActor(actor);
+			result = m_abilityResults.HasUnexecutedHitOnActor(actor);
 		}
 		else
 		{
-			if (this.m_type != ResolutionActionType.EffectAnimation)
+			if (m_type != ResolutionActionType.EffectAnimation)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -727,15 +730,15 @@ public class ClientResolutionAction : IComparable
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.HasUnexecutedHitOnActor(ActorData)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (this.m_type != ResolutionActionType.EffectPulse)
+				if (m_type != ResolutionActionType.EffectPulse)
 				{
-					if (this.m_type != ResolutionActionType.EffectOnMove)
+					if (m_type != ResolutionActionType.EffectOnMove)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -744,9 +747,9 @@ public class ClientResolutionAction : IComparable
 							}
 							break;
 						}
-						if (this.m_type != ResolutionActionType.BarrierOnMove && this.m_type != ResolutionActionType.PowerupOnMove)
+						if (m_type != ResolutionActionType.BarrierOnMove && m_type != ResolutionActionType.PowerupOnMove)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -755,11 +758,11 @@ public class ClientResolutionAction : IComparable
 								}
 								break;
 							}
-							if (this.m_type != ResolutionActionType.GameModeOnMove)
+							if (m_type != ResolutionActionType.GameModeOnMove)
 							{
-								return result;
+								goto IL_00a3;
 							}
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -770,157 +773,96 @@ public class ClientResolutionAction : IComparable
 							}
 						}
 					}
-					return this.m_moveResults.HasUnexecutedHitOnActor(actor);
+					result = m_moveResults.HasUnexecutedHitOnActor(actor);
+					goto IL_00a3;
 				}
 			}
-			result = this.m_effectResults.HasUnexecutedHitOnActor(actor);
+			result = m_effectResults.HasUnexecutedHitOnActor(actor);
 		}
+		goto IL_00a3;
+		IL_00a3:
 		return result;
 	}
 
 	public void ExecuteReactionHitsWithExtraFlagsOnActor(ActorData targetActor, ActorData caster, bool hasDamage, bool hasHealing)
 	{
-		if (this.m_type == ResolutionActionType.AbilityCast)
+		if (m_type == ResolutionActionType.AbilityCast)
 		{
-			this.m_abilityResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
+			m_abilityResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
+			return;
 		}
-		else
+		if (m_type != ResolutionActionType.EffectAnimation)
 		{
-			if (this.m_type != ResolutionActionType.EffectAnimation)
+			while (true)
 			{
-				for (;;)
+				switch (7)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.ExecuteReactionHitsWithExtraFlagsOnActor(ActorData, ActorData, bool, bool)).MethodHandle;
-				}
-				if (this.m_type != ResolutionActionType.EffectPulse)
-				{
-					if (this.m_type != ResolutionActionType.EffectOnMove)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_type != ResolutionActionType.BarrierOnMove)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_type != ResolutionActionType.PowerupOnMove)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.m_type != ResolutionActionType.GameModeOnMove)
-								{
-									return;
-								}
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-						}
-					}
-					this.m_moveResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
-					return;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			this.m_effectResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
-		}
-	}
-
-	public static bool DoneHitting(Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> positionHitResults)
-	{
-		bool flag = true;
-		bool flag2 = true;
-		foreach (ClientActorHitResults clientActorHitResults in actorToHitResults.Values)
-		{
-			if (clientActorHitResults.ExecutedHit)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.DoneHitting(Dictionary<ActorData, ClientActorHitResults>, Dictionary<Vector3, ClientPositionHitResults>)).MethodHandle;
-				}
-				if (!clientActorHitResults.HasUnexecutedReactionHits())
-				{
+				case 0:
 					continue;
 				}
+				break;
 			}
-			flag = false;
-			break;
-		}
-		using (Dictionary<Vector3, ClientPositionHitResults>.ValueCollection.Enumerator enumerator2 = positionHitResults.Values.GetEnumerator())
-		{
-			while (enumerator2.MoveNext())
+			if (1 == 0)
 			{
-				ClientPositionHitResults clientPositionHitResults = enumerator2.Current;
-				if (!clientPositionHitResults.ExecutedHit)
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_type != ResolutionActionType.EffectPulse)
+			{
+				if (m_type != ResolutionActionType.EffectOnMove)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (4)
+						switch (5)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					flag2 = false;
-					goto IL_C0;
+					if (m_type != ResolutionActionType.BarrierOnMove)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (m_type != ResolutionActionType.PowerupOnMove)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (m_type != ResolutionActionType.GameModeOnMove)
+							{
+								return;
+							}
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+					}
 				}
+				m_moveResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
+				return;
 			}
-			for (;;)
+			while (true)
 			{
-				switch (3)
+				switch (4)
 				{
 				case 0:
 					continue;
@@ -928,7 +870,77 @@ public class ClientResolutionAction : IComparable
 				break;
 			}
 		}
-		IL_C0:
+		m_effectResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
+	}
+
+	public static bool DoneHitting(Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> positionHitResults)
+	{
+		bool flag = true;
+		bool flag2 = true;
+		foreach (ClientActorHitResults value in actorToHitResults.Values)
+		{
+			if (value.ExecutedHit)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						if (!value.HasUnexecutedReactionHits())
+						{
+							goto IL_004b;
+						}
+						goto IL_0047;
+					}
+				}
+			}
+			goto IL_0047;
+			IL_0047:
+			flag = false;
+			break;
+			IL_004b:;
+		}
+		using (Dictionary<Vector3, ClientPositionHitResults>.ValueCollection.Enumerator enumerator2 = positionHitResults.Values.GetEnumerator())
+		{
+			while (true)
+			{
+				if (!enumerator2.MoveNext())
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					break;
+				}
+				ClientPositionHitResults current2 = enumerator2.Current;
+				if (!current2.ExecutedHit)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							break;
+						default:
+							flag2 = false;
+							goto end_IL_0077;
+						}
+					}
+				}
+			}
+			end_IL_0077:;
+		}
 		return flag && flag2;
 	}
 
@@ -939,11 +951,11 @@ public class ClientResolutionAction : IComparable
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<ActorData, ClientActorHitResults> keyValuePair = enumerator.Current;
-				ClientActorHitResults value = keyValuePair.Value;
+				KeyValuePair<ActorData, ClientActorHitResults> current = enumerator.Current;
+				ClientActorHitResults value = current.Value;
 				if (!value.ExecutedHit)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -952,15 +964,15 @@ public class ClientResolutionAction : IComparable
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.HasUnexecutedHitOnActor(ActorData, Dictionary<ActorData, ClientActorHitResults>)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					if (keyValuePair.Key.ActorIndex == targetActor.ActorIndex)
+					if (current.Key.ActorIndex == targetActor.ActorIndex)
 					{
-						goto IL_6F;
+						goto IL_006f;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -974,7 +986,7 @@ public class ClientResolutionAction : IComparable
 				{
 					continue;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -983,20 +995,21 @@ public class ClientResolutionAction : IComparable
 					}
 					break;
 				}
-				IL_6F:
+				goto IL_006f;
+				IL_006f:
 				return true;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return result;
 				}
-				break;
 			}
 		}
-		return result;
 	}
 
 	public static void ExecuteUnexecutedHits(Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> positionHitResults, ActorData caster)
@@ -1005,10 +1018,10 @@ public class ClientResolutionAction : IComparable
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<ActorData, ClientActorHitResults> keyValuePair = enumerator.Current;
-				if (!keyValuePair.Value.ExecutedHit)
+				KeyValuePair<ActorData, ClientActorHitResults> current = enumerator.Current;
+				if (!current.Value.ExecutedHit)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -1017,14 +1030,14 @@ public class ClientResolutionAction : IComparable
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.ExecuteUnexecutedHits(Dictionary<ActorData, ClientActorHitResults>, Dictionary<Vector3, ClientPositionHitResults>, ActorData)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					ActorData key = keyValuePair.Key;
-					if (ClientAbilityResults.\u001D)
+					ActorData key = current.Key;
+					if (ClientAbilityResults.LogMissingSequences)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -1033,19 +1046,12 @@ public class ClientResolutionAction : IComparable
 							}
 							break;
 						}
-						Log.Warning(string.Concat(new string[]
-						{
-							ClientAbilityResults.s_clientHitResultHeader,
-							"Executing unexecuted actor hit on ",
-							key.\u0018(),
-							" from ",
-							caster.\u0018()
-						}), new object[0]);
+						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted actor hit on " + key.GetDebugName() + " from " + caster.GetDebugName());
 					}
-					keyValuePair.Value.ExecuteActorHit(keyValuePair.Key, caster);
+					current.Value.ExecuteActorHit(current.Key, caster);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1059,10 +1065,10 @@ public class ClientResolutionAction : IComparable
 		{
 			while (enumerator2.MoveNext())
 			{
-				KeyValuePair<Vector3, ClientPositionHitResults> keyValuePair2 = enumerator2.Current;
-				if (!keyValuePair2.Value.ExecutedHit)
+				KeyValuePair<Vector3, ClientPositionHitResults> current2 = enumerator2.Current;
+				if (!current2.Value.ExecutedHit)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -1071,9 +1077,9 @@ public class ClientResolutionAction : IComparable
 						}
 						break;
 					}
-					if (ClientAbilityResults.\u001D)
+					if (ClientAbilityResults.LogMissingSequences)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -1082,39 +1088,33 @@ public class ClientResolutionAction : IComparable
 							}
 							break;
 						}
-						Log.Warning(string.Concat(new string[]
-						{
-							ClientAbilityResults.s_clientHitResultHeader,
-							"Executing unexecuted position hit on ",
-							keyValuePair2.Key.ToString(),
-							" from ",
-							caster.\u0018()
-						}), new object[0]);
+						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted position hit on " + current2.Key.ToString() + " from " + caster.GetDebugName());
 					}
-					keyValuePair2.Value.ExecutePositionHit();
+					current2.Value.ExecutePositionHit();
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public static void ExecuteReactionHitsWithExtraFlagsOnActorAux(Dictionary<ActorData, ClientActorHitResults> actorToHitResults, ActorData targetActor, ActorData caster, bool hasDamage, bool hasHealing)
 	{
-		foreach (KeyValuePair<ActorData, ClientActorHitResults> keyValuePair in actorToHitResults)
+		foreach (KeyValuePair<ActorData, ClientActorHitResults> actorToHitResult in actorToHitResults)
 		{
-			ActorData key = keyValuePair.Key;
-			ClientActorHitResults value = keyValuePair.Value;
+			ActorData key = actorToHitResult.Key;
+			ClientActorHitResults value = actorToHitResult.Value;
 			if (!value.ExecutedHit)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1123,13 +1123,13 @@ public class ClientResolutionAction : IComparable
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.ExecuteReactionHitsWithExtraFlagsOnActorAux(Dictionary<ActorData, ClientActorHitResults>, ActorData, ActorData, bool, bool)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (key == targetActor)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -1146,30 +1146,30 @@ public class ClientResolutionAction : IComparable
 
 	public static bool HasReactionHitByCaster(ActorData caster, Dictionary<ActorData, ClientActorHitResults> actorHitResults)
 	{
-		foreach (KeyValuePair<ActorData, ClientActorHitResults> keyValuePair in actorHitResults)
+		foreach (KeyValuePair<ActorData, ClientActorHitResults> actorHitResult in actorHitResults)
 		{
-			if (keyValuePair.Value.HasReactionHitByCaster(caster))
+			if (actorHitResult.Value.HasReactionHitByCaster(caster))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return true;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.HasReactionHitByCaster(ActorData, Dictionary<ActorData, ClientActorHitResults>)).MethodHandle;
-				}
-				return true;
 			}
 		}
 		return false;
 	}
 
-	public unsafe static void GetReactionHitResultsByCaster(ActorData caster, Dictionary<ActorData, ClientActorHitResults> actorHitResults, out Dictionary<ActorData, ClientActorHitResults> reactionActorHits, out Dictionary<Vector3, ClientPositionHitResults> reactionPosHits)
+	public static void GetReactionHitResultsByCaster(ActorData caster, Dictionary<ActorData, ClientActorHitResults> actorHitResults, out Dictionary<ActorData, ClientActorHitResults> reactionActorHits, out Dictionary<Vector3, ClientPositionHitResults> reactionPosHits)
 	{
 		reactionActorHits = null;
 		reactionPosHits = null;
@@ -1177,185 +1177,66 @@ public class ClientResolutionAction : IComparable
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<ActorData, ClientActorHitResults> keyValuePair = enumerator.Current;
-				if (keyValuePair.Value.HasReactionHitByCaster(caster))
+				KeyValuePair<ActorData, ClientActorHitResults> current = enumerator.Current;
+				if (current.Value.HasReactionHitByCaster(caster))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							current.Value.GetReactionHitResultsByCaster(caster, out reactionActorHits, out reactionPosHits);
+							return;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.GetReactionHitResultsByCaster(ActorData, Dictionary<ActorData, ClientActorHitResults>, Dictionary<ActorData, ClientActorHitResults>*, Dictionary<Vector3, ClientPositionHitResults>*)).MethodHandle;
-					}
-					keyValuePair.Value.GetReactionHitResultsByCaster(caster, out reactionActorHits, out reactionPosHits);
-					return;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public bool ContainsSequenceSource(SequenceSource sequenceSource)
 	{
-		return sequenceSource != null && this.ContainsSequenceSourceID(sequenceSource.RootID);
+		return sequenceSource != null && ContainsSequenceSourceID(sequenceSource.RootID);
 	}
 
 	public bool ContainsSequenceSourceID(uint id)
 	{
-		bool result;
-		if (this.m_type == ResolutionActionType.AbilityCast)
+		if (m_type == ResolutionActionType.AbilityCast)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.ContainsSequenceSourceID(uint)).MethodHandle;
-			}
-			result = this.m_abilityResults.ContainsSequenceSourceID(id);
-		}
-		else
-		{
-			if (this.m_type != ResolutionActionType.EffectAnimation)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (this.m_type != ResolutionActionType.EffectPulse)
-				{
-					if (this.m_type != ResolutionActionType.EffectOnMove)
+				default:
+					if (1 == 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_type != ResolutionActionType.BarrierOnMove)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_type != ResolutionActionType.PowerupOnMove)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.m_type != ResolutionActionType.GameModeOnMove)
-								{
-									Debug.LogError("ClientResolutionAction has unknown type: " + (int)this.m_type + ".  Assuming it does not have a given SequenceSource...");
-									return false;
-								}
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-						}
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					return this.m_moveResults.ContainsSequenceSourceID(id);
+					return m_abilityResults.ContainsSequenceSourceID(id);
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			result = this.m_effectResults.ContainsSequenceSourceID(id);
-		}
-		return result;
-	}
-
-	public bool ReactsToMovement()
-	{
-		if (this.m_type != ResolutionActionType.EffectOnMove && this.m_type != ResolutionActionType.BarrierOnMove)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.ReactsToMovement()).MethodHandle;
-			}
-			if (this.m_type != ResolutionActionType.PowerupOnMove)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return this.m_type == ResolutionActionType.GameModeOnMove;
 			}
 		}
-		return true;
-	}
-
-	public ActorData GetTriggeringMovementActor()
-	{
-		ActorData result;
-		if (this.m_moveResults == null)
+		if (m_type != ResolutionActionType.EffectAnimation)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1364,64 +1245,94 @@ public class ClientResolutionAction : IComparable
 				}
 				break;
 			}
-			if (!true)
+			if (m_type != ResolutionActionType.EffectPulse)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.GetTriggeringMovementActor()).MethodHandle;
+				if (m_type != ResolutionActionType.EffectOnMove)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (m_type != ResolutionActionType.BarrierOnMove)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (m_type != ResolutionActionType.PowerupOnMove)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (m_type != ResolutionActionType.GameModeOnMove)
+							{
+								Debug.LogError("ClientResolutionAction has unknown type: " + (int)m_type + ".  Assuming it does not have a given SequenceSource...");
+								return false;
+							}
+							while (true)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+					}
+				}
+				return m_moveResults.ContainsSequenceSourceID(id);
 			}
-			result = null;
-		}
-		else
-		{
-			result = this.m_moveResults.m_triggeringMover;
-		}
-		return result;
-	}
-
-	public void OnActorMoved_ClientResolutionAction(ActorData mover, BoardSquarePathInfo curPath)
-	{
-		if (this.m_moveResults.TriggerMatchesMovement(mover, curPath))
-		{
-			for (;;)
+			while (true)
 			{
-				switch (7)
+				switch (3)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.OnActorMoved_ClientResolutionAction(ActorData, BoardSquarePathInfo)).MethodHandle;
-			}
-			this.m_moveResults.ReactToMovement();
 		}
+		return m_effectResults.ContainsSequenceSourceID(id);
 	}
 
-	public unsafe void AdjustKnockbackCounts_ClientResolutionAction(ref Dictionary<ActorData, int> outgoingKnockbacks, ref Dictionary<ActorData, int> incomingKnockbacks)
+	public bool ReactsToMovement()
 	{
-		if (this.m_type == ResolutionActionType.AbilityCast)
+		int result;
+		if (m_type != ResolutionActionType.EffectOnMove && m_type != ResolutionActionType.BarrierOnMove)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (2)
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.AdjustKnockbackCounts_ClientResolutionAction(Dictionary<ActorData, int>*, Dictionary<ActorData, int>*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityResults.AdjustKnockbackCounts_ClientAbilityResults(ref outgoingKnockbacks, ref incomingKnockbacks);
-		}
-		else
-		{
-			if (this.m_type != ResolutionActionType.EffectAnimation)
+			if (m_type != ResolutionActionType.PowerupOnMove)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1430,95 +1341,109 @@ public class ClientResolutionAction : IComparable
 					}
 					break;
 				}
-				if (this.m_type != ResolutionActionType.EffectPulse)
+				result = ((m_type == ResolutionActionType.GameModeOnMove) ? 1 : 0);
+				goto IL_0044;
+			}
+		}
+		result = 1;
+		goto IL_0044;
+		IL_0044:
+		return (byte)result != 0;
+	}
+
+	public ActorData GetTriggeringMovementActor()
+	{
+		if (m_moveResults == null)
+		{
+			while (true)
+			{
+				switch (3)
 				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return null;
+				}
+			}
+		}
+		return m_moveResults.m_triggeringMover;
+	}
+
+	public void OnActorMoved_ClientResolutionAction(ActorData mover, BoardSquarePathInfo curPath)
+	{
+		if (!m_moveResults.TriggerMatchesMovement(mover, curPath))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (7)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_moveResults.ReactToMovement();
+			return;
+		}
+	}
+
+	public void AdjustKnockbackCounts_ClientResolutionAction(ref Dictionary<ActorData, int> outgoingKnockbacks, ref Dictionary<ActorData, int> incomingKnockbacks)
+	{
+		if (m_type == ResolutionActionType.AbilityCast)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_abilityResults.AdjustKnockbackCounts_ClientAbilityResults(ref outgoingKnockbacks, ref incomingKnockbacks);
 					return;
 				}
 			}
-			this.m_effectResults.AdjustKnockbackCounts_ClientEffectResults(ref outgoingKnockbacks, ref incomingKnockbacks);
 		}
+		if (m_type != ResolutionActionType.EffectAnimation)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (m_type != ResolutionActionType.EffectPulse)
+			{
+				return;
+			}
+		}
+		m_effectResults.AdjustKnockbackCounts_ClientEffectResults(ref outgoingKnockbacks, ref incomingKnockbacks);
 	}
 
 	public string GetDebugDescription()
 	{
-		string text = this.m_type.ToString() + ": ";
-		if (this.m_type == ResolutionActionType.AbilityCast)
+		string str = m_type.ToString() + ": ";
+		if (m_type == ResolutionActionType.AbilityCast)
 		{
-			text += this.m_abilityResults.GetDebugDescription();
+			return str + m_abilityResults.GetDebugDescription();
 		}
-		else
+		if (m_type != ResolutionActionType.EffectAnimation)
 		{
-			if (this.m_type != ResolutionActionType.EffectAnimation)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.GetDebugDescription()).MethodHandle;
-				}
-				if (this.m_type != ResolutionActionType.EffectPulse)
-				{
-					if (this.m_type != ResolutionActionType.EffectOnMove)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_type != ResolutionActionType.BarrierOnMove)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_type != ResolutionActionType.PowerupOnMove)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.m_type != ResolutionActionType.GameModeOnMove)
-								{
-									return text + "??? (invalid results)";
-								}
-							}
-						}
-					}
-					return text + this.m_moveResults.GetDebugDescription();
-				}
-			}
-			text += this.m_effectResults.GetDebugDescription();
-		}
-		return text;
-	}
-
-	public string GetUnexecutedHitsDebugStr(bool logSequenceDataActors = false)
-	{
-		string text;
-		if (this.m_type == ResolutionActionType.AbilityCast)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1527,25 +1452,91 @@ public class ClientResolutionAction : IComparable
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.GetUnexecutedHitsDebugStr(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			text = this.m_abilityResults.UnexecutedHitsDebugStr();
-			if (logSequenceDataActors)
+			if (m_type != ResolutionActionType.EffectPulse)
 			{
-				text = text + "\n" + this.m_abilityResults.GetSequenceStartDataDebugStr() + "\n";
+				if (m_type != ResolutionActionType.EffectOnMove)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (m_type != ResolutionActionType.BarrierOnMove)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (m_type != ResolutionActionType.PowerupOnMove)
+						{
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (m_type != ResolutionActionType.GameModeOnMove)
+							{
+								return str + "??? (invalid results)";
+							}
+						}
+					}
+				}
+				return str + m_moveResults.GetDebugDescription();
 			}
 		}
-		else if (this.m_type == ResolutionActionType.EffectAnimation || this.m_type == ResolutionActionType.EffectPulse)
+		return str + m_effectResults.GetDebugDescription();
+	}
+
+	public string GetUnexecutedHitsDebugStr(bool logSequenceDataActors = false)
+	{
+		string text;
+		if (m_type == ResolutionActionType.AbilityCast)
 		{
-			text = this.m_effectResults.UnexecutedHitsDebugStr();
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			text = m_abilityResults.UnexecutedHitsDebugStr();
+			if (logSequenceDataActors)
+			{
+				text = text + "\n" + m_abilityResults.GetSequenceStartDataDebugStr() + "\n";
+			}
+		}
+		else if (m_type == ResolutionActionType.EffectAnimation || m_type == ResolutionActionType.EffectPulse)
+		{
+			text = m_effectResults.UnexecutedHitsDebugStr();
 		}
 		else
 		{
-			if (this.m_type != ResolutionActionType.EffectOnMove)
+			if (m_type != ResolutionActionType.EffectOnMove)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1554,13 +1545,14 @@ public class ClientResolutionAction : IComparable
 					}
 					break;
 				}
-				if (this.m_type != ResolutionActionType.BarrierOnMove && this.m_type != ResolutionActionType.PowerupOnMove)
+				if (m_type != ResolutionActionType.BarrierOnMove && m_type != ResolutionActionType.PowerupOnMove)
 				{
-					if (this.m_type != ResolutionActionType.GameModeOnMove)
+					if (m_type != ResolutionActionType.GameModeOnMove)
 					{
-						return string.Empty;
+						text = string.Empty;
+						goto IL_00bf;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -1571,8 +1563,10 @@ public class ClientResolutionAction : IComparable
 					}
 				}
 			}
-			text = this.m_moveResults.UnexecutedHitsDebugStr();
+			text = m_moveResults.UnexecutedHitsDebugStr();
 		}
+		goto IL_00bf;
+		IL_00bf:
 		return text;
 	}
 
@@ -1586,60 +1580,48 @@ public class ClientResolutionAction : IComparable
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<ActorData, ClientActorHitResults> keyValuePair = enumerator.Current;
-				ActorData key = keyValuePair.Key;
-				ClientActorHitResults value = keyValuePair.Value;
+				KeyValuePair<ActorData, ClientActorHitResults> current = enumerator.Current;
+				ActorData key = current.Key;
+				ClientActorHitResults value = current.Value;
 				if (!value.ExecutedHit)
 				{
 					num++;
 					string text3 = text;
-					text = string.Concat(new object[]
-					{
-						text3,
-						"\n\t\t",
-						num,
-						". ActorHit on ",
-						key.\u0018()
-					});
+					text = text3 + "\n\t\t" + num + ". ActorHit on " + key.GetDebugName();
 				}
 				else
 				{
 					num2++;
 					string text3 = text2;
-					text2 = string.Concat(new object[]
-					{
-						text3,
-						"\n\t\t",
-						num2,
-						". ActorHit on ",
-						key.\u0018()
-					});
+					text2 = text3 + "\n\t\t" + num2 + ". ActorHit on " + key.GetDebugName();
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					goto end_IL_001a;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.AssembleUnexecutedHitsDebugStr(Dictionary<ActorData, ClientActorHitResults>, Dictionary<Vector3, ClientPositionHitResults>)).MethodHandle;
-			}
+			end_IL_001a:;
 		}
 		using (Dictionary<Vector3, ClientPositionHitResults>.Enumerator enumerator2 = positionToHitResults.GetEnumerator())
 		{
 			while (enumerator2.MoveNext())
 			{
-				KeyValuePair<Vector3, ClientPositionHitResults> keyValuePair2 = enumerator2.Current;
-				Vector3 key2 = keyValuePair2.Key;
-				ClientPositionHitResults value2 = keyValuePair2.Value;
+				KeyValuePair<Vector3, ClientPositionHitResults> current2 = enumerator2.Current;
+				Vector3 key2 = current2.Key;
+				ClientPositionHitResults value2 = current2.Value;
 				if (!value2.ExecutedHit)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -1650,30 +1632,16 @@ public class ClientResolutionAction : IComparable
 					}
 					num++;
 					string text3 = text;
-					text = string.Concat(new object[]
-					{
-						text3,
-						"\n\t\t",
-						num,
-						". PositionHit on ",
-						key2.ToString()
-					});
+					text = text3 + "\n\t\t" + num + ". PositionHit on " + key2.ToString();
 				}
 				else
 				{
 					num2++;
 					string text3 = text2;
-					text2 = string.Concat(new object[]
-					{
-						text3,
-						"\n\t\t",
-						num2,
-						". PositionHit on ",
-						key2.ToString()
-					});
+					text2 = text3 + "\n\t\t" + num2 + ". PositionHit on " + key2.ToString();
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1683,10 +1651,10 @@ public class ClientResolutionAction : IComparable
 				break;
 			}
 		}
-		string str = "\n\tUnexecuted hits: " + num.ToString() + text;
+		string str = "\n\tUnexecuted hits: " + num + text;
 		if (num2 > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1695,7 +1663,7 @@ public class ClientResolutionAction : IComparable
 				}
 				break;
 			}
-			str = str + "\n\tExecuted hits: " + num2.ToString() + text2;
+			str = str + "\n\tExecuted hits: " + num2 + text2;
 		}
 		return str + "\n";
 	}

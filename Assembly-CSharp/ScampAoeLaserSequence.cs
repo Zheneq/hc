@@ -1,9 +1,24 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ScampAoeLaserSequence : Sequence
 {
+	private class LineJointObjToInstance
+	{
+		public GameObject m_lineStartAttachObject;
+
+		public GameObject m_lineFxInstance;
+
+		public float m_timeOfSpawn;
+
+		public LineJointObjToInstance(GameObject attachObj, GameObject lineInst)
+		{
+			m_lineStartAttachObject = attachObj;
+			m_lineFxInstance = lineInst;
+			m_timeOfSpawn = Time.time;
+		}
+	}
+
 	[Separator("Projectile Info (ignore joints here)", true)]
 	public GenericSequenceProjectileAuthoredInfo m_authoredProjectileData;
 
@@ -25,7 +40,7 @@ public class ScampAoeLaserSequence : Sequence
 	public float m_lineDuration = 2f;
 
 	[AnimEventPicker]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
 	private Scamp_SyncComponent m_syncComp;
 
@@ -33,14 +48,14 @@ public class ScampAoeLaserSequence : Sequence
 
 	private List<GenericSequenceProjectileInfo> m_projectileList = new List<GenericSequenceProjectileInfo>();
 
-	private List<ScampAoeLaserSequence.LineJointObjToInstance> m_lineFxInstances = new List<ScampAoeLaserSequence.LineJointObjToInstance>();
+	private List<LineJointObjToInstance> m_lineFxInstances = new List<LineJointObjToInstance>();
 
 	public override void FinishSetup()
 	{
 		base.FinishSetup();
 		if (base.Caster != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -49,32 +64,33 @@ public class ScampAoeLaserSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeLaserSequence.FinishSetup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_syncComp = base.Caster.GetComponent<Scamp_SyncComponent>();
+			m_syncComp = base.Caster.GetComponent<Scamp_SyncComponent>();
 		}
-		if (this.m_startEvent == null)
+		if (!(m_startEvent == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.SpawnProjectiles();
+			SpawnProjectiles();
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_projectileList.Count > 0)
+		if (m_projectileList.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -83,15 +99,15 @@ public class ScampAoeLaserSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeLaserSequence.OnDisable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (int i = 0; i < this.m_projectileList.Count; i++)
+			for (int i = 0; i < m_projectileList.Count; i++)
 			{
-				this.m_projectileList[i].OnSequenceDisable();
+				m_projectileList[i].OnSequenceDisable();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -100,24 +116,24 @@ public class ScampAoeLaserSequence : Sequence
 				}
 				break;
 			}
-			this.m_projectileList.Clear();
+			m_projectileList.Clear();
 		}
-		if (this.m_lineFxInstances.Count > 0)
+		if (m_lineFxInstances.Count <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			for (int j = 0; j < this.m_lineFxInstances.Count; j++)
+			for (int j = 0; j < m_lineFxInstances.Count; j++)
 			{
-				if (this.m_lineFxInstances[j].m_lineFxInstance != null)
+				if (m_lineFxInstances[j].m_lineFxInstance != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -126,171 +142,47 @@ public class ScampAoeLaserSequence : Sequence
 						}
 						break;
 					}
-					UnityEngine.Object.Destroy(this.m_lineFxInstances[j].m_lineFxInstance);
+					Object.Destroy(m_lineFxInstances[j].m_lineFxInstance);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				m_lineFxInstances.Clear();
+				return;
 			}
-			this.m_lineFxInstances.Clear();
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_projectileList.Count > 0)
+		if (m_projectileList.Count <= 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeLaserSequence.Update()).MethodHandle;
-			}
-			for (int i = 0; i < this.m_projectileList.Count; i++)
-			{
-				this.m_projectileList[i].OnUpdate();
-				if (i < this.m_lineFxInstances.Count)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					ScampAoeLaserSequence.LineJointObjToInstance lineJointObjToInstance = this.m_lineFxInstances[i];
-					if (this.m_lineDuration > 0f)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (Time.time - lineJointObjToInstance.m_timeOfSpawn > this.m_lineDuration)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							lineJointObjToInstance.m_lineFxInstance.SetActiveIfNeeded(false);
-							goto IL_172;
-						}
-					}
-					Vector3 position = lineJointObjToInstance.m_lineStartAttachObject.transform.position;
-					Vector3 vector;
-					if (this.m_projectileList[i].m_fx != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						vector = this.m_projectileList[i].m_fx.transform.position;
-					}
-					else
-					{
-						vector = this.m_projectileList[i].m_endPos;
-					}
-					Vector3 value = vector;
-					if (this.m_syncComp.m_suitWasActiveOnTurnStart)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						value.y = (float)Board.\u000E().BaselineHeight;
-					}
-					Sequence.SetAttribute(lineJointObjToInstance.m_lineFxInstance, "startPoint", position);
-					Sequence.SetAttribute(lineJointObjToInstance.m_lineFxInstance, "endPoint", value);
-				}
-				IL_172:;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
 		}
-	}
-
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
-	{
-		if (parameter == this.m_startEvent)
+		while (true)
 		{
-			for (;;)
+			switch (2)
 			{
-				switch (1)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			for (int i = 0; i < m_projectileList.Count; i++)
+			{
+				m_projectileList[i].OnUpdate();
+				if (i >= m_lineFxInstances.Count)
 				{
-				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeLaserSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
-			this.SpawnProjectiles();
-		}
-	}
-
-	private void SpawnProjectiles()
-	{
-		if (this.m_projectileList.Count == 0)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeLaserSequence.SpawnProjectiles()).MethodHandle;
-			}
-			if (base.Targets.Length > 0)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -299,33 +191,159 @@ public class ScampAoeLaserSequence : Sequence
 					}
 					break;
 				}
-				if (this.m_syncComp != null)
+				LineJointObjToInstance lineJointObjToInstance = m_lineFxInstances[i];
+				if (m_lineDuration > 0f)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (3)
+						switch (5)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (!this.m_projectileSpawned)
+					if (Time.time - lineJointObjToInstance.m_timeOfSpawn > m_lineDuration)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (1)
+							switch (4)
 							{
 							case 0:
 								continue;
 							}
 							break;
 						}
-						this.m_projectileSpawned = true;
-						GameObject referenceModel = base.GetReferenceModel(base.Caster, Sequence.ReferenceModelType.Actor);
-						if (this.m_syncComp.m_suitWasActiveOnTurnStart)
+						lineJointObjToInstance.m_lineFxInstance.SetActiveIfNeeded(false);
+						continue;
+					}
+				}
+				Vector3 position = lineJointObjToInstance.m_lineStartAttachObject.transform.position;
+				Vector3 vector;
+				if (m_projectileList[i].m_fx != null)
+				{
+					while (true)
+					{
+						switch (2)
 						{
-							for (;;)
+						case 0:
+							continue;
+						}
+						break;
+					}
+					vector = m_projectileList[i].m_fx.transform.position;
+				}
+				else
+				{
+					vector = m_projectileList[i].m_endPos;
+				}
+				Vector3 value = vector;
+				if (m_syncComp.m_suitWasActiveOnTurnStart)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					value.y = Board.Get().BaselineHeight;
+				}
+				Sequence.SetAttribute(lineJointObjToInstance.m_lineFxInstance, "startPoint", position);
+				Sequence.SetAttribute(lineJointObjToInstance.m_lineFxInstance, "endPoint", value);
+			}
+			while (true)
+			{
+				switch (6)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
+		}
+	}
+
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
+	{
+		if (!(parameter == m_startEvent))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			SpawnProjectiles();
+			return;
+		}
+	}
+
+	private void SpawnProjectiles()
+	{
+		if (m_projectileList.Count != 0)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (base.Targets.Length <= 0)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				if (!(m_syncComp != null))
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					if (m_projectileSpawned)
+					{
+						return;
+					}
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						m_projectileSpawned = true;
+						GameObject referenceModel = GetReferenceModel(base.Caster, ReferenceModelType.Actor);
+						if (m_syncComp.m_suitWasActiveOnTurnStart)
+						{
+							while (true)
 							{
 								switch (6)
 								{
@@ -334,22 +352,22 @@ public class ScampAoeLaserSequence : Sequence
 								}
 								break;
 							}
-							this.m_fxJointLeft.Initialize(referenceModel);
-							this.m_fxJointRight.Initialize(referenceModel);
+							m_fxJointLeft.Initialize(referenceModel);
+							m_fxJointRight.Initialize(referenceModel);
 						}
 						else
 						{
-							this.m_fxJointNoSuit.Initialize(referenceModel);
+							m_fxJointNoSuit.Initialize(referenceModel);
 						}
 						for (int i = 0; i < base.Targets.Length; i++)
 						{
 							ActorData actorData = base.Targets[i];
-							Vector3 vector = base.Caster.\u0016();
+							Vector3 vector = base.Caster.GetTravelBoardSquareWorldPosition();
 							GameObject attachObj = base.Caster.gameObject;
-							GameObject gameObject;
-							if (this.m_syncComp.m_suitWasActiveOnTurnStart)
+							GameObject gameObject = null;
+							if (m_syncComp.m_suitWasActiveOnTurnStart)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -358,13 +376,13 @@ public class ScampAoeLaserSequence : Sequence
 									}
 									break;
 								}
-								gameObject = this.m_suitBeamFxPrefab;
+								gameObject = m_suitBeamFxPrefab;
 								Vector3 lhs = base.Targets[i].transform.position - base.Caster.transform.position;
 								lhs.y = 0f;
 								float num = Vector3.Dot(lhs, base.Caster.transform.right);
 								if (num > 0f)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (6)
 										{
@@ -373,15 +391,15 @@ public class ScampAoeLaserSequence : Sequence
 										}
 										break;
 									}
-									if (this.m_fxJointRight.IsInitialized())
+									if (m_fxJointRight.IsInitialized())
 									{
-										vector = this.m_fxJointRight.m_jointObject.transform.position;
-										attachObj = this.m_fxJointRight.m_jointObject;
+										vector = m_fxJointRight.m_jointObject.transform.position;
+										attachObj = m_fxJointRight.m_jointObject;
 									}
 								}
-								else if (this.m_fxJointLeft.IsInitialized())
+								else if (m_fxJointLeft.IsInitialized())
 								{
-									for (;;)
+									while (true)
 									{
 										switch (3)
 										{
@@ -390,16 +408,16 @@ public class ScampAoeLaserSequence : Sequence
 										}
 										break;
 									}
-									vector = this.m_fxJointLeft.m_jointObject.transform.position;
-									attachObj = this.m_fxJointLeft.m_jointObject;
+									vector = m_fxJointLeft.m_jointObject.transform.position;
+									attachObj = m_fxJointLeft.m_jointObject;
 								}
 							}
 							else
 							{
-								gameObject = this.m_noSuitBeamFxPrefab;
-								if (this.m_fxJointNoSuit.IsInitialized())
+								gameObject = m_noSuitBeamFxPrefab;
+								if (m_fxJointNoSuit.IsInitialized())
 								{
-									for (;;)
+									while (true)
 									{
 										switch (4)
 										{
@@ -408,15 +426,15 @@ public class ScampAoeLaserSequence : Sequence
 										}
 										break;
 									}
-									vector = this.m_fxJointNoSuit.m_jointObject.transform.position;
-									attachObj = this.m_fxJointNoSuit.m_jointObject;
+									vector = m_fxJointNoSuit.m_jointObject.transform.position;
+									attachObj = m_fxJointNoSuit.m_jointObject;
 								}
 							}
-							GenericSequenceProjectileInfo item = new GenericSequenceProjectileInfo(this, this.m_authoredProjectileData, vector, actorData.\u0016(), actorData.AsArray());
-							this.m_projectileList.Add(item);
+							GenericSequenceProjectileInfo item = new GenericSequenceProjectileInfo(this, m_authoredProjectileData, vector, actorData.GetTravelBoardSquareWorldPosition(), actorData.AsArray());
+							m_projectileList.Add(item);
 							if (gameObject != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
@@ -425,39 +443,24 @@ public class ScampAoeLaserSequence : Sequence
 									}
 									break;
 								}
-								GameObject lineInst = base.InstantiateFX(gameObject, vector, Quaternion.identity, true, true);
-								ScampAoeLaserSequence.LineJointObjToInstance item2 = new ScampAoeLaserSequence.LineJointObjToInstance(attachObj, lineInst);
-								this.m_lineFxInstances.Add(item2);
+								GameObject lineInst = InstantiateFX(gameObject, vector, Quaternion.identity);
+								LineJointObjToInstance item2 = new LineJointObjToInstance(attachObj, lineInst);
+								m_lineFxInstances.Add(item2);
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
+							default:
+								return;
 							case 0:
-								continue;
+								break;
 							}
-							break;
 						}
 					}
 				}
 			}
-		}
-	}
-
-	private class LineJointObjToInstance
-	{
-		public GameObject m_lineStartAttachObject;
-
-		public GameObject m_lineFxInstance;
-
-		public float m_timeOfSpawn;
-
-		public LineJointObjToInstance(GameObject attachObj, GameObject lineInst)
-		{
-			this.m_lineStartAttachObject = attachObj;
-			this.m_lineFxInstance = lineInst;
-			this.m_timeOfSpawn = Time.time;
 		}
 	}
 }

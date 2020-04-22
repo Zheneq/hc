@@ -1,12 +1,12 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 
 [Serializable]
 public class LobbyGameConfig
 {
-	public const int MaxEquipPoints = 0xA;
+	public const int MaxEquipPoints = 10;
 
 	public string Map;
 
@@ -36,69 +36,15 @@ public class LobbyGameConfig
 
 	public int ResolveTimeoutLimit;
 
-	public LobbyGameConfig()
-	{
-		this.Map = string.Empty;
-		this.InstanceSubTypeBit = 0;
-		this.TeamAPlayers = 4;
-		this.TeamBPlayers = 4;
-		this.TeamABots = 0;
-		this.TeamBBots = 0;
-		this.Spectators = 0;
-		this.ResolveTimeoutLimit = 0xA0;
-		this.GameOptionFlags = GameOptionFlag.None;
-	}
-
-	public LobbyGameConfig Clone()
-	{
-		LobbyGameConfig lobbyGameConfig = (LobbyGameConfig)base.MemberwiseClone();
-		lobbyGameConfig.SubTypes = new List<GameSubType>();
-		foreach (GameSubType gameSubType in this.SubTypes)
-		{
-			lobbyGameConfig.SubTypes.Add(gameSubType.Clone());
-		}
-		return lobbyGameConfig;
-	}
-
-	public bool HasGameOption(GameOptionFlag gameOptionFlag)
-	{
-		return this.GameOptionFlags.HasGameOption(gameOptionFlag);
-	}
-
-	public void SetGameOption(GameOptionFlag flag, bool on)
-	{
-		if (on)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameConfig.SetGameOption(GameOptionFlag, bool)).MethodHandle;
-			}
-			this.GameOptionFlags = this.GameOptionFlags.WithGameOption(flag);
-		}
-		else
-		{
-			this.GameOptionFlags = this.GameOptionFlags.WithoutGameOption(flag);
-		}
-	}
-
 	[JsonIgnore]
 	public bool NeedsPreSelectedFreelancer
 	{
 		get
 		{
-			List<GameSubType> subTypes = this.SubTypes;
-			if (LobbyGameConfig.<>f__am$cache0 == null)
+			List<GameSubType> subTypes = SubTypes;
+			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -107,13 +53,13 @@ public class LobbyGameConfig
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameConfig.get_NeedsPreSelectedFreelancer()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				LobbyGameConfig.<>f__am$cache0 = ((GameSubType p) => p.NeedsPreSelectedFreelancer);
+				_003C_003Ef__am_0024cache0 = ((GameSubType p) => p.NeedsPreSelectedFreelancer);
 			}
-			return subTypes.Exists(LobbyGameConfig.<>f__am$cache0);
+			return subTypes.Exists(_003C_003Ef__am_0024cache0);
 		}
 	}
 
@@ -122,160 +68,68 @@ public class LobbyGameConfig
 	{
 		get
 		{
-			if (this.SubTypes.IsNullOrEmpty<GameSubType>())
+			if (SubTypes.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						throw new Exception($"LobbyGameConfig for {GameType} has no SubTypes defined");
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameConfig.get_HasSelectedSubType()).MethodHandle;
-				}
-				throw new Exception(string.Format("LobbyGameConfig for {0} has no SubTypes defined", this.GameType));
 			}
-			if (this.SubTypes.Count<GameSubType>() == 1)
+			if (SubTypes.Count() == 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return true;
 					}
-					break;
 				}
-				return true;
 			}
-			if (this.InstanceSubTypeBit == 0)
+			if (InstanceSubTypeBit == 0)
 			{
 				return false;
 			}
-			IEnumerable<GameSubType> subTypes = this.GetSubTypes(this.InstanceSubTypeBit);
-			return subTypes.Count<GameSubType>() == 1;
+			IEnumerable<GameSubType> subTypes = GetSubTypes(InstanceSubTypeBit);
+			return subTypes.Count() == 1;
 		}
 	}
 
 	[JsonIgnore]
-	public GameSubType InstanceSubType
-	{
-		get
-		{
-			return this.GetSubType(this.InstanceSubTypeBit);
-		}
-	}
-
-	public GameSubType GetSubType(ushort subtypeBit)
-	{
-		if (this.SubTypes.IsNullOrEmpty<GameSubType>())
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameConfig.GetSubType(ushort)).MethodHandle;
-			}
-			throw new Exception(string.Format("LobbyGameConfig for {0} has no SubTypes defined", this.GameType));
-		}
-		if (this.SubTypes.Count<GameSubType>() == 1)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return this.SubTypes.First<GameSubType>();
-		}
-		if (subtypeBit == 0)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			throw new Exception(string.Format("LobbyGameConfig instance created for a specific game of {0} but no subtype chosen (there are {1} subtypes)", this.GameType, this.SubTypes.Count<GameSubType>()));
-		}
-		IEnumerable<GameSubType> subTypes = this.GetSubTypes(subtypeBit);
-		if (subTypes.Count<GameSubType>() > 1)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			throw new Exception(string.Format("LobbyGameConfig instance created for a specific game of {0} but multiple subtypes selected", this.GameType));
-		}
-		return subTypes.First<GameSubType>();
-	}
+	public GameSubType InstanceSubType => GetSubType(InstanceSubTypeBit);
 
 	[JsonIgnore]
-	public bool DoAFKPlayersAbortPreLoadGames
-	{
-		get
-		{
-			return this.InstanceSubType.HasMod(GameSubType.SubTypeMods.AFKPlayersAbortPreLoadGame);
-		}
-	}
+	public bool DoAFKPlayersAbortPreLoadGames => InstanceSubType.HasMod(GameSubType.SubTypeMods.AFKPlayersAbortPreLoadGame);
 
 	[JsonIgnore]
-	public bool DoesSubGameTypeBlockQueueMMRUpdate
-	{
-		get
-		{
-			return this.InstanceSubType.HasMod(GameSubType.SubTypeMods.BlockQueueMMRUpdate);
-		}
-	}
+	public bool DoesSubGameTypeBlockQueueMMRUpdate => InstanceSubType.HasMod(GameSubType.SubTypeMods.BlockQueueMMRUpdate);
 
 	[JsonIgnore]
-	public bool DoesSubGameTypeOverrideFreelancerSelection
-	{
-		get
-		{
-			return this.InstanceSubType.HasMod(GameSubType.SubTypeMods.OverrideFreelancerSelection);
-		}
-	}
+	public bool DoesSubGameTypeOverrideFreelancerSelection => InstanceSubType.HasMod(GameSubType.SubTypeMods.OverrideFreelancerSelection);
 
 	[JsonIgnore]
-	public bool DoesSubGameTypeAllowPlayingLockedCharacters
-	{
-		get
-		{
-			return this.InstanceSubType.HasMod(GameSubType.SubTypeMods.AllowPlayingLockedCharacters);
-		}
-	}
+	public bool DoesSubGameTypeAllowPlayingLockedCharacters => InstanceSubType.HasMod(GameSubType.SubTypeMods.AllowPlayingLockedCharacters);
 
 	[JsonIgnore]
 	public double TurnTime
 	{
 		get
 		{
-			if (!this.SubTypes.IsNullOrEmpty<GameSubType>())
+			if (!SubTypes.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -284,15 +138,15 @@ public class LobbyGameConfig
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameConfig.get_TurnTime()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (this.InstanceSubTypeBit != 0)
+				if (InstanceSubTypeBit != 0)
 				{
-					if (this.InstanceSubType.GameOverrides != null)
+					if (InstanceSubType.GameOverrides != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -301,25 +155,27 @@ public class LobbyGameConfig
 							}
 							break;
 						}
-						TimeSpan? turnTimeSpan = this.InstanceSubType.GameOverrides.TurnTimeSpan;
-						if (turnTimeSpan != null)
+						TimeSpan? turnTimeSpan = InstanceSubType.GameOverrides.TurnTimeSpan;
+						if (turnTimeSpan.HasValue)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+								{
+									TimeSpan? turnTimeSpan2 = InstanceSubType.GameOverrides.TurnTimeSpan;
+									return turnTimeSpan2.Value.TotalSeconds;
 								}
-								break;
+								}
 							}
-							TimeSpan? turnTimeSpan2 = this.InstanceSubType.GameOverrides.TurnTimeSpan;
-							return turnTimeSpan2.Value.TotalSeconds;
 						}
 					}
 					return TimeSpan.FromSeconds(20.0).TotalSeconds;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -333,209 +189,231 @@ public class LobbyGameConfig
 		}
 	}
 
+	[JsonIgnore]
+	public int TotalPlayers => TeamAPlayers + TeamBPlayers;
+
+	[JsonIgnore]
+	public int TotalBots => TeamABots + TeamBBots;
+
+	[JsonIgnore]
+	public int TotalHumanPlayers => TotalPlayers - TotalBots;
+
+	[JsonIgnore]
+	public int MaxGroupSize => Math.Max(TeamAPlayers, TeamBPlayers);
+
+	[JsonIgnore]
+	public int TeamAHumanPlayers => TeamAPlayers - TeamABots;
+
+	[JsonIgnore]
+	public int TeamBHumanPlayers => TeamBPlayers - TeamBBots;
+
+	public LobbyGameConfig()
+	{
+		Map = string.Empty;
+		InstanceSubTypeBit = 0;
+		TeamAPlayers = 4;
+		TeamBPlayers = 4;
+		TeamABots = 0;
+		TeamBBots = 0;
+		Spectators = 0;
+		ResolveTimeoutLimit = 160;
+		GameOptionFlags = GameOptionFlag.None;
+	}
+
+	public LobbyGameConfig Clone()
+	{
+		LobbyGameConfig lobbyGameConfig = (LobbyGameConfig)MemberwiseClone();
+		lobbyGameConfig.SubTypes = new List<GameSubType>();
+		foreach (GameSubType subType in SubTypes)
+		{
+			lobbyGameConfig.SubTypes.Add(subType.Clone());
+		}
+		return lobbyGameConfig;
+	}
+
+	public bool HasGameOption(GameOptionFlag gameOptionFlag)
+	{
+		return GameOptionFlags.HasGameOption(gameOptionFlag);
+	}
+
+	public void SetGameOption(GameOptionFlag flag, bool on)
+	{
+		if (on)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					GameOptionFlags = GameOptionFlags.WithGameOption(flag);
+					return;
+				}
+			}
+		}
+		GameOptionFlags = GameOptionFlags.WithoutGameOption(flag);
+	}
+
+	public GameSubType GetSubType(ushort subtypeBit)
+	{
+		if (SubTypes.IsNullOrEmpty())
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					throw new Exception($"LobbyGameConfig for {GameType} has no SubTypes defined");
+				}
+			}
+		}
+		if (SubTypes.Count() == 1)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					break;
+				default:
+					return SubTypes.First();
+				}
+			}
+		}
+		if (subtypeBit == 0)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					break;
+				default:
+					throw new Exception($"LobbyGameConfig instance created for a specific game of {GameType} but no subtype chosen (there are {SubTypes.Count()} subtypes)");
+				}
+			}
+		}
+		IEnumerable<GameSubType> subTypes = GetSubTypes(subtypeBit);
+		if (subTypes.Count() > 1)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					break;
+				default:
+					throw new Exception($"LobbyGameConfig instance created for a specific game of {GameType} but multiple subtypes selected");
+				}
+			}
+		}
+		return subTypes.First();
+	}
+
 	public IEnumerable<GameSubType> GetSubTypes(ushort subTypeMask)
 	{
-		bool flag = false;
-		uint num;
-		ushort bit;
-		bool bFoundSomething;
-		List<GameSubType>.Enumerator enumerator;
-		switch (num)
+		ushort bit = 1;
+		bool bFoundSomething = false;
+		foreach (GameSubType gst in SubTypes)
 		{
-		case 0U:
-			bit = 1;
-			bFoundSomething = false;
-			enumerator = this.SubTypes.GetEnumerator();
-			break;
-		case 1U:
-			break;
-		default:
-			yield break;
-		}
-		try
-		{
-			while (enumerator.MoveNext())
+			if ((bit & subTypeMask) != 0)
 			{
-				GameSubType gst = enumerator.Current;
-				if ((bit & subTypeMask) != 0)
+				while (true)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameConfig.<GetSubTypes>c__Iterator0.MoveNext()).MethodHandle;
-					}
-					bFoundSomething = true;
-					yield return gst;
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag = true;
-				}
-				bit = (ushort)(bit << 1);
-			}
-		}
-		finally
-		{
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (5)
+					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						bFoundSomething = true;
+						yield return gst;
+						/*Error: Unable to find new state assignment for yield return*/;
 					}
-					break;
 				}
 			}
-			else
-			{
-				((IDisposable)enumerator).Dispose();
-			}
+			bit = (ushort)(bit << 1);
 		}
 		if (!bFoundSomething)
 		{
-			throw new Exception(string.Format("There is no subtype in {0} that matches mask {1:X}", this.GameType, subTypeMask));
-		}
-		yield break;
-	}
-
-	[JsonIgnore]
-	public int TotalPlayers
-	{
-		get
-		{
-			return this.TeamAPlayers + this.TeamBPlayers;
-		}
-	}
-
-	[JsonIgnore]
-	public int TotalBots
-	{
-		get
-		{
-			return this.TeamABots + this.TeamBBots;
-		}
-	}
-
-	[JsonIgnore]
-	public int TotalHumanPlayers
-	{
-		get
-		{
-			return this.TotalPlayers - this.TotalBots;
-		}
-	}
-
-	[JsonIgnore]
-	public int MaxGroupSize
-	{
-		get
-		{
-			return Math.Max(this.TeamAPlayers, this.TeamBPlayers);
-		}
-	}
-
-	[JsonIgnore]
-	public int TeamAHumanPlayers
-	{
-		get
-		{
-			return this.TeamAPlayers - this.TeamABots;
-		}
-	}
-
-	[JsonIgnore]
-	public int TeamBHumanPlayers
-	{
-		get
-		{
-			return this.TeamBPlayers - this.TeamBBots;
+			throw new Exception($"There is no subtype in {GameType} that matches mask {subTypeMask:X}");
 		}
 	}
 
 	public bool ApplyDisabledMaps(List<string> disabledMaps, LobbyGameConfig defaultGameConfig)
 	{
 		bool result = false;
-		this.SubTypes = new List<GameSubType>();
+		SubTypes = new List<GameSubType>();
 		if (defaultGameConfig != null)
 		{
-			if (defaultGameConfig.SubTypes.IsNullOrEmpty<GameSubType>())
+			if (!defaultGameConfig.SubTypes.IsNullOrEmpty())
 			{
-				this.IsActive = false;
-				throw new Exception(string.Format("Why does the {0} json config have no sub-types defined?", this.GameType));
-			}
-			for (;;)
-			{
-				switch (1)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameConfig.ApplyDisabledMaps(List<string>, LobbyGameConfig)).MethodHandle;
-			}
-			foreach (GameSubType gameSubType in defaultGameConfig.SubTypes)
-			{
-				GameSubType gameSubType2 = gameSubType.Clone();
-				this.SubTypes.Add(gameSubType2);
-				foreach (GameMapConfig gameMapConfig in gameSubType2.GameMapConfigs)
-				{
-					if (gameMapConfig.IsActive)
+					switch (1)
 					{
-						for (;;)
+					case 0:
+						break;
+					default:
+						if (1 == 0)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							/*OpCode not supported: LdMemberToken*/;
 						}
-						if (disabledMaps.Contains(gameMapConfig.Map))
 						{
-							result = true;
-							gameMapConfig.IsActive = false;
-							Log.Notice("Override disabling {0} in {1} {2}", new object[]
+							foreach (GameSubType subType in defaultGameConfig.SubTypes)
 							{
-								gameMapConfig.Map,
-								this.GameType,
-								gameSubType.GetNameAsPayload().Term
-							});
+								GameSubType gameSubType = subType.Clone();
+								SubTypes.Add(gameSubType);
+								foreach (GameMapConfig gameMapConfig in gameSubType.GameMapConfigs)
+								{
+									if (gameMapConfig.IsActive)
+									{
+										while (true)
+										{
+											switch (6)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										if (disabledMaps.Contains(gameMapConfig.Map))
+										{
+											result = true;
+											gameMapConfig.IsActive = false;
+											Log.Notice("Override disabling {0} in {1} {2}", gameMapConfig.Map, GameType, subType.GetNameAsPayload().Term);
+										}
+									}
+								}
+							}
+							return result;
 						}
 					}
 				}
 			}
+			IsActive = false;
+			throw new Exception($"Why does the {GameType} json config have no sub-types defined?");
 		}
 		return result;
 	}
 
 	public override string ToString()
 	{
-		string text = (!this.HasSelectedSubType) ? string.Empty : string.Format(" {0}", this.InstanceSubType.GetNameAsPayload().Term);
-		return string.Format("{0}{1} {2} {3}", new object[]
-		{
-			this.GameType,
-			text,
-			this.RoomName,
-			this.Map
-		});
+		string text = (!HasSelectedSubType) ? string.Empty : $" {InstanceSubType.GetNameAsPayload().Term}";
+		return $"{GameType}{text} {RoomName} {Map}";
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,39 +25,38 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		BazookaGirlStickyBomb bazookaGirlStickyBomb = targetAbility as BazookaGirlStickyBomb;
-		if (bazookaGirlStickyBomb != null)
+		if (!(bazookaGirlStickyBomb != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlStickyBomb.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_energyGainOnCastPerEnemyHitMod, "EnergyGainOnCastPerEnemyHit", string.Empty, bazookaGirlStickyBomb.m_energyGainOnCastPerEnemyHit, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyOnCastHitEffectOverride, "EnemyOnCastHitEffect", bazookaGirlStickyBomb.m_enemyOnCastHitEffect, true);
+			AbilityMod.AddToken(tokens, m_energyGainOnCastPerEnemyHitMod, "EnergyGainOnCastPerEnemyHit", string.Empty, bazookaGirlStickyBomb.m_energyGainOnCastPerEnemyHit);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyOnCastHitEffectOverride, "EnemyOnCastHitEffect", bazookaGirlStickyBomb.m_enemyOnCastHitEffect);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		BazookaGirlStickyBomb bazookaGirlStickyBomb = base.GetTargetAbilityOnAbilityData(abilityData) as BazookaGirlStickyBomb;
+		BazookaGirlStickyBomb bazookaGirlStickyBomb = GetTargetAbilityOnAbilityData(abilityData) as BazookaGirlStickyBomb;
 		bool flag = bazookaGirlStickyBomb != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt energyGainOnCastPerEnemyHitMod = this.m_energyGainOnCastPerEnemyHitMod;
-		string prefix = "[EnergyGainOnCastPerEnemyHit]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt energyGainOnCastPerEnemyHitMod = m_energyGainOnCastPerEnemyHitMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -66,9 +65,9 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlStickyBomb.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = bazookaGirlStickyBomb.m_energyGainOnCastPerEnemyHit;
 		}
@@ -76,16 +75,14 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + base.PropDesc(energyGainOnCastPerEnemyHitMod, prefix, showBaseVal, baseVal);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_enemyOnCastHitEffectOverride, "{ Enemy On Cast Hit Effect }", flag, (!flag) ? null : bazookaGirlStickyBomb.m_enemyOnCastHitEffect);
-		string str2 = text;
-		AbilityModPropertyEffectInfo enemyOnExplosionEffectOverride = this.m_enemyOnExplosionEffectOverride;
-		string prefix2 = "{ Enemy on Explode Effect }";
-		bool showBaseVal2 = flag;
-		StandardEffectInfo baseVal2;
+		empty = str + PropDesc(energyGainOnCastPerEnemyHitMod, "[EnergyGainOnCastPerEnemyHit]", flag, baseVal);
+		empty += AbilityModHelper.GetModPropertyDesc(m_enemyOnCastHitEffectOverride, "{ Enemy On Cast Hit Effect }", flag, (!flag) ? null : bazookaGirlStickyBomb.m_enemyOnCastHitEffect);
+		string str2 = empty;
+		AbilityModPropertyEffectInfo enemyOnExplosionEffectOverride = m_enemyOnExplosionEffectOverride;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -100,10 +97,10 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 		{
 			baseVal2 = null;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(enemyOnExplosionEffectOverride, prefix2, showBaseVal2, baseVal2);
-		if (this.m_cooldownModOnAction != AbilityData.ActionType.INVALID_ACTION)
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(enemyOnExplosionEffectOverride, "{ Enemy on Explode Effect }", flag, (StandardEffectInfo)baseVal2);
+		if (m_cooldownModOnAction != AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -112,9 +109,9 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 				}
 				break;
 			}
-			if (this.m_cooldownAddAmount != 0)
+			if (m_cooldownAddAmount != 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -123,14 +120,21 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 					}
 					break;
 				}
-				string text2 = text;
-				object[] array = new object[7];
-				array[0] = text2;
-				int num = 1;
-				object obj;
-				if (this.m_cooldownAddAmount < 0)
+				string text = empty;
+				object[] obj = new object[7]
 				{
-					for (;;)
+					text,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null
+				};
+				object obj2;
+				if (m_cooldownAddAmount < 0)
+				{
+					while (true)
 					{
 						switch (5)
 						{
@@ -139,21 +143,21 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 						}
 						break;
 					}
-					obj = "Reduces";
+					obj2 = "Reduces";
 				}
 				else
 				{
-					obj = "Increases";
+					obj2 = "Increases";
 				}
-				array[num] = obj;
-				array[2] = " cooldown on ";
-				array[3] = AbilityModHelper.GetAbilityNameFromActionType(this.m_cooldownModOnAction, abilityData);
-				array[4] = " by ";
-				array[5] = Mathf.Abs(this.m_cooldownAddAmount);
-				array[6] = " per explosion";
-				text = string.Concat(array);
+				obj[1] = obj2;
+				obj[2] = " cooldown on ";
+				obj[3] = AbilityModHelper.GetAbilityNameFromActionType(m_cooldownModOnAction, abilityData);
+				obj[4] = " by ";
+				obj[5] = Mathf.Abs(m_cooldownAddAmount);
+				obj[6] = " per explosion";
+				empty = string.Concat(obj);
 			}
 		}
-		return text;
+		return empty;
 	}
 }

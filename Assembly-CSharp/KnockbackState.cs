@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -24,12 +23,13 @@ public class KnockbackState : MoveState
 
 	private static float s_gravity = -20f;
 
-	public KnockbackState(ActorMovement owner, BoardSquarePathInfo aesheticPath) : base(owner, aesheticPath)
+	public KnockbackState(ActorMovement owner, BoardSquarePathInfo aesheticPath)
+		: base(owner, aesheticPath)
 	{
 		base.stateName = "Knockback";
-		if (KnockbackState.m_animHashKnockbackEnd == 0)
+		if (m_animHashKnockbackEnd == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -38,15 +38,15 @@ public class KnockbackState : MoveState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackState..ctor(ActorMovement, BoardSquarePathInfo)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			KnockbackState.m_animHashKnockbackEnd = Animator.StringToHash("Base Layer.Reaction.Knockback.KnockbackEnd");
+			m_animHashKnockbackEnd = Animator.StringToHash("Base Layer.Reaction.Knockback.KnockbackEnd");
 		}
-		if (KnockbackState.m_tagHashKnockdown == 0)
+		if (m_tagHashKnockdown == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -55,17 +55,17 @@ public class KnockbackState : MoveState
 				}
 				break;
 			}
-			KnockbackState.m_tagHashKnockdown = Animator.StringToHash("Knockdown");
+			m_tagHashKnockdown = Animator.StringToHash("Knockdown");
 		}
-		if (KnockbackState.m_tagHashKnockdownImpact == 0)
+		if (m_tagHashKnockdownImpact == 0)
 		{
-			KnockbackState.m_tagHashKnockdownImpact = Animator.StringToHash("KnockdownImpact");
+			m_tagHashKnockdownImpact = Animator.StringToHash("KnockdownImpact");
 		}
-		float magnitude = (this.m_pathSquareInfo.square.\u001D() - this.m_owner.m_actor.transform.position).magnitude;
-		this.m_travelTime = magnitude / this.m_ownerActorData.m_knockbackSpeed;
-		if (this.m_travelTime == 0f)
+		float magnitude = (m_pathSquareInfo.square.GetWorldPosition() - m_owner.m_actor.transform.position).magnitude;
+		m_travelTime = magnitude / m_ownerActorData.m_knockbackSpeed;
+		if (m_travelTime == 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -74,22 +74,22 @@ public class KnockbackState : MoveState
 				}
 				break;
 			}
-			this.m_travelTime = KnockbackState.s_minTravelTime;
+			m_travelTime = s_minTravelTime;
 		}
-		this.m_initialYVelocity = -0.5f * KnockbackState.s_gravity * this.m_travelTime;
-		this.m_startTime = Time.time;
-		if (!NetworkClient.active && this.m_owner.m_actor.\u000E() == null)
+		m_initialYVelocity = -0.5f * s_gravity * m_travelTime;
+		m_startTime = Time.time;
+		if (!NetworkClient.active && m_owner.m_actor.GetModelAnimator() == null)
 		{
-			this.m_startedExitAnim = true;
-			this.m_endedExitAnim = true;
+			m_startedExitAnim = true;
+			m_endedExitAnim = true;
 		}
 	}
 
 	protected override void OnAnimChange(int prevAnimHash, int prevAnimTag, int nextAnimHash, int nextAnimTag)
 	{
-		if (nextAnimHash != KnockbackState.m_animHashKnockbackEnd)
+		if (nextAnimHash != m_animHashKnockbackEnd)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -98,13 +98,13 @@ public class KnockbackState : MoveState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackState.OnAnimChange(int, int, int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (nextAnimTag != KnockbackState.m_animHashKnockbackEnd)
+			if (nextAnimTag != m_animHashKnockbackEnd)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -113,11 +113,11 @@ public class KnockbackState : MoveState
 					}
 					break;
 				}
-				if (nextAnimTag != KnockbackState.m_tagHashKnockdown)
+				if (nextAnimTag != m_tagHashKnockdown)
 				{
-					goto IL_48;
+					goto IL_0048;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -128,11 +128,12 @@ public class KnockbackState : MoveState
 				}
 			}
 		}
-		this.m_startedExitAnim = true;
-		IL_48:
-		if (prevAnimHash != KnockbackState.m_animHashKnockbackEnd)
+		m_startedExitAnim = true;
+		goto IL_0048;
+		IL_0048:
+		if (prevAnimHash != m_animHashKnockbackEnd)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -141,25 +142,25 @@ public class KnockbackState : MoveState
 				}
 				break;
 			}
-			if (prevAnimTag != KnockbackState.m_tagHashKnockdownImpact)
+			if (prevAnimTag != m_tagHashKnockdownImpact)
 			{
 				return;
 			}
 		}
-		this.m_endedExitAnim = true;
+		m_endedExitAnim = true;
 	}
 
 	protected override void UpdateState()
 	{
-		BoardSquare square = this.m_pathSquareInfo.square;
-		Vector3 position = this.m_owner.m_actor.transform.position;
-		Vector3 vector = square.\u001D();
-		Vector3 a = vector - position;
+		BoardSquare square = m_pathSquareInfo.square;
+		Vector3 position = m_owner.m_actor.transform.position;
+		Vector3 worldPosition = square.GetWorldPosition();
+		Vector3 a = worldPosition - position;
 		a.y = 0f;
 		bool flag = false;
 		if (a.magnitude < 0.01f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -168,17 +169,17 @@ public class KnockbackState : MoveState
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackState.UpdateState()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			a = this.m_owner.transform.forward;
+			a = m_owner.transform.forward;
 			flag = true;
 		}
 		float num;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -194,13 +195,13 @@ public class KnockbackState : MoveState
 			num = a.sqrMagnitude;
 		}
 		float num2 = num;
-		float num3 = this.m_ownerActorData.m_knockbackSpeed * Time.deltaTime;
+		float num3 = m_ownerActorData.m_knockbackSpeed * Time.deltaTime;
 		float num4 = num3 * num3;
-		float num5 = Time.time - this.m_startTime;
-		float num6 = Mathf.Max(0f, this.m_initialYVelocity * num5 + 0.5f * KnockbackState.s_gravity * num5 * num5);
-		if (this.m_startedExitAnim)
+		float num5 = Time.time - m_startTime;
+		float num6 = Mathf.Max(0f, m_initialYVelocity * num5 + 0.5f * s_gravity * num5 * num5);
+		if (m_startedExitAnim)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -209,11 +210,11 @@ public class KnockbackState : MoveState
 				}
 				break;
 			}
-			this.m_updatePath = true;
+			m_updatePath = true;
 		}
-		if (num2 <= num4)
+		if (!(num2 > num4))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -222,11 +223,11 @@ public class KnockbackState : MoveState
 				}
 				break;
 			}
-			if (num5 >= this.m_travelTime)
+			if (!(num5 < m_travelTime))
 			{
-				if (this.m_startedExitAnim)
+				if (m_startedExitAnim)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -235,11 +236,11 @@ public class KnockbackState : MoveState
 						}
 						break;
 					}
-					this.m_updatePath = true;
+					m_updatePath = true;
 				}
-				if (this.m_owner.m_actor.\u0012())
+				if (m_owner.m_actor.IsModelAnimatorDisabled())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -248,16 +249,16 @@ public class KnockbackState : MoveState
 						}
 						break;
 					}
-					this.m_updatePath = true;
-					this.m_done = true;
+					m_updatePath = true;
+					m_done = true;
 				}
 				else
 				{
-					this.m_owner.m_actor.SetTransformPositionToVector(vector);
+					m_owner.m_actor.SetTransformPositionToVector(worldPosition);
 				}
-				if (!this.m_endedExitAnim)
+				if (!m_endedExitAnim)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -266,16 +267,16 @@ public class KnockbackState : MoveState
 						}
 						break;
 					}
-					if (!base.IsOnLastSegment())
+					if (!IsOnLastSegment())
 					{
 						return;
 					}
 				}
-				this.m_updatePath = true;
-				this.m_done = true;
+				m_updatePath = true;
+				m_done = true;
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -289,7 +290,7 @@ public class KnockbackState : MoveState
 		float d = 0f;
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -300,43 +301,44 @@ public class KnockbackState : MoveState
 			}
 			d = Mathf.Min(num3, num2);
 		}
-		Vector3 groundPosition = this.m_owner.GetGroundPosition(position + a * d);
-		groundPosition.y = (float)Board.\u000E().m_baselineHeight + num6;
-		if (this.m_owner.m_actor.\u0012())
+		Vector3 groundPosition = m_owner.GetGroundPosition(position + a * d);
+		groundPosition.y = (float)Board.Get().m_baselineHeight + num6;
+		if (m_owner.m_actor.IsModelAnimatorDisabled())
 		{
-			this.m_updatePath = true;
-			this.m_done = true;
+			m_updatePath = true;
+			m_done = true;
 		}
 		else
 		{
-			this.m_owner.m_actor.SetTransformPositionToVector(groundPosition);
+			m_owner.m_actor.SetTransformPositionToVector(groundPosition);
 		}
 		Vector3 dir = -a;
 		dir.y = 0f;
-		if (dir.magnitude > 0.01f && !flag)
+		if (!(dir.magnitude > 0.01f) || flag)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!this.m_owner.m_actor.\u0012())
+			if (!m_owner.m_actor.IsModelAnimatorDisabled())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_owner.m_actor.TurnToDirection(dir);
+					return;
 				}
-				this.m_owner.m_actor.TurnToDirection(dir);
 			}
+			return;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,6 +6,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Selectable))]
 public class _ButtonSwapSprite : MonoBehaviour
 {
+	public delegate void ButtonClickCallback(BaseEventData data);
+
 	public Image m_defaultImage;
 
 	public Image m_hoverImage;
@@ -19,11 +20,11 @@ public class _ButtonSwapSprite : MonoBehaviour
 
 	public FrontEndButtonSounds m_soundToPlay;
 
-	public _ButtonSwapSprite.ButtonClickCallback callback;
+	public ButtonClickCallback callback;
 
-	public _ButtonSwapSprite.ButtonClickCallback pointerEnterCallback;
+	public ButtonClickCallback pointerEnterCallback;
 
-	public _ButtonSwapSprite.ButtonClickCallback pointerExitCallback;
+	public ButtonClickCallback pointerExitCallback;
 
 	public bool m_disableWhenInReadyState;
 
@@ -63,9 +64,9 @@ public class _ButtonSwapSprite : MonoBehaviour
 
 	private void Start()
 	{
-		if (this.m_hitBoxImage == null)
+		if (m_hitBoxImage == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -74,14 +75,14 @@ public class _ButtonSwapSprite : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Image component = base.GetComponent<Image>();
+			Image component = GetComponent<Image>();
 			if (component != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -95,18 +96,18 @@ public class _ButtonSwapSprite : MonoBehaviour
 					try
 					{
 						component.sprite.texture.GetPixel(0, 0);
-						this.m_hitBoxImage = component;
+						m_hitBoxImage = component;
 					}
 					catch
 					{
-						Log.Warning("Sprite used for hit box is not flagged for read/write.", new object[0]);
+						Log.Warning("Sprite used for hit box is not flagged for read/write.");
 					}
 				}
 			}
 		}
-		if (this.m_hitBoxImage != null)
+		if (m_hitBoxImage != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -115,34 +116,35 @@ public class _ButtonSwapSprite : MonoBehaviour
 				}
 				break;
 			}
-			this.m_hitBoxImage.alphaHitTestMinimumThreshold = 0.4f;
+			m_hitBoxImage.alphaHitTestMinimumThreshold = 0.4f;
 		}
-		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnButtonClicked));
-		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnButtonEnter));
-		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.OnButtonExit));
-		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerUp, new UIEventTriggerUtils.EventDelegate(this.OnButtonUp));
-		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerDown, new UIEventTriggerUtils.EventDelegate(this.OnButtonDown));
+		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerClick, OnButtonClicked);
+		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerEnter, OnButtonEnter);
+		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerExit, OnButtonExit);
+		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerUp, OnButtonUp);
+		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerDown, OnButtonDown);
 	}
 
 	public void AddSubButton(_ButtonSwapSprite btn)
 	{
-		if (!this.m_subButtons.Contains(btn))
+		if (m_subButtons.Contains(btn))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.AddSubButton(_ButtonSwapSprite)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_subButtons.Add(btn);
+			m_subButtons.Add(btn);
 			btn.m_parentButton = this;
+			return;
 		}
 	}
 
@@ -153,45 +155,45 @@ public class _ButtonSwapSprite : MonoBehaviour
 
 	public void RegisterControlPadInput(ControlpadInputValue controlPadInput)
 	{
-		this.m_controlPadInput = controlPadInput;
+		m_controlPadInput = controlPadInput;
 	}
 
 	public void ForceSetPointerEntered(bool entered)
 	{
-		this.m_pointerEntered = entered;
+		m_pointerEntered = entered;
 	}
 
 	public void SetForceExitCallback(bool alwaysOn)
 	{
-		this.m_forceExitCallback = alwaysOn;
+		m_forceExitCallback = alwaysOn;
 	}
 
 	public void SetForceHovercallback(bool alwaysOn)
 	{
-		this.m_forceHoverCallback = alwaysOn;
+		m_forceHoverCallback = alwaysOn;
 	}
 
 	public void SetAlwaysHoverState(bool alwaysOn)
 	{
-		this.m_alwaysDisplayHover = alwaysOn;
+		m_alwaysDisplayHover = alwaysOn;
 	}
 
 	public void SetClickable(bool canBeClicked)
 	{
-		this.m_clickable = canBeClicked;
+		m_clickable = canBeClicked;
 	}
 
 	public bool IsMouseHover()
 	{
-		return this.m_pointerEntered;
+		return m_pointerEntered;
 	}
 
 	public bool IsClickable()
 	{
 		bool flag = false;
-		if (this.m_disableWhenInReadyState)
+		if (m_disableWhenInReadyState)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -200,13 +202,13 @@ public class _ButtonSwapSprite : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.IsClickable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -217,7 +219,7 @@ public class _ButtonSwapSprite : MonoBehaviour
 				}
 				if (GameManager.Get() != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -228,7 +230,7 @@ public class _ButtonSwapSprite : MonoBehaviour
 					}
 					if (GameManager.Get().PlayerInfo != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -243,9 +245,9 @@ public class _ButtonSwapSprite : MonoBehaviour
 			}
 		}
 		int result;
-		if (this.m_isVisible)
+		if (m_isVisible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -254,9 +256,9 @@ public class _ButtonSwapSprite : MonoBehaviour
 				}
 				break;
 			}
-			if (this.m_clickable)
+			if (m_clickable)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -267,7 +269,7 @@ public class _ButtonSwapSprite : MonoBehaviour
 				}
 				if (!flag)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -276,9 +278,9 @@ public class _ButtonSwapSprite : MonoBehaviour
 						}
 						break;
 					}
-					if (!this.m_ignoreDialogboxes)
+					if (!m_ignoreDialogboxes)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -293,54 +295,57 @@ public class _ButtonSwapSprite : MonoBehaviour
 					{
 						result = 1;
 					}
-					return result != 0;
+					goto IL_010a;
 				}
 			}
 		}
 		result = 0;
-		return result != 0;
+		goto IL_010a;
+		IL_010a:
+		return (byte)result != 0;
 	}
 
 	public void SetText(string newText)
 	{
-		if (this.m_Label != null)
+		if (!(m_Label != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.SetText(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_Label.text = newText;
+			m_Label.text = newText;
+			return;
 		}
 	}
 
 	public void SetRecordMetricClick(bool doRecording, string context = "")
 	{
-		this.m_recordClick = doRecording;
-		this.m_clickMetricRecordContext = context;
+		m_recordClick = doRecording;
+		m_clickMetricRecordContext = context;
 	}
 
 	private void OnButtonClicked(BaseEventData data)
 	{
-		if (this.IsClickable() && UIUtils.IsMouseInGameWindow())
+		if (IsClickable() && UIUtils.IsMouseInGameWindow())
 		{
-			this.ButtonClickedInternal(data);
+			ButtonClickedInternal(data);
 		}
 	}
 
 	private void ButtonClickedInternal(BaseEventData data)
 	{
-		if (this.m_recordClick)
+		if (m_recordClick)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -349,15 +354,15 @@ public class _ButtonSwapSprite : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.ButtonClickedInternal(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			ClientGameManager.Get().SendUIActionNotification(this.m_clickMetricRecordContext);
+			ClientGameManager.Get().SendUIActionNotification(m_clickMetricRecordContext);
 		}
-		if (this.m_soundToPlay != FrontEndButtonSounds.None)
+		if (m_soundToPlay != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -366,11 +371,11 @@ public class _ButtonSwapSprite : MonoBehaviour
 				}
 				break;
 			}
-			UIFrontEnd.PlaySound(this.m_soundToPlay);
+			UIFrontEnd.PlaySound(m_soundToPlay);
 		}
-		if (this.callback != null)
+		if (callback != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -379,7 +384,7 @@ public class _ButtonSwapSprite : MonoBehaviour
 				}
 				break;
 			}
-			this.callback(data);
+			callback(data);
 		}
 		string text = base.gameObject.name;
 		GameObject gameObject = base.gameObject;
@@ -388,101 +393,105 @@ public class _ButtonSwapSprite : MonoBehaviour
 			text = gameObject.transform.parent.name + "/" + text;
 			gameObject = gameObject.transform.parent.gameObject;
 		}
-		if (HitchDetector.Get() != null)
+		if (!(HitchDetector.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			HitchDetector.Get().RecordFrameTimeForHitch(text + " was clicked");
+			return;
 		}
 	}
 
 	private void OnButtonEnter(BaseEventData data)
 	{
-		if (UIUtils.IsMouseInGameWindow())
+		if (!UIUtils.IsMouseInGameWindow())
 		{
-			this.m_pointerEntered = true;
-			if (!this.m_forceHoverCallback)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.OnButtonEnter(BaseEventData)).MethodHandle;
-				}
-				if (!this.IsClickable())
-				{
-					return;
-				}
-			}
-			if (this.pointerEnterCallback != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.pointerEnterCallback(data);
-			}
+			return;
 		}
-	}
-
-	private void NotifySubButtonExit(BaseEventData data, _ButtonSwapSprite childBtn)
-	{
-		if ((data as PointerEventData).pointerCurrentRaycast.gameObject != null)
+		m_pointerEntered = true;
+		if (!m_forceHoverCallback)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (6)
+				switch (2)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.NotifySubButtonExit(BaseEventData, _ButtonSwapSprite)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!IsClickable())
+			{
+				return;
+			}
+		}
+		if (pointerEnterCallback == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			case 0:
+				continue;
+			}
+			pointerEnterCallback(data);
+			return;
+		}
+	}
+
+	private void NotifySubButtonExit(BaseEventData data, _ButtonSwapSprite childBtn)
+	{
+		if (!((data as PointerEventData).pointerCurrentRaycast.gameObject != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			_ButtonSwapSprite component = (data as PointerEventData).pointerCurrentRaycast.gameObject.GetComponent<_ButtonSwapSprite>();
 			if (component != this)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					OnButtonExit(data);
+					return;
 				}
-				this.OnButtonExit(data);
 			}
+			return;
 		}
 	}
 
 	private void OnButtonExit(BaseEventData data)
 	{
-		if (this.m_subButtons != null)
+		if (m_subButtons != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -491,13 +500,13 @@ public class _ButtonSwapSprite : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.OnButtonExit(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_subButtons.Count > 0)
+			if (m_subButtons.Count > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -508,7 +517,7 @@ public class _ButtonSwapSprite : MonoBehaviour
 				}
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -518,35 +527,35 @@ public class _ButtonSwapSprite : MonoBehaviour
 						break;
 					}
 					_ButtonSwapSprite component = (data as PointerEventData).pointerCurrentRaycast.gameObject.GetComponent<_ButtonSwapSprite>();
-					if (component != null && this.m_subButtons.Contains(component))
+					if (component != null && m_subButtons.Contains(component))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
+							default:
+								return;
 							case 0:
-								continue;
+								break;
 							}
-							break;
 						}
-						return;
 					}
 				}
 			}
 		}
-		if (this.m_parentButton != null)
+		if (m_parentButton != null)
 		{
-			this.m_parentButton.NotifySubButtonExit(data, this);
+			m_parentButton.NotifySubButtonExit(data, this);
 		}
-		this.m_pointerDown = false;
-		this.m_pointerEntered = false;
-		if (!this.m_forceExitCallback)
+		m_pointerDown = false;
+		m_pointerEntered = false;
+		if (!m_forceExitCallback)
 		{
-			if (!this.IsClickable())
+			if (!IsClickable())
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -556,120 +565,120 @@ public class _ButtonSwapSprite : MonoBehaviour
 				break;
 			}
 		}
-		if (this.pointerExitCallback != null)
+		if (pointerExitCallback != null)
 		{
-			this.pointerExitCallback(data);
+			pointerExitCallback(data);
 		}
 	}
 
 	private void OnButtonUp(BaseEventData data)
 	{
-		this.m_pointerDown = false;
+		m_pointerDown = false;
 	}
 
 	private void OnButtonDown(BaseEventData data)
 	{
-		if (UIUtils.IsMouseInGameWindow())
+		if (!UIUtils.IsMouseInGameWindow())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.OnButtonDown(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_pointerDown = true;
+			m_pointerDown = true;
+			return;
 		}
 	}
 
 	public void ResetMouseState()
 	{
-		this.m_pointerDown = false;
-		this.m_pointerEntered = false;
-		if (this.selectableButton != null)
+		m_pointerDown = false;
+		m_pointerEntered = false;
+		if (selectableButton != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					selectableButton.NotifyHoverStatusChange(false);
+					selectableButton.NotifyPressStatusChange(false);
+					return;
+				}
+			}
+		}
+		if (m_hoverImage != null && m_hoverImage.gameObject != null)
+		{
+			while (true)
+			{
+				switch (5)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.ResetMouseState()).MethodHandle;
-			}
-			this.selectableButton.NotifyHoverStatusChange(false, false, 0f);
-			this.selectableButton.NotifyPressStatusChange(false, false);
+			UIManager.SetGameObjectActive(m_hoverImage, false);
 		}
-		else
+		if (!(m_pressedImage != null))
 		{
-			if (this.m_hoverImage != null && this.m_hoverImage.gameObject != null)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_hoverImage, false, null);
+			case 0:
+				continue;
 			}
-			if (this.m_pressedImage != null)
+			if (m_pressedImage.gameObject != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_pressedImage.gameObject != null)
-				{
-					UIManager.SetGameObjectActive(this.m_pressedImage, false, null);
-				}
+				UIManager.SetGameObjectActive(m_pressedImage, false);
 			}
+			return;
 		}
 	}
 
 	public void SetVisible(bool visible)
 	{
-		this.m_isVisible = visible;
+		m_isVisible = visible;
 	}
 
 	public void SetSelectableBtn(_SelectableBtn selectableBtn)
 	{
-		this.selectableButton = selectableBtn;
+		selectableButton = selectableBtn;
 	}
 
 	private void OnDisable()
 	{
-		this.ResetMouseState();
-		this.m_hoverActive = false;
+		ResetMouseState();
+		m_hoverActive = false;
 	}
 
 	private void Update()
 	{
-		bool flag;
-		bool flag2;
-		bool flag3;
-		if (this.m_isVisible)
+		bool flag = false;
+		bool flag2 = false;
+		bool flag3 = false;
+		if (m_isVisible)
 		{
-			if (this.m_pointerDown)
+			if (m_pointerDown)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -678,13 +687,13 @@ public class _ButtonSwapSprite : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.Update()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				if (this.selectableButton != null)
+				if (selectableButton != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -693,19 +702,19 @@ public class _ButtonSwapSprite : MonoBehaviour
 						}
 						break;
 					}
-					if (this.selectableButton.m_ignorePressAnimationCall)
+					if (selectableButton.m_ignorePressAnimationCall)
 					{
-						flag = !this.IsClickable();
-						flag2 = (this.m_alwaysDisplayHover || this.IsClickable());
+						flag = !IsClickable();
+						flag2 = (m_alwaysDisplayHover || IsClickable());
 						flag3 = false;
-						goto IL_A0;
+						goto IL_00f3;
 					}
 				}
-				flag = !this.IsClickable();
-				bool flag4;
-				if (!this.m_alwaysDisplayHover)
+				flag = !IsClickable();
+				int num;
+				if (!m_alwaysDisplayHover)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -714,19 +723,18 @@ public class _ButtonSwapSprite : MonoBehaviour
 						}
 						break;
 					}
-					flag4 = false;
+					num = 0;
 				}
 				else
 				{
-					flag4 = true;
+					num = 1;
 				}
-				flag2 = flag4;
-				flag3 = this.IsClickable();
-				IL_A0:;
+				flag2 = ((byte)num != 0);
+				flag3 = IsClickable();
 			}
-			else if (this.m_pointerEntered)
+			else if (m_pointerEntered)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -735,11 +743,11 @@ public class _ButtonSwapSprite : MonoBehaviour
 					}
 					break;
 				}
-				flag = !this.IsClickable();
-				bool flag5;
-				if (!this.m_alwaysDisplayHover)
+				flag = !IsClickable();
+				int num2;
+				if (!m_alwaysDisplayHover)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -748,76 +756,63 @@ public class _ButtonSwapSprite : MonoBehaviour
 						}
 						break;
 					}
-					flag5 = this.IsClickable();
+					num2 = (IsClickable() ? 1 : 0);
 				}
 				else
 				{
-					flag5 = true;
+					num2 = 1;
 				}
-				flag2 = flag5;
+				flag2 = ((byte)num2 != 0);
 				flag3 = false;
 			}
 			else
 			{
 				flag = true;
-				flag2 = this.m_alwaysDisplayHover;
+				flag2 = (m_alwaysDisplayHover ? true : false);
 				flag3 = false;
 			}
-			if (this.IsClickable() && this.m_controlPadInput != ControlpadInputValue.INVALID && ControlpadGameplay.Get().GetButtonDown(this.m_controlPadInput))
+			goto IL_00f3;
+		}
+		flag = false;
+		int num3;
+		if (!m_alwaysDisplayHover)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (7)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				this.ButtonClickedInternal(null);
+				break;
 			}
+			num3 = 0;
 		}
 		else
 		{
-			flag = false;
-			bool flag6;
-			if (!this.m_alwaysDisplayHover)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag6 = false;
-			}
-			else
-			{
-				flag6 = true;
-			}
-			flag2 = flag6;
-			flag3 = false;
+			num3 = 1;
 		}
-		if (this.m_defaultImage != null)
+		flag2 = ((byte)num3 != 0);
+		flag3 = false;
+		goto IL_0148;
+		IL_0148:
+		if (m_defaultImage != null)
 		{
-			if (this.selectableButton != null)
+			if (selectableButton != null)
 			{
-				if (this.m_defaultActive != flag)
+				if (m_defaultActive != flag)
 				{
-					this.selectableButton.NotifyDefaultStatusChange(flag);
+					selectableButton.NotifyDefaultStatusChange(flag);
 				}
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.m_defaultImage, flag, null);
+				UIManager.SetGameObjectActive(m_defaultImage, flag);
 			}
 		}
-		if (this.m_hoverImage != null)
+		if (m_hoverImage != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -826,9 +821,9 @@ public class _ButtonSwapSprite : MonoBehaviour
 				}
 				break;
 			}
-			if (this.selectableButton != null)
+			if (selectableButton != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -837,9 +832,9 @@ public class _ButtonSwapSprite : MonoBehaviour
 					}
 					break;
 				}
-				if (this.m_hoverActive != flag2)
+				if (m_hoverActive != flag2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -848,21 +843,21 @@ public class _ButtonSwapSprite : MonoBehaviour
 						}
 						break;
 					}
-					this.selectableButton.NotifyHoverStatusChange(flag2, false, 0f);
+					selectableButton.NotifyHoverStatusChange(flag2);
 				}
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.m_hoverImage, flag2, null);
+				UIManager.SetGameObjectActive(m_hoverImage, flag2);
 			}
 		}
-		if (this.m_pressedImage != null)
+		if (m_pressedImage != null)
 		{
-			if (this.selectableButton != null)
+			if (selectableButton != null)
 			{
-				if (this.m_pressActive != flag3)
+				if (m_pressActive != flag3)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -871,31 +866,45 @@ public class _ButtonSwapSprite : MonoBehaviour
 						}
 						break;
 					}
-					this.selectableButton.NotifyPressStatusChange(flag3, false);
+					selectableButton.NotifyPressStatusChange(flag3);
 				}
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.m_pressedImage, flag3, null);
+				UIManager.SetGameObjectActive(m_pressedImage, flag3);
 			}
 		}
-		this.m_defaultActive = flag;
-		this.m_hoverActive = flag2;
-		this.m_pressActive = flag3;
-		if (this.m_Label != null)
+		m_defaultActive = flag;
+		m_hoverActive = flag2;
+		m_pressActive = flag3;
+		if (!(m_Label != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
+			case 0:
+				continue;
+			}
+			UIManager.SetGameObjectActive(m_Label, flag3);
+			return;
+		}
+		IL_00f3:
+		if (IsClickable() && m_controlPadInput != ControlpadInputValue.INVALID && ControlpadGameplay.Get().GetButtonDown(m_controlPadInput))
+		{
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_Label, flag3, null);
+			ButtonClickedInternal(null);
 		}
+		goto IL_0148;
 	}
-
-	public delegate void ButtonClickCallback(BaseEventData data);
 }

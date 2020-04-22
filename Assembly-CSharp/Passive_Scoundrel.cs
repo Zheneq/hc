@@ -1,5 +1,3 @@
-﻿using System;
-
 public class Passive_Scoundrel : Passive
 {
 	public int m_trapwireLastCastTurn = -1;

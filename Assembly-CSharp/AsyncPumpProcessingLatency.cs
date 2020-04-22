@@ -1,5 +1,3 @@
-﻿using System;
-
 public class AsyncPumpProcessingLatency
 {
 	public long Current;
@@ -10,19 +8,14 @@ public class AsyncPumpProcessingLatency
 
 	public long Count;
 
-	public AsyncPumpProcessingLatency()
-	{
-		this.Reset();
-	}
-
 	public double Avg
 	{
 		get
 		{
 			double result;
-			if (this.Count > 0L)
+			if (Count > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -31,11 +24,11 @@ public class AsyncPumpProcessingLatency
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPumpProcessingLatency.get_Avg()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = (double)this.Sum / (double)this.Count;
+				result = (double)Sum / (double)Count;
 			}
 			else
 			{
@@ -45,12 +38,17 @@ public class AsyncPumpProcessingLatency
 		}
 	}
 
+	public AsyncPumpProcessingLatency()
+	{
+		Reset();
+	}
+
 	public void Update(long ticks)
 	{
-		this.Current = ticks;
-		if (this.Max < ticks)
+		Current = ticks;
+		if (Max < ticks)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -59,20 +57,20 @@ public class AsyncPumpProcessingLatency
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPumpProcessingLatency.Update(long)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.Max = ticks;
+			Max = ticks;
 		}
-		this.Sum += ticks;
-		this.Count += 1L;
+		Sum += ticks;
+		Count++;
 	}
 
 	public void Reset()
 	{
-		this.Max = long.MinValue;
-		this.Sum = 0L;
-		this.Count = 0L;
+		Max = long.MinValue;
+		Sum = 0L;
+		Count = 0L;
 	}
 }

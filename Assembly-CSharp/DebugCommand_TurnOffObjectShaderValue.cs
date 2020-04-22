@@ -1,4 +1,3 @@
-﻿using System;
 using System.Linq;
 using UnityEngine;
 
@@ -31,9 +30,9 @@ public class DebugCommand_TurnOffObjectShaderValue : DebugCommand
 	public override bool OnSlashCommand(string arguments)
 	{
 		string[] array = arguments.Split(" ".ToCharArray(), 3);
-		if (array.Count<string>() == 3)
+		if (array.Count() == 3)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -42,14 +41,14 @@ public class DebugCommand_TurnOffObjectShaderValue : DebugCommand
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_TurnOffObjectShaderValue.OnSlashCommand(string)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			GameObject gameObject = GameObject.Find(array[0]);
 			if (gameObject != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -61,7 +60,7 @@ public class DebugCommand_TurnOffObjectShaderValue : DebugCommand
 				MeshRenderer component = gameObject.GetComponent<MeshRenderer>();
 				if (component != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -74,7 +73,7 @@ public class DebugCommand_TurnOffObjectShaderValue : DebugCommand
 					{
 						if (array[2].EqualsIgnoreCase("texture"))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (4)
 								{
@@ -90,7 +89,7 @@ public class DebugCommand_TurnOffObjectShaderValue : DebugCommand
 							component.sharedMaterials[i].SetFloat(array[1], 0f);
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -104,7 +103,7 @@ public class DebugCommand_TurnOffObjectShaderValue : DebugCommand
 		}
 		else
 		{
-			TextConsole.Get().Write("usage: /turnoffshadervalue <objectname> <shadervalue> [texture|float]", ConsoleMessageType.SystemMessage);
+			TextConsole.Get().Write("usage: /turnoffshadervalue <objectname> <shadervalue> [texture|float]");
 		}
 		return true;
 	}

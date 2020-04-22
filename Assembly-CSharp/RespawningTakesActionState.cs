@@ -1,42 +1,42 @@
-﻿using System;
-
 public class RespawningTakesActionState : TurnState
 {
-	public RespawningTakesActionState(ActorTurnSM masterSM) : base(masterSM)
+	public RespawningTakesActionState(ActorTurnSM masterSM)
+		: base(masterSM)
 	{
 	}
 
 	public override void Update()
 	{
-		ActorData component = this.m_SM.GetComponent<ActorData>();
-		if (component != null)
+		ActorData component = m_SM.GetComponent<ActorData>();
+		if (!(component != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RespawningTakesActionState.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!component.\u000E())
+			if (!component.IsDead())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_SM.NextState = TurnStateEnum.WAITING;
+					return;
 				}
-				this.m_SM.NextState = TurnStateEnum.WAITING;
 			}
+			return;
 		}
 	}
 }

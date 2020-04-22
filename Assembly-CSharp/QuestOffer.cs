@@ -1,4 +1,3 @@
-﻿using System;
 using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
@@ -31,22 +30,26 @@ public class QuestOffer : MonoBehaviour
 
 	private int m_rejectedCount = -1;
 
-	public bool Clickable { get; set; }
+	public bool Clickable
+	{
+		get;
+		set;
+	}
 
 	private void Start()
 	{
-		this.m_defaultSprite = this.m_contractIcon.sprite;
+		m_defaultSprite = m_contractIcon.sprite;
 	}
 
 	private void Awake()
 	{
-		this.Clickable = true;
-		this.m_BonusAnimator = base.gameObject.GetComponent<Animator>();
-		_SelectableBtn component = base.GetComponent<_SelectableBtn>();
-		component.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.QuestButtonClicked);
-		for (int i = 0; i < this.m_questRewards.Length; i++)
+		Clickable = true;
+		m_BonusAnimator = base.gameObject.GetComponent<Animator>();
+		_SelectableBtn component = GetComponent<_SelectableBtn>();
+		component.spriteController.callback = QuestButtonClicked;
+		for (int i = 0; i < m_questRewards.Length; i++)
 		{
-			_SelectableBtn component2 = this.m_questRewards[i].GetComponent<_SelectableBtn>();
+			_SelectableBtn component2 = m_questRewards[i].GetComponent<_SelectableBtn>();
 			component.spriteController.AddSubButton(component2.spriteController);
 		}
 	}
@@ -60,15 +63,15 @@ public class QuestOffer : MonoBehaviour
 	{
 		int questMaxRejectPercentage = QuestWideData.Get().m_questMaxRejectPercentage;
 		int questBonusPerRejection = QuestWideData.Get().m_questBonusPerRejection;
-		this.m_bonusText.text = string.Format("{0}%", Mathf.Min(questMaxRejectPercentage, (this.m_rejectedCount + 1) * questBonusPerRejection));
-		QuestTemplate questTemplate = QuestWideData.Get().m_quests[this.m_questId - 1];
+		m_bonusText.text = $"{Mathf.Min(questMaxRejectPercentage, (m_rejectedCount + 1) * questBonusPerRejection)}%";
+		QuestTemplate questTemplate = QuestWideData.Get().m_quests[m_questId - 1];
 		QuestRewards rewards = questTemplate.Rewards;
 		int count = rewards.CurrencyRewards.Count;
 		int count2 = rewards.UnlockRewards.Count;
 		int count3 = rewards.ItemRewards.Count;
 		if (count + count2 + count3 != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -77,15 +80,15 @@ public class QuestOffer : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOffer.IncreaseRejectBonusNumber()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			for (int i = 0; i < this.m_questRewards.Length; i++)
+			for (int i = 0; i < m_questRewards.Length; i++)
 			{
 				if (i < count)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -94,10 +97,10 @@ public class QuestOffer : MonoBehaviour
 						}
 						break;
 					}
-					this.m_questRewards[i].Setup(rewards.CurrencyRewards[i], this.m_rejectedCount + 1);
+					m_questRewards[i].Setup(rewards.CurrencyRewards[i], m_rejectedCount + 1);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -107,15 +110,15 @@ public class QuestOffer : MonoBehaviour
 				break;
 			}
 		}
-		this.m_rejectedCount = -1;
+		m_rejectedCount = -1;
 	}
 
 	public bool NotifyRejectedQuest()
 	{
 		bool result = false;
-		if (this.m_BonusAnimator == null)
+		if (m_BonusAnimator == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -124,15 +127,15 @@ public class QuestOffer : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOffer.NotifyRejectedQuest()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_rejectedCount = -1;
+			m_rejectedCount = -1;
 		}
-		if (this.m_rejectedCount > -1)
+		if (m_rejectedCount > -1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -143,7 +146,7 @@ public class QuestOffer : MonoBehaviour
 			}
 			if (base.gameObject.activeInHierarchy)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -154,10 +157,10 @@ public class QuestOffer : MonoBehaviour
 				}
 				int questMaxRejectPercentage = QuestWideData.Get().m_questMaxRejectPercentage;
 				int questBonusPerRejection = QuestWideData.Get().m_questBonusPerRejection;
-				float num = (float)(this.m_rejectedCount * questBonusPerRejection);
-				if (this.m_rejectedCount == 0)
+				float num = m_rejectedCount * questBonusPerRejection;
+				if (m_rejectedCount == 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -166,15 +169,15 @@ public class QuestOffer : MonoBehaviour
 						}
 						break;
 					}
-					UIManager.SetGameObjectActive(this.m_bonus, true, null);
-					UIManager.SetGameObjectActive(this.m_bonusArrowsMask, true, null);
-					this.IncreaseRejectBonusNumber();
-					UIAnimationEventManager.Get().PlayAnimation(this.m_BonusAnimator, "PickContractItemBonusIN", new UIAnimationEventManager.AnimationDoneCallback(this.RejectAnimDone), "PickContractItemBonusIDLE", 1, 0f, true, false, null, null);
+					UIManager.SetGameObjectActive(m_bonus, true);
+					UIManager.SetGameObjectActive(m_bonusArrowsMask, true);
+					IncreaseRejectBonusNumber();
+					UIAnimationEventManager.Get().PlayAnimation(m_BonusAnimator, "PickContractItemBonusIN", RejectAnimDone, "PickContractItemBonusIDLE", 1);
 					result = true;
 				}
 				else if (num < (float)questMaxRejectPercentage)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -183,7 +186,7 @@ public class QuestOffer : MonoBehaviour
 						}
 						break;
 					}
-					UIAnimationEventManager.Get().PlayAnimation(this.m_BonusAnimator, "PickContractItemBonusOUT", new UIAnimationEventManager.AnimationDoneCallback(this.RejectAnimDone), "PickContractItemBonusIDLE", 1, 0f, true, false, null, null);
+					UIAnimationEventManager.Get().PlayAnimation(m_BonusAnimator, "PickContractItemBonusOUT", RejectAnimDone, "PickContractItemBonusIDLE", 1);
 					result = true;
 				}
 			}
@@ -193,73 +196,68 @@ public class QuestOffer : MonoBehaviour
 
 	public void QuestButtonClicked(BaseEventData data)
 	{
-		if (this.Clickable)
+		if (!Clickable)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOffer.QuestButtonClicked(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_BonusAnimator.Play("PickContractItemSelectIN", 1, 0f);
-			ClientGameManager.Get().SelectDailyQuest(this.m_questId, null);
+			m_BonusAnimator.Play("PickContractItemSelectIN", 1, 0f);
+			ClientGameManager.Get().SelectDailyQuest(m_questId);
 			QuestOfferPanel.Get().NotifyOfferClicked(this);
+			return;
 		}
 	}
 
 	public void HandleSelectDailyQuestResponse(PickDailyQuestResponse response)
 	{
-		if (response.Success)
+		if (!response.Success)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOffer.HandleSelectDailyQuestResponse(PickDailyQuestResponse)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			QuestListPanel.Get().HandleQuestAdded(this.m_questId);
+			QuestListPanel.Get().HandleQuestAdded(m_questId);
+			return;
 		}
 	}
 
 	public void SetupDailyQuest(int questId, int rejectedCount)
 	{
-		this.Setup(questId, rejectedCount);
+		Setup(questId, rejectedCount);
 	}
 
 	private void Setup(int questId, int rejectedCount)
 	{
-		this.m_questId = questId;
+		m_questId = questId;
 		QuestTemplate questTemplate = QuestWideData.Get().m_quests[questId - 1];
-		string text = string.Empty;
-		string text2 = StringUtil.TR_QuestName(questId);
-		string text3 = StringUtil.TR_QuestDescription(questId);
-		if (text2 != string.Empty)
-		{
-			text = string.Format("<size=48>{0}</size>\n{1}", text2, text3);
-		}
-		else
-		{
-			text = text3;
-		}
-		this.m_contractText.text = text;
+		string empty = string.Empty;
+		string text = StringUtil.TR_QuestName(questId);
+		string text2 = StringUtil.TR_QuestDescription(questId);
+		empty = ((!(text != string.Empty)) ? text2 : $"<size=48>{text}</size>\n{text2}");
+		m_contractText.text = empty;
 		Sprite sprite = (Sprite)Resources.Load(questTemplate.IconFilename, typeof(Sprite));
-		if (sprite)
+		if ((bool)sprite)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -268,29 +266,29 @@ public class QuestOffer : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOffer.Setup(int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_contractIcon.sprite = sprite;
+			m_contractIcon.sprite = sprite;
 		}
 		else
 		{
-			this.m_contractIcon.sprite = this.m_defaultSprite;
+			m_contractIcon.sprite = m_defaultSprite;
 		}
-		this.m_rejectedCount = rejectedCount;
+		m_rejectedCount = rejectedCount;
 		if (rejectedCount > 0)
 		{
 			int questMaxRejectPercentage = QuestWideData.Get().m_questMaxRejectPercentage;
 			int questBonusPerRejection = QuestWideData.Get().m_questBonusPerRejection;
-			UIManager.SetGameObjectActive(this.m_bonus, true, null);
-			this.m_bonusText.text = string.Format("{0}%", Mathf.Min(questMaxRejectPercentage, rejectedCount * questBonusPerRejection));
-			UIManager.SetGameObjectActive(this.m_bonusArrowsMask, true, null);
+			UIManager.SetGameObjectActive(m_bonus, true);
+			m_bonusText.text = $"{Mathf.Min(questMaxRejectPercentage, rejectedCount * questBonusPerRejection)}%";
+			UIManager.SetGameObjectActive(m_bonusArrowsMask, true);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_bonus, false, null);
-			UIManager.SetGameObjectActive(this.m_bonusArrowsMask, false, null);
+			UIManager.SetGameObjectActive(m_bonus, false);
+			UIManager.SetGameObjectActive(m_bonusArrowsMask, false);
 		}
 		QuestRewards rewards = questTemplate.Rewards;
 		int count = rewards.CurrencyRewards.Count;
@@ -298,92 +296,90 @@ public class QuestOffer : MonoBehaviour
 		int count3 = rewards.ItemRewards.Count;
 		if (count + count2 + count3 == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIManager.SetGameObjectActive(m_rewardGrid, false);
+					UIManager.SetGameObjectActive(m_rewardText, false);
+					return;
 				}
-				break;
 			}
-			UIManager.SetGameObjectActive(this.m_rewardGrid, false, null);
-			UIManager.SetGameObjectActive(this.m_rewardText, false, null);
 		}
-		else
+		UIManager.SetGameObjectActive(m_rewardGrid, true);
+		UIManager.SetGameObjectActive(m_rewardText, true);
+		for (int i = 0; i < m_questRewards.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_rewardGrid, true, null);
-			UIManager.SetGameObjectActive(this.m_rewardText, true, null);
-			for (int i = 0; i < this.m_questRewards.Length; i++)
+			if (i < count)
 			{
-				if (i < count)
+				while (true)
 				{
-					for (;;)
+					switch (5)
 					{
-						switch (5)
+					case 0:
+						continue;
+					}
+					break;
+				}
+				UIManager.SetGameObjectActive(m_questRewards[i], true);
+				m_questRewards[i].Setup(rewards.CurrencyRewards[i], rejectedCount);
+			}
+			else if (i - count < count2)
+			{
+				UIManager.SetGameObjectActive(m_questRewards[i], true);
+				m_questRewards[i].SetupHack(rewards.UnlockRewards[i - count].resourceString);
+			}
+			else if (i - count - count2 < count3)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				QuestItemReward questItemReward = rewards.ItemRewards[i - count - count2];
+				InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(questItemReward.ItemTemplateId);
+				UIManager.SetGameObjectActive(m_questRewards[i], true);
+				QuestReward obj = m_questRewards[i];
+				string iconPath = itemTemplate.IconPath;
+				int amount;
+				if (itemTemplate.Type == InventoryItemType.Experience)
+				{
+					while (true)
+					{
+						switch (1)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					UIManager.SetGameObjectActive(this.m_questRewards[i], true, null);
-					this.m_questRewards[i].Setup(rewards.CurrencyRewards[i], rejectedCount);
-				}
-				else if (i - count < count2)
-				{
-					UIManager.SetGameObjectActive(this.m_questRewards[i], true, null);
-					this.m_questRewards[i].SetupHack(rewards.UnlockRewards[i - count].resourceString, 0);
-				}
-				else if (i - count - count2 < count3)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					QuestItemReward questItemReward = rewards.ItemRewards[i - count - count2];
-					InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(questItemReward.ItemTemplateId);
-					UIManager.SetGameObjectActive(this.m_questRewards[i], true, null);
-					QuestReward questReward = this.m_questRewards[i];
-					InventoryItemTemplate itemTemplate2 = itemTemplate;
-					string iconPath = itemTemplate.IconPath;
-					int amount;
-					if (itemTemplate.Type == InventoryItemType.Experience)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						amount = itemTemplate.TypeSpecificData[0];
-					}
-					else
-					{
-						amount = questItemReward.Amount;
-					}
-					questReward.SetupHack(itemTemplate2, iconPath, amount);
+					amount = itemTemplate.TypeSpecificData[0];
 				}
 				else
 				{
-					UIManager.SetGameObjectActive(this.m_questRewards[i], false, null);
+					amount = questItemReward.Amount;
 				}
+				obj.SetupHack(itemTemplate, iconPath, amount);
 			}
-			for (;;)
+			else
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
+				UIManager.SetGameObjectActive(m_questRewards[i], false);
+			}
+		}
+		while (true)
+		{
+			switch (4)
+			{
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}

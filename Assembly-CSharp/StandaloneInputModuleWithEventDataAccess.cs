@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine.EventSystems;
 
 public class StandaloneInputModuleWithEventDataAccess : StandaloneInputModule
@@ -7,116 +6,118 @@ public class StandaloneInputModuleWithEventDataAccess : StandaloneInputModule
 
 	public override void Process()
 	{
-		if (this.m_focusStatus)
+		if (!m_focusStatus)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StandaloneInputModuleWithEventDataAccess.Process()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			base.Process();
+			return;
 		}
 	}
 
 	public PointerEventData GetLastPointerEventDataPublic(int id)
 	{
-		if (this.m_focusStatus)
+		if (m_focusStatus)
 		{
-			return base.GetLastPointerEventData(id);
+			return GetLastPointerEventData(id);
 		}
-		PointerEventData lastPointerEventData = base.GetLastPointerEventData(id);
+		PointerEventData lastPointerEventData = GetLastPointerEventData(id);
 		lastPointerEventData.pointerEnter = null;
 		return lastPointerEventData;
 	}
 
 	private void OnApplicationFocus(bool focusStatus)
 	{
-		this.m_focusStatus = focusStatus;
-		if (!focusStatus)
+		m_focusStatus = focusStatus;
+		if (focusStatus)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			PointerEventData lastPointerEventData = GetLastPointerEventData(-1);
+			if (lastPointerEventData == null)
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StandaloneInputModuleWithEventDataAccess.OnApplicationFocus(bool)).MethodHandle;
-			}
-			PointerEventData lastPointerEventData = base.GetLastPointerEventData(-1);
-			if (lastPointerEventData != null)
-			{
-				for (;;)
+				if (!(lastPointerEventData.pointerEnter != null))
 				{
-					switch (3)
+					return;
+				}
+				while (true)
+				{
+					switch (6)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (lastPointerEventData.pointerEnter != null)
-				{
-					for (;;)
+					EventTrigger component = lastPointerEventData.pointerEnter.GetComponent<EventTrigger>();
+					if (!(component != null))
 					{
-						switch (6)
+						return;
+					}
+					while (true)
+					{
+						switch (4)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					EventTrigger component = lastPointerEventData.pointerEnter.GetComponent<EventTrigger>();
-					if (component != null)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int i = 0; i < component.triggers.Count; i++)
 						{
 							EventTrigger.Entry entry = component.triggers[i];
-							if (entry.eventID == EventTriggerType.PointerExit)
+							if (entry.eventID != EventTriggerType.PointerExit)
 							{
-								for (;;)
+								continue;
+							}
+							while (true)
+							{
+								switch (1)
 								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
+								case 0:
+									continue;
 								}
 								lastPointerEventData.pointerPress = lastPointerEventData.pointerEnter;
 								entry.callback.Invoke(lastPointerEventData);
 								return;
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
+							default:
+								return;
 							case 0:
-								continue;
+								break;
 							}
-							break;
 						}
 					}
 				}
@@ -126,6 +127,6 @@ public class StandaloneInputModuleWithEventDataAccess : StandaloneInputModule
 
 	public bool HasFocus()
 	{
-		return this.m_focusStatus;
+		return m_focusStatus;
 	}
 }

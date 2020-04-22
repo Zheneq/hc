@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 
 public class UISearchQueueTooltip : UITooltipBase
@@ -24,25 +24,25 @@ public class UISearchQueueTooltip : UITooltipBase
 	public void Setup()
 	{
 		LobbyMatchmakingQueueInfo queueInfo = GameManager.Get().QueueInfo;
-		if (queueInfo != null)
+		if (queueInfo == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISearchQueueTooltip.Setup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			TimeSpan timeSpan;
 			if (ClientGameManager.Get().QueueEntryTime == DateTime.MinValue)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -58,10 +58,10 @@ public class UISearchQueueTooltip : UITooltipBase
 				timeSpan = DateTime.UtcNow - ClientGameManager.Get().QueueEntryTime;
 			}
 			TimeSpan matchDuration = timeSpan;
-			this.m_searchQueueTimeInQueueTooltipText.text = string.Format(StringUtil.TR("SecondsTimerShort", "Global"), (int)matchDuration.TotalSeconds);
+			m_searchQueueTimeInQueueTooltipText.text = string.Format(StringUtil.TR("SecondsTimerShort", "Global"), (int)matchDuration.TotalSeconds);
 			if (queueInfo.ShowQueueSize && queueInfo.QueuedPlayers > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -70,24 +70,24 @@ public class UISearchQueueTooltip : UITooltipBase
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_searchQueueSizeRankTooltipText, true, null);
-				UIManager.SetGameObjectActive(this.m_searchQueueSizeRankTooltipTextLabel, true, null);
-				this.m_searchQueueSizeRankTooltipText.text = string.Format("{0}", queueInfo.QueuedPlayers);
+				UIManager.SetGameObjectActive(m_searchQueueSizeRankTooltipText, true);
+				UIManager.SetGameObjectActive(m_searchQueueSizeRankTooltipTextLabel, true);
+				m_searchQueueSizeRankTooltipText.text = $"{queueInfo.QueuedPlayers}";
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.m_searchQueueSizeRankTooltipText, false, null);
-				UIManager.SetGameObjectActive(this.m_searchQueueSizeRankTooltipTextLabel, false, null);
+				UIManager.SetGameObjectActive(m_searchQueueSizeRankTooltipText, false);
+				UIManager.SetGameObjectActive(m_searchQueueSizeRankTooltipTextLabel, false);
 			}
-			this.m_searchQueueAverageWaitTimeTooltipText.text = string.Format(StringUtil.TR("SecondsTimerShort", "Global"), (int)queueInfo.AverageWaitTime.TotalSeconds);
-			this.m_searchQueueQueueStatusTooltipText.text = string.Format(StringUtil.TR("WaitingForStatus", "Global"), queueInfo.WhatQueueIsWaitingForToMakeNextGame);
+			m_searchQueueAverageWaitTimeTooltipText.text = string.Format(StringUtil.TR("SecondsTimerShort", "Global"), (int)queueInfo.AverageWaitTime.TotalSeconds);
+			m_searchQueueQueueStatusTooltipText.text = string.Format(StringUtil.TR("WaitingForStatus", "Global"), queueInfo.WhatQueueIsWaitingForToMakeNextGame);
 			ushort soloSubGameMask = ClientGameManager.Get().GetSoloSubGameMask(queueInfo.GameConfig.GameType);
 			int num = -1;
 			for (ushort num2 = 1; num2 != 0; num2 = (ushort)(num2 << 1))
 			{
 				if ((num2 & soloSubGameMask) != 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -97,10 +97,10 @@ public class UISearchQueueTooltip : UITooltipBase
 						break;
 					}
 					GameBalanceVars.GameRewardBucketType rewardBucket = queueInfo.GameConfig.GetSubType(num2).RewardBucket;
-					int xpbonusForQueueTime = GameBalanceVars.Get().GetXPBonusForQueueTime(rewardBucket, matchDuration);
-					if (num < xpbonusForQueueTime)
+					int xPBonusForQueueTime = GameBalanceVars.Get().GetXPBonusForQueueTime(rewardBucket, matchDuration);
+					if (num < xPBonusForQueueTime)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -109,20 +109,20 @@ public class UISearchQueueTooltip : UITooltipBase
 							}
 							break;
 						}
-						num = xpbonusForQueueTime;
+						num = xPBonusForQueueTime;
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				m_searchQueueXpGainedText.text = string.Format(StringUtil.TR("XpGained", "Global"), num);
+				return;
 			}
-			this.m_searchQueueXpGainedText.text = string.Format(StringUtil.TR("XpGained", "Global"), num);
 		}
 	}
 }

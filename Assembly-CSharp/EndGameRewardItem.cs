@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,15 +22,15 @@ public class EndGameRewardItem : MonoBehaviour
 	{
 		if (CharType == CharacterType.None)
 		{
-			UINewReward.SeasonReward seasonReward;
+			UINewReward.SeasonReward seasonReward = default(UINewReward.SeasonReward);
 			seasonReward.m_itemTemplate = Data.InventoryTemplate;
 			seasonReward.m_amount = Data.Amount;
 			seasonReward.m_unlockLevel = Data.Level;
-			this.m_template = Data.InventoryTemplate;
-			this.m_rewardItemName.text = seasonReward.m_itemTemplate.GetDisplayName();
+			m_template = Data.InventoryTemplate;
+			m_rewardItemName.text = seasonReward.m_itemTemplate.GetDisplayName();
 			if (Data.isRepeating)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -40,15 +39,15 @@ public class EndGameRewardItem : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(EndGameRewardItem.Setup(RewardUtils.RewardData, CharacterType)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_rewardSubText.text = string.Format(StringUtil.TR("AwardedEverySeasonLevels", "Global"), Data.repeatLevels);
+				m_rewardSubText.text = string.Format(StringUtil.TR("AwardedEverySeasonLevels", "Global"), Data.repeatLevels);
 			}
 			else
 			{
-				this.m_rewardSubText.text = string.Format(StringUtil.TR("SeasonLevel", "Seasons"), Data.Level);
+				m_rewardSubText.text = string.Format(StringUtil.TR("SeasonLevel", "Seasons"), Data.Level);
 			}
 			bool doActive = false;
 			bool doActive2 = false;
@@ -56,14 +55,14 @@ public class EndGameRewardItem : MonoBehaviour
 			Sprite sprite = (Sprite)Resources.Load(InventoryWideData.GetSpritePath(seasonReward.m_itemTemplate), typeof(Sprite));
 			if (seasonReward.m_itemTemplate.Type == InventoryItemType.Taunt)
 			{
-				this.m_rewardImage.sprite = sprite;
-				this.m_tauntAbilityIcon.sprite = InventoryWideData.GetItemFg(seasonReward.m_itemTemplate);
+				m_rewardImage.sprite = sprite;
+				m_tauntAbilityIcon.sprite = InventoryWideData.GetItemFg(seasonReward.m_itemTemplate);
 				doActive2 = true;
 				doActive3 = true;
 			}
 			else if (seasonReward.m_itemTemplate.Type == InventoryItemType.BannerID)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -72,125 +71,121 @@ public class EndGameRewardItem : MonoBehaviour
 					}
 					break;
 				}
-				this.m_bannerReward.sprite = sprite;
+				m_bannerReward.sprite = sprite;
 				doActive = true;
 			}
 			else
 			{
-				this.m_rewardImage.sprite = sprite;
+				m_rewardImage.sprite = sprite;
 				doActive2 = true;
 			}
-			UIManager.SetGameObjectActive(this.m_bannerReward, doActive, null);
-			UIManager.SetGameObjectActive(this.m_rewardImage, doActive2, null);
-			UIManager.SetGameObjectActive(this.m_tauntAbilityIcon, doActive3, null);
-			if (this.m_tooltipHoverObj != null)
+			UIManager.SetGameObjectActive(m_bannerReward, doActive);
+			UIManager.SetGameObjectActive(m_rewardImage, doActive2);
+			UIManager.SetGameObjectActive(m_tauntAbilityIcon, doActive3);
+			if (!(m_tooltipHoverObj != null))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_tooltipHoverObj.Setup(TooltipType.InventoryItem, new TooltipPopulateCall(this.SetupTooltip), null);
-				this.m_tooltipHoverObj.Refresh();
+				return;
 			}
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				m_tooltipHoverObj.Setup(TooltipType.InventoryItem, SetupTooltip);
+				m_tooltipHoverObj.Refresh();
+				return;
+			}
+		}
+		m_rewardItemName.text = RewardUtils.GetDisplayString(Data, true);
+		string str = string.Empty;
+		if (Data.isRepeating)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			str = string.Format(StringUtil.TR("AwardedEveryCharacterLevels", "Global"), Data.repeatLevels, GameWideData.Get().GetCharacterResourceLink(CharType).GetDisplayName());
 		}
 		else
 		{
-			this.m_rewardItemName.text = RewardUtils.GetDisplayString(Data, true);
-			string text = string.Empty;
-			if (Data.isRepeating)
+			if (Data.Level > 0)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (7)
+					switch (1)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				text = string.Format(StringUtil.TR("AwardedEveryCharacterLevels", "Global"), Data.repeatLevels, GameWideData.Get().GetCharacterResourceLink(CharType).GetDisplayName());
+				str = string.Format(StringUtil.TR("LevelRequirement", "Rewards"), Data.Level);
 			}
-			else
+			str = str + " " + GameWideData.Get().GetCharacterResourceLink(CharType).GetDisplayName();
+		}
+		str = str.Trim();
+		m_rewardSubText.text = str;
+		if (Data.SpritePath == null)
+		{
+			while (true)
 			{
-				if (Data.Level > 0)
+				switch (2)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					text = string.Format(StringUtil.TR("LevelRequirement", "Rewards"), Data.Level);
-				}
-				text = text + " " + GameWideData.Get().GetCharacterResourceLink(CharType).GetDisplayName();
-			}
-			text = text.Trim();
-			this.m_rewardSubText.text = text;
-			if (Data.SpritePath == null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
+				case 0:
 					break;
+				default:
+					m_rewardImage.sprite = (Sprite)Resources.Load("QuestRewards/general", typeof(Sprite));
+					return;
 				}
-				this.m_rewardImage.sprite = (Sprite)Resources.Load("QuestRewards/general", typeof(Sprite));
-			}
-			else
-			{
-				bool doActive4 = false;
-				bool doActive5 = false;
-				bool doActive6 = false;
-				Sprite sprite2 = (Sprite)Resources.Load(Data.SpritePath, typeof(Sprite));
-				if (Data.Type == RewardUtils.RewardType.Banner)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					doActive4 = true;
-					this.m_bannerReward.sprite = sprite2;
-				}
-				else if (Data.Foreground != null)
-				{
-					doActive5 = true;
-					doActive6 = true;
-					this.m_rewardImage.sprite = sprite2;
-					this.m_tauntAbilityIcon.sprite = Data.Foreground;
-				}
-				else
-				{
-					doActive5 = true;
-					this.m_rewardImage.sprite = sprite2;
-				}
-				UIManager.SetGameObjectActive(this.m_bannerReward, doActive4, null);
-				UIManager.SetGameObjectActive(this.m_rewardImage, doActive5, null);
-				UIManager.SetGameObjectActive(this.m_tauntAbilityIcon, doActive6, null);
 			}
 		}
+		bool doActive4 = false;
+		bool doActive5 = false;
+		bool doActive6 = false;
+		Sprite sprite2 = (Sprite)Resources.Load(Data.SpritePath, typeof(Sprite));
+		if (Data.Type == RewardUtils.RewardType.Banner)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			doActive4 = true;
+			m_bannerReward.sprite = sprite2;
+		}
+		else if (Data.Foreground != null)
+		{
+			doActive5 = true;
+			doActive6 = true;
+			m_rewardImage.sprite = sprite2;
+			m_tauntAbilityIcon.sprite = Data.Foreground;
+		}
+		else
+		{
+			doActive5 = true;
+			m_rewardImage.sprite = sprite2;
+		}
+		UIManager.SetGameObjectActive(m_bannerReward, doActive4);
+		UIManager.SetGameObjectActive(m_rewardImage, doActive5);
+		UIManager.SetGameObjectActive(m_tauntAbilityIcon, doActive6);
 	}
 
 	private bool SetupTooltip(UITooltipBase tooltip)
 	{
 		if (tooltip is UIInventoryItemTooltip)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -199,23 +194,23 @@ public class EndGameRewardItem : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EndGameRewardItem.SetupTooltip(UITooltipBase)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_template != null)
+			if (m_template != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						(tooltip as UIInventoryItemTooltip).Setup(m_template);
+						return true;
 					}
-					break;
 				}
-				(tooltip as UIInventoryItemTooltip).Setup(this.m_template);
-				return true;
 			}
 		}
 		return false;

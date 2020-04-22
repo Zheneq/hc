@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class AssetFileSelectorAttribute : PropertyAttribute
@@ -11,8 +10,8 @@ public class AssetFileSelectorAttribute : PropertyAttribute
 
 	public AssetFileSelectorAttribute(string assetPathRoot, string prefix, string extension)
 	{
-		this.m_assetPathRoot = assetPathRoot;
-		this.m_prefix = prefix;
-		this.m_extension = extension;
+		m_assetPathRoot = assetPathRoot;
+		m_prefix = prefix;
+		m_extension = extension;
 	}
 }

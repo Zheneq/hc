@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,46 +41,45 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SparkAoeBuffDebuff sparkAoeBuffDebuff = targetAbility as SparkAoeBuffDebuff;
-		if (sparkAoeBuffDebuff != null)
+		if (!(sparkAoeBuffDebuff != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkAoeBuffDebuff.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_radiusMod, "TargetingRadius", "targeting radius", sparkAoeBuffDebuff.m_radius, true, false, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_allyHitEffectMod, "EffectOnAlly", sparkAoeBuffDebuff.m_allyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_allyHealMod, "Heal_OnAlly", "heal on ally", sparkAoeBuffDebuff.m_allyHealAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_selfHitEffectMod, "EffectOnSelf", sparkAoeBuffDebuff.m_selfHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_baseSelfHealMod, "Heal_BaseOnSelf", "base heal on self", sparkAoeBuffDebuff.m_baseSelfHeal, true, false);
-			AbilityMod.AddToken(tokens, this.m_selfHealPerHitMod, "Heal_PerTargetHit", "heal on self per hit", sparkAoeBuffDebuff.m_selfHealAmountPerHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_shieldOnSelfPerAllyHitMod, "SelfShieldPerAllyHit", "shield on self per ally hit", 0, false, false);
-			tokens.Add(new TooltipTokenInt("ShieldOnSelfDuration", "duration for shield on self, from ally hits", this.m_shieldOnSelfDuration));
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EffectOnEnemy", sparkAoeBuffDebuff.m_enemyHitEffect, true);
+			AbilityMod.AddToken(tokens, m_radiusMod, "TargetingRadius", "targeting radius", sparkAoeBuffDebuff.m_radius);
+			AbilityMod.AddToken_EffectMod(tokens, m_allyHitEffectMod, "EffectOnAlly", sparkAoeBuffDebuff.m_allyHitEffect);
+			AbilityMod.AddToken(tokens, m_allyHealMod, "Heal_OnAlly", "heal on ally", sparkAoeBuffDebuff.m_allyHealAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_selfHitEffectMod, "EffectOnSelf", sparkAoeBuffDebuff.m_selfHitEffect);
+			AbilityMod.AddToken(tokens, m_baseSelfHealMod, "Heal_BaseOnSelf", "base heal on self", sparkAoeBuffDebuff.m_baseSelfHeal);
+			AbilityMod.AddToken(tokens, m_selfHealPerHitMod, "Heal_PerTargetHit", "heal on self per hit", sparkAoeBuffDebuff.m_selfHealAmountPerHit);
+			AbilityMod.AddToken(tokens, m_shieldOnSelfPerAllyHitMod, "SelfShieldPerAllyHit", "shield on self per ally hit", 0, false);
+			tokens.Add(new TooltipTokenInt("ShieldOnSelfDuration", "duration for shield on self, from ally hits", m_shieldOnSelfDuration));
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EffectOnEnemy", sparkAoeBuffDebuff.m_enemyHitEffect);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SparkAoeBuffDebuff sparkAoeBuffDebuff = base.GetTargetAbilityOnAbilityData(abilityData) as SparkAoeBuffDebuff;
+		SparkAoeBuffDebuff sparkAoeBuffDebuff = GetTargetAbilityOnAbilityData(abilityData) as SparkAoeBuffDebuff;
 		bool flag = sparkAoeBuffDebuff != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat radiusMod = this.m_radiusMod;
-		string prefix = "[Targeting Radius]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat radiusMod = m_radiusMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -89,9 +88,9 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkAoeBuffDebuff.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = sparkAoeBuffDebuff.m_radius;
 		}
@@ -99,15 +98,13 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(radiusMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyBool ignoreLosMod = this.m_ignoreLosMod;
-		string prefix2 = "[Ignore LoS?]";
-		bool showBaseVal2 = flag;
-		bool baseVal2;
+		empty = str + PropDesc(radiusMod, "[Targeting Radius]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyBool ignoreLosMod = m_ignoreLosMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -116,21 +113,19 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 				}
 				break;
 			}
-			baseVal2 = sparkAoeBuffDebuff.m_penetrateLos;
+			baseVal2 = (sparkAoeBuffDebuff.m_penetrateLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal2 = false;
+			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(ignoreLosMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt allyHealMod = this.m_allyHealMod;
-		string prefix3 = "[Ally Heal]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(ignoreLosMod, "[Ignore LoS?]", flag, (byte)baseVal2 != 0);
+		string str3 = empty;
+		AbilityModPropertyInt allyHealMod = m_allyHealMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -145,15 +140,13 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(allyHealMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyEffectInfo allyHitEffectMod = this.m_allyHitEffectMod;
-		string prefix4 = "{ Ally Hit Effect }";
-		bool showBaseVal4 = flag;
-		StandardEffectInfo baseVal4;
+		empty = str3 + PropDesc(allyHealMod, "[Ally Heal]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyEffectInfo allyHitEffectMod = m_allyHitEffectMod;
+		object baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -168,15 +161,13 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		{
 			baseVal4 = null;
 		}
-		text = str4 + base.PropDesc(allyHitEffectMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt baseSelfHealMod = this.m_baseSelfHealMod;
-		string prefix5 = "[Base Self Heal]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(allyHitEffectMod, "{ Ally Hit Effect }", flag, (StandardEffectInfo)baseVal4);
+		string str5 = empty;
+		AbilityModPropertyInt baseSelfHealMod = m_baseSelfHealMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -191,15 +182,13 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(baseSelfHealMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt selfHealPerHitMod = this.m_selfHealPerHitMod;
-		string prefix6 = "[Self Heal per Hit]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(baseSelfHealMod, "[Base Self Heal]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt selfHealPerHitMod = m_selfHealPerHitMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -214,15 +203,13 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(selfHealPerHitMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyBool selfHealHitCountEnemy = this.m_selfHealHitCountEnemy;
-		string prefix7 = "[Self Heal Count Enemy]";
-		bool showBaseVal7 = flag;
-		bool baseVal7;
+		empty = str6 + PropDesc(selfHealPerHitMod, "[Self Heal per Hit]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyBool selfHealHitCountEnemy = m_selfHealHitCountEnemy;
+		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -231,21 +218,19 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 				}
 				break;
 			}
-			baseVal7 = sparkAoeBuffDebuff.m_selfHealCountEnemyHit;
+			baseVal7 = (sparkAoeBuffDebuff.m_selfHealCountEnemyHit ? 1 : 0);
 		}
 		else
 		{
-			baseVal7 = false;
+			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(selfHealHitCountEnemy, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyBool selfHealHitCountAlly = this.m_selfHealHitCountAlly;
-		string prefix8 = "[Self Heal Count Ally]";
-		bool showBaseVal8 = flag;
-		bool baseVal8;
+		empty = str7 + PropDesc(selfHealHitCountEnemy, "[Self Heal Count Enemy]", flag, (byte)baseVal7 != 0);
+		string str8 = empty;
+		AbilityModPropertyBool selfHealHitCountAlly = m_selfHealHitCountAlly;
+		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -254,18 +239,18 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 				}
 				break;
 			}
-			baseVal8 = sparkAoeBuffDebuff.m_selfHealCountAllyHit;
+			baseVal8 = (sparkAoeBuffDebuff.m_selfHealCountAllyHit ? 1 : 0);
 		}
 		else
 		{
-			baseVal8 = false;
+			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(selfHealHitCountAlly, prefix8, showBaseVal8, baseVal8);
-		text += base.PropDesc(this.m_selfHitEffectMod, "{ Self Hit Effect }", flag, (!flag) ? null : sparkAoeBuffDebuff.m_selfHitEffect);
-		text += base.PropDesc(this.m_shieldOnSelfPerAllyHitMod, "[Shield on Self per Hit]", false, 0);
-		if (this.m_shieldOnSelfPerAllyHitMod != null && this.m_shieldOnSelfPerAllyHitMod.GetModifiedValue(0) > 0)
+		empty = str8 + PropDesc(selfHealHitCountAlly, "[Self Heal Count Ally]", flag, (byte)baseVal8 != 0);
+		empty += PropDesc(m_selfHitEffectMod, "{ Self Hit Effect }", flag, (!flag) ? null : sparkAoeBuffDebuff.m_selfHitEffect);
+		empty += PropDesc(m_shieldOnSelfPerAllyHitMod, "[Shield on Self per Hit]");
+		if (m_shieldOnSelfPerAllyHitMod != null && m_shieldOnSelfPerAllyHitMod.GetModifiedValue(0) > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -274,23 +259,15 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 				}
 				break;
 			}
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"[Shield Duration (for hit on allies)] ",
-				this.m_shieldOnSelfDuration,
-				"\n"
-			});
+			string text = empty;
+			empty = text + "[Shield Duration (for hit on allies)] " + m_shieldOnSelfDuration + "\n";
 		}
-		string str9 = text;
-		AbilityModPropertyEffectInfo enemyHitEffectMod = this.m_enemyHitEffectMod;
-		string prefix9 = "{ Enemy Hit Effect }";
-		bool showBaseVal9 = flag;
-		StandardEffectInfo baseVal9;
+		string str9 = empty;
+		AbilityModPropertyEffectInfo enemyHitEffectMod = m_enemyHitEffectMod;
+		object baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -305,6 +282,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		{
 			baseVal9 = null;
 		}
-		return str9 + base.PropDesc(enemyHitEffectMod, prefix9, showBaseVal9, baseVal9);
+		return str9 + PropDesc(enemyHitEffectMod, "{ Enemy Hit Effect }", flag, (StandardEffectInfo)baseVal9);
 	}
 }

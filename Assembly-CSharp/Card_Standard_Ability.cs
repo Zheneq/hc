@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ public class Card_Standard_Ability : Ability
 	public bool m_targetCenterAtCaster;
 
 	[Header("-- On Hit --")]
-	public int m_healAmount = 0x1E;
+	public int m_healAmount = 30;
 
 	public int m_techPointsAmount;
 
@@ -28,30 +27,30 @@ public class Card_Standard_Ability : Ability
 
 	private void Start()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false);
 		base.Targeter.ShowArcToShape = false;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, this.m_healAmount);
-		AbilityTooltipHelper.ReportEnergy(ref result, AbilityTooltipSubject.Self, this.m_techPointsAmount);
-		if (this.m_applyEffect)
+		List<AbilityTooltipNumber> number = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Self, m_healAmount);
+		AbilityTooltipHelper.ReportEnergy(ref number, AbilityTooltipSubject.Self, m_techPointsAmount);
+		if (m_applyEffect)
 		{
-			this.m_effect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
+			m_effect.ReportAbilityTooltipNumbers(ref number, AbilityTooltipSubject.Self);
 		}
-		return result;
+		return number;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		int val = Mathf.Max(0, this.m_healAmount + this.m_effect.m_healingPerTurn * Mathf.Max(0, this.m_effect.m_duration - 1));
-		base.AddTokenInt(tokens, "TotalHeal", string.Empty, val, false);
-		base.AddTokenInt(tokens, "HealAmount", string.Empty, this.m_healAmount, false);
-		base.AddTokenInt(tokens, "TechPointsAmount", string.Empty, this.m_techPointsAmount, false);
-		base.AddTokenInt(tokens, "PersonalCredits", string.Empty, this.m_personalCredits, false);
-		base.AddTokenInt(tokens, "TeamCredits", string.Empty, this.m_teamCredits, false);
-		this.m_effect.AddTooltipTokens(tokens, "Effect", false, null);
+		int val = Mathf.Max(0, m_healAmount + m_effect.m_healingPerTurn * Mathf.Max(0, m_effect.m_duration - 1));
+		AddTokenInt(tokens, "TotalHeal", string.Empty, val);
+		AddTokenInt(tokens, "HealAmount", string.Empty, m_healAmount);
+		AddTokenInt(tokens, "TechPointsAmount", string.Empty, m_techPointsAmount);
+		AddTokenInt(tokens, "PersonalCredits", string.Empty, m_personalCredits);
+		AddTokenInt(tokens, "TeamCredits", string.Empty, m_teamCredits);
+		m_effect.AddTooltipTokens(tokens, "Effect");
 	}
 }

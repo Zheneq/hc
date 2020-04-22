@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,46 +9,47 @@ public class UIControlPointNameplatePanel : MonoBehaviour
 
 	public void AddControlPoint(ControlPoint controlPoint)
 	{
-		UIControlPointNameplateItem uicontrolPointNameplateItem = UnityEngine.Object.Instantiate<UIControlPointNameplateItem>(this.m_controlPointNameplateItemPrefab);
-		uicontrolPointNameplateItem.Setup(controlPoint);
-		this.m_controlPointNameplates[controlPoint] = uicontrolPointNameplateItem;
-		uicontrolPointNameplateItem.transform.SetParent(base.transform);
-		(uicontrolPointNameplateItem.transform as RectTransform).localScale = Vector3.one;
-		(uicontrolPointNameplateItem.transform as RectTransform).localPosition = Vector3.zero;
+		UIControlPointNameplateItem uIControlPointNameplateItem = Object.Instantiate(m_controlPointNameplateItemPrefab);
+		uIControlPointNameplateItem.Setup(controlPoint);
+		m_controlPointNameplates[controlPoint] = uIControlPointNameplateItem;
+		uIControlPointNameplateItem.transform.SetParent(base.transform);
+		(uIControlPointNameplateItem.transform as RectTransform).localScale = Vector3.one;
+		(uIControlPointNameplateItem.transform as RectTransform).localPosition = Vector3.zero;
 	}
 
 	public void RemoveControlPoint(ControlPoint controlPoint)
 	{
-		if (this.m_controlPointNameplates.ContainsKey(controlPoint))
+		if (!m_controlPointNameplates.ContainsKey(controlPoint))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIControlPointNameplatePanel.RemoveControlPoint(ControlPoint)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UIControlPointNameplateItem uicontrolPointNameplateItem = this.m_controlPointNameplates[controlPoint];
-			this.m_controlPointNameplates.Remove(controlPoint);
-			if (uicontrolPointNameplateItem != null)
+			UIControlPointNameplateItem uIControlPointNameplateItem = m_controlPointNameplates[controlPoint];
+			m_controlPointNameplates.Remove(controlPoint);
+			if (uIControlPointNameplateItem != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					Object.Destroy(uIControlPointNameplateItem.gameObject);
+					return;
 				}
-				UnityEngine.Object.Destroy(uicontrolPointNameplateItem.gameObject);
 			}
+			return;
 		}
 	}
 }

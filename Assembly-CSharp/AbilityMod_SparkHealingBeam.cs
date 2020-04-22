@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,56 +48,55 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SparkHealingBeam sparkHealingBeam = targetAbility as SparkHealingBeam;
-		if (sparkHealingBeam != null)
+		if (!(sparkHealingBeam != null))
 		{
-			AbilityMod.AddToken(tokens, this.m_initialHealingMod, "Heal_FirstTurn", "heal on first turn", sparkHealingBeam.m_laserHealingAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_healPerTurnMod, "Heal_PerTurnAfterFirst", "heal per turn after first turn", sparkHealingBeam.m_laserHitEffect.m_effectData.m_healingPerTurn, true, false);
-			AbilityMod.AddToken(tokens, this.m_additionalHealOnRadiatedMod, "Heal_AdditionalOnRadiated", "additional damage on Radiated", sparkHealingBeam.m_additionalEnergizedHealing, true, false);
-			if (this.m_useBonusHealOverTime)
+			return;
+		}
+		AbilityMod.AddToken(tokens, m_initialHealingMod, "Heal_FirstTurn", "heal on first turn", sparkHealingBeam.m_laserHealingAmount);
+		AbilityMod.AddToken(tokens, m_healPerTurnMod, "Heal_PerTurnAfterFirst", "heal per turn after first turn", sparkHealingBeam.m_laserHitEffect.m_effectData.m_healingPerTurn);
+		AbilityMod.AddToken(tokens, m_additionalHealOnRadiatedMod, "Heal_AdditionalOnRadiated", "additional damage on Radiated", sparkHealingBeam.m_additionalEnergizedHealing);
+		if (m_useBonusHealOverTime)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (2)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkHealingBeam.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-				}
-				AbilityMod.AddToken(tokens, this.m_bonusAllyHealIncreaseRate, "BonusAllyHeal_GrowthRate", "increase in bonus heal per turn", 0, true, false);
-				AbilityMod.AddToken(tokens, this.m_maxAllyBonusHealAmount, "BonusAllyHeal_MaxHealAmount", "max bonus heal amount", 0, true, false);
+				break;
 			}
-			AbilityMod.AddToken(tokens, this.m_healOnCasterOnTickMod, "Heal_OnCasterPerTurn", "heal on caster per turn", sparkHealingBeam.m_healOnSelfOnTick, true, false);
-			AbilityMod.AddToken(tokens, this.m_energyOnCasterPerTurnMod, "EnergyOnCasterPerTurn", string.Empty, sparkHealingBeam.m_energyOnCasterPerTurn, true, false);
-			AbilityMod.AddToken(tokens, this.m_tetherDistanceMod, "TetherDistance", "tether distance before breaking", sparkHealingBeam.m_tetherDistance, true, false, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_tetherBaseEffectOverride, "TetherEffect", sparkHealingBeam.m_laserHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_tetherDurationMod, "TetherDuration", string.Empty, sparkHealingBeam.m_tetherDuration, true, false);
-			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "Laser", sparkHealingBeam.m_laserInfo, true);
-			if (this.m_xDamageThreshold > 0)
+			if (1 == 0)
 			{
-				tokens.Add(new TooltipTokenInt("XDamageThresholdForEffect", "how much damage to trigger extra effect on target", this.m_xDamageThreshold));
-				AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnTargetForTakingXDamage, "EffectForTakingXDamage", null, true);
+				/*OpCode not supported: LdMemberToken*/;
 			}
+			AbilityMod.AddToken(tokens, m_bonusAllyHealIncreaseRate, "BonusAllyHeal_GrowthRate", "increase in bonus heal per turn", 0);
+			AbilityMod.AddToken(tokens, m_maxAllyBonusHealAmount, "BonusAllyHeal_MaxHealAmount", "max bonus heal amount", 0);
+		}
+		AbilityMod.AddToken(tokens, m_healOnCasterOnTickMod, "Heal_OnCasterPerTurn", "heal on caster per turn", sparkHealingBeam.m_healOnSelfOnTick);
+		AbilityMod.AddToken(tokens, m_energyOnCasterPerTurnMod, "EnergyOnCasterPerTurn", string.Empty, sparkHealingBeam.m_energyOnCasterPerTurn);
+		AbilityMod.AddToken(tokens, m_tetherDistanceMod, "TetherDistance", "tether distance before breaking", sparkHealingBeam.m_tetherDistance);
+		AbilityMod.AddToken_EffectMod(tokens, m_tetherBaseEffectOverride, "TetherEffect", sparkHealingBeam.m_laserHitEffect);
+		AbilityMod.AddToken(tokens, m_tetherDurationMod, "TetherDuration", string.Empty, sparkHealingBeam.m_tetherDuration);
+		AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "Laser", sparkHealingBeam.m_laserInfo);
+		if (m_xDamageThreshold > 0)
+		{
+			tokens.Add(new TooltipTokenInt("XDamageThresholdForEffect", "how much damage to trigger extra effect on target", m_xDamageThreshold));
+			AbilityMod.AddToken_EffectInfo(tokens, m_effectOnTargetForTakingXDamage, "EffectForTakingXDamage");
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SparkHealingBeam sparkHealingBeam = base.GetTargetAbilityOnAbilityData(abilityData) as SparkHealingBeam;
+		SparkHealingBeam sparkHealingBeam = GetTargetAbilityOnAbilityData(abilityData) as SparkHealingBeam;
 		bool flag = sparkHealingBeam != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt initialHealingMod = this.m_initialHealingMod;
-		string prefix = "[Initial Heal On Attach]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt initialHealingMod = m_initialHealingMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -106,9 +105,9 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkHealingBeam.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = sparkHealingBeam.m_laserHealingAmount;
 		}
@@ -116,16 +115,14 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(initialHealingMod, prefix, showBaseVal, baseVal);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_healPerTurnMod, "[Heal per Turn]", flag, (!flag) ? 0 : sparkHealingBeam.m_laserHitEffect.m_effectData.m_healingPerTurn);
-		string str2 = text;
-		AbilityModPropertyInt additionalHealOnRadiatedMod = this.m_additionalHealOnRadiatedMod;
-		string prefix2 = "[Additional Healing on Radiated]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(initialHealingMod, "[Initial Heal On Attach]", flag, baseVal);
+		empty += AbilityModHelper.GetModPropertyDesc(m_healPerTurnMod, "[Heal per Turn]", flag, flag ? sparkHealingBeam.m_laserHitEffect.m_effectData.m_healingPerTurn : 0);
+		string str2 = empty;
+		AbilityModPropertyInt additionalHealOnRadiatedMod = m_additionalHealOnRadiatedMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -140,10 +137,10 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(additionalHealOnRadiatedMod, prefix2, showBaseVal2, baseVal2);
-		if (this.m_useBonusHealOverTime)
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(additionalHealOnRadiatedMod, "[Additional Healing on Radiated]", flag, baseVal2);
+		if (m_useBonusHealOverTime)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -152,19 +149,17 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 				}
 				break;
 			}
-			text += "Using Bonus Heal Over Time (please remember to put in a max cap)\n";
-			text += AbilityModHelper.GetModPropertyDesc(this.m_bonusAllyHealIncreaseRate, "[Bonus Ally Heal Increase Rate]", flag, 0);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_maxAllyBonusHealAmount, "[Max Bonus Ally Heal Amount]", flag, 0);
+			empty += "Using Bonus Heal Over Time (please remember to put in a max cap)\n";
+			empty += AbilityModHelper.GetModPropertyDesc(m_bonusAllyHealIncreaseRate, "[Bonus Ally Heal Increase Rate]", flag);
+			empty += AbilityModHelper.GetModPropertyDesc(m_maxAllyBonusHealAmount, "[Max Bonus Ally Heal Amount]", flag);
 		}
-		text += AbilityModHelper.GetModPropertyDesc(this.m_healOnCasterOnTickMod, "[Heal on Caster per Turn]", flag, (!flag) ? 0 : sparkHealingBeam.m_healOnSelfOnTick);
-		string str3 = text;
-		AbilityModPropertyInt energyOnCasterPerTurnMod = this.m_energyOnCasterPerTurnMod;
-		string prefix3 = "[EnergyOnCasterPerTurn]";
-		bool showBaseVal3 = flag;
+		empty += AbilityModHelper.GetModPropertyDesc(m_healOnCasterOnTickMod, "[Heal on Caster per Turn]", flag, flag ? sparkHealingBeam.m_healOnSelfOnTick : 0);
+		string str3 = empty;
+		AbilityModPropertyInt energyOnCasterPerTurnMod = m_energyOnCasterPerTurnMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -179,16 +174,14 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(energyOnCasterPerTurnMod, prefix3, showBaseVal3, baseVal3);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_tetherDistanceMod, "[Tether Distance]", flag, (!flag) ? 0f : sparkHealingBeam.m_tetherDistance);
-		string str4 = text;
-		AbilityModPropertyEffectInfo tetherBaseEffectOverride = this.m_tetherBaseEffectOverride;
-		string prefix4 = "{ Tether Base Effect Override }";
-		bool showBaseVal4 = flag;
-		StandardEffectInfo baseVal4;
+		empty = str3 + PropDesc(energyOnCasterPerTurnMod, "[EnergyOnCasterPerTurn]", flag, baseVal3);
+		empty += AbilityModHelper.GetModPropertyDesc(m_tetherDistanceMod, "[Tether Distance]", flag, (!flag) ? 0f : sparkHealingBeam.m_tetherDistance);
+		string str4 = empty;
+		AbilityModPropertyEffectInfo tetherBaseEffectOverride = m_tetherBaseEffectOverride;
+		object baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -203,15 +196,13 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		{
 			baseVal4 = null;
 		}
-		text = str4 + AbilityModHelper.GetModPropertyDesc(tetherBaseEffectOverride, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt tetherDurationMod = this.m_tetherDurationMod;
-		string prefix5 = "[TetherDuration]";
-		bool showBaseVal5 = flag;
+		empty = str4 + AbilityModHelper.GetModPropertyDesc(tetherBaseEffectOverride, "{ Tether Base Effect Override }", flag, (StandardEffectInfo)baseVal4);
+		string str5 = empty;
+		AbilityModPropertyInt tetherDurationMod = m_tetherDurationMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -226,15 +217,13 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(tetherDurationMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyLaserInfo laserInfoMod = this.m_laserInfoMod;
-		string prefix6 = "LaserInfo";
-		bool showBaseVal6 = flag;
-		LaserTargetingInfo baseLaserInfo;
+		empty = str5 + PropDesc(tetherDurationMod, "[TetherDuration]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyLaserInfo laserInfoMod = m_laserInfoMod;
+		object baseLaserInfo;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -249,10 +238,10 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		{
 			baseLaserInfo = null;
 		}
-		text = str6 + AbilityModHelper.GetModPropertyDesc(laserInfoMod, prefix6, showBaseVal6, baseLaserInfo);
-		if (this.m_xDamageThreshold > 0)
+		empty = str6 + AbilityModHelper.GetModPropertyDesc(laserInfoMod, "LaserInfo", flag, (LaserTargetingInfo)baseLaserInfo);
+		if (m_xDamageThreshold > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -261,16 +250,10 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 				}
 				break;
 			}
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"Applying Effect for taking X Damage, threshold = ",
-				this.m_xDamageThreshold,
-				"\n"
-			});
-			text += AbilityModHelper.GetModEffectInfoDesc(this.m_effectOnTargetForTakingXDamage, "{ Effect on Target for Taking X Damage }", string.Empty, flag, null);
+			string text = empty;
+			empty = text + "Applying Effect for taking X Damage, threshold = " + m_xDamageThreshold + "\n";
+			empty += AbilityModHelper.GetModEffectInfoDesc(m_effectOnTargetForTakingXDamage, "{ Effect on Target for Taking X Damage }", string.Empty, flag);
 		}
-		return text;
+		return empty;
 	}
 }

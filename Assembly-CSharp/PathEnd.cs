@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class PathEnd : MonoBehaviour
@@ -14,11 +13,12 @@ public class PathEnd : MonoBehaviour
 	public void SetColor(Color newColor)
 	{
 		MeshRenderer[] componentsInChildren = base.gameObject.GetComponentsInChildren<MeshRenderer>();
-		foreach (MeshRenderer meshRenderer in componentsInChildren)
+		MeshRenderer[] array = componentsInChildren;
+		foreach (MeshRenderer meshRenderer in array)
 		{
 			if (meshRenderer.materials.Length > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -27,9 +27,9 @@ public class PathEnd : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PathEnd.SetColor(Color)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (meshRenderer.materials[0] != null)
 				{

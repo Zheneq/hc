@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class CharacterAbilityConfigOverride
@@ -9,42 +9,42 @@ public class CharacterAbilityConfigOverride
 
 	public CharacterAbilityConfigOverride(CharacterType characterType)
 	{
-		this.CharacterType = characterType;
-		Array.Resize<AbilityConfigOverride>(ref this.AbilityConfigs, 5);
+		CharacterType = characterType;
+		Array.Resize(ref AbilityConfigs, 5);
 	}
 
 	public AbilityConfigOverride GetAbilityConfig(int abilityIndex)
 	{
-		if (abilityIndex < this.AbilityConfigs.Length)
+		if (abilityIndex < AbilityConfigs.Length)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return AbilityConfigs[abilityIndex];
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterAbilityConfigOverride.GetAbilityConfig(int)).MethodHandle;
-			}
-			return this.AbilityConfigs[abilityIndex];
 		}
 		return null;
 	}
 
 	public void SetAbilityConfig(int abilityIndex, AbilityConfigOverride abilityConfig)
 	{
-		if (abilityIndex < this.AbilityConfigs.Length)
+		if (abilityIndex < AbilityConfigs.Length)
 		{
-			this.AbilityConfigs[abilityIndex] = abilityConfig;
+			AbilityConfigs[abilityIndex] = abilityConfig;
 		}
 	}
 
 	public CharacterAbilityConfigOverride Clone()
 	{
-		return (CharacterAbilityConfigOverride)base.MemberwiseClone();
+		return (CharacterAbilityConfigOverride)MemberwiseClone();
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class BattleMonkThrowSwordSequence : SplineProjectileSequence
@@ -10,7 +9,7 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 
 	[Header("-- Sword / Satellite Info")]
 	[AnimEventPicker]
-	public UnityEngine.Object m_swordRemoveEvent;
+	public Object m_swordRemoveEvent;
 
 	public float m_splineMaxHeight;
 
@@ -20,10 +19,10 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 	public bool m_lineSpawnOnProjectileImpact;
 
 	[AnimEventPicker]
-	public UnityEngine.Object m_lineStartEvent;
+	public Object m_lineStartEvent;
 
 	[AnimEventPicker]
-	public UnityEngine.Object m_lineRemoveEvent;
+	public Object m_lineRemoveEvent;
 
 	public float m_lineDuration = -1f;
 
@@ -47,9 +46,9 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 	public override void FinishSetup()
 	{
 		base.FinishSetup();
-		if (this.m_lineStartEvent == null)
+		if (m_lineStartEvent == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -58,13 +57,13 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkThrowSwordSequence.FinishSetup()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_lineSpawnOnProjectileImpact)
+			if (!m_lineSpawnOnProjectileImpact)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -73,20 +72,20 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 					}
 					break;
 				}
-				this.SpawnLineFX();
+				SpawnLineFX();
 			}
 		}
-		this.m_markForRemovalAfterImpact = false;
-		this.m_doHitsAsProjectileTravels = false;
+		m_markForRemovalAfterImpact = false;
+		m_doHitsAsProjectileTravels = false;
 	}
 
 	protected override void SpawnImpactFX(Vector3 impactPos, Quaternion impactRot)
 	{
 		base.SpawnImpactFX(impactPos, impactRot);
-		this.m_swordTempSatelliteInstance = base.InstantiateFX(this.m_swordTempSatellitePrefab, base.TargetPos + new Vector3(0f, this.m_satelliteHeightOffset, 0f), Quaternion.identity, true, true);
-		if (this.m_swordTempSatelliteInstance != null)
+		m_swordTempSatelliteInstance = InstantiateFX(m_swordTempSatellitePrefab, base.TargetPos + new Vector3(0f, m_satelliteHeightOffset, 0f), Quaternion.identity);
+		if (m_swordTempSatelliteInstance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -95,16 +94,16 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkThrowSwordSequence.SpawnImpactFX(Vector3, Quaternion)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			TempSatellite component = this.m_swordTempSatelliteInstance.GetComponent<TempSatellite>();
+			TempSatellite component = m_swordTempSatelliteInstance.GetComponent<TempSatellite>();
 			component.Setup(this);
 			component.SetNotifyOwnerOnAnimEvent(false);
-			if (this.m_lineSpawned)
+			if (m_lineSpawned)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -113,9 +112,9 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 					}
 					break;
 				}
-				if (!this.m_lineFxSatelliteJoint.IsInitialized())
+				if (!m_lineFxSatelliteJoint.IsInitialized())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -124,10 +123,10 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 						}
 						break;
 					}
-					GameObject swordTempSatelliteInstance = this.m_swordTempSatelliteInstance;
+					GameObject swordTempSatelliteInstance = m_swordTempSatelliteInstance;
 					if (swordTempSatelliteInstance != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -136,251 +135,252 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 							}
 							break;
 						}
-						this.m_lineFxSatelliteJoint.Initialize(swordTempSatelliteInstance);
+						m_lineFxSatelliteJoint.Initialize(swordTempSatelliteInstance);
 					}
 				}
 			}
 		}
-		if (this.m_lineSpawnOnProjectileImpact)
+		if (!m_lineSpawnOnProjectileImpact)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			SpawnLineFX();
+			return;
+		}
+	}
+
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
+	{
+		base.OnAnimationEvent(parameter, sourceObject);
+		if (m_lineStartEvent == parameter)
+		{
+			SpawnLineFX();
+		}
+		if (m_swordRemoveEvent == parameter)
+		{
+			DestroySatellite();
+		}
+		if (m_lineRemoveEvent == parameter)
+		{
+			DestroyLine();
+		}
+	}
+
+	private void SpawnLineFX()
+	{
+		if (m_lineSpawned)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
+				}
+			}
+		}
+		if (!m_lineFxCasterStartJoint.IsInitialized())
+		{
+			GameObject referenceModel = GetReferenceModel(base.Caster, ReferenceModelType.Actor);
+			if (referenceModel != null)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_lineFxCasterStartJoint.Initialize(referenceModel);
+			}
+		}
+		if (!m_lineFxSatelliteJoint.IsInitialized())
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			GameObject swordTempSatelliteInstance = m_swordTempSatelliteInstance;
+			if (swordTempSatelliteInstance != null)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_lineFxSatelliteJoint.Initialize(swordTempSatelliteInstance);
+			}
+		}
+		if (m_linePrefab != null)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			Vector3 position = m_lineFxCasterStartJoint.m_jointObject.transform.position;
+			m_lineFx = InstantiateFX(m_linePrefab, position, default(Quaternion));
+		}
+		if (!string.IsNullOrEmpty(m_lineAudioEvent))
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			AudioManager.PostEvent(m_lineAudioEvent, base.Caster.gameObject);
+		}
+		if (m_lineDuration > 0f)
+		{
+			while (true)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			m_lineDespawnTime = GameTime.time + m_lineDuration;
+		}
+		else
+		{
+			m_lineDespawnTime = -1f;
+		}
+		m_lineSpawned = true;
+	}
+
+	private void Update()
+	{
+		OnUpdate();
+	}
+
+	protected override void OnUpdate()
+	{
+		base.OnUpdate();
+		if (!m_initialized)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_lineFxCasterStartJoint.m_jointObject != null)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				Sequence.SetAttribute(m_lineFx, "startPoint", m_lineFxCasterStartJoint.m_jointObject.transform.position);
+			}
+			if (m_lineFxSatelliteJoint.m_jointObject != null)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				Sequence.SetAttribute(m_lineFx, "endPoint", m_lineFxSatelliteJoint.m_jointObject.transform.position);
+			}
+			else if (m_lineFxCasterStartJoint.m_jointObject != null)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (m_fx != null)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					Sequence.SetAttribute(m_lineFx, "endPoint", m_fx.transform.position);
+				}
+			}
+			if (!(m_lineDespawnTime < GameTime.time))
+			{
+				return;
+			}
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			this.SpawnLineFX();
-		}
-	}
-
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
-	{
-		base.OnAnimationEvent(parameter, sourceObject);
-		if (this.m_lineStartEvent == parameter)
-		{
-			this.SpawnLineFX();
-		}
-		if (this.m_swordRemoveEvent == parameter)
-		{
-			this.DestroySatellite();
-		}
-		if (this.m_lineRemoveEvent == parameter)
-		{
-			this.DestroyLine();
-		}
-	}
-
-	private void SpawnLineFX()
-	{
-		if (this.m_lineSpawned)
-		{
-			for (;;)
-			{
-				switch (3)
+				if (m_lineDespawnTime > 0f)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkThrowSwordSequence.SpawnLineFX()).MethodHandle;
-			}
-			return;
-		}
-		if (!this.m_lineFxCasterStartJoint.IsInitialized())
-		{
-			GameObject referenceModel = base.GetReferenceModel(base.Caster, Sequence.ReferenceModelType.Actor);
-			if (referenceModel != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_lineFxCasterStartJoint.Initialize(referenceModel);
-			}
-		}
-		if (!this.m_lineFxSatelliteJoint.IsInitialized())
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameObject swordTempSatelliteInstance = this.m_swordTempSatelliteInstance;
-			if (swordTempSatelliteInstance != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_lineFxSatelliteJoint.Initialize(swordTempSatelliteInstance);
-			}
-		}
-		if (this.m_linePrefab != null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Vector3 position = this.m_lineFxCasterStartJoint.m_jointObject.transform.position;
-			Quaternion rotation = default(Quaternion);
-			this.m_lineFx = base.InstantiateFX(this.m_linePrefab, position, rotation, true, true);
-		}
-		if (!string.IsNullOrEmpty(this.m_lineAudioEvent))
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			AudioManager.PostEvent(this.m_lineAudioEvent, base.Caster.gameObject);
-		}
-		if (this.m_lineDuration > 0f)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_lineDespawnTime = GameTime.time + this.m_lineDuration;
-		}
-		else
-		{
-			this.m_lineDespawnTime = -1f;
-		}
-		this.m_lineSpawned = true;
-	}
-
-	private void Update()
-	{
-		this.OnUpdate();
-	}
-
-	protected override void OnUpdate()
-	{
-		base.OnUpdate();
-		if (this.m_initialized)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkThrowSwordSequence.OnUpdate()).MethodHandle;
-			}
-			if (this.m_lineFxCasterStartJoint.m_jointObject != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Sequence.SetAttribute(this.m_lineFx, "startPoint", this.m_lineFxCasterStartJoint.m_jointObject.transform.position);
-			}
-			if (this.m_lineFxSatelliteJoint.m_jointObject != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Sequence.SetAttribute(this.m_lineFx, "endPoint", this.m_lineFxSatelliteJoint.m_jointObject.transform.position);
-			}
-			else if (this.m_lineFxCasterStartJoint.m_jointObject != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_fx != null)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						DestroyLine();
+						return;
 					}
-					Sequence.SetAttribute(this.m_lineFx, "endPoint", this.m_fx.transform.position);
 				}
-			}
-			if (this.m_lineDespawnTime < GameTime.time)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_lineDespawnTime > 0f)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.DestroyLine();
-				}
+				return;
 			}
 		}
 	}
@@ -388,51 +388,52 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 	protected override void OnSequenceDisable()
 	{
 		base.OnSequenceDisable();
-		this.DestroyLine();
-		this.DestroySatellite();
+		DestroyLine();
+		DestroySatellite();
 	}
 
 	private void DestroyLine()
 	{
-		if (this.m_lineFx != null)
+		if (!(m_lineFx != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkThrowSwordSequence.DestroyLine()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			UnityEngine.Object.Destroy(this.m_lineFx);
-			this.m_lineFx = null;
+			Object.Destroy(m_lineFx);
+			m_lineFx = null;
+			return;
 		}
 	}
 
 	private void DestroySatellite()
 	{
-		if (this.m_swordTempSatelliteInstance != null)
+		if (m_swordTempSatelliteInstance != null)
 		{
-			UnityEngine.Object.Destroy(this.m_swordTempSatelliteInstance);
-			this.m_swordTempSatelliteInstance = null;
+			Object.Destroy(m_swordTempSatelliteInstance);
+			m_swordTempSatelliteInstance = null;
 		}
 	}
 
 	internal override Vector3[] GetSplinePath(int curIndex, int maxIndex)
 	{
-		Vector3 vector = this.m_fxJoint.m_jointObject.transform.position;
-		if (this.m_useOverrideStartPos)
+		Vector3 vector = m_fxJoint.m_jointObject.transform.position;
+		if (m_useOverrideStartPos)
 		{
-			vector = this.m_overrideStartPos;
+			vector = m_overrideStartPos;
 		}
 		Vector3[] array = new Vector3[5];
 		Vector3 targetPos = base.TargetPos;
-		if (this.m_splineMaxHeight == 0f)
+		if (m_splineMaxHeight == 0f)
 		{
 			Vector3 b = targetPos - vector;
 			array[0] = vector - b;
@@ -443,11 +444,11 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 		}
 		else
 		{
-			array[0] = vector + Vector3.down * this.m_splineMaxHeight;
+			array[0] = vector + Vector3.down * m_splineMaxHeight;
 			array[1] = vector;
-			array[2] = (vector + targetPos) * 0.5f + Vector3.up * this.m_splineMaxHeight;
+			array[2] = (vector + targetPos) * 0.5f + Vector3.up * m_splineMaxHeight;
 			array[3] = targetPos;
-			array[4] = targetPos + Vector3.down * this.m_splineMaxHeight;
+			array[4] = targetPos + Vector3.down * m_splineMaxHeight;
 		}
 		return array;
 	}

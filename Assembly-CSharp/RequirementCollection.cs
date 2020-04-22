@@ -1,14 +1,140 @@
-﻿using System;
+using NetSerializer;
+using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using NetSerializer;
-using Newtonsoft.Json;
 
-[JsonConverter(typeof(RequirementCollection.JsonConverter))]
 [Serializable]
+[JsonConverter(typeof(JsonConverter))]
 public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 {
+	private class JsonConverter : Newtonsoft.Json.JsonConverter
+	{
+		public override bool CanConvert(Type objectType)
+		{
+			return objectType == typeof(RequirementCollection);
+		}
+
+		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+		{
+			if (reader.TokenType == JsonToken.Null)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return null;
+					}
+				}
+			}
+			if (reader.TokenType != JsonToken.StartArray)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						break;
+					default:
+						throw new Exception($"Bad JSON definition of RequirementCollection, expected '[' not {reader.TokenType}='{reader.Value}'");
+					}
+				}
+			}
+			reader.Read();
+			RequirementCollection requirementCollection = Create();
+			while (reader.TokenType != JsonToken.EndArray)
+			{
+				QueueRequirement item = QueueRequirement.ExtractRequirementFromReader(reader);
+				requirementCollection.Add(item);
+				reader.Read();
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				if (reader.TokenType != JsonToken.EndArray)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							break;
+						default:
+							throw new Exception($"Bad JSON definition of RequirementCollection, expected ']' not {reader.TokenType}='{reader.Value}'");
+						}
+					}
+				}
+				return requirementCollection;
+			}
+		}
+
+		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+		{
+			RequirementCollection requirementCollection = value as RequirementCollection;
+			writer.WriteStartArray();
+			IEnumerator<QueueRequirement> enumerator = requirementCollection.GetEnumerator();
+			try
+			{
+				while (enumerator.MoveNext())
+				{
+					QueueRequirement current = enumerator.Current;
+					writer.WriteStartObject();
+					writer.WritePropertyName(current.Requirement.ToString());
+					writer.WriteStartObject();
+					current.WriteToJson(writer);
+					writer.WriteEndObject();
+					writer.WriteEndObject();
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						goto end_IL_0014;
+					}
+				}
+				end_IL_0014:;
+			}
+			finally
+			{
+				if (enumerator != null)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							break;
+						default:
+							enumerator.Dispose();
+							goto end_IL_0075;
+						}
+					}
+				}
+				end_IL_0075:;
+			}
+			writer.WriteEndArray();
+		}
+	}
+
 	public List<byte[]> RequirementsAsBinaryData;
 
 	[NonSerialized]
@@ -18,88 +144,13 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 
 	private static Serializer s_serializer;
 
-	private IEnumerator<QueueRequirement> InternalEnumerator()
+	private static Serializer InternalSerializer
 	{
-		bool flag = false;
-		uint num;
-		List<byte[]>.Enumerator enumerator;
-		switch (num)
+		get
 		{
-		case 0U:
-			if (this.RequirementsAsBinaryData.IsNullOrEmpty<byte[]>())
+			if (s_serializer == null)
 			{
-				goto IL_13A;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RequirementCollection.<InternalEnumerator>c__Iterator0.MoveNext()).MethodHandle;
-			}
-			enumerator = this.RequirementsAsBinaryData.GetEnumerator();
-			break;
-		case 1U:
-			break;
-		default:
-			yield break;
-		}
-		try
-		{
-			while (enumerator.MoveNext())
-			{
-				byte[] data = enumerator.Current;
-				MemoryStream stream = new MemoryStream(data);
-				object arg;
-				RequirementCollection.InternalSerializer.Deserialize(stream, out arg);
-				if (arg != null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (arg is QueueRequirement)
-					{
-						yield return arg as QueueRequirement;
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag = true;
-					}
-				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		finally
-		{
-			if (flag)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -108,14 +159,71 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 					}
 					break;
 				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				s_serializer = new Serializer();
+				s_serializer.AddTypes(QueueRequirement.MessageTypes);
 			}
-			else
+			return s_serializer;
+		}
+	}
+
+	private IEnumerator<QueueRequirement> InternalEnumerator()
+	{
+		if (RequirementsAsBinaryData.IsNullOrEmpty())
+		{
+			yield break;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				((IDisposable)enumerator).Dispose();
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			using (List<byte[]>.Enumerator enumerator = RequirementsAsBinaryData.GetEnumerator())
+			{
+				while (enumerator.MoveNext())
+				{
+					byte[] data = enumerator.Current;
+					MemoryStream stream = new MemoryStream(data);
+					InternalSerializer.Deserialize(stream, out object arg);
+					if (arg != null)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (arg is QueueRequirement)
+						{
+							yield return arg as QueueRequirement;
+							/*Error: Unable to find new state assignment for yield return*/;
+						}
+					}
+				}
+				while (true)
+				{
+					switch (5)
+					{
+					default:
+						yield break;
+					case 0:
+						break;
+					}
+				}
 			}
 		}
-		IL_13A:
-		yield break;
 	}
 
 	public void Add(QueueRequirement item)
@@ -123,10 +231,10 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 		if (item != null)
 		{
 			MemoryStream memoryStream = new MemoryStream();
-			RequirementCollection.InternalSerializer.Serialize(memoryStream, item);
-			if (this.RequirementsAsBinaryData == null)
+			InternalSerializer.Serialize(memoryStream, item);
+			if (RequirementsAsBinaryData == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -135,15 +243,15 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RequirementCollection.Add(QueueRequirement)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.RequirementsAsBinaryData = new List<byte[]>();
+				RequirementsAsBinaryData = new List<byte[]>();
 			}
-			this.RequirementsAsBinaryData.Add(memoryStream.ToArray());
+			RequirementsAsBinaryData.Add(memoryStream.ToArray());
 		}
-		this.m_dirty = true;
+		m_dirty = true;
 	}
 
 	public void AddRange(IEnumerable<QueueRequirement> collection)
@@ -152,125 +260,131 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 		{
 			while (enumerator.MoveNext())
 			{
-				QueueRequirement item = enumerator.Current;
-				this.Add(item);
+				QueueRequirement current = enumerator.Current;
+				Add(current);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					goto end_IL_0009;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RequirementCollection.AddRange(IEnumerable<QueueRequirement>)).MethodHandle;
-			}
+			end_IL_0009:;
 		}
-		this.m_dirty = true;
+		m_dirty = true;
 	}
 
 	public bool Exists(Predicate<QueueRequirement> match)
 	{
-		using (IEnumerator<QueueRequirement> enumerator = this.GetEnumerator())
+		using (IEnumerator<QueueRequirement> enumerator = GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				QueueRequirement obj = enumerator.Current;
-				if (match(obj))
+				QueueRequirement current = enumerator.Current;
+				if (match(current))
 				{
 					return true;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					goto end_IL_0009;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RequirementCollection.Exists(Predicate<QueueRequirement>)).MethodHandle;
-			}
+			end_IL_0009:;
 		}
 		return false;
 	}
 
 	public RequirementCollection Where(Predicate<QueueRequirement> match)
 	{
-		RequirementCollection requirementCollection = RequirementCollection.Create();
-		IEnumerator<QueueRequirement> enumerator = this.GetEnumerator();
+		RequirementCollection requirementCollection = Create();
+		IEnumerator<QueueRequirement> enumerator = GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())
 			{
-				QueueRequirement queueRequirement = enumerator.Current;
-				if (match(queueRequirement))
+				QueueRequirement current = enumerator.Current;
+				if (match(current))
 				{
-					requirementCollection.Add(queueRequirement);
+					requirementCollection.Add(current);
 				}
 			}
+			return requirementCollection;
 		}
 		finally
 		{
 			if (enumerator != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						enumerator.Dispose();
+						goto end_IL_0036;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RequirementCollection.Where(Predicate<QueueRequirement>)).MethodHandle;
-				}
-				enumerator.Dispose();
 			}
+			end_IL_0036:;
 		}
-		return requirementCollection;
 	}
 
 	public bool DoesApplicantPass(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType)
 	{
-		return false == this.Exists((QueueRequirement p) => !p.DoesApplicantPass(systemInfo, applicant, gameType, gameSubType));
+		return !Exists((QueueRequirement p) => !p.DoesApplicantPass(systemInfo, applicant, gameType, gameSubType));
 	}
 
 	public LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType, RequirementMessageContext context)
 	{
-		IEnumerator<QueueRequirement> enumerator = this.GetEnumerator();
+		IEnumerator<QueueRequirement> enumerator = GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())
 			{
-				QueueRequirement queueRequirement = enumerator.Current;
-				if (!queueRequirement.DoesApplicantPass(systemInfo, applicant, gameType, gameSubType))
+				QueueRequirement current = enumerator.Current;
+				if (!current.DoesApplicantPass(systemInfo, applicant, gameType, gameSubType))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							return current.GenerateFailure(systemInfo, applicant, context);
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(RequirementCollection.GenerateFailure(IQueueRequirementSystemInfo, IQueueRequirementApplicant, GameType, GameSubType, RequirementMessageContext)).MethodHandle;
-					}
-					return queueRequirement.GenerateFailure(systemInfo, applicant, context);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -284,29 +398,31 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 		{
 			if (enumerator != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						enumerator.Dispose();
+						goto end_IL_005b;
 					}
-					break;
 				}
-				enumerator.Dispose();
 			}
+			end_IL_005b:;
 		}
 		return null;
 	}
 
 	public IEnumerator<QueueRequirement> GetEnumerator()
 	{
-		return this.InternalEnumerator();
+		return InternalEnumerator();
 	}
 
 	IEnumerator IEnumerable.GetEnumerator()
 	{
-		return this.InternalEnumerator();
+		return InternalEnumerator();
 	}
 
 	public static RequirementCollection Create()
@@ -317,44 +433,45 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 	public static RequirementCollection Create(IEnumerable<QueueRequirement> requirements)
 	{
 		List<byte[]> list = null;
-		if (!requirements.IsNullOrEmpty<QueueRequirement>())
+		if (!requirements.IsNullOrEmpty())
 		{
 			list = new List<byte[]>();
 			using (IEnumerator<QueueRequirement> enumerator = requirements.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					QueueRequirement ob = enumerator.Current;
+					QueueRequirement current = enumerator.Current;
 					MemoryStream memoryStream = new MemoryStream();
-					RequirementCollection.InternalSerializer.Serialize(memoryStream, ob);
+					InternalSerializer.Serialize(memoryStream, current);
 					list.Add(memoryStream.ToArray());
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						goto end_IL_001b;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RequirementCollection.Create(IEnumerable<QueueRequirement>)).MethodHandle;
-				}
+				end_IL_001b:;
 			}
 		}
-		return new RequirementCollection
-		{
-			RequirementsAsBinaryData = list
-		};
+		RequirementCollection requirementCollection = new RequirementCollection();
+		requirementCollection.RequirementsAsBinaryData = list;
+		return requirementCollection;
 	}
 
 	public List<QueueRequirement> ToList()
 	{
-		if (this.m_dirty)
+		if (m_dirty)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -363,166 +480,21 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RequirementCollection.ToList()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_dirty = false;
-			this.m_queueRequirementAsList.Clear();
-			foreach (QueueRequirement item in this)
-			{
-				this.m_queueRequirementAsList.Add(item);
-			}
-		}
-		return this.m_queueRequirementAsList;
-	}
-
-	private static Serializer InternalSerializer
-	{
-		get
-		{
-			if (RequirementCollection.s_serializer == null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RequirementCollection.get_InternalSerializer()).MethodHandle;
-				}
-				RequirementCollection.s_serializer = new Serializer();
-				RequirementCollection.s_serializer.AddTypes(QueueRequirement.MessageTypes);
-			}
-			return RequirementCollection.s_serializer;
-		}
-	}
-
-	private class JsonConverter : Newtonsoft.Json.JsonConverter
-	{
-		public override bool CanConvert(Type objectType)
-		{
-			return objectType == typeof(RequirementCollection);
-		}
-
-		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-		{
-			if (reader.TokenType == JsonToken.Null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RequirementCollection.JsonConverter.ReadJson(JsonReader, Type, object, JsonSerializer)).MethodHandle;
-				}
-				return null;
-			}
-			if (reader.TokenType != JsonToken.StartArray)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				throw new Exception(string.Format("Bad JSON definition of RequirementCollection, expected '[' not {0}='{1}'", reader.TokenType, reader.Value));
-			}
-			reader.Read();
-			RequirementCollection requirementCollection = RequirementCollection.Create();
-			while (reader.TokenType != JsonToken.EndArray)
-			{
-				QueueRequirement item = QueueRequirement.ExtractRequirementFromReader(reader);
-				requirementCollection.Add(item);
-				reader.Read();
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (reader.TokenType != JsonToken.EndArray)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				throw new Exception(string.Format("Bad JSON definition of RequirementCollection, expected ']' not {0}='{1}'", reader.TokenType, reader.Value));
-			}
-			return requirementCollection;
-		}
-
-		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-		{
-			RequirementCollection requirementCollection = value as RequirementCollection;
-			writer.WriteStartArray();
-			IEnumerator<QueueRequirement> enumerator = requirementCollection.GetEnumerator();
-			try
+			m_dirty = false;
+			m_queueRequirementAsList.Clear();
+			using (IEnumerator<QueueRequirement> enumerator = GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					QueueRequirement queueRequirement = enumerator.Current;
-					writer.WriteStartObject();
-					writer.WritePropertyName(queueRequirement.Requirement.ToString());
-					writer.WriteStartObject();
-					queueRequirement.WriteToJson(writer);
-					writer.WriteEndObject();
-					writer.WriteEndObject();
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RequirementCollection.JsonConverter.WriteJson(JsonWriter, object, JsonSerializer)).MethodHandle;
+					QueueRequirement current = enumerator.Current;
+					m_queueRequirementAsList.Add(current);
 				}
 			}
-			finally
-			{
-				if (enumerator != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					enumerator.Dispose();
-				}
-			}
-			writer.WriteEndArray();
 		}
+		return m_queueRequirementAsList;
 	}
 }

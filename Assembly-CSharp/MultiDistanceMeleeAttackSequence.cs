@@ -1,9 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MultiDistanceMeleeAttackSequence : Sequence
 {
+	[Serializable]
+	public class EventToCondition
+	{
+		public UnityEngine.Object m_event;
+
+		public float m_distanceFromCasterInSquares;
+	}
+
 	[Tooltip("FX at point(s) of impact")]
 	public GameObject m_hitFxPrefab;
 
@@ -17,7 +25,7 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 
 	[Header("-- Animation Events to Conditions --")]
 	[AnimEventPicker]
-	public List<MultiDistanceMeleeAttackSequence.EventToCondition> m_eventToConditions = new List<MultiDistanceMeleeAttackSequence.EventToCondition>();
+	public List<EventToCondition> m_eventToConditions = new List<EventToCondition>();
 
 	[AnimEventPicker]
 	[Header(" -- Last Animation Event, to hit any remaining targets --")]
@@ -29,30 +37,31 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 
 	private void Update()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MultiDistanceMeleeAttackSequence.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			base.ProcessSequenceVisibility();
+			ProcessSequenceVisibility();
+			return;
 		}
 	}
 
 	private void SpawnHitFX(float withinDistanceInSquares)
 	{
-		if (this.m_alreadyHit == null)
+		if (m_alreadyHit == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -61,15 +70,15 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MultiDistanceMeleeAttackSequence.SpawnHitFX(float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_alreadyHit = new HashSet<ActorData>();
+			m_alreadyHit = new HashSet<ActorData>();
 		}
-		if (this.m_hitFx == null)
+		if (m_hitFx == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -78,28 +87,41 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 				}
 				break;
 			}
-			this.m_hitFx = new List<GameObject>();
+			m_hitFx = new List<GameObject>();
 		}
-		if (base.Targets != null)
+		if (base.Targets == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			float num = withinDistanceInSquares * Board.\u000E().squareSize;
+			float num = withinDistanceInSquares * Board.Get().squareSize;
 			for (int i = 0; i < base.Targets.Length; i++)
 			{
 				Vector3 vector = base.Targets[i].transform.position - base.Caster.transform.position;
 				vector.y = 0f;
 				float magnitude = vector.magnitude;
-				if (!this.m_alreadyHit.Contains(base.Targets[i]))
+				if (m_alreadyHit.Contains(base.Targets[i]))
 				{
-					for (;;)
+					continue;
+				}
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!(num < 0f))
+				{
+					while (true)
 					{
 						switch (7)
 						{
@@ -108,148 +130,128 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 						}
 						break;
 					}
-					if (num >= 0f)
+					if (!(magnitude <= num))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (magnitude > num)
-						{
-							goto IL_23F;
-						}
-					}
-					this.m_alreadyHit.Add(base.Targets[i]);
-					Vector3 targetHitPosition = base.GetTargetHitPosition(i, this.m_hitFxJoint);
-					Vector3 vector2 = targetHitPosition - base.Caster.transform.position;
-					vector2.y = 0f;
-					vector2.Normalize();
-					ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, vector2);
-					Quaternion quaternion;
-					if (this.m_hitAlignedWithCaster)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						quaternion = Quaternion.LookRotation(vector2);
-					}
-					else
-					{
-						quaternion = Quaternion.identity;
-					}
-					Quaternion rotation = quaternion;
-					if (this.m_hitFxPrefab && base.IsHitFXVisible(base.Targets[i]))
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_hitFx.Add(base.InstantiateFX(this.m_hitFxPrefab, targetHitPosition, rotation, true, true));
-					}
-					if (!string.IsNullOrEmpty(this.m_hitAudioEvent))
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						AudioManager.PostEvent(this.m_hitAudioEvent, base.Targets[i].gameObject);
-					}
-					if (base.Targets[i] != null)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
+						continue;
 					}
 				}
-				IL_23F:;
+				m_alreadyHit.Add(base.Targets[i]);
+				Vector3 targetHitPosition = GetTargetHitPosition(i, m_hitFxJoint);
+				Vector3 vector2 = targetHitPosition - base.Caster.transform.position;
+				vector2.y = 0f;
+				vector2.Normalize();
+				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, vector2);
+				Quaternion quaternion;
+				if (m_hitAlignedWithCaster)
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					quaternion = Quaternion.LookRotation(vector2);
+				}
+				else
+				{
+					quaternion = Quaternion.identity;
+				}
+				Quaternion rotation = quaternion;
+				if ((bool)m_hitFxPrefab && IsHitFXVisible(base.Targets[i]))
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_hitFx.Add(InstantiateFX(m_hitFxPrefab, targetHitPosition, rotation));
+				}
+				if (!string.IsNullOrEmpty(m_hitAudioEvent))
+				{
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					AudioManager.PostEvent(m_hitAudioEvent, base.Targets[i].gameObject);
+				}
+				if (base.Targets[i] != null)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo);
+				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
 	{
-		for (int i = 0; i < this.m_eventToConditions.Count; i++)
+		for (int i = 0; i < m_eventToConditions.Count; i++)
 		{
-			MultiDistanceMeleeAttackSequence.EventToCondition eventToCondition = this.m_eventToConditions[i];
+			EventToCondition eventToCondition = m_eventToConditions[i];
 			if (eventToCondition.m_event == parameter)
 			{
-				this.SpawnHitFX(eventToCondition.m_distanceFromCasterInSquares);
+				SpawnHitFX(eventToCondition.m_distanceFromCasterInSquares);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(MultiDistanceMeleeAttackSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-		}
-		if (this.m_lastHitEvent == parameter)
-		{
-			this.SpawnHitFX(-1f);
-			base.Source.OnSequenceHit(this, base.TargetPos, null);
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_lastHitEvent == parameter)
+			{
+				SpawnHitFX(-1f);
+				base.Source.OnSequenceHit(this, base.TargetPos);
+			}
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_hitFx != null)
+		if (m_hitFx != null)
 		{
-			foreach (GameObject gameObject in this.m_hitFx)
+			foreach (GameObject item in m_hitFx)
 			{
-				UnityEngine.Object.Destroy(gameObject.gameObject);
+				UnityEngine.Object.Destroy(item.gameObject);
 			}
-			this.m_hitFx = null;
+			m_hitFx = null;
 		}
-	}
-
-	[Serializable]
-	public class EventToCondition
-	{
-		public UnityEngine.Object m_event;
-
-		public float m_distanceFromCasterInSquares;
 	}
 }

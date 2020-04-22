@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class AlertMission : AlertMissionBase
@@ -9,6 +9,6 @@ public class AlertMission : AlertMissionBase
 
 	public AlertMission Clone()
 	{
-		return (AlertMission)base.MemberwiseClone();
+		return (AlertMission)MemberwiseClone();
 	}
 }

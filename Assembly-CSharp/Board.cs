@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +12,9 @@ public class Board : MonoBehaviour, IGameEventListener
 
 	private int m_maxHeight;
 
-	private int m_lowestPositiveHeight = 0x270F;
+	private int m_lowestPositiveHeight = 9999;
 
-	private int m_lastValidGuidedHeight = 0x1869F;
+	private int m_lastValidGuidedHeight = 99999;
 
 	private BoardSquare[,] m_boardSquares;
 
@@ -48,69 +48,103 @@ public class Board : MonoBehaviour, IGameEventListener
 	{
 		get
 		{
-			return Board.s_squareSizeStatic;
+			return s_squareSizeStatic;
 		}
 		private set
 		{
-			Board.s_squareSizeStatic = value;
+			s_squareSizeStatic = value;
 		}
 	}
 
-	public float squareSize
-	{
-		get
-		{
-			return this.m_squareSize;
-		}
-	}
+	public float squareSize => m_squareSize;
 
 	public int BaselineHeight
 	{
 		get
 		{
-			if (this.m_baselineHeight >= 0)
+			if (m_baselineHeight >= 0)
 			{
-				return this.m_baselineHeight;
+				return m_baselineHeight;
 			}
-			return this.m_lowestPositiveHeight;
+			return m_lowestPositiveHeight;
 		}
 	}
 
-	public float LosCheckHeight
+	public float LosCheckHeight => (float)BaselineHeight + BoardSquare.s_LoSHeightOffset;
+
+	public Vector3 PlayerLookDir
 	{
-		get
-		{
-			return (float)this.BaselineHeight + BoardSquare.s_LoSHeightOffset;
-		}
+		get;
+		private set;
 	}
 
-	public Vector3 PlayerLookDir { get; private set; }
-
-	public Vector3 PlayerMouseIntersectionPos { get; private set; }
-
-	public Vector3 PlayerMouseLookDir { get; private set; }
-
-	public Vector3 MouseBoardSquareIntersectionPos { get; private set; }
-
-	public Vector3 PlayerFreePos { get; private set; }
-
-	public Vector3 PlayerFreeCornerPos { get; private set; }
-
-	public BoardSquare PlayerFreeSquare { get; private set; }
-
-	public Vector3 PlayerClampedPos { get; private set; }
-
-	public Vector3 PlayerClampedCornerPos { get; private set; }
-
-	public BoardSquare PlayerClampedSquare { get; private set; }
-
-	public bool MouseOverSquareInRange { get; set; }
-
-	public static Board \u000E()
+	public Vector3 PlayerMouseIntersectionPos
 	{
-		if (Board.s_board == null)
+		get;
+		private set;
+	}
+
+	public Vector3 PlayerMouseLookDir
+	{
+		get;
+		private set;
+	}
+
+	public Vector3 MouseBoardSquareIntersectionPos
+	{
+		get;
+		private set;
+	}
+
+	public Vector3 PlayerFreePos
+	{
+		get;
+		private set;
+	}
+
+	public Vector3 PlayerFreeCornerPos
+	{
+		get;
+		private set;
+	}
+
+	public BoardSquare PlayerFreeSquare
+	{
+		get;
+		private set;
+	}
+
+	public Vector3 PlayerClampedPos
+	{
+		get;
+		private set;
+	}
+
+	public Vector3 PlayerClampedCornerPos
+	{
+		get;
+		private set;
+	}
+
+	public BoardSquare PlayerClampedSquare
+	{
+		get;
+		private set;
+	}
+
+	public bool MouseOverSquareInRange
+	{
+		get;
+		set;
+	}
+
+	public bool MarkedForUpdateValidSquares => m_needToUpdateValidSquares;
+
+	public static Board Get()
+	{
+		if (s_board == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -119,16 +153,16 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u000E()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (Application.isEditor && !Application.isPlaying)
 			{
-				Board.s_board = UnityEngine.Object.FindObjectOfType<Board>();
-				if (Board.s_board != null)
+				s_board = UnityEngine.Object.FindObjectOfType<Board>();
+				if (s_board != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -137,25 +171,25 @@ public class Board : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					Board.s_board.ReevaluateBoard();
+					s_board.ReevaluateBoard();
 				}
 			}
 		}
-		return Board.s_board;
+		return s_board;
 	}
 
 	private void Awake()
 	{
 		base.enabled = false;
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.GameFlowDataStarted);
-		Board.s_board = this;
-		if (this.m_LOSHighlightsParent == null)
+		s_board = this;
+		if (m_LOSHighlightsParent == null)
 		{
-			this.m_LOSHighlightsParent = GameObject.Find("LOSHighlights");
+			m_LOSHighlightsParent = GameObject.Find("LOSHighlights");
 		}
-		if (this.m_LOSHighlightsParent != null)
+		if (m_LOSHighlightsParent != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -164,16 +198,16 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_LOSHighlightsParent.layer = LayerMask.NameToLayer("FogOfWar");
-			this.m_LOSHighlightsParent.SetActive(true);
+			m_LOSHighlightsParent.layer = LayerMask.NameToLayer("FogOfWar");
+			m_LOSHighlightsParent.SetActive(true);
 		}
-		if (this.m_LOSHighlightsParent != null)
+		if (m_LOSHighlightsParent != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -184,7 +218,7 @@ public class Board : MonoBehaviour, IGameEventListener
 			}
 			if (!NetworkClient.active)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -195,29 +229,29 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				if (NetworkServer.active)
 				{
-					UnityEngine.Object.DestroyImmediate(this.m_LOSHighlightsParent);
-					this.m_LOSHighlightsParent = null;
+					UnityEngine.Object.DestroyImmediate(m_LOSHighlightsParent);
+					m_LOSHighlightsParent = null;
 				}
 			}
 		}
 		GameObject gameObject = GameObject.Find("Camera Guide Mesh");
-		if (gameObject)
+		if ((bool)gameObject)
 		{
-			this.m_cameraGuideMeshCollider = gameObject.GetComponent<MeshCollider>();
+			m_cameraGuideMeshCollider = gameObject.GetComponent<MeshCollider>();
 		}
-		this.ReevaluateBoard();
-		this.m_showLOS = true;
-		Board.s_squareSizeStatic = this.m_squareSize;
-		Board.BaselineHeightStatic = this.BaselineHeight;
-		this.m_normalPathBuildScratchPool = new BuildNormalPathNodePool();
-		this.m_normalPathNodeHeap = new BuildNormalPathHeap(0x3C);
+		ReevaluateBoard();
+		m_showLOS = true;
+		s_squareSizeStatic = m_squareSize;
+		BaselineHeightStatic = BaselineHeight;
+		m_normalPathBuildScratchPool = new BuildNormalPathNodePool();
+		m_normalPathNodeHeap = new BuildNormalPathHeap(60);
 	}
 
 	private void OnDestroy()
 	{
 		if (GameEventManager.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -226,34 +260,35 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.OnDestroy()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GameFlowDataStarted);
 		}
-		this.m_normalPathBuildScratchPool = null;
-		Board.s_board = null;
+		m_normalPathBuildScratchPool = null;
+		s_board = null;
 	}
 
 	void IGameEventListener.OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType == GameEventManager.EventType.GameFlowDataStarted)
+		if (eventType != GameEventManager.EventType.GameFlowDataStarted)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.IGameEventListener.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			base.enabled = true;
+			return;
 		}
 	}
 
@@ -265,9 +300,9 @@ public class Board : MonoBehaviour, IGameEventListener
 		{
 			actorData = GameFlowData.Get().activeOwnedActorData;
 		}
-		if (main)
+		if ((bool)main)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -276,19 +311,19 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Vector3 position = main.transform.position;
 			Vector3 mousePosition = Input.mousePosition;
 			Vector3 direction = main.ScreenPointToRay(mousePosition).direction;
 			Vector3 up = Vector3.up;
-			float d = ((float)this.m_baselineHeight - position.y) / Vector3.Dot(direction, up);
-			this.PlayerMouseIntersectionPos = position + direction * d;
-			if (actorData)
+			float d = ((float)m_baselineHeight - position.y) / Vector3.Dot(direction, up);
+			PlayerMouseIntersectionPos = position + direction * d;
+			if ((bool)actorData)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -298,12 +333,12 @@ public class Board : MonoBehaviour, IGameEventListener
 					break;
 				}
 				Vector3 position2 = actorData.transform.position;
-				this.PlayerMouseLookDir = (this.PlayerMouseIntersectionPos - position2).normalized;
+				PlayerMouseLookDir = (PlayerMouseIntersectionPos - position2).normalized;
 			}
 			bool flag;
 			if (ControlpadGameplay.Get() != null && ControlpadGameplay.Get().UsingControllerInput)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -320,55 +355,56 @@ public class Board : MonoBehaviour, IGameEventListener
 			}
 			if (flag)
 			{
-				this.PlayerLookDir = this.PlayerMouseLookDir;
-				this.PlayerFreePos = this.PlayerMouseIntersectionPos;
+				PlayerLookDir = PlayerMouseLookDir;
+				PlayerFreePos = PlayerMouseIntersectionPos;
 			}
 			else
 			{
-				this.PlayerLookDir = ControlpadGameplay.Get().ControllerAimDir;
-				this.PlayerFreePos = ControlpadGameplay.Get().ControllerAimPos;
+				PlayerLookDir = ControlpadGameplay.Get().ControllerAimDir;
+				PlayerFreePos = ControlpadGameplay.Get().ControllerAimPos;
 			}
-			this.PlayerFreeSquare = this.\u000E(this.PlayerFreePos);
-			this.PlayerFreeCornerPos = Board.\u000E(this.PlayerFreePos, this.PlayerFreeSquare);
-			this.RecalcClampedSelections();
+			PlayerFreeSquare = GetBoardSquare(PlayerFreePos);
+			PlayerFreeCornerPos = _000E(PlayerFreePos, PlayerFreeSquare);
+			RecalcClampedSelections();
 			HighlightUtils.Get().UpdateCursorPositions();
 			HighlightUtils.Get().UpdateRangeIndicatorHighlight();
 			HighlightUtils.Get().UpdateMouseoverCoverHighlight();
 			HighlightUtils.Get().UpdateShowAffectedSquareFlag();
 		}
-		if (Input.GetMouseButtonUp(2))
+		if (!Input.GetMouseButtonUp(2))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			bool applyToAllJoints = false;
 			float amount = 300f;
-			this.ApplyForceOnDead(this.PlayerFreeSquare, amount, new Vector3(0f, 1f, 0f), applyToAllJoints);
+			ApplyForceOnDead(PlayerFreeSquare, amount, new Vector3(0f, 1f, 0f), applyToAllJoints);
+			return;
 		}
 	}
 
-	public static Vector3 \u000E(Vector3 \u001D, BoardSquare \u000E)
+	public static Vector3 _000E(Vector3 _001D, BoardSquare _000E)
 	{
-		float num = Board.SquareSizeStatic / 2f;
+		float num = SquareSizeStatic / 2f;
 		float x;
 		float z;
-		if (\u000E == null)
+		if (_000E == null)
 		{
-			x = \u001D.x;
-			z = \u001D.z;
+			x = _001D.x;
+			z = _001D.z;
 		}
 		else
 		{
-			float worldX = \u000E.worldX;
-			if (\u001D.x > worldX)
+			float worldX = _000E.worldX;
+			if (_001D.x > worldX)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -377,9 +413,9 @@ public class Board : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u000E(Vector3, BoardSquare)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				x = worldX + num;
 			}
@@ -387,31 +423,15 @@ public class Board : MonoBehaviour, IGameEventListener
 			{
 				x = worldX - num;
 			}
-			float worldY = \u000E.worldY;
-			if (\u001D.z > worldY)
-			{
-				z = worldY + num;
-			}
-			else
-			{
-				z = worldY - num;
-			}
+			float worldY = _000E.worldY;
+			z = ((!(_001D.z > worldY)) ? (worldY - num) : (worldY + num));
 		}
-		Vector3 result = new Vector3(x, \u001D.y, z);
-		return result;
-	}
-
-	public bool MarkedForUpdateValidSquares
-	{
-		get
-		{
-			return this.m_needToUpdateValidSquares;
-		}
+		return new Vector3(x, _001D.y, z);
 	}
 
 	public void MarkForUpdateValidSquares(bool value = true)
 	{
-		this.m_needToUpdateValidSquares = value;
+		m_needToUpdateValidSquares = value;
 	}
 
 	private void RecalcClampedSelections()
@@ -423,20 +443,19 @@ public class Board : MonoBehaviour, IGameEventListener
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.RecalcClampedSelections()).MethodHandle;
-			}
-			return;
 		}
 		ActorController component = activeOwnedActorData.GetComponent<ActorController>();
 		if (component == null)
@@ -448,9 +467,9 @@ public class Board : MonoBehaviour, IGameEventListener
 		Vector3 vector = Vector3.zero;
 		BoardSquare boardSquare = null;
 		bool flag;
-		if (activeOwnedActorData.\u000E().AmDecidingMovement())
+		if (activeOwnedActorData.GetActorTurnSM().AmDecidingMovement())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -459,9 +478,9 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (this.PlayerFreeSquare != null)
+			if (PlayerFreeSquare != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -470,12 +489,12 @@ public class Board : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (this.PlayerFreeSquare.occupant != null)
+				if (PlayerFreeSquare.occupant != null)
 				{
-					ActorData component2 = this.PlayerFreeSquare.occupant.GetComponent<ActorData>();
+					ActorData component2 = PlayerFreeSquare.occupant.GetComponent<ActorData>();
 					if (component2 != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -484,9 +503,9 @@ public class Board : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (component2.\u0018())
+						if (component2.IsVisibleToClient())
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -496,20 +515,25 @@ public class Board : MonoBehaviour, IGameEventListener
 								break;
 							}
 							flag = true;
-							goto IL_109;
+							goto IL_010e;
 						}
 					}
 					flag = false;
-					IL_109:
-					goto IL_10E;
+					goto IL_010e;
 				}
 			}
 		}
 		flag = false;
-		IL_10E:
+		goto IL_010e;
+		IL_021f:
+		PlayerClampedPos = vector;
+		PlayerClampedSquare = boardSquare;
+		PlayerClampedCornerPos = _000E(vector, boardSquare);
+		return;
+		IL_010e:
 		if (squaresToClampTo != null && squaresToClampTo.Count != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -518,9 +542,9 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!squaresToClampTo.Contains(this.PlayerFreeSquare))
+			if (!squaresToClampTo.Contains(PlayerFreeSquare))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -531,24 +555,26 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				if (!flag)
 				{
-					float x = this.PlayerFreePos.x;
-					float z = this.PlayerFreePos.z;
+					Vector3 playerFreePos = PlayerFreePos;
+					float x = playerFreePos.x;
+					Vector3 playerFreePos2 = PlayerFreePos;
+					float z = playerFreePos2.z;
 					float num = float.MaxValue;
 					using (HashSet<BoardSquare>.Enumerator enumerator = squaresToClampTo.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
 						{
-							BoardSquare boardSquare2 = enumerator.Current;
-							float num2 = boardSquare2.worldX - x;
-							float num3 = boardSquare2.worldY - z;
+							BoardSquare current = enumerator.Current;
+							float num2 = current.worldX - x;
+							float num3 = current.worldY - z;
 							float num4 = num2 * num2 + num3 * num3;
 							if (num4 <= num)
 							{
 								num = num4;
-								boardSquare = boardSquare2;
+								boardSquare = current;
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -560,7 +586,7 @@ public class Board : MonoBehaviour, IGameEventListener
 					}
 					if (boardSquare != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -569,40 +595,35 @@ public class Board : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						vector = boardSquare.CalcNearestPositionOnSquareEdge(this.PlayerFreePos);
-						goto IL_21F;
+						vector = boardSquare.CalcNearestPositionOnSquareEdge(PlayerFreePos);
 					}
-					goto IL_21F;
+					goto IL_021f;
 				}
 			}
 		}
-		vector = this.PlayerFreePos;
-		boardSquare = this.PlayerFreeSquare;
-		IL_21F:
-		this.PlayerClampedPos = vector;
-		this.PlayerClampedSquare = boardSquare;
-		this.PlayerClampedCornerPos = Board.\u000E(vector, boardSquare);
+		vector = PlayerFreePos;
+		boardSquare = PlayerFreeSquare;
+		goto IL_021f;
 	}
 
 	public void ReevaluateBoard()
 	{
-		this.m_maxX = 0;
-		this.m_maxY = 0;
-		this.m_maxHeight = 0;
-		this.m_lastValidGuidedHeight = 0x1869F;
-		this.m_lowestPositiveHeight = 0x1869F;
+		m_maxX = 0;
+		m_maxY = 0;
+		m_maxHeight = 0;
+		m_lastValidGuidedHeight = 99999;
+		m_lowestPositiveHeight = 99999;
 		IEnumerator enumerator = base.transform.GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())
 			{
-				object obj = enumerator.Current;
-				Transform transform = (Transform)obj;
+				Transform transform = (Transform)enumerator.Current;
 				BoardSquare component = transform.GetComponent<BoardSquare>();
 				component.ReevaluateSquare();
-				if (component.height > 0 && component.height < this.m_lowestPositiveHeight)
+				if (component.height > 0 && component.height < m_lowestPositiveHeight)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -611,23 +632,23 @@ public class Board : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(Board.ReevaluateBoard()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					this.m_lowestPositiveHeight = component.height;
+					m_lowestPositiveHeight = component.height;
 				}
-				if (component.height > this.m_maxHeight)
+				if (component.height > m_maxHeight)
 				{
-					this.m_maxHeight = component.height;
+					m_maxHeight = component.height;
 				}
-				if (component.x + 1 > this.m_maxX)
+				if (component.x + 1 > m_maxX)
 				{
-					this.m_maxX = component.x + 1;
+					m_maxX = component.x + 1;
 				}
-				if (component.y + 1 > this.m_maxY)
+				if (component.y + 1 > m_maxY)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -636,10 +657,10 @@ public class Board : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					this.m_maxY = component.y + 1;
+					m_maxY = component.y + 1;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -654,30 +675,31 @@ public class Board : MonoBehaviour, IGameEventListener
 			IDisposable disposable;
 			if ((disposable = (enumerator as IDisposable)) != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						disposable.Dispose();
+						goto end_IL_0118;
 					}
-					break;
 				}
-				disposable.Dispose();
 			}
+			end_IL_0118:;
 		}
-		this.m_boardSquares = new BoardSquare[this.m_maxX, this.m_maxY];
+		m_boardSquares = new BoardSquare[m_maxX, m_maxY];
 		IEnumerator enumerator2 = base.transform.GetEnumerator();
 		try
 		{
 			while (enumerator2.MoveNext())
 			{
-				object obj2 = enumerator2.Current;
-				Transform transform2 = (Transform)obj2;
+				Transform transform2 = (Transform)enumerator2.Current;
 				BoardSquare component2 = transform2.GetComponent<BoardSquare>();
-				if (component2)
+				if ((bool)component2)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -686,10 +708,10 @@ public class Board : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					this.m_boardSquares[component2.x, component2.y] = component2;
+					m_boardSquares[component2.x, component2.y] = component2;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -704,75 +726,79 @@ public class Board : MonoBehaviour, IGameEventListener
 			IDisposable disposable2;
 			if ((disposable2 = (enumerator2 as IDisposable)) != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						disposable2.Dispose();
+						goto end_IL_01b9;
 					}
-					break;
 				}
-				disposable2.Dispose();
 			}
+			end_IL_01b9:;
 		}
-		if (HUD_UI.Get() != null)
+		if (!(HUD_UI.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			HUD_UI.Get().m_mainScreenPanel.m_minimap.SetupMinimap();
+			return;
 		}
 	}
 
 	public void SetLOSVisualEffect(bool enable)
 	{
-		if (this.m_showLOS != enable)
+		if (m_showLOS == enable)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.SetLOSVisualEffect(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_showLOS = enable;
+			m_showLOS = enable;
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					GameFlowData.Get().activeOwnedActorData.GetFogOfWar().SetVisibleShadeOfAllSquares();
+					return;
 				}
-				GameFlowData.Get().activeOwnedActorData.\u000E().SetVisibleShadeOfAllSquares();
 			}
+			return;
 		}
 	}
 
 	public void ToggleLOS()
 	{
-		this.SetLOSVisualEffect(!this.m_showLOS);
+		SetLOSVisualEffect(!m_showLOS);
 	}
 
-	public GameObject \u000E()
+	public GameObject GetLOSHighlightsParent()
 	{
-		return this.m_LOSHighlightsParent;
+		return m_LOSHighlightsParent;
 	}
 
 	public void ApplyForceOnDead(BoardSquare square, float amount, Vector3 overrideDir, bool applyToAllJoints)
@@ -780,11 +806,11 @@ public class Board : MonoBehaviour, IGameEventListener
 		if (square != null)
 		{
 			List<GameObject> players = GameFlowData.Get().GetPlayers();
-			foreach (GameObject gameObject in players)
+			foreach (GameObject item in players)
 			{
-				if (gameObject != null)
+				if (item != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -793,14 +819,14 @@ public class Board : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(Board.ApplyForceOnDead(BoardSquare, float, Vector3, bool)).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					ActorData component = gameObject.GetComponent<ActorData>();
-					if (component)
+					ActorData component = item.GetComponent<ActorData>();
+					if ((bool)component)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -809,9 +835,9 @@ public class Board : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (component.\u0012())
+						if (component.IsModelAnimatorDisabled())
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
@@ -822,7 +848,7 @@ public class Board : MonoBehaviour, IGameEventListener
 							}
 							if (applyToAllJoints)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (4)
 									{
@@ -831,9 +857,9 @@ public class Board : MonoBehaviour, IGameEventListener
 									}
 									break;
 								}
-								if (component.\u000E() != null)
+								if (component.GetActorModelData() != null)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (7)
 										{
@@ -843,7 +869,7 @@ public class Board : MonoBehaviour, IGameEventListener
 										break;
 									}
 									ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(square.ToVector3() + 0.2f * Vector3.up, overrideDir);
-									component.\u000E().ApplyImpulseOnRagdoll(impulseInfo, null);
+									component.GetActorModelData().ApplyImpulseOnRagdoll(impulseInfo, null);
 									continue;
 								}
 							}
@@ -857,15 +883,15 @@ public class Board : MonoBehaviour, IGameEventListener
 
 	public void SetThinCover(int x, int y, ActorCover.CoverDirections side, ThinCover.CoverType coverType)
 	{
-		this.m_boardSquares[x, y].SetThinCover(side, coverType);
+		m_boardSquares[x, y].SetThinCover(side, coverType);
 	}
 
-	public float \u000E(int \u001D, int \u000E)
+	public float GetSquareHeight(int x, int y)
 	{
 		float result = 0f;
-		if (this.m_boardSquares != null)
+		if (m_boardSquares != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -874,13 +900,13 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u000E(int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (\u001D >= 0)
+			if (x >= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -889,9 +915,9 @@ public class Board : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (\u001D < this.\u000E())
+				if (x < GetMaxX())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -900,9 +926,9 @@ public class Board : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (\u000E >= 0)
+					if (y >= 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -911,9 +937,9 @@ public class Board : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (\u000E < this.\u0012())
+						if (y < GetMaxY())
 						{
-							result = (float)this.m_boardSquares[\u001D, \u000E].height;
+							result = m_boardSquares[x, y].height;
 						}
 					}
 				}
@@ -922,11 +948,11 @@ public class Board : MonoBehaviour, IGameEventListener
 		return result;
 	}
 
-	public float \u000E(Vector3 \u001D, bool \u000E)
+	public float _000E(Vector3 _001D, bool drawDebug)
 	{
-		if (this.m_cameraGuideMeshCollider)
+		if ((bool)m_cameraGuideMeshCollider)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -935,15 +961,15 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u000E(Vector3, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			RaycastHit raycastHit = default(RaycastHit);
-			Ray ray = new Ray(\u001D + Vector3.up * (float)this.m_maxHeight, Vector3.down);
-			if (this.m_cameraGuideMeshCollider.Raycast(ray, out raycastHit, 5000f))
+			RaycastHit hitInfo = default(RaycastHit);
+			Ray ray = new Ray(_001D + Vector3.up * m_maxHeight, Vector3.down);
+			if (m_cameraGuideMeshCollider.Raycast(ray, out hitInfo, 5000f))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -952,10 +978,11 @@ public class Board : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				this.m_lastValidGuidedHeight = (int)raycastHit.point.y;
-				if (\u000E)
+				Vector3 point = hitInfo.point;
+				m_lastValidGuidedHeight = (int)point.y;
+				if (drawDebug)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -964,12 +991,12 @@ public class Board : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					Debug.DrawLine(ray.origin, raycastHit.point);
+					Debug.DrawLine(ray.origin, hitInfo.point);
 				}
 			}
-			else if (\u000E)
+			else if (drawDebug)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -983,42 +1010,42 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 		else
 		{
-			this.m_lastValidGuidedHeight = this.m_maxHeight;
+			m_lastValidGuidedHeight = m_maxHeight;
 		}
-		if (this.m_lastValidGuidedHeight != 0x1869F)
+		if (m_lastValidGuidedHeight != 99999)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_lastValidGuidedHeight;
 				}
-				break;
 			}
-			return (float)this.m_lastValidGuidedHeight;
 		}
-		return (float)this.m_lowestPositiveHeight;
+		return m_lowestPositiveHeight;
 	}
 
-	public int \u000E()
+	public int GetMaxX()
 	{
-		return this.m_maxX;
+		return m_maxX;
 	}
 
-	public int \u0012()
+	public int GetMaxY()
 	{
-		return this.m_maxY;
+		return m_maxY;
 	}
 
-	public BoardSquare \u0012(float \u001D, float \u000E)
+	public BoardSquare GetBoardSquareSafe(float x, float y)
 	{
 		BoardSquare result = null;
-		int num = Mathf.RoundToInt(\u001D / this.squareSize);
-		int num2 = Mathf.RoundToInt(\u000E / this.squareSize);
+		int num = Mathf.RoundToInt(x / squareSize);
+		int num2 = Mathf.RoundToInt(y / squareSize);
 		if (num >= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1027,13 +1054,13 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u0012(float, float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (num < this.\u000E() && num2 >= 0)
+			if (num < GetMaxX() && num2 >= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1042,9 +1069,9 @@ public class Board : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (num2 < this.\u0012())
+				if (num2 < GetMaxY())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -1053,38 +1080,38 @@ public class Board : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					result = this.m_boardSquares[num, num2];
+					result = m_boardSquares[num, num2];
 				}
 			}
 		}
 		return result;
 	}
 
-	public BoardSquare \u0015(float \u001D, float \u000E)
+	public BoardSquare GetBoardSquareUnsafe(float x, float y)
 	{
-		int num = Mathf.RoundToInt(\u001D / this.squareSize);
-		int num2 = Mathf.RoundToInt(\u000E / this.squareSize);
-		num = Mathf.Clamp(num, 0, this.\u000E() - 1);
-		num2 = Mathf.Clamp(num2, 0, this.\u0012() - 1);
-		return this.m_boardSquares[num, num2];
+		int value = Mathf.RoundToInt(x / squareSize);
+		int value2 = Mathf.RoundToInt(y / squareSize);
+		value = Mathf.Clamp(value, 0, GetMaxX() - 1);
+		value2 = Mathf.Clamp(value2, 0, GetMaxY() - 1);
+		return m_boardSquares[value, value2];
 	}
 
-	public BoardSquare \u000E(Vector3 \u001D)
+	public BoardSquare GetBoardSquare(Vector3 vector2D)
 	{
-		return this.\u0012(\u001D.x, \u001D.z);
+		return GetBoardSquareSafe(vector2D.x, vector2D.z);
 	}
 
-	public BoardSquare \u000E(Vector2 \u001D)
+	public BoardSquare GetBoardSquare(Vector2 vector)
 	{
-		return this.\u0012(\u001D.x, \u001D.y);
+		return GetBoardSquareSafe(vector.x, vector.y);
 	}
 
-	public BoardSquare \u000E(Transform \u001D)
+	public BoardSquare GetBoardSquare(Transform transform)
 	{
 		BoardSquare result = null;
-		if (\u001D != null)
+		if (transform != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1093,21 +1120,24 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u000E(Transform)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.\u0012(\u001D.position.x, \u001D.position.z);
+			Vector3 position = transform.position;
+			float x = position.x;
+			Vector3 position2 = transform.position;
+			result = GetBoardSquareSafe(x, position2.z);
 		}
 		return result;
 	}
 
-	public BoardSquare \u0016(int \u001D, int \u000E)
+	public BoardSquare GetBoardSquare(int x, int y)
 	{
 		BoardSquare result = null;
-		if (\u001D >= 0)
+		if (x >= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1116,13 +1146,13 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u0016(int, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (\u001D < this.\u000E())
+			if (x < GetMaxX())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1131,9 +1161,9 @@ public class Board : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (\u000E >= 0)
+				if (y >= 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -1142,9 +1172,9 @@ public class Board : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (\u000E < this.\u0012())
+					if (y < GetMaxY())
 					{
-						result = this.m_boardSquares[\u001D, \u000E];
+						result = m_boardSquares[x, y];
 					}
 				}
 			}
@@ -1152,12 +1182,12 @@ public class Board : MonoBehaviour, IGameEventListener
 		return result;
 	}
 
-	public BoardSquare \u000E(GridPos \u001D)
+	public BoardSquare GetBoardSquareSafe(GridPos gridPos)
 	{
 		BoardSquare result = null;
-		if (\u001D.x >= 0)
+		if (gridPos.x >= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1166,13 +1196,13 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u000E(GridPos)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (\u001D.x < this.\u000E())
+			if (gridPos.x < GetMaxX())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1181,9 +1211,9 @@ public class Board : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (\u001D.y >= 0)
+				if (gridPos.y >= 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1192,9 +1222,9 @@ public class Board : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (\u001D.y < this.\u0012())
+					if (gridPos.y < GetMaxY())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -1203,7 +1233,7 @@ public class Board : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						result = this.m_boardSquares[\u001D.x, \u001D.y];
+						result = m_boardSquares[gridPos.x, gridPos.y];
 					}
 				}
 			}
@@ -1213,13 +1243,13 @@ public class Board : MonoBehaviour, IGameEventListener
 
 	public void ResetGame()
 	{
-		this.ClearVisibleShade();
+		ClearVisibleShade();
 	}
 
 	public void ClearVisibleShade()
 	{
-		bool flag = false;
-		BoardSquare[,] boardSquares = this.m_boardSquares;
+		bool anySquareShadeChanged = false;
+		BoardSquare[,] boardSquares = m_boardSquares;
 		int length = boardSquares.GetLength(0);
 		int length2 = boardSquares.GetLength(1);
 		for (int i = 0; i < length; i++)
@@ -1227,36 +1257,37 @@ public class Board : MonoBehaviour, IGameEventListener
 			for (int j = 0; j < length2; j++)
 			{
 				BoardSquare boardSquare = boardSquares[i, j];
-				boardSquare.SetVisibleShade(0, ref flag);
+				boardSquare.SetVisibleShade(0, ref anySquareShadeChanged);
 			}
 		}
-		if (flag)
+		if (!anySquareShadeChanged)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.ClearVisibleShade()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (GameEventManager.Get() != null)
 			{
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.BoardSquareVisibleShadeChanged, null);
 			}
+			return;
 		}
 	}
 
-	public unsafe void \u000E(int \u001D, int \u000E, ref List<BoardSquare> \u0012)
+	public void GetStraightAdjacentSquares(int x, int y, ref List<BoardSquare> result)
 	{
-		if (\u0012 == null)
+		if (result == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1265,15 +1296,15 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u000E(int, int, List<BoardSquare>*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			\u0012 = new List<BoardSquare>(4);
+			result = new List<BoardSquare>(4);
 		}
-		if (this.\u0016(\u001D + 1, \u000E) != null)
+		if (GetBoardSquare(x + 1, y) != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1282,11 +1313,11 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			\u0012.Add(this.\u0016(\u001D + 1, \u000E));
+			result.Add(GetBoardSquare(x + 1, y));
 		}
-		if (this.\u0016(\u001D - 1, \u000E) != null)
+		if (GetBoardSquare(x - 1, y) != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1295,11 +1326,11 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			\u0012.Add(this.\u0016(\u001D - 1, \u000E));
+			result.Add(GetBoardSquare(x - 1, y));
 		}
-		if (this.\u0016(\u001D, \u000E + 1) != null)
+		if (GetBoardSquare(x, y + 1) != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1308,32 +1339,33 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			\u0012.Add(this.\u0016(\u001D, \u000E + 1));
+			result.Add(GetBoardSquare(x, y + 1));
 		}
-		if (this.\u0016(\u001D, \u000E - 1) != null)
+		if (!(GetBoardSquare(x, y - 1) != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			\u0012.Add(this.\u0016(\u001D, \u000E - 1));
+			result.Add(GetBoardSquare(x, y - 1));
+			return;
 		}
 	}
 
-	public unsafe void \u0012(int \u001D, int \u000E, ref List<BoardSquare> \u0012)
+	public void GetDiagonallyAdjacentSquares(int x, int y, ref List<BoardSquare> result)
 	{
-		if (\u0012 == null)
+		if (result == null)
 		{
-			\u0012 = new List<BoardSquare>(4);
+			result = new List<BoardSquare>(4);
 		}
-		if (this.\u0016(\u001D + 1, \u000E + 1) != null)
+		if (GetBoardSquare(x + 1, y + 1) != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1342,15 +1374,15 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u0012(int, int, List<BoardSquare>*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			\u0012.Add(this.\u0016(\u001D + 1, \u000E + 1));
+			result.Add(GetBoardSquare(x + 1, y + 1));
 		}
-		if (this.\u0016(\u001D + 1, \u000E - 1) != null)
+		if (GetBoardSquare(x + 1, y - 1) != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1359,11 +1391,11 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			\u0012.Add(this.\u0016(\u001D + 1, \u000E - 1));
+			result.Add(GetBoardSquare(x + 1, y - 1));
 		}
-		if (this.\u0016(\u001D - 1, \u000E + 1) != null)
+		if (GetBoardSquare(x - 1, y + 1) != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1372,45 +1404,46 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			\u0012.Add(this.\u0016(\u001D - 1, \u000E + 1));
+			result.Add(GetBoardSquare(x - 1, y + 1));
 		}
-		if (this.\u0016(\u001D - 1, \u000E - 1) != null)
+		if (!(GetBoardSquare(x - 1, y - 1) != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			\u0012.Add(this.\u0016(\u001D - 1, \u000E - 1));
+			result.Add(GetBoardSquare(x - 1, y - 1));
+			return;
 		}
 	}
 
-	public void \u0015(int \u001D, int \u000E, ref List<BoardSquare> \u0012)
+	public void GetAllAdjacentSquares(int x, int y, ref List<BoardSquare> result)
 	{
-		if (\u0012 == null)
+		if (result == null)
 		{
-			\u0012 = new List<BoardSquare>(8);
+			result = new List<BoardSquare>(8);
 		}
-		this.\u000E(\u001D, \u000E, ref \u0012);
-		this.\u0012(\u001D, \u000E, ref \u0012);
+		GetStraightAdjacentSquares(x, y, ref result);
+		GetDiagonallyAdjacentSquares(x, y, ref result);
 	}
 
-	public BoardSquare \u0013(float \u001D, float \u000E)
+	public BoardSquare _0013(float _001D, float _000E)
 	{
-		BoardSquare u001D = this.\u0012(\u001D, \u000E);
-		return this.\u0018(u001D, null);
+		BoardSquare boardSquareSafe = GetBoardSquareSafe(_001D, _000E);
+		return _0018(boardSquareSafe);
 	}
 
-	public BoardSquare \u0018(BoardSquare \u001D, BoardSquare \u000E = null)
+	public BoardSquare _0018(BoardSquare _001D, BoardSquare _000E = null)
 	{
 		BoardSquare result = null;
-		if (\u001D != null)
+		if (_001D != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1419,136 +1452,16 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u0018(BoardSquare, BoardSquare)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			bool flag = \u001D == \u000E;
-			if (\u001D.\u0016())
+			bool flag = _001D == _000E;
+			if (!_001D.IsBaselineHeight())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(\u000E == null))
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (flag)
-					{
-						goto IL_66;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				return \u001D;
+				goto IL_0066;
 			}
-			IL_66:
-			List<BoardSquare> list = null;
-			this.\u0015(\u001D.x, \u001D.y, ref list);
-			if (\u000E != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				list.Remove(\u000E);
-			}
-			float worldX = \u001D.worldX;
-			float worldY = \u001D.worldY;
-			list.Sort(delegate(BoardSquare sq1, BoardSquare sq2)
-			{
-				float num = (sq1.worldX - worldX) * (sq1.worldX - worldX) + (sq1.worldY - worldY) * (sq1.worldY - worldY);
-				float value = (sq2.worldX - worldX) * (sq2.worldX - worldX) + (sq2.worldY - worldY) * (sq2.worldY - worldY);
-				return num.CompareTo(value);
-			});
-			using (List<BoardSquare>.Enumerator enumerator = list.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					BoardSquare boardSquare = enumerator.Current;
-					if (boardSquare.\u0016())
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						return boardSquare;
-					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-		}
-		return result;
-	}
-
-	public bool \u000E(BoardSquare \u001D, BoardSquare \u000E)
-	{
-		bool flag;
-		if (\u001D.x == \u000E.x)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u000E(BoardSquare, BoardSquare)).MethodHandle;
-			}
-			flag = (\u001D.y != \u000E.y);
-		}
-		else
-		{
-			flag = true;
-		}
-		bool flag2 = flag;
-		bool flag3 = \u001D.x >= \u000E.x - 1 && \u001D.x <= \u000E.x + 1;
-		bool flag4;
-		if (\u001D.y >= \u000E.y - 1)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1557,16 +1470,40 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			flag4 = (\u001D.y <= \u000E.y + 1);
+			if (!(_000E == null))
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (flag)
+				{
+					goto IL_0066;
+				}
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			result = _001D;
 		}
-		else
+		return result;
+		IL_0066:
+		List<BoardSquare> result2 = null;
+		GetAllAdjacentSquares(_001D.x, _001D.y, ref result2);
+		if (_000E != null)
 		{
-			flag4 = false;
-		}
-		bool result = flag4;
-		if (flag2)
-		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -1575,9 +1512,108 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (flag3)
+			result2.Remove(_000E);
+		}
+		float worldX = _001D.worldX;
+		float worldY = _001D.worldY;
+		result2.Sort(delegate(BoardSquare sq1, BoardSquare sq2)
+		{
+			float num = (sq1.worldX - worldX) * (sq1.worldX - worldX) + (sq1.worldY - worldY) * (sq1.worldY - worldY);
+			float value = (sq2.worldX - worldX) * (sq2.worldX - worldX) + (sq2.worldY - worldY) * (sq2.worldY - worldY);
+			return num.CompareTo(value);
+		});
+		using (List<BoardSquare>.Enumerator enumerator = result2.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
 			{
-				for (;;)
+				BoardSquare current = enumerator.Current;
+				if (current.IsBaselineHeight())
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							break;
+						default:
+							return current;
+						}
+					}
+				}
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					break;
+				default:
+					return result;
+				}
+			}
+		}
+	}
+
+	public bool _000E(BoardSquare _001D, BoardSquare _000E)
+	{
+		int num;
+		if (_001D.x == _000E.x)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			num = ((_001D.y != _000E.y) ? 1 : 0);
+		}
+		else
+		{
+			num = 1;
+		}
+		bool flag = (byte)num != 0;
+		bool flag2 = _001D.x >= _000E.x - 1 && _001D.x <= _000E.x + 1;
+		int num2;
+		if (_001D.y >= _000E.y - 1)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num2 = ((_001D.y <= _000E.y + 1) ? 1 : 0);
+		}
+		else
+		{
+			num2 = 0;
+		}
+		bool flag3 = (byte)num2 != 0;
+		int result;
+		if (flag)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (flag2)
+			{
+				while (true)
 				{
 					switch (5)
 					{
@@ -1586,17 +1622,21 @@ public class Board : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				return result;
+				result = (flag3 ? 1 : 0);
+				goto IL_00c0;
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_00c0;
+		IL_00c0:
+		return (byte)result != 0;
 	}
 
-	public bool \u0012(BoardSquare \u001D, BoardSquare \u000E)
+	public bool _0012(BoardSquare _001D, BoardSquare _000E)
 	{
-		if (\u001D.x == \u000E.x)
+		if (_001D.x == _000E.x)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1605,13 +1645,13 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u0012(BoardSquare, BoardSquare)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (\u001D.y != \u000E.y + 1)
+			if (_001D.y != _000E.y + 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -1620,11 +1660,11 @@ public class Board : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (\u001D.y != \u000E.y - 1)
+				if (_001D.y != _000E.y - 1)
 				{
-					goto IL_5D;
+					goto IL_005d;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1636,10 +1676,11 @@ public class Board : MonoBehaviour, IGameEventListener
 			}
 			return true;
 		}
-		IL_5D:
-		if (\u001D.y == \u000E.y)
+		goto IL_005d;
+		IL_005d:
+		if (_001D.y == _000E.y)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1648,9 +1689,9 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (\u001D.x != \u000E.x + 1)
+			if (_001D.x != _000E.x + 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1659,28 +1700,29 @@ public class Board : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (\u001D.x != \u000E.x - 1)
+				if (_001D.x != _000E.x - 1)
 				{
-					goto IL_AD;
+					goto IL_00ad;
 				}
 			}
 			return true;
 		}
-		IL_AD:
+		goto IL_00ad;
+		IL_00ad:
 		return false;
 	}
 
-	public bool \u0015(BoardSquare \u001D, BoardSquare \u000E)
+	public bool _0015(BoardSquare _001D, BoardSquare _000E)
 	{
-		bool flag = this.\u000E(\u001D, \u000E);
-		return flag && \u001D.x != \u000E.x && \u001D.y != \u000E.y;
+		return this._000E(_001D, _000E) && _001D.x != _000E.x && _001D.y != _000E.y;
 	}
 
-	public List<BoardSquare> \u000E(Bounds \u001D, Func<BoardSquare, bool> \u000E = null)
+	public List<BoardSquare> _000E(Bounds _001D, Func<BoardSquare, bool> _000E = null)
 	{
-		if (!Mathf.Approximately(\u001D.center.y, 0f))
+		Vector3 center = _001D.center;
+		if (!Mathf.Approximately(center.y, 0f))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1689,86 +1731,89 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u000E(Bounds, Func<BoardSquare, bool>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Log.Error("code error: Board.GetSquaresInBox bounds.center.y must be zero!", new object[0]);
+			Log.Error("code error: Board.GetSquaresInBox bounds.center.y must be zero!");
 		}
-		Vector3 min = \u001D.min;
-		Vector3 max = \u001D.max;
+		Vector3 min = _001D.min;
+		Vector3 max = _001D.max;
 		min.y = 0f;
 		max.y = 0f;
-		int num = Mathf.Max(0, (int)(min.x / this.squareSize));
-		int num2 = Mathf.Max(0, (int)(min.z / this.squareSize));
-		int num3 = Mathf.Min(this.m_maxX, (int)(max.x / this.squareSize) + 1);
-		int num4 = Mathf.Min(this.m_maxY, (int)(max.z / this.squareSize) + 1);
+		int num = Mathf.Max(0, (int)(min.x / squareSize));
+		int num2 = Mathf.Max(0, (int)(min.z / squareSize));
+		int num3 = Mathf.Min(m_maxX, (int)(max.x / squareSize) + 1);
+		int num4 = Mathf.Min(m_maxY, (int)(max.z / squareSize) + 1);
 		List<BoardSquare> list = new List<BoardSquare>();
 		for (int i = num; i < num3; i++)
 		{
 			for (int j = num2; j < num4; j++)
 			{
-				BoardSquare boardSquare = Board.\u000E().\u0016(i, j);
+				BoardSquare boardSquare = Get().GetBoardSquare(i, j);
 				Vector3 point = new Vector3(boardSquare.worldX, 0f, boardSquare.worldY);
-				if (\u001D.Contains(point))
+				if (!_001D.Contains(point))
 				{
-					if (\u000E != null)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!\u000E(boardSquare))
-						{
-							goto IL_15F;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					list.Add(boardSquare);
+					continue;
 				}
-				IL_15F:;
+				if (_000E != null)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (!_000E(boardSquare))
+					{
+						continue;
+					}
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+				list.Add(boardSquare);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_016b;
 				}
+				continue;
+				end_IL_016b:
 				break;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			return list;
 		}
-		return list;
 	}
 
-	public List<BoardSquare> \u000E(BoardSquare \u001D, BoardSquare \u000E)
+	public List<BoardSquare> GetSquaresInRect(BoardSquare a, BoardSquare b)
 	{
 		List<BoardSquare> list = new List<BoardSquare>();
-		if (\u001D != null)
+		if (a != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -1777,25 +1822,25 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.\u000E(BoardSquare, BoardSquare)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (\u000E != null)
+			if (b != null)
 			{
-				int num = Mathf.Min(\u001D.x, \u000E.x);
-				int num2 = Mathf.Max(\u001D.x, \u000E.x);
-				int num3 = Mathf.Min(\u001D.y, \u000E.y);
-				int num4 = Mathf.Max(\u001D.y, \u000E.y);
+				int num = Mathf.Min(a.x, b.x);
+				int num2 = Mathf.Max(a.x, b.x);
+				int num3 = Mathf.Min(a.y, b.y);
+				int num4 = Mathf.Max(a.y, b.y);
 				for (int i = num3; i <= num4; i++)
 				{
 					for (int j = num; j <= num2; j++)
 					{
-						BoardSquare item = Board.\u000E().\u0016(j, i);
-						list.Add(item);
+						BoardSquare boardSquare = Get().GetBoardSquare(j, i);
+						list.Add(boardSquare);
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1816,10 +1861,10 @@ public class Board : MonoBehaviour, IGameEventListener
 			return;
 		}
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(this.PlayerFreePos, 0.5f);
-		if (this.PlayerFreeSquare != null)
+		Gizmos.DrawWireSphere(PlayerFreePos, 0.5f);
+		if (PlayerFreeSquare != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1828,17 +1873,17 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.OnDrawGizmos()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Gizmos.DrawWireCube(this.PlayerFreeSquare.ToVector3(), new Vector3(1.7f, 1.7f, 1.7f));
+			Gizmos.DrawWireCube(PlayerFreeSquare.ToVector3(), new Vector3(1.7f, 1.7f, 1.7f));
 		}
 		Gizmos.color = Color.cyan;
-		Gizmos.DrawWireSphere(this.PlayerClampedPos, 0.4f);
-		if (this.PlayerClampedSquare != null)
+		Gizmos.DrawWireSphere(PlayerClampedPos, 0.4f);
+		if (PlayerClampedSquare != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -1847,61 +1892,61 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			Gizmos.DrawWireCube(this.PlayerClampedSquare.ToVector3(), new Vector3(1.6f, 1.6f, 1.6f));
+			Gizmos.DrawWireCube(PlayerClampedSquare.ToVector3(), new Vector3(1.6f, 1.6f, 1.6f));
 		}
 		Gizmos.color = Color.yellow;
-		Gizmos.DrawWireSphere(this.PlayerFreeCornerPos, 0.75f);
+		Gizmos.DrawWireSphere(PlayerFreeCornerPos, 0.75f);
 		Gizmos.color = Color.green;
-		Gizmos.DrawWireSphere(this.PlayerClampedCornerPos, 0.66f);
-		this.DrawBoardGridGizmo();
+		Gizmos.DrawWireSphere(PlayerClampedCornerPos, 0.66f);
+		DrawBoardGridGizmo();
 	}
 
 	private void DrawBoardGridGizmo()
 	{
-		if (this.m_maxX > 0)
+		if (m_maxX <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (m_maxY <= 0)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Board.DrawBoardGridGizmo()).MethodHandle;
-			}
-			if (this.m_maxY > 0)
-			{
-				for (;;)
+				Color white = Color.white;
+				white.a = 0.3f;
+				Gizmos.color = white;
+				BoardSquare boardSquare = Get().GetBoardSquare(m_maxX / 2, m_maxY / 2);
+				if (!(boardSquare != null))
 				{
-					switch (4)
+					return;
+				}
+				while (true)
+				{
+					switch (2)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				Color white = Color.white;
-				white.a = 0.3f;
-				Gizmos.color = white;
-				BoardSquare boardSquare = Board.\u000E().\u0016(this.m_maxX / 2, this.m_maxY / 2);
-				if (boardSquare != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					int num = this.m_maxX / 2;
-					int num2 = this.m_maxY / 2;
-					float squareSize = Board.\u000E().squareSize;
+					int num = m_maxX / 2;
+					int num2 = m_maxY / 2;
+					float squareSize = Get().squareSize;
 					Vector3 a = new Vector3(1f, 0f, 0f);
 					Vector3 a2 = new Vector3(0f, 0f, 1f);
 					float num3 = ((float)num - 0.5f) * squareSize;
@@ -1916,31 +1961,31 @@ public class Board : MonoBehaviour, IGameEventListener
 						Vector3 b = a2 * num4;
 						Gizmos.DrawLine(a3 + b, a3 - b);
 					}
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					float num6 = vector.z - num4;
-					for (int j = 0; j < num2 * 2; j++)
-					{
-						Vector3 a4 = vector;
-						a4.z = num6 + squareSize * (float)j;
-						Vector3 b2 = a * num3;
-						Gizmos.DrawLine(a4 + b2, a4 - b2);
-					}
-					for (;;)
-					{
-						switch (4)
+						float num6 = vector.z - num4;
+						for (int j = 0; j < num2 * 2; j++)
 						{
-						case 0:
-							continue;
+							Vector3 a4 = vector;
+							a4.z = num6 + squareSize * (float)j;
+							Vector3 b2 = a * num3;
+							Gizmos.DrawLine(a4 + b2, a4 - b2);
 						}
-						break;
+						while (true)
+						{
+							switch (4)
+							{
+							default:
+								return;
+							case 0:
+								break;
+							}
+						}
 					}
 				}
 			}

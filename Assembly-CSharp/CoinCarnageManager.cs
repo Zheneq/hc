@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -7,7 +7,13 @@ using UnityEngine.UI;
 
 public class CoinCarnageManager : NetworkBehaviour
 {
-	public CoinCarnageManager.Variant m_variant;
+	public enum Variant
+	{
+		PeriodicSingleTurnin,
+		SeparateTurninsPerTeam
+	}
+
+	public Variant m_variant;
 
 	public GameObject m_coinPrefab;
 
@@ -15,7 +21,7 @@ public class CoinCarnageManager : NetworkBehaviour
 
 	public int m_coinAdditionalSpawnOnDeath = 1;
 
-	public int m_teamTurninUnlockThreshold = 0xA;
+	public int m_teamTurninUnlockThreshold = 10;
 
 	public int m_individualTurninUnlockThreshold = -1;
 
@@ -72,24 +78,168 @@ public class CoinCarnageManager : NetworkBehaviour
 
 	private static CoinCarnageManager s_instance;
 
-	private static int kRpcRpcActorPickedUpCoin = -0x33B2BEAE;
+	private static int kRpcRpcActorPickedUpCoin;
+
+	public int Networkm_coinTurninIdxTeamA
+	{
+		get
+		{
+			return m_coinTurninIdxTeamA;
+		}
+		[param: In]
+		set
+		{
+			ref int coinTurninIdxTeamA = ref m_coinTurninIdxTeamA;
+			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
+			{
+				base.syncVarHookGuard = true;
+				HookSetTurninRegionLocationA(value);
+				base.syncVarHookGuard = false;
+			}
+			SetSyncVar(value, ref coinTurninIdxTeamA, 1u);
+		}
+	}
+
+	public int Networkm_coinTurninIdxTeamB
+	{
+		get
+		{
+			return m_coinTurninIdxTeamB;
+		}
+		[param: In]
+		set
+		{
+			ref int coinTurninIdxTeamB = ref m_coinTurninIdxTeamB;
+			if (NetworkServer.localClientActive)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (!base.syncVarHookGuard)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					base.syncVarHookGuard = true;
+					HookSetTurninRegionLocationB(value);
+					base.syncVarHookGuard = false;
+				}
+			}
+			SetSyncVar(value, ref coinTurninIdxTeamB, 2u);
+		}
+	}
+
+	public int Networkm_turnsUntilTurnInSpawn
+	{
+		get
+		{
+			return m_turnsUntilTurnInSpawn;
+		}
+		[param: In]
+		set
+		{
+			ref int turnsUntilTurnInSpawn = ref m_turnsUntilTurnInSpawn;
+			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				base.syncVarHookGuard = true;
+				HookSetTurnsUntilTurnInSpawn(value);
+				base.syncVarHookGuard = false;
+			}
+			SetSyncVar(value, ref turnsUntilTurnInSpawn, 4u);
+		}
+	}
+
+	public int Networkm_turnsUntilTurnInDeSpawn
+	{
+		get
+		{
+			return m_turnsUntilTurnInDeSpawn;
+		}
+		[param: In]
+		set
+		{
+			ref int turnsUntilTurnInDeSpawn = ref m_turnsUntilTurnInDeSpawn;
+			if (NetworkServer.localClientActive)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				if (!base.syncVarHookGuard)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					base.syncVarHookGuard = true;
+					HookSetTurnsUntilTurnInDeSpawn(value);
+					base.syncVarHookGuard = false;
+				}
+			}
+			SetSyncVar(value, ref turnsUntilTurnInDeSpawn, 8u);
+		}
+	}
 
 	static CoinCarnageManager()
 	{
-		NetworkBehaviour.RegisterRpcDelegate(typeof(CoinCarnageManager), CoinCarnageManager.kRpcRpcActorPickedUpCoin, new NetworkBehaviour.CmdDelegate(CoinCarnageManager.InvokeRpcRpcActorPickedUpCoin));
+		kRpcRpcActorPickedUpCoin = -867352238;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(CoinCarnageManager), kRpcRpcActorPickedUpCoin, InvokeRpcRpcActorPickedUpCoin);
 		NetworkCRC.RegisterBehaviour("CoinCarnageManager", 0);
 	}
 
 	public static CoinCarnageManager Get()
 	{
-		return CoinCarnageManager.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		if (CoinCarnageManager.s_instance == null)
+		if (s_instance == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -98,95 +248,95 @@ public class CoinCarnageManager : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.Awake()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			CoinCarnageManager.s_instance = this;
+			s_instance = this;
 		}
 		else
 		{
-			Log.Error("Multiple CoinCarnageManager components in this scene, remove extraneous ones.", new object[0]);
+			Log.Error("Multiple CoinCarnageManager components in this scene, remove extraneous ones.");
 		}
-		this.m_coins = new List<CoinCarnageCoin>();
-		this.m_actorToCoinCount = new Dictionary<ActorData, int>();
-		this.m_coinSpawnPointTracking = new List<CoinSpawnPointTrackingData>();
-		this.m_coinToSpawnPoint = new Dictionary<CoinCarnageCoin, CoinSpawnPointTrackingData>();
-		this.m_turninLocationChoices = new List<int>(this.m_coinTurninLocations.Length);
-		for (int i = 0; i < this.m_coinTurninLocations.Length; i++)
+		m_coins = new List<CoinCarnageCoin>();
+		m_actorToCoinCount = new Dictionary<ActorData, int>();
+		m_coinSpawnPointTracking = new List<CoinSpawnPointTrackingData>();
+		m_coinToSpawnPoint = new Dictionary<CoinCarnageCoin, CoinSpawnPointTrackingData>();
+		m_turninLocationChoices = new List<int>(m_coinTurninLocations.Length);
+		for (int i = 0; i < m_coinTurninLocations.Length; i++)
 		{
-			this.m_coinTurninLocations.Initialize();
-			this.m_turninLocationChoices.Add(i);
+			m_coinTurninLocations.Initialize();
+			m_turninLocationChoices.Add(i);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		this.Networkm_turnsUntilTurnInSpawn = this.m_turnInAreaAppearanceDelay;
-		this.Networkm_turnsUntilTurnInDeSpawn = -1;
-		if (!NetworkServer.active)
-		{
-			for (;;)
+			Networkm_turnsUntilTurnInSpawn = m_turnInAreaAppearanceDelay;
+			Networkm_turnsUntilTurnInDeSpawn = -1;
+			if (!NetworkServer.active)
 			{
-				switch (3)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.SpawnTurninRegionVisuals(this.m_coinTurninIdxTeamA, Team.TeamA, false);
-			if (this.m_variant != CoinCarnageManager.Variant.PeriodicSingleTurnin)
-			{
-				for (;;)
-				{
-					switch (2)
+					switch (3)
 					{
 					case 0:
 						continue;
 					}
 					break;
 				}
-				this.SpawnTurninRegionVisuals(this.m_coinTurninIdxTeamB, Team.TeamB, false);
-			}
-		}
-		if (this.m_debugTextLeft != null)
-		{
-			for (;;)
-			{
-				switch (4)
+				SpawnTurninRegionVisuals(m_coinTurninIdxTeamA, Team.TeamA);
+				if (m_variant != 0)
 				{
-				case 0:
-					continue;
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					SpawnTurninRegionVisuals(m_coinTurninIdxTeamB, Team.TeamB);
 				}
-				break;
 			}
-			this.m_debugTextLeft.text = string.Empty;
-		}
-		if (this.m_debugTextRight != null)
-		{
-			this.m_debugTextRight.text = string.Empty;
+			if (m_debugTextLeft != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_debugTextLeft.text = string.Empty;
+			}
+			if (m_debugTextRight != null)
+			{
+				m_debugTextRight.text = string.Empty;
+			}
+			return;
 		}
 	}
 
 	private void Start()
 	{
-		using (List<CoinSpawnInfo>.Enumerator enumerator = this.m_coinSpawnPointGroups.GetEnumerator())
+		using (List<CoinSpawnInfo>.Enumerator enumerator = m_coinSpawnPointGroups.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				CoinSpawnInfo coinSpawnInfo = enumerator.Current;
-				foreach (Transform u001D in coinSpawnInfo.m_spawnLocations)
+				CoinSpawnInfo current = enumerator.Current;
+				foreach (Transform spawnLocation in current.m_spawnLocations)
 				{
-					BoardSquare boardSquare = Board.\u000E().\u000E(u001D);
+					BoardSquare boardSquare = Board.Get().GetBoardSquare(spawnLocation);
 					if (boardSquare != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
@@ -195,13 +345,13 @@ public class CoinCarnageManager : NetworkBehaviour
 							}
 							break;
 						}
-						if (!true)
+						if (1 == 0)
 						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.Start()).MethodHandle;
+							/*OpCode not supported: LdMemberToken*/;
 						}
-						if (boardSquare.\u0016())
+						if (boardSquare.IsBaselineHeight())
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -210,71 +360,74 @@ public class CoinCarnageManager : NetworkBehaviour
 								}
 								break;
 							}
-							this.m_coinSpawnPointTracking.Add(new CoinSpawnPointTrackingData(coinSpawnInfo.m_spawnRulePerSquare, boardSquare));
+							m_coinSpawnPointTracking.Add(new CoinSpawnPointTrackingData(current.m_spawnRulePerSquare, boardSquare));
 						}
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	private void OnDestroy()
 	{
-		CoinCarnageManager.s_instance = null;
+		s_instance = null;
 	}
 
 	private void OnDrawGizmos()
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.OnDrawGizmos()).MethodHandle;
-			}
+		}
+		if (m_coinTurninLocations == null)
+		{
 			return;
 		}
-		if (this.m_coinTurninLocations != null)
+		while (true)
 		{
-			for (;;)
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			foreach (BoardRegion boardRegion in this.m_coinTurninLocations)
+			BoardRegion[] coinTurninLocations = m_coinTurninLocations;
+			foreach (BoardRegion boardRegion in coinTurninLocations)
 			{
 				boardRegion.Initialize();
-				boardRegion.GizmosDrawRegion(this.m_debugTurnInRegionColor);
+				boardRegion.GizmosDrawRegion(m_debugTurnInRegionColor);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
@@ -284,30 +437,30 @@ public class CoinCarnageManager : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Server] function 'System.Void CoinCarnageManager::OnActorMoved(ActorData,BoardSquare)' called on client");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.OnActorMoved(ActorData, BoardSquare)).MethodHandle;
-			}
-			Debug.LogWarning("[Server] function 'System.Void CoinCarnageManager::OnActorMoved(ActorData,BoardSquare)' called on client");
-			return;
 		}
-		using (List<CoinCarnageCoin>.Enumerator enumerator = this.m_coins.GetEnumerator())
+		using (List<CoinCarnageCoin>.Enumerator enumerator = m_coins.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				CoinCarnageCoin coinCarnageCoin = enumerator.Current;
-				if (!coinCarnageCoin.IsPickedUp())
+				CoinCarnageCoin current = enumerator.Current;
+				if (!current.IsPickedUp())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -316,13 +469,13 @@ public class CoinCarnageManager : NetworkBehaviour
 						}
 						break;
 					}
-					if (coinCarnageCoin.GetSquare() == movementSquare)
+					if (current.GetSquare() == movementSquare)
 					{
-						coinCarnageCoin.PickUp(mover);
-						this.AddCoinToActor(mover, 1);
-						if (this.m_coinToSpawnPoint.ContainsKey(coinCarnageCoin))
+						current.PickUp(mover);
+						AddCoinToActor(mover, 1);
+						if (m_coinToSpawnPoint.ContainsKey(current))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -331,20 +484,21 @@ public class CoinCarnageManager : NetworkBehaviour
 								}
 								break;
 							}
-							this.m_coinToSpawnPoint[coinCarnageCoin].TurnOfLastPickup = GameFlowData.Get().CurrentTurn;
+							m_coinToSpawnPoint[current].TurnOfLastPickup = GameFlowData.Get().CurrentTurn;
 						}
-						this.CheckTurninAvailability(mover.\u000E());
+						CheckTurninAvailability(mover.GetTeam());
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
@@ -354,58 +508,57 @@ public class CoinCarnageManager : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Server] function 'System.Void CoinCarnageManager::OnActorDeath(ActorData)' called on client");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.OnActorDeath(ActorData)).MethodHandle;
-			}
-			Debug.LogWarning("[Server] function 'System.Void CoinCarnageManager::OnActorDeath(ActorData)' called on client");
-			return;
 		}
 		if (!GameplayUtils.IsValidPlayer(actor))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-			return;
 		}
-		int num = this.GetCoinCountForActor(actor) + this.m_coinAdditionalSpawnOnDeath;
+		int num = GetCoinCountForActor(actor) + m_coinAdditionalSpawnOnDeath;
 		int num2 = 0;
-		this.ClearCoinsFromActor(actor);
-		BoardSquare boardSquare = actor.\u0012();
-		if (boardSquare == null)
+		ClearCoinsFromActor(actor);
+		BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
+		if (currentBoardSquare == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Debug.LogError("Actor dead, has no board square");
+					return;
 				}
-				break;
 			}
-			Debug.LogError("Actor dead, has no board square");
-			return;
 		}
-		HashSet<BoardSquare> coinOccupiedSquares = this.GetCoinOccupiedSquares();
-		int i = 0;
-		while (i < 6)
+		HashSet<BoardSquare> coinOccupiedSquares = GetCoinOccupiedSquares();
+		for (int i = 0; i < 6; i++)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -414,41 +567,16 @@ public class CoinCarnageManager : NetworkBehaviour
 				}
 				break;
 			}
-			if (num2 >= num)
+			if (num2 < num)
 			{
-				for (;;)
+				List<BoardSquare> squaresInBorderLayer = AreaEffectUtils.GetSquaresInBorderLayer(currentBoardSquare, i, true);
+				for (int j = 0; j < squaresInBorderLayer.Count; j++)
 				{
-					switch (4)
+					if (num2 < num)
 					{
-					case 0:
-						continue;
-					}
-					goto IL_130;
-				}
-			}
-			else
-			{
-				List<BoardSquare> squaresInBorderLayer = AreaEffectUtils.GetSquaresInBorderLayer(boardSquare, i, true);
-				int j = 0;
-				while (j < squaresInBorderLayer.Count)
-				{
-					if (num2 >= num)
-					{
-						for (;;)
+						if (squaresInBorderLayer[j].IsBaselineHeight() && !coinOccupiedSquares.Contains(squaresInBorderLayer[j]))
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_10A;
-						}
-					}
-					else
-					{
-						if (squaresInBorderLayer[j].\u0016() && !coinOccupiedSquares.Contains(squaresInBorderLayer[j]))
-						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -457,17 +585,35 @@ public class CoinCarnageManager : NetworkBehaviour
 								}
 								break;
 							}
-							this.SpawnCoinOnSquare(squaresInBorderLayer[j]);
+							SpawnCoinOnSquare(squaresInBorderLayer[j]);
 							num2++;
 						}
-						j++;
+						continue;
 					}
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					break;
 				}
-				IL_10A:
-				i++;
+				continue;
 			}
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			break;
 		}
-		IL_130:
 		if (num2 != num)
 		{
 			Debug.LogError("Did not spawn desired amount of coins!");
@@ -479,26 +625,26 @@ public class CoinCarnageManager : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Server] function 'System.Void CoinCarnageManager::OnTurnStart()' called on client");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.OnTurnStart()).MethodHandle;
-			}
-			Debug.LogWarning("[Server] function 'System.Void CoinCarnageManager::OnTurnStart()' called on client");
-			return;
 		}
-		this.CleanupPickedUpCoins();
-		this.SpawnCoinsForTurn();
-		this.UpdateDebugUI();
-		if (this.m_showDebugCoinCountInNameplate)
+		CleanupPickedUpCoins();
+		SpawnCoinsForTurn();
+		UpdateDebugUI();
+		if (!m_showDebugCoinCountInNameplate)
 		{
 		}
 	}
@@ -508,31 +654,31 @@ public class CoinCarnageManager : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Server] function 'System.Void CoinCarnageManager::OnTurnEnd()' called on client");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.OnTurnEnd()).MethodHandle;
-			}
-			Debug.LogWarning("[Server] function 'System.Void CoinCarnageManager::OnTurnEnd()' called on client");
-			return;
 		}
 		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(Team.TeamA);
 		using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actor = enumerator.Current;
-				this.CheckTurninForActor(actor);
+				ActorData current = enumerator.Current;
+				CheckTurninForActor(current);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -547,10 +693,10 @@ public class CoinCarnageManager : NetworkBehaviour
 		{
 			while (enumerator2.MoveNext())
 			{
-				ActorData actor2 = enumerator2.Current;
-				this.CheckTurninForActor(actor2);
+				ActorData current2 = enumerator2.Current;
+				CheckTurninForActor(current2);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -560,10 +706,10 @@ public class CoinCarnageManager : NetworkBehaviour
 				break;
 			}
 		}
-		this.CleanupPickedUpCoins();
-		if (this.m_variant == CoinCarnageManager.Variant.PeriodicSingleTurnin)
+		CleanupPickedUpCoins();
+		if (m_variant == Variant.PeriodicSingleTurnin)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -572,9 +718,9 @@ public class CoinCarnageManager : NetworkBehaviour
 				}
 				break;
 			}
-			if (this.m_turnsUntilTurnInSpawn >= 0)
+			if (m_turnsUntilTurnInSpawn >= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -583,11 +729,11 @@ public class CoinCarnageManager : NetworkBehaviour
 					}
 					break;
 				}
-				this.Networkm_turnsUntilTurnInSpawn = this.m_turnsUntilTurnInSpawn - 1;
+				Networkm_turnsUntilTurnInSpawn = m_turnsUntilTurnInSpawn - 1;
 			}
-			if (this.m_turnsUntilTurnInDeSpawn >= 0)
+			if (m_turnsUntilTurnInDeSpawn >= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -596,11 +742,11 @@ public class CoinCarnageManager : NetworkBehaviour
 					}
 					break;
 				}
-				this.Networkm_turnsUntilTurnInDeSpawn = this.m_turnsUntilTurnInDeSpawn - 1;
+				Networkm_turnsUntilTurnInDeSpawn = m_turnsUntilTurnInDeSpawn - 1;
 			}
-			if (this.m_turnInAreaPreviewTurns >= 0)
+			if (m_turnInAreaPreviewTurns >= 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -609,9 +755,9 @@ public class CoinCarnageManager : NetworkBehaviour
 					}
 					break;
 				}
-				if (this.m_turnsUntilTurnInSpawn == this.m_turnInAreaPreviewTurns)
+				if (m_turnsUntilTurnInSpawn == m_turnInAreaPreviewTurns)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -620,12 +766,12 @@ public class CoinCarnageManager : NetworkBehaviour
 						}
 						break;
 					}
-					this.ActivateTurnInArea(Team.Invalid);
+					ActivateTurnInArea(Team.Invalid);
 				}
 			}
-			if (this.m_turnsUntilTurnInSpawn == 0)
+			if (m_turnsUntilTurnInSpawn == 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -634,11 +780,11 @@ public class CoinCarnageManager : NetworkBehaviour
 					}
 					break;
 				}
-				this.Networkm_turnsUntilTurnInDeSpawn = this.m_turnInAreaDuration;
+				Networkm_turnsUntilTurnInDeSpawn = m_turnInAreaDuration;
 			}
-			if (this.m_turnsUntilTurnInDeSpawn == 0)
+			if (m_turnsUntilTurnInDeSpawn == 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -647,12 +793,12 @@ public class CoinCarnageManager : NetworkBehaviour
 					}
 					break;
 				}
-				this.DeactivateTurnInArea(Team.Invalid);
-				this.Networkm_turnsUntilTurnInSpawn = this.m_turnInAreaAppearanceDelay;
-				this.Networkm_turnsUntilTurnInDeSpawn = -1;
+				DeactivateTurnInArea(Team.Invalid);
+				Networkm_turnsUntilTurnInSpawn = m_turnInAreaAppearanceDelay;
+				Networkm_turnsUntilTurnInDeSpawn = -1;
 			}
 		}
-		this.UpdateDebugUI();
+		UpdateDebugUI();
 	}
 
 	[Server]
@@ -660,25 +806,25 @@ public class CoinCarnageManager : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Server] function 'System.Void CoinCarnageManager::CheckTurninForActor(ActorData)' called on client");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.CheckTurninForActor(ActorData)).MethodHandle;
-			}
-			Debug.LogWarning("[Server] function 'System.Void CoinCarnageManager::CheckTurninForActor(ActorData)' called on client");
-			return;
 		}
-		if (this.m_variant == CoinCarnageManager.Variant.PeriodicSingleTurnin)
+		if (m_variant == Variant.PeriodicSingleTurnin)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -687,24 +833,24 @@ public class CoinCarnageManager : NetworkBehaviour
 				}
 				break;
 			}
-			if (this.m_turnsUntilTurnInSpawn > 0)
+			if (m_turnsUntilTurnInSpawn > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
-				return;
 			}
 		}
 		int num;
-		if (actor.\u000E() == Team.TeamA)
+		if (actor.GetTeam() == Team.TeamA)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -713,49 +859,51 @@ public class CoinCarnageManager : NetworkBehaviour
 				}
 				break;
 			}
-			num = this.m_coinTurninIdxTeamA;
+			num = m_coinTurninIdxTeamA;
 		}
 		else
 		{
-			num = this.m_coinTurninIdxTeamB;
+			num = m_coinTurninIdxTeamB;
 		}
 		int num2 = num;
-		if (num2 > -1)
+		if (num2 <= -1)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
+			case 0:
+				continue;
+			}
+			if (num2 >= m_coinTurninLocations.Length)
+			{
+				return;
+			}
+			int coinCountForActor = GetCoinCountForActor(actor);
+			if (coinCountForActor <= 0)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (num2 < this.m_coinTurninLocations.Length)
-			{
-				int coinCountForActor = this.GetCoinCountForActor(actor);
-				if (coinCountForActor > 0)
+				BoardRegion boardRegion = m_coinTurninLocations[num2];
+				if (boardRegion.IsActorInRegion(actor))
 				{
-					for (;;)
+					ObjectivePoints objectivePoints = ObjectivePoints.Get();
+					if (objectivePoints != null)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						objectivePoints.AdjustPoints(coinCountForActor, actor.GetTeam());
 					}
-					BoardRegion boardRegion = this.m_coinTurninLocations[num2];
-					if (boardRegion.\u001D(actor))
-					{
-						ObjectivePoints objectivePoints = ObjectivePoints.Get();
-						if (objectivePoints != null)
-						{
-							objectivePoints.AdjustPoints(coinCountForActor, actor.\u000E());
-						}
-						this.ClearCoinsFromActor(actor);
-					}
+					ClearCoinsFromActor(actor);
 				}
+				return;
 			}
 		}
 	}
@@ -765,25 +913,25 @@ public class CoinCarnageManager : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Client] function 'System.Void CoinCarnageManager::HookSetTurninRegionLocationA(System.Int32)' called on server");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.HookSetTurninRegionLocationA(int)).MethodHandle;
-			}
-			Debug.LogWarning("[Client] function 'System.Void CoinCarnageManager::HookSetTurninRegionLocationA(System.Int32)' called on server");
-			return;
 		}
-		this.Networkm_coinTurninIdxTeamA = newValue;
-		bool preview = this.m_variant == CoinCarnageManager.Variant.PeriodicSingleTurnin;
-		this.SpawnTurninRegionVisuals(this.m_coinTurninIdxTeamA, Team.TeamA, preview);
+		Networkm_coinTurninIdxTeamA = newValue;
+		bool preview = m_variant == Variant.PeriodicSingleTurnin;
+		SpawnTurninRegionVisuals(m_coinTurninIdxTeamA, Team.TeamA, preview);
 	}
 
 	[Client]
@@ -794,23 +942,24 @@ public class CoinCarnageManager : NetworkBehaviour
 			Debug.LogWarning("[Client] function 'System.Void CoinCarnageManager::HookSetTurninRegionLocationB(System.Int32)' called on server");
 			return;
 		}
-		this.Networkm_coinTurninIdxTeamB = newValue;
-		if (this.m_variant != CoinCarnageManager.Variant.PeriodicSingleTurnin)
+		Networkm_coinTurninIdxTeamB = newValue;
+		if (m_variant == Variant.PeriodicSingleTurnin)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.HookSetTurninRegionLocationB(int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.SpawnTurninRegionVisuals(this.m_coinTurninIdxTeamB, Team.TeamB, false);
+			SpawnTurninRegionVisuals(m_coinTurninIdxTeamB, Team.TeamB);
+			return;
 		}
 	}
 
@@ -824,202 +973,208 @@ public class CoinCarnageManager : NetworkBehaviour
 		}
 		if (locationIndex == -1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.SpawnTurninRegionVisuals(int, Team, bool)).MethodHandle;
-			}
-			GameObject obj;
-			if (this.m_spawnedTurnInLocationInstances.TryGetValue(team, out obj))
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					if (m_spawnedTurnInLocationInstances.TryGetValue(team, out GameObject value))
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								break;
+							default:
+								UnityEngine.Object.Destroy(value);
+								m_spawnedTurnInLocationInstances.Remove(team);
+								return;
+							}
+						}
+					}
+					return;
 				}
-				UnityEngine.Object.Destroy(obj);
-				this.m_spawnedTurnInLocationInstances.Remove(team);
+				}
 			}
+		}
+		if (locationIndex < 0)
+		{
 			return;
 		}
-		if (locationIndex >= 0)
+		while (true)
 		{
-			for (;;)
+			switch (7)
 			{
-				switch (7)
+			case 0:
+				continue;
+			}
+			if (locationIndex >= m_coinTurninLocations.Length)
+			{
+				return;
+			}
+			BoardRegion boardRegion = m_coinTurninLocations[locationIndex];
+			if (boardRegion == null)
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (6)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (locationIndex < this.m_coinTurninLocations.Length)
-			{
-				BoardRegion boardRegion = this.m_coinTurninLocations[locationIndex];
-				if (boardRegion != null)
+				if (GameFlowData.Get() != null)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (6)
+						switch (1)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					if (GameFlowData.Get() != null)
+					if (GameFlowData.Get().activeOwnedActorData != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
 							case 0:
-								continue;
-							}
-							break;
-						}
-						if (GameFlowData.Get().activeOwnedActorData != null)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
 								break;
-							}
-							bool flag = false;
-							if (this.m_variant == CoinCarnageManager.Variant.PeriodicSingleTurnin)
+							default:
 							{
-								for (;;)
+								bool flag = false;
+								if (m_variant == Variant.PeriodicSingleTurnin)
 								{
-									switch (7)
+									while (true)
 									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								flag = true;
-							}
-							else
-							{
-								flag = (team == GameFlowData.Get().activeOwnedActorData.\u000E());
-							}
-							GameObject gameObject2;
-							if (flag)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								GameObject gameObject;
-								if (preview)
-								{
-									for (;;)
-									{
-										switch (4)
+										switch (7)
 										{
 										case 0:
 											continue;
 										}
 										break;
 									}
-									gameObject = this.m_turninRegionPrefabFriendlyPreview;
+									flag = true;
 								}
 								else
 								{
-									gameObject = this.m_turninRegionPrefabFriendly;
+									flag = (team == GameFlowData.Get().activeOwnedActorData.GetTeam());
 								}
-								gameObject2 = gameObject;
-							}
-							else
-							{
-								GameObject gameObject3;
-								if (preview)
+								GameObject gameObject = null;
+								if (flag)
 								{
-									for (;;)
+									while (true)
 									{
-										switch (4)
+										switch (5)
 										{
 										case 0:
 											continue;
 										}
 										break;
 									}
-									gameObject3 = this.m_turninRegionPrefabEnemyPreview;
+									GameObject gameObject2;
+									if (preview)
+									{
+										while (true)
+										{
+											switch (4)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										gameObject2 = m_turninRegionPrefabFriendlyPreview;
+									}
+									else
+									{
+										gameObject2 = m_turninRegionPrefabFriendly;
+									}
+									gameObject = gameObject2;
 								}
 								else
 								{
-									gameObject3 = this.m_turninRegionPrefabEnemy;
-								}
-								gameObject2 = gameObject3;
-							}
-							if (gameObject2 != null)
-							{
-								boardRegion.Initialize();
-								GameObject gameObject4 = new GameObject();
-								List<BoardSquare> list = boardRegion.\u001D();
-								using (List<BoardSquare>.Enumerator enumerator = list.GetEnumerator())
-								{
-									while (enumerator.MoveNext())
+									GameObject gameObject3;
+									if (preview)
 									{
-										BoardSquare boardSquare = enumerator.Current;
-										if (boardSquare.WorldBounds != null)
+										while (true)
 										{
-											GameObject gameObject5 = UnityEngine.Object.Instantiate<GameObject>(gameObject2);
-											gameObject5.transform.position = boardSquare.WorldBounds.Value.center;
-											gameObject5.transform.localScale = boardSquare.WorldBounds.Value.extents * 2f;
-											gameObject5.transform.parent = gameObject4.transform;
+											switch (4)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										gameObject3 = m_turninRegionPrefabEnemyPreview;
+									}
+									else
+									{
+										gameObject3 = m_turninRegionPrefabEnemy;
+									}
+									gameObject = gameObject3;
+								}
+								if (gameObject != null)
+								{
+									boardRegion.Initialize();
+									GameObject gameObject4 = new GameObject();
+									List<BoardSquare> squaresInRegion = boardRegion.GetSquaresInRegion();
+									using (List<BoardSquare>.Enumerator enumerator = squaresInRegion.GetEnumerator())
+									{
+										while (enumerator.MoveNext())
+										{
+											BoardSquare current = enumerator.Current;
+											if (current.WorldBounds.HasValue)
+											{
+												GameObject gameObject5 = UnityEngine.Object.Instantiate(gameObject);
+												gameObject5.transform.position = current.WorldBounds.Value.center;
+												gameObject5.transform.localScale = current.WorldBounds.Value.extents * 2f;
+												gameObject5.transform.parent = gameObject4.transform;
+											}
+										}
+										while (true)
+										{
+											switch (6)
+											{
+											case 0:
+												continue;
+											}
+											break;
 										}
 									}
-									for (;;)
+									if (m_spawnedTurnInLocationInstances.ContainsKey(team))
 									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
+										Log.Error("Turn in location already spawned for " + team);
+										m_spawnedTurnInLocationInstances[team] = gameObject4;
+									}
+									else
+									{
+										m_spawnedTurnInLocationInstances.Add(team, gameObject4);
 									}
 								}
-								if (this.m_spawnedTurnInLocationInstances.ContainsKey(team))
+								if (m_variant == Variant.SeparateTurninsPerTeam)
 								{
-									Log.Error("Turn in location already spawned for " + team, new object[0]);
-									this.m_spawnedTurnInLocationInstances[team] = gameObject4;
+									ShowTurninAvailableMessage(flag);
 								}
-								else
-								{
-									this.m_spawnedTurnInLocationInstances.Add(team, gameObject4);
-								}
+								return;
 							}
-							if (this.m_variant == CoinCarnageManager.Variant.SeparateTurninsPerTeam)
-							{
-								this.ShowTurninAvailableMessage(flag);
 							}
-							return;
 						}
 					}
-					Log.Error("Could not find local player to spawn turn-in region.", new object[0]);
 				}
+				Log.Error("Could not find local player to spawn turn-in region.");
+				return;
 			}
 		}
 	}
@@ -1033,9 +1188,9 @@ public class CoinCarnageManager : NetworkBehaviour
 			return;
 		}
 		string text = "[TEMP] ";
-		if (this.m_variant == CoinCarnageManager.Variant.SeparateTurninsPerTeam)
+		if (m_variant == Variant.SeparateTurninsPerTeam)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1044,15 +1199,15 @@ public class CoinCarnageManager : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.ShowTurninAvailableMessage(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			string str = text;
-			string str2;
+			object str2;
 			if (friendlyArea)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -1067,14 +1222,14 @@ public class CoinCarnageManager : NetworkBehaviour
 			{
 				str2 = "Enemy";
 			}
-			text = str + str2;
+			text = str + (string)str2;
 		}
 		else
 		{
 			text += "The";
 		}
 		text += " coin turn-in area has been activated.";
-		InterfaceManager.Get().DisplayAlert(text, (!friendlyArea) ? Color.red : Color.cyan, 7f, false, 0);
+		InterfaceManager.Get().DisplayAlert(text, (!friendlyArea) ? Color.red : Color.cyan, 7f);
 	}
 
 	[Client]
@@ -1082,26 +1237,26 @@ public class CoinCarnageManager : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Client] function 'System.Void CoinCarnageManager::HookSetTurnsUntilTurnInSpawn(System.Int32)' called on server");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.HookSetTurnsUntilTurnInSpawn(int)).MethodHandle;
-			}
-			Debug.LogWarning("[Client] function 'System.Void CoinCarnageManager::HookSetTurnsUntilTurnInSpawn(System.Int32)' called on server");
-			return;
 		}
-		this.Networkm_turnsUntilTurnInSpawn = newValue;
-		if (this.m_turnsUntilTurnInSpawn > 0)
+		Networkm_turnsUntilTurnInSpawn = newValue;
+		if (m_turnsUntilTurnInSpawn > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -1110,23 +1265,24 @@ public class CoinCarnageManager : NetworkBehaviour
 				}
 				break;
 			}
-			string alertText = string.Format("[TEMP] {0} turns until turn-in available!", this.m_turnsUntilTurnInSpawn);
-			InterfaceManager.Get().DisplayAlert(alertText, Color.cyan, 7f, false, 0);
+			string alertText = $"[TEMP] {m_turnsUntilTurnInSpawn} turns until turn-in available!";
+			InterfaceManager.Get().DisplayAlert(alertText, Color.cyan, 7f);
 		}
-		if (this.m_turnsUntilTurnInSpawn == 0)
+		if (m_turnsUntilTurnInSpawn != 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.ShowTurninAvailableMessage(true);
-			this.SpawnTurninRegionVisuals(-1, Team.TeamA, false);
-			this.SpawnTurninRegionVisuals(this.m_coinTurninIdxTeamA, Team.TeamA, false);
+			ShowTurninAvailableMessage(true);
+			SpawnTurninRegionVisuals(-1, Team.TeamA);
+			SpawnTurninRegionVisuals(m_coinTurninIdxTeamA, Team.TeamA);
+			return;
 		}
 	}
 
@@ -1135,27 +1291,27 @@ public class CoinCarnageManager : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Client] function 'System.Void CoinCarnageManager::HookSetTurnsUntilTurnInDeSpawn(System.Int32)' called on server");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.HookSetTurnsUntilTurnInDeSpawn(int)).MethodHandle;
-			}
-			Debug.LogWarning("[Client] function 'System.Void CoinCarnageManager::HookSetTurnsUntilTurnInDeSpawn(System.Int32)' called on server");
-			return;
 		}
-		this.Networkm_turnsUntilTurnInDeSpawn = newValue;
-		if (this.m_turnsUntilTurnInDeSpawn > 0)
+		Networkm_turnsUntilTurnInDeSpawn = newValue;
+		if (m_turnsUntilTurnInDeSpawn > 0)
 		{
-			string alertText = string.Format("[TEMP] {0} turns until turn-in is no longer available!", this.m_turnsUntilTurnInDeSpawn);
-			InterfaceManager.Get().DisplayAlert(alertText, Color.cyan, 7f, false, 0);
+			string alertText = $"[TEMP] {m_turnsUntilTurnInDeSpawn} turns until turn-in is no longer available!";
+			InterfaceManager.Get().DisplayAlert(alertText, Color.cyan, 7f);
 		}
 	}
 
@@ -1175,9 +1331,9 @@ public class CoinCarnageManager : NetworkBehaviour
 
 	private int GetCoinCountForActor(ActorData actor)
 	{
-		if (this.m_actorToCoinCount.ContainsKey(actor))
+		if (m_actorToCoinCount.ContainsKey(actor))
 		{
-			return this.m_actorToCoinCount[actor];
+			return m_actorToCoinCount[actor];
 		}
 		return 0;
 	}
@@ -1187,25 +1343,25 @@ public class CoinCarnageManager : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Debug.LogWarning("[Server] function 'System.Void CoinCarnageManager::AddCoinToActor(ActorData,System.Int32)' called on client");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.AddCoinToActor(ActorData, int)).MethodHandle;
-			}
-			Debug.LogWarning("[Server] function 'System.Void CoinCarnageManager::AddCoinToActor(ActorData,System.Int32)' called on client");
-			return;
 		}
-		if (this.m_actorToCoinCount.ContainsKey(actor))
+		if (m_actorToCoinCount.ContainsKey(actor))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -1214,32 +1370,32 @@ public class CoinCarnageManager : NetworkBehaviour
 				}
 				break;
 			}
-			Dictionary<ActorData, int> actorToCoinCount;
-			(actorToCoinCount = this.m_actorToCoinCount)[actor] = actorToCoinCount[actor] + amount;
+			m_actorToCoinCount[actor] += amount;
 		}
 		else
 		{
-			this.m_actorToCoinCount[actor] = amount;
+			m_actorToCoinCount[actor] = amount;
 		}
-		this.CallRpcActorPickedUpCoin(actor.ActorIndex);
-		if (this.m_showDebugCoinCountInNameplate)
+		CallRpcActorPickedUpCoin(actor.ActorIndex);
+		if (m_showDebugCoinCountInNameplate)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	private void ClearCoinsFromActor(ActorData actor)
 	{
-		this.m_actorToCoinCount[actor] = 0;
-		if (this.m_showDebugCoinCountInNameplate)
+		m_actorToCoinCount[actor] = 0;
+		if (!m_showDebugCoinCountInNameplate)
 		{
 		}
 	}
@@ -1247,100 +1403,75 @@ public class CoinCarnageManager : NetworkBehaviour
 	private void CheckTurninAvailability(Team forTeam)
 	{
 		int num = 0;
-		if (forTeam != Team.TeamA && forTeam != Team.TeamB)
+		if (forTeam != 0 && forTeam != Team.TeamB)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					throw new ArgumentException("Team must be Team A or Team B");
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.CheckTurninAvailability(Team)).MethodHandle;
-			}
-			throw new ArgumentException("Team must be Team A or Team B");
 		}
-		int num2 = (forTeam != Team.TeamA) ? this.m_coinTurninIdxTeamB : this.m_coinTurninIdxTeamA;
+		int num2 = (forTeam != 0) ? m_coinTurninIdxTeamB : m_coinTurninIdxTeamA;
 		if (num2 != -1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-			return;
 		}
 		bool flag = false;
 		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(forTeam);
 		using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
 		{
-			while (enumerator.MoveNext())
+			while (true)
 			{
-				ActorData key = enumerator.Current;
-				if (this.m_actorToCoinCount.ContainsKey(key))
+				if (!enumerator.MoveNext())
 				{
-					for (;;)
+					while (true)
 					{
-						switch (4)
+						switch (6)
 						{
 						case 0:
 							continue;
 						}
 						break;
 					}
-					int num3 = this.m_actorToCoinCount[key];
-					num += num3;
-					if (this.m_individualTurninUnlockThreshold != -1)
+					break;
+				}
+				ActorData current = enumerator.Current;
+				if (!m_actorToCoinCount.ContainsKey(current))
+				{
+					continue;
+				}
+				while (true)
+				{
+					switch (4)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (num3 >= this.m_individualTurninUnlockThreshold)
-						{
-							goto IL_F5;
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					if (this.m_teamTurninUnlockThreshold == -1)
-					{
+					case 0:
 						continue;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (num < this.m_teamTurninUnlockThreshold)
-					{
-						continue;
-					}
-					for (;;)
+					break;
+				}
+				int num3 = m_actorToCoinCount[current];
+				num += num3;
+				if (m_individualTurninUnlockThreshold != -1)
+				{
+					while (true)
 					{
 						switch (7)
 						{
@@ -1349,36 +1480,38 @@ public class CoinCarnageManager : NetworkBehaviour
 						}
 						break;
 					}
-					IL_F5:
-					flag = true;
-					goto IL_121;
+					if (num3 >= m_individualTurninUnlockThreshold)
+					{
+						goto IL_00f5;
+					}
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
 				}
-			}
-			for (;;)
-			{
-				switch (6)
+				if (m_teamTurninUnlockThreshold == -1)
 				{
-				case 0:
 					continue;
 				}
-				break;
-			}
-		}
-		IL_121:
-		if (flag)
-		{
-			for (;;)
-			{
-				switch (5)
+				while (true)
 				{
-				case 0:
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (num < m_teamTurninUnlockThreshold)
+				{
 					continue;
 				}
-				break;
-			}
-			if (this.m_turnInAreaAppearanceDelay > 0)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -1387,19 +1520,46 @@ public class CoinCarnageManager : NetworkBehaviour
 					}
 					break;
 				}
+				goto IL_00f5;
+				IL_00f5:
+				flag = true;
+				break;
 			}
-			else
+		}
+		if (!flag)
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				this.ActivateTurnInArea(forTeam);
+			case 0:
+				continue;
 			}
+			if (m_turnInAreaAppearanceDelay > 0)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
+			}
+			ActivateTurnInArea(forTeam);
+			return;
 		}
 	}
 
 	private void ActivateTurnInArea(Team forTeam)
 	{
-		if (this.m_turninLocationChoices.Count == 0)
+		if (m_turninLocationChoices.Count == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -1408,13 +1568,13 @@ public class CoinCarnageManager : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.ActivateTurnInArea(Team)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_variant == CoinCarnageManager.Variant.PeriodicSingleTurnin)
+			if (m_variant == Variant.PeriodicSingleTurnin)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -1423,127 +1583,125 @@ public class CoinCarnageManager : NetworkBehaviour
 					}
 					break;
 				}
-				this.RefillRandomLocationChoices();
+				RefillRandomLocationChoices();
 			}
-			else if (this.m_variant == CoinCarnageManager.Variant.SeparateTurninsPerTeam)
+			else if (m_variant == Variant.SeparateTurninsPerTeam)
 			{
 				if (forTeam == Team.TeamA)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							Networkm_coinTurninIdxTeamA = m_coinTurninIdxTeamB;
+							return;
 						}
-						break;
 					}
-					this.Networkm_coinTurninIdxTeamA = this.m_coinTurninIdxTeamB;
 				}
-				else
-				{
-					this.Networkm_coinTurninIdxTeamB = this.m_coinTurninIdxTeamA;
-				}
+				Networkm_coinTurninIdxTeamB = m_coinTurninIdxTeamA;
 				return;
 			}
 		}
-		if (this.m_turninLocationChoices.Count == 0)
+		if (m_turninLocationChoices.Count == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error("No turn-in locations defined in manager!");
+					return;
 				}
-				break;
 			}
-			Log.Error("No turn-in locations defined in manager!", new object[0]);
+		}
+		int index = GameplayRandom.Range(0, m_turninLocationChoices.Count);
+		int num = m_turninLocationChoices[index];
+		m_turninLocationChoices.RemoveAt(index);
+		if (m_variant == Variant.SeparateTurninsPerTeam)
+		{
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					break;
+				default:
+					if (forTeam == Team.TeamA)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								break;
+							default:
+								Networkm_coinTurninIdxTeamA = num;
+								return;
+							}
+						}
+					}
+					Networkm_coinTurninIdxTeamB = num;
+					return;
+				}
+			}
+		}
+		if (m_variant != 0)
+		{
 			return;
 		}
-		int index = GameplayRandom.Range(0, this.m_turninLocationChoices.Count);
-		int num = this.m_turninLocationChoices[index];
-		this.m_turninLocationChoices.RemoveAt(index);
-		if (this.m_variant == CoinCarnageManager.Variant.SeparateTurninsPerTeam)
+		while (true)
 		{
-			for (;;)
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (forTeam == Team.TeamA)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.Networkm_coinTurninIdxTeamA = num;
-			}
-			else
-			{
-				this.Networkm_coinTurninIdxTeamB = num;
-			}
-		}
-		else if (this.m_variant == CoinCarnageManager.Variant.PeriodicSingleTurnin)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.Networkm_coinTurninIdxTeamA = num;
-			this.Networkm_coinTurninIdxTeamB = num;
+			Networkm_coinTurninIdxTeamA = num;
+			Networkm_coinTurninIdxTeamB = num;
+			return;
 		}
 	}
 
 	private void DeactivateTurnInArea(Team forTeam)
 	{
-		this.Networkm_coinTurninIdxTeamA = -1;
-		this.Networkm_coinTurninIdxTeamB = -1;
+		Networkm_coinTurninIdxTeamA = -1;
+		Networkm_coinTurninIdxTeamB = -1;
 	}
 
 	private void RefillRandomLocationChoices()
 	{
-		this.m_turninLocationChoices.Clear();
-		for (int i = 0; i < this.m_coinTurninLocations.Length; i++)
+		m_turninLocationChoices.Clear();
+		for (int i = 0; i < m_coinTurninLocations.Length; i++)
 		{
-			this.m_turninLocationChoices.Add(i);
+			m_turninLocationChoices.Add(i);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
 			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.RefillRandomLocationChoices()).MethodHandle;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return;
 		}
 	}
 
 	private void SpawnCoinsForTurn()
 	{
-		for (int i = 0; i < this.m_coinSpawnPointTracking.Count; i++)
+		for (int i = 0; i < m_coinSpawnPointTracking.Count; i++)
 		{
-			if (this.m_coinSpawnPointTracking[i].CanSpawnThisTurn(GameFlowData.Get().CurrentTurn))
+			if (m_coinSpawnPointTracking[i].CanSpawnThisTurn(GameFlowData.Get().CurrentTurn))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1552,41 +1710,42 @@ public class CoinCarnageManager : NetworkBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.SpawnCoinsForTurn()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				CoinCarnageCoin coinCarnageCoin = this.SpawnCoinOnSquare(this.m_coinSpawnPointTracking[i].GetSpawnSquare());
+				CoinCarnageCoin coinCarnageCoin = SpawnCoinOnSquare(m_coinSpawnPointTracking[i].GetSpawnSquare());
 				if (coinCarnageCoin != null)
 				{
-					this.m_coinSpawnPointTracking[i].NumSpawnedSoFar++;
-					this.m_coinSpawnPointTracking[i].TurnOfLastSpawn = GameFlowData.Get().CurrentTurn;
-					this.m_coinToSpawnPoint[coinCarnageCoin] = this.m_coinSpawnPointTracking[i];
+					m_coinSpawnPointTracking[i].NumSpawnedSoFar++;
+					m_coinSpawnPointTracking[i].TurnOfLastSpawn = GameFlowData.Get().CurrentTurn;
+					m_coinToSpawnPoint[coinCarnageCoin] = m_coinSpawnPointTracking[i];
 				}
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private HashSet<BoardSquare> GetCoinOccupiedSquares()
 	{
 		HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
-		using (List<CoinCarnageCoin>.Enumerator enumerator = this.m_coins.GetEnumerator())
+		using (List<CoinCarnageCoin>.Enumerator enumerator = m_coins.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				CoinCarnageCoin coinCarnageCoin = enumerator.Current;
-				if (!coinCarnageCoin.IsPickedUp())
+				CoinCarnageCoin current = enumerator.Current;
+				if (!current.IsPickedUp())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1595,32 +1754,32 @@ public class CoinCarnageManager : NetworkBehaviour
 						}
 						break;
 					}
-					if (!true)
+					if (1 == 0)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.GetCoinOccupiedSquares()).MethodHandle;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					hashSet.Add(coinCarnageCoin.GetSquare());
+					hashSet.Add(current.GetSquare());
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return hashSet;
 				}
-				break;
 			}
 		}
-		return hashSet;
 	}
 
 	private CoinCarnageCoin SpawnCoinOnSquare(BoardSquare square)
 	{
-		HashSet<BoardSquare> coinOccupiedSquares = this.GetCoinOccupiedSquares();
+		HashSet<BoardSquare> coinOccupiedSquares = GetCoinOccupiedSquares();
 		if (!(square == null))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -1629,13 +1788,13 @@ public class CoinCarnageManager : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.SpawnCoinOnSquare(BoardSquare)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (square.\u0016())
+			if (square.IsBaselineHeight())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -1646,9 +1805,9 @@ public class CoinCarnageManager : NetworkBehaviour
 				}
 				if (!coinOccupiedSquares.Contains(square))
 				{
-					return this.CreateCoinObjectOnSquare(square);
+					return CreateCoinObjectOnSquare(square);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -1666,43 +1825,43 @@ public class CoinCarnageManager : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Log.Error("Attempted to call server function without server");
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.CreateCoinObjectOnSquare(BoardSquare)).MethodHandle;
-			}
-			Log.Error("Attempted to call server function without server", new object[0]);
-			return null;
 		}
-		GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_coinPrefab, square.ToVector3(), Quaternion.identity);
+		GameObject gameObject = UnityEngine.Object.Instantiate(m_coinPrefab, square.ToVector3(), Quaternion.identity);
 		CoinCarnageCoin component = gameObject.GetComponent<CoinCarnageCoin>();
 		component.Initialize(square);
 		NetworkServer.Spawn(gameObject);
-		this.m_coins.Add(component);
+		m_coins.Add(component);
 		return component;
 	}
 
 	private void CleanupPickedUpCoins()
 	{
-		for (int i = this.m_coins.Count - 1; i >= 0; i--)
+		for (int num = m_coins.Count - 1; num >= 0; num--)
 		{
-			if (this.m_coins[i].IsPickedUp())
+			if (m_coins[num].IsPickedUp())
 			{
-				this.m_coinToSpawnPoint.Remove(this.m_coins[i]);
-				this.m_coins[i].Destroy();
-				this.m_coins.RemoveAt(i);
+				m_coinToSpawnPoint.Remove(m_coins[num]);
+				m_coins[num].Destroy();
+				m_coins.RemoveAt(num);
 			}
-			else if (this.m_coins[i] == null)
+			else if (m_coins[num] == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -1711,59 +1870,60 @@ public class CoinCarnageManager : NetworkBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.CleanupPickedUpCoins()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_coins.RemoveAt(i);
+				m_coins.RemoveAt(num);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private string GetCoinCountString(ActorData actor)
 	{
-		return "coin count: " + this.GetCoinCountForActor(actor).ToString();
+		return "coin count: " + GetCoinCountForActor(actor);
 	}
 
 	private void UpdateDebugUI()
 	{
-		if (!(this.m_debugTextLeft == null))
+		if (m_debugTextLeft == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.UpdateDebugUI()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!(this.m_debugTextRight == null) && this.m_showDebugUI)
+			if (!(m_debugTextRight == null) && m_showDebugUI)
 			{
 				string text = string.Empty;
 				string text2 = string.Empty;
 				int num = 0;
-				using (List<CoinCarnageCoin>.Enumerator enumerator = this.m_coins.GetEnumerator())
+				using (List<CoinCarnageCoin>.Enumerator enumerator = m_coins.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						CoinCarnageCoin coinCarnageCoin = enumerator.Current;
-						if (!coinCarnageCoin.IsPickedUp())
+						CoinCarnageCoin current = enumerator.Current;
+						if (!current.IsPickedUp())
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
@@ -1775,7 +1935,7 @@ public class CoinCarnageManager : NetworkBehaviour
 							num++;
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -1785,25 +1945,18 @@ public class CoinCarnageManager : NetworkBehaviour
 						break;
 					}
 				}
-				this.m_debugTextLeft.text = string.Concat(new object[]
-				{
-					"Coin count [active/total tracked] = ",
-					num,
-					" / ",
-					this.m_coins.Count.ToString(),
-					"\n"
-				});
-				this.m_debugTextRight.text = "\n";
-				using (Dictionary<ActorData, int>.Enumerator enumerator2 = this.m_actorToCoinCount.GetEnumerator())
+				m_debugTextLeft.text = "Coin count [active/total tracked] = " + num + " / " + m_coins.Count.ToString() + "\n";
+				m_debugTextRight.text = "\n";
+				using (Dictionary<ActorData, int>.Enumerator enumerator2 = m_actorToCoinCount.GetEnumerator())
 				{
 					while (enumerator2.MoveNext())
 					{
-						KeyValuePair<ActorData, int> keyValuePair = enumerator2.Current;
-						ActorData key = keyValuePair.Key;
-						int value = keyValuePair.Value;
-						if (key.\u000E() == Team.TeamA)
+						KeyValuePair<ActorData, int> current2 = enumerator2.Current;
+						ActorData key = current2.Key;
+						int value = current2.Value;
+						if (key.GetTeam() == Team.TeamA)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
@@ -1813,18 +1966,11 @@ public class CoinCarnageManager : NetworkBehaviour
 								break;
 							}
 							string text3 = text;
-							text = string.Concat(new string[]
-							{
-								text3,
-								key.DisplayName,
-								" -> ",
-								value.ToString(),
-								"\n"
-							});
+							text = text3 + key.DisplayName + " -> " + value + "\n";
 						}
-						else if (key.\u000E() == Team.TeamB)
+						else if (key.GetTeam() == Team.TeamB)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
@@ -1834,17 +1980,10 @@ public class CoinCarnageManager : NetworkBehaviour
 								break;
 							}
 							string text3 = text2;
-							text2 = string.Concat(new string[]
-							{
-								text3,
-								key.DisplayName,
-								" -> ",
-								value.ToString(),
-								"\n"
-							});
+							text2 = text3 + key.DisplayName + " -> " + value + "\n";
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -1854,12 +1993,10 @@ public class CoinCarnageManager : NetworkBehaviour
 						break;
 					}
 				}
-				Text debugTextLeft = this.m_debugTextLeft;
-				debugTextLeft.text += text;
-				Text debugTextRight = this.m_debugTextRight;
-				debugTextRight.text += text2;
-				return;
+				m_debugTextLeft.text += text;
+				m_debugTextRight.text += text2;
 			}
+			return;
 		}
 	}
 
@@ -1867,157 +2004,16 @@ public class CoinCarnageManager : NetworkBehaviour
 	{
 	}
 
-	public int Networkm_coinTurninIdxTeamA
-	{
-		get
-		{
-			return this.m_coinTurninIdxTeamA;
-		}
-		[param: In]
-		set
-		{
-			uint dirtyBit = 1U;
-			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
-			{
-				base.syncVarHookGuard = true;
-				this.HookSetTurninRegionLocationA(value);
-				base.syncVarHookGuard = false;
-			}
-			base.SetSyncVar<int>(value, ref this.m_coinTurninIdxTeamA, dirtyBit);
-		}
-	}
-
-	public int Networkm_coinTurninIdxTeamB
-	{
-		get
-		{
-			return this.m_coinTurninIdxTeamB;
-		}
-		[param: In]
-		set
-		{
-			uint dirtyBit = 2U;
-			if (NetworkServer.localClientActive)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.set_Networkm_coinTurninIdxTeamB(int)).MethodHandle;
-				}
-				if (!base.syncVarHookGuard)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					base.syncVarHookGuard = true;
-					this.HookSetTurninRegionLocationB(value);
-					base.syncVarHookGuard = false;
-				}
-			}
-			base.SetSyncVar<int>(value, ref this.m_coinTurninIdxTeamB, dirtyBit);
-		}
-	}
-
-	public int Networkm_turnsUntilTurnInSpawn
-	{
-		get
-		{
-			return this.m_turnsUntilTurnInSpawn;
-		}
-		[param: In]
-		set
-		{
-			uint dirtyBit = 4U;
-			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.set_Networkm_turnsUntilTurnInSpawn(int)).MethodHandle;
-				}
-				base.syncVarHookGuard = true;
-				this.HookSetTurnsUntilTurnInSpawn(value);
-				base.syncVarHookGuard = false;
-			}
-			base.SetSyncVar<int>(value, ref this.m_turnsUntilTurnInSpawn, dirtyBit);
-		}
-	}
-
-	public int Networkm_turnsUntilTurnInDeSpawn
-	{
-		get
-		{
-			return this.m_turnsUntilTurnInDeSpawn;
-		}
-		[param: In]
-		set
-		{
-			uint dirtyBit = 8U;
-			if (NetworkServer.localClientActive)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.set_Networkm_turnsUntilTurnInDeSpawn(int)).MethodHandle;
-				}
-				if (!base.syncVarHookGuard)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					base.syncVarHookGuard = true;
-					this.HookSetTurnsUntilTurnInDeSpawn(value);
-					base.syncVarHookGuard = false;
-				}
-			}
-			base.SetSyncVar<int>(value, ref this.m_turnsUntilTurnInDeSpawn, dirtyBit);
-		}
-	}
-
 	protected static void InvokeRpcRpcActorPickedUpCoin(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("RPC RpcActorPickedUpCoin called on server.");
-			return;
 		}
-		((CoinCarnageManager)obj).RpcActorPickedUpCoin((int)reader.ReadPackedUInt32());
+		else
+		{
+			((CoinCarnageManager)obj).RpcActorPickedUpCoin((int)reader.ReadPackedUInt32());
+		}
 	}
 
 	public void CallRpcActorPickedUpCoin(int actorIndex)
@@ -2028,28 +2024,28 @@ public class CoinCarnageManager : NetworkBehaviour
 			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)CoinCarnageManager.kRpcRpcActorPickedUpCoin);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcActorPickedUpCoin);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.WritePackedUInt32((uint)actorIndex);
-		this.SendRPCInternal(networkWriter, 0, "RpcActorPickedUpCoin");
+		SendRPCInternal(networkWriter, 0, "RpcActorPickedUpCoin");
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			writer.WritePackedUInt32((uint)this.m_coinTurninIdxTeamA);
-			writer.WritePackedUInt32((uint)this.m_coinTurninIdxTeamB);
-			writer.WritePackedUInt32((uint)this.m_turnsUntilTurnInSpawn);
-			writer.WritePackedUInt32((uint)this.m_turnsUntilTurnInDeSpawn);
+			writer.WritePackedUInt32((uint)m_coinTurninIdxTeamA);
+			writer.WritePackedUInt32((uint)m_coinTurninIdxTeamB);
+			writer.WritePackedUInt32((uint)m_turnsUntilTurnInSpawn);
+			writer.WritePackedUInt32((uint)m_turnsUntilTurnInDeSpawn);
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -2058,13 +2054,13 @@ public class CoinCarnageManager : NetworkBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.OnSerialize(NetworkWriter, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -2076,13 +2072,13 @@ public class CoinCarnageManager : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_coinTurninIdxTeamA);
+			writer.WritePackedUInt32((uint)m_coinTurninIdxTeamA);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -2094,13 +2090,13 @@ public class CoinCarnageManager : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_coinTurninIdxTeamB);
+			writer.WritePackedUInt32((uint)m_coinTurninIdxTeamB);
 		}
-		if ((base.syncVarDirtyBits & 4U) != 0U)
+		if ((base.syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -2112,11 +2108,11 @@ public class CoinCarnageManager : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_turnsUntilTurnInSpawn);
+			writer.WritePackedUInt32((uint)m_turnsUntilTurnInSpawn);
 		}
-		if ((base.syncVarDirtyBits & 8U) != 0U)
+		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -2127,7 +2123,7 @@ public class CoinCarnageManager : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -2139,11 +2135,11 @@ public class CoinCarnageManager : NetworkBehaviour
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_turnsUntilTurnInDeSpawn);
+			writer.WritePackedUInt32((uint)m_turnsUntilTurnInDeSpawn);
 		}
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2161,33 +2157,33 @@ public class CoinCarnageManager : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					m_coinTurninIdxTeamA = (int)reader.ReadPackedUInt32();
+					m_coinTurninIdxTeamB = (int)reader.ReadPackedUInt32();
+					m_turnsUntilTurnInSpawn = (int)reader.ReadPackedUInt32();
+					m_turnsUntilTurnInDeSpawn = (int)reader.ReadPackedUInt32();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
-			this.m_coinTurninIdxTeamA = (int)reader.ReadPackedUInt32();
-			this.m_coinTurninIdxTeamB = (int)reader.ReadPackedUInt32();
-			this.m_turnsUntilTurnInSpawn = (int)reader.ReadPackedUInt32();
-			this.m_turnsUntilTurnInDeSpawn = (int)reader.ReadPackedUInt32();
-			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			this.HookSetTurninRegionLocationA((int)reader.ReadPackedUInt32());
+			HookSetTurninRegionLocationA((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -2196,11 +2192,11 @@ public class CoinCarnageManager : NetworkBehaviour
 				}
 				break;
 			}
-			this.HookSetTurninRegionLocationB((int)reader.ReadPackedUInt32());
+			HookSetTurninRegionLocationB((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -2209,17 +2205,11 @@ public class CoinCarnageManager : NetworkBehaviour
 				}
 				break;
 			}
-			this.HookSetTurnsUntilTurnInSpawn((int)reader.ReadPackedUInt32());
+			HookSetTurnsUntilTurnInSpawn((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 8) != 0)
 		{
-			this.HookSetTurnsUntilTurnInDeSpawn((int)reader.ReadPackedUInt32());
+			HookSetTurnsUntilTurnInDeSpawn((int)reader.ReadPackedUInt32());
 		}
-	}
-
-	public enum Variant
-	{
-		PeriodicSingleTurnin,
-		SeparateTurninsPerTeam
 	}
 }

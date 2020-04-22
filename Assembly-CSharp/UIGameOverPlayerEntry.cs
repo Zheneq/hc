@@ -1,7 +1,6 @@
-﻿using System;
+using LobbyGameClientMessages;
 using System.Collections.Generic;
 using System.Linq;
-using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -121,7 +120,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 
 	private float ISO_increase_rate;
 
-	private static string[] s_groupColors = new string[]
+	private static string[] s_groupColors = new string[7]
 	{
 		"#A0A0A0",
 		"#0000C0",
@@ -136,13 +135,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 
 	private static Dictionary<long, int> s_groupToColorMap = new Dictionary<long, int>();
 
-	public ActorData EntryActorData
-	{
-		get
-		{
-			return this.m_actor;
-		}
-	}
+	public ActorData EntryActorData => m_actor;
 
 	private void ShowAbilityTooltip(Ability ability, AbilityMod abilityMod, UIAbilityTooltip tooltip)
 	{
@@ -152,9 +145,9 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 	private bool CanPlayerReport()
 	{
 		int result;
-		if (this.m_actor != null)
+		if (m_actor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -163,13 +156,13 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPlayerEntry.CanPlayerReport()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_actor.\u0012() != -1L)
+			if (m_actor.GetAccountIdWithSomeConditionB_zq() != -1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -178,9 +171,9 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 					break;
 				}
-				if (this.m_actor.\u000E() != ClientGameManager.Get().GetPlayerAccountData().AccountId)
+				if (m_actor.GetAccountIdWithSomeConditionA_zq() != ClientGameManager.Get().GetPlayerAccountData().AccountId)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -189,9 +182,9 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 						}
 						break;
 					}
-					if (!this.m_actor.\u0019())
+					if (!m_actor.GetIsHumanControlled())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -200,45 +193,45 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 							}
 							break;
 						}
-						if (!this.m_actor.\u000E().m_botsMasqueradeAsHumans)
+						if (!m_actor.GetPlayerDetails().m_botsMasqueradeAsHumans)
 						{
-							result = (this.m_actor.\u000E().ReplacedWithBots ? 1 : 0);
-							goto IL_B0;
+							result = (m_actor.GetPlayerDetails().ReplacedWithBots ? 1 : 0);
+							goto IL_00b3;
 						}
 					}
 					result = 1;
-					IL_B0:
-					return result != 0;
+					goto IL_00b3;
 				}
 			}
 		}
 		result = 0;
-		return result != 0;
+		goto IL_00b3;
+		IL_00b3:
+		return (byte)result != 0;
 	}
 
 	private bool ClickedContribution(UITooltipBase tooltip)
 	{
-		if (this.CanPlayerReport())
+		if (CanPlayerReport())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
 					continue;
 				}
-				break;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				(tooltip as GameOverBannerMenu).Setup(m_actor);
+				return true;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPlayerEntry.ClickedContribution(UITooltipBase)).MethodHandle;
-			}
-			(tooltip as GameOverBannerMenu).Setup(this.m_actor);
-			return true;
 		}
-		if (this.m_statline != null)
+		if (m_statline != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -247,9 +240,9 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			if (this.m_statline.AccountID != ClientGameManager.Get().GetPlayerAccountData().AccountId)
+			if (m_statline.AccountID != ClientGameManager.Get().GetPlayerAccountData().AccountId)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -258,15 +251,15 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 					break;
 				}
-				if (this.m_statline.AccountID != 0L)
+				if (m_statline.AccountID != 0)
 				{
-					if (!this.m_statline.IsHumanControlled)
+					if (!m_statline.IsHumanControlled)
 					{
-						if (!this.m_statline.HumanReplacedByBot)
+						if (!m_statline.HumanReplacedByBot)
 						{
-							return false;
+							goto IL_00b3;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -276,20 +269,22 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 							break;
 						}
 					}
-					(tooltip as GameOverBannerMenu).Setup(this.m_statline);
+					(tooltip as GameOverBannerMenu).Setup(m_statline);
 					return true;
 				}
 			}
 		}
+		goto IL_00b3;
+		IL_00b3:
 		return false;
 	}
 
 	private bool SetupContibutionTooltip(UITooltipBase tooltip)
 	{
-		UIContributionTooltip uicontributionTooltip = tooltip as UIContributionTooltip;
-		if (this.m_actor != null)
+		UIContributionTooltip uIContributionTooltip = tooltip as UIContributionTooltip;
+		if (m_actor != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -298,24 +293,26 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPlayerEntry.SetupContibutionTooltip(UITooltipBase)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (uicontributionTooltip != null)
+			if (uIContributionTooltip != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						ActorBehavior actorBehavior = m_actor.GetActorBehavior();
+						uIContributionTooltip.Setup(StringUtil.TR("Contribution", "GameOver"), actorBehavior.GetContributionBreakdownForUI());
+						return true;
 					}
-					break;
+					}
 				}
-				ActorBehavior actorBehavior = this.m_actor.\u000E();
-				uicontributionTooltip.Setup(StringUtil.TR("Contribution", "GameOver"), actorBehavior.GetContributionBreakdownForUI());
-				return true;
 			}
 		}
 		return false;
@@ -325,60 +322,62 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 	{
 		if (page == UIGameStatsWindow.StatsPage.Mods)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPlayerEntry.SetStatPage(UIGameStatsWindow.StatsPage)).MethodHandle;
-			}
-			if (this.m_statsPageOneContainer != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				UIManager.SetGameObjectActive(this.m_statsPageOneContainer, false, null);
-			}
-			if (this.m_statsPageTwoContainer != null)
-			{
-				for (;;)
-				{
-					switch (5)
+				default:
+					if (1 == 0)
 					{
-					case 0:
-						continue;
+						/*OpCode not supported: LdMemberToken*/;
 					}
-					break;
+					if (m_statsPageOneContainer != null)
+					{
+						while (true)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						UIManager.SetGameObjectActive(m_statsPageOneContainer, false);
+					}
+					if (m_statsPageTwoContainer != null)
+					{
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								break;
+							default:
+								UIManager.SetGameObjectActive(m_statsPageTwoContainer, true);
+								return;
+							}
+						}
+					}
+					return;
 				}
-				UIManager.SetGameObjectActive(this.m_statsPageTwoContainer, true, null);
 			}
 		}
-		else if (page == UIGameStatsWindow.StatsPage.Numbers)
+		if (page != 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.m_statsPageOneContainer != null)
+			if (m_statsPageOneContainer != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -387,37 +386,39 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_statsPageOneContainer, true, null);
+				UIManager.SetGameObjectActive(m_statsPageOneContainer, true);
 			}
-			if (this.m_statsPageTwoContainer != null)
+			if (m_statsPageTwoContainer != null)
 			{
-				UIManager.SetGameObjectActive(this.m_statsPageTwoContainer, false, null);
+				UIManager.SetGameObjectActive(m_statsPageTwoContainer, false);
 			}
+			return;
 		}
 	}
 
 	public void Setup(MatchResultsStatline statline)
 	{
 		ActorData actorData = (ActorData)statline.Actor;
-		this.m_statline = statline;
-		this.m_actor = actorData;
+		m_statline = statline;
+		m_actor = actorData;
 		bool secretButtonClicked = Options_UI.Get().m_secretButtonClicked;
-		UIManager.SetGameObjectActive(this.m_DebugStats, secretButtonClicked, null);
-		if (this.m_playerLabel != null)
+		UIManager.SetGameObjectActive(m_DebugStats, secretButtonClicked);
+		if (m_playerLabel != null)
 		{
-			this.m_playerLabel.text = statline.DisplayName;
+			m_playerLabel.text = statline.DisplayName;
 		}
-		if (this.m_freelancerLabel != null)
+		if (m_freelancerLabel != null)
 		{
-			this.m_freelancerLabel.text = statline.Character.GetDisplayName();
+			m_freelancerLabel.text = statline.Character.GetDisplayName();
 		}
-		if (this.m_ggPackImage != null)
+		Image ggPackImage;
+		int doActive;
+		if (m_ggPackImage != null)
 		{
-			Component ggPackImage = this.m_ggPackImage;
-			bool doActive;
+			ggPackImage = m_ggPackImage;
 			if (actorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -426,13 +427,13 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPlayerEntry.Setup(MatchResultsStatline)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				if (actorData.PlayerData != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -441,19 +442,537 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 						}
 						break;
 					}
-					doActive = (HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumberGGPacksUsed(actorData.PlayerData.PlayerHandle) > 0);
-					goto IL_118;
+					doActive = ((HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumberGGPacksUsed(actorData.PlayerData.PlayerHandle) > 0) ? 1 : 0);
+					goto IL_0118;
 				}
 			}
-			doActive = false;
-			IL_118:
-			UIManager.SetGameObjectActive(ggPackImage, doActive, null);
+			doActive = 0;
+			goto IL_0118;
 		}
-		AbilityData abilityData = null;
-		List<Ability> list = null;
+		goto IL_011e;
+		IL_0916:
+		AbilityData abilityData = (!(actorData != null)) ? null : actorData.GetAbilityData();
+		AbilityData abilityData2;
+		List<Ability> list;
+		for (int i = 0; i < statline.AbilityEntries.Length; i++)
+		{
+			if (i >= m_abilityBtns.Length)
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!(abilityData2 != null))
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (i >= list.Count)
+			{
+				continue;
+			}
+			MatchResultsStatline.AbilityEntry abilityEntry = statline.AbilityEntries[i];
+			AbilityData.AbilityEntry abilityEntry2 = (!(abilityData != null)) ? null : abilityData.abilityEntries[i];
+			Ability ability;
+			if (abilityEntry2 != null)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				ability = abilityEntry2.ability;
+			}
+			else
+			{
+				ability = list[i];
+			}
+			Ability theAbility = ability;
+			if (!(theAbility != null))
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			AbilityMod abilityMod = AbilityModHelper.GetModForAbility(theAbility, abilityEntry.AbilityModId);
+			m_abilityReferences.Add(theAbility);
+			m_abilityBtns[i].spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, delegate(UITooltipBase tooltip)
+			{
+				ShowAbilityTooltip(theAbility, abilityMod, (UIAbilityTooltip)tooltip);
+				return true;
+			});
+			m_modIcons[i].material = null;
+			m_abilityIcons[i].sprite = theAbility.sprite;
+			UIManager.SetGameObjectActive(m_freeActionLabel[i], theAbility.IsFreeAction());
+			if (abilityMod != null)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_abilityModReferences.Add(abilityMod);
+				m_modIcons[i].sprite = abilityMod.m_iconSprite;
+				m_modIcons[i].color = Color.white;
+			}
+			else
+			{
+				m_abilityModReferences.Add(null);
+				m_modIcons[i].color = Color.clear;
+			}
+			int num;
+			string text;
+			if (abilityEntry2 != null && actorData != null)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num = actorData.TechPoints + actorData.ReservedTechPoints;
+				bool flag = abilityData.HasQueuedAction((AbilityData.ActionType)i);
+				int num2;
+				if (theAbility.GetModdedCost() > num)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num2 = (flag ? 1 : 0);
+				}
+				else
+				{
+					num2 = 1;
+				}
+				bool flag2 = (byte)num2 != 0;
+				text = string.Empty;
+				if (theAbility.GetModdedMaxStocks() <= 0)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (abilityEntry2.GetCooldownRemaining() == 0)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (flag2)
+						{
+							goto IL_0d1f;
+						}
+					}
+					if (abilityEntry2.GetCooldownRemaining() > 0)
+					{
+						int num3;
+						if (num >= actorData.GetActualMaxTechPoints())
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num3 = (AbilityUtils.AbilityHasTag(theAbility, AbilityTags.IgnoreCooldownIfFullEnergy) ? 1 : 0);
+						}
+						else
+						{
+							num3 = 0;
+						}
+						if (num3 == 0)
+						{
+							text = abilityEntry2.GetCooldownRemaining().ToString();
+						}
+					}
+					else if (abilityEntry2.GetCooldownRemaining() == -1)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						text = "~";
+					}
+				}
+				else
+				{
+					int moddedMaxStocks = theAbility.GetModdedMaxStocks();
+					AbilityData component = actorData.GetComponent<AbilityData>();
+					AbilityData.ActionType actionTypeOfAbility = component.GetActionTypeOfAbility(theAbility);
+					if (actionTypeOfAbility != AbilityData.ActionType.INVALID_ACTION)
+					{
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						int consumedStocksCount = component.GetConsumedStocksCount(actionTypeOfAbility);
+						int stockRefreshCountdown = component.GetStockRefreshCountdown(actionTypeOfAbility);
+						int num4 = moddedMaxStocks - consumedStocksCount;
+						if (!component.IsAbilityAllowedByUnlockTurns(actionTypeOfAbility))
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							text = component.GetTurnsTillUnlock(actionTypeOfAbility).ToString();
+						}
+						else if (stockRefreshCountdown > 0)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (num4 != 0)
+							{
+								while (true)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (!theAbility.RefillAllStockOnRefresh())
+								{
+									goto IL_0d1f;
+								}
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							text = stockRefreshCountdown.ToString();
+						}
+					}
+				}
+				goto IL_0d1f;
+			}
+			UIManager.SetGameObjectActive(m_disableContainer[i], false);
+			m_cooldownLabel[i].text = string.Empty;
+			goto IL_0e1a;
+			IL_0d1f:
+			if (theAbility.GetModdedCost() > 0)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				bool flag3 = theAbility.GetModdedCost() <= num;
+				UIManager.SetGameObjectActive(m_disableContainer[i], !flag3);
+				m_cooldownLabel[i].text = string.Empty;
+			}
+			else
+			{
+				if (m_cooldownLabel[i].text != text)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_cooldownLabel[i].text = text;
+				}
+				if (m_cooldownLabel[i].text.IsNullOrEmpty())
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					UIManager.SetGameObjectActive(m_disableContainer[i], false);
+				}
+				else
+				{
+					UIManager.SetGameObjectActive(m_disableContainer[i], true);
+				}
+			}
+			goto IL_0e1a;
+			IL_0e1a:
+			Color color;
+			if (theAbility.GetPhaseString() == StringUtil.TR("Blast", "Global"))
+			{
+				color = m_blastColor;
+			}
+			else if (theAbility.GetPhaseString() == StringUtil.TR("Dash", "Global"))
+			{
+				color = m_dashColor;
+			}
+			else if (theAbility.GetPhaseString() == StringUtil.TR("Prep", "Global"))
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				color = m_prepColor;
+			}
+			else
+			{
+				color = m_blastColor;
+			}
+			m_phaseColor[i].color = new Color(color.r, color.g, color.b, m_bgAlpha);
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			m_ContributionHitBoxTooltip.spriteController.GetComponent<UITooltipClickObject>().Setup(TooltipType.PlayerBannerMenu, ClickedContribution);
+			m_ContributionHitBoxTooltip.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Contribution, SetupContibutionTooltip);
+			if (m_KillsLabel != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_KillsLabel.text = statline.TotalPlayerKills.ToString();
+			}
+			if (m_DeathsLabel != null)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_DeathsLabel.text = statline.TotalDeaths.ToString();
+			}
+			if (m_DamageDealt != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_DamageDealt.text = statline.TotalPlayerDamage.ToString();
+			}
+			if (m_RoleNumber != null)
+			{
+				m_RoleNumber.text = statline.TotalPlayerAssists.ToString();
+			}
+			if (m_HealingNumber != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_HealingNumber.text = (statline.TotalPlayerHealingFromAbility + statline.TotalPlayerAbsorb).ToString();
+			}
+			if (m_DamageReceivedNumber != null)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_DamageReceivedNumber.text = statline.TotalPlayerDamageReceived.ToString();
+			}
+			if (m_KDANumber != null)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				m_KDANumber.text = $"{statline.TotalPlayerAssists}:{statline.TotalDeaths}:{statline.TotalPlayerKills}";
+			}
+			if (m_TimePerTurn != null)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (statline.TotalPlayerTurns == 0)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_TimePerTurn.text = "-";
+				}
+				else
+				{
+					m_TimePerTurn.text = $"{statline.TotalPlayerLockInTime / (float)statline.TotalPlayerTurns:F2}";
+				}
+			}
+			if (secretButtonClicked)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (m_DebugTotalContribution != null)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					m_DebugTotalContribution.text = statline.TotalPlayerContribution.ToString();
+				}
+			}
+			m_ISO_toShow = 0;
+			m_ISO_showing = 0f;
+			ISO_increase_rate = 1f;
+			if (m_catalystPips != null)
+			{
+				UIManager.SetGameObjectActive(m_catalystPips.m_PrepPhaseOn, statline.CatalystHasPrepPhase);
+				UIManager.SetGameObjectActive(m_catalystPips.m_DashPhaseOn, statline.CatalystHasDashPhase);
+				UIManager.SetGameObjectActive(m_catalystPips.m_BlastPhaseOn, statline.CatalystHasBlastPhase);
+				UIUtils.SetAsLastSiblingIfNeeded(m_catalystPips.transform);
+			}
+			return;
+		}
+		IL_0118:
+		UIManager.SetGameObjectActive(ggPackImage, (byte)doActive != 0);
+		goto IL_011e;
+		IL_011e:
+		abilityData2 = null;
+		list = null;
 		if (statline.Character != CharacterType.PunchingDummy)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -462,9 +981,9 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			if (statline.Character != CharacterType.None)
+			if (statline.Character != 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -474,9 +993,9 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					break;
 				}
 				GameWideData gameWideData = GameWideData.Get();
-				if (gameWideData)
+				if ((bool)gameWideData)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
@@ -486,16 +1005,16 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 						break;
 					}
 					CharacterResourceLink characterResourceLink = gameWideData.GetCharacterResourceLink(statline.Character);
-					this.m_characterImage.sprite = characterResourceLink.GetCharacterSelectIcon();
-					abilityData = characterResourceLink.ActorDataPrefab.GetComponent<AbilityData>();
-					list = abilityData.GetAbilitiesAsList();
-					abilityData.InitAbilitySprites();
+					m_characterImage.sprite = characterResourceLink.GetCharacterSelectIcon();
+					abilityData2 = characterResourceLink.ActorDataPrefab.GetComponent<AbilityData>();
+					list = abilityData2.GetAbilitiesAsList();
+					abilityData2.InitAbilitySprites();
 				}
 			}
 		}
-		if (this.m_abilityReferences == null)
+		if (m_abilityReferences == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -504,11 +1023,11 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			this.m_abilityReferences = new List<Ability>();
+			m_abilityReferences = new List<Ability>();
 		}
-		if (this.m_abilityModReferences == null)
+		if (m_abilityModReferences == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -517,18 +1036,18 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			this.m_abilityModReferences = new List<AbilityMod>();
+			m_abilityModReferences = new List<AbilityMod>();
 		}
-		this.m_abilityReferences.Clear();
-		this.m_abilityModReferences.Clear();
+		m_abilityReferences.Clear();
+		m_abilityModReferences.Clear();
 		LobbyTeamInfo teamInfo = GameManager.Get().TeamInfo;
-		UIManager.SetGameObjectActive(this.m_botBanner, false, null);
-		UIManager.SetGameObjectActive(this.m_playerBanner, true, null);
+		UIManager.SetGameObjectActive(m_botBanner, false);
+		UIManager.SetGameObjectActive(m_playerBanner, true);
 		Team team = Team.Spectator;
-		ActorData actorData2;
+		object obj;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -537,25 +1056,25 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			actorData2 = GameFlowData.Get().activeOwnedActorData;
+			obj = GameFlowData.Get().activeOwnedActorData;
 		}
 		else
 		{
-			actorData2 = null;
+			obj = null;
 		}
-		ActorData actorData3 = actorData2;
-		if (actorData3 != null)
+		ActorData actorData2 = (ActorData)obj;
+		if (actorData2 != null)
 		{
-			team = actorData3.\u000E();
+			team = actorData2.GetTeam();
 		}
-		UIManager.SetGameObjectActive(this.m_reportPlayerBtn, this.CanPlayerReport(), null);
-		this.m_reportPlayerBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ReportPlayerBtnClicked);
-		this.m_reportPlayerBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.ReportBtnTooltipSetup), null);
+		UIManager.SetGameObjectActive(m_reportPlayerBtn, CanPlayerReport());
+		m_reportPlayerBtn.spriteController.callback = ReportPlayerBtnClicked;
+		m_reportPlayerBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, ReportBtnTooltipSetup);
 		bool doActive2 = true;
-		bool flag;
+		bool flag4;
 		if (statline.IsHumanControlled)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -564,15 +1083,15 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			flag = true;
+			flag4 = true;
 		}
 		else if (statline.IsBotMasqueradingAsHuman)
 		{
-			flag = true;
+			flag4 = true;
 		}
 		else if (statline.HumanReplacedByBot)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -581,15 +1100,15 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			flag = true;
+			flag4 = true;
 		}
 		else
 		{
-			flag = false;
+			flag4 = false;
 		}
-		if (flag)
+		if (flag4)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -598,16 +1117,16 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_botOverlay, false, null);
+			UIManager.SetGameObjectActive(m_botOverlay, false);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_DebugBotNameText, secretButtonClicked, null);
-			UIManager.SetGameObjectActive(this.m_DebugBotDifficultyText, secretButtonClicked, null);
-			this.m_DebugBotNameText.text = statline.DisplayName;
-			if (!(this.m_actor == null))
+			UIManager.SetGameObjectActive(m_DebugBotNameText, secretButtonClicked);
+			UIManager.SetGameObjectActive(m_DebugBotDifficultyText, secretButtonClicked);
+			m_DebugBotNameText.text = statline.DisplayName;
+			if (!(m_actor == null))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -616,9 +1135,9 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 					break;
 				}
-				if (team != this.m_actor.\u000E())
+				if (team != m_actor.GetTeam())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -629,10 +1148,10 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 					if (!(SinglePlayerCoordinator.Get() != null))
 					{
-						UIManager.SetGameObjectActive(this.m_botOverlay, false, null);
-						goto IL_3D3;
+						UIManager.SetGameObjectActive(m_botOverlay, false);
+						goto IL_03d3;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -643,13 +1162,14 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 				}
 			}
-			UIManager.SetGameObjectActive(this.m_botOverlay, true, null);
+			UIManager.SetGameObjectActive(m_botOverlay, true);
 			doActive2 = false;
 		}
-		IL_3D3:
+		goto IL_03d3;
+		IL_03d3:
 		if (statline.IsPerspective)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -658,16 +1178,16 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_selfImage, true, null);
-			UIManager.SetGameObjectActive(this.m_enemyImage, false, null);
-			UIManager.SetGameObjectActive(this.m_allyImage, false, null);
+			UIManager.SetGameObjectActive(m_selfImage, true);
+			UIManager.SetGameObjectActive(m_enemyImage, false);
+			UIManager.SetGameObjectActive(m_allyImage, false);
 		}
 		else
 		{
-			bool flag2 = false;
-			if (actorData3 != null)
+			bool flag5 = false;
+			if (actorData2 != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -676,14 +1196,14 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 					break;
 				}
-				flag2 = (actorData == actorData3);
+				flag5 = (actorData == actorData2);
 			}
-			UIManager.SetGameObjectActive(this.m_selfImage, flag2, null);
-			Component enemyImage = this.m_enemyImage;
-			bool doActive3;
+			UIManager.SetGameObjectActive(m_selfImage, flag5);
+			Image enemyImage = m_enemyImage;
+			int doActive3;
 			if (!statline.IsAlly)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -692,38 +1212,38 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 					break;
 				}
-				doActive3 = !flag2;
+				doActive3 = ((!flag5) ? 1 : 0);
 			}
 			else
 			{
-				doActive3 = false;
+				doActive3 = 0;
 			}
-			UIManager.SetGameObjectActive(enemyImage, doActive3, null);
-			UIManager.SetGameObjectActive(this.m_allyImage, statline.IsAlly && !flag2, null);
+			UIManager.SetGameObjectActive(enemyImage, (byte)doActive3 != 0);
+			UIManager.SetGameObjectActive(m_allyImage, statline.IsAlly && !flag5);
 		}
 		if (team == Team.Spectator)
 		{
-			bool flag3 = this.m_actor == null || this.m_actor.\u000E() == Team.TeamA;
-			UIManager.SetGameObjectActive(this.m_teamAImage, flag3, null);
-			UIManager.SetGameObjectActive(this.m_DebugTeamAImage, flag3, null);
-			UIManager.SetGameObjectActive(this.m_teamBImage, !flag3, null);
-			UIManager.SetGameObjectActive(this.m_DebugTeamBImage, !flag3, null);
+			bool flag6 = m_actor == null || m_actor.GetTeam() == Team.TeamA;
+			UIManager.SetGameObjectActive(m_teamAImage, flag6);
+			UIManager.SetGameObjectActive(m_DebugTeamAImage, flag6);
+			UIManager.SetGameObjectActive(m_teamBImage, !flag6);
+			UIManager.SetGameObjectActive(m_DebugTeamBImage, !flag6);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_teamAImage, statline.IsAlly, null);
-			UIManager.SetGameObjectActive(this.m_DebugTeamAImage, statline.IsAlly, null);
-			UIManager.SetGameObjectActive(this.m_teamBImage, !statline.IsAlly, null);
-			UIManager.SetGameObjectActive(this.m_DebugTeamBImage, !statline.IsAlly, null);
+			UIManager.SetGameObjectActive(m_teamAImage, statline.IsAlly);
+			UIManager.SetGameObjectActive(m_DebugTeamAImage, statline.IsAlly);
+			UIManager.SetGameObjectActive(m_teamBImage, !statline.IsAlly);
+			UIManager.SetGameObjectActive(m_DebugTeamBImage, !statline.IsAlly);
 		}
-		if (this.m_playertitle != null)
+		if (m_playertitle != null)
 		{
-			this.m_playertitle.text = GameBalanceVars.Get().GetTitle(statline.TitleID, string.Empty, statline.TitleLevel);
+			m_playertitle.text = GameBalanceVars.Get().GetTitle(statline.TitleID, string.Empty, statline.TitleLevel);
 		}
 		GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(statline.BannerID);
 		if (banner != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -732,12 +1252,12 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			this.m_bannerImage.sprite = (Sprite)Resources.Load(banner.m_resourceString, typeof(Sprite));
+			m_bannerImage.sprite = (Sprite)Resources.Load(banner.m_resourceString, typeof(Sprite));
 		}
 		GameBalanceVars.PlayerBanner banner2 = GameWideData.Get().m_gameBalanceVars.GetBanner(statline.EmblemID);
 		if (banner2 != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -746,14 +1266,14 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_emblemImage, true, null);
-			this.m_emblemImage.sprite = (Sprite)Resources.Load(banner2.m_resourceString, typeof(Sprite));
+			UIManager.SetGameObjectActive(m_emblemImage, true);
+			m_emblemImage.sprite = (Sprite)Resources.Load(banner2.m_resourceString, typeof(Sprite));
 		}
-		UIManager.SetGameObjectActive(this.m_emblemImage, doActive2, null);
+		UIManager.SetGameObjectActive(m_emblemImage, doActive2);
 		GameBalanceVars.PlayerRibbon ribbon = GameWideData.Get().m_gameBalanceVars.GetRibbon(statline.RibbonID);
 		if (ribbon != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -762,16 +1282,16 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			this.m_ribbonImage.sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
-			UIManager.SetGameObjectActive(this.m_ribbonImage, ribbon != null, null);
+			m_ribbonImage.sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
+			UIManager.SetGameObjectActive(m_ribbonImage, ribbon != null);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_ribbonImage, false, null);
+			UIManager.SetGameObjectActive(m_ribbonImage, false);
 		}
-		if (this.m_playerLevel != null)
+		if (m_playerLevel != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -780,11 +1300,11 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_playerLevel, false, null);
+			UIManager.SetGameObjectActive(m_playerLevel, false);
 		}
 		if (teamInfo != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -798,7 +1318,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				LobbyPlayerInfo lobbyPlayerInfo = teamInfo.TeamPlayerInfo.FirstOrDefault((LobbyPlayerInfo element) => element.PlayerId == statline.PlayerId);
 				if (lobbyPlayerInfo != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -809,7 +1329,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 					if (!statline.IsHumanControlled)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -820,7 +1340,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 						}
 						if (secretButtonClicked)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
@@ -829,13 +1349,13 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 								}
 								break;
 							}
-							this.m_DebugBotDifficultyText.text = string.Format("AI Level: {0}", (int)(lobbyPlayerInfo.Difficulty + 1));
+							m_DebugBotDifficultyText.text = $"AI Level: {(int)(lobbyPlayerInfo.Difficulty + 1)}";
 						}
 					}
 					Dictionary<int, ForbiddenDevKnowledge> forbiddenDevKnowledge = GameManager.Get().ForbiddenDevKnowledge;
-					if (!forbiddenDevKnowledge.IsNullOrEmpty<KeyValuePair<int, ForbiddenDevKnowledge>>())
+					if (!forbiddenDevKnowledge.IsNullOrEmpty())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -844,10 +1364,9 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 							}
 							break;
 						}
-						ForbiddenDevKnowledge forbiddenDevKnowledge2;
-						if (forbiddenDevKnowledge.TryGetValue(lobbyPlayerInfo.PlayerId, out forbiddenDevKnowledge2))
+						if (forbiddenDevKnowledge.TryGetValue(lobbyPlayerInfo.PlayerId, out ForbiddenDevKnowledge value))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -856,9 +1375,9 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 								}
 								break;
 							}
-							if (this.m_DebugAccountELO != null)
+							if (m_DebugAccountELO != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
@@ -867,12 +1386,12 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 									}
 									break;
 								}
-								string arg = (forbiddenDevKnowledge2.UsedMatchmakingElo == forbiddenDevKnowledge2.AccMatchmakingElo) ? "green" : "orange";
-								this.m_DebugAccountELO.text = string.Format("<color={0}>{1:F0}</color>", arg, forbiddenDevKnowledge2.UsedMatchmakingElo);
+								string arg = (value.UsedMatchmakingElo == value.AccMatchmakingElo) ? "green" : "orange";
+								m_DebugAccountELO.text = $"<color={arg}>{value.UsedMatchmakingElo:F0}</color>";
 							}
-							if (this.m_DebugCharacterELO != null)
+							if (m_DebugCharacterELO != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
@@ -881,10 +1400,10 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 									}
 									break;
 								}
-								int num = 0;
-								if (!UIGameOverPlayerEntry.s_groupToColorMap.TryGetValue(forbiddenDevKnowledge2.GroupIdAtStartOfMatch, out num))
+								int value2 = 0;
+								if (!s_groupToColorMap.TryGetValue(value.GroupIdAtStartOfMatch, out value2))
 								{
-									for (;;)
+									while (true)
 									{
 										switch (4)
 										{
@@ -893,18 +1412,18 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 										}
 										break;
 									}
-									num = UIGameOverPlayerEntry.s_nextColorId;
-									UIGameOverPlayerEntry.s_nextColorId++;
-									UIGameOverPlayerEntry.s_groupToColorMap.Add(forbiddenDevKnowledge2.GroupIdAtStartOfMatch, num);
+									value2 = s_nextColorId;
+									s_nextColorId++;
+									s_groupToColorMap.Add(value.GroupIdAtStartOfMatch, value2);
 								}
-								this.m_DebugCharacterELO.text = string.Format("<color={0}>{1:F0}</color>", UIGameOverPlayerEntry.s_groupColors[num], forbiddenDevKnowledge2.CharMatchmakingElo);
+								m_DebugCharacterELO.text = $"<color={s_groupColors[value2]}>{value.CharMatchmakingElo:F0}</color>";
 							}
-							goto IL_916;
+							goto IL_0916;
 						}
 					}
-					if (this.m_DebugAccountELO != null)
+					if (m_DebugAccountELO != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -913,11 +1432,11 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 							}
 							break;
 						}
-						this.m_DebugAccountELO.text = "Dev Only";
+						m_DebugAccountELO.text = "Dev Only";
 					}
-					if (this.m_DebugCharacterELO != null)
+					if (m_DebugCharacterELO != null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
@@ -926,552 +1445,43 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 							}
 							break;
 						}
-						this.m_DebugCharacterELO.text = "Dev Only";
+						m_DebugCharacterELO.text = "Dev Only";
 					}
 				}
 			}
 		}
-		IL_916:
-		AbilityData abilityData2 = (!(actorData != null)) ? null : actorData.\u000E();
-		for (int i = 0; i < statline.AbilityEntries.Length; i++)
-		{
-			if (i < this.m_abilityBtns.Length)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (abilityData != null)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (i < list.Count)
-					{
-						UIGameOverPlayerEntry.<Setup>c__AnonStorey1 <Setup>c__AnonStorey2 = new UIGameOverPlayerEntry.<Setup>c__AnonStorey1();
-						MatchResultsStatline.AbilityEntry abilityEntry = statline.AbilityEntries[i];
-						AbilityData.AbilityEntry abilityEntry2 = (!(abilityData2 != null)) ? null : abilityData2.abilityEntries[i];
-						UIGameOverPlayerEntry.<Setup>c__AnonStorey1 <Setup>c__AnonStorey3 = <Setup>c__AnonStorey2;
-						Ability theAbility;
-						if (abilityEntry2 != null)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							theAbility = abilityEntry2.ability;
-						}
-						else
-						{
-							theAbility = list[i];
-						}
-						<Setup>c__AnonStorey3.theAbility = theAbility;
-						if (<Setup>c__AnonStorey2.theAbility != null)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							AbilityMod abilityMod = AbilityModHelper.GetModForAbility(<Setup>c__AnonStorey2.theAbility, abilityEntry.AbilityModId);
-							this.m_abilityReferences.Add(<Setup>c__AnonStorey2.theAbility);
-							this.m_abilityBtns[i].spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, delegate(UITooltipBase tooltip)
-							{
-								this.ShowAbilityTooltip(<Setup>c__AnonStorey2.theAbility, abilityMod, (UIAbilityTooltip)tooltip);
-								return true;
-							}, null);
-							this.m_modIcons[i].material = null;
-							this.m_abilityIcons[i].sprite = <Setup>c__AnonStorey2.theAbility.sprite;
-							UIManager.SetGameObjectActive(this.m_freeActionLabel[i], <Setup>c__AnonStorey2.theAbility.IsFreeAction(), null);
-							if (abilityMod != null)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.m_abilityModReferences.Add(abilityMod);
-								this.m_modIcons[i].sprite = abilityMod.m_iconSprite;
-								this.m_modIcons[i].color = Color.white;
-							}
-							else
-							{
-								this.m_abilityModReferences.Add(null);
-								this.m_modIcons[i].color = Color.clear;
-							}
-							if (abilityEntry2 != null && actorData != null)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								int num2 = actorData.TechPoints + actorData.ReservedTechPoints;
-								bool flag4 = abilityData2.HasQueuedAction((AbilityData.ActionType)i);
-								bool flag5;
-								if (<Setup>c__AnonStorey2.theAbility.GetModdedCost() > num2)
-								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									flag5 = flag4;
-								}
-								else
-								{
-									flag5 = true;
-								}
-								bool flag6 = flag5;
-								string text = string.Empty;
-								if (<Setup>c__AnonStorey2.theAbility.GetModdedMaxStocks() <= 0)
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (abilityEntry2.GetCooldownRemaining() != 0)
-									{
-										goto IL_BC6;
-									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!flag6)
-									{
-										goto IL_BC6;
-									}
-									goto IL_D1F;
-									IL_BC6:
-									if (abilityEntry2.GetCooldownRemaining() > 0)
-									{
-										bool flag7;
-										if (num2 >= actorData.\u0016())
-										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											flag7 = AbilityUtils.AbilityHasTag(<Setup>c__AnonStorey2.theAbility, AbilityTags.IgnoreCooldownIfFullEnergy);
-										}
-										else
-										{
-											flag7 = false;
-										}
-										if (!flag7)
-										{
-											text = abilityEntry2.GetCooldownRemaining().ToString();
-										}
-									}
-									else if (abilityEntry2.GetCooldownRemaining() == -1)
-									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										text = "~";
-									}
-								}
-								else
-								{
-									int moddedMaxStocks = <Setup>c__AnonStorey2.theAbility.GetModdedMaxStocks();
-									AbilityData component = actorData.GetComponent<AbilityData>();
-									AbilityData.ActionType actionTypeOfAbility = component.GetActionTypeOfAbility(<Setup>c__AnonStorey2.theAbility);
-									if (actionTypeOfAbility != AbilityData.ActionType.INVALID_ACTION)
-									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										int consumedStocksCount = component.GetConsumedStocksCount(actionTypeOfAbility);
-										int stockRefreshCountdown = component.GetStockRefreshCountdown(actionTypeOfAbility);
-										int num3 = moddedMaxStocks - consumedStocksCount;
-										if (!component.IsAbilityAllowedByUnlockTurns(actionTypeOfAbility))
-										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											text = component.GetTurnsTillUnlock(actionTypeOfAbility).ToString();
-										}
-										else if (stockRefreshCountdown > 0)
-										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											if (num3 != 0)
-											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												if (!<Setup>c__AnonStorey2.theAbility.RefillAllStockOnRefresh())
-												{
-													goto IL_D1F;
-												}
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-											}
-											text = stockRefreshCountdown.ToString();
-										}
-									}
-								}
-								IL_D1F:
-								if (<Setup>c__AnonStorey2.theAbility.GetModdedCost() > 0)
-								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									bool flag8 = <Setup>c__AnonStorey2.theAbility.GetModdedCost() <= num2;
-									UIManager.SetGameObjectActive(this.m_disableContainer[i], !flag8, null);
-									this.m_cooldownLabel[i].text = string.Empty;
-								}
-								else
-								{
-									if (this.m_cooldownLabel[i].text != text)
-									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										this.m_cooldownLabel[i].text = text;
-									}
-									if (this.m_cooldownLabel[i].text.IsNullOrEmpty())
-									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										UIManager.SetGameObjectActive(this.m_disableContainer[i], false, null);
-									}
-									else
-									{
-										UIManager.SetGameObjectActive(this.m_disableContainer[i], true, null);
-									}
-								}
-							}
-							else
-							{
-								UIManager.SetGameObjectActive(this.m_disableContainer[i], false, null);
-								this.m_cooldownLabel[i].text = string.Empty;
-							}
-							Color color;
-							if (<Setup>c__AnonStorey2.theAbility.GetPhaseString() == StringUtil.TR("Blast", "Global"))
-							{
-								color = this.m_blastColor;
-							}
-							else if (<Setup>c__AnonStorey2.theAbility.GetPhaseString() == StringUtil.TR("Dash", "Global"))
-							{
-								color = this.m_dashColor;
-							}
-							else if (<Setup>c__AnonStorey2.theAbility.GetPhaseString() == StringUtil.TR("Prep", "Global"))
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								color = this.m_prepColor;
-							}
-							else
-							{
-								color = this.m_blastColor;
-							}
-							this.m_phaseColor[i].color = new Color(color.r, color.g, color.b, this.m_bgAlpha);
-						}
-					}
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.m_ContributionHitBoxTooltip.spriteController.GetComponent<UITooltipClickObject>().Setup(TooltipType.PlayerBannerMenu, new TooltipPopulateCall(this.ClickedContribution), null);
-		this.m_ContributionHitBoxTooltip.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Contribution, new TooltipPopulateCall(this.SetupContibutionTooltip), null);
-		if (this.m_KillsLabel != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_KillsLabel.text = statline.TotalPlayerKills.ToString();
-		}
-		if (this.m_DeathsLabel != null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_DeathsLabel.text = statline.TotalDeaths.ToString();
-		}
-		if (this.m_DamageDealt != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_DamageDealt.text = statline.TotalPlayerDamage.ToString();
-		}
-		if (this.m_RoleNumber != null)
-		{
-			this.m_RoleNumber.text = statline.TotalPlayerAssists.ToString();
-		}
-		if (this.m_HealingNumber != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_HealingNumber.text = (statline.TotalPlayerHealingFromAbility + statline.TotalPlayerAbsorb).ToString();
-		}
-		if (this.m_DamageReceivedNumber != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_DamageReceivedNumber.text = statline.TotalPlayerDamageReceived.ToString();
-		}
-		if (this.m_KDANumber != null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_KDANumber.text = string.Format("{0}:{1}:{2}", statline.TotalPlayerAssists, statline.TotalDeaths, statline.TotalPlayerKills);
-		}
-		if (this.m_TimePerTurn != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (statline.TotalPlayerTurns == 0)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_TimePerTurn.text = "-";
-			}
-			else
-			{
-				this.m_TimePerTurn.text = string.Format("{0:F2}", statline.TotalPlayerLockInTime / (float)statline.TotalPlayerTurns);
-			}
-		}
-		if (secretButtonClicked)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_DebugTotalContribution != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_DebugTotalContribution.text = statline.TotalPlayerContribution.ToString();
-			}
-		}
-		this.m_ISO_toShow = 0;
-		this.m_ISO_showing = 0f;
-		this.ISO_increase_rate = 1f;
-		if (this.m_catalystPips != null)
-		{
-			UIManager.SetGameObjectActive(this.m_catalystPips.m_PrepPhaseOn, statline.CatalystHasPrepPhase, null);
-			UIManager.SetGameObjectActive(this.m_catalystPips.m_DashPhaseOn, statline.CatalystHasDashPhase, null);
-			UIManager.SetGameObjectActive(this.m_catalystPips.m_BlastPhaseOn, statline.CatalystHasBlastPhase, null);
-			UIUtils.SetAsLastSiblingIfNeeded(this.m_catalystPips.transform);
-		}
+		goto IL_0916;
 	}
 
 	private bool ReportBtnTooltipSetup(UITooltipBase tooltip)
 	{
-		UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-		uititledTooltip.Setup(StringUtil.TR("ReportPlayer", "Global"), string.Format(StringUtil.TR("ReportPlayerName", "Global"), this.m_actor.DisplayName), string.Empty);
+		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+		uITitledTooltip.Setup(StringUtil.TR("ReportPlayer", "Global"), string.Format(StringUtil.TR("ReportPlayerName", "Global"), m_actor.DisplayName), string.Empty);
 		return true;
 	}
 
 	public void ReportPlayerBtnClicked(BaseEventData data)
 	{
-		PlayerDetails playerDetails = GameFlow.Get().playerDetails[this.m_actor.PlayerData.GetPlayer()];
+		PlayerDetails playerDetails = GameFlow.Get().playerDetails[m_actor.PlayerData.GetPlayer()];
 		UILandingPageFullScreenMenus.Get().SetReportContainerVisible(true, playerDetails.m_handle, playerDetails.m_accountId, playerDetails.m_botsMasqueradeAsHumans);
 	}
 
 	private void Update()
 	{
-		if (this.m_ISO_showing < (float)this.m_ISO_toShow)
+		if (m_ISO_showing < (float)m_ISO_toShow)
 		{
-			this.m_ISO_showing += Time.deltaTime * this.ISO_increase_rate;
+			m_ISO_showing += Time.deltaTime * ISO_increase_rate;
 		}
-		if (this.m_ISO_showing > (float)this.m_ISO_toShow)
+		if (m_ISO_showing > (float)m_ISO_toShow)
 		{
-			this.m_ISO_showing = (float)this.m_ISO_toShow;
+			m_ISO_showing = m_ISO_toShow;
 		}
 	}
 
 	public static void PreSetupInitialization()
 	{
-		UIGameOverPlayerEntry.s_groupToColorMap = new Dictionary<long, int>();
-		UIGameOverPlayerEntry.s_groupToColorMap.Add(0L, 0);
-		UIGameOverPlayerEntry.s_nextColorId = 1;
+		s_groupToColorMap = new Dictionary<long, int>();
+		s_groupToColorMap.Add(0L, 0);
+		s_nextColorId = 1;
 	}
 }

@@ -1,13 +1,13 @@
-﻿using System;
+using System;
 
 [Flags]
 public enum GameOptionFlag
 {
-	None = 0,
-	AllowDuplicateCharacters = 1,
-	AllowPausing = 2,
-	SkipEndOfGameCheck = 4,
-	ReplaceHumansWithBots = 8,
+	None = 0x0,
+	AllowDuplicateCharacters = 0x1,
+	AllowPausing = 0x2,
+	SkipEndOfGameCheck = 0x4,
+	ReplaceHumansWithBots = 0x8,
 	FakeClientConnections = 0x10,
 	FakeGameServer = 0x20,
 	NoInputIdleDisconnect = 0x40,

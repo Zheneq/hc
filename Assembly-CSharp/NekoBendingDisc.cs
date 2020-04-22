@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,9 +20,9 @@ public class NekoBendingDisc : Ability
 	public bool m_startTargeterFadeAtActorRadius = true;
 
 	[Header("Damage stuff")]
-	public int m_directDamage = 0x19;
+	public int m_directDamage = 25;
 
-	public int m_returnTripDamage = 0xA;
+	public int m_returnTripDamage = 10;
 
 	public bool m_returnTripIgnoreCover = true;
 
@@ -37,9 +37,9 @@ public class NekoBendingDisc : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -48,49 +48,49 @@ public class NekoBendingDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBendingDisc.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityName = "Bending Boomerang Disc";
+			m_abilityName = "Bending Boomerang Disc";
 		}
-		this.m_syncComp = base.GetComponent<Neko_SyncComponent>();
-		this.SetupTargeter();
+		m_syncComp = GetComponent<Neko_SyncComponent>();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
 		base.Targeters.Clear();
-		for (int i = 0; i < this.GetExpectedNumberOfTargeters(); i++)
+		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 		{
-			AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = new AbilityUtil_Targeter_BendingLaser(this, this.GetLaserWidth(), this.GetMinRangeBeforeBend(), this.GetMaxRangeBeforeBend(), this.GetMaxTotalRange(), this.GetMaxBendAngle(), false, this.GetMaxTargets(), false, false);
+			AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = new AbilityUtil_Targeter_BendingLaser(this, GetLaserWidth(), GetMinRangeBeforeBend(), GetMaxRangeBeforeBend(), GetMaxTotalRange(), GetMaxBendAngle(), false, GetMaxTargets());
 			abilityUtil_Targeter_BendingLaser.SetUseMultiTargetUpdate(true);
-			abilityUtil_Targeter_BendingLaser.m_startFadeAtActorRadius = this.m_startTargeterFadeAtActorRadius;
+			abilityUtil_Targeter_BendingLaser.m_startFadeAtActorRadius = m_startTargeterFadeAtActorRadius;
 			base.Targeters.Add(abilityUtil_Targeter_BendingLaser);
 		}
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		if (!base.Targeters.IsNullOrEmpty<AbilityUtil_Targeter>())
+		if (!base.Targeters.IsNullOrEmpty())
 		{
 			AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = base.Targeters[0] as AbilityUtil_Targeter_BendingLaser;
 			if (abilityUtil_Targeter_BendingLaser.DidStopShort())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return 1;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBendingDisc.GetExpectedNumberOfTargeters()).MethodHandle;
-				}
-				return 1;
 			}
 		}
 		return 2;
@@ -105,11 +105,11 @@ public class NekoBendingDisc : Ability
 	{
 		aimDir.y = 0f;
 		aimDir.Normalize();
-		float maxBendAngle = this.GetMaxBendAngle();
+		float maxBendAngle = GetMaxBendAngle();
 		Vector3 aimDirection = targets[0].AimDirection;
 		if (maxBendAngle > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -118,13 +118,13 @@ public class NekoBendingDisc : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBendingDisc.GetTargeterClampedAimDirection(Vector3, List<AbilityTarget>)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (maxBendAngle < 360f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -133,7 +133,7 @@ public class NekoBendingDisc : Ability
 					}
 					break;
 				}
-				aimDir = Vector3.RotateTowards(aimDirection, aimDir, 0.0174532924f * maxBendAngle, 0f);
+				aimDir = Vector3.RotateTowards(aimDirection, aimDir, (float)Math.PI / 180f * maxBendAngle, 0f);
 			}
 		}
 		return aimDir;
@@ -141,98 +141,97 @@ public class NekoBendingDisc : Ability
 
 	private float GetClampedRangeInSquares(ActorData targetingActor, AbilityTarget currentTarget)
 	{
-		Vector3 b = targetingActor.\u0015();
-		float magnitude = (currentTarget.FreePos - b).magnitude;
-		if (magnitude < this.GetMinRangeBeforeBend() * Board.\u000E().squareSize)
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		float magnitude = (currentTarget.FreePos - travelBoardSquareWorldPositionForLos).magnitude;
+		if (magnitude < GetMinRangeBeforeBend() * Board.Get().squareSize)
 		{
-			return this.GetMinRangeBeforeBend();
+			return GetMinRangeBeforeBend();
 		}
-		if (magnitude > this.GetMaxRangeBeforeBend() * Board.\u000E().squareSize)
+		if (magnitude > GetMaxRangeBeforeBend() * Board.Get().squareSize)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return GetMaxRangeBeforeBend();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBendingDisc.GetClampedRangeInSquares(ActorData, AbilityTarget)).MethodHandle;
-			}
-			return this.GetMaxRangeBeforeBend();
 		}
-		return magnitude / Board.\u000E().squareSize;
+		return magnitude / Board.Get().squareSize;
 	}
 
 	private float GetDistanceRemaining(ActorData targetingActor, AbilityTarget previousTarget, out Vector3 bendPos)
 	{
-		Vector3 a = targetingActor.\u0015();
-		float clampedRangeInSquares = this.GetClampedRangeInSquares(targetingActor, previousTarget);
-		bendPos = a + previousTarget.AimDirection * clampedRangeInSquares * Board.\u000E().squareSize;
-		return this.GetMaxTotalRange() - clampedRangeInSquares;
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		float clampedRangeInSquares = GetClampedRangeInSquares(targetingActor, previousTarget);
+		bendPos = travelBoardSquareWorldPositionForLos + previousTarget.AimDirection * clampedRangeInSquares * Board.Get().squareSize;
+		return GetMaxTotalRange() - clampedRangeInSquares;
 	}
 
 	public float GetMinRangeBeforeBend()
 	{
-		return this.m_minRangeBeforeBend;
+		return m_minRangeBeforeBend;
 	}
 
 	public float GetMaxRangeBeforeBend()
 	{
-		return this.m_maxRangeBeforeBend;
+		return m_maxRangeBeforeBend;
 	}
 
 	public float GetMaxTotalRange()
 	{
-		return this.m_maxTotalRange;
+		return m_maxTotalRange;
 	}
 
 	public float GetMaxBendAngle()
 	{
-		return this.m_maxBendAngle;
+		return m_maxBendAngle;
 	}
 
 	public float GetLaserWidth()
 	{
-		return this.m_laserWidth;
+		return m_laserWidth;
 	}
 
 	public int GetMaxTargets()
 	{
-		return this.m_maxTargets;
+		return m_maxTargets;
 	}
 
 	public int GetDirectDamage()
 	{
-		return this.m_directDamage;
+		return m_directDamage;
 	}
 
 	public int GetReturnTripDamage()
 	{
-		return this.m_returnTripDamage;
+		return m_returnTripDamage;
 	}
 
 	public bool GetReturnTripIgnoresCover()
 	{
-		return this.m_returnTripIgnoreCover;
+		return m_returnTripIgnoreCover;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "MaxTargets", string.Empty, this.m_maxTargets, false);
-		base.AddTokenInt(tokens, "DirectDamage", string.Empty, this.m_directDamage, false);
-		base.AddTokenInt(tokens, "ReturnTripDamage", string.Empty, this.m_returnTripDamage, false);
+		AddTokenInt(tokens, "MaxTargets", string.Empty, m_maxTargets);
+		AddTokenInt(tokens, "DirectDamage", string.Empty, m_directDamage);
+		AddTokenInt(tokens, "ReturnTripDamage", string.Empty, m_returnTripDamage);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, this.m_directDamage),
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Secondary, this.m_returnTripDamage)
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_directDamage));
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Secondary, m_returnTripDamage));
+		return list;
 	}
 }

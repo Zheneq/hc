@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +14,7 @@ public class QuestRewardGroup : MonoBehaviour
 		questRewards.UnlockRewards = new List<QuestUnlockReward>();
 		if (questTemplate.Rewards.UnlockRewards.Count + questTemplate.Rewards.ItemRewards.Count + questTemplate.Rewards.CurrencyRewards.Count > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -24,9 +23,9 @@ public class QuestRewardGroup : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestRewardGroup.SetupChildren(int, int, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			questRewards.CurrencyRewards.AddRange(questTemplate.Rewards.CurrencyRewards);
 			questRewards.ItemRewards.AddRange(questTemplate.Rewards.ItemRewards);
@@ -35,7 +34,7 @@ public class QuestRewardGroup : MonoBehaviour
 		int i;
 		if (questTemplate.ConditionalRewards != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -46,14 +45,14 @@ public class QuestRewardGroup : MonoBehaviour
 			}
 			for (i = 0; i < questTemplate.ConditionalRewards.Length; i++)
 			{
-				if (QuestWideData.AreConditionsMet(questTemplate.ConditionalRewards[i].Prerequisites.Conditions, questTemplate.ConditionalRewards[i].Prerequisites.LogicStatement, false))
+				if (QuestWideData.AreConditionsMet(questTemplate.ConditionalRewards[i].Prerequisites.Conditions, questTemplate.ConditionalRewards[i].Prerequisites.LogicStatement))
 				{
 					questRewards.CurrencyRewards.AddRange(questTemplate.ConditionalRewards[i].CurrencyRewards);
 					questRewards.ItemRewards.AddRange(questTemplate.ConditionalRewards[i].ItemRewards);
 					questRewards.UnlockRewards.AddRange(questTemplate.ConditionalRewards[i].UnlockRewards);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -64,11 +63,12 @@ public class QuestRewardGroup : MonoBehaviour
 			}
 		}
 		i = 0;
-		foreach (QuestReward questReward in this.m_questRewards)
+		QuestReward[] questRewards2 = m_questRewards;
+		foreach (QuestReward questReward in questRewards2)
 		{
 			if (i < questRewards.CurrencyRewards.Count)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -81,7 +81,7 @@ public class QuestRewardGroup : MonoBehaviour
 			}
 			else if (i - questRewards.CurrencyRewards.Count < questRewards.UnlockRewards.Count)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -90,20 +90,20 @@ public class QuestRewardGroup : MonoBehaviour
 					}
 					break;
 				}
-				questReward.SetupHack(questRewards.UnlockRewards[i - questRewards.CurrencyRewards.Count].resourceString, 0);
+				questReward.SetupHack(questRewards.UnlockRewards[i - questRewards.CurrencyRewards.Count].resourceString);
 			}
 			else if (i - questRewards.CurrencyRewards.Count - questRewards.UnlockRewards.Count < questRewards.ItemRewards.Count)
 			{
 				InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(questRewards.ItemRewards[i - questRewards.CurrencyRewards.Count - questRewards.UnlockRewards.Count].ItemTemplateId);
-				questReward.SetupHack(itemTemplate, itemTemplate.IconPath, 0);
+				questReward.SetupHack(itemTemplate, itemTemplate.IconPath);
 			}
 			else
 			{
-				questReward.SetupHack(string.Empty, 0);
+				questReward.SetupHack(string.Empty);
 			}
 			if (removedQuestCompleteNotification && questReward.m_ExpUPAnim != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -112,18 +112,19 @@ public class QuestRewardGroup : MonoBehaviour
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(questReward.m_ExpUPAnim, false, null);
+				UIManager.SetGameObjectActive(questReward.m_ExpUPAnim, false);
 			}
 			i++;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
@@ -12,70 +11,65 @@ public class UIFrontEndUIResources : MonoBehaviour
 	private static UIFrontEndUIResources s_instance;
 
 	[CompilerGenerated]
-	private static UIEventTriggerUtils.EventDelegate <>f__mg$cache0;
+	private static UIEventTriggerUtils.EventDelegate _003C_003Ef__mg_0024cache0;
 
 	private void Awake()
 	{
-		UIFrontEndUIResources.s_instance = this;
+		s_instance = this;
 	}
 
 	private void OnDestroy()
 	{
-		UIFrontEndUIResources.s_instance = null;
+		s_instance = null;
 	}
 
 	public static UIFrontEndUIResources Get()
 	{
-		return UIFrontEndUIResources.s_instance;
+		return s_instance;
 	}
 
 	public static void CheckOnClickForURL(TextMeshProUGUI textObject)
 	{
-		if (textObject != null)
+		if (!(textObject != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
+			case 0:
+				continue;
+			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			if (!(textObject.GetComponentInParent<TMP_InputField>() == null))
+			{
+				return;
+			}
+			while (true)
+			{
+				switch (1)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEndUIResources.CheckOnClickForURL(TextMeshProUGUI)).MethodHandle;
-			}
-			if (textObject.GetComponentInParent<TMP_InputField>() == null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (textObject.GetComponentInParent<InputField>() == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
 							continue;
 						}
-						break;
+						UIEventTriggerUtils.AddListener(textObject.gameObject, EventTriggerType.PointerClick, OnTextClicked);
+						return;
 					}
-					GameObject gameObject = textObject.gameObject;
-					EventTriggerType triggerType = EventTriggerType.PointerClick;
-					if (UIFrontEndUIResources.<>f__mg$cache0 == null)
-					{
-						UIFrontEndUIResources.<>f__mg$cache0 = new UIEventTriggerUtils.EventDelegate(UIFrontEndUIResources.OnTextClicked);
-					}
-					UIEventTriggerUtils.AddListener(gameObject, triggerType, UIFrontEndUIResources.<>f__mg$cache0);
 				}
+				return;
 			}
 		}
 	}
@@ -91,38 +85,39 @@ public class UIFrontEndUIResources : MonoBehaviour
 		}
 		if (component.textInfo.linkInfo[num].GetLinkID().StartsWith("url:"))
 		{
-			TMP_LinkInfo tmp_LinkInfo = component.textInfo.linkInfo[num];
-			Application.OpenURL(tmp_LinkInfo.GetLinkID().Substring(4));
+			TMP_LinkInfo tMP_LinkInfo = component.textInfo.linkInfo[num];
+			Application.OpenURL(tMP_LinkInfo.GetLinkID().Substring(4));
 		}
-		if (component.textInfo.linkInfo[num].GetLinkID().StartsWith("discord:"))
+		if (!component.textInfo.linkInfo[num].GetLinkID().StartsWith("discord:"))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEndUIResources.OnTextClicked(BaseEventData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			string a = component.textInfo.linkInfo[num].GetLinkID().Substring(8);
 			if (a == "join")
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					DebugCommands.Get().RunDebugCommand("/discord", "join");
+					return;
 				}
-				DebugCommands.Get().RunDebugCommand("/discord", "join");
 			}
+			return;
 		}
 	}
 }

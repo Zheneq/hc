@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class NPCBrain_Scripted : NPCBrain
@@ -11,9 +10,9 @@ public class NPCBrain_Scripted : NPCBrain
 
 	public override NPCBrain Create(BotController bot, Transform destination)
 	{
-		NPCBrain_Scripted npcbrain_Scripted = bot.gameObject.AddComponent<NPCBrain_Scripted>();
-		npcbrain_Scripted.m_actions = this.m_actions;
-		npcbrain_Scripted.m_brainAfterActions = this.m_brainAfterActions;
-		return npcbrain_Scripted;
+		NPCBrain_Scripted nPCBrain_Scripted = bot.gameObject.AddComponent<NPCBrain_Scripted>();
+		nPCBrain_Scripted.m_actions = m_actions;
+		nPCBrain_Scripted.m_brainAfterActions = m_brainAfterActions;
+		return nPCBrain_Scripted;
 	}
 }

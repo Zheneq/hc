@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,10 +12,10 @@ public class MultiAreaMeleeAttackSequence : Sequence
 	public bool m_hitAlignedWithCaster = true;
 
 	[AnimEventPicker]
-	public UnityEngine.Object m_leftHitEvent;
+	public Object m_leftHitEvent;
 
 	[AnimEventPicker]
-	public UnityEngine.Object m_rightHitEvent;
+	public Object m_rightHitEvent;
 
 	[AudioEvent(false)]
 	public string m_hitAudioEvent;
@@ -32,9 +31,9 @@ public class MultiAreaMeleeAttackSequence : Sequence
 	private bool Finished()
 	{
 		bool result = false;
-		if (this.m_leftHitSpawned)
+		if (m_leftHitSpawned)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -43,48 +42,50 @@ public class MultiAreaMeleeAttackSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MultiAreaMeleeAttackSequence.Finished()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_rightHitSpawned)
+			if (m_rightHitSpawned)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				result = true;
-				foreach (GameObject gameObject in this.m_hitFx)
-				{
-					if (gameObject != null)
-					{
-						for (;;)
+						break;
+					default:
+						result = true;
 						{
-							switch (4)
+							foreach (GameObject item in m_hitFx)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (gameObject.activeSelf)
-						{
-							for (;;)
-							{
-								switch (5)
+								if (item != null)
 								{
-								case 0:
-									continue;
+									while (true)
+									{
+										switch (4)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									if (item.activeSelf)
+									{
+										while (true)
+										{
+											switch (5)
+											{
+											case 0:
+												break;
+											default:
+												return false;
+											}
+										}
+									}
 								}
-								break;
 							}
-							result = false;
-							break;
+							return result;
 						}
 					}
 				}
@@ -95,43 +96,44 @@ public class MultiAreaMeleeAttackSequence : Sequence
 
 	private void Update()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MultiAreaMeleeAttackSequence.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			base.ProcessSequenceVisibility();
-			if (this.Finished())
+			ProcessSequenceVisibility();
+			if (Finished())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					MarkForRemoval();
+					return;
 				}
-				base.MarkForRemoval();
 			}
+			return;
 		}
 	}
 
 	private void SpawnHitFX(bool left)
 	{
-		if (this.m_alreadyHit == null)
+		if (m_alreadyHit == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -140,15 +142,15 @@ public class MultiAreaMeleeAttackSequence : Sequence
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MultiAreaMeleeAttackSequence.SpawnHitFX(bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_alreadyHit = new HashSet<ActorData>();
+			m_alreadyHit = new HashSet<ActorData>();
 		}
-		if (this.m_hitFx == null)
+		if (m_hitFx == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -157,12 +159,12 @@ public class MultiAreaMeleeAttackSequence : Sequence
 				}
 				break;
 			}
-			this.m_hitFx = new List<GameObject>();
+			m_hitFx = new List<GameObject>();
 		}
-		bool flag;
-		if (!this.m_leftHitSpawned)
+		int num;
+		if (!m_leftHitSpawned)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -171,16 +173,16 @@ public class MultiAreaMeleeAttackSequence : Sequence
 				}
 				break;
 			}
-			flag = this.m_rightHitSpawned;
+			num = (m_rightHitSpawned ? 1 : 0);
 		}
 		else
 		{
-			flag = true;
+			num = 1;
 		}
-		bool flag2 = flag;
+		bool flag = (byte)num != 0;
 		if (left)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -189,15 +191,15 @@ public class MultiAreaMeleeAttackSequence : Sequence
 				}
 				break;
 			}
-			this.m_leftHitSpawned = true;
+			m_leftHitSpawned = true;
 		}
 		else
 		{
-			this.m_rightHitSpawned = true;
+			m_rightHitSpawned = true;
 		}
 		if (base.Targets != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -206,49 +208,43 @@ public class MultiAreaMeleeAttackSequence : Sequence
 				}
 				break;
 			}
-			int i = 0;
-			while (i < base.Targets.Length)
+			for (int i = 0; i < base.Targets.Length; i++)
 			{
 				Vector3 lhs = base.Targets[i].transform.position - base.Caster.transform.position;
 				lhs.y = 0f;
-				float num = Vector3.Dot(lhs, base.Caster.transform.right);
-				if (num <= 0f)
+				float num2 = Vector3.Dot(lhs, base.Caster.transform.right);
+				if (num2 > 0f)
 				{
-					goto IL_112;
-				}
-				for (;;)
-				{
-					switch (1)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
 					}
-					break;
-				}
-				if (!left)
-				{
-					goto IL_12D;
-				}
-				for (;;)
-				{
-					switch (3)
+					if (!left)
 					{
-					case 0:
-						continue;
+						goto IL_012d;
 					}
-					goto IL_112;
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
 				}
-				IL_28F:
-				i++;
-				continue;
-				IL_112:
-				if (num <= 0f)
+				if (num2 <= 0f)
 				{
 					if (left)
 					{
-						goto IL_12D;
+						goto IL_012d;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -258,16 +254,17 @@ public class MultiAreaMeleeAttackSequence : Sequence
 						break;
 					}
 				}
-				if (!flag2)
+				if (!flag)
 				{
-					goto IL_28F;
+					continue;
 				}
-				IL_12D:
-				if (this.m_alreadyHit.Contains(base.Targets[i]))
+				goto IL_012d;
+				IL_012d:
+				if (m_alreadyHit.Contains(base.Targets[i]))
 				{
-					goto IL_28F;
+					continue;
 				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -276,16 +273,16 @@ public class MultiAreaMeleeAttackSequence : Sequence
 					}
 					break;
 				}
-				this.m_alreadyHit.Add(base.Targets[i]);
-				Vector3 targetHitPosition = base.GetTargetHitPosition(i, this.m_hitFxJoint);
+				m_alreadyHit.Add(base.Targets[i]);
+				Vector3 targetHitPosition = GetTargetHitPosition(i, m_hitFxJoint);
 				Vector3 vector = targetHitPosition - base.Caster.transform.position;
 				vector.y = 0f;
 				vector.Normalize();
 				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, vector);
-				Quaternion rotation = (!this.m_hitAlignedWithCaster) ? Quaternion.identity : Quaternion.LookRotation(vector);
-				if (this.m_hitFxPrefab)
+				Quaternion rotation = (!m_hitAlignedWithCaster) ? Quaternion.identity : Quaternion.LookRotation(vector);
+				if ((bool)m_hitFxPrefab)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
@@ -294,9 +291,9 @@ public class MultiAreaMeleeAttackSequence : Sequence
 						}
 						break;
 					}
-					if (base.IsHitFXVisible(base.Targets[i]))
+					if (IsHitFXVisible(base.Targets[i]))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
@@ -305,12 +302,12 @@ public class MultiAreaMeleeAttackSequence : Sequence
 							}
 							break;
 						}
-						this.m_hitFx.Add(base.InstantiateFX(this.m_hitFxPrefab, targetHitPosition, rotation, true, true));
+						m_hitFx.Add(InstantiateFX(m_hitFxPrefab, targetHitPosition, rotation));
 					}
 				}
-				if (!string.IsNullOrEmpty(this.m_hitAudioEvent))
+				if (!string.IsNullOrEmpty(m_hitAudioEvent))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -319,11 +316,11 @@ public class MultiAreaMeleeAttackSequence : Sequence
 						}
 						break;
 					}
-					AudioManager.PostEvent(this.m_hitAudioEvent, base.Targets[i].gameObject);
+					AudioManager.PostEvent(m_hitAudioEvent, base.Targets[i].gameObject);
 				}
 				if (base.Targets[i] != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -332,12 +329,10 @@ public class MultiAreaMeleeAttackSequence : Sequence
 						}
 						break;
 					}
-					base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
-					goto IL_28F;
+					base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo);
 				}
-				goto IL_28F;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -347,68 +342,70 @@ public class MultiAreaMeleeAttackSequence : Sequence
 				break;
 			}
 		}
-		base.Source.OnSequenceHit(this, base.TargetPos, null);
+		base.Source.OnSequenceHit(this, base.TargetPos);
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (this.m_leftHitEvent == parameter)
+		if (m_leftHitEvent == parameter)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					SpawnHitFX(true);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MultiAreaMeleeAttackSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
-			this.SpawnHitFX(true);
 		}
-		else if (this.m_rightHitEvent == parameter)
+		if (!(m_rightHitEvent == parameter))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			this.SpawnHitFX(false);
+			SpawnHitFX(false);
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_hitFx != null)
+		if (m_hitFx == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MultiAreaMeleeAttackSequence.OnDisable()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			using (List<GameObject>.Enumerator enumerator = this.m_hitFx.GetEnumerator())
+			using (List<GameObject>.Enumerator enumerator = m_hitFx.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					GameObject gameObject = enumerator.Current;
-					UnityEngine.Object.Destroy(gameObject.gameObject);
+					GameObject current = enumerator.Current;
+					Object.Destroy(current.gameObject);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
@@ -418,7 +415,8 @@ public class MultiAreaMeleeAttackSequence : Sequence
 					break;
 				}
 			}
-			this.m_hitFx = null;
+			m_hitFx = null;
+			return;
 		}
 	}
 }

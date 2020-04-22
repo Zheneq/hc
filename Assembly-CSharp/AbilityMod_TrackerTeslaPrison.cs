@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,12 +25,11 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 	{
 		TrackerTeslaPrison trackerTeslaPrison = targetAbility as TrackerTeslaPrison;
 		bool flag = trackerTeslaPrison != null;
-		AbilityModPropertyBarrierDataV2 barrierDataMod = this.m_barrierDataMod;
-		string tokenName = "Wall";
-		StandardBarrierData baseVal;
+		AbilityModPropertyBarrierDataV2 barrierDataMod = m_barrierDataMod;
+		object baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -39,9 +38,9 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TrackerTeslaPrison.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = trackerTeslaPrison.m_prisonBarrierData;
 		}
@@ -49,11 +48,11 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		{
 			baseVal = null;
 		}
-		AbilityMod.AddToken_BarrierMod(tokens, barrierDataMod, tokenName, baseVal);
-		TrackerDroneInfoComponent trackerDroneInfoComponent;
+		AbilityMod.AddToken_BarrierMod(tokens, barrierDataMod, "Wall", (StandardBarrierData)baseVal);
+		object obj;
 		if (trackerTeslaPrison != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -62,20 +61,19 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 				}
 				break;
 			}
-			trackerDroneInfoComponent = trackerTeslaPrison.GetComponent<TrackerDroneInfoComponent>();
+			obj = trackerTeslaPrison.GetComponent<TrackerDroneInfoComponent>();
 		}
 		else
 		{
-			trackerDroneInfoComponent = null;
+			obj = null;
 		}
-		TrackerDroneInfoComponent trackerDroneInfoComponent2 = trackerDroneInfoComponent;
-		AbilityModPropertyFloat droneTargeterMaxRangeFromCasterMod = this.m_droneTargeterMaxRangeFromCasterMod;
-		string tokenName2 = "TargeterMaxRangeFromCaster";
+		TrackerDroneInfoComponent trackerDroneInfoComponent = (TrackerDroneInfoComponent)obj;
+		AbilityModPropertyFloat droneTargeterMaxRangeFromCasterMod = m_droneTargeterMaxRangeFromCasterMod;
 		string empty = string.Empty;
 		float baseVal2;
-		if (trackerDroneInfoComponent2 != null)
+		if (trackerDroneInfoComponent != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -84,27 +82,26 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 				}
 				break;
 			}
-			baseVal2 = trackerDroneInfoComponent2.m_targeterMaxRangeFromCaster;
+			baseVal2 = trackerDroneInfoComponent.m_targeterMaxRangeFromCaster;
 		}
 		else
 		{
 			baseVal2 = 0f;
 		}
-		AbilityMod.AddToken(tokens, droneTargeterMaxRangeFromCasterMod, tokenName2, empty, baseVal2, trackerDroneInfoComponent2 != null, false, false);
+		AbilityMod.AddToken(tokens, droneTargeterMaxRangeFromCasterMod, "TargeterMaxRangeFromCaster", empty, baseVal2, trackerDroneInfoComponent != null);
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		TrackerTeslaPrison trackerTeslaPrison = base.GetTargetAbilityOnAbilityData(abilityData) as TrackerTeslaPrison;
+		TrackerTeslaPrison trackerTeslaPrison = GetTargetAbilityOnAbilityData(abilityData) as TrackerTeslaPrison;
 		bool flag = trackerTeslaPrison != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyBarrierDataV2 barrierDataMod = this.m_barrierDataMod;
-		string prefix = "{ Barrier Data Mod }";
-		StandardBarrierData baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyBarrierDataV2 barrierDataMod = m_barrierDataMod;
+		object baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -113,9 +110,9 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TrackerTeslaPrison.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = trackerTeslaPrison.m_prisonBarrierData;
 		}
@@ -123,16 +120,14 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		{
 			baseVal = null;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(barrierDataMod, prefix, baseVal);
-		text += AbilityModHelper.GetModGroundEffectInfoDesc(this.m_groundEffectInfoInCage, "-- Ground Effect Inside Cage --", flag, null);
-		string str2 = text;
-		AbilityModPropertyEffectInfo additionalEffectOnEnemiesInShapeMod = this.m_additionalEffectOnEnemiesInShapeMod;
-		string prefix2 = "[AdditionalEffectOnEnemiesInShape]";
-		bool showBaseVal = flag;
-		StandardEffectInfo baseVal2;
+		empty = str + AbilityModHelper.GetModPropertyDesc(barrierDataMod, "{ Barrier Data Mod }", (StandardBarrierData)baseVal);
+		empty += AbilityModHelper.GetModGroundEffectInfoDesc(m_groundEffectInfoInCage, "-- Ground Effect Inside Cage --", flag);
+		string str2 = empty;
+		AbilityModPropertyEffectInfo additionalEffectOnEnemiesInShapeMod = m_additionalEffectOnEnemiesInShapeMod;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -147,16 +142,15 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		{
 			baseVal2 = null;
 		}
-		text = str2 + base.PropDesc(additionalEffectOnEnemiesInShapeMod, prefix2, showBaseVal, baseVal2);
+		empty = str2 + PropDesc(additionalEffectOnEnemiesInShapeMod, "[AdditionalEffectOnEnemiesInShape]", flag, (StandardEffectInfo)baseVal2);
 		TrackerDroneInfoComponent trackerDroneInfoComponent = (!(trackerTeslaPrison != null)) ? null : trackerTeslaPrison.GetComponent<TrackerDroneInfoComponent>();
-		string str3 = text;
-		AbilityModPropertyFloat droneTargeterMaxRangeFromCasterMod = this.m_droneTargeterMaxRangeFromCasterMod;
-		string prefix3 = "[DroneTargeterMaxRangeFromCaster]";
-		bool showBaseVal2 = trackerDroneInfoComponent != null;
+		string str3 = empty;
+		AbilityModPropertyFloat droneTargeterMaxRangeFromCasterMod = m_droneTargeterMaxRangeFromCasterMod;
+		bool showBaseVal = trackerDroneInfoComponent != null;
 		float baseVal3;
 		if (trackerDroneInfoComponent != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -171,6 +165,6 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		return str3 + base.PropDesc(droneTargeterMaxRangeFromCasterMod, prefix3, showBaseVal2, baseVal3);
+		return str3 + PropDesc(droneTargeterMaxRangeFromCasterMod, "[DroneTargeterMaxRangeFromCaster]", showBaseVal, baseVal3);
 	}
 }

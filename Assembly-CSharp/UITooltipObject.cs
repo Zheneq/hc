@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public abstract class UITooltipObject : MonoBehaviour
@@ -13,65 +12,67 @@ public abstract class UITooltipObject : MonoBehaviour
 
 	public void Setup(TooltipType tooltipType, TooltipPopulateCall call, TooltipDisableCall disableCall = null)
 	{
-		this.m_tooltipType = tooltipType;
-		this.m_populateCall = call;
-		this.m_disableCall = disableCall;
+		m_tooltipType = tooltipType;
+		m_populateCall = call;
+		m_disableCall = disableCall;
 	}
 
 	public void CallDisableTooltip()
 	{
-		if (this.m_disableCall != null)
+		if (m_disableCall == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipObject.CallDisableTooltip()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_disableCall();
+			m_disableCall();
+			return;
 		}
 	}
 
 	public bool PopulateTooltip(UITooltipBase tooltip)
 	{
-		return this.m_populateCall(tooltip);
+		return m_populateCall(tooltip);
 	}
 
 	public void Refresh()
 	{
-		if (UITooltipManager.Get() != null)
+		if (!(UITooltipManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipObject.Refresh()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UITooltipManager.Get().UpdateTooltip(this);
+			return;
 		}
 	}
 
 	public TooltipType GetTooltipType()
 	{
-		return this.m_tooltipType;
+		return m_tooltipType;
 	}
 
 	protected bool IsSetup()
 	{
-		return this.m_populateCall != null;
+		return m_populateCall != null;
 	}
 }

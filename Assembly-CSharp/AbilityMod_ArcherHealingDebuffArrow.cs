@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,49 +40,48 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ArcherHealingDebuffArrow archerHealingDebuffArrow = targetAbility as ArcherHealingDebuffArrow;
-		if (archerHealingDebuffArrow != null)
+		if (!(archerHealingDebuffArrow != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ArcherHealingDebuffArrow.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken_EffectMod(tokens, this.m_laserHitEffectMod, "LaserHitEffect", archerHealingDebuffArrow.m_laserHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_extraHitEffectMod, "LaserHitEffect", null, true);
-			AbilityMod.AddToken(tokens, this.m_reactionHealingMod, "ReactionHealing", string.Empty, archerHealingDebuffArrow.m_reactionHealing, true, false);
-			AbilityMod.AddToken(tokens, this.m_reactionHealingOnSelfMod, "ReactionHealingOnSelf", string.Empty, archerHealingDebuffArrow.m_reactionHealingOnSelf, true, false);
-			AbilityMod.AddToken(tokens, this.m_lessHealingOnSubsequentReactions, "LessHealingOnSubsequentReactions", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_techPointsPerHealMod, "TechPointsPerHeal", string.Empty, archerHealingDebuffArrow.m_techPointsPerHeal, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_reactionEffectMod, "ReactionEffect", archerHealingDebuffArrow.m_reactionEffect, true);
-			AbilityMod.AddToken(tokens, this.m_extraHealForShieldGeneratorTargets, "ExtraHealForShieldGeneratorTargets", string.Empty, 0, true, false);
-			this.m_cooldownReductionIfNoHeals.AddTooltipTokens(tokens, "CooldownReductionIfNoHeals");
-			AbilityMod.AddToken(tokens, this.m_extraHealBelowHealthThresholdMod, "ExtraHealForAlliesBelowHealthThreshold", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_healthThresholdMod, "HealthThresholdForExtraHealing", string.Empty, 0f, true, false, true);
-			AbilityMod.AddToken(tokens, this.m_extraDamageToThisTargetFromCasterMod, "ExtraDamageToThisTargetFromCaster", string.Empty, 0, true, false);
+			AbilityMod.AddToken_EffectMod(tokens, m_laserHitEffectMod, "LaserHitEffect", archerHealingDebuffArrow.m_laserHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_extraHitEffectMod, "LaserHitEffect");
+			AbilityMod.AddToken(tokens, m_reactionHealingMod, "ReactionHealing", string.Empty, archerHealingDebuffArrow.m_reactionHealing);
+			AbilityMod.AddToken(tokens, m_reactionHealingOnSelfMod, "ReactionHealingOnSelf", string.Empty, archerHealingDebuffArrow.m_reactionHealingOnSelf);
+			AbilityMod.AddToken(tokens, m_lessHealingOnSubsequentReactions, "LessHealingOnSubsequentReactions", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_techPointsPerHealMod, "TechPointsPerHeal", string.Empty, archerHealingDebuffArrow.m_techPointsPerHeal);
+			AbilityMod.AddToken_EffectMod(tokens, m_reactionEffectMod, "ReactionEffect", archerHealingDebuffArrow.m_reactionEffect);
+			AbilityMod.AddToken(tokens, m_extraHealForShieldGeneratorTargets, "ExtraHealForShieldGeneratorTargets", string.Empty, 0);
+			m_cooldownReductionIfNoHeals.AddTooltipTokens(tokens, "CooldownReductionIfNoHeals");
+			AbilityMod.AddToken(tokens, m_extraHealBelowHealthThresholdMod, "ExtraHealForAlliesBelowHealthThreshold", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_healthThresholdMod, "HealthThresholdForExtraHealing", string.Empty, 0f, true, false, true);
+			AbilityMod.AddToken(tokens, m_extraDamageToThisTargetFromCasterMod, "ExtraDamageToThisTargetFromCaster", string.Empty, 0);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ArcherHealingDebuffArrow archerHealingDebuffArrow = base.GetTargetAbilityOnAbilityData(abilityData) as ArcherHealingDebuffArrow;
+		ArcherHealingDebuffArrow archerHealingDebuffArrow = GetTargetAbilityOnAbilityData(abilityData) as ArcherHealingDebuffArrow;
 		bool flag = archerHealingDebuffArrow != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyEffectInfo laserHitEffectMod = this.m_laserHitEffectMod;
-		string prefix = "[LaserHitEffect]";
-		bool showBaseVal = flag;
-		StandardEffectInfo baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyEffectInfo laserHitEffectMod = m_laserHitEffectMod;
+		object baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -91,9 +90,9 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ArcherHealingDebuffArrow.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = archerHealingDebuffArrow.m_laserHitEffect;
 		}
@@ -101,17 +100,15 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		{
 			baseVal = null;
 		}
-		text = str + base.PropDesc(laserHitEffectMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_extraHitEffectMod, "[ExtraHitEffect]", false, null);
-		text += base.PropDesc(this.m_reactionHealingMod, "[ReactionHealing]", flag, (!flag) ? 0 : archerHealingDebuffArrow.m_reactionHealing);
-		string str2 = text;
-		AbilityModPropertyInt reactionHealingOnSelfMod = this.m_reactionHealingOnSelfMod;
-		string prefix2 = "[ReactionHealingOnSelf]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(laserHitEffectMod, "[LaserHitEffect]", flag, (StandardEffectInfo)baseVal);
+		empty += PropDesc(m_extraHitEffectMod, "[ExtraHitEffect]");
+		empty += PropDesc(m_reactionHealingMod, "[ReactionHealing]", flag, flag ? archerHealingDebuffArrow.m_reactionHealing : 0);
+		string str2 = empty;
+		AbilityModPropertyInt reactionHealingOnSelfMod = m_reactionHealingOnSelfMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -126,16 +123,14 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(reactionHealingOnSelfMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_lessHealingOnSubsequentReactions, "[LessHealingOnSubsequentReactions]", flag, 0);
-		string str3 = text;
-		AbilityModPropertyInt healsPerAllyMod = this.m_healsPerAllyMod;
-		string prefix3 = "[NumberOfHealingReactionsPerAlly]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(reactionHealingOnSelfMod, "[ReactionHealingOnSelf]", flag, baseVal2);
+		empty += PropDesc(m_lessHealingOnSubsequentReactions, "[LessHealingOnSubsequentReactions]", flag);
+		string str3 = empty;
+		AbilityModPropertyInt healsPerAllyMod = m_healsPerAllyMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -150,16 +145,14 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(healsPerAllyMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_techPointsPerHealMod, "[TechPointsPerHeal]", flag, (!flag) ? 0 : archerHealingDebuffArrow.m_techPointsPerHeal);
-		string str4 = text;
-		AbilityModPropertyEffectInfo reactionEffectMod = this.m_reactionEffectMod;
-		string prefix4 = "[ReactionEffect]";
-		bool showBaseVal4 = flag;
-		StandardEffectInfo baseVal4;
+		empty = str3 + PropDesc(healsPerAllyMod, "[NumberOfHealingReactionsPerAlly]", flag, baseVal3);
+		empty += PropDesc(m_techPointsPerHealMod, "[TechPointsPerHeal]", flag, flag ? archerHealingDebuffArrow.m_techPointsPerHeal : 0);
+		string str4 = empty;
+		AbilityModPropertyEffectInfo reactionEffectMod = m_reactionEffectMod;
+		object baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -174,11 +167,11 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		{
 			baseVal4 = null;
 		}
-		text = str4 + base.PropDesc(reactionEffectMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_extraHealForShieldGeneratorTargets, "[ExtraHealForShieldGeneratorTargets]", flag, 0);
-		if (this.m_cooldownReductionIfNoHeals != null && this.m_cooldownReductionIfNoHeals.HasCooldownReduction())
+		empty = str4 + PropDesc(reactionEffectMod, "[ReactionEffect]", flag, (StandardEffectInfo)baseVal4);
+		empty += PropDesc(m_extraHealForShieldGeneratorTargets, "[ExtraHealForShieldGeneratorTargets]", flag);
+		if (m_cooldownReductionIfNoHeals != null && m_cooldownReductionIfNoHeals.HasCooldownReduction())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -187,10 +180,10 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 				}
 				break;
 			}
-			text += this.m_cooldownReductionIfNoHeals.GetDescription(abilityData);
+			empty += m_cooldownReductionIfNoHeals.GetDescription(abilityData);
 		}
-		text += base.PropDesc(this.m_extraHealBelowHealthThresholdMod, "[ExtraHealForAlliesBelowHealthThreshold]", flag, 0);
-		text += base.PropDesc(this.m_healthThresholdMod, "[HealthThresholdForExtraHealing]", flag, 0f);
-		return text + base.PropDesc(this.m_extraDamageToThisTargetFromCasterMod, "[ExtraDamageToThisTargetFromCaster]", flag, 0);
+		empty += PropDesc(m_extraHealBelowHealthThresholdMod, "[ExtraHealForAlliesBelowHealthThreshold]", flag);
+		empty += PropDesc(m_healthThresholdMod, "[HealthThresholdForExtraHealing]", flag);
+		return empty + PropDesc(m_extraDamageToThisTargetFromCasterMod, "[ExtraDamageToThisTargetFromCaster]", flag);
 	}
 }

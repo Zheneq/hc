@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class DinoForceChase : GenericAbility_Container
@@ -15,11 +14,11 @@ public class DinoForceChase : GenericAbility_Container
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		AbilityData component = base.GetComponent<AbilityData>();
-		DinoTargetedKnockback abilityOfType = base.GetAbilityOfType<DinoTargetedKnockback>();
+		AbilityData component = GetComponent<AbilityData>();
+		DinoTargetedKnockback abilityOfType = GetAbilityOfType<DinoTargetedKnockback>();
 		if (component != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -28,13 +27,13 @@ public class DinoForceChase : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoForceChase.SetupTargetersAndCachedVars()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (abilityOfType != null)
 			{
-				this.m_knockbackActionType = component.GetActionTypeOfAbility(abilityOfType);
+				m_knockbackActionType = component.GetActionTypeOfAbility(abilityOfType);
 			}
 		}
 		base.SetupTargetersAndCachedVars();
@@ -43,9 +42,9 @@ public class DinoForceChase : GenericAbility_Container
 	public int GetCdrOnKnockbackAbility()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -54,15 +53,15 @@ public class DinoForceChase : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoForceChase.GetCdrOnKnockbackAbility()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_cdrOnKnockbackAbilityMod.GetModifiedValue(this.m_cdrOnKnockbackAbility);
+			result = m_abilityMod.m_cdrOnKnockbackAbilityMod.GetModifiedValue(m_cdrOnKnockbackAbility);
 		}
 		else
 		{
-			result = this.m_cdrOnKnockbackAbility;
+			result = m_cdrOnKnockbackAbility;
 		}
 		return result;
 	}
@@ -70,9 +69,9 @@ public class DinoForceChase : GenericAbility_Container
 	public int GetEnergyPerUnstoppableEnemyHit()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -81,15 +80,15 @@ public class DinoForceChase : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoForceChase.GetEnergyPerUnstoppableEnemyHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_energyPerUnstoppableEnemyHitMod.GetModifiedValue(this.m_energyPerUnstoppableEnemyHit);
+			result = m_abilityMod.m_energyPerUnstoppableEnemyHitMod.GetModifiedValue(m_energyPerUnstoppableEnemyHit);
 		}
 		else
 		{
-			result = this.m_energyPerUnstoppableEnemyHit;
+			result = m_energyPerUnstoppableEnemyHit;
 		}
 		return result;
 	}
@@ -97,17 +96,17 @@ public class DinoForceChase : GenericAbility_Container
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		base.AddTokenInt(tokens, "CdrOnKnockbackAbility", string.Empty, this.m_cdrOnKnockbackAbility, false);
-		base.AddTokenInt(tokens, "EnergyPerUnstoppableEnemyHit", string.Empty, this.m_energyPerUnstoppableEnemyHit, false);
+		AddTokenInt(tokens, "CdrOnKnockbackAbility", string.Empty, m_cdrOnKnockbackAbility);
+		AddTokenInt(tokens, "EnergyPerUnstoppableEnemyHit", string.Empty, m_energyPerUnstoppableEnemyHit);
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		this.m_abilityMod = (abilityMod as AbilityMod_DinoForceChase);
+		m_abilityMod = (abilityMod as AbilityMod_DinoForceChase);
 	}
 
 	protected override void GenModImpl_ClearModRef()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,50 +44,49 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SoldierConeOrLaser soldierConeOrLaser = targetAbility as SoldierConeOrLaser;
-		if (soldierConeOrLaser != null)
+		if (!(soldierConeOrLaser != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierConeOrLaser.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken_ConeInfo(tokens, this.m_coneInfoMod, "ConeInfo", soldierConeOrLaser.m_coneInfo, true);
-			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "LaserInfo", soldierConeOrLaser.m_laserInfo, true);
-			AbilityMod.AddToken(tokens, this.m_coneDamageMod, "ConeDamage", string.Empty, soldierConeOrLaser.m_coneDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_coneEnemyHitEffectMod, "ConeEnemyHitEffect", soldierConeOrLaser.m_coneEnemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_laserDamageMod, "LaserDamage", string.Empty, soldierConeOrLaser.m_laserDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_laserEnemyHitEffectMod, "LaserEnemyHitEffect", soldierConeOrLaser.m_laserEnemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_extraDamageForAlternatingMod, "ExtraDamageForAlternating", string.Empty, soldierConeOrLaser.m_extraDamageForAlternating, true, false);
-			AbilityMod.AddToken(tokens, this.m_closeDistThresholdMod, "CloseDistThreshold", string.Empty, soldierConeOrLaser.m_closeDistThreshold, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageForNearTargetMod, "ExtraDamageForNearTarget", string.Empty, soldierConeOrLaser.m_extraDamageForNearTarget, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageForFromCoverMod, "ExtraDamageForFromCover", string.Empty, soldierConeOrLaser.m_extraDamageForFromCover, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageToEvadersMod, "ExtraDamageToEvaders", string.Empty, soldierConeOrLaser.m_extraDamageToEvaders, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraEnergyForConeMod, "ExtraEnergyForCone", string.Empty, soldierConeOrLaser.m_extraEnergyForCone, true, true);
-			AbilityMod.AddToken(tokens, this.m_extraEnergyForLaserMod, "ExtraEnergyForLaser", string.Empty, soldierConeOrLaser.m_extraEnergyForLaser, true, true);
+			AbilityMod.AddToken_ConeInfo(tokens, m_coneInfoMod, "ConeInfo", soldierConeOrLaser.m_coneInfo);
+			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", soldierConeOrLaser.m_laserInfo);
+			AbilityMod.AddToken(tokens, m_coneDamageMod, "ConeDamage", string.Empty, soldierConeOrLaser.m_coneDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_coneEnemyHitEffectMod, "ConeEnemyHitEffect", soldierConeOrLaser.m_coneEnemyHitEffect);
+			AbilityMod.AddToken(tokens, m_laserDamageMod, "LaserDamage", string.Empty, soldierConeOrLaser.m_laserDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_laserEnemyHitEffectMod, "LaserEnemyHitEffect", soldierConeOrLaser.m_laserEnemyHitEffect);
+			AbilityMod.AddToken(tokens, m_extraDamageForAlternatingMod, "ExtraDamageForAlternating", string.Empty, soldierConeOrLaser.m_extraDamageForAlternating);
+			AbilityMod.AddToken(tokens, m_closeDistThresholdMod, "CloseDistThreshold", string.Empty, soldierConeOrLaser.m_closeDistThreshold);
+			AbilityMod.AddToken(tokens, m_extraDamageForNearTargetMod, "ExtraDamageForNearTarget", string.Empty, soldierConeOrLaser.m_extraDamageForNearTarget);
+			AbilityMod.AddToken(tokens, m_extraDamageForFromCoverMod, "ExtraDamageForFromCover", string.Empty, soldierConeOrLaser.m_extraDamageForFromCover);
+			AbilityMod.AddToken(tokens, m_extraDamageToEvadersMod, "ExtraDamageToEvaders", string.Empty, soldierConeOrLaser.m_extraDamageToEvaders);
+			AbilityMod.AddToken(tokens, m_extraEnergyForConeMod, "ExtraEnergyForCone", string.Empty, soldierConeOrLaser.m_extraEnergyForCone, true, true);
+			AbilityMod.AddToken(tokens, m_extraEnergyForLaserMod, "ExtraEnergyForLaser", string.Empty, soldierConeOrLaser.m_extraEnergyForLaser, true, true);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SoldierConeOrLaser soldierConeOrLaser = base.GetTargetAbilityOnAbilityData(abilityData) as SoldierConeOrLaser;
+		SoldierConeOrLaser soldierConeOrLaser = GetTargetAbilityOnAbilityData(abilityData) as SoldierConeOrLaser;
 		bool flag = soldierConeOrLaser != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyConeInfo coneInfoMod = this.m_coneInfoMod;
-		string prefix = "[ConeInfo]";
-		bool showBaseVal = flag;
-		ConeTargetingInfo baseConeInfo;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyConeInfo coneInfoMod = m_coneInfoMod;
+		object baseConeInfo;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -96,9 +95,9 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierConeOrLaser.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseConeInfo = soldierConeOrLaser.m_coneInfo;
 		}
@@ -106,16 +105,14 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		{
 			baseConeInfo = null;
 		}
-		text = str + base.PropDesc(coneInfoMod, prefix, showBaseVal, baseConeInfo);
-		text += base.PropDesc(this.m_laserInfoMod, "[LaserInfo]", flag, (!flag) ? null : soldierConeOrLaser.m_laserInfo);
-		string str2 = text;
-		AbilityModPropertyInt coneDamageMod = this.m_coneDamageMod;
-		string prefix2 = "[ConeDamage]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(coneInfoMod, "[ConeInfo]", flag, (ConeTargetingInfo)baseConeInfo);
+		empty += PropDesc(m_laserInfoMod, "[LaserInfo]", flag, (!flag) ? null : soldierConeOrLaser.m_laserInfo);
+		string str2 = empty;
+		AbilityModPropertyInt coneDamageMod = m_coneDamageMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -130,15 +127,13 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		{
 			baseVal = 0;
 		}
-		text = str2 + base.PropDesc(coneDamageMod, prefix2, showBaseVal2, baseVal);
-		string str3 = text;
-		AbilityModPropertyEffectInfo coneEnemyHitEffectMod = this.m_coneEnemyHitEffectMod;
-		string prefix3 = "[ConeEnemyHitEffect]";
-		bool showBaseVal3 = flag;
-		StandardEffectInfo baseVal2;
+		empty = str2 + PropDesc(coneDamageMod, "[ConeDamage]", flag, baseVal);
+		string str3 = empty;
+		AbilityModPropertyEffectInfo coneEnemyHitEffectMod = m_coneEnemyHitEffectMod;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -153,15 +148,13 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		{
 			baseVal2 = null;
 		}
-		text = str3 + base.PropDesc(coneEnemyHitEffectMod, prefix3, showBaseVal3, baseVal2);
-		string str4 = text;
-		AbilityModPropertyInt laserDamageMod = this.m_laserDamageMod;
-		string prefix4 = "[LaserDamage]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(coneEnemyHitEffectMod, "[ConeEnemyHitEffect]", flag, (StandardEffectInfo)baseVal2);
+		string str4 = empty;
+		AbilityModPropertyInt laserDamageMod = m_laserDamageMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -176,18 +169,16 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		{
 			baseVal3 = 0;
 		}
-		text = str4 + base.PropDesc(laserDamageMod, prefix4, showBaseVal4, baseVal3);
-		text += base.PropDesc(this.m_laserEnemyHitEffectMod, "[LaserEnemyHitEffect]", flag, (!flag) ? null : soldierConeOrLaser.m_laserEnemyHitEffect);
-		text += base.PropDesc(this.m_extraDamageForAlternatingMod, "[ExtraDamageForAlternating]", flag, (!flag) ? 0 : soldierConeOrLaser.m_extraDamageForAlternating);
-		text += base.PropDesc(this.m_closeDistThresholdMod, "[CloseDistThreshold]", flag, (!flag) ? 0f : soldierConeOrLaser.m_closeDistThreshold);
-		string str5 = text;
-		AbilityModPropertyInt extraDamageForNearTargetMod = this.m_extraDamageForNearTargetMod;
-		string prefix5 = "[ExtraDamageForNearTarget]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(laserDamageMod, "[LaserDamage]", flag, baseVal3);
+		empty += PropDesc(m_laserEnemyHitEffectMod, "[LaserEnemyHitEffect]", flag, (!flag) ? null : soldierConeOrLaser.m_laserEnemyHitEffect);
+		empty += PropDesc(m_extraDamageForAlternatingMod, "[ExtraDamageForAlternating]", flag, flag ? soldierConeOrLaser.m_extraDamageForAlternating : 0);
+		empty += PropDesc(m_closeDistThresholdMod, "[CloseDistThreshold]", flag, (!flag) ? 0f : soldierConeOrLaser.m_closeDistThreshold);
+		string str5 = empty;
+		AbilityModPropertyInt extraDamageForNearTargetMod = m_extraDamageForNearTargetMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -202,15 +193,13 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str5 + base.PropDesc(extraDamageForNearTargetMod, prefix5, showBaseVal5, baseVal4);
-		string str6 = text;
-		AbilityModPropertyInt extraDamageForFromCoverMod = this.m_extraDamageForFromCoverMod;
-		string prefix6 = "[ExtraDamageForFromCover]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(extraDamageForNearTargetMod, "[ExtraDamageForNearTarget]", flag, baseVal4);
+		string str6 = empty;
+		AbilityModPropertyInt extraDamageForFromCoverMod = m_extraDamageForFromCoverMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -225,17 +214,15 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str6 + base.PropDesc(extraDamageForFromCoverMod, prefix6, showBaseVal6, baseVal5);
-		text += base.PropDesc(this.m_extraDamageToEvadersMod, "[ExtraDamageToEvaders]", flag, (!flag) ? 0 : soldierConeOrLaser.m_extraDamageToEvaders);
-		text += base.PropDesc(this.m_extraEnergyForConeMod, "[ExtraEnergyForCone]", flag, (!flag) ? 0 : soldierConeOrLaser.m_extraEnergyForCone);
-		string str7 = text;
-		AbilityModPropertyInt extraEnergyForLaserMod = this.m_extraEnergyForLaserMod;
-		string prefix7 = "[ExtraEnergyForLaser]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(extraDamageForFromCoverMod, "[ExtraDamageForFromCover]", flag, baseVal5);
+		empty += PropDesc(m_extraDamageToEvadersMod, "[ExtraDamageToEvaders]", flag, flag ? soldierConeOrLaser.m_extraDamageToEvaders : 0);
+		empty += PropDesc(m_extraEnergyForConeMod, "[ExtraEnergyForCone]", flag, flag ? soldierConeOrLaser.m_extraEnergyForCone : 0);
+		string str7 = empty;
+		AbilityModPropertyInt extraEnergyForLaserMod = m_extraEnergyForLaserMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -250,6 +237,6 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		return str7 + base.PropDesc(extraEnergyForLaserMod, prefix7, showBaseVal7, baseVal6);
+		return str7 + PropDesc(extraEnergyForLaserMod, "[ExtraEnergyForLaser]", flag, baseVal6);
 	}
 }

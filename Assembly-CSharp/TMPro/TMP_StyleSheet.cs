@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,120 +18,119 @@ namespace TMPro
 		{
 			get
 			{
-				if (TMP_StyleSheet.s_Instance == null)
+				if (s_Instance == null)
 				{
-					TMP_StyleSheet.s_Instance = TMP_Settings.defaultStyleSheet;
-					if (TMP_StyleSheet.s_Instance == null)
+					s_Instance = TMP_Settings.defaultStyleSheet;
+					if (s_Instance == null)
 					{
-						TMP_StyleSheet.s_Instance = (Resources.Load("Style Sheets/TMP Default Style Sheet") as TMP_StyleSheet);
+						s_Instance = (Resources.Load("Style Sheets/TMP Default Style Sheet") as TMP_StyleSheet);
 					}
-					if (TMP_StyleSheet.s_Instance == null)
+					if (s_Instance == null)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
 							case 0:
 								continue;
 							}
-							break;
+							if (1 == 0)
+							{
+								/*OpCode not supported: LdMemberToken*/;
+							}
+							return null;
 						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_StyleSheet.get_instance()).MethodHandle;
-						}
-						return null;
 					}
-					TMP_StyleSheet.s_Instance.LoadStyleDictionaryInternal();
+					s_Instance.LoadStyleDictionaryInternal();
 				}
-				return TMP_StyleSheet.s_Instance;
+				return s_Instance;
 			}
 		}
 
 		public static TMP_StyleSheet LoadDefaultStyleSheet()
 		{
-			return TMP_StyleSheet.instance;
+			return instance;
 		}
 
 		public static TMP_Style GetStyle(int hashCode)
 		{
-			return TMP_StyleSheet.instance.GetStyleInternal(hashCode);
+			return instance.GetStyleInternal(hashCode);
 		}
 
 		private TMP_Style GetStyleInternal(int hashCode)
 		{
-			TMP_Style result;
-			if (this.m_StyleDictionary.TryGetValue(hashCode, out result))
+			if (m_StyleDictionary.TryGetValue(hashCode, out TMP_Style value))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (1 == 0)
+						{
+							/*OpCode not supported: LdMemberToken*/;
+						}
+						return value;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_StyleSheet.GetStyleInternal(int)).MethodHandle;
-				}
-				return result;
 			}
 			return null;
 		}
 
 		public void UpdateStyleDictionaryKey(int old_key, int new_key)
 		{
-			if (this.m_StyleDictionary.ContainsKey(old_key))
+			if (!m_StyleDictionary.ContainsKey(old_key))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (2)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+				case 0:
+					continue;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_StyleSheet.UpdateStyleDictionaryKey(int, int)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				TMP_Style value = this.m_StyleDictionary[old_key];
-				this.m_StyleDictionary.Add(new_key, value);
-				this.m_StyleDictionary.Remove(old_key);
+				TMP_Style value = m_StyleDictionary[old_key];
+				m_StyleDictionary.Add(new_key, value);
+				m_StyleDictionary.Remove(old_key);
+				return;
 			}
 		}
 
 		public static void RefreshStyles()
 		{
-			TMP_StyleSheet.instance.LoadStyleDictionaryInternal();
+			instance.LoadStyleDictionaryInternal();
 		}
 
 		private void LoadStyleDictionaryInternal()
 		{
-			this.m_StyleDictionary.Clear();
-			for (int i = 0; i < this.m_StyleList.Count; i++)
+			m_StyleDictionary.Clear();
+			for (int i = 0; i < m_StyleList.Count; i++)
 			{
-				this.m_StyleList[i].RefreshStyle();
-				if (!this.m_StyleDictionary.ContainsKey(this.m_StyleList[i].hashCode))
+				m_StyleList[i].RefreshStyle();
+				if (!m_StyleDictionary.ContainsKey(m_StyleList[i].hashCode))
 				{
-					this.m_StyleDictionary.Add(this.m_StyleList[i].hashCode, this.m_StyleList[i]);
+					m_StyleDictionary.Add(m_StyleList[i].hashCode, m_StyleList[i]);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_StyleSheet.LoadStyleDictionaryInternal()).MethodHandle;
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+				return;
 			}
 		}
 	}

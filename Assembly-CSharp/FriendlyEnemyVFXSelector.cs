@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class FriendlyEnemyVFXSelector : MonoBehaviour
@@ -27,13 +26,13 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 
 	private void UpdateVFX()
 	{
-		if (this.m_friendly == FriendlyEnemyVFXSelector.IsFriendly(this.m_casterTeam, this.m_cachedLocalPlayerTeam))
+		if (m_friendly == IsFriendly(m_casterTeam, m_cachedLocalPlayerTeam))
 		{
-			if (this.m_initialized)
+			if (m_initialized)
 			{
 				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -42,16 +41,16 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.UpdateVFX()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
-		this.m_initialized = true;
-		this.m_friendly = FriendlyEnemyVFXSelector.IsFriendly(this.m_casterTeam, this.m_cachedLocalPlayerTeam);
-		if (this.m_hideByMoveOffScreen)
+		m_initialized = true;
+		m_friendly = IsFriendly(m_casterTeam, m_cachedLocalPlayerTeam);
+		if (m_hideByMoveOffScreen)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -60,9 +59,9 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 				}
 				break;
 			}
-			if (this.m_friendly)
+			if (m_friendly)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -71,9 +70,9 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 					}
 					break;
 				}
-				if (this.m_enemyFxInstance != null)
+				if (m_enemyFxInstance != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -82,12 +81,12 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 						}
 						break;
 					}
-					this.HideFxObject(this.m_enemyFxInstance);
+					HideFxObject(m_enemyFxInstance);
 				}
 			}
-			else if (this.m_allyFxInstance != null)
+			else if (m_allyFxInstance != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -96,12 +95,12 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 					}
 					break;
 				}
-				this.HideFxObject(this.m_allyFxInstance);
+				HideFxObject(m_allyFxInstance);
 			}
 		}
-		else if (this.m_friendly)
+		else if (m_friendly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -110,21 +109,21 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 				}
 				break;
 			}
-			if (this.m_enemyFxInstance != null)
+			if (m_enemyFxInstance != null)
 			{
-				UnityEngine.Object.Destroy(this.m_enemyFxInstance);
-				this.m_enemyFxInstance = null;
+				Object.Destroy(m_enemyFxInstance);
+				m_enemyFxInstance = null;
 			}
 		}
-		else if (this.m_allyFxInstance != null)
+		else if (m_allyFxInstance != null)
 		{
-			UnityEngine.Object.Destroy(this.m_allyFxInstance);
-			this.m_allyFxInstance = null;
+			Object.Destroy(m_allyFxInstance);
+			m_allyFxInstance = null;
 		}
 		GameObject gameObject;
-		if (this.m_friendly)
+		if (m_friendly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -133,70 +132,70 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 				}
 				break;
 			}
-			gameObject = this.m_friendlyVFX;
+			gameObject = m_friendlyVFX;
 		}
 		else
 		{
-			gameObject = this.m_enemyVFX;
+			gameObject = m_enemyVFX;
 		}
 		GameObject gameObject2 = gameObject;
-		if (gameObject2 != null)
+		if (!(gameObject2 != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (this.m_friendly)
+			if (m_friendly)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						CreateInstanceIfNeeded(gameObject2, ref m_allyFxInstance);
+						return;
 					}
-					break;
 				}
-				this.CreateInstanceIfNeeded(gameObject2, ref this.m_allyFxInstance);
 			}
-			else
-			{
-				this.CreateInstanceIfNeeded(gameObject2, ref this.m_enemyFxInstance);
-			}
+			CreateInstanceIfNeeded(gameObject2, ref m_enemyFxInstance);
+			return;
 		}
 	}
 
 	private void HideFxObject(GameObject obj)
 	{
-		if (obj != null)
+		if (!(obj != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.HideFxObject(GameObject)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			obj.transform.localPosition = new Vector3(-10000f, -10000f, -10000f);
+			return;
 		}
 	}
 
-	private unsafe void CreateInstanceIfNeeded(GameObject fxPrefab, ref GameObject instance)
+	private void CreateInstanceIfNeeded(GameObject fxPrefab, ref GameObject instance)
 	{
 		if (instance == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -205,13 +204,13 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.CreateInstanceIfNeeded(GameObject, GameObject*)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (fxPrefab != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
@@ -220,34 +219,35 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 					}
 					break;
 				}
-				instance = UnityEngine.Object.Instantiate<GameObject>(fxPrefab);
+				instance = Object.Instantiate(fxPrefab);
 				instance.transform.parent = base.transform;
 				instance.gameObject.SetLayerRecursively(LayerMask.NameToLayer("DynamicLit"));
 			}
 		}
-		if (instance != null)
+		if (!(instance != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (6)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
 			instance.transform.localPosition = Vector3.zero;
 			instance.transform.localRotation = Quaternion.identity;
+			return;
 		}
 	}
 
 	public void Setup(Team casterTeam)
 	{
-		this.m_casterTeam = casterTeam;
-		Team cachedLocalPlayerTeam;
+		m_casterTeam = casterTeam;
+		int cachedLocalPlayerTeam;
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -256,56 +256,57 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.Setup(Team)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedLocalPlayerTeam = GameFlowData.Get().activeOwnedActorData.\u000E();
+			cachedLocalPlayerTeam = (int)GameFlowData.Get().activeOwnedActorData.GetTeam();
 		}
 		else
 		{
-			cachedLocalPlayerTeam = Team.TeamA;
+			cachedLocalPlayerTeam = 0;
 		}
-		this.m_cachedLocalPlayerTeam = cachedLocalPlayerTeam;
-		if (this.m_currentSharedVFX == null && this.m_sharedVFX != null)
+		m_cachedLocalPlayerTeam = (Team)cachedLocalPlayerTeam;
+		if (m_currentSharedVFX == null && m_sharedVFX != null)
 		{
-			this.m_currentSharedVFX = UnityEngine.Object.Instantiate<GameObject>(this.m_sharedVFX);
-			this.m_currentSharedVFX.transform.parent = base.transform;
-			this.m_currentSharedVFX.transform.localPosition = Vector3.zero;
-			this.m_currentSharedVFX.transform.localRotation = Quaternion.identity;
-			this.m_currentSharedVFX.gameObject.SetLayerRecursively(LayerMask.NameToLayer("DynamicLit"));
+			m_currentSharedVFX = Object.Instantiate(m_sharedVFX);
+			m_currentSharedVFX.transform.parent = base.transform;
+			m_currentSharedVFX.transform.localPosition = Vector3.zero;
+			m_currentSharedVFX.transform.localRotation = Quaternion.identity;
+			m_currentSharedVFX.gameObject.SetLayerRecursively(LayerMask.NameToLayer("DynamicLit"));
 		}
-		this.UpdateVFX();
+		UpdateVFX();
 	}
 
 	public void SetAttribute(string attributeName, float value)
 	{
-		GameObject currentActiveVfxInstance = this.GetCurrentActiveVfxInstance();
-		if (currentActiveVfxInstance != null)
+		GameObject currentActiveVfxInstance = GetCurrentActiveVfxInstance();
+		if (!(currentActiveVfxInstance != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.SetAttribute(string, float)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			Sequence.SetAttribute(currentActiveVfxInstance, attributeName, value);
+			return;
 		}
 	}
 
 	private GameObject GetCurrentActiveVfxInstance()
 	{
 		GameObject result;
-		if (this.m_friendly)
+		if (m_friendly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -314,40 +315,40 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.GetCurrentActiveVfxInstance()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_allyFxInstance;
+			result = m_allyFxInstance;
 		}
 		else
 		{
-			result = this.m_enemyFxInstance;
+			result = m_enemyFxInstance;
 		}
 		return result;
 	}
 
 	private void Update()
 	{
-		if (GameFlowData.Get() != null)
+		if (!(GameFlowData.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			Team team;
+			int num;
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
@@ -356,29 +357,30 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 					}
 					break;
 				}
-				team = GameFlowData.Get().activeOwnedActorData.\u000E();
+				num = (int)GameFlowData.Get().activeOwnedActorData.GetTeam();
 			}
 			else
 			{
-				team = Team.TeamA;
+				num = 0;
 			}
-			Team team2 = team;
-			if (team2 != this.m_cachedLocalPlayerTeam)
+			Team team = (Team)num;
+			if (team != m_cachedLocalPlayerTeam)
 			{
-				this.m_cachedLocalPlayerTeam = team2;
-				this.UpdateVFX();
+				m_cachedLocalPlayerTeam = team;
+				UpdateVFX();
 			}
+			return;
 		}
 	}
 
 	private static bool IsFriendly(Team team0, Team team1)
 	{
-		bool result;
+		int result;
 		if (team0 != team1)
 		{
 			if (team0 != Team.Invalid)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
@@ -387,21 +389,21 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.IsFriendly(Team, Team)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				result = (team1 == Team.Invalid);
+				result = ((team1 == Team.Invalid) ? 1 : 0);
 			}
 			else
 			{
-				result = true;
+				result = 1;
 			}
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 }

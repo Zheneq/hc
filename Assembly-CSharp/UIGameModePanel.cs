@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,33 +10,35 @@ public class UIGameModePanel : MonoBehaviour
 
 	public void Setup(Func<string> getInfoString)
 	{
-		this.m_getInfoString = getInfoString;
+		m_getInfoString = getInfoString;
 		(base.transform as RectTransform).sizeDelta = Vector2.zero;
 		(base.transform as RectTransform).anchoredPosition = Vector2.zero;
 	}
 
 	private void Update()
 	{
-		if (this.m_getInfoString != null)
+		if (m_getInfoString == null)
 		{
-			string text = this.m_getInfoString();
-			if (text != this.m_infoLabel.text)
+			return;
+		}
+		string text = m_getInfoString();
+		if (!(text != m_infoLabel.text))
+		{
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameModePanel.Update()).MethodHandle;
-				}
-				this.m_infoLabel.text = text;
+			case 0:
+				continue;
 			}
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			m_infoLabel.text = text;
+			return;
 		}
 	}
 }

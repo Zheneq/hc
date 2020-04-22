@@ -1,33 +1,33 @@
-﻿using System;
-
 public class SlashCommand_ChatGeneral : SlashCommand
 {
-	public SlashCommand_ChatGeneral() : base("/general", SlashCommandType.InFrontEnd)
+	public SlashCommand_ChatGeneral()
+		: base("/general", SlashCommandType.InFrontEnd)
 	{
 	}
 
 	public override void OnSlashCommand(string arguments)
 	{
-		if (!arguments.IsNullOrEmpty())
+		if (arguments.IsNullOrEmpty())
 		{
-			if (!(ClientGameManager.Get() == null))
-			{
-				ClientGameManager.Get().SendChatNotification(null, ConsoleMessageType.GlobalChat, arguments);
-				return;
-			}
-			for (;;)
+			return;
+		}
+		if (ClientGameManager.Get() == null)
+		{
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_ChatGeneral.OnSlashCommand(string)).MethodHandle;
 			}
 		}
+		ClientGameManager.Get().SendChatNotification(null, ConsoleMessageType.GlobalChat, arguments);
 	}
 }

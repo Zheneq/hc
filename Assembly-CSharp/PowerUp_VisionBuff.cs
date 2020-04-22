@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class PowerUp_VisionBuff : PowerUp_Standard_Ability

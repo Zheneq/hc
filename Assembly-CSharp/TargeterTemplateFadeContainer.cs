@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,13 +11,13 @@ public class TargeterTemplateFadeContainer
 
 	public void TrackHighlights(List<GameObject> highlights)
 	{
-		this.CleanUpExistingHighlight();
-		AbilityUtil_Targeter.SetTargeterHighlightColor(highlights, HighlightUtils.Get().m_targeterRemoveColor, true, true);
+		CleanUpExistingHighlight();
+		AbilityUtil_Targeter.SetTargeterHighlightColor(highlights, HighlightUtils.Get().m_targeterRemoveColor);
 		for (int i = 0; i < highlights.Count; i++)
 		{
 			if (highlights[i] != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -27,24 +26,24 @@ public class TargeterTemplateFadeContainer
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterTemplateFadeContainer.TrackHighlights(List<GameObject>)).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
-				this.m_highlightsToFade.Add(highlights[i]);
+				m_highlightsToFade.Add(highlights[i]);
 			}
 		}
-		this.m_tsFadeStart = Time.time;
+		m_tsFadeStart = Time.time;
 	}
 
 	public void CleanUpExistingHighlight()
 	{
-		for (int i = 0; i < this.m_highlightsToFade.Count; i++)
+		for (int i = 0; i < m_highlightsToFade.Count; i++)
 		{
-			GameObject gameObject = this.m_highlightsToFade[i];
+			GameObject gameObject = m_highlightsToFade[i];
 			if (gameObject != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
@@ -53,47 +52,47 @@ public class TargeterTemplateFadeContainer
 					}
 					break;
 				}
-				if (!true)
+				if (1 == 0)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterTemplateFadeContainer.CleanUpExistingHighlight()).MethodHandle;
+					/*OpCode not supported: LdMemberToken*/;
 				}
 				HighlightUtils.DestroyObjectAndMaterials(gameObject);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			m_highlightsToFade.Clear();
+			return;
 		}
-		this.m_highlightsToFade.Clear();
 	}
 
 	public void UpdateFade(ActorData targetingActor, bool hasActiveHighlights)
 	{
-		if (this.m_highlightsToFade.Count > 0)
+		if (m_highlightsToFade.Count <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterTemplateFadeContainer.UpdateFade(ActorData, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			float num = Time.time - this.m_tsFadeStart;
-			bool flag;
+			float num = Time.time - m_tsFadeStart;
+			int num2;
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -104,7 +103,7 @@ public class TargeterTemplateFadeContainer
 				}
 				if (targetingActor != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -113,16 +112,17 @@ public class TargeterTemplateFadeContainer
 						}
 						break;
 					}
-					flag = (GameFlowData.Get().activeOwnedActorData.\u000E() == targetingActor.\u000E());
-					goto IL_88;
+					num2 = ((GameFlowData.Get().activeOwnedActorData.GetTeam() == targetingActor.GetTeam()) ? 1 : 0);
+					goto IL_0088;
 				}
 			}
-			flag = false;
-			IL_88:
-			bool flag2 = flag;
-			if (num < 3f)
+			num2 = 0;
+			goto IL_0088;
+			IL_0088:
+			bool flag = (byte)num2 != 0;
+			if (!(num >= 3f))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
@@ -133,7 +133,7 @@ public class TargeterTemplateFadeContainer
 				}
 				if (!hasActiveHighlights)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
@@ -144,7 +144,7 @@ public class TargeterTemplateFadeContainer
 					}
 					if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -153,13 +153,13 @@ public class TargeterTemplateFadeContainer
 							}
 							break;
 						}
-						if (flag2)
+						if (flag)
 						{
 							float opacityFromTargeterData = AbilityUtil_Targeter.GetOpacityFromTargeterData(HighlightUtils.Get().m_targeterRemoveFadeOpacity, num);
-							AbilityUtil_Targeter.SetTargeterHighlightOpacity(this.m_highlightsToFade, opacityFromTargeterData);
+							AbilityUtil_Targeter.SetTargeterHighlightOpacity(m_highlightsToFade, opacityFromTargeterData);
 							return;
 						}
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
@@ -171,7 +171,8 @@ public class TargeterTemplateFadeContainer
 					}
 				}
 			}
-			this.CleanUpExistingHighlight();
+			CleanUpExistingHighlight();
+			return;
 		}
 	}
 }

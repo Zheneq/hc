@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class LocalizationArg_AccessLevel : LocalizationArg
@@ -7,43 +7,42 @@ public class LocalizationArg_AccessLevel : LocalizationArg
 
 	public static LocalizationArg_AccessLevel Create(ClientAccessLevel value)
 	{
-		return new LocalizationArg_AccessLevel
-		{
-			m_value = value
-		};
+		LocalizationArg_AccessLevel localizationArg_AccessLevel = new LocalizationArg_AccessLevel();
+		localizationArg_AccessLevel.m_value = value;
+		return localizationArg_AccessLevel;
 	}
 
 	public override string TR()
 	{
-		if (this.m_value <= ClientAccessLevel.Free)
+		if (m_value <= ClientAccessLevel.Free)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					return StringUtil.TR("Free", "ClientAccessLevel");
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationArg_AccessLevel.TR()).MethodHandle;
-			}
-			return StringUtil.TR("Free", "ClientAccessLevel");
 		}
-		if (this.m_value >= ClientAccessLevel.VIP)
+		if (m_value >= ClientAccessLevel.VIP)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return StringUtil.TR("VIP", "ClientAccessLevel");
 				}
-				break;
 			}
-			return StringUtil.TR("VIP", "ClientAccessLevel");
 		}
 		return StringUtil.TR("Full", "ClientAccessLevel");
 	}

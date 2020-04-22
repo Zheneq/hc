@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -8,7 +8,7 @@ public class OnKnockbackChatter : ScriptableObject, IChatterData
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_baseData;
+		return m_baseData;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()
@@ -23,6 +23,10 @@ public class OnKnockbackChatter : ScriptableObject, IChatterData
 			return false;
 		}
 		GameEventManager.ActorKnockback actorKnockback = args as GameEventManager.ActorKnockback;
-		return !(actorKnockback.m_target != component.gameObject.GetComponent<ActorData>());
+		if (actorKnockback.m_target != component.gameObject.GetComponent<ActorData>())
+		{
+			return false;
+		}
+		return true;
 	}
 }

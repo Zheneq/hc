@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class TempAnimatedCameraTest : MonoBehaviour
@@ -18,75 +17,77 @@ public class TempAnimatedCameraTest : MonoBehaviour
 
 	private void Start()
 	{
-		if (this.m_parentFbx != null)
+		if (m_parentFbx != null)
 		{
-			this.m_animator = this.m_parentFbx.GetComponent<Animator>();
+			m_animator = m_parentFbx.GetComponent<Animator>();
 		}
 	}
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.C) && this.m_animator != null)
+		if (!Input.GetKeyDown(KeyCode.C) || !(m_animator != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (1)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempAnimatedCameraTest.Update()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_animator.SetTrigger(this.m_animStartTrigger);
-			this.m_updatingWithAnim = true;
+			m_animator.SetTrigger(m_animStartTrigger);
+			m_updatingWithAnim = true;
+			return;
 		}
 	}
 
 	private void LateUpdate()
 	{
-		if (this.m_cameraJoint != null)
+		if (!(m_cameraJoint != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempAnimatedCameraTest.LateUpdate()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_updatingWithAnim)
+			if (m_updatingWithAnim)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					Camera.main.transform.position = m_cameraJoint.transform.position;
+					Camera.main.transform.rotation = m_cameraJoint.transform.rotation * Quaternion.Euler(0f, 180f, 0f);
+					Camera.main.fieldOfView = GetFieldOfView();
+					return;
 				}
-				Camera.main.transform.position = this.m_cameraJoint.transform.position;
-				Camera.main.transform.rotation = this.m_cameraJoint.transform.rotation * Quaternion.Euler(0f, 180f, 0f);
-				Camera.main.fieldOfView = this.GetFieldOfView();
 			}
+			return;
 		}
 	}
 
 	private float GetFieldOfView()
 	{
 		float result = Camera.main.fieldOfView;
-		if (this.m_cameraJoint != null)
+		if (m_cameraJoint != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -95,13 +96,14 @@ public class TempAnimatedCameraTest : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempAnimatedCameraTest.GetFieldOfView()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (this.m_cameraJoint.transform.localScale.z > 1f)
+			Vector3 localScale = m_cameraJoint.transform.localScale;
+			if (localScale.z > 1f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
@@ -110,7 +112,8 @@ public class TempAnimatedCameraTest : MonoBehaviour
 					}
 					break;
 				}
-				result = this.m_cameraJoint.transform.localScale.z;
+				Vector3 localScale2 = m_cameraJoint.transform.localScale;
+				result = localScale2.z;
 			}
 		}
 		return result;

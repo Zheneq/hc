@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UIConeCursor : MonoBehaviour
@@ -15,40 +14,38 @@ public class UIConeCursor : MonoBehaviour
 
 	public void OnRadiusChanged(float newWorldRadius)
 	{
-		this.m_worldRadius = newWorldRadius;
-		if (this.m_worldRadius <= 0f)
+		m_worldRadius = newWorldRadius;
+		if (m_worldRadius <= 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (1 == 0)
+					{
+						/*OpCode not supported: LdMemberToken*/;
+					}
+					Log.Error("ConeCursor with invalid radius (" + m_worldRadius + ").  Disabling...");
+					UIManager.SetGameObjectActive(base.gameObject, false);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIConeCursor.OnRadiusChanged(float)).MethodHandle;
-			}
-			Log.Error("ConeCursor with invalid radius (" + this.m_worldRadius + ").  Disabling...", new object[0]);
-			UIManager.SetGameObjectActive(base.gameObject, false, null);
 		}
-		else
+		if (m_outerArc != null)
 		{
-			if (this.m_outerArc != null)
-			{
-				this.m_outerArc.transform.localScale = new Vector3(this.m_worldRadius, 1f, this.m_worldRadius);
-			}
-			UIManager.SetGameObjectActive(base.gameObject, true, null);
+			m_outerArc.transform.localScale = new Vector3(m_worldRadius, 1f, m_worldRadius);
 		}
+		UIManager.SetGameObjectActive(base.gameObject, true);
 	}
 
 	private void Start()
 	{
-		if (this.m_innerArc != null)
+		if (m_innerArc != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -57,15 +54,15 @@ public class UIConeCursor : MonoBehaviour
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIConeCursor.Start()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_innerArc.transform.localPosition = new Vector3(0f, this.m_heightOffset, 0f);
+			m_innerArc.transform.localPosition = new Vector3(0f, m_heightOffset, 0f);
 		}
-		if (this.m_outerArc != null)
+		if (m_outerArc != null)
 		{
-			this.m_outerArc.transform.localPosition = new Vector3(0f, this.m_heightOffset, 0f);
+			m_outerArc.transform.localPosition = new Vector3(0f, m_heightOffset, 0f);
 		}
 	}
 }

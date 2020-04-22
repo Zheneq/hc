@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -13,7 +12,7 @@ public class UITextureSelectButton : UICharacterVisualsSelectButton
 	protected override void Start()
 	{
 		base.Start();
-		this.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnTextureClicked);
+		m_hitbox.callback = OnTextureClicked;
 	}
 
 	public void OnTextureClicked(BaseEventData data)
@@ -23,37 +22,38 @@ public class UITextureSelectButton : UICharacterVisualsSelectButton
 
 	public void Setup(UIPatternData patternData)
 	{
-		this.m_textureInfo = patternData;
-		this.m_colorIcon.color = patternData.m_buttonColor;
-		UIManager.SetGameObjectActive(this.m_lockedIcon, !patternData.m_isAvailable, null);
-		if (!patternData.m_isAvailable)
+		m_textureInfo = patternData;
+		m_colorIcon.color = patternData.m_buttonColor;
+		UIManager.SetGameObjectActive(m_lockedIcon, !patternData.m_isAvailable);
+		if (patternData.m_isAvailable)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextureSelectButton.Setup(UIPatternData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (patternData.m_unlockCharacterLevel > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
+					m_unlockTooltipText = string.Format(StringUtil.TR("UnlockedAtCharacterLevel", "Global"), patternData.m_unlockCharacterLevel);
+					return;
 				}
-				this.m_unlockTooltipText = string.Format(StringUtil.TR("UnlockedAtCharacterLevel", "Global"), patternData.m_unlockCharacterLevel);
 			}
+			return;
 		}
 	}
 }

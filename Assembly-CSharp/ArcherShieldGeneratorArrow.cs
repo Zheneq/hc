@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -42,55 +41,56 @@ public class ArcherShieldGeneratorArrow : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Shield Generator Arrow";
+			m_abilityName = "Shield Generator Arrow";
 		}
-		this.m_syncComp = base.GetComponent<Archer_SyncComponent>();
-		this.Setup();
+		m_syncComp = GetComponent<Archer_SyncComponent>();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, this.GetGroundEffectInfo().m_groundEffectData.shape, this.PenetrateLoS(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, this.AffectsEnemies(), this.AffectsAllies(), (!this.AffectsCaster()) ? AbilityUtil_Targeter.AffectsActor.Never : AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, GetGroundEffectInfo().m_groundEffectData.shape, PenetrateLoS(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, AffectsEnemies(), AffectsAllies(), AffectsCaster() ? AbilityUtil_Targeter.AffectsActor.Possible : AbilityUtil_Targeter.AffectsActor.Never);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_ArcherShieldGeneratorArrow))
+		if (abilityMod.GetType() != typeof(AbilityMod_ArcherShieldGeneratorArrow))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.OnApplyAbilityMod(AbilityMod)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_abilityMod = (abilityMod as AbilityMod_ArcherShieldGeneratorArrow);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_ArcherShieldGeneratorArrow);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedGroundEffect = this.m_groundEffectInfo;
+		m_cachedGroundEffect = m_groundEffectInfo;
 		StandardEffectInfo cachedDirectHitEnemyEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -99,21 +99,21 @@ public class ArcherShieldGeneratorArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.SetCachedFields()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			cachedDirectHitEnemyEffect = this.m_abilityMod.m_directHitEnemyEffectMod.GetModifiedValue(this.m_directHitEnemyEffect);
+			cachedDirectHitEnemyEffect = m_abilityMod.m_directHitEnemyEffectMod.GetModifiedValue(m_directHitEnemyEffect);
 		}
 		else
 		{
-			cachedDirectHitEnemyEffect = this.m_directHitEnemyEffect;
+			cachedDirectHitEnemyEffect = m_directHitEnemyEffect;
 		}
-		this.m_cachedDirectHitEnemyEffect = cachedDirectHitEnemyEffect;
+		m_cachedDirectHitEnemyEffect = cachedDirectHitEnemyEffect;
 		StandardEffectInfo cachedDirectHitAllyEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -122,17 +122,17 @@ public class ArcherShieldGeneratorArrow : Ability
 				}
 				break;
 			}
-			cachedDirectHitAllyEffect = this.m_abilityMod.m_directHitAllyEffectMod.GetModifiedValue(this.m_directHitAllyEffect);
+			cachedDirectHitAllyEffect = m_abilityMod.m_directHitAllyEffectMod.GetModifiedValue(m_directHitAllyEffect);
 		}
 		else
 		{
-			cachedDirectHitAllyEffect = this.m_directHitAllyEffect;
+			cachedDirectHitAllyEffect = m_directHitAllyEffect;
 		}
-		this.m_cachedDirectHitAllyEffect = cachedDirectHitAllyEffect;
+		m_cachedDirectHitAllyEffect = cachedDirectHitAllyEffect;
 		StandardEffectInfo cachedExtraAllyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -141,21 +141,21 @@ public class ArcherShieldGeneratorArrow : Ability
 				}
 				break;
 			}
-			cachedExtraAllyHitEffect = this.m_abilityMod.m_extraAllyHitEffectMod.GetModifiedValue(this.m_extraAllyHitEffect);
+			cachedExtraAllyHitEffect = m_abilityMod.m_extraAllyHitEffectMod.GetModifiedValue(m_extraAllyHitEffect);
 		}
 		else
 		{
-			cachedExtraAllyHitEffect = this.m_extraAllyHitEffect;
+			cachedExtraAllyHitEffect = m_extraAllyHitEffect;
 		}
-		this.m_cachedExtraAllyHitEffect = cachedExtraAllyHitEffect;
+		m_cachedExtraAllyHitEffect = cachedExtraAllyHitEffect;
 	}
 
 	public bool PenetrateLoS()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -164,15 +164,15 @@ public class ArcherShieldGeneratorArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.PenetrateLoS()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_penetrateLoSMod.GetModifiedValue(this.m_penetrateLoS);
+			result = m_abilityMod.m_penetrateLoSMod.GetModifiedValue(m_penetrateLoS);
 		}
 		else
 		{
-			result = this.m_penetrateLoS;
+			result = m_penetrateLoS;
 		}
 		return result;
 	}
@@ -180,9 +180,9 @@ public class ArcherShieldGeneratorArrow : Ability
 	public bool AffectsEnemies()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -191,15 +191,15 @@ public class ArcherShieldGeneratorArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.AffectsEnemies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_affectsEnemiesMod.GetModifiedValue(this.m_affectsEnemies);
+			result = m_abilityMod.m_affectsEnemiesMod.GetModifiedValue(m_affectsEnemies);
 		}
 		else
 		{
-			result = this.m_affectsEnemies;
+			result = m_affectsEnemies;
 		}
 		return result;
 	}
@@ -207,9 +207,9 @@ public class ArcherShieldGeneratorArrow : Ability
 	public bool AffectsAllies()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -218,15 +218,15 @@ public class ArcherShieldGeneratorArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.AffectsAllies()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_affectsAlliesMod.GetModifiedValue(this.m_affectsAllies);
+			result = m_abilityMod.m_affectsAlliesMod.GetModifiedValue(m_affectsAllies);
 		}
 		else
 		{
-			result = this.m_affectsAllies;
+			result = m_affectsAllies;
 		}
 		return result;
 	}
@@ -234,9 +234,9 @@ public class ArcherShieldGeneratorArrow : Ability
 	public bool AffectsCaster()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -245,15 +245,15 @@ public class ArcherShieldGeneratorArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.AffectsCaster()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_affectsCasterMod.GetModifiedValue(this.m_affectsCaster);
+			result = m_abilityMod.m_affectsCasterMod.GetModifiedValue(m_affectsCaster);
 		}
 		else
 		{
-			result = this.m_affectsCaster;
+			result = m_affectsCaster;
 		}
 		return result;
 	}
@@ -261,9 +261,9 @@ public class ArcherShieldGeneratorArrow : Ability
 	private StandardGroundEffectInfo GetGroundEffectInfo()
 	{
 		StandardGroundEffectInfo result;
-		if (this.m_cachedGroundEffect != null)
+		if (m_cachedGroundEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -272,30 +272,30 @@ public class ArcherShieldGeneratorArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.GetGroundEffectInfo()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedGroundEffect;
+			result = m_cachedGroundEffect;
 		}
 		else
 		{
-			result = this.m_groundEffectInfo;
+			result = m_groundEffectInfo;
 		}
 		return result;
 	}
 
 	public int GetLessAbsorbPerTurn()
 	{
-		return (!this.m_abilityMod) ? this.m_lessAbsorbPerTurn : this.m_abilityMod.m_lessAbsorbPerTurnMod.GetModifiedValue(this.m_lessAbsorbPerTurn);
+		return (!m_abilityMod) ? m_lessAbsorbPerTurn : m_abilityMod.m_lessAbsorbPerTurnMod.GetModifiedValue(m_lessAbsorbPerTurn);
 	}
 
 	public StandardEffectInfo GetDirectHitEnemyEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedDirectHitEnemyEffect != null)
+		if (m_cachedDirectHitEnemyEffect != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -304,40 +304,40 @@ public class ArcherShieldGeneratorArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.GetDirectHitEnemyEffect()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedDirectHitEnemyEffect;
+			result = m_cachedDirectHitEnemyEffect;
 		}
 		else
 		{
-			result = this.m_directHitEnemyEffect;
+			result = m_directHitEnemyEffect;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetDirectHitAllyEffect()
 	{
-		return (this.m_cachedDirectHitAllyEffect == null) ? this.m_directHitAllyEffect : this.m_cachedDirectHitAllyEffect;
+		return (m_cachedDirectHitAllyEffect == null) ? m_directHitAllyEffect : m_cachedDirectHitAllyEffect;
 	}
 
 	public StandardEffectInfo GetExtraAllyHitEffect()
 	{
-		return (this.m_cachedExtraAllyHitEffect == null) ? this.m_extraAllyHitEffect : this.m_cachedExtraAllyHitEffect;
+		return (m_cachedExtraAllyHitEffect == null) ? m_extraAllyHitEffect : m_cachedExtraAllyHitEffect;
 	}
 
 	public int GetCooldownReductionOnDash()
 	{
-		return (!this.m_abilityMod) ? 0 : this.m_abilityMod.m_cooldownReductionOnDash.GetModifiedValue(0);
+		return m_abilityMod ? m_abilityMod.m_cooldownReductionOnDash.GetModifiedValue(0) : 0;
 	}
 
 	public int GetExtraAbsorbPerEnemyHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -346,11 +346,11 @@ public class ArcherShieldGeneratorArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.GetExtraAbsorbPerEnemyHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraAbsorbPerEnemyHit.GetModifiedValue(0);
+			result = m_abilityMod.m_extraAbsorbPerEnemyHit.GetModifiedValue(0);
 		}
 		else
 		{
@@ -361,15 +361,15 @@ public class ArcherShieldGeneratorArrow : Ability
 
 	public int GetExtraAbsorbIfEnemyHit()
 	{
-		return (!this.m_abilityMod) ? 0 : this.m_abilityMod.m_extraAbsorbIfEnemyHit.GetModifiedValue(0);
+		return m_abilityMod ? m_abilityMod.m_extraAbsorbIfEnemyHit.GetModifiedValue(0) : 0;
 	}
 
 	public int GetExtraAbsorbIfOnlyOneAllyHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -378,11 +378,11 @@ public class ArcherShieldGeneratorArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.GetExtraAbsorbIfOnlyOneAllyHit()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraAbsorbIfOnlyOneAllyHit.GetModifiedValue(0);
+			result = m_abilityMod.m_extraAbsorbIfOnlyOneAllyHit.GetModifiedValue(0);
 		}
 		else
 		{
@@ -393,18 +393,18 @@ public class ArcherShieldGeneratorArrow : Ability
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "LessAbsorbPerTurn", string.Empty, this.m_lessAbsorbPerTurn, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_directHitEnemyEffect, "DirectHitEnemyEffect", this.m_directHitEnemyEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_directHitAllyEffect, "DirectHitAllyEffect", this.m_directHitAllyEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_extraAllyHitEffect, "ExtraAllyHitEffect", this.m_extraAllyHitEffect, true);
+		AddTokenInt(tokens, "LessAbsorbPerTurn", string.Empty, m_lessAbsorbPerTurn);
+		AbilityMod.AddToken_EffectInfo(tokens, m_directHitEnemyEffect, "DirectHitEnemyEffect", m_directHitEnemyEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_directHitAllyEffect, "DirectHitAllyEffect", m_directHitAllyEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_extraAllyHitEffect, "ExtraAllyHitEffect", m_extraAllyHitEffect);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		if (this.m_groundEffectInfo.m_applyGroundEffect)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		if (m_groundEffectInfo.m_applyGroundEffect)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -413,23 +413,23 @@ public class ArcherShieldGeneratorArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.CalculateNameplateTargetingNumbers()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			this.m_groundEffectInfo.m_groundEffectData.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy, AbilityTooltipSubject.Ally);
+			m_groundEffectInfo.m_groundEffectData.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy, AbilityTooltipSubject.Ally);
 		}
-		if (this.AffectsAllies())
+		if (AffectsAllies())
 		{
-			this.GetDirectHitAllyEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
+			GetDirectHitAllyEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 		}
-		if (this.AffectsCaster())
+		if (AffectsCaster())
 		{
-			this.GetDirectHitAllyEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
+			GetDirectHitAllyEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		}
-		if (this.AffectsEnemies())
+		if (AffectsEnemies())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -438,17 +438,17 @@ public class ArcherShieldGeneratorArrow : Ability
 				}
 				break;
 			}
-			this.GetDirectHitEnemyEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy);
+			GetDirectHitEnemyEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
 		}
-		return result;
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -457,17 +457,17 @@ public class ArcherShieldGeneratorArrow : Ability
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (targetActor.\u000E() == base.ActorData.\u000E())
+			if (targetActor.GetTeam() == base.ActorData.GetTeam())
 			{
-				int num = this.m_syncComp.m_extraAbsorbForShieldGenerator;
+				int num = m_syncComp.m_extraAbsorbForShieldGenerator;
 				List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeters[currentTargeterIndex].GetActorsInRange();
-				if (!actorsInRange.IsNullOrEmpty<AbilityUtil_Targeter.ActorTarget>())
+				if (!actorsInRange.IsNullOrEmpty())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
@@ -476,10 +476,10 @@ public class ArcherShieldGeneratorArrow : Ability
 						}
 						break;
 					}
-					int num2 = actorsInRange.Count((AbilityUtil_Targeter.ActorTarget t) => t.m_actor.\u000E() != base.ActorData.\u000E());
+					int num2 = actorsInRange.Count((AbilityUtil_Targeter.ActorTarget t) => t.m_actor.GetTeam() != base.ActorData.GetTeam());
 					if (actorsInRange.Count - num2 == 1)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -488,12 +488,12 @@ public class ArcherShieldGeneratorArrow : Ability
 							}
 							break;
 						}
-						num += this.GetExtraAbsorbIfOnlyOneAllyHit();
+						num += GetExtraAbsorbIfOnlyOneAllyHit();
 					}
-					num += this.GetExtraAbsorbPerEnemyHit() * num2;
+					num += GetExtraAbsorbPerEnemyHit() * num2;
 					if (num2 > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
@@ -502,14 +502,14 @@ public class ArcherShieldGeneratorArrow : Ability
 							}
 							break;
 						}
-						num += this.GetExtraAbsorbIfEnemyHit();
+						num += GetExtraAbsorbIfEnemyHit();
 					}
 				}
-				int num3 = this.GetDirectHitAllyEffect().m_effectData.m_absorbAmount + num;
-				StandardEffectInfo extraAllyHitEffect = this.GetExtraAllyHitEffect();
+				int num3 = GetDirectHitAllyEffect().m_effectData.m_absorbAmount + num;
+				StandardEffectInfo extraAllyHitEffect = GetExtraAllyHitEffect();
 				if (extraAllyHitEffect.m_applyEffect)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
@@ -520,7 +520,7 @@ public class ArcherShieldGeneratorArrow : Ability
 					}
 					if (extraAllyHitEffect.m_effectData.m_absorbAmount > 0)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{

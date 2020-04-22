@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,47 +41,46 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ClaymoreCharge claymoreCharge = targetAbility as ClaymoreCharge;
-		if (claymoreCharge != null)
+		if (!(claymoreCharge != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClaymoreCharge.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_widthMod, "ChargeLineWidth", "charge line width", claymoreCharge.m_width, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxRangeMod, "ChargeLineRange", "max charge range", claymoreCharge.m_maxRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_directHitDamageMod, "Damage_DirectHit", "direct hit damage from charge", claymoreCharge.m_directHitDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_directEnemyHitEffectMod, "Effect_DirectHit", claymoreCharge.m_directEnemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_aoeDamageMod, "Damage_AoeHit", "aoe hit damage", claymoreCharge.m_aoeDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_aoeEnemyHitEffectMod, "Effect_AoeHit", claymoreCharge.m_aoeEnemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_extraDirectHitDamagePerSquareMod, "ExtraDirectHitDamagePerSquare", string.Empty, claymoreCharge.m_extraDirectHitDamagePerSquare, true, false);
-			AbilityMod.AddToken(tokens, this.m_healOnSelfPerTargetHitMod, "HealOnSelfPerTargetHit", string.Empty, claymoreCharge.m_healOnSelfPerTargetHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_cooldownOnHitMod, "CooldownOnHit", "set cooldown to this when hit enemy", claymoreCharge.m_cooldownOnHit, true, false);
+			AbilityMod.AddToken(tokens, m_widthMod, "ChargeLineWidth", "charge line width", claymoreCharge.m_width);
+			AbilityMod.AddToken(tokens, m_maxRangeMod, "ChargeLineRange", "max charge range", claymoreCharge.m_maxRange);
+			AbilityMod.AddToken(tokens, m_directHitDamageMod, "Damage_DirectHit", "direct hit damage from charge", claymoreCharge.m_directHitDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_directEnemyHitEffectMod, "Effect_DirectHit", claymoreCharge.m_directEnemyHitEffect);
+			AbilityMod.AddToken(tokens, m_aoeDamageMod, "Damage_AoeHit", "aoe hit damage", claymoreCharge.m_aoeDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_aoeEnemyHitEffectMod, "Effect_AoeHit", claymoreCharge.m_aoeEnemyHitEffect);
+			AbilityMod.AddToken(tokens, m_extraDirectHitDamagePerSquareMod, "ExtraDirectHitDamagePerSquare", string.Empty, claymoreCharge.m_extraDirectHitDamagePerSquare);
+			AbilityMod.AddToken(tokens, m_healOnSelfPerTargetHitMod, "HealOnSelfPerTargetHit", string.Empty, claymoreCharge.m_healOnSelfPerTargetHit);
+			AbilityMod.AddToken(tokens, m_cooldownOnHitMod, "CooldownOnHit", "set cooldown to this when hit enemy", claymoreCharge.m_cooldownOnHit);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ClaymoreCharge claymoreCharge = base.GetTargetAbilityOnAbilityData(abilityData) as ClaymoreCharge;
+		ClaymoreCharge claymoreCharge = GetTargetAbilityOnAbilityData(abilityData) as ClaymoreCharge;
 		bool flag = claymoreCharge != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_aoeShapeMod, "[Charge Hit Shape]", flag, (!flag) ? AbilityAreaShape.SingleSquare : claymoreCharge.m_aoeShape);
-		string str = text;
-		AbilityModPropertyFloat widthMod = this.m_widthMod;
-		string prefix = "[Charge Line Width]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += PropDesc(m_aoeShapeMod, "[Charge Hit Shape]", flag, flag ? claymoreCharge.m_aoeShape : AbilityAreaShape.SingleSquare);
+		string str = empty;
+		AbilityModPropertyFloat widthMod = m_widthMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -90,9 +89,9 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClaymoreCharge.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			baseVal = claymoreCharge.m_width;
 		}
@@ -100,17 +99,15 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(widthMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_maxRangeMod, "[Charge Line Range]", flag, (!flag) ? 0f : claymoreCharge.m_maxRange);
-		text += base.PropDesc(this.m_directHitIgnoreCoverMod, "[DirectHitIgnoreCover]", flag, flag && claymoreCharge.m_directHitIgnoreCover);
-		string str2 = text;
-		AbilityModPropertyInt directHitDamageMod = this.m_directHitDamageMod;
-		string prefix2 = "[Direct Hit Damage]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(widthMod, "[Charge Line Width]", flag, baseVal);
+		empty += PropDesc(m_maxRangeMod, "[Charge Line Range]", flag, (!flag) ? 0f : claymoreCharge.m_maxRange);
+		empty += PropDesc(m_directHitIgnoreCoverMod, "[DirectHitIgnoreCover]", flag, flag && claymoreCharge.m_directHitIgnoreCover);
+		string str2 = empty;
+		AbilityModPropertyInt directHitDamageMod = m_directHitDamageMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -125,15 +122,13 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(directHitDamageMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyEffectInfo directEnemyHitEffectMod = this.m_directEnemyHitEffectMod;
-		string prefix3 = "[Direct Hit Effect]";
-		bool showBaseVal3 = flag;
-		StandardEffectInfo baseVal3;
+		empty = str2 + PropDesc(directHitDamageMod, "[Direct Hit Damage]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyEffectInfo directEnemyHitEffectMod = m_directEnemyHitEffectMod;
+		object baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -148,15 +143,13 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		{
 			baseVal3 = null;
 		}
-		text = str3 + base.PropDesc(directEnemyHitEffectMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt aoeDamageMod = this.m_aoeDamageMod;
-		string prefix4 = "[AOE Hit Damage]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(directEnemyHitEffectMod, "[Direct Hit Effect]", flag, (StandardEffectInfo)baseVal3);
+		string str4 = empty;
+		AbilityModPropertyInt aoeDamageMod = m_aoeDamageMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -171,15 +164,13 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(aoeDamageMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyEffectInfo aoeEnemyHitEffectMod = this.m_aoeEnemyHitEffectMod;
-		string prefix5 = "[AOE Hit Effect]";
-		bool showBaseVal5 = flag;
-		StandardEffectInfo baseVal5;
+		empty = str4 + PropDesc(aoeDamageMod, "[AOE Hit Damage]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyEffectInfo aoeEnemyHitEffectMod = m_aoeEnemyHitEffectMod;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -194,15 +185,13 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		{
 			baseVal5 = null;
 		}
-		text = str5 + base.PropDesc(aoeEnemyHitEffectMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt extraDirectHitDamagePerSquareMod = this.m_extraDirectHitDamagePerSquareMod;
-		string prefix6 = "[ExtraDirectHitDamagePerSquare]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(aoeEnemyHitEffectMod, "[AOE Hit Effect]", flag, (StandardEffectInfo)baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt extraDirectHitDamagePerSquareMod = m_extraDirectHitDamagePerSquareMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -217,15 +206,13 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(extraDirectHitDamagePerSquareMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyInt healOnSelfPerTargetHitMod = this.m_healOnSelfPerTargetHitMod;
-		string prefix7 = "[HealOnSelfPerTargetHit]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(extraDirectHitDamagePerSquareMod, "[ExtraDirectHitDamagePerSquare]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyInt healOnSelfPerTargetHitMod = m_healOnSelfPerTargetHitMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -240,15 +227,13 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		{
 			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(healOnSelfPerTargetHitMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyInt cooldownOnHitMod = this.m_cooldownOnHitMod;
-		string prefix8 = "[Cooldown Override (on charge ability) on Hit]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(healOnSelfPerTargetHitMod, "[HealOnSelfPerTargetHit]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyInt cooldownOnHitMod = m_cooldownOnHitMod;
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -263,15 +248,13 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		{
 			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(cooldownOnHitMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyBool chaseHitActorMod = this.m_chaseHitActorMod;
-		string prefix9 = "[Chase Hit Target?]";
-		bool showBaseVal9 = flag;
-		bool baseVal9;
+		empty = str8 + PropDesc(cooldownOnHitMod, "[Cooldown Override (on charge ability) on Hit]", flag, baseVal8);
+		string str9 = empty;
+		AbilityModPropertyBool chaseHitActorMod = m_chaseHitActorMod;
+		int baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -280,12 +263,12 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 				}
 				break;
 			}
-			baseVal9 = claymoreCharge.m_chaseHitActor;
+			baseVal9 = (claymoreCharge.m_chaseHitActor ? 1 : 0);
 		}
 		else
 		{
-			baseVal9 = false;
+			baseVal9 = 0;
 		}
-		return str9 + base.PropDesc(chaseHitActorMod, prefix9, showBaseVal9, baseVal9);
+		return str9 + PropDesc(chaseHitActorMod, "[Chase Hit Target?]", flag, (byte)baseVal9 != 0);
 	}
 }

@@ -1,18 +1,144 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class FireborgReactLasers : GenericAbility_Container
 {
+	[Serializable]
+	public class HitEffectApplySetting
+	{
+		public bool m_firstNormal;
+
+		public bool m_secondNormal;
+
+		public bool m_firstSuperheated;
+
+		public bool m_secondSuperheated;
+
+		public bool ShouldApply(bool isFirst, bool superheated)
+		{
+			if (isFirst && !superheated)
+			{
+				if (m_firstNormal)
+				{
+					goto IL_008d;
+				}
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (1 == 0)
+				{
+					/*OpCode not supported: LdMemberToken*/;
+				}
+			}
+			if (!isFirst)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!superheated)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (m_secondNormal)
+					{
+						goto IL_008d;
+					}
+				}
+			}
+			if (isFirst)
+			{
+				while (true)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (superheated)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (m_firstSuperheated)
+					{
+						goto IL_008d;
+					}
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+			}
+			int result;
+			if (!isFirst)
+			{
+				while (true)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (superheated)
+				{
+					result = (m_secondSuperheated ? 1 : 0);
+					goto IL_008e;
+				}
+			}
+			result = 0;
+			goto IL_008e;
+			IL_008e:
+			return (byte)result != 0;
+			IL_008d:
+			result = 1;
+			goto IL_008e;
+		}
+	}
+
 	[Separator("On Hit Data - For Second Laser", "yellow")]
 	public OnHitAuthoredData m_onHitDataForSecondLaser;
 
 	[Separator("When to apply ignite and ground fire effects?", true)]
-	public FireborgReactLasers.HitEffectApplySetting m_ignitedApplySetting;
+	public HitEffectApplySetting m_ignitedApplySetting;
 
-	public FireborgReactLasers.HitEffectApplySetting m_groundFireApplySetting;
+	public HitEffectApplySetting m_groundFireApplySetting;
 
 	[Separator("Extra Shield", true)]
 	public int m_extraShieldIfLowHealth;
@@ -59,44 +185,44 @@ public class FireborgReactLasers : GenericAbility_Container
 	public override List<string> GetContextNamesForEditor()
 	{
 		List<string> contextNamesForEditor = base.GetContextNamesForEditor();
-		contextNamesForEditor.Add(Fireborg_SyncComponent.s_cvarSuperheated.\u0012());
+		contextNamesForEditor.Add(Fireborg_SyncComponent.s_cvarSuperheated.GetName());
 		return contextNamesForEditor;
 	}
 
 	public override string GetOnHitDataDesc()
 	{
-		return base.GetOnHitDataDesc() + "-- On Hit Data for Reaction --\n" + this.m_onHitDataForSecondLaser.GetInEditorDesc();
+		return base.GetOnHitDataDesc() + "-- On Hit Data for Reaction --\n" + m_onHitDataForSecondLaser.GetInEditorDesc();
 	}
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Fireborg_SyncComponent>();
-		this.m_myActionType = base.GetActionTypeOfAbility(this);
-		this.SetCachedFields();
+		m_syncComp = GetComponent<Fireborg_SyncComponent>();
+		m_myActionType = GetActionTypeOfAbility(this);
+		SetCachedFields();
 		base.SetupTargetersAndCachedVars();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		this.m_onHitDataForSecondLaser.AddTooltipTokens(tokens);
-		base.AddTokenInt(tokens, "ExtraShieldIfLowHealth", string.Empty, this.m_extraShieldIfLowHealth, false);
-		base.AddTokenInt(tokens, "LowHealthThresh", string.Empty, this.m_lowHealthThresh, false);
-		base.AddTokenInt(tokens, "ShieldPerHitReceivedForNextTurn", string.Empty, this.m_shieldPerHitReceivedForNextTurn, false);
-		base.AddTokenInt(tokens, "EarlyDepleteShieldOnNextTurn", string.Empty, this.m_earlyDepleteShieldOnNextTurn, false);
+		m_onHitDataForSecondLaser.AddTooltipTokens(tokens);
+		AddTokenInt(tokens, "ExtraShieldIfLowHealth", string.Empty, m_extraShieldIfLowHealth);
+		AddTokenInt(tokens, "LowHealthThresh", string.Empty, m_lowHealthThresh);
+		AddTokenInt(tokens, "ShieldPerHitReceivedForNextTurn", string.Empty, m_shieldPerHitReceivedForNextTurn);
+		AddTokenInt(tokens, "EarlyDepleteShieldOnNextTurn", string.Empty, m_earlyDepleteShieldOnNextTurn);
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedOnHitDataForSecondLaser = ((!(this.m_abilityMod != null)) ? this.m_onHitDataForSecondLaser : this.m_abilityMod.m_onHitDataForSecondLaserMod.\u001D(this.m_onHitDataForSecondLaser));
+		m_cachedOnHitDataForSecondLaser = ((!(m_abilityMod != null)) ? m_onHitDataForSecondLaser : m_abilityMod.m_onHitDataForSecondLaserMod._001D(m_onHitDataForSecondLaser));
 	}
 
 	public OnHitAuthoredData GetOnHitDataForSecondLaser()
 	{
 		OnHitAuthoredData result;
-		if (this.m_cachedOnHitDataForSecondLaser != null)
+		if (m_cachedOnHitDataForSecondLaser != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
@@ -105,15 +231,15 @@ public class FireborgReactLasers : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgReactLasers.GetOnHitDataForSecondLaser()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_cachedOnHitDataForSecondLaser;
+			result = m_cachedOnHitDataForSecondLaser;
 		}
 		else
 		{
-			result = this.m_onHitDataForSecondLaser;
+			result = m_onHitDataForSecondLaser;
 		}
 		return result;
 	}
@@ -121,9 +247,9 @@ public class FireborgReactLasers : GenericAbility_Container
 	public int GetExtraShieldIfLowHealth()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
@@ -132,15 +258,15 @@ public class FireborgReactLasers : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgReactLasers.GetExtraShieldIfLowHealth()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_extraShieldIfLowHealthMod.GetModifiedValue(this.m_extraShieldIfLowHealth);
+			result = m_abilityMod.m_extraShieldIfLowHealthMod.GetModifiedValue(m_extraShieldIfLowHealth);
 		}
 		else
 		{
-			result = this.m_extraShieldIfLowHealth;
+			result = m_extraShieldIfLowHealth;
 		}
 		return result;
 	}
@@ -148,9 +274,9 @@ public class FireborgReactLasers : GenericAbility_Container
 	public int GetLowHealthThresh()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -159,15 +285,15 @@ public class FireborgReactLasers : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgReactLasers.GetLowHealthThresh()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_lowHealthThreshMod.GetModifiedValue(this.m_lowHealthThresh);
+			result = m_abilityMod.m_lowHealthThreshMod.GetModifiedValue(m_lowHealthThresh);
 		}
 		else
 		{
-			result = this.m_lowHealthThresh;
+			result = m_lowHealthThresh;
 		}
 		return result;
 	}
@@ -175,9 +301,9 @@ public class FireborgReactLasers : GenericAbility_Container
 	public int GetShieldPerHitReceivedForNextTurn()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
@@ -186,15 +312,15 @@ public class FireborgReactLasers : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgReactLasers.GetShieldPerHitReceivedForNextTurn()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_shieldPerHitReceivedForNextTurnMod.GetModifiedValue(this.m_shieldPerHitReceivedForNextTurn);
+			result = m_abilityMod.m_shieldPerHitReceivedForNextTurnMod.GetModifiedValue(m_shieldPerHitReceivedForNextTurn);
 		}
 		else
 		{
-			result = this.m_shieldPerHitReceivedForNextTurn;
+			result = m_shieldPerHitReceivedForNextTurn;
 		}
 		return result;
 	}
@@ -202,9 +328,9 @@ public class FireborgReactLasers : GenericAbility_Container
 	public int GetEarlyDepleteShieldOnNextTurn()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -213,64 +339,64 @@ public class FireborgReactLasers : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgReactLasers.GetEarlyDepleteShieldOnNextTurn()).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			result = this.m_abilityMod.m_earlyDepleteShieldOnNextTurnMod.GetModifiedValue(this.m_earlyDepleteShieldOnNextTurn);
+			result = m_abilityMod.m_earlyDepleteShieldOnNextTurnMod.GetModifiedValue(m_earlyDepleteShieldOnNextTurn);
 		}
 		else
 		{
-			result = this.m_earlyDepleteShieldOnNextTurn;
+			result = m_earlyDepleteShieldOnNextTurn;
 		}
 		return result;
 	}
 
 	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
 	{
-		if (targetActor == caster && this.GetExtraShieldIfLowHealth() > 0)
+		if (!(targetActor == caster) || GetExtraShieldIfLowHealth() <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgReactLasers.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (caster.HitPoints < this.GetLowHealthThresh())
+			if (caster.HitPoints >= GetLowHealthThresh())
 			{
-				if (results.m_absorb >= 0)
+				return;
+			}
+			if (results.m_absorb >= 0)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (2)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
+					case 0:
 						break;
+					default:
+						results.m_absorb += GetExtraShieldIfLowHealth();
+						return;
 					}
-					results.m_absorb += this.GetExtraShieldIfLowHealth();
-				}
-				else
-				{
-					results.m_absorb = this.GetExtraShieldIfLowHealth();
 				}
 			}
+			results.m_absorb = GetExtraShieldIfLowHealth();
+			return;
 		}
 	}
 
 	public override string GetAccessoryTargeterNumberString(ActorData targetActor, AbilityTooltipSymbol symbolType, int baseValue)
 	{
-		if (this.m_groundFireApplySetting.ShouldApply(true, this.m_syncComp.InSuperheatMode()))
+		if (m_groundFireApplySetting.ShouldApply(true, m_syncComp.InSuperheatMode()))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -279,22 +405,22 @@ public class FireborgReactLasers : GenericAbility_Container
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgReactLasers.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			if (!this.m_syncComp.m_actorsInGroundFireOnTurnStart.Contains((uint)targetActor.ActorIndex))
+			if (!m_syncComp.m_actorsInGroundFireOnTurnStart.Contains((uint)targetActor.ActorIndex))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 					}
-					break;
 				}
-				return this.m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 			}
 		}
 		return null;
@@ -302,38 +428,38 @@ public class FireborgReactLasers : GenericAbility_Container
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		this.m_abilityMod = (abilityMod as AbilityMod_FireborgReactLasers);
+		m_abilityMod = (abilityMod as AbilityMod_FireborgReactLasers);
 	}
 
 	protected override void GenModImpl_ClearModRef()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 
 	public override void OnClientCombatPhasePlayDataReceived(List<ClientResolutionAction> resolutionActions, ActorData caster)
 	{
-		if (NetworkClient.active)
+		if (!NetworkClient.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgReactLasers.OnClientCombatPhasePlayDataReceived(List<ClientResolutionAction>, ActorData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			ClientResolutionAction clientResolutionAction = null;
 			ClientResolutionAction clientResolutionAction2 = null;
-			foreach (ClientResolutionAction clientResolutionAction3 in resolutionActions)
+			foreach (ClientResolutionAction resolutionAction in resolutionActions)
 			{
 				if (clientResolutionAction == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
@@ -342,9 +468,9 @@ public class FireborgReactLasers : GenericAbility_Container
 						}
 						break;
 					}
-					if (clientResolutionAction3.GetSourceAbilityActionType() == this.m_myActionType)
+					if (resolutionAction.GetSourceAbilityActionType() == m_myActionType)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
@@ -353,9 +479,9 @@ public class FireborgReactLasers : GenericAbility_Container
 							}
 							break;
 						}
-						if (clientResolutionAction3.GetCaster() == caster)
+						if (resolutionAction.GetCaster() == caster)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
@@ -364,9 +490,9 @@ public class FireborgReactLasers : GenericAbility_Container
 								}
 								break;
 							}
-							if (clientResolutionAction3.IsResolutionActionType(ResolutionActionType.EffectAnimation))
+							if (resolutionAction.IsResolutionActionType(ResolutionActionType.EffectAnimation))
 							{
-								for (;;)
+								while (true)
 								{
 									switch (5)
 									{
@@ -375,14 +501,14 @@ public class FireborgReactLasers : GenericAbility_Container
 									}
 									break;
 								}
-								clientResolutionAction = clientResolutionAction3;
+								clientResolutionAction = resolutionAction;
 							}
 						}
 					}
 				}
 				if (clientResolutionAction2 == null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
@@ -391,9 +517,9 @@ public class FireborgReactLasers : GenericAbility_Container
 						}
 						break;
 					}
-					if (clientResolutionAction3.HasReactionHitByCaster(caster))
+					if (resolutionAction.HasReactionHitByCaster(caster))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
@@ -402,65 +528,61 @@ public class FireborgReactLasers : GenericAbility_Container
 							}
 							break;
 						}
-						clientResolutionAction2 = clientResolutionAction3;
+						clientResolutionAction2 = resolutionAction;
 					}
 				}
 			}
-			if (clientResolutionAction != null)
+			if (clientResolutionAction == null)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				switch (2)
 				{
-					switch (2)
+				case 0:
+					continue;
+				}
+				if (clientResolutionAction2 == null)
+				{
+					return;
+				}
+				while (true)
+				{
+					switch (1)
 					{
 					case 0:
 						continue;
 					}
-					break;
-				}
-				if (clientResolutionAction2 != null)
-				{
-					for (;;)
+					int playOrderOfClientAction = TheatricsManager.Get().GetPlayOrderOfClientAction(clientResolutionAction, AbilityPriority.Combat_Damage);
+					int playOrderOfFirstDamagingHitOnActor = TheatricsManager.Get().GetPlayOrderOfFirstDamagingHitOnActor(caster, AbilityPriority.Combat_Damage);
+					if (playOrderOfFirstDamagingHitOnActor < 0)
 					{
-						switch (1)
+						return;
+					}
+					while (true)
+					{
+						switch (3)
 						{
 						case 0:
 							continue;
 						}
-						break;
-					}
-					int playOrderOfClientAction = TheatricsManager.Get().GetPlayOrderOfClientAction(clientResolutionAction, AbilityPriority.Combat_Damage);
-					int playOrderOfFirstDamagingHitOnActor = TheatricsManager.Get().GetPlayOrderOfFirstDamagingHitOnActor(caster, AbilityPriority.Combat_Damage);
-					if (playOrderOfFirstDamagingHitOnActor >= 0)
-					{
-						for (;;)
+						if (playOrderOfFirstDamagingHitOnActor >= playOrderOfClientAction)
 						{
-							switch (3)
+							return;
+						}
+						while (true)
+						{
+							switch (7)
 							{
 							case 0:
 								continue;
 							}
-							break;
-						}
-						if (playOrderOfFirstDamagingHitOnActor < playOrderOfClientAction)
-						{
-							for (;;)
+							clientResolutionAction.GetHitResults(out Dictionary<ActorData, ClientActorHitResults> actorHitResList, out Dictionary<Vector3, ClientPositionHitResults> posHitResList);
+							clientResolutionAction2.GetReactionHitResultsByCaster(caster, out Dictionary<ActorData, ClientActorHitResults> actorHitResList2, out Dictionary<Vector3, ClientPositionHitResults> posHitResList2);
+							if (actorHitResList != null && posHitResList != null)
 							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							Dictionary<ActorData, ClientActorHitResults> dictionary;
-							Dictionary<Vector3, ClientPositionHitResults> dictionary2;
-							clientResolutionAction.GetHitResults(out dictionary, out dictionary2);
-							Dictionary<ActorData, ClientActorHitResults> dictionary3;
-							Dictionary<Vector3, ClientPositionHitResults> dictionary4;
-							clientResolutionAction2.GetReactionHitResultsByCaster(caster, out dictionary3, out dictionary4);
-							if (dictionary != null && dictionary2 != null)
-							{
-								for (;;)
+								while (true)
 								{
 									switch (4)
 									{
@@ -469,9 +591,9 @@ public class FireborgReactLasers : GenericAbility_Container
 									}
 									break;
 								}
-								if (dictionary3 != null)
+								if (actorHitResList2 != null)
 								{
-									for (;;)
+									while (true)
 									{
 										switch (7)
 										{
@@ -480,18 +602,18 @@ public class FireborgReactLasers : GenericAbility_Container
 										}
 										break;
 									}
-									if (dictionary4 != null)
+									if (posHitResList2 != null)
 									{
-										List<ActorData> list = new List<ActorData>(dictionary.Keys);
-										List<Vector3> list2 = new List<Vector3>(dictionary2.Keys);
+										List<ActorData> list = new List<ActorData>(actorHitResList.Keys);
+										List<Vector3> list2 = new List<Vector3>(posHitResList.Keys);
 										using (List<ActorData>.Enumerator enumerator2 = list.GetEnumerator())
 										{
 											while (enumerator2.MoveNext())
 											{
-												ActorData key = enumerator2.Current;
-												if (dictionary3.ContainsKey(key))
+												ActorData current2 = enumerator2.Current;
+												if (actorHitResList2.ContainsKey(current2))
 												{
-													for (;;)
+													while (true)
 													{
 														switch (6)
 														{
@@ -500,14 +622,14 @@ public class FireborgReactLasers : GenericAbility_Container
 														}
 														break;
 													}
-													ClientActorHitResults value = dictionary[key];
-													dictionary[key] = dictionary3[key];
-													dictionary3[key] = value;
-													ClientActorHitResults clientActorHitResults = dictionary3[key];
-													ClientActorHitResults clientActorHitResults2 = dictionary[key];
-													if (this.m_syncComp.InSuperheatMode())
+													ClientActorHitResults value = actorHitResList[current2];
+													actorHitResList[current2] = actorHitResList2[current2];
+													actorHitResList2[current2] = value;
+													ClientActorHitResults clientActorHitResults = actorHitResList2[current2];
+													ClientActorHitResults clientActorHitResults2 = actorHitResList[current2];
+													if (m_syncComp.InSuperheatMode())
 													{
-														for (;;)
+														while (true)
 														{
 															switch (5)
 															{
@@ -516,9 +638,9 @@ public class FireborgReactLasers : GenericAbility_Container
 															}
 															break;
 														}
-														if (this.m_ignitedApplySetting.m_firstSuperheated && clientActorHitResults.GetNumEffectsToStart() < clientActorHitResults2.GetNumEffectsToStart())
+														if (m_ignitedApplySetting.m_firstSuperheated && clientActorHitResults.GetNumEffectsToStart() < clientActorHitResults2.GetNumEffectsToStart())
 														{
-															for (;;)
+															while (true)
 															{
 																switch (7)
 																{
@@ -532,9 +654,9 @@ public class FireborgReactLasers : GenericAbility_Container
 													}
 													else
 													{
-														if (!this.m_ignitedApplySetting.m_firstNormal)
+														if (!m_ignitedApplySetting.m_firstNormal)
 														{
-															for (;;)
+															while (true)
 															{
 																switch (4)
 																{
@@ -549,9 +671,9 @@ public class FireborgReactLasers : GenericAbility_Container
 																continue;
 															}
 														}
-														if (this.m_ignitedApplySetting.m_firstNormal)
+														if (m_ignitedApplySetting.m_firstNormal)
 														{
-															for (;;)
+															while (true)
 															{
 																switch (2)
 																{
@@ -562,7 +684,7 @@ public class FireborgReactLasers : GenericAbility_Container
 															}
 															if (clientActorHitResults.GetNumEffectsToStart() < clientActorHitResults2.GetNumEffectsToStart())
 															{
-																for (;;)
+																while (true)
 																{
 																	switch (1)
 																	{
@@ -577,7 +699,7 @@ public class FireborgReactLasers : GenericAbility_Container
 													}
 												}
 											}
-											for (;;)
+											while (true)
 											{
 												switch (2)
 												{
@@ -591,10 +713,10 @@ public class FireborgReactLasers : GenericAbility_Container
 										{
 											while (enumerator3.MoveNext())
 											{
-												Vector3 key2 = enumerator3.Current;
-												if (dictionary4.ContainsKey(key2))
+												Vector3 current3 = enumerator3.Current;
+												if (posHitResList2.ContainsKey(current3))
 												{
-													for (;;)
+													while (true)
 													{
 														switch (6)
 														{
@@ -603,155 +725,31 @@ public class FireborgReactLasers : GenericAbility_Container
 														}
 														break;
 													}
-													ClientPositionHitResults value2 = dictionary2[key2];
-													dictionary2[key2] = dictionary4[key2];
-													dictionary4[key2] = value2;
+													ClientPositionHitResults value2 = posHitResList[current3];
+													posHitResList[current3] = posHitResList2[current3];
+													posHitResList2[current3] = value2;
 												}
 											}
-											for (;;)
+											while (true)
 											{
 												switch (6)
 												{
+												default:
+													return;
 												case 0:
-													continue;
+													break;
 												}
-												break;
 											}
 										}
-										return;
 									}
 								}
 							}
-							Debug.LogError(base.GetType() + " has empty hit results when trying to swap them on client");
+							Debug.LogError(string.Concat(GetType(), " has empty hit results when trying to swap them on client"));
+							return;
 						}
 					}
 				}
 			}
-		}
-	}
-
-	[Serializable]
-	public class HitEffectApplySetting
-	{
-		public bool m_firstNormal;
-
-		public bool m_secondNormal;
-
-		public bool m_firstSuperheated;
-
-		public bool m_secondSuperheated;
-
-		public bool ShouldApply(bool isFirst, bool superheated)
-		{
-			if (isFirst && !superheated)
-			{
-				if (this.m_firstNormal)
-				{
-					goto IL_8D;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgReactLasers.HitEffectApplySetting.ShouldApply(bool, bool)).MethodHandle;
-				}
-			}
-			if (!isFirst)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!superheated)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_secondNormal)
-					{
-						goto IL_8D;
-					}
-				}
-			}
-			if (isFirst)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (superheated)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_firstSuperheated)
-					{
-						goto IL_8D;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-			}
-			int result;
-			if (!isFirst)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (superheated)
-				{
-					result = (this.m_secondSuperheated ? 1 : 0);
-					goto IL_8B;
-				}
-			}
-			result = 0;
-			IL_8B:
-			return result != 0;
-			IL_8D:
-			result = 1;
-			return result != 0;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 [RequireComponent(typeof(GUIText))]
@@ -8,6 +7,6 @@ public class GUIText_Color : MonoBehaviour
 
 	private void Awake()
 	{
-		base.GetComponent<GUIText>().material.color = this.labelColor;
+		GetComponent<GUIText>().material.color = labelColor;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UISkinBrowserProgressHandler : ISkinBrowserSelectHandler
@@ -13,22 +12,23 @@ public class UISkinBrowserProgressHandler : ISkinBrowserSelectHandler
 
 	public void OnSelect(UISkinBrowserPanel browserPanel, CharacterResourceLink selectedCharacter, CharacterVisualInfo selectedVisualInfo, bool isUnlocked)
 	{
-		if (UICashShopPanel.Get().IsVisible() && UICashShopPanel.Get().m_characterBrowser.GetCharacterType() == selectedCharacter.m_characterType)
+		if (!UICashShopPanel.Get().IsVisible() || UICashShopPanel.Get().m_characterBrowser.GetCharacterType() != selectedCharacter.m_characterType)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserProgressHandler.OnSelect(UISkinBrowserPanel, CharacterResourceLink, CharacterVisualInfo, bool)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
 			UICharacterStoreAndProgressWorldObjects.Get().LoadCharacterIntoSlot(selectedCharacter, 0, string.Empty, selectedVisualInfo, false, true);
+			return;
 		}
 	}
 

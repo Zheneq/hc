@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -6,60 +6,64 @@ public class PlayerPatternData
 {
 	public bool Unlocked;
 
-	public PlayerPatternData()
+	public List<PlayerColorData> Colors
 	{
-		this.Colors = new List<PlayerColorData>();
+		get;
+		set;
 	}
 
-	public List<PlayerColorData> Colors { get; set; }
+	public PlayerPatternData()
+	{
+		Colors = new List<PlayerColorData>();
+	}
 
 	public PlayerColorData GetColor(int i)
 	{
-		while (this.Colors.Count <= i)
+		while (Colors.Count <= i)
 		{
-			this.Colors.Add(new PlayerColorData());
+			Colors.Add(new PlayerColorData());
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
 			case 0:
 				continue;
 			}
-			break;
+			if (1 == 0)
+			{
+				/*OpCode not supported: LdMemberToken*/;
+			}
+			return Colors[i];
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerPatternData.GetColor(int)).MethodHandle;
-		}
-		return this.Colors[i];
 	}
 
 	public PlayerPatternData GetDeepCopy()
 	{
 		PlayerPatternData playerPatternData = new PlayerPatternData();
-		playerPatternData.Unlocked = this.Unlocked;
-		using (List<PlayerColorData>.Enumerator enumerator = this.Colors.GetEnumerator())
+		playerPatternData.Unlocked = Unlocked;
+		using (List<PlayerColorData>.Enumerator enumerator = Colors.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				PlayerColorData playerColorData = enumerator.Current;
-				playerPatternData.Colors.Add(playerColorData.GetDeepCopy());
+				PlayerColorData current = enumerator.Current;
+				playerPatternData.Colors.Add(current.GetDeepCopy());
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (true)
+					{
+						return playerPatternData;
+					}
+					/*OpCode not supported: LdMemberToken*/;
+					return playerPatternData;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerPatternData.GetDeepCopy()).MethodHandle;
 			}
 		}
-		return playerPatternData;
 	}
 }

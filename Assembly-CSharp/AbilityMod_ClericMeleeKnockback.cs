@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,49 +43,48 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ClericMeleeKnockback clericMeleeKnockback = targetAbility as ClericMeleeKnockback;
-		if (clericMeleeKnockback != null)
+		if (!(clericMeleeKnockback != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+			case 0:
+				continue;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericMeleeKnockback.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			AbilityMod.AddToken(tokens, this.m_minSeparationBetweenAoeAndCasterMod, "MinSeparationBetweenAoeAndCaster", string.Empty, clericMeleeKnockback.m_minSeparationBetweenAoeAndCaster, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxSeparationBetweenAoeAndCasterMod, "MaxSeparationBetweenAoeAndCaster", string.Empty, clericMeleeKnockback.m_maxSeparationBetweenAoeAndCaster, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_aoeRadiusMod, "AoeRadius", string.Empty, clericMeleeKnockback.m_aoeRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxTargetsMod, "MaxTargets", string.Empty, clericMeleeKnockback.m_maxTargets, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, clericMeleeKnockback.m_damageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_knockbackDistanceMod, "KnockbackDistance", string.Empty, clericMeleeKnockback.m_knockbackDistance, true, false, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_targetHitEffectMod, "TargetHitEffect", clericMeleeKnockback.m_targetHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_singleTargetHitEffectMod, "SingleTargetHitEffect", clericMeleeKnockback.m_targetHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_extraTechPointsPerHitWithAreaBuff, "ExtraEnergyPerHitWithAreaBuff", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_connectLaserWidthMod, "ConnectLaserWidth", string.Empty, clericMeleeKnockback.m_connectLaserWidth, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_connectLaserDamageMod, "ConnectLaserDamage", string.Empty, clericMeleeKnockback.m_connectLaserDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_connectLaserEnemyHitEffectMod, "ConnectLaserEnemyHitEffect", clericMeleeKnockback.m_connectLaserEnemyHitEffect, true);
+			AbilityMod.AddToken(tokens, m_minSeparationBetweenAoeAndCasterMod, "MinSeparationBetweenAoeAndCaster", string.Empty, clericMeleeKnockback.m_minSeparationBetweenAoeAndCaster);
+			AbilityMod.AddToken(tokens, m_maxSeparationBetweenAoeAndCasterMod, "MaxSeparationBetweenAoeAndCaster", string.Empty, clericMeleeKnockback.m_maxSeparationBetweenAoeAndCaster);
+			AbilityMod.AddToken(tokens, m_aoeRadiusMod, "AoeRadius", string.Empty, clericMeleeKnockback.m_aoeRadius);
+			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, clericMeleeKnockback.m_maxTargets);
+			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, clericMeleeKnockback.m_damageAmount);
+			AbilityMod.AddToken(tokens, m_knockbackDistanceMod, "KnockbackDistance", string.Empty, clericMeleeKnockback.m_knockbackDistance);
+			AbilityMod.AddToken_EffectMod(tokens, m_targetHitEffectMod, "TargetHitEffect", clericMeleeKnockback.m_targetHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_singleTargetHitEffectMod, "SingleTargetHitEffect", clericMeleeKnockback.m_targetHitEffect);
+			AbilityMod.AddToken(tokens, m_extraTechPointsPerHitWithAreaBuff, "ExtraEnergyPerHitWithAreaBuff", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_connectLaserWidthMod, "ConnectLaserWidth", string.Empty, clericMeleeKnockback.m_connectLaserWidth);
+			AbilityMod.AddToken(tokens, m_connectLaserDamageMod, "ConnectLaserDamage", string.Empty, clericMeleeKnockback.m_connectLaserDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_connectLaserEnemyHitEffectMod, "ConnectLaserEnemyHitEffect", clericMeleeKnockback.m_connectLaserEnemyHitEffect);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ClericMeleeKnockback clericMeleeKnockback = base.GetTargetAbilityOnAbilityData(abilityData) as ClericMeleeKnockback;
+		ClericMeleeKnockback clericMeleeKnockback = GetTargetAbilityOnAbilityData(abilityData) as ClericMeleeKnockback;
 		bool flag = clericMeleeKnockback != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyBool penetrateLineOfSightMod = this.m_penetrateLineOfSightMod;
-		string prefix = "[PenetrateLineOfSight]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyBool penetrateLineOfSightMod = m_penetrateLineOfSightMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -94,25 +93,23 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 				}
 				break;
 			}
-			if (!true)
+			if (1 == 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericMeleeKnockback.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
+				/*OpCode not supported: LdMemberToken*/;
 			}
-			baseVal = clericMeleeKnockback.m_penetrateLineOfSight;
+			baseVal = (clericMeleeKnockback.m_penetrateLineOfSight ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(penetrateLineOfSightMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat minSeparationBetweenAoeAndCasterMod = this.m_minSeparationBetweenAoeAndCasterMod;
-		string prefix2 = "[MinSeparationBetweenAoeAndCaster]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(penetrateLineOfSightMod, "[PenetrateLineOfSight]", flag, (byte)baseVal != 0);
+		string str2 = empty;
+		AbilityModPropertyFloat minSeparationBetweenAoeAndCasterMod = m_minSeparationBetweenAoeAndCasterMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
@@ -127,16 +124,14 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(minSeparationBetweenAoeAndCasterMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_maxSeparationBetweenAoeAndCasterMod, "[MaxSeparationBetweenAoeAndCaster]", flag, (!flag) ? 0f : clericMeleeKnockback.m_maxSeparationBetweenAoeAndCaster);
-		string str3 = text;
-		AbilityModPropertyFloat aoeRadiusMod = this.m_aoeRadiusMod;
-		string prefix3 = "[AoeRadius]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(minSeparationBetweenAoeAndCasterMod, "[MinSeparationBetweenAoeAndCaster]", flag, baseVal2);
+		empty += PropDesc(m_maxSeparationBetweenAoeAndCasterMod, "[MaxSeparationBetweenAoeAndCaster]", flag, (!flag) ? 0f : clericMeleeKnockback.m_maxSeparationBetweenAoeAndCaster);
+		string str3 = empty;
+		AbilityModPropertyFloat aoeRadiusMod = m_aoeRadiusMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -151,15 +146,13 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(aoeRadiusMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt maxTargetsMod = this.m_maxTargetsMod;
-		string prefix4 = "[MaxTargets]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(aoeRadiusMod, "[AoeRadius]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyInt maxTargetsMod = m_maxTargetsMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -174,15 +167,13 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(maxTargetsMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt damageAmountMod = this.m_damageAmountMod;
-		string prefix5 = "[DamageAmount]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(maxTargetsMod, "[MaxTargets]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyInt damageAmountMod = m_damageAmountMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -197,15 +188,13 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(damageAmountMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyFloat knockbackDistanceMod = this.m_knockbackDistanceMod;
-		string prefix6 = "[KnockbackDistance]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(damageAmountMod, "[DamageAmount]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyFloat knockbackDistanceMod = m_knockbackDistanceMod;
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -220,15 +209,13 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		{
 			baseVal6 = 0f;
 		}
-		text = str6 + base.PropDesc(knockbackDistanceMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyKnockbackType knockbackTypeMod = this.m_knockbackTypeMod;
-		string prefix7 = "[KnockbackType]";
-		bool showBaseVal7 = flag;
-		KnockbackType baseVal7;
+		empty = str6 + PropDesc(knockbackDistanceMod, "[KnockbackDistance]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyKnockbackType knockbackTypeMod = m_knockbackTypeMod;
+		int baseVal7;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -237,21 +224,19 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 				}
 				break;
 			}
-			baseVal7 = clericMeleeKnockback.m_knockbackType;
+			baseVal7 = (int)clericMeleeKnockback.m_knockbackType;
 		}
 		else
 		{
-			baseVal7 = KnockbackType.AwayFromSource;
+			baseVal7 = 4;
 		}
-		text = str7 + base.PropDesc(knockbackTypeMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyEffectInfo targetHitEffectMod = this.m_targetHitEffectMod;
-		string prefix8 = "[TargetHitEffect]";
-		bool showBaseVal8 = flag;
-		StandardEffectInfo baseVal8;
+		empty = str7 + PropDesc(knockbackTypeMod, "[KnockbackType]", flag, (KnockbackType)baseVal7);
+		string str8 = empty;
+		AbilityModPropertyEffectInfo targetHitEffectMod = m_targetHitEffectMod;
+		object baseVal8;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -266,16 +251,14 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		{
 			baseVal8 = null;
 		}
-		text = str8 + base.PropDesc(targetHitEffectMod, prefix8, showBaseVal8, baseVal8);
-		text += base.PropDesc(this.m_extraTechPointsPerHitWithAreaBuff, "[ExtraEnergyPerHitWithAreaBuff]", flag, 0);
-		string str9 = text;
-		AbilityModPropertyFloat connectLaserWidthMod = this.m_connectLaserWidthMod;
-		string prefix9 = "[ConnectLaserWidth]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(targetHitEffectMod, "[TargetHitEffect]", flag, (StandardEffectInfo)baseVal8);
+		empty += PropDesc(m_extraTechPointsPerHitWithAreaBuff, "[ExtraEnergyPerHitWithAreaBuff]", flag);
+		string str9 = empty;
+		AbilityModPropertyFloat connectLaserWidthMod = m_connectLaserWidthMod;
 		float baseVal9;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
@@ -290,15 +273,13 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		{
 			baseVal9 = 0f;
 		}
-		text = str9 + base.PropDesc(connectLaserWidthMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyInt connectLaserDamageMod = this.m_connectLaserDamageMod;
-		string prefix10 = "[ConnectLaserDamage]";
-		bool showBaseVal10 = flag;
+		empty = str9 + PropDesc(connectLaserWidthMod, "[ConnectLaserWidth]", flag, baseVal9);
+		string str10 = empty;
+		AbilityModPropertyInt connectLaserDamageMod = m_connectLaserDamageMod;
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
@@ -313,15 +294,13 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		{
 			baseVal10 = 0;
 		}
-		text = str10 + base.PropDesc(connectLaserDamageMod, prefix10, showBaseVal10, baseVal10);
-		string str11 = text;
-		AbilityModPropertyEffectInfo connectLaserEnemyHitEffectMod = this.m_connectLaserEnemyHitEffectMod;
-		string prefix11 = "[ConnectLaserEnemyHitEffect]";
-		bool showBaseVal11 = flag;
-		StandardEffectInfo baseVal11;
+		empty = str10 + PropDesc(connectLaserDamageMod, "[ConnectLaserDamage]", flag, baseVal10);
+		string str11 = empty;
+		AbilityModPropertyEffectInfo connectLaserEnemyHitEffectMod = m_connectLaserEnemyHitEffectMod;
+		object baseVal11;
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
@@ -336,6 +315,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		{
 			baseVal11 = null;
 		}
-		return str11 + base.PropDesc(connectLaserEnemyHitEffectMod, prefix11, showBaseVal11, baseVal11);
+		return str11 + PropDesc(connectLaserEnemyHitEffectMod, "[ConnectLaserEnemyHitEffect]", flag, (StandardEffectInfo)baseVal11);
 	}
 }
