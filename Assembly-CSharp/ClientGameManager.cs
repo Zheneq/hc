@@ -1106,16 +1106,17 @@ public class ClientGameManager : MonoBehaviour
 
 	private bool m_discordConnected => DiscordClientInterface.Get().IsConnected;
 
+	private Action<RegisterGameClientResponse> OnConnectedToLobbyServerHolder;
 	public event Action<RegisterGameClientResponse> OnConnectedToLobbyServer
 	{
 		add
 		{
-			Action<RegisterGameClientResponse> action = this.OnConnectedToLobbyServer;
+			Action<RegisterGameClientResponse> action = this.OnConnectedToLobbyServerHolder;
 			Action<RegisterGameClientResponse> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnConnectedToLobbyServer, (Action<RegisterGameClientResponse>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnConnectedToLobbyServerHolder, (Action<RegisterGameClientResponse>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1125,27 +1126,28 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<RegisterGameClientResponse> action = this.OnConnectedToLobbyServer;
+			Action<RegisterGameClientResponse> action = this.OnConnectedToLobbyServerHolder;
 			Action<RegisterGameClientResponse> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnConnectedToLobbyServer, (Action<RegisterGameClientResponse>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnConnectedToLobbyServerHolder, (Action<RegisterGameClientResponse>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<string> OnDisconnectedFromLobbyServerHolder;
 	public event Action<string> OnDisconnectedFromLobbyServer
 	{
 		add
 		{
-			Action<string> action = this.OnDisconnectedFromLobbyServer;
+			Action<string> action = this.OnDisconnectedFromLobbyServerHolder;
 			Action<string> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnDisconnectedFromLobbyServer, (Action<string>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnDisconnectedFromLobbyServerHolder, (Action<string>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1155,12 +1157,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<string> action = this.OnDisconnectedFromLobbyServer;
+			Action<string> action = this.OnDisconnectedFromLobbyServerHolder;
 			Action<string> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnDisconnectedFromLobbyServer, (Action<string>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnDisconnectedFromLobbyServerHolder, (Action<string>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1170,16 +1172,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<LobbyServerReadyNotification> OnLobbyServerReadyNotificationHolder;
 	public event Action<LobbyServerReadyNotification> OnLobbyServerReadyNotification
 	{
 		add
 		{
-			Action<LobbyServerReadyNotification> action = this.OnLobbyServerReadyNotification;
+			Action<LobbyServerReadyNotification> action = this.OnLobbyServerReadyNotificationHolder;
 			Action<LobbyServerReadyNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyServerReadyNotification, (Action<LobbyServerReadyNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyServerReadyNotificationHolder, (Action<LobbyServerReadyNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1189,12 +1192,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<LobbyServerReadyNotification> action = this.OnLobbyServerReadyNotification;
+			Action<LobbyServerReadyNotification> action = this.OnLobbyServerReadyNotificationHolder;
 			Action<LobbyServerReadyNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyServerReadyNotification, (Action<LobbyServerReadyNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyServerReadyNotificationHolder, (Action<LobbyServerReadyNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1204,16 +1207,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<LobbyStatusNotification> OnLobbyStatusNotificationHolder;
 	public event Action<LobbyStatusNotification> OnLobbyStatusNotification
 	{
 		add
 		{
-			Action<LobbyStatusNotification> action = this.OnLobbyStatusNotification;
+			Action<LobbyStatusNotification> action = this.OnLobbyStatusNotificationHolder;
 			Action<LobbyStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyStatusNotification, (Action<LobbyStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyStatusNotificationHolder, (Action<LobbyStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1223,27 +1227,28 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<LobbyStatusNotification> action = this.OnLobbyStatusNotification;
+			Action<LobbyStatusNotification> action = this.OnLobbyStatusNotificationHolder;
 			Action<LobbyStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyStatusNotification, (Action<LobbyStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyStatusNotificationHolder, (Action<LobbyStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<LobbyCustomGamesNotification> OnLobbyCustomGamesNotificationHolder;
 	public event Action<LobbyCustomGamesNotification> OnLobbyCustomGamesNotification
 	{
 		add
 		{
-			Action<LobbyCustomGamesNotification> action = this.OnLobbyCustomGamesNotification;
+			Action<LobbyCustomGamesNotification> action = this.OnLobbyCustomGamesNotificationHolder;
 			Action<LobbyCustomGamesNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyCustomGamesNotification, (Action<LobbyCustomGamesNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyCustomGamesNotificationHolder, (Action<LobbyCustomGamesNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1253,12 +1258,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<LobbyCustomGamesNotification> action = this.OnLobbyCustomGamesNotification;
+			Action<LobbyCustomGamesNotification> action = this.OnLobbyCustomGamesNotificationHolder;
 			Action<LobbyCustomGamesNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyCustomGamesNotification, (Action<LobbyCustomGamesNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyCustomGamesNotificationHolder, (Action<LobbyCustomGamesNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1268,18 +1273,20 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<MatchmakingQueueAssignmentNotification> OnQueueAssignmentNotificationHolder;
 	public event Action<MatchmakingQueueAssignmentNotification> OnQueueAssignmentNotification;
 
+	private Action<MatchmakingQueueStatusNotification> OnQueueStatusNotificationHolder;
 	public event Action<MatchmakingQueueStatusNotification> OnQueueStatusNotification
 	{
 		add
 		{
-			Action<MatchmakingQueueStatusNotification> action = this.OnQueueStatusNotification;
+			Action<MatchmakingQueueStatusNotification> action = this.OnQueueStatusNotificationHolder;
 			Action<MatchmakingQueueStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQueueStatusNotification, (Action<MatchmakingQueueStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQueueStatusNotificationHolder, (Action<MatchmakingQueueStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1289,12 +1296,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<MatchmakingQueueStatusNotification> action = this.OnQueueStatusNotification;
+			Action<MatchmakingQueueStatusNotification> action = this.OnQueueStatusNotificationHolder;
 			Action<MatchmakingQueueStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQueueStatusNotification, (Action<MatchmakingQueueStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQueueStatusNotificationHolder, (Action<MatchmakingQueueStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1304,27 +1311,28 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action OnQueueEnteredHolder;
 	public event Action OnQueueEntered
 	{
 		add
 		{
-			Action action = this.OnQueueEntered;
+			Action action = this.OnQueueEnteredHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQueueEntered, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQueueEnteredHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action action = this.OnQueueEntered;
+			Action action = this.OnQueueEnteredHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQueueEntered, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQueueEnteredHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1334,16 +1342,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action OnQueueLeftHolder;
 	public event Action OnQueueLeft
 	{
 		add
 		{
-			Action action = this.OnQueueLeft;
+			Action action = this.OnQueueLeftHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQueueLeft, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQueueLeftHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1353,12 +1362,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action action = this.OnQueueLeft;
+			Action action = this.OnQueueLeftHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQueueLeft, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQueueLeftHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1368,16 +1377,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<GameAssignmentNotification> OnGameAssignmentNotificationHolder;
 	public event Action<GameAssignmentNotification> OnGameAssignmentNotification
 	{
 		add
 		{
-			Action<GameAssignmentNotification> action = this.OnGameAssignmentNotification;
+			Action<GameAssignmentNotification> action = this.OnGameAssignmentNotificationHolder;
 			Action<GameAssignmentNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameAssignmentNotification, (Action<GameAssignmentNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameAssignmentNotificationHolder, (Action<GameAssignmentNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1387,12 +1397,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<GameAssignmentNotification> action = this.OnGameAssignmentNotification;
+			Action<GameAssignmentNotification> action = this.OnGameAssignmentNotificationHolder;
 			Action<GameAssignmentNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameAssignmentNotification, (Action<GameAssignmentNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameAssignmentNotificationHolder, (Action<GameAssignmentNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1402,16 +1412,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<GameInfoNotification> OnGameInfoNotificationHolder;
 	public event Action<GameInfoNotification> OnGameInfoNotification
 	{
 		add
 		{
-			Action<GameInfoNotification> action = this.OnGameInfoNotification;
+			Action<GameInfoNotification> action = this.OnGameInfoNotificationHolder;
 			Action<GameInfoNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameInfoNotification, (Action<GameInfoNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameInfoNotificationHolder, (Action<GameInfoNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1421,12 +1432,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<GameInfoNotification> action = this.OnGameInfoNotification;
+			Action<GameInfoNotification> action = this.OnGameInfoNotificationHolder;
 			Action<GameInfoNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameInfoNotification, (Action<GameInfoNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameInfoNotificationHolder, (Action<GameInfoNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1436,16 +1447,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<ServerLockState, ServerLockState> OnLobbyServerLockStateChangeHolder;
 	public event Action<ServerLockState, ServerLockState> OnLobbyServerLockStateChange
 	{
 		add
 		{
-			Action<ServerLockState, ServerLockState> action = this.OnLobbyServerLockStateChange;
+			Action<ServerLockState, ServerLockState> action = this.OnLobbyServerLockStateChangeHolder;
 			Action<ServerLockState, ServerLockState> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyServerLockStateChange, (Action<ServerLockState, ServerLockState>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyServerLockStateChangeHolder, (Action<ServerLockState, ServerLockState>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1455,12 +1467,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<ServerLockState, ServerLockState> action = this.OnLobbyServerLockStateChange;
+			Action<ServerLockState, ServerLockState> action = this.OnLobbyServerLockStateChangeHolder;
 			Action<ServerLockState, ServerLockState> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyServerLockStateChange, (Action<ServerLockState, ServerLockState>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyServerLockStateChangeHolder, (Action<ServerLockState, ServerLockState>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1470,27 +1482,28 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<ClientAccessLevel, ClientAccessLevel> OnLobbyServerClientAccessLevelChangeHolder;
 	public event Action<ClientAccessLevel, ClientAccessLevel> OnLobbyServerClientAccessLevelChange
 	{
 		add
 		{
-			Action<ClientAccessLevel, ClientAccessLevel> action = this.OnLobbyServerClientAccessLevelChange;
+			Action<ClientAccessLevel, ClientAccessLevel> action = this.OnLobbyServerClientAccessLevelChangeHolder;
 			Action<ClientAccessLevel, ClientAccessLevel> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyServerClientAccessLevelChange, (Action<ClientAccessLevel, ClientAccessLevel>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyServerClientAccessLevelChangeHolder, (Action<ClientAccessLevel, ClientAccessLevel>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<ClientAccessLevel, ClientAccessLevel> action = this.OnLobbyServerClientAccessLevelChange;
+			Action<ClientAccessLevel, ClientAccessLevel> action = this.OnLobbyServerClientAccessLevelChangeHolder;
 			Action<ClientAccessLevel, ClientAccessLevel> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyServerClientAccessLevelChange, (Action<ClientAccessLevel, ClientAccessLevel>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyServerClientAccessLevelChangeHolder, (Action<ClientAccessLevel, ClientAccessLevel>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1500,16 +1513,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<LobbyGameplayOverrides> OnLobbyGameplayOverridesChangeHolder;
 	public event Action<LobbyGameplayOverrides> OnLobbyGameplayOverridesChange
 	{
 		add
 		{
-			Action<LobbyGameplayOverrides> action = this.OnLobbyGameplayOverridesChange;
+			Action<LobbyGameplayOverrides> action = this.OnLobbyGameplayOverridesChangeHolder;
 			Action<LobbyGameplayOverrides> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyGameplayOverridesChange, (Action<LobbyGameplayOverrides>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyGameplayOverridesChangeHolder, (Action<LobbyGameplayOverrides>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1519,12 +1533,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<LobbyGameplayOverrides> action = this.OnLobbyGameplayOverridesChange;
+			Action<LobbyGameplayOverrides> action = this.OnLobbyGameplayOverridesChangeHolder;
 			Action<LobbyGameplayOverrides> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyGameplayOverridesChange, (Action<LobbyGameplayOverrides>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyGameplayOverridesChangeHolder, (Action<LobbyGameplayOverrides>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1534,16 +1548,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<CurrencyData> OnBankBalanceChangeHolder;
 	public event Action<CurrencyData> OnBankBalanceChange
 	{
 		add
 		{
-			Action<CurrencyData> action = this.OnBankBalanceChange;
+			Action<CurrencyData> action = this.OnBankBalanceChangeHolder;
 			Action<CurrencyData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnBankBalanceChange, (Action<CurrencyData>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnBankBalanceChangeHolder, (Action<CurrencyData>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1553,40 +1568,42 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<CurrencyData> action = this.OnBankBalanceChange;
+			Action<CurrencyData> action = this.OnBankBalanceChangeHolder;
 			Action<CurrencyData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnBankBalanceChange, (Action<CurrencyData>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnBankBalanceChangeHolder, (Action<CurrencyData>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<CharacterType, PlayerModData> OnModUnlockedHolder;
 	public event Action<CharacterType, PlayerModData> OnModUnlocked;
 
+	private Action<PersistedAccountData> OnAccountDataUpdatedHolder;
 	public event Action<PersistedAccountData> OnAccountDataUpdated
 	{
 		add
 		{
-			Action<PersistedAccountData> action = this.OnAccountDataUpdated;
+			Action<PersistedAccountData> action = this.OnAccountDataUpdatedHolder;
 			Action<PersistedAccountData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnAccountDataUpdated, (Action<PersistedAccountData>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnAccountDataUpdatedHolder, (Action<PersistedAccountData>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<PersistedAccountData> action = this.OnAccountDataUpdated;
+			Action<PersistedAccountData> action = this.OnAccountDataUpdatedHolder;
 			Action<PersistedAccountData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnAccountDataUpdated, (Action<PersistedAccountData>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnAccountDataUpdatedHolder, (Action<PersistedAccountData>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1596,16 +1613,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<PersistedCharacterData> OnCharacterDataUpdatedHolder;
 	public event Action<PersistedCharacterData> OnCharacterDataUpdated
 	{
 		add
 		{
-			Action<PersistedCharacterData> action = this.OnCharacterDataUpdated;
+			Action<PersistedCharacterData> action = this.OnCharacterDataUpdatedHolder;
 			Action<PersistedCharacterData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnCharacterDataUpdated, (Action<PersistedCharacterData>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnCharacterDataUpdatedHolder, (Action<PersistedCharacterData>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1615,12 +1633,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<PersistedCharacterData> action = this.OnCharacterDataUpdated;
+			Action<PersistedCharacterData> action = this.OnCharacterDataUpdatedHolder;
 			Action<PersistedCharacterData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnCharacterDataUpdated, (Action<PersistedCharacterData>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnCharacterDataUpdatedHolder, (Action<PersistedCharacterData>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1630,16 +1648,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<InventoryComponent> OnInventoryComponentUpdatedHolder;
 	public event Action<InventoryComponent> OnInventoryComponentUpdated
 	{
 		add
 		{
-			Action<InventoryComponent> action = this.OnInventoryComponentUpdated;
+			Action<InventoryComponent> action = this.OnInventoryComponentUpdatedHolder;
 			Action<InventoryComponent> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnInventoryComponentUpdated, (Action<InventoryComponent>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnInventoryComponentUpdatedHolder, (Action<InventoryComponent>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1649,12 +1668,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<InventoryComponent> action = this.OnInventoryComponentUpdated;
+			Action<InventoryComponent> action = this.OnInventoryComponentUpdatedHolder;
 			Action<InventoryComponent> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnInventoryComponentUpdated, (Action<InventoryComponent>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnInventoryComponentUpdatedHolder, (Action<InventoryComponent>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1664,27 +1683,28 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<ChatNotification> OnChatNotificationHolder;
 	public event Action<ChatNotification> OnChatNotification
 	{
 		add
 		{
-			Action<ChatNotification> action = this.OnChatNotification;
+			Action<ChatNotification> action = this.OnChatNotificationHolder;
 			Action<ChatNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnChatNotification, (Action<ChatNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnChatNotificationHolder, (Action<ChatNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<ChatNotification> action = this.OnChatNotification;
+			Action<ChatNotification> action = this.OnChatNotificationHolder;
 			Action<ChatNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnChatNotification, (Action<ChatNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnChatNotificationHolder, (Action<ChatNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1694,16 +1714,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<SetDevTagResponse> OnSetDevTagResponseHolder;
 	public event Action<SetDevTagResponse> OnSetDevTagResponse
 	{
 		add
 		{
-			Action<SetDevTagResponse> action = this.OnSetDevTagResponse;
+			Action<SetDevTagResponse> action = this.OnSetDevTagResponseHolder;
 			Action<SetDevTagResponse> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnSetDevTagResponse, (Action<SetDevTagResponse>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnSetDevTagResponseHolder, (Action<SetDevTagResponse>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1713,12 +1734,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<SetDevTagResponse> action = this.OnSetDevTagResponse;
+			Action<SetDevTagResponse> action = this.OnSetDevTagResponseHolder;
 			Action<SetDevTagResponse> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnSetDevTagResponse, (Action<SetDevTagResponse>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnSetDevTagResponseHolder, (Action<SetDevTagResponse>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1728,16 +1749,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<UseOverconResponse> OnUseOverconNotificationHolder;
 	public event Action<UseOverconResponse> OnUseOverconNotification
 	{
 		add
 		{
-			Action<UseOverconResponse> action = this.OnUseOverconNotification;
+			Action<UseOverconResponse> action = this.OnUseOverconNotificationHolder;
 			Action<UseOverconResponse> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnUseOverconNotification, (Action<UseOverconResponse>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnUseOverconNotificationHolder, (Action<UseOverconResponse>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1747,27 +1769,28 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<UseOverconResponse> action = this.OnUseOverconNotification;
+			Action<UseOverconResponse> action = this.OnUseOverconNotificationHolder;
 			Action<UseOverconResponse> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnUseOverconNotification, (Action<UseOverconResponse>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnUseOverconNotificationHolder, (Action<UseOverconResponse>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<UseGGPackNotification> OnUseGGPackNotificationHolder;
 	public event Action<UseGGPackNotification> OnUseGGPackNotification
 	{
 		add
 		{
-			Action<UseGGPackNotification> action = this.OnUseGGPackNotification;
+			Action<UseGGPackNotification> action = this.OnUseGGPackNotificationHolder;
 			Action<UseGGPackNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnUseGGPackNotification, (Action<UseGGPackNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnUseGGPackNotificationHolder, (Action<UseGGPackNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1777,12 +1800,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<UseGGPackNotification> action = this.OnUseGGPackNotification;
+			Action<UseGGPackNotification> action = this.OnUseGGPackNotificationHolder;
 			Action<UseGGPackNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnUseGGPackNotification, (Action<UseGGPackNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnUseGGPackNotificationHolder, (Action<UseGGPackNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1792,16 +1815,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action OnGroupUpdateNotificationHolder;
 	public event Action OnGroupUpdateNotification
 	{
 		add
 		{
-			Action action = this.OnGroupUpdateNotification;
+			Action action = this.OnGroupUpdateNotificationHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGroupUpdateNotification, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGroupUpdateNotificationHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1811,12 +1835,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action action = this.OnGroupUpdateNotification;
+			Action action = this.OnGroupUpdateNotificationHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGroupUpdateNotification, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGroupUpdateNotificationHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1826,16 +1850,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<FriendStatusNotification> OnFriendStatusNotificationHolder;
 	public event Action<FriendStatusNotification> OnFriendStatusNotification
 	{
 		add
 		{
-			Action<FriendStatusNotification> action = this.OnFriendStatusNotification;
+			Action<FriendStatusNotification> action = this.OnFriendStatusNotificationHolder;
 			Action<FriendStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnFriendStatusNotification, (Action<FriendStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFriendStatusNotificationHolder, (Action<FriendStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1845,27 +1870,28 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<FriendStatusNotification> action = this.OnFriendStatusNotification;
+			Action<FriendStatusNotification> action = this.OnFriendStatusNotificationHolder;
 			Action<FriendStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnFriendStatusNotification, (Action<FriendStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFriendStatusNotificationHolder, (Action<FriendStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<string> OnPlayerTitleChangeHolder;
 	public event Action<string> OnPlayerTitleChange
 	{
 		add
 		{
-			Action<string> action = this.OnPlayerTitleChange;
+			Action<string> action = this.OnPlayerTitleChangeHolder;
 			Action<string> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnPlayerTitleChange, (Action<string>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnPlayerTitleChangeHolder, (Action<string>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1875,27 +1901,28 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<string> action = this.OnPlayerTitleChange;
+			Action<string> action = this.OnPlayerTitleChangeHolder;
 			Action<string> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnPlayerTitleChange, (Action<string>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnPlayerTitleChangeHolder, (Action<string>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> OnPlayerBannerChangeHolder;
 	public event Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> OnPlayerBannerChange
 	{
 		add
 		{
-			Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> action = this.OnPlayerBannerChange;
+			Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> action = this.OnPlayerBannerChangeHolder;
 			Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnPlayerBannerChange, (Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnPlayerBannerChangeHolder, (Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1905,27 +1932,28 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> action = this.OnPlayerBannerChange;
+			Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> action = this.OnPlayerBannerChangeHolder;
 			Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnPlayerBannerChange, (Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnPlayerBannerChangeHolder, (Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<GameBalanceVars.PlayerRibbon> OnPlayerRibbonChangeHolder;
 	public event Action<GameBalanceVars.PlayerRibbon> OnPlayerRibbonChange
 	{
 		add
 		{
-			Action<GameBalanceVars.PlayerRibbon> action = this.OnPlayerRibbonChange;
+			Action<GameBalanceVars.PlayerRibbon> action = this.OnPlayerRibbonChangeHolder;
 			Action<GameBalanceVars.PlayerRibbon> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnPlayerRibbonChange, (Action<GameBalanceVars.PlayerRibbon>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnPlayerRibbonChangeHolder, (Action<GameBalanceVars.PlayerRibbon>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1935,12 +1963,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<GameBalanceVars.PlayerRibbon> action = this.OnPlayerRibbonChange;
+			Action<GameBalanceVars.PlayerRibbon> action = this.OnPlayerRibbonChangeHolder;
 			Action<GameBalanceVars.PlayerRibbon> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnPlayerRibbonChange, (Action<GameBalanceVars.PlayerRibbon>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnPlayerRibbonChangeHolder, (Action<GameBalanceVars.PlayerRibbon>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1950,16 +1978,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<int, bool> OnLoadingScreenBackgroundToggledHolder;
 	public event Action<int, bool> OnLoadingScreenBackgroundToggled
 	{
 		add
 		{
-			Action<int, bool> action = this.OnLoadingScreenBackgroundToggled;
+			Action<int, bool> action = this.OnLoadingScreenBackgroundToggledHolder;
 			Action<int, bool> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLoadingScreenBackgroundToggled, (Action<int, bool>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLoadingScreenBackgroundToggledHolder, (Action<int, bool>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1969,12 +1998,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<int, bool> action = this.OnLoadingScreenBackgroundToggled;
+			Action<int, bool> action = this.OnLoadingScreenBackgroundToggledHolder;
 			Action<int, bool> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLoadingScreenBackgroundToggled, (Action<int, bool>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLoadingScreenBackgroundToggledHolder, (Action<int, bool>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1984,27 +2013,28 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<QuestCompleteNotification> OnQuestCompleteNotificationHolder;
 	public event Action<QuestCompleteNotification> OnQuestCompleteNotification
 	{
 		add
 		{
-			Action<QuestCompleteNotification> action = this.OnQuestCompleteNotification;
+			Action<QuestCompleteNotification> action = this.OnQuestCompleteNotificationHolder;
 			Action<QuestCompleteNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQuestCompleteNotification, (Action<QuestCompleteNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQuestCompleteNotificationHolder, (Action<QuestCompleteNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<QuestCompleteNotification> action = this.OnQuestCompleteNotification;
+			Action<QuestCompleteNotification> action = this.OnQuestCompleteNotificationHolder;
 			Action<QuestCompleteNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQuestCompleteNotification, (Action<QuestCompleteNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQuestCompleteNotificationHolder, (Action<QuestCompleteNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2014,16 +2044,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<MatchResultsNotification> OnMatchResultsNotificationHolder;
 	public event Action<MatchResultsNotification> OnMatchResultsNotification
 	{
 		add
 		{
-			Action<MatchResultsNotification> action = this.OnMatchResultsNotification;
+			Action<MatchResultsNotification> action = this.OnMatchResultsNotificationHolder;
 			Action<MatchResultsNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnMatchResultsNotification, (Action<MatchResultsNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnMatchResultsNotificationHolder, (Action<MatchResultsNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2033,12 +2064,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<MatchResultsNotification> action = this.OnMatchResultsNotification;
+			Action<MatchResultsNotification> action = this.OnMatchResultsNotificationHolder;
 			Action<MatchResultsNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnMatchResultsNotification, (Action<MatchResultsNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnMatchResultsNotificationHolder, (Action<MatchResultsNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2048,16 +2079,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<int, int> OnChapterUnlockNotificationHolder;
 	public event Action<int, int> OnChapterUnlockNotification
 	{
 		add
 		{
-			Action<int, int> action = this.OnChapterUnlockNotification;
+			Action<int, int> action = this.OnChapterUnlockNotificationHolder;
 			Action<int, int> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnChapterUnlockNotification, (Action<int, int>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnChapterUnlockNotificationHolder, (Action<int, int>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2067,12 +2099,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<int, int> action = this.OnChapterUnlockNotification;
+			Action<int, int> action = this.OnChapterUnlockNotificationHolder;
 			Action<int, int> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnChapterUnlockNotification, (Action<int, int>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnChapterUnlockNotificationHolder, (Action<int, int>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2082,27 +2114,28 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<ServerQueueConfigurationUpdateNotification> OnServerQueueConfigurationUpdateNotificationHolder;
 	public event Action<ServerQueueConfigurationUpdateNotification> OnServerQueueConfigurationUpdateNotification
 	{
 		add
 		{
-			Action<ServerQueueConfigurationUpdateNotification> action = this.OnServerQueueConfigurationUpdateNotification;
+			Action<ServerQueueConfigurationUpdateNotification> action = this.OnServerQueueConfigurationUpdateNotificationHolder;
 			Action<ServerQueueConfigurationUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnServerQueueConfigurationUpdateNotification, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnServerQueueConfigurationUpdateNotificationHolder, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<ServerQueueConfigurationUpdateNotification> action = this.OnServerQueueConfigurationUpdateNotification;
+			Action<ServerQueueConfigurationUpdateNotification> action = this.OnServerQueueConfigurationUpdateNotificationHolder;
 			Action<ServerQueueConfigurationUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnServerQueueConfigurationUpdateNotification, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnServerQueueConfigurationUpdateNotificationHolder, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2112,16 +2145,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<SeasonStatusNotification> OnSeasonCompleteNotificationHolder;
 	public event Action<SeasonStatusNotification> OnSeasonCompleteNotification
 	{
 		add
 		{
-			Action<SeasonStatusNotification> action = this.OnSeasonCompleteNotification;
+			Action<SeasonStatusNotification> action = this.OnSeasonCompleteNotificationHolder;
 			Action<SeasonStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnSeasonCompleteNotification, (Action<SeasonStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnSeasonCompleteNotificationHolder, (Action<SeasonStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2131,12 +2165,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<SeasonStatusNotification> action = this.OnSeasonCompleteNotification;
+			Action<SeasonStatusNotification> action = this.OnSeasonCompleteNotificationHolder;
 			Action<SeasonStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnSeasonCompleteNotification, (Action<SeasonStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnSeasonCompleteNotificationHolder, (Action<SeasonStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2146,18 +2180,20 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<int, int> OnChapterCompleteNotificationHolder;
 	public event Action<int, int> OnChapterCompleteNotification;
 
+	private Action<FactionCompetitionNotification> OnFactionCompetitionNotificationHolder;
 	public event Action<FactionCompetitionNotification> OnFactionCompetitionNotification
 	{
 		add
 		{
-			Action<FactionCompetitionNotification> action = this.OnFactionCompetitionNotification;
+			Action<FactionCompetitionNotification> action = this.OnFactionCompetitionNotificationHolder;
 			Action<FactionCompetitionNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnFactionCompetitionNotification, (Action<FactionCompetitionNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFactionCompetitionNotificationHolder, (Action<FactionCompetitionNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2167,12 +2203,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<FactionCompetitionNotification> action = this.OnFactionCompetitionNotification;
+			Action<FactionCompetitionNotification> action = this.OnFactionCompetitionNotificationHolder;
 			Action<FactionCompetitionNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnFactionCompetitionNotification, (Action<FactionCompetitionNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFactionCompetitionNotificationHolder, (Action<FactionCompetitionNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2182,16 +2218,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<TrustBoostUsedNotification> OnTrustBoostUsedNotificationHolder;
 	public event Action<TrustBoostUsedNotification> OnTrustBoostUsedNotification
 	{
 		add
 		{
-			Action<TrustBoostUsedNotification> action = this.OnTrustBoostUsedNotification;
+			Action<TrustBoostUsedNotification> action = this.OnTrustBoostUsedNotificationHolder;
 			Action<TrustBoostUsedNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnTrustBoostUsedNotification, (Action<TrustBoostUsedNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnTrustBoostUsedNotificationHolder, (Action<TrustBoostUsedNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2201,38 +2238,39 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<TrustBoostUsedNotification> action = this.OnTrustBoostUsedNotification;
+			Action<TrustBoostUsedNotification> action = this.OnTrustBoostUsedNotificationHolder;
 			Action<TrustBoostUsedNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnTrustBoostUsedNotification, (Action<TrustBoostUsedNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnTrustBoostUsedNotificationHolder, (Action<TrustBoostUsedNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<PlayerFactionContributionChangeNotification> OnPlayerFactionContributionChangeNotificationHolder;
 	public event Action<PlayerFactionContributionChangeNotification> OnPlayerFactionContributionChangeNotification
 	{
 		add
 		{
-			Action<PlayerFactionContributionChangeNotification> action = this.OnPlayerFactionContributionChangeNotification;
+			Action<PlayerFactionContributionChangeNotification> action = this.OnPlayerFactionContributionChangeNotificationHolder;
 			Action<PlayerFactionContributionChangeNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnPlayerFactionContributionChangeNotification, (Action<PlayerFactionContributionChangeNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnPlayerFactionContributionChangeNotificationHolder, (Action<PlayerFactionContributionChangeNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<PlayerFactionContributionChangeNotification> action = this.OnPlayerFactionContributionChangeNotification;
+			Action<PlayerFactionContributionChangeNotification> action = this.OnPlayerFactionContributionChangeNotificationHolder;
 			Action<PlayerFactionContributionChangeNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnPlayerFactionContributionChangeNotification, (Action<PlayerFactionContributionChangeNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnPlayerFactionContributionChangeNotificationHolder, (Action<PlayerFactionContributionChangeNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2242,16 +2280,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<FactionLoginRewardNotification> OnFactionLoginRewardNotificationHolder;
 	public event Action<FactionLoginRewardNotification> OnFactionLoginRewardNotification
 	{
 		add
 		{
-			Action<FactionLoginRewardNotification> action = this.OnFactionLoginRewardNotification;
+			Action<FactionLoginRewardNotification> action = this.OnFactionLoginRewardNotificationHolder;
 			Action<FactionLoginRewardNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnFactionLoginRewardNotification, (Action<FactionLoginRewardNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFactionLoginRewardNotificationHolder, (Action<FactionLoginRewardNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2261,27 +2300,28 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<FactionLoginRewardNotification> action = this.OnFactionLoginRewardNotification;
+			Action<FactionLoginRewardNotification> action = this.OnFactionLoginRewardNotificationHolder;
 			Action<FactionLoginRewardNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnFactionLoginRewardNotification, (Action<FactionLoginRewardNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFactionLoginRewardNotificationHolder, (Action<FactionLoginRewardNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<QuestProgress[]> OnQuestProgressChangedHolder;
 	public event Action<QuestProgress[]> OnQuestProgressChanged
 	{
 		add
 		{
-			Action<QuestProgress[]> action = this.OnQuestProgressChanged;
+			Action<QuestProgress[]> action = this.OnQuestProgressChangedHolder;
 			Action<QuestProgress[]> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQuestProgressChanged, (Action<QuestProgress[]>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQuestProgressChangedHolder, (Action<QuestProgress[]>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2291,12 +2331,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<QuestProgress[]> action = this.OnQuestProgressChanged;
+			Action<QuestProgress[]> action = this.OnQuestProgressChangedHolder;
 			Action<QuestProgress[]> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQuestProgressChanged, (Action<QuestProgress[]>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQuestProgressChangedHolder, (Action<QuestProgress[]>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2306,16 +2346,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<LobbyAlertMissionDataNotification> OnAlertMissionDataChangeHolder;
 	public event Action<LobbyAlertMissionDataNotification> OnAlertMissionDataChange
 	{
 		add
 		{
-			Action<LobbyAlertMissionDataNotification> action = this.OnAlertMissionDataChange;
+			Action<LobbyAlertMissionDataNotification> action = this.OnAlertMissionDataChangeHolder;
 			Action<LobbyAlertMissionDataNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnAlertMissionDataChange, (Action<LobbyAlertMissionDataNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnAlertMissionDataChangeHolder, (Action<LobbyAlertMissionDataNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2325,12 +2366,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<LobbyAlertMissionDataNotification> action = this.OnAlertMissionDataChange;
+			Action<LobbyAlertMissionDataNotification> action = this.OnAlertMissionDataChangeHolder;
 			Action<LobbyAlertMissionDataNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnAlertMissionDataChange, (Action<LobbyAlertMissionDataNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnAlertMissionDataChangeHolder, (Action<LobbyAlertMissionDataNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2340,27 +2381,28 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+	private Action<Dictionary<int, SeasonChapterQuests>> OnSeasonChapterQuestsChangeHolder;
 	public event Action<Dictionary<int, SeasonChapterQuests>> OnSeasonChapterQuestsChange
 	{
 		add
 		{
-			Action<Dictionary<int, SeasonChapterQuests>> action = this.OnSeasonChapterQuestsChange;
+			Action<Dictionary<int, SeasonChapterQuests>> action = this.OnSeasonChapterQuestsChangeHolder;
 			Action<Dictionary<int, SeasonChapterQuests>> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnSeasonChapterQuestsChange, (Action<Dictionary<int, SeasonChapterQuests>>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnSeasonChapterQuestsChangeHolder, (Action<Dictionary<int, SeasonChapterQuests>>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<Dictionary<int, SeasonChapterQuests>> action = this.OnSeasonChapterQuestsChange;
+			Action<Dictionary<int, SeasonChapterQuests>> action = this.OnSeasonChapterQuestsChangeHolder;
 			Action<Dictionary<int, SeasonChapterQuests>> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnSeasonChapterQuestsChange, (Action<Dictionary<int, SeasonChapterQuests>>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnSeasonChapterQuestsChangeHolder, (Action<Dictionary<int, SeasonChapterQuests>>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -2378,39 +2420,39 @@ public class ClientGameManager : MonoBehaviour
 			{
 			};
 		}
-		this.OnConnectedToLobbyServer = _003C_003Ef__am_0024cache9;
+		this.OnConnectedToLobbyServerHolder = _003C_003Ef__am_0024cache9;
 		if (_003C_003Ef__am_0024cacheA == null)
 		{
 			_003C_003Ef__am_0024cacheA = delegate
 			{
 			};
 		}
-		this.OnDisconnectedFromLobbyServer = _003C_003Ef__am_0024cacheA;
+		this.OnDisconnectedFromLobbyServerHolder = _003C_003Ef__am_0024cacheA;
 		if (_003C_003Ef__am_0024cacheB == null)
 		{
 			_003C_003Ef__am_0024cacheB = delegate
 			{
 			};
 		}
-		this.OnLobbyServerReadyNotification = _003C_003Ef__am_0024cacheB;
+		this.OnLobbyServerReadyNotificationHolder = _003C_003Ef__am_0024cacheB;
 		if (_003C_003Ef__am_0024cacheC == null)
 		{
 			_003C_003Ef__am_0024cacheC = delegate
 			{
 			};
 		}
-		this.OnLobbyStatusNotification = _003C_003Ef__am_0024cacheC;
+		this.OnLobbyStatusNotificationHolder = _003C_003Ef__am_0024cacheC;
 		if (_003C_003Ef__am_0024cacheD == null)
 		{
 			_003C_003Ef__am_0024cacheD = delegate
 			{
 			};
 		}
-		this.OnLobbyCustomGamesNotification = _003C_003Ef__am_0024cacheD;
-		this.OnQueueAssignmentNotification = delegate
+		this.OnLobbyCustomGamesNotificationHolder = _003C_003Ef__am_0024cacheD;
+		this.OnQueueAssignmentNotificationHolder = delegate
 		{
 		};
-		this.OnQueueStatusNotification = delegate
+		this.OnQueueStatusNotificationHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache10 == null)
@@ -2419,43 +2461,43 @@ public class ClientGameManager : MonoBehaviour
 			{
 			};
 		}
-		this.OnQueueEntered = _003C_003Ef__am_0024cache10;
+		this.OnQueueEnteredHolder = _003C_003Ef__am_0024cache10;
 		if (_003C_003Ef__am_0024cache11 == null)
 		{
 			_003C_003Ef__am_0024cache11 = delegate
 			{
 			};
 		}
-		this.OnQueueLeft = _003C_003Ef__am_0024cache11;
+		this.OnQueueLeftHolder = _003C_003Ef__am_0024cache11;
 		if (_003C_003Ef__am_0024cache12 == null)
 		{
 			_003C_003Ef__am_0024cache12 = delegate
 			{
 			};
 		}
-		this.OnGameAssignmentNotification = _003C_003Ef__am_0024cache12;
+		this.OnGameAssignmentNotificationHolder = _003C_003Ef__am_0024cache12;
 		if (_003C_003Ef__am_0024cache13 == null)
 		{
 			_003C_003Ef__am_0024cache13 = delegate
 			{
 			};
 		}
-		this.OnGameInfoNotification = _003C_003Ef__am_0024cache13;
+		this.OnGameInfoNotificationHolder = _003C_003Ef__am_0024cache13;
 		if (_003C_003Ef__am_0024cache14 == null)
 		{
 			_003C_003Ef__am_0024cache14 = delegate
 			{
 			};
 		}
-		this.OnLobbyServerLockStateChange = _003C_003Ef__am_0024cache14;
+		this.OnLobbyServerLockStateChangeHolder = _003C_003Ef__am_0024cache14;
 		if (_003C_003Ef__am_0024cache15 == null)
 		{
 			_003C_003Ef__am_0024cache15 = delegate
 			{
 			};
 		}
-		this.OnLobbyServerClientAccessLevelChange = _003C_003Ef__am_0024cache15;
-		this.OnLobbyGameplayOverridesChange = delegate
+		this.OnLobbyServerClientAccessLevelChangeHolder = _003C_003Ef__am_0024cache15;
+		this.OnLobbyGameplayOverridesChangeHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache17 == null)
@@ -2464,50 +2506,50 @@ public class ClientGameManager : MonoBehaviour
 			{
 			};
 		}
-		this.OnBankBalanceChange = _003C_003Ef__am_0024cache17;
+		this.OnBankBalanceChangeHolder = _003C_003Ef__am_0024cache17;
 		if (_003C_003Ef__am_0024cache18 == null)
 		{
 			_003C_003Ef__am_0024cache18 = delegate
 			{
 			};
 		}
-		this.OnModUnlocked = _003C_003Ef__am_0024cache18;
+		this.OnModUnlockedHolder = _003C_003Ef__am_0024cache18;
 		if (_003C_003Ef__am_0024cache19 == null)
 		{
 			_003C_003Ef__am_0024cache19 = delegate
 			{
 			};
 		}
-		this.OnAccountDataUpdated = _003C_003Ef__am_0024cache19;
+		this.OnAccountDataUpdatedHolder = _003C_003Ef__am_0024cache19;
 		if (_003C_003Ef__am_0024cache1A == null)
 		{
 			_003C_003Ef__am_0024cache1A = delegate
 			{
 			};
 		}
-		this.OnCharacterDataUpdated = _003C_003Ef__am_0024cache1A;
+		this.OnCharacterDataUpdatedHolder = _003C_003Ef__am_0024cache1A;
 		if (_003C_003Ef__am_0024cache1B == null)
 		{
 			_003C_003Ef__am_0024cache1B = delegate
 			{
 			};
 		}
-		this.OnInventoryComponentUpdated = _003C_003Ef__am_0024cache1B;
+		this.OnInventoryComponentUpdatedHolder = _003C_003Ef__am_0024cache1B;
 		if (_003C_003Ef__am_0024cache1C == null)
 		{
 			_003C_003Ef__am_0024cache1C = delegate
 			{
 			};
 		}
-		this.OnChatNotification = _003C_003Ef__am_0024cache1C;
+		this.OnChatNotificationHolder = _003C_003Ef__am_0024cache1C;
 		if (_003C_003Ef__am_0024cache1D == null)
 		{
 			_003C_003Ef__am_0024cache1D = delegate
 			{
 			};
 		}
-		this.OnSetDevTagResponse = _003C_003Ef__am_0024cache1D;
-		this.OnUseOverconNotification = delegate
+		this.OnSetDevTagResponseHolder = _003C_003Ef__am_0024cache1D;
+		this.OnUseOverconNotificationHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache1F == null)
@@ -2516,36 +2558,36 @@ public class ClientGameManager : MonoBehaviour
 			{
 			};
 		}
-		this.OnUseGGPackNotification = _003C_003Ef__am_0024cache1F;
+		this.OnUseGGPackNotificationHolder = _003C_003Ef__am_0024cache1F;
 		if (_003C_003Ef__am_0024cache20 == null)
 		{
 			_003C_003Ef__am_0024cache20 = delegate
 			{
 			};
 		}
-		this.OnGroupUpdateNotification = _003C_003Ef__am_0024cache20;
+		this.OnGroupUpdateNotificationHolder = _003C_003Ef__am_0024cache20;
 		if (_003C_003Ef__am_0024cache21 == null)
 		{
 			_003C_003Ef__am_0024cache21 = delegate
 			{
 			};
 		}
-		this.OnFriendStatusNotification = _003C_003Ef__am_0024cache21;
+		this.OnFriendStatusNotificationHolder = _003C_003Ef__am_0024cache21;
 		if (_003C_003Ef__am_0024cache22 == null)
 		{
 			_003C_003Ef__am_0024cache22 = delegate
 			{
 			};
 		}
-		this.OnPlayerTitleChange = _003C_003Ef__am_0024cache22;
+		this.OnPlayerTitleChangeHolder = _003C_003Ef__am_0024cache22;
 		if (_003C_003Ef__am_0024cache23 == null)
 		{
 			_003C_003Ef__am_0024cache23 = delegate
 			{
 			};
 		}
-		this.OnPlayerBannerChange = _003C_003Ef__am_0024cache23;
-		this.OnPlayerRibbonChange = delegate
+		this.OnPlayerBannerChangeHolder = _003C_003Ef__am_0024cache23;
+		this.OnPlayerRibbonChangeHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache25 == null)
@@ -2554,8 +2596,8 @@ public class ClientGameManager : MonoBehaviour
 			{
 			};
 		}
-		this.OnLoadingScreenBackgroundToggled = _003C_003Ef__am_0024cache25;
-		this.OnQuestCompleteNotification = delegate
+		this.OnLoadingScreenBackgroundToggledHolder = _003C_003Ef__am_0024cache25;
+		this.OnQuestCompleteNotificationHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache27 == null)
@@ -2564,35 +2606,35 @@ public class ClientGameManager : MonoBehaviour
 			{
 			};
 		}
-		this.OnMatchResultsNotification = _003C_003Ef__am_0024cache27;
+		this.OnMatchResultsNotificationHolder = _003C_003Ef__am_0024cache27;
 		if (_003C_003Ef__am_0024cache28 == null)
 		{
 			_003C_003Ef__am_0024cache28 = delegate
 			{
 			};
 		}
-		this.OnChapterUnlockNotification = _003C_003Ef__am_0024cache28;
+		this.OnChapterUnlockNotificationHolder = _003C_003Ef__am_0024cache28;
 		if (_003C_003Ef__am_0024cache29 == null)
 		{
 			_003C_003Ef__am_0024cache29 = delegate
 			{
 			};
 		}
-		this.OnServerQueueConfigurationUpdateNotification = _003C_003Ef__am_0024cache29;
+		this.OnServerQueueConfigurationUpdateNotificationHolder = _003C_003Ef__am_0024cache29;
 		if (_003C_003Ef__am_0024cache2A == null)
 		{
 			_003C_003Ef__am_0024cache2A = delegate
 			{
 			};
 		}
-		this.OnSeasonCompleteNotification = _003C_003Ef__am_0024cache2A;
-		this.OnChapterCompleteNotification = delegate
+		this.OnSeasonCompleteNotificationHolder = _003C_003Ef__am_0024cache2A;
+		this.OnChapterCompleteNotificationHolder = delegate
 		{
 		};
-		this.OnFactionCompetitionNotification = delegate
+		this.OnFactionCompetitionNotificationHolder = delegate
 		{
 		};
-		this.OnTrustBoostUsedNotification = delegate
+		this.OnTrustBoostUsedNotificationHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache2E == null)
@@ -2601,8 +2643,8 @@ public class ClientGameManager : MonoBehaviour
 			{
 			};
 		}
-		this.OnPlayerFactionContributionChangeNotification = _003C_003Ef__am_0024cache2E;
-		this.OnFactionLoginRewardNotification = delegate
+		this.OnPlayerFactionContributionChangeNotificationHolder = _003C_003Ef__am_0024cache2E;
+		this.OnFactionLoginRewardNotificationHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache30 == null)
@@ -2611,11 +2653,11 @@ public class ClientGameManager : MonoBehaviour
 			{
 			};
 		}
-		this.OnQuestProgressChanged = _003C_003Ef__am_0024cache30;
-		this.OnAlertMissionDataChange = delegate
+		this.OnQuestProgressChangedHolder = _003C_003Ef__am_0024cache30;
+		this.OnAlertMissionDataChangeHolder = delegate
 		{
 		};
-		this.OnSeasonChapterQuestsChange = delegate
+		this.OnSeasonChapterQuestsChangeHolder = delegate
 		{
 		};
 		OurQueueEntryTime = DateTime.MinValue;
@@ -2895,7 +2937,7 @@ public class ClientGameManager : MonoBehaviour
 			{
 				foreach (QuestCompleteNotification loginQuestCompleteNotification in LoginQuestCompleteNotifications)
 				{
-					this.OnQuestCompleteNotification(loginQuestCompleteNotification);
+					this.OnQuestCompleteNotificationHolder(loginQuestCompleteNotification);
 				}
 				LoginQuestCompleteNotifications.Clear();
 			}
@@ -4438,7 +4480,7 @@ public class ClientGameManager : MonoBehaviour
 	private void HandleLobbyCustomGamesNotification(LobbyCustomGamesNotification notification)
 	{
 		CustomGameInfos = notification.CustomGameInfos;
-		this.OnLobbyCustomGamesNotification(notification);
+		this.OnLobbyCustomGamesNotificationHolder(notification);
 	}
 
 	private void HandleGroupUpdateNotification(GroupUpdateNotification notification)
@@ -4565,7 +4607,7 @@ public class ClientGameManager : MonoBehaviour
 		}
 		goto IL_04ad;
 		IL_04ad:
-		this.OnGroupUpdateNotification();
+		this.OnGroupUpdateNotificationHolder();
 		return;
 		IL_0274:
 		characterSelectSceneStateParameters.SelectedEnemyBotDifficulty = (int)notification.EnemyDifficulty;
@@ -4594,22 +4636,22 @@ public class ClientGameManager : MonoBehaviour
 
 	private void HandleGGPackUsedNotification(UseGGPackNotification notification)
 	{
-		this.OnUseGGPackNotification(notification);
+		this.OnUseGGPackNotificationHolder(notification);
 	}
 
 	private void HandleChatNotification(ChatNotification notification)
 	{
-		this.OnChatNotification(notification);
+		this.OnChatNotificationHolder(notification);
 	}
 
 	private void HandleOnSetDevTagNotification(SetDevTagResponse response)
 	{
-		this.OnSetDevTagResponse(response);
+		this.OnSetDevTagResponseHolder(response);
 	}
 
 	private void HandleUseOverconNotification(UseOverconResponse notification)
 	{
-		this.OnUseOverconNotification(notification);
+		this.OnUseOverconNotificationHolder(notification);
 	}
 
 	public void HandleFriendStatusNotification(FriendStatusNotification notification)
@@ -4648,7 +4690,7 @@ public class ClientGameManager : MonoBehaviour
 		{
 			FriendList = notification.FriendList;
 		}
-		this.OnFriendStatusNotification(notification);
+		this.OnFriendStatusNotificationHolder(notification);
 	}
 
 	private void SendGameInviteConfirmationResponse(bool accepted, GameInviteConfirmationRequest request)
@@ -4861,7 +4903,7 @@ public class ClientGameManager : MonoBehaviour
 		if (!response.Success)
 		{
 			DisconnectFromLobbyServer();
-			this.OnConnectedToLobbyServer(response);
+			this.OnConnectedToLobbyServerHolder(response);
 			if (IsConnectedToGameServer)
 			{
 				TextConsole.Get().Write(StringUtil.TR("FailedToConnectRetrying", "Global"));
@@ -4879,7 +4921,7 @@ public class ClientGameManager : MonoBehaviour
 		m_lobbyGameClientInterface.HeartbeatTimeout = hydrogenConfig.HeartbeatTimeout;
 		m_lobbyGameClientInterface.MaxSendBufferSize = hydrogenConfig.MaxSendBufferSize;
 		m_lobbyGameClientInterface.MaxWaitTime = hydrogenConfig.MaxWaitTime;
-		this.OnConnectedToLobbyServer(response);
+		this.OnConnectedToLobbyServerHolder(response);
 		if (!IsConnectedToGameServer)
 		{
 			return;
@@ -4922,7 +4964,7 @@ public class ClientGameManager : MonoBehaviour
 			{
 				GroupInfo.SetCharacterInfo(new LobbyCharacterInfo());
 			}
-			this.OnGroupUpdateNotification();
+			this.OnGroupUpdateNotificationHolder();
 		}
 		if (notification.AlertMissionData != null)
 		{
@@ -4941,7 +4983,7 @@ public class ClientGameManager : MonoBehaviour
 			HandleAccountDataUpdated(notification.AccountData);
 			if (notification.AccountData.InventoryComponent != null)
 			{
-				this.OnInventoryComponentUpdated(notification.AccountData.InventoryComponent);
+				this.OnInventoryComponentUpdatedHolder(notification.AccountData.InventoryComponent);
 			}
 			else
 			{
@@ -4956,7 +4998,7 @@ public class ClientGameManager : MonoBehaviour
 		{
 			HandleFactionCompetitionNotification(notification.FactionCompetitionStatus);
 		}
-		this.OnLobbyServerReadyNotification(notification);
+		this.OnLobbyServerReadyNotificationHolder(notification);
 	}
 
 	private void HandleLobbyServerClientAccessLevelChange(ClientAccessLevel oldLevel, ClientAccessLevel newLevel)
@@ -4973,7 +5015,7 @@ public class ClientGameManager : MonoBehaviour
 		}
 		string text = $"{arg} ({arg2})";
 		Log.Info("Changed Access Level from {0} to {1}", oldLevel.ToString(), text);
-		this.OnLobbyServerClientAccessLevelChange(oldLevel, newLevel);
+		this.OnLobbyServerClientAccessLevelChangeHolder(oldLevel, newLevel);
 	}
 
 	private void HandleDisconnectedFromLobbyServer(string lastLobbyErrorMessage, bool allowRelogin, CloseStatusCode code)
@@ -5005,7 +5047,7 @@ public class ClientGameManager : MonoBehaviour
 				}
 			}
 		}
-		this.OnDisconnectedFromLobbyServer(lastLobbyErrorMessage);
+		this.OnDisconnectedFromLobbyServerHolder(lastLobbyErrorMessage);
 		int num;
 		if (code == CloseStatusCode.PingTimeout)
 		{
@@ -5036,7 +5078,7 @@ public class ClientGameManager : MonoBehaviour
 		if (queueInfo != null)
 		{
 			Log.Info("Unassigned from queue {0}", queueInfo.GameType);
-			this.OnQueueLeft();
+			this.OnQueueLeftHolder();
 			if (matchmakingQueueInfo == null)
 			{
 				AppState_GroupCharacterSelect.Get().NotifyQueueDrop();
@@ -5045,11 +5087,11 @@ public class ClientGameManager : MonoBehaviour
 		if (matchmakingQueueInfo != null)
 		{
 			Log.Info("Assigned to queue {0}", matchmakingQueueInfo.GameType);
-			this.OnQueueEntered();
+			this.OnQueueEnteredHolder();
 		}
 		UICharacterScreen.Get().DoRefreshFunctions(128);
 		NavigationBar.Get().UpdateStatusMessage();
-		this.OnQueueAssignmentNotification(notification);
+		this.OnQueueAssignmentNotificationHolder(notification);
 	}
 
 	private void HandleLobbyStatusNotification(LobbyStatusNotification notification)
@@ -5113,7 +5155,7 @@ public class ClientGameManager : MonoBehaviour
 			ServerLockState = notification.ServerLockState;
 			if (serverLockState != ServerLockState)
 			{
-				this.OnLobbyServerLockStateChange(serverLockState, ServerLockState);
+				this.OnLobbyServerLockStateChangeHolder(serverLockState, ServerLockState);
 			}
 		}
 		ConnectionQueueInfo = notification.ConnectionQueueInfo;
@@ -5128,7 +5170,7 @@ public class ClientGameManager : MonoBehaviour
 			ClientUtcTime = DateTime.UtcNow;
 			TimeOffset = notification.TimeOffset;
 		}
-		this.OnLobbyStatusNotification(notification);
+		this.OnLobbyStatusNotificationHolder(notification);
 	}
 
 	private void HandleLobbyGameplayOverridesNotification(LobbyGameplayOverridesNotification notification)
@@ -5190,19 +5232,19 @@ public class ClientGameManager : MonoBehaviour
 			clientPerformanceCollector.ObserveRTT(null);
 			clientPerformanceCollector.StopCollecting();
 		}
-		this.OnLobbyGameplayOverridesChange(gameplayOverrides);
+		this.OnLobbyGameplayOverridesChangeHolder(gameplayOverrides);
 	}
 
 	private void HandleLobbyAlertMissionDataNotification(LobbyAlertMissionDataNotification notification)
 	{
 		AlertMissionsData = notification;
-		this.OnAlertMissionDataChange(notification);
+		this.OnAlertMissionDataChangeHolder(notification);
 	}
 
 	private void HandleLobbySeasonQuestDataNotification(LobbySeasonQuestDataNotification notification)
 	{
 		SeasonChapterQuests = notification.SeasonChapterQuests;
-		this.OnSeasonChapterQuestsChange(notification.SeasonChapterQuests);
+		this.OnSeasonChapterQuestsChangeHolder(notification.SeasonChapterQuests);
 	}
 
 	private void HandleQueueStatusNotification(MatchmakingQueueStatusNotification notification)
@@ -5219,7 +5261,7 @@ public class ClientGameManager : MonoBehaviour
 					UICharacterSelectScreenController.Get().NotifiedEnteredQueue();
 				}
 				NavigationBar.Get().UpdateStatusMessage();
-				this.OnQueueStatusNotification(notification);
+				this.OnQueueStatusNotificationHolder(notification);
 				return;
 			}
 		}
@@ -5286,7 +5328,7 @@ public class ClientGameManager : MonoBehaviour
 		}
 		goto IL_053d;
 		IL_053d:
-		this.OnGameAssignmentNotification(notification);
+		this.OnGameAssignmentNotificationHolder(notification);
 		return;
 		IL_0199:
 		Log.Info("Assigned to game {0}", gameInfo2.Name);
@@ -5613,7 +5655,7 @@ public class ClientGameManager : MonoBehaviour
 				}
 			}
 		}
-		this.OnGameInfoNotification(notification);
+		this.OnGameInfoNotificationHolder(notification);
 		return;
 		IL_018c:
 		gameManager.SetPlayerInfo(playerInfo);
@@ -5666,7 +5708,7 @@ public class ClientGameManager : MonoBehaviour
 		gameInfoNotification.GameInfo = gameManager.GameInfo;
 		gameInfoNotification.PlayerInfo = gameManager.PlayerInfo;
 		gameInfoNotification.TeamInfo = gameManager.TeamInfo;
-		this.OnGameInfoNotification(gameInfoNotification);
+		this.OnGameInfoNotificationHolder(gameInfoNotification);
 	}
 
 	private void HandleGameLaunched(GameType gameType)
@@ -6767,7 +6809,7 @@ public class ClientGameManager : MonoBehaviour
 		goto IL_01ec;
 		IL_01ec:
 		m_tierInstanceNames = notification.TierInstanceNames;
-		this.OnServerQueueConfigurationUpdateNotification(notification);
+		this.OnServerQueueConfigurationUpdateNotificationHolder(notification);
 	}
 
 	private void HandleRankedOverviewChangeNotification(RankedOverviewChangeNotification notification)
@@ -6813,7 +6855,7 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					this.OnQuestCompleteNotification(notification);
+					this.OnQuestCompleteNotificationHolder(notification);
 					return;
 				}
 			}
@@ -6825,12 +6867,12 @@ public class ClientGameManager : MonoBehaviour
 	{
 		ActiveFactionCompetition = notification.ActiveIndex;
 		FactionScores = notification.Scores;
-		this.OnFactionCompetitionNotification(notification);
+		this.OnFactionCompetitionNotificationHolder(notification);
 	}
 
 	private void HandleTrustBoostUsedNotification(TrustBoostUsedNotification notification)
 	{
-		this.OnTrustBoostUsedNotification(notification);
+		this.OnTrustBoostUsedNotificationHolder(notification);
 	}
 
 	private void HandleFactionLoginRewardNotification(FactionLoginRewardNotification notification)
@@ -6840,7 +6882,7 @@ public class ClientGameManager : MonoBehaviour
 			Log.Error("received a second login notification! - should not");
 		}
 		LoginRewardNotification = notification;
-		this.OnFactionLoginRewardNotification(notification);
+		this.OnFactionLoginRewardNotificationHolder(notification);
 	}
 
 	private void HandlePlayerFactionContributionChange(PlayerFactionContributionChangeNotification notification)
@@ -6864,7 +6906,7 @@ public class ClientGameManager : MonoBehaviour
 					}
 				}
 				GetPlayerAccountData().AccountComponent.GetPlayerCompetitionFactionData(notification.CompetitionId, notification.FactionId).TotalXP = notification.TotalXP;
-				this.OnPlayerFactionContributionChangeNotification(notification);
+				this.OnPlayerFactionContributionChangeNotificationHolder(notification);
 				return;
 			}
 		}
@@ -6878,7 +6920,7 @@ public class ClientGameManager : MonoBehaviour
 
 	private void HandleMatchResultsNotification(MatchResultsNotification notification)
 	{
-		this.OnMatchResultsNotification(notification);
+		this.OnMatchResultsNotificationHolder(notification);
 	}
 
 	public void QueryPlayerMatchData(Action<PlayerMatchDataResponse> onResponseCallback)
@@ -7041,7 +7083,7 @@ public class ClientGameManager : MonoBehaviour
 			{
 				value.CharacterComponent.Mods.Add(response.UnlockData);
 			}
-			this.OnModUnlocked(response.Character, response.UnlockData);
+			this.OnModUnlockedHolder(response.Character, response.UnlockData);
 		}
 		else
 		{
@@ -7398,7 +7440,7 @@ public class ClientGameManager : MonoBehaviour
 									case 0:
 										break;
 									default:
-										this.OnPlayerTitleChange(gameBalanceVars.GetTitle(response.CurrentTitleID, string.Empty));
+										this.OnPlayerTitleChangeHolder(gameBalanceVars.GetTitle(response.CurrentTitleID, string.Empty));
 										return;
 									}
 								}
@@ -7454,7 +7496,7 @@ public class ClientGameManager : MonoBehaviour
 								{
 									m_loadedPlayerAccountData.AccountComponent.SelectedForegroundBannerID = response.ForegroundBannerID;
 									m_loadedPlayerAccountData.AccountComponent.SelectedBackgroundBannerID = response.BackgroundBannerID;
-									this.OnPlayerBannerChange(gameBalanceVars.GetBanner(response.ForegroundBannerID), gameBalanceVars.GetBanner(response.BackgroundBannerID));
+									this.OnPlayerBannerChangeHolder(gameBalanceVars.GetBanner(response.ForegroundBannerID), gameBalanceVars.GetBanner(response.BackgroundBannerID));
 								}
 							}
 							if (onResponse != null)
@@ -7505,7 +7547,7 @@ public class ClientGameManager : MonoBehaviour
 										case 0:
 											break;
 										default:
-											this.OnPlayerRibbonChange(gameBalanceVars.GetRibbon(response.CurrentRibbonID));
+											this.OnPlayerRibbonChangeHolder(gameBalanceVars.GetRibbon(response.CurrentRibbonID));
 											return;
 										}
 									}
@@ -7586,7 +7628,7 @@ public class ClientGameManager : MonoBehaviour
 							{
 								onResponse(response);
 							}
-							this.OnLoadingScreenBackgroundToggled(response.LoadingScreenId, response.CurrentState);
+							this.OnLoadingScreenBackgroundToggledHolder(response.LoadingScreenId, response.CurrentState);
 						});
 						return;
 					}
@@ -8223,7 +8265,7 @@ public class ClientGameManager : MonoBehaviour
 			}
 		}
 		m_loadedPlayerAccountData = accountData;
-		this.OnAccountDataUpdated(accountData);
+		this.OnAccountDataUpdatedHolder(accountData);
 		PlayerWallet = new CurrencyWallet(accountData.BankComponent.CurrentAmounts.Data);
 		IEnumerator<CurrencyData> enumerator2 = PlayerWallet.GetEnumerator();
 		try
@@ -8231,7 +8273,7 @@ public class ClientGameManager : MonoBehaviour
 			while (enumerator2.MoveNext())
 			{
 				CurrencyData current2 = enumerator2.Current;
-				this.OnBankBalanceChange(current2);
+				this.OnBankBalanceChangeHolder(current2);
 			}
 		}
 		finally
@@ -8254,7 +8296,7 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (list.Count > 0)
 		{
-			this.OnQuestProgressChanged(list.ToArray());
+			this.OnQuestProgressChangedHolder(list.ToArray());
 		}
 	}
 
@@ -8313,13 +8355,13 @@ public class ClientGameManager : MonoBehaviour
 	private void HandleCharacterDataUpdateNotification(PlayerCharacterDataUpdateNotification notification)
 	{
 		m_loadedPlayerCharacterData[notification.CharacterData.CharacterType] = notification.CharacterData;
-		this.OnCharacterDataUpdated(notification.CharacterData);
+		this.OnCharacterDataUpdatedHolder(notification.CharacterData);
 	}
 
 	private void HandleInventoryComponentUpdateNotification(InventoryComponentUpdateNotification notification)
 	{
 		m_loadedPlayerAccountData.InventoryComponent = notification.InventoryComponent;
-		this.OnInventoryComponentUpdated(notification.InventoryComponent);
+		this.OnInventoryComponentUpdatedHolder(notification.InventoryComponent);
 	}
 
 	private void HandleBankBalanceChangeNotification(BankBalanceChangeNotification notification)
@@ -8335,7 +8377,7 @@ public class ClientGameManager : MonoBehaviour
 				while (true)
 				{
 					PlayerWallet.SetValue(notification.NewBalance);
-					this.OnBankBalanceChange(notification.NewBalance);
+					this.OnBankBalanceChangeHolder(notification.NewBalance);
 					return;
 				}
 			}
@@ -8349,10 +8391,10 @@ public class ClientGameManager : MonoBehaviour
 		{
 			m_loadedPlayerAccountData.QuestComponent.ActiveSeason = notification.SeasonStartedIndex;
 		}
-		this.OnSeasonCompleteNotification(notification);
+		this.OnSeasonCompleteNotificationHolder(notification);
 		if (m_loadedPlayerAccountData != null)
 		{
-			this.OnAccountDataUpdated(m_loadedPlayerAccountData);
+			this.OnAccountDataUpdatedHolder(m_loadedPlayerAccountData);
 		}
 	}
 
@@ -8385,7 +8427,7 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					this.OnChapterCompleteNotification(notification.SeasonIndex, notification.ChapterIndex + 1);
+					this.OnChapterCompleteNotificationHolder(notification.SeasonIndex, notification.ChapterIndex + 1);
 					return;
 				}
 			}
@@ -8396,7 +8438,7 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			this.OnChapterUnlockNotification(notification.SeasonIndex, notification.ChapterIndex + 1);
+			this.OnChapterUnlockNotificationHolder(notification.SeasonIndex, notification.ChapterIndex + 1);
 			return;
 		}
 	}

@@ -131,16 +131,17 @@ namespace I2.Loc
 			}
 		}
 
-		public event Action EventFindTarget
+		private Action EventFindTargetHolder;
+	public event Action EventFindTarget
 		{
 			add
 			{
-				Action action = this.EventFindTarget;
+				Action action = this.EventFindTargetHolder;
 				Action action2;
 				do
 				{
 					action2 = action;
-					action = Interlocked.CompareExchange(ref this.EventFindTarget, (Action)Delegate.Combine(action2, value), action);
+					action = Interlocked.CompareExchange(ref this.EventFindTargetHolder, (Action)Delegate.Combine(action2, value), action);
 				}
 				while ((object)action != action2);
 				while (true)
@@ -150,12 +151,12 @@ namespace I2.Loc
 			}
 			remove
 			{
-				Action action = this.EventFindTarget;
+				Action action = this.EventFindTargetHolder;
 				Action action2;
 				do
 				{
 					action2 = action;
-					action = Interlocked.CompareExchange(ref this.EventFindTarget, (Action)Delegate.Remove(action2, value), action);
+					action = Interlocked.CompareExchange(ref this.EventFindTargetHolder, (Action)Delegate.Remove(action2, value), action);
 				}
 				while ((object)action != action2);
 				while (true)
@@ -168,7 +169,7 @@ namespace I2.Loc
 		private void Awake()
 		{
 			RegisterTargets();
-			this.EventFindTarget();
+			this.EventFindTargetHolder();
 			if (LocalizeOnAwake)
 			{
 				OnLocalize();
@@ -177,7 +178,7 @@ namespace I2.Loc
 
 		private void RegisterTargets()
 		{
-			if (this.EventFindTarget == null)
+			if (this.EventFindTargetHolder == null)
 			{
 				RegisterEvents_NGUI();
 				RegisterEvents_DFGUI();
@@ -338,11 +339,11 @@ namespace I2.Loc
 
 		public bool FindTarget()
 		{
-			if (this.EventFindTarget == null)
+			if (this.EventFindTargetHolder == null)
 			{
 				RegisterTargets();
 			}
-			this.EventFindTarget();
+			this.EventFindTargetHolder();
 			return HasTargetCache();
 		}
 

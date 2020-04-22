@@ -309,16 +309,17 @@ public class DiscordClientInterface : MonoBehaviour
 
 	private string ClientId => (m_authInfo == null) ? string.Empty : m_authInfo.ClientId;
 
+	private Action<ErrorEventArgs> OnErrorHolder;
 	public event Action<ErrorEventArgs> OnError
 	{
 		add
 		{
-			Action<ErrorEventArgs> action = this.OnError;
+			Action<ErrorEventArgs> action = this.OnErrorHolder;
 			Action<ErrorEventArgs> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnError, (Action<ErrorEventArgs>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnErrorHolder, (Action<ErrorEventArgs>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -328,12 +329,12 @@ public class DiscordClientInterface : MonoBehaviour
 		}
 		remove
 		{
-			Action<ErrorEventArgs> action = this.OnError;
+			Action<ErrorEventArgs> action = this.OnErrorHolder;
 			Action<ErrorEventArgs> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnError, (Action<ErrorEventArgs>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnErrorHolder, (Action<ErrorEventArgs>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -410,7 +411,7 @@ public class DiscordClientInterface : MonoBehaviour
 			{
 			};
 		}
-		this.OnError = _003C_003Ef__am_0024cacheA;
+		this.OnErrorHolder = _003C_003Ef__am_0024cacheA;
 		m_discordChannelUsers = new List<DiscordUserInfo>();
 		
 	}

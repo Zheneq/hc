@@ -32,27 +32,28 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	public LobbySessionInfo SessionInfo => m_sessionInfo;
 
+	private Action<RegisterGameClientResponse> OnConnectedHolder;
 	public event Action<RegisterGameClientResponse> OnConnected
 	{
 		add
 		{
-			Action<RegisterGameClientResponse> action = this.OnConnected;
+			Action<RegisterGameClientResponse> action = this.OnConnectedHolder;
 			Action<RegisterGameClientResponse> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnConnected, (Action<RegisterGameClientResponse>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnConnectedHolder, (Action<RegisterGameClientResponse>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<RegisterGameClientResponse> action = this.OnConnected;
+			Action<RegisterGameClientResponse> action = this.OnConnectedHolder;
 			Action<RegisterGameClientResponse> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnConnected, (Action<RegisterGameClientResponse>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnConnectedHolder, (Action<RegisterGameClientResponse>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -62,16 +63,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<string, bool, CloseStatusCode> OnDisconnectedHolder;
 	public event Action<string, bool, CloseStatusCode> OnDisconnected
 	{
 		add
 		{
-			Action<string, bool, CloseStatusCode> action = this.OnDisconnected;
+			Action<string, bool, CloseStatusCode> action = this.OnDisconnectedHolder;
 			Action<string, bool, CloseStatusCode> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnDisconnected, (Action<string, bool, CloseStatusCode>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnDisconnectedHolder, (Action<string, bool, CloseStatusCode>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -81,27 +83,28 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<string, bool, CloseStatusCode> action = this.OnDisconnected;
+			Action<string, bool, CloseStatusCode> action = this.OnDisconnectedHolder;
 			Action<string, bool, CloseStatusCode> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnDisconnected, (Action<string, bool, CloseStatusCode>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnDisconnectedHolder, (Action<string, bool, CloseStatusCode>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<LobbyServerReadyNotification> OnLobbyServerReadyNotificationHolder;
 	public event Action<LobbyServerReadyNotification> OnLobbyServerReadyNotification
 	{
 		add
 		{
-			Action<LobbyServerReadyNotification> action = this.OnLobbyServerReadyNotification;
+			Action<LobbyServerReadyNotification> action = this.OnLobbyServerReadyNotificationHolder;
 			Action<LobbyServerReadyNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyServerReadyNotification, (Action<LobbyServerReadyNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyServerReadyNotificationHolder, (Action<LobbyServerReadyNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -111,38 +114,39 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<LobbyServerReadyNotification> action = this.OnLobbyServerReadyNotification;
+			Action<LobbyServerReadyNotification> action = this.OnLobbyServerReadyNotificationHolder;
 			Action<LobbyServerReadyNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyServerReadyNotification, (Action<LobbyServerReadyNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyServerReadyNotificationHolder, (Action<LobbyServerReadyNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<LobbyStatusNotification> OnLobbyStatusNotificationHolder;
 	public event Action<LobbyStatusNotification> OnLobbyStatusNotification
 	{
 		add
 		{
-			Action<LobbyStatusNotification> action = this.OnLobbyStatusNotification;
+			Action<LobbyStatusNotification> action = this.OnLobbyStatusNotificationHolder;
 			Action<LobbyStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyStatusNotification, (Action<LobbyStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyStatusNotificationHolder, (Action<LobbyStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<LobbyStatusNotification> action = this.OnLobbyStatusNotification;
+			Action<LobbyStatusNotification> action = this.OnLobbyStatusNotificationHolder;
 			Action<LobbyStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyStatusNotification, (Action<LobbyStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyStatusNotificationHolder, (Action<LobbyStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -152,16 +156,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<LobbyGameplayOverridesNotification> OnLobbyGameplayOverridesNotificationHolder;
 	public event Action<LobbyGameplayOverridesNotification> OnLobbyGameplayOverridesNotification
 	{
 		add
 		{
-			Action<LobbyGameplayOverridesNotification> action = this.OnLobbyGameplayOverridesNotification;
+			Action<LobbyGameplayOverridesNotification> action = this.OnLobbyGameplayOverridesNotificationHolder;
 			Action<LobbyGameplayOverridesNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyGameplayOverridesNotification, (Action<LobbyGameplayOverridesNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyGameplayOverridesNotificationHolder, (Action<LobbyGameplayOverridesNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -171,12 +176,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<LobbyGameplayOverridesNotification> action = this.OnLobbyGameplayOverridesNotification;
+			Action<LobbyGameplayOverridesNotification> action = this.OnLobbyGameplayOverridesNotificationHolder;
 			Action<LobbyGameplayOverridesNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyGameplayOverridesNotification, (Action<LobbyGameplayOverridesNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyGameplayOverridesNotificationHolder, (Action<LobbyGameplayOverridesNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -186,16 +191,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<LobbyCustomGamesNotification> OnLobbyCustomGamesNotificationHolder;
 	public event Action<LobbyCustomGamesNotification> OnLobbyCustomGamesNotification
 	{
 		add
 		{
-			Action<LobbyCustomGamesNotification> action = this.OnLobbyCustomGamesNotification;
+			Action<LobbyCustomGamesNotification> action = this.OnLobbyCustomGamesNotificationHolder;
 			Action<LobbyCustomGamesNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyCustomGamesNotification, (Action<LobbyCustomGamesNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyCustomGamesNotificationHolder, (Action<LobbyCustomGamesNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -205,12 +211,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<LobbyCustomGamesNotification> action = this.OnLobbyCustomGamesNotification;
+			Action<LobbyCustomGamesNotification> action = this.OnLobbyCustomGamesNotificationHolder;
 			Action<LobbyCustomGamesNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyCustomGamesNotification, (Action<LobbyCustomGamesNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyCustomGamesNotificationHolder, (Action<LobbyCustomGamesNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -220,27 +226,28 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<MatchmakingQueueAssignmentNotification> OnQueueAssignmentNotificationHolder;
 	public event Action<MatchmakingQueueAssignmentNotification> OnQueueAssignmentNotification
 	{
 		add
 		{
-			Action<MatchmakingQueueAssignmentNotification> action = this.OnQueueAssignmentNotification;
+			Action<MatchmakingQueueAssignmentNotification> action = this.OnQueueAssignmentNotificationHolder;
 			Action<MatchmakingQueueAssignmentNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQueueAssignmentNotification, (Action<MatchmakingQueueAssignmentNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQueueAssignmentNotificationHolder, (Action<MatchmakingQueueAssignmentNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<MatchmakingQueueAssignmentNotification> action = this.OnQueueAssignmentNotification;
+			Action<MatchmakingQueueAssignmentNotification> action = this.OnQueueAssignmentNotificationHolder;
 			Action<MatchmakingQueueAssignmentNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQueueAssignmentNotification, (Action<MatchmakingQueueAssignmentNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQueueAssignmentNotificationHolder, (Action<MatchmakingQueueAssignmentNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -250,16 +257,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<MatchmakingQueueStatusNotification> OnQueueStatusNotificationHolder;
 	public event Action<MatchmakingQueueStatusNotification> OnQueueStatusNotification
 	{
 		add
 		{
-			Action<MatchmakingQueueStatusNotification> action = this.OnQueueStatusNotification;
+			Action<MatchmakingQueueStatusNotification> action = this.OnQueueStatusNotificationHolder;
 			Action<MatchmakingQueueStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQueueStatusNotification, (Action<MatchmakingQueueStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQueueStatusNotificationHolder, (Action<MatchmakingQueueStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -269,12 +277,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<MatchmakingQueueStatusNotification> action = this.OnQueueStatusNotification;
+			Action<MatchmakingQueueStatusNotification> action = this.OnQueueStatusNotificationHolder;
 			Action<MatchmakingQueueStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQueueStatusNotification, (Action<MatchmakingQueueStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQueueStatusNotificationHolder, (Action<MatchmakingQueueStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -284,16 +292,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<GameAssignmentNotification> OnGameAssignmentNotificationHolder;
 	public event Action<GameAssignmentNotification> OnGameAssignmentNotification
 	{
 		add
 		{
-			Action<GameAssignmentNotification> action = this.OnGameAssignmentNotification;
+			Action<GameAssignmentNotification> action = this.OnGameAssignmentNotificationHolder;
 			Action<GameAssignmentNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameAssignmentNotification, (Action<GameAssignmentNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameAssignmentNotificationHolder, (Action<GameAssignmentNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -303,12 +312,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<GameAssignmentNotification> action = this.OnGameAssignmentNotification;
+			Action<GameAssignmentNotification> action = this.OnGameAssignmentNotificationHolder;
 			Action<GameAssignmentNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameAssignmentNotification, (Action<GameAssignmentNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameAssignmentNotificationHolder, (Action<GameAssignmentNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -318,27 +327,28 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<GameInfoNotification> OnGameInfoNotificationHolder;
 	public event Action<GameInfoNotification> OnGameInfoNotification
 	{
 		add
 		{
-			Action<GameInfoNotification> action = this.OnGameInfoNotification;
+			Action<GameInfoNotification> action = this.OnGameInfoNotificationHolder;
 			Action<GameInfoNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameInfoNotification, (Action<GameInfoNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameInfoNotificationHolder, (Action<GameInfoNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<GameInfoNotification> action = this.OnGameInfoNotification;
+			Action<GameInfoNotification> action = this.OnGameInfoNotificationHolder;
 			Action<GameInfoNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameInfoNotification, (Action<GameInfoNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameInfoNotificationHolder, (Action<GameInfoNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -348,16 +358,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<GameStatusNotification> OnGameStatusNotificationHolder;
 	public event Action<GameStatusNotification> OnGameStatusNotification
 	{
 		add
 		{
-			Action<GameStatusNotification> action = this.OnGameStatusNotification;
+			Action<GameStatusNotification> action = this.OnGameStatusNotificationHolder;
 			Action<GameStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameStatusNotification, (Action<GameStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameStatusNotificationHolder, (Action<GameStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -367,38 +378,39 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<GameStatusNotification> action = this.OnGameStatusNotification;
+			Action<GameStatusNotification> action = this.OnGameStatusNotificationHolder;
 			Action<GameStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameStatusNotification, (Action<GameStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameStatusNotificationHolder, (Action<GameStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<PlayerAccountDataUpdateNotification> OnAccountDataUpdatedHolder;
 	public event Action<PlayerAccountDataUpdateNotification> OnAccountDataUpdated
 	{
 		add
 		{
-			Action<PlayerAccountDataUpdateNotification> action = this.OnAccountDataUpdated;
+			Action<PlayerAccountDataUpdateNotification> action = this.OnAccountDataUpdatedHolder;
 			Action<PlayerAccountDataUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnAccountDataUpdated, (Action<PlayerAccountDataUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnAccountDataUpdatedHolder, (Action<PlayerAccountDataUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<PlayerAccountDataUpdateNotification> action = this.OnAccountDataUpdated;
+			Action<PlayerAccountDataUpdateNotification> action = this.OnAccountDataUpdatedHolder;
 			Action<PlayerAccountDataUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnAccountDataUpdated, (Action<PlayerAccountDataUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnAccountDataUpdatedHolder, (Action<PlayerAccountDataUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -408,18 +420,20 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<ForcedCharacterChangeFromServerNotification> OnForcedCharacterChangeFromServerNotificationHolder;
 	public event Action<ForcedCharacterChangeFromServerNotification> OnForcedCharacterChangeFromServerNotification;
 
+	private Action<PlayerCharacterDataUpdateNotification> OnCharacterDataUpdateNotificationHolder;
 	public event Action<PlayerCharacterDataUpdateNotification> OnCharacterDataUpdateNotification
 	{
 		add
 		{
-			Action<PlayerCharacterDataUpdateNotification> action = this.OnCharacterDataUpdateNotification;
+			Action<PlayerCharacterDataUpdateNotification> action = this.OnCharacterDataUpdateNotificationHolder;
 			Action<PlayerCharacterDataUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnCharacterDataUpdateNotification, (Action<PlayerCharacterDataUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnCharacterDataUpdateNotificationHolder, (Action<PlayerCharacterDataUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -429,12 +443,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<PlayerCharacterDataUpdateNotification> action = this.OnCharacterDataUpdateNotification;
+			Action<PlayerCharacterDataUpdateNotification> action = this.OnCharacterDataUpdateNotificationHolder;
 			Action<PlayerCharacterDataUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnCharacterDataUpdateNotification, (Action<PlayerCharacterDataUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnCharacterDataUpdateNotificationHolder, (Action<PlayerCharacterDataUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -444,16 +458,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<InventoryComponentUpdateNotification> OnInventoryComponentUpdateNotificationHolder;
 	public event Action<InventoryComponentUpdateNotification> OnInventoryComponentUpdateNotification
 	{
 		add
 		{
-			Action<InventoryComponentUpdateNotification> action = this.OnInventoryComponentUpdateNotification;
+			Action<InventoryComponentUpdateNotification> action = this.OnInventoryComponentUpdateNotificationHolder;
 			Action<InventoryComponentUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnInventoryComponentUpdateNotification, (Action<InventoryComponentUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnInventoryComponentUpdateNotificationHolder, (Action<InventoryComponentUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -463,27 +478,28 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<InventoryComponentUpdateNotification> action = this.OnInventoryComponentUpdateNotification;
+			Action<InventoryComponentUpdateNotification> action = this.OnInventoryComponentUpdateNotificationHolder;
 			Action<InventoryComponentUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnInventoryComponentUpdateNotification, (Action<InventoryComponentUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnInventoryComponentUpdateNotificationHolder, (Action<InventoryComponentUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<BankBalanceChangeNotification> OnBankBalanceChangeNotificationHolder;
 	public event Action<BankBalanceChangeNotification> OnBankBalanceChangeNotification
 	{
 		add
 		{
-			Action<BankBalanceChangeNotification> action = this.OnBankBalanceChangeNotification;
+			Action<BankBalanceChangeNotification> action = this.OnBankBalanceChangeNotificationHolder;
 			Action<BankBalanceChangeNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnBankBalanceChangeNotification, (Action<BankBalanceChangeNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnBankBalanceChangeNotificationHolder, (Action<BankBalanceChangeNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -493,12 +509,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<BankBalanceChangeNotification> action = this.OnBankBalanceChangeNotification;
+			Action<BankBalanceChangeNotification> action = this.OnBankBalanceChangeNotificationHolder;
 			Action<BankBalanceChangeNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnBankBalanceChangeNotification, (Action<BankBalanceChangeNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnBankBalanceChangeNotificationHolder, (Action<BankBalanceChangeNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -508,16 +524,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<SeasonStatusNotification> OnSeasonStatusNotificationHolder;
 	public event Action<SeasonStatusNotification> OnSeasonStatusNotification
 	{
 		add
 		{
-			Action<SeasonStatusNotification> action = this.OnSeasonStatusNotification;
+			Action<SeasonStatusNotification> action = this.OnSeasonStatusNotificationHolder;
 			Action<SeasonStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnSeasonStatusNotification, (Action<SeasonStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnSeasonStatusNotificationHolder, (Action<SeasonStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -527,12 +544,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<SeasonStatusNotification> action = this.OnSeasonStatusNotification;
+			Action<SeasonStatusNotification> action = this.OnSeasonStatusNotificationHolder;
 			Action<SeasonStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnSeasonStatusNotification, (Action<SeasonStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnSeasonStatusNotificationHolder, (Action<SeasonStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -542,27 +559,28 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<ChapterStatusNotification> OnChapterStatusNotificationHolder;
 	public event Action<ChapterStatusNotification> OnChapterStatusNotification
 	{
 		add
 		{
-			Action<ChapterStatusNotification> action = this.OnChapterStatusNotification;
+			Action<ChapterStatusNotification> action = this.OnChapterStatusNotificationHolder;
 			Action<ChapterStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnChapterStatusNotification, (Action<ChapterStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnChapterStatusNotificationHolder, (Action<ChapterStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<ChapterStatusNotification> action = this.OnChapterStatusNotification;
+			Action<ChapterStatusNotification> action = this.OnChapterStatusNotificationHolder;
 			Action<ChapterStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnChapterStatusNotification, (Action<ChapterStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnChapterStatusNotificationHolder, (Action<ChapterStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -572,16 +590,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<GroupUpdateNotification> OnGroupUpdateNotificationHolder;
 	public event Action<GroupUpdateNotification> OnGroupUpdateNotification
 	{
 		add
 		{
-			Action<GroupUpdateNotification> action = this.OnGroupUpdateNotification;
+			Action<GroupUpdateNotification> action = this.OnGroupUpdateNotificationHolder;
 			Action<GroupUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGroupUpdateNotification, (Action<GroupUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGroupUpdateNotificationHolder, (Action<GroupUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -591,27 +610,28 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<GroupUpdateNotification> action = this.OnGroupUpdateNotification;
+			Action<GroupUpdateNotification> action = this.OnGroupUpdateNotificationHolder;
 			Action<GroupUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGroupUpdateNotification, (Action<GroupUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGroupUpdateNotificationHolder, (Action<GroupUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<UseGGPackNotification> OnUseGGPackNotificationHolder;
 	public event Action<UseGGPackNotification> OnUseGGPackNotification
 	{
 		add
 		{
-			Action<UseGGPackNotification> action = this.OnUseGGPackNotification;
+			Action<UseGGPackNotification> action = this.OnUseGGPackNotificationHolder;
 			Action<UseGGPackNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnUseGGPackNotification, (Action<UseGGPackNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnUseGGPackNotificationHolder, (Action<UseGGPackNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -621,27 +641,28 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<UseGGPackNotification> action = this.OnUseGGPackNotification;
+			Action<UseGGPackNotification> action = this.OnUseGGPackNotificationHolder;
 			Action<UseGGPackNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnUseGGPackNotification, (Action<UseGGPackNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnUseGGPackNotificationHolder, (Action<UseGGPackNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<ChatNotification> OnChatNotificationHolder;
 	public event Action<ChatNotification> OnChatNotification
 	{
 		add
 		{
-			Action<ChatNotification> action = this.OnChatNotification;
+			Action<ChatNotification> action = this.OnChatNotificationHolder;
 			Action<ChatNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnChatNotification, (Action<ChatNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnChatNotificationHolder, (Action<ChatNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -651,12 +672,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<ChatNotification> action = this.OnChatNotification;
+			Action<ChatNotification> action = this.OnChatNotificationHolder;
 			Action<ChatNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnChatNotification, (Action<ChatNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnChatNotificationHolder, (Action<ChatNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -666,16 +687,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<UseOverconResponse> OnUseOverconNotificationHolder;
 	public event Action<UseOverconResponse> OnUseOverconNotification
 	{
 		add
 		{
-			Action<UseOverconResponse> action = this.OnUseOverconNotification;
+			Action<UseOverconResponse> action = this.OnUseOverconNotificationHolder;
 			Action<UseOverconResponse> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnUseOverconNotification, (Action<UseOverconResponse>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnUseOverconNotificationHolder, (Action<UseOverconResponse>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -685,12 +707,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<UseOverconResponse> action = this.OnUseOverconNotification;
+			Action<UseOverconResponse> action = this.OnUseOverconNotificationHolder;
 			Action<UseOverconResponse> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnUseOverconNotification, (Action<UseOverconResponse>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnUseOverconNotificationHolder, (Action<UseOverconResponse>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -700,27 +722,28 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<FriendStatusNotification> OnFriendStatusNotificationHolder;
 	public event Action<FriendStatusNotification> OnFriendStatusNotification
 	{
 		add
 		{
-			Action<FriendStatusNotification> action = this.OnFriendStatusNotification;
+			Action<FriendStatusNotification> action = this.OnFriendStatusNotificationHolder;
 			Action<FriendStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnFriendStatusNotification, (Action<FriendStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFriendStatusNotificationHolder, (Action<FriendStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<FriendStatusNotification> action = this.OnFriendStatusNotification;
+			Action<FriendStatusNotification> action = this.OnFriendStatusNotificationHolder;
 			Action<FriendStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnFriendStatusNotification, (Action<FriendStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFriendStatusNotificationHolder, (Action<FriendStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -730,16 +753,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<GroupConfirmationRequest> OnGroupConfirmationHolder;
 	public event Action<GroupConfirmationRequest> OnGroupConfirmation
 	{
 		add
 		{
-			Action<GroupConfirmationRequest> action = this.OnGroupConfirmation;
+			Action<GroupConfirmationRequest> action = this.OnGroupConfirmationHolder;
 			Action<GroupConfirmationRequest> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGroupConfirmation, (Action<GroupConfirmationRequest>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGroupConfirmationHolder, (Action<GroupConfirmationRequest>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -749,12 +773,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<GroupConfirmationRequest> action = this.OnGroupConfirmation;
+			Action<GroupConfirmationRequest> action = this.OnGroupConfirmationHolder;
 			Action<GroupConfirmationRequest> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGroupConfirmation, (Action<GroupConfirmationRequest>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGroupConfirmationHolder, (Action<GroupConfirmationRequest>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -764,16 +788,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<GroupSuggestionRequest> OnGroupSuggestionHolder;
 	public event Action<GroupSuggestionRequest> OnGroupSuggestion
 	{
 		add
 		{
-			Action<GroupSuggestionRequest> action = this.OnGroupSuggestion;
+			Action<GroupSuggestionRequest> action = this.OnGroupSuggestionHolder;
 			Action<GroupSuggestionRequest> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGroupSuggestion, (Action<GroupSuggestionRequest>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGroupSuggestionHolder, (Action<GroupSuggestionRequest>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -783,12 +808,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<GroupSuggestionRequest> action = this.OnGroupSuggestion;
+			Action<GroupSuggestionRequest> action = this.OnGroupSuggestionHolder;
 			Action<GroupSuggestionRequest> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGroupSuggestion, (Action<GroupSuggestionRequest>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGroupSuggestionHolder, (Action<GroupSuggestionRequest>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -798,16 +823,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<ForceMatchmakingQueueNotification> OnForceQueueNotificationHolder;
 	public event Action<ForceMatchmakingQueueNotification> OnForceQueueNotification
 	{
 		add
 		{
-			Action<ForceMatchmakingQueueNotification> action = this.OnForceQueueNotification;
+			Action<ForceMatchmakingQueueNotification> action = this.OnForceQueueNotificationHolder;
 			Action<ForceMatchmakingQueueNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnForceQueueNotification, (Action<ForceMatchmakingQueueNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnForceQueueNotificationHolder, (Action<ForceMatchmakingQueueNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -817,29 +843,31 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<ForceMatchmakingQueueNotification> action = this.OnForceQueueNotification;
+			Action<ForceMatchmakingQueueNotification> action = this.OnForceQueueNotificationHolder;
 			Action<ForceMatchmakingQueueNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnForceQueueNotification, (Action<ForceMatchmakingQueueNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnForceQueueNotificationHolder, (Action<ForceMatchmakingQueueNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<GameInviteConfirmationRequest> OnGameInviteConfirmationRequestHolder;
 	public event Action<GameInviteConfirmationRequest> OnGameInviteConfirmationRequest;
 
+	private Action<QuestCompleteNotification> OnQuestCompleteNotificationHolder;
 	public event Action<QuestCompleteNotification> OnQuestCompleteNotification
 	{
 		add
 		{
-			Action<QuestCompleteNotification> action = this.OnQuestCompleteNotification;
+			Action<QuestCompleteNotification> action = this.OnQuestCompleteNotificationHolder;
 			Action<QuestCompleteNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQuestCompleteNotification, (Action<QuestCompleteNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQuestCompleteNotificationHolder, (Action<QuestCompleteNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -849,12 +877,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<QuestCompleteNotification> action = this.OnQuestCompleteNotification;
+			Action<QuestCompleteNotification> action = this.OnQuestCompleteNotificationHolder;
 			Action<QuestCompleteNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnQuestCompleteNotification, (Action<QuestCompleteNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnQuestCompleteNotificationHolder, (Action<QuestCompleteNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -864,16 +892,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<MatchResultsNotification> OnMatchResultsNotificationHolder;
 	public event Action<MatchResultsNotification> OnMatchResultsNotification
 	{
 		add
 		{
-			Action<MatchResultsNotification> action = this.OnMatchResultsNotification;
+			Action<MatchResultsNotification> action = this.OnMatchResultsNotificationHolder;
 			Action<MatchResultsNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnMatchResultsNotification, (Action<MatchResultsNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnMatchResultsNotificationHolder, (Action<MatchResultsNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -883,27 +912,28 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<MatchResultsNotification> action = this.OnMatchResultsNotification;
+			Action<MatchResultsNotification> action = this.OnMatchResultsNotificationHolder;
 			Action<MatchResultsNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnMatchResultsNotification, (Action<MatchResultsNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnMatchResultsNotificationHolder, (Action<MatchResultsNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<ServerQueueConfigurationUpdateNotification> OnServerQueueConfigurationUpdateNotificationHolder;
 	public event Action<ServerQueueConfigurationUpdateNotification> OnServerQueueConfigurationUpdateNotification
 	{
 		add
 		{
-			Action<ServerQueueConfigurationUpdateNotification> action = this.OnServerQueueConfigurationUpdateNotification;
+			Action<ServerQueueConfigurationUpdateNotification> action = this.OnServerQueueConfigurationUpdateNotificationHolder;
 			Action<ServerQueueConfigurationUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnServerQueueConfigurationUpdateNotification, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnServerQueueConfigurationUpdateNotificationHolder, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -913,12 +943,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<ServerQueueConfigurationUpdateNotification> action = this.OnServerQueueConfigurationUpdateNotification;
+			Action<ServerQueueConfigurationUpdateNotification> action = this.OnServerQueueConfigurationUpdateNotificationHolder;
 			Action<ServerQueueConfigurationUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnServerQueueConfigurationUpdateNotification, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnServerQueueConfigurationUpdateNotificationHolder, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -928,16 +958,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<RankedOverviewChangeNotification> OnRankedOverviewChangeNotificationHolder;
 	public event Action<RankedOverviewChangeNotification> OnRankedOverviewChangeNotification
 	{
 		add
 		{
-			Action<RankedOverviewChangeNotification> action = this.OnRankedOverviewChangeNotification;
+			Action<RankedOverviewChangeNotification> action = this.OnRankedOverviewChangeNotificationHolder;
 			Action<RankedOverviewChangeNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnRankedOverviewChangeNotification, (Action<RankedOverviewChangeNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnRankedOverviewChangeNotificationHolder, (Action<RankedOverviewChangeNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -947,12 +978,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<RankedOverviewChangeNotification> action = this.OnRankedOverviewChangeNotification;
+			Action<RankedOverviewChangeNotification> action = this.OnRankedOverviewChangeNotificationHolder;
 			Action<RankedOverviewChangeNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnRankedOverviewChangeNotification, (Action<RankedOverviewChangeNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnRankedOverviewChangeNotificationHolder, (Action<RankedOverviewChangeNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -962,16 +993,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<FactionCompetitionNotification> OnFactionCompetitionNotificationHolder;
 	public event Action<FactionCompetitionNotification> OnFactionCompetitionNotification
 	{
 		add
 		{
-			Action<FactionCompetitionNotification> action = this.OnFactionCompetitionNotification;
+			Action<FactionCompetitionNotification> action = this.OnFactionCompetitionNotificationHolder;
 			Action<FactionCompetitionNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnFactionCompetitionNotification, (Action<FactionCompetitionNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFactionCompetitionNotificationHolder, (Action<FactionCompetitionNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -981,12 +1013,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<FactionCompetitionNotification> action = this.OnFactionCompetitionNotification;
+			Action<FactionCompetitionNotification> action = this.OnFactionCompetitionNotificationHolder;
 			Action<FactionCompetitionNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnFactionCompetitionNotification, (Action<FactionCompetitionNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFactionCompetitionNotificationHolder, (Action<FactionCompetitionNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -996,16 +1028,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<TrustBoostUsedNotification> OnTrustBoostUsedNotificationHolder;
 	public event Action<TrustBoostUsedNotification> OnTrustBoostUsedNotification
 	{
 		add
 		{
-			Action<TrustBoostUsedNotification> action = this.OnTrustBoostUsedNotification;
+			Action<TrustBoostUsedNotification> action = this.OnTrustBoostUsedNotificationHolder;
 			Action<TrustBoostUsedNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnTrustBoostUsedNotification, (Action<TrustBoostUsedNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnTrustBoostUsedNotificationHolder, (Action<TrustBoostUsedNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1015,12 +1048,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<TrustBoostUsedNotification> action = this.OnTrustBoostUsedNotification;
+			Action<TrustBoostUsedNotification> action = this.OnTrustBoostUsedNotificationHolder;
 			Action<TrustBoostUsedNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnTrustBoostUsedNotification, (Action<TrustBoostUsedNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnTrustBoostUsedNotificationHolder, (Action<TrustBoostUsedNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1030,16 +1063,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<FacebookAccessTokenNotification> OnFacebookAccessTokenNotificationHolder;
 	public event Action<FacebookAccessTokenNotification> OnFacebookAccessTokenNotification
 	{
 		add
 		{
-			Action<FacebookAccessTokenNotification> action = this.OnFacebookAccessTokenNotification;
+			Action<FacebookAccessTokenNotification> action = this.OnFacebookAccessTokenNotificationHolder;
 			Action<FacebookAccessTokenNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnFacebookAccessTokenNotification, (Action<FacebookAccessTokenNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFacebookAccessTokenNotificationHolder, (Action<FacebookAccessTokenNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1049,12 +1083,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<FacebookAccessTokenNotification> action = this.OnFacebookAccessTokenNotification;
+			Action<FacebookAccessTokenNotification> action = this.OnFacebookAccessTokenNotificationHolder;
 			Action<FacebookAccessTokenNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnFacebookAccessTokenNotification, (Action<FacebookAccessTokenNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFacebookAccessTokenNotificationHolder, (Action<FacebookAccessTokenNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1064,16 +1098,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<PlayerFactionContributionChangeNotification> OnPlayerFactionContributionChangeHolder;
 	public event Action<PlayerFactionContributionChangeNotification> OnPlayerFactionContributionChange
 	{
 		add
 		{
-			Action<PlayerFactionContributionChangeNotification> action = this.OnPlayerFactionContributionChange;
+			Action<PlayerFactionContributionChangeNotification> action = this.OnPlayerFactionContributionChangeHolder;
 			Action<PlayerFactionContributionChangeNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnPlayerFactionContributionChange, (Action<PlayerFactionContributionChangeNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnPlayerFactionContributionChangeHolder, (Action<PlayerFactionContributionChangeNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1083,12 +1118,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<PlayerFactionContributionChangeNotification> action = this.OnPlayerFactionContributionChange;
+			Action<PlayerFactionContributionChangeNotification> action = this.OnPlayerFactionContributionChangeHolder;
 			Action<PlayerFactionContributionChangeNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnPlayerFactionContributionChange, (Action<PlayerFactionContributionChangeNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnPlayerFactionContributionChangeHolder, (Action<PlayerFactionContributionChangeNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1098,16 +1133,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<FactionLoginRewardNotification> OnFactionLoginRewardNotificationHolder;
 	public event Action<FactionLoginRewardNotification> OnFactionLoginRewardNotification
 	{
 		add
 		{
-			Action<FactionLoginRewardNotification> action = this.OnFactionLoginRewardNotification;
+			Action<FactionLoginRewardNotification> action = this.OnFactionLoginRewardNotificationHolder;
 			Action<FactionLoginRewardNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnFactionLoginRewardNotification, (Action<FactionLoginRewardNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFactionLoginRewardNotificationHolder, (Action<FactionLoginRewardNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1117,12 +1153,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<FactionLoginRewardNotification> action = this.OnFactionLoginRewardNotification;
+			Action<FactionLoginRewardNotification> action = this.OnFactionLoginRewardNotificationHolder;
 			Action<FactionLoginRewardNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnFactionLoginRewardNotification, (Action<FactionLoginRewardNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnFactionLoginRewardNotificationHolder, (Action<FactionLoginRewardNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1132,16 +1168,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<LobbyAlertMissionDataNotification> OnLobbyAlertMissionDataNotificationHolder;
 	public event Action<LobbyAlertMissionDataNotification> OnLobbyAlertMissionDataNotification
 	{
 		add
 		{
-			Action<LobbyAlertMissionDataNotification> action = this.OnLobbyAlertMissionDataNotification;
+			Action<LobbyAlertMissionDataNotification> action = this.OnLobbyAlertMissionDataNotificationHolder;
 			Action<LobbyAlertMissionDataNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyAlertMissionDataNotification, (Action<LobbyAlertMissionDataNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyAlertMissionDataNotificationHolder, (Action<LobbyAlertMissionDataNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1151,12 +1188,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<LobbyAlertMissionDataNotification> action = this.OnLobbyAlertMissionDataNotification;
+			Action<LobbyAlertMissionDataNotification> action = this.OnLobbyAlertMissionDataNotificationHolder;
 			Action<LobbyAlertMissionDataNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbyAlertMissionDataNotification, (Action<LobbyAlertMissionDataNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbyAlertMissionDataNotificationHolder, (Action<LobbyAlertMissionDataNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1166,16 +1203,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
+	private Action<LobbySeasonQuestDataNotification> OnLobbySeasonQuestDataNotificationHolder;
 	public event Action<LobbySeasonQuestDataNotification> OnLobbySeasonQuestDataNotification
 	{
 		add
 		{
-			Action<LobbySeasonQuestDataNotification> action = this.OnLobbySeasonQuestDataNotification;
+			Action<LobbySeasonQuestDataNotification> action = this.OnLobbySeasonQuestDataNotificationHolder;
 			Action<LobbySeasonQuestDataNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbySeasonQuestDataNotification, (Action<LobbySeasonQuestDataNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbySeasonQuestDataNotificationHolder, (Action<LobbySeasonQuestDataNotification>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1185,12 +1223,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		remove
 		{
-			Action<LobbySeasonQuestDataNotification> action = this.OnLobbySeasonQuestDataNotification;
+			Action<LobbySeasonQuestDataNotification> action = this.OnLobbySeasonQuestDataNotificationHolder;
 			Action<LobbySeasonQuestDataNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLobbySeasonQuestDataNotification, (Action<LobbySeasonQuestDataNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLobbySeasonQuestDataNotificationHolder, (Action<LobbySeasonQuestDataNotification>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1202,7 +1240,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	public LobbyGameClientInterface()
 	{
-		this.OnConnected = delegate
+		this.OnConnectedHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache1 == null)
@@ -1211,8 +1249,8 @@ public class LobbyGameClientInterface : WebSocketInterface
 			{
 			};
 		}
-		this.OnDisconnected = _003C_003Ef__am_0024cache1;
-		this.OnLobbyServerReadyNotification = delegate
+		this.OnDisconnectedHolder = _003C_003Ef__am_0024cache1;
+		this.OnLobbyServerReadyNotificationHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache3 == null)
@@ -1221,22 +1259,22 @@ public class LobbyGameClientInterface : WebSocketInterface
 			{
 			};
 		}
-		this.OnLobbyStatusNotification = _003C_003Ef__am_0024cache3;
+		this.OnLobbyStatusNotificationHolder = _003C_003Ef__am_0024cache3;
 		if (_003C_003Ef__am_0024cache4 == null)
 		{
 			_003C_003Ef__am_0024cache4 = delegate
 			{
 			};
 		}
-		this.OnLobbyGameplayOverridesNotification = _003C_003Ef__am_0024cache4;
+		this.OnLobbyGameplayOverridesNotificationHolder = _003C_003Ef__am_0024cache4;
 		if (_003C_003Ef__am_0024cache5 == null)
 		{
 			_003C_003Ef__am_0024cache5 = delegate
 			{
 			};
 		}
-		this.OnLobbyCustomGamesNotification = _003C_003Ef__am_0024cache5;
-		this.OnQueueAssignmentNotification = delegate
+		this.OnLobbyCustomGamesNotificationHolder = _003C_003Ef__am_0024cache5;
+		this.OnQueueAssignmentNotificationHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache7 == null)
@@ -1245,71 +1283,71 @@ public class LobbyGameClientInterface : WebSocketInterface
 			{
 			};
 		}
-		this.OnQueueStatusNotification = _003C_003Ef__am_0024cache7;
+		this.OnQueueStatusNotificationHolder = _003C_003Ef__am_0024cache7;
 		if (_003C_003Ef__am_0024cache8 == null)
 		{
 			_003C_003Ef__am_0024cache8 = delegate
 			{
 			};
 		}
-		this.OnGameAssignmentNotification = _003C_003Ef__am_0024cache8;
+		this.OnGameAssignmentNotificationHolder = _003C_003Ef__am_0024cache8;
 		if (_003C_003Ef__am_0024cache9 == null)
 		{
 			_003C_003Ef__am_0024cache9 = delegate
 			{
 			};
 		}
-		this.OnGameInfoNotification = _003C_003Ef__am_0024cache9;
+		this.OnGameInfoNotificationHolder = _003C_003Ef__am_0024cache9;
 		if (_003C_003Ef__am_0024cacheA == null)
 		{
 			_003C_003Ef__am_0024cacheA = delegate
 			{
 			};
 		}
-		this.OnGameStatusNotification = _003C_003Ef__am_0024cacheA;
+		this.OnGameStatusNotificationHolder = _003C_003Ef__am_0024cacheA;
 		if (_003C_003Ef__am_0024cacheB == null)
 		{
 			_003C_003Ef__am_0024cacheB = delegate
 			{
 			};
 		}
-		this.OnAccountDataUpdated = _003C_003Ef__am_0024cacheB;
+		this.OnAccountDataUpdatedHolder = _003C_003Ef__am_0024cacheB;
 		if (_003C_003Ef__am_0024cacheC == null)
 		{
 			_003C_003Ef__am_0024cacheC = delegate
 			{
 			};
 		}
-		this.OnForcedCharacterChangeFromServerNotification = _003C_003Ef__am_0024cacheC;
+		this.OnForcedCharacterChangeFromServerNotificationHolder = _003C_003Ef__am_0024cacheC;
 		if (_003C_003Ef__am_0024cacheD == null)
 		{
 			_003C_003Ef__am_0024cacheD = delegate
 			{
 			};
 		}
-		this.OnCharacterDataUpdateNotification = _003C_003Ef__am_0024cacheD;
+		this.OnCharacterDataUpdateNotificationHolder = _003C_003Ef__am_0024cacheD;
 		if (_003C_003Ef__am_0024cacheE == null)
 		{
 			_003C_003Ef__am_0024cacheE = delegate
 			{
 			};
 		}
-		this.OnInventoryComponentUpdateNotification = _003C_003Ef__am_0024cacheE;
+		this.OnInventoryComponentUpdateNotificationHolder = _003C_003Ef__am_0024cacheE;
 		if (_003C_003Ef__am_0024cacheF == null)
 		{
 			_003C_003Ef__am_0024cacheF = delegate
 			{
 			};
 		}
-		this.OnBankBalanceChangeNotification = _003C_003Ef__am_0024cacheF;
+		this.OnBankBalanceChangeNotificationHolder = _003C_003Ef__am_0024cacheF;
 		if (_003C_003Ef__am_0024cache10 == null)
 		{
 			_003C_003Ef__am_0024cache10 = delegate
 			{
 			};
 		}
-		this.OnSeasonStatusNotification = _003C_003Ef__am_0024cache10;
-		this.OnChapterStatusNotification = delegate
+		this.OnSeasonStatusNotificationHolder = _003C_003Ef__am_0024cache10;
+		this.OnChapterStatusNotificationHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache12 == null)
@@ -1318,36 +1356,36 @@ public class LobbyGameClientInterface : WebSocketInterface
 			{
 			};
 		}
-		this.OnGroupUpdateNotification = _003C_003Ef__am_0024cache12;
+		this.OnGroupUpdateNotificationHolder = _003C_003Ef__am_0024cache12;
 		if (_003C_003Ef__am_0024cache13 == null)
 		{
 			_003C_003Ef__am_0024cache13 = delegate
 			{
 			};
 		}
-		this.OnUseGGPackNotification = _003C_003Ef__am_0024cache13;
+		this.OnUseGGPackNotificationHolder = _003C_003Ef__am_0024cache13;
 		if (_003C_003Ef__am_0024cache14 == null)
 		{
 			_003C_003Ef__am_0024cache14 = delegate
 			{
 			};
 		}
-		this.OnChatNotification = _003C_003Ef__am_0024cache14;
+		this.OnChatNotificationHolder = _003C_003Ef__am_0024cache14;
 		if (_003C_003Ef__am_0024cache15 == null)
 		{
 			_003C_003Ef__am_0024cache15 = delegate
 			{
 			};
 		}
-		this.OnUseOverconNotification = _003C_003Ef__am_0024cache15;
+		this.OnUseOverconNotificationHolder = _003C_003Ef__am_0024cache15;
 		if (_003C_003Ef__am_0024cache16 == null)
 		{
 			_003C_003Ef__am_0024cache16 = delegate
 			{
 			};
 		}
-		this.OnFriendStatusNotification = _003C_003Ef__am_0024cache16;
-		this.OnGroupConfirmation = delegate
+		this.OnFriendStatusNotificationHolder = _003C_003Ef__am_0024cache16;
+		this.OnGroupConfirmationHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache18 == null)
@@ -1356,53 +1394,53 @@ public class LobbyGameClientInterface : WebSocketInterface
 			{
 			};
 		}
-		this.OnGroupSuggestion = _003C_003Ef__am_0024cache18;
+		this.OnGroupSuggestionHolder = _003C_003Ef__am_0024cache18;
 		if (_003C_003Ef__am_0024cache19 == null)
 		{
 			_003C_003Ef__am_0024cache19 = delegate
 			{
 			};
 		}
-		this.OnForceQueueNotification = _003C_003Ef__am_0024cache19;
+		this.OnForceQueueNotificationHolder = _003C_003Ef__am_0024cache19;
 		if (_003C_003Ef__am_0024cache1A == null)
 		{
 			_003C_003Ef__am_0024cache1A = delegate
 			{
 			};
 		}
-		this.OnGameInviteConfirmationRequest = _003C_003Ef__am_0024cache1A;
+		this.OnGameInviteConfirmationRequestHolder = _003C_003Ef__am_0024cache1A;
 		if (_003C_003Ef__am_0024cache1B == null)
 		{
 			_003C_003Ef__am_0024cache1B = delegate
 			{
 			};
 		}
-		this.OnQuestCompleteNotification = _003C_003Ef__am_0024cache1B;
+		this.OnQuestCompleteNotificationHolder = _003C_003Ef__am_0024cache1B;
 		if (_003C_003Ef__am_0024cache1C == null)
 		{
 			_003C_003Ef__am_0024cache1C = delegate
 			{
 			};
 		}
-		this.OnMatchResultsNotification = _003C_003Ef__am_0024cache1C;
+		this.OnMatchResultsNotificationHolder = _003C_003Ef__am_0024cache1C;
 		if (_003C_003Ef__am_0024cache1D == null)
 		{
 			_003C_003Ef__am_0024cache1D = delegate
 			{
 			};
 		}
-		this.OnServerQueueConfigurationUpdateNotification = _003C_003Ef__am_0024cache1D;
+		this.OnServerQueueConfigurationUpdateNotificationHolder = _003C_003Ef__am_0024cache1D;
 		if (_003C_003Ef__am_0024cache1E == null)
 		{
 			_003C_003Ef__am_0024cache1E = delegate
 			{
 			};
 		}
-		this.OnRankedOverviewChangeNotification = _003C_003Ef__am_0024cache1E;
-		this.OnFactionCompetitionNotification = delegate
+		this.OnRankedOverviewChangeNotificationHolder = _003C_003Ef__am_0024cache1E;
+		this.OnFactionCompetitionNotificationHolder = delegate
 		{
 		};
-		this.OnTrustBoostUsedNotification = delegate
+		this.OnTrustBoostUsedNotificationHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache21 == null)
@@ -1411,35 +1449,35 @@ public class LobbyGameClientInterface : WebSocketInterface
 			{
 			};
 		}
-		this.OnFacebookAccessTokenNotification = _003C_003Ef__am_0024cache21;
+		this.OnFacebookAccessTokenNotificationHolder = _003C_003Ef__am_0024cache21;
 		if (_003C_003Ef__am_0024cache22 == null)
 		{
 			_003C_003Ef__am_0024cache22 = delegate
 			{
 			};
 		}
-		this.OnPlayerFactionContributionChange = _003C_003Ef__am_0024cache22;
+		this.OnPlayerFactionContributionChangeHolder = _003C_003Ef__am_0024cache22;
 		if (_003C_003Ef__am_0024cache23 == null)
 		{
 			_003C_003Ef__am_0024cache23 = delegate
 			{
 			};
 		}
-		this.OnFactionLoginRewardNotification = _003C_003Ef__am_0024cache23;
+		this.OnFactionLoginRewardNotificationHolder = _003C_003Ef__am_0024cache23;
 		if (_003C_003Ef__am_0024cache24 == null)
 		{
 			_003C_003Ef__am_0024cache24 = delegate
 			{
 			};
 		}
-		this.OnLobbyAlertMissionDataNotification = _003C_003Ef__am_0024cache24;
+		this.OnLobbyAlertMissionDataNotificationHolder = _003C_003Ef__am_0024cache24;
 		if (_003C_003Ef__am_0024cache25 == null)
 		{
 			_003C_003Ef__am_0024cache25 = delegate
 			{
 			};
 		}
-		this.OnLobbySeasonQuestDataNotification = _003C_003Ef__am_0024cache25;
+		this.OnLobbySeasonQuestDataNotificationHolder = _003C_003Ef__am_0024cache25;
 		base._002Ector(Factory.Get());
 		m_registered = false;
 		m_sessionInfo = new LobbySessionInfo();
@@ -1692,7 +1730,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleForceQueueNotification(ForceMatchmakingQueueNotification notification)
 	{
-		this.OnForceQueueNotification(notification);
+		this.OnForceQueueNotificationHolder(notification);
 	}
 
 	private void HandleQueueToPlayerNotification(MatchmakingQueueToPlayersNotification notification)
@@ -1751,7 +1789,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleServerQueueConfigurationUpdateNotification(ServerQueueConfigurationUpdateNotification notification)
 	{
-		this.OnServerQueueConfigurationUpdateNotification(notification);
+		this.OnServerQueueConfigurationUpdateNotificationHolder(notification);
 	}
 
 	private void HandleGameDestroyedByPlayerNotification(GameDestroyedByPlayerNotification notification)
@@ -2027,7 +2065,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 					break;
 				default:
 					base.Logger.Info("Disconnected from {0} ({1}) CloseStatusCode={2}", m_serverAddress, notification.Message.Trim(), notification.Code);
-					this.OnDisconnected(m_lastLobbyErrorMessage, m_allowRelogin, notification.Code);
+					this.OnDisconnectedHolder(m_lastLobbyErrorMessage, m_allowRelogin, notification.Code);
 					m_lastLobbyErrorMessage = null;
 					m_allowRelogin = true;
 					return;
@@ -2060,7 +2098,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 			RegisterGameClientResponse registerGameClientResponse = new RegisterGameClientResponse();
 			registerGameClientResponse.Success = false;
 			registerGameClientResponse.LocalizedFailure = LocalizationPayload.Create("NetworkError", "Global");
-			this.OnConnected(registerGameClientResponse);
+			this.OnConnectedHolder(registerGameClientResponse);
 			return;
 		}
 	}
@@ -2111,7 +2149,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 		{
 			base.Logger.Error("Failed to register game client with lobby server: {0}", response.ErrorMessage);
 			m_registered = false;
-			this.OnConnected(response);
+			this.OnConnectedHolder(response);
 			Disconnect();
 			return;
 		}
@@ -2137,12 +2175,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 				m_ticket.AuthInfo = response.AuthInfo;
 			}
 		}
-		this.OnConnected(response);
+		this.OnConnectedHolder(response);
 	}
 
 	private void HandleLobbyServerReadyNotification(LobbyServerReadyNotification notification)
 	{
-		this.OnLobbyServerReadyNotification(notification);
+		this.OnLobbyServerReadyNotificationHolder(notification);
 		if (notification.Success)
 		{
 			base.Logger.Info("Lobby server is ready");
@@ -2174,13 +2212,13 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		else
 		{
-			this.OnLobbyStatusNotification(notification);
+			this.OnLobbyStatusNotificationHolder(notification);
 		}
 	}
 
 	private void HandleLobbyGameplayOverridesNotification(LobbyGameplayOverridesNotification notification)
 	{
-		this.OnLobbyGameplayOverridesNotification(notification);
+		this.OnLobbyGameplayOverridesNotificationHolder(notification);
 	}
 
 	public void SubscribeToCustomGames()
@@ -2195,7 +2233,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleLobbyCustomGamesNotification(LobbyCustomGamesNotification notification)
 	{
-		this.OnLobbyCustomGamesNotification(notification);
+		this.OnLobbyCustomGamesNotificationHolder(notification);
 	}
 
 	public void SetGameTypeSubMasks(GameType gameType, ushort subGameMask, Action<SetGameSubTypeResponse> onResponseCallback)
@@ -2303,17 +2341,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleQueueAssignmentNotification(MatchmakingQueueAssignmentNotification notification)
 	{
-		this.OnQueueAssignmentNotification(notification);
+		this.OnQueueAssignmentNotificationHolder(notification);
 	}
 
 	private void HandleQueueStatusNotification(MatchmakingQueueStatusNotification notification)
 	{
-		this.OnQueueStatusNotification(notification);
+		this.OnQueueStatusNotificationHolder(notification);
 	}
 
 	private void HandleGameAssignmentNotification(GameAssignmentNotification notification)
 	{
-		this.OnGameAssignmentNotification(notification);
+		this.OnGameAssignmentNotificationHolder(notification);
 	}
 
 	public void Replay_RemoveFromGame()
@@ -2323,12 +2361,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleGameInfoNotification(GameInfoNotification notification)
 	{
-		this.OnGameInfoNotification(notification);
+		this.OnGameInfoNotificationHolder(notification);
 	}
 
 	private void HandleGameStatusNotification(GameStatusNotification notification)
 	{
-		this.OnGameStatusNotification(notification);
+		this.OnGameStatusNotificationHolder(notification);
 	}
 
 	public void HandleSynchronizeWithClientOutOfGameRequest(SynchronizeWithClientOutOfGameRequest request)
@@ -2513,27 +2551,27 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleAccountDataUpdateNotification(PlayerAccountDataUpdateNotification notification)
 	{
-		this.OnAccountDataUpdated(notification);
+		this.OnAccountDataUpdatedHolder(notification);
 	}
 
 	private void HandleRequeueForceCharacterNotification(ForcedCharacterChangeFromServerNotification notification)
 	{
-		this.OnForcedCharacterChangeFromServerNotification(notification);
+		this.OnForcedCharacterChangeFromServerNotificationHolder(notification);
 	}
 
 	private void HandleCharacterDataUpdateNotification(PlayerCharacterDataUpdateNotification notification)
 	{
-		this.OnCharacterDataUpdateNotification(notification);
+		this.OnCharacterDataUpdateNotificationHolder(notification);
 	}
 
 	private void HandleInventoryComponentUpdateNotification(InventoryComponentUpdateNotification notification)
 	{
-		this.OnInventoryComponentUpdateNotification(notification);
+		this.OnInventoryComponentUpdateNotificationHolder(notification);
 	}
 
 	private void HandleRankedOverviewChangeNotification(RankedOverviewChangeNotification notification)
 	{
-		this.OnRankedOverviewChangeNotification(notification);
+		this.OnRankedOverviewChangeNotificationHolder(notification);
 	}
 
 	public void GetPlayerMatchData(Action<PlayerMatchDataResponse> onResponseCallback = null)
@@ -2584,12 +2622,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleBankBalanceChangeNotification(BankBalanceChangeNotification notification)
 	{
-		this.OnBankBalanceChangeNotification(notification);
+		this.OnBankBalanceChangeNotificationHolder(notification);
 	}
 
 	private void HandleSeasonStatusNotification(SeasonStatusNotification notification)
 	{
-		this.OnSeasonStatusNotification(notification);
+		this.OnSeasonStatusNotificationHolder(notification);
 	}
 
 	public bool SendSeasonStatusConfirmed(SeasonStatusConfirmed.DialogType dialogType)
@@ -2601,7 +2639,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleChapterStatusNotification(ChapterStatusNotification notification)
 	{
-		this.OnChapterStatusNotification(notification);
+		this.OnChapterStatusNotificationHolder(notification);
 	}
 
 	public void InviteToGroup(string friendHandle, Action<GroupInviteResponse> onResponseCallback)
@@ -3198,7 +3236,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 		try
 		{
 			BlockSendingGroupUpdates = true;
-			this.OnGroupUpdateNotification(notification);
+			this.OnGroupUpdateNotificationHolder(notification);
 		}
 		finally
 		{
@@ -3208,82 +3246,82 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleGGPackUsedNotification(UseGGPackNotification notification)
 	{
-		this.OnUseGGPackNotification(notification);
+		this.OnUseGGPackNotificationHolder(notification);
 	}
 
 	private void HandleChatNotification(ChatNotification notification)
 	{
-		this.OnChatNotification(notification);
+		this.OnChatNotificationHolder(notification);
 	}
 
 	private void HandleUseOverconResponse(UseOverconResponse notification)
 	{
-		this.OnUseOverconNotification(notification);
+		this.OnUseOverconNotificationHolder(notification);
 	}
 
 	private void HandleFriendStatusNotification(FriendStatusNotification notification)
 	{
-		this.OnFriendStatusNotification(notification);
+		this.OnFriendStatusNotificationHolder(notification);
 	}
 
 	private void HandleGroupConfirmationRequest(GroupConfirmationRequest request)
 	{
-		this.OnGroupConfirmation(request);
+		this.OnGroupConfirmationHolder(request);
 	}
 
 	private void HandleGroupSuggestionRequest(GroupSuggestionRequest request)
 	{
-		this.OnGroupSuggestion(request);
+		this.OnGroupSuggestionHolder(request);
 	}
 
 	private void HandleGameInviteConfirmationRequest(GameInviteConfirmationRequest request)
 	{
-		this.OnGameInviteConfirmationRequest(request);
+		this.OnGameInviteConfirmationRequestHolder(request);
 	}
 
 	private void HandleQuestCompleteNotification(QuestCompleteNotification request)
 	{
-		this.OnQuestCompleteNotification(request);
+		this.OnQuestCompleteNotificationHolder(request);
 	}
 
 	private void HandleMatchResultsNotification(MatchResultsNotification request)
 	{
-		this.OnMatchResultsNotification(request);
+		this.OnMatchResultsNotificationHolder(request);
 	}
 
 	private void HandleFactionCompetitionNotification(FactionCompetitionNotification request)
 	{
-		this.OnFactionCompetitionNotification(request);
+		this.OnFactionCompetitionNotificationHolder(request);
 	}
 
 	private void HandleTrustBoostUsedNotification(TrustBoostUsedNotification request)
 	{
-		this.OnTrustBoostUsedNotification(request);
+		this.OnTrustBoostUsedNotificationHolder(request);
 	}
 
 	private void HandleFacebookAccessTokenNotification(FacebookAccessTokenNotification request)
 	{
-		this.OnFacebookAccessTokenNotification(request);
+		this.OnFacebookAccessTokenNotificationHolder(request);
 	}
 
 	private void HandleFactionLoginRewardNotification(FactionLoginRewardNotification notification)
 	{
-		this.OnFactionLoginRewardNotification(notification);
+		this.OnFactionLoginRewardNotificationHolder(notification);
 	}
 
 	private void HandlePlayerFactionContributionChangeNotification(PlayerFactionContributionChangeNotification notification)
 	{
-		this.OnPlayerFactionContributionChange(notification);
+		this.OnPlayerFactionContributionChangeHolder(notification);
 	}
 
 	private void HandleLobbyAlertMissionDataNotification(LobbyAlertMissionDataNotification notification)
 	{
-		this.OnLobbyAlertMissionDataNotification(notification);
+		this.OnLobbyAlertMissionDataNotificationHolder(notification);
 	}
 
 	private void HandleLobbySeasonQuestDataNotification(LobbySeasonQuestDataNotification notification)
 	{
-		this.OnLobbySeasonQuestDataNotification(notification);
+		this.OnLobbySeasonQuestDataNotificationHolder(notification);
 	}
 
 	private void HandleErrorReportSummaryRequest(ErrorReportSummaryRequest request)

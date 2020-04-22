@@ -15,16 +15,17 @@ public class LogInstance
 		set;
 	}
 
+	private Action<Log.Message> OnLogMessageHolder;
 	private event Action<Log.Message> OnLogMessage
 	{
 		add
 		{
-			Action<Log.Message> action = this.OnLogMessage;
+			Action<Log.Message> action = this.OnLogMessageHolder;
 			Action<Log.Message> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLogMessage, (Action<Log.Message>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLogMessageHolder, (Action<Log.Message>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -34,12 +35,12 @@ public class LogInstance
 		}
 		remove
 		{
-			Action<Log.Message> action = this.OnLogMessage;
+			Action<Log.Message> action = this.OnLogMessageHolder;
 			Action<Log.Message> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnLogMessage, (Action<Log.Message>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnLogMessageHolder, (Action<Log.Message>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -57,7 +58,7 @@ public class LogInstance
 			{
 			};
 		}
-		this.OnLogMessage = _003C_003Ef__am_0024cache0;
+		this.OnLogMessageHolder = _003C_003Ef__am_0024cache0;
 		
 		m_lock = new object();
 	}
@@ -161,7 +162,7 @@ public class LogInstance
 		message2.file = file;
 		message2.line = line;
 		Log.Message obj2 = message2;
-		this.OnLogMessage(obj2);
+		this.OnLogMessageHolder(obj2);
 	}
 
 	public void Exception(Exception exception)
@@ -212,7 +213,7 @@ public class LogInstance
 			IL_0073:
 			if (m_lastLogEventArgs.repeatCount > 0)
 			{
-				this.OnLogMessage(m_lastLogEventArgs);
+				this.OnLogMessageHolder(m_lastLogEventArgs);
 			}
 			m_lastLogEventArgs = new Log.Message
 			{
@@ -231,7 +232,7 @@ public class LogInstance
 
 	public void Write(Log.Message message)
 	{
-		this.OnLogMessage(message);
+		this.OnLogMessageHolder(message);
 	}
 
 	public void Update()
@@ -242,7 +243,7 @@ public class LogInstance
 		}
 		while (true)
 		{
-			this.OnLogMessage(m_lastLogEventArgs);
+			this.OnLogMessageHolder(m_lastLogEventArgs);
 			m_lastLogEventArgs = default(Log.Message);
 			return;
 		}

@@ -358,16 +358,17 @@ public class GameManager : MonoBehaviour
 		private set;
 	}
 
+	private Action OnGameAssemblingHolder;
 	public event Action OnGameAssembling
 	{
 		add
 		{
-			Action action = this.OnGameAssembling;
+			Action action = this.OnGameAssemblingHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameAssembling, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameAssemblingHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -377,12 +378,12 @@ public class GameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action action = this.OnGameAssembling;
+			Action action = this.OnGameAssemblingHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameAssembling, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameAssemblingHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -392,27 +393,28 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	private Action OnGameSelectingHolder;
 	public event Action OnGameSelecting
 	{
 		add
 		{
-			Action action = this.OnGameSelecting;
+			Action action = this.OnGameSelectingHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameSelecting, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameSelectingHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action action = this.OnGameSelecting;
+			Action action = this.OnGameSelectingHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameSelecting, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameSelectingHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -422,16 +424,17 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	private Action OnGameLoadoutSelectingHolder;
 	public event Action OnGameLoadoutSelecting
 	{
 		add
 		{
-			Action action = this.OnGameLoadoutSelecting;
+			Action action = this.OnGameLoadoutSelectingHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameLoadoutSelecting, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameLoadoutSelectingHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -441,12 +444,12 @@ public class GameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action action = this.OnGameLoadoutSelecting;
+			Action action = this.OnGameLoadoutSelectingHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameLoadoutSelecting, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameLoadoutSelectingHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -456,16 +459,17 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	private Action<GameType> OnGameLaunchedHolder;
 	public event Action<GameType> OnGameLaunched
 	{
 		add
 		{
-			Action<GameType> action = this.OnGameLaunched;
+			Action<GameType> action = this.OnGameLaunchedHolder;
 			Action<GameType> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameLaunched, (Action<GameType>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameLaunchedHolder, (Action<GameType>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -475,12 +479,12 @@ public class GameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<GameType> action = this.OnGameLaunched;
+			Action<GameType> action = this.OnGameLaunchedHolder;
 			Action<GameType> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameLaunched, (Action<GameType>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameLaunchedHolder, (Action<GameType>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -490,16 +494,17 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	private Action OnGameLoadedHolder;
 	public event Action OnGameLoaded
 	{
 		add
 		{
-			Action action = this.OnGameLoaded;
+			Action action = this.OnGameLoadedHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameLoaded, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameLoadedHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -509,38 +514,39 @@ public class GameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action action = this.OnGameLoaded;
+			Action action = this.OnGameLoadedHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameLoaded, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameLoadedHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action OnGameStartedHolder;
 	public event Action OnGameStarted
 	{
 		add
 		{
-			Action action = this.OnGameStarted;
+			Action action = this.OnGameStartedHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameStarted, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameStartedHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action action = this.OnGameStarted;
+			Action action = this.OnGameStartedHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameStarted, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameStartedHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -550,16 +556,17 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	private Action<GameResult> OnGameStoppedHolder;
 	public event Action<GameResult> OnGameStopped
 	{
 		add
 		{
-			Action<GameResult> action = this.OnGameStopped;
+			Action<GameResult> action = this.OnGameStoppedHolder;
 			Action<GameResult> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameStopped, (Action<GameResult>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameStoppedHolder, (Action<GameResult>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -569,12 +576,12 @@ public class GameManager : MonoBehaviour
 		}
 		remove
 		{
-			Action<GameResult> action = this.OnGameStopped;
+			Action<GameResult> action = this.OnGameStoppedHolder;
 			Action<GameResult> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameStopped, (Action<GameResult>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnGameStoppedHolder, (Action<GameResult>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -584,6 +591,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	private Action<GameStatus> OnGameStatusChangedHolder;
 	public event Action<GameStatus> OnGameStatusChanged;
 
 	public GameManager()
@@ -594,17 +602,17 @@ public class GameManager : MonoBehaviour
 			{
 			};
 		}
-		this.OnGameAssembling = _003C_003Ef__am_0024cache0;
-		this.OnGameSelecting = delegate
+		this.OnGameAssemblingHolder = _003C_003Ef__am_0024cache0;
+		this.OnGameSelectingHolder = delegate
 		{
 		};
-		this.OnGameLoadoutSelecting = delegate
+		this.OnGameLoadoutSelectingHolder = delegate
 		{
 		};
-		this.OnGameLaunched = delegate
+		this.OnGameLaunchedHolder = delegate
 		{
 		};
-		this.OnGameLoaded = delegate
+		this.OnGameLoadedHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache5 == null)
@@ -613,8 +621,8 @@ public class GameManager : MonoBehaviour
 			{
 			};
 		}
-		this.OnGameStarted = _003C_003Ef__am_0024cache5;
-		this.OnGameStopped = delegate
+		this.OnGameStartedHolder = _003C_003Ef__am_0024cache5;
+		this.OnGameStoppedHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache7 == null)
@@ -623,7 +631,7 @@ public class GameManager : MonoBehaviour
 			{
 			};
 		}
-		this.OnGameStatusChanged = _003C_003Ef__am_0024cache7;
+		this.OnGameStatusChangedHolder = _003C_003Ef__am_0024cache7;
 		
 	}
 
@@ -714,28 +722,28 @@ public class GameManager : MonoBehaviour
 				switch (gameStatus)
 				{
 				case GameStatus.Assembling:
-					this.OnGameAssembling();
+					this.OnGameAssemblingHolder();
 					break;
 				case GameStatus.FreelancerSelecting:
-					this.OnGameSelecting();
+					this.OnGameSelectingHolder();
 					break;
 				case GameStatus.LoadoutSelecting:
-					this.OnGameLoadoutSelecting();
+					this.OnGameLoadoutSelectingHolder();
 					break;
 				case GameStatus.Launched:
-					this.OnGameLaunched(GameInfo.GameConfig.GameType);
+					this.OnGameLaunchedHolder(GameInfo.GameConfig.GameType);
 					break;
 				case GameStatus.Loaded:
-					this.OnGameLoaded();
+					this.OnGameLoadedHolder();
 					break;
 				case GameStatus.Started:
-					this.OnGameStarted();
+					this.OnGameStartedHolder();
 					break;
 				case GameStatus.Stopped:
-					this.OnGameStopped(gameResult);
+					this.OnGameStoppedHolder(gameResult);
 					break;
 				}
-				this.OnGameStatusChanged(gameStatus);
+				this.OnGameStatusChangedHolder(gameStatus);
 				return;
 			}
 		}

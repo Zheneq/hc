@@ -45,16 +45,17 @@ public class UIDialogPopupManager : UIScene
 		private set;
 	}
 
+	private static Action OnReadyHolder;
 	public static event Action OnReady
 	{
 		add
 		{
-			Action action = UIDialogPopupManager.OnReady;
+			Action action = UIDialogPopupManager.OnReadyHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref UIDialogPopupManager.OnReady, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref UIDialogPopupManager.OnReadyHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -64,12 +65,12 @@ public class UIDialogPopupManager : UIScene
 		}
 		remove
 		{
-			Action action = UIDialogPopupManager.OnReady;
+			Action action = UIDialogPopupManager.OnReadyHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref UIDialogPopupManager.OnReady, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref UIDialogPopupManager.OnReadyHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -81,7 +82,7 @@ public class UIDialogPopupManager : UIScene
 
 	static UIDialogPopupManager()
 	{
-		UIDialogPopupManager.OnReady = delegate
+		UIDialogPopupManager.OnReadyHolder = delegate
 		{
 		};
 	}
@@ -121,13 +122,13 @@ public class UIDialogPopupManager : UIScene
 		UIManager.SetGameObjectActive(m_allDialogs, false);
 		m_openBoxes = new List<UIDialogBox>();
 		Ready = true;
-		if (UIDialogPopupManager.OnReady == null)
+		if (UIDialogPopupManager.OnReadyHolder == null)
 		{
 			return;
 		}
 		while (true)
 		{
-			UIDialogPopupManager.OnReady();
+			UIDialogPopupManager.OnReadyHolder();
 			return;
 		}
 	}

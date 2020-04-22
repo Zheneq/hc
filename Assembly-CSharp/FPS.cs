@@ -20,27 +20,28 @@ public class FPS
 		private set;
 	}
 
+	private Action<float> m_OnFPSChangeHolder;
 	private event Action<float> m_OnFPSChange
 	{
 		add
 		{
-			Action<float> action = this.m_OnFPSChange;
+			Action<float> action = this.m_OnFPSChangeHolder;
 			Action<float> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnFPSChange, (Action<float>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.m_OnFPSChangeHolder, (Action<float>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<float> action = this.m_OnFPSChange;
+			Action<float> action = this.m_OnFPSChangeHolder;
 			Action<float> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnFPSChange, (Action<float>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.m_OnFPSChangeHolder, (Action<float>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -58,7 +59,7 @@ public class FPS
 			{
 			};
 		}
-		this.m_OnFPSChange = _003C_003Ef__am_0024cache0;
+		this.m_OnFPSChangeHolder = _003C_003Ef__am_0024cache0;
 		m_timeLeft = 0.5f;
 		
 	}
@@ -71,7 +72,7 @@ public class FPS
 			{
 			};
 		}
-		this.m_OnFPSChange = _003C_003Ef__am_0024cache0;
+		this.m_OnFPSChangeHolder = _003C_003Ef__am_0024cache0;
 		m_timeLeft = 0.5f;
 		
 		m_OnFPSChange += onChange;
@@ -87,7 +88,7 @@ public class FPS
 		m_timeLeft -= Time.deltaTime;
 		TimeElapsed += Time.timeScale / Time.deltaTime;
 		NumSampledFrames++;
-		if (this.m_OnFPSChange == null)
+		if (this.m_OnFPSChangeHolder == null)
 		{
 			return;
 		}
@@ -98,7 +99,7 @@ public class FPS
 				while (true)
 				{
 					float obj = CalcForSampledFrames();
-					this.m_OnFPSChange(obj);
+					this.m_OnFPSChangeHolder(obj);
 					m_timeLeft = 0.5f;
 					TimeElapsed = 0f;
 					NumSampledFrames = 0;

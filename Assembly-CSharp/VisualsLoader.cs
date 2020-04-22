@@ -19,16 +19,17 @@ public class VisualsLoader : MonoBehaviour, IGameEventListener
 
 	private bool m_eventSent;
 
+	private static Action<string> OnLoadingHolder;
 	public static event Action<string> OnLoading
 	{
 		add
 		{
-			Action<string> action = VisualsLoader.OnLoading;
+			Action<string> action = VisualsLoader.OnLoadingHolder;
 			Action<string> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref VisualsLoader.OnLoading, (Action<string>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref VisualsLoader.OnLoadingHolder, (Action<string>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -38,12 +39,12 @@ public class VisualsLoader : MonoBehaviour, IGameEventListener
 		}
 		remove
 		{
-			Action<string> action = VisualsLoader.OnLoading;
+			Action<string> action = VisualsLoader.OnLoadingHolder;
 			Action<string> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref VisualsLoader.OnLoading, (Action<string>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref VisualsLoader.OnLoadingHolder, (Action<string>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -55,7 +56,7 @@ public class VisualsLoader : MonoBehaviour, IGameEventListener
 
 	static VisualsLoader()
 	{
-		VisualsLoader.OnLoading = delegate
+		VisualsLoader.OnLoadingHolder = delegate
 		{
 		};
 	}
@@ -172,7 +173,7 @@ public class VisualsLoader : MonoBehaviour, IGameEventListener
 			}
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.GameTeardown);
 		}
-		VisualsLoader.OnLoading(m_visualsSceneName);
+		VisualsLoader.OnLoadingHolder(m_visualsSceneName);
 		StartCoroutine(AssetBundleManager.Get().LoadSceneAsync(m_visualsSceneName, LoadSceneMode.Single));
 	}
 

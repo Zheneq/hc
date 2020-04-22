@@ -40,16 +40,17 @@ public class TextConsole
 		private set;
 	}
 
+	private Action<Message, AllowedEmojis> OnMessageHolder;
 	public event Action<Message, AllowedEmojis> OnMessage
 	{
 		add
 		{
-			Action<Message, AllowedEmojis> action = this.OnMessage;
+			Action<Message, AllowedEmojis> action = this.OnMessageHolder;
 			Action<Message, AllowedEmojis> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnMessage, (Action<Message, AllowedEmojis>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnMessageHolder, (Action<Message, AllowedEmojis>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -59,12 +60,12 @@ public class TextConsole
 		}
 		remove
 		{
-			Action<Message, AllowedEmojis> action = this.OnMessage;
+			Action<Message, AllowedEmojis> action = this.OnMessageHolder;
 			Action<Message, AllowedEmojis> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnMessage, (Action<Message, AllowedEmojis>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnMessageHolder, (Action<Message, AllowedEmojis>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
@@ -72,7 +73,7 @@ public class TextConsole
 
 	public TextConsole()
 	{
-		this.OnMessage = delegate
+		this.OnMessageHolder = delegate
 		{
 		};
 		
@@ -93,7 +94,7 @@ public class TextConsole
 	{
 		AllowedEmojis allowedEmojis = default(AllowedEmojis);
 		allowedEmojis.emojis = EmojisAllowed;
-		this.OnMessage(message, allowedEmojis);
+		this.OnMessageHolder(message, allowedEmojis);
 		UITextConsole.StoreMessage(message, allowedEmojis);
 	}
 

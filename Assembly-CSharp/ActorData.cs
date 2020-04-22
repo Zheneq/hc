@@ -1445,16 +1445,17 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public BoardSquare InitialSpawnSquare => m_initialSpawnSquare;
 
+	private Action OnTurnStartDelegatesHolder;
 	public event Action OnTurnStartDelegates
 	{
 		add
 		{
-			Action action = this.OnTurnStartDelegates;
+			Action action = this.OnTurnStartDelegatesHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnTurnStartDelegates, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnTurnStartDelegatesHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1464,29 +1465,31 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		remove
 		{
-			Action action = this.OnTurnStartDelegates;
+			Action action = this.OnTurnStartDelegatesHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnTurnStartDelegates, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnTurnStartDelegatesHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 	}
 
+	private Action<UnityEngine.Object, GameObject> OnAnimationEventDelegatesHolder;
 	public event Action<UnityEngine.Object, GameObject> OnAnimationEventDelegates;
 
+	private Action<Ability> OnSelectedAbilityChangedDelegatesHolder;
 	public event Action<Ability> OnSelectedAbilityChangedDelegates
 	{
 		add
 		{
-			Action<Ability> action = this.OnSelectedAbilityChangedDelegates;
+			Action<Ability> action = this.OnSelectedAbilityChangedDelegatesHolder;
 			Action<Ability> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnSelectedAbilityChangedDelegates, (Action<Ability>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnSelectedAbilityChangedDelegatesHolder, (Action<Ability>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1496,12 +1499,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		remove
 		{
-			Action<Ability> action = this.OnSelectedAbilityChangedDelegates;
+			Action<Ability> action = this.OnSelectedAbilityChangedDelegatesHolder;
 			Action<Ability> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnSelectedAbilityChangedDelegates, (Action<Ability>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnSelectedAbilityChangedDelegatesHolder, (Action<Ability>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1511,16 +1514,17 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	private Action OnClientQueuedActionChangedDelegatesHolder;
 	public event Action OnClientQueuedActionChangedDelegates
 	{
 		add
 		{
-			Action action = this.OnClientQueuedActionChangedDelegates;
+			Action action = this.OnClientQueuedActionChangedDelegatesHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnClientQueuedActionChangedDelegates, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnClientQueuedActionChangedDelegatesHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -1530,12 +1534,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		remove
 		{
-			Action action = this.OnClientQueuedActionChangedDelegates;
+			Action action = this.OnClientQueuedActionChangedDelegatesHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnClientQueuedActionChangedDelegates, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnClientQueuedActionChangedDelegatesHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
@@ -1543,10 +1547,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public ActorData()
 	{
-		this.OnTurnStartDelegates = delegate
+		this.OnTurnStartDelegatesHolder = delegate
 		{
 		};
-		this.OnAnimationEventDelegates = delegate
+		this.OnAnimationEventDelegatesHolder = delegate
 		{
 		};
 		if (_003C_003Ef__am_0024cache2 == null)
@@ -1555,14 +1559,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 			};
 		}
-		this.OnSelectedAbilityChangedDelegates = _003C_003Ef__am_0024cache2;
+		this.OnSelectedAbilityChangedDelegatesHolder = _003C_003Ef__am_0024cache2;
 		if (_003C_003Ef__am_0024cache3 == null)
 		{
 			_003C_003Ef__am_0024cache3 = delegate
 			{
 			};
 		}
-		this.OnClientQueuedActionChangedDelegates = _003C_003Ef__am_0024cache3;
+		this.OnClientQueuedActionChangedDelegatesHolder = _003C_003Ef__am_0024cache3;
 		m_serializeHelper = new SerializeHelper();
 		m_forceShowOutlineCheckers = new List<IForceActorOutlineChecker>();
 		
@@ -2421,22 +2425,22 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public void OnClientQueuedActionChanged()
 	{
-		if (this.OnClientQueuedActionChangedDelegates == null)
+		if (this.OnClientQueuedActionChangedDelegatesHolder == null)
 		{
 			return;
 		}
 		while (true)
 		{
-			this.OnClientQueuedActionChangedDelegates();
+			this.OnClientQueuedActionChangedDelegatesHolder();
 			return;
 		}
 	}
 
 	public void OnSelectedAbilityChanged(Ability ability)
 	{
-		if (this.OnSelectedAbilityChangedDelegates != null)
+		if (this.OnSelectedAbilityChangedDelegatesHolder != null)
 		{
-			this.OnSelectedAbilityChangedDelegates(ability);
+			this.OnSelectedAbilityChangedDelegatesHolder(ability);
 		}
 	}
 
@@ -5304,13 +5308,13 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				}
 			}
 		}
-		if (this.OnTurnStartDelegates == null)
+		if (this.OnTurnStartDelegatesHolder == null)
 		{
 			return;
 		}
 		while (true)
 		{
-			this.OnTurnStartDelegates();
+			this.OnTurnStartDelegatesHolder();
 			return;
 		}
 		IL_02e2:
@@ -6575,13 +6579,13 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public void OnAnimEvent(UnityEngine.Object eventObject, GameObject sourceObject)
 	{
-		if (this.OnAnimationEventDelegates == null)
+		if (this.OnAnimationEventDelegatesHolder == null)
 		{
 			return;
 		}
 		while (true)
 		{
-			this.OnAnimationEventDelegates(eventObject, sourceObject);
+			this.OnAnimationEventDelegatesHolder(eventObject, sourceObject);
 			return;
 		}
 	}

@@ -258,27 +258,28 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 
 	protected CharacterType m_charType;
 
+	private Action<UIStoreBaseInventoryPanel, int, int> OnCountsRefreshedHolder;
 	public event Action<UIStoreBaseInventoryPanel, int, int> OnCountsRefreshed
 	{
 		add
 		{
-			Action<UIStoreBaseInventoryPanel, int, int> action = this.OnCountsRefreshed;
+			Action<UIStoreBaseInventoryPanel, int, int> action = this.OnCountsRefreshedHolder;
 			Action<UIStoreBaseInventoryPanel, int, int> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnCountsRefreshed, (Action<UIStoreBaseInventoryPanel, int, int>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnCountsRefreshedHolder, (Action<UIStoreBaseInventoryPanel, int, int>)Delegate.Combine(action2, value), action);
 			}
 			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<UIStoreBaseInventoryPanel, int, int> action = this.OnCountsRefreshed;
+			Action<UIStoreBaseInventoryPanel, int, int> action = this.OnCountsRefreshedHolder;
 			Action<UIStoreBaseInventoryPanel, int, int> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnCountsRefreshed, (Action<UIStoreBaseInventoryPanel, int, int>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnCountsRefreshedHolder, (Action<UIStoreBaseInventoryPanel, int, int>)Delegate.Remove(action2, value), action);
 			}
 			while ((object)action != action2);
 			while (true)
@@ -296,7 +297,7 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			{
 			};
 		}
-		this.OnCountsRefreshed = _003C_003Ef__am_0024cache1;
+		this.OnCountsRefreshedHolder = _003C_003Ef__am_0024cache1;
 		
 	}
 
@@ -664,7 +665,7 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			this.OnCountsRefreshed(this, m_numOwned, m_numTotal);
+			this.OnCountsRefreshedHolder(this, m_numOwned, m_numTotal);
 			m_numberOfPages = m_visibleItemsList.Count / m_itemBtns.Length;
 			if (m_visibleItemsList.Count % m_itemBtns.Length > 0)
 			{
