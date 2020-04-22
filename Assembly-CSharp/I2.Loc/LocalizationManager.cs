@@ -200,16 +200,17 @@ namespace I2.Loc
 			}
 		}
 
+		private static OnLocalizeCallback OnLocalizeEventHolder;
 		public static event OnLocalizeCallback OnLocalizeEvent
 		{
 			add
 			{
-				OnLocalizeCallback onLocalizeCallback = LocalizationManager.OnLocalizeEvent;
+				OnLocalizeCallback onLocalizeCallback = LocalizationManager.OnLocalizeEventHolder;
 				OnLocalizeCallback onLocalizeCallback2;
 				do
 				{
 					onLocalizeCallback2 = onLocalizeCallback;
-					onLocalizeCallback = Interlocked.CompareExchange(ref LocalizationManager.OnLocalizeEvent, (OnLocalizeCallback)Delegate.Combine(onLocalizeCallback2, value), onLocalizeCallback);
+					onLocalizeCallback = Interlocked.CompareExchange(ref LocalizationManager.OnLocalizeEventHolder, (OnLocalizeCallback)Delegate.Combine(onLocalizeCallback2, value), onLocalizeCallback);
 				}
 				while ((object)onLocalizeCallback != onLocalizeCallback2);
 				while (true)
@@ -219,12 +220,12 @@ namespace I2.Loc
 			}
 			remove
 			{
-				OnLocalizeCallback onLocalizeCallback = LocalizationManager.OnLocalizeEvent;
+				OnLocalizeCallback onLocalizeCallback = LocalizationManager.OnLocalizeEventHolder;
 				OnLocalizeCallback onLocalizeCallback2;
 				do
 				{
 					onLocalizeCallback2 = onLocalizeCallback;
-					onLocalizeCallback = Interlocked.CompareExchange(ref LocalizationManager.OnLocalizeEvent, (OnLocalizeCallback)Delegate.Remove(onLocalizeCallback2, value), onLocalizeCallback);
+					onLocalizeCallback = Interlocked.CompareExchange(ref LocalizationManager.OnLocalizeEventHolder, (OnLocalizeCallback)Delegate.Remove(onLocalizeCallback2, value), onLocalizeCallback);
 				}
 				while ((object)onLocalizeCallback != onLocalizeCallback2);
 			}
@@ -512,9 +513,9 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				if (LocalizationManager.OnLocalizeEvent != null)
+				if (LocalizationManager.OnLocalizeEventHolder != null)
 				{
-					LocalizationManager.OnLocalizeEvent();
+					LocalizationManager.OnLocalizeEventHolder();
 				}
 				ResourceManager.pInstance.CleanResourceCache();
 				return;
